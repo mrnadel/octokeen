@@ -198,3 +198,23 @@ export const paymentHistory = pgTable('payment_history', {
   description: text('description'),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
 });
+
+// ─── Daily usage tracking (for free-tier limits) ──────────────
+
+export const dailyUsage = pgTable(
+  'daily_usage',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    date: text('date').notNull(),                           // YYYY-MM-DD
+    questionsUsed: integer('questions_used').default(0).notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('daily_usage_user_date_idx').on(table.userId, table.date),
+  ]
+);

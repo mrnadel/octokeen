@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Competitive Market Research Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --primary: #2563EB;
+    --primary-dark: #1E40AF;
+    --primary-light: #DBEAFE;
+    --success: #059669;
+    --success-light: #D1FAE5;
+    --warning: #D97706;
+    --warning-light: #FEF3C7;
+    --error: #DC2626;
+    --error-light: #FEE2E2;
+    --info: #0891B2;
+    --info-light: #CFFAFE;
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--violet) 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .hero .subtitle {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hero .date {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* Executive Summary Banner */
+  .exec-banner {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 24px rgba(5, 150, 105, 0.2);
+  }
+
+  .exec-banner h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .exec-banner .verdict {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin: 16px 0;
+    line-height: 1.3;
+  }
+
+  .exec-banner p {
+    opacity: 0.92;
+    font-size: 1rem;
+    max-width: 900px;
+  }
+
+  /* Stat Cards */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-card .number {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .stat-card .label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-card.green .number { color: var(--success); }
+  .stat-card.violet .number { color: var(--violet); }
+  .stat-card.orange .number { color: var(--warning); }
+
+  /* Section */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--primary);
+    display: inline-block;
+  }
+
+  /* Main Competitor Table */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  thead {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: white;
+  }
+
+  thead th {
+    padding: 16px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  tbody tr:hover {
+    background: #F1F5F9;
+  }
+
+  tbody td {
+    padding: 14px;
+    vertical-align: top;
+  }
+
+  .competitor-name {
+    font-weight: 700;
+    color: var(--primary-dark);
+    white-space: nowrap;
+  }
+
+  .competitor-url {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    word-break: break-all;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .cat-direct { background: var(--error-light); color: var(--error); }
+  .cat-near { background: var(--warning-light); color: var(--warning); }
+  .cat-adjacent { background: var(--info-light); color: var(--info); }
+  .cat-gamified { background: var(--violet-light); color: var(--violet); }
+
+  /* Score Bars */
+  .score-cell {
+    min-width: 100px;
+  }
+
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 99px;
+    overflow: hidden;
+    min-width: 60px;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+  }
+
+  .score-num {
+    font-weight: 800;
+    font-size: 0.95rem;
+    min-width: 28px;
+    text-align: right;
+  }
+
+  .likeness-fill { background: linear-gradient(90deg, #3B82F6, #7C3AED); }
+  .success-fill { background: linear-gradient(90deg, #059669, #10B981); }
+  .threat-fill { background: linear-gradient(90deg, #F59E0B, #DC2626); }
+
+  .score-low { color: var(--success); }
+  .score-mid { color: var(--warning); }
+  .score-high { color: var(--error); }
+
+  /* Features Column */
+  .features-list {
+    list-style: none;
+    font-size: 0.8rem;
+  }
+
+  .features-list li {
+    padding: 1px 0;
+  }
+
+  .feat-has { color: var(--success); }
+  .feat-miss { color: var(--text-muted); }
+
+  /* SWOT Grid */
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  .swot-card {
+    border-radius: 14px;
+    padding: 28px;
+    border: 1px solid var(--border);
+  }
+
+  .swot-card h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .swot-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .swot-card ul li {
+    padding: 6px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .swot-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .swot-strengths { background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+  .swot-strengths h3 { color: #047857; }
+  .swot-strengths ul li::before { background: #059669; }
+
+  .swot-weaknesses { background: linear-gradient(135deg, #FEE2E2, #FEF2F2); }
+  .swot-weaknesses h3 { color: #B91C1C; }
+  .swot-weaknesses ul li::before { background: #DC2626; }
+
+  .swot-opportunities { background: linear-gradient(135deg, #DBEAFE, #EFF6FF); }
+  .swot-opportunities h3 { color: #1E40AF; }
+  .swot-opportunities ul li::before { background: #2563EB; }
+
+  .swot-threats { background: linear-gradient(135deg, #FEF3C7, #FFFBEB); }
+  .swot-threats h3 { color: #92400E; }
+  .swot-threats ul li::before { background: #D97706; }
+
+  /* Recommendations */
+  .rec-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+  }
+
+  .rec-card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rec-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .rec-card.priority-1::before { background: linear-gradient(90deg, var(--error), #F59E0B); }
+  .rec-card.priority-2::before { background: linear-gradient(90deg, var(--primary), var(--violet)); }
+  .rec-card.priority-3::before { background: linear-gradient(90deg, var(--success), #10B981); }
+
+  .rec-card .rec-priority {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .rec-card.priority-1 .rec-priority { color: var(--error); }
+  .rec-card.priority-2 .rec-priority { color: var(--primary); }
+  .rec-card.priority-3 .rec-priority { color: var(--success); }
+
+  .rec-card h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .rec-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Market Sizing */
+  .market-bar {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 32px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 20px;
+  }
+
+  .market-bar h3 {
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  .market-levels {
+    display: flex;
+    gap: 0;
+    height: 48px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .market-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .market-tam { background: #93C5FD; flex: 5; }
+  .market-sam { background: #3B82F6; flex: 2; }
+  .market-som { background: #1E40AF; flex: 1; }
+
+  .market-legend {
+    display: flex;
+    gap: 24px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .market-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Bottom Line */
+  .bottom-line {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--violet) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.25);
+  }
+
+  .bottom-line h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .bottom-line p {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    max-width: 800px;
+    margin: 0 auto 12px;
+    line-height: 1.7;
+  }
+
+  .bottom-line .action {
+    display: inline-block;
+    margin-top: 20px;
+    background: white;
+    color: var(--primary-dark);
+    padding: 14px 32px;
+    border-radius: 99px;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.8rem; }
+    .swot-grid { grid-template-columns: 1fr; }
+    .rec-cards { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>MechPrep — Market Research Report</h1>
+  <div class="subtitle">Competitive landscape analysis for a Duolingo-style mechanical engineering interview prep platform</div>
+  <div class="date">Generated March 20, 2026 &bull; 4-Agent Parallel Research</div>
+</div>
+
+<div class="container">
+
+  <!-- Executive Summary -->
+  <div class="exec-banner">
+    <h2>Executive Summary</h2>
+    <div class="verdict">Blue Ocean Confirmed: No competitor combines ME + Interview Prep + Gamification</div>
+    <p>26 competitors were analyzed across 4 categories. The highest likeness score to MechPrep was only 6/10 (Hardware Is Hard — a static content site with no app or gamification). Software engineers have LeetCode, HackerRank, and a $2B+ prep ecosystem. Mechanical engineers have essentially nothing. MechPrep sits at a unique, unoccupied intersection with strong market tailwinds.</p>
+  </div>
+
+  <!-- Key Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="number">26</div>
+      <div class="label">Competitors Found</div>
+    </div>
+    <div class="stat-card green">
+      <div class="number">0</div>
+      <div class="label">Direct Equivalents</div>
+    </div>
+    <div class="stat-card violet">
+      <div class="number">6/10</div>
+      <div class="label">Max Likeness Score</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="number">$30-40M</div>
+      <div class="label">Estimated TAM</div>
+    </div>
+    <div class="stat-card green">
+      <div class="number">9-11%</div>
+      <div class="label">ME Job Growth</div>
+    </div>
+  </div>
+
+  <!-- Market Sizing -->
+  <div class="section">
+    <div class="section-title">Market Opportunity</div>
+    <div class="market-bar">
+      <h3>Market Funnel</h3>
+      <div class="market-levels">
+        <div class="market-level market-tam">TAM: $30-40M/yr</div>
+        <div class="market-level market-sam">SAM: $5-10M</div>
+        <div class="market-level market-som">SOM: $500K-2M</div>
+      </div>
+      <div class="market-legend">
+        <span><span class="legend-dot" style="background:#93C5FD"></span> TAM — ~2M MEs globally, 15-20% in active prep</span>
+        <span><span class="legend-dot" style="background:#3B82F6"></span> SAM — English-speaking, digital-native segment</span>
+        <span><span class="legend-dot" style="background:#1E40AF"></span> SOM — Reachable by indie dev in 1-2 years</span>
+      </div>
+    </div>
+    <div class="market-bar">
+      <h3>Key Market Tailwinds</h3>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:8px 0; border-bottom:1px solid #E2E8F0;"><strong>ME employment growing 9-11%</strong> — 18,100 new U.S. openings/year, 75% of firms increasing hiring</li>
+        <li style="padding:8px 0; border-bottom:1px solid #E2E8F0;"><strong>Clean energy / EV / automation boom</strong> — renewable energy engineering growing 15-20% annually</li>
+        <li style="padding:8px 0; border-bottom:1px solid #E2E8F0;"><strong>Gamification proven at scale</strong> — Duolingo's 130M+ MAU proves the engagement model works</li>
+        <li style="padding:8px 0; border-bottom:1px solid #E2E8F0;"><strong>No incumbent</strong> — unlike SWE (LeetCode, HackerRank), ME interview prep has no dominant player</li>
+        <li style="padding:8px 0;"><strong>LeetEngineer validates demand</strong> — just launched on HN, proving others see this gap too</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Competitor Table -->
+  <div class="section">
+    <div class="section-title">Competitor Analysis</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Competitor</th>
+            <th>Category</th>
+            <th>What They Do</th>
+            <th style="min-width:120px">Likeness</th>
+            <th style="min-width:120px">Success</th>
+            <th style="min-width:120px">Threat</th>
+            <th>MechPrep Advantages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Direct Competitors -->
+          <tr>
+            <td>
+              <div class="competitor-name">Hardware Is Hard</div>
+              <div class="competitor-url">hardwareishard.com</div>
+            </td>
+            <td><span class="category-badge cat-direct">Direct</span></td>
+            <td>ME interview questions, 150+ Q&A, company database. 13K newsletter subscribers.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:60%"></div></div>
+                <span class="score-num" style="color:var(--violet)">6</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:30%"></div></div>
+                <span class="score-num score-low">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:70%"></div></div>
+                <span class="score-num score-high">7</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Gamification & adaptive learning</li>
+                <li class="feat-has">+ Mobile-first interactive UX</li>
+                <li class="feat-has">+ Structured course progression</li>
+                <li class="feat-has">+ Readiness scoring system</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">LeetEngineer</div>
+              <div class="competitor-url">leetengineer.com</div>
+            </td>
+            <td><span class="category-badge cat-direct">Direct</span></td>
+            <td>"LeetCode for non-IT engineers." AI-generated questions from job posts. Very early stage.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:50%"></div></div>
+                <span class="score-num" style="color:var(--violet)">5</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:20%"></div></div>
+                <span class="score-num score-low">2</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Curated content (vs AI-generated)</li>
+                <li class="feat-has">+ Gamification & streaks</li>
+                <li class="feat-has">+ Structured 10-unit curriculum</li>
+                <li class="feat-has">+ 12 innovative question types</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Prepfully</div>
+              <div class="competitor-url">prepfully.com</div>
+            </td>
+            <td><span class="category-badge cat-direct">Direct</span></td>
+            <td>Company-specific ME interview guides (e.g., Google ME). Peer mock interviews.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:40%"></div></div>
+                <span class="score-num" style="color:var(--violet)">4</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:40%"></div></div>
+                <span class="score-num score-low">4</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:30%"></div></div>
+                <span class="score-num score-low">3</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Self-paced (no scheduling)</li>
+                <li class="feat-has">+ Gamification & progression</li>
+                <li class="feat-has">+ Adaptive difficulty</li>
+                <li class="feat-has">+ Broader ME topic coverage</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">My Interview Practice</div>
+              <div class="competitor-url">myinterviewpractice.com</div>
+            </td>
+            <td><span class="category-badge cat-direct">Direct</span></td>
+            <td>AI video mock interview simulator with an ME track. Generic platform with engineering add-on.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:30%"></div></div>
+                <span class="score-num score-low">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:20%"></div></div>
+                <span class="score-num score-low">2</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Deep ME technical content</li>
+                <li class="feat-has">+ Gamification & daily drills</li>
+                <li class="feat-has">+ Adaptive question difficulty</li>
+                <li class="feat-has">+ Progress tracking & scoring</li>
+              </ul>
+            </td>
+          </tr>
+
+          <!-- Near Competitors -->
+          <tr>
+            <td>
+              <div class="competitor-name">GaugeHow</div>
+              <div class="competitor-url">gaugehow.com</div>
+            </td>
+            <td><span class="category-badge cat-near">Near</span></td>
+            <td>ME skills platform — 40+ courses, interview Q&A. 4.4/5 from 767 users. One-time purchase.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:50%"></div></div>
+                <span class="score-num" style="color:var(--violet)">5</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:40%"></div></div>
+                <span class="score-num score-mid">4</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Gamification & interactivity</li>
+                <li class="feat-has">+ Adaptive difficulty engine</li>
+                <li class="feat-has">+ Mobile-first experience</li>
+                <li class="feat-miss">~ They have deeper course catalog</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Final Round AI</div>
+              <div class="competitor-url">finalroundai.com</div>
+            </td>
+            <td><span class="category-badge cat-near">Near</span></td>
+            <td>AI mock interviews for any role. 10M+ users, $250M+ market leader. Broad, not ME-specific.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:20%"></div></div>
+                <span class="score-num" style="color:var(--violet)">2</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:90%"></div></div>
+                <span class="score-num score-high">9</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:40%"></div></div>
+                <span class="score-num score-mid">4</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Deep ME-specific content</li>
+                <li class="feat-has">+ Curated curriculum (not generic AI)</li>
+                <li class="feat-has">+ Gamification & learning path</li>
+                <li class="feat-has">+ Much lower price point</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Skill-Lync</div>
+              <div class="competitor-url">skill-lync.com</div>
+            </td>
+            <td><span class="category-badge cat-near">Near</span></td>
+            <td>Online ME courses + job placement. 4,500 reviews, India-heavy. $250-$3,500 pricing.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:60%"></div></div>
+                <span class="score-num score-mid">6</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:30%"></div></div>
+                <span class="score-num score-low">3</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ 30x cheaper ($9 vs $250+)</li>
+                <li class="feat-has">+ Bite-sized (vs long courses)</li>
+                <li class="feat-has">+ Gamified & engaging</li>
+                <li class="feat-has">+ Interview-focused (not career)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">PrepFE / School of PE</div>
+              <div class="competitor-url">prepfe.com</div>
+            </td>
+            <td><span class="category-badge cat-near">Near</span></td>
+            <td>FE/PE Mechanical licensing exam prep. Adjacent audience, different goal.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:20%"></div></div>
+                <span class="score-num score-low">2</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Interview-focused (not exam)</li>
+                <li class="feat-has">+ Gamification & engagement</li>
+                <li class="feat-miss">~ Opportunity: add FE prep mode</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">EduRev / Testbook</div>
+              <div class="competitor-url">edurev.in / testbook.com</div>
+            </td>
+            <td><span class="category-badge cat-near">Near</span></td>
+            <td>GATE Mechanical exam prep (India). Massive scale: 5M-43M users. Exam-oriented.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:70%"></div></div>
+                <span class="score-num score-mid">7</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:30%"></div></div>
+                <span class="score-num score-low">3</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Interview-focused (not exam)</li>
+                <li class="feat-has">+ Global English market</li>
+                <li class="feat-has">+ Premium UX & gamification</li>
+              </ul>
+            </td>
+          </tr>
+
+          <!-- Adjacent / Gamified -->
+          <tr>
+            <td>
+              <div class="competitor-name">Brilliant.org</div>
+              <div class="competitor-url">brilliant.org</div>
+            </td>
+            <td><span class="category-badge cat-gamified">Gamified</span></td>
+            <td>Gamified STEM learning. 10M users, $92M raised, $24.99/mo. Math/science/CS focus.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:40%"></div></div>
+                <span class="score-num" style="color:var(--violet)">4</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:80%"></div></div>
+                <span class="score-num score-high">8</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:60%"></div></div>
+                <span class="score-num score-mid">6</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ ME-specific depth</li>
+                <li class="feat-has">+ Interview-focused content</li>
+                <li class="feat-has">+ 60% cheaper ($9 vs $25)</li>
+                <li class="feat-miss">~ They have superior gamification UX</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Coursera / Udemy</div>
+              <div class="competitor-url">coursera.org / udemy.com</div>
+            </td>
+            <td><span class="category-badge cat-adjacent">Adjacent</span></td>
+            <td>Massive MOOC platforms. ME courses available. Coursera-Udemy $2.5B merger closing H2 2026.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:20%"></div></div>
+                <span class="score-num" style="color:var(--violet)">2</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:90%"></div></div>
+                <span class="score-num score-high">9</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Interview-specific (not courses)</li>
+                <li class="feat-has">+ 5-min drills (not 40-hr courses)</li>
+                <li class="feat-has">+ Gamification & engagement</li>
+                <li class="feat-has">+ 3-15% course completion vs 80%+ drill completion</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Sanfoundry</div>
+              <div class="competitor-url">sanfoundry.com</div>
+            </td>
+            <td><span class="category-badge cat-adjacent">Adjacent</span></td>
+            <td>50,000+ free ME MCQs. Largest question bank but terrible UX. Static website.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:20%"></div></div>
+                <span class="score-num score-low">2</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Modern, engaging UX</li>
+                <li class="feat-has">+ Adaptive (not random MCQs)</li>
+                <li class="feat-has">+ Interview coaching breakdowns</li>
+                <li class="feat-has">+ Progress tracking & gamification</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">Enki / SoloLearn / Mimo</div>
+              <div class="competitor-url">enki.com / sololearn.com</div>
+            </td>
+            <td><span class="category-badge cat-gamified">Gamified</span></td>
+            <td>Gamified coding/tech learning apps. Prove the Duolingo model works at scale for tech skills.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:30%"></div></div>
+                <span class="score-num" style="color:var(--violet)">3</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:70%"></div></div>
+                <span class="score-num score-mid">7</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:20%"></div></div>
+                <span class="score-num score-low">2</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ ME-specific content</li>
+                <li class="feat-has">+ Interview-focused</li>
+                <li class="feat-miss">~ They pioneered the UX model</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="competitor-name">ChatGPT / Claude AI</div>
+              <div class="competitor-url">chat.openai.com / claude.ai</div>
+            </td>
+            <td><span class="category-badge cat-adjacent">Adjacent</span></td>
+            <td>Can generate ME interview questions on demand. Free, but unstructured. No progression.</td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill likeness-fill" style="width:20%"></div></div>
+                <span class="score-num" style="color:var(--violet)">2</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill success-fill" style="width:100%"></div></div>
+                <span class="score-num score-high">10</span>
+              </div>
+            </td>
+            <td class="score-cell">
+              <div class="score-bar-wrap">
+                <div class="score-bar"><div class="score-bar-fill threat-fill" style="width:50%"></div></div>
+                <span class="score-num score-mid">5</span>
+              </div>
+            </td>
+            <td>
+              <ul class="features-list">
+                <li class="feat-has">+ Curated, structured curriculum</li>
+                <li class="feat-has">+ Gamification & streaks</li>
+                <li class="feat-has">+ Progress tracking & readiness</li>
+                <li class="feat-has">+ No prompt engineering needed</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SWOT Analysis -->
+  <div class="section">
+    <div class="section-title">SWOT Analysis</div>
+    <div class="swot-grid">
+      <div class="swot-card swot-strengths">
+        <h3>Strengths</h3>
+        <ul>
+          <li><strong>Unique positioning</strong> — only gamified, mobile-first, interview-specific ME prep tool in existence</li>
+          <li><strong>Production-ready product</strong> — 11 topics, 12 question types, 10 course units, Stripe integration, auth, adaptive engine</li>
+          <li><strong>Domain authenticity</strong> — built by a 6-year ME who lived the interview process</li>
+          <li><strong>Smart pricing</strong> — $9/mo sits in a sweet spot below Brilliant ($25) and far below Skill-Lync ($250+)</li>
+          <li><strong>Low overhead</strong> — indie developer, no VC pressure, profitable at small user counts</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-weaknesses">
+        <h3>Weaknesses</h3>
+        <ul>
+          <li><strong>Solo developer bottleneck</strong> — content creation, dev, marketing, and support all on one person</li>
+          <li><strong>No brand recognition yet</strong> — zero existing audience or distribution</li>
+          <li><strong>Content volume</strong> — question bank needs continuous expansion before power users exhaust it</li>
+          <li><strong>No native mobile app</strong> — responsive web works but lacks push notifications and App Store discovery</li>
+          <li><strong>No AI integration</strong> — hand-curated is higher quality but slower to scale than AI-generated</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-opportunities">
+        <h3>Opportunities</h3>
+        <ul>
+          <li><strong>LeetEngineer validates demand</strong> — just launched on HN, proving others see the gap too</li>
+          <li><strong>B2B / university channel</strong> — career services offices and corporate training need this</li>
+          <li><strong>FE/PE exam adjacency</strong> — adding an FE prep mode could 2x the addressable market</li>
+          <li><strong>Company-specific packs</strong> — "Prep for Tesla" / "Prep for Boeing" is extremely high-value differentiation</li>
+          <li><strong>AI-assisted content scaling</strong> — use AI to draft, hand-curate for quality, build a content moat</li>
+          <li><strong>Localization</strong> — Hebrew, Hindi, German markets have near-zero competition</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-threats">
+        <h3>Threats</h3>
+        <ul>
+          <li><strong>AI commoditization</strong> — ChatGPT can generate ME questions for free; must offer more than raw content</li>
+          <li><strong>Well-funded copycat risk</strong> — if a VC-backed team copies this concept with a bigger team</li>
+          <li><strong>Brilliant.org expansion</strong> — $92M funded, 10M users; if they pivot to interview prep, they're serious</li>
+          <li><strong>Short prep cycles</strong> — interview prep is 2-4 weeks; retention/churn could be challenging</li>
+          <li><strong>Content accuracy</strong> — wrong answers in engineering context can destroy credibility fast</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategic Recommendations -->
+  <div class="section">
+    <div class="section-title">Strategic Recommendations</div>
+    <div class="rec-cards">
+      <div class="rec-card priority-1">
+        <div class="rec-priority">Do This Week</div>
+        <h3>Ship Publicly & Get 50 Users</h3>
+        <p>Post a "Show HN" on Hacker News. Post on r/MechanicalEngineering (235K members) and r/engineering (270K+ members). Share on LinkedIn 2-3x/week with ME interview question teasers. The product is ready — the window is open but LeetEngineer is already moving. <strong>Stop building features. Start building audience.</strong></p>
+      </div>
+      <div class="rec-card priority-1">
+        <div class="rec-priority">Lean Into This</div>
+        <h3>The "Duolingo for ME" Identity</h3>
+        <p>Your biggest differentiator is the gamified UX — streaks, XP, readiness scores, daily challenges, adaptive difficulty. Nobody else does this for mechanical engineers. Emphasize the "5 minutes a day" use case. The Interview Readiness Score is a killer feature — promote it heavily.</p>
+      </div>
+      <div class="rec-card priority-2">
+        <div class="rec-priority">Months 1-3</div>
+        <h3>Community-Led Growth + SEO</h3>
+        <p>Write 2-3 SEO articles targeting "Top 50 ME Interview Questions 2026" — high search volume, weak competition. Target engineering Discord servers, ASME student chapters. Offer free Pro access to chapter leaders. Aim for 1,000 free users with 3-5% conversion = ~$300-450/mo.</p>
+      </div>
+      <div class="rec-card priority-2">
+        <div class="rec-priority">Months 3-6</div>
+        <h3>Content Moat + Company Packs</h3>
+        <p>Expand to 500+ questions using AI-assisted drafting with hand curation. Launch company-specific prep packs ("Tesla Interview Pack", "Boeing Interview Pack"). Add a lifetime plan at $149-199 for early adopters. Consider a student discount (50% off via .edu email).</p>
+      </div>
+      <div class="rec-card priority-3">
+        <div class="rec-priority">Months 6-12</div>
+        <h3>B2B + Partnerships</h3>
+        <p>Approach university career centers and engineering departments. Pitch to recruiting firms. Explore ASME/SAE partnerships. Consider a "Campus" plan. Reach out to engineering YouTube channels (The Efficient Engineer, Real Engineering) for collaboration.</p>
+      </div>
+      <div class="rec-card priority-3">
+        <div class="rec-priority">Deprioritize</div>
+        <h3>Don't Build Yet</h3>
+        <p>Native mobile app (PWA is fine for now), Team tier features (need individual traction first), localization (English-first), advanced analytics dashboards (basic progress is enough), AI-generated questions (curated quality is your moat).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Landscape -->
+  <div class="section">
+    <div class="section-title">Pricing Landscape</div>
+    <div class="market-bar">
+      <h3>Where MechPrep Sits</h3>
+      <div style="display:flex; align-items:end; gap:16px; height:220px; padding:20px 0; overflow-x:auto;">
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#E2E8F0; width:80px; height:20px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; color:var(--text-secondary);">Free</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Sanfoundry<br>IndiaBix</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:linear-gradient(135deg, var(--primary), var(--violet)); width:80px; height:60px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:800; color:white;">$9/mo</div>
+          <div style="font-size:0.75rem; color:var(--primary); font-weight:700; margin-top:4px;">MechPrep</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#93C5FD; width:80px; height:80px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:var(--primary-dark);">$15/mo</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">PrepFE</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#93C5FD; width:80px; height:110px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:var(--primary-dark);">$25/mo</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Brilliant</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#93C5FD; width:80px; height:140px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:var(--primary-dark);">$49/mo</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Coursera Plus</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#FBBF24; width:80px; height:180px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:#92400E;">$250+</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Skill-Lync</div>
+        </div>
+        <div style="text-align:center; flex-shrink:0;">
+          <div style="background:#FCA5A5; width:80px; height:200px; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:#991B1B;">$100+/hr</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">1:1 Coaching</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Line -->
+  <div class="section">
+    <div class="bottom-line">
+      <h2>The Bottom Line</h2>
+      <p><strong>This is one of the clearest niche opportunities in edtech.</strong> Software engineers have a $2B+ prep ecosystem. Mechanical engineers have essentially nothing. No competitor combines ME-specific content + interview prep + Duolingo-style gamification. The product is built, the market is growing at 9-11%, and the window is open.</p>
+      <p>The risk isn't "will anyone want this?" — it's "can you build audience fast enough before a funded competitor catches on?"</p>
+      <p style="font-size:1.2rem; font-weight:800; margin-top:20px;">200 paying users at $9/mo = $1,800/mo. &nbsp; 500 = $4,500/mo. &nbsp; 1,000 = $9K/mo.</p>
+      <div class="action">Ship it. Get 50 users this month. Everything else follows.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  MechPrep Competitive Research Report &bull; Generated March 20, 2026 &bull; 4-Agent Parallel Analysis<br>
+  Sources: BLS, Grand View Research, Crunchbase, HackerNews, Google Play, App Store, Reddit, and 30+ web sources
+</div>
+
+</body>
+</html>

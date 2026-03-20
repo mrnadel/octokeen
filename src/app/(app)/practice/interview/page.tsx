@@ -2,6 +2,7 @@
 
 import { useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { Timer, AlertCircle, Target, Clock, Shuffle } from 'lucide-react';
 
 export default function InterviewSimPage() {
@@ -45,6 +46,8 @@ export default function InterviewSimPage() {
           </div>
         </div>
       </div>
+
+      <DailyLimitBanner />
 
       <button
         onClick={() => startSession('interview-sim')}

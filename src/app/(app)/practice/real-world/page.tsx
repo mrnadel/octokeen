@@ -2,6 +2,7 @@
 
 import { useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { Wrench } from 'lucide-react';
 
 export default function RealWorldPage() {
@@ -45,6 +46,8 @@ export default function RealWorldPage() {
           ))}
         </div>
       </div>
+
+      <DailyLimitBanner />
 
       <button
         onClick={() => startSession('real-world')}

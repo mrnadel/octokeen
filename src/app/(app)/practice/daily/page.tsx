@@ -2,6 +2,7 @@
 
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { Calendar, Star, Flame } from 'lucide-react';
 import { dailyChallenges } from '@/data/daily-challenges';
 
@@ -49,6 +50,8 @@ export default function DailyChallengePage() {
           </span>
         </div>
       </div>
+
+      <DailyLimitBanner />
 
       <button
         onClick={() => startSession('daily-challenge', { questionIds: challenge.questionIds })}

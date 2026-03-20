@@ -2,6 +2,7 @@
 
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { AlertTriangle, ArrowRight } from 'lucide-react';
 import { topics } from '@/data/topics';
 import Link from 'next/link';
@@ -36,6 +37,8 @@ export default function WeakAreasPage() {
           Focus on topics where you&apos;re struggling. These questions are selected to strengthen your weakest points.
         </p>
       </div>
+
+      <DailyLimitBanner />
 
       {weakTopics.length > 0 ? (
         <>

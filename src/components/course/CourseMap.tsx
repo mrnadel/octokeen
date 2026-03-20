@@ -4,8 +4,11 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { Lock, Sparkles } from 'lucide-react';
 import { course } from '@/data/course';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useSubscription } from '@/hooks/useSubscription';
+import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { UnitHeader } from './UnitHeader';
 import { LessonNode } from './LessonNode';
 
@@ -16,10 +19,16 @@ export function CourseMap() {
   const { status } = useSession();
   const router = useRouter();
   const isGuest = status !== 'authenticated';
+  const { isProUser } = useSubscription();
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [jumpConfirm, setJumpConfirm] = useState<{
     unitIndex: number;
     lessonIndex: number;
   } | null>(null);
+
+  // Free registered users can only access unit 1
+  const isFreeLocked = (unitIndex: number) =>
+    !isGuest && !isProUser && unitIndex > 0;
 
   // Determine lesson state
   const getLessonState = useCallback(
@@ -31,12 +40,13 @@ export function CourseMap() {
       if (!lessonId) return 'locked';
 
       if (isGuest && unitIndex > 0) return 'locked';
+      if (isFreeLocked(unitIndex)) return 'locked';
 
       if (progress.completedLessons[lessonId]) return 'completed';
       if (isLessonUnlocked(unitIndex, lessonIndex)) return 'current';
       return 'locked';
     },
-    [progress.completedLessons, isLessonUnlocked, isGuest]
+    [progress.completedLessons, isLessonUnlocked, isGuest, isProUser] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   // Find the unit containing the first current lesson
@@ -110,6 +120,7 @@ export function CourseMap() {
           const isExpanded = expandedUnits.has(unitIndex);
           const isActive = unitIndex === activeUnitIndex;
           const isGuestLocked = isGuest && unitIndex > 0;
+          const isProLocked = isFreeLocked(unitIndex);
 
           return (
             <div
@@ -178,6 +189,28 @@ export function CourseMap() {
                             className="px-3 py-1.5 rounded-lg bg-[#58CC02] text-white text-xs font-bold"
                           >
                             Sign Up
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Pro lock banner for free registered users */}
+                      {isProLocked && !isGuestLocked && (
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-50 border border-primary-100 mt-2">
+                          <Lock className="w-4 h-4 text-primary-500" />
+                          <div className="flex-1">
+                            <p className="text-xs font-semibold text-gray-700">
+                              Upgrade to unlock all units
+                            </p>
+                            <p className="text-[11px] text-gray-400">
+                              Pro &middot; unlimited access to all 10 units
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => setShowUpgradeModal(true)}
+                            className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary-600 text-white text-xs font-bold"
+                          >
+                            <Sparkles className="w-3 h-3" />
+                            Upgrade
                           </button>
                         </div>
                       )}
@@ -276,6 +309,31 @@ export function CourseMap() {
                         </button>
                       </div>
                     </>
+                  ) : isFreeLocked(jumpConfirm.unitIndex) ? (
+                    <>
+                      <p className="text-sm text-gray-500 mb-5">
+                        This unit requires a Pro subscription. Upgrade to
+                        unlock all 10 units and unlimited practice.
+                      </p>
+                      <div className="flex gap-3">
+                        <button
+                          className="flex-1 py-3 rounded-xl text-sm font-semibold text-gray-600 bg-gray-100 active:bg-gray-200 transition-colors"
+                          onClick={() => setJumpConfirm(null)}
+                        >
+                          Maybe later
+                        </button>
+                        <button
+                          className="flex-1 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 active:bg-primary-700 transition-colors flex items-center justify-center gap-2"
+                          onClick={() => {
+                            setJumpConfirm(null);
+                            setShowUpgradeModal(true);
+                          }}
+                        >
+                          <Sparkles className="w-4 h-4" />
+                          Upgrade to Pro
+                        </button>
+                      </div>
+                    </>
                   ) : (
                     <>
                       <p className="text-sm text-gray-500 mb-5">
@@ -310,6 +368,12 @@ export function CourseMap() {
             );
           })()}
       </AnimatePresence>
+
+      <UpgradeModal
+        isOpen={showUpgradeModal}
+        onClose={() => setShowUpgradeModal(false)}
+        reason="Unlock all 10 course units"
+      />
     </div>
   );
 }

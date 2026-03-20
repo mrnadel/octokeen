@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import { topics } from '@/data/topics';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { BookOpen, ArrowRight } from 'lucide-react';
 import { cn, getDifficultyColor, getDifficultyLabel } from '@/lib/utils';
 import type { Difficulty, TopicId } from '@/data/types';
@@ -36,6 +37,8 @@ function TopicDeepDiveContent() {
         </h1>
         <p className="text-surface-500 mt-1">Choose a topic and difficulty, then go deep.</p>
       </div>
+
+      <DailyLimitBanner />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
         {topics.map((topic) => {

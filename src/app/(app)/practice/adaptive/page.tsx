@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
+import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { Zap } from 'lucide-react';
 
 export default function AdaptivePracticePage() {
@@ -23,6 +23,8 @@ export default function AdaptivePracticePage() {
         Questions are selected based on your performance. Weak areas get more attention.
         Difficulty adapts as you improve.
       </p>
+
+      <DailyLimitBanner />
 
       <div className="space-y-3 max-w-sm mx-auto">
         <button onClick={() => startSession('adaptive')} className="btn-primary w-full text-lg py-3">
