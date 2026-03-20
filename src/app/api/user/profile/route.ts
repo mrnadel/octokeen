@@ -4,6 +4,23 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
+export async function GET() {
+  const userId = await getAuthUserId();
+  if (!userId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const [user] = await db
+    .select({ passwordHash: users.passwordHash })
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
+
+  return NextResponse.json({
+    hasPassword: !!user?.passwordHash,
+  });
+}
+
 export async function PATCH(request: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) {

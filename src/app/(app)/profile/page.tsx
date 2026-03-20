@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -12,6 +12,7 @@ export default function ProfilePage() {
   const progress = useStore((s) => s.progress);
   const courseProgress = useCourseStore((s) => s.progress);
 
+  const [hasPassword, setHasPassword] = useState<boolean | null>(null);
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState('');
   const [nameLoading, setNameLoading] = useState(false);
@@ -23,8 +24,15 @@ export default function ProfilePage() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordLoading, setPasswordLoading] = useState(false);
 
+  useEffect(() => {
+    fetch('/api/user/profile')
+      .then((res) => res.json())
+      .then((data) => setHasPassword(data.hasPassword ?? false))
+      .catch(() => setHasPassword(false));
+  }, []);
+
   const displayName =
-    progress.displayName || session?.user?.name || 'Engineer';
+    session?.user?.name || progress.displayName || 'Engineer';
   const email = session?.user?.email || '';
   const image = session?.user?.image;
   const joinedDate = progress.joinedDate;
@@ -239,7 +247,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Change Password */}
+        {/* Change Password — only for email/password users */}
+        {hasPassword && (
         <div className="bg-white rounded-xl p-4 shadow-sm">
           <button
             onClick={() => setShowPasswordForm(!showPasswordForm)}
@@ -284,6 +293,7 @@ export default function ProfilePage() {
             </form>
           )}
         </div>
+        )}
 
         {/* Logout */}
         <button

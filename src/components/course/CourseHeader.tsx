@@ -15,7 +15,7 @@ export function CourseHeader() {
   const progress = useCourseStore((s) => s.progress);
   const [popover, setPopover] = useState<PopoverType>(null);
 
-  const userName = progress.displayName || session?.user?.name || 'Engineer';
+  const userName = session?.user?.name || progress.displayName || 'Engineer';
   const userImage = session?.user?.image;
   const initial = userName.charAt(0).toUpperCase();
 
