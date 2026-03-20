@@ -10,7 +10,7 @@ interface LessonProgressBarProps {
 
 export default function LessonProgressBar({ current, total, color }: LessonProgressBarProps) {
   return (
-    <div className="flex items-center gap-1.5 flex-1">
+    <div className="flex items-center flex-1" style={{ gap: 5 }}>
       {Array.from({ length: total }).map((_, i) => {
         const isCompleted = i < current;
         const isCurrent = i === current;
@@ -18,23 +18,34 @@ export default function LessonProgressBar({ current, total, color }: LessonProgr
         return (
           <div
             key={i}
-            className="flex-1 h-3 rounded-full overflow-hidden"
-            style={{ backgroundColor: '#E2E8F0' }}
+            className="flex-1 overflow-hidden"
+            style={{
+              height: 8,
+              borderRadius: 4,
+              background: '#E5E5E5',
+            }}
           >
             {isCompleted && (
               <motion.div
-                className="h-full rounded-full"
-                style={{ backgroundColor: color }}
+                style={{
+                  height: '100%',
+                  borderRadius: 4,
+                  backgroundColor: color,
+                }}
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
-                transition={{ type: 'spring', stiffness: 200, damping: 25, delay: 0.1 }}
+                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
               />
             )}
             {isCurrent && (
               <motion.div
-                className="h-full rounded-full opacity-30"
-                style={{ backgroundColor: color }}
-                animate={{ width: ['30%', '60%', '30%'] }}
+                style={{
+                  height: '100%',
+                  borderRadius: 4,
+                  backgroundColor: color,
+                  opacity: 0.35,
+                }}
+                animate={{ width: ['30%', '55%', '30%'] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               />
             )}

@@ -8,8 +8,7 @@ import {
   useImperativeHandle,
   forwardRef,
 } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, XCircle, Lightbulb } from 'lucide-react';
+import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 
 export interface QuestionCardHandle {
@@ -36,7 +35,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Reset local state when the question changes
     useEffect(() => {
       setSelectedIndex(null);
       setSelectedBool(null);
@@ -44,7 +42,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       setLocalCorrect(null);
     }, [question.id]);
 
-    // Compute hasSelection
     const hasSelection = (() => {
       switch (question.type) {
         case 'multiple-choice':
@@ -58,7 +55,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       }
     })();
 
-    // Notify parent when selection state changes
     useEffect(() => {
       onSelectionChange(hasSelection);
     }, [hasSelection, onSelectionChange]);
@@ -67,7 +63,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       if (answered || !hasSelection) return;
 
       let correct = false;
-
       switch (question.type) {
         case 'multiple-choice':
           correct = selectedIndex === question.correctIndex;
@@ -89,7 +84,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       onAnswer(correct);
     }, [answered, hasSelection, question, selectedIndex, selectedBool, textValue, onAnswer]);
 
-    // Auto-focus fill-blank input when question loads
     useEffect(() => {
       if (question.type === 'fill-blank' && inputRef.current) {
         const timer = setTimeout(() => inputRef.current?.focus(), 300);
@@ -97,7 +91,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       }
     }, [question.id, question.type]);
 
-    // Expose check, hasSelection, and selection methods to parent via ref
     useImperativeHandle(
       ref,
       () => ({
@@ -118,326 +111,234 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       [handleCheck, hasSelection, answered, question]
     );
 
-    const getCorrectAnswerDisplay = (): string => {
-      switch (question.type) {
-        case 'multiple-choice':
-          return question.options?.[question.correctIndex ?? 0] ?? '';
-        case 'true-false':
-          return question.correctAnswer ? 'True' : 'False';
-        case 'fill-blank':
-          return question.acceptedAnswers?.[0] ?? '';
-        default:
-          return '';
-      }
-    };
-
-    // Multiple-choice option styling
-    const getOptionStyle = (index: number) => {
-      const isSelected = selectedIndex === index;
-      const isCorrectOption = index === question.correctIndex;
-
-      if (answered && localCorrect !== null) {
-        if (isCorrectOption) {
-          return 'bg-green-50 border-green-400 text-green-900 shadow-sm shadow-green-100';
-        }
-        if (isSelected && !isCorrectOption) {
-          return 'bg-red-50 border-red-400 text-red-900 shadow-sm shadow-red-100';
-        }
-        return 'bg-gray-50 border-gray-200 text-gray-400';
-      }
-
-      if (isSelected) {
-        return 'bg-white border-2 shadow-md text-gray-900';
-      }
-
-      return 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 active:scale-[0.98]';
-    };
-
-    // True/False button styling
-    const getTFStyle = (value: boolean) => {
-      const isSelected = selectedBool === value;
-      const isCorrectOption = value === question.correctAnswer;
-
-      if (answered && localCorrect !== null) {
-        if (isCorrectOption) {
-          return 'bg-green-50 border-green-400 text-green-900 shadow-sm';
-        }
-        if (isSelected && !isCorrectOption) {
-          return 'bg-red-50 border-red-400 text-red-900 shadow-sm';
-        }
-        return 'bg-gray-50 border-gray-200 text-gray-400';
-      }
-
-      if (isSelected) {
-        return 'bg-white border-2 shadow-md text-gray-900';
-      }
-
-      return 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 active:scale-[0.97]';
-    };
-
     return (
-      <div className="flex flex-col gap-5">
-        {/* Diagram (if present) */}
+      <div className="flex flex-col" style={{ gap: 12 }}>
+        {/* Diagram */}
         {question.diagram && (
-          <motion.div
-            className="w-full rounded-2xl bg-white border border-gray-200 p-3 flex items-center justify-center overflow-hidden"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
+          <div
+            className="w-full flex items-center justify-center overflow-hidden"
+            style={{
+              borderRadius: 14,
+              background: 'white',
+              border: '2px solid #E5E5E5',
+              padding: 10,
+            }}
             dangerouslySetInnerHTML={{ __html: question.diagram }}
           />
         )}
 
         {/* Question text */}
-        <motion.h2
-          className="text-lg font-bold text-gray-900 leading-snug"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+        <h2
+          style={{
+            fontSize: 17,
+            fontWeight: 800,
+            color: '#3C3C3C',
+            lineHeight: 1.35,
+            margin: 0,
+          }}
         >
           {question.question}
-        </motion.h2>
+        </h2>
 
-        {/* Hint (shown before answering) */}
+        {/* Hint */}
         {question.hint && !answered && (
-          <motion.div
-            className="flex items-start gap-2.5 p-3.5 rounded-xl bg-amber-50 border border-amber-200"
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <div
+            style={{
+              padding: '8px 12px',
+              borderRadius: 10,
+              background: '#FFF9E8',
+              border: '1.5px solid #FFE4B8',
+              fontSize: 13,
+              fontWeight: 600,
+              color: '#B56E00',
+              lineHeight: 1.4,
+            }}
           >
-            <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-800 font-medium">{question.hint}</p>
-          </motion.div>
+            {question.hint}
+          </div>
         )}
 
-        {/* Answer inputs by type */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          {/* ── Multiple Choice ── */}
-          {question.type === 'multiple-choice' && question.options && (
-            <div className="flex flex-col gap-3">
-              {question.options.map((option, index) => (
+        {/* Multiple Choice */}
+        {question.type === 'multiple-choice' && question.options && (
+          <div className="flex flex-col" style={{ gap: 8 }}>
+            {question.options.map((option, index) => {
+              const isSelected = selectedIndex === index;
+              const isCorrectOption = index === question.correctIndex;
+
+              let bg = 'rgba(255,255,255,0.65)';
+              let border = '2px solid transparent';
+              let textColor = '#3C3C3C';
+              let badgeBg = '#F0F0F0';
+              let badgeColor = '#AFAFAF';
+
+              if (answered && localCorrect !== null) {
+                if (isCorrectOption) {
+                  bg = '#D7FFB8';
+                  border = '2px solid #58CC02';
+                  textColor = '#58A700';
+                  badgeBg = '#58CC02';
+                  badgeColor = 'white';
+                } else if (isSelected && !isCorrectOption) {
+                  bg = '#FFDFE0';
+                  border = '2px solid #FF4B4B';
+                  textColor = '#EA2B2B';
+                  badgeBg = '#FF4B4B';
+                  badgeColor = 'white';
+                } else {
+                  bg = '#F5F5F5';
+                  textColor = '#CFCFCF';
+                  badgeBg = '#E5E5E5';
+                  badgeColor = '#CFCFCF';
+                }
+              } else if (isSelected) {
+                bg = 'white';
+                border = `2.5px solid ${unitColor}`;
+                badgeBg = unitColor;
+                badgeColor = 'white';
+              }
+
+              return (
                 <motion.button
                   key={index}
                   onClick={() => !answered && setSelectedIndex(index)}
                   disabled={answered}
-                  whileTap={!answered ? { scale: 0.97 } : undefined}
-                  className={`
-                    w-full text-left rounded-2xl border-2 py-4 px-5 text-base
-                    transition-all duration-200 min-h-[56px]
-                    ${getOptionStyle(index)}
-                  `}
-                  style={
-                    selectedIndex === index && !answered
-                      ? { borderColor: unitColor, boxShadow: `0 4px 14px ${unitColor}25` }
-                      : undefined
-                  }
+                  whileTap={!answered ? { scale: 0.98 } : undefined}
+                  className="w-full text-left flex items-center"
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: 14,
+                    background: bg,
+                    border,
+                    gap: 12,
+                    cursor: answered ? 'default' : 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
                 >
-                  <span className="flex items-center gap-4">
-                    <span
-                      className={`
-                        flex-shrink-0 w-9 h-9 rounded-xl border-2
-                        flex items-center justify-center
-                        text-sm font-bold transition-all
-                        ${
-                          answered && localCorrect !== null
-                            ? index === question.correctIndex
-                              ? 'border-green-500 bg-green-500 text-white'
-                              : selectedIndex === index
-                                ? 'border-red-500 bg-red-500 text-white'
-                                : 'border-gray-300 text-gray-400'
-                            : selectedIndex === index
-                              ? 'text-white'
-                              : 'border-gray-300 text-gray-500'
-                        }
-                      `}
-                      style={
-                        selectedIndex === index && !answered
-                          ? { borderColor: unitColor, backgroundColor: unitColor }
-                          : undefined
-                      }
-                    >
-                      {answered && localCorrect !== null ? (
-                        index === question.correctIndex ? (
-                          <CheckCircle className="w-5 h-5" />
-                        ) : selectedIndex === index ? (
-                          <XCircle className="w-5 h-5" />
-                        ) : (
-                          String.fromCharCode(65 + index)
-                        )
-                      ) : (
-                        String.fromCharCode(65 + index)
-                      )}
-                    </span>
-                    <span className="font-medium">{option}</span>
+                  <span
+                    className="flex-shrink-0 flex items-center justify-center"
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
+                      background: badgeBg,
+                      color: badgeColor,
+                      fontSize: 12,
+                      fontWeight: 800,
+                    }}
+                  >
+                    {String.fromCharCode(65 + index)}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: textColor,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {option}
                   </span>
                 </motion.button>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
+        )}
 
-          {/* ── True / False ── */}
-          {question.type === 'true-false' && (
-            <div className="grid grid-cols-2 gap-4">
-              {[true, false].map((value) => (
+        {/* True / False */}
+        {question.type === 'true-false' && (
+          <div className="grid grid-cols-2" style={{ gap: 10 }}>
+            {[true, false].map((value) => {
+              const isSelected = selectedBool === value;
+              const isCorrectOption = value === question.correctAnswer;
+
+              let bg = 'rgba(255,255,255,0.65)';
+              let border = '2px solid transparent';
+              let textColor = '#3C3C3C';
+
+              if (answered && localCorrect !== null) {
+                if (isCorrectOption) {
+                  bg = '#D7FFB8';
+                  border = '2px solid #58CC02';
+                  textColor = '#58A700';
+                } else if (isSelected && !isCorrectOption) {
+                  bg = '#FFDFE0';
+                  border = '2px solid #FF4B4B';
+                  textColor = '#EA2B2B';
+                } else {
+                  bg = '#F5F5F5';
+                  textColor = '#CFCFCF';
+                }
+              } else if (isSelected) {
+                bg = 'white';
+                border = `2.5px solid ${unitColor}`;
+              }
+
+              return (
                 <motion.button
                   key={String(value)}
                   onClick={() => !answered && setSelectedBool(value)}
                   disabled={answered}
-                  whileTap={!answered ? { scale: 0.95 } : undefined}
-                  className={`
-                    rounded-2xl border-2 py-6 px-6 text-center font-bold text-xl
-                    transition-all duration-200 min-h-[80px]
-                    ${getTFStyle(value)}
-                  `}
-                  style={
-                    selectedBool === value && !answered
-                      ? { borderColor: unitColor, boxShadow: `0 4px 14px ${unitColor}25` }
-                      : undefined
-                  }
+                  whileTap={!answered ? { scale: 0.97 } : undefined}
+                  className="flex items-center justify-center"
+                  style={{
+                    padding: '14px 16px',
+                    borderRadius: 14,
+                    background: bg,
+                    border,
+                    cursor: answered ? 'default' : 'pointer',
+                    fontSize: 16,
+                    fontWeight: 800,
+                    color: textColor,
+                    transition: 'all 0.15s ease',
+                  }}
                 >
-                  <span className="text-3xl block mb-1">{value ? '✅' : '❌'}</span>
                   {value ? 'True' : 'False'}
                 </motion.button>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
+        )}
 
-          {/* ── Fill in the Blank ── */}
-          {question.type === 'fill-blank' && (
-            <div>
-              <div className="relative">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={textValue}
-                  onChange={(e) => setTextValue(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && hasSelection && !answered) {
-                      handleCheck();
-                    }
-                  }}
-                  disabled={answered}
-                  placeholder="Type your answer..."
-                  className={`
-                    w-full rounded-2xl border-2 py-4 px-5 text-lg font-medium
-                    outline-none transition-all duration-200 min-h-[60px]
-                    ${
-                      answered
-                        ? localCorrect
-                          ? 'border-green-400 bg-green-50 text-green-900'
-                          : 'border-red-400 bg-red-50 text-red-900'
-                        : 'border-gray-300 focus:border-gray-400 bg-white text-gray-900 placeholder:text-gray-400'
-                    }
-                  `}
-                  style={
-                    !answered && textValue.trim().length > 0
-                      ? { borderColor: unitColor, boxShadow: `0 4px 14px ${unitColor}20` }
-                      : undefined
-                  }
-                />
-                {!answered && textValue.trim().length > 0 && (
-                  <motion.div
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold px-2 py-0.5 rounded-full"
-                    style={{ backgroundColor: `${unitColor}15`, color: unitColor }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                  >
-                    Enter ↵
-                  </motion.div>
-                )}
-              </div>
-              {answered && localCorrect === false && (
-                <motion.div
-                  className="mt-3 flex items-center gap-2 p-3 rounded-xl bg-red-50 border border-red-200"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <span className="text-base">💡</span>
-                  <p className="text-sm text-red-700 font-semibold">
-                    Correct answer: <span className="underline decoration-2">{getCorrectAnswerDisplay()}</span>
-                  </p>
-                </motion.div>
-              )}
-            </div>
-          )}
-        </motion.div>
-
-        {/* Feedback card */}
-        <AnimatePresence>
-          {answered && localCorrect !== null && (
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 24, scale: 0.92 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-              className={`
-                rounded-2xl p-5 border-2
-                ${localCorrect
-                  ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300'
-                  : 'bg-gradient-to-br from-red-50 to-orange-50 border-red-300'
+        {/* Fill in the Blank */}
+        {question.type === 'fill-blank' && (
+          <div>
+            <input
+              ref={inputRef}
+              type="text"
+              value={textValue}
+              onChange={(e) => setTextValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && hasSelection && !answered) {
+                  handleCheck();
                 }
-              `}
-            >
-              <div className="flex items-center gap-3 mb-3">
-                {localCorrect ? (
-                  <>
-                    <motion.span
-                      className="text-2xl"
-                      initial={{ rotate: -20, scale: 0 }}
-                      animate={{ rotate: 0, scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
-                    >
-                      🎉
-                    </motion.span>
-                    <span className="font-extrabold text-lg text-green-800">Correct!</span>
-                  </>
-                ) : (
-                  <>
-                    <motion.span
-                      className="text-2xl"
-                      initial={{ rotate: 20, scale: 0 }}
-                      animate={{ rotate: 0, scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
-                    >
-                      🤔
-                    </motion.span>
-                    <span className="font-extrabold text-lg text-red-800">Not quite</span>
-                  </>
-                )}
-              </div>
-
-              {!localCorrect && question.type !== 'fill-blank' && (
-                <motion.div
-                  className="flex items-center gap-2 mb-3 p-2.5 rounded-xl bg-white/60"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <CheckCircle className="w-4 h-4 text-green-600 shrink-0" />
-                  <p className="text-sm text-gray-800 font-semibold">
-                    {getCorrectAnswerDisplay()}
-                  </p>
-                </motion.div>
-              )}
-
-              <motion.p
-                className={`text-sm leading-relaxed font-medium ${
-                  localCorrect ? 'text-green-800/80' : 'text-red-800/80'
-                }`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.15 }}
-              >
-                {question.explanation}
-              </motion.p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              }}
+              disabled={answered}
+              placeholder="Type your answer..."
+              style={{
+                width: '100%',
+                padding: '12px 14px',
+                borderRadius: 14,
+                border: answered
+                  ? localCorrect
+                    ? '2px solid #58CC02'
+                    : '2px solid #FF4B4B'
+                  : textValue.trim().length > 0
+                    ? `2.5px solid ${unitColor}`
+                    : '2px solid #E5E5E5',
+                background: answered
+                  ? localCorrect
+                    ? '#D7FFB8'
+                    : '#FFDFE0'
+                  : 'white',
+                fontSize: 16,
+                fontWeight: 700,
+                color: '#3C3C3C',
+                outline: 'none',
+                transition: 'all 0.15s ease',
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }

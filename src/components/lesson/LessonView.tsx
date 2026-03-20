@@ -2,9 +2,9 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Zap, AlertTriangle } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
+import { getUnitTheme } from '@/lib/unitThemes';
 import LessonProgressBar from './LessonProgressBar';
 import QuestionCard from './QuestionCard';
 import type { QuestionCardHandle } from './QuestionCard';
@@ -25,7 +25,6 @@ export default function LessonView() {
   const [xpGain, setXpGain] = useState(0);
   const questionRef = useRef<QuestionCardHandle>(null);
 
-  // Derive lesson & question data
   const lessonData = useMemo(() => {
     if (!activeLesson) return null;
     const unit = course[activeLesson.unitIndex];
@@ -33,6 +32,11 @@ export default function LessonView() {
     const lesson = unit.lessons[activeLesson.lessonIndex];
     if (!lesson) return null;
     return { unit, lesson };
+  }, [activeLesson]);
+
+  const theme = useMemo(() => {
+    if (!activeLesson) return getUnitTheme(0);
+    return getUnitTheme(activeLesson.unitIndex);
   }, [activeLesson]);
 
   const currentQuestion = useMemo(() => {
@@ -52,9 +56,21 @@ export default function LessonView() {
 
   const answeredCount = activeLesson?.answers.length ?? 0;
   const totalQuestions = lessonData?.lesson.questions.length ?? 0;
-  const correctCount = activeLesson?.answers.filter(a => a.correct).length ?? 0;
 
-  // Handlers
+  const getCorrectAnswerDisplay = useCallback((): string => {
+    if (!currentQuestion) return '';
+    switch (currentQuestion.type) {
+      case 'multiple-choice':
+        return currentQuestion.options?.[currentQuestion.correctIndex ?? 0] ?? '';
+      case 'true-false':
+        return currentQuestion.correctAnswer ? 'True' : 'False';
+      case 'fill-blank':
+        return currentQuestion.acceptedAnswers?.[0] ?? '';
+      default:
+        return '';
+    }
+  }, [currentQuestion]);
+
   const handleAnswer = useCallback(
     (correct: boolean) => {
       if (!currentQuestion) return;
@@ -102,6 +118,21 @@ export default function LessonView() {
     setShowExitConfirm(false);
   }, []);
 
+  // Hotkey hint
+  const [showHotkeyHint, setShowHotkeyHint] = useState(true);
+  useEffect(() => {
+    if (showHotkeyHint) {
+      const timer = setTimeout(() => setShowHotkeyHint(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showHotkeyHint]);
+
+  useEffect(() => {
+    if (activeLesson?.currentQuestionIndex === 0) {
+      setShowHotkeyHint(true);
+    }
+  }, [activeLesson?.currentQuestionIndex]);
+
   // Global keyboard handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -110,7 +141,6 @@ export default function LessonView() {
         (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') &&
         !(target as HTMLInputElement).disabled;
 
-      // Exit confirm modal keyboard handling
       if (showExitConfirm) {
         if (e.key === 'Escape') {
           e.preventDefault();
@@ -119,17 +149,14 @@ export default function LessonView() {
         return;
       }
 
-      // Escape to exit lesson
       if (e.key === 'Escape') {
         e.preventDefault();
         handleExitClick();
         return;
       }
 
-      // When typing in a non-disabled input, let the input handle everything
       if (isInInput) return;
 
-      // Enter or Space: check answer or continue
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         if (isCurrentAnswered) {
@@ -140,25 +167,16 @@ export default function LessonView() {
         return;
       }
 
-      // Option selection keys (only when not yet answered)
       if (!isCurrentAnswered) {
         const key = e.key.toLowerCase();
-        const qType = questionRef.current?.questionType;
-
-        if (qType === 'true-false') {
-          // 1 or T = True, 2 or F = False
-          if (key === '1' || key === 't') {
-            questionRef.current?.selectBool(true);
-          } else if (key === '2' || key === 'f') {
-            questionRef.current?.selectBool(false);
-          }
-        } else {
-          // 1-4 or A-D for multiple choice
-          if (['1', '2', '3', '4'].includes(key)) {
-            questionRef.current?.selectOption(parseInt(key) - 1);
-          } else if (['a', 'b', 'c', 'd'].includes(key)) {
-            questionRef.current?.selectOption(key.charCodeAt(0) - 97);
-          }
+        if (['1', '2', '3', '4'].includes(key)) {
+          questionRef.current?.selectOption(parseInt(key) - 1);
+        } else if (['a', 'b', 'c', 'd'].includes(key)) {
+          questionRef.current?.selectOption(key.charCodeAt(0) - 97);
+        } else if (key === 't') {
+          questionRef.current?.selectBool(true);
+        } else if (key === 'f') {
+          questionRef.current?.selectBool(false);
         }
       }
     };
@@ -175,42 +193,11 @@ export default function LessonView() {
     handleCancelExit,
   ]);
 
-  // Show result screen after lesson completion
-  if (lessonResult) {
-    return <ResultScreen />;
-  }
+  if (lessonResult) return <ResultScreen />;
 
-  // Nothing to render if no active lesson
-  if (!activeLesson || !lessonData || !currentQuestion) {
-    return null;
-  }
+  if (!activeLesson || !lessonData || !currentQuestion) return null;
 
-  const unitColor = lessonData.unit.color;
-
-  // Bottom button color logic
-  const getBottomButtonStyle = () => {
-    if (!isCurrentAnswered) {
-      return {
-        backgroundColor: hasSelection ? unitColor : '#CBD5E1',
-        color: hasSelection ? 'white' : '#94A3B8',
-      };
-    }
-    if (lastAnswerCorrect === true) {
-      return { backgroundColor: '#10B981', color: 'white' };
-    }
-    if (lastAnswerCorrect === false) {
-      return { backgroundColor: '#EF4444', color: 'white' };
-    }
-    return { backgroundColor: unitColor, color: 'white' };
-  };
-
-  // Background color based on answer state
-  const getBgColor = () => {
-    if (!isCurrentAnswered) return '#FAFAF8';
-    if (lastAnswerCorrect === true) return '#F0FDF4';
-    if (lastAnswerCorrect === false) return '#FEF2F2';
-    return '#FAFAF8';
-  };
+  const unitColor = theme.color;
 
   return (
     <AnimatePresence>
@@ -222,76 +209,102 @@ export default function LessonView() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed inset-0 z-50 flex flex-col"
         style={{
-          backgroundColor: getBgColor(),
-          transition: 'background-color 0.4s ease',
+          backgroundColor: '#FAFAFA',
           paddingTop: 'env(safe-area-inset-top, 0px)',
-          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           paddingLeft: 'env(safe-area-inset-left, 0px)',
           paddingRight: 'env(safe-area-inset-right, 0px)',
         }}
       >
-        {/* Subtle background pattern */}
+        {/* Top bar */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          className="flex items-center"
           style={{
-            backgroundImage: `radial-gradient(${unitColor} 1px, transparent 1px)`,
-            backgroundSize: '24px 24px',
+            padding: '10px 16px',
+            gap: 12,
+            borderBottom: '2px solid #E5E5E5',
+            background: 'white',
           }}
-        />
-
-        {/* ── Top bar ── */}
-        <div className="relative flex items-center gap-3 px-5 pt-4 pb-3">
-          {/* Close button */}
+        >
           <button
             onClick={handleExitClick}
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-white transition-all active:scale-90 shadow-sm"
+            className="flex-shrink-0 flex items-center justify-center transition-transform active:scale-90"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 12,
+              background: '#F5F5F5',
+              border: 'none',
+              cursor: 'pointer',
+            }}
             aria-label="Close lesson"
           >
-            <X className="w-5 h-5" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 4l8 8M12 4l-8 8" stroke="#AFAFAF" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
           </button>
 
-          {/* Segmented progress bar */}
           <LessonProgressBar
             current={answeredCount}
             total={totalQuestions}
             color={unitColor}
           />
 
-          {/* XP counter */}
           <motion.div
-            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold shadow-sm"
+            className="flex-shrink-0 flex items-center"
             style={{
-              backgroundColor: `${unitColor}15`,
-              color: unitColor,
-              border: `1px solid ${unitColor}25`,
+              gap: 4,
+              padding: '4px 10px',
+              borderRadius: 10,
+              background: theme.bg,
+              color: theme.dark,
+              fontWeight: 800,
+              fontSize: 13,
             }}
             key={xpGain}
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 0.3 }}
+            animate={{ scale: [1, 1.15, 1] }}
+            transition={{ duration: 0.25 }}
           >
-            <Zap className="w-3.5 h-3.5" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill={theme.dark} />
+            </svg>
             {xpGain}
           </motion.div>
         </div>
 
-        {/* Question counter */}
-        <div className="px-5 pb-2 flex items-center justify-between">
-          <span className="text-sm font-semibold" style={{ color: unitColor }}>
-            Question {(activeLesson.currentQuestionIndex ?? 0) + 1} of {totalQuestions}
-          </span>
-          <span className="text-xs text-gray-400 font-medium">
-            {correctCount}/{answeredCount} correct
-          </span>
-        </div>
+        {/* Question area */}
+        <div
+          className="flex-1 overflow-y-auto"
+          style={{ padding: '16px 20px 20px' }}
+        >
+          <AnimatePresence>
+            {showHotkeyHint && !isCurrentAnswered && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#CFCFCF',
+                  textAlign: 'center',
+                  marginBottom: 10,
+                  letterSpacing: 0.3,
+                }}
+              >
+                {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
+                {currentQuestion?.type === 'true-false' && 'T/F select \u00b7 '}
+                {currentQuestion?.type === 'fill-blank' && 'Type answer \u00b7 '}
+                Enter check \u00b7 Esc exit
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* ── Scrollable question area ── */}
-        <div className="flex-1 overflow-y-auto px-5 pt-2 pb-36">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion.id}
-              initial={{ opacity: 0, x: 50, scale: 0.97 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -50, scale: 0.97 }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
               transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             >
               <QuestionCard
@@ -306,102 +319,190 @@ export default function LessonView() {
           </AnimatePresence>
         </div>
 
-        {/* ── Bottom button area ── */}
-        <motion.div
-          className="sticky bottom-0 px-5 pt-4 pb-5"
-          style={{
-            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 20px)',
-            background: `linear-gradient(to top, ${getBgColor()} 70%, transparent)`,
-          }}
-          layout
-        >
-          {/* Correct/Wrong flash emoji */}
-          <AnimatePresence>
-            {isCurrentAnswered && lastAnswerCorrect !== null && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.5 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                className="text-center mb-3"
-              >
-                <span className="text-2xl">
-                  {lastAnswerCorrect ? '🎯' : '💪'}
-                </span>
-                <p className="text-sm font-bold mt-0.5" style={{ color: lastAnswerCorrect ? '#10B981' : '#EF4444' }}>
-                  {lastAnswerCorrect ? 'Nailed it!' : 'Keep going!'}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {!isCurrentAnswered ? (
-            <motion.button
+        {/* Bottom bar */}
+        {!isCurrentAnswered ? (
+          <div
+            style={{
+              padding: '12px 20px',
+              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+              borderTop: '2px solid #E5E5E5',
+              background: 'white',
+            }}
+          >
+            <button
               onClick={handleCheck}
               disabled={!hasSelection}
-              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg flex items-center justify-center gap-2"
-              style={getBottomButtonStyle()}
-              whileTap={hasSelection ? { scale: 0.96 } : undefined}
-              animate={hasSelection ? { y: [0, -2, 0] } : undefined}
-              transition={hasSelection ? { duration: 0.4, repeat: Infinity, repeatDelay: 2 } : undefined}
+              className="w-full transition-transform active:scale-[0.98]"
+              style={{
+                padding: '14px 0',
+                borderRadius: 16,
+                fontSize: 15,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                background: hasSelection ? unitColor : '#E5E5E5',
+                color: hasSelection ? '#FFFFFF' : '#AFAFAF',
+                boxShadow: hasSelection
+                  ? `0 4px 0 ${theme.dark}`
+                  : '0 4px 0 #CCCCCC',
+                border: 'none',
+                cursor: hasSelection ? 'pointer' : 'default',
+              }}
             >
-              CHECK
-              {hasSelection && (
-                <span className="text-xs opacity-70 font-semibold ml-1">↵</span>
+              Check
+            </button>
+          </div>
+        ) : (
+          <motion.div
+            key="feedback"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            style={{
+              padding: '14px 20px',
+              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+              background: lastAnswerCorrect ? '#D7FFB8' : '#FFDFE0',
+              borderTop: `2px solid ${lastAnswerCorrect ? '#58CC02' : '#FF4B4B'}`,
+            }}
+          >
+            <div style={{ marginBottom: 12 }}>
+              <p
+                style={{
+                  fontSize: 17,
+                  fontWeight: 800,
+                  color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                  margin: 0,
+                }}
+              >
+                {lastAnswerCorrect ? 'Correct!' : 'Incorrect'}
+              </p>
+              {!lastAnswerCorrect && (
+                <p
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: '#EA2B2B',
+                    margin: '2px 0 0',
+                  }}
+                >
+                  Answer: {getCorrectAnswerDisplay()}
+                </p>
               )}
-            </motion.button>
-          ) : (
-            <motion.button
-              onClick={handleContinue}
-              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg flex items-center justify-center gap-2"
-              style={getBottomButtonStyle()}
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              whileTap={{ scale: 0.96 }}
-            >
-              {isLastQuestion ? '🏁 FINISH' : 'CONTINUE →'}
-              <span className="text-xs opacity-70 font-semibold ml-1">↵</span>
-            </motion.button>
-          )}
-        </motion.div>
+              {currentQuestion.explanation && (
+                <p
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                    opacity: 0.75,
+                    margin: '4px 0 0',
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {currentQuestion.explanation}
+                </p>
+              )}
+            </div>
 
-        {/* ── Exit confirmation modal ── */}
+            <button
+              onClick={handleContinue}
+              className="w-full transition-transform active:scale-[0.98]"
+              style={{
+                padding: '14px 0',
+                borderRadius: 16,
+                fontSize: 15,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                background: lastAnswerCorrect ? '#58CC02' : '#FF4B4B',
+                color: '#FFFFFF',
+                boxShadow: lastAnswerCorrect
+                  ? '0 4px 0 #46A302'
+                  : '0 4px 0 #CC2D2D',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {isLastQuestion ? 'Finish' : 'Continue'}
+            </button>
+          </motion.div>
+        )}
+
+        {/* Exit confirmation modal */}
         <AnimatePresence>
           {showExitConfirm && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="fixed inset-0 z-[60] bg-black/40 flex items-end sm:items-center justify-center px-4"
+              className="fixed inset-0 z-[60] flex items-end justify-center"
+              onClick={handleCancelExit}
             >
+              <div className="absolute inset-0 bg-black/40" />
               <motion.div
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 100, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                className="bg-white rounded-t-3xl sm:rounded-3xl p-6 w-full max-w-sm shadow-2xl mb-0 sm:mb-0"
+                className="relative w-full bg-white"
+                style={{
+                  maxWidth: 480,
+                  borderRadius: '24px 24px 0 0',
+                  padding: '20px 20px 32px',
+                }}
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-                    <AlertTriangle className="w-7 h-7 text-red-500" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-extrabold text-gray-900 mb-1.5 text-center">
+                <p
+                  style={{
+                    fontSize: 19,
+                    fontWeight: 800,
+                    color: '#3C3C3C',
+                    marginBottom: 4,
+                  }}
+                >
                   Quit lesson?
-                </h3>
-                <p className="text-sm text-gray-500 mb-6 text-center">
+                </p>
+                <p
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: '#AFAFAF',
+                    marginBottom: 20,
+                  }}
+                >
                   Your progress on this lesson will be lost.
                 </p>
-                <div className="flex gap-3">
+                <div className="flex" style={{ gap: 12 }}>
                   <button
                     onClick={handleCancelExit}
-                    className="flex-1 rounded-2xl py-3.5 px-4 border-2 border-gray-200 text-gray-700 font-bold transition-colors hover:bg-gray-50 active:scale-[0.97] min-h-[50px] flex items-center justify-center gap-1.5"
+                    className="flex-1 transition-transform active:scale-[0.98]"
+                    style={{
+                      padding: '14px 0',
+                      borderRadius: 16,
+                      fontSize: 14,
+                      fontWeight: 800,
+                      color: '#AFAFAF',
+                      background: '#F5F5F5',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
                   >
                     Keep going
                   </button>
                   <button
                     onClick={handleConfirmExit}
-                    className="flex-1 rounded-2xl py-3.5 px-4 bg-red-500 text-white font-bold transition-colors hover:bg-red-600 active:scale-[0.97] min-h-[50px]"
+                    className="flex-1 transition-transform active:scale-[0.98]"
+                    style={{
+                      padding: '14px 0',
+                      borderRadius: 16,
+                      fontSize: 14,
+                      fontWeight: 800,
+                      color: '#FFFFFF',
+                      background: '#FF4B4B',
+                      boxShadow: '0 4px 0 #CC2D2D',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
                   >
                     Quit
                   </button>
