@@ -70,7 +70,8 @@ export default function OnboardingPage() {
     // Save selections to localStorage
     const prefs = { goal, experience, startedTrial: startTrial };
     localStorage.setItem('mechprep_onboarding', JSON.stringify(prefs));
-    router.push('/');
+    // Route to pricing page for trial signup, or home for free users
+    router.push(startTrial ? '/pricing' : '/');
   };
 
   return (
