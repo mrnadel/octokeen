@@ -10,9 +10,8 @@ import {
   Target,
   RefreshCw,
   ChevronRight,
-  Sparkles,
+  Rocket,
 } from 'lucide-react';
-import { PRO_TRIAL_DAYS } from '@/lib/pricing';
 import { cn } from '@/lib/utils';
 
 const GOALS = [
@@ -66,12 +65,10 @@ export default function OnboardingPage() {
     setStep((s) => Math.max(s - 1, 0));
   };
 
-  const completeOnboarding = (startTrial: boolean) => {
-    // Save selections to localStorage
-    const prefs = { goal, experience, startedTrial: startTrial };
+  const completeOnboarding = () => {
+    const prefs = { goal, experience };
     localStorage.setItem('mechprep_onboarding', JSON.stringify(prefs));
-    // Route to pricing page for trial signup, or home for free users
-    router.push(startTrial ? '/pricing' : '/');
+    router.push('/');
   };
 
   return (
@@ -276,7 +273,7 @@ export default function OnboardingPage() {
 
           {step === 3 && (
             <motion.div
-              key="trial"
+              key="ready"
               custom={direction}
               variants={slideVariants}
               initial="enter"
@@ -286,53 +283,26 @@ export default function OnboardingPage() {
               className="text-center"
             >
               <motion.div
-                className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-5"
                 initial={{ scale: 0.8, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.1, type: 'spring', stiffness: 300 }}
               >
-                <Sparkles className="w-8 h-8 text-amber-500" />
+                <Rocket className="w-8 h-8 text-primary-600" />
               </motion.div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
-                Start your {PRO_TRIAL_DAYS}-day Pro trial
+                You&apos;re all set!
               </h2>
-              <p className="text-gray-500 text-sm mb-2 max-w-xs mx-auto">
-                Unlock all units, unlimited practice, full analytics, and interview readiness scoring.
+              <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto leading-relaxed">
+                Start with Unit 1 for free -- unlimited access to foundational
+                concepts. Pro features are coming soon with even more content.
               </p>
-              <p className="text-xs text-gray-400 mb-6">No credit card required</p>
-
-              <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6 text-left">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">What you get with Pro</p>
-                <ul className="space-y-2">
-                  {[
-                    'All 10 course units',
-                    'Unlimited daily practice',
-                    'Detailed explanations',
-                    'Full analytics dashboard',
-                    'Interview readiness score',
-                    'Weekly streak freeze',
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-gray-700">
-                      <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
               <button
-                onClick={() => completeOnboarding(true)}
-                className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] mb-3"
+                onClick={completeOnboarding}
+                className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98]"
               >
-                Start Free Trial
-              </button>
-              <button
-                onClick={() => completeOnboarding(false)}
-                className="w-full py-3 rounded-xl bg-white hover:bg-gray-50 text-gray-600 font-medium text-sm border border-gray-200 transition-colors active:scale-[0.98]"
-              >
-                Continue with Free
+                Start Learning
               </button>
             </motion.div>
           )}
