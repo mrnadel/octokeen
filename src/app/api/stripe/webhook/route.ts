@@ -5,7 +5,6 @@ import { stripe } from '@/lib/stripe';
 import { db } from '@/lib/db';
 import { subscriptions, paymentHistory } from '@/lib/db/schema';
 
-// Disable Next.js body parsing — Stripe needs the raw body for signature verification
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
@@ -76,9 +75,15 @@ function tierFromPriceId(priceId: string | null): 'free' | 'pro' | 'team' {
   return 'free';
 }
 
-function intervalFromPrice(sub: Stripe.Subscription): string | null {
+function intervalFromSub(sub: Stripe.Subscription): string | null {
   const item = sub.items.data[0];
   return item?.price?.recurring?.interval ?? null;
+}
+
+function resolveCustomerId(customer: string | Stripe.Customer | Stripe.DeletedCustomer | null): string | null {
+  if (!customer) return null;
+  if (typeof customer === 'string') return customer;
+  return customer.id;
 }
 
 // ─── Event handlers ─────────────────────────────────────────────
@@ -96,12 +101,12 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   await upsertSubscription(userId, {
     tier: tierFromPriceId(priceId),
     status: stripeSubscription.status === 'trialing' ? 'trialing' : 'active',
-    stripeCustomerId: session.customer as string,
+    stripeCustomerId: resolveCustomerId(session.customer),
     stripeSubscriptionId: stripeSubscription.id,
     stripePriceId: priceId,
-    billingInterval: intervalFromPrice(stripeSubscription),
-    currentPeriodStart: toISODate(stripeSubscription.current_period_start),
-    currentPeriodEnd: toISODate(stripeSubscription.current_period_end),
+    billingInterval: intervalFromSub(stripeSubscription),
+    currentPeriodStart: toISODate(stripeSubscription.start_date),
+    currentPeriodEnd: toISODate(stripeSubscription.cancel_at ?? stripeSubscription.billing_cycle_anchor),
     trialStart: toISODate(stripeSubscription.trial_start),
     trialEnd: toISODate(stripeSubscription.trial_end),
     cancelAtPeriodEnd: stripeSubscription.cancel_at_period_end,
@@ -118,9 +123,9 @@ async function handleSubscriptionUpdated(sub: Stripe.Subscription) {
     tier: tierFromPriceId(priceId),
     status: mapStripeStatus(sub.status),
     stripePriceId: priceId,
-    billingInterval: intervalFromPrice(sub),
-    currentPeriodStart: toISODate(sub.current_period_start),
-    currentPeriodEnd: toISODate(sub.current_period_end),
+    billingInterval: intervalFromSub(sub),
+    currentPeriodStart: toISODate(sub.start_date),
+    currentPeriodEnd: toISODate(sub.cancel_at ?? sub.billing_cycle_anchor),
     trialStart: toISODate(sub.trial_start),
     trialEnd: toISODate(sub.trial_end),
     cancelAtPeriodEnd: sub.cancel_at_period_end,
@@ -139,10 +144,7 @@ async function handleSubscriptionDeleted(sub: Stripe.Subscription) {
 }
 
 async function handleInvoicePaid(invoice: Stripe.Invoice) {
-  const customerId =
-    typeof invoice.customer === 'string'
-      ? invoice.customer
-      : invoice.customer?.id;
+  const customerId = resolveCustomerId(invoice.customer);
   if (!customerId) return;
 
   const userId = await getUserIdByCustomer(customerId);
@@ -161,22 +163,16 @@ async function handleInvoicePaid(invoice: Stripe.Invoice) {
   await db.insert(paymentHistory).values({
     userId,
     stripeInvoiceId: invoice.id ?? null,
-    stripePaymentIntentId:
-      typeof invoice.payment_intent === 'string'
-        ? invoice.payment_intent
-        : invoice.payment_intent?.id ?? null,
+    stripePaymentIntentId: null,
     amountCents: invoice.amount_paid ?? 0,
     currency: invoice.currency ?? 'usd',
     status: 'succeeded',
-    description: invoice.description ?? `Invoice ${invoice.number ?? ''}`,
+    description: `Invoice ${invoice.number ?? ''}`,
   });
 }
 
 async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
-  const customerId =
-    typeof invoice.customer === 'string'
-      ? invoice.customer
-      : invoice.customer?.id;
+  const customerId = resolveCustomerId(invoice.customer);
   if (!customerId) return;
 
   const userId = await getUserIdByCustomer(customerId);
@@ -198,10 +194,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
   await db.insert(paymentHistory).values({
     userId,
     stripeInvoiceId: invoice.id ?? null,
-    stripePaymentIntentId:
-      typeof invoice.payment_intent === 'string'
-        ? invoice.payment_intent
-        : invoice.payment_intent?.id ?? null,
+    stripePaymentIntentId: null,
     amountCents: invoice.amount_due ?? 0,
     currency: invoice.currency ?? 'usd',
     status: 'failed',
@@ -225,7 +218,7 @@ async function upsertSubscription(
   data: Partial<{
     tier: string;
     status: string;
-    stripeCustomerId: string;
+    stripeCustomerId: string | null;
     stripeSubscriptionId: string;
     stripePriceId: string | null;
     billingInterval: string | null;

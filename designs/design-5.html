@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Lesson Carousel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .phone-frame {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 60px rgba(0,0,0,.08);
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .header-logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1a1a2e;
+    letter-spacing: -.5px;
+  }
+  .header-logo span { color: #58CC02; }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .stat-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    font-size: 14px;
+    color: #3c3c3c;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #58CC02, #46a302);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(88,204,2,.35);
+  }
+
+  /* ─── UNIT TABS ─── */
+  .unit-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px 12px;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .unit-tabs::-webkit-scrollbar { display: none; }
+
+  .unit-tab {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: all .25s ease;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+  }
+
+  .unit-tab.active {
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+
+  .unit-tab:not(.active) {
+    background: #fff;
+    color: #777;
+    border-color: #e8e8e8;
+  }
+  .unit-tab:not(.active):hover {
+    border-color: #ccc;
+    color: #555;
+  }
+
+  .unit-tab .tab-lock {
+    font-size: 11px;
+    margin-left: 4px;
+    opacity: .7;
+  }
+
+  /* ─── HERO SECTION ─── */
+  .hero-section {
+    padding: 20px 24px 10px;
+    text-align: center;
+    animation: fadeSlide .4s ease;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity:0; transform: translateY(12px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  .hero-illustration {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 16px;
+  }
+  .hero-illustration svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    color: #888;
+    font-weight: 600;
+  }
+
+  .hero-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 0 10px;
+  }
+
+  .hero-progress-bar {
+    flex: 1;
+    height: 10px;
+    background: #eee;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .hero-progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width .6s ease;
+  }
+
+  .hero-progress-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #555;
+    flex-shrink: 0;
+  }
+
+  /* ─── CAROUSEL ─── */
+  .carousel-section {
+    padding: 22px 0 8px;
+  }
+
+  .carousel-header {
+    padding: 0 24px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 14px;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 16px;
+    padding: 8px 24px 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+
+  .lesson-card {
+    flex-shrink: 0;
+    width: 155px;
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    transition: all .3s ease;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid #f0f0f0;
+  }
+
+  .lesson-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.12);
+  }
+
+  .lesson-card.current {
+    width: 175px;
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 10px 36px rgba(0,0,0,.15);
+    border-color: transparent;
+  }
+  .lesson-card.current:hover {
+    transform: translateY(-10px) scale(1.06);
+  }
+
+  .lesson-card.locked {
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  .card-top {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .card-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+
+  .card-badge.done svg { color: #58CC02; }
+
+  .lock-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-bottom {
+    padding: 14px 14px 16px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+
+  .card-xp {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    margin-bottom: 8px;
+  }
+
+  .card-stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  .star {
+    width: 16px;
+    height: 16px;
+  }
+
+  .start-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-top: 10px;
+    transition: all .2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .start-btn::after {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, rgba(255,255,255,.2) 0%, transparent 100%);
+  }
+
+  .start-btn:hover {
+    transform: scale(1.03);
+    filter: brightness(1.08);
+  }
+
+  .start-btn:active {
+    transform: scale(.97);
+  }
+
+  /* ─── MASTERY CHART ─── */
+  .mastery-section {
+    padding: 20px 24px 36px;
+  }
+
+  .mastery-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 18px;
+  }
+
+  .mastery-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .mastery-label {
+    width: 90px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .mastery-bar-bg {
+    flex: 1;
+    height: 14px;
+    background: #f0f0f0;
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mastery-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width .8s ease;
+    position: relative;
+  }
+
+  .mastery-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: rgba(255,255,255,.25);
+    border-radius: 99px 99px 0 0;
+  }
+
+  .mastery-pct {
+    font-size: 12px;
+    font-weight: 800;
+    color: #555;
+    width: 36px;
+    flex-shrink: 0;
+  }
+
+  /* ─── SCROLL HINT ─── */
+  .scroll-hint {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ccc;
+    padding-bottom: 4px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:.5; }
+    50% { opacity:1; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .animate-in {
+    animation: cardPop .4s ease both;
+  }
+
+  @keyframes cardPop {
+    from { opacity:0; transform: translateY(20px) scale(.95); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">Mech<span>Prep</span></div>
+    <div class="header-stats">
+      <div class="stat-badge"><span style="font-size:16px">&#128293;</span> 5</div>
+      <div class="stat-badge"><span style="font-size:16px">&#128142;</span> 1,240</div>
+      <div class="avatar">MN</div>
+    </div>
+  </header>
+
+  <!-- UNIT TABS -->
+  <div class="unit-tabs" id="unitTabs">
+    <div class="unit-tab active" data-unit="0" style="background:#58CC02; color:#fff;">Statics & Equilibrium</div>
+    <div class="unit-tab" data-unit="1">Dynamics & Motion</div>
+    <div class="unit-tab" data-unit="2">Strength of Materials <span class="tab-lock">&#128274;</span></div>
+  </div>
+
+  <!-- HERO AREA -->
+  <div class="hero-section" id="heroSection"></div>
+
+  <!-- CAROUSEL -->
+  <div class="carousel-section">
+    <div class="carousel-header">Lessons</div>
+    <div class="scroll-hint">&#8592; swipe to explore &#8594;</div>
+    <div class="carousel-track" id="carouselTrack"></div>
+  </div>
+
+  <!-- MASTERY CHART -->
+  <div class="mastery-section">
+    <div class="mastery-title">Your Progress</div>
+    <div id="masteryChart"></div>
+  </div>
+
+</div>
+
+<script>
+// ─── DATA ───
+const units = [
+  {
+    name: "Statics & Equilibrium",
+    color: "#58CC02",
+    colorLight: "#e8fad3",
+    total: 8, done: 5,
+    lessons: [
+      { title: "Free Body Diagrams", xp: 20, stars: 3 },
+      { title: "Forces & Vectors", xp: 25, stars: 3 },
+      { title: "Moment of a Force", xp: 30, stars: 2 },
+      { title: "Equilibrium of Particles", xp: 25, stars: 3 },
+      { title: "Rigid Body Equilibrium", xp: 35, stars: 2 },
+      { title: "Trusses & Frames", xp: 30, stars: 0 },
+      { title: "Centroids & CG", xp: 35, stars: 0 },
+      { title: "Friction Basics", xp: 25, stars: 0 }
+    ],
+    illustration: "statics"
+  },
+  {
+    name: "Dynamics & Motion",
+    color: "#CE82FF",
+    colorLight: "#f3e5ff",
+    total: 7, done: 2,
+    lessons: [
+      { title: "Kinematics of Particles", xp: 25, stars: 3 },
+      { title: "Newton's 2nd Law", xp: 30, stars: 2 },
+      { title: "Work & Energy", xp: 35, stars: 0 },
+      { title: "Impulse & Momentum", xp: 30, stars: 0 },
+      { title: "Rotational Kinematics", xp: 35, stars: 0 },
+      { title: "Rigid Body Dynamics", xp: 40, stars: 0 },
+      { title: "Vibrations Intro", xp: 30, stars: 0 }
+    ],
+    illustration: "dynamics"
+  },
+  {
+    name: "Strength of Materials",
+    color: "#FF9600",
+    colorLight: "#fff2dd",
+    total: 9, done: 0,
+    lessons: [
+      { title: "Stress & Strain", xp: 25, stars: 0 },
+      { title: "Axial Loading", xp: 30, stars: 0 },
+      { title: "Torsion", xp: 30, stars: 0 },
+      { title: "Bending Stress", xp: 35, stars: 0 },
+      { title: "Shear Diagrams", xp: 30, stars: 0 },
+      { title: "Deflection", xp: 35, stars: 0 },
+      { title: "Mohr's Circle", xp: 40, stars: 0 },
+      { title: "Columns & Buckling", xp: 35, stars: 0 },
+      { title: "Fatigue Basics", xp: 30, stars: 0 }
+    ],
+    illustration: "strength"
+  }
+];
+
+const mastery = [
+  { label: "Statics", pct: 63, color: "#58CC02" },
+  { label: "Dynamics", pct: 29, color: "#CE82FF" },
+  { label: "Strength", pct: 0, color: "#FF9600" },
+  { label: "Thermo", pct: 0, color: "#1CB0F6" },
+  { label: "Fluids", pct: 0, color: "#FF4B4B" }
+];
+
+// ─── SVG ILLUSTRATIONS ───
+function getIllustration(type, color) {
+  if (type === "statics") {
+    return `<svg viewBox="0 0 260 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ground -->
+      <rect x="30" y="145" width="200" height="8" rx="4" fill="#e0e0e0"/>
+      <!-- Triangle support left -->
+      <polygon points="70,145 85,120 100,145" fill="${color}" opacity=".25"/>
+      <polygon points="70,145 85,123 100,145" fill="none" stroke="${color}" stroke-width="2.5"/>
+      <!-- Triangle support right -->
+      <polygon points="160,145 175,120 190,145" fill="${color}" opacity=".25"/>
+      <polygon points="160,145 175,123 190,145" fill="none" stroke="${color}" stroke-width="2.5"/>
+      <!-- Beam -->
+      <rect x="60" y="112" width="140" height="12" rx="3" fill="${color}"/>
+      <rect x="60" y="112" width="140" height="6" rx="3" fill="${color}" opacity=".7"/>
+      <!-- Force arrow down -->
+      <line x1="130" y1="45" x2="130" y2="108" stroke="#FF4B4B" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="124,105 130,115 136,105" fill="#FF4B4B"/>
+      <text x="138" y="75" font-family="Nunito" font-weight="800" font-size="14" fill="#FF4B4B">F</text>
+      <!-- Reaction arrows up -->
+      <line x1="85" y1="155" x2="85" y2="130" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="80,133 85,123 90,133" fill="${color}"/>
+      <text x="75" y="167" font-family="Nunito" font-weight="700" font-size="10" fill="#999">R₁</text>
+      <line x1="175" y1="155" x2="175" y2="130" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="170,133 175,123 180,133" fill="${color}"/>
+      <text x="165" y="167" font-family="Nunito" font-weight="700" font-size="10" fill="#999">R₂</text>
+      <!-- Moment arc -->
+      <path d="M200,55 A30,30 0 0,1 220,80" fill="none" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="217,73 224,82 214,82" fill="#FFC800"/>
+      <text x="205" y="50" font-family="Nunito" font-weight="800" font-size="12" fill="#FFC800">M</text>
+      <!-- Cute face on beam -->
+      <circle cx="118" cy="117" r="2" fill="#fff"/>
+      <circle cx="142" cy="117" r="2" fill="#fff"/>
+      <path d="M122,120 Q130,125 138,120" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`;
+  }
+  if (type === "dynamics") {
+    return `<svg viewBox="0 0 260 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Track/path -->
+      <path d="M30,140 Q80,140 100,100 Q120,60 160,60 Q200,60 230,100" fill="none" stroke="#e0e0e0" stroke-width="6" stroke-linecap="round"/>
+      <!-- Ball -->
+      <circle cx="100" cy="98" r="22" fill="${color}"/>
+      <circle cx="100" cy="98" r="22" fill="url(#ballGrad)" opacity=".4"/>
+      <!-- Cute face -->
+      <circle cx="93" cy="94" r="2.5" fill="#fff"/>
+      <circle cx="107" cy="94" r="2.5" fill="#fff"/>
+      <path d="M94,102 Q100,108 106,102" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      <!-- Velocity arrow -->
+      <line x1="122" y1="85" x2="158" y2="65" stroke="#FF4B4B" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="155,60 162,64 155,72" fill="#FF4B4B"/>
+      <text x="145" y="55" font-family="Nunito" font-weight="800" font-size="13" fill="#FF4B4B">v</text>
+      <!-- Acceleration arrow -->
+      <line x1="100" y1="125" x2="100" y2="155" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="94,152 100,162 106,152" fill="#FFC800"/>
+      <text x="107" y="150" font-family="Nunito" font-weight="800" font-size="12" fill="#FFC800">g</text>
+      <!-- Motion trail dots -->
+      <circle cx="65" cy="130" r="4" fill="${color}" opacity=".15"/>
+      <circle cx="50" cy="137" r="3" fill="${color}" opacity=".1"/>
+      <circle cx="78" cy="120" r="5" fill="${color}" opacity=".2"/>
+      <!-- Equation hint -->
+      <text x="170" y="140" font-family="Nunito" font-weight="700" font-size="11" fill="#ccc">F = ma</text>
+      <defs>
+        <radialGradient id="ballGrad" cx="40%" cy="35%">
+          <stop offset="0%" stop-color="#fff"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+    </svg>`;
+  }
+  if (type === "strength") {
+    return `<svg viewBox="0 0 260 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Fixed wall -->
+      <rect x="30" y="50" width="12" height="90" rx="2" fill="#ccc"/>
+      <line x1="30" y1="55" x2="20" y2="45" stroke="#bbb" stroke-width="2"/>
+      <line x1="30" y1="70" x2="20" y2="60" stroke="#bbb" stroke-width="2"/>
+      <line x1="30" y1="85" x2="20" y2="75" stroke="#bbb" stroke-width="2"/>
+      <line x1="30" y1="100" x2="20" y2="90" stroke="#bbb" stroke-width="2"/>
+      <line x1="30" y1="115" x2="20" y2="105" stroke="#bbb" stroke-width="2"/>
+      <line x1="30" y1="130" x2="20" y2="120" stroke="#bbb" stroke-width="2"/>
+      <!-- Beam (bent) -->
+      <path d="M42,88 Q130,88 140,95 Q180,88 220,95" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>
+      <path d="M42,85 Q130,85 140,90 Q180,85 220,90" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" opacity=".6"/>
+      <!-- Stress colors on beam -->
+      <path d="M42,82 Q130,82 140,86" fill="none" stroke="#FF4B4B" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+      <path d="M42,98 Q130,98 140,102" fill="none" stroke="#1CB0F6" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+      <!-- Force at end -->
+      <line x1="220" y1="105" x2="220" y2="148" stroke="#FF4B4B" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="214,145 220,155 226,145" fill="#FF4B4B"/>
+      <text x="226" y="135" font-family="Nunito" font-weight="800" font-size="13" fill="#FF4B4B">P</text>
+      <!-- Stress label -->
+      <text x="90" y="42" font-family="Nunito" font-weight="700" font-size="11" fill="#FF4B4B">tension</text>
+      <text x="82" y="135" font-family="Nunito" font-weight="700" font-size="11" fill="#1CB0F6">compression</text>
+      <!-- sigma symbol -->
+      <text x="170" y="50" font-family="Nunito" font-weight="800" font-size="18" fill="${color}" opacity=".4">&#963; = F/A</text>
+      <!-- Lock overlay for locked -->
+    </svg>`;
+  }
+}
+
+// ─── CARD ICONS ───
+function getLessonIcon(index, color) {
+  const icons = [
+    // Beam icon
+    `<svg viewBox="0 0 52 52" fill="none"><rect x="6" y="22" width="40" height="8" rx="3" fill="#fff" opacity=".9"/><polygon points="16,30 20,40 24,30" fill="#fff" opacity=".6"/><polygon points="28,30 32,40 36,30" fill="#fff" opacity=".6"/></svg>`,
+    // Vector icon
+    `<svg viewBox="0 0 52 52" fill="none"><line x1="10" y1="40" x2="40" y2="12" stroke="#fff" stroke-width="3" stroke-linecap="round"/><polygon points="37,8 44,12 37,18" fill="#fff"/><circle cx="10" cy="40" r="4" fill="#fff" opacity=".5"/></svg>`,
+    // Moment icon
+    `<svg viewBox="0 0 52 52" fill="none"><path d="M16,35 A14,14 0 1,1 36,35" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><polygon points="33,30 40,36 33,40" fill="#fff"/><circle cx="26" cy="26" r="3" fill="#fff" opacity=".6"/></svg>`,
+    // Particle icon
+    `<svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="10" fill="#fff" opacity=".8"/><line x1="26" y1="16" x2="26" y2="6" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="26" y1="36" x2="26" y2="46" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="26" x2="6" y2="26" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="36" y1="26" x2="46" y2="26" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    // Rigid body icon
+    `<svg viewBox="0 0 52 52" fill="none"><rect x="12" y="14" width="28" height="24" rx="4" fill="#fff" opacity=".8"/><circle cx="20" cy="26" r="2" fill="${color}"/><circle cx="32" cy="26" r="2" fill="${color}"/><line x1="20" y1="26" x2="32" y2="26" stroke="${color}" stroke-width="1.5"/></svg>`,
+    // Truss icon
+    `<svg viewBox="0 0 52 52" fill="none"><polygon points="26,10 8,42 44,42" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><line x1="17" y1="26" x2="35" y2="26" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="10" r="3" fill="#fff"/><circle cx="8" cy="42" r="3" fill="#fff"/><circle cx="44" cy="42" r="3" fill="#fff"/></svg>`,
+    // Centroid icon
+    `<svg viewBox="0 0 52 52" fill="none"><rect x="10" y="12" width="32" height="28" rx="3" fill="#fff" opacity=".3"/><line x1="26" y1="8" x2="26" y2="44" stroke="#fff" stroke-width="1.5" stroke-dasharray="3,3"/><line x1="6" y1="26" x2="46" y2="26" stroke="#fff" stroke-width="1.5" stroke-dasharray="3,3"/><circle cx="26" cy="26" r="5" fill="#fff"/></svg>`,
+    // Friction icon
+    `<svg viewBox="0 0 52 52" fill="none"><rect x="12" y="16" width="22" height="16" rx="3" fill="#fff" opacity=".8"/><line x1="8" y1="36" x2="44" y2="36" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="M10,40 L14,36 L18,40 L22,36 L26,40 L30,36 L34,40 L38,36 L42,40" stroke="#fff" stroke-width="1.5" opacity=".5"/><line x1="34" y1="24" x2="46" y2="24" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><polygon points="43,20 48,24 43,28" fill="#fff"/></svg>`,
+    // Energy icon
+    `<svg viewBox="0 0 52 52" fill="none"><path d="M22,8 L30,22 L24,22 L32,44 L20,26 L28,26 Z" fill="#fff" opacity=".9"/></svg>`
+  ];
+  return icons[index % icons.length];
+}
+
+// ─── STAR SVG ───
+function starSvg(filled, color) {
+  if (filled) {
+    return `<svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6" fill="#FFC800"/></svg>`;
+  }
+  return `<svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6" fill="#e0e0e0"/></svg>`;
+}
+
+// ─── CHECK / LOCK SVGs ───
+const checkSvg = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#58CC02"/><path d="M4 7L6.2 9.5L10 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const lockSvg = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="7" y="13" width="14" height="11" rx="3" fill="#999"/><path d="M10,13 V9 A4,4 0 0,1 18,9 V13" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round"/><circle cx="14" cy="19" r="2" fill="#fff"/></svg>`;
+
+// ─── RENDER ───
+let currentUnit = 0;
+
+function render() {
+  const unit = units[currentUnit];
+  const isLocked = currentUnit === 2;
+
+  // Tabs
+  document.querySelectorAll('.unit-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === currentUnit);
+    if (i === currentUnit) {
+      tab.style.background = units[i].color;
+      tab.style.color = '#fff';
+      tab.style.borderColor = 'transparent';
+    } else {
+      tab.style.background = '#fff';
+      tab.style.color = '#777';
+      tab.style.borderColor = '#e8e8e8';
+    }
+  });
+
+  // Hero
+  const pct = isLocked ? 0 : Math.round((unit.done / unit.total) * 100);
+  document.getElementById('heroSection').innerHTML = `
+    <div class="hero-illustration" style="animation: fadeSlide .4s ease">${getIllustration(unit.illustration, unit.color)}</div>
+    <div class="hero-title" style="animation: fadeSlide .45s ease">${unit.name}</div>
+    <div class="hero-subtitle" style="animation: fadeSlide .5s ease">${isLocked ? 'Complete previous units to unlock' : unit.done + ' of ' + unit.total + ' lessons completed'}</div>
+    <div class="hero-progress-row" style="animation: fadeSlide .55s ease">
+      <div class="hero-progress-bar">
+        <div class="hero-progress-fill" style="width:${pct}%; background:${unit.color}"></div>
+      </div>
+      <div class="hero-progress-label">${pct}%</div>
+    </div>
+  `;
+
+  // Carousel
+  const track = document.getElementById('carouselTrack');
+  track.innerHTML = '';
+
+  unit.lessons.forEach((lesson, i) => {
+    const isDone = i < unit.done;
+    const isCurrent = i === unit.done && !isLocked;
+    const isCardLocked = i > unit.done || isLocked;
+
+    const card = document.createElement('div');
+    card.className = 'lesson-card animate-in' + (isCurrent ? ' current' : '') + (isCardLocked ? ' locked' : '');
+    card.style.animationDelay = (i * 0.06) + 's';
+
+    let badgeHtml = '';
+    if (isDone) {
+      badgeHtml = `<div class="card-badge done">${checkSvg}</div>`;
+    }
+
+    let lockHtml = '';
+    if (isCardLocked) {
+      lockHtml = `<div class="lock-overlay">${lockSvg}</div>`;
+    }
+
+    let starsHtml = '';
+    for (let s = 0; s < 3; s++) {
+      starsHtml += starSvg(s < lesson.stars, unit.color);
+    }
+
+    let startBtnHtml = '';
+    if (isCurrent) {
+      startBtnHtml = `<button class="start-btn" style="background:${unit.color}; box-shadow: 0 4px 14px ${unit.color}55">START</button>`;
+    }
+
+    card.innerHTML = `
+      <div class="card-top" style="background: linear-gradient(135deg, ${unit.color}, ${unit.color}dd)">
+        <div class="card-icon">${getLessonIcon(i, unit.color)}</div>
+        ${badgeHtml}
+        ${lockHtml}
+      </div>
+      <div class="card-bottom">
+        <div class="card-title">${lesson.title}</div>
+        <div class="card-xp">+${lesson.xp} XP</div>
+        <div class="card-stars">${starsHtml}</div>
+        ${startBtnHtml}
+      </div>
+    `;
+
+    track.appendChild(card);
+  });
+
+  // Scroll to current lesson
+  setTimeout(() => {
+    const currentCard = track.querySelector('.current');
+    if (currentCard) {
+      const scrollLeft = currentCard.offsetLeft - track.offsetWidth / 2 + currentCard.offsetWidth / 2;
+      track.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+    }
+  }, 100);
+
+  // Mastery
+  renderMastery();
+}
+
+function renderMastery() {
+  const container = document.getElementById('masteryChart');
+  container.innerHTML = '';
+
+  mastery.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'mastery-row';
+    row.innerHTML = `
+      <div class="mastery-label">${item.label}</div>
+      <div class="mastery-bar-bg">
+        <div class="mastery-bar-fill" style="width:0%; background:${item.color}"></div>
+      </div>
+      <div class="mastery-pct">${item.pct}%</div>
+    `;
+    container.appendChild(row);
+
+    // Animate in
+    setTimeout(() => {
+      row.querySelector('.mastery-bar-fill').style.width = item.pct + '%';
+    }, 200 + i * 120);
+  });
+}
+
+// ─── TAB EVENTS ───
+document.querySelectorAll('.unit-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const idx = parseInt(tab.dataset.unit);
+    if (idx !== currentUnit) {
+      currentUnit = idx;
+      render();
+    }
+  });
+});
+
+// ─── INIT ───
+render();
+
+// ─── CAROUSEL DRAG SCROLL ───
+const track = document.getElementById('carouselTrack');
+let isDown = false, startX, scrollLeftStart;
+
+track.addEventListener('mousedown', (e) => {
+  isDown = true;
+  track.style.cursor = 'grabbing';
+  startX = e.pageX - track.offsetLeft;
+  scrollLeftStart = track.scrollLeft;
+});
+
+track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
+track.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  track.scrollLeft = scrollLeftStart - walk;
+});
+
+track.style.cursor = 'grab';
+</script>
+
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Checklist Journey</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #FFFFFF;
+    color: #3C3C3C;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Sticky Header ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 2px solid #F0F0F0;
+    padding: 0 16px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  /* full-width white bar behind the header */
+  .header-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 2px solid #F0F0F0;
+  }
+
+  .logo {
+    font-weight: 900;
+    font-size: 22px;
+    color: #58CC02;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: #3C3C3C; }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #555;
+  }
+  .header-stats .stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .header-stats .stat .emoji { font-size: 16px; }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #58CC02, #46a302);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ── Main Container ── */
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px 0;
+    width: 100%;
+  }
+
+  /* ── Motivational Hero Card ── */
+  .hero-card {
+    margin: 20px 16px 8px 16px;
+    background: linear-gradient(135deg, #E8F9E0 0%, #F0FFF0 100%);
+    border-radius: 20px;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border: 2px solid #D4F5C4;
+    animation: heroSlideIn 0.6s ease-out;
+  }
+  @keyframes heroSlideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-illustration {
+    flex-shrink: 0;
+  }
+
+  .hero-text h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2B2B2B;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .hero-text p {
+    font-size: 13px;
+    color: #777;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* Progress Ring */
+  .progress-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .progress-ring-wrap .ring-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #58CC02;
+  }
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+  .progress-ring-bg {
+    fill: none;
+    stroke: #E0E0E0;
+    stroke-width: 5;
+  }
+  .progress-ring-fill {
+    fill: none;
+    stroke: #58CC02;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 113;
+    stroke-dashoffset: 113;
+    transition: stroke-dashoffset 1.2s ease-out;
+  }
+  .progress-ring-text {
+    font-size: 11px;
+    font-weight: 800;
+    fill: #3C3C3C;
+  }
+
+  /* ── Unit Divider Banner ── */
+  .unit-banner {
+    margin: 24px 16px 0 16px;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .unit-banner.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .unit-banner-text {
+    flex: 1;
+  }
+  .unit-banner-text .unit-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-bottom: 2px;
+  }
+  .unit-banner-text h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .unit-banner-text .unit-progress {
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.75;
+  }
+  .unit-banner-text .unit-progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .unit-banner-text .unit-progress-bar-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    transition: width 1s ease-out 0.3s;
+    width: 0;
+  }
+
+  .unit-banner-icon {
+    flex-shrink: 0;
+  }
+
+  /* ── Lesson Rows ── */
+  .lesson-list {
+    margin: 0 16px;
+  }
+
+  .lesson-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid #F2F2F2;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.3s ease;
+    border-radius: 12px;
+    margin-bottom: 2px;
+  }
+  .lesson-row.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .lesson-row .accent {
+    width: 4px;
+    height: 100%;
+    min-height: 48px;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lesson-row .checkbox-area {
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  .lesson-row .lesson-info {
+    flex: 1;
+    padding-right: 8px;
+  }
+  .lesson-row .lesson-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #3C3C3C;
+  }
+  .lesson-row .lesson-subtitle {
+    font-size: 12px;
+    color: #AAA;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .lesson-row .xp-badge {
+    background: #F7F7F7;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #AFAFAF;
+    flex-shrink: 0;
+  }
+  .lesson-row.done .xp-badge {
+    background: #E8F9E0;
+    color: #58CC02;
+  }
+
+  /* States */
+  .lesson-row.done .lesson-title { color: #888; }
+  .lesson-row.done .lesson-subtitle { color: #CCC; }
+  .lesson-row.done {
+    /* subtle strikethrough feel without actual line */
+  }
+
+  .lesson-row.current {
+    background: #F0FFF0;
+    border-bottom-color: transparent;
+  }
+  .lesson-row.current .lesson-title { color: #2B8A00; }
+
+  .lesson-row.locked .lesson-title { color: #CCC; }
+  .lesson-row.locked .lesson-subtitle { color: #DDD; }
+  .lesson-row.locked .xp-badge { color: #DDD; background: #FAFAFA; }
+
+  /* Continue Button */
+  .continue-btn {
+    background: #58CC02;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 #46A302;
+    transition: all 0.15s ease;
+    position: relative;
+    top: 0;
+  }
+  .continue-btn:hover {
+    background: #4EBB00;
+  }
+  .continue-btn:active {
+    box-shadow: 0 2px 0 #46A302;
+    top: 2px;
+  }
+
+  /* Checkbox SVGs */
+  .check-circle {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* ── Footer spacer ── */
+  .bottom-space {
+    height: 40px;
+  }
+
+  /* ── Animations ── */
+  @keyframes checkPop {
+    0% { transform: scale(0.7); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .lesson-row.done .check-circle {
+    animation: checkPop 0.4s ease-out;
+  }
+
+  /* pulse on current */
+  @keyframes softPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(88,204,2,0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(88,204,2,0.05); }
+  }
+  .lesson-row.current {
+    animation: softPulse 2.5s infinite;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #E0E0E0; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="header-wrap">
+  <div class="header">
+    <div class="logo">Mech<span>Prep</span></div>
+    <div class="header-stats">
+      <div class="stat"><span class="emoji">&#x1F525;</span> 5</div>
+      <div class="stat"><span class="emoji">&#x1F48E;</span> 1,240</div>
+      <div class="avatar">
+        <!-- tiny user silhouette -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════ HERO / MOTIVATIONAL CARD ═══════ -->
+<div class="hero-card">
+  <div class="hero-illustration">
+    <!-- Happy engineer character SVG -->
+    <svg width="90" height="100" viewBox="0 0 90 100" fill="none">
+      <!-- Hard hat -->
+      <ellipse cx="45" cy="28" rx="24" ry="10" fill="#FFD43B"/>
+      <rect x="21" y="22" width="48" height="8" rx="4" fill="#FFD43B"/>
+      <rect x="30" y="16" width="30" height="10" rx="5" fill="#FFD43B"/>
+      <rect x="39" y="10" width="12" height="8" rx="3" fill="#FFC107"/>
+      <!-- Face -->
+      <circle cx="45" cy="42" r="16" fill="#FFE0BD"/>
+      <!-- Eyes (happy closed arcs) -->
+      <path d="M38 40c0-2 2-4 4-2" stroke="#3C3C3C" stroke-width="2" stroke-linecap="round"/>
+      <path d="M48 40c0-2 2-4 4-2" stroke="#3C3C3C" stroke-width="2" stroke-linecap="round"/>
+      <!-- Smile -->
+      <path d="M39 47c3 3 9 3 12 0" stroke="#3C3C3C" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <!-- Blush -->
+      <circle cx="36" cy="46" r="3" fill="#FFB3B3" opacity="0.5"/>
+      <circle cx="54" cy="46" r="3" fill="#FFB3B3" opacity="0.5"/>
+      <!-- Body -->
+      <rect x="33" y="57" width="24" height="22" rx="6" fill="#58CC02"/>
+      <!-- Arms -->
+      <rect x="18" y="60" width="16" height="7" rx="3.5" fill="#58CC02"/>
+      <rect x="56" y="57" width="16" height="7" rx="3.5" fill="#58CC02" transform="rotate(15 56 57)"/>
+      <!-- Hand waving -->
+      <circle cx="74" cy="54" r="5" fill="#FFE0BD"/>
+      <circle cx="18" cy="64" r="5" fill="#FFE0BD"/>
+      <!-- Wrench in hand -->
+      <rect x="10" y="61" width="12" height="3" rx="1.5" fill="#AFAFAF"/>
+      <circle cx="10" cy="62.5" r="3.5" fill="none" stroke="#AFAFAF" stroke-width="2"/>
+      <!-- Legs -->
+      <rect x="36" y="77" width="8" height="14" rx="4" fill="#4A4A4A"/>
+      <rect x="48" y="77" width="8" height="14" rx="4" fill="#4A4A4A"/>
+      <!-- Shoes -->
+      <ellipse cx="39" cy="93" rx="7" ry="4" fill="#3C3C3C"/>
+      <ellipse cx="53" cy="93" rx="7" ry="4" fill="#3C3C3C"/>
+      <!-- Sparkles -->
+      <path d="M75 30l2-4 2 4-4 2 4 2-2 4-2-4-4-2z" fill="#FFD43B" opacity="0.8"/>
+      <path d="M12 25l1.5-3 1.5 3-3 1.5 3 1.5-1.5 3-1.5-3-3-1.5z" fill="#58CC02" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="hero-text">
+    <h2>Your journey to interview mastery</h2>
+    <p>Keep going, future engineer!</p>
+    <div class="progress-ring-wrap">
+      <svg class="progress-ring" width="40" height="40" viewBox="0 0 40 40">
+        <circle class="progress-ring-bg" cx="20" cy="20" r="18"/>
+        <circle class="progress-ring-fill" id="heroRing" cx="20" cy="20" r="18"/>
+      </svg>
+      <span class="ring-label">7 / 22 lessons done</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 1 — STATICS & EQUILIBRIUM
+     ═══════════════════════════════════════════ -->
+<div class="unit-banner" style="background: linear-gradient(135deg, #E8F9E0, #d4f7c4); color: #2B8A00;" data-observe>
+  <div class="unit-banner-text">
+    <div class="unit-label">Unit 1</div>
+    <h3>Statics &amp; Equilibrium</h3>
+    <div class="unit-progress">5 / 8 lessons complete</div>
+    <div class="unit-progress-bar">
+      <div class="unit-progress-bar-fill" data-width="62.5%"></div>
+    </div>
+  </div>
+  <div class="unit-banner-icon">
+    <!-- Balance / equilibrium SVG -->
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <!-- Base triangle -->
+      <polygon points="32,52 22,62 42,62" fill="#2B8A00" opacity="0.3"/>
+      <!-- Pillar -->
+      <rect x="30" y="20" width="4" height="34" rx="2" fill="#2B8A00" opacity="0.5"/>
+      <!-- Beam -->
+      <rect x="8" y="18" width="48" height="4" rx="2" fill="#58CC02"/>
+      <!-- Left pan -->
+      <path d="M8 22 L4 34 H20 L16 22" fill="#58CC02" opacity="0.6"/>
+      <rect x="4" y="33" width="16" height="3" rx="1.5" fill="#58CC02" opacity="0.4"/>
+      <!-- Right pan -->
+      <path d="M48 22 L44 34 H60 L56 22" fill="#58CC02" opacity="0.6"/>
+      <rect x="44" y="33" width="16" height="3" rx="1.5" fill="#58CC02" opacity="0.4"/>
+      <!-- Weight blocks -->
+      <rect x="7" y="28" width="10" height="6" rx="2" fill="#2B8A00" opacity="0.7"/>
+      <rect x="47" y="28" width="10" height="6" rx="2" fill="#2B8A00" opacity="0.7"/>
+      <!-- Fulcrum circle -->
+      <circle cx="32" cy="20" r="4" fill="#58CC02"/>
+      <circle cx="32" cy="20" r="2" fill="#fff"/>
+    </svg>
+  </div>
+</div>
+
+<div class="lesson-list" id="unit1Lessons">
+  <!-- L1 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#58CC02;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#58CC02"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Free Body Diagrams</div>
+      <div class="lesson-subtitle">Isolate and identify forces</div>
+    </div>
+    <div class="xp-badge">+15 XP</div>
+  </div>
+  <!-- L2 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#58CC02;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#58CC02"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Equilibrium of Particles</div>
+      <div class="lesson-subtitle">Sum of forces equals zero</div>
+    </div>
+    <div class="xp-badge">+15 XP</div>
+  </div>
+  <!-- L3 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#58CC02;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#58CC02"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Moment of a Force</div>
+      <div class="lesson-subtitle">Torque and rotational effects</div>
+    </div>
+    <div class="xp-badge">+15 XP</div>
+  </div>
+  <!-- L4 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#58CC02;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#58CC02"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Support Reactions</div>
+      <div class="lesson-subtitle">Pins, rollers, and fixed supports</div>
+    </div>
+    <div class="xp-badge">+15 XP</div>
+  </div>
+  <!-- L5 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#58CC02;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#58CC02"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Trusses: Method of Joints</div>
+      <div class="lesson-subtitle">Analyzing pin-connected structures</div>
+    </div>
+    <div class="xp-badge">+15 XP</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 2 — DYNAMICS & MOTION
+     ═══════════════════════════════════════════ -->
+<div class="unit-banner" style="background: linear-gradient(135deg, #F3E6FF, #EAD6FF); color: #7B2FBF;" data-observe>
+  <div class="unit-banner-text">
+    <div class="unit-label">Unit 2</div>
+    <h3>Dynamics &amp; Motion</h3>
+    <div class="unit-progress">2 / 7 lessons complete</div>
+    <div class="unit-progress-bar">
+      <div class="unit-progress-bar-fill" data-width="28.5%" style="background:#CE82FF;"></div>
+    </div>
+  </div>
+  <div class="unit-banner-icon">
+    <!-- Motion / velocity SVG -->
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <!-- Circular path -->
+      <circle cx="32" cy="32" r="22" stroke="#CE82FF" stroke-width="3" stroke-dasharray="6 4" opacity="0.35"/>
+      <!-- Moving ball -->
+      <circle cx="54" cy="32" r="7" fill="#CE82FF"/>
+      <circle cx="54" cy="32" r="3" fill="#fff" opacity="0.6"/>
+      <!-- Speed lines -->
+      <rect x="8" y="29" width="14" height="2.5" rx="1.25" fill="#CE82FF" opacity="0.3"/>
+      <rect x="12" y="34" width="10" height="2.5" rx="1.25" fill="#CE82FF" opacity="0.2"/>
+      <rect x="10" y="24" width="10" height="2.5" rx="1.25" fill="#CE82FF" opacity="0.2"/>
+      <!-- Arrow -->
+      <path d="M46 14 L54 10 L52 18" stroke="#7B2FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <line x1="54" y1="10" x2="54" y2="25" stroke="#7B2FBF" stroke-width="2" stroke-linecap="round"/>
+      <!-- Acceleration squiggle -->
+      <path d="M20 52 Q25 46 30 52 Q35 58 40 52" stroke="#CE82FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+
+<div class="lesson-list" id="unit2Lessons">
+  <!-- L1 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#CE82FF;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#CE82FF"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Kinematics of Particles</div>
+      <div class="lesson-subtitle">Position, velocity, acceleration</div>
+    </div>
+    <div class="xp-badge">+20 XP</div>
+  </div>
+  <!-- L2 done -->
+  <div class="lesson-row done" data-observe>
+    <div class="accent" style="background:#CE82FF;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#CE82FF"/>
+        <path d="M8 14.5l3.5 3.5 8.5-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Newton's Second Law</div>
+      <div class="lesson-subtitle">F = ma in practice</div>
+    </div>
+    <div class="xp-badge">+20 XP</div>
+  </div>
+  <!-- L3 CURRENT -->
+  <div class="lesson-row current" data-observe>
+    <div class="accent" style="background:#CE82FF;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="none" stroke="#CE82FF" stroke-width="2.5"/>
+        <circle cx="14" cy="14" r="5" fill="#CE82FF" opacity="0.35"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Work-Energy Theorem</div>
+      <div class="lesson-subtitle">Relating work and kinetic energy</div>
+    </div>
+    <button class="continue-btn" style="background:#CE82FF; box-shadow: 0 4px 0 #A55FD6;">Continue &rarr;</button>
+  </div>
+  <!-- L4 not done -->
+  <div class="lesson-row" data-observe>
+    <div class="accent" style="background:#CE82FF; opacity:0.35;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="none" stroke="#DDD" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Impulse &amp; Momentum</div>
+      <div class="lesson-subtitle">Conservation principles</div>
+    </div>
+    <div class="xp-badge">+20 XP</div>
+  </div>
+  <!-- L5 not done -->
+  <div class="lesson-row" data-observe>
+    <div class="accent" style="background:#CE82FF; opacity:0.35;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="none" stroke="#DDD" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Rigid Body Rotation</div>
+      <div class="lesson-subtitle">Angular velocity and acceleration</div>
+    </div>
+    <div class="xp-badge">+20 XP</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 3 — STRENGTH OF MATERIALS (LOCKED)
+     ═══════════════════════════════════════════ -->
+<div class="unit-banner" style="background: linear-gradient(135deg, #FFF3E0, #FFE8CC); color: #C67600;" data-observe>
+  <div class="unit-banner-text">
+    <div class="unit-label">Unit 3</div>
+    <h3>Strength of Materials</h3>
+    <div class="unit-progress">0 / 9 lessons &bull; Locked</div>
+    <div class="unit-progress-bar">
+      <div class="unit-progress-bar-fill" data-width="0%" style="background:#FF9600;"></div>
+    </div>
+  </div>
+  <div class="unit-banner-icon">
+    <!-- Beam / stress SVG -->
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <!-- I-Beam -->
+      <rect x="12" y="14" width="40" height="5" rx="1" fill="#FF9600" opacity="0.7"/>
+      <rect x="12" y="45" width="40" height="5" rx="1" fill="#FF9600" opacity="0.7"/>
+      <rect x="28" y="19" width="8" height="26" rx="1" fill="#FF9600" opacity="0.5"/>
+      <!-- Force arrows -->
+      <path d="M32 4 L32 14" stroke="#C67600" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M28 10 L32 4 L36 10" stroke="#C67600" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M32 60 L32 50" stroke="#C67600" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M28 54 L32 60 L36 54" stroke="#C67600" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Stress lines -->
+      <line x1="18" y1="30" x2="26" y2="30" stroke="#FF9600" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.5"/>
+      <line x1="38" y1="30" x2="46" y2="30" stroke="#FF9600" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.5"/>
+      <line x1="18" y1="34" x2="26" y2="34" stroke="#FF9600" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.5"/>
+      <line x1="38" y1="34" x2="46" y2="34" stroke="#FF9600" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.5"/>
+      <!-- Lock icon -->
+      <rect x="44" y="50" width="14" height="10" rx="2" fill="#C67600" opacity="0.6"/>
+      <path d="M47 50 V46 A4 4 0 0 1 55 46 V50" stroke="#C67600" stroke-width="2" fill="none" opacity="0.6"/>
+      <circle cx="51" cy="55" r="1.5" fill="#fff" opacity="0.8"/>
+    </svg>
+  </div>
+</div>
+
+<div class="lesson-list" id="unit3Lessons">
+  <!-- All 5 lessons locked -->
+  <div class="lesson-row locked" data-observe>
+    <div class="accent" style="background:#E0E0E0;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+        <!-- lock icon -->
+        <rect x="10" y="14" width="8" height="6" rx="1" fill="#CCC"/>
+        <path d="M12 14 V12 A2 2 0 0 1 16 12 V14" stroke="#CCC" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Stress &amp; Strain Basics</div>
+      <div class="lesson-subtitle">Normal and shear stress</div>
+    </div>
+    <div class="xp-badge">+25 XP</div>
+  </div>
+
+  <div class="lesson-row locked" data-observe>
+    <div class="accent" style="background:#E0E0E0;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+        <rect x="10" y="14" width="8" height="6" rx="1" fill="#CCC"/>
+        <path d="M12 14 V12 A2 2 0 0 1 16 12 V14" stroke="#CCC" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Axial Deformation</div>
+      <div class="lesson-subtitle">Elongation under tension</div>
+    </div>
+    <div class="xp-badge">+25 XP</div>
+  </div>
+
+  <div class="lesson-row locked" data-observe>
+    <div class="accent" style="background:#E0E0E0;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+        <rect x="10" y="14" width="8" height="6" rx="1" fill="#CCC"/>
+        <path d="M12 14 V12 A2 2 0 0 1 16 12 V14" stroke="#CCC" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Bending Moments</div>
+      <div class="lesson-subtitle">Shear and moment diagrams</div>
+    </div>
+    <div class="xp-badge">+25 XP</div>
+  </div>
+
+  <div class="lesson-row locked" data-observe>
+    <div class="accent" style="background:#E0E0E0;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+        <rect x="10" y="14" width="8" height="6" rx="1" fill="#CCC"/>
+        <path d="M12 14 V12 A2 2 0 0 1 16 12 V14" stroke="#CCC" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Torsion of Shafts</div>
+      <div class="lesson-subtitle">Circular cross-section twisting</div>
+    </div>
+    <div class="xp-badge">+25 XP</div>
+  </div>
+
+  <div class="lesson-row locked" data-observe>
+    <div class="accent" style="background:#E0E0E0;"></div>
+    <div class="checkbox-area">
+      <svg class="check-circle" viewBox="0 0 28 28">
+        <circle cx="14" cy="14" r="13" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1.5"/>
+        <rect x="10" y="14" width="8" height="6" rx="1" fill="#CCC"/>
+        <path d="M12 14 V12 A2 2 0 0 1 16 12 V14" stroke="#CCC" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="lesson-info">
+      <div class="lesson-title">Column Buckling</div>
+      <div class="lesson-subtitle">Euler's formula for stability</div>
+    </div>
+    <div class="xp-badge">+25 XP</div>
+  </div>
+</div>
+
+<div class="bottom-space"></div>
+</div><!-- /container -->
+
+<script>
+// ── Intersection Observer for entrance animations ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      // stagger based on position among siblings
+      const el = entry.target;
+      const siblings = Array.from(el.parentElement.children).filter(c => c.hasAttribute('data-observe'));
+      const idx = siblings.indexOf(el);
+      setTimeout(() => {
+        el.classList.add('visible');
+      }, idx * 80);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('[data-observe]').forEach(el => observer.observe(el));
+
+// ── Progress bar fills on load ──
+setTimeout(() => {
+  document.querySelectorAll('.unit-progress-bar-fill').forEach(bar => {
+    bar.style.width = bar.dataset.width;
+  });
+}, 400);
+
+// ── Hero progress ring animation ──
+// 7 of 22 lessons = 31.8%
+const ring = document.getElementById('heroRing');
+const circumference = 2 * Math.PI * 18; // ~113.1
+const pct = 7 / 22;
+setTimeout(() => {
+  ring.style.strokeDashoffset = circumference * (1 - pct);
+}, 500);
+
+// ── Optional: clicking a "done" row gives a micro-pop feedback ──
+document.querySelectorAll('.lesson-row.done').forEach(row => {
+  row.addEventListener('click', () => {
+    const circle = row.querySelector('.check-circle');
+    circle.style.animation = 'none';
+    void circle.offsetWidth; // reflow
+    circle.style.animation = 'checkPop 0.35s ease-out';
+  });
+});
+
+// ── Continue button interaction ──
+document.querySelectorAll('.continue-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.textContent = 'Loading...';
+    setTimeout(() => { btn.innerHTML = 'Continue &rarr;'; }, 800);
+  });
+});
+</script>
+</body>
+</html>

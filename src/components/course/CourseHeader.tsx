@@ -16,7 +16,7 @@ const MOCK_TIER: 'free' | 'pro' | 'trial' = 'free';
 const MOCK_TRIAL_DAYS_LEFT = 0;
 
 export function CourseHeader() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const progress = useCourseStore((s) => s.progress);
   const [popover, setPopover] = useState<PopoverType>(null);
 
@@ -69,7 +69,9 @@ export function CourseHeader() {
           </div>
 
           {/* Profile avatar or Sign Up */}
-          {session ? (
+          {status === 'loading' ? (
+            <div className="w-8 h-8 rounded-full bg-surface-200 animate-pulse" />
+          ) : session ? (
             <Link
               href="/profile"
               className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden transition-transform active:scale-95"
@@ -92,7 +94,7 @@ export function CourseHeader() {
           )}
 
           {/* Upgrade CTA for free users */}
-          {MOCK_TIER === 'free' && session && (
+          {MOCK_TIER === 'free' && status === 'authenticated' && (
             <Link
               href="/pricing"
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-amber-50 text-amber-600 text-xs font-semibold transition-transform active:scale-95"

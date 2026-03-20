@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Dashboard Tiles</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #58CC02;
+    --green-dark: #46a302;
+    --purple: #CE82FF;
+    --purple-dark: #b05ee0;
+    --orange: #FF9600;
+    --orange-dark: #e08500;
+    --blue: #1CB0F6;
+    --red: #FF4B4B;
+    --gold: #FFC800;
+    --bg: #FFFFFF;
+    --card-bg: #F7F7F7;
+    --text: #3C3C3C;
+    --text-light: #AFAFAF;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --radius: 16px;
+    --radius-sm: 12px;
+  }
+
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== STICKY HEADER ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .header-logo {
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--green);
+    letter-spacing: -0.5px;
+  }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .header-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .header-stat .emoji { font-size: 16px; }
+
+  .header-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main {
+    padding: 20px 16px 100px;
+  }
+
+  /* ===== GREETING ===== */
+  .greeting {
+    margin-bottom: 20px;
+  }
+
+  .greeting h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .greeting p {
+    font-size: 15px;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ===== STAT BADGES ===== */
+  .stat-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .stat-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .stat-badge.xp {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    color: #2E7D32;
+  }
+
+  .stat-badge.streak {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    color: #E65100;
+  }
+
+  .stat-badge.accuracy {
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    color: #1565C0;
+  }
+
+  .stat-badge svg { flex-shrink: 0; }
+
+  /* ===== HERO CARD ===== */
+  .hero-card {
+    position: relative;
+    background: linear-gradient(135deg, #58CC02, #46a302);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 24px rgba(88, 204, 2, 0.3);
+    overflow: visible;
+    color: #fff;
+  }
+
+  .hero-label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+
+  .hero-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .hero-progress-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .hero-progress-fill {
+    height: 100%;
+    width: 62%;
+    background: #fff;
+    border-radius: 5px;
+    transition: width 0.6s ease;
+  }
+
+  .hero-progress-text {
+    font-size: 13px;
+    font-weight: 800;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+
+  .hero-go-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--green-dark);
+    border: none;
+    border-radius: 50px;
+    padding: 14px 36px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-go-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .hero-go-btn:active {
+    transform: translateY(0);
+  }
+
+  .hero-illustration {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    opacity: 0.2;
+  }
+
+  /* ===== MASCOT ===== */
+  .mascot-container {
+    position: absolute;
+    right: -6px;
+    bottom: -28px;
+    z-index: 10;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    animation: mascotBounce 3s ease-in-out infinite;
+  }
+
+  @keyframes mascotBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* ===== UNITS SECTION ===== */
+  .units-section-title {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .units-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .units-scroll::-webkit-scrollbar { display: none; }
+
+  /* ===== UNIT CARD ===== */
+  .unit-card {
+    flex: 0 0 280px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-snap-align: start;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .unit-card.expanded {
+    flex: 0 0 calc(100vw - 32px);
+    max-width: 448px;
+  }
+
+  .unit-card-top {
+    padding: 22px 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .unit-card-top::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .unit-card-top::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 30%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .unit-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .unit-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .unit-card-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .unit-card-number {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.75;
+  }
+
+  .unit-card-title {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unit-card-progress {
+    position: relative;
+    z-index: 1;
+  }
+
+  .unit-progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .unit-progress-text {
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+
+  .unit-progress-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .unit-progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .unit-expand-hint {
+    text-align: center;
+    padding: 8px 0 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .unit-expand-hint svg {
+    transition: transform 0.3s ease;
+    opacity: 0.6;
+  }
+
+  .unit-card.expanded .unit-expand-hint svg {
+    transform: rotate(180deg);
+  }
+
+  /* ===== LESSONS LIST ===== */
+  .lessons-list {
+    max-height: 0;
+    overflow: hidden;
+    background: #fff;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .unit-card.expanded .lessons-list {
+    max-height: 800px;
+  }
+
+  .lessons-list-inner {
+    padding: 8px 16px 16px;
+  }
+
+  .lesson-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: opacity 0.2s;
+  }
+
+  .lesson-row:last-child { border-bottom: none; }
+
+  .lesson-row.locked { opacity: 0.45; }
+
+  .lesson-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lesson-icon.done { background: #E8F5E9; }
+  .lesson-icon.next { background: #FFF3E0; }
+  .lesson-icon.locked { background: #F5F5F5; }
+
+  .lesson-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lesson-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .lesson-xp {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-light);
+  }
+
+  .lesson-status { flex-shrink: 0; }
+
+  .lesson-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lesson-next-pill {
+    background: var(--gold);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pillPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pillPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 200, 0, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 200, 0, 0); }
+  }
+
+  .lesson-lock {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== BOTTOM NAV (decorative) ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0 18px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    z-index: 100;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .nav-item:hover { transform: translateY(-2px); }
+
+  .nav-item.active svg { color: var(--green); }
+  .nav-item.active .nav-label { color: var(--green); }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-light);
+  }
+
+  .nav-item.active .nav-label { color: var(--green); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .greeting { animation: fadeInUp 0.5s ease both; }
+  .stat-badges { animation: fadeInUp 0.5s ease 0.1s both; }
+  .hero-card { animation: fadeInUp 0.5s ease 0.2s both; }
+  .units-section-title { animation: fadeInUp 0.5s ease 0.3s both; }
+  .units-scroll { animation: fadeInUp 0.5s ease 0.4s both; }
+
+  /* ===== SCROLL HINT ===== */
+  .scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  .scroll-hint svg {
+    animation: scrollBounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-logo">MechPrep</div>
+  <div class="header-stats">
+    <div class="header-stat">
+      <span class="emoji">&#x1F525;</span>
+      <span>5</span>
+    </div>
+    <div class="header-stat">
+      <span class="emoji">&#x1F48E;</span>
+      <span>1,240</span>
+    </div>
+    <div class="header-avatar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4" fill="#fff"/>
+        <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- Greeting -->
+  <div class="greeting">
+    <h1>Welcome back! &#x1F44B;</h1>
+    <p>You're making great progress. Keep it up!</p>
+  </div>
+
+  <!-- Stat Badges -->
+  <div class="stat-badges">
+    <div class="stat-badge xp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" fill="#2E7D32"/>
+      </svg>
+      <span>1,240 XP</span>
+    </div>
+    <div class="stat-badge streak">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C10 6 6 8 6 13a6 6 0 0012 0c0-3-1.5-5-3-7-0.5 2-2 3-3 3s-1-1 0-3c-0.5 0.5-1 1-1 2" fill="#E65100"/>
+      </svg>
+      <span>5 day streak</span>
+    </div>
+    <div class="stat-badge accuracy">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#1565C0" stroke-width="2" fill="none"/>
+        <circle cx="12" cy="12" r="6" stroke="#1565C0" stroke-width="2" fill="none"/>
+        <circle cx="12" cy="12" r="2" fill="#1565C0"/>
+      </svg>
+      <span>87% accuracy</span>
+    </div>
+  </div>
+
+  <!-- Hero Card -->
+  <div class="hero-card">
+    <!-- Illustration (subtle background) -->
+    <div class="hero-illustration">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+        <rect x="20" y="30" width="80" height="60" rx="8" stroke="#fff" stroke-width="3" fill="none"/>
+        <line x1="20" y1="55" x2="100" y2="55" stroke="#fff" stroke-width="2"/>
+        <line x1="55" y1="30" x2="55" y2="90" stroke="#fff" stroke-width="2"/>
+        <circle cx="38" cy="42" r="5" fill="#fff" opacity="0.5"/>
+        <polygon points="75,40 82,48 68,48" fill="#fff" opacity="0.5"/>
+        <line x1="30" y1="70" x2="50" y2="65" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="50" y1="65" x2="70" y2="75" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="70" y1="75" x2="90" y2="62" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="hero-label">Continue Learning</div>
+    <div class="hero-title">Lesson 6: Trusses</div>
+    <div class="hero-subtitle">Statics &amp; Equilibrium &middot; 15 min</div>
+    <div class="hero-progress-row">
+      <div class="hero-progress-bar">
+        <div class="hero-progress-fill"></div>
+      </div>
+      <div class="hero-progress-text">5 / 8</div>
+    </div>
+    <button class="hero-go-btn" onclick="this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='',150)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <polygon points="6,3 20,12 6,21" fill="#46a302"/>
+      </svg>
+      Let's Go
+    </button>
+
+    <!-- Mascot peeking -->
+    <div class="mascot-container">
+      <svg width="70" height="80" viewBox="0 0 70 80" fill="none">
+        <!-- Body -->
+        <ellipse cx="35" cy="60" rx="22" ry="20" fill="#58CC02"/>
+        <ellipse cx="35" cy="60" rx="18" ry="16" fill="#6FDB2E"/>
+        <!-- Head -->
+        <circle cx="35" cy="30" r="20" fill="#58CC02"/>
+        <circle cx="35" cy="30" r="16" fill="#6FDB2E"/>
+        <!-- Eyes -->
+        <ellipse cx="28" cy="27" rx="4" ry="5" fill="#fff"/>
+        <ellipse cx="42" cy="27" rx="4" ry="5" fill="#fff"/>
+        <circle cx="29" cy="27" r="2.5" fill="#3C3C3C"/>
+        <circle cx="43" cy="27" r="2.5" fill="#3C3C3C"/>
+        <!-- Eye shine -->
+        <circle cx="30" cy="25.5" r="1" fill="#fff"/>
+        <circle cx="44" cy="25.5" r="1" fill="#fff"/>
+        <!-- Smile -->
+        <path d="M28 35 Q35 42 42 35" stroke="#3C3C3C" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Hard hat -->
+        <path d="M15 25 Q15 12 35 10 Q55 12 55 25" fill="#FFC800" stroke="#E6B400" stroke-width="1"/>
+        <rect x="12" y="23" width="46" height="5" rx="2" fill="#FFC800" stroke="#E6B400" stroke-width="1"/>
+        <!-- Wrench arm -->
+        <g transform="translate(54, 45) rotate(-15)">
+          <rect x="0" y="0" width="4" height="16" rx="2" fill="#888"/>
+          <circle cx="2" cy="0" r="5" fill="none" stroke="#888" stroke-width="2.5"/>
+        </g>
+        <!-- Cheeks -->
+        <circle cx="21" cy="33" r="3" fill="#FF9999" opacity="0.4"/>
+        <circle cx="49" cy="33" r="3" fill="#FF9999" opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Units Section -->
+  <div class="units-section-title">Your Units</div>
+  <div class="scroll-hint">
+    <span>Swipe to explore</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M14 7l5 5-5 5" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="units-scroll">
+
+    <!-- UNIT 1: Statics & Equilibrium -->
+    <div class="unit-card" id="unit1" onclick="toggleUnit('unit1')">
+      <div class="unit-card-top" style="background: linear-gradient(135deg, #58CC02, #3ea301);">
+        <div class="unit-card-header">
+          <div class="unit-icon-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <line x1="4" y1="20" x2="20" y2="20" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+              <polygon points="12,4 4,18 20,18" stroke="#fff" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              <circle cx="12" cy="14" r="2" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="unit-card-info">
+            <div class="unit-card-number">Unit 1</div>
+            <div class="unit-card-title">Statics &amp; Equilibrium</div>
+          </div>
+        </div>
+        <div class="unit-card-progress">
+          <div class="unit-progress-row">
+            <span class="unit-progress-text">5 of 8 lessons</span>
+            <span class="unit-progress-text">63%</span>
+          </div>
+          <div class="unit-progress-bar">
+            <div class="unit-progress-fill" style="width: 62.5%;"></div>
+          </div>
+        </div>
+        <div class="unit-expand-hint">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="lessons-list">
+        <div class="lessons-list-inner">
+          <!-- Lesson 1 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="4" fill="#58CC02"/>
+                <line x1="8" y1="20" x2="12" y2="12" stroke="#58CC02" stroke-width="2"/>
+                <line x1="16" y1="20" x2="12" y2="12" stroke="#58CC02" stroke-width="2"/>
+                <line x1="4" y1="20" x2="20" y2="20" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Free Body Diagrams</div>
+              <div class="lesson-xp">+15 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 2 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="8" width="16" height="3" rx="1" fill="#58CC02"/>
+                <circle cx="8" cy="8" r="2" fill="#58CC02"/>
+                <circle cx="16" cy="8" r="2" fill="#58CC02"/>
+                <line x1="12" y1="11" x2="12" y2="18" stroke="#58CC02" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Force Equilibrium</div>
+              <div class="lesson-xp">+15 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 3 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 18L12 6l6 12" stroke="#58CC02" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="12" cy="14" r="2" fill="#58CC02"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Moment of a Force</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 4 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="14" width="16" height="4" rx="1" fill="#58CC02"/>
+                <line x1="8" y1="14" x2="8" y2="8" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/>
+                <line x1="16" y1="14" x2="16" y2="8" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Support Reactions</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 5 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="8" rx="1" fill="none" stroke="#58CC02" stroke-width="2"/>
+                <circle cx="12" cy="14" r="2" fill="#58CC02"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">2D Rigid Body Equilibrium</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 6 Next -->
+          <div class="lesson-row">
+            <div class="lesson-icon next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <polygon points="4,20 8,4 12,12 16,4 20,20" stroke="#FF9600" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Trusses</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-next-pill">Next</div>
+            </div>
+          </div>
+          <!-- Lesson 7 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Frames &amp; Machines</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 8 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Friction Fundamentals</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIT 2: Dynamics & Motion -->
+    <div class="unit-card" id="unit2" onclick="toggleUnit('unit2')">
+      <div class="unit-card-top" style="background: linear-gradient(135deg, #CE82FF, #a855e0);">
+        <div class="unit-card-header">
+          <div class="unit-icon-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8" stroke="#fff" stroke-width="2" fill="none"/>
+              <path d="M12 4 Q20 12 12 20" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="3 2"/>
+              <polygon points="14,18 12,22 10,18" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="unit-card-info">
+            <div class="unit-card-number">Unit 2</div>
+            <div class="unit-card-title">Dynamics &amp; Motion</div>
+          </div>
+        </div>
+        <div class="unit-card-progress">
+          <div class="unit-progress-row">
+            <span class="unit-progress-text">2 of 7 lessons</span>
+            <span class="unit-progress-text">29%</span>
+          </div>
+          <div class="unit-progress-bar">
+            <div class="unit-progress-fill" style="width: 28.6%;"></div>
+          </div>
+        </div>
+        <div class="unit-expand-hint">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="lessons-list">
+        <div class="lessons-list-inner">
+          <!-- Lesson 1 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 18 Q8 6 12 12 Q16 18 20 6" stroke="#58CC02" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Kinematics of Particles</div>
+              <div class="lesson-xp">+15 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 2 Done -->
+          <div class="lesson-row">
+            <div class="lesson-icon done">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" fill="#58CC02"/>
+                <path d="M12 9V4M12 20v-5" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/>
+                <path d="M15 12h5M4 12h5" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Newton's Laws Applications</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <polyline points="4,12 10,18 20,6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 3 Next -->
+          <div class="lesson-row">
+            <div class="lesson-icon next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 20 Q12 4 20 20" stroke="#FF9600" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="12" cy="10" r="2" fill="#FF9600"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Work &amp; Energy</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-next-pill">Next</div>
+            </div>
+          </div>
+          <!-- Lesson 4 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Impulse &amp; Momentum</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 5 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Rotation of Rigid Bodies</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 6 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Vibrations Intro</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 7 Locked -->
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Relative Motion</div>
+              <div class="lesson-xp">+30 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIT 3: Strength of Materials (Locked) -->
+    <div class="unit-card" id="unit3" onclick="toggleUnit('unit3')">
+      <div class="unit-card-top" style="background: linear-gradient(135deg, #FF9600, #e08200); opacity: 0.7;">
+        <div class="unit-card-header">
+          <div class="unit-icon-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="4" width="12" height="16" rx="2" stroke="#fff" stroke-width="2" fill="none"/>
+              <line x1="6" y1="10" x2="18" y2="10" stroke="#fff" stroke-width="1.5"/>
+              <line x1="6" y1="14" x2="18" y2="14" stroke="#fff" stroke-width="1.5"/>
+              <path d="M10 7h4M10 17h4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="unit-card-info">
+            <div class="unit-card-number">Unit 3</div>
+            <div class="unit-card-title">Strength of Materials</div>
+          </div>
+        </div>
+        <div class="unit-card-progress">
+          <div class="unit-progress-row">
+            <span class="unit-progress-text">0 of 9 lessons</span>
+            <span class="unit-progress-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align: -2px;">
+                <rect x="5" y="11" width="14" height="10" rx="2" fill="#fff"/>
+                <path d="M8 11V7a4 4 0 018 0v4" stroke="#fff" stroke-width="2" fill="none"/>
+              </svg>
+              Locked
+            </span>
+          </div>
+          <div class="unit-progress-bar">
+            <div class="unit-progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="unit-expand-hint">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="lessons-list">
+        <div class="lessons-list-inner">
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Stress &amp; Strain</div>
+              <div class="lesson-xp">+15 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Axial Loading</div>
+              <div class="lesson-xp">+15 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Torsion</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Bending Moments</div>
+              <div class="lesson-xp">+20 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Shear Force Diagrams</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Deflection of Beams</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Column Buckling</div>
+              <div class="lesson-xp">+25 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Combined Loading</div>
+              <div class="lesson-xp">+30 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-row locked">
+            <div class="lesson-icon locked">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="10" width="14" height="10" rx="2" fill="#ccc"/>
+                <path d="M8 10V7a4 4 0 018 0v3" stroke="#ccc" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Mohr's Circle</div>
+              <div class="lesson-xp">+30 XP</div>
+            </div>
+            <div class="lesson-status">
+              <div class="lesson-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="#ccc" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /units-scroll -->
+
+</main>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <div class="nav-item active">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12l9-8 9 8" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 10v8a2 2 0 002 2h10a2 2 0 002-2v-8" stroke="#58CC02" stroke-width="2" fill="none"/>
+    </svg>
+    <span class="nav-label" style="color: var(--green);">Home</span>
+  </div>
+  <div class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="#AFAFAF" stroke-width="2" fill="none"/>
+      <path d="M12 8v4l3 3" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label">Practice</span>
+  </div>
+  <div class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <rect x="4" y="4" width="16" height="16" rx="3" stroke="#AFAFAF" stroke-width="2" fill="none"/>
+      <path d="M8 12l3 3 5-6" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="nav-label">Review</span>
+  </div>
+  <div class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" stroke="#AFAFAF" stroke-width="2" fill="none"/>
+      <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="nav-label">Profile</span>
+  </div>
+</nav>
+
+<script>
+  // Toggle unit card expansion
+  function toggleUnit(id) {
+    const card = document.getElementById(id);
+    const wasExpanded = card.classList.contains('expanded');
+
+    // Collapse all cards first
+    document.querySelectorAll('.unit-card').forEach(c => {
+      c.classList.remove('expanded');
+    });
+
+    // Toggle the clicked card
+    if (!wasExpanded) {
+      card.classList.add('expanded');
+      // Smooth scroll to make expanded card visible
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      }, 100);
+    }
+  }
+
+  // Prevent event bubbling on lesson rows
+  document.querySelectorAll('.lesson-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!row.classList.contains('locked')) {
+        row.style.background = '#f8f8f8';
+        setTimeout(() => { row.style.background = ''; }, 200);
+      }
+    });
+  });
+
+  // Add subtle scroll shadow on units container
+  const scrollContainer = document.querySelector('.units-scroll');
+  if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', () => {
+      const hint = document.querySelector('.scroll-hint');
+      if (hint && scrollContainer.scrollLeft > 20) {
+        hint.style.opacity = '0';
+        hint.style.transition = 'opacity 0.3s';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

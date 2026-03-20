@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Stacked Chapter Books</title>
+<style>
+  /* ── Reset & Base ───────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                 Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    background: #f7f7f7;
+    color: #3c3c3c;
+    min-height: 100vh;
+  }
+
+  /* ── App Shell ──────────────────────────────────── */
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,.06);
+  }
+
+  /* ── Sticky Header ──────────────────────────────── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+  }
+  .header-logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    color: #1cb0f6;
+  }
+  .header-logo span { color: #58cc02; }
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .stat { display: flex; align-items: center; gap: 4px; }
+  .stat-streak { color: #ff9600; }
+  .stat-xp { color: #1cb0f6; }
+  .avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ce82ff 0%, #1cb0f6 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 14px;
+  }
+
+  /* ── Hero Mascot ────────────────────────────────── */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px 18px;
+    background: linear-gradient(180deg, #eafff1 0%, #fff 100%);
+  }
+  .hero svg { filter: drop-shadow(0 4px 12px rgba(88,204,2,.18)); }
+  .hero-text {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #3c3c3c;
+    text-align: center;
+  }
+  .hero-sub {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+  }
+
+  /* ── Content ────────────────────────────────────── */
+  .content { padding: 12px 16px 40px; }
+
+  /* ── Unit (Book Spine) ──────────────────────────── */
+  .unit {
+    margin-bottom: 14px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    overflow: hidden;
+    transition: box-shadow .25s;
+  }
+  .unit:hover { box-shadow: 0 4px 18px rgba(0,0,0,.10); }
+
+  .unit-spine {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    border-left: 8px solid var(--clr);
+    user-select: none;
+    transition: background .2s;
+    position: relative;
+  }
+  .unit-spine:hover { background: #fafafa; }
+  .unit-spine::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    width: 10px; height: 10px;
+    border-right: 2.5px solid #bbb;
+    border-bottom: 2.5px solid #bbb;
+    transform: rotate(45deg);
+    transition: transform .3s;
+  }
+  .unit.open .unit-spine::after { transform: rotate(-135deg); }
+
+  .unit-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--clr);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .unit-icon svg { width: 24px; height: 24px; }
+  .unit-info { flex: 1; min-width: 0; }
+  .unit-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #aaa;
+  }
+  .unit-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #3c3c3c;
+    margin-top: 2px;
+  }
+  .unit-progress-bar {
+    margin-top: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #eee;
+    overflow: hidden;
+  }
+  .unit-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--clr);
+    transition: width .6s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* ── Lessons Drawer ─────────────────────────────── */
+  .unit-lessons {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .45s cubic-bezier(.22,1,.36,1);
+    background: #fafafa;
+  }
+  .unit.open .unit-lessons { max-height: 1200px; }
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 6px 16px 18px;
+  }
+
+  /* ── Lesson Tile ────────────────────────────────── */
+  .tile {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+    border: 2px solid #eee;
+    cursor: pointer;
+  }
+  .tile:hover { transform: translateY(-2px); }
+
+  /* Completed */
+  .tile.done {
+    background: linear-gradient(135deg, #f0fff4 0%, #e8fce8 100%);
+    border-color: #c8f0c8;
+  }
+  .tile.done .tile-check {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 22px; height: 22px;
+    background: #58cc02;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Current */
+  .tile.current {
+    border-color: #58cc02;
+    box-shadow: 0 4px 20px rgba(88,204,2,.22);
+    animation: pulse-border 2s infinite;
+  }
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 4px 20px rgba(88,204,2,.22); }
+    50%      { box-shadow: 0 4px 28px rgba(88,204,2,.36); }
+  }
+
+  /* Locked */
+  .tile.locked {
+    filter: grayscale(.85) opacity(.55);
+    cursor: default;
+    pointer-events: none;
+  }
+  .tile.locked .tile-lock {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.45);
+    border-radius: 14px;
+  }
+
+  .tile-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tile-icon svg { width: 44px; height: 44px; }
+  .tile-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #3c3c3c;
+    line-height: 1.3;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .tile-bottom {
+    margin-top: 8px;
+    width: 100%;
+  }
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+  }
+  .star { font-size: 16px; line-height: 1; }
+  .star.filled { color: #ffc800; }
+  .star.empty  { color: #ddd; }
+
+  .chip-start {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #58cc02;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    animation: chip-glow 2s infinite;
+  }
+  @keyframes chip-glow {
+    0%, 100% { box-shadow: 0 2px 8px rgba(88,204,2,.25); }
+    50%      { box-shadow: 0 2px 16px rgba(88,204,2,.45); }
+  }
+
+  /* ── Scrollbar ──────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ════ HEADER ════ -->
+  <header class="header">
+    <div class="header-logo">Mech<span>Prep</span></div>
+    <div class="header-stats">
+      <div class="stat stat-streak">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z" fill="#FF9600"/></svg>
+        5
+      </div>
+      <div class="stat stat-xp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91 4 9.27l5.91-1.01L12 2z" fill="#1CB0F6"/></svg>
+        1,240
+      </div>
+      <div class="avatar">N</div>
+    </div>
+  </header>
+
+  <!-- ════ HERO MASCOT ════ -->
+  <section class="hero">
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+      <!-- Body -->
+      <ellipse cx="70" cy="115" rx="32" ry="8" fill="#d4edda" opacity=".5"/>
+      <rect x="50" y="62" width="40" height="48" rx="12" fill="#58CC02"/>
+      <rect x="53" y="66" width="34" height="20" rx="6" fill="#6FE028"/>
+      <!-- Arms -->
+      <rect x="32" y="70" width="18" height="10" rx="5" fill="#58CC02"/>
+      <rect x="90" y="70" width="18" height="10" rx="5" fill="#58CC02"/>
+      <!-- Legs -->
+      <rect x="55" y="106" width="12" height="14" rx="6" fill="#58CC02"/>
+      <rect x="73" y="106" width="12" height="14" rx="6" fill="#58CC02"/>
+      <ellipse cx="61" cy="120" rx="8" ry="4" fill="#4AB800"/>
+      <ellipse cx="79" cy="120" rx="8" ry="4" fill="#4AB800"/>
+      <!-- Head -->
+      <circle cx="70" cy="44" r="26" fill="#58CC02"/>
+      <circle cx="70" cy="44" r="23" fill="#6FE028"/>
+      <!-- Eyes -->
+      <ellipse cx="61" cy="41" rx="5" ry="5.5" fill="#fff"/>
+      <ellipse cx="79" cy="41" rx="5" ry="5.5" fill="#fff"/>
+      <circle cx="63" cy="41" r="2.8" fill="#3c3c3c"/>
+      <circle cx="81" cy="41" r="2.8" fill="#3c3c3c"/>
+      <circle cx="64" cy="39.5" r="1" fill="#fff"/>
+      <circle cx="82" cy="39.5" r="1" fill="#fff"/>
+      <!-- Smile -->
+      <path d="M62 51 Q70 58 78 51" stroke="#3c3c3c" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <!-- Hard hat -->
+      <path d="M44 38 Q44 22 70 18 Q96 22 96 38" fill="#FFC800"/>
+      <rect x="42" y="36" width="56" height="6" rx="3" fill="#FFB300"/>
+      <rect x="64" y="14" width="12" height="10" rx="3" fill="#FFB300"/>
+      <!-- Gear in right hand -->
+      <g transform="translate(104,64)">
+        <circle cx="10" cy="10" r="8" fill="#aaa" stroke="#888" stroke-width="1.5"/>
+        <circle cx="10" cy="10" r="3.5" fill="#fff"/>
+        <g fill="#888">
+          <rect x="8" y="-1" width="4" height="5" rx="1"/>
+          <rect x="8" y="17" width="4" height="5" rx="1"/>
+          <rect x="-1" y="8" width="5" height="4" rx="1"/>
+          <rect x="17" y="8" width="5" height="4" rx="1"/>
+          <rect x="1.4" y="1.4" width="4" height="4" rx="1" transform="rotate(45 3.4 3.4)"/>
+          <rect x="14.6" y="14.6" width="4" height="4" rx="1" transform="rotate(45 16.6 16.6)"/>
+          <rect x="14.6" y="1.4" width="4" height="4" rx="1" transform="rotate(45 16.6 3.4)"/>
+          <rect x="1.4" y="14.6" width="4" height="4" rx="1" transform="rotate(45 3.4 16.6)"/>
+        </g>
+      </g>
+      <!-- Wrench in left hand -->
+      <g transform="translate(16,64) rotate(-20,10,10)">
+        <rect x="8" y="4" width="4" height="18" rx="2" fill="#aaa"/>
+        <path d="M5 2 Q10 -2 15 2 L14 7 H6 Z" fill="#888"/>
+      </g>
+    </svg>
+    <div class="hero-text">Ready to engineer your career?</div>
+    <div class="hero-sub">Tap a chapter to start practicing</div>
+  </section>
+
+  <!-- ════ UNITS ════ -->
+  <div class="content">
+
+    <!-- ──── UNIT 1 ──── -->
+    <div class="unit open" style="--clr:#58CC02">
+      <div class="unit-spine" onclick="toggleUnit(this)">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 22L2 12V6l4-4h6l10 10-10 10z" fill="#fff" opacity=".9"/><rect x="5" y="5" width="4" height="4" rx="1" fill="#58CC02"/></svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-label">Unit 1</div>
+          <div class="unit-title">Statics & Equilibrium</div>
+          <div class="unit-progress-bar"><div class="unit-progress-fill" style="width:62.5%"></div></div>
+        </div>
+      </div>
+      <div class="unit-lessons">
+        <div class="lessons-grid">
+
+          <!-- L1 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="6" y="36" width="36" height="6" rx="2" fill="#58CC02"/><rect x="10" y="14" width="4" height="22" rx="1" fill="#6FE028"/><rect x="22" y="6" width="4" height="30" rx="1" fill="#6FE028"/><rect x="34" y="20" width="4" height="16" rx="1" fill="#6FE028"/><circle cx="12" cy="10" r="4" fill="#FFc800"/><circle cx="24" cy="4" r="3" fill="#FF6B6B"/><circle cx="36" cy="16" r="4" fill="#1CB0F6"/></svg>
+            </div>
+            <div class="tile-title">Free Body Diagrams</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span></div></div>
+          </div>
+
+          <!-- L2 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><line x1="8" y1="40" x2="40" y2="40" stroke="#58CC02" stroke-width="4" stroke-linecap="round"/><line x1="24" y1="8" x2="24" y2="40" stroke="#6FE028" stroke-width="3"/><polygon points="24,6 18,16 30,16" fill="#FFC800"/><line x1="24" y1="40" x2="10" y2="28" stroke="#888" stroke-width="2" stroke-dasharray="3"/><line x1="24" y1="40" x2="38" y2="28" stroke="#888" stroke-width="2" stroke-dasharray="3"/><circle cx="10" cy="28" r="4" fill="#FF6B6B"/><circle cx="38" cy="28" r="4" fill="#1CB0F6"/></svg>
+            </div>
+            <div class="tile-title">Force Equilibrium</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L3 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="4" y="22" width="40" height="5" rx="2" fill="#6FE028"/><polygon points="2,27 8,27 5,34" fill="#888"/><polygon points="40,27 46,27 43,34" fill="#888"/><path d="M14 22 V14" stroke="#FFC800" stroke-width="3" stroke-linecap="round"/><path d="M24 22 V10" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/><path d="M34 22 V16" stroke="#1CB0F6" stroke-width="3" stroke-linecap="round"/><circle cx="14" cy="12" r="3" fill="#FFC800"/><circle cx="24" cy="8" r="3" fill="#FF6B6B"/><circle cx="34" cy="14" r="3" fill="#1CB0F6"/></svg>
+            </div>
+            <div class="tile-title">Moment of a Force</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span></div></div>
+          </div>
+
+          <!-- L4 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="4" y="36" width="40" height="4" rx="2" fill="#aaa"/><rect x="10" y="12" width="4" height="24" rx="1" fill="#6FE028"/><rect x="34" y="12" width="4" height="24" rx="1" fill="#6FE028"/><rect x="10" y="10" width="28" height="4" rx="2" fill="#58CC02"/><path d="M24 14 v10" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round"/><polygon points="24,26 21,20 27,20" fill="#FF6B6B"/><circle cx="24" cy="32" r="3" fill="#FFC800"/></svg>
+            </div>
+            <div class="tile-title">Support Reactions</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L5 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><polygon points="6,40 24,8 42,40" fill="none" stroke="#6FE028" stroke-width="3" stroke-linejoin="round"/><circle cx="6" cy="40" r="3" fill="#58CC02"/><circle cx="42" cy="40" r="3" fill="#58CC02"/><circle cx="24" cy="8" r="3" fill="#58CC02"/><line x1="6" y1="40" x2="42" y2="40" stroke="#aaa" stroke-width="2"/><line x1="15" y1="24" x2="33" y2="24" stroke="#aaa" stroke-width="1.5" stroke-dasharray="3"/></svg>
+            </div>
+            <div class="tile-title">Truss Analysis</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span></div></div>
+          </div>
+
+          <!-- L6 current -->
+          <div class="tile current">
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="4" y="30" width="40" height="5" rx="2" fill="#6FE028"/><polygon points="2,35 10,35 6,42" fill="#888"/><rect x="36" y="35" width="8" height="4" rx="1" fill="#888"/><path d="M16 30 Q16 16 24 12 Q32 16 32 30" fill="none" stroke="#FFC800" stroke-width="2.5"/><circle cx="24" cy="10" r="3" fill="#FF6B6B"/><path d="M20 22 h8" stroke="#1CB0F6" stroke-width="2" stroke-linecap="round" stroke-dasharray="2"/></svg>
+            </div>
+            <div class="tile-title">Distributed Loads</div>
+            <div class="tile-bottom"><span class="chip-start">START</span></div>
+          </div>
+
+          <!-- L7 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><line x1="6" y1="40" x2="42" y2="40" stroke="#ccc" stroke-width="3" stroke-linecap="round"/><rect x="14" y="18" width="20" height="22" rx="2" fill="#ddd"/><line x1="24" y1="18" x2="24" y2="6" stroke="#ccc" stroke-width="2.5"/><circle cx="24" cy="5" r="3" fill="#ddd"/></svg>
+            </div>
+            <div class="tile-title">Friction & Wedges</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L8 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="4" fill="#ddd"/><line x1="14" y1="24" x2="34" y2="24" stroke="#bbb" stroke-width="2"/><line x1="24" y1="14" x2="24" y2="34" stroke="#bbb" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="#ccc"/></svg>
+            </div>
+            <div class="tile-title">Center of Gravity</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ──── UNIT 2 ──── -->
+    <div class="unit" style="--clr:#CE82FF">
+      <div class="unit-spine" onclick="toggleUnit(this)">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#fff" opacity=".9"/><path d="M12 6v6l4 2" stroke="#CE82FF" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-label">Unit 2</div>
+          <div class="unit-title">Dynamics & Motion</div>
+          <div class="unit-progress-bar"><div class="unit-progress-fill" style="width:28.6%"></div></div>
+        </div>
+      </div>
+      <div class="unit-lessons">
+        <div class="lessons-grid">
+
+          <!-- L1 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><circle cx="16" cy="34" r="8" fill="none" stroke="#CE82FF" stroke-width="3"/><circle cx="16" cy="34" r="2" fill="#CE82FF"/><line x1="16" y1="26" x2="40" y2="10" stroke="#6FE028" stroke-width="2.5" stroke-linecap="round"/><polygon points="40,10 34,10 38,16" fill="#6FE028"/></svg>
+            </div>
+            <div class="tile-title">Kinematics of Particles</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span></div></div>
+          </div>
+
+          <!-- L2 done -->
+          <div class="tile done">
+            <div class="tile-check"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><rect x="14" y="18" width="20" height="14" rx="3" fill="#CE82FF"/><rect x="17" y="21" width="14" height="8" rx="2" fill="#DDA0FF"/><line x1="14" y1="25" x2="6" y2="25" stroke="#FFC800" stroke-width="3" stroke-linecap="round"/><polygon points="6,25 10,22 10,28" fill="#FFC800"/><circle cx="20" cy="34" r="3" fill="#888"/><circle cx="28" cy="34" r="3" fill="#888"/></svg>
+            </div>
+            <div class="tile-title">Newton's Laws</div>
+            <div class="tile-bottom"><div class="stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L3 current -->
+          <div class="tile current">
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="#CE82FF" stroke-width="3"/><circle cx="24" cy="24" r="3" fill="#CE82FF"/><line x1="24" y1="24" x2="24" y2="10" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/><path d="M16 38 Q24 32 32 38" stroke="#6FE028" stroke-width="2" fill="none"/><polygon points="22,10 26,10 24,6" fill="#FFC800"/></svg>
+            </div>
+            <div class="tile-title">Work & Energy</div>
+            <div class="tile-bottom"><span class="chip-start">START</span></div>
+          </div>
+
+          <!-- L4 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><circle cx="18" cy="28" r="8" fill="#ddd"/><circle cx="34" cy="28" r="6" fill="#ccc"/><line x1="18" y1="20" x2="34" y2="22" stroke="#bbb" stroke-width="2"/><path d="M10 28h-4" stroke="#bbb" stroke-width="2" stroke-linecap="round"/><path d="M42 28h-2" stroke="#bbb" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tile-title">Impulse & Momentum</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L5 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14" fill="none" stroke="#ccc" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="#ddd"/><path d="M24 10 A14 14 0 0 1 38 24" stroke="#bbb" stroke-width="2" stroke-dasharray="3"/><polygon points="38,24 35,20 35,28" fill="#bbb"/></svg>
+            </div>
+            <div class="tile-title">Rotational Dynamics</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L6 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="18" ry="10" fill="none" stroke="#ccc" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="#ddd"/><circle cx="8" cy="20" r="3" fill="#ccc"/></svg>
+            </div>
+            <div class="tile-title">Vibrations Intro</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <!-- L7 locked -->
+          <div class="tile locked">
+            <div class="tile-lock">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg>
+            </div>
+            <div class="tile-icon">
+              <svg viewBox="0 0 48 48"><path d="M6 30 Q14 10 24 24 Q34 38 42 18" stroke="#ccc" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="6" cy="30" r="3" fill="#ddd"/><circle cx="42" cy="18" r="3" fill="#ddd"/></svg>
+            </div>
+            <div class="tile-title">Relative Motion</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ──── UNIT 3 (locked) ──── -->
+    <div class="unit" style="--clr:#FF9600">
+      <div class="unit-spine" onclick="toggleUnit(this)">
+        <div class="unit-icon" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff" opacity=".9"/><path d="M8 12h8M12 8v8" stroke="#FF9600" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="position:absolute;right:-4px;bottom:-4px;"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/></svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-label">Unit 3 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:-1px;margin-left:2px;"><rect x="5" y="11" width="14" height="10" rx="2" fill="#ccc"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#bbb" stroke-width="2" fill="none"/></svg></div>
+          <div class="unit-title" style="color:#aaa;">Strength of Materials</div>
+          <div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="unit-lessons">
+        <div class="lessons-grid">
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="18" y="6" width="12" height="36" rx="2" fill="#ddd"/><path d="M18 18h12M18 30h12" stroke="#ccc" stroke-width="1.5"/></svg></div>
+            <div class="tile-title">Stress & Strain</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="8" y="20" width="32" height="8" rx="2" fill="#ddd"/><path d="M24 20 v-10" stroke="#ccc" stroke-width="2.5"/><polygon points="22,10 26,10 24,6" fill="#ccc"/><path d="M24 28 v10" stroke="#ccc" stroke-width="2.5"/><polygon points="22,38 26,38 24,42" fill="#ccc"/></svg></div>
+            <div class="tile-title">Axial Loading</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14" fill="none" stroke="#ddd" stroke-width="3"/><path d="M18 18 L30 30 M30 18 L18 30" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+            <div class="tile-title">Torsion of Shafts</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="6" y="20" width="36" height="8" rx="2" fill="#ddd"/><path d="M10 20 Q24 8 38 20" stroke="#ccc" stroke-width="2.5" fill="none"/></svg></div>
+            <div class="tile-title">Beam Bending</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" rx="3" fill="none" stroke="#ddd" stroke-width="3"/><line x1="10" y1="24" x2="38" y2="24" stroke="#ccc" stroke-width="2"/><line x1="24" y1="10" x2="24" y2="38" stroke="#ccc" stroke-width="2"/></svg></div>
+            <div class="tile-title">Shear & Moment Diagrams</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="14" y="8" width="20" height="32" rx="3" fill="#ddd"/><ellipse cx="24" cy="24" rx="6" ry="10" fill="#ccc"/></svg></div>
+            <div class="tile-title">Column Buckling</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="#ddd" stroke-width="3"/><circle cx="24" cy="24" r="8" fill="none" stroke="#ccc" stroke-width="2"/><circle cx="24" cy="24" r="2" fill="#ccc"/></svg></div>
+            <div class="tile-title">Pressure Vessels</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="20" rx="4" fill="#ddd"/><line x1="14" y1="24" x2="34" y2="24" stroke="#ccc" stroke-width="2"/><circle cx="18" cy="20" r="2" fill="#ccc"/><circle cx="30" cy="28" r="2" fill="#ccc"/></svg></div>
+            <div class="tile-title">Combined Loading</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+          <div class="tile locked">
+            <div class="tile-lock"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#aaa"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#888" stroke-width="2" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#fff"/></svg></div>
+            <div class="tile-icon"><svg viewBox="0 0 48 48"><path d="M8 40 Q24 4 40 40" fill="none" stroke="#ddd" stroke-width="3"/><line x1="8" y1="40" x2="40" y2="40" stroke="#ccc" stroke-width="2"/><circle cx="24" cy="20" r="3" fill="#ccc"/></svg></div>
+            <div class="tile-title">Deflection of Beams</div>
+            <div class="tile-bottom"><div class="stars"><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+</div><!-- /app -->
+
+<script>
+function toggleUnit(spine) {
+  const unit = spine.closest('.unit');
+  unit.classList.toggle('open');
+}
+
+// auto-open first unit on load is already done via class="open"
+</script>
+</body>
+</html>

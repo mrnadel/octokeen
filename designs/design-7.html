@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Road Trip</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FDF9EC;
+    --statics: #58CC02;
+    --statics-dark: #46a302;
+    --dynamics: #CE82FF;
+    --dynamics-dark: #a855e0;
+    --strength: #FF9600;
+    --strength-dark: #d97d00;
+    --locked-bg: #E8E6E1;
+    --locked-text: #B0ADA6;
+    --white: #FFFFFF;
+    --text: #3C3C3C;
+    --text-light: #9A9590;
+    --road-color: #CCC5B5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: 80px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 2.5px solid #F0EBE0;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .header-logo {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+  .header-logo .green { color: var(--statics); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .stat { display: flex; align-items: center; gap: 5px; }
+  .stat-emoji { font-size: 20px; line-height: 1; }
+
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);
+    display: flex; align-items: center; justify-content: center;
+    border: 2.5px solid #F0EBE0;
+  }
+  .avatar svg { display: block; }
+
+  /* ===== ROAD AREA ===== */
+  .road-area {
+    position: relative;
+    padding: 0 24px;
+  }
+
+  /* Vertical road line */
+  .road-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    transform: translateX(-50%);
+    background: var(--road-color);
+    opacity: 0.35;
+    border-radius: 4px;
+  }
+
+  .road-spine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.7) 0px,
+      rgba(255,255,255,0.7) 12px,
+      transparent 12px,
+      transparent 26px
+    );
+    border-radius: 4px;
+  }
+
+  /* ===== CAR ===== */
+  .car-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 28px 0 8px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .car-bounce {
+    animation: carBounce 3s ease-in-out infinite;
+  }
+
+  @keyframes carBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* ===== ROAD SIGN ===== */
+  .road-sign {
+    display: flex;
+    justify-content: center;
+    padding: 28px 0 18px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .sign-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sign-board {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 3px solid;
+    border-radius: 16px;
+    padding: 10px 26px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+  }
+
+  .sign-unit-num {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+  }
+
+  .sign-unit-name {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .sign-pole {
+    width: 8px;
+    height: 20px;
+    background: #AEA899;
+    border-radius: 0 0 3px 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== XP MILESTONE ===== */
+  .xp-marker {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .xp-pill {
+    background: #EDE8DA;
+    border: 2px solid #DDD7C8;
+    border-radius: 20px;
+    padding: 3px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ===== PIN ROW ===== */
+  .pin-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .pin-row.left {
+    flex-direction: row;
+    padding-right: 50%;
+    justify-content: flex-end;
+  }
+
+  .pin-row.right {
+    flex-direction: row-reverse;
+    padding-left: 50%;
+    justify-content: flex-end;
+  }
+
+  /* Road dot on the spine */
+  .spine-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 9;
+  }
+
+  .spine-dot.done { background: var(--statics); }
+  .spine-dot.current {
+    background: var(--statics);
+    animation: dotGlow 2s ease-in-out infinite;
+  }
+  .spine-dot.locked { background: #CFCBC2; }
+
+  @keyframes dotGlow {
+    0%, 100% { box-shadow: 0 2px 8px rgba(88,204,2,0.3); }
+    50% { box-shadow: 0 0 0 7px rgba(88,204,2,0.18), 0 2px 16px rgba(88,204,2,0.5); }
+  }
+
+  /* Connector line from dot to card */
+  .pin-arm {
+    width: 16px;
+    height: 3px;
+    flex-shrink: 0;
+  }
+
+  .pin-arm.done { background: var(--statics); opacity: 0.5; }
+  .pin-arm.current { background: var(--statics); opacity: 0.6; }
+  .pin-arm.locked { background: #D5D1CA; }
+
+  /* The pin card itself */
+  .pin-card {
+    border-radius: 20px;
+    padding: 14px 18px 12px;
+    min-width: 148px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+
+  .pin-card:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  /* Pointer triangle */
+  .pin-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+  }
+
+  .pin-row.left .pin-card::after {
+    right: -10px;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+  }
+
+  .pin-row.right .pin-card::after {
+    left: -10px;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+  }
+
+  /* Completed card */
+  .pin-card.done {
+    color: var(--white);
+  }
+
+  .pin-row.left .pin-card.done::after { border-left: 12px solid; }
+  .pin-row.right .pin-card.done::after { border-right: 12px solid; }
+
+  /* Current card */
+  .pin-card.current {
+    color: var(--white);
+    animation: cardPulse 2.5s ease-in-out infinite;
+  }
+
+  .pin-row.left .pin-card.current::after { border-left: 12px solid; }
+  .pin-row.right .pin-card.current::after { border-right: 12px solid; }
+
+  @keyframes cardPulse {
+    0%, 100% { box-shadow: 0 5px 18px rgba(88,204,2,0.2); }
+    50% { box-shadow: 0 5px 30px rgba(88,204,2,0.4), 0 0 0 5px rgba(88,204,2,0.12); }
+  }
+
+  /* Locked card */
+  .pin-card.locked {
+    background: var(--locked-bg);
+    color: var(--locked-text);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+  }
+
+  .pin-row.left .pin-card.locked::after { border-left-color: var(--locked-bg); }
+  .pin-row.right .pin-card.locked::after { border-right-color: var(--locked-bg); }
+
+  .pin-card .icon { font-size: 28px; margin-bottom: 4px; display: block; }
+
+  .pin-card .title {
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+
+  /* Stars row */
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 5px;
+  }
+
+  .star-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .star-dot.gold { background: #FFD93D; box-shadow: 0 0 4px rgba(255,217,61,0.5); }
+  .star-dot.empty { background: rgba(255,255,255,0.35); }
+  .star-dot.locked-star { background: rgba(0,0,0,0.08); }
+
+  /* GO button */
+  .go-btn {
+    display: inline-block;
+    margin-top: 8px;
+    background: var(--white);
+    color: var(--statics-dark);
+    font-weight: 900;
+    font-size: 13px;
+    padding: 4px 20px;
+    border-radius: 12px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    animation: goPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes goPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .lock-icon {
+    margin-top: 4px;
+    font-size: 16px;
+    opacity: 0.5;
+  }
+
+  /* ===== FINISH FLAG ===== */
+  .finish {
+    text-align: center;
+    padding: 40px 0 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .finish-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-top: 8px;
+  }
+
+  .finish-emoji { font-size: 36px; }
+
+  /* ===== COLOR HELPERS ===== */
+  .c-statics { background: var(--statics); }
+  .c-dynamics { background: var(--dynamics); }
+  .c-strength { background: var(--strength); }
+
+  .pin-row.left .c-statics::after { border-left-color: var(--statics); }
+  .pin-row.right .c-statics::after { border-right-color: var(--statics); }
+  .pin-row.left .c-dynamics::after { border-left-color: var(--dynamics); }
+  .pin-row.right .c-dynamics::after { border-right-color: var(--dynamics); }
+  .pin-row.left .c-strength::after { border-left-color: var(--strength); }
+  .pin-row.right .c-strength::after { border-right-color: var(--strength); }
+
+  .spine-dot.done-d { background: var(--dynamics); }
+  .spine-dot.current-d {
+    background: var(--dynamics);
+    animation: dotGlowD 2s ease-in-out infinite;
+  }
+  @keyframes dotGlowD {
+    0%, 100% { box-shadow: 0 2px 8px rgba(206,130,255,0.3); }
+    50% { box-shadow: 0 0 0 7px rgba(206,130,255,0.18), 0 2px 16px rgba(206,130,255,0.5); }
+  }
+
+  .pin-arm.done-d { background: var(--dynamics); opacity: 0.5; }
+
+  /* Background subtle decorations */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(88,204,2,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 85% 50%, rgba(206,130,255,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 50% 85%, rgba(255,150,0,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app { position: relative; z-index: 1; }
+
+  /* Small responsive tweak */
+  @media (max-width: 380px) {
+    .pin-card { min-width: 120px; padding: 10px 12px; }
+    .pin-card .title { font-size: 11px; }
+    .header-right { gap: 12px; font-size: 13px; }
+    .road-area { padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">Mech<span class="green">Prep</span></div>
+    <div class="header-right">
+      <div class="stat"><span class="stat-emoji">&#x1F525;</span><span>5</span></div>
+      <div class="stat"><span class="stat-emoji">&#x1F48E;</span><span>1,240</span></div>
+      <div class="avatar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4.5" fill="#fff"/>
+          <path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="road-area">
+    <!-- Road spine -->
+    <div class="road-spine"></div>
+
+    <!-- ===== CAR ===== -->
+    <div class="car-wrap">
+      <div class="car-bounce">
+        <svg width="80" height="52" viewBox="0 0 80 52" fill="none">
+          <!-- Shadow -->
+          <ellipse cx="40" cy="50" rx="28" ry="3" fill="#000" opacity="0.07"/>
+          <!-- Body -->
+          <rect x="8" y="20" width="64" height="22" rx="10" fill="#58CC02"/>
+          <!-- Shine -->
+          <rect x="8" y="20" width="64" height="11" rx="10" fill="#fff" opacity="0.18"/>
+          <!-- Roof -->
+          <path d="M22 20 Q26 5 40 5 Q54 5 58 20" fill="#46A302"/>
+          <!-- Windows -->
+          <path d="M26 20 Q29 10 40 10 Q51 10 54 20" fill="#A8E86C" opacity="0.5"/>
+          <line x1="40" y1="10" x2="40" y2="20" stroke="#46A302" stroke-width="1.5"/>
+          <!-- Headlights -->
+          <circle cx="68" cy="29" r="3.5" fill="#FFD93D"/>
+          <circle cx="12" cy="29" r="3" fill="#FF6B6B" opacity="0.6"/>
+          <!-- Bumper detail -->
+          <rect x="66" y="26" width="6" height="6" rx="2" fill="#46A302"/>
+          <!-- Wheels -->
+          <circle cx="24" cy="42" r="8" fill="#3C3C3C"/>
+          <circle cx="24" cy="42" r="4" fill="#777"/>
+          <circle cx="24" cy="42" r="1.5" fill="#555"/>
+          <circle cx="56" cy="42" r="8" fill="#3C3C3C"/>
+          <circle cx="56" cy="42" r="4" fill="#777"/>
+          <circle cx="56" cy="42" r="1.5" fill="#555"/>
+          <!-- Flag -->
+          <line x1="40" y1="5" x2="40" y2="-4" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M40,-4 L50,-1 L40,2 Z" fill="#FF6B6B"/>
+          <!-- Stars on the side -->
+          <circle cx="30" cy="30" r="2" fill="#FFD93D" opacity="0.6"/>
+          <circle cx="50" cy="30" r="2" fill="#FFD93D" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- XP: Start -->
+    <div class="xp-marker">
+      <div class="xp-pill">&#x1F3C1; START</div>
+    </div>
+
+    <!-- ========================================== -->
+    <!--       UNIT 1 : STATICS (5 lessons, 3 done) -->
+    <!-- ========================================== -->
+    <div class="road-sign">
+      <div class="sign-wrap">
+        <div class="sign-board" style="border-color: var(--statics);">
+          <!-- Statics icon: triangle truss -->
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <rect x="3" y="24" width="24" height="4" rx="1.5" fill="var(--statics)"/>
+            <polygon points="15,5 5,21 25,21" fill="none" stroke="var(--statics)" stroke-width="2.5" stroke-linejoin="round"/>
+            <line x1="15" y1="21" x2="15" y2="24" stroke="var(--statics)" stroke-width="2"/>
+          </svg>
+          <div>
+            <div class="sign-unit-num">Unit 1</div>
+            <div class="sign-unit-name" style="color: var(--statics-dark);">Statics</div>
+          </div>
+        </div>
+        <div class="sign-pole"></div>
+      </div>
+    </div>
+
+    <!-- L1: Free Body Diagrams — done, left -->
+    <div class="pin-row left">
+      <div class="pin-card done c-statics">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><polygon points="15,5 5,22 25,22" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><line x1="15" y1="22" x2="15" y2="27" stroke="#fff" stroke-width="2"/><rect x="3" y="26" width="24" height="3" rx="1" fill="#fff" opacity="0.7"/></svg>
+        </span>
+        <div class="title">Free Body<br>Diagrams</div>
+        <div class="stars">
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+        </div>
+      </div>
+      <div class="pin-arm done"></div>
+      <div class="spine-dot done"></div>
+    </div>
+
+    <!-- L2: Equilibrium — done, right -->
+    <div class="pin-row right">
+      <div class="pin-card done c-statics">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><line x1="5" y1="15" x2="25" y2="15" stroke="#fff" stroke-width="2.5"/><line x1="15" y1="15" x2="15" y2="6" stroke="#fff" stroke-width="2.5"/><circle cx="7" cy="15" r="3" fill="#fff" opacity="0.6"/><circle cx="23" cy="15" r="3" fill="#fff" opacity="0.6"/><polygon points="15,25 12,20 18,20" fill="#fff" opacity="0.5"/></svg>
+        </span>
+        <div class="title">Equilibrium<br>Conditions</div>
+        <div class="stars">
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+          <div class="star-dot empty"></div>
+        </div>
+      </div>
+      <div class="pin-arm done"></div>
+      <div class="spine-dot done"></div>
+    </div>
+
+    <!-- XP: 250 -->
+    <div class="xp-marker">
+      <div class="xp-pill">&#x2B50; 250 XP</div>
+    </div>
+
+    <!-- L3: Moments — done, left -->
+    <div class="pin-row left">
+      <div class="pin-card done c-statics">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="9" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M15 8 A7 7 0 0 1 22 15" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><polygon points="21,12 24,16 19,16" fill="#fff"/></svg>
+        </span>
+        <div class="title">Moment<br>Calculations</div>
+        <div class="stars">
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+        </div>
+      </div>
+      <div class="pin-arm done"></div>
+      <div class="spine-dot done"></div>
+    </div>
+
+    <!-- L4: Trusses — CURRENT, right -->
+    <div class="pin-row right">
+      <div class="pin-card current c-statics">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><path d="M4 24 L15 6 L26 24 Z" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><line x1="9.5" y1="15" x2="20.5" y2="15" stroke="#fff" stroke-width="2"/><line x1="15" y1="6" x2="9.5" y2="15" stroke="#fff" stroke-width="1.5" opacity="0.6"/><line x1="15" y1="6" x2="20.5" y2="15" stroke="#fff" stroke-width="1.5" opacity="0.6"/></svg>
+        </span>
+        <div class="title">Trusses &<br>Frames</div>
+        <div class="go-btn">GO!</div>
+      </div>
+      <div class="pin-arm current"></div>
+      <div class="spine-dot current"></div>
+    </div>
+
+    <!-- L5: Friction — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Friction &<br>Wedges</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!--     UNIT 2 : DYNAMICS (5 lessons, 1 done)   -->
+    <!-- ============================================ -->
+
+    <!-- XP: 500 -->
+    <div class="xp-marker">
+      <div class="xp-pill">&#x1F680; 500 XP</div>
+    </div>
+
+    <div class="road-sign">
+      <div class="sign-wrap">
+        <div class="sign-board" style="border-color: var(--dynamics);">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <circle cx="15" cy="15" r="10" fill="none" stroke="var(--dynamics)" stroke-width="2.5"/>
+            <path d="M10 20 Q15 5 20 20" fill="none" stroke="var(--dynamics)" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="19,17 22,21 18,21" fill="var(--dynamics)"/>
+          </svg>
+          <div>
+            <div class="sign-unit-num">Unit 2</div>
+            <div class="sign-unit-name" style="color: var(--dynamics-dark);">Dynamics</div>
+          </div>
+        </div>
+        <div class="sign-pole"></div>
+      </div>
+    </div>
+
+    <!-- L1: Kinematics — done, right -->
+    <div class="pin-row right">
+      <div class="pin-card done c-dynamics">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><path d="M6 22 Q12 8 22 8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><polygon points="22,4 27,8 22,12" fill="#fff"/><circle cx="8" cy="22" r="2.5" fill="#fff" opacity="0.5"/></svg>
+        </span>
+        <div class="title">Kinematics<br>of Particles</div>
+        <div class="stars">
+          <div class="star-dot gold"></div>
+          <div class="star-dot gold"></div>
+          <div class="star-dot empty"></div>
+        </div>
+      </div>
+      <div class="pin-arm done-d"></div>
+      <div class="spine-dot done-d"></div>
+    </div>
+
+    <!-- L2: Newton's 2nd — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Newton's<br>2nd Law</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L3: Work & Energy — locked, right -->
+    <div class="pin-row right">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Work &<br>Energy</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- XP: 750 -->
+    <div class="xp-marker">
+      <div class="xp-pill">&#x1F3AF; 750 XP</div>
+    </div>
+
+    <!-- L4: Impulse — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Impulse &<br>Momentum</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L5: Rigid Body — locked, right -->
+    <div class="pin-row right">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Rigid Body<br>Rotation</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+
+    <!-- ================================================ -->
+    <!--    UNIT 3 : STRENGTH (5 lessons, all locked)     -->
+    <!-- ================================================ -->
+
+    <!-- XP: 1000 -->
+    <div class="xp-marker">
+      <div class="xp-pill">&#x1F3C6; 1,000 XP</div>
+    </div>
+
+    <div class="road-sign">
+      <div class="sign-wrap">
+        <div class="sign-board" style="border-color: var(--strength);">
+          <svg width="30" height="30" viewBox="0 0 30 30">
+            <rect x="12" y="4" width="6" height="22" rx="2" fill="var(--strength)"/>
+            <rect x="6" y="8" width="18" height="4" rx="1" fill="var(--strength)" opacity="0.5"/>
+            <rect x="4" y="22" width="22" height="4" rx="1" fill="var(--strength)" opacity="0.5"/>
+            <line x1="18" y1="14" x2="22" y2="18" stroke="var(--strength)" stroke-width="1.5" opacity="0.5"/>
+            <line x1="18" y1="16" x2="22" y2="20" stroke="var(--strength)" stroke-width="1.5" opacity="0.5"/>
+          </svg>
+          <div>
+            <div class="sign-unit-num">Unit 3</div>
+            <div class="sign-unit-name" style="color: var(--strength-dark);">Strength</div>
+          </div>
+        </div>
+        <div class="sign-pole"></div>
+      </div>
+    </div>
+
+    <!-- L1: Stress & Strain — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Stress &<br>Strain</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L2: Axial Loading — locked, right -->
+    <div class="pin-row right">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Axial<br>Loading</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L3: Torsion — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Torsion<br>of Shafts</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L4: Beam Bending — locked, right -->
+    <div class="pin-row right">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Beam<br>Bending</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- L5: Mohr's Circle — locked, left -->
+    <div class="pin-row left">
+      <div class="pin-card locked">
+        <span class="icon">
+          <svg width="30" height="30" viewBox="0 0 30 30"><rect x="8" y="16" width="14" height="10" rx="3" fill="#B0ADA6"/><path d="M11 16 V12 C11 8.7 12.8 7 15 7 C17.2 7 19 8.7 19 12 V16" fill="none" stroke="#B0ADA6" stroke-width="2.5"/><circle cx="15" cy="21" r="1.5" fill="#D5D1CA"/></svg>
+        </span>
+        <div class="title">Mohr's<br>Circle</div>
+        <div class="lock-icon">&#x1F512;</div>
+      </div>
+      <div class="pin-arm locked"></div>
+      <div class="spine-dot locked"></div>
+    </div>
+
+    <!-- Finish -->
+    <div class="finish">
+      <div class="finish-emoji">&#x1F3D6;&#xFE0F;</div>
+      <div class="finish-text">More units coming soon!</div>
+    </div>
+
+  </div><!-- /road-area -->
+</div><!-- /app -->
+</body>
+</html>
