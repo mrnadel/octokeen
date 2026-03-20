@@ -42,7 +42,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { sidebarOpen, toggleSidebar } = useSidebar();
   const progress = useProgress();
-  const { tier, isTrialing, isProUser } = useSubscription();
+  const { tier, isProUser } = useSubscription();
 
   return (
     <>
@@ -142,11 +142,9 @@ export default function Sidebar() {
                     'text-[10px] font-semibold px-1.5 py-0.5 rounded-full',
                     isProUser
                       ? 'bg-primary-100 text-primary-700'
-                      : isTrialing
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-surface-100 text-surface-500'
+                      : 'bg-surface-100 text-surface-500'
                   )}>
-                    {isProUser && !isTrialing ? 'PRO' : isTrialing ? 'TRIAL' : 'FREE'}
+                    {isProUser ? 'PRO' : 'FREE'}
                   </span>
                 </div>
               </div>

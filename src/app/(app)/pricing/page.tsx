@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Check, X, Sparkles, HelpCircle, ChevronDown, Loader2 } from 'lucide-react';
+import { ArrowLeft, Check, X, Sparkles, HelpCircle, ChevronDown, Bell, CheckCircle2, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { TIERS, FEATURES, STRIPE_PRICES, formatPrice, getYearlySavingsPercent, type Feature } from '@/lib/pricing';
+import { TIERS, FEATURES, formatPrice, getYearlySavingsPercent, type Feature } from '@/lib/pricing';
 import { useSubscription } from '@/hooks/useSubscription';
 import type { SubscriptionTier } from '@/lib/subscription';
 import { cn } from '@/lib/utils';
@@ -39,28 +39,24 @@ const ALL_DISPLAY_FEATURES: Feature[] = [
 
 const FAQ_ITEMS = [
   {
-    q: 'How does the 7-day free trial work?',
-    a: 'Start your Pro trial instantly — no credit card required. You get full access to all Pro features for 7 days. If you love it, subscribe to keep your access.',
+    q: 'What do I get for free?',
+    a: 'You get full access to Unit 1 with up to 5 practice questions per day, all practice modes, and progress tracking. It\'s a great way to experience MechPrep before upgrading.',
   },
   {
-    q: 'Can I cancel my subscription anytime?',
-    a: 'Absolutely. Cancel anytime from your billing settings. You\'ll keep access until the end of your current billing period — no questions asked.',
+    q: 'When is Pro launching?',
+    a: 'Pro is launching soon! Sign up for our waitlist to get notified and receive early access pricing when it goes live.',
   },
   {
-    q: 'What happens to my progress if I downgrade?',
-    a: 'Your progress is always saved. If you downgrade, you keep everything you\'ve earned. You\'ll just have limited access to units and daily question caps.',
+    q: 'What happens to my progress if I upgrade later?',
+    a: 'Your progress is always saved. When you upgrade to Pro, you keep everything you\'ve earned and unlock all additional units and features.',
   },
   {
     q: 'Is there a student discount?',
-    a: 'Yes! Students with a valid .edu email get 50% off Pro. Contact us at support@mechprep.com with your student email to claim your discount.',
+    a: 'Yes! Students with a valid .edu email will get 50% off Pro. Sign up for the waitlist and mention your student email to claim your discount at launch.',
   },
   {
     q: 'How does Team billing work?',
     a: 'Team plans are billed per seat with a minimum of 5 seats. Contact our sales team for annual pricing and volume discounts.',
-  },
-  {
-    q: 'Do you offer refunds?',
-    a: 'We offer a full refund within the first 14 days of any paid subscription if you\'re not satisfied. Just reach out to our support team.',
   },
 ];
 
@@ -69,27 +65,34 @@ const tierOrder: SubscriptionTier[] = ['free', 'pro', 'team'];
 export default function PricingPage() {
   const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistLoading, setWaitlistLoading] = useState(false);
+  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+  const [waitlistError, setWaitlistError] = useState('');
   const { tier: currentTier, isProUser } = useSubscription();
 
   const yearlySavings = getYearlySavingsPercent('pro');
 
-  const handleCheckout = async (priceId: string) => {
-    setCheckoutLoading(priceId);
+  const handleWaitlistSubmit = async () => {
+    if (!waitlistEmail.trim()) return;
+    setWaitlistLoading(true);
+    setWaitlistError('');
     try {
-      const res = await fetch('/api/stripe/create-checkout', {
+      const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId }),
+        body: JSON.stringify({ email: waitlistEmail.trim() }),
       });
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
+      if (!res.ok) {
+        setWaitlistError(data.error || 'Something went wrong');
+      } else {
+        setWaitlistSubmitted(true);
       }
     } catch {
-      // Silently fail
+      setWaitlistError('Something went wrong. Please try again.');
     } finally {
-      setCheckoutLoading(null);
+      setWaitlistLoading(false);
     }
   };
 
@@ -109,18 +112,34 @@ export default function PricingPage() {
       </div>
 
       <div className="px-4 pt-8">
+        {/* Early Access Banner */}
+        <motion.div
+          className="bg-gradient-to-r from-primary-50 to-amber-50 border border-primary-200 rounded-2xl p-4 mb-8 text-center"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <Sparkles className="w-4 h-4 text-primary-600" />
+            <span className="text-sm font-semibold text-primary-700">Pro plan launching soon</span>
+          </div>
+          <p className="text-xs text-gray-600">
+            Sign up for early access pricing
+          </p>
+        </motion.div>
+
         {/* Hero */}
         <motion.div
           className="text-center mb-8"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
         >
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Invest in your engineering career
           </h2>
           <p className="text-gray-500 text-sm max-w-sm mx-auto">
-            Choose the plan that fits your interview prep goals. Start free, upgrade when you&apos;re ready.
+            Start free today. Upgrade when Pro launches for unlimited access to all content.
           </p>
         </motion.div>
 
@@ -190,7 +209,7 @@ export default function PricingPage() {
                 {isHighlighted && (
                   <div className="absolute top-0 right-0 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl flex items-center gap-1">
                     <Sparkles className="w-3 h-3" />
-                    Most Popular
+                    Coming Soon
                   </div>
                 )}
 
@@ -244,37 +263,56 @@ export default function PricingPage() {
                 </ul>
 
                 {/* CTA Button */}
-                {tierId === currentTier && !isProUser ? (
+                {tierId === 'free' ? (
                   <button
                     disabled
                     className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 font-semibold text-sm cursor-not-allowed"
                   >
                     Current Plan
                   </button>
-                ) : isProUser && (tierId === 'free' || tierId === 'pro') ? (
-                  <button
-                    disabled
-                    className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 font-semibold text-sm cursor-not-allowed"
-                  >
-                    {tierId === currentTier ? 'Current Plan' : tierId === 'free' ? 'Included' : 'Current Plan'}
-                  </button>
                 ) : tierId === 'pro' ? (
-                  <button
-                    onClick={() => handleCheckout(
-                      billingInterval === 'year' ? STRIPE_PRICES.PRO_YEARLY : STRIPE_PRICES.PRO_MONTHLY
-                    )}
-                    disabled={!!checkoutLoading}
-                    className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
-                  >
-                    {checkoutLoading ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : null}
-                    Start Free Trial
-                  </button>
+                  waitlistSubmitted ? (
+                    <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-green-50 border border-green-200">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                      <span className="text-sm font-semibold text-green-700">You&apos;re on the list!</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <input
+                        type="email"
+                        placeholder="your@email.com"
+                        value={waitlistEmail}
+                        onChange={(e) => setWaitlistEmail(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleWaitlistSubmit()}
+                        className={cn(
+                          'w-full px-3 py-2 rounded-xl border text-sm outline-none transition-colors focus:ring-2 focus:ring-primary-200',
+                          waitlistError ? 'border-red-300' : 'border-gray-200 focus:border-primary-400'
+                        )}
+                      />
+                      {waitlistError && (
+                        <p className="text-xs text-red-500">{waitlistError}</p>
+                      )}
+                      <button
+                        onClick={handleWaitlistSubmit}
+                        disabled={waitlistLoading || !waitlistEmail.trim()}
+                        className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+                      >
+                        {waitlistLoading ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Bell className="w-4 h-4" />
+                        )}
+                        Get Early Access
+                      </button>
+                    </div>
+                  )
                 ) : (
-                  <button className="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm transition-colors active:scale-[0.98]">
-                    Contact Sales
-                  </button>
+                  <a
+                    href="mailto:team@mechprep.com?subject=MechPrep%20Team%20Plan%20Inquiry"
+                    className="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm transition-colors active:scale-[0.98] flex items-center justify-center"
+                  >
+                    Contact Us
+                  </a>
                 )}
               </motion.div>
             );
