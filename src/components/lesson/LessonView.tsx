@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Zap, AlertTriangle } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
 import LessonProgressBar from './LessonProgressBar';
@@ -21,6 +21,8 @@ export default function LessonView() {
 
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
+  const [xpGain, setXpGain] = useState(0);
   const questionRef = useRef<QuestionCardHandle>(null);
 
   // Derive lesson & question data
@@ -50,12 +52,17 @@ export default function LessonView() {
 
   const answeredCount = activeLesson?.answers.length ?? 0;
   const totalQuestions = lessonData?.lesson.questions.length ?? 0;
+  const correctCount = activeLesson?.answers.filter(a => a.correct).length ?? 0;
 
   // Handlers
   const handleAnswer = useCallback(
     (correct: boolean) => {
       if (!currentQuestion) return;
       submitAnswer(currentQuestion.id, correct);
+      setLastAnswerCorrect(correct);
+      if (correct) {
+        setXpGain(prev => prev + 10);
+      }
     },
     [currentQuestion, submitAnswer]
   );
@@ -69,6 +76,7 @@ export default function LessonView() {
   }, []);
 
   const handleContinue = useCallback(() => {
+    setLastAnswerCorrect(null);
     if (isLastQuestion) {
       completeLesson();
     } else {
@@ -106,6 +114,31 @@ export default function LessonView() {
 
   const unitColor = lessonData.unit.color;
 
+  // Bottom button color logic
+  const getBottomButtonStyle = () => {
+    if (!isCurrentAnswered) {
+      return {
+        backgroundColor: hasSelection ? unitColor : '#CBD5E1',
+        color: hasSelection ? 'white' : '#94A3B8',
+      };
+    }
+    if (lastAnswerCorrect === true) {
+      return { backgroundColor: '#10B981', color: 'white' };
+    }
+    if (lastAnswerCorrect === false) {
+      return { backgroundColor: '#EF4444', color: 'white' };
+    }
+    return { backgroundColor: unitColor, color: 'white' };
+  };
+
+  // Background color based on answer state
+  const getBgColor = () => {
+    if (!isCurrentAnswered) return '#FAFAF8';
+    if (lastAnswerCorrect === true) return '#F0FDF4';
+    if (lastAnswerCorrect === false) return '#FEF2F2';
+    return '#FAFAF8';
+  };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -114,39 +147,79 @@ export default function LessonView() {
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed inset-0 z-50 bg-white flex flex-col"
+        className="fixed inset-0 z-50 flex flex-col"
         style={{
+          backgroundColor: getBgColor(),
+          transition: 'background-color 0.4s ease',
           paddingTop: 'env(safe-area-inset-top, 0px)',
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           paddingLeft: 'env(safe-area-inset-left, 0px)',
           paddingRight: 'env(safe-area-inset-right, 0px)',
         }}
       >
-        {/* ── Top bar: close button + progress bar ── */}
-        <div className="flex items-center gap-3 px-4 pt-3 pb-2">
+        {/* Subtle background pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(${unitColor} 1px, transparent 1px)`,
+            backgroundSize: '24px 24px',
+          }}
+        />
+
+        {/* ── Top bar ── */}
+        <div className="relative flex items-center gap-3 px-5 pt-4 pb-3">
+          {/* Close button */}
           <button
             onClick={handleExitClick}
-            className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-white transition-all active:scale-90 shadow-sm"
             aria-label="Close lesson"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
+
+          {/* Segmented progress bar */}
           <LessonProgressBar
             current={answeredCount}
             total={totalQuestions}
             color={unitColor}
           />
+
+          {/* XP counter */}
+          <motion.div
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold shadow-sm"
+            style={{
+              backgroundColor: `${unitColor}15`,
+              color: unitColor,
+              border: `1px solid ${unitColor}25`,
+            }}
+            key={xpGain}
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 0.3 }}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            {xpGain}
+          </motion.div>
+        </div>
+
+        {/* Question counter */}
+        <div className="px-5 pb-2 flex items-center justify-between">
+          <span className="text-sm font-semibold" style={{ color: unitColor }}>
+            Question {(activeLesson.currentQuestionIndex ?? 0) + 1} of {totalQuestions}
+          </span>
+          <span className="text-xs text-gray-400 font-medium">
+            {correctCount}/{answeredCount} correct
+          </span>
         </div>
 
         {/* ── Scrollable question area ── */}
-        <div className="flex-1 overflow-y-auto px-4 pt-4 pb-32">
+        <div className="flex-1 overflow-y-auto px-5 pt-2 pb-36">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion.id}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.25 }}
+              initial={{ opacity: 0, x: 50, scale: 0.97 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -50, scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             >
               <QuestionCard
                 ref={questionRef}
@@ -161,33 +234,58 @@ export default function LessonView() {
         </div>
 
         {/* ── Bottom button area ── */}
-        <div
-          className="sticky bottom-0 p-4 bg-white border-t border-gray-100"
-          style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)' }}
+        <motion.div
+          className="sticky bottom-0 px-5 pt-4 pb-5"
+          style={{
+            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 20px)',
+            background: `linear-gradient(to top, ${getBgColor()} 70%, transparent)`,
+          }}
+          layout
         >
+          {/* Correct/Wrong flash emoji */}
+          <AnimatePresence>
+            {isCurrentAnswered && lastAnswerCorrect !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.5 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                className="text-center mb-3"
+              >
+                <span className="text-2xl">
+                  {lastAnswerCorrect ? '🎯' : '💪'}
+                </span>
+                <p className="text-sm font-bold mt-0.5" style={{ color: lastAnswerCorrect ? '#10B981' : '#EF4444' }}>
+                  {lastAnswerCorrect ? 'Nailed it!' : 'Keep going!'}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {!isCurrentAnswered ? (
-            <button
+            <motion.button
               onClick={handleCheck}
               disabled={!hasSelection}
-              className={`
-                w-full rounded-xl py-4 px-6 text-white font-bold text-lg
-                transition-all duration-150 min-h-[56px]
-                ${hasSelection ? 'active:scale-[0.98]' : 'opacity-50 cursor-not-allowed'}
-              `}
-              style={{ backgroundColor: unitColor }}
+              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg"
+              style={getBottomButtonStyle()}
+              whileTap={hasSelection ? { scale: 0.96 } : undefined}
+              animate={hasSelection ? { y: [0, -2, 0] } : undefined}
+              transition={hasSelection ? { duration: 0.4, repeat: Infinity, repeatDelay: 2 } : undefined}
             >
-              Check
-            </button>
+              CHECK
+            </motion.button>
           ) : (
-            <button
+            <motion.button
               onClick={handleContinue}
-              className="w-full rounded-xl py-4 px-6 text-white font-bold text-lg transition-all duration-150 active:scale-[0.98] min-h-[56px]"
-              style={{ backgroundColor: unitColor }}
+              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg flex items-center justify-center gap-2"
+              style={getBottomButtonStyle()}
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              whileTap={{ scale: 0.96 }}
             >
-              {isLastQuestion ? 'Complete' : 'Continue'}
-            </button>
+              {isLastQuestion ? '🏁 FINISH' : 'CONTINUE →'}
+            </motion.button>
           )}
-        </div>
+        </motion.div>
 
         {/* ── Exit confirmation modal ── */}
         <AnimatePresence>
@@ -197,31 +295,36 @@ export default function LessonView() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6"
+              className="fixed inset-0 z-[60] bg-black/40 flex items-end sm:items-center justify-center px-4"
             >
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 100, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                className="bg-white rounded-t-3xl sm:rounded-3xl p-6 w-full max-w-sm shadow-2xl mb-0 sm:mb-0"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <div className="flex justify-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
+                    <AlertTriangle className="w-7 h-7 text-red-500" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-extrabold text-gray-900 mb-1.5 text-center">
                   Quit lesson?
                 </h3>
-                <p className="text-sm text-gray-500 mb-6">
-                  Your progress on this lesson will be lost. Are you sure you want to leave?
+                <p className="text-sm text-gray-500 mb-6 text-center">
+                  Your progress on this lesson will be lost.
                 </p>
                 <div className="flex gap-3">
                   <button
                     onClick={handleCancelExit}
-                    className="flex-1 rounded-xl py-3 px-4 border border-gray-200 text-gray-700 font-semibold transition-colors hover:bg-gray-50 min-h-[44px]"
+                    className="flex-1 rounded-2xl py-3.5 px-4 border-2 border-gray-200 text-gray-700 font-bold transition-colors hover:bg-gray-50 active:scale-[0.97] min-h-[50px]"
                   >
                     Keep going
                   </button>
                   <button
                     onClick={handleConfirmExit}
-                    className="flex-1 rounded-xl py-3 px-4 bg-red-500 text-white font-semibold transition-colors hover:bg-red-600 min-h-[44px]"
+                    className="flex-1 rounded-2xl py-3.5 px-4 bg-red-500 text-white font-bold transition-colors hover:bg-red-600 active:scale-[0.97] min-h-[50px]"
                   >
                     Quit
                   </button>

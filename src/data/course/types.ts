@@ -10,6 +10,7 @@ export interface CourseQuestion {
   acceptedAnswers?: string[];
   explanation: string;
   hint?: string;
+  diagram?: string;
 }
 
 export interface Lesson {

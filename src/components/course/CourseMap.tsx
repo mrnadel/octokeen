@@ -6,6 +6,7 @@ import { course } from '@/data/course';
 import { useCourseStore } from '@/store/useCourseStore';
 import { UnitHeader } from './UnitHeader';
 import { LessonNode } from './LessonNode';
+import { UnitIllustration } from './UnitIllustrations';
 
 /**
  * Connector dots between lesson nodes on the winding path.
@@ -124,6 +125,15 @@ export function CourseMap() {
                 totalInUnit={unit.lessons.length}
               />
 
+              {/* Unit illustration at the top */}
+              <div className="flex justify-center py-2" aria-hidden="true">
+                <UnitIllustration
+                  unitIndex={unitIndex}
+                  color={unit.color}
+                  className="w-48 h-auto opacity-80"
+                />
+              </div>
+
               {/* Lesson nodes in winding path */}
               <div className="flex flex-col items-center px-4">
                 {unit.lessons.map((lesson, lessonIndex) => {
@@ -140,8 +150,22 @@ export function CourseMap() {
                     ? getLessonState(unitIndex, lessonIndex + 1) === 'locked'
                     : false;
 
+                  // Show a smaller illustration every 3 lessons as a visual break
+                  const showMidIllustration = lessonIndex > 0 && lessonIndex % 3 === 0;
+
                   return (
                     <div key={lesson.id}>
+                      {/* Mid-lesson illustration break */}
+                      {showMidIllustration && (
+                        <div className="flex justify-center py-3" aria-hidden="true">
+                          <UnitIllustration
+                            unitIndex={unitIndex}
+                            color={unit.color}
+                            className="w-32 h-auto opacity-50"
+                          />
+                        </div>
+                      )}
+
                       {/* Lesson node with sinusoidal offset */}
                       <div
                         ref={isCurrent ? currentLessonRef : undefined}
