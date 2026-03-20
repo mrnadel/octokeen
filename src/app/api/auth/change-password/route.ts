@@ -4,6 +4,8 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { changePasswordSchema, getValidationError } from '@/lib/validation';
 
 export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
@@ -11,21 +13,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { currentPassword, newPassword } = await request.json();
-
-  if (!currentPassword || !newPassword) {
+  // Rate limit by user ID
+  const rl = rateLimit(`change-password:${userId}`, RATE_LIMITS.auth);
+  if (!rl.success) {
     return NextResponse.json(
-      { error: 'Both passwords are required' },
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
+    );
+  }
+
+  const body = await request.json();
+  const parsed = changePasswordSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: getValidationError(parsed) },
       { status: 400 }
     );
   }
 
-  if (newPassword.length < 8) {
-    return NextResponse.json(
-      { error: 'New password must be at least 8 characters' },
-      { status: 400 }
-    );
-  }
+  const { currentPassword, newPassword } = parsed.data;
 
   const [user] = await db
     .select()

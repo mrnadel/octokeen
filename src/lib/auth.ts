@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from './db';
 import { users, accounts } from './db/schema';
+import { isLoginLocked, trackFailedLogin, clearFailedLogins } from './rate-limit';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -31,8 +32,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const email = credentials.email as string;
+        const email = (credentials.email as string).toLowerCase();
         const password = credentials.password as string;
+
+        // Check if account is locked from too many failed attempts
+        if (isLoginLocked(email)) {
+          return null;
+        }
 
         const result = await db
           .select()
@@ -40,13 +46,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .where(eq(users.email, email))
           .limit(1);
 
-        if (result.length === 0) return null;
+        if (result.length === 0) {
+          trackFailedLogin(email);
+          return null;
+        }
 
         const user = result[0];
         if (!user.passwordHash) return null;
 
         const isValid = await bcrypt.compare(password, user.passwordHash);
-        if (!isValid) return null;
+        if (!isValid) {
+          trackFailedLogin(email);
+          return null;
+        }
+
+        // Successful login — clear failed attempts
+        clearFailedLogins(email);
 
         return {
           id: user.id,

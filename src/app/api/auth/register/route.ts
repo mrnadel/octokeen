@@ -3,39 +3,31 @@ import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { registerSchema, getValidationError } from '@/lib/validation';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, displayName } = await request.json();
-
-    if (!email || !password || !displayName) {
+    // Rate limit by IP
+    const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
+    const rl = rateLimit(`register:${ip}`, RATE_LIMITS.auth);
+    if (!rl.success) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
+      );
+    }
+
+    const body = await request.json();
+    const parsed = registerSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: getValidationError(parsed) },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
-
-    if (password.length < 8) {
-      return NextResponse.json(
-        { error: 'Password must be at least 8 characters' },
-        { status: 400 }
-      );
-    }
-
-    if (displayName.length < 2 || displayName.length > 50) {
-      return NextResponse.json(
-        { error: 'Display name must be 2-50 characters' },
-        { status: 400 }
-      );
-    }
+    const { email, password, displayName } = parsed.data;
 
     const existing = await db
       .select()
