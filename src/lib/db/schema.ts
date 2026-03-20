@@ -199,6 +199,17 @@ export const paymentHistory = pgTable('payment_history', {
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
 });
 
+// ─── Pro Waitlist ────────────────────────────────────────────
+
+export const proWaitlist = pgTable('pro_waitlist', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text('email').notNull().unique(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'set null' }),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+});
+
 // ─── Daily usage tracking (for free-tier limits) ──────────────
 
 export const dailyUsage = pgTable(
