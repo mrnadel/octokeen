@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep - Compact with Progress Rings</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff;
+    color: #3C3C3C;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #fff;
+    border-bottom: 2px solid #F0F0F0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #58CC02;
+    letter-spacing: -0.5px;
+  }
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4B4B4B;
+  }
+  .stat-icon { font-size: 15px; }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #58CC02, #46a302);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #E5E5E5;
+  }
+
+  /* ── Today's Goal Card ── */
+  .todays-goal {
+    margin: 14px 16px;
+    background: linear-gradient(135deg, #F7FFF0 0%, #EEFAFF 100%);
+    border: 2px solid #E8F5E0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .goal-icon-wrap {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+  }
+  .goal-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .goal-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #8AB06A;
+    margin-bottom: 3px;
+  }
+  .goal-msg {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3C3C3C;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .goal-bar-track {
+    width: 100%;
+    height: 10px;
+    background: #DFF0D0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .goal-bar-fill {
+    height: 100%;
+    width: 60%;
+    background: linear-gradient(90deg, #58CC02, #6EE018);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+  }
+  .goal-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8AB06A;
+    margin-top: 4px;
+  }
+
+  /* ── Section Labels ── */
+  .section-label {
+    padding: 16px 18px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #AFAFAF;
+  }
+
+  /* ── Unit Cards ── */
+  .units-container {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .unit-card {
+    border: 2px solid #F0F0F0;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+  }
+  .unit-card.expanded {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .unit-card.locked {
+    opacity: 0.6;
+  }
+  .unit-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    cursor: pointer;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+  .unit-header:active {
+    background: #FAFAFA;
+  }
+  .unit-card.locked .unit-header {
+    cursor: default;
+  }
+
+  /* Color circle with icon */
+  .unit-icon-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  /* Unit text */
+  .unit-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .unit-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #3C3C3C;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .unit-subtitle {
+    font-size: 12px;
+    color: #AFAFAF;
+    font-weight: 500;
+    margin-top: 1px;
+  }
+
+  /* Progress Ring */
+  .progress-ring-wrap {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .progress-ring-wrap svg {
+    transform: rotate(-90deg);
+  }
+  .ring-bg {
+    fill: none;
+    stroke: #F0F0F0;
+    stroke-width: 3.5;
+  }
+  .ring-fill {
+    fill: none;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.6s ease;
+  }
+  .ring-text {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 800;
+    color: #3C3C3C;
+  }
+  .unit-card.locked .ring-text {
+    font-size: 14px;
+    color: #CFCFCF;
+  }
+
+  /* Expand chevron */
+  .expand-chevron {
+    display: none; /* hidden, using ring area as tap target */
+  }
+
+  /* ── Lesson List (expandable) ── */
+  .lesson-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .lesson-list-inner {
+    padding: 0 14px 10px 14px;
+    border-top: 1.5px solid #F0F0F0;
+  }
+  .lesson-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    gap: 10px;
+    border-bottom: 1px solid #F8F8F8;
+  }
+  .lesson-row:last-child {
+    border-bottom: none;
+  }
+  .lesson-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .lesson-title {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #4B4B4B;
+    line-height: 1.2;
+  }
+  .lesson-row.locked .lesson-title {
+    color: #C8C8C8;
+  }
+
+  /* Status indicators */
+  .lesson-status {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .check-icon {
+    width: 22px;
+    height: 22px;
+  }
+  /* Star dots */
+  .star-dots {
+    display: flex;
+    gap: 3px;
+  }
+  .star-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #E0E0E0;
+  }
+  .star-dot.filled { background: #FFC800; }
+
+  .lock-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* GO button — Duolingo 3D style, compact */
+  .go-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    background: #58CC02;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 0 #46a302;
+    transform: translateY(0);
+    transition: transform 0.1s, box-shadow 0.1s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .go-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #46a302;
+  }
+  .go-btn.purple {
+    background: #CE82FF;
+    box-shadow: 0 3px 0 #A85CD4;
+  }
+  .go-btn.purple:active {
+    box-shadow: 0 1px 0 #A85CD4;
+  }
+
+  /* ── Weekly Stats ── */
+  .weekly-stats {
+    margin: 18px 16px 24px;
+    background: #FAFAFA;
+    border-radius: 16px;
+    padding: 16px;
+    border: 2px solid #F0F0F0;
+  }
+  .weekly-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3C3C3C;
+    margin-bottom: 14px;
+  }
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 80px;
+    gap: 8px;
+    padding: 0 4px;
+  }
+  .chart-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+  }
+  .chart-bar {
+    width: 100%;
+    max-width: 28px;
+    border-radius: 6px 6px 3px 3px;
+    transition: height 0.4s ease;
+    min-height: 4px;
+  }
+  .chart-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #AFAFAF;
+    text-transform: uppercase;
+  }
+  .chart-xp {
+    font-size: 9px;
+    font-weight: 700;
+    color: #AFAFAF;
+    margin-bottom: 2px;
+  }
+
+  /* ── Bottom Nav ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-top: 2px solid #F0F0F0;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 14px;
+    z-index: 100;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-item svg { width: 24px; height: 24px; }
+  .nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #AFAFAF;
+  }
+  .nav-item.active .nav-label { color: #58CC02; }
+
+  /* Spacer for bottom nav */
+  .bottom-spacer { height: 72px; }
+
+  /* ── Animations ── */
+  @keyframes pulse-ring {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+  .current-ring .ring-fill {
+    animation: pulse-ring 2s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+
+<!-- ======== HEADER ======== -->
+<div class="header">
+  <div class="header-logo">MechPrep</div>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-icon">&#128293;</span> 5</div>
+    <div class="stat"><span class="stat-icon">&#128142;</span> 1,240</div>
+    <div class="avatar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4.5" fill="#fff"/>
+        <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="#fff"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ======== TODAY'S GOAL ======== -->
+<div class="todays-goal">
+  <div class="goal-icon-wrap">
+    <!-- Gear with graduation cap SVG -->
+    <svg viewBox="0 0 48 48" width="48" height="48">
+      <!-- Gear body -->
+      <g transform="translate(24,26)">
+        <path d="M0-14l3.5-2.5h-7L0-14z M-2.5-16.5h5v-2h-5v2z" fill="#58CC02" opacity="0"/>
+        <!-- Gear teeth -->
+        <path d="M-3-12V-15H3V-12L6.5-10.5V-7.5L3-6V6H-3V-6L-6.5-7.5V-10.5L-3-12Z" fill="#8CE000" stroke="#58CC02" stroke-width="1"/>
+        <circle cx="0" cy="-3" r="4" fill="#F7FFF0" stroke="#58CC02" stroke-width="1"/>
+        <circle cx="0" cy="-3" r="1.5" fill="#58CC02"/>
+        <!-- Gear outer teeth as small rects -->
+        <rect x="-2" y="-16" width="4" height="3" rx="1" fill="#58CC02"/>
+        <rect x="-2" y="5" width="4" height="3" rx="1" fill="#58CC02"/>
+        <rect x="7" y="-5" width="3" height="4" rx="1" fill="#58CC02"/>
+        <rect x="-10" y="-5" width="3" height="4" rx="1" fill="#58CC02"/>
+        <!-- Diagonal teeth -->
+        <rect x="4" y="-13" width="3" height="4" rx="1" fill="#58CC02" transform="rotate(45 5.5 -11)"/>
+        <rect x="-7" y="-13" width="3" height="4" rx="1" fill="#58CC02" transform="rotate(-45 -5.5 -11)"/>
+        <rect x="4" y="3" width="3" height="4" rx="1" fill="#58CC02" transform="rotate(-45 5.5 5)"/>
+        <rect x="-7" y="3" width="3" height="4" rx="1" fill="#58CC02" transform="rotate(45 -5.5 5)"/>
+      </g>
+      <!-- Graduation cap on top -->
+      <polygon points="24,4 10,11 24,18 38,11" fill="#3C3C3C"/>
+      <rect x="23" y="11" width="2" height="8" fill="#3C3C3C"/>
+      <path d="M15,12 L15,18 Q24,23 33,18 L33,12" fill="none" stroke="#3C3C3C" stroke-width="1.5"/>
+      <circle cx="34" cy="20" r="1.2" fill="#FFC800"/>
+      <line x1="34" y1="12" x2="34" y2="20" stroke="#3C3C3C" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="goal-content">
+    <div class="goal-label">Today's Goal</div>
+    <div class="goal-msg">Great momentum! Keep it up!</div>
+    <div class="goal-bar-track">
+      <div class="goal-bar-fill" style="width:60%"></div>
+    </div>
+    <div class="goal-count">3 of 5 lessons today</div>
+  </div>
+</div>
+
+<!-- ======== UNIT LIST ======== -->
+<div class="section-label">Your Courses</div>
+<div class="units-container">
+
+  <!-- ── Unit 1: Statics ── -->
+  <div class="unit-card" data-unit="1">
+    <div class="unit-header" onclick="toggleUnit(1)">
+      <div class="unit-icon-circle" style="background: #58CC02;">
+        <!-- Statics: balance/beam icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <line x1="12" y1="4" x2="12" y2="20" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4" y1="8" x2="20" y2="8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="4" cy="8" r="2" fill="#fff" opacity="0.85"/>
+          <circle cx="20" cy="8" r="2" fill="#fff" opacity="0.85"/>
+          <polygon points="10,20 14,20 12,17" fill="#fff" opacity="0.85"/>
+        </svg>
+      </div>
+      <div class="unit-text">
+        <div class="unit-title">Statics & Equilibrium</div>
+        <div class="unit-subtitle">5 of 8 lessons complete</div>
+      </div>
+      <div class="progress-ring-wrap current-ring">
+        <svg width="44" height="44" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"/>
+          <circle class="ring-fill" cx="22" cy="22" r="18"
+            stroke="#58CC02"
+            stroke-dasharray="113.1"
+            stroke-dashoffset="41.8"/>
+        </svg>
+        <span class="ring-text">63%</span>
+      </div>
+    </div>
+    <div class="lesson-list" id="lessons-1">
+      <div class="lesson-list-inner">
+        <!-- Lesson 1 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Free Body Diagrams</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#58CC02"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot filled"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 2 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Force Vectors & Components</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#58CC02"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 3 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Moment of a Force</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#58CC02"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot filled"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 4 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Equilibrium Conditions</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#58CC02"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot"></span><span class="star-dot"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 5 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Support Reactions</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#58CC02"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 6 — current -->
+        <div class="lesson-row current">
+          <div class="lesson-dot" style="background:#58CC02"></div>
+          <div class="lesson-title">Trusses & Frames</div>
+          <div class="lesson-status">
+            <button class="go-btn" onclick="event.stopPropagation()">GO</button>
+          </div>
+        </div>
+        <!-- Lesson 7 — locked within unit -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Friction Fundamentals</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Lesson 8 — locked within unit -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Review & Practice</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Unit 2: Dynamics ── -->
+  <div class="unit-card" data-unit="2">
+    <div class="unit-header" onclick="toggleUnit(2)">
+      <div class="unit-icon-circle" style="background: #CE82FF;">
+        <!-- Dynamics: motion/velocity icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <circle cx="8" cy="16" r="4" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M12 16h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="17,13 20,16 17,19" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 4l3 5h-6l3-5z" fill="#fff" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="unit-text">
+        <div class="unit-title">Dynamics & Motion</div>
+        <div class="unit-subtitle">2 of 7 lessons complete</div>
+      </div>
+      <div class="progress-ring-wrap">
+        <svg width="44" height="44" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"/>
+          <circle class="ring-fill" cx="22" cy="22" r="18"
+            stroke="#CE82FF"
+            stroke-dasharray="113.1"
+            stroke-dashoffset="80.3"/>
+        </svg>
+        <span class="ring-text">29%</span>
+      </div>
+    </div>
+    <div class="lesson-list" id="lessons-2">
+      <div class="lesson-list-inner">
+        <!-- Lesson 1 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#CE82FF"></div>
+          <div class="lesson-title">Kinematics of Particles</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#CE82FF"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot filled"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 2 — completed -->
+        <div class="lesson-row completed">
+          <div class="lesson-dot" style="background:#CE82FF"></div>
+          <div class="lesson-title">Newton's Laws Applied</div>
+          <div class="lesson-status">
+            <svg class="check-icon" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#CE82FF"/><polyline points="6,11 10,15 16,7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="star-dots"><span class="star-dot filled"></span><span class="star-dot filled"></span><span class="star-dot"></span></div>
+          </div>
+        </div>
+        <!-- Lesson 3 — current -->
+        <div class="lesson-row current">
+          <div class="lesson-dot" style="background:#CE82FF"></div>
+          <div class="lesson-title">Work & Energy Methods</div>
+          <div class="lesson-status">
+            <button class="go-btn purple" onclick="event.stopPropagation()">GO</button>
+          </div>
+        </div>
+        <!-- Lesson 4 — locked -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Impulse & Momentum</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Lesson 5 — locked -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Rigid Body Kinematics</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Lesson 6 — locked -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Rigid Body Kinetics</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Lesson 7 — locked -->
+        <div class="lesson-row locked">
+          <div class="lesson-dot" style="background:#E0E0E0"></div>
+          <div class="lesson-title">Vibrations Intro</div>
+          <div class="lesson-status">
+            <svg class="lock-icon" viewBox="0 0 18 18" fill="none">
+              <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#E0E0E0"/>
+              <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#E0E0E0" stroke-width="1.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Unit 3: Strength of Materials (locked) ── -->
+  <div class="unit-card locked" data-unit="3">
+    <div class="unit-header">
+      <div class="unit-icon-circle" style="background: #E0E0E0;">
+        <!-- Strength: beam bending icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="10" width="18" height="4" rx="1.5" fill="#fff" opacity="0.85"/>
+          <path d="M6 10 Q12 4 18 10" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M6 14 Q12 20 18 14" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="unit-text">
+        <div class="unit-title">Strength of Materials</div>
+        <div class="unit-subtitle">Complete Dynamics to unlock</div>
+      </div>
+      <div class="progress-ring-wrap">
+        <svg width="44" height="44" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"/>
+          <circle class="ring-fill" cx="22" cy="22" r="18"
+            stroke="#E0E0E0"
+            stroke-dasharray="113.1"
+            stroke-dashoffset="113.1"/>
+        </svg>
+        <span class="ring-text">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+            <rect x="3.5" y="8" width="11" height="8" rx="2" fill="#CFCFCF"/>
+            <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#CFCFCF" stroke-width="1.8" fill="none"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== WEEKLY STATS ======== -->
+<div class="section-label">This Week</div>
+<div class="weekly-stats">
+  <div class="weekly-title">Weekly XP</div>
+  <div class="chart">
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">80</div>
+      <div class="chart-bar" style="height:53%; background: #58CC02;"></div>
+      <div class="chart-label">M</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">120</div>
+      <div class="chart-bar" style="height:80%; background: #58CC02;"></div>
+      <div class="chart-label">T</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">60</div>
+      <div class="chart-bar" style="height:40%; background: #CE82FF;"></div>
+      <div class="chart-label">W</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">150</div>
+      <div class="chart-bar" style="height:100%; background: #CE82FF;"></div>
+      <div class="chart-label">T</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">40</div>
+      <div class="chart-bar" style="height:27%; background: #58CC02;"></div>
+      <div class="chart-label">F</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">--</div>
+      <div class="chart-bar" style="height:4px; background: #E8E8E8;"></div>
+      <div class="chart-label">S</div>
+    </div>
+    <div class="chart-bar-wrap">
+      <div class="chart-xp">--</div>
+      <div class="chart-bar" style="height:4px; background: #E8E8E8;"></div>
+      <div class="chart-label">S</div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-spacer"></div>
+
+<!-- ======== BOTTOM NAV ======== -->
+<div class="bottom-nav">
+  <div class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M3 12l9-9 9 9" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="nav-label" style="color:#58CC02">Learn</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#CFCFCF" stroke-width="2"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#CFCFCF" stroke-width="2"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#CFCFCF" stroke-width="2"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#CFCFCF" stroke-width="2"/>
+    </svg>
+    <span class="nav-label">Practice</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M12 15l-3.76 2.27.95-4.28L6 10.24l4.38-.38L12 6l1.62 3.86 4.38.38-3.19 2.75.95 4.28z" stroke="#CFCFCF" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span class="nav-label">Leagues</span>
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" stroke="#CFCFCF" stroke-width="2"/>
+      <path d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label">Profile</span>
+  </div>
+</div>
+
+<script>
+  // Track which unit is expanded
+  let expandedUnit = null;
+
+  function toggleUnit(unitNum) {
+    const card = document.querySelector(`.unit-card[data-unit="${unitNum}"]`);
+    if (card.classList.contains('locked')) return;
+
+    const lessonList = document.getElementById(`lessons-${unitNum}`);
+    const inner = lessonList.querySelector('.lesson-list-inner');
+
+    if (expandedUnit === unitNum) {
+      // Collapse
+      lessonList.style.maxHeight = '0px';
+      card.classList.remove('expanded');
+      expandedUnit = null;
+    } else {
+      // Collapse any currently open
+      if (expandedUnit !== null) {
+        const prevList = document.getElementById(`lessons-${expandedUnit}`);
+        const prevCard = document.querySelector(`.unit-card[data-unit="${expandedUnit}"]`);
+        if (prevList) prevList.style.maxHeight = '0px';
+        if (prevCard) prevCard.classList.remove('expanded');
+      }
+      // Expand this one
+      const height = inner.scrollHeight;
+      lessonList.style.maxHeight = height + 'px';
+      card.classList.add('expanded');
+      expandedUnit = unitNum;
+
+      // Scroll into view after animation
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 200);
+    }
+  }
+
+  // Auto-expand Unit 1 on load for a nice first impression
+  setTimeout(() => toggleUnit(1), 400);
+</script>
+
+</body>
+</html>

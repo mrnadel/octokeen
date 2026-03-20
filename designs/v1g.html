@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MechPrep — Chunky & Playful</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #F7F5F0;
+    color: #3C3C3C;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+  }
+
+  /* ===== GOOGLE FONT LOAD ===== */
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+  /* ===== HEADER ===== */
+  .header {
+    background: #FFFFFF;
+    border-bottom: 3px solid #E5E0D8;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: #58CC02;
+    letter-spacing: -0.5px;
+  }
+  .header-logo span { color: #3C3C3C; }
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .stat-fire { color: #FF9600; }
+  .stat-xp { color: #1CB0F6; }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid #E5E0D8;
+    background: #DDD;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== STREAK CELEBRATION CARD ===== */
+  .streak-card {
+    margin: 16px 16px 0;
+    background: linear-gradient(135deg, #FFF5E6 0%, #FFECD2 100%);
+    border: 3px solid #FFB347;
+    border-radius: 22px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 0 #E89E3A;
+  }
+  .streak-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .streak-flame {
+    width: 52px;
+    height: 52px;
+    animation: flamePulse 1.2s ease-in-out infinite alternate;
+  }
+  @keyframes flamePulse {
+    0% { transform: scale(1) rotate(-2deg); }
+    100% { transform: scale(1.12) rotate(2deg); }
+  }
+  .streak-text h3 {
+    font-size: 20px;
+    font-weight: 900;
+    color: #BF6900;
+  }
+  .streak-text p {
+    font-size: 13px;
+    font-weight: 700;
+    color: #D48A20;
+    margin-top: 2px;
+  }
+  /* confetti dots */
+  .confetti-dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: confettiFloat 3s ease-in-out infinite;
+  }
+  .confetti-dot:nth-child(1) { width: 8px; height: 8px; background: #FF6B6B; top: 8px; right: 20px; animation-delay: 0s; }
+  .confetti-dot:nth-child(2) { width: 6px; height: 6px; background: #58CC02; top: 40px; right: 50px; animation-delay: 0.4s; }
+  .confetti-dot:nth-child(3) { width: 10px; height: 10px; background: #1CB0F6; bottom: 10px; right: 30px; animation-delay: 0.8s; }
+  .confetti-dot:nth-child(4) { width: 7px; height: 7px; background: #CE82FF; top: 15px; right: 80px; animation-delay: 1.2s; }
+  .confetti-dot:nth-child(5) { width: 5px; height: 5px; background: #FF9600; bottom: 15px; right: 70px; animation-delay: 0.6s; }
+  .confetti-dot:nth-child(6) { width: 9px; height: 9px; background: #FF6B6B; top: 5px; right: 120px; animation-delay: 1s; }
+  @keyframes confettiFloat {
+    0%, 100% { transform: translateY(0) rotate(0); opacity: 0.45; }
+    50% { transform: translateY(-6px) rotate(180deg); opacity: 0.8; }
+  }
+
+  /* ===== UNIT CARD ===== */
+  .unit-card {
+    margin: 16px 16px 0;
+    background: #FFFFFF;
+    border: 3px solid;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.07);
+    transition: transform 0.15s ease;
+  }
+  .unit-card:active { transform: scale(0.985); }
+
+  .unit-header {
+    padding: 18px 18px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+  }
+
+  .unit-icon-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 3px solid;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+  }
+  .unit-icon-badge svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .unit-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .unit-title {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #3C3C3C;
+  }
+  .unit-subtitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #AFAFAF;
+    margin-top: 3px;
+  }
+  .unit-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .unit-progress-bar {
+    flex: 1;
+    height: 12px;
+    background: #EBEBEB;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #E0E0E0;
+  }
+  .unit-progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.6s ease;
+  }
+  .unit-progress-text {
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .unit-chevron {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+  }
+  .unit-card.expanded .unit-chevron {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  /* ===== LESSONS CONTAINER ===== */
+  .lessons-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .unit-card.expanded .lessons-container {
+    max-height: 800px;
+  }
+  .lessons-inner {
+    padding: 4px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ===== LESSON PILL BUTTONS ===== */
+  .lesson-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 3px solid;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    position: relative;
+  }
+  .lesson-pill:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 transparent !important;
+  }
+
+  /* Completed */
+  .lesson-pill.completed {
+    box-shadow: 0 3px 0;
+  }
+  .lesson-pill.completed .lesson-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lesson-pill.completed .lesson-title {
+    flex: 1;
+  }
+  .lesson-pill.completed .lesson-stars {
+    display: flex;
+    gap: 3px;
+  }
+  .star-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .star-circle svg { width: 12px; height: 12px; }
+
+  /* Current */
+  .lesson-pill.current {
+    box-shadow: 0 3px 0;
+    animation: pillBounce 2s ease-in-out infinite;
+  }
+  @keyframes pillBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  .lesson-pill.current:active {
+    animation: none;
+    transform: translateY(3px);
+  }
+  .lesson-pill.current .lesson-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    color: #FFF;
+    flex-shrink: 0;
+  }
+  .lesson-pill.current .lesson-title { flex: 1; }
+  .go-btn {
+    background: #58CC02;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 900;
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 0 #46A302;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .go-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #46A302;
+  }
+
+  /* Locked */
+  .lesson-pill.locked {
+    background: #F0EEEB;
+    border-color: #DDD9D2;
+    box-shadow: 0 3px 0 #D4D0C9;
+    color: #BFBFBF;
+    cursor: default;
+  }
+  .lesson-pill.locked .lesson-lock {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lesson-pill.locked .lesson-title { flex: 1; }
+
+  /* ===== INTERVIEW READINESS GAUGE ===== */
+  .gauge-card {
+    margin: 24px 16px 0;
+    background: #FFFFFF;
+    border: 3px solid #E5E0D8;
+    border-radius: 22px;
+    padding: 24px 20px 20px;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+  }
+  .gauge-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #3C3C3C;
+    margin-bottom: 16px;
+  }
+  .gauge-wrap {
+    width: 200px;
+    height: 110px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .gauge-svg {
+    width: 200px;
+    height: 110px;
+  }
+  .gauge-percent {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    font-weight: 900;
+    color: #FF9600;
+  }
+  .gauge-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #AFAFAF;
+    margin-top: 8px;
+  }
+  .gauge-sublabel {
+    font-size: 12px;
+    font-weight: 700;
+    color: #CE82FF;
+    margin-top: 4px;
+  }
+
+  /* ===== BOTTOM PADDING ===== */
+  .bottom-spacer { height: 40px; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in {
+    animation: slideUp 0.4s ease-out backwards;
+  }
+  .delay-1 { animation-delay: 0.08s; }
+  .delay-2 { animation-delay: 0.16s; }
+  .delay-3 { animation-delay: 0.24s; }
+  .delay-4 { animation-delay: 0.32s; }
+  .delay-5 { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-logo">Mech<span>Prep</span></div>
+  <div class="header-stats">
+    <div class="stat stat-fire">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C10.5 6 7 8 7 12.5C7 16.09 9.69 19 13 19C14.5 19 15.5 18.5 16.5 17.5C17 17 17.5 16 17.5 14.5C17.5 12 16 10.5 15 9.5C14 8.5 13.5 7 13.5 5C13.5 4 13 3 12 2Z" fill="#FF9600"/>
+        <path d="M12 19C10.34 19 9 17.66 9 16C9 14.5 10 13.5 11 12.5C11.5 14 12.5 15 13.5 15.5C14 15.75 14.5 16.5 14.5 17C14.5 18.1 13.38 19 12 19Z" fill="#FFC800"/>
+      </svg>
+      <span>5</span>
+    </div>
+    <div class="stat stat-xp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#1CB0F6"/>
+      </svg>
+      <span>1,240</span>
+    </div>
+    <div class="avatar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="4" fill="#AFAFAF"/>
+        <path d="M12 14C8 14 5 16.5 5 19V20H19V19C19 16.5 16 14 12 14Z" fill="#AFAFAF"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STREAK CELEBRATION ===== -->
+<div class="streak-card animate-in delay-1">
+  <div class="confetti-dot"></div>
+  <div class="confetti-dot"></div>
+  <div class="confetti-dot"></div>
+  <div class="confetti-dot"></div>
+  <div class="confetti-dot"></div>
+  <div class="confetti-dot"></div>
+  <div class="streak-card-inner">
+    <svg class="streak-flame" viewBox="0 0 64 64" fill="none">
+      <path d="M32 4C28 16 18 22 18 36C18 47.05 24.27 56 34 56C38 56 41 54.5 44 52C46 50 48 47 48 43C48 37 44 33 41 30C38 27 36 23 36 18C36 14 35 10 32 4Z" fill="#FF9600"/>
+      <path d="M32 56C27.58 56 24 51.08 24 46C24 42 27 39 30 36C31.5 40 34 43 37 44.5C38.5 45.25 40 47.5 40 49.5C40 53.09 36.42 56 32 56Z" fill="#FFC800"/>
+      <path d="M32 56C29 56 27 53 27 50C27 47.5 29 45.5 31 43.5C32 46.5 34 48 36 49C36.5 49.25 37.5 50.5 37.5 51.5C37.5 54 35.19 56 32 56Z" fill="#FFE066"/>
+    </svg>
+    <div class="streak-text">
+      <h3>5 Day Streak! &#x1F525;</h3>
+      <p>You're on fire! Keep it up!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNIT 1: STATICS & EQUILIBRIUM ===== -->
+<div class="unit-card expanded animate-in delay-2" style="border-color: #58CC02;" data-unit="1">
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <div class="unit-icon-badge" style="background: #E6F9D4; border-color: #58CC02;">
+      <!-- Statics: balance/beam SVG -->
+      <svg viewBox="0 0 48 48" fill="none">
+        <rect x="22" y="32" width="4" height="10" rx="2" fill="#58CC02"/>
+        <polygon points="24,10 6,32 42,32" fill="none" stroke="#58CC02" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="24" cy="10" r="4" fill="#58CC02"/>
+        <rect x="4" y="28" width="12" height="4" rx="2" fill="#A3E635"/>
+        <rect x="32" y="28" width="12" height="4" rx="2" fill="#A3E635"/>
+      </svg>
+    </div>
+    <div class="unit-info">
+      <div class="unit-title">Statics & Equilibrium</div>
+      <div class="unit-subtitle">Forces that keep things still</div>
+      <div class="unit-progress-row">
+        <div class="unit-progress-bar">
+          <div class="unit-progress-fill" style="width: 62.5%; background: #58CC02;"></div>
+        </div>
+        <div class="unit-progress-text" style="color: #58CC02;">5/8</div>
+      </div>
+    </div>
+    <svg class="unit-chevron" width="20" height="20" viewBox="0 0 20 20" fill="#AFAFAF">
+      <path d="M5 7.5L10 12.5L15 7.5" stroke="#AFAFAF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="lessons-container">
+    <div class="lessons-inner">
+      <!-- Lesson 1 - completed -->
+      <div class="lesson-pill completed" style="background: #E6F9D4; border-color: #B8E994; box-shadow: 0 3px 0 #9BD87E;">
+        <div class="lesson-check" style="background: #58CC02;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Free Body Diagrams</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 2 - completed -->
+      <div class="lesson-pill completed" style="background: #E6F9D4; border-color: #B8E994; box-shadow: 0 3px 0 #9BD87E;">
+        <div class="lesson-check" style="background: #58CC02;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Equilibrium Conditions</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #E0E0E0;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 3 - completed -->
+      <div class="lesson-pill completed" style="background: #E6F9D4; border-color: #B8E994; box-shadow: 0 3px 0 #9BD87E;">
+        <div class="lesson-check" style="background: #58CC02;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Trusses & Frames</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 4 - completed -->
+      <div class="lesson-pill completed" style="background: #E6F9D4; border-color: #B8E994; box-shadow: 0 3px 0 #9BD87E;">
+        <div class="lesson-check" style="background: #58CC02;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Friction Forces</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #E0E0E0;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #E0E0E0;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 5 - completed -->
+      <div class="lesson-pill completed" style="background: #E6F9D4; border-color: #B8E994; box-shadow: 0 3px 0 #9BD87E;">
+        <div class="lesson-check" style="background: #58CC02;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Centroids & COG</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNIT 2: DYNAMICS & MOTION ===== -->
+<div class="unit-card animate-in delay-3" style="border-color: #CE82FF;" data-unit="2">
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <div class="unit-icon-badge" style="background: #F3E8FF; border-color: #CE82FF;">
+      <!-- Dynamics: gear/motion SVG -->
+      <svg viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="10" stroke="#CE82FF" stroke-width="3" fill="none"/>
+        <circle cx="24" cy="24" r="4" fill="#CE82FF"/>
+        <line x1="24" y1="4" x2="24" y2="12" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="24" y1="36" x2="24" y2="44" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="4" y1="24" x2="12" y2="24" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="36" y1="24" x2="44" y2="24" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="9.86" y1="9.86" x2="15.52" y2="15.52" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="32.48" y1="32.48" x2="38.14" y2="38.14" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="9.86" y1="38.14" x2="15.52" y2="32.48" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="32.48" y1="15.52" x2="38.14" y2="9.86" stroke="#CE82FF" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="unit-info">
+      <div class="unit-title">Dynamics & Motion</div>
+      <div class="unit-subtitle">Things that move and why</div>
+      <div class="unit-progress-row">
+        <div class="unit-progress-bar">
+          <div class="unit-progress-fill" style="width: 28.6%; background: #CE82FF;"></div>
+        </div>
+        <div class="unit-progress-text" style="color: #CE82FF;">2/7</div>
+      </div>
+    </div>
+    <svg class="unit-chevron" width="20" height="20" viewBox="0 0 20 20" fill="#AFAFAF">
+      <path d="M5 7.5L10 12.5L15 7.5" stroke="#AFAFAF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="lessons-container">
+    <div class="lessons-inner">
+      <!-- Lesson 1 - completed -->
+      <div class="lesson-pill completed" style="background: #F3E8FF; border-color: #DDB8FF; box-shadow: 0 3px 0 #C9A0EE;">
+        <div class="lesson-check" style="background: #CE82FF;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Newton's Laws</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 2 - completed -->
+      <div class="lesson-pill completed" style="background: #F3E8FF; border-color: #DDB8FF; box-shadow: 0 3px 0 #C9A0EE;">
+        <div class="lesson-check" style="background: #CE82FF;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="lesson-title">Kinematics Basics</div>
+        <div class="lesson-stars">
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #FFC800;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+          <div class="star-circle" style="background: #E0E0E0;"><svg viewBox="0 0 12 12" fill="#FFF"><path d="M6 1L7.5 4.2L11 4.6L8.5 7L9.1 10.5L6 8.8L2.9 10.5L3.5 7L1 4.6L4.5 4.2L6 1Z"/></svg></div>
+        </div>
+      </div>
+      <!-- Lesson 3 - current -->
+      <div class="lesson-pill current" style="background: rgba(206,130,255,0.1); border-color: #CE82FF; box-shadow: 0 3px 0 #B060E0;">
+        <div class="lesson-num" style="background: #CE82FF;">3</div>
+        <div class="lesson-title" style="color: #8B3EBF; font-weight: 800;">Work & Energy</div>
+        <button class="go-btn" onclick="event.stopPropagation()">GO!</button>
+      </div>
+      <!-- Lesson 4 - locked -->
+      <div class="lesson-pill locked">
+        <div class="lesson-lock">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/>
+            <path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="lesson-title">Momentum & Impulse</div>
+      </div>
+      <!-- Lesson 5 - locked -->
+      <div class="lesson-pill locked">
+        <div class="lesson-lock">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/>
+            <path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="lesson-title">Rotational Dynamics</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNIT 3: STRENGTH OF MATERIALS (LOCKED) ===== -->
+<div class="unit-card animate-in delay-4" style="border-color: #DDD9D2;" data-unit="3">
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <div class="unit-icon-badge" style="background: #F5F3EF; border-color: #DDD9D2;">
+      <!-- Strength of Materials: beam bending SVG -->
+      <svg viewBox="0 0 48 48" fill="none">
+        <rect x="6" y="20" width="36" height="6" rx="3" fill="#CFCFCF"/>
+        <path d="M6 23C6 23 16 16 24 16C32 16 42 23 42 23" stroke="#B0B0B0" stroke-width="2.5" stroke-linecap="round" fill="none" stroke-dasharray="4 3"/>
+        <circle cx="6" cy="30" r="4" fill="#CFCFCF" stroke="#B0B0B0" stroke-width="2"/>
+        <circle cx="42" cy="30" r="4" fill="#CFCFCF" stroke="#B0B0B0" stroke-width="2"/>
+        <path d="M22 12L24 8L26 12" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line x1="24" y1="8" x2="24" y2="16" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="unit-info">
+      <div class="unit-title" style="color: #BFBFBF;">Strength of Materials</div>
+      <div class="unit-subtitle" style="color: #CFCFCF;">Will it bend or break?</div>
+      <div class="unit-progress-row">
+        <div class="unit-progress-bar" style="border-color: #E8E8E8;">
+          <div class="unit-progress-fill" style="width: 0%; background: #FF9600;"></div>
+        </div>
+        <div class="unit-progress-text" style="color: #CFCFCF;">0/9</div>
+      </div>
+    </div>
+    <svg class="unit-chevron" width="20" height="20" viewBox="0 0 20 20">
+      <path d="M5 7.5L10 12.5L15 7.5" stroke="#D4D4D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="lessons-container">
+    <div class="lessons-inner">
+      <div class="lesson-pill locked">
+        <div class="lesson-lock"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/><path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="lesson-title">Stress & Strain</div>
+      </div>
+      <div class="lesson-pill locked">
+        <div class="lesson-lock"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/><path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="lesson-title">Axial Loading</div>
+      </div>
+      <div class="lesson-pill locked">
+        <div class="lesson-lock"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/><path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="lesson-title">Beam Bending</div>
+      </div>
+      <div class="lesson-pill locked">
+        <div class="lesson-lock"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/><path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="lesson-title">Shear & Moment</div>
+      </div>
+      <div class="lesson-pill locked">
+        <div class="lesson-lock"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="2" fill="#CFCFCF"/><path d="M6 8V5.5C6 3.57 7.34 2 9 2C10.66 2 12 3.57 12 5.5V8" stroke="#CFCFCF" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="lesson-title">Torsion</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INTERVIEW READINESS GAUGE ===== -->
+<div class="gauge-card animate-in delay-5">
+  <div class="gauge-title">Interview Readiness</div>
+  <div class="gauge-wrap">
+    <svg class="gauge-svg" viewBox="0 0 200 110">
+      <!-- Background arc -->
+      <path d="M15 100 A85 85 0 0 1 185 100" fill="none" stroke="#EBEBEB" stroke-width="18" stroke-linecap="round"/>
+      <!-- Colored arc (45%) — full arc is ~267 units, 45% = ~120 -->
+      <path d="M15 100 A85 85 0 0 1 185 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="18" stroke-linecap="round"
+            stroke-dasharray="267" stroke-dashoffset="147"
+            style="transition: stroke-dashoffset 1.5s ease-out;">
+      </path>
+      <defs>
+        <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#58CC02"/>
+          <stop offset="50%" stop-color="#FFC800"/>
+          <stop offset="100%" stop-color="#FF9600"/>
+        </linearGradient>
+      </defs>
+      <!-- Tick marks -->
+      <line x1="15" y1="100" x2="15" y2="92" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+      <line x1="100" y1="15" x2="100" y2="23" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+      <line x1="185" y1="100" x2="185" y2="92" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="gauge-percent">45%</div>
+  </div>
+  <div class="gauge-label">Keep going — you're building strong foundations!</div>
+  <div class="gauge-sublabel">7 of 24 lessons complete</div>
+</div>
+
+<div class="bottom-spacer"></div>
+
+<script>
+  function toggleUnit(header) {
+    const card = header.closest('.unit-card');
+    card.classList.toggle('expanded');
+  }
+</script>
+</body>
+</html>

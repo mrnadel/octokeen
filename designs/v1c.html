@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MechPrep — Illustration-Heavy</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --green:#58CC02;--green-dark:#46a302;--green-shadow:#3a8a01;
+    --purple:#CE82FF;--purple-dark:#b560e8;
+    --orange:#FF9600;--orange-dark:#db8000;
+    --bg:#f7f7f7;--card:#fff;--text:#3c3c3c;--text-light:#888;
+    --radius:20px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);
+    max-width:480px;margin:0 auto;min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;background:#fff;
+    border-bottom:1px solid #eee;position:sticky;top:0;z-index:100;
+  }
+  .header-logo{font-size:22px;font-weight:800;color:var(--green);letter-spacing:-.5px}
+  .header-stats{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:700}
+  .header-stats span{display:flex;align-items:center;gap:3px}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg,#CE82FF,#58CC02);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;color:#fff;font-weight:700;
+  }
+
+  /* ===== BANNER ===== */
+  .banner{
+    background:linear-gradient(135deg,#e8f5e0 0%,#f0e6ff 100%);
+    padding:20px 18px;display:flex;align-items:center;gap:12px;
+    border-bottom:1px solid #e0e0e0;
+  }
+  .banner-text{
+    background:#fff;border-radius:16px;padding:10px 16px;
+    font-size:15px;font-weight:700;color:var(--text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    position:relative;
+  }
+  .banner-text::before{
+    content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);
+    border:8px solid transparent;border-right-color:#fff;border-left:0;
+  }
+
+  /* ===== UNIT CARDS ===== */
+  .units{padding:16px 14px;display:flex;flex-direction:column;gap:16px}
+
+  .unit-card{
+    background:var(--card);border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+    border-top:3px solid var(--unit-color);
+    transition:box-shadow .25s;
+  }
+  .unit-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.10)}
+
+  .unit-header{
+    display:flex;align-items:center;padding:16px 18px;cursor:pointer;
+    gap:14px;user-select:none;position:relative;
+    min-height:120px;
+  }
+  .unit-header-left{flex:1;min-width:0;z-index:1}
+
+  .unit-label{
+    display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;
+    color:#fff;background:var(--unit-color);padding:3px 10px;border-radius:20px;
+    letter-spacing:.5px;margin-bottom:6px;
+  }
+  .unit-title{font-size:17px;font-weight:800;line-height:1.25;margin-bottom:8px}
+
+  /* Progress bar */
+  .progress-row{display:flex;align-items:center;gap:8px}
+  .progress-bar{
+    flex:1;height:8px;background:#eee;border-radius:8px;overflow:hidden;
+  }
+  .progress-fill{height:100%;border-radius:8px;transition:width .4s ease}
+  .progress-text{font-size:11px;font-weight:700;color:var(--text-light);white-space:nowrap}
+
+  /* Chevron */
+  .chevron{
+    width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+    transition:transform .3s;flex-shrink:0;z-index:1;
+  }
+  .chevron svg{width:16px;height:16px;stroke:var(--text-light);stroke-width:2.5;fill:none}
+  .unit-card.open .chevron{transform:rotate(180deg)}
+
+  /* Illustration area (right side of card) */
+  .unit-illustration{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    width:140px;height:110px;opacity:.92;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .unit-illustration svg{width:100%;height:100%}
+
+  /* ===== LESSONS (collapsible) ===== */
+  .lessons-wrapper{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s cubic-bezier(.4,0,.2,1);
+  }
+  .unit-card.open .lessons-wrapper{max-height:600px}
+
+  .lessons{padding:0 18px 14px}
+  .lesson{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 0;border-top:1px solid #f0f0f0;
+  }
+  .lesson:first-child{border-top:none}
+
+  .lesson-icon{
+    width:40px;height:40px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .lesson-icon svg{width:22px;height:22px}
+
+  .lesson-info{flex:1;min-width:0}
+  .lesson-name{font-size:14px;font-weight:700;line-height:1.3}
+  .lesson-sub{font-size:11px;color:var(--text-light);font-weight:600;margin-top:1px}
+
+  /* Pill statuses */
+  .pill{
+    font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;
+    white-space:nowrap;flex-shrink:0;
+  }
+  .pill-done{background:#e8f5e0;color:#46a302}
+  .pill-current{background:#fff3d6;color:#e08b00}
+
+  /* 3D start button */
+  .btn-start{
+    background:var(--green);color:#fff;font-size:13px;font-weight:800;
+    padding:8px 18px;border:none;border-radius:12px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.5px;
+    box-shadow:0 4px 0 var(--green-shadow);
+    transition:all .1s;flex-shrink:0;
+  }
+  .btn-start:active{
+    transform:translateY(2px);box-shadow:0 2px 0 var(--green-shadow);
+  }
+
+  .pill-locked{background:#eee;color:#aaa}
+
+  /* Locked card */
+  .unit-card.locked{opacity:.7}
+  .unit-card.locked .unit-header{cursor:default}
+  .unit-card.locked .unit-illustration{opacity:.4;filter:grayscale(.5)}
+
+  .lock-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:11px;font-weight:700;color:#aaa;
+    background:#f0f0f0;padding:3px 10px;border-radius:20px;
+    margin-top:4px;
+  }
+  .lock-badge svg{width:12px;height:12px;fill:#aaa}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-logo">MechPrep</div>
+  <div class="header-stats">
+    <span>&#128293; 5</span>
+    <span>&#128142; 1,240</span>
+    <div class="avatar">M</div>
+  </div>
+</div>
+
+<!-- ===== ROBOT BANNER ===== -->
+<div class="banner">
+  <!-- Cute robot engineer waving -->
+  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Antenna -->
+    <line x1="40" y1="12" x2="40" y2="5" stroke="#888" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="40" cy="4" r="3" fill="#FF9600"/>
+    <!-- Head -->
+    <rect x="24" y="12" width="32" height="26" rx="8" fill="#CE82FF"/>
+    <rect x="24" y="12" width="32" height="26" rx="8" fill="url(#robotGrad)" opacity=".3"/>
+    <!-- Eyes -->
+    <circle cx="34" cy="24" r="4" fill="#fff"/>
+    <circle cx="46" cy="24" r="4" fill="#fff"/>
+    <circle cx="35" cy="24" r="2" fill="#3c3c3c"/>
+    <circle cx="47" cy="24" r="2" fill="#3c3c3c"/>
+    <!-- Smile -->
+    <path d="M34 31 Q40 36 46 31" stroke="#3c3c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Hard hat -->
+    <rect x="22" y="10" width="36" height="6" rx="3" fill="#FFD43B"/>
+    <rect x="36" y="6" width="8" height="6" rx="2" fill="#FFD43B"/>
+    <!-- Body -->
+    <rect x="28" y="40" width="24" height="20" rx="6" fill="#58CC02"/>
+    <!-- Belt / detail -->
+    <rect x="28" y="48" width="24" height="4" rx="2" fill="#46a302"/>
+    <circle cx="40" cy="50" r="2" fill="#FFD43B"/>
+    <!-- Left arm (waving!) -->
+    <path d="M28 44 Q18 34 14 22" stroke="#58CC02" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <!-- Left hand -->
+    <circle cx="14" cy="20" r="4" fill="#CE82FF"/>
+    <!-- Right arm -->
+    <path d="M52 46 Q58 52 60 56" stroke="#58CC02" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <circle cx="61" cy="58" r="4" fill="#CE82FF"/>
+    <!-- Legs -->
+    <rect x="32" y="60" width="6" height="10" rx="3" fill="#3c3c3c"/>
+    <rect x="42" y="60" width="6" height="10" rx="3" fill="#3c3c3c"/>
+    <!-- Feet -->
+    <rect x="30" y="68" width="10" height="5" rx="2.5" fill="#555"/>
+    <rect x="40" y="68" width="10" height="5" rx="2.5" fill="#555"/>
+    <defs>
+      <linearGradient id="robotGrad" x1="24" y1="12" x2="56" y2="38">
+        <stop offset="0" stop-color="#fff" stop-opacity=".3"/>
+        <stop offset="1" stop-color="#CE82FF" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="banner-text">Let's learn!</div>
+</div>
+
+<!-- ===== UNITS ===== -->
+<div class="units">
+
+  <!-- ==================== UNIT 1: STATICS ==================== -->
+  <div class="unit-card open" style="--unit-color:#58CC02" onclick="toggleUnit(this)">
+    <div class="unit-header">
+      <div class="unit-header-left">
+        <div class="unit-label">Unit 1</div>
+        <div class="unit-title">Statics &amp; Equilibrium</div>
+        <div class="progress-row">
+          <div class="progress-bar"><div class="progress-fill" style="width:62.5%;background:#58CC02"></div></div>
+          <div class="progress-text">5 / 8</div>
+        </div>
+      </div>
+      <!-- Large cute SVG: bridge with force arrows and happy face -->
+      <div class="unit-illustration">
+        <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Water -->
+          <path d="M0 100 Q20 95 40 100 Q60 105 80 100 Q100 95 120 100 Q140 105 160 100 V120 H0Z" fill="#d0eaff" opacity=".5"/>
+          <!-- Bridge deck -->
+          <rect x="10" y="58" width="140" height="10" rx="5" fill="#58CC02"/>
+          <rect x="10" y="58" width="140" height="10" rx="5" fill="url(#bridgeShine)" opacity=".3"/>
+          <!-- Bridge pillars -->
+          <rect x="25" y="62" width="8" height="38" rx="3" fill="#46a302"/>
+          <rect x="127" y="62" width="8" height="38" rx="3" fill="#46a302"/>
+          <!-- Arch cables -->
+          <path d="M14 62 Q50 20 80 18 Q110 20 146 62" stroke="#3c3c3c" stroke-width="2" fill="none"/>
+          <!-- Vertical cables -->
+          <line x1="35" y1="58" x2="35" y2="38" stroke="#888" stroke-width="1.5"/>
+          <line x1="57" y1="58" x2="57" y2="25" stroke="#888" stroke-width="1.5"/>
+          <line x1="80" y1="58" x2="80" y2="20" stroke="#888" stroke-width="1.5"/>
+          <line x1="103" y1="58" x2="103" y2="25" stroke="#888" stroke-width="1.5"/>
+          <line x1="125" y1="58" x2="125" y2="38" stroke="#888" stroke-width="1.5"/>
+          <!-- Happy face on bridge deck -->
+          <circle cx="80" cy="63" r="4" fill="#fff"/>
+          <circle cx="77" cy="62" r="1" fill="#3c3c3c"/>
+          <circle cx="83" cy="62" r="1" fill="#3c3c3c"/>
+          <path d="M77 64.5 Q80 67 83 64.5" stroke="#3c3c3c" stroke-width=".8" fill="none" stroke-linecap="round"/>
+          <!-- Blush cheeks -->
+          <circle cx="74" cy="64" r="1.5" fill="#ffb3b3" opacity=".6"/>
+          <circle cx="86" cy="64" r="1.5" fill="#ffb3b3" opacity=".6"/>
+          <!-- Force arrows (cartoon style) -->
+          <!-- Downward force -->
+          <line x1="80" y1="2" x2="80" y2="14" stroke="#FF4B4B" stroke-width="2.5"/>
+          <polygon points="75,14 80,20 85,14" fill="#FF4B4B"/>
+          <text x="80" y="6" text-anchor="middle" font-size="7" font-weight="800" fill="#FF4B4B">F</text>
+          <!-- Left reaction arrow (up) -->
+          <line x1="29" y1="104" x2="29" y2="74" stroke="#2196F3" stroke-width="2"/>
+          <polygon points="24,76 29,68 34,76" fill="#2196F3"/>
+          <text x="29" y="110" text-anchor="middle" font-size="6" font-weight="700" fill="#2196F3">R&#8321;</text>
+          <!-- Right reaction arrow (up) -->
+          <line x1="131" y1="104" x2="131" y2="74" stroke="#2196F3" stroke-width="2"/>
+          <polygon points="126,76 131,68 136,76" fill="#2196F3"/>
+          <text x="131" y="110" text-anchor="middle" font-size="6" font-weight="700" fill="#2196F3">R&#8322;</text>
+          <!-- Little sparkles -->
+          <text x="145" y="15" font-size="10" opacity=".5">&#10022;</text>
+          <text x="12" y="22" font-size="8" opacity=".4">&#10022;</text>
+          <defs>
+            <linearGradient id="bridgeShine" x1="10" y1="58" x2="150" y2="68">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="1" stop-color="#58CC02" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="lessons-wrapper">
+      <div class="lessons">
+        <!-- L1 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#e8f5e0">
+            <!-- Force arrow icon -->
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="4" x2="12" y2="18" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round"/><polygon points="7,14 12,20 17,14" fill="#58CC02"/><line x1="6" y1="4" x2="18" y2="4" stroke="#58CC02" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Force Vectors &amp; Components</div>
+            <div class="lesson-sub">Resolve 2D forces into x-y components</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L2 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#e8f5e0">
+            <!-- Equilibrium balance icon -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2" fill="#58CC02"/><line x1="12" y1="8" x2="12" y2="14" stroke="#58CC02" stroke-width="2"/><line x1="4" y1="14" x2="20" y2="14" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/><path d="M4 14 L6 20 H10 L8 14" fill="#58CC02" opacity=".3" stroke="#58CC02" stroke-width="1"/><path d="M16 14 L14 20 H18 L20 14" fill="#58CC02" opacity=".3" stroke="#58CC02" stroke-width="1"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Equilibrium of a Particle</div>
+            <div class="lesson-sub">Sum of forces = 0 in 2D</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L3 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#e8f5e0">
+            <!-- Moment / torque icon -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="#58CC02" stroke-width="2" fill="none"/><path d="M12 5 Q19 8 16 14" stroke="#58CC02" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="17,12 16,16 13,13" fill="#58CC02"/><circle cx="12" cy="12" r="2" fill="#58CC02"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Moments &amp; Couples</div>
+            <div class="lesson-sub">Torque about a point, moment arms</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L4 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#e8f5e0">
+            <!-- FBD icon - box with arrows -->
+            <svg viewBox="0 0 24 24" fill="none"><rect x="7" y="8" width="10" height="8" rx="2" stroke="#58CC02" stroke-width="1.5" fill="#e8f5e0"/><line x1="12" y1="8" x2="12" y2="2" stroke="#58CC02" stroke-width="2"/><polygon points="10,3 12,0 14,3" fill="#58CC02"/><line x1="17" y1="12" x2="23" y2="12" stroke="#58CC02" stroke-width="2"/><polygon points="21,10 24,12 21,14" fill="#58CC02"/><line x1="12" y1="16" x2="12" y2="22" stroke="#ff6b6b" stroke-width="2"/><polygon points="10,21 12,24 14,21" fill="#ff6b6b"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Free-Body Diagrams</div>
+            <div class="lesson-sub">Isolate bodies, draw all forces</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L5 current -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#fff3d6">
+            <!-- Truss triangle icon -->
+            <svg viewBox="0 0 24 24" fill="none"><polygon points="12,3 2,21 22,21" stroke="#e08b00" stroke-width="2" fill="none" stroke-linejoin="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#e08b00" stroke-width="1.5"/><circle cx="12" cy="3" r="1.5" fill="#e08b00"/><circle cx="2" cy="21" r="1.5" fill="#e08b00"/><circle cx="22" cy="21" r="1.5" fill="#e08b00"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Truss Analysis (Joints)</div>
+            <div class="lesson-sub">Method of joints for truss forces</div>
+          </div>
+          <button class="btn-start">Start</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== UNIT 2: DYNAMICS ==================== -->
+  <div class="unit-card" style="--unit-color:#CE82FF" onclick="toggleUnit(this)">
+    <div class="unit-header">
+      <div class="unit-header-left">
+        <div class="unit-label">Unit 2</div>
+        <div class="unit-title">Dynamics &amp; Motion</div>
+        <div class="progress-row">
+          <div class="progress-bar"><div class="progress-fill" style="width:28.5%;background:#CE82FF"></div></div>
+          <div class="progress-text">2 / 7</div>
+        </div>
+      </div>
+      <!-- Large cute SVG: spring-mass system with motion lines and speedometer -->
+      <div class="unit-illustration">
+        <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Wall -->
+          <rect x="4" y="20" width="8" height="60" rx="2" fill="#bbb"/>
+          <line x1="4" y1="20" x2="4" y2="80" stroke="#999" stroke-width="1.5"/>
+          <!-- Hatching on wall -->
+          <line x1="4" y1="25" x2="10" y2="20" stroke="#999" stroke-width=".8"/>
+          <line x1="4" y1="35" x2="10" y2="30" stroke="#999" stroke-width=".8"/>
+          <line x1="4" y1="45" x2="10" y2="40" stroke="#999" stroke-width=".8"/>
+          <line x1="4" y1="55" x2="10" y2="50" stroke="#999" stroke-width=".8"/>
+          <line x1="4" y1="65" x2="10" y2="60" stroke="#999" stroke-width=".8"/>
+          <line x1="4" y1="75" x2="10" y2="70" stroke="#999" stroke-width=".8"/>
+          <!-- Spring (zigzag) -->
+          <polyline points="12,50 18,40 26,60 34,40 42,60 50,40 58,60 64,50" stroke="#CE82FF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Mass block -->
+          <rect x="64" y="36" width="28" height="28" rx="6" fill="#CE82FF"/>
+          <rect x="64" y="36" width="28" height="28" rx="6" fill="url(#massShine)" opacity=".3"/>
+          <!-- Happy face on mass -->
+          <circle cx="74" cy="48" r="2" fill="#fff"/>
+          <circle cx="84" cy="48" r="2" fill="#fff"/>
+          <circle cx="74.5" cy="48" r="1" fill="#3c3c3c"/>
+          <circle cx="84.5" cy="48" r="1" fill="#3c3c3c"/>
+          <path d="M74 53 Q79 57 84 53" stroke="#3c3c3c" stroke-width="1" fill="none" stroke-linecap="round"/>
+          <text x="79" y="44" text-anchor="middle" font-size="7" font-weight="800" fill="#fff">m</text>
+          <!-- Motion lines -->
+          <line x1="96" y1="44" x2="108" y2="44" stroke="#CE82FF" stroke-width="1.5" opacity=".6" stroke-linecap="round"/>
+          <line x1="98" y1="50" x2="112" y2="50" stroke="#CE82FF" stroke-width="2" opacity=".4" stroke-linecap="round"/>
+          <line x1="96" y1="56" x2="106" y2="56" stroke="#CE82FF" stroke-width="1.5" opacity=".6" stroke-linecap="round"/>
+          <!-- Arrow showing direction -->
+          <line x1="98" y1="50" x2="116" y2="50" stroke="#CE82FF" stroke-width="2.5" stroke-linecap="round"/>
+          <polygon points="114,46 120,50 114,54" fill="#CE82FF"/>
+          <!-- Speedometer -->
+          <g transform="translate(120,84)">
+            <circle cx="0" cy="0" r="18" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
+            <!-- Speed markings -->
+            <line x1="-12" y1="0" x2="-10" y2="0" stroke="#bbb" stroke-width="1"/>
+            <line x1="12" y1="0" x2="10" y2="0" stroke="#bbb" stroke-width="1"/>
+            <line x1="0" y1="-12" x2="0" y2="-10" stroke="#bbb" stroke-width="1"/>
+            <line x1="-9" y1="-9" x2="-7" y2="-7" stroke="#bbb" stroke-width="1"/>
+            <line x1="9" y1="-9" x2="7" y2="-7" stroke="#bbb" stroke-width="1"/>
+            <!-- Needle -->
+            <line x1="0" y1="2" x2="8" y2="-10" stroke="#FF4B4B" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="2.5" fill="#FF4B4B"/>
+            <!-- Label -->
+            <text x="0" y="9" text-anchor="middle" font-size="5" font-weight="700" fill="#888">km/h</text>
+          </g>
+          <!-- Bouncing indicator -->
+          <path d="M78 72 Q70 82 78 90 Q86 82 78 72" stroke="#CE82FF" stroke-width="1" fill="none" opacity=".4" stroke-dasharray="2 2"/>
+          <text x="40" y="16" font-size="8" font-weight="700" fill="#CE82FF" opacity=".6">~ boing ~</text>
+          <defs>
+            <linearGradient id="massShine" x1="64" y1="36" x2="92" y2="64">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="1" stop-color="#CE82FF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="lessons-wrapper">
+      <div class="lessons">
+        <!-- L1 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f3e8ff">
+            <!-- Velocity arrow icon -->
+            <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="18" x2="18" y2="6" stroke="#CE82FF" stroke-width="2.5" stroke-linecap="round"/><polygon points="16,4 20,4 20,8" fill="#CE82FF"/><path d="M4 20 Q8 18 10 14" stroke="#CE82FF" stroke-width="1" stroke-dasharray="2 2" opacity=".5"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Kinematics of Particles</div>
+            <div class="lesson-sub">Position, velocity, acceleration</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L2 done -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f3e8ff">
+            <!-- Newton's law F=ma icon -->
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="9" width="12" height="8" rx="2" fill="#f3e8ff" stroke="#CE82FF" stroke-width="1.5"/><line x1="15" y1="13" x2="22" y2="13" stroke="#CE82FF" stroke-width="2.5"/><polygon points="20,10 23,13 20,16" fill="#CE82FF"/><text x="9" y="15" text-anchor="middle" font-size="6" font-weight="800" fill="#CE82FF">F</text></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Newton's Laws of Motion</div>
+            <div class="lesson-sub">F = ma in practice</div>
+          </div>
+          <span class="pill pill-done">&#10003; Done</span>
+        </div>
+        <!-- L3 current -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#fff3d6">
+            <!-- Energy icon - lightning bolt -->
+            <svg viewBox="0 0 24 24" fill="none"><polygon points="13,2 6,14 11,14 10,22 18,10 13,10" fill="#e08b00"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Work &amp; Energy Methods</div>
+            <div class="lesson-sub">KE, PE, and conservation</div>
+          </div>
+          <button class="btn-start">Start</button>
+        </div>
+        <!-- L4 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Momentum icon - colliding balls -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="8" cy="12" r="4" stroke="#bbb" stroke-width="1.5" fill="#f0f0f0"/><circle cx="17" cy="12" r="3" stroke="#bbb" stroke-width="1.5" fill="#f0f0f0"/><line x1="12" y1="10" x2="14" y2="10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/><polygon points="14,8 16,10 14,12" fill="#bbb"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Impulse &amp; Momentum</div>
+            <div class="lesson-sub">Linear momentum, collisions</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+        <!-- L5 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Spinning wheel icon -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#bbb" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="2" fill="#bbb"/><line x1="12" y1="4" x2="12" y2="8" stroke="#bbb" stroke-width="1.5"/><line x1="12" y1="16" x2="12" y2="20" stroke="#bbb" stroke-width="1.5"/><line x1="4" y1="12" x2="8" y2="12" stroke="#bbb" stroke-width="1.5"/><line x1="16" y1="12" x2="20" y2="12" stroke="#bbb" stroke-width="1.5"/><path d="M16 6 Q18 8 18 10" stroke="#bbb" stroke-width="1" stroke-dasharray="1.5 1.5"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Rotation &amp; Angular Kinematics</div>
+            <div class="lesson-sub">Angular velocity, centripetal accel.</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== UNIT 3: STRENGTH (LOCKED) ==================== -->
+  <div class="unit-card locked" style="--unit-color:#FF9600" onclick="toggleUnit(this)">
+    <div class="unit-header">
+      <div class="unit-header-left">
+        <div class="unit-label">Unit 3</div>
+        <div class="unit-title">Strength of Materials</div>
+        <div class="progress-row">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#FF9600"></div></div>
+          <div class="progress-text">0 / 9</div>
+        </div>
+        <div class="lock-badge">
+          <svg viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="8" rx="2" fill="#aaa"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#aaa" stroke-width="1.5" fill="none"/></svg>
+          Complete Unit 2 to unlock
+        </div>
+      </div>
+      <!-- Large cute SVG: I-beam flexing muscles -->
+      <div class="unit-illustration">
+        <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- I-beam body -->
+          <!-- Top flange -->
+          <rect x="50" y="24" width="50" height="10" rx="3" fill="#FF9600"/>
+          <!-- Web -->
+          <rect x="66" y="34" width="18" height="40" rx="2" fill="#FF9600"/>
+          <!-- Bottom flange -->
+          <rect x="50" y="74" width="50" height="10" rx="3" fill="#FF9600"/>
+          <!-- Shine on beam -->
+          <rect x="50" y="24" width="50" height="10" rx="3" fill="url(#beamShine)" opacity=".25"/>
+          <rect x="66" y="34" width="18" height="40" rx="2" fill="url(#beamShine2)" opacity=".2"/>
+          <!-- Happy face on web -->
+          <circle cx="72" cy="50" r="2" fill="#fff"/>
+          <circle cx="80" cy="50" r="2" fill="#fff"/>
+          <circle cx="72.5" cy="50" r="1" fill="#3c3c3c"/>
+          <circle cx="80.5" cy="50" r="1" fill="#3c3c3c"/>
+          <!-- Determined/strong eyebrows -->
+          <line x1="70" y1="46" x2="74" y2="47" stroke="#3c3c3c" stroke-width="1" stroke-linecap="round"/>
+          <line x1="82" y1="47" x2="78" y2="46" stroke="#3c3c3c" stroke-width="1" stroke-linecap="round"/>
+          <!-- Big grin -->
+          <path d="M71 55 Q76 60 81 55" stroke="#3c3c3c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <!-- Blush -->
+          <circle cx="69" cy="54" r="2" fill="#ffccaa" opacity=".5"/>
+          <circle cx="83" cy="54" r="2" fill="#ffccaa" opacity=".5"/>
+          <!-- LEFT ARM (flexing!) -->
+          <!-- Upper arm -->
+          <path d="M50 40 Q38 38 30 30" stroke="#FF9600" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <!-- Forearm (flexed up) -->
+          <path d="M30 30 Q28 22 34 18" stroke="#FF9600" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <!-- Hand/fist -->
+          <circle cx="35" cy="16" r="4" fill="#FFB84D"/>
+          <!-- Bicep bulge -->
+          <ellipse cx="30" cy="28" rx="7" ry="5" fill="#FFB84D" opacity=".7"/>
+          <!-- Muscle lines -->
+          <path d="M26 26 Q30 24 34 26" stroke="#e08b00" stroke-width=".8" opacity=".6"/>
+          <!-- RIGHT ARM (flexing!) -->
+          <!-- Upper arm -->
+          <path d="M100 40 Q112 38 120 30" stroke="#FF9600" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <!-- Forearm (flexed up) -->
+          <path d="M120 30 Q122 22 116 18" stroke="#FF9600" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <!-- Hand/fist -->
+          <circle cx="115" cy="16" r="4" fill="#FFB84D"/>
+          <!-- Bicep bulge -->
+          <ellipse cx="120" cy="28" rx="7" ry="5" fill="#FFB84D" opacity=".7"/>
+          <!-- Muscle lines -->
+          <path d="M116 26 Q120 24 124 26" stroke="#e08b00" stroke-width=".8" opacity=".6"/>
+          <!-- Sweat drops for effort -->
+          <ellipse cx="42" cy="12" rx="2" ry="3" fill="#7dd3fc" opacity=".6"/>
+          <ellipse cx="108" cy="10" rx="1.5" ry="2.5" fill="#7dd3fc" opacity=".6"/>
+          <!-- Stress lines / power lines -->
+          <line x1="24" y1="10" x2="20" y2="6" stroke="#FF9600" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+          <line x1="22" y1="16" x2="16" y2="14" stroke="#FF9600" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+          <line x1="126" y1="10" x2="130" y2="6" stroke="#FF9600" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+          <line x1="128" y1="16" x2="134" y2="14" stroke="#FF9600" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+          <!-- "STRONG!" text -->
+          <text x="76" y="100" text-anchor="middle" font-size="8" font-weight="800" fill="#FF9600" opacity=".5">STRONG!</text>
+          <!-- Little feet -->
+          <rect x="56" y="84" width="10" height="6" rx="3" fill="#e08b00"/>
+          <rect x="84" y="84" width="10" height="6" rx="3" fill="#e08b00"/>
+          <defs>
+            <linearGradient id="beamShine" x1="50" y1="24" x2="100" y2="34">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="1" stop-color="#FF9600" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="beamShine2" x1="66" y1="34" x2="84" y2="74">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="1" stop-color="#FF9600" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="lessons-wrapper">
+      <div class="lessons">
+        <!-- L1 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Stress-strain icon -->
+            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="8" rx="2" stroke="#bbb" stroke-width="1.5" fill="none"/><line x1="2" y1="12" x2="4" y2="12" stroke="#bbb" stroke-width="1.5"/><polygon points="0,10 0,14 2,12" fill="#bbb"/><line x1="20" y1="12" x2="22" y2="12" stroke="#bbb" stroke-width="1.5"/><polygon points="24,10 24,14 22,12" fill="#bbb"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Stress &amp; Strain Basics</div>
+            <div class="lesson-sub">Normal &amp; shear stress definitions</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+        <!-- L2 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Material curve icon -->
+            <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="20" x2="4" y2="4" stroke="#bbb" stroke-width="1.5"/><line x1="4" y1="20" x2="20" y2="20" stroke="#bbb" stroke-width="1.5"/><path d="M4 18 Q8 17 10 12 Q12 7 14 6 L18 6" stroke="#bbb" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Material Properties &amp; Hooke's Law</div>
+            <div class="lesson-sub">Young's modulus, elastic region</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+        <!-- L3 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Axial load icon -->
+            <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="6" width="8" height="12" rx="1" stroke="#bbb" stroke-width="1.5" fill="none"/><line x1="12" y1="2" x2="12" y2="6" stroke="#bbb" stroke-width="1.5"/><polygon points="10,3 12,0 14,3" fill="#bbb"/><line x1="12" y1="18" x2="12" y2="22" stroke="#bbb" stroke-width="1.5"/><polygon points="10,21 12,24 14,21" fill="#bbb"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Axial Loads &amp; Deformation</div>
+            <div class="lesson-sub">Elongation, thermal expansion</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+        <!-- L4 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Torsion icon -->
+            <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="4" ry="8" stroke="#bbb" stroke-width="1.5" fill="none"/><path d="M8 8 Q6 6 8 4" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/><polygon points="7,3 10,4 8,6" fill="#bbb"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Torsion of Circular Shafts</div>
+            <div class="lesson-sub">Shear stress in shafts, angle of twist</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+        <!-- L5 -->
+        <div class="lesson">
+          <div class="lesson-icon" style="background:#f0f0f0">
+            <!-- Beam bending icon -->
+            <svg viewBox="0 0 24 24" fill="none"><line x1="2" y1="12" x2="22" y2="12" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/><path d="M2 12 Q12 20 22 12" stroke="#bbb" stroke-width="1" stroke-dasharray="2 2" opacity=".6"/><line x1="12" y1="4" x2="12" y2="12" stroke="#bbb" stroke-width="1.5"/><polygon points="10,5 12,2 14,5" fill="#bbb" transform="rotate(180 12 5)"/></svg>
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-name">Beam Bending &amp; Flexure</div>
+            <div class="lesson-sub">Bending moment, neutral axis</div>
+          </div>
+          <span class="pill pill-locked">Locked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /units -->
+
+<div style="height:40px"></div>
+
+<script>
+function toggleUnit(card){
+  // Don't toggle if clicking a button
+  if(event.target.closest('.btn-start')) return;
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Emoji-Rich Minimal</title>
+<style>
+  /* ── Reset & Base ─────────────────────────── */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { font-size:16px; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: #3C3C3C;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Top Navigation Bar ───────────────────── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-brand {
+    font-size: 22px;
+    font-weight: 800;
+    color: #58CC02;
+    letter-spacing: -0.5px;
+  }
+  .topbar-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .topbar-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .topbar-stat .emoji { font-size: 18px; }
+  .topbar-stat .val { color: #555; }
+  .topbar-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #58CC02, #46a302);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 2px 6px rgba(88,204,2,0.35);
+  }
+
+  /* ── Hero Section ─────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 36px 24px 28px;
+  }
+  .hero-emojis {
+    font-size: 48px;
+    letter-spacing: 8px;
+    margin-bottom: 14px;
+    animation: gentleBounce 3s ease-in-out infinite;
+  }
+  @keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .hero-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+  }
+  .progress-overall {
+    background: #f0f0f0;
+    border-radius: 100px;
+    height: 10px;
+    overflow: hidden;
+    margin: 0 32px;
+  }
+  .progress-overall-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #58CC02, #7de833);
+    width: 35%;
+    transition: width 0.8s ease;
+  }
+  .progress-overall-label {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  /* ── Encouragement Banners ────────────────── */
+  .encouragement {
+    text-align: center;
+    padding: 18px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #777;
+    letter-spacing: 0.2px;
+  }
+  .encouragement span { font-size: 18px; }
+
+  /* ── Unit Section ─────────────────────────── */
+  .unit {
+    margin: 0 16px 8px;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .unit-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 20px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .unit-header:hover { background: #fafafa; }
+  .unit-header:active { background: #f5f5f5; }
+
+  .unit-divider {
+    height: 4px;
+    border-radius: 4px;
+    margin: 0 20px 0 20px;
+  }
+
+  .unit-emoji {
+    font-size: 38px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .unit-info { flex: 1; }
+  .unit-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .unit-title.locked { color: #ccc; }
+
+  .unit-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .unit-chevron {
+    font-size: 18px;
+    color: #ccc;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .unit.expanded .unit-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ── Lessons Container ────────────────────── */
+  .lessons-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .unit.expanded .lessons-wrapper {
+    max-height: 800px;
+  }
+
+  .lessons {
+    padding: 4px 12px 16px;
+  }
+
+  /* ── Lesson Row ───────────────────────────── */
+  .lesson {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 14px;
+    border-radius: 14px;
+    transition: background 0.15s;
+    line-height: 1.4;
+  }
+  .lesson:not(.locked):hover { background: #f9f9f9; }
+
+  .lesson-emoji {
+    font-size: 26px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+  .lesson.locked .lesson-emoji {
+    filter: grayscale(0.8);
+    opacity: 0.5;
+  }
+
+  .lesson-body { flex: 1; min-width: 0; }
+
+  .lesson-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-bottom: 2px;
+  }
+  .lesson.locked .lesson-name { color: #ccc; }
+
+  .lesson-xp {
+    font-size: 12px;
+    font-weight: 600;
+    color: #bbb;
+  }
+  .lesson.locked .lesson-xp { color: #ddd; }
+
+  /* ── Lesson Status ────────────────────────── */
+  .lesson-status {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-check {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .stars {
+    display: flex;
+    gap: 3px;
+  }
+  .star-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ── Start Button ─────────────────────────── */
+  .btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 22px;
+    border-radius: 100px;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    background: #58CC02;
+    box-shadow: 0 5px 0 #46a302;
+    transition: all 0.12s ease;
+    position: relative;
+    top: 0;
+    letter-spacing: 0.3px;
+  }
+  .btn-start:hover {
+    filter: brightness(1.05);
+  }
+  .btn-start:active {
+    box-shadow: 0 2px 0 #46a302;
+    top: 3px;
+  }
+  .btn-start .arrow { font-size: 15px; }
+
+  /* ── Locked status ────────────────────────── */
+  .status-lock {
+    font-size: 20px;
+    opacity: 0.4;
+  }
+
+  /* ── Separator Lines ──────────────────────── */
+  .separator {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 0 34px;
+  }
+  .lesson + .lesson { border-top: 1px solid #f5f5f5; }
+
+  /* ── Footer ───────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 28px 24px 16px;
+    font-size: 12px;
+    color: #ccc;
+    font-weight: 600;
+  }
+
+  /* ── Subtle Fade-in on load ───────────────── */
+  .unit {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .unit:nth-child(1) { animation-delay: 0.05s; }
+  .unit:nth-child(2) { animation-delay: 0.15s; }
+  .unit:nth-child(3) { animation-delay: 0.25s; }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Pulse on current lesson ──────────────── */
+  @keyframes softPulse {
+    0%, 100% { box-shadow: 0 5px 0 #46a302; }
+    50% { box-shadow: 0 5px 0 #46a302, 0 0 0 6px rgba(88,204,2,0.18); }
+  }
+  .btn-start { animation: softPulse 2.5s ease-in-out infinite; }
+
+  /* ── Mobile fine-tuning ───────────────────── */
+  @media (max-width: 380px) {
+    .topbar-stats { gap: 10px; }
+    .hero-emojis { font-size: 40px; letter-spacing: 6px; }
+    .hero-title { font-size: 21px; }
+    .unit-emoji { font-size: 32px; }
+    .unit-title { font-size: 16px; }
+    .lesson-emoji { font-size: 22px; }
+    .lesson-name { font-size: 14px; }
+    .btn-start { padding: 9px 18px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ Top Bar ═══════════ -->
+<nav class="topbar">
+  <div class="topbar-brand">MechPrep</div>
+  <div class="topbar-stats">
+    <div class="topbar-stat">
+      <span class="emoji">🔥</span>
+      <span class="val">5</span>
+    </div>
+    <div class="topbar-stat">
+      <span class="emoji">💎</span>
+      <span class="val">1,240</span>
+    </div>
+    <div class="topbar-avatar">M</div>
+  </div>
+</nav>
+
+<!-- ═══════════ Hero ═══════════ -->
+<section class="hero">
+  <div class="hero-emojis">🎓⚙️🔧</div>
+  <h1 class="hero-title">Your Engineering Journey</h1>
+  <p class="hero-sub">7 of 20 lessons completed</p>
+  <div class="progress-overall">
+    <div class="progress-overall-fill" style="width:35%"></div>
+  </div>
+  <p class="progress-overall-label">35% complete</p>
+</section>
+
+<!-- ═══════════ Unit 1 — Statics ═══════════ -->
+<div class="unit expanded" data-unit="1">
+  <div class="unit-divider" style="background:#58CC02"></div>
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <span class="unit-emoji">⚖️</span>
+    <div class="unit-info">
+      <div class="unit-title">Statics &amp; Equilibrium</div>
+      <span class="unit-pill" style="background:#58CC02">5 / 8</span>
+    </div>
+    <span class="unit-chevron">▼</span>
+  </div>
+  <div class="lessons-wrapper">
+    <div class="lessons">
+      <!-- Completed -->
+      <div class="lesson completed">
+        <span class="lesson-emoji">📐</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Free Body Diagrams</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+          </div>
+        </div>
+      </div>
+      <div class="lesson completed">
+        <span class="lesson-emoji">🔺</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Trusses &amp; Frames</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#E0E0E0"></span>
+          </div>
+        </div>
+      </div>
+      <div class="lesson completed">
+        <span class="lesson-emoji">⚙️</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Equilibrium of Rigid Bodies</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+          </div>
+        </div>
+      </div>
+      <div class="lesson completed">
+        <span class="lesson-emoji">📏</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Centroids &amp; Centers</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#E0E0E0"></span>
+            <span class="star-dot" style="background:#E0E0E0"></span>
+          </div>
+        </div>
+      </div>
+      <div class="lesson completed">
+        <span class="lesson-emoji">🧲</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Friction Fundamentals</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+            <span class="star-dot" style="background:#FFD700"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Encouragement ═══════════ -->
+<div class="encouragement">Nice streak! <span>🔥</span> Keep that momentum going!</div>
+
+<!-- ═══════════ Unit 2 — Dynamics ═══════════ -->
+<div class="unit expanded" data-unit="2">
+  <div class="unit-divider" style="background:#CE82FF"></div>
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <span class="unit-emoji">🚀</span>
+    <div class="unit-info">
+      <div class="unit-title">Dynamics &amp; Motion</div>
+      <span class="unit-pill" style="background:#CE82FF">2 / 7</span>
+    </div>
+    <span class="unit-chevron">▼</span>
+  </div>
+  <div class="lessons-wrapper">
+    <div class="lessons">
+      <!-- Completed -->
+      <div class="lesson completed">
+        <span class="lesson-emoji">⚡</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Newton's Laws of Motion</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#CE82FF"></span>
+            <span class="star-dot" style="background:#CE82FF"></span>
+            <span class="star-dot" style="background:#CE82FF"></span>
+          </div>
+        </div>
+      </div>
+      <div class="lesson completed">
+        <span class="lesson-emoji">🎯</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Kinematics of Particles</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-check">✅</span>
+          <div class="stars">
+            <span class="star-dot" style="background:#CE82FF"></span>
+            <span class="star-dot" style="background:#CE82FF"></span>
+            <span class="star-dot" style="background:#E0E0E0"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Current -->
+      <div class="lesson current">
+        <span class="lesson-emoji">🌀</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Work &amp; Energy</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <button class="btn-start">Start <span class="arrow">&rarr;</span></button>
+        </div>
+      </div>
+      <!-- Locked -->
+      <div class="lesson locked">
+        <span class="lesson-emoji">💫</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Impulse &amp; Momentum</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+      <div class="lesson locked">
+        <span class="lesson-emoji">🔄</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Rotational Dynamics</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Encouragement ═══════════ -->
+<div class="encouragement">You got this! <span>💪</span> One lesson at a time.</div>
+
+<!-- ═══════════ Unit 3 — Strength ═══════════ -->
+<div class="unit" data-unit="3">
+  <div class="unit-divider" style="background:#FF9600"></div>
+  <div class="unit-header" onclick="toggleUnit(this)">
+    <span class="unit-emoji">💪</span>
+    <div class="unit-info">
+      <div class="unit-title locked">Strength of Materials</div>
+      <span class="unit-pill" style="background:#FF9600">0 / 9</span>
+    </div>
+    <span class="unit-chevron">▼</span>
+  </div>
+  <div class="lessons-wrapper">
+    <div class="lessons">
+      <div class="lesson locked">
+        <span class="lesson-emoji">📊</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Stress &amp; Strain</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+      <div class="lesson locked">
+        <span class="lesson-emoji">🏗️</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Axial Loading</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+      <div class="lesson locked">
+        <span class="lesson-emoji">〰️</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Shear &amp; Bending</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+      <div class="lesson locked">
+        <span class="lesson-emoji">🌊</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Beam Deflection</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+      <div class="lesson locked">
+        <span class="lesson-emoji">🔩</span>
+        <div class="lesson-body">
+          <div class="lesson-name">Torsion</div>
+          <div class="lesson-xp">15 XP</div>
+        </div>
+        <div class="lesson-status">
+          <span class="status-lock">🔒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ Footer ═══════════ -->
+<div class="footer">MechPrep &middot; Your path to PE mastery</div>
+
+<!-- ═══════════ Script ═══════════ -->
+<script>
+function toggleUnit(header) {
+  const unit = header.closest('.unit');
+  unit.classList.toggle('expanded');
+}
+</script>
+
+</body>
+</html>

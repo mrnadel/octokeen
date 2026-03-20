@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechPrep — Softer Pastels with Gradient Headers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #F7F8FA;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: #FFFFFF;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,0.06);
+  }
+
+  /* ── Sticky Header ── */
+  .top-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F0F0F0;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-header .brand {
+    font-size: 22px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #58CC02, #06B6D4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #3C3C3C;
+  }
+  .stat-icon { font-size: 16px; }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #58CC02, #06B6D4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(88,204,2,0.25);
+  }
+
+  /* ── Mascot Banner ── */
+  .mascot-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px 14px;
+    background: linear-gradient(135deg, #F0FFF0 0%, #E8FFFE 100%);
+    border-bottom: 1px solid #E8F5E8;
+  }
+  .mascot-svg { flex-shrink: 0; }
+  .mascot-speech {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2D2D2D;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: relative;
+    line-height: 1.4;
+  }
+  .mascot-speech::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #FFFFFF;
+  }
+
+  /* ── Main Feed ── */
+  .feed { padding: 16px 16px 32px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── Unit Card ── */
+  .unit-card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    background: #FFFFFF;
+    transition: box-shadow 0.3s;
+  }
+  .unit-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.09); }
+
+  .unit-header {
+    position: relative;
+    padding: 22px 20px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    user-select: none;
+  }
+  /* Subtle dot pattern overlay */
+  .unit-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 12px 12px;
+    pointer-events: none;
+  }
+  /* Diagonal lines texture overlay */
+  .unit-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.05) 8px,
+      rgba(255,255,255,0.05) 9px
+    );
+    pointer-events: none;
+  }
+
+  .unit-header .unit-illust { position: relative; z-index: 1; flex-shrink: 0; }
+
+  .unit-header .unit-info { position: relative; z-index: 1; flex: 1; }
+  .unit-header .unit-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .unit-header .unit-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .unit-header .unit-progress-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+  }
+
+  .unit-header .chevron {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .unit-card.open .unit-header .chevron { transform: rotate(180deg); }
+
+  /* Progress bar on header */
+  .header-progress-bar {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .header-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.85);
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── Lessons Panel ── */
+  .lessons-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+  }
+  .unit-card.open .lessons-panel { max-height: 800px; }
+
+  .lessons-inner { padding: 8px 14px 16px; }
+
+  /* ── Lesson Row ── */
+  .lesson-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    margin-bottom: 6px;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+    cursor: pointer;
+  }
+  .lesson-row:hover { transform: translateX(2px); }
+  .lesson-row:last-child { margin-bottom: 0; }
+
+  /* Animated gradient border for current lesson */
+  .lesson-row.current {
+    background: #FFFFFF;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .lesson-row.current::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    padding: 2px;
+    background: linear-gradient(90deg, #58CC02, #06B6D4, #58CC02, #06B6D4);
+    background-size: 300% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+  }
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .lesson-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lesson-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lesson-text {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .lesson-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2D2D2D;
+    line-height: 1.3;
+  }
+  .lesson-subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    margin-top: 1px;
+  }
+
+  .lesson-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Star dots */
+  .star-dots {
+    display: flex;
+    gap: 4px;
+  }
+  .star-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #E8E8E8;
+    transition: background 0.3s;
+  }
+  .star-dot.filled { background: var(--unit-color); }
+
+  /* Status badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .badge.done {
+    background: #E8F8E0;
+    color: #58CC02;
+  }
+  .badge.locked {
+    background: #F0F0F0;
+    color: #BFBFBF;
+  }
+
+  /* Big green CTA button for current lesson */
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 14px;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 0 #46A302;
+    background: linear-gradient(180deg, #6EE018 0%, #58CC02 100%);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .cta-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #46A302;
+  }
+
+  /* Locked lessons */
+  .lesson-row.locked { opacity: 0.5; cursor: default; }
+  .lesson-row.locked:hover { transform: none; }
+  .lesson-row.locked .lesson-title { color: #BFBFBF; }
+
+  /* Unit-specific current shimmers */
+  .unit-card[data-unit="2"] .lesson-row.current::before {
+    background: linear-gradient(90deg, #CE82FF, #F472B6, #CE82FF, #F472B6);
+    background-size: 300% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Bottom padding for safe area */
+  .bottom-spacer { height: 40px; }
+
+  /* Smooth feel */
+  ::selection { background: rgba(88,204,2,0.2); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── Sticky Header ── -->
+  <header class="top-header">
+    <div class="brand">MechPrep</div>
+    <div class="header-stats">
+      <div class="stat-item"><span class="stat-icon">&#x1F525;</span> 5</div>
+      <div class="stat-item"><span class="stat-icon">&#x1F48E;</span> 1,240</div>
+      <div class="avatar">MN</div>
+    </div>
+  </header>
+
+  <!-- ── Mascot Banner ── -->
+  <div class="mascot-banner">
+    <div class="mascot-svg">
+      <!-- Friendly gear mascot SVG -->
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Gear body -->
+        <circle cx="32" cy="32" r="22" fill="#FFD93D" stroke="#F5C518" stroke-width="2"/>
+        <!-- Gear teeth -->
+        <rect x="28" y="6" width="8" height="8" rx="2" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="28" y="50" width="8" height="8" rx="2" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="6" y="28" width="8" height="8" rx="2" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="50" y="28" width="8" height="8" rx="2" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <!-- Diagonal teeth -->
+        <rect x="11" y="11" width="8" height="8" rx="2" transform="rotate(45 15 15)" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="45" y="11" width="8" height="8" rx="2" transform="rotate(45 49 15)" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="11" y="45" width="8" height="8" rx="2" transform="rotate(45 15 49)" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <rect x="45" y="45" width="8" height="8" rx="2" transform="rotate(45 49 49)" fill="#FFD93D" stroke="#F5C518" stroke-width="1.5"/>
+        <!-- Inner circle (face area) -->
+        <circle cx="32" cy="32" r="16" fill="#FFE873"/>
+        <!-- Eyes -->
+        <ellipse cx="25" cy="29" rx="3.5" ry="4" fill="#2D2D2D"/>
+        <ellipse cx="39" cy="29" rx="3.5" ry="4" fill="#2D2D2D"/>
+        <!-- Eye shine -->
+        <ellipse cx="26.5" cy="27.5" rx="1.5" ry="1.5" fill="#FFFFFF"/>
+        <ellipse cx="40.5" cy="27.5" rx="1.5" ry="1.5" fill="#FFFFFF"/>
+        <!-- Smile -->
+        <path d="M24 36 Q32 44 40 36" stroke="#2D2D2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Rosy cheeks -->
+        <circle cx="20" cy="35" r="3" fill="#FFB3B3" opacity="0.5"/>
+        <circle cx="44" cy="35" r="3" fill="#FFB3B3" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="mascot-speech">Keep going! You're on a roll! &#x1F527;</div>
+  </div>
+
+  <!-- ── Feed ── -->
+  <div class="feed">
+
+    <!-- ══════════ UNIT 1 ══════════ -->
+    <div class="unit-card open" data-unit="1" style="--unit-color:#58CC02; --unit-color-light:#E8F8E0; --unit-gradient:linear-gradient(135deg,#58CC02,#06B6D4);">
+      <div class="unit-header" style="background: linear-gradient(135deg,#58CC02,#06B6D4);" onclick="toggleUnit(this)">
+        <div class="unit-illust">
+          <!-- Statics icon: balanced beam -->
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="rgba(255,255,255,0.2)"/>
+            <rect x="10" y="24" width="32" height="4" rx="2" fill="#fff"/>
+            <polygon points="26,32 22,40 30,40" fill="#fff" opacity="0.9"/>
+            <circle cx="14" cy="22" r="4" fill="#fff" opacity="0.85"/>
+            <circle cx="38" cy="22" r="4" fill="#fff" opacity="0.85"/>
+            <rect x="24" y="18" width="4" height="6" rx="1" fill="#fff" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-tag">Unit 1</div>
+          <div class="unit-title">Statics &amp; Equilibrium</div>
+          <div class="unit-progress-text">5 / 8 lessons complete</div>
+          <div class="header-progress-bar"><div class="header-progress-fill" style="width:62.5%"></div></div>
+        </div>
+        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="lessons-panel">
+        <div class="lessons-inner" style="background: linear-gradient(180deg, #F4FDF0 0%, #FFFFFF 100%); border-radius: 0 0 20px 20px;">
+
+          <!-- Lesson 1 — done -->
+          <div class="lesson-row" style="background: #F8FCF6;">
+            <div class="lesson-number" style="background:#E8F8E0; color:#58CC02;">01</div>
+            <div class="lesson-icon-circle" style="background:#E8F8E0;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="10" width="16" height="2" rx="1" fill="#58CC02"/><polygon points="11,14 8,20 14,20" fill="#58CC02"/><circle cx="6" cy="8" r="2.5" stroke="#58CC02" stroke-width="1.5" fill="none"/><circle cx="16" cy="8" r="2.5" stroke="#58CC02" stroke-width="1.5" fill="none"/><line x1="6" y1="8" x2="6" y2="10" stroke="#58CC02" stroke-width="1.2"/><line x1="16" y1="8" x2="16" y2="10" stroke="#58CC02" stroke-width="1.2"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Free Body Diagrams</div>
+              <div class="lesson-subtitle">Identify forces & draw FBDs</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot filled"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 2 — done -->
+          <div class="lesson-row" style="background: #F8FCF6;">
+            <div class="lesson-number" style="background:#E8F8E0; color:#58CC02;">02</div>
+            <div class="lesson-icon-circle" style="background:#E8F8E0;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 16 L8 6 L14 16 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/><line x1="8" y1="6" x2="19" y2="6" stroke="#58CC02" stroke-width="1.5"/><line x1="14" y1="16" x2="19" y2="6" stroke="#58CC02" stroke-width="1.5"/><circle cx="3" cy="16" r="1.5" fill="#58CC02"/><circle cx="14" cy="16" r="1.5" fill="#58CC02"/><circle cx="19" cy="6" r="1.5" fill="#58CC02"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Truss Analysis</div>
+              <div class="lesson-subtitle">Method of joints & sections</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 3 — done -->
+          <div class="lesson-row" style="background: #F8FCF6;">
+            <div class="lesson-number" style="background:#E8F8E0; color:#58CC02;">03</div>
+            <div class="lesson-icon-circle" style="background:#E8F8E0;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="8" width="14" height="6" rx="2" stroke="#58CC02" stroke-width="1.5" fill="none"/><line x1="4" y1="11" x2="1" y2="11" stroke="#58CC02" stroke-width="1.5"/><line x1="18" y1="11" x2="21" y2="11" stroke="#58CC02" stroke-width="1.5"/><path d="M1 9 L1 13" stroke="#58CC02" stroke-width="1.5" stroke-linecap="round"/><path d="M8 8 L8 14" stroke="#58CC02" stroke-width="1" opacity="0.4"/><path d="M11 8 L11 14" stroke="#58CC02" stroke-width="1" opacity="0.4"/><path d="M14 8 L14 14" stroke="#58CC02" stroke-width="1" opacity="0.4"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Friction &amp; Contact</div>
+              <div class="lesson-subtitle">Static & kinetic friction</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot filled"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 4 — done -->
+          <div class="lesson-row" style="background: #F8FCF6;">
+            <div class="lesson-number" style="background:#E8F8E0; color:#58CC02;">04</div>
+            <div class="lesson-icon-circle" style="background:#E8F8E0;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="4" width="14" height="14" rx="2" stroke="#58CC02" stroke-width="1.5" fill="none"/><line x1="4" y1="11" x2="18" y2="11" stroke="#58CC02" stroke-width="1" opacity="0.4"/><line x1="11" y1="4" x2="11" y2="18" stroke="#58CC02" stroke-width="1" opacity="0.4"/><circle cx="11" cy="11" r="2" fill="#58CC02"/><line x1="11" y1="11" x2="15" y2="7" stroke="#58CC02" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Centroids &amp; Centers</div>
+              <div class="lesson-subtitle">Center of mass & gravity</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot filled"></div><div class="star-dot"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 5 — done -->
+          <div class="lesson-row" style="background: #F8FCF6;">
+            <div class="lesson-number" style="background:#E8F8E0; color:#58CC02;">05</div>
+            <div class="lesson-icon-circle" style="background:#E8F8E0;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="14" rx="7" ry="4" stroke="#58CC02" stroke-width="1.5" fill="none"/><line x1="11" y1="4" x2="11" y2="14" stroke="#58CC02" stroke-width="1.5"/><line x1="4" y1="14" x2="18" y2="14" stroke="#58CC02" stroke-width="1" opacity="0.4"/><circle cx="11" cy="4" r="2" fill="#58CC02" opacity="0.6"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Moment of Inertia</div>
+              <div class="lesson-subtitle">Area & mass moments</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 6 — CURRENT -->
+          <div class="lesson-row current" style="background: #FFFFFF;">
+            <div class="lesson-number" style="background:linear-gradient(135deg,#58CC02,#06B6D4); color:#fff;">06</div>
+            <div class="lesson-icon-circle" style="background:linear-gradient(135deg,#E8F8E0,#E0F7FA);">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="14" width="16" height="3" rx="1.5" fill="#06B6D4"/><rect x="5" y="8" width="3" height="6" rx="1" fill="#58CC02"/><rect x="10" y="5" width="3" height="9" rx="1" fill="#58CC02"/><rect x="15" y="10" width="3" height="4" rx="1" fill="#58CC02"/><path d="M3 14 L6.5 8 L11.5 5 L16.5 10 L19 14" stroke="#06B6D4" stroke-width="1" opacity="0.3" fill="none"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Equilibrium in 2D</div>
+              <div class="lesson-subtitle">Sum of forces & moments</div>
+            </div>
+            <div class="lesson-right">
+              <button class="cta-btn" onclick="event.stopPropagation()">START</button>
+            </div>
+          </div>
+
+          <!-- Lesson 7 — upcoming -->
+          <div class="lesson-row" style="background: transparent;">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">07</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="10" width="16" height="2" rx="1" fill="#D0D0D0"/><circle cx="7" cy="7" r="3" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><circle cx="15" cy="7" r="3" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><polygon points="11,14 8,20 14,20" fill="#D0D0D0"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title" style="color:#999;">Equilibrium in 3D</div>
+              <div class="lesson-subtitle">Spatial force systems</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot"></div><div class="star-dot"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 8 — upcoming -->
+          <div class="lesson-row" style="background: transparent;">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">08</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="15" width="18" height="3" rx="1.5" fill="#D0D0D0"/><line x1="5" y1="15" x2="5" y2="7" stroke="#D0D0D0" stroke-width="1.5"/><line x1="11" y1="15" x2="11" y2="5" stroke="#D0D0D0" stroke-width="1.5"/><line x1="17" y1="15" x2="17" y2="9" stroke="#D0D0D0" stroke-width="1.5"/><circle cx="5" cy="7" r="2" fill="#D0D0D0"/><circle cx="11" cy="5" r="2" fill="#D0D0D0"/><circle cx="17" cy="9" r="2" fill="#D0D0D0"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title" style="color:#999;">Structural Analysis</div>
+              <div class="lesson-subtitle">Frames & machines</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#58CC02">
+                <div class="star-dot"></div><div class="star-dot"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ UNIT 2 ══════════ -->
+    <div class="unit-card" data-unit="2" style="--unit-color:#CE82FF; --unit-color-light:#F5E8FF; --unit-gradient:linear-gradient(135deg,#CE82FF,#F472B6);">
+      <div class="unit-header" style="background: linear-gradient(135deg,#CE82FF,#F472B6);" onclick="toggleUnit(this)">
+        <div class="unit-illust">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="rgba(255,255,255,0.2)"/>
+            <circle cx="26" cy="22" r="6" stroke="#fff" stroke-width="2" fill="none"/>
+            <path d="M18 38 Q22 28 26 22 Q30 28 34 38" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <line x1="16" y1="38" x2="36" y2="38" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M30 22 L38 16" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            <path d="M38 14 L40 16 L36 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-tag">Unit 2</div>
+          <div class="unit-title">Dynamics &amp; Motion</div>
+          <div class="unit-progress-text">2 / 7 lessons complete</div>
+          <div class="header-progress-bar"><div class="header-progress-fill" style="width:28.6%"></div></div>
+        </div>
+        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="lessons-panel">
+        <div class="lessons-inner" style="background: linear-gradient(180deg, #FBF3FF 0%, #FFFFFF 100%); border-radius: 0 0 20px 20px;">
+
+          <!-- Lesson 1 — done -->
+          <div class="lesson-row" style="background: #FCF6FF;">
+            <div class="lesson-number" style="background:#F5E8FF; color:#CE82FF;">01</div>
+            <div class="lesson-icon-circle" style="background:#F5E8FF;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18 L8 8 L12 14 L16 6 L20 12" stroke="#CE82FF" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="18" r="1.5" fill="#CE82FF"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Kinematics of Particles</div>
+              <div class="lesson-subtitle">Position, velocity & acceleration</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#CE82FF">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot filled"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 2 — done -->
+          <div class="lesson-row" style="background: #FCF6FF;">
+            <div class="lesson-number" style="background:#F5E8FF; color:#CE82FF;">02</div>
+            <div class="lesson-icon-circle" style="background:#F5E8FF;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#CE82FF" stroke-width="1.5" fill="none"/><line x1="11" y1="11" x2="17" y2="8" stroke="#CE82FF" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#CE82FF"/><path d="M15 5 L18 3 L19 7" stroke="#F472B6" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Newton's Second Law</div>
+              <div class="lesson-subtitle">F = ma applications</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#CE82FF">
+                <div class="star-dot filled"></div><div class="star-dot filled"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 3 — CURRENT -->
+          <div class="lesson-row current" style="background: #FFFFFF;">
+            <div class="lesson-number" style="background:linear-gradient(135deg,#CE82FF,#F472B6); color:#fff;">03</div>
+            <div class="lesson-icon-circle" style="background:linear-gradient(135deg,#F5E8FF,#FDE8F0);">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11 Q11 2 18 11 Q11 20 4 11Z" stroke="#CE82FF" stroke-width="1.5" fill="none"/><circle cx="11" cy="11" r="3" fill="#F472B6" opacity="0.5"/><path d="M8 11 L14 11" stroke="#CE82FF" stroke-width="1.5" stroke-linecap="round"/><path d="M11 8 L11 14" stroke="#CE82FF" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Work &amp; Energy</div>
+              <div class="lesson-subtitle">Conservation of energy</div>
+            </div>
+            <div class="lesson-right">
+              <button class="cta-btn" style="background:linear-gradient(180deg,#D98EFF,#CE82FF); box-shadow:0 4px 0 #A855C8;" onclick="event.stopPropagation()">START</button>
+            </div>
+          </div>
+
+          <!-- Lesson 4 — upcoming -->
+          <div class="lesson-row" style="background: transparent;">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">04</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><path d="M11 4 A7 7 0 0 1 18 11" stroke="#D0D0D0" stroke-width="2" fill="none" stroke-dasharray="3 2"/><circle cx="11" cy="11" r="2" fill="#D0D0D0"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title" style="color:#999;">Impulse &amp; Momentum</div>
+              <div class="lesson-subtitle">Linear impulse-momentum</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#CE82FF">
+                <div class="star-dot"></div><div class="star-dot"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson 5 — upcoming -->
+          <div class="lesson-row" style="background: transparent;">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">05</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><line x1="11" y1="11" x2="16" y2="8" stroke="#D0D0D0" stroke-width="1.5" stroke-linecap="round"/><path d="M7 15 Q11 11 15 15" stroke="#D0D0D0" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title" style="color:#999;">Rigid Body Rotation</div>
+              <div class="lesson-subtitle">Angular velocity & acceleration</div>
+            </div>
+            <div class="lesson-right">
+              <div class="star-dots" style="--unit-color:#CE82FF">
+                <div class="star-dot"></div><div class="star-dot"></div><div class="star-dot"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ UNIT 3 (Locked) ══════════ -->
+    <div class="unit-card" data-unit="3" style="--unit-color:#FF9600; --unit-color-light:#FFF3E0; --unit-gradient:linear-gradient(135deg,#FF9600,#F59E0B);">
+      <div class="unit-header" style="background: linear-gradient(135deg,#FF9600,#F59E0B); opacity:0.7;" onclick="toggleUnit(this)">
+        <div class="unit-illust">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="rgba(255,255,255,0.2)"/>
+            <!-- I-Beam -->
+            <rect x="14" y="12" width="24" height="4" rx="1" fill="#fff"/>
+            <rect x="14" y="36" width="24" height="4" rx="1" fill="#fff"/>
+            <rect x="23" y="16" width="6" height="20" rx="1" fill="#fff" opacity="0.85"/>
+            <!-- Arrows showing bending -->
+            <path d="M10 26 L6 26" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M6 24 L6 28" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M42 26 L46 26" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M46 24 L46 28" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Lock icon -->
+            <circle cx="42" cy="12" r="7" fill="rgba(0,0,0,0.2)"/>
+            <rect x="38" y="11" width="8" height="6" rx="1.5" fill="#fff"/>
+            <path d="M40 11 L40 9 Q42 6 44 9 L44 11" stroke="#fff" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="unit-info">
+          <div class="unit-tag">Unit 3</div>
+          <div class="unit-title">Strength of Materials</div>
+          <div class="unit-progress-text">0 / 9 lessons &middot; Complete Unit 2 to unlock</div>
+          <div class="header-progress-bar"><div class="header-progress-fill" style="width:0%"></div></div>
+        </div>
+        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9l6 6 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="lessons-panel">
+        <div class="lessons-inner" style="background: linear-gradient(180deg, #FFFBF3 0%, #FFFFFF 100%); border-radius: 0 0 20px 20px;">
+
+          <div class="lesson-row locked">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">01</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="12" width="14" height="2" rx="1" fill="#D0D0D0"/><path d="M4 10 L11 4 L18 10" stroke="#D0D0D0" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Stress &amp; Strain</div>
+              <div class="lesson-subtitle">Normal & shear stress</div>
+            </div>
+            <div class="lesson-right"><span class="badge locked">&#x1F512; Locked</span></div>
+          </div>
+
+          <div class="lesson-row locked">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">02</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="6" y="4" width="10" height="14" rx="2" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><line x1="6" y1="8" x2="16" y2="8" stroke="#D0D0D0" stroke-width="1"/><line x1="6" y1="12" x2="16" y2="12" stroke="#D0D0D0" stroke-width="1"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Axial Loading</div>
+              <div class="lesson-subtitle">Deformation under tension</div>
+            </div>
+            <div class="lesson-right"><span class="badge locked">&#x1F512; Locked</span></div>
+          </div>
+
+          <div class="lesson-row locked">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">03</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18 Q11 4 18 18" stroke="#D0D0D0" stroke-width="1.8" fill="none" stroke-linecap="round"/><line x1="4" y1="18" x2="18" y2="18" stroke="#D0D0D0" stroke-width="1.5"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Beam Bending</div>
+              <div class="lesson-subtitle">Bending moment diagrams</div>
+            </div>
+            <div class="lesson-right"><span class="badge locked">&#x1F512; Locked</span></div>
+          </div>
+
+          <div class="lesson-row locked">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">04</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="5" y="5" width="12" height="12" rx="1" stroke="#D0D0D0" stroke-width="1.5" fill="none" transform="rotate(15 11 11)"/><line x1="5" y1="17" x2="17" y2="5" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="2 2"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Shear Force Diagrams</div>
+              <div class="lesson-subtitle">SFD & BMD construction</div>
+            </div>
+            <div class="lesson-right"><span class="badge locked">&#x1F512; Locked</span></div>
+          </div>
+
+          <div class="lesson-row locked">
+            <div class="lesson-number" style="background:#F0F0F0; color:#BFBFBF;">05</div>
+            <div class="lesson-icon-circle" style="background:#F5F5F5;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><circle cx="11" cy="11" r="3" stroke="#D0D0D0" stroke-width="1.5" fill="none"/><line x1="11" y1="4" x2="11" y2="18" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="2 2"/></svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-title">Torsion of Shafts</div>
+              <div class="lesson-subtitle">Circular shaft twist</div>
+            </div>
+            <div class="lesson-right"><span class="badge locked">&#x1F512; Locked</span></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /feed -->
+
+  <div class="bottom-spacer"></div>
+</div><!-- /app-shell -->
+
+<script>
+function toggleUnit(headerEl) {
+  const card = headerEl.closest('.unit-card');
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>
