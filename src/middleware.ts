@@ -12,11 +12,7 @@ export default auth((req) => {
     return NextResponse.redirect(new URL('/', req.nextUrl));
   }
 
-  // Unauthenticated users visiting protected pages → redirect to login
-  if (!isAuthPage && !isLoggedIn) {
-    return NextResponse.redirect(new URL('/login', req.nextUrl));
-  }
-
+  // Everyone else can access all routes (guests get unit 1 only)
   return NextResponse.next();
 });
 

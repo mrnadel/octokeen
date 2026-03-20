@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { course } from '@/data/course';
 import { useCourseStore } from '@/store/useCourseStore';
 import { UnitHeader } from './UnitHeader';
@@ -34,6 +36,9 @@ export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentLessonRef = useRef<HTMLDivElement>(null);
   const { progress, startLesson, isLessonUnlocked } = useCourseStore();
+  const { status } = useSession();
+  const router = useRouter();
+  const isGuest = status !== 'authenticated';
   const [jumpConfirm, setJumpConfirm] = useState<{ unitIndex: number; lessonIndex: number } | null>(null);
 
   // Determine lesson state helper
@@ -41,6 +46,9 @@ export function CourseMap() {
     (unitIndex: number, lessonIndex: number): 'completed' | 'current' | 'locked' => {
       const lessonId = course[unitIndex]?.lessons[lessonIndex]?.id;
       if (!lessonId) return 'locked';
+
+      // Guests can only access unit 1 (index 0)
+      if (isGuest && unitIndex > 0) return 'locked';
 
       if (progress.completedLessons[lessonId]) {
         return 'completed';
@@ -50,7 +58,7 @@ export function CourseMap() {
       }
       return 'locked';
     },
-    [progress.completedLessons, isLessonUnlocked]
+    [progress.completedLessons, isLessonUnlocked, isGuest]
   );
 
   // Find the first "current" (incomplete but unlocked) lesson for auto-scroll
@@ -260,27 +268,54 @@ export function CourseMap() {
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-surface-500 mb-5">
-                  Jump ahead to this lesson? You can always go back and complete earlier lessons later.
-                </p>
-                <div className="flex gap-3">
-                  <button
-                    className="flex-1 py-3 rounded-xl text-sm font-semibold text-surface-600 bg-surface-100 active:bg-surface-200 transition-colors"
-                    onClick={() => setJumpConfirm(null)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="flex-1 py-3 rounded-xl text-sm font-semibold text-white active:opacity-90 transition-opacity"
-                    style={{ backgroundColor: unit.color }}
-                    onClick={() => {
-                      startLesson(jumpConfirm.unitIndex, jumpConfirm.lessonIndex);
-                      setJumpConfirm(null);
-                    }}
-                  >
-                    Jump to Lesson
-                  </button>
-                </div>
+                {isGuest && jumpConfirm.unitIndex > 0 ? (
+                  <>
+                    <p className="text-sm text-surface-500 mb-5">
+                      Create a free account to unlock all units and save your progress across devices! &#x1F680;
+                    </p>
+                    <div className="flex gap-3">
+                      <button
+                        className="flex-1 py-3 rounded-xl text-sm font-semibold text-surface-600 bg-surface-100 active:bg-surface-200 transition-colors"
+                        onClick={() => setJumpConfirm(null)}
+                      >
+                        Maybe later
+                      </button>
+                      <button
+                        className="flex-1 py-3 rounded-xl text-sm font-semibold text-white bg-[#58CC02] active:bg-[#4CAD02] transition-colors shadow-[0_3px_0_#46a302]"
+                        onClick={() => {
+                          setJumpConfirm(null);
+                          router.push('/register');
+                        }}
+                      >
+                        Sign Up Free
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-surface-500 mb-5">
+                      Jump ahead to this lesson? You can always go back and complete earlier lessons later.
+                    </p>
+                    <div className="flex gap-3">
+                      <button
+                        className="flex-1 py-3 rounded-xl text-sm font-semibold text-surface-600 bg-surface-100 active:bg-surface-200 transition-colors"
+                        onClick={() => setJumpConfirm(null)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="flex-1 py-3 rounded-xl text-sm font-semibold text-white active:opacity-90 transition-opacity"
+                        style={{ backgroundColor: unit.color }}
+                        onClick={() => {
+                          startLesson(jumpConfirm.unitIndex, jumpConfirm.lessonIndex);
+                          setJumpConfirm(null);
+                        }}
+                      >
+                        Jump to Lesson
+                      </button>
+                    </div>
+                  </>
+                )}
               </motion.div>
             </motion.div>
           );

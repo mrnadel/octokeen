@@ -51,19 +51,28 @@ export function CourseHeader() {
             MechPrep
           </h1>
 
-          {/* Profile avatar */}
-          <Link
-            href="/profile"
-            className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden transition-transform active:scale-95"
-          >
-            {userImage ? (
-              <img src={userImage} alt={userName} className="w-8 h-8 rounded-full" />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">
-                {initial}
-              </div>
-            )}
-          </Link>
+          {/* Profile avatar or Sign Up */}
+          {session ? (
+            <Link
+              href="/profile"
+              className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden transition-transform active:scale-95"
+            >
+              {userImage ? (
+                <img src={userImage} alt={userName} className="w-8 h-8 rounded-full" />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">
+                  {initial}
+                </div>
+              )}
+            </Link>
+          ) : (
+            <Link
+              href="/register"
+              className="px-3 py-1.5 rounded-full bg-[#58CC02] text-white text-xs font-bold transition-transform active:scale-95"
+            >
+              Sign Up
+            </Link>
+          )}
 
           {/* Right: XP */}
           <button
