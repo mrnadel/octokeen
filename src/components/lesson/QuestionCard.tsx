@@ -15,6 +15,9 @@ import type { CourseQuestion } from '@/data/course/types';
 export interface QuestionCardHandle {
   check: () => void;
   hasSelection: boolean;
+  selectOption: (index: number) => void;
+  selectBool: (value: boolean) => void;
+  questionType: string;
 }
 
 interface QuestionCardProps {
@@ -86,14 +89,33 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       onAnswer(correct);
     }, [answered, hasSelection, question, selectedIndex, selectedBool, textValue, onAnswer]);
 
-    // Expose check and hasSelection to parent via ref
+    // Auto-focus fill-blank input when question loads
+    useEffect(() => {
+      if (question.type === 'fill-blank' && inputRef.current) {
+        const timer = setTimeout(() => inputRef.current?.focus(), 300);
+        return () => clearTimeout(timer);
+      }
+    }, [question.id, question.type]);
+
+    // Expose check, hasSelection, and selection methods to parent via ref
     useImperativeHandle(
       ref,
       () => ({
         check: handleCheck,
         hasSelection,
+        selectOption: (index: number) => {
+          if (!answered && question.type === 'multiple-choice' && question.options && index < question.options.length) {
+            setSelectedIndex(index);
+          }
+        },
+        selectBool: (value: boolean) => {
+          if (!answered && question.type === 'true-false') {
+            setSelectedBool(value);
+          }
+        },
+        questionType: question.type,
       }),
-      [handleCheck, hasSelection]
+      [handleCheck, hasSelection, answered, question]
     );
 
     const getCorrectAnswerDisplay = (): string => {

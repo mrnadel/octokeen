@@ -48,7 +48,7 @@ export function CourseHeader() {
           {/* Logo */}
           <div style={{ fontSize: 24, fontWeight: 900, letterSpacing: -0.5 }}>
             <span style={{ color: '#58CC02' }}>Mech</span>
-            <span style={{ color: '#3C3C3C' }}>Prep</span>
+            <span style={{ color: '#3C3C3C' }}>Ready</span>
           </div>
 
           {/* Stats */}

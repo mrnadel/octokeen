@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Zap, AlertTriangle } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -101,6 +101,90 @@ export default function LessonView() {
   const handleCancelExit = useCallback(() => {
     setShowExitConfirm(false);
   }, []);
+
+  // Show hotkey hint briefly on first question
+  const [showHotkeyHint, setShowHotkeyHint] = useState(true);
+  useEffect(() => {
+    if (showHotkeyHint) {
+      const timer = setTimeout(() => setShowHotkeyHint(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showHotkeyHint]);
+
+  // Reset hint when lesson starts
+  useEffect(() => {
+    if (activeLesson?.currentQuestionIndex === 0) {
+      setShowHotkeyHint(true);
+    }
+  }, [activeLesson?.currentQuestionIndex]);
+
+  // Global keyboard handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      const isInInput =
+        (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') &&
+        !(target as HTMLInputElement).disabled;
+
+      // Exit confirm modal keyboard handling
+      if (showExitConfirm) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          handleCancelExit();
+        }
+        return;
+      }
+
+      // Escape to exit lesson
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        handleExitClick();
+        return;
+      }
+
+      // When typing in a non-disabled input, let the input handle everything
+      if (isInInput) return;
+
+      // Enter or Space: check answer or continue
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (isCurrentAnswered) {
+          handleContinue();
+        } else if (hasSelection) {
+          handleCheck();
+        }
+        return;
+      }
+
+      // Option selection keys (only when not yet answered)
+      if (!isCurrentAnswered) {
+        const key = e.key.toLowerCase();
+        // 1-4 or A-D for multiple choice
+        if (['1', '2', '3', '4'].includes(key)) {
+          questionRef.current?.selectOption(parseInt(key) - 1);
+        } else if (['a', 'b', 'c', 'd'].includes(key)) {
+          questionRef.current?.selectOption(key.charCodeAt(0) - 97);
+        }
+        // T/F for true-false
+        else if (key === 't') {
+          questionRef.current?.selectBool(true);
+        } else if (key === 'f') {
+          questionRef.current?.selectBool(false);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    showExitConfirm,
+    isCurrentAnswered,
+    hasSelection,
+    handleCheck,
+    handleContinue,
+    handleExitClick,
+    handleCancelExit,
+  ]);
 
   // Show result screen after lesson completion
   if (lessonResult) {
@@ -261,17 +345,67 @@ export default function LessonView() {
             )}
           </AnimatePresence>
 
+          {/* Hotkey hint bar */}
+          <AnimatePresence>
+            {showHotkeyHint && !isCurrentAnswered && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.3 }}
+                className="text-center mb-3"
+              >
+                <span className="inline-flex items-center gap-2 text-xs text-gray-400 font-medium bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-3 py-1.5 shadow-sm">
+                  <span>
+                    {currentQuestion?.type === 'multiple-choice' && (
+                      <>
+                        <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">A</kbd>
+                        -
+                        <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">D</kbd>
+                        {' '}select
+                      </>
+                    )}
+                    {currentQuestion?.type === 'true-false' && (
+                      <>
+                        <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">T</kbd>
+                        /
+                        <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">F</kbd>
+                        {' '}select
+                      </>
+                    )}
+                    {currentQuestion?.type === 'fill-blank' && (
+                      <>type your answer</>
+                    )}
+                  </span>
+                  <span className="text-gray-300">·</span>
+                  <span>
+                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">Enter</kbd>
+                    {' '}check
+                  </span>
+                  <span className="text-gray-300">·</span>
+                  <span>
+                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-500 border border-gray-200">Esc</kbd>
+                    {' '}exit
+                  </span>
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {!isCurrentAnswered ? (
             <motion.button
               onClick={handleCheck}
               disabled={!hasSelection}
-              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg"
+              className="w-full rounded-2xl py-4.5 px-6 font-extrabold text-lg transition-all duration-200 min-h-[60px] shadow-lg flex items-center justify-center gap-2"
               style={getBottomButtonStyle()}
               whileTap={hasSelection ? { scale: 0.96 } : undefined}
               animate={hasSelection ? { y: [0, -2, 0] } : undefined}
               transition={hasSelection ? { duration: 0.4, repeat: Infinity, repeatDelay: 2 } : undefined}
             >
               CHECK
+              {hasSelection && (
+                <span className="text-xs opacity-70 font-semibold ml-1">↵</span>
+              )}
             </motion.button>
           ) : (
             <motion.button
@@ -283,6 +417,7 @@ export default function LessonView() {
               whileTap={{ scale: 0.96 }}
             >
               {isLastQuestion ? '🏁 FINISH' : 'CONTINUE →'}
+              <span className="text-xs opacity-70 font-semibold ml-1">↵</span>
             </motion.button>
           )}
         </motion.div>
@@ -318,9 +453,10 @@ export default function LessonView() {
                 <div className="flex gap-3">
                   <button
                     onClick={handleCancelExit}
-                    className="flex-1 rounded-2xl py-3.5 px-4 border-2 border-gray-200 text-gray-700 font-bold transition-colors hover:bg-gray-50 active:scale-[0.97] min-h-[50px]"
+                    className="flex-1 rounded-2xl py-3.5 px-4 border-2 border-gray-200 text-gray-700 font-bold transition-colors hover:bg-gray-50 active:scale-[0.97] min-h-[50px] flex items-center justify-center gap-1.5"
                   >
                     Keep going
+                    <kbd className="text-[10px] text-gray-400 bg-gray-100 px-1 py-0.5 rounded border border-gray-200 font-mono">Esc</kbd>
                   </button>
                   <button
                     onClick={handleConfirmExit}
