@@ -96,7 +96,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
                   {reason || 'This feature requires Pro'}
                 </span>
               </div>
-              <h3 className="text-xl font-bold">MechPrep Pro</h3>
+              <h3 className="text-xl font-bold">MechReady Pro</h3>
               <p className="text-sm text-primary-100 mt-1">
                 Unlock all units, unlimited practice, and full analytics
               </p>

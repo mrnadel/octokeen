@@ -1,5 +1,5 @@
 // ============================================================
-// Server-Side Access Control — MechPrep SaaS
+// Server-Side Access Control — MechReady SaaS
 // ============================================================
 
 import { eq, and } from 'drizzle-orm';

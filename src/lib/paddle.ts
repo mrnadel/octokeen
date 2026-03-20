@@ -1,5 +1,5 @@
 // ============================================================
-// Paddle Server-Side Client — MechPrep SaaS
+// Paddle Server-Side Client — MechReady SaaS
 // ============================================================
 
 import { Environment, Paddle } from '@paddle/paddle-node-sdk';

@@ -42,7 +42,7 @@ const ALL_DISPLAY_FEATURES: Feature[] = [
 const FAQ_ITEMS = [
   {
     q: 'What do I get for free?',
-    a: 'You get full access to Unit 1 with up to 5 practice questions per day, all practice modes, and progress tracking. It\'s a great way to experience MechPrep before upgrading.',
+    a: 'You get full access to Unit 1 with up to 5 practice questions per day, all practice modes, and progress tracking. It\'s a great way to experience MechReady before upgrading.',
   },
   {
     q: 'Can I cancel anytime?',
@@ -281,7 +281,7 @@ export default function PricingPage() {
                   </button>
                 ) : (
                   <a
-                    href="mailto:team@mechprep.com?subject=MechPrep%20Team%20Plan%20Inquiry"
+                    href="mailto:team@mechready.com?subject=MechReady%20Team%20Plan%20Inquiry"
                     className="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm transition-colors active:scale-[0.98] flex items-center justify-center"
                   >
                     Contact Us

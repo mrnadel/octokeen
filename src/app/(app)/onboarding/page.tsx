@@ -67,7 +67,7 @@ export default function OnboardingPage() {
 
   const completeOnboarding = () => {
     const prefs = { goal, experience };
-    localStorage.setItem('mechprep_onboarding', JSON.stringify(prefs));
+    localStorage.setItem('mechready_onboarding', JSON.stringify(prefs));
     router.push('/');
   };
 
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
                 Welcome, {userName}!
               </h2>
               <p className="text-gray-500 text-sm mb-8 max-w-xs mx-auto leading-relaxed">
-                MechPrep helps you master mechanical engineering concepts with bite-sized, interactive lessons designed for real interview success.
+                MechReady helps you master mechanical engineering concepts with bite-sized, interactive lessons designed for real interview success.
               </p>
               <button
                 onClick={nextStep}

@@ -128,7 +128,7 @@ export default function RegisterPage() {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8">
       <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
-        Join MechPrep! &#x1F393;
+        Join MechReady! &#x1F393;
       </h2>
       <p className="text-center text-gray-500 mb-6">
         Your engineering journey starts here &#x1F6E0;&#xFE0F;

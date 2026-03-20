@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'MechPrep — Mechanical Engineering Interview Training',
+  title: 'MechReady — Mechanical Engineering Interview Training',
   description: 'Sharpen your mechanical engineering skills with gamified, interview-focused practice. Adaptive questions, real-world mechanisms, and smart feedback.',
 };
 

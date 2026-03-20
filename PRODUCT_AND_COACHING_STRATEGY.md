@@ -9,7 +9,7 @@
 
 ## 1. Product Vision
 
-**MechPrep is the first interview training platform built specifically for mechanical engineers, combining adaptive concept drilling with realistic interview simulation to transform how engineers prepare for technical interviews.** Unlike generic flashcard apps that reward memorization, MechPrep trains the engineering thinking process itself — teaching users to reason through problems the way top candidates do in real interviews, from first principles to practical application. Our goal: every user walks into their interview knowing not just the right answers, but how to think through questions they've never seen before.
+**MechReady is the first interview training platform built specifically for mechanical engineers, combining adaptive concept drilling with realistic interview simulation to transform how engineers prepare for technical interviews.** Unlike generic flashcard apps that reward memorization, MechReady trains the engineering thinking process itself — teaching users to reason through problems the way top candidates do in real interviews, from first principles to practical application. Our goal: every user walks into their interview knowing not just the right answers, but how to think through questions they've never seen before.
 
 ---
 

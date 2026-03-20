@@ -1,5 +1,5 @@
 // ============================================================
-// Subscription Types — MechPrep SaaS
+// Subscription Types — MechReady SaaS
 // ============================================================
 
 export type SubscriptionTier = 'free' | 'pro' | 'team';

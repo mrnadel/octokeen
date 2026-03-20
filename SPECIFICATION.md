@@ -1,6 +1,6 @@
 # Mechanical Engineering Interview Prep App - Complete Specification
 
-> **Codename:** MechPrep
+> **Codename:** MechReady
 > **Stack:** Next.js 14+ (App Router) | React 18+ | TypeScript | Tailwind CSS | Zustand | LocalStorage
 > **Design Philosophy:** Duolingo's engagement + Brilliant's learning feel + Linear's polish + Stripe's premium quality
 
@@ -2107,7 +2107,7 @@ export const useUserStore = create<UserState>()(
         // ... implementation
       })),
       {
-        name: 'mechprep-user-progress',
+        name: 'mechready-user-progress',
         version: 1,
       }
     )
@@ -2603,7 +2603,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata = {
-  title: 'MechPrep — Mechanical Engineering Interview Prep',
+  title: 'MechReady — Mechanical Engineering Interview Prep',
   description: 'Master mechanical engineering concepts with adaptive practice, interview simulations, and gamified learning.',
 };
 

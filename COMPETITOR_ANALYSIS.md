@@ -1,4 +1,4 @@
-# MechPrep Competitor Analysis
+# MechReady Competitor Analysis
 
 _Research conducted: March 2026_
 
@@ -11,7 +11,7 @@ _Platforms specifically for mechanical engineering interview prep_
 - **URL:** https://hardwareishard.com
 - **Description:** Mechanical engineering recruiting resource with technical interview question database (150+ questions), behavioral interview guides, cheat sheets, and a 500+ hardware company database — built by students for students.
 - **Category:** Direct
-- **Threat Level:** High — closest thing to MechPrep that exists today, but content-only (no adaptive drilling, no app, no gamification).
+- **Threat Level:** High — closest thing to MechReady that exists today, but content-only (no adaptive drilling, no app, no gamification).
 
 ### 1.2 Prepfully (ME Interview Guides)
 - **URL:** https://prepfully.com/interview-guides/google-mechanical-engineer
@@ -189,7 +189,7 @@ _Apps using Duolingo-style mechanics for STEM/technical learning_
 | Adjacent | 7 | Lots of ME question banks exist (Sanfoundry, IndiaBix, quiz apps) but with poor UX and no adaptive learning. |
 | Gamified | 7 | Brilliant, Enki, SoloLearn prove the model works, but none target ME or interview prep. |
 
-### Key Gaps MechPrep Can Exploit
+### Key Gaps MechReady Can Exploit
 
 1. **No one owns "gamified ME interview prep."** Hardware Is Hard has the content angle, Brilliant has the gamification angle, but no one combines both.
 2. **Existing ME quiz apps are low quality.** The Google Play/App Store ME quiz apps are basic, dated, and have no adaptive learning or engagement mechanics.

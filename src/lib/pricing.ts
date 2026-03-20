@@ -1,5 +1,5 @@
 // ============================================================
-// Pricing & Feature Gating — MechPrep SaaS
+// Pricing & Feature Gating — MechReady SaaS
 // ============================================================
 
 import type {

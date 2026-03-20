@@ -437,7 +437,7 @@ export const useStore = create<AppState>()(
       },
     }),
     {
-      name: 'mechprep-storage',
+      name: 'mechready-storage',
       version: 1,
       partialize: (state) => ({ progress: state.progress }),
       migrate: (persistedState: unknown) => {

@@ -231,7 +231,7 @@ export const useCourseStore = create<CourseState>()(
       },
     }),
     {
-      name: 'mechprep-course',
+      name: 'mechready-course',
       version: 1,
       partialize: (state) => ({ progress: state.progress }),
       merge: (persistedState, currentState) => {
