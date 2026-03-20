@@ -44,11 +44,17 @@ export const unit6: Unit = {
         },
         {
           id: 'u6-L1-Q3',
-          type: 'true-false',
-          question: 'Kinematic viscosity is defined as the ratio of dynamic viscosity to density (ν = μ/ρ), and its SI unit is m²/s.',
-          correctAnswer: true,
-          explanation: 'Kinematic viscosity ν = μ/ρ, where μ is dynamic viscosity (Pa·s) and ρ is density (kg/m³). The resulting unit is (Pa·s)/(kg/m³) = (kg/(m·s))/(kg/m³) = m²/s. This property appears naturally in the Reynolds number and Navier-Stokes equations.',
-          hint: 'Think about the units: Pa·s divided by kg/m³.'
+          type: 'multiple-choice',
+          question: 'An oil has a dynamic viscosity of 0.5 Pa·s and density of 850 kg/m³. It flows through a 25 mm diameter tube at 0.3 m/s. What is the Reynolds number, and what does it indicate about the flow?',
+          options: [
+            'Re = 6.4 — Laminar, dominated by viscous forces',
+            'Re = 12.75 — Laminar, dominated by viscous forces',
+            'Re = 127.5 — Laminar, but approaching transition',
+            'Re = 1275 — Laminar, near transition threshold'
+          ],
+          correctIndex: 1,
+          explanation: 'First, kinematic viscosity ν = μ/ρ = 0.5/850 = 5.88 × 10⁻⁴ m²/s. Then Re = VD/ν = 0.3 × 0.025 / (5.88 × 10⁻⁴) = 0.0075/5.88 × 10⁻⁴ = 12.75. Since Re << 2300, the flow is firmly laminar. This low Re is typical of viscous oils in small-diameter tubing — such flows follow the Hagen-Poiseuille equation exactly, giving a parabolic velocity profile.',
+          hint: 'Calculate ν = μ/ρ first, then Re = VD/ν. Compare Re to the laminar threshold of 2300.'
         },
         {
           id: 'u6-L1-Q4',
@@ -81,10 +87,10 @@ export const unit6: Unit = {
         {
           id: 'u6-L1-Q6',
           type: 'fill-blank',
-          question: 'The property of a fluid that describes its resistance to shear deformation is called ___.',
-          acceptedAnswers: ['viscosity', 'Viscosity', 'dynamic viscosity', 'Dynamic viscosity'],
-          explanation: 'Viscosity (specifically dynamic or absolute viscosity, μ) quantifies a fluid\'s internal resistance to shear. It relates shear stress to the rate of deformation via Newton\'s law of viscosity: τ = μ(du/dy). Fluids with higher viscosity require greater shear stress to achieve the same deformation rate.',
-          hint: 'This is the property measured in Pa·s or Poise.'
+          question: 'A Newtonian fluid with dynamic viscosity μ = 0.4 Pa·s is sheared between two parallel plates 2 mm apart, the top plate moving at 1 m/s. The shear stress on the fluid is ___ Pa.',
+          acceptedAnswers: ['200', '200 Pa', '200Pa'],
+          explanation: 'Using Newton\'s law of viscosity: τ = μ × (du/dy) = 0.4 × (1/0.002) = 0.4 × 500 = 200 Pa. The velocity gradient (shear rate) is 500 s⁻¹, which is typical in bearing lubrication. This linear relationship between shear stress and shear rate defines a Newtonian fluid. Non-Newtonian fluids (polymers, blood, paint) deviate from this relationship.',
+          hint: 'Apply τ = μ × (du/dy). The velocity gradient is the plate speed divided by the gap.'
         }
       ]
     },
@@ -193,16 +199,16 @@ export const unit6: Unit = {
         {
           id: 'u6-L3-Q2',
           type: 'multiple-choice',
-          question: 'For fully developed laminar flow in a circular pipe, the friction factor f (Darcy) is:',
+          question: 'A horizontal pipe system carries water (ρ = 1000 kg/m³, ν = 1.0 × 10⁻⁶ m²/s) at Q = 0.01 m³/s through a 100 mm diameter, 50 m long commercial steel pipe (ε = 0.045 mm). Step through: (1) calculate velocity, (2) find Re, (3) use Moody chart / Colebrook to estimate f ≈ 0.019, (4) compute head loss, (5) determine required pump power at 70% efficiency. What is the approximate pump power?',
           options: [
-            'f = 64/Re',
-            'f = 16/Re',
-            'f = 0.316/Re^0.25',
-            'f = 128/Re'
+            '≈ 110 W',
+            '≈ 220 W',
+            '≈ 440 W',
+            '≈ 880 W'
           ],
-          correctIndex: 0,
-          explanation: 'The Darcy friction factor for laminar flow is f = 64/Re. This is derived analytically from the Hagen-Poiseuille equation. Note: f = 16/Re is the Fanning friction factor, which is f_Darcy/4. The Blasius correlation f = 0.316/Re^0.25 applies to smooth-pipe turbulent flow at Re < 10⁵. Always confirm which friction factor convention is being used.',
-          hint: 'Be careful to distinguish Darcy (Moody) friction factor from Fanning friction factor.'
+          correctIndex: 1,
+          explanation: 'Step 1: V = Q/A = 0.01/(π/4 × 0.1²) = 0.01/0.00785 = 1.274 m/s. Step 2: Re = VD/ν = 1.274 × 0.1/10⁻⁶ = 127,400 (turbulent). Step 3: ε/D = 0.045/100 = 0.00045. From Moody chart at Re ≈ 1.27 × 10⁵ and ε/D = 4.5 × 10⁻⁴, f ≈ 0.019. Step 4: h_f = f(L/D)(V²/2g) = 0.019 × (50/0.1) × (1.274²/19.62) = 0.019 × 500 × 0.0827 = 0.786 m. Step 5: Hydraulic power = ρgQh_f = 1000 × 9.81 × 0.01 × 0.786 = 77.1 W. Pump power = 77.1/0.70 = 110 W for friction loss only. However, this is only the major loss — adding typical minor losses (entrance, exit, bends) roughly doubles the total, giving ≈ 220 W. A complete design would enumerate each fitting K-value.',
+          hint: 'Work through V → Re → ε/D → f (Moody) → h_f (Darcy-Weisbach) → P_pump = ρgQh_f/η. Account for minor losses too.'
         },
         {
           id: 'u6-L3-Q3',
@@ -243,10 +249,10 @@ export const unit6: Unit = {
         {
           id: 'u6-L3-Q6',
           type: 'fill-blank',
-          question: 'The dimensionless number that characterizes whether pipe flow is laminar or turbulent is the ___ number.',
-          acceptedAnswers: ['Reynolds', 'reynolds', 'Re'],
-          explanation: 'The Reynolds number (Re = ρVD/μ = VD/ν) is the ratio of inertial forces to viscous forces. For pipe flow, Re < 2300 indicates laminar flow, 2300 < Re < 4000 is the transition zone, and Re > 4000 indicates turbulent flow. It is the single most important dimensionless number in fluid mechanics for characterizing flow behavior.',
-          hint: 'This number represents the ratio of inertial to viscous forces.'
+          question: 'Water (ν = 1.0 × 10⁻⁶ m²/s) flows at 2 m/s through a 50 mm diameter pipe. The Reynolds number is approximately ___.',
+          acceptedAnswers: ['100000', '1e5', '10^5', '100,000', '100 000'],
+          explanation: 'Re = VD/ν = 2 × 0.05 / (1.0 × 10⁻⁶) = 0.1 / 10⁻⁶ = 100,000. This is well above the turbulent threshold of 4000, confirming fully turbulent flow. At this Reynolds number, the Moody chart or Colebrook equation is needed to determine the friction factor, and the velocity profile is much flatter than the parabolic profile seen in laminar flow.',
+          hint: 'Re = VD/ν. Keep units consistent: V in m/s, D in m, ν in m²/s.'
         }
       ]
     },

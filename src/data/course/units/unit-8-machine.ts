@@ -274,7 +274,7 @@ export const unit8: Unit = {
         {
           id: 'u8-L4-Q2',
           type: 'multiple-choice',
-          question: 'What percentage of bolt preload is typically lost to thread friction and under-head friction during tightening?',
+          question: 'What percentage of tightening torque is typically consumed by thread friction and under-head friction during bolt tightening?',
           options: [
             '10–20%',
             '40–50%',

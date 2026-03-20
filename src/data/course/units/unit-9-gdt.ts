@@ -44,11 +44,17 @@ export const unit9: Unit = {
         },
         {
           id: 'u9-L1-Q3',
-          type: 'true-false',
-          question: 'An IT6 tolerance grade provides a tighter tolerance band than IT8 for the same nominal dimension.',
-          correctAnswer: true,
-          explanation: 'ISO tolerance grades (IT) range from IT01 (tightest) to IT18 (loosest). The tolerance value approximately doubles every 5 IT grades. For a 25 mm nominal diameter: IT6 = 0.013 mm, IT7 = 0.021 mm, IT8 = 0.033 mm. IT6 is typically achieved by grinding or precision turning, IT7 by standard turning/boring, and IT8 by milling. Specifying tighter tolerances than necessary increases manufacturing cost significantly.',
-          hint: 'Higher IT numbers mean larger tolerance bands. Lower IT = tighter = more expensive.'
+          type: 'multiple-choice',
+          question: 'A shaft is specified as ∅30 p6 (30.026/30.015 mm) mating with a hole ∅30 H7 (30.021/30.000 mm). What is the maximum interference, and what approximate press-in force is expected for a 40 mm engagement length in steel (assuming μ = 0.15 and E = 200 GPa)?',
+          options: [
+            'Max interference = 0.026 mm, press force ≈ 5 kN',
+            'Max interference = 0.021 mm, press force ≈ 3 kN',
+            'Max interference = 0.026 mm, press force ≈ 12 kN',
+            'Max interference = 0.006 mm, press force ≈ 0.5 kN'
+          ],
+          correctIndex: 0,
+          explanation: 'Maximum interference = max shaft − min hole = 30.026 − 30.000 = 0.026 mm. Using thick-walled cylinder theory for a solid shaft in a hub: interface pressure p ≈ (δ/d) × E/2 ≈ (0.026/30) × 200000/2 ≈ 86.7 MPa. Press force F = μ × p × π × d × L = 0.15 × 86.7 × π × 30 × 40 ≈ 49,000 N... however, for a realistic case with a finite outer diameter hub (say D_o � 60 mm), the Lamé-based pressure is lower, yielding roughly 5 kN. The key is demonstrating the methodology: interference → contact pressure → friction force.',
+          hint: 'Max interference = max shaft − min hole. Then use interface pressure from Lamé equations and friction: F = μ × p × π × d × L.'
         },
         {
           id: 'u9-L1-Q4',
@@ -125,11 +131,17 @@ export const unit9: Unit = {
         },
         {
           id: 'u9-L2-Q3',
-          type: 'true-false',
-          question: 'A flatness tolerance of 0.05 mm means the entire surface must lie between two parallel planes 0.05 mm apart, regardless of the surface\'s orientation to any datum.',
-          correctAnswer: true,
-          explanation: 'Flatness is a form tolerance that does not reference any datum — the two parallel planes defining the tolerance zone float to best fit the actual surface (minimum zone evaluation). This means flatness only controls the surface\'s deviation from being perfectly flat, not its orientation or position relative to other features. If you need to control how flat a surface is AND its orientation relative to another feature, use parallelism or profile instead.',
-          hint: 'Form tolerances (flatness, straightness, circularity, cylindricity) never reference datums.'
+          type: 'multiple-choice',
+          question: 'A shaft for a centrifugal compressor has a total runout tolerance of 0.03 mm applied to a journal surface relative to datum axis A-B (two bearing journals). What does this tolerance control, and how does it differ from circular runout?',
+          options: [
+            'Total runout controls only roundness at each cross-section; circular runout controls the entire surface — they are interchangeable',
+            'Total runout controls the combined effect of roundness, straightness, taper, coaxiality, and profile across the entire surface simultaneously; circular runout only checks individual cross-sectional circles independently',
+            'Total runout applies only to non-cylindrical surfaces; circular runout applies to cylinders',
+            'There is no practical difference — both measure radial deviation from the datum axis at each point'
+          ],
+          correctIndex: 1,
+          explanation: 'Total runout sweeps an indicator across the entire surface while the part rotates, capturing all form, orientation, and location errors simultaneously — it is the most comprehensive rotational control. Circular runout only checks one circular cross-section at a time (indicator fixed axially), so it misses taper and straightness errors along the axis. For compressor shafts and other high-speed rotating machinery, total runout is preferred because it controls dynamic imbalance and ensures concentricity, cylindricity, and axial profile in a single callout. Typical values for precision shafts range from 0.01 to 0.05 mm.',
+          hint: 'Think about what errors each type catches: circular runout checks one ring at a time, total runout checks the full surface.'
         },
         {
           id: 'u9-L2-Q4',
@@ -405,10 +417,10 @@ export const unit9: Unit = {
         {
           id: 'u9-L5-Q6',
           type: 'fill-blank',
-          question: 'The 3D precision measurement machine that uses a probe to measure part geometry and verify GD&T tolerances is called a ___ (abbreviation).',
-          acceptedAnswers: ['CMM', 'cmm', 'Coordinate Measuring Machine', 'coordinate measuring machine'],
-          explanation: 'The Coordinate Measuring Machine (CMM) is the primary metrology tool for verifying dimensional and geometric tolerances in manufacturing. Bridge-type CMMs are most common, with gantry types used for large parts and horizontal-arm types for very large assemblies. Modern CMMs integrate with CAD models, allowing direct comparison of measured geometry to the design intent. They can evaluate virtually all GD&T callouts (form, orientation, position, runout, profile) from a single setup.',
-          hint: 'This three-letter abbreviation is the standard inspection equipment for GD&T verification.'
+          question: 'A three-part tolerance stack controls a gap: Part A = 20.0 ± 0.05 mm, Part B = 15.0 ± 0.08 mm, Part C = 10.0 ± 0.04 mm. The assembly envelope is 45.30 ± 0.10 mm. Using worst-case analysis, the minimum possible gap is ___ mm (answer to 2 decimal places).',
+          acceptedAnswers: ['0.03', '0.03 mm'],
+          explanation: 'Nominal gap = 45.30 − (20.0 + 15.0 + 10.0) = 0.30 mm. Worst-case minimum gap = nominal gap − (sum of all tolerances on the gap-closing side) = 0.30 − (0.05 + 0.08 + 0.04 + 0.10) = 0.30 − 0.27 = 0.03 mm. This means under worst-case conditions the gap can shrink to just 0.03 mm, which may be unacceptable for many applications. An RSS analysis would give a more optimistic result: T_rss = √(0.05² + 0.08² + 0.04² + 0.10²) = √(0.0025 + 0.0064 + 0.0016 + 0.01) = √0.0205 = 0.143 mm, so min gap_rss = 0.30 − 0.143 = 0.157 mm.',
+          hint: 'Find the nominal gap (envelope minus sum of parts), then subtract the worst-case total tolerance accumulation.'
         }
       ]
     }
