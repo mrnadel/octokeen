@@ -40,7 +40,7 @@ export const useSubscriptionStore = create<SubscriptionState>()((set, get) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch('/api/stripe/subscription');
+      const res = await fetch('/api/paddle/subscription');
       if (res.ok) {
         const { subscription } = await res.json();
         set({

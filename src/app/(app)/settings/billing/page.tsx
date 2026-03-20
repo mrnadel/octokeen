@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, Check, X, Bell, CheckCircle2, Loader2, Sparkles } from 'lucide-react';
+import { ArrowLeft, Check, X, Sparkles, Loader2, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
-import { TIERS, FEATURES, type Feature } from '@/lib/pricing';
+import { useSession } from 'next-auth/react';
+import { TIERS, FEATURES, PADDLE_PRICES, type Feature } from '@/lib/pricing';
 import { useSubscription } from '@/hooks/useSubscription';
 import { cn } from '@/lib/utils';
+import { getPaddle } from '@/lib/paddle-client';
 
 const FEATURE_LABELS: Record<Feature, string> = {
   [FEATURES.UNIT_ACCESS_ALL]: 'All course units',
@@ -22,34 +24,55 @@ const FEATURE_LABELS: Record<Feature, string> = {
 };
 
 export default function BillingSettingsPage() {
-  const { tier } = useSubscription();
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const { tier, isProUser, cancelAtPeriodEnd, currentPeriodEnd } = useSubscription();
+  const { data: session } = useSession();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   const tierDef = TIERS[tier];
 
-  const handleWaitlistSubmit = async () => {
-    if (!email.trim()) return;
-    setLoading(true);
-    setError('');
+  const handleSubscribe = async () => {
+    if (!session?.user?.id) return;
+    setCheckoutLoading(true);
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('/api/paddle/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ priceId: PADDLE_PRICES.PRO_MONTHLY }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || 'Something went wrong');
-      } else {
-        setSubmitted(true);
-      }
-    } catch {
-      setError('Something went wrong. Please try again.');
+      if (!res.ok) return;
+      const { customerId } = await res.json();
+
+      const paddle = await getPaddle();
+      if (!paddle) return;
+      paddle.Checkout.open({
+        items: [{ priceId: PADDLE_PRICES.PRO_MONTHLY, quantity: 1 }],
+        customer: { id: customerId },
+        customData: { userId: session.user.id },
+        settings: {
+          successUrl: `${window.location.origin}/checkout/success`,
+        },
+      });
+    } catch (err) {
+      console.error('Checkout error:', err);
     } finally {
-      setLoading(false);
+      setCheckoutLoading(false);
+    }
+  };
+
+  const handleManageSubscription = async () => {
+    setPortalLoading(true);
+    try {
+      const res = await fetch('/api/paddle/portal', { method: 'POST' });
+      if (!res.ok) return;
+      const { updateUrl } = await res.json();
+      if (updateUrl) {
+        window.open(updateUrl, '_blank');
+      }
+    } catch (err) {
+      console.error('Portal error:', err);
+    } finally {
+      setPortalLoading(false);
     }
   };
 
@@ -77,90 +100,92 @@ export default function BillingSettingsPage() {
               <h2 className="text-xl font-bold text-gray-900 mt-0.5">{tierDef.name}</h2>
               <p className="text-sm text-gray-500">{tierDef.tagline}</p>
             </div>
-            <div className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
-              Free
+            <div className={cn(
+              'px-3 py-1 rounded-full text-xs font-semibold',
+              isProUser ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-600'
+            )}>
+              {tierDef.name}
             </div>
           </div>
 
-          <Link
-            href="/pricing"
-            className="w-full py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm transition-colors flex items-center justify-center gap-2"
-          >
-            View All Plans
-          </Link>
-        </div>
+          {cancelAtPeriodEnd && currentPeriodEnd && (
+            <p className="text-sm text-amber-600 mb-3">
+              Your subscription will end on {new Date(currentPeriodEnd).toLocaleDateString()}
+            </p>
+          )}
 
-        {/* Pro Coming Soon */}
-        <div className="bg-white rounded-2xl border border-primary-200 p-5">
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-primary-600" />
-            <h3 className="text-sm font-bold text-gray-900">
-              Pro launching soon
-            </h3>
-          </div>
-          <p className="text-sm text-gray-500 mb-4">
-            Get notified when Pro launches and unlock early access pricing.
-          </p>
-
-          {submitted ? (
-            <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-green-50 border border-green-200">
-              <CheckCircle2 className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-semibold text-green-700">You&apos;re on the list!</span>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleWaitlistSubmit()}
-                className={cn(
-                  'w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors focus:ring-2 focus:ring-primary-200',
-                  error ? 'border-red-300' : 'border-gray-200 focus:border-primary-400'
-                )}
-              />
-              {error && (
-                <p className="text-xs text-red-500">{error}</p>
+          {isProUser ? (
+            <button
+              onClick={handleManageSubscription}
+              disabled={portalLoading}
+              className="w-full py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              {portalLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <ExternalLink className="w-4 h-4" />
               )}
-              <button
-                onClick={handleWaitlistSubmit}
-                disabled={loading || !email.trim()}
-                className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
-              >
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Bell className="w-4 h-4" />
-                )}
-                Notify me when Pro launches
-              </button>
-            </div>
+              Manage Subscription
+            </button>
+          ) : (
+            <Link
+              href="/pricing"
+              className="w-full py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              View All Plans
+            </Link>
           )}
         </div>
+
+        {/* Upgrade CTA (free users only) */}
+        {!isProUser && (
+          <div className="bg-white rounded-2xl border border-primary-200 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-5 h-5 text-primary-600" />
+              <h3 className="text-sm font-bold text-gray-900">
+                Upgrade to Pro
+              </h3>
+            </div>
+            <p className="text-sm text-gray-500 mb-4">
+              Unlock all units, unlimited practice, and detailed explanations.
+            </p>
+            <button
+              onClick={handleSubscribe}
+              disabled={checkoutLoading || !session}
+              className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {checkoutLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Sparkles className="w-4 h-4" />
+              )}
+              Subscribe to Pro
+            </button>
+          </div>
+        )}
 
         {/* What's included in Pro */}
         <div className="bg-white rounded-2xl border border-gray-200 p-5">
           <h3 className="text-sm font-bold text-gray-900 mb-3">
-            See what you&apos;ll get with Pro
+            {isProUser ? 'Your Pro features' : 'See what you\'ll get with Pro'}
           </h3>
           <div className="space-y-2.5">
             {TIERS.pro.features.map((feature) => {
               const hasFree = TIERS.free.features.includes(feature);
               return (
                 <div key={feature} className="flex items-center gap-2.5">
-                  {hasFree ? (
+                  {isProUser || hasFree ? (
                     <Check className="w-4 h-4 text-green-500 shrink-0" />
                   ) : (
                     <X className="w-4 h-4 text-gray-300 shrink-0" />
                   )}
                   <span className={cn(
                     'text-sm',
-                    hasFree ? 'text-gray-700' : 'text-gray-400'
+                    isProUser || hasFree ? 'text-gray-700' : 'text-gray-400'
                   )}>
                     {FEATURE_LABELS[feature]}
                   </span>
-                  {!hasFree && (
+                  {!isProUser && !hasFree && (
                     <span className="text-xs bg-primary-50 text-primary-600 px-1.5 py-0.5 rounded font-medium ml-auto">
                       Pro
                     </span>

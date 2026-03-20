@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { stripe } from '@/lib/stripe';
+import paddle from '@/lib/paddle';
 import { db } from '@/lib/db';
 import { users, subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
-import { STRIPE_PRICES, PRO_TRIAL_DAYS } from '@/lib/pricing';
+import { PADDLE_PRICES } from '@/lib/pricing';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
@@ -17,7 +17,14 @@ export async function POST(request: NextRequest) {
   if (!rl.success) {
     return NextResponse.json(
       { error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
+      {
+        status: 429,
+        headers: {
+          'Retry-After': Math.ceil(
+            (rl.resetAt.getTime() - Date.now()) / 1000,
+          ).toString(),
+        },
+      },
     );
   }
 
@@ -25,9 +32,9 @@ export async function POST(request: NextRequest) {
 
   // Validate the priceId is one we recognise
   const validPrices = [
-    STRIPE_PRICES.PRO_MONTHLY,
-    STRIPE_PRICES.PRO_YEARLY,
-    STRIPE_PRICES.TEAM_MONTHLY,
+    PADDLE_PRICES.PRO_MONTHLY,
+    PADDLE_PRICES.PRO_YEARLY,
+    PADDLE_PRICES.TEAM_MONTHLY,
   ];
   if (!priceId || !validPrices.includes(priceId)) {
     return NextResponse.json({ error: 'Invalid price' }, { status: 400 });
@@ -44,38 +51,22 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  // Reuse existing Stripe customer if we have one
+  // Reuse existing Paddle customer or create one
   const [existingSub] = await db
-    .select({ stripeCustomerId: subscriptions.stripeCustomerId })
+    .select({ paddleCustomerId: subscriptions.paddleCustomerId })
     .from(subscriptions)
     .where(eq(subscriptions.userId, userId))
     .limit(1);
 
-  let customerId = existingSub?.stripeCustomerId ?? undefined;
+  let customerId = existingSub?.paddleCustomerId ?? undefined;
 
   if (!customerId) {
-    const customer = await stripe.customers.create({
+    const customer = await paddle.customers.create({
       email: user.email,
-      metadata: { userId },
     });
     customerId = customer.id;
   }
 
-  // Determine if eligible for trial (no prior subscription)
-  const isNewUser = !existingSub;
-  const origin = request.headers.get('origin') ?? process.env.AUTH_URL ?? '';
-
-  const session = await stripe.checkout.sessions.create({
-    customer: customerId,
-    mode: 'subscription',
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${origin}/pricing?success=true`,
-    cancel_url: `${origin}/pricing?canceled=true`,
-    metadata: { userId },
-    ...(isNewUser
-      ? { subscription_data: { trial_period_days: PRO_TRIAL_DAYS, metadata: { userId } } }
-      : { subscription_data: { metadata: { userId } } }),
-  });
-
-  return NextResponse.json({ url: session.url });
+  // Return customer ID so the client can open the Paddle checkout overlay
+  return NextResponse.json({ customerId });
 }

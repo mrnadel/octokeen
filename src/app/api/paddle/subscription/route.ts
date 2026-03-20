@@ -39,6 +39,7 @@ export async function GET() {
       currentPeriodEnd: sub.currentPeriodEnd,
       trialEnd: sub.trialEnd,
       cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
+      paddleSubscriptionId: sub.paddleSubscriptionId,
     },
   });
 }

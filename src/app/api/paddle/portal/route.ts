@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { stripe } from '@/lib/stripe';
+import paddle from '@/lib/paddle';
 import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
@@ -16,30 +16,37 @@ export async function POST() {
   if (!rl.success) {
     return NextResponse.json(
       { error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
+      {
+        status: 429,
+        headers: {
+          'Retry-After': Math.ceil(
+            (rl.resetAt.getTime() - Date.now()) / 1000,
+          ).toString(),
+        },
+      },
     );
   }
 
   const [sub] = await db
-    .select({ stripeCustomerId: subscriptions.stripeCustomerId })
+    .select({
+      paddleSubscriptionId: subscriptions.paddleSubscriptionId,
+    })
     .from(subscriptions)
     .where(eq(subscriptions.userId, userId))
     .limit(1);
 
-  if (!sub?.stripeCustomerId) {
+  if (!sub?.paddleSubscriptionId) {
     return NextResponse.json(
       { error: 'No active subscription found' },
       { status: 404 },
     );
   }
 
-  const returnUrl =
-    (process.env.AUTH_URL ?? 'http://localhost:3000') + '/profile';
+  // Fetch subscription from Paddle to get management URLs
+  const paddleSub = await paddle.subscriptions.get(sub.paddleSubscriptionId);
 
-  const session = await stripe.billingPortal.sessions.create({
-    customer: sub.stripeCustomerId,
-    return_url: returnUrl,
+  return NextResponse.json({
+    updateUrl: paddleSub.managementUrls?.updatePaymentMethod ?? null,
+    cancelUrl: paddleSub.managementUrls?.cancel ?? null,
   });
-
-  return NextResponse.json({ url: session.url });
 }

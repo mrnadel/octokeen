@@ -8,12 +8,12 @@ import type {
   TierLimitsResult,
 } from './subscription';
 
-// --------------- Stripe Price IDs ---------------
+// --------------- Paddle Price IDs ---------------
 
-export const STRIPE_PRICES = {
-  PRO_MONTHLY: process.env.STRIPE_PRO_MONTHLY_PRICE_ID ?? '',
-  PRO_YEARLY: process.env.STRIPE_PRO_YEARLY_PRICE_ID ?? '',
-  TEAM_MONTHLY: process.env.STRIPE_TEAM_MONTHLY_PRICE_ID ?? '',
+export const PADDLE_PRICES = {
+  PRO_MONTHLY: process.env.PADDLE_PRO_MONTHLY_PRICE_ID || '',
+  PRO_YEARLY: process.env.PADDLE_PRO_YEARLY_PRICE_ID || '',
+  TEAM_MONTHLY: process.env.PADDLE_TEAM_MONTHLY_PRICE_ID || '',
 } as const;
 
 // --------------- Features ---------------

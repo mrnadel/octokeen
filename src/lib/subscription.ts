@@ -19,9 +19,9 @@ export interface Subscription {
   userId: string;
   tier: SubscriptionTier;
   status: SubscriptionStatus;
-  stripeCustomerId: string | null;
-  stripeSubscriptionId: string | null;
-  stripePriceId: string | null;
+  paddleCustomerId: string | null;
+  paddleSubscriptionId: string | null;
+  paddlePriceId: string | null;
   billingInterval: BillingInterval | null;
   currentPeriodStart: string;   // ISO date
   currentPeriodEnd: string;     // ISO date

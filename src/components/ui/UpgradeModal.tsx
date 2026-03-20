@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Lock, Bell, CheckCircle2, Loader2 } from 'lucide-react';
+import { X, Check, Lock, Sparkles, Loader2 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
+import { PADDLE_PRICES } from '@/lib/pricing';
+import { getPaddle } from '@/lib/paddle-client';
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -12,29 +15,34 @@ interface UpgradeModalProps {
 }
 
 export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
-  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const { data: session } = useSession();
 
-  const handleSubmit = async () => {
-    if (!email.trim()) return;
+  const handleSubscribe = async () => {
+    if (!session?.user?.id) return;
     setLoading(true);
-    setError('');
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('/api/paddle/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ priceId: PADDLE_PRICES.PRO_MONTHLY }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || 'Something went wrong');
-      } else {
-        setSubmitted(true);
-      }
-    } catch {
-      setError('Something went wrong. Please try again.');
+      if (!res.ok) return;
+      const { customerId } = await res.json();
+
+      const paddle = await getPaddle();
+      if (!paddle) return;
+      paddle.Checkout.open({
+        items: [{ priceId: PADDLE_PRICES.PRO_MONTHLY, quantity: 1 }],
+        customer: { id: customerId },
+        customData: { userId: session.user.id },
+        settings: {
+          successUrl: `${window.location.origin}/checkout/success`,
+        },
+      });
+      onClose();
+    } catch (err) {
+      console.error('Checkout error:', err);
     } finally {
       setLoading(false);
     }
@@ -42,12 +50,6 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
 
   const handleClose = () => {
     onClose();
-    // Reset state after animation completes
-    setTimeout(() => {
-      setEmail('');
-      setSubmitted(false);
-      setError('');
-    }, 300);
   };
 
   return (
@@ -96,85 +98,45 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
               </div>
               <h3 className="text-xl font-bold">MechPrep Pro</h3>
               <p className="text-sm text-primary-100 mt-1">
-                Launching soon -- get notified for early access pricing
+                Unlock all units, unlimited practice, and full analytics
               </p>
             </div>
 
             {/* Content */}
             <div className="px-5 py-4">
-              {submitted ? (
-                <motion.div
-                  className="text-center py-4"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <CheckCircle2 className="w-7 h-7 text-green-600" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-1">
-                    You&apos;re on the list!
-                  </h4>
-                  <p className="text-sm text-gray-500 mb-4">
-                    We&apos;ll notify you when Pro launches with early access pricing.
-                  </p>
-                  <button
-                    onClick={handleClose}
-                    className="w-full py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm transition-colors"
-                  >
-                    Got it
-                  </button>
-                </motion.div>
-              ) : (
-                <>
-                  {/* Benefits */}
-                  <ul className="space-y-2.5 mb-5">
-                    {[
-                      'All 10 course units unlocked',
-                      'Unlimited daily practice',
-                      'Detailed explanations for every question',
-                      'Full analytics & progress tracking',
-                      'Interview readiness score',
-                      'Weekly streak freeze',
-                    ].map((benefit) => (
-                      <li key={benefit} className="flex items-center gap-2.5 text-sm text-gray-700">
-                        <Check className="w-4 h-4 text-green-500 shrink-0" />
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
+              {/* Benefits */}
+              <ul className="space-y-2.5 mb-5">
+                {[
+                  'All 10 course units unlocked',
+                  'Unlimited daily practice',
+                  'Detailed explanations for every question',
+                  'Full analytics & progress tracking',
+                  'Interview readiness score',
+                  'Weekly streak freeze',
+                ].map((benefit) => (
+                  <li key={benefit} className="flex items-center gap-2.5 text-sm text-gray-700">
+                    <Check className="w-4 h-4 text-green-500 shrink-0" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
 
-                  {/* Email input */}
-                  <div className="space-y-3">
-                    <input
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                      className={cn(
-                        'w-full px-4 py-2.5 rounded-xl border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary-200',
-                        error ? 'border-red-300' : 'border-gray-200 focus:border-primary-400'
-                      )}
-                    />
-                    {error && (
-                      <p className="text-xs text-red-500">{error}</p>
-                    )}
-                    <button
-                      onClick={handleSubmit}
-                      disabled={loading || !email.trim()}
-                      className="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
-                    >
-                      {loading ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Bell className="w-4 h-4" />
-                      )}
-                      Notify me when Pro launches
-                    </button>
-                  </div>
-                </>
-              )}
+              {/* Subscribe button */}
+              <button
+                onClick={handleSubscribe}
+                disabled={loading || !session}
+                className={cn(
+                  'w-full py-3 rounded-xl font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50',
+                  'bg-primary-600 hover:bg-primary-700 text-white',
+                )}
+              >
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Sparkles className="w-4 h-4" />
+                )}
+                {session ? 'Subscribe to Pro' : 'Sign in to Subscribe'}
+              </button>
             </div>
           </motion.div>
         </motion.div>

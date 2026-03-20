@@ -169,9 +169,9 @@ export const subscriptions = pgTable('subscriptions', {
     .unique(),
   tier: text('tier').notNull().default('free'),           // 'free' | 'pro' | 'team'
   status: text('status').notNull().default('active'),     // SubscriptionStatus
-  stripeCustomerId: text('stripe_customer_id'),
-  stripeSubscriptionId: text('stripe_subscription_id').unique(),
-  stripePriceId: text('stripe_price_id'),
+  paddleCustomerId: text('paddle_customer_id'),
+  paddleSubscriptionId: text('paddle_subscription_id').unique(),
+  paddlePriceId: text('paddle_price_id'),
   billingInterval: text('billing_interval'),              // 'month' | 'year'
   currentPeriodStart: text('current_period_start'),
   currentPeriodEnd: text('current_period_end'),
@@ -190,8 +190,7 @@ export const paymentHistory = pgTable('payment_history', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  stripeInvoiceId: text('stripe_invoice_id').unique(),
-  stripePaymentIntentId: text('stripe_payment_intent_id'),
+  paddleTransactionId: text('paddle_transaction_id').unique(),
   amountCents: integer('amount_cents').notNull(),
   currency: text('currency').notNull().default('usd'),
   status: text('status').notNull(),                       // 'succeeded' | 'failed' | 'pending'
