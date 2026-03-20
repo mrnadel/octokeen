@@ -6,7 +6,7 @@ import Stripe from 'stripe';
 
 let _stripe: Stripe | null = null;
 
-export function getStripeServer(): Stripe {
+function getStripeServer(): Stripe {
   if (!_stripe) {
     _stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
       typescript: true,
@@ -15,9 +15,15 @@ export function getStripeServer(): Stripe {
   return _stripe;
 }
 
-// Convenience alias for existing imports
-export const stripe = new Proxy({} as Stripe, {
-  get(_target, prop) {
-    return (getStripeServer() as Record<string | symbol, unknown>)[prop];
+// Lazy proxy so the Stripe SDK is not instantiated at module load time
+// (which would crash during `next build` when env vars are absent).
+export const stripe: Stripe = new Proxy({} as Stripe, {
+  get(_target, prop, receiver) {
+    const instance = getStripeServer();
+    const value = Reflect.get(instance, prop, receiver);
+    if (typeof value === 'function') {
+      return value.bind(instance);
+    }
+    return value;
   },
 });

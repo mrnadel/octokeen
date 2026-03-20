@@ -8,12 +8,9 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
 import { cn } from '@/lib/utils';
 import { Sparkles } from 'lucide-react';
+import { useSubscription } from '@/hooks/useSubscription';
 
 type PopoverType = 'streak' | 'xp' | null;
-
-// TODO: Replace with real subscription state from API/store
-const MOCK_TIER: 'free' | 'pro' | 'trial' = 'free';
-const MOCK_TRIAL_DAYS_LEFT = 0;
 
 export function CourseHeader() {
   const { data: session, status } = useSession();
