@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Target, Zap, Trophy, Crown, ChevronRight } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -33,6 +33,25 @@ export default function ResultScreen() {
       drift: (hash(i + 500) - 0.5) * 80,
     }));
   }, []);
+
+  // Enter/Space to dismiss result screen
+  useEffect(() => {
+    if (!lessonResult) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        dismissResult();
+      }
+    };
+    // Delay to prevent accidental trigger from previous Enter press
+    const timer = setTimeout(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lessonResult, dismissResult]);
 
   if (!lessonResult) return null;
 
@@ -389,6 +408,7 @@ export default function ResultScreen() {
           >
             Continue
             <ChevronRight className="w-5 h-5" />
+            <span className="text-xs opacity-60 font-semibold ml-0.5">↵</span>
           </motion.button>
         </motion.div>
       </motion.div>

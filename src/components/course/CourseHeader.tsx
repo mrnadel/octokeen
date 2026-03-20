@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -18,11 +18,28 @@ function getGreeting(): string {
   return 'Good evening!';
 }
 
+function getWeekDays() {
+  const labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0=Sun, 1=Mon...
+  const todayIdx = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Convert to Mon=0 index
+  return labels.map((label, i) => ({
+    label,
+    isToday: i === todayIdx,
+    todayIdx,
+  }));
+}
+
 export function CourseHeader() {
   const { data: session, status } = useSession();
   const progress = useCourseStore((s) => s.progress);
   const [popover, setPopover] = useState<PopoverType>(null);
   const { tier, isProUser } = useSubscription();
+
+  const headerRef = useRef<HTMLElement>(null);
+  const streakBtnRef = useRef<HTMLButtonElement>(null);
+  const xpBtnRef = useRef<HTMLButtonElement>(null);
+  const [popoverPos, setPopoverPos] = useState<{ top: number; arrowRight: number } | null>(null);
 
   const userName = session?.user?.name || progress.displayName || 'Engineer';
   const userImage = session?.user?.image;
@@ -33,14 +50,43 @@ export function CourseHeader() {
   const completedPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
   const lessonsToNext = Math.max(1, 3 - (completedCount % 3));
 
+  const weekDays = useMemo(() => getWeekDays(), []);
+
   const togglePopover = (type: PopoverType) => {
-    setPopover((prev) => (prev === type ? null : type));
+    if (popover === type) {
+      setPopover(null);
+      setPopoverPos(null);
+      return;
+    }
+    const ref = type === 'streak' ? streakBtnRef : xpBtnRef;
+    const headerEl = headerRef.current;
+    if (ref.current && headerEl) {
+      const btnRect = ref.current.getBoundingClientRect();
+      const headerRect = headerEl.getBoundingClientRect();
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const vw = window.innerWidth;
+      const popoverRight = 16;
+      const popoverRightEdge = vw - popoverRight;
+      const arrowRight = popoverRightEdge - btnCenterX - 7;
+      const maxW = Math.min(300, vw - 32);
+      setPopoverPos({
+        top: headerRect.bottom + 10,
+        arrowRight: Math.max(24, Math.min(arrowRight, maxW - 24)),
+      });
+    }
+    setPopover(type);
+  };
+
+  const closePopover = () => {
+    setPopover(null);
+    setPopoverPos(null);
   };
 
   return (
     <>
       {/* Header */}
       <header
+        ref={headerRef}
         className="sticky top-0 z-30 bg-white"
         style={{ borderBottom: '2px solid #E5E5E5', padding: '12px 20px' }}
       >
@@ -52,11 +98,20 @@ export function CourseHeader() {
           </div>
 
           {/* Stats */}
-          <div className="flex items-center" style={{ gap: 16 }}>
+          <div className="flex items-center" style={{ gap: 8 }}>
             {/* Streak */}
             <button
-              className="flex items-center transition-transform active:scale-95"
-              style={{ gap: 4, fontWeight: 800, fontSize: 15, color: '#3C3C3C' }}
+              ref={streakBtnRef}
+              className="flex items-center transition-all active:scale-95"
+              style={{
+                gap: 4,
+                fontWeight: 800,
+                fontSize: 15,
+                color: popover === 'streak' ? '#FF9600' : '#3C3C3C',
+                padding: '4px 10px',
+                borderRadius: 12,
+                background: popover === 'streak' ? '#FFF4E0' : 'transparent',
+              }}
               onClick={() => togglePopover('streak')}
             >
               <span style={{ fontSize: 18 }}>🔥</span>
@@ -65,8 +120,17 @@ export function CourseHeader() {
 
             {/* XP / Gems */}
             <button
-              className="flex items-center transition-transform active:scale-95"
-              style={{ gap: 4, fontWeight: 800, fontSize: 15, color: '#3C3C3C' }}
+              ref={xpBtnRef}
+              className="flex items-center transition-all active:scale-95"
+              style={{
+                gap: 4,
+                fontWeight: 800,
+                fontSize: 15,
+                color: popover === 'xp' ? '#7B2FBE' : '#3C3C3C',
+                padding: '4px 10px',
+                borderRadius: 12,
+                background: popover === 'xp' ? '#F3E6FF' : 'transparent',
+              }}
               onClick={() => togglePopover('xp')}
             >
               <span style={{ fontSize: 18 }}>💎</span>
@@ -168,98 +232,259 @@ export function CourseHeader() {
 
       {/* Popover overlay */}
       <AnimatePresence>
-        {popover && (
+        {popover && popoverPos && (
           <motion.div
             key="popover-backdrop"
             className="fixed inset-0 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setPopover(null)}
+            transition={{ duration: 0.12 }}
+            onClick={closePopover}
           >
-            <div className="absolute inset-0 bg-black/20" />
-            <div style={{ maxWidth: 480, margin: '0 auto', position: 'relative' }}>
-              <motion.div
-                className="absolute left-0 right-0 bg-white shadow-xl"
-                style={{ top: 4, margin: '0 16px', borderRadius: 20, border: '2px solid #E5E5E5', padding: 16 }}
-                initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                transition={{ duration: 0.15 }}
-                onClick={(e) => e.stopPropagation()}
-              >
+            <div className="absolute inset-0 bg-black/15" />
+
+            <motion.div
+              className="fixed"
+              style={{
+                top: popoverPos.top,
+                right: 16,
+                width: 'calc(100vw - 32px)',
+                maxWidth: 300,
+                borderRadius: 16,
+                background: 'white',
+                border: '2px solid #E5E5E5',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+                overflow: 'visible',
+              }}
+              initial={{ opacity: 0, y: -8, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.96 }}
+              transition={{ type: 'spring', damping: 26, stiffness: 400 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Arrow */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -8,
+                  right: popoverPos.arrowRight,
+                  width: 14,
+                  height: 14,
+                  background: 'white',
+                  borderTop: '2px solid #E5E5E5',
+                  borderLeft: '2px solid #E5E5E5',
+                  transform: 'rotate(45deg)',
+                }}
+              />
+
+              {/* Content */}
+              <div style={{ padding: 20, position: 'relative' }}>
                 {popover === 'streak' ? (
                   <div>
-                    <div className="flex items-center" style={{ gap: 8, marginBottom: 12 }}>
-                      <span style={{ fontSize: 28 }}>🔥</span>
-                      <h3 style={{ fontSize: 18, fontWeight: 800, color: '#3C3C3C' }}>
-                        Practice Streak
-                      </h3>
+                    {/* Header */}
+                    <div className="flex items-center" style={{ gap: 10, marginBottom: 16 }}>
+                      <div
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          background: 'linear-gradient(135deg, #FF9600 0%, #FF6B00 100%)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 24,
+                          boxShadow: '0 4px 12px rgba(255,150,0,0.3)',
+                        }}
+                      >
+                        🔥
+                      </div>
+                      <div>
+                        <h3 style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+                          Practice Streak
+                        </h3>
+                        <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginTop: 1 }}>
+                          {progress.currentStreak > 0 ? "You're on fire!" : 'Start your streak today!'}
+                        </p>
+                      </div>
                     </div>
-                    <div className="grid grid-cols-2" style={{ gap: 12, marginBottom: 12 }}>
-                      <div style={{ background: '#FFF0DB', borderRadius: 16, padding: 12, textAlign: 'center' }}>
-                        <p style={{ fontSize: 28, fontWeight: 800, color: '#FF9600' }}>
+
+                    {/* Stats cards */}
+                    <div className="grid grid-cols-2" style={{ gap: 10, marginBottom: 16 }}>
+                      <div
+                        style={{
+                          background: 'linear-gradient(135deg, #FFF6E8 0%, #FFF0DB 100%)',
+                          borderRadius: 14,
+                          padding: '14px 12px',
+                          textAlign: 'center',
+                          border: '1.5px solid #FFE4B8',
+                        }}
+                      >
+                        <p style={{ fontSize: 30, fontWeight: 800, color: '#FF9600', lineHeight: 1 }}>
                           {progress.currentStreak}
                         </p>
-                        <p style={{ fontSize: 12, color: '#CC8B1F', fontWeight: 700, marginTop: 2 }}>
-                          Current streak
+                        <p style={{ fontSize: 11, color: '#CC8B1F', fontWeight: 700, marginTop: 4 }}>
+                          Current
                         </p>
                       </div>
-                      <div style={{ background: '#F5F5F5', borderRadius: 16, padding: 12, textAlign: 'center' }}>
-                        <p style={{ fontSize: 28, fontWeight: 800, color: '#3C3C3C' }}>
+                      <div
+                        style={{
+                          background: '#F7F7F7',
+                          borderRadius: 14,
+                          padding: '14px 12px',
+                          textAlign: 'center',
+                          border: '1.5px solid #ECECEC',
+                        }}
+                      >
+                        <p style={{ fontSize: 30, fontWeight: 800, color: '#3C3C3C', lineHeight: 1 }}>
                           {progress.longestStreak}
                         </p>
-                        <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 700, marginTop: 2 }}>
-                          Longest streak
+                        <p style={{ fontSize: 11, color: '#AFAFAF', fontWeight: 700, marginTop: 4 }}>
+                          Longest
                         </p>
                       </div>
                     </div>
-                    <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 600 }}>
-                      Complete at least one lesson each day to keep your streak alive!
+
+                    {/* Week tracker */}
+                    <div
+                      style={{
+                        background: '#FAFAFA',
+                        borderRadius: 12,
+                        padding: '12px 10px',
+                        marginBottom: 14,
+                        border: '1px solid #F0F0F0',
+                      }}
+                    >
+                      <p style={{ fontSize: 11, fontWeight: 700, color: '#AFAFAF', marginBottom: 8, textAlign: 'center' }}>
+                        This week
+                      </p>
+                      <div className="flex justify-between" style={{ gap: 4 }}>
+                        {weekDays.map((day, i) => {
+                          const { todayIdx } = day;
+                          const streakStart = todayIdx - progress.currentStreak + 1;
+                          const isActive = i >= Math.max(0, streakStart) && i <= todayIdx && progress.currentStreak > 0;
+                          return (
+                            <div key={i} className="flex flex-col items-center" style={{ gap: 4, flex: 1 }}>
+                              <div
+                                style={{
+                                  width: 28,
+                                  height: 28,
+                                  borderRadius: '50%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: isActive ? 13 : 11,
+                                  fontWeight: 800,
+                                  background: isActive
+                                    ? 'linear-gradient(135deg, #FF9600 0%, #FF6B00 100%)'
+                                    : day.isToday
+                                      ? '#E5E5E5'
+                                      : 'transparent',
+                                  color: isActive ? 'white' : day.isToday ? '#3C3C3C' : '#CFCFCF',
+                                  border: day.isToday && !isActive ? '2px dashed #CFCFCF' : 'none',
+                                  boxShadow: isActive ? '0 2px 6px rgba(255,150,0,0.3)' : 'none',
+                                }}
+                              >
+                                {isActive ? '🔥' : day.label}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 600, textAlign: 'center' }}>
+                      Complete a lesson each day to keep going!
                     </p>
                   </div>
                 ) : (
                   <div>
-                    <div className="flex items-center" style={{ gap: 8, marginBottom: 12 }}>
-                      <span style={{ fontSize: 28 }}>💎</span>
-                      <h3 style={{ fontSize: 18, fontWeight: 800, color: '#3C3C3C' }}>
-                        Experience Points
-                      </h3>
+                    {/* Header */}
+                    <div className="flex items-center" style={{ gap: 10, marginBottom: 16 }}>
+                      <div
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          background: 'linear-gradient(135deg, #A855F7 0%, #7C3AED 100%)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 24,
+                          boxShadow: '0 4px 12px rgba(168,85,247,0.3)',
+                        }}
+                      >
+                        💎
+                      </div>
+                      <div>
+                        <h3 style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+                          Experience Points
+                        </h3>
+                        <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginTop: 1 }}>
+                          Keep earning XP!
+                        </p>
+                      </div>
                     </div>
-                    <div style={{ background: '#F3E6FF', borderRadius: 16, padding: 12, textAlign: 'center', marginBottom: 12 }}>
-                      <p style={{ fontSize: 28, fontWeight: 800, color: '#7B2FBE' }}>
-                        {progress.totalXp.toLocaleString()} XP
+
+                    {/* Total XP card */}
+                    <div
+                      style={{
+                        background: 'linear-gradient(135deg, #F5EAFF 0%, #EDE0FF 100%)',
+                        borderRadius: 14,
+                        padding: '18px 16px',
+                        textAlign: 'center',
+                        marginBottom: 16,
+                        border: '1.5px solid #E4D0FA',
+                      }}
+                    >
+                      <p style={{ fontSize: 34, fontWeight: 800, color: '#7B2FBE', lineHeight: 1 }}>
+                        {progress.totalXp.toLocaleString()}
                       </p>
-                      <p style={{ fontSize: 12, color: '#9E5DD0', fontWeight: 700, marginTop: 2 }}>
-                        Total earned
+                      <p style={{ fontSize: 12, color: '#9E5DD0', fontWeight: 700, marginTop: 4 }}>
+                        Total XP earned
                       </p>
                     </div>
-                    <div style={{ marginBottom: 12 }}>
-                      <div className="flex justify-between" style={{ marginBottom: 4 }}>
-                        <span style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 700 }}>Course progress</span>
-                        <span style={{ fontSize: 12, color: '#3C3C3C', fontWeight: 800 }}>
+
+                    {/* Course progress */}
+                    <div
+                      style={{
+                        background: '#FAFAFA',
+                        borderRadius: 12,
+                        padding: 14,
+                        marginBottom: 14,
+                        border: '1px solid #F0F0F0',
+                      }}
+                    >
+                      <div className="flex justify-between items-center" style={{ marginBottom: 8 }}>
+                        <span style={{ fontSize: 12, color: '#777', fontWeight: 700 }}>Course progress</span>
+                        <span style={{ fontSize: 13, color: '#7B2FBE', fontWeight: 800 }}>
                           {completedCount}/{totalLessons}
                         </span>
                       </div>
-                      <div style={{ height: 10, background: '#F0F0F0', borderRadius: 5, overflow: 'hidden' }}>
-                        <div
+                      <div style={{ height: 10, background: '#EADCF5', borderRadius: 5, overflow: 'hidden' }}>
+                        <motion.div
                           style={{
                             height: '100%',
-                            width: `${completedPercent}%`,
-                            background: '#CE82FF',
+                            background: 'linear-gradient(90deg, #CE82FF 0%, #A855F7 100%)',
                             borderRadius: 5,
-                            transition: 'width 0.5s ease',
                           }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${completedPercent}%` }}
+                          transition={{ duration: 0.6, ease: 'easeOut' }}
                         />
                       </div>
+                      <p style={{ fontSize: 11, color: '#AFAFAF', fontWeight: 600, marginTop: 6 }}>
+                        {completedPercent}% complete
+                      </p>
                     </div>
-                    <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 600 }}>
+
+                    <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 600, textAlign: 'center' }}>
                       Earn XP by completing lessons. 3 stars = 3x XP!
                     </p>
                   </div>
                 )}
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -17,8 +17,10 @@ interface SubscriptionState {
   cancelAtPeriodEnd: boolean;
   isLoading: boolean;
   hasFetched: boolean;
+  debugTierOverride: SubscriptionTier | null;
   fetch: () => Promise<void>;
   reset: () => void;
+  setDebugTierOverride: (tier: SubscriptionTier | null) => void;
 }
 
 const defaultState = {
@@ -30,6 +32,7 @@ const defaultState = {
   cancelAtPeriodEnd: false,
   isLoading: false,
   hasFetched: false,
+  debugTierOverride: null as SubscriptionTier | null,
 };
 
 export const useSubscriptionStore = create<SubscriptionState>()((set, get) => ({
@@ -61,6 +64,7 @@ export const useSubscriptionStore = create<SubscriptionState>()((set, get) => ({
   },
 
   reset: () => set(defaultState),
+  setDebugTierOverride: (tier) => set({ debugTierOverride: tier }),
 }));
 
 // ─── Hook ───────────────────────────────────────────────────────
@@ -88,8 +92,12 @@ export function useSubscription() {
     return () => window.removeEventListener('focus', onFocus);
   }, [authStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // In dev mode, allow overriding the tier for testing
+  const isDev = process.env.NODE_ENV === 'development';
+  const activeTier = isDev && store.debugTierOverride ? store.debugTierOverride : store.tier;
+
   const isTrialing = store.status === 'trialing';
-  const isProUser = store.tier === 'pro' || store.tier === 'team' || isTrialing;
+  const isProUser = activeTier === 'pro' || activeTier === 'team' || isTrialing;
 
   const trialDaysLeft = (() => {
     if (!isTrialing || !store.trialEnd) return 0;
@@ -100,15 +108,15 @@ export function useSubscription() {
 
   const canAccess = useCallback(
     (feature: Feature): boolean => {
-      const effectiveTier = isTrialing ? 'pro' : store.tier;
+      const effectiveTier = isTrialing ? 'pro' : activeTier;
       const tierDef = { features: getTierFeatures(effectiveTier) };
       return tierDef.features.includes(feature);
     },
-    [store.tier, isTrialing],
+    [activeTier, isTrialing],
   );
 
   return {
-    tier: store.tier,
+    tier: activeTier,
     status: store.status,
     isLoading: store.isLoading,
     isProUser,

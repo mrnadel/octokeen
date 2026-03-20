@@ -1,6 +1,7 @@
 'use client';
 
 import { useDbSync } from '@/hooks/useDbSync';
+import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 
 function LoadingSkeleton() {
   return (
@@ -32,6 +33,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="max-w-[480px] mx-auto min-h-screen">
         {children}
       </div>
+      <DebugTierToggle />
     </div>
   );
 }
