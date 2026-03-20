@@ -69,8 +69,29 @@ const tierOrder: SubscriptionTier[] = ['free', 'pro', 'team'];
 export default function PricingPage() {
   const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const { tier: currentTier, isProUser } = useSubscription();
 
   const yearlySavings = getYearlySavingsPercent('pro');
+
+  const handleCheckout = async (priceId: string) => {
+    setCheckoutLoading(priceId);
+    try {
+      const res = await fetch('/api/stripe/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      // Silently fail
+    } finally {
+      setCheckoutLoading(null);
+    }
+  };
 
   return (
     <div className="pb-12">
@@ -223,15 +244,31 @@ export default function PricingPage() {
                 </ul>
 
                 {/* CTA Button */}
-                {tierId === 'free' ? (
+                {tierId === currentTier && !isProUser ? (
                   <button
                     disabled
                     className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 font-semibold text-sm cursor-not-allowed"
                   >
                     Current Plan
                   </button>
+                ) : isProUser && (tierId === 'free' || tierId === 'pro') ? (
+                  <button
+                    disabled
+                    className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 font-semibold text-sm cursor-not-allowed"
+                  >
+                    {tierId === currentTier ? 'Current Plan' : tierId === 'free' ? 'Included' : 'Current Plan'}
+                  </button>
                 ) : tierId === 'pro' ? (
-                  <button className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98]">
+                  <button
+                    onClick={() => handleCheckout(
+                      billingInterval === 'year' ? STRIPE_PRICES.PRO_YEARLY : STRIPE_PRICES.PRO_MONTHLY
+                    )}
+                    disabled={!!checkoutLoading}
+                    className="w-full py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    {checkoutLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : null}
                     Start Free Trial
                   </button>
                 ) : (
