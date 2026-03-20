@@ -1,0 +1,203 @@
+import type { Question } from '../types';
+
+export const fluidMechanicsQuestions: Question[] = [
+  // FM-001 — Multiple Choice
+  {
+    id: 'fm-001',
+    type: 'multiple-choice',
+    topic: 'fluid-mechanics',
+    subtopic: 'Fluid Dynamics',
+    difficulty: 'beginner',
+    question: 'An airplane wing generates lift. According to the most physically accurate explanation, this is primarily because:',
+    options: [
+      { id: 'a', text: 'The air on top travels a longer path and must go faster (equal transit time), creating lower pressure' },
+      { id: 'b', text: 'The wing deflects air downward; by Newton\'s third law, the air pushes the wing up' },
+      { id: 'c', text: 'Bernoulli\'s equation shows that faster air over the top creates lower pressure, but the reason the air goes faster is the circulation and angle of attack, not equal transit time' },
+      { id: 'd', text: 'The shape of the wing creates a vacuum above it that sucks the wing upward' },
+    ],
+    correctAnswer: 'c',
+    explanation: 'The "equal transit time" theory (option a) is a myth — there is no physical law requiring air split at the leading edge to meet at the trailing edge. In reality, air DOES move faster over the top, but because of circulation induced by the airfoil shape and angle of attack, not equal transit time. The pressure difference (Bernoulli) and the downwash (Newton) are two valid perspectives on the same phenomenon. Option (c) captures the Bernoulli mechanism with the correct causal reasoning.',
+    interviewInsight: 'This is a classic trap question. The "equal transit time" explanation is wrong and widely taught. Interviewers use it to separate candidates who have genuinely thought about fluid mechanics from those who memorized a textbook diagram.',
+    realWorldConnection: 'Understanding lift generation is fundamental for aerospace engineering, wind turbine blade design, and even Formula 1 aerodynamics (inverted wings for downforce).',
+    commonMistake: 'Choosing option (a) — the equal transit time fallacy. It is the most commonly taught incorrect explanation of lift.',
+    tags: ['lift', 'bernoulli', 'aerodynamics', 'circulation', 'angle-of-attack'],
+  },
+
+  // FM-002 — Estimation
+  {
+    id: 'fm-002',
+    type: 'estimation',
+    topic: 'fluid-mechanics',
+    subtopic: 'Pipe Flow & Losses',
+    difficulty: 'intermediate',
+    question: 'Estimate the pressure drop in a 100-meter horizontal run of 2-inch Schedule 40 steel pipe carrying water at 2 m/s.',
+    hints: [
+      'Schedule 40 2-inch pipe has an ID of about 52 mm (0.052 m)',
+      'Water at room temperature: ρ ≈ 1000 kg/m³, μ ≈ 0.001 Pa·s',
+      'For steel pipe, roughness ε ≈ 0.045 mm',
+      'Use Darcy-Weisbach: ΔP = f × (L/D) × (ρV²/2)',
+    ],
+    acceptableRange: { low: 50, high: 120, unit: 'kPa', bestEstimate: 75 },
+    approachSteps: [
+      'Reynolds number: Re = ρVD/μ = 1000 × 2 × 0.052 / 0.001 = 104,000 → turbulent flow',
+      'Relative roughness: ε/D = 0.045/52 = 0.00087',
+      'From Moody chart at Re=104,000 and ε/D=0.00087: f ≈ 0.020',
+      'ΔP = f × (L/D) × (ρV²/2) = 0.020 × (100/0.052) × (1000 × 4/2)',
+      'ΔP = 0.020 × 1923 × 2000 = 76,920 Pa ≈ 77 kPa',
+      'This is about 11 psi — a reasonable pressure drop for a 100m pipe run',
+    ],
+    explanation: 'Pipe pressure drop calculations are among the most common practical fluid mechanics problems. The key is getting the Reynolds number right to determine the flow regime, then using the Moody chart (or Colebrook equation) for the friction factor.',
+    interviewInsight: 'This tests your ability to execute a standard pipe flow calculation from memory. Interviewers want to see that you know the Darcy-Weisbach equation, can estimate Reynolds number, and can navigate the Moody chart.',
+    commonMistake: 'Forgetting the factor of 2 in the velocity head term, or using the wrong pipe diameter (OD instead of ID). Also, confusing Darcy and Fanning friction factors (factor of 4 difference).',
+    tags: ['pipe-flow', 'pressure-drop', 'darcy-weisbach', 'moody-chart', 'reynolds-number'],
+  },
+
+  // FM-003 — Two Choice Tradeoff
+  {
+    id: 'fm-003',
+    type: 'two-choice-tradeoff',
+    topic: 'fluid-mechanics',
+    subtopic: 'Pumps & Turbomachinery',
+    difficulty: 'intermediate',
+    question: 'You need to pump a viscous slurry (water with 30% solids) over a 50-meter height. Centrifugal pump or positive displacement pump?',
+    choices: [
+      {
+        id: 'a',
+        text: 'Centrifugal pump',
+        pros: ['Smooth, continuous flow', 'Simple design, fewer moving parts', 'Can handle some solids if impeller is designed for it', 'Lower maintenance for clean fluids'],
+        cons: ['Efficiency drops dramatically with viscous fluids', 'Cannot develop high pressure at low flow with viscous slurry', 'Impeller wear from abrasive solids', 'Performance is very sensitive to fluid viscosity'],
+      },
+      {
+        id: 'b',
+        text: 'Positive displacement (PD) pump — e.g., progressive cavity or diaphragm',
+        pros: ['Flow is nearly independent of viscosity', 'Can develop high pressure regardless of fluid properties', 'Handles slurries and solids well (progressive cavity)', 'Efficiency stays high with viscous fluids'],
+        cons: ['Pulsating flow (unless progressive cavity)', 'More complex seals and wear parts', 'Requires a relief valve to prevent over-pressurization', 'Higher upfront cost'],
+      },
+    ],
+    preferredAnswer: 'b',
+    acceptableAnswer: 'b',
+    justification: 'For viscous slurry with solids, a positive displacement pump (specifically a progressive cavity pump) is the clear choice. Centrifugal pumps lose efficiency rapidly as viscosity increases and are degraded by abrasive solids. PD pumps provide consistent flow regardless of viscosity and can generate the pressure needed for 50m of head.',
+    explanation: 'The key principle is that centrifugal pumps rely on kinetic energy transfer to the fluid, which is impaired by viscosity. PD pumps physically displace a fixed volume per revolution, making them insensitive to viscosity. This is one of the most important pump selection rules.',
+    interviewInsight: 'Pump selection is asked in almost every process/mechanical design interview. The viscosity boundary between centrifugal and PD pumps (roughly 100-500 cP) is a critical design heuristic.',
+    commonMistake: 'Defaulting to a centrifugal pump because it is more common. Centrifugal pumps are great for water but terrible for viscous slurries.',
+    tags: ['pump-selection', 'centrifugal', 'positive-displacement', 'slurry', 'viscosity'],
+  },
+
+  // FM-004 — Multiple Choice
+  {
+    id: 'fm-004',
+    type: 'multiple-choice',
+    topic: 'fluid-mechanics',
+    subtopic: 'Fluid Statics',
+    difficulty: 'beginner',
+    question: 'A submarine is resting on the ocean floor at 300m depth. What is the approximate pressure on its hull?',
+    options: [
+      { id: 'a', text: 'About 3 atm (300 kPa)' },
+      { id: 'b', text: 'About 10 atm (1 MPa)' },
+      { id: 'c', text: 'About 30 atm (3 MPa)' },
+      { id: 'd', text: 'About 300 atm (30 MPa)' },
+    ],
+    correctAnswer: 'c',
+    explanation: 'Hydrostatic pressure: P = ρgh + P_atm. At 300m: P = 1025 × 9.81 × 300 + 101,325 ≈ 3,018,000 Pa + 101,325 ≈ 3.12 MPa ≈ 30.7 atm. The quick rule: every 10 meters of seawater adds about 1 atmosphere of pressure.',
+    interviewInsight: 'This tests basic hydrostatic intuition. The "10 meters per atmosphere" rule of thumb is essential for any fluid mechanics discussion.',
+    realWorldConnection: 'Submarine pressure hulls are engineered to withstand these extreme forces. The Titan submersible tragedy in 2023 highlighted what happens when pressure vessel integrity is compromised at depth.',
+    commonMistake: 'Forgetting the density of seawater (~1025 kg/m³, not 1000) or confusing gauge pressure with absolute pressure.',
+    tags: ['hydrostatics', 'pressure', 'submarine', 'depth', 'ocean'],
+  },
+
+  // FM-005 — Free Text
+  {
+    id: 'fm-005',
+    type: 'free-text',
+    topic: 'fluid-mechanics',
+    subtopic: 'Pumps & Turbomachinery',
+    difficulty: 'intermediate',
+    question: 'A centrifugal pump is making a rattling noise and the flow rate is fluctuating. What is likely happening and how would you fix it?',
+    sampleAnswer: 'The symptoms strongly suggest cavitation. When the local pressure at the pump inlet drops below the vapor pressure of the fluid, small vapor bubbles form. These bubbles are carried into higher-pressure regions of the impeller where they collapse violently, producing the characteristic rattling noise and causing flow instability.\n\nTo confirm: check the NPSH available vs. NPSH required. The available NPSH depends on the inlet piping — suction lift, pipe losses, fluid temperature, and atmospheric pressure.\n\nTo fix: (1) Reduce the suction lift — lower the pump or raise the supply tank. (2) Increase the suction pipe diameter to reduce friction losses. (3) Reduce fluid temperature if possible (lower vapor pressure). (4) Install a booster pump or inducer upstream. (5) Ensure the suction strainer is not clogged.',
+    keyPoints: [
+      'Cavitation is the most likely diagnosis for rattling noise + flow fluctuation',
+      'Caused by NPSH_available < NPSH_required',
+      'Vapor bubbles form and collapse violently on impeller surfaces',
+      'Fix by improving suction conditions (lower lift, larger pipe, lower temperature)',
+      'Cavitation also causes impeller erosion over time',
+    ],
+    explanation: 'Cavitation is one of the most common pump problems in industry. The ability to diagnose it from symptoms (noise, vibration, flow fluctuation, impeller pitting) and fix it from first principles (NPSH analysis) is a core competency.',
+    interviewInsight: 'This is an extremely common interview question for any role involving pumps or hydraulic systems. Interviewers expect you to say "cavitation" immediately and then walk through the NPSH analysis.',
+    commonMistake: 'Not knowing what NPSH stands for or how to calculate it. Also, suggesting "replace the pump" without diagnosing the root cause — the new pump will cavitate too if suction conditions are not fixed.',
+    tags: ['cavitation', 'NPSH', 'centrifugal-pump', 'troubleshooting', 'impeller'],
+  },
+
+  // FM-006 — What Fails First
+  {
+    id: 'fm-006',
+    type: 'what-fails-first',
+    topic: 'fluid-mechanics',
+    subtopic: 'Pipe Flow & Losses',
+    difficulty: 'advanced',
+    question: 'A high-pressure water jetting system operates at 3000 psi. The system includes a high-pressure hose, fittings, a nozzle, and a pressure relief valve. What fails first?',
+    components: [
+      { id: 'a', text: 'The hose — fatigue from pressure pulsations and flexing during use' },
+      { id: 'b', text: 'The fittings — connector threads weaken from repeated assembly/disassembly' },
+      { id: 'c', text: 'The nozzle — erosion from high-velocity water and any entrained particles' },
+      { id: 'd', text: 'The relief valve — spring fatigue from cyclic loading' },
+    ],
+    correctAnswer: 'a',
+    failureMode: 'The high-pressure hose fails by fatigue at a point near a fitting where the hose flexes during operation. The combination of internal pressure cycling and external bending creates a complex stress state that initiates cracks in the hose reinforcement layers.',
+    failureChain: [
+      'Pressure pulsations from the pump create cyclic hoop stress in the hose wall',
+      'Flexing during use adds bending stress, especially near rigid fittings',
+      'The hose reinforcement (braided steel wire) develops fatigue cracks at the crimp fitting transition',
+      'A small leak appears first (weeping) — this is the warning sign',
+      'If not caught, the crack propagates and the hose bursts, releasing a high-pressure water jet',
+    ],
+    explanation: 'Flexible hoses in high-pressure systems are the weak link because they experience both pressure cycling and mechanical flexing. The failure point is typically near a fitting where the stiff crimp meets the flexible hose body, creating a stress concentration.',
+    interviewInsight: 'This tests your understanding of real-world failure modes in pressurized systems. The interviewer wants to see that you know the weakest link and can describe the failure progression.',
+    realWorldConnection: 'High-pressure hose failures are a leading cause of injuries in industrial settings. Regular inspection and replacement schedules are mandated by safety standards.',
+    commonMistake: 'Choosing the nozzle. While nozzles do erode, they are replaceable wear items with predictable life. Hose failures are more sudden and dangerous.',
+    tags: ['high-pressure', 'hose', 'fatigue', 'fittings', 'safety', 'failure-analysis'],
+  },
+
+  // FM-007 — Multi-Select
+  {
+    id: 'fm-007',
+    type: 'multi-select',
+    topic: 'fluid-mechanics',
+    subtopic: 'Dimensional Analysis',
+    difficulty: 'advanced',
+    question: 'You are testing a 1:10 scale model of a ship in a towing tank. Which of the following must be matched between the model and the full-scale ship for valid results? (Select all that apply)',
+    options: [
+      { id: 'a', text: 'Froude number — ratio of inertial to gravitational forces' },
+      { id: 'b', text: 'Reynolds number — ratio of inertial to viscous forces' },
+      { id: 'c', text: 'Mach number — ratio of flow speed to speed of sound' },
+      { id: 'd', text: 'Geometric similarity — same shape at different scale' },
+      { id: 'e', text: 'Weber number — ratio of inertial to surface tension forces' },
+    ],
+    correctAnswers: ['a', 'd'],
+    explanation: 'Ship hydrodynamics is dominated by wave-making resistance, which is governed by the Froude number (Fr = V/√(gL)). Geometric similarity is always required. Reynolds number matching would be ideal but is impractical — a 1:10 model would need to be towed at 10× the speed (Re ~ VL), which changes the Froude number. In practice, Froude number is matched and a Reynolds number correction is applied. Mach number is irrelevant (low speeds). Weber number matters only for very small models where surface tension effects become significant.',
+    interviewInsight: 'Dimensional analysis and similitude are tested in aerospace and naval architecture interviews. The key insight is that you often CANNOT match all dimensionless groups simultaneously, so you must choose the dominant one.',
+    commonMistake: 'Trying to match both Froude and Reynolds simultaneously — they require contradictory model speeds for a given scale ratio. This is the fundamental challenge of scale-model testing.',
+    tags: ['dimensional-analysis', 'froude', 'reynolds', 'similitude', 'ship', 'scale-model'],
+  },
+
+  // FM-008 — Multiple Choice
+  {
+    id: 'fm-008',
+    type: 'multiple-choice',
+    topic: 'fluid-mechanics',
+    subtopic: 'Fluid Dynamics',
+    difficulty: 'intermediate',
+    question: 'Water flows through a pipe that suddenly narrows from 10 cm to 5 cm diameter. If the velocity in the wide section is 2 m/s, what is the velocity in the narrow section?',
+    options: [
+      { id: 'a', text: '4 m/s — velocity doubles because diameter halves' },
+      { id: 'b', text: '8 m/s — velocity increases by the ratio of areas (4:1)' },
+      { id: 'c', text: '2 m/s — velocity is constant in a pipe' },
+      { id: 'd', text: '16 m/s — velocity increases by the cube of the diameter ratio' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'By continuity: A₁V₁ = A₂V₂. The areas scale with diameter squared: A₁/A₂ = (10/5)² = 4. So V₂ = V₁ × (A₁/A₂) = 2 × 4 = 8 m/s. The common trap is thinking velocity doubles when diameter halves — it actually quadruples because area scales with d².',
+    interviewInsight: 'This is a fundamental continuity equation question. The d² relationship between area and diameter is a critical insight that many candidates miss under pressure.',
+    realWorldConnection: 'This is why putting your thumb over a garden hose makes the water spray faster — you are reducing the area and the velocity increases by the area ratio.',
+    commonMistake: 'Saying 4 m/s (doubling instead of quadrupling). The area ratio is the square of the diameter ratio.',
+    tags: ['continuity', 'velocity', 'pipe-flow', 'area', 'bernoulli'],
+  },
+];

@@ -1,0 +1,84 @@
+'use client';
+
+import { Menu, Flame, Zap, Star } from 'lucide-react';
+import { useSidebar, useProgress } from '@/store/useStore';
+import { cn } from '@/lib/utils';
+import { levels } from '@/data/levels';
+
+export default function TopBar() {
+  const progress = useProgress();
+  const { toggleSidebar } = useSidebar();
+
+  const currentLevel = levels.find(l => l.level === progress.currentLevel) || levels[0];
+  const nextLevel = levels.find(l => l.level === progress.currentLevel + 1);
+  const xpInLevel = nextLevel ? progress.totalXp - currentLevel.xpRequired : 0;
+  const xpForLevel = nextLevel ? nextLevel.xpRequired - currentLevel.xpRequired : 1;
+  const levelProgress = nextLevel ? Math.min((xpInLevel / xpForLevel) * 100, 100) : 100;
+
+  return (
+    <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-surface-200">
+      <div className="flex items-center justify-between h-14 px-4">
+        {/* Left: Menu button (mobile) + breadcrumb area */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleSidebar}
+            aria-label="Toggle navigation menu"
+            className="lg:hidden p-2 rounded-lg hover:bg-surface-100 transition-colors"
+          >
+            <Menu className="w-5 h-5 text-surface-600" />
+          </button>
+        </div>
+
+        {/* Right: Stats bar */}
+        <div className="flex items-center gap-4" aria-label="User stats">
+          {/* Streak */}
+          <div
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium',
+              progress.currentStreak > 0 ? 'bg-orange-50 text-orange-600' : 'bg-surface-100 text-surface-400'
+            )}
+            aria-label={`${progress.currentStreak} day streak`}
+          >
+            <Flame className="w-4 h-4" aria-hidden="true" />
+            <span>{progress.currentStreak}</span>
+          </div>
+
+          {/* XP */}
+          <div
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-medium"
+            aria-label={`${progress.totalXp} experience points`}
+          >
+            <Star className="w-4 h-4" aria-hidden="true" />
+            <span>{progress.totalXp}</span>
+          </div>
+
+          {/* Level + Progress */}
+          <div className="hidden sm:flex items-center gap-2">
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-50 text-primary-600 text-sm font-medium"
+              aria-label={`Level ${progress.currentLevel}`}
+            >
+              <Zap className="w-4 h-4" aria-hidden="true" />
+              <span>Lv. {progress.currentLevel}</span>
+            </div>
+            {nextLevel && (
+              <div
+                className="w-24 h-2 bg-surface-200 rounded-full overflow-hidden"
+                role="progressbar"
+                aria-valuenow={Math.round(levelProgress)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`Level progress: ${Math.round(levelProgress)}%`}
+              >
+                <div
+                  className="h-full bg-primary-500 rounded-full transition-all duration-500"
+                  style={{ width: `${levelProgress}%` }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

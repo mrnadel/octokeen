@@ -1,0 +1,213 @@
+import type { Question } from '../types';
+
+export const realWorldMechanismsQuestions: Question[] = [
+  // RWM-001 — Free Text / Explanation
+  {
+    id: 'rwm-001',
+    type: 'free-text',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Everyday Machines',
+    difficulty: 'beginner',
+    question: 'How does a hydraulic car jack work? Explain the physics that lets a small hand force lift a 2-ton car.',
+    sampleAnswer: 'A hydraulic jack uses Pascal\'s principle: pressure applied to a confined fluid is transmitted equally in all directions. The jack has two cylinders — a small one (the pump) and a large one (the lift). When you pump the handle, you push a small piston into the small cylinder, creating high pressure. This pressure is transmitted through oil to the large piston.\n\nThe mechanical advantage comes from the area ratio. If the small piston has an area of 2 cm² and the large piston has 40 cm², the area ratio is 20:1. A 100 N hand force creates 50 N/cm² pressure, which acts on the 40 cm² large piston, generating 2,000 N of lift force. Combined with the lever ratio of the pump handle (typically 5:1-10:1), the total mechanical advantage can be 100:1 to 200:1.\n\nThe trade-off: you pump many times because each pump stroke moves only a small volume of oil, and the large piston moves very little per stroke (volume conservation). You gain force at the expense of distance.',
+    keyPoints: [
+      'Pascal\'s principle: pressure is transmitted equally through confined fluid',
+      'Mechanical advantage = area ratio of large piston to small piston',
+      'Handle lever provides additional mechanical advantage',
+      'Conservation of energy: force gained = distance lost (many small pumps)',
+      'Check valve holds pressure between pump strokes',
+    ],
+    explanation: 'The hydraulic jack is one of the best everyday demonstrations of Pascal\'s principle and mechanical advantage. The force multiplication is enormous but the trade-off in distance (many small pumps) is always present — energy is conserved.',
+    interviewInsight: 'This is a "explain something simple" question that tests how well you can break down a familiar mechanism into physics principles. Clear communication of mechanical advantage and the force-distance trade-off is what the interviewer wants.',
+    commonMistake: 'Not explaining the trade-off — students say "it multiplies force" without mentioning that distance is sacrificed. Some forget about the handle lever ratio, which provides additional mechanical advantage.',
+    tags: ['hydraulic', 'pascal', 'mechanical-advantage', 'jack', 'pressure', 'everyday'],
+  },
+
+  // RWM-002 — Multiple Choice
+  {
+    id: 'rwm-002',
+    type: 'multiple-choice',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Automotive Systems',
+    difficulty: 'intermediate',
+    question: 'In a conventional rear-wheel-drive car, what does the differential do and why is it necessary?',
+    options: [
+      { id: 'a', text: 'It changes gear ratios for different driving speeds, like a transmission' },
+      { id: 'b', text: 'It allows the left and right wheels to rotate at different speeds during turns while transmitting torque to both' },
+      { id: 'c', text: 'It absorbs road shocks before they reach the driveshaft, like a shock absorber' },
+      { id: 'd', text: 'It disconnects the engine from the wheels when the car is coasting to save fuel' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'When a car turns, the outer wheel travels a longer arc than the inner wheel. Without a differential, both wheels would be forced to rotate at the same speed, causing the inner wheel to scrub and skip. The differential uses a set of bevel gears (spider gears on a cross pin) that allow the output shafts to rotate at different speeds while still splitting the engine torque between them. The average speed of both wheels equals the input speed.',
+    interviewInsight: 'This is a classic mechanism question. The interviewer may follow up by asking about limited-slip differentials and why a standard open differential is bad for off-road or racing.',
+    realWorldConnection: 'The limitation of an open differential: if one wheel loses traction (on ice), all the torque goes to the spinning wheel and none to the wheel with grip. Limited-slip differentials solve this by adding clutches or geared coupling between the output shafts.',
+    commonMistake: 'Confusing the differential with the transmission. The transmission changes gear ratios; the differential splits torque between left and right wheels.',
+    tags: ['differential', 'automotive', 'turning', 'bevel-gear', 'torque-split'],
+  },
+
+  // RWM-003 — Design Decision
+  {
+    id: 'rwm-003',
+    type: 'design-decision',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Everyday Machines',
+    difficulty: 'intermediate',
+    question: 'You are designing a door closer mechanism for a commercial building. Which type do you choose?',
+    context: 'The door is a heavy (50 kg) exterior door that must close reliably against wind pressure. It needs to comply with ADA accessibility requirements (max opening force 5 lbf, closing speed controlled). The building has 500+ door cycles per day.',
+    designOptions: [
+      {
+        id: 'a',
+        text: 'Overhead hydraulic door closer (like a Norton/Dorma unit)',
+        tradeoffs: 'Proven, adjustable closing speed and latching speed, handles heavy doors, ADA compliant with proper adjustment. Visible hardware, requires periodic valve adjustment.',
+      },
+      {
+        id: 'b',
+        text: 'Floor-mounted concealed spring closer',
+        tradeoffs: 'Aesthetically clean (hidden in floor), handles heavy doors. Expensive to install (requires floor preparation), difficult to adjust and maintain, susceptible to debris ingress.',
+      },
+      {
+        id: 'c',
+        text: 'Pneumatic screen door closer',
+        tradeoffs: 'Very cheap, easy to install. But inadequate for a heavy 50 kg door, no closing speed control, not ADA compliant, short life at 500 cycles/day.',
+      },
+      {
+        id: 'd',
+        text: 'Electromagnetic hold-open with automatic release on fire alarm',
+        tradeoffs: 'Holds door open for traffic flow, releases to close on alarm. Requires electrical connection, backup spring closer still needed. Ideal for fire-rated corridors but adds complexity.',
+      },
+    ],
+    bestOption: 'a',
+    evaluationCriteria: ['Ability to handle 50 kg door weight', 'ADA compliance (adjustable force and speed)', 'Durability at 500+ cycles/day', 'Maintainability and adjustability', 'Cost-effectiveness'],
+    explanation: 'The overhead hydraulic door closer is the industry standard for commercial doors because it provides adjustable closing speed, latching speed, and back-check (wind resistance) in a durable, maintainable package. The hydraulic valve allows fine-tuning for ADA compliance. At 500+ cycles/day, the hydraulic mechanism handles the duty cycle far better than spring-only designs.',
+    interviewInsight: 'This question tests whether you can analyze a familiar mechanism with engineering rigor. The interviewer wants to see that you consider load capacity, duty cycle, compliance requirements, and maintainability — not just "which one looks right."',
+    commonMistake: 'Choosing the concealed closer for aesthetics without considering the maintenance and accessibility implications. In a commercial setting, maintainability trumps aesthetics.',
+    tags: ['door-closer', 'hydraulic', 'mechanism', 'ADA', 'commercial-building', 'design'],
+  },
+
+  // RWM-004 — Multiple Choice
+  {
+    id: 'rwm-004',
+    type: 'multiple-choice',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Linkages & Mechanisms',
+    difficulty: 'intermediate',
+    question: 'A four-bar linkage has link lengths of 2, 4, 5, and 6 cm. According to Grashof\'s criterion, which statement is true?',
+    options: [
+      { id: 'a', text: 'It is a Grashof linkage — the shortest link can make a full rotation' },
+      { id: 'b', text: 'It is a non-Grashof linkage — no link can make a full rotation (all links rock)' },
+      { id: 'c', text: 'It is a change-point mechanism — it can toggle between configurations' },
+      { id: 'd', text: 'Cannot be determined without knowing which link is the ground' },
+    ],
+    correctAnswer: 'a',
+    explanation: 'Grashof\'s criterion: S + L ≤ P + Q, where S = shortest link, L = longest link, P and Q are the other two. Here: S=2, L=6, P=4, Q=5. Check: 2 + 6 = 8, and 4 + 5 = 9. Since 8 < 9, Grashof\'s inequality is satisfied. The shortest link (2 cm) can make a full rotation relative to its adjacent link. The mechanism type (crank-rocker, double-crank, or double-rocker) depends on which link is grounded.',
+    interviewInsight: 'Grashof\'s criterion is a quick, fundamental test for four-bar linkage mobility. Interviewers expect immediate recall of the S+L vs P+Q comparison.',
+    realWorldConnection: 'Four-bar linkages are everywhere: windshield wipers (crank-rocker), steam engine valve gear, aircraft landing gear retraction mechanisms, and robotic arms.',
+    commonMistake: 'Saying the answer depends on the ground link. Grashof\'s criterion determines IF full rotation is possible — the choice of ground link determines which type of mechanism results, but that is a separate question.',
+    tags: ['four-bar', 'grashof', 'linkage', 'mechanism', 'rotation', 'mobility'],
+  },
+
+  // RWM-005 — Estimation
+  {
+    id: 'rwm-005',
+    type: 'estimation',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Everyday Machines',
+    difficulty: 'intermediate',
+    question: 'Estimate the gear ratio of a hand-operated winch that allows one person to pull a 2,000 kg boat up a ramp.',
+    hints: [
+      'A person can comfortably sustain about 100-200 N of force on a crank handle',
+      'The boat on the ramp has a component of gravity along the ramp — assume 10° incline',
+      'Consider both the gear ratio and the crank handle leverage',
+    ],
+    acceptableRange: { low: 15, high: 50, unit: ':1 total mechanical advantage', bestEstimate: 30 },
+    approachSteps: [
+      'Boat weight = 2,000 × 9.81 ≈ 20,000 N',
+      'Force along a 10° ramp = 20,000 × sin(10°) ≈ 20,000 × 0.174 ≈ 3,470 N',
+      'Add rolling friction (~5% of normal force): 20,000 × cos(10°) × 0.05 ≈ 985 N',
+      'Total pull force ≈ 3,470 + 985 ≈ 4,450 N',
+      'Comfortable hand force: ~150 N',
+      'Required mechanical advantage = 4,450 / 150 ≈ 30:1',
+      'This can be achieved by a 5:1 gear ratio and a crank handle with 6:1 lever ratio (handle radius / drum radius)',
+      'For example: crank arm 30 cm, drum radius 5 cm → 6:1 leverage. Gear ratio: 5:1. Total: 30:1.',
+    ],
+    explanation: 'A boat winch combines gear reduction with crank handle leverage to achieve the necessary mechanical advantage. The total ratio of 30:1 means pulling 30 meters of crank handle travel for every 1 meter of boat movement.',
+    interviewInsight: 'This estimation tests your ability to decompose a real-world problem: resolve forces on the ramp, account for friction, calculate the required mechanical advantage, and allocate it between gears and leverage.',
+    commonMistake: 'Using the full weight (20,000 N) instead of the ramp component. Also, forgetting friction, which can add 20-30% to the required force.',
+    tags: ['winch', 'mechanical-advantage', 'gear-ratio', 'ramp', 'estimation', 'boat'],
+  },
+
+  // RWM-006 — Spot the Flaw
+  {
+    id: 'rwm-006',
+    type: 'spot-the-flaw',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Failure Case Studies',
+    difficulty: 'advanced',
+    question: 'Spot the flaw in this failure analysis conclusion:',
+    statement: 'A steel bridge cable failed after 15 years of service. Visual inspection showed a corroded region at a cable clamp where water accumulated. The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
+    flaw: {
+      text: 'The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
+      flawIndex: 2,
+      flawExplanation: 'The analysis likely missed stress corrosion cracking (SCC) or corrosion fatigue. A bridge cable is under constant tension (stress) and cyclic loading from traffic and wind (fatigue). When corrosion reduces the cross-section and creates surface pits, these pits act as stress concentrators that accelerate crack initiation. The failure mode is not pure corrosion — it is the synergy of corrosion + stress + fatigue cycling. Corrective actions must address ALL three: corrosion protection AND load verification AND fatigue life reassessment.',
+    },
+    correctedStatement: 'The cable failure was likely caused by corrosion fatigue or stress corrosion cracking — the combined effect of corrosion, static tension, and cyclic loading from traffic. Corrective actions should include improved corrosion protection (coating and drainage), load-path verification, fatigue reassessment of remaining cables, and inspection of all cable clamp locations for similar damage.',
+    explanation: 'Corrosion rarely acts alone in structural failures. The synergy between corrosion and mechanical loading (stress corrosion cracking, corrosion fatigue, hydrogen embrittlement) is far more dangerous than corrosion alone. A complete failure analysis must consider the loading environment.',
+    interviewInsight: 'This tests whether you understand that real failures are usually multi-mechanism. An interviewer asking about failure analysis wants to see that you consider the full picture: environment + loading + material.',
+    commonMistake: 'Accepting a single-cause failure analysis without considering synergistic mechanisms. Corrosion fatigue is much faster than either corrosion or fatigue acting alone.',
+    tags: ['failure-analysis', 'corrosion-fatigue', 'SCC', 'bridge', 'cable', 'root-cause'],
+  },
+
+  // RWM-007 — Multi-Select
+  {
+    id: 'rwm-007',
+    type: 'multi-select',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Automotive Systems',
+    difficulty: 'intermediate',
+    question: 'Which of the following happen when you press the brake pedal in a car with disc brakes and ABS? (Select all that apply)',
+    options: [
+      { id: 'a', text: 'The brake pedal pushes a piston in the master cylinder, pressurizing brake fluid' },
+      { id: 'b', text: 'A vacuum booster amplifies your foot force before it reaches the master cylinder' },
+      { id: 'c', text: 'Brake fluid pressure pushes caliper pistons against the brake pads, which squeeze the rotor' },
+      { id: 'd', text: 'The ABS system actively increases braking force above what your foot applies' },
+      { id: 'e', text: 'If a wheel starts to lock, ABS rapidly modulates pressure to that wheel to maintain traction' },
+    ],
+    correctAnswers: ['a', 'b', 'c', 'e'],
+    explanation: 'The braking sequence: (b) The vacuum booster amplifies pedal force by 3-4x. (a) This amplified force pushes the master cylinder piston, pressurizing brake fluid. (c) Pressurized fluid actuates caliper pistons, clamping pads against the rotor — friction converts kinetic energy to heat. (e) ABS monitors wheel speed sensors; if one wheel decelerates faster than the others (locking), it rapidly cycles the hydraulic pressure to that wheel (15-20 times/second) to maintain grip. Option (d) is false — ABS can only reduce or maintain braking force, never increase it beyond what the driver applies. ABS prevents lock-up but does not shorten stopping distance on dry pavement.',
+    interviewInsight: 'This tests understanding of a familiar system at a mechanistic level. The key insight is that ABS is a REDUCING system — it can only cut pressure to prevent lock-up, not add more braking force.',
+    realWorldConnection: 'Understanding the limitations of ABS is important for automotive engineering. ABS reduces stopping distance on slippery surfaces (by maintaining some steering control) but can actually increase stopping distance on loose gravel or fresh snow.',
+    commonMistake: 'Thinking ABS increases braking force (option d). It is a safety system that MODULATES pressure to prevent wheel lock-up, maintaining steering control during hard braking.',
+    tags: ['brakes', 'ABS', 'hydraulic', 'automotive', 'master-cylinder', 'disc-brake'],
+  },
+
+  // RWM-008 — What Fails First
+  {
+    id: 'rwm-008',
+    type: 'what-fails-first',
+    topic: 'real-world-mechanisms',
+    subtopic: 'Failure Case Studies',
+    difficulty: 'advanced',
+    question: 'A residential clothes dryer is making a loud squealing noise and occasionally not tumbling. What component has likely failed first?',
+    components: [
+      { id: 'a', text: 'The drum belt — stretched or broken from years of cycling' },
+      { id: 'b', text: 'The drum roller bearings — worn from supporting the drum weight' },
+      { id: 'c', text: 'The motor — burned out from overload' },
+      { id: 'd', text: 'The heating element — open circuit from thermal cycling' },
+    ],
+    correctAnswer: 'b',
+    failureMode: 'The drum support rollers (small plastic or rubber wheels that the drum rides on) wear flat over time. The worn rollers create excessive friction and a squealing noise. As they deteriorate further, the drum sags and may bind, causing intermittent failure to tumble.',
+    failureChain: [
+      'Drum rollers wear from thousands of hours of supporting the rotating drum',
+      'Worn rollers develop flat spots, increasing friction and causing squealing',
+      'Increased friction puts higher load on the belt and motor',
+      'Drum sags as rollers wear, potentially causing the belt to slip or the drum to bind',
+      'If not addressed, the belt eventually breaks from the increased tension/friction',
+      'If the belt breaks, the motor runs freely but the drum does not turn — a fire hazard if heating continues',
+    ],
+    explanation: 'Clothes dryer drum rollers are the most common wear component. They are typically small polymer or rubber wheels that support the rear (and sometimes front) of the drum. They are cheap to replace but their failure cascades into belt and motor problems if ignored.',
+    interviewInsight: 'This tests practical troubleshooting of a consumer product. The interviewer wants to see that you can diagnose from symptoms (squealing = friction, intermittent tumbling = worn rollers causing binding) rather than guessing.',
+    realWorldConnection: 'Appliance repair is a billion-dollar industry. Understanding wear failure progression in consumer products is relevant for product design and reliability engineering.',
+    commonMistake: 'Jumping to "motor failure" for any tumbling problem. Motors are robust; the wear parts (rollers, belt, bearings) almost always fail first.',
+    tags: ['appliance', 'dryer', 'bearing', 'wear', 'troubleshooting', 'consumer-product'],
+  },
+];
