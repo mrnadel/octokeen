@@ -119,14 +119,14 @@ export function CourseHeader() {
                 gap: 4,
                 fontWeight: 800,
                 fontSize: 15,
-                color: popover === 'streak' ? '#2563EB' : '#3C3C3C',
+                color: popover === 'streak' ? '#475569' : '#3C3C3C',
                 padding: '4px 10px',
                 borderRadius: 12,
-                background: popover === 'streak' ? '#EFF6FF' : 'transparent',
+                background: popover === 'streak' ? '#F1F5F9' : 'transparent',
               }}
               onClick={() => togglePopover('streak')}
             >
-              <span style={{ fontSize: 18 }}>⚙️</span>
+              <span style={{ fontSize: 18 }}>🔧</span>
               <span>{progress.currentStreak}</span>
             </button>
 
@@ -414,22 +414,22 @@ export function CourseHeader() {
                           width: 44,
                           height: 44,
                           borderRadius: 12,
-                          background: 'linear-gradient(135deg, #FF9600 0%, #FF6B00 100%)',
+                          background: 'linear-gradient(135deg, #64748B 0%, #475569 100%)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                           fontSize: 24,
-                          boxShadow: '0 4px 12px rgba(255,150,0,0.3)',
+                          boxShadow: '0 4px 12px rgba(71,85,105,0.3)',
                         }}
                       >
-                        ⚙️
+                        🔧
                       </div>
                       <div>
                         <h3 style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
                           Practice Streak
                         </h3>
                         <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginTop: 1 }}>
-                          {progress.currentStreak > 0 ? 'Keep the momentum!' : 'Start your streak today!'}
+                          {progress.currentStreak > 0 ? 'Keep turning up!' : 'Start your streak today!'}
                         </p>
                       </div>
                     </div>
@@ -510,7 +510,7 @@ export function CourseHeader() {
                                   boxShadow: isActive ? '0 2px 6px rgba(255,150,0,0.3)' : 'none',
                                 }}
                               >
-                                {isActive ? '⚙️' : day.label}
+                                {isActive ? '🔧' : day.label}
                               </div>
                             </div>
                           );
