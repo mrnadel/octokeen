@@ -190,6 +190,7 @@ export function CourseHeader() {
                       width: 34,
                       height: 34,
                       borderRadius: '50%',
+                      objectFit: 'cover',
                       border: popover === 'menu' ? '2.5px solid #58CC02' : '2.5px solid #E5E5E5',
                     }}
                   />
@@ -306,7 +307,7 @@ export function CourseHeader() {
                         <img
                           src={userImage}
                           alt={userName}
-                          style={{ width: 40, height: 40, borderRadius: '50%', border: '2px solid #E5E5E5' }}
+                          style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', border: '2px solid #E5E5E5' }}
                         />
                       ) : (
                         <div
