@@ -79,7 +79,7 @@ export default function AdminAnalyticsPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(2, 1fr)',
               gap: 16,
               marginBottom: 32,
             }}
@@ -95,46 +95,37 @@ export default function AdminAnalyticsPage() {
           {data.topicPerformance.length === 0 ? (
             <p style={{ color: '#999', fontSize: 14, marginBottom: 32 }}>No topic data yet.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, marginBottom: 32 }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid #E5E5E5', textAlign: 'left' }}>
-                  <th style={{ padding: '8px 12px', fontWeight: 700 }}>Topic</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700, textAlign: 'right' }}>Total Attempts</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700, textAlign: 'right' }}>Accuracy %</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.topicPerformance.map((row) => (
-                  <tr
-                    key={row.topicId}
-                    style={{ borderBottom: '1px solid #F0F0F0' }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLTableRowElement).style.background = '#FAFAFA';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLTableRowElement).style.background = 'white';
-                    }}
-                  >
-                    <td style={{ padding: '10px 12px' }}>
-                      {formatTopicId(row.topicId)}
-                    </td>
-                    <td style={{ padding: '10px 12px', textAlign: 'right', fontFamily: 'monospace' }}>
-                      {row.totalAttempts.toLocaleString()}
-                    </td>
-                    <td style={{ padding: '10px 12px', textAlign: 'right' }}>
-                      <span
-                        style={{
-                          fontWeight: 700,
-                          color: row.accuracy >= 70 ? '#2E7D32' : row.accuracy >= 40 ? '#F57F17' : '#C62828',
-                        }}
-                      >
-                        {row.accuracy}%
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+              {data.topicPerformance.map((row) => (
+                <div
+                  key={row.topicId}
+                  style={{
+                    background: 'white',
+                    borderRadius: 12,
+                    border: '1px solid #E5E5E5',
+                    padding: '16px 20px',
+                  }}
+                >
+                  <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>
+                    {formatTopicId(row.topicId)}
+                  </div>
+                  <div style={{ fontSize: 13, color: '#666', marginBottom: 4 }}>
+                    Attempts: <span style={{ fontFamily: 'monospace', color: '#111' }}>{row.totalAttempts.toLocaleString()}</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: '#666' }}>
+                    Accuracy:{' '}
+                    <span
+                      style={{
+                        fontWeight: 700,
+                        color: row.accuracy >= 70 ? '#2E7D32' : row.accuracy >= 40 ? '#F57F17' : '#C62828',
+                      }}
+                    >
+                      {row.accuracy}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
 
           {/* Recent Activity Table */}
@@ -142,45 +133,31 @@ export default function AdminAnalyticsPage() {
           {data.recentActivity.length === 0 ? (
             <p style={{ color: '#999', fontSize: 14 }}>No recent sessions.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid #E5E5E5', textAlign: 'left' }}>
-                  <th style={{ padding: '8px 12px', fontWeight: 700 }}>Date</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700 }}>User</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700, textAlign: 'right' }}>Questions</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700, textAlign: 'right' }}>Correct</th>
-                  <th style={{ padding: '8px 12px', fontWeight: 700, textAlign: 'right' }}>XP Earned</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.recentActivity.map((row, i) => (
-                  <tr
-                    key={`${row.date}-${row.userId}-${i}`}
-                    style={{ borderBottom: '1px solid #F0F0F0' }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLTableRowElement).style.background = '#FAFAFA';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLTableRowElement).style.background = 'white';
-                    }}
-                  >
-                    <td style={{ padding: '10px 12px' }}>{row.date}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'monospace', fontSize: 12 }}>
-                      {row.userId.slice(0, 8)}...
-                    </td>
-                    <td style={{ padding: '10px 12px', textAlign: 'right', fontFamily: 'monospace' }}>
-                      {row.questionsAttempted}
-                    </td>
-                    <td style={{ padding: '10px 12px', textAlign: 'right', fontFamily: 'monospace' }}>
-                      {row.questionsCorrect}
-                    </td>
-                    <td style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 700 }}>
-                      +{row.xpEarned} XP
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {data.recentActivity.map((row, i) => (
+                <div
+                  key={`${row.date}-${row.userId}-${i}`}
+                  style={{
+                    background: 'white',
+                    borderRadius: 12,
+                    border: '1px solid #E5E5E5',
+                    padding: '16px 20px',
+                  }}
+                >
+                  <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 8 }}>
+                    {row.date}
+                  </div>
+                  <div style={{ fontSize: 13, color: '#666', marginBottom: 4 }}>
+                    Questions: <span style={{ fontFamily: 'monospace', color: '#111' }}>{row.questionsAttempted}</span>
+                    {' / '}
+                    <span style={{ fontFamily: 'monospace', color: '#111' }}>{row.questionsCorrect} correct</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: '#666' }}>
+                    XP: <span style={{ fontWeight: 700, color: '#111' }}>+{row.xpEarned} XP</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </>
       )}

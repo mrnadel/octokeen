@@ -64,7 +64,7 @@ export default function AdminUsersPage() {
   if (status !== 'authenticated') return <p style={{ padding: 40 }}>Not authenticated</p>;
 
   return (
-    <div style={{ maxWidth: 1000, margin: '0 auto', padding: '32px 24px', fontFamily: 'system-ui' }}>
+    <div style={{ fontFamily: 'system-ui' }}>
       <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Users</h1>
       <p style={{ fontSize: 14, color: '#666', marginBottom: 24 }}>
         {loading ? 'Loading...' : `${total} registered user${total === 1 ? '' : 's'}`}
@@ -77,72 +77,68 @@ export default function AdminUsersPage() {
       )}
 
       {!loading && !error && users.length > 0 && (
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #E5E5E5', textAlign: 'left' }}>
-                <th style={{ padding: '8px 10px', fontWeight: 700 }}>Name</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700 }}>Email</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700 }}>Joined</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700 }}>Tier</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700, textAlign: 'right' }}>XP</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700, textAlign: 'right' }}>Streak</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700, textAlign: 'right' }}>Questions</th>
-                <th style={{ padding: '8px 10px', fontWeight: 700 }}>Last Active</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, i) => {
-                const tierStyle = TIER_STYLES[user.tier] || TIER_STYLES.free;
-                return (
-                  <tr
-                    key={user.id}
+        <div>
+          {users.map((user) => {
+            const tierStyle = TIER_STYLES[user.tier] || TIER_STYLES.free;
+            return (
+              <div
+                key={user.id}
+                style={{
+                  background: 'white',
+                  borderRadius: 12,
+                  border: '1px solid #E5E5E5',
+                  padding: 16,
+                  marginBottom: 12,
+                }}
+              >
+                {/* Name + tier badge */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 15, fontWeight: 700 }}>
+                    {user.name || user.email || '-'}
+                  </span>
+                  <span
                     style={{
-                      borderBottom: '1px solid #F0F0F0',
-                      background: i % 2 === 0 ? 'white' : '#FAFAFA',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      background: tierStyle.background,
+                      color: tierStyle.color,
+                      textTransform: 'capitalize',
                     }}
                   >
-                    <td style={{ padding: '10px 10px', fontWeight: 600 }}>
-                      {user.name || user.email || '-'}
-                    </td>
-                    <td style={{ padding: '10px 10px', color: '#555' }}>
-                      {user.email || '-'}
-                    </td>
-                    <td style={{ padding: '10px 10px', color: '#555' }}>
-                      {formatDate(user.joinedDate)}
-                    </td>
-                    <td style={{ padding: '10px 10px' }}>
-                      <span
-                        style={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          padding: '2px 8px',
-                          borderRadius: 6,
-                          background: tierStyle.background,
-                          color: tierStyle.color,
-                          textTransform: 'capitalize',
-                        }}
-                      >
-                        {user.tier}
-                      </span>
-                    </td>
-                    <td style={{ padding: '10px 10px', textAlign: 'right', fontWeight: 600 }}>
-                      {user.totalXp.toLocaleString()}
-                    </td>
-                    <td style={{ padding: '10px 10px', textAlign: 'right', fontWeight: 600 }}>
-                      {user.currentStreak}
-                    </td>
-                    <td style={{ padding: '10px 10px', textAlign: 'right', fontWeight: 600 }}>
-                      {user.totalQuestionsAttempted}
-                    </td>
-                    <td style={{ padding: '10px 10px', color: '#555' }}>
-                      {formatDate(user.lastActiveDate)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    {user.tier}
+                  </span>
+                </div>
+
+                {/* Email */}
+                <div style={{ fontSize: 13, color: '#888', marginBottom: 12 }}>
+                  {user.email || '-'}
+                </div>
+
+                {/* Stats row */}
+                <div style={{ display: 'flex', gap: 24, marginBottom: 12 }}>
+                  <div>
+                    <div style={{ fontSize: 11, color: '#999', fontWeight: 600, marginBottom: 2 }}>XP</div>
+                    <div style={{ fontSize: 15, fontWeight: 700 }}>{user.totalXp.toLocaleString()}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: '#999', fontWeight: 600, marginBottom: 2 }}>Streak</div>
+                    <div style={{ fontSize: 15, fontWeight: 700 }}>{user.currentStreak}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, color: '#999', fontWeight: 600, marginBottom: 2 }}>Questions</div>
+                    <div style={{ fontSize: 15, fontWeight: 700 }}>{user.totalQuestionsAttempted}</div>
+                  </div>
+                </div>
+
+                {/* Last active */}
+                <div style={{ fontSize: 12, color: '#999' }}>
+                  Last active: {formatDate(user.lastActiveDate)}
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

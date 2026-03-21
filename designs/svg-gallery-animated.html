@@ -6426,6 +6426,454 @@
 <div class="card-label">Radiation Heat</div>
 </div>
 
+<!-- ====== 137. Rotary Vane Pump — Fluids ====== -->
+<div class="card" data-name="Rotary Vane Pump" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Housing (eccentric circle) -->
+  <circle cx="40" cy="40" r="26" stroke-width="1" class="s-stroke" fill="none"/>
+  <!-- Rotor (offset center) -->
+  <circle cx="36" cy="40" r="14" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <circle cx="36" cy="40" r="3" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Vanes (rotating with rotor) -->
+  <g>
+    <line x1="36" y1="26" x2="36" y2="14" stroke-width="1.5" class="s-stroke-l"/>
+    <line x1="50" y1="40" x2="66" y2="40" stroke-width="1.5" class="s-stroke-l"/>
+    <line x1="36" y1="54" x2="36" y2="66" stroke-width="1.5" class="s-stroke-l"/>
+    <line x1="22" y1="40" x2="14" y2="40" stroke-width="1.5" class="s-stroke-l"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,36,40;360,36,40" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <!-- Inlet port -->
+  <rect x="2" y="46" width="10" height="6" rx="1" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="7" y="51" font-size="2.2" class="s-fill-d" opacity="0.4" text-anchor="middle">in</text>
+  <!-- Outlet port -->
+  <rect x="68" y="28" width="10" height="6" rx="1" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="73" y="33" font-size="2.2" class="s-fill-d" opacity="0.4" text-anchor="middle">out</text>
+  <!-- Flow particles -->
+  <circle r="1" class="s-fill-l" opacity="0.6">
+    <animate attributeName="cx" values="4;14;40;66;76" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="49;49;40;31;31" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="1" class="s-fill-l" opacity="0.6">
+    <animate attributeName="cx" values="4;14;40;66;76" dur="2s" repeatCount="indefinite" begin="1s"/>
+    <animate attributeName="cy" values="49;49;40;31;31" dur="2s" repeatCount="indefinite" begin="1s"/>
+  </circle>
+  <!-- Rotation arrow -->
+  <path d="M30,30 A8,8 0 0,1 42,30" stroke-width="0.4" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="42,29 42,31 44,30" class="s-fill-d" opacity="0.3"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">positive displacement</text>
+</svg></div>
+<div class="card-label">Rotary Vane Pump</div>
+</div>
+
+<!-- ====== 138. Snap Fit — Machine Design ====== -->
+<div class="card" data-name="Snap Fit" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Bottom part (base with ledge) -->
+  <path d="M10,50 L70,50 L70,66 L10,66 Z" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/>
+  <!-- Ledge/undercut -->
+  <rect x="56" y="44" width="8" height="6" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <rect x="16" y="44" width="8" height="6" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Top part (clip with cantilever hooks) -->
+  <g>
+    <path d="M18,42 L18,20 L62,20 L62,42" stroke-width="0.8" class="s-stroke" fill="none"/>
+    <rect x="18" y="20" width="44" height="22" class="s-fill" opacity="0.03"/>
+    <!-- Left hook -->
+    <path d="M18,42 L14,42 L14,46 L20,46" stroke-width="0.8" class="s-stroke-l" fill="none"/>
+    <!-- Right hook -->
+    <path d="M62,42 L66,42 L66,46 L60,46" stroke-width="0.8" class="s-stroke-l" fill="none"/>
+    <animate attributeName="transform" values="translate(0,-14);translate(0,0);translate(0,-14)" dur="3s" repeatCount="indefinite" attributeType="XML" type="translate"/>
+  </g>
+  <!-- Deflection arrows on hooks -->
+  <g opacity="0.3">
+    <path d="M12,38 Q10,42 14,44" stroke-width="0.4" class="s-stroke-d" fill="none">
+      <animate attributeName="opacity" values="0;0.4;0" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M68,38 Q70,42 66,44" stroke-width="0.4" class="s-stroke-d" fill="none">
+      <animate attributeName="opacity" values="0;0.4;0" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Press-in arrow -->
+  <g opacity="0.45">
+    <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,14 41.5,14 40,17" class="s-fill"/>
+    <text x="45" y="10" font-size="3" class="s-fill">F</text>
+  </g>
+  <!-- Click label -->
+  <text x="40" y="58" font-size="3" class="s-fill-d" opacity="0.3" text-anchor="middle">locked</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">cantilever hook</text>
+</svg></div>
+<div class="card-label">Snap Fit</div>
+</div>
+
+<!-- ====== 139. Drag Force — Fluids ====== -->
+<div class="card" data-name="Drag Force" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Sphere -->
+  <circle cx="30" cy="40" r="12" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/>
+  <!-- Streamlines (approaching from right, diverting around sphere) -->
+  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+    <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/>
+    <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/>
+    <path d="M75,40 L42,40" fill="none"/>
+    <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/>
+    <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/>
+  </g>
+  <!-- Wake region (turbulent, behind sphere) -->
+  <g class="s-stroke-l" stroke-width="0.3" opacity="0.2">
+    <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none">
+      <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none">
+      <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+    </path>
+  </g>
+  <!-- Flow direction particles -->
+  <circle r="0.8" class="s-fill-l" opacity="0.5">
+    <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="0.8" class="s-fill-l" opacity="0.5">
+    <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Free stream velocity arrow -->
+  <g opacity="0.5">
+    <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="58,14.5 58,17.5 55,16" class="s-fill"/>
+    <text x="65" y="14" font-size="3" class="s-fill">V∞</text>
+  </g>
+  <!-- Drag force arrow -->
+  <g opacity="0.5">
+    <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" class="s-stroke-l"/>
+    <polygon points="42,54.5 42,57.5 45,56" class="s-fill-l"/>
+    <text x="38" y="62" font-size="3" class="s-fill" text-anchor="middle">F_D</text>
+  </g>
+  <!-- Separation point markers -->
+  <circle cx="22" cy="32" r="1" class="s-fill-d" opacity="0.2"/>
+  <circle cx="22" cy="48" r="1" class="s-fill-d" opacity="0.2"/>
+  <!-- Formula -->
+  <text x="40" y="72" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3" class="s-fill-d" opacity="0.15" font-style="italic">pressure + friction drag</text>
+</svg></div>
+<div class="card-label">Drag Force</div>
+</div>
+
+<!-- ====== 140. Peristaltic Pump — Fluids ====== -->
+<div class="card" data-name="Peristaltic Pump" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Housing arc -->
+  <circle cx="40" cy="40" r="26" stroke-width="0.6" class="s-stroke" fill="none" opacity="0.3"/>
+  <!-- Flexible tube (arc around rotor) -->
+  <path d="M14,40 Q14,14 40,14 Q66,14 66,40 Q66,66 40,66 Q14,66 14,40" stroke-width="1.5" class="s-stroke" fill="none" opacity="0.5"/>
+  <!-- Rotor center -->
+  <circle cx="40" cy="40" r="4" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Rollers (3, rotating) -->
+  <g>
+    <circle cx="40" cy="18" r="4" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.12"/>
+    <circle cx="59" cy="51" r="4" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.12"/>
+    <circle cx="21" cy="51" r="4" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.12"/>
+    <!-- Roller arms -->
+    <line x1="40" y1="40" x2="40" y2="22" stroke-width="0.5" class="s-stroke" opacity="0.3"/>
+    <line x1="40" y1="40" x2="57" y2="49" stroke-width="0.5" class="s-stroke" opacity="0.3"/>
+    <line x1="40" y1="40" x2="23" y2="49" stroke-width="0.5" class="s-stroke" opacity="0.3"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/>
+  </g>
+  <!-- Tube compression zones (pinch points) -->
+  <circle cx="40" cy="16" r="2" class="s-fill-l" opacity="0.1">
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Inlet/outlet labels -->
+  <rect x="2" y="36" width="10" height="8" rx="1" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="7" y="42" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">in</text>
+  <rect x="68" y="36" width="10" height="8" rx="1" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="73" y="42" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">out</text>
+  <!-- Flow particle -->
+  <circle r="1" class="s-fill-l" opacity="0.6">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M14,40 Q14,14 40,14 Q66,14 66,40"/>
+  </circle>
+  <!-- Rotation arrow -->
+  <path d="M34,34 A8,8 0 0,1 46,34" stroke-width="0.4" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="46,33 46,35 48,34" class="s-fill-d" opacity="0.3"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">gentle fluid handling</text>
+</svg></div>
+<div class="card-label">Peristaltic Pump</div>
+</div>
+
+<!-- ====== 141. Superposition Principle — Statics ====== -->
+<div class="card" data-name="Superposition" data-cat="Statics">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Combined beam (top) -->
+  <line x1="6" y1="18" x2="74" y2="18" stroke-width="1.5" class="s-stroke"/>
+  <!-- Support triangles -->
+  <polygon points="6,18 3,24 9,24" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <polygon points="74,18 71,24 77,24" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <!-- Combined loads -->
+  <line x1="30" y1="8" x2="30" y2="18" stroke-width="0.5" class="s-stroke"/>
+  <polygon points="28.5,16 31.5,16 30,18" class="s-fill"/>
+  <text x="30" y="6" font-size="2.5" class="s-fill" text-anchor="middle">P</text>
+  <line x1="40" y1="18" x2="40" y2="8" stroke-width="0.3" class="s-stroke-d" opacity="0.2" stroke-dasharray="1,1"/>
+  <path d="M20,8 L60,8 L60,18" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.4"/>
+  <text x="50" y="6" font-size="2.5" class="s-fill" opacity="0.5">w</text>
+  <!-- Equals sign -->
+  <text x="40" y="32" font-size="6" class="s-fill" opacity="0.4" text-anchor="middle">=</text>
+  <!-- Case 1 beam (bottom left) -->
+  <line x1="4" y1="42" x2="38" y2="42" stroke-width="1" class="s-stroke" opacity="0.6"/>
+  <polygon points="4,42 2,46 6,46" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.5"/>
+  <polygon points="38,42 36,46 40,46" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.5"/>
+  <line x1="18" y1="36" x2="18" y2="42" stroke-width="0.4" class="s-stroke"/>
+  <polygon points="16.8,40 19.2,40 18,42" class="s-fill"/>
+  <text x="18" y="34" font-size="2.5" class="s-fill" text-anchor="middle">P</text>
+  <!-- Deflection case 1 -->
+  <path d="M4,42 Q21,48 38,42" stroke-width="0.4" class="s-stroke-l" fill="none" stroke-dasharray="2,1">
+    <animate attributeName="d" values="M4,42 Q21,44 38,42;M4,42 Q21,48 38,42;M4,42 Q21,44 38,42" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Plus sign -->
+  <text x="40" y="48" font-size="5" class="s-fill" opacity="0.4" text-anchor="middle">+</text>
+  <!-- Case 2 beam (bottom right) -->
+  <line x1="42" y1="42" x2="76" y2="42" stroke-width="1" class="s-stroke" opacity="0.6"/>
+  <polygon points="42,42 40,46 44,46" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.5"/>
+  <polygon points="76,42 74,46 78,46" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.5"/>
+  <!-- UDL on case 2 -->
+  <line x1="48" y1="36" x2="70" y2="36" stroke-width="0.4" class="s-stroke"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.5">
+    <line x1="50" y1="36" x2="50" y2="42"/><line x1="54" y1="36" x2="54" y2="42"/>
+    <line x1="58" y1="36" x2="58" y2="42"/><line x1="62" y1="36" x2="62" y2="42"/>
+    <line x1="66" y1="36" x2="66" y2="42"/>
+  </g>
+  <text x="59" y="34" font-size="2.5" class="s-fill" text-anchor="middle">w</text>
+  <!-- Deflection case 2 -->
+  <path d="M42,42 Q59,48 76,42" stroke-width="0.4" class="s-stroke-l" fill="none" stroke-dasharray="2,1">
+    <animate attributeName="d" values="M42,42 Q59,44 76,42;M42,42 Q59,48 76,42;M42,42 Q59,44 76,42" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Result label -->
+  <text x="40" y="60" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">δ_total = δ₁ + δ₂</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">linear elastic</text>
+</svg></div>
+<div class="card-label">Superposition</div>
+</div>
+
+<!-- ====== 142. Friction Clutch — Machine Design ====== -->
+<div class="card" data-name="Friction Clutch" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Flywheel (left disc) -->
+  <ellipse cx="26" cy="40" rx="4" ry="22" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <ellipse cx="26" cy="40" rx="4" ry="22" class="s-fill" opacity="0.03"/>
+  <ellipse cx="26" cy="40" rx="1.5" ry="6" stroke-width="0.4" class="s-stroke" fill="none" opacity="0.3"/>
+  <!-- Pressure plate (right disc) -->
+  <ellipse cx="38" cy="40" rx="3" ry="20" stroke-width="0.7" class="s-stroke" fill="none">
+    <animate attributeName="cx" values="42;34;42" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Friction disc (between) -->
+  <ellipse cx="32" cy="40" rx="2" ry="18" stroke-width="0.8" class="s-stroke-l s-fill-l" fill-opacity="0.1">
+    <animate attributeName="cx" values="34;30;34" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Input shaft (left) -->
+  <rect x="2" y="38" width="22" height="4" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <!-- Output shaft (right) -->
+  <rect x="42" y="38" width="36" height="4" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <!-- Spring (engagement force) -->
+  <path d="M48,26 L50,28 L46,30 L50,32 L46,34 L50,36" stroke-width="0.4" class="s-stroke-d" fill="none" opacity="0.3">
+    <animate attributeName="d" values="M52,26 L54,28 L50,30 L54,32 L50,34 L54,36;M44,26 L46,28 L42,30 L46,32 L42,34 L46,36;M52,26 L54,28 L50,30 L54,32 L50,34 L54,36" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Engage/disengage arrow -->
+  <g opacity="0.35">
+    <line x1="44" y1="14" x2="36" y2="14" stroke-width="0.5" class="s-stroke-d">
+      <animate attributeName="x2" values="40;32;40" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <polygon points="36,12.5 36,15.5 34,14" class="s-fill-d">
+      <animate attributeName="points" values="40,12.5 40,15.5 38,14;32,12.5 32,15.5 30,14;40,12.5 40,15.5 38,14" dur="3s" repeatCount="indefinite"/>
+    </polygon>
+    <text x="46" y="15.5" font-size="2.5" class="s-fill-d">F_n</text>
+  </g>
+  <!-- Rotation indicators -->
+  <g>
+    <circle cx="10" cy="36" r="0.7" class="s-fill" opacity="0.3"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,10,40;360,10,40" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- Torque label -->
+  <text x="60" y="34" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">T = μF_nR</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">torque transmission</text>
+</svg></div>
+<div class="card-label">Friction Clutch</div>
+</div>
+
+<!-- ====== 143. Vickers Hardness — Materials ====== -->
+<div class="card" data-name="Vickers Hardness" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Test specimen -->
+  <rect x="10" y="44" width="60" height="22" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/>
+  <!-- Diamond pyramid indenter -->
+  <path d="M36,36 L40,20 L44,36 Z" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06">
+    <animate attributeName="d" values="M37,30 L40,14 L43,30 Z;M36,40 L40,24 L44,40 Z;M37,30 L40,14 L43,30 Z" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Indenter shaft -->
+  <rect x="38.5" y="6" width="3" height="16" rx="0.5" stroke-width="0.4" class="s-stroke" fill="none">
+    <animate attributeName="height" values="10;20;10" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Diamond impression (square rotated 45°) -->
+  <rect x="37" y="41" width="6" height="6" rx="0.3" stroke-width="0.5" class="s-stroke-l" fill="none" opacity="0.4" transform="rotate(45,40,44)">
+    <animate attributeName="opacity" values="0.1;0.5;0.1" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Load arrow -->
+  <g opacity="0.5">
+    <line x1="40" y1="2" x2="40" y2="8" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,8 41.5,8 40,11" class="s-fill"/>
+    <text x="46" y="6" font-size="3" class="s-fill">F</text>
+  </g>
+  <!-- Diagonal measurement -->
+  <line x1="36" y1="50" x2="44" y2="50" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="36" y1="48" x2="36" y2="52" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="44" y1="48" x2="44" y2="52" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <text x="40" y="55" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">d</text>
+  <!-- 136° angle label -->
+  <text x="50" y="30" font-size="2.5" class="s-fill-d" opacity="0.35">136°</text>
+  <!-- Formula -->
+  <text x="40" y="72" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">HV = 1.854F/d²</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3" class="s-fill-d" opacity="0.15" font-style="italic">diamond pyramid</text>
+</svg></div>
+<div class="card-label">Vickers Hardness</div>
+</div>
+
+<!-- ====== 144. Nusselt Number — Thermo ====== -->
+<div class="card" data-name="Nusselt Number" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Hot wall (left) -->
+  <rect x="8" y="10" width="6" height="60" rx="1" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.1"/>
+  <text x="11" y="8" font-size="2.5" class="s-fill" opacity="0.5" text-anchor="middle">T_w</text>
+  <!-- Fluid region -->
+  <rect x="14" y="10" width="48" height="60" class="s-fill" opacity="0.02"/>
+  <!-- Thermal boundary layer -->
+  <path d="M14,10 Q30,14 34,40 Q30,66 14,70" stroke-width="0.6" class="s-stroke-l" fill="none" opacity="0.4" stroke-dasharray="2,1"/>
+  <text x="30" y="38" font-size="2.5" class="s-fill-l" opacity="0.4">δ_t</text>
+  <!-- Temperature profile (curve from wall to free stream) -->
+  <path d="M14,40 Q20,40 28,44 Q38,48 50,50 L68,50" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <!-- Profile arrow markers -->
+  <g class="s-stroke" stroke-width="0.3" opacity="0.3">
+    <line x1="14" y1="20" x2="18" y2="20"/><line x1="14" y1="30" x2="24" y2="30"/>
+    <line x1="14" y1="40" x2="14" y2="40"/>
+    <line x1="14" y1="50" x2="24" y2="50"/><line x1="14" y1="60" x2="18" y2="60"/>
+  </g>
+  <!-- Convection arrows (rising) -->
+  <g opacity="0.25">
+    <path d="M20,60 Q22,50 20,40" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-8" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M26,62 Q28,52 26,42" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-8" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+    </path>
+  </g>
+  <!-- Free stream temperature -->
+  <text x="64" y="48" font-size="2.5" class="s-fill-d" opacity="0.4">T∞</text>
+  <!-- Conduction vs convection comparison -->
+  <g opacity="0.35">
+    <text x="46" y="18" font-size="2.5" class="s-fill-d" text-anchor="middle">convection h</text>
+    <line x1="36" y1="20" x2="56" y2="20" stroke-width="0.3" class="s-stroke-d"/>
+    <text x="46" y="28" font-size="2.5" class="s-fill-d" text-anchor="middle">conduction k/L</text>
+  </g>
+  <!-- Formula -->
+  <text x="40" y="76" text-anchor="middle" font-size="4" class="s-fill" opacity="0.45">Nu = hL/k</text>
+</svg></div>
+<div class="card-label">Nusselt Number</div>
+</div>
+
+<!-- ====== 145. Diaphragm Spring — Machine Design ====== -->
+<div class="card" data-name="Diaphragm Spring" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Spring profile (Belleville/conical disc cross-section) -->
+  <!-- Outer ring -->
+  <ellipse cx="40" cy="40" rx="28" ry="10" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <!-- Inner ring -->
+  <ellipse cx="40" cy="36" rx="10" ry="4" stroke-width="0.6" class="s-stroke" fill="none">
+    <animate attributeName="cy" values="34;38;34" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Conical surface (connecting lines) -->
+  <line x1="12" y1="40" x2="30" y2="36" stroke-width="0.7" class="s-stroke s-fill-l" fill-opacity="0" opacity="0.5">
+    <animate attributeName="y2" values="34;38;34" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <line x1="68" y1="40" x2="50" y2="36" stroke-width="0.7" class="s-stroke s-fill-l" fill-opacity="0" opacity="0.5">
+    <animate attributeName="y2" values="34;38;34" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <!-- Finger slots (radial slits toward center) -->
+  <g class="s-stroke" stroke-width="0.3" opacity="0.25">
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(0,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(30,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(60,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(90,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(120,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(150,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(180,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(210,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(240,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(270,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(300,40,40)"/>
+    <line x1="30" y1="36" x2="20" y2="38" transform="rotate(330,40,40)"/>
+  </g>
+  <!-- Load arrow (center push) -->
+  <g opacity="0.45">
+    <line x1="40" y1="16" x2="40" y2="28" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,28 41.5,28 40,31" class="s-fill"/>
+    <text x="45" y="22" font-size="3" class="s-fill">F</text>
+    <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <!-- Side view (cross-section inset) -->
+  <g transform="translate(8,58)">
+    <text x="0" y="0" font-size="2.5" class="s-fill-d" opacity="0.35">section:</text>
+    <path d="M20,2 L30,-2 L40,2 L50,-2 L60,2" stroke-width="0.6" class="s-stroke" fill="none" opacity="0.5">
+      <animate attributeName="d" values="M20,2 L30,-4 L40,2 L50,-4 L60,2;M20,2 L30,-1 L40,2 L50,-1 L60,2;M20,2 L30,-4 L40,2 L50,-4 L60,2" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Cone height h -->
+  <line x1="72" y1="36" x2="72" y2="40" stroke-width="0.3" class="s-stroke-d" opacity="0.3">
+    <animate attributeName="y1" values="34;38;34" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <text x="75" y="39" font-size="2.5" class="s-fill-d" opacity="0.35">h</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">Belleville washer</text>
+</svg></div>
+<div class="card-label">Diaphragm Spring</div>
+</div>
+
+<!-- ====== 146. Orifice Flow — Fluids ====== -->
+<div class="card" data-name="Orifice Flow" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Tank wall (left) -->
+  <rect x="4" y="8" width="36" height="64" rx="2" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <rect x="5" y="9" width="34" height="62" class="s-fill-l" opacity="0.05"/>
+  <!-- Water level -->
+  <path d="M5,14 Q14,12 22,14 Q30,16 38,14" stroke-width="0.4" class="s-stroke-l" opacity="0.3" fill="none">
+    <animate attributeName="d" values="M5,14 Q14,12 22,14 Q30,16 38,14;M5,16 Q14,14 22,16 Q30,18 38,16;M5,14 Q14,12 22,14 Q30,16 38,14" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <!-- Orifice hole -->
+  <rect x="38" y="42" width="4" height="8" rx="0.5" class="s-fill" opacity="0.02" stroke-width="0.5" class="s-stroke"/>
+  <!-- Vena contracta jet -->
+  <path d="M42,44 Q50,44 58,45 Q66,46 74,46" stroke-width="0.6" class="s-stroke-l" fill="none" opacity="0.4"/>
+  <path d="M42,48 Q50,48 58,47 Q66,46 74,46" stroke-width="0.6" class="s-stroke-l" fill="none" opacity="0.4"/>
+  <!-- Jet narrows then widens -->
+  <path d="M42,44 L50,45.5 L58,45 L42,48 L50,46.5 L58,47" class="s-fill-l" opacity="0.06"/>
+  <!-- Flow particles -->
+  <circle r="1" class="s-fill-l" opacity="0.6">
+    <animate attributeName="cx" values="42;52;66;78" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="46;46;52;60" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="1" class="s-fill-l" opacity="0.6">
+    <animate attributeName="cx" values="42;52;66;78" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+    <animate attributeName="cy" values="46;46;52;60" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  <!-- Height H -->
+  <line x1="46" y1="14" x2="46" y2="46" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="44" y1="14" x2="48" y2="14" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="44" y1="46" x2="48" y2="46" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <text x="49" y="32" font-size="3" class="s-fill-d" opacity="0.4">H</text>
+  <!-- Vena contracta label -->
+  <text x="52" y="42" font-size="2.5" class="s-fill-d" opacity="0.35">vena contracta</text>
+  <!-- Formula -->
+  <text x="60" y="72" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">v = C_d√(2gH)</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3" class="s-fill-d" opacity="0.15" font-style="italic">Torricelli's theorem</text>
+</svg></div>
+<div class="card-label">Orifice Flow</div>
+</div>
+
 </div><!-- end grid -->
 
 <!-- LIGHTBOX MODAL -->
