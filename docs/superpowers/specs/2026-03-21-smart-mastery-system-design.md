@@ -20,6 +20,7 @@ A unified mastery system that:
 ### Answer Event Shape
 
 ```typescript
+// Client-side shape (no userId — single user per client)
 interface AnswerEvent {
   id: string;
   questionId: string;
@@ -31,6 +32,8 @@ interface AnswerEvent {
   answeredAt: string;      // ISO timestamp
 }
 ```
+
+Note: `userId` is added server-side by the API route during POST sync, not stored in the client event.
 
 ### Mastery Computation (Pure Function)
 
@@ -77,6 +80,12 @@ Derived directly from mastery scores:
 - `strongAreas`: topics with mastery >= 75
 - `weakAreas`: topics with mastery < 40 (and at least 1 event)
 
+Note: `useStore.weakAreas`/`strongAreas` (computed on session completion using the old 60%/80% thresholds) are left unchanged — they still drive the "weak areas" practice mode. The profile page will use the new mastery system for display only. Migration of the practice mode to use new mastery is a future enhancement.
+
+### Subtopic-Level Mastery
+
+The `subtopic` field is stored in each event for future use. The current implementation computes mastery at the topic level only. Subtopic-level mastery breakdown is a future enhancement using the same event data.
+
 ## Course Lesson → Topic Mapping
 
 Add optional `topicId?: TopicId` to the `Unit` type. Mapping:
@@ -94,8 +103,12 @@ Add optional `topicId?: TopicId` to the `Unit` type. Mapping:
 | u9-gdt | design-tolerancing |
 | u10-interview | *(none — cross-cutting, excluded from mastery)* |
 
+**Topics with no course unit**: `manufacturing`, `vibrations`, and `real-world-mechanisms` have no corresponding course unit. These topics receive mastery events only from practice sessions. The profile still shows mastery for all 11 topics.
+
 Course questions have no `difficulty` field → default to `'intermediate'`.
 Course questions have no `subtopic` field → leave `undefined`.
+
+**Field naming**: Practice `Question` objects use `topic` (type `TopicId`), while `AnswerEvent` uses `topicId`. Implementers must map `question.topic` → `event.topicId` when logging practice events.
 
 ## Architecture
 
@@ -109,9 +122,9 @@ Course questions have no `subtopic` field → leave `undefined`.
 ### Modified Files
 
 1. **`src/data/course/types.ts`** — Add `topicId?: TopicId` to `Unit` interface
-2. **`src/data/course/unit-*.ts`** (9 files) — Add `topicId` to each unit definition (skip u10)
-3. **`src/components/session/SessionView.tsx`** — After `answerQuestion()`, also call `masteryStore.addEvent()` with the question's topic, subtopic, difficulty
-4. **`src/components/lesson/LessonView.tsx`** — After `submitAnswer()`, also call `masteryStore.addEvent()` with the unit's topicId (if present), difficulty='intermediate'
+2. **`src/data/course/units/unit-*.ts`** (9 files) — Add `topicId` to each unit definition (skip u10)
+3. **`src/components/session/SessionView.tsx`** — After `answerQuestion()`, also call `masteryStore.addEvent()` with `question.topic` (mapped to `topicId`), `question.subtopic`, `question.difficulty`
+4. **`src/components/lesson/LessonView.tsx`** — After `submitAnswer()`, also call `masteryStore.addEvent()` with `lessonData.unit.topicId` (accessed via the existing `lessonData` memo from `course[activeLesson.unitIndex]`), difficulty='intermediate'. Skip if unit has no topicId.
 5. **`src/app/(app)/profile/page.tsx`** — Replace basic mastery bars with computed mastery from `useMasteryStore` + `computeMastery()`
 6. **`src/lib/db/schema.ts`** — Add `masteryEvents` table definition
 7. **`src/app/api/user/reset-progress/route.ts`** — Also delete mastery_events on reset
@@ -129,8 +142,13 @@ export const masteryEvents = pgTable('mastery_events', {
   correct: boolean('correct').notNull(),
   source: text('source').notNull(),               // 'practice' | 'course'
   answeredAt: timestamp('answered_at', { mode: 'string' }).notNull(),
-});
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+}, (table) => [
+  index('mastery_events_user_topic_idx').on(table.userId, table.topicId),
+]);
 ```
+
+**Question ID namespaces**: Practice question IDs (e.g., `q-em-001`) and course question IDs (e.g., `u1-L1-Q1`) use distinct prefixes and will not collide.
 
 ### Data Flow
 
@@ -147,11 +165,29 @@ Profile page loads
   → Renders mastery bars with computed scores
 ```
 
+Note: Both store writes happen synchronously in the same React event handler tick, so partial writes from crashes are extremely unlikely.
+
+### Sync Strategy
+
+- **When**: Sync triggers on the same occasions as existing progress sync — after session/lesson completion, and on profile page load.
+- **Tracking new events**: The store tracks a `lastSyncedIndex: number` indicating how many events have been synced. On POST, only events after this index are sent. On success, the index advances.
+- **Conflict resolution**: Events are append-only with client-generated UUIDs. The POST endpoint uses `ON CONFLICT (id) DO NOTHING` to handle duplicate submissions from retries.
+- **Initial hydration**: On login, GET /api/mastery fetches all events from the DB and merges with local events (deduped by ID). Local events not in DB are re-synced on next POST.
+- **Offline**: Events accumulate locally in localStorage. On reconnect, the next sync uploads all unsynced events.
+
+### Local Storage Pruning
+
+localStorage has a ~5-10MB limit. Each `AnswerEvent` is ~200-300 bytes JSON. To prevent unbounded growth:
+
+- Events older than **90 days** are pruned from the local store on each `addEvent()` call. Since events at 60+ days contribute < 0.1% weight to mastery, this has negligible impact on computed scores.
+- The DB retains all events permanently (no pruning).
+- Pruning runs as a lightweight filter — no debounce needed since `addEvent()` is called at most once per question.
+
 ### Existing Systems — No Changes
 
 - `useStore.topicProgress` — left untouched, still updated by practice sessions
 - `useCourseStore.completedLessons` — left untouched, still tracks stars/accuracy
-- `useStore.weakAreas` / `strongAreas` — still computed from old system (profile page will use new system for display, but store internals unchanged)
+- `useStore.weakAreas` / `strongAreas` — still computed from old system; still drives weak-areas practice mode. Profile page uses new mastery for display only.
 
 ## Profile Display
 
@@ -170,6 +206,7 @@ The Topic Mastery section on the profile page changes from:
 - **No events for a topic**: mastery = 0, displayed as "Not Started"
 - **Very old events**: Recency decay handles this naturally. Events from 28+ days ago contribute < 25% weight. After ~60 days they're nearly negligible.
 - **Progress reset**: Delete all mastery_events for the user (both DB and Zustand store).
+- **Topics with no course unit** (manufacturing, vibrations, real-world-mechanisms): Mastery comes exclusively from practice sessions. Profile still shows all 11 topics.
 
 ## Testing Strategy
 
