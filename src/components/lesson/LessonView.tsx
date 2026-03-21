@@ -288,47 +288,51 @@ export default function LessonView() {
           className="flex-1 overflow-y-auto"
           style={{ padding: '16px 20px 20px' }}
         >
-          <AnimatePresence>
-            {showHotkeyHint && !isCurrentAnswered && (
-              <motion.div
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                style={{
-                  fontSize: 11,
-                  fontWeight: 700,
-                  color: '#CFCFCF',
-                  textAlign: 'center',
-                  marginBottom: 10,
-                  letterSpacing: 0.3,
-                }}
-              >
-                {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
-                {currentQuestion?.type === 'true-false' && 'T/F select \u00b7 '}
-                {currentQuestion?.type === 'fill-blank' && 'Type answer \u00b7 '}
-                Enter check \u00b7 Esc exit
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+            <AnimatePresence>
+              {showHotkeyHint && !isCurrentAnswered && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#CFCFCF',
+                    textAlign: 'center',
+                    marginBottom: 10,
+                    letterSpacing: 0.3,
+                    flexShrink: 0,
+                  }}
+                >
+                  {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
+                  {currentQuestion?.type === 'true-false' && 'T/F select \u00b7 '}
+                  {currentQuestion?.type === 'fill-blank' && 'Type answer \u00b7 '}
+                  Enter check \u00b7 Esc exit
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestion.id}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            >
-              <QuestionCard
-                ref={questionRef}
-                question={currentQuestion}
-                onAnswer={handleAnswer}
-                onSelectionChange={handleSelectionChange}
-                answered={isCurrentAnswered}
-                unitColor={unitColor}
-              />
-            </motion.div>
-          </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentQuestion.id}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+              >
+                <QuestionCard
+                  ref={questionRef}
+                  question={currentQuestion}
+                  onAnswer={handleAnswer}
+                  onSelectionChange={handleSelectionChange}
+                  answered={isCurrentAnswered}
+                  unitColor={unitColor}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Bottom bar */}

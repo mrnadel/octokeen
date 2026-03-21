@@ -64,7 +64,7 @@ export default function AdminAnalyticsPage() {
   if (status !== 'authenticated') return <p style={{ padding: 40 }}>Not authenticated</p>;
 
   return (
-    <div style={{ maxWidth: 1000, margin: '0 auto', padding: '32px 24px', fontFamily: 'system-ui' }}>
+    <div style={{ padding: '32px 24px', fontFamily: 'system-ui' }}>
       <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Analytics Dashboard</h1>
       <p style={{ fontSize: 14, color: '#666', marginBottom: 24 }}>
         Key engagement metrics and activity overview.

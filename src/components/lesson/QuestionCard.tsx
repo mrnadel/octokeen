@@ -112,59 +112,65 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
     );
 
     return (
-      <div className="flex flex-col" style={{ gap: 12 }}>
-        {/* Diagram */}
-        {question.diagram && (
-          <div
-            className="w-full flex items-center justify-center overflow-hidden"
-            style={{
-              borderRadius: 14,
-              background: 'white',
-              border: '2px solid #E5E5E5',
-              padding: 10,
-            }}
-            dangerouslySetInnerHTML={{
-              __html: question.diagram.replace(
-                /(<svg[^>]*)\sheight="auto"/gi,
-                '$1'
-              ).replace(
-                /(<svg[^>]*)\swidth="auto"/gi,
-                '$1'
-              ),
-            }}
-          />
-        )}
+      <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
+        {/* Question content - top area */}
+        <div className="flex flex-col" style={{ gap: 12 }}>
+          {/* Diagram */}
+          {question.diagram && (
+            <div
+              className="w-full flex items-center justify-center overflow-hidden"
+              style={{
+                borderRadius: 14,
+                background: 'white',
+                border: '2px solid #E5E5E5',
+                padding: 10,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: question.diagram.replace(
+                  /(<svg[^>]*)\sheight="auto"/gi,
+                  '$1'
+                ).replace(
+                  /(<svg[^>]*)\swidth="auto"/gi,
+                  '$1'
+                ),
+              }}
+            />
+          )}
 
-        {/* Question text */}
-        <h2
-          style={{
-            fontSize: 17,
-            fontWeight: 800,
-            color: '#3C3C3C',
-            lineHeight: 1.35,
-            margin: 0,
-          }}
-        >
-          {question.question}
-        </h2>
-
-        {/* Hint */}
-        {question.hint && !answered && (
-          <div
+          {/* Question text */}
+          <h2
             style={{
-              padding: '8px 12px',
-              borderRadius: 10,
-              background: '#FFF9E8',
-              border: '1.5px solid #FFE4B8',
-              fontSize: 13,
-              fontWeight: 600,
-              color: '#B56E00',
-              lineHeight: 1.4,
+              fontSize: 17,
+              fontWeight: 800,
+              color: '#3C3C3C',
+              lineHeight: 1.35,
+              margin: 0,
             }}
           >
-            {question.hint}
-          </div>
-        )}
+            {question.question}
+          </h2>
+
+          {/* Hint */}
+          {question.hint && !answered && (
+            <div
+              style={{
+                padding: '8px 12px',
+                borderRadius: 10,
+                background: '#FFF9E8',
+                border: '1.5px solid #FFE4B8',
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#B56E00',
+                lineHeight: 1.4,
+              }}
+            >
+              {question.hint}
+            </div>
+          )}
+        </div>
+
+        {/* Answer options - pushed to bottom for thumb-friendly mobile use */}
+        <div style={{ marginTop: 'auto', paddingTop: 20 }}>
 
         {/* Multiple Choice */}
         {question.type === 'multiple-choice' && question.options && (
@@ -347,6 +353,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
             />
           </div>
         )}
+
+        </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { href: '/admin/analytics', label: 'Analytics' },
   { href: '/admin/users', label: 'Users' },
   { href: '/admin/content', label: 'Content' },
-  { href: '/admin/subscriptions', label: 'Subscriptions' },
+  { href: '/admin/subscriptions', label: 'Subs' },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -16,19 +16,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div style={{ minHeight: '100vh', background: '#F8F9FA', fontFamily: 'system-ui' }}>
-      {/* Top navigation bar */}
-      <nav
+      {/* Top bar: back + title */}
+      <div
         style={{
           background: 'white',
           borderBottom: '1px solid #E5E5E5',
-          padding: '0 24px',
+          padding: '0 16px',
           display: 'flex',
           alignItems: 'center',
-          height: 56,
-          gap: 32,
+          height: 48,
+          gap: 12,
         }}
       >
-        {/* Back to app */}
         <Link
           href="/"
           style={{
@@ -39,38 +38,43 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             fontWeight: 600,
             color: '#666',
             textDecoration: 'none',
-            marginRight: 8,
             flexShrink: 0,
           }}
         >
           <span style={{ fontSize: 16, lineHeight: 1 }}>&larr;</span>
-          Back to App
+          App
         </Link>
 
-        {/* App name */}
         <span
           style={{
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: 800,
             color: '#111',
-            flexShrink: 0,
+            marginLeft: 'auto',
           }}
         >
-          MechReady Admin
+          Admin
         </span>
+      </div>
 
-        {/* Separator */}
+      {/* Nav tabs: horizontally scrollable */}
+      <nav
+        style={{
+          background: 'white',
+          borderBottom: '2px solid #E5E5E5',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+        }}
+      >
         <div
           style={{
-            width: 1,
-            height: 24,
-            background: '#E5E5E5',
-            flexShrink: 0,
+            display: 'flex',
+            padding: '0 12px',
+            gap: 2,
+            minWidth: 'max-content',
           }}
-        />
-
-        {/* Nav links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        >
           {NAV_LINKS.map(({ href, label }) => {
             const isActive = pathname.startsWith(href);
             return (
@@ -80,12 +84,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 style={{
                   fontSize: 13,
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#111' : '#666',
+                  color: isActive ? '#111' : '#888',
                   textDecoration: 'none',
-                  padding: '6px 12px',
-                  borderRadius: 8,
-                  background: isActive ? '#F0F0F0' : 'transparent',
-                  transition: 'background 0.15s, color 0.15s',
+                  padding: '10px 14px',
+                  borderBottom: isActive ? '2px solid #111' : '2px solid transparent',
+                  marginBottom: -2,
+                  whiteSpace: 'nowrap',
+                  transition: 'color 0.15s',
                 }}
               >
                 {label}
@@ -96,7 +101,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </nav>
 
       {/* Page content */}
-      <main>{children}</main>
+      <main style={{ padding: '16px' }}>
+        {children}
+      </main>
     </div>
   );
 }
