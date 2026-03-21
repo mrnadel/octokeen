@@ -35,7 +35,7 @@ Give users concrete short-term goals that rotate, creating daily and weekly reas
 - **Count:** 3 quests per day
 - **Reset:** Midnight local time
 - **Quest pool** (system picks 3 randomly each day):
-  - "Complete 2 lessons" (course lessons count, practice sessions count as 0.5)
+  - "Complete 2 lessons" (only course lessons count; practice sessions do not count toward this quest)
   - "Get 80%+ accuracy on any session"
   - "Practice a topic you haven't touched in 7+ days"
   - "Complete today's Daily Challenge"
@@ -92,7 +92,8 @@ type QuestTrackingKey =
   | 'daily_challenges_completed'
   | 'streak_days'
   | 'perfect_sessions'
-  | 'fast_answers'
+  | 'fast_answers' // question answered correctly in under 30 seconds (threshold constant: FAST_ANSWER_THRESHOLD_MS = 30000)
+  | 'stale_topic_practiced' // practiced a topic with lastAttempted > 7 days ago
 ```
 
 ### Quest Selection Algorithm
@@ -148,12 +149,12 @@ Secondary economy that gives tangible value to engagement milestones and creates
 interface GemsState {
   balance: number
   totalEarned: number
-  transactions: GemTransaction[]
+  // Only keep last 100 transactions client-side to prevent localStorage bloat.
+  // Older transactions are persisted server-side in gem_transactions table.
+  transactions: GemTransaction[] // max 100, oldest pruned on new entry
   inventory: {
-    streakFreezes: number // purchased but unused
     activeTitles: string[] // unlocked title IDs
     activeFrames: string[] // unlocked frame IDs
-    doubleXpExpiry: number | null // timestamp when active double XP ends
   }
 }
 
@@ -164,6 +165,8 @@ interface GemTransaction {
   timestamp: number
 }
 ```
+
+**Note:** Streak freezes are tracked in `StreakEnhancements.freezesOwned` (single source of truth). Double XP expiry is tracked in the top-level `EngagementState.doubleXpExpiry` (single source of truth). Neither is duplicated in GemsState.
 
 ### UI Location
 - **Top bar:** Gem count next to XP (diamond icon)
@@ -198,6 +201,17 @@ Since the app may not have a large user base, competitors are simulated:
   - Some users skip days
 - Competitor intensity scales with league tier (Masters competitors earn more)
 - Names drawn from a pool of ~200 realistic international names
+
+**Simulation determinism:** Competitor XP is calculated deterministically using a seeded PRNG based on `weekStartDate + competitorId`. This ensures:
+- Same competitor state on page reload (no flickering rankings)
+- Retroactive XP accumulation for days the user didn't open the app
+- Reproducible rankings across sessions
+
+**Seeding algorithm:**
+1. On Monday (or first visit of the week), generate 29 competitors with `dailyXpRate` and `variance` based on league tier
+2. Competitor seed = `hash(weekStartDate + competitorId)`
+3. For each elapsed day, compute that competitor's XP gain: `dailyXpRate + seededRandom(seed + dayIndex) * variance`
+4. Sum all days to get current `weeklyXp`
 
 ### Weekly Cycle
 1. **Monday 00:00:** New league week starts, XP resets to 0
@@ -256,11 +270,12 @@ The moment after completing a lesson is the highest-intent moment. Intercept it 
 
 ### Priority Logic
 Show at most 2 nudges. Priority order:
-1. Quest completion proximity (within 1 action of completing)
-2. Unit completion proximity (1-2 lessons away)
-3. Level up proximity (within 50 XP)
-4. League promotion proximity (within top 7, not yet top 5)
-5. Double XP offer (always shown as secondary)
+1. Streak nudge (if user hasn't met daily minimum and streak is at risk)
+2. Quest completion proximity (within 1 action of completing)
+3. Unit completion proximity (1-2 lessons away)
+4. Level up proximity (within 50 XP)
+5. League promotion proximity (within top 7, not yet top 5)
+6. Double XP offer (always shown as secondary, does not count toward the 2-nudge limit)
 
 ### UI
 - Nudges appear as cards below the result summary
@@ -285,7 +300,7 @@ Extend the existing streak system with protection mechanics and milestone celebr
 - Notification: "Your streak freeze saved your 14-day streak yesterday!"
 
 **Streak Repair:**
-- Available for 24 hours after a streak breaks
+- Available until the end of the next calendar day after a streak breaks (e.g., streak breaks March 15 → repair available through end of March 16). Uses date-level granularity to match existing `lastActiveDate` format.
 - Costs 50 gems
 - Restores the streak to its previous value
 - One-time offer per break (can't repair the same break twice)
