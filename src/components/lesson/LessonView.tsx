@@ -144,20 +144,18 @@ export default function LessonView() {
     setShowExitConfirm(false);
   }, []);
 
-  // Hotkey hint
-  const [showHotkeyHint, setShowHotkeyHint] = useState(true);
+  // Hotkey hint — only show on devices with a physical keyboard (non-touch)
+  const [showHotkeyHint, setShowHotkeyHint] = useState(false);
+  useEffect(() => {
+    const hasPointer = window.matchMedia('(pointer: fine)').matches;
+    if (hasPointer) setShowHotkeyHint(true);
+  }, []);
   useEffect(() => {
     if (showHotkeyHint) {
       const timer = setTimeout(() => setShowHotkeyHint(false), 4000);
       return () => clearTimeout(timer);
     }
   }, [showHotkeyHint]);
-
-  useEffect(() => {
-    if (activeLesson?.currentQuestionIndex === 0) {
-      setShowHotkeyHint(true);
-    }
-  }, [activeLesson?.currentQuestionIndex]);
 
   // Global keyboard handler
   useEffect(() => {
