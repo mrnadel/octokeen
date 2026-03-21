@@ -272,13 +272,17 @@ export const useCourseStore = create<CourseState>()(
           for (const lesson of unit.lessons) {
             if (count >= lessonCount) break;
 
+            const GOLDEN_OFFSET = 6;
+            const isGolden = count + GOLDEN_OFFSET < lessonCount;
             completedLessons[lesson.id] = {
               stars: 3,
               bestAccuracy: 95,
-              attempts: 1,
+              attempts: isGolden ? 2 : 1,
               lastAttempted: today,
-              golden: false,
-              answeredQuestionIds: lesson.questions.slice(0, 10).map(q => q.id),
+              golden: isGolden,
+              answeredQuestionIds: isGolden
+                ? lesson.questions.map(q => q.id)
+                : lesson.questions.slice(0, 10).map(q => q.id),
             };
             xp += lesson.xpReward * 3;
 
