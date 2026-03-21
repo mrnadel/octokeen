@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MechReady — Ace Your Mechanical Engineering Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #FAFAFA;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .wordmark {
+      font-size: 1.125rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6366F1;
+      margin-bottom: 2.5rem;
+    }
+
+    .headline {
+      font-size: clamp(2rem, 5.5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: #0F172A;
+      max-width: 620px;
+      margin-bottom: 1.25rem;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      line-height: 1.6;
+      color: #64748B;
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: #58CC02;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 1rem 2.75rem;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #46A302;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      user-select: none;
+    }
+
+    .cta-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #46A302;
+    }
+
+    .cta-primary:hover {
+      filter: brightness(1.04);
+    }
+
+    .login-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1CB0F6;
+      text-decoration: none;
+    }
+
+    .login-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== TOPICS ===== */
+    .topics {
+      padding: 5rem 1.5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .topics-heading {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 0.625rem;
+    }
+
+    .topics-sub {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #94A3B8;
+      margin-bottom: 2.5rem;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      max-width: 680px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.625rem 1.375rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 800;
+      white-space: nowrap;
+      border: 2px solid transparent;
+      transition: transform 0.15s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Individual pill colors — background tint + strong text */
+    .pill--statics        { background: #DBEAFE; color: #1E40AF; }
+    .pill--dynamics       { background: #E0E7FF; color: #3730A3; }
+    .pill--strength       { background: #FCE7F3; color: #9D174D; }
+    .pill--thermo         { background: #FEF3C7; color: #92400E; }
+    .pill--heat           { background: #FFEDD5; color: #9A3412; }
+    .pill--fluids         { background: #CCFBF1; color: #115E59; }
+    .pill--materials      { background: #F3E8FF; color: #6B21A8; }
+    .pill--machine        { background: #E2E8F0; color: #334155; }
+    .pill--gdt            { background: #D1FAE5; color: #065F46; }
+    .pill--interview      { background: #EDE9FE; color: #4338CA; }
+
+    /* ===== SCROLL HINT ===== */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 40px;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 8px;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 4px;
+      height: 8px;
+      background: #CBD5E1;
+      border-radius: 2px;
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: translateY(0); }
+      50%      { opacity: 1;   transform: translateY(6px); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .cta-primary {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+      }
+
+      .pills {
+        gap: 0.5rem;
+      }
+
+      .pill {
+        font-size: 0.8125rem;
+        padding: 0.5rem 1.125rem;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero" style="position: relative;">
+    <span class="wordmark">MechReady</span>
+    <h1 class="headline">Prepare for your mechanical engineering interview in minutes a day</h1>
+    <p class="subtitle">200+ bite-sized questions across 12 question types, designed to make studying feel effortless.</p>
+    <a href="/register" class="cta-primary">Get Started — It's Free</a>
+    <a href="/login" class="login-link">I already have an account</a>
+    <div class="scroll-hint" aria-hidden="true"></div>
+  </section>
+
+  <!-- TOPICS -->
+  <section class="topics">
+    <h2 class="topics-heading">10 units. Everything you need.</h2>
+    <p class="topics-sub">From fundamentals to interview day</p>
+    <div class="pills">
+      <span class="pill pill--statics">Statics</span>
+      <span class="pill pill--dynamics">Dynamics</span>
+      <span class="pill pill--strength">Strength of Materials</span>
+      <span class="pill pill--thermo">Thermodynamics</span>
+      <span class="pill pill--heat">Heat Transfer</span>
+      <span class="pill pill--fluids">Fluid Mechanics</span>
+      <span class="pill pill--materials">Materials Science</span>
+      <span class="pill pill--machine">Machine Elements</span>
+      <span class="pill pill--gdt">GD&amp;T</span>
+      <span class="pill pill--interview">Interview Prep</span>
+    </div>
+  </section>
+
+</body>
+</html>

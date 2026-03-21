@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MechReady — Ace Your Mechanical Engineering Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Nunito', sans-serif;
+      background: #FAFAFA;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── SHELL ── */
+    .shell {
+      width: 100%;
+      max-width: 500px;
+      padding: 0 20px;
+    }
+
+    /* ── COMPACT HERO ── */
+    .hero {
+      text-align: center;
+      padding: 56px 0 32px;
+    }
+
+    .wordmark {
+      font-size: 26px;
+      font-weight: 900;
+      color: #6366F1;
+      letter-spacing: -0.5px;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .hero-headline {
+      font-size: 28px;
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: #58CC02;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      text-decoration: none;
+      padding: 14px 40px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #46A302;
+      transition: transform 0.1s;
+    }
+
+    .cta-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #46A302;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      text-align: center;
+      margin: 8px 0 20px;
+    }
+
+    /* ── QUESTION CARDS ── */
+    .card-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .q-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      padding: 24px;
+    }
+
+    .q-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .topic-badge {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      line-height: 1;
+    }
+
+    .badge-statics {
+      background: #EEF2FF;
+      color: #6366F1;
+    }
+
+    .badge-thermo {
+      background: #FEF3C7;
+      color: #B45309;
+    }
+
+    .badge-machine {
+      background: #ECFDF5;
+      color: #059669;
+    }
+
+    .badge-fluids {
+      background: #E0F2FE;
+      color: #0369A1;
+    }
+
+    .q-type {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .q-text {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    /* ── ANSWER OPTIONS ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: default;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .option:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+
+    .option-letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.35;
+    }
+
+    /* Selected state for one option per card */
+    .option.selected {
+      border-color: #58CC02;
+      background: #F0FFF0;
+    }
+
+    .option.selected .option-letter {
+      background: #58CC02;
+      color: #fff;
+    }
+
+    /* ── ESTIMATION CARD: input style ── */
+    .estimate-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .estimate-input {
+      flex: 1;
+      background: #F1F5F9;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      text-align: center;
+      letter-spacing: 1px;
+      outline: none;
+      pointer-events: none;
+    }
+
+    .estimate-unit {
+      font-size: 15px;
+      font-weight: 700;
+      color: #64748B;
+      white-space: nowrap;
+    }
+
+    .estimate-hint {
+      font-size: 13px;
+      font-weight: 600;
+      color: #94A3B8;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* ── BOTTOM ── */
+    .bottom {
+      text-align: center;
+      padding: 0 0 56px;
+    }
+
+    .stats-line {
+      font-size: 14px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.3px;
+      margin-bottom: 20px;
+    }
+
+    .stats-line span {
+      color: #64748B;
+      font-weight: 800;
+    }
+
+    .bottom .cta-primary {
+      margin-bottom: 16px;
+    }
+
+    .login-link {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1CB0F6;
+      text-decoration: none;
+      margin-top: 16px;
+    }
+
+    .login-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .shell {
+        padding: 0 16px;
+      }
+
+      .hero-headline {
+        font-size: 24px;
+      }
+
+      .q-text {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- COMPACT HERO -->
+    <header class="hero">
+      <span class="wordmark">MechReady</span>
+      <h1 class="hero-headline">Practice real interview questions.<br>Get hired faster.</h1>
+      <p class="hero-sub">Bite-sized drills across 10 core ME topics — from statics to GD&amp;T.</p>
+      <a href="/register" class="cta-primary">Start Practicing — Free</a>
+    </header>
+
+    <!-- SECTION LABEL -->
+    <p class="section-label">Preview questions</p>
+
+    <!-- QUESTION CARDS -->
+    <div class="card-stack">
+
+      <!-- Card 1: Multiple Choice — Statics -->
+      <div class="q-card">
+        <div class="q-card-header">
+          <span class="topic-badge badge-statics">Statics</span>
+          <span class="q-type">Multiple Choice</span>
+        </div>
+        <p class="q-text">A simply-supported beam carries a uniform distributed load. Where does the maximum bending moment occur?</p>
+        <div class="options">
+          <div class="option">
+            <span class="option-letter">A</span>
+            <span class="option-text">At the left support</span>
+          </div>
+          <div class="option selected">
+            <span class="option-letter">B</span>
+            <span class="option-text">At the midspan</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">C</span>
+            <span class="option-text">At the right support</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">D</span>
+            <span class="option-text">At the quarter-span points</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Estimation — Thermodynamics -->
+      <div class="q-card">
+        <div class="q-card-header">
+          <span class="topic-badge badge-thermo">Thermodynamics</span>
+          <span class="q-type">Estimation</span>
+        </div>
+        <p class="q-text">Estimate the Carnot efficiency of a steam power plant operating between 550 &deg;C and 25 &deg;C.</p>
+        <div class="estimate-row">
+          <div class="estimate-input">63.8</div>
+          <span class="estimate-unit">%</span>
+        </div>
+        <p class="estimate-hint">Your answer is checked within +/- 5%</p>
+      </div>
+
+      <!-- Card 3: Design Decision — Machine Elements -->
+      <div class="q-card">
+        <div class="q-card-header">
+          <span class="topic-badge badge-machine">Machine Elements</span>
+          <span class="q-type">Design Decision</span>
+        </div>
+        <p class="q-text">You need a shaft coupling that accommodates angular misalignment up to 3 degrees. Which coupling type is most appropriate?</p>
+        <div class="options">
+          <div class="option">
+            <span class="option-letter">A</span>
+            <span class="option-text">Rigid flange coupling</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">B</span>
+            <span class="option-text">Oldham coupling</span>
+          </div>
+          <div class="option selected">
+            <span class="option-letter">C</span>
+            <span class="option-text">Universal joint (Cardan)</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">D</span>
+            <span class="option-text">Bellows coupling</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Multiple Choice — Fluid Mechanics -->
+      <div class="q-card">
+        <div class="q-card-header">
+          <span class="topic-badge badge-fluids">Fluid Mechanics</span>
+          <span class="q-type">Multiple Choice</span>
+        </div>
+        <p class="q-text">What is the primary physical difference between laminar and turbulent flow in a pipe?</p>
+        <div class="options">
+          <div class="option">
+            <span class="option-letter">A</span>
+            <span class="option-text">Fluid density changes</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">B</span>
+            <span class="option-text">Pipe diameter increases</span>
+          </div>
+          <div class="option selected">
+            <span class="option-letter">C</span>
+            <span class="option-text">Random velocity fluctuations dominate over viscous forces</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">D</span>
+            <span class="option-text">Flow velocity drops to zero</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="bottom">
+      <p class="stats-line"><span>10 units</span> &middot; <span>200+ questions</span> &middot; <span>12 question types</span></p>
+      <a href="/register" class="cta-primary">Get Started</a>
+      <a href="/login" class="login-link">Already have an account? Log in</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

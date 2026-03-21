@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady — Ace Your Mechanical Engineering Interview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #FAFAFA;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #6366F1;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-login {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1CB0F6;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .nav-login:hover {
+    opacity: 0.8;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 64px 24px 48px;
+    text-align: center;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-number {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #6366F1;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #64748B;
+    margin-top: 4px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #64748B;
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: #58CC02;
+    color: #FFFFFF;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 16px 48px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #46A302;
+    transition: transform 0.1s, box-shadow 0.1s;
+    user-select: none;
+  }
+
+  .cta-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #46A302;
+  }
+
+  .cta-btn:hover {
+    filter: brightness(1.04);
+  }
+
+  /* ── UNITS SECTION ── */
+  .units-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px 72px;
+  }
+
+  .units-heading {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 20px;
+    padding-left: 4px;
+  }
+
+  .units-scroll-wrapper {
+    position: relative;
+  }
+
+  .units-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+  }
+
+  .units-row::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .units-row::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .units-row::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+
+  .unit-card {
+    flex: 0 0 auto;
+    width: 180px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 20px 16px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 4px solid var(--unit-color);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .unit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .unit-number {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .unit-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.3;
+  }
+
+  /* ── FEATURES STRIP ── */
+  .features-strip {
+    background: #FFFFFF;
+    border-top: 1px solid #E2E8F0;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 48px 24px;
+  }
+
+  .features-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0F172A;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748B;
+    line-height: 1.45;
+    max-width: 240px;
+  }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    text-align: center;
+    padding: 56px 24px 72px;
+  }
+
+  .bottom-cta-heading {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #0F172A;
+    margin-bottom: 12px;
+  }
+
+  .bottom-cta-sub {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748B;
+    margin-bottom: 32px;
+  }
+
+  .bottom-cta .login-link {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1CB0F6;
+    text-decoration: none;
+  }
+
+  .bottom-cta .login-link:hover {
+    opacity: 0.8;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94A3B8;
+    border-top: 1px solid #E2E8F0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .stats-row {
+      gap: 24px;
+    }
+
+    .stat-number {
+      font-size: 3.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .hero {
+      padding: 48px 20px 40px;
+    }
+
+    .features-inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .unit-card {
+      width: 160px;
+      padding: 16px 14px;
+    }
+
+    .bottom-cta-heading {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .stats-row {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .stat-number {
+      font-size: 4rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="wordmark">MechReady</a>
+  <a href="/login" class="nav-login">Log in</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-number">10</span>
+      <span class="stat-label">units</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">200+</span>
+      <span class="stat-label">questions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">1</span>
+      <span class="stat-label">goal</span>
+    </div>
+  </div>
+  <p class="hero-subtitle">
+    Master every mechanical engineering interview topic with bite-sized, Duolingo-style practice.
+  </p>
+  <a href="/register" class="cta-btn">Start Practicing — Free</a>
+</section>
+
+<!-- UNITS HORIZONTAL SCROLL -->
+<section class="units-section">
+  <h2 class="units-heading">All 10 Units</h2>
+  <div class="units-scroll-wrapper">
+    <div class="units-row">
+      <div class="unit-card" style="--unit-color: #EF4444;">
+        <span class="unit-number">Unit 1</span>
+        <span class="unit-name">Statics</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #F97316;">
+        <span class="unit-number">Unit 2</span>
+        <span class="unit-name">Dynamics</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #EAB308;">
+        <span class="unit-number">Unit 3</span>
+        <span class="unit-name">Strength of Materials</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #22C55E;">
+        <span class="unit-number">Unit 4</span>
+        <span class="unit-name">Thermo&shy;dynamics</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #14B8A6;">
+        <span class="unit-number">Unit 5</span>
+        <span class="unit-name">Heat Transfer</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #06B6D4;">
+        <span class="unit-number">Unit 6</span>
+        <span class="unit-name">Fluid Mechanics</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #3B82F6;">
+        <span class="unit-number">Unit 7</span>
+        <span class="unit-name">Materials Science</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #6366F1;">
+        <span class="unit-number">Unit 8</span>
+        <span class="unit-name">Machine Elements</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #A855F7;">
+        <span class="unit-number">Unit 9</span>
+        <span class="unit-name">GD&T</span>
+      </div>
+      <div class="unit-card" style="--unit-color: #EC4899;">
+        <span class="unit-number">Unit 10</span>
+        <span class="unit-name">Interview Prep</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<section class="features-strip">
+  <div class="features-inner">
+    <div class="feature">
+      <div class="feature-icon" style="background: #6366F1;">12</div>
+      <span class="feature-title">12 Question Types</span>
+      <span class="feature-desc">Multiple choice, calculations, diagrams, true/false, and more keep practice fresh.</span>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: #58CC02;">5m</div>
+      <span class="feature-title">Bite-Sized Lessons</span>
+      <span class="feature-desc">Each session takes five minutes. Practice on the bus, between classes, or before bed.</span>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: #1CB0F6;">SR</div>
+      <span class="feature-title">Spaced Repetition</span>
+      <span class="feature-desc">Weak topics resurface automatically so nothing slips through the cracks.</span>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta">
+  <h2 class="bottom-cta-heading">Your next interview doesn't have to be stressful.</h2>
+  <p class="bottom-cta-sub">Join MechReady and start building confidence today.</p>
+  <a href="/register" class="cta-btn">Create Free Account</a>
+  <a href="/login" class="login-link bottom-cta">Already have an account? Log in</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  MechReady &copy; 2026
+</footer>
+
+</body>
+</html>

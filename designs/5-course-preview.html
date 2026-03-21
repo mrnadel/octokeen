@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady — Full Course Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #FAFAFA;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a { text-decoration: none; }
+
+  /* ── Layout wrapper ── */
+  .page-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    padding-bottom: 100px; /* room for sticky CTA on mobile */
+  }
+
+  @media (min-width: 641px) {
+    .page-wrap { padding-bottom: 40px; }
+  }
+
+  /* ── Header / Nav ── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  .wordmark {
+    font-size: 22px;
+    font-weight: 900;
+    color: #6366F1;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links { display: flex; gap: 18px; align-items: center; }
+
+  .nav-link {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1CB0F6;
+    transition: opacity 0.15s;
+  }
+  .nav-link:hover { opacity: 0.8; }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 32px 0 36px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #0F172A;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .hero .subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748B;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .hero .stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 22px;
+    font-weight: 900;
+    color: #0F172A;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CTA button (shared) ── */
+  .cta-btn {
+    display: inline-block;
+    background: #58CC02;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 5px 0 #46A302;
+    cursor: pointer;
+    transition: transform 0.1s;
+    text-align: center;
+  }
+  .cta-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #46A302; }
+
+  /* ── Section heading ── */
+  .section-heading {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0F172A;
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    font-weight: 600;
+    color: #94A3B8;
+    margin-bottom: 20px;
+  }
+
+  /* ── Unit cards ── */
+  .unit-list { display: flex; flex-direction: column; gap: 14px; }
+
+  .unit-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: flex;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+  }
+  .unit-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .unit-bar {
+    width: 5px;
+    flex-shrink: 0;
+  }
+
+  .unit-body {
+    padding: 16px 18px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .unit-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .unit-number {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .unit-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0F172A;
+  }
+
+  .unit-topics {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .unit-topics li {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748B;
+    line-height: 1.45;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .unit-topics li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #CBD5E1;
+  }
+
+  /* ── Bottom CTA section (desktop) ── */
+  .bottom-cta {
+    text-align: center;
+    padding: 36px 0 20px;
+  }
+
+  .bottom-cta p {
+    font-size: 15px;
+    font-weight: 700;
+    color: #64748B;
+    margin-bottom: 18px;
+  }
+
+  .bottom-cta .login-nudge {
+    display: block;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #94A3B8;
+  }
+
+  .bottom-cta .login-nudge a {
+    color: #1CB0F6;
+    font-weight: 700;
+  }
+
+  /* ── Sticky mobile CTA ── */
+  .sticky-cta {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .sticky-cta {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FAFAFA;
+      border-top: 1px solid #E2E8F0;
+      padding: 12px 20px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    .sticky-cta .cta-btn {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 24px 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #94A3B8;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Top bar -->
+  <header class="top-bar">
+    <span class="wordmark">MechReady</span>
+    <nav class="nav-links">
+      <a href="/login" class="nav-link">Log in</a>
+      <a href="/register" class="cta-btn" style="padding:10px 22px; font-size:14px;">Sign up</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Ace your mechanical engineering interview</h1>
+    <p class="subtitle">10 units. 200+ practice questions. 12 question types.<br>Master every core topic, one bite-sized lesson at a time.</p>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Units</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Questions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Question Types</div>
+      </div>
+    </div>
+    <a href="/register" class="cta-btn">Start learning for free</a>
+  </section>
+
+  <!-- Course outline -->
+  <h2 class="section-heading">Full course outline</h2>
+  <p class="section-sub">Everything you need, from fundamentals to final prep</p>
+
+  <div class="unit-list">
+
+    <!-- Unit 1 — Statics -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#6366F1;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#6366F1;">Unit 1</span>
+          <span class="unit-title">Statics</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Free body diagrams</li>
+          <li>Equilibrium of particles and rigid bodies</li>
+          <li>Trusses, frames, and machines</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 2 — Dynamics -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#8B5CF6;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#8B5CF6;">Unit 2</span>
+          <span class="unit-title">Dynamics</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Kinematics of particles and rigid bodies</li>
+          <li>Newton's laws and equations of motion</li>
+          <li>Work, energy, and momentum</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 3 — Strength of Materials -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#EC4899;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#EC4899;">Unit 3</span>
+          <span class="unit-title">Strength of Materials</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Stress, strain, and Hooke's law</li>
+          <li>Bending moments and shear force diagrams</li>
+          <li>Beam deflection and column buckling</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 4 — Thermodynamics -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#F59E0B;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#F59E0B;">Unit 4</span>
+          <span class="unit-title">Thermodynamics</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Laws of thermodynamics</li>
+          <li>Ideal gas processes and cycles</li>
+          <li>Entropy and exergy analysis</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 5 — Heat Transfer -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#EF4444;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#EF4444;">Unit 5</span>
+          <span class="unit-title">Heat Transfer</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Conduction, convection, and radiation</li>
+          <li>Fins and extended surfaces</li>
+          <li>Heat exchangers and NTU method</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 6 — Fluid Mechanics -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#3B82F6;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#3B82F6;">Unit 6</span>
+          <span class="unit-title">Fluid Mechanics</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Fluid statics and pressure distribution</li>
+          <li>Bernoulli's equation and pipe flow</li>
+          <li>Dimensional analysis and similitude</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 7 — Materials Science -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#10B981;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#10B981;">Unit 7</span>
+          <span class="unit-title">Materials Science</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Crystal structures and phase diagrams</li>
+          <li>Mechanical properties and testing</li>
+          <li>Heat treatment and material selection</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 8 — Machine Elements -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#64748B;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#64748B;">Unit 8</span>
+          <span class="unit-title">Machine Elements</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Bearings, gears, and shafts</li>
+          <li>Fasteners, springs, and welded joints</li>
+          <li>Fatigue life and factor of safety</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 9 — GD&T -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#D946EF;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#D946EF;">Unit 9</span>
+          <span class="unit-title">GD&T</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Datums, tolerances, and feature control frames</li>
+          <li>Form, orientation, and location controls</li>
+          <li>Reading and interpreting engineering drawings</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Unit 10 — Interview Prep -->
+    <div class="unit-card">
+      <div class="unit-bar" style="background:#0EA5E9;"></div>
+      <div class="unit-body">
+        <div class="unit-header">
+          <span class="unit-number" style="color:#0EA5E9;">Unit 10</span>
+          <span class="unit-title">Interview Prep</span>
+        </div>
+        <ul class="unit-topics">
+          <li>Common behavioral and technical questions</li>
+          <li>Problem-solving walkthroughs</li>
+          <li>Design thinking and estimation challenges</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /unit-list -->
+
+  <!-- Bottom CTA -->
+  <div class="bottom-cta">
+    <p>Ready to start mastering these topics?</p>
+    <a href="/register" class="cta-btn">Create your free account</a>
+    <span class="login-nudge">Already have an account? <a href="/login">Log in</a></span>
+  </div>
+
+  <footer class="footer">MechReady</footer>
+
+</div><!-- /page-wrap -->
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta">
+  <a href="/register" class="cta-btn">Start learning for free</a>
+</div>
+
+</body>
+</html>
