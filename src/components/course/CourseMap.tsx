@@ -141,7 +141,7 @@ export function CourseMap() {
                 unitIndex={unitIndex}
                 completedInUnit={completedInUnit}
                 totalInUnit={unit.lessons.length}
-                isExpanded={isExpanded && !isUnitLocked}
+                isExpanded={isExpanded}
                 isLocked={isUnitLocked}
                 lockMessage={
                   isGuestLocked
@@ -155,10 +155,6 @@ export function CourseMap() {
                     router.push('/register');
                     return;
                   }
-                  if (isProLocked) {
-                    setShowUpgradeModal(true);
-                    return;
-                  }
                   toggleUnit(unitIndex);
                 }}
                 theme={theme}
@@ -166,7 +162,7 @@ export function CourseMap() {
 
               {/* Expandable lesson list */}
               <AnimatePresence initial={false}>
-                {isExpanded && !isUnitLocked && (
+                {isExpanded && (
                   <motion.div
                     key={`lessons-${unitIndex}`}
                     initial={{ height: 0, opacity: 0 }}
@@ -193,7 +189,9 @@ export function CourseMap() {
                             stars={lessonProgress?.stars}
                             index={lessonIndex}
                             onClick={() => {
-                              if (state === 'locked') {
+                              if (isProLocked) {
+                                setShowUpgradeModal(true);
+                              } else if (state === 'locked') {
                                 setJumpConfirm({ unitIndex, lessonIndex });
                               } else {
                                 startLesson(unitIndex, lessonIndex);

@@ -469,32 +469,35 @@
 <!-- ====== 9. Gear Pair — Dynamics ====== -->
 <div class="card" data-name="Gear Pair" data-cat="Dynamics">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Large Gear — 12 teeth -->
   <g style="transform-origin:28px 42px">
     <animateTransform attributeName="transform" type="rotate" values="0,28,42;360,28,42" dur="4s" repeatCount="indefinite"/>
-    <circle cx="28" cy="42" r="20" class="s-fill" opacity="0.12"/>
-    <circle cx="28" cy="42" r="20" class="s-stroke" stroke-width="2.5" fill="none"/>
-    <circle cx="28" cy="42" r="14" class="s-stroke-l" stroke-width="1" fill="none" opacity="0.3"/>
-    <circle cx="28" cy="21" r="3.5" class="s-fill-d" opacity="0.4"/>
-    <circle cx="28" cy="63" r="3.5" class="s-fill-d" opacity="0.4"/>
-    <circle cx="7" cy="42" r="3.5" class="s-fill-d" opacity="0.4"/>
-    <circle cx="49" cy="42" r="3.5" class="s-fill-d" opacity="0.4"/>
-    <circle cx="14" cy="28" r="3" class="s-fill-d" opacity="0.35"/>
-    <circle cx="42" cy="56" r="3" class="s-fill-d" opacity="0.35"/>
-    <circle cx="14" cy="56" r="3" class="s-fill-d" opacity="0.35"/>
-    <circle cx="42" cy="28" r="3" class="s-fill-d" opacity="0.35"/>
+    <path d="M43.9,40.0 L48.9,40.5 L48.9,43.5 L43.9,44.0 L42.7,48.2 L46.9,51.1 L45.4,53.8 L40.7,51.7 L37.7,54.7 L39.8,59.4 L37.1,60.9 L34.2,56.7 L30.0,57.9 L29.5,62.9 L26.5,62.9 L26.0,57.9 L21.8,56.7 L18.9,60.9 L16.2,59.4 L18.3,54.7 L15.3,51.7 L10.6,53.8 L9.1,51.1 L13.3,48.2 L12.1,44.0 L7.1,43.5 L7.1,40.5 L12.1,40.0 L13.3,35.8 L9.1,32.9 L10.6,30.2 L15.3,32.3 L18.3,29.3 L16.2,24.6 L18.9,23.1 L21.8,27.3 L26.0,26.1 L26.5,21.1 L29.5,21.1 L30.0,26.1 L34.2,27.3 L37.1,23.1 L39.8,24.6 L37.7,29.3 L40.7,32.3 L45.4,30.2 L46.9,32.9 L42.7,35.8 Z" class="s-fill" opacity="0.12"/>
+    <path d="M43.9,40.0 L48.9,40.5 L48.9,43.5 L43.9,44.0 L42.7,48.2 L46.9,51.1 L45.4,53.8 L40.7,51.7 L37.7,54.7 L39.8,59.4 L37.1,60.9 L34.2,56.7 L30.0,57.9 L29.5,62.9 L26.5,62.9 L26.0,57.9 L21.8,56.7 L18.9,60.9 L16.2,59.4 L18.3,54.7 L15.3,51.7 L10.6,53.8 L9.1,51.1 L13.3,48.2 L12.1,44.0 L7.1,43.5 L7.1,40.5 L12.1,40.0 L13.3,35.8 L9.1,32.9 L10.6,30.2 L15.3,32.3 L18.3,29.3 L16.2,24.6 L18.9,23.1 L21.8,27.3 L26.0,26.1 L26.5,21.1 L29.5,21.1 L30.0,26.1 L34.2,27.3 L37.1,23.1 L39.8,24.6 L37.7,29.3 L40.7,32.3 L45.4,30.2 L46.9,32.9 L42.7,35.8 Z" class="s-stroke" stroke-width="1.5" fill="none"/>
+    <!-- Inner ring -->
+    <circle cx="28" cy="42" r="11" class="s-stroke-l" stroke-width="1" fill="none" opacity="0.25"/>
+    <!-- Spokes -->
+    <line x1="28" y1="31" x2="28" y2="53" class="s-stroke-l" stroke-width="1.5" opacity="0.18"/>
+    <line x1="17" y1="42" x2="39" y2="42" class="s-stroke-l" stroke-width="1.5" opacity="0.18"/>
+    <line x1="20.2" y1="34.2" x2="35.8" y2="49.8" class="s-stroke-l" stroke-width="1.2" opacity="0.12"/>
+    <line x1="20.2" y1="49.8" x2="35.8" y2="34.2" class="s-stroke-l" stroke-width="1.2" opacity="0.12"/>
   </g>
-  <circle cx="28" cy="42" r="4" class="s-fill-d"/>
-  <g style="transform-origin:56px 42px">
-    <animateTransform attributeName="transform" type="rotate" values="0,56,42;-720,56,42" dur="4s" repeatCount="indefinite"/>
-    <circle cx="56" cy="42" r="12" class="s-fill" opacity="0.12"/>
-    <circle cx="56" cy="42" r="12" class="s-stroke" stroke-width="2.5" fill="none"/>
-    <circle cx="56" cy="42" r="7" class="s-stroke-l" stroke-width="1" fill="none" opacity="0.3"/>
-    <circle cx="56" cy="29.5" r="3" class="s-fill-d" opacity="0.4"/>
-    <circle cx="56" cy="54.5" r="3" class="s-fill-d" opacity="0.4"/>
-    <circle cx="43.5" cy="42" r="3" class="s-fill-d" opacity="0.4"/>
-    <circle cx="68.5" cy="42" r="3" class="s-fill-d" opacity="0.4"/>
+  <!-- Large gear hub (static) -->
+  <circle cx="28" cy="42" r="5" class="s-fill" opacity="0.2"/>
+  <circle cx="28" cy="42" r="3.5" class="s-fill-d"/>
+  <circle cx="28" cy="42" r="1.5" fill="white" opacity="0.4"/>
+  <!-- Small Gear — 8 teeth, 3:2 ratio -->
+  <g style="transform-origin:55px 42px">
+    <animateTransform attributeName="transform" type="rotate" values="0,55,42;-540,55,42" dur="4s" repeatCount="indefinite"/>
+    <path d="M64.8,44.0 L68.4,45.9 L67.3,48.7 L63.4,47.5 L60.5,50.4 L61.7,54.3 L58.9,55.4 L57.0,51.8 L53.0,51.8 L51.1,55.4 L48.3,54.3 L49.5,50.4 L46.6,47.5 L42.7,48.7 L41.6,45.9 L45.2,44.0 L45.2,40.0 L41.6,38.1 L42.7,35.3 L46.6,36.5 L49.5,33.6 L48.3,29.7 L51.1,28.6 L53.0,32.2 L57.0,32.2 L58.9,28.6 L61.7,29.7 L60.5,33.6 L63.4,36.5 L67.3,35.3 L68.4,38.1 L64.8,40.0 Z" class="s-fill" opacity="0.12"/>
+    <path d="M64.8,44.0 L68.4,45.9 L67.3,48.7 L63.4,47.5 L60.5,50.4 L61.7,54.3 L58.9,55.4 L57.0,51.8 L53.0,51.8 L51.1,55.4 L48.3,54.3 L49.5,50.4 L46.6,47.5 L42.7,48.7 L41.6,45.9 L45.2,44.0 L45.2,40.0 L41.6,38.1 L42.7,35.3 L46.6,36.5 L49.5,33.6 L48.3,29.7 L51.1,28.6 L53.0,32.2 L57.0,32.2 L58.9,28.6 L61.7,29.7 L60.5,33.6 L63.4,36.5 L67.3,35.3 L68.4,38.1 L64.8,40.0 Z" class="s-stroke" stroke-width="1.5" fill="none"/>
+    <!-- Inner ring -->
+    <circle cx="55" cy="42" r="6" class="s-stroke-l" stroke-width="1" fill="none" opacity="0.25"/>
   </g>
-  <circle cx="56" cy="42" r="3" class="s-fill-d"/>
+  <!-- Small gear hub (static) -->
+  <circle cx="55" cy="42" r="3.5" class="s-fill" opacity="0.2"/>
+  <circle cx="55" cy="42" r="2.5" class="s-fill-d"/>
+  <circle cx="55" cy="42" r="1" fill="white" opacity="0.4"/>
 </svg></div>
 <div class="card-label">Gear Pair</div>
 </div>
