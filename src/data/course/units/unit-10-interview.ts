@@ -184,11 +184,12 @@ export const unit10: Unit = {
           question: 'An interviewer asks: "Estimate how much energy it takes to heat a bathtub of water from 15°C to 40°C." What is the correct order of magnitude?',
           options: [
             'About 500 kJ (0.14 kWh)',
-            'About 5,000 kJ (1.4 kWh)',
             'About 15,000 kJ (4.2 kWh)',
+            'About 5,000 kJ (1.4 kWh)',
             'About 150,000 kJ (42 kWh)'
+
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation: 'A bathtub holds roughly 150 liters = 150 kg of water. Energy = m*cp*deltaT = 150 * 4.18 * 25 = 15,675 kJ ~ 4.35 kWh. This is about 15,000 kJ or 4.2 kWh. At typical electricity prices (~$0.15/kWh), that is about $0.65 per bath. A 3 kW water heater would take about 1.5 hours. This type of quick energy estimation connects thermal physics to real-world costs and equipment sizing.',
           hint: 'Water: cp = 4.18 kJ/kg*K. Bathtub ~ 150 liters. Temperature rise = 25°C.'
         },
@@ -285,11 +286,12 @@ export const unit10: Unit = {
           question: 'Estimate the stress in a thin-walled cylindrical pressure vessel with 500 mm diameter, 5 mm wall thickness, at 10 bar internal pressure.',
           options: [
             'About 5 MPa',
-            'About 25 MPa',
             'About 50 MPa',
+            'About 25 MPa',
             'About 250 MPa'
+
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation: 'Hoop stress (circumferential) for a thin-walled cylinder: sigma = P*D/(2*t) = 10e5 * 0.5 / (2 * 0.005) = 1e6 * 0.5 / 0.01 = 50 MPa. Axial stress is half that: 25 MPa. This formula (sigma = PD/2t) is one of the most commonly used in estimation and should be memorized. Note: hoop stress is always twice the axial stress, which is why cylinders fail along their length (longitudinal split) rather than circumferentially.',
           hint: 'Thin-wall hoop stress: sigma = P*D/(2*t). Convert 10 bar to Pa first.'
         },
