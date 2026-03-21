@@ -8,6 +8,7 @@ import {
   sessionHistory,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { progressSyncSchema } from '@/lib/validation';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
 export async function GET() {
@@ -96,7 +97,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { progress } = (await request.json()) as { progress: UserProgress };
+  const body = await request.json();
+  const parsed = progressSyncSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
+      { status: 400 }
+    );
+  }
+  const { progress } = parsed.data as { progress: UserProgress };
 
   // Upsert user_progress row
   const existing = await db
