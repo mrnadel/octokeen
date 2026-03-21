@@ -11,6 +11,7 @@ import QuestionCard from './QuestionCard';
 import type { QuestionCardHandle } from './QuestionCard';
 import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
+import { useMasteryStore } from '@/store/useMasteryStore';
 
 export { LessonView };
 export default function LessonView() {
@@ -26,6 +27,7 @@ export default function LessonView() {
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const [xpGain, setXpGain] = useState(0);
   const questionRef = useRef<QuestionCardHandle>(null);
+  const addMasteryEvent = useMasteryStore((s) => s.addEvent);
 
   const lessonData = useMemo(() => {
     if (!activeLesson) return null;
@@ -89,8 +91,19 @@ export default function LessonView() {
       if (correct) {
         setXpGain(prev => prev + 10);
       }
+      // Log mastery event if the unit has a topicId
+      const topicId = lessonData?.unit.topicId;
+      if (topicId) {
+        addMasteryEvent({
+          questionId: currentQuestion.id,
+          topicId,
+          difficulty: 'intermediate',
+          correct,
+          source: 'course',
+        });
+      }
     },
-    [currentQuestion, submitAnswer]
+    [currentQuestion, submitAnswer, lessonData, addMasteryEvent]
   );
 
   const handleSelectionChange = useCallback((value: boolean) => {
