@@ -39,7 +39,7 @@ export function CourseHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const streakBtnRef = useRef<HTMLButtonElement>(null);
   const xpBtnRef = useRef<HTMLButtonElement>(null);
-  const [popoverPos, setPopoverPos] = useState<{ top: number; arrowRight: number } | null>(null);
+  const [popoverPos, setPopoverPos] = useState<{ top: number; arrowRight: number; right: number; width: number } | null>(null);
 
   const userName = session?.user?.name || progress.displayName || 'Engineer';
   const userImage = session?.user?.image;
@@ -62,20 +62,26 @@ export function CourseHeader() {
     const headerEl = headerRef.current;
     if (headerEl) {
       const headerRect = headerEl.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const headerRight = vw - headerRect.right + 16;
+      const popoverWidth = Math.min(300, headerRect.width - 32);
       if (ref?.current) {
         const btnRect = ref.current.getBoundingClientRect();
         const btnCenterX = btnRect.left + btnRect.width / 2;
         const popoverRightEdge = headerRect.right - 16;
         const arrowRight = popoverRightEdge - btnCenterX - 7;
-        const maxW = Math.min(300, headerRect.width - 32);
         setPopoverPos({
           top: headerRect.bottom + 10,
-          arrowRight: Math.max(24, Math.min(arrowRight, maxW - 24)),
+          right: headerRight,
+          width: popoverWidth,
+          arrowRight: Math.max(24, Math.min(arrowRight, popoverWidth - 24)),
         });
       } else {
         // Menu popover: align to right edge of header
         setPopoverPos({
           top: headerRect.bottom + 10,
+          right: headerRight,
+          width: popoverWidth,
           arrowRight: 24,
         });
       }
@@ -257,8 +263,8 @@ export function CourseHeader() {
               className="fixed"
               style={{
                 top: popoverPos.top,
-                right: 16,
-                width: 'calc(100vw - 32px)',
+                right: popoverPos.right,
+                width: popoverPos.width,
                 maxWidth: 300,
                 borderRadius: 16,
                 background: 'white',

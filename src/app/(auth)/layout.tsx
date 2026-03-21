@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center">
-      <div className="w-full max-w-sm mx-auto flex flex-col min-h-screen px-6 pt-4 pb-8">
+    <div className="min-h-screen bg-[#FAFAFA] lg:bg-[#E8E8E8] flex flex-col items-center">
+      <div className="w-full max-w-md mx-auto flex flex-col min-h-screen px-6 pt-4 pb-8 bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200">
         {/* Back */}
         <Link
           href="/"

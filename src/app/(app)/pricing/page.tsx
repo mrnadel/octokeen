@@ -177,7 +177,7 @@ export default function PricingPage() {
         </motion.div>
 
         {/* Tier Cards */}
-        <div className="space-y-4 mb-12">
+        <div className="space-y-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:space-y-0 mb-12">
           {tierOrder.map((tierId, index) => {
             const tier = TIERS[tierId];
             const price = billingInterval === 'year' && tier.priceYearly > 0
