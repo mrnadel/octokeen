@@ -133,34 +133,32 @@ export function UnitHeader({
       </div>
 
       {/* Chevron */}
-      {!isLocked && (
-        <div
-          className="flex justify-end"
-          style={{ padding: '0 20px', marginTop: -12, marginBottom: 4 }}
+      <div
+        className="flex justify-end"
+        style={{ padding: '0 20px', marginTop: -12, marginBottom: 4 }}
+      >
+        <motion.div
+          className="flex items-center justify-center"
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.6)',
+          }}
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <motion.div
-            className="flex items-center justify-center"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.6)',
-            }}
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M4 6l4 4 4-4"
-                stroke={theme.dark}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
-        </div>
-      )}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M4 6l4 4 4-4"
+              stroke={theme.dark}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </motion.div>
+      </div>
 
       {/* Progress bar */}
       <div
