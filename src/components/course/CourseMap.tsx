@@ -94,16 +94,29 @@ export function CourseMap() {
     });
   };
 
-  // Auto-scroll to the current lesson after mount + expansion animation
+  // Auto-scroll to the current lesson after mount + animations settle
   useEffect(() => {
-    // Two-phase scroll: first try the lesson ref, fall back to unit ref
-    const timer = setTimeout(() => {
+    let cancelled = false;
+    let attempts = 0;
+
+    function tryScroll() {
+      if (cancelled) return;
+      attempts++;
       const target = currentLessonRef.current || currentUnitRef.current;
-      if (target) {
+      if (target && target.getBoundingClientRect().height > 0) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (attempts < 10) {
+        // Retry — animations may still be running
+        requestAnimationFrame(tryScroll);
       }
-    }, 500);
-    return () => clearTimeout(timer);
+    }
+
+    // Wait for initial render + CSS animations to start
+    const timer = setTimeout(tryScroll, 600);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

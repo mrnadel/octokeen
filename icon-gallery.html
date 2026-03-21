@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady Icon Gallery</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #F5F5F5; padding: 32px 20px; }
+  h1 { text-align: center; font-size: 28px; font-weight: 900; color: #3C3C3C; margin-bottom: 6px; }
+  h1 span { color: #58CC02; }
+  p.sub { text-align: center; color: #AFAFAF; font-size: 14px; font-weight: 600; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; max-width: 900px; margin: 0 auto; }
+  .card {
+    background: white; border-radius: 20px; padding: 24px 16px; text-align: center;
+    border: 2px solid #E5E5E5; cursor: pointer; transition: all 0.15s ease;
+  }
+  .card:hover { border-color: #58CC02; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(88,204,2,0.15); }
+  .icon-wrap {
+    width: 48px; height: 48px; border-radius: 14px; margin: 0 auto 14px;
+    background: linear-gradient(135deg, #6BD913 0%, #58CC02 100%);
+    box-shadow: 0 3px 0 #46A302;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .label { font-size: 13px; font-weight: 800; color: #3C3C3C; }
+  .num { font-size: 11px; font-weight: 700; color: #AFAFAF; margin-bottom: 4px; }
+  /* preview row */
+  .preview { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+  .preview-sm {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: linear-gradient(135deg, #6BD913 0%, #58CC02 100%);
+    box-shadow: 0 2px 0 #46A302;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .preview-xs {
+    width: 24px; height: 24px; border-radius: 7px;
+    background: linear-gradient(135deg, #6BD913 0%, #58CC02 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<h1><span>Mech</span>Ready Icon Gallery</h1>
+<p class="sub">Pick your favorite compact logo icon (20 options)</p>
+
+<div class="grid">
+
+  <!-- 1: Single Gear -->
+  <div class="card">
+    <div class="num">#1</div>
+    <div class="icon-wrap">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <path d="M13 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="white"/>
+        <path d="M14.5 3h-3l-.4 2.4a8 8 0 0 0-2.2 1.3L6.7 5.8l-1.5 2.6 2 1.5a8 8 0 0 0 0 2.6l-2 1.5 1.5 2.6 2.2-.9a8 8 0 0 0 2.2 1.3L11.5 19.4h3l.4-2.4a8 8 0 0 0 2.2-1.3l2.2.9 1.5-2.6-2-1.5a8 8 0 0 0 0-2.6l2-1.5-1.5-2.6-2.2.9a8 8 0 0 0-2.2-1.3L14.5 3Z" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="label">Gear</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="18" height="18" viewBox="0 0 26 26" fill="none"><path d="M13 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="white"/><path d="M14.5 3h-3l-.4 2.4a8 8 0 0 0-2.2 1.3L6.7 5.8l-1.5 2.6 2 1.5a8 8 0 0 0 0 2.6l-2 1.5 1.5 2.6 2.2-.9a8 8 0 0 0 2.2 1.3L11.5 19.4h3l.4-2.4a8 8 0 0 0 2.2-1.3l2.2.9 1.5-2.6-2-1.5a8 8 0 0 0 0-2.6l2-1.5-1.5-2.6-2.2.9a8 8 0 0 0-2.2-1.3L14.5 3Z" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="0.5"/></svg></div>
+      <div class="preview-xs"><svg width="14" height="14" viewBox="0 0 26 26" fill="none"><path d="M13 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="white"/><path d="M14.5 3h-3l-.4 2.4a8 8 0 0 0-2.2 1.3L6.7 5.8l-1.5 2.6 2 1.5a8 8 0 0 0 0 2.6l-2 1.5 1.5 2.6 2.2-.9a8 8 0 0 0 2.2 1.3L11.5 19.4h3l.4-2.4a8 8 0 0 0 2.2-1.3l2.2.9 1.5-2.6-2-1.5a8 8 0 0 0 0-2.6l2-1.5-1.5-2.6-2.2.9a8 8 0 0 0-2.2-1.3L14.5 3Z" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="0.5"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 2: Wrench -->
+  <div class="card">
+    <div class="num">#2</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z" fill="white" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="label">Wrench</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z" fill="white" stroke="white" stroke-width="1"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z" fill="white" stroke="white" stroke-width="1"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 3: Bolt/Lightning M -->
+  <div class="card">
+    <div class="num">#3</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" fill="white" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="label">Lightning Bolt</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" fill="white" opacity="0.9"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" fill="white" opacity="0.9"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 4: Hexagon Bolt -->
+  <div class="card">
+    <div class="num">#4</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L21.2 7.5v9L12 22 2.8 16.5v-9L12 2Z" fill="rgba(255,255,255,0.35)" stroke="white" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="3.5" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">Hex Bolt</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L21.2 7.5v9L12 22 2.8 16.5v-9L12 2Z" fill="rgba(255,255,255,0.35)" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="3.5" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L21.2 7.5v9L12 22 2.8 16.5v-9L12 2Z" fill="rgba(255,255,255,0.35)" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="3.5" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 5: Piston -->
+  <div class="card">
+    <div class="num">#5</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="7" y="3" width="10" height="6" rx="1.5" fill="white"/>
+        <rect x="9" y="9" width="6" height="9" rx="1" fill="rgba(255,255,255,0.5)"/>
+        <rect x="7" y="18" width="10" height="3" rx="1.5" fill="white"/>
+        <line x1="8" y1="5" x2="16" y2="5" stroke="rgba(88,204,2,1)" stroke-width="1" stroke-linecap="round"/>
+        <line x1="8" y1="7" x2="16" y2="7" stroke="rgba(88,204,2,1)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="label">Piston</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="6" rx="1.5" fill="white"/><rect x="9" y="9" width="6" height="9" rx="1" fill="rgba(255,255,255,0.5)"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="white"/><line x1="8" y1="5" x2="16" y2="5" stroke="rgba(88,204,2,1)" stroke-width="1" stroke-linecap="round"/><line x1="8" y1="7" x2="16" y2="7" stroke="rgba(88,204,2,1)" stroke-width="1" stroke-linecap="round"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="6" rx="1.5" fill="white"/><rect x="9" y="9" width="6" height="9" rx="1" fill="rgba(255,255,255,0.5)"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 6: Crossed Wrenches -->
+  <div class="card">
+    <div class="num">#6</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M6 3l2 2-1 1-2-2a4 4 0 0 0 5.5 5.5L15 14l-4.5 4.5a4 4 0 0 0 5.5 5.5l-2-2 1-1 2 2a4 4 0 0 0-5.5-5.5L7 13l-1.5-1.5A4 4 0 0 0 6 3Z" fill="white" opacity="0"/>
+        <line x1="4" y1="20" x2="20" y2="4" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="4" x2="20" y2="20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="5" cy="5" r="2.5" fill="white" opacity="0.5"/>
+        <circle cx="19" cy="5" r="2.5" fill="white" opacity="0.5"/>
+        <circle cx="5" cy="19" r="2.5" fill="white" opacity="0.5"/>
+        <circle cx="19" cy="19" r="2.5" fill="white" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="label">Crossed Tools</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><line x1="4" y1="20" x2="20" y2="4" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4" y1="4" x2="20" y2="20" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="5" cy="5" r="2.5" fill="white" opacity="0.5"/><circle cx="19" cy="5" r="2.5" fill="white" opacity="0.5"/><circle cx="5" cy="19" r="2.5" fill="white" opacity="0.5"/><circle cx="19" cy="19" r="2.5" fill="white" opacity="0.5"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><line x1="4" y1="20" x2="20" y2="4" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="4" y1="4" x2="20" y2="20" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="5" cy="5" r="2.5" fill="white" opacity="0.5"/><circle cx="19" cy="5" r="2.5" fill="white" opacity="0.5"/><circle cx="5" cy="19" r="2.5" fill="white" opacity="0.5"/><circle cx="19" cy="19" r="2.5" fill="white" opacity="0.5"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 7: Shield Check -->
+  <div class="card">
+    <div class="num">#7</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L4 6v5c0 5.25 3.4 10.2 8 11.6 4.6-1.4 8-6.35 8-11.6V6l-8-4Z" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/>
+        <path d="M9 12l2 2 4-4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="label">Shield Check</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v5c0 5.25 3.4 10.2 8 11.6 4.6-1.4 8-6.35 8-11.6V6l-8-4Z" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v5c0 5.25 3.4 10.2 8 11.6 4.6-1.4 8-6.35 8-11.6V6l-8-4Z" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 8: Atom/Molecule -->
+  <div class="card">
+    <div class="num">#8</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(0 12 12)" fill="none"/>
+        <ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(60 12 12)" fill="none"/>
+        <ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(120 12 12)" fill="none"/>
+        <circle cx="12" cy="12" r="2.5" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">Atom</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(0 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="2.5" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(0 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke="white" stroke-width="1.5" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="2.5" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 9: Rocket -->
+  <div class="card">
+    <div class="num">#9</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C12 2 8 6 8 14h8c0-8-4-12-4-12Z" fill="white"/>
+        <path d="M8 14l-2 4h2l2-2" fill="rgba(255,255,255,0.5)"/>
+        <path d="M16 14l2 4h-2l-2-2" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="12" cy="10" r="2" fill="#58CC02"/>
+        <path d="M10 18h4v2a2 2 0 0 1-4 0v-2Z" fill="rgba(255,255,255,0.6)"/>
+      </svg>
+    </div>
+    <div class="label">Rocket</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 8 6 8 14h8c0-8-4-12-4-12Z" fill="white"/><path d="M8 14l-2 4h2l2-2" fill="rgba(255,255,255,0.5)"/><path d="M16 14l2 4h-2l-2-2" fill="rgba(255,255,255,0.5)"/><circle cx="12" cy="10" r="2" fill="#58CC02"/><path d="M10 18h4v2a2 2 0 0 1-4 0v-2Z" fill="rgba(255,255,255,0.6)"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 8 6 8 14h8c0-8-4-12-4-12Z" fill="white"/><circle cx="12" cy="10" r="2" fill="#58CC02"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 10: Two Gears -->
+  <div class="card">
+    <div class="num">#10</div>
+    <div class="icon-wrap">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <circle cx="10" cy="10" r="4.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/>
+        <circle cx="10" cy="10" r="2" fill="white"/>
+        <line x1="10" y1="4.5" x2="10" y2="6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="10" y1="14" x2="10" y2="15.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="4.5" y1="10" x2="6" y2="10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="14" y1="10" x2="15.5" y2="10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="17" cy="17" r="3.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/>
+        <circle cx="17" cy="17" r="1.5" fill="white"/>
+        <line x1="17" y1="12.5" x2="17" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="17" y1="20" x2="17" y2="21.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="12.5" y1="17" x2="14" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="17" x2="21.5" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="label">Twin Gears</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="17" height="17" viewBox="0 0 26 26" fill="none"><circle cx="10" cy="10" r="4.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/><circle cx="10" cy="10" r="2" fill="white"/><line x1="10" y1="4.5" x2="10" y2="6" stroke="white" stroke-width="1.8" stroke-linecap="round"/><line x1="10" y1="14" x2="10" y2="15.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><line x1="4.5" y1="10" x2="6" y2="10" stroke="white" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="10" x2="15.5" y2="10" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="17" r="3.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/><circle cx="17" cy="17" r="1.5" fill="white"/><line x1="17" y1="12.5" x2="17" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="17" y1="20" x2="17" y2="21.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="12.5" y1="17" x2="14" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="17" x2="21.5" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="preview-xs"><svg width="13" height="13" viewBox="0 0 26 26" fill="none"><circle cx="10" cy="10" r="4.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/><circle cx="10" cy="10" r="2" fill="white"/><circle cx="17" cy="17" r="3.5" fill="rgba(255,255,255,0.45)" stroke="white" stroke-width="1.2"/><circle cx="17" cy="17" r="1.5" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 11: Caliper -->
+  <div class="card">
+    <div class="num">#11</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="6" width="18" height="3" rx="1" fill="white"/>
+        <rect x="5" y="9" width="2" height="9" rx="0.5" fill="white"/>
+        <rect x="17" y="9" width="2" height="9" rx="0.5" fill="white"/>
+        <rect x="9" y="9" width="1.5" height="6" rx="0.5" fill="rgba(255,255,255,0.5)"/>
+        <rect x="13" y="9" width="1.5" height="5" rx="0.5" fill="rgba(255,255,255,0.5)"/>
+      </svg>
+    </div>
+    <div class="label">Caliper</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="3" rx="1" fill="white"/><rect x="5" y="9" width="2" height="9" rx="0.5" fill="white"/><rect x="17" y="9" width="2" height="9" rx="0.5" fill="white"/><rect x="9" y="9" width="1.5" height="6" rx="0.5" fill="rgba(255,255,255,0.5)"/><rect x="13" y="9" width="1.5" height="5" rx="0.5" fill="rgba(255,255,255,0.5)"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="3" rx="1" fill="white"/><rect x="5" y="9" width="2" height="9" rx="0.5" fill="white"/><rect x="17" y="9" width="2" height="9" rx="0.5" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 12: Spring/Coil -->
+  <div class="card">
+    <div class="num">#12</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M8 4h8M6 7h12M6 10h12M6 13h12M6 16h12M8 19h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="label">Spring</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 4h8M6 7h12M6 10h12M6 13h12M6 16h12M8 19h8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 4h8M6 7h12M6 10h12M6 13h12M6 16h12M8 19h8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 13: Thermometer -->
+  <div class="card">
+    <div class="num">#13</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="10" y="3" width="4" height="13" rx="2" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/>
+        <circle cx="12" cy="18" r="3.5" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/>
+        <circle cx="12" cy="18" r="2" fill="white"/>
+        <rect x="11" y="9" width="2" height="7" rx="1" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">Thermometer</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="10" y="3" width="4" height="13" rx="2" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><circle cx="12" cy="18" r="3.5" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><circle cx="12" cy="18" r="2" fill="white"/><rect x="11" y="9" width="2" height="7" rx="1" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="10" y="3" width="4" height="13" rx="2" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><circle cx="12" cy="18" r="3.5" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.2"/><circle cx="12" cy="18" r="2" fill="white"/><rect x="11" y="9" width="2" height="7" rx="1" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 14: Target/Bullseye -->
+  <div class="card">
+    <div class="num">#14</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5" fill="none"/>
+        <circle cx="12" cy="12" r="6" stroke="white" stroke-width="1.5" fill="none"/>
+        <circle cx="12" cy="12" r="3" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">Target</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="6" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="6" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 15: Beam/I-Beam -->
+  <div class="card">
+    <div class="num">#15</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="4" width="14" height="3" rx="1" fill="white"/>
+        <rect x="10" y="7" width="4" height="10" fill="rgba(255,255,255,0.6)"/>
+        <rect x="5" y="17" width="14" height="3" rx="1" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">I-Beam</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="3" rx="1" fill="white"/><rect x="10" y="7" width="4" height="10" fill="rgba(255,255,255,0.6)"/><rect x="5" y="17" width="14" height="3" rx="1" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="3" rx="1" fill="white"/><rect x="10" y="7" width="4" height="10" fill="rgba(255,255,255,0.6)"/><rect x="5" y="17" width="14" height="3" rx="1" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 16: Trophy -->
+  <div class="card">
+    <div class="num">#16</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M8 4h8v8a4 4 0 0 1-8 0V4Z" fill="white"/>
+        <path d="M8 6H5a2 2 0 0 0 0 4h1" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M16 6h3a2 2 0 0 1 0 4h-1" stroke="white" stroke-width="1.5" fill="none"/>
+        <rect x="10" y="16" width="4" height="3" fill="rgba(255,255,255,0.6)"/>
+        <rect x="7" y="19" width="10" height="2" rx="1" fill="white"/>
+      </svg>
+    </div>
+    <div class="label">Trophy</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 4h8v8a4 4 0 0 1-8 0V4Z" fill="white"/><path d="M8 6H5a2 2 0 0 0 0 4h1" stroke="white" stroke-width="1.5" fill="none"/><path d="M16 6h3a2 2 0 0 1 0 4h-1" stroke="white" stroke-width="1.5" fill="none"/><rect x="10" y="16" width="4" height="3" fill="rgba(255,255,255,0.6)"/><rect x="7" y="19" width="10" height="2" rx="1" fill="white"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 4h8v8a4 4 0 0 1-8 0V4Z" fill="white"/><rect x="7" y="19" width="10" height="2" rx="1" fill="white"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 17: Compass/Drafting -->
+  <div class="card">
+    <div class="num">#17</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="6" r="2.5" fill="white"/>
+        <line x1="12" y1="8.5" x2="7" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="8.5" x2="17" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="8.5" y1="16" x2="15.5" y2="16" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="label">Compass</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.5" fill="white"/><line x1="12" y1="8.5" x2="7" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="8.5" x2="17" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="8.5" y1="16" x2="15.5" y2="16" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.5" fill="white"/><line x1="12" y1="8.5" x2="7" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="8.5" x2="17" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 18: Circuit/Flow -->
+  <div class="card">
+    <div class="num">#18</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="6" cy="6" r="2.5" fill="white"/>
+        <circle cx="18" cy="6" r="2.5" fill="white"/>
+        <circle cx="6" cy="18" r="2.5" fill="white"/>
+        <circle cx="18" cy="18" r="2.5" fill="white"/>
+        <line x1="8.5" y1="6" x2="15.5" y2="6" stroke="white" stroke-width="1.5"/>
+        <line x1="6" y1="8.5" x2="6" y2="15.5" stroke="white" stroke-width="1.5"/>
+        <line x1="18" y1="8.5" x2="18" y2="15.5" stroke="white" stroke-width="1.5"/>
+        <line x1="8.5" y1="18" x2="15.5" y2="18" stroke="white" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="2" fill="rgba(255,255,255,0.5)" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="label">Circuit</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.5" fill="white"/><circle cx="18" cy="6" r="2.5" fill="white"/><circle cx="6" cy="18" r="2.5" fill="white"/><circle cx="18" cy="18" r="2.5" fill="white"/><line x1="8.5" y1="6" x2="15.5" y2="6" stroke="white" stroke-width="1.5"/><line x1="6" y1="8.5" x2="6" y2="15.5" stroke="white" stroke-width="1.5"/><line x1="18" y1="8.5" x2="18" y2="15.5" stroke="white" stroke-width="1.5"/><line x1="8.5" y1="18" x2="15.5" y2="18" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="2" fill="rgba(255,255,255,0.5)" stroke="white" stroke-width="1"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.5" fill="white"/><circle cx="18" cy="6" r="2.5" fill="white"/><circle cx="6" cy="18" r="2.5" fill="white"/><circle cx="18" cy="18" r="2.5" fill="white"/><line x1="8.5" y1="6" x2="15.5" y2="6" stroke="white" stroke-width="1.5"/><line x1="6" y1="8.5" x2="6" y2="15.5" stroke="white" stroke-width="1.5"/><line x1="18" y1="8.5" x2="18" y2="15.5" stroke="white" stroke-width="1.5"/><line x1="8.5" y1="18" x2="15.5" y2="18" stroke="white" stroke-width="1.5"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 19: Graduation Cap -->
+  <div class="card">
+    <div class="num">#19</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 4L2 9l10 5 10-5-10-5Z" fill="white"/>
+        <path d="M6 11v5c0 2 3 4 6 4s6-2 6-4v-5" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.3)"/>
+        <line x1="20" y1="9" x2="20" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="label">Grad Cap</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4L2 9l10 5 10-5-10-5Z" fill="white"/><path d="M6 11v5c0 2 3 4 6 4s6-2 6-4v-5" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.3)"/><line x1="20" y1="9" x2="20" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 4L2 9l10 5 10-5-10-5Z" fill="white"/><path d="M6 11v5c0 2 3 4 6 4s6-2 6-4v-5" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.3)"/></svg></div>
+    </div>
+  </div>
+
+  <!-- 20: M Monogram -->
+  <div class="card">
+    <div class="num">#20</div>
+    <div class="icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M5 19V7l7 7 7-7v12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="label">Bold M</div>
+    <div class="preview">
+      <div class="preview-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 19V7l7 7 7-7v12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+      <div class="preview-xs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 19V7l7 7 7-7v12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

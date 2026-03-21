@@ -89,7 +89,8 @@ export const unit6: Unit = {
           id: 'u6-L1-Q6',
           type: 'fill-blank',
           question: 'The ratio of dynamic viscosity to density (μ/ρ) is called the _____ viscosity, with SI units of m²/s.',
-          acceptedAnswers: ['kinematic', 'Kinematic', 'KINEMATIC'],
+          blanks: ['kinematic'],
+          wordBank: ['kinematic', 'dynamic', 'absolute', 'turbulent', 'specific'],
           explanation: 'Kinematic viscosity ν = μ/ρ combines the fluid\'s resistance to deformation (dynamic viscosity μ) with its density. It appears naturally in the Reynolds number (Re = VD/ν) and governs how momentum diffuses through the fluid. Water at 20°C has ν ≈ 1.0 × 10⁻⁶ m²/s, while air has ν ≈ 1.5 × 10⁻⁵ m²/s — air actually has HIGHER kinematic viscosity than water despite being much less "thick," because its density is ~800× lower. This explains why air boundary layers are thicker than water boundary layers at the same velocity. The kinematic viscosity is also called "momentum diffusivity," analogous to thermal diffusivity (α = k/(ρc_p)) for heat and mass diffusivity for species transport.',
           hint: 'This form of viscosity has units of m²/s and appears in the Reynolds number formula Re = VD/___.'
         },
@@ -197,7 +198,8 @@ export const unit6: Unit = {
           id: 'u6-L1-Q15',
           type: 'fill-blank',
           question: 'The hydrostatic force on a curved submerged surface is analyzed by resolving it into _____ and vertical components.',
-          acceptedAnswers: ['horizontal', 'Horizontal', 'HORIZONTAL'],
+          blanks: ['horizontal'],
+          wordBank: ['horizontal', 'tangential', 'normal', 'radial', 'axial'],
           explanation: 'For curved surfaces, the hydrostatic force cannot be computed directly using F = ρgȳ_cA because the pressure acts in different directions at every point. Instead, the force is resolved into horizontal and vertical components. The horizontal component equals the hydrostatic force on the vertical PROJECTION of the curved surface (calculated using the standard planar formula). The vertical component equals the WEIGHT of the fluid column above (or below) the curved surface. The resultant is found by vector addition: F = √(F_H² + F_V²). This method simplifies the integration over a curved surface into two straightforward calculations.',
           hint: 'The analysis of forces on curved surfaces requires breaking the resultant into two perpendicular directions.'
         },
@@ -319,7 +321,8 @@ export const unit6: Unit = {
           id: 'u6-L1-Q25',
           type: 'fill-blank',
           question: 'The property of a liquid surface that causes it to behave like a stretched membrane, measured in N/m, is called _____ tension.',
-          acceptedAnswers: ['surface', 'Surface', 'SURFACE'],
+          blanks: ['surface'],
+          wordBank: ['surface', 'shear', 'viscous', 'capillary', 'interfacial'],
           explanation: 'Surface tension (σ) is a property of liquid surfaces that arises from the imbalance of intermolecular forces at the interface. Molecules at the surface have fewer neighbors than those in the bulk, creating a net inward force that makes the surface behave like a stretched membrane. Water at 20°C has σ ≈ 0.073 N/m. Surface tension is responsible for capillary action, droplet formation, meniscus shape, and the ability of insects to walk on water. It decreases with temperature and can be significantly reduced by surfactants (soaps). In engineering, surface tension is important in small-scale systems (microfluidics, spray nozzles, heat pipes) but generally negligible in large-scale flows.',
           hint: 'This property causes water droplets to form spheres and allows small insects to walk on water.'
         },
@@ -457,8 +460,9 @@ export const unit6: Unit = {
         {
           id: 'u6-L2-Q6',
           type: 'fill-blank',
-          question: 'The line representing total head (pressure head + velocity head + elevation head) in a pipe system is called the ___ Line.',
-          acceptedAnswers: ['Energy Grade', 'energy grade', 'Energy', 'energy', 'EGL', 'egl', 'Total Energy'],
+          question: 'The line representing total head in a pipe system is called the _____ Grade Line, and it sits above the Hydraulic Grade Line by exactly the _____ head.',
+          blanks: ['Energy', 'velocity'],
+          wordBank: ['Energy', 'velocity', 'Pressure', 'friction', 'elevation'],
           explanation: 'The Energy Grade Line (EGL) represents the total mechanical energy at each point: P/ρg + V²/2g + z. It slopes downward in the direction of flow due to friction losses, and drops sharply at minor losses (valves, fittings). The HGL sits below the EGL by exactly V²/2g (the velocity head).',
           hint: 'This line is always above the HGL by exactly the velocity head.'
         },
@@ -580,7 +584,8 @@ export const unit6: Unit = {
           id: 'u6-L2-Q16',
           type: 'fill-blank',
           question: 'The theorem stating that the exit velocity of fluid through an orifice at the bottom of a tank equals √(2gh) is called _____ theorem.',
-          acceptedAnswers: ['Torricelli\'s', 'Torricelli', 'torricelli\'s', 'torricelli', 'TORRICELLI'],
+          blanks: ['Torricelli\'s'],
+          wordBank: ['Torricelli\'s', 'Bernoulli\'s', 'Pascal\'s', 'Archimedes\'', 'Euler\'s'],
           explanation: 'Torricelli\'s theorem (1643) states that the speed of fluid flowing out through a sharp-edged orifice at the bottom of a tank is V = √(2gh), identical to the velocity of a body falling from height h. It is derived directly from Bernoulli\'s equation between the free surface and the exit point. The actual exit velocity is slightly less (C_v ≈ 0.97) and the effective jet area is smaller (C_c ≈ 0.64 for a sharp-edged orifice) due to the vena contracta. The actual flow rate is Q = C_d × A_orifice × √(2gh), where C_d = C_v × C_c ≈ 0.62.',
           hint: 'This theorem is named after an Italian physicist and mathematician who was a student of Galileo.'
         },
@@ -688,7 +693,8 @@ export const unit6: Unit = {
           id: 'u6-L2-Q25',
           type: 'fill-blank',
           question: 'The ½ρV² term in the Bernoulli equation is called the _____ pressure.',
-          acceptedAnswers: ['dynamic', 'Dynamic', 'DYNAMIC', 'velocity', 'Velocity'],
+          blanks: ['dynamic'],
+          wordBank: ['dynamic', 'static', 'stagnation', 'gauge', 'hydrostatic'],
           explanation: 'The term ½ρV² is the dynamic pressure (also called velocity pressure). It represents the kinetic energy per unit volume of the flowing fluid. Static pressure (P) is the actual thermodynamic pressure measured by a gauge moving with the fluid. Dynamic pressure is the pressure rise obtained by bringing the flow to rest isentropically. Stagnation pressure = static pressure + dynamic pressure = P + ½ρV². A pitot-static tube directly measures the dynamic pressure as the difference between stagnation and static pressure, which is then used to calculate velocity.',
           hint: 'This pressure term is associated with the fluid\'s motion and equals zero when the fluid is at rest.'
         },
@@ -826,8 +832,9 @@ export const unit6: Unit = {
         {
           id: 'u6-L3-Q6',
           type: 'fill-blank',
-          question: 'The head loss equation h_f = f(L/D)(V²/2g), which relates friction losses in pipe flow to the friction factor, pipe geometry, and velocity, is called the _____-Weisbach equation.',
-          acceptedAnswers: ['Darcy', 'darcy', 'DARCY'],
+          question: 'The head loss equation h_f = f(L/D)(V²/2g) is called the _____-Weisbach equation, and for laminar flow the friction factor equals _____/Re.',
+          blanks: ['Darcy', '64'],
+          wordBank: ['Darcy', '64', 'Bernoulli', '32', 'Colebrook', '128'],
           explanation: 'The Darcy-Weisbach equation h_f = f(L/D)(V²/2g) is the fundamental equation for calculating friction head loss in pipe flow. It applies to both laminar and turbulent flow — only the method of determining the friction factor f changes (f = 64/Re for laminar, Moody chart or Colebrook equation for turbulent). Head loss is proportional to pipe length, inversely proportional to diameter, and proportional to velocity squared. This equation, combined with the Moody chart for determining f, forms the backbone of all pipe system design and pump sizing calculations.',
           hint: 'This equation is named after Henry _____ and Julius Weisbach.'
         },
@@ -963,7 +970,8 @@ export const unit6: Unit = {
           id: 'u6-L3-Q17',
           type: 'fill-blank',
           question: 'The dimensionless chart that plots friction factor versus Reynolds number for various relative roughness values is called the _____ chart.',
-          acceptedAnswers: ['Moody', 'moody', 'MOODY'],
+          blanks: ['Moody'],
+          wordBank: ['Moody', 'Stribeck', 'Fanno', 'Nikuradse', 'Colebrook'],
           explanation: 'The Moody chart (also called the Moody diagram), developed by Lewis Moody in 1944, is one of the most widely used tools in fluid mechanics. It plots the Darcy friction factor f against Reynolds number Re on a log-log scale, with curves for different relative roughness values ε/D. The chart covers laminar flow (f = 64/Re, a single straight line), the transition region, and turbulent flow (multiple curves based on ε/D). At very high Re, the curves become horizontal (fully rough zone). The chart is based on the Colebrook-White equation and represents experimental data from Nikuradse and others. Despite the availability of computational methods, understanding the Moody chart remains essential for engineering judgment.',
           hint: 'This chart is named after the American engineer who compiled pipe friction data into a single diagram in 1944.'
         },
@@ -1057,7 +1065,8 @@ export const unit6: Unit = {
           id: 'u6-L3-Q25',
           type: 'fill-blank',
           question: 'The ratio of the pipe wall roughness height to the pipe diameter, ε/D, is called the _____ roughness.',
-          acceptedAnswers: ['relative', 'Relative', 'RELATIVE'],
+          blanks: ['relative'],
+          wordBank: ['relative', 'absolute', 'surface', 'equivalent', 'nominal'],
           explanation: 'Relative roughness ε/D is a dimensionless parameter that determines the turbulent friction factor on the Moody chart. It is the ratio of the absolute roughness ε (the average height of surface irregularities) to the pipe internal diameter D. A larger pipe with the same material has a smaller relative roughness, which is why large-diameter pipes have lower friction factors than small-diameter pipes of the same material. Typical values: drawn tubing ε = 0.0015 mm, commercial steel ε = 0.045 mm, cast iron ε = 0.26 mm, concrete ε = 0.3-3 mm. For a 100 mm commercial steel pipe, ε/D = 0.045/100 = 0.00045.',
           hint: 'This dimensionless ratio compares the roughness height to the pipe size.'
         },
@@ -1201,9 +1210,10 @@ export const unit6: Unit = {
         {
           id: 'u6-L4-Q6',
           type: 'fill-blank',
-          question: 'The minimum suction head required by a pump to avoid cavitation, specified by the manufacturer, is called NPSH___ (subscript).',
-          acceptedAnswers: ['R', 'r', 'required', 'Required', 'REQUIRED'],
-          explanation: 'NPSH_R (required) is determined by the pump manufacturer through testing — it is the minimum net positive suction head needed to prevent more than 3% head drop due to cavitation. The system designer must ensure that NPSH_A (available from the system) exceeds NPSH_R with an adequate safety margin, typically at least 0.5–1.0 m or 10–20%.',
+          question: 'To avoid cavitation, the system\'s NPSH_____ (available) must exceed the pump\'s NPSH_____ (from manufacturer).',
+          blanks: ['A', 'R'],
+          wordBank: ['A', 'R', 'S', 'T', 'C'],
+          explanation: 'NPSH_A (available) is calculated from the system layout and must exceed NPSH_R (required), which is determined by the pump manufacturer through testing — it is the minimum net positive suction head needed to prevent more than 3% head drop due to cavitation. The system designer must ensure that NPSH_A exceeds NPSH_R with an adequate safety margin, typically at least 0.5–1.0 m or 10–20%.',
           hint: 'There are two types of NPSH: one from the system (available) and one from the pump.'
         },
         {
@@ -1324,7 +1334,8 @@ export const unit6: Unit = {
           id: 'u6-L4-Q16',
           type: 'fill-blank',
           question: 'The pump _____ laws state that flow is proportional to speed, head to speed squared, and power to speed cubed.',
-          acceptedAnswers: ['affinity', 'Affinity', 'AFFINITY', 'similarity', 'Similarity'],
+          blanks: ['affinity'],
+          wordBank: ['affinity', 'conservation', 'scaling', 'Newton\'s', 'Euler\'s'],
           explanation: 'The pump affinity laws (also called similarity laws or fan laws) are: Q₂/Q₁ = N₂/N₁ (flow ∝ speed), H₂/H₁ = (N₂/N₁)² (head ∝ speed²), P₂/P₁ = (N₂/N₁)³ (power ∝ speed³). These laws also apply when changing impeller diameter (at constant speed): Q₂/Q₁ = D₂/D₁, H₂/H₁ = (D₂/D₁)², P₂/P₁ = (D₂/D₁)³. They are derived from dimensional analysis and apply to all turbomachinery (pumps, fans, blowers, turbines) as long as geometric and dynamic similarity is maintained. The cubic power law is especially impactful — it means that a Variable Frequency Drive (VFD) can achieve enormous energy savings by matching pump speed to actual demand.',
           hint: 'These laws relate pump performance at different speeds and are used extensively with VFDs.'
         },
@@ -1432,7 +1443,8 @@ export const unit6: Unit = {
           id: 'u6-L4-Q25',
           type: 'fill-blank',
           question: 'The curve showing the relationship between head and flow rate for a pump at a given speed is called the pump _____ curve.',
-          acceptedAnswers: ['performance', 'Performance', 'PERFORMANCE', 'characteristic', 'Characteristic', 'H-Q', 'HQ'],
+          blanks: ['performance'],
+          wordBank: ['performance', 'efficiency', 'system', 'operating', 'power'],
           explanation: 'The pump performance curve (also called the characteristic curve or H-Q curve) shows head vs. flow rate at a constant speed. It is generated by the manufacturer through testing. A typical centrifugal pump curve slopes downward from left (high head, zero flow = shutoff) to right (low head, high flow = runout). The curve also typically includes efficiency and power curves at the same speed. Multiple curves at different speeds may be shown on the same plot (pump family curves). The operating point is where this pump curve intersects the system curve. Understanding how to read and apply pump curves is an essential skill for any engineer involved in fluid system design.',
           hint: 'This manufacturer-provided curve shows how head varies with flow rate at a given pump speed.'
         },
@@ -1576,8 +1588,9 @@ export const unit6: Unit = {
         {
           id: 'u6-L5-Q6',
           type: 'fill-blank',
-          question: 'The principle that a model and prototype must have the same geometry, kinematics, and force ratios for valid scaling is called ___.',
-          acceptedAnswers: ['similitude', 'Similitude', 'dynamic similitude', 'Dynamic similitude', 'complete similitude'],
+          question: 'The principle of _____ requires that model and prototype share the same _____ ratios (among geometry, kinematics, and forces) for valid scaling.',
+          blanks: ['similitude', 'force'],
+          wordBank: ['similitude', 'force', 'equivalence', 'mass', 'dimensional', 'energy'],
           explanation: 'Similitude encompasses three levels: geometric (same shape ratios), kinematic (same velocity/acceleration ratios), and dynamic (same force ratios). Complete or dynamic similitude requires all relevant dimensionless numbers to match between model and prototype. In practice, only the most important dimensionless numbers are matched, as complete similitude is often impossible with scale models.',
           hint: 'This term describes the complete similarity between a model and its prototype.'
         },
@@ -1699,7 +1712,8 @@ export const unit6: Unit = {
           id: 'u6-L5-Q16',
           type: 'fill-blank',
           question: 'The dimensionless number Fr = V/√(gL), which represents the ratio of inertial forces to gravitational forces, is called the _____ number.',
-          acceptedAnswers: ['Froude', 'froude', 'FROUDE'],
+          blanks: ['Froude'],
+          wordBank: ['Froude', 'Reynolds', 'Weber', 'Mach', 'Euler'],
           explanation: 'The Froude number Fr = V/√(gL) governs flows where gravity is the dominant restoring force: free-surface flows (ships, open channels, spillways), wave propagation, and flows with density stratification. Fr < 1 is subcritical (gravity waves can travel upstream — tranquil flow in open channels). Fr = 1 is critical (standing waves form). Fr > 1 is supercritical (flow is faster than wave speed — shooting flow in open channels, similar to supersonic in compressible flow). For ship design, Fr determines the wave-making resistance pattern. The Froude number is named after William Froude (1810-1879), a British engineer and hydrodynamicist who pioneered ship model testing.',
           hint: 'This dimensionless number is critical for ship model testing and open channel flow.'
         },
@@ -1807,7 +1821,8 @@ export const unit6: Unit = {
           id: 'u6-L5-Q25',
           type: 'fill-blank',
           question: 'The dimensionless number Re = ρVL/μ, representing the ratio of inertial forces to viscous forces, is called the _____ number.',
-          acceptedAnswers: ['Reynolds', 'reynolds', 'REYNOLDS'],
+          blanks: ['Reynolds'],
+          wordBank: ['Reynolds', 'Froude', 'Nusselt', 'Prandtl', 'Strouhal'],
           explanation: 'The Reynolds number, named after Osborne Reynolds (1842-1912), is the most widely used dimensionless number in fluid mechanics. It determines the flow regime (laminar vs. turbulent), appears in nearly every fluid mechanics correlation (friction factor, drag coefficient, heat transfer coefficient), and is the primary matching criterion for most model testing where viscous effects dominate. Re = ρVL/μ = VL/ν, where L is a characteristic length (pipe diameter, chord length, plate length, etc.). Its physical meaning — the ratio of inertial forces (which promote instability and turbulence) to viscous forces (which promote stability and dampen disturbances) — explains why high-Re flows are turbulent and low-Re flows are laminar.',
           hint: 'This is the most famous dimensionless number in fluid mechanics, named after a 19th-century physicist.'
         },

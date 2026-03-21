@@ -83,7 +83,8 @@ export const unit8: Unit = {
           id: 'u8-L1-Q6',
           type: 'fill-blank',
           question: 'The phenomenon where a rotating shaft deflects laterally at a specific speed equal to its natural frequency is called ___ (or whirling).',
-          acceptedAnswers: ['critical speed', 'Critical speed', 'critical speed resonance', 'whirling', 'Whirling', 'whirl'],
+          blanks: ['critical speed'],
+          wordBank: ['critical speed', 'resonance frequency', 'flutter', 'precession', 'vibration mode'],
           explanation: 'Critical speed (whirling) occurs when the shaft rotation speed coincides with a natural frequency of lateral vibration. At this speed, even small imbalances cause large lateral deflections due to resonance. The shaft bows outward and, if damping is insufficient, deflections grow until failure. Proper design ensures operating speed is at least 20% away from any critical speed, or provides adequate damping for supercritical operation.',
           hint: 'This occurs when rotational speed matches the natural frequency of transverse vibration.'
         },
@@ -169,7 +170,8 @@ export const unit8: Unit = {
           id: 'u8-L1-Q13',
           type: 'fill-blank',
           question: 'The ratio of the mean coil diameter to the wire diameter in a shaft-mounted torsion spring, or more commonly, the ratio D/d in general rotating shaft analysis that relates to curvature effects, is called the spring _____.',
-          acceptedAnswers: ['index', 'Index', 'spring index'],
+          blanks: ['index'],
+          wordBank: ['index', 'ratio', 'constant', 'factor', 'modulus'],
           explanation: 'The spring index C = D/d describes how tightly a coil is wound. For shafts, a similar concept applies when analyzing helical components mounted on shafts. A low spring index (C < 4) means tight coils with high curvature stress concentration, while a high index (C > 12) makes springs prone to buckling and tangling. The practical design range is C = 4 to 12, with C = 6 to 10 being preferred.',
           hint: 'This dimensionless ratio uses the mean diameter and the wire diameter.'
         },
@@ -277,7 +279,8 @@ export const unit8: Unit = {
           id: 'u8-L1-Q22',
           type: 'fill-blank',
           question: 'The ASME shaft design code uses combined shock and fatigue factors K_b and K_t applied to bending and torsion respectively. For a gradually applied load with no shock, the recommended values are K_b = 1.5 and K_t = _____.',
-          acceptedAnswers: ['1.0', '1', '1.0 '],
+          blanks: ['1.0'],
+          wordBank: ['1.0', '1.5', '2.0', '0.5', '3.0'],
           explanation: 'In the ASME shaft code for gradually applied or steady loads: K_b = 1.5 and K_t = 1.0. The bending factor is higher because a constant bending load creates fully reversed stress in a rotating shaft (alternating tension-compression each revolution), which is more damaging than the constant shear from steady torsion. For sudden shock with minor loads: K_b = 1.5-2.0, K_t = 1.0-1.5. For sudden shock with heavy loads: K_b = 2.0-3.0, K_t = 1.5-3.0.',
           hint: 'Steady torsion creates constant shear (no fatigue cycling), so the factor reflects minimal fatigue severity.'
         },
@@ -371,7 +374,8 @@ export const unit8: Unit = {
           id: 'u8-L1-Q30',
           type: 'fill-blank',
           question: 'A key that is semicircular in shape, sits in a semicircular pocket milled into the shaft, and is often used on tapered shaft ends for small shafts is called a _____ key.',
-          acceptedAnswers: ['Woodruff', 'woodruff', 'WOODRUFF'],
+          blanks: ['Woodruff'],
+          wordBank: ['Woodruff', 'feather', 'square', 'Gib-head', 'spline'],
           explanation: 'The Woodruff key is a semicircular (half-moon) shaped key that fits into a semicircular pocket in the shaft. It is commonly used on tapered shaft sections because it can tilt slightly to align with the taper. Woodruff keys are preferred for light-to-moderate torque on smaller shafts (typically under 65 mm diameter). The deep pocket weakens the shaft more than a rectangular keyway, limiting its use in fatigue-critical or high-torque applications. Woodruff key dimensions are standardized (e.g., DIN 6888).',
           hint: 'This key type is named after its inventor and has a distinctive semicircular shape.'
         }
@@ -451,8 +455,9 @@ export const unit8: Unit = {
         {
           id: 'u8-L2-Q6',
           type: 'fill-blank',
-          question: 'The bearing life calculation that represents the number of revolutions at which 90% of bearings will survive is called L___ life.',
-          acceptedAnswers: ['10', 'L10', 'ten'],
+          question: 'The bearing life L_____ represents the number of revolutions at which _____% of bearings in a population will have failed.',
+          blanks: ['10', '10'],
+          wordBank: ['10', '10', '50', '90', '1'],
           explanation: 'L10 (pronounced "L-ten") life is the rated life at 90% reliability — meaning 10% of bearings in a population are expected to fail before reaching this life. The ISO 281 standard defines L10 = (C/P)^p million revolutions. For higher reliability, life adjustment factors are applied: L1 (99% reliability) is about 0.21 × L10, L5 (95%) is about 0.62 × L10. Modern adjusted rating life (L10a or Lnm) also accounts for lubrication conditions and contamination.',
           hint: 'The subscript represents the percentage of bearings that are expected to fail.'
         },
@@ -574,7 +579,8 @@ export const unit8: Unit = {
           id: 'u8-L2-Q16',
           type: 'fill-blank',
           question: 'The thin layer of soft metal (typically tin-based or lead-based alloy) used as the bearing surface in journal bearings is called _____ metal.',
-          acceptedAnswers: ['Babbitt', 'babbitt', 'BABBITT', 'babbit', 'Babbit', 'white', 'White'],
+          blanks: ['Babbitt'],
+          wordBank: ['Babbitt', 'bronze', 'bearing', 'Monel', 'stellite'],
           explanation: 'Babbitt metal (also called white metal) is a soft tin-based or lead-based alloy used as the bearing surface material in journal (plain) bearings. Invented by Isaac Babbitt in 1839, it has the essential properties for a journal bearing: (1) conformability — it deforms to match shaft irregularities, (2) embeddability — hard contaminant particles sink into the soft surface rather than scoring the shaft, (3) low friction coefficient against steel, (4) compatibility — it does not weld to the shaft during boundary contact. Babbitt is typically applied as a thin layer (1-3 mm) bonded to a steel backing shell. Its main limitation is low fatigue strength, which limits maximum specific loading to about 7-14 MPa.',
           hint: 'This bearing material was invented in the 1830s and is still the standard for large journal bearings in turbomachinery.'
         },
@@ -646,7 +652,8 @@ export const unit8: Unit = {
           id: 'u8-L2-Q22',
           type: 'fill-blank',
           question: 'The bearing arrangement where one bearing is fixed (locating) and the other can slide axially in its housing to accommodate thermal expansion of the shaft is called a fixed-_____ bearing arrangement.',
-          acceptedAnswers: ['free', 'Free', 'float', 'Float', 'floating', 'Floating'],
+          blanks: ['free'],
+          wordBank: ['free', 'rigid', 'preloaded', 'spring', 'duplex'],
           explanation: 'In a fixed-free (or locating-non-locating) bearing arrangement, one bearing is fixed in both axial directions (it locates the shaft axially relative to the housing), while the other bearing is free to slide axially in the housing to accommodate thermal expansion or contraction of the shaft. Without this provision, thermal growth of the shaft (which can be several tenths of a millimeter in a long shaft operating at elevated temperature) would create high axial loads on the bearings, leading to premature failure. Cylindrical roller bearings (NU or N type) are often used as the free bearing because the rollers can slide axially within the raceway.',
           hint: 'One bearing locates the shaft, the other allows axial movement. What is the second bearing called?'
         },
