@@ -33,6 +33,8 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useMasteryStore } from '@/store/useMasteryStore';
+import { computeAllMastery } from '@/data/mastery';
 
 // ─── Image compression ──────────────────────────────────────
 const MAX_UPLOAD_MB = 5;
@@ -75,6 +77,22 @@ function compressImage(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+
+function formatDaysAgo(dateStr: string): string {
+  const days = Math.floor(
+    (Date.now() - new Date(dateStr + 'T12:00:00').getTime()) / (1000 * 60 * 60 * 24)
+  );
+  if (days === 0) return 'today';
+  if (days === 1) return 'yesterday';
+  return `${days}d ago`;
+}
+
+const MASTERY_COLORS: Record<string, string> = {
+  strong: '#10B981',
+  developing: '#F59E0B',
+  'needs-work': '#EF4444',
+  'not-started': '#94A3B8',
+};
 
 // ─── Animated counter ───────────────────────────────────────
 function AnimatedNumber({ value, duration = 1.2 }: { value: number; duration?: number }) {
@@ -161,17 +179,22 @@ function TopicBar({
   name,
   icon,
   color,
-  accuracy,
-  attempted,
+  mastery,
+  level,
+  eventCount,
+  lastPracticed,
   delay,
 }: {
   name: string;
   icon: string;
   color: string;
-  accuracy: number;
-  attempted: number;
+  mastery: number;
+  level: string;
+  eventCount: number;
+  lastPracticed: string | null;
   delay: number;
 }) {
+  const barColor = eventCount > 0 ? MASTERY_COLORS[level] ?? color : '#E5E7EB';
   return (
     <motion.div
       initial={{ opacity: 0, x: -12 }}
@@ -184,19 +207,25 @@ function TopicBar({
           <span className="text-sm">{icon}</span>
           <span className="text-sm font-semibold text-gray-700">{name}</span>
         </div>
-        <span className="text-xs font-bold tabular-nums" style={{ color: attempted > 0 ? color : '#94A3B8' }}>
-          {attempted > 0 ? `${accuracy}%` : '—'}
+        <span className="text-xs font-bold tabular-nums" style={{ color: eventCount > 0 ? barColor : '#94A3B8' }}>
+          {eventCount > 0 ? `${mastery}%` : '—'}
         </span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
-          style={{ background: `linear-gradient(90deg, ${color}, ${color}CC)` }}
+          style={{ background: `linear-gradient(90deg, ${barColor}, ${barColor}CC)` }}
           initial={{ width: 0 }}
-          animate={{ width: attempted > 0 ? `${accuracy}%` : '0%' }}
+          animate={{ width: eventCount > 0 ? `${mastery}%` : '0%' }}
           transition={{ duration: 0.8, delay: delay + 0.2, ease: 'easeOut' }}
         />
       </div>
+      {eventCount > 0 && (
+        <p className="text-[10px] font-semibold text-gray-400 mt-0.5">
+          {level === 'strong' ? 'Strong' : level === 'developing' ? 'Developing' : 'Needs Work'}
+          {lastPracticed ? ` · ${formatDaysAgo(lastPracticed)}` : ''}
+        </p>
+      )}
     </motion.div>
   );
 }
@@ -286,19 +315,26 @@ export default function ProfilePage() {
     [progress.achievementsUnlocked]
   );
 
+  const masteryEvents = useMasteryStore((s) => s.events);
+  const topicIds = useMemo(() => topics.map((t) => t.id), []);
+  const masteryScores = useMemo(
+    () => computeAllMastery(masteryEvents, topicIds),
+    [masteryEvents, topicIds]
+  );
+
   const topicStats = useMemo(
     () =>
       topics.map((topic) => {
-        const tp = progress.topicProgress.find((p) => p.topicId === topic.id);
-        const attempted = tp?.questionsAttempted ?? 0;
-        const correct = tp?.questionsCorrect ?? 0;
+        const ms = masteryScores.find((m) => m.topicId === topic.id);
         return {
           ...topic,
-          attempted,
-          accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
+          mastery: ms?.score ?? 0,
+          level: ms?.level ?? ('not-started' as const),
+          eventCount: ms?.eventCount ?? 0,
+          lastPracticed: ms?.lastPracticed ?? null,
         };
       }),
-    [progress.topicProgress]
+    [masteryScores]
   );
 
   const initial = displayName.charAt(0).toUpperCase();
@@ -396,6 +432,7 @@ export default function ProfilePage() {
       // Clear local stores
       useStore.getState().resetProgress();
       useCourseStore.setState({ progress: { displayName: displayName, totalXp: 0, currentStreak: 0, longestStreak: 0, lastActiveDate: '', completedLessons: {} } });
+      useMasteryStore.getState().clearEvents();
       setResetStep(0);
       setResetConfirmText('');
       // Reload page to reflect clean state
@@ -656,8 +693,10 @@ export default function ProfilePage() {
                 name={topic.name}
                 icon={topic.icon}
                 color={topic.color}
-                accuracy={topic.accuracy}
-                attempted={topic.attempted}
+                mastery={topic.mastery}
+                level={topic.level}
+                eventCount={topic.eventCount}
+                lastPracticed={topic.lastPracticed}
                 delay={0.7 + i * 0.05}
               />
             ))}
