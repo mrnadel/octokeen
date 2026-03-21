@@ -272,10 +272,33 @@ export default function LessonView() {
             </svg>
           </button>
 
+          {activeLesson.isGolden && (
+            <div
+              className="flex-shrink-0 flex items-center"
+              style={{
+                gap: 4,
+                padding: '4px 10px',
+                borderRadius: 10,
+                background: '#FFF8E1',
+                color: '#B8860B',
+                fontWeight: 800,
+                fontSize: 11,
+                letterSpacing: 0.3,
+                textTransform: 'uppercase',
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="#FFB800" />
+                <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="#FFB800" />
+              </svg>
+              Golden
+            </div>
+          )}
+
           <LessonProgressBar
             current={answeredCount}
             total={totalQuestions}
-            color={unitColor}
+            color={activeLesson.isGolden ? '#FFB800' : unitColor}
           />
 
           <motion.div

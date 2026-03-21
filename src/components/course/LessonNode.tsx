@@ -9,6 +9,7 @@ interface LessonRowProps {
   unitColor: string;
   state: 'completed' | 'current' | 'locked';
   stars?: number;
+  golden?: boolean;
   index: number;
   onClick: () => void;
   theme: UnitTheme;
@@ -32,10 +33,28 @@ function CompletedDots({ count, color }: { count: number; color: string }) {
   );
 }
 
+const GOLD = '#FFB800';
+const GOLD_LIGHT = '#FFF8E1';
+
+function GoldenStar({ filled }: { filled: boolean }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
+        fill={filled ? GOLD : 'none'}
+        stroke={GOLD}
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function LessonNode({
   lesson,
   state,
   stars,
+  golden,
   index,
   onClick,
   theme,
@@ -84,11 +103,21 @@ export function LessonNode({
           height: 38,
           borderRadius: 12,
           background:
-            state === 'locked' ? '#F0F0F0' : `${theme.color}20`,
+            state === 'locked' ? '#F0F0F0'
+            : (state === 'completed' && golden) ? GOLD_LIGHT
+            : `${theme.color}20`,
           fontSize: 16,
         }}
       >
-        {state === 'completed' ? (
+        {state === 'completed' && golden ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
+            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
+            <circle cx="7.5" cy="16" r="1" fill="#FFF8E1" />
+            <circle cx="12" cy="16" r="1" fill="#FFF8E1" />
+            <circle cx="16.5" cy="16" r="1" fill="#FFF8E1" />
+          </svg>
+        ) : state === 'completed' ? (
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path
               d="M5 10.5L8.5 14L15 6"
@@ -141,7 +170,10 @@ export function LessonNode({
       {/* Badge */}
       <div className="flex-shrink-0">
         {state === 'completed' && stars !== undefined && stars > 0 ? (
-          <CompletedDots count={stars} color={theme.color} />
+          <div className="flex items-center" style={{ gap: 8 }}>
+            <CompletedDots count={stars} color={golden ? GOLD : theme.color} />
+            <GoldenStar filled={!!golden} />
+          </div>
         ) : state === 'current' ? (
           <div
             className="go-btn-pulse"

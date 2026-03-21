@@ -45,6 +45,8 @@ export interface LessonProgress {
   bestAccuracy: number;
   attempts: number;
   lastAttempted: string;
+  golden: boolean;                // achieved golden mastery
+  answeredQuestionIds: string[];  // questions seen across all attempts
 }
 
 export interface CourseProgress {
@@ -63,6 +65,7 @@ export interface ActiveLesson {
   answers: { questionId: string; correct: boolean }[];
   startTime: number;
   sessionQuestionIds: string[];
+  isGolden: boolean;
 }
 
 export interface LessonResult {
@@ -76,4 +79,5 @@ export interface LessonResult {
   stars: number;
   isNewBest: boolean;
   isFirstCompletion: boolean;
+  isGolden: boolean;
 }

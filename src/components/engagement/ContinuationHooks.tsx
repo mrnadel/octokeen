@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { Zap } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import {
@@ -15,7 +14,7 @@ import { generateContinuationHooks } from '@/lib/nudge-engine';
 import { getXpToNextLevel } from '@/data/levels';
 import { getTodayDate } from '@/lib/quest-engine';
 import { DOUBLE_XP_FREE_DURATION_MS } from '@/data/engagement-types';
-import { course } from '@/data/course';
+import { course, getLessonById } from '@/data/course';
 import type { ContinuationHook } from '@/data/engagement-types';
 
 interface Props {
@@ -76,8 +75,9 @@ function deriveCurrentUnitInfo(completedLessons: Record<string, unknown>): {
 }
 
 export function ContinuationHooks({ nextLessonId }: Props) {
-  const router = useRouter();
   const progress = useStore((s) => s.progress);
+  const startLesson = useCourseStore((s) => s.startLesson);
+  const dismissResult = useCourseStore((s) => s.dismissResult);
   const dailyQuests = useDailyQuests();
   const league = useLeague();
   const doubleXpExpiry = useDoubleXpExpiry();
@@ -150,12 +150,15 @@ export function ContinuationHooks({ nextLessonId }: Props) {
               onClick={() => {
                 if (isDoubleXp) {
                   activateDoubleXp(DOUBLE_XP_FREE_DURATION_MS);
-                } else if (nextLessonId) {
-                  router.push(`/learn/${nextLessonId}`);
-                } else if (unitInfo.nextLessonId) {
-                  router.push(`/learn/${unitInfo.nextLessonId}`);
                 } else {
-                  router.push('/learn');
+                  const targetId = nextLessonId || unitInfo.nextLessonId;
+                  const info = targetId ? getLessonById(targetId) : null;
+                  if (info) {
+                    dismissResult();
+                    startLesson(info.unitIndex, info.lessonIndex);
+                  } else {
+                    dismissResult();
+                  }
                 }
               }}
               className="flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-colors"

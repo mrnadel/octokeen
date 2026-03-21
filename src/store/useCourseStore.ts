@@ -22,7 +22,7 @@ interface CourseState {
   setCourseData: (data: Unit[]) => void;
 
   // Actions
-  startLesson: (unitIndex: number, lessonIndex: number) => void;
+  startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => void;
   submitAnswer: (questionId: string, correct: boolean) => void;
   nextQuestion: () => void;
   completeLesson: () => void;
@@ -92,13 +92,28 @@ export const useCourseStore = create<CourseState>()(
 
       setCourseData: (data: Unit[]) => set({ courseData: data }),
 
-      startLesson: (unitIndex: number, lessonIndex: number) => {
+      startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => {
         const unit = get().courseData[unitIndex];
         const lesson = unit.lessons[lessonIndex];
         const allIds = lesson.questions.map((q) => q.id);
-        const shuffled = shuffleArray(allIds);
-        const SESSION_SIZE = 10;
-        const sessionQuestionIds = shuffled.slice(0, Math.min(SESSION_SIZE, shuffled.length));
+        const isGolden = golden === true;
+
+        let sessionQuestionIds: string[];
+
+        if (isGolden) {
+          // Golden session: pick questions the user hasn't seen before
+          const existing = get().progress.completedLessons[lesson.id];
+          const seen = new Set(existing?.answeredQuestionIds ?? []);
+          const unseen = allIds.filter((id) => !seen.has(id));
+          // If fewer than 5 unseen, use all questions as comprehensive review
+          const pool = unseen.length >= 5 ? unseen : allIds;
+          sessionQuestionIds = shuffleArray(pool);
+        } else {
+          // Normal session: 10 random questions
+          const SESSION_SIZE = 10;
+          const shuffled = shuffleArray(allIds);
+          sessionQuestionIds = shuffled.slice(0, Math.min(SESSION_SIZE, shuffled.length));
+        }
 
         set({
           activeLesson: {
@@ -108,6 +123,7 @@ export const useCourseStore = create<CourseState>()(
             answers: [],
             startTime: Date.now(),
             sessionQuestionIds,
+            isGolden,
           },
           lessonResult: null,
         });
@@ -152,7 +168,7 @@ export const useCourseStore = create<CourseState>()(
         const state = get();
         if (!state.activeLesson) return;
 
-        const { unitIndex, lessonIndex, answers, sessionQuestionIds } = state.activeLesson;
+        const { unitIndex, lessonIndex, answers, sessionQuestionIds, isGolden } = state.activeLesson;
         const unit = get().courseData[unitIndex];
         const lesson = unit.lessons[lessonIndex];
 
@@ -169,12 +185,18 @@ export const useCourseStore = create<CourseState>()(
         const isFirstCompletion = !existingProgress;
         const isNewBest = isFirstCompletion || accuracy > existingProgress.bestAccuracy;
 
+        // Merge answered question IDs
+        const previousAnswered = existingProgress?.answeredQuestionIds ?? [];
+        const mergedAnswered = [...new Set([...previousAnswered, ...sessionQuestionIds])];
+
         // Build updated lesson progress
         const updatedLessonProgress = {
           stars: existingProgress ? Math.max(existingProgress.stars, stars) : stars,
           bestAccuracy: existingProgress ? Math.max(existingProgress.bestAccuracy, accuracy) : accuracy,
           attempts: existingProgress ? existingProgress.attempts + 1 : 1,
           lastAttempted: getTodayString(),
+          golden: isGolden ? true : (existingProgress?.golden ?? false),
+          answeredQuestionIds: mergedAnswered,
         };
 
         // Update streak
@@ -207,6 +229,7 @@ export const useCourseStore = create<CourseState>()(
           stars,
           isNewBest,
           isFirstCompletion,
+          isGolden,
         };
 
         set({
@@ -235,7 +258,7 @@ export const useCourseStore = create<CourseState>()(
       },
 
       debugSetProgress: (lessonCount: number) => {
-        const completedLessons: Record<string, { stars: number; bestAccuracy: number; attempts: number; lastAttempted: string }> = {};
+        const completedLessons: CourseProgress['completedLessons'] = {};
         let xp = 0;
         let count = 0;
         const today = getTodayString();
@@ -254,6 +277,8 @@ export const useCourseStore = create<CourseState>()(
               bestAccuracy: 95,
               attempts: 1,
               lastAttempted: today,
+              golden: false,
+              answeredQuestionIds: lesson.questions.slice(0, 10).map(q => q.id),
             };
             xp += lesson.xpReward * 3;
 
@@ -385,6 +410,17 @@ export const useCourseStore = create<CourseState>()(
         if (!persisted?.progress) return currentState;
 
         const defaults = getDefaultProgress();
+        // Migrate old lesson progress entries that lack golden/answeredQuestionIds
+        const completedLessons = persisted.progress.completedLessons ?? defaults.completedLessons;
+        const migratedLessons: Record<string, typeof completedLessons[string]> = {};
+        for (const [id, lp] of Object.entries(completedLessons)) {
+          migratedLessons[id] = {
+            ...lp,
+            golden: lp.golden ?? false,
+            answeredQuestionIds: lp.answeredQuestionIds ?? [],
+          };
+        }
+
         return {
           ...currentState,
           progress: {
@@ -393,7 +429,7 @@ export const useCourseStore = create<CourseState>()(
             currentStreak: persisted.progress.currentStreak ?? defaults.currentStreak,
             longestStreak: persisted.progress.longestStreak ?? defaults.longestStreak,
             lastActiveDate: persisted.progress.lastActiveDate ?? defaults.lastActiveDate,
-            completedLessons: persisted.progress.completedLessons ?? defaults.completedLessons,
+            completedLessons: migratedLessons,
           },
         };
       },

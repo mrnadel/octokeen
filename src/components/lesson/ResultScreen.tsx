@@ -59,11 +59,19 @@ export default function ResultScreen() {
   const lessonInfo = getLessonById(lessonResult.lessonId);
   const theme = getUnitTheme(lessonInfo?.unitIndex ?? 0);
 
+  const isGolden = lessonResult.isGolden;
+
   const getMessage = () => {
+    if (isGolden) return 'Mastered!';
     if (lessonResult.stars === 3) return 'Perfect Score!';
     if (lessonResult.stars === 2) return 'Great Work!';
     return 'Lesson Complete!';
   };
+
+  // Golden overrides for theme colors
+  const headerBg = isGolden ? '#FFF8E1' : theme.bg;
+  const accentColor = isGolden ? '#FFB800' : theme.color;
+  const accentDark = isGolden ? '#B8860B' : theme.dark;
 
   return (
     <AnimatePresence>
@@ -85,7 +93,7 @@ export default function ResultScreen() {
         <div
           className="flex flex-col items-center"
           style={{
-            background: theme.bg,
+            background: headerBg,
             padding: '36px 24px 28px',
           }}
         >
@@ -96,8 +104,8 @@ export default function ResultScreen() {
               width: 72,
               height: 72,
               borderRadius: 24,
-              background: theme.color,
-              boxShadow: `0 6px 0 ${theme.dark}`,
+              background: accentColor,
+              boxShadow: `0 6px 0 ${accentDark}`,
               fontSize: 36,
               marginBottom: 16,
             }}
@@ -105,7 +113,7 @@ export default function ResultScreen() {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.15 }}
           >
-            {lessonResult.stars === 3 ? '\uD83D\uDC51' : '\uD83C\uDFC6'}
+            {isGolden ? '\uD83D\uDC51' : lessonResult.stars === 3 ? '\uD83D\uDC51' : '\uD83C\uDFC6'}
           </motion.div>
 
           {/* Heading */}
@@ -116,14 +124,14 @@ export default function ResultScreen() {
             style={{
               fontSize: 24,
               fontWeight: 800,
-              color: theme.dark,
+              color: accentDark,
               margin: '0 0 8px',
             }}
           >
             {getMessage()}
           </motion.h1>
 
-          {/* Stars as dots */}
+          {/* Stars as dots (or golden star for golden completion) */}
           <motion.div
             className="flex items-center"
             style={{ gap: 6 }}
@@ -131,28 +139,48 @@ export default function ResultScreen() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            {[1, 2, 3].map((starNum) => {
-              const earned = starNum <= lessonResult.stars;
-              return (
-                <motion.div
-                  key={starNum}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 15,
-                    delay: 0.5 + starNum * 0.12,
-                  }}
-                  style={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    background: earned ? theme.color : `${theme.color}35`,
-                  }}
+            {isGolden ? (
+              <motion.svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.55 }}
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
+                  fill="#FFB800"
+                  stroke="#B8860B"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
                 />
-              );
-            })}
+              </motion.svg>
+            ) : (
+              [1, 2, 3].map((starNum) => {
+                const earned = starNum <= lessonResult.stars;
+                return (
+                  <motion.div
+                    key={starNum}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 15,
+                      delay: 0.5 + starNum * 0.12,
+                    }}
+                    style={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: '50%',
+                      background: earned ? theme.color : `${theme.color}35`,
+                    }}
+                  />
+                );
+              })
+            )}
           </motion.div>
         </div>
 
@@ -251,7 +279,7 @@ export default function ResultScreen() {
                 style={{
                   fontSize: 22,
                   fontWeight: 800,
-                  color: theme.color,
+                  color: accentColor,
                 }}
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -263,8 +291,28 @@ export default function ResultScreen() {
           </div>
 
           {/* Achievement badges */}
-          {(lessonResult.isNewBest || lessonResult.isFirstCompletion) && (
+          {(lessonResult.isNewBest || lessonResult.isFirstCompletion || isGolden) && (
             <div className="flex flex-col" style={{ gap: 8, marginTop: 12 }}>
+              {isGolden && (
+                <motion.div
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.9 }}
+                  className="flex items-center"
+                  style={{
+                    gap: 8,
+                    padding: '10px 14px',
+                    borderRadius: 14,
+                    background: '#FFF8E1',
+                    border: '1.5px solid #FFE4B8',
+                  }}
+                >
+                  <span style={{ fontSize: 16 }}>{'\uD83D\uDC51'}</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#B8860B' }}>
+                    Golden mastery unlocked!
+                  </span>
+                </motion.div>
+              )}
               {lessonResult.isNewBest && (
                 <motion.div
                   initial={{ opacity: 0, x: -12 }}
@@ -334,9 +382,9 @@ export default function ResultScreen() {
               fontWeight: 800,
               textTransform: 'uppercase',
               letterSpacing: 0.8,
-              background: theme.color,
+              background: accentColor,
               color: '#FFFFFF',
-              boxShadow: `0 4px 0 ${theme.dark}`,
+              boxShadow: `0 4px 0 ${accentDark}`,
               border: 'none',
               cursor: 'pointer',
             }}

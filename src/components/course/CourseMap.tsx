@@ -213,12 +213,16 @@ export function CourseMap() {
                               unitColor={theme.color}
                               state={state}
                               stars={lessonProgress?.stars}
+                              golden={lessonProgress?.golden}
                               index={lessonIndex}
                               onClick={() => {
                                 if (isProLocked) {
                                   setShowUpgradeModal(true);
                                 } else if (state === 'locked') {
                                   setJumpConfirm({ unitIndex, lessonIndex });
+                                } else if (state === 'completed' && !lessonProgress?.golden) {
+                                  // Completed but not golden: start golden challenge
+                                  startLesson(unitIndex, lessonIndex, true);
                                 } else {
                                   startLesson(unitIndex, lessonIndex);
                                 }
