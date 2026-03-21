@@ -90,8 +90,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token.name) {
         session.user.name = token.name;
       }
-      if (token.picture) {
-        session.user.image = token.picture as string;
+      if (token.picture !== undefined) {
+        session.user.image = (token.picture as string) || undefined;
       }
       return session;
     },

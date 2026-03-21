@@ -4,6 +4,10 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
+// ─── Limits ──────────────────────────────────────────────────
+const MAX_IMAGE_BYTES = 100 * 1024; // 100 KB max stored size (base64 data URL)
+const ALLOWED_MIME_PREFIXES = ['data:image/jpeg', 'data:image/png', 'data:image/webp'];
+
 export async function GET() {
   const userId = await getAuthUserId();
   if (!userId) {
@@ -27,19 +31,67 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { displayName } = await request.json();
+  const body = await request.json();
 
-  if (!displayName || displayName.length < 2 || displayName.length > 50) {
-    return NextResponse.json(
-      { error: 'Display name must be 2-50 characters' },
-      { status: 400 }
-    );
+  // ── Handle display name update ──
+  if (body.displayName !== undefined) {
+    const { displayName } = body;
+    if (!displayName || displayName.length < 2 || displayName.length > 50) {
+      return NextResponse.json(
+        { error: 'Display name must be 2-50 characters' },
+        { status: 400 }
+      );
+    }
+    await db
+      .update(users)
+      .set({ displayName, name: displayName, updatedAt: new Date() })
+      .where(eq(users.id, userId));
+
+    return NextResponse.json({ ok: true });
   }
 
-  await db
-    .update(users)
-    .set({ displayName, name: displayName, updatedAt: new Date() })
-    .where(eq(users.id, userId));
+  // ── Handle profile image update ──
+  if (body.image !== undefined) {
+    const { image } = body;
 
-  return NextResponse.json({ ok: true });
+    // Allow clearing the image
+    if (image === null) {
+      await db
+        .update(users)
+        .set({ image: null, updatedAt: new Date() })
+        .where(eq(users.id, userId));
+      return NextResponse.json({ ok: true, image: null });
+    }
+
+    // Validate it's a data URL with allowed MIME type
+    if (typeof image !== 'string') {
+      return NextResponse.json({ error: 'Invalid image data' }, { status: 400 });
+    }
+
+    const hasValidPrefix = ALLOWED_MIME_PREFIXES.some((p) => image.startsWith(p));
+    if (!hasValidPrefix) {
+      return NextResponse.json(
+        { error: 'Only JPEG, PNG, or WebP images are allowed' },
+        { status: 400 }
+      );
+    }
+
+    // Check size (the full data URL string length in bytes)
+    const byteSize = Buffer.byteLength(image, 'utf-8');
+    if (byteSize > MAX_IMAGE_BYTES) {
+      return NextResponse.json(
+        { error: `Image too large (${Math.round(byteSize / 1024)}KB). Max is ${MAX_IMAGE_BYTES / 1024}KB after compression.` },
+        { status: 400 }
+      );
+    }
+
+    await db
+      .update(users)
+      .set({ image, updatedAt: new Date() })
+      .where(eq(users.id, userId));
+
+    return NextResponse.json({ ok: true, image });
+  }
+
+  return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
 }

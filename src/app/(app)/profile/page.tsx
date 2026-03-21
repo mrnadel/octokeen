@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -24,9 +24,54 @@ import {
   Shield,
   Star,
   Crown,
+  Camera,
+  Trash2,
+  Loader2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// ─── Image compression ──────────────────────────────────────
+const MAX_UPLOAD_MB = 5;
+const OUTPUT_SIZE = 128; // px
+const JPEG_QUALITY = 0.6;
+
+function compressImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+      reject(new Error(`File too large. Max ${MAX_UPLOAD_MB}MB.`));
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      reject(new Error('Not a valid image file.'));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = OUTPUT_SIZE;
+        canvas.height = OUTPUT_SIZE;
+        const ctx = canvas.getContext('2d')!;
+
+        // Crop to square from center
+        const min = Math.min(img.width, img.height);
+        const sx = (img.width - min) / 2;
+        const sy = (img.height - min) / 2;
+
+        ctx.drawImage(img, sx, sy, min, min, 0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
+        const dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error('Failed to load image.'));
+      img.src = reader.result as string;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file.'));
+    reader.readAsDataURL(file);
+  });
+}
 
 // ─── Animated counter ───────────────────────────────────────
 function AnimatedNumber({ value, duration = 1.2 }: { value: number; duration?: number }) {
@@ -203,6 +248,10 @@ export default function ProfilePage() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordLoading, setPasswordLoading] = useState(false);
 
+  const [avatarUploading, setAvatarUploading] = useState(false);
+  const [avatarError, setAvatarError] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     fetch('/api/user/profile')
       .then((res) => res.json())
@@ -293,6 +342,51 @@ export default function ProfilePage() {
     }
   };
 
+  const handleAvatarUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Reset input so same file can be re-selected
+    e.target.value = '';
+
+    setAvatarError('');
+    setAvatarUploading(true);
+    try {
+      const compressed = await compressImage(file);
+      const res = await fetch('/api/user/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: compressed }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Upload failed');
+      }
+      await updateSession({ image: compressed });
+    } catch (err: any) {
+      setAvatarError(err.message || 'Upload failed');
+      setTimeout(() => setAvatarError(''), 4000);
+    } finally {
+      setAvatarUploading(false);
+    }
+  }, [updateSession]);
+
+  const handleRemoveAvatar = useCallback(async () => {
+    setAvatarUploading(true);
+    setAvatarError('');
+    try {
+      const res = await fetch('/api/user/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: null }),
+      });
+      if (res.ok) {
+        await updateSession({ image: '' });
+      }
+    } catch { /* silent */ } finally {
+      setAvatarUploading(false);
+    }
+  }, [updateSession]);
+
   // ═════════════════════════════════════════════════════════
   return (
     <div className="pb-10">
@@ -332,7 +426,7 @@ export default function ProfilePage() {
         <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-amber-500/10 blur-3xl" />
 
         <div className="relative px-4 pt-8 pb-10">
-          {/* Avatar with XP Ring */}
+          {/* Avatar with XP Ring + Upload */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -351,6 +445,25 @@ export default function ProfilePage() {
                   {initial}
                 </div>
               )}
+              {/* Upload overlay */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={handleAvatarUpload}
+              />
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={avatarUploading}
+                className="absolute inset-0 rounded-full bg-black/0 hover:bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-all cursor-pointer group"
+              >
+                {avatarUploading ? (
+                  <Loader2 className="w-6 h-6 text-white animate-spin" />
+                ) : (
+                  <Camera className="w-6 h-6 text-white drop-shadow-lg" />
+                )}
+              </button>
             </div>
             {/* Level badge */}
             <motion.div
@@ -362,7 +475,32 @@ export default function ProfilePage() {
               <span>{levelInfo.current.icon}</span>
               <span>Lv. {levelInfo.current.level}</span>
             </motion.div>
+            {/* Remove photo button */}
+            {image && !avatarUploading && (
+              <motion.button
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                onClick={handleRemoveAvatar}
+                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 hover:bg-red-400 text-white rounded-full flex items-center justify-center shadow-lg transition-colors z-10"
+                title="Remove photo"
+              >
+                <Trash2 className="w-3 h-3" />
+              </motion.button>
+            )}
           </motion.div>
+          {/* Avatar error */}
+          <AnimatePresence>
+            {avatarError && (
+              <motion.p
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-center text-xs text-red-300 bg-red-500/10 rounded-lg py-1.5 px-3 mb-2 mx-auto max-w-xs"
+              >
+                {avatarError}
+              </motion.p>
+            )}
+          </AnimatePresence>
 
           {/* Name */}
           <div className="text-center">
