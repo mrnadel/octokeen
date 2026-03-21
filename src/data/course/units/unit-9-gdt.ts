@@ -234,7 +234,8 @@ export const unit9: Unit = {
           id: 'u9-L1-Q18',
           type: 'fill-blank',
           question: 'A fit where the tolerance zones of the hole and shaft overlap, potentially resulting in either clearance or interference, is called a _____ fit.',
-          acceptedAnswers: ['transition', 'Transition'],
+          blanks: ['transition'],
+          wordBank: ['transition', 'clearance', 'interference', 'sliding', 'running'],
           explanation: 'A transition fit has overlapping tolerance zones, meaning the actual outcome depends on where the individual parts fall within their tolerance bands. If the hole happens to be large and the shaft small, there is clearance. If the hole is small and the shaft large, there is interference. Transition fits are used for accurate location without guaranteed interference — for example, locating rings, bearing outer races in housings, and dowel pins in reamed holes.',
           hint: 'This fit type sits between clearance and interference — it could go either way.'
         },
@@ -305,8 +306,9 @@ export const unit9: Unit = {
         {
           id: 'u9-L1-Q24',
           type: 'fill-blank',
-          question: 'In the ISO system, the letter "H" for a hole indicates that the _____ deviation is zero.',
-          acceptedAnswers: ['lower', 'Lower', 'fundamental lower', 'minimum'],
+          question: 'In the ISO system, an "H" hole has its _____ deviation equal to zero, while an "h" shaft has its _____ deviation equal to zero.',
+          blanks: ['lower', 'upper'],
+          wordBank: ['lower', 'upper', 'fundamental', 'nominal', 'bilateral'],
           explanation: 'For an H-type hole, the fundamental (lower) deviation is zero, meaning the minimum hole size equals the basic (nominal) size. The tolerance zone extends above nominal. For example, ∅25 H7 ranges from 25.000 to 25.021 mm. This is the standard hole in the hole-basis fit system. Similarly, for a shaft, the letter "h" means the upper deviation is zero (maximum shaft = nominal), with the tolerance zone extending below nominal.',
           hint: 'The H hole starts at nominal and extends upward — which deviation is zero?'
         },
@@ -378,7 +380,8 @@ export const unit9: Unit = {
           id: 'u9-L1-Q30',
           type: 'fill-blank',
           question: 'When both the upper and lower deviations of a tolerance are on the same side of the nominal dimension (e.g., +0.00/+0.05), this is called _____ tolerancing.',
-          acceptedAnswers: ['unilateral', 'Unilateral'],
+          blanks: ['unilateral'],
+          wordBank: ['unilateral', 'bilateral', 'symmetric', 'limit', 'geometric'],
           explanation: 'Unilateral tolerancing places both deviations on one side of nominal — either both positive (e.g., +0.00/+0.05) or both negative (e.g., −0.05/−0.00). This is common in fit systems: H-type holes have unilateral positive deviations, and h-type shafts have unilateral negative deviations. Unilateral tolerancing simplifies manufacturing because the machinist aims for the nominal and only needs to worry about deviation in one direction. Bilateral tolerancing has deviations on both sides of nominal.',
           hint: 'Both deviations are on one side — above or below nominal, not split across.'
         }
@@ -465,7 +468,8 @@ export const unit9: Unit = {
           id: 'u9-L2-Q6',
           type: 'fill-blank',
           question: 'The condition where a feature of size contains the maximum amount of material (smallest hole, largest shaft) is called ___.',
-          acceptedAnswers: ['MMC', 'mmc', 'Maximum Material Condition', 'maximum material condition'],
+          blanks: ['MMC'],
+          wordBank: ['MMC', 'LMC', 'RFS', 'MMS', 'VCB'],
           explanation: 'Maximum Material Condition (MMC) is when a feature has the most material: smallest hole or largest shaft. It represents the tightest fit condition between mating parts. The MMC modifier (circled M) is used with geometric tolerances to allow bonus tolerance as the feature departs from MMC. This is based on the principle that if a hole is larger than its MMC, it can tolerate more positional error and still assemble with the mating shaft.',
           hint: 'This condition represents the most material everywhere — tightest fit for mating parts.'
         },
@@ -615,7 +619,8 @@ export const unit9: Unit = {
           id: 'u9-L2-Q18',
           type: 'fill-blank',
           question: 'The geometric tolerance that controls the overall 3D form of a cylindrical surface — combining roundness, straightness, and taper control — is called _____.',
-          acceptedAnswers: ['cylindricity', 'Cylindricity'],
+          blanks: ['cylindricity'],
+          wordBank: ['cylindricity', 'circularity', 'concentricity', 'straightness', 'total runout'],
           explanation: 'Cylindricity is the most comprehensive form tolerance for cylindrical features. Its tolerance zone is two coaxial cylinders — every point on the feature surface must lie between them. It simultaneously controls roundness (at every cross-section), straightness (of every line element), and taper (variation of diameter along the length). It is harder to achieve and more expensive to inspect than circularity or straightness alone. It is used when the full 3D form of the cylinder is critical, such as bearing journals, hydraulic cylinder bores, and precision shafts.',
           hint: 'This form tolerance captures every possible shape error on a cylindrical surface in one callout.'
         },
@@ -708,8 +713,9 @@ export const unit9: Unit = {
         {
           id: 'u9-L2-Q26',
           type: 'fill-blank',
-          question: 'In ASME Y14.5-2018, the default material condition modifier for geometric tolerances applied to features of size is _____ (meaning the tolerance applies at any produced size).',
-          acceptedAnswers: ['RFS', 'rfs', 'Regardless of Feature Size', 'regardless of feature size'],
+          question: 'In ASME Y14.5-2018, the default modifier is _____, meaning no _____ tolerance is available unless MMC or LMC is explicitly stated.',
+          blanks: ['RFS', 'bonus'],
+          wordBank: ['RFS', 'bonus', 'MMC', 'datum', 'LMC', 'profile'],
           explanation: 'In ASME Y14.5-2018 (and the 2009 edition), RFS (Regardless of Feature Size) is the default — no symbol is needed in the feature control frame. This means the geometric tolerance applies at the stated value regardless of where the actual feature size falls within its size tolerance. No bonus tolerance is available. To invoke MMC or LMC, the modifier (circled M or circled L) must be explicitly stated. In the older 1982 standard, MMC was the default for certain applications, which is a source of confusion on legacy drawings.',
           hint: 'If no modifier symbol appears in the feature control frame, what is assumed?'
         },
@@ -846,7 +852,8 @@ export const unit9: Unit = {
           id: 'u9-L3-Q6',
           type: 'fill-blank',
           question: 'The system of three mutually perpendicular datum planes that fully constrains a part in 6 degrees of freedom is called the datum ___ frame.',
-          acceptedAnswers: ['reference', 'Reference', 'DRF'],
+          blanks: ['reference'],
+          wordBank: ['reference', 'coordinate', 'alignment', 'constraint', 'feature'],
           explanation: 'The Datum Reference Frame (DRF) is established by three mutually perpendicular datum planes derived from the primary, secondary, and tertiary datum features. It serves as the coordinate system from which all geometric tolerances are evaluated. The DRF is analogous to a workholding fixture or machine tool coordinate system. Every feature control frame that references datums is evaluated relative to this coordinate frame. Proper DRF establishment is fundamental to correct GD&T interpretation and inspection.',
           hint: 'This is the 3D coordinate system established by the three datums.'
         },
@@ -967,9 +974,10 @@ export const unit9: Unit = {
         {
           id: 'u9-L3-Q16',
           type: 'fill-blank',
-          question: 'The minimum number of contact points required to establish a primary datum plane is _____.',
-          acceptedAnswers: ['3', 'three', 'Three'],
-          explanation: 'Three non-collinear points define a plane. For the primary datum, three high points on the datum feature contact the datum simulator (e.g., surface plate), establishing the primary datum plane. This constrains 3 DOF. Two contact points on the secondary datum feature constrain 2 more DOF, and one contact point on the tertiary constrains the final DOF, totaling 6 DOF for the complete 3-2-1 datum reference frame. If the primary feature is very long and narrow, the three contact points may be nearly collinear, leading to instability — this is why broad, stable surfaces make better primary datums.',
+          question: 'The primary datum plane requires _____ contact points and constrains _____ degrees of freedom.',
+          blanks: ['3', '3'],
+          wordBank: ['3', '3', '2', '1', '6'],
+          explanation: 'Three non-collinear points define a plane. For the primary datum, three high points on the datum feature contact the datum simulator (e.g., surface plate), establishing the primary datum plane. This constrains 3 DOF (one translation normal to the plane and two rotations). Two contact points on the secondary datum feature constrain 2 more DOF, and one contact point on the tertiary constrains the final DOF, totaling 6 DOF for the complete 3-2-1 datum reference frame.',
           hint: 'How many non-collinear points define a plane in 3D geometry?'
         },
         {
@@ -1040,7 +1048,8 @@ export const unit9: Unit = {
           id: 'u9-L3-Q22',
           type: 'fill-blank',
           question: 'The 3-2-1 principle states that a complete datum reference frame requires _____ total contact points (3 for primary, 2 for secondary, 1 for tertiary).',
-          acceptedAnswers: ['6', 'six', 'Six'],
+          blanks: ['6'],
+          wordBank: ['6', '3', '9', '5', '4'],
           explanation: 'The 3-2-1 rule is the foundation of workholding and datum establishment. Three non-collinear points define the primary datum plane (constraining 3 DOF: one translation and two rotations). Two points define the secondary datum (constraining 2 DOF: one translation and one rotation). One point defines the tertiary datum (constraining the final DOF: one translation). Together, 6 contact points constrain all 6 DOF (3 translations + 3 rotations), fully locating the part in space. This principle is applied not only in GD&T but also in fixture design, CMM programming, and robotic part locating.',
           hint: 'Add up: 3 + 2 + 1 = ?'
         },
@@ -1112,7 +1121,8 @@ export const unit9: Unit = {
           id: 'u9-L3-Q28',
           type: 'fill-blank',
           question: 'Specific points, lines, or areas used to establish a datum from an irregular or rough surface are called datum _____.',
-          acceptedAnswers: ['targets', 'Targets'],
+          blanks: ['targets'],
+          wordBank: ['targets', 'features', 'references', 'simulators', 'indicators'],
           explanation: 'Datum targets are designated contact locations on a datum feature. For point targets, a crosshair symbol is used at the specified location. For area targets, a circular area of specified diameter is shown. For line targets, a line at the specified location is indicated. The datum target symbol is a divided circle: the upper half shows the target area dimension (blank for point targets), and the lower half shows the identifier (e.g., A1, A2, A3 for the first three targets on datum A). Datum targets are essential for parts with as-cast, as-forged, or as-molded surfaces, and for flexible sheet metal parts.',
           hint: 'These are designated contact points or areas on rough surfaces where the datum simulator touches.'
         },
@@ -1215,7 +1225,8 @@ export const unit9: Unit = {
           id: 'u9-L4-Q6',
           type: 'fill-blank',
           question: 'The statistical tolerance analysis method that computes the total tolerance as the square root of the sum of squared individual tolerances is called the ___ method.',
-          acceptedAnswers: ['RSS', 'rss', 'Root Sum Square', 'root sum square', 'Root Sum of Squares', 'root sum of squares'],
+          blanks: ['RSS'],
+          wordBank: ['RSS', 'WCA', 'RMS', 'GD&T', 'FMEA'],
           explanation: 'The RSS (Root Sum Square) method assumes individual dimensions follow normal distributions and are statistically independent. It predicts the assembly variation at approximately 3-sigma confidence (99.73%). RSS gives a smaller total tolerance than worst-case, resulting in lower manufacturing cost. However, it accepts a small probability (~0.27%) that assemblies will be out of tolerance. For higher confidence, a safety factor (inflator) can be applied, or Monte Carlo simulation can be used for non-normal distributions.',
           hint: 'This method uses the Pythagorean-like combination of individual tolerances.'
         },
@@ -1314,8 +1325,9 @@ export const unit9: Unit = {
         {
           id: 'u9-L4-Q14',
           type: 'fill-blank',
-          question: 'In a worst-case tolerance analysis, the total assembly tolerance equals the arithmetic _____ of all individual tolerances.',
-          acceptedAnswers: ['sum', 'Sum', 'addition'],
+          question: 'In a _____ tolerance analysis, the total assembly tolerance equals the arithmetic _____ of all individual tolerances.',
+          blanks: ['worst-case', 'sum'],
+          wordBank: ['worst-case', 'sum', 'statistical', 'product', 'Monte Carlo', 'average'],
           explanation: 'Worst-case analysis assumes all dimensions are simultaneously at their most unfavorable limits. The total tolerance is simply the arithmetic sum of all individual tolerances: T_total = T1 + T2 + T3 + ... + Tn. This guarantees 100% of assemblies will be within the calculated range, assuming all individual parts are within their tolerances. While overly conservative for most applications, it is the only method that provides absolute certainty. The method is also called "arithmetic stack-up" or "linear stack-up."',
           hint: 'The simplest method: just add up all the individual tolerances.'
         },
