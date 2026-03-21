@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -16,6 +16,7 @@ import { LessonNode } from './LessonNode';
 export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentUnitRef = useRef<HTMLDivElement>(null);
+  const currentLessonRef = useRef<HTMLDivElement>(null);
   const { progress, startLesson, isLessonUnlocked } = useCourseStore();
   const { status } = useSession();
   const router = useRouter();
@@ -59,6 +60,18 @@ export function CourseMap() {
 
   const activeUnitIndex = findActiveUnitIndex();
 
+  // Find the exact first "current" lesson to scroll to
+  const currentLessonId = useMemo(() => {
+    for (let ui = 0; ui < course.length; ui++) {
+      for (let li = 0; li < course[ui].lessons.length; li++) {
+        if (getLessonState(ui, li) === 'current') {
+          return course[ui].lessons[li].id;
+        }
+      }
+    }
+    return null;
+  }, [getLessonState]);
+
   const [expandedUnits, setExpandedUnits] = useState<Set<number>>(
     new Set([activeUnitIndex])
   );
@@ -75,25 +88,16 @@ export function CourseMap() {
     });
   };
 
+  // Auto-scroll to the current lesson on mount
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (currentUnitRef.current && scrollRef.current) {
-        const container = scrollRef.current;
-        const element = currentUnitRef.current;
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = element.getBoundingClientRect();
-
-        const offset =
-          container.scrollTop +
-          (elementRect.top - containerRect.top) -
-          containerRect.height * 0.15;
-
-        container.scrollTo({
-          top: Math.max(0, offset),
-          behavior: 'smooth',
-        });
+      const target = currentLessonRef.current || currentUnitRef.current;
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        const scrollY = window.scrollY + rect.top - window.innerHeight * 0.3;
+        window.scrollTo({ top: Math.max(0, scrollY), behavior: 'smooth' });
       }
-    }, 350);
+    }, 450);
     return () => clearTimeout(timer);
   }, []);
 
@@ -181,24 +185,28 @@ export function CourseMap() {
                           progress.completedLessons[lesson.id];
 
                         return (
-                          <LessonNode
+                          <div
                             key={lesson.id}
-                            lesson={lesson}
-                            unitColor={theme.color}
-                            state={state}
-                            stars={lessonProgress?.stars}
-                            index={lessonIndex}
-                            onClick={() => {
-                              if (isProLocked) {
-                                setShowUpgradeModal(true);
-                              } else if (state === 'locked') {
-                                setJumpConfirm({ unitIndex, lessonIndex });
-                              } else {
-                                startLesson(unitIndex, lessonIndex);
-                              }
-                            }}
-                            theme={theme}
-                          />
+                            ref={lesson.id === currentLessonId ? currentLessonRef : undefined}
+                          >
+                            <LessonNode
+                              lesson={lesson}
+                              unitColor={theme.color}
+                              state={state}
+                              stars={lessonProgress?.stars}
+                              index={lessonIndex}
+                              onClick={() => {
+                                if (isProLocked) {
+                                  setShowUpgradeModal(true);
+                                } else if (state === 'locked') {
+                                  setJumpConfirm({ unitIndex, lessonIndex });
+                                } else {
+                                  startLesson(unitIndex, lessonIndex);
+                                }
+                              }}
+                              theme={theme}
+                            />
+                          </div>
                         );
                       })}
                     </div>
