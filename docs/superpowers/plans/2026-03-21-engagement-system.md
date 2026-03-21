@@ -16,10 +16,12 @@
 
 ## File Structure
 
-### New Files (26 files)
+### New Files (28 files)
+
+> **Spec deviations:** `src/data/engagement-types.ts` and `src/lib/engagement-init.ts` are new files not in the spec — extracted for cleaner separation of concerns. All spec-listed files are covered.
 
 **Data & Types:**
-- `src/data/engagement-types.ts` — All engagement type definitions (Quest, GemsState, LeagueState, etc.)
+- `src/data/engagement-types.ts` — All engagement type definitions (Quest, GemsState, LeagueState, etc.) *[extracted from inline spec types]*
 - `src/data/quests.ts` — Daily and weekly quest pool definitions
 - `src/data/league.ts` — League tiers, competitor name pool, tier XP ranges
 - `src/data/gem-shop.ts` — Shop items with costs and metadata
@@ -30,13 +32,14 @@
 - `src/lib/quest-engine.ts` — Quest selection, progress tracking, reset logic
 - `src/lib/league-simulator.ts` — Seeded PRNG, competitor generation, XP simulation
 - `src/lib/nudge-engine.ts` — Nudge card selection, priority ranking, filtering
+- `src/lib/engagement-init.ts` — App-load initialization hook (streak freeze, quest/league setup) *[spec puts this in useStore.ts; extracted for clarity]*
 
 **Store:**
 - `src/store/useEngagementStore.ts` — Full Zustand store with persist middleware
 
 **Components:**
 - `src/components/engagement/QuestCard.tsx` — Single quest with progress bar
-- `src/components/engagement/QuestBoard.tsx` — Daily + weekly quest container with chest
+- `src/components/engagement/QuestBoard.tsx` — Daily + weekly quest container with chest (also renders comeback quests when in comeback flow)
 - `src/components/engagement/ChestAnimation.tsx` — Chest opening reward animation
 - `src/components/engagement/GemCounter.tsx` — Top bar gem display with fly animation
 - `src/components/engagement/GemShop.tsx` — Shop grid with buy buttons
@@ -54,7 +57,9 @@
 - `src/app/(app)/league/page.tsx` — Full league leaderboard page
 - `src/app/(app)/shop/page.tsx` — Gem shop page
 
-### Modified Files (8 files)
+> **Note on `ComebackQuests.tsx`:** The spec lists this as a separate file, but the comeback quest rendering is handled inside `QuestBoard.tsx` — when `comeback.isInComebackFlow` is true, QuestBoard swaps in comeback quests from `src/data/quests.ts` instead of regular daily quests. No separate component needed.
+
+### Modified Files (9 files)
 - `src/data/types.ts` — Import/re-export engagement types
 - `src/store/useStore.ts` — Add streak freeze hook on streak reset
 - `src/components/layout/TopBar.tsx` — Add gem counter + league badge
@@ -63,6 +68,7 @@
 - `src/components/session/SessionSummary.tsx` — Add continuation hooks + quest/league updates
 - `src/app/(app)/page.tsx` — Add quest board, nudge cards, league card, comeback flow
 - `src/lib/db/schema.ts` — Add 3 new tables + 4 columns to userProgress
+- `src/app/api/progress/route.ts` — Sync engagement data (gems, quests, league) to database
 
 ---
 
@@ -80,7 +86,8 @@
 export const FAST_ANSWER_THRESHOLD_MS = 30000
 export const MAX_STREAK_FREEZES = 2
 export const MAX_GEM_TRANSACTIONS_CLIENT = 100
-export const DOUBLE_XP_DURATION_MS = 10 * 60 * 1000 // 10 minutes
+export const DOUBLE_XP_FREE_DURATION_MS = 10 * 60 * 1000 // 10 minutes (post-lesson hook offer)
+export const DOUBLE_XP_SHOP_DURATION_MS = 30 * 60 * 1000 // 30 minutes (shop purchase)
 export const COMEBACK_THRESHOLD_DAYS = 3
 export const STALE_TOPIC_DAYS = 7
 
@@ -1791,22 +1798,52 @@ After the existing content (achievement badges section, around line 286) and bef
 
 Add a `useEffect` that fires when `lessonResult` becomes non-null, calling:
 ```typescript
-const { updateQuestProgress, updateLeagueXp } = useEngagementActions()
+const { updateQuestProgress, updateLeagueXp, addGems } = useEngagementActions()
 
 useEffect(() => {
   if (lessonResult) {
+    // Core quest tracking
     updateQuestProgress('lessons_completed', 1)
     updateLeagueXp(lessonResult.xpEarned)
+    updateQuestProgress('xp_earned', lessonResult.xpEarned)
+
+    // Accuracy-based quests
     if (lessonResult.accuracy >= 80) {
       updateQuestProgress('accuracy_above_threshold', 1)
     }
+    if (lessonResult.accuracy === 100 && lessonResult.totalQuestions >= 3) {
+      updateQuestProgress('perfect_sessions', 1)
+    }
+
+    // Star-based quests
     if (lessonResult.stars === 3) {
       updateQuestProgress('stars_earned', 1)
     }
-    updateQuestProgress('xp_earned', lessonResult.xpEarned)
+
+    // Topic tracking (derive topic from lesson/unit data)
+    updateQuestProgress('topics_practiced', 1)
+
+    // Stale topic check (check if topic's lastAttempted was > 7 days ago)
+    // Read from useStore.getState().progress.topicProgress to check dates
+    const topicProgress = useStore.getState().progress.topicProgress
+    // The topic for this lesson can be derived from the unit data
+    // If the topic was stale (>7 days), emit:
+    // updateQuestProgress('stale_topic_practiced', 1)
+
+    // Gem awards for first-time 3-star and first-time unit completion
+    if (lessonResult.isFirstCompletion && lessonResult.stars === 3) {
+      addGems(10, '3_star_first_time')
+    }
+    // Check if this lesson completed a unit (all lessons in unit done)
+    // If so: addGems(50, 'unit_completion')
   }
 }, [lessonResult])
 ```
+
+**Note on stale topic and unit completion:** The exact implementation depends on data available from `useCourseStore`. The engineer must:
+1. Derive the topic from the lesson's unit (e.g., Unit 1 = statics topic)
+2. Check `topicProgress[topic].lastAttempted` to determine if stale
+3. Check if all lessons in the current unit are now complete for unit gem award
 
 - [ ] **Step 3: Commit**
 
@@ -1886,6 +1923,12 @@ import { useEffect, useRef } from 'react'
 import { useStore } from '@/store/useStore'
 import { useEngagementStore } from '@/store/useEngagementStore'
 
+function getYesterday(): string {
+  const d = new Date()
+  d.setDate(d.getDate() - 1)
+  return d.toISOString().split('T')[0]
+}
+
 export function useEngagementInit() {
   const initialized = useRef(false)
 
@@ -1897,22 +1940,37 @@ export function useEngagementInit() {
     const engagement = useEngagementStore.getState()
     const today = new Date().toISOString().split('T')[0]
 
-    // Check streak freeze on load
+    // Check streak freeze / break on load
     if (progress.lastActiveDate && progress.lastActiveDate !== today) {
       const lastActive = new Date(progress.lastActiveDate)
       const todayDate = new Date(today)
       const daysDiff = Math.floor((todayDate.getTime() - lastActive.getTime()) / (24 * 60 * 60 * 1000))
 
-      if (daysDiff === 1) {
-        // Missed yesterday — if freeze available, consume it
-        // (streak hasn't been reset yet since user hasn't completed a session)
-      } else if (daysDiff >= 2 && engagement.streak.freezesOwned > 0) {
-        // Missed multiple days but has freeze — consume one
+      if (daysDiff === 1 && engagement.streak.freezesOwned > 0) {
+        // Missed exactly 1 day — consume a freeze to protect the streak
+        // Set lastActiveDate to yesterday so the next session's streak logic
+        // sees a continuous streak (it checks yesterday vs lastActiveDate)
         useEngagementStore.getState().useStreakFreeze()
+        useStore.setState(state => ({
+          progress: { ...state.progress, lastActiveDate: getYesterday() }
+        }))
+      } else if (daysDiff >= 2 && engagement.streak.freezesOwned > 0) {
+        // Missed 2+ days — freeze can only cover 1 day, so streak is still broken.
+        // A single freeze cannot bridge a multi-day gap.
+        // Record the break for repair offer.
+        useEngagementStore.getState().recordStreakBreak(progress.currentStreak)
+      } else if (daysDiff >= 1 && engagement.streak.freezesOwned === 0) {
+        // No freeze available — streak will break on next session.
+        // Record the break date and value for the repair window.
+        if (progress.currentStreak > 0) {
+          useEngagementStore.getState().recordStreakBreak(progress.currentStreak)
+        }
       }
     }
 
     // Initialize quests and league on load
+    // NOTE: Dashboard page (Task 15) must NOT duplicate these calls.
+    // All initialization happens here in the layout, not in page-level useEffects.
     useEngagementStore.getState().initDailyQuests()
     useEngagementStore.getState().initWeeklyQuests()
     useEngagementStore.getState().simulateLeagueWeek()
@@ -1920,6 +1978,8 @@ export function useEngagementInit() {
   }, [])
 }
 ```
+
+**Important:** The `recordStreakBreak(previousStreakValue)` action must be added to the engagement store (Task 7). It sets `streak.lastStreakBreakDate = today`, `streak.lastStreakValueBeforeBreak = previousStreakValue`, and `streak.repairAvailable = true`.
 
 - [ ] **Step 4: Add the hook to the app layout**
 
