@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useFeedbackStore } from '@/store/useFeedbackStore';
 
 export function useDbSync() {
   const { status } = useSession();
@@ -21,9 +22,10 @@ export function useDbSync() {
 
     async function hydrate() {
       try {
-        const [progressRes, courseRes] = await Promise.all([
+        const [progressRes, courseRes, feedbackRes] = await Promise.all([
           fetch('/api/progress'),
           fetch('/api/course-progress'),
+          fetch('/api/content-feedback'),
         ]);
 
         if (cancelled) return;
@@ -39,6 +41,13 @@ export function useDbSync() {
           const data = await courseRes.json();
           if (data.progress) {
             useCourseStore.setState({ progress: data.progress });
+          }
+        }
+
+        if (feedbackRes.ok) {
+          const data = await feedbackRes.json();
+          if (data.flags) {
+            useFeedbackStore.getState().hydrateFlags(data.flags);
           }
         }
       } catch (error) {
