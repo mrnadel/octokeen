@@ -290,26 +290,8 @@ export const useEngagementStore = create<EngagementStore>()(
               return true;
             }
             case 'streak_repair': {
-              // Deduct gems
-              set((s) => ({
-                gems: {
-                  ...s.gems,
-                  balance: s.gems.balance - item.cost,
-                  transactions: [
-                    createGemTransaction(-item.cost, 'shop_purchase'),
-                    ...s.gems.transactions,
-                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                },
-              }));
-              // repairStreak logic is handled internally
-              const repaired = get().repairStreak();
-              if (!repaired) {
-                // Refund if repair failed — but we already checked balance, so this
-                // handles the case where repairAvailable is false.
-                get().addGems(item.cost, 'shop_refund');
-                return false;
-              }
-              return true;
+              // repairStreak handles its own gem deduction and validation
+              return get().repairStreak();
             }
             case 'double_xp': {
               set((s) => ({
