@@ -1301,30 +1301,63 @@
 <!-- ====== 24. Water Pump — Fluids ====== -->
 <div class="card" data-name="Water Pump" data-cat="Fluids">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
-  <circle cx="40" cy="40" r="24" class="s-fill" opacity="0.08"/>
+  <!-- Volute casing -->
+  <circle cx="40" cy="40" r="24" class="s-fill" opacity="0.06"/>
   <circle cx="40" cy="40" r="24" class="s-stroke-d" stroke-width="2.5" fill="none"/>
-  <rect x="2" y="34" width="16" height="12" rx="6" class="s-fill-l" opacity="0.12"/>
-  <rect x="2" y="34" width="16" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
-  <rect x="34" y="8" width="12" height="16" rx="6" class="s-fill-l" opacity="0.12"/>
-  <rect x="34" y="8" width="12" height="16" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
+  <!-- Suction pipe (inlet — axial, from left) -->
+  <rect x="2" y="34" width="18" height="12" rx="6" class="s-fill-l" opacity="0.1"/>
+  <rect x="2" y="34" width="18" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
+  <!-- Discharge pipe (outlet — tangential, top) -->
+  <rect x="34" y="6" width="12" height="18" rx="6" class="s-fill-l" opacity="0.1"/>
+  <rect x="34" y="6" width="12" height="18" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
+  <!-- Flow direction arrows on pipes -->
+  <polygon points="14,38 18,40 14,42" class="s-fill-d" opacity="0.15"/>
+  <polygon points="38,12 40,8 42,12" class="s-fill-d" opacity="0.15"/>
+  <!-- Impeller (rotating — 6 backward-curved vanes) -->
   <g>
     <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/>
-    <line x1="40" y1="26" x2="40" y2="54" class="s-stroke-d" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-    <line x1="26" y1="40" x2="54" y2="40" class="s-stroke-d" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-    <line x1="30" y1="30" x2="50" y2="50" class="s-stroke-d" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-    <line x1="50" y1="30" x2="30" y2="50" class="s-stroke-d" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-    <circle cx="40" cy="26" r="3" class="s-fill" opacity="0.4"/>
-    <circle cx="40" cy="54" r="3" class="s-fill" opacity="0.4"/>
-    <circle cx="26" cy="40" r="3" class="s-fill" opacity="0.4"/>
-    <circle cx="54" cy="40" r="3" class="s-fill" opacity="0.4"/>
+    <!-- Curved vanes (backward-curved for centrifugal pump) -->
+    <path d="M40,30 Q47,27 50,20" class="s-stroke-d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/>
+    <path d="M49,35 Q51,42 58,46" class="s-stroke-d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/>
+    <path d="M46,49 Q40,53 34,58" class="s-stroke-d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/>
+    <path d="M31,46 Q28,39 20,35" class="s-stroke-d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/>
+    <path d="M34,31 Q32,25 26,22" class="s-stroke-d" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    <path d="M50,50 Q54,54 58,56" class="s-stroke-d" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    <!-- Impeller shroud ring -->
+    <circle cx="40" cy="40" r="20" class="s-stroke-l" stroke-width="0.8" fill="none" opacity="0.12"/>
+    <!-- Vane tip markers -->
+    <circle cx="50" cy="20" r="1.5" class="s-fill" opacity="0.35"/>
+    <circle cx="58" cy="46" r="1.5" class="s-fill" opacity="0.35"/>
+    <circle cx="34" cy="58" r="1.5" class="s-fill" opacity="0.3"/>
+    <circle cx="20" cy="35" r="1.5" class="s-fill" opacity="0.3"/>
   </g>
-  <circle cx="40" cy="40" r="4" class="s-fill-d"/>
-  <circle r="2.5" class="s-fill-d" opacity="0.4">
+  <!-- Hub (static) -->
+  <circle cx="40" cy="40" r="5" class="s-fill-d"/>
+  <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/>
+  <!-- Circulating flow inside casing (particles spiral outward) -->
+  <circle r="2" class="s-fill-d" opacity="0.3">
+    <animateMotion dur="1.5s" repeatCount="indefinite"
+      path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/>
+  </circle>
+  <circle r="1.8" class="s-fill" opacity="0.25">
+    <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s"
+      path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/>
+  </circle>
+  <circle r="1.5" class="s-fill" opacity="0.2">
+    <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s"
+      path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/>
+  </circle>
+  <!-- Inlet flow particle -->
+  <circle r="2" class="s-fill-d" opacity="0.35">
     <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/>
   </circle>
-  <circle r="2.5" class="s-fill-d" opacity="0.4">
-    <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,10"/>
+  <!-- Outlet flow particle -->
+  <circle r="2" class="s-fill-d" opacity="0.35">
+    <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/>
   </circle>
+  <!-- Pressure labels -->
+  <text x="6" y="32" font-size="4" class="s-fill-d" opacity="0.18" font-style="italic">P_low</text>
+  <text x="48" y="12" font-size="4" class="s-fill-d" opacity="0.18" font-style="italic">P_high</text>
 </svg></div>
 <div class="card-label">Water Pump</div>
 </div>
