@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MechReady — Ace Your Mechanical Engineering Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Nunito', sans-serif;
+      background: #FAFAFA;
+      color: #0F172A;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: #FAFAFA;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wordmark {
+      font-size: 24px;
+      font-weight: 900;
+      color: #6366F1;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav-login {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1CB0F6;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 10px 20px;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      transition: background 0.15s;
+    }
+
+    .nav-login:hover {
+      background: #F0F9FF;
+    }
+
+    /* ── HERO (compact) ── */
+    .hero {
+      padding: 120px 24px 64px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-headline {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.15;
+      max-width: 620px;
+    }
+
+    .hero-subtitle {
+      margin-top: 16px;
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 600;
+      color: #64748B;
+      max-width: 500px;
+      line-height: 1.55;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 16px 64px;
+      background: #58CC02;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 5px 0 #46A302;
+      cursor: pointer;
+      text-decoration: none;
+      transition: filter 0.1s, transform 0.1s, box-shadow 0.1s;
+      user-select: none;
+    }
+
+    .hero-cta:active {
+      box-shadow: 0 2px 0 #46A302;
+      transform: translateY(2px);
+    }
+
+    .hero-cta:hover {
+      filter: brightness(1.05);
+    }
+
+    .hero-login {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1CB0F6;
+      text-decoration: none;
+    }
+
+    .hero-login:hover {
+      text-decoration: underline;
+    }
+
+    /* ── SHOWCASE SECTION ── */
+    .showcase {
+      padding: 80px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .showcase-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #6366F1;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+
+    .showcase-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.2;
+    }
+
+    .showcase-subtitle {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #64748B;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    /* ── TAB BAR ── */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748B;
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: #CBD5E1;
+      color: #0F172A;
+    }
+
+    .tab-btn.active {
+      background: #6366F1;
+      color: #fff;
+      border-color: #6366F1;
+      font-weight: 800;
+    }
+
+    /* ── QUESTION CARD (the mock) ── */
+    .question-panels {
+      position: relative;
+      min-height: 440px;
+    }
+
+    .question-card {
+      display: none;
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      overflow: hidden;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .question-card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-top {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-type-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 100px;
+      background: #EEF2FF;
+      color: #6366F1;
+    }
+
+    .card-topic-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 100px;
+    }
+
+    .card-topic-badge--statics   { background: #DBEAFE; color: #1E40AF; }
+    .card-topic-badge--dynamics  { background: #FEF3C7; color: #92400E; }
+    .card-topic-badge--strength  { background: #FCE7F3; color: #9D174D; }
+    .card-topic-badge--thermo    { background: #FEE2E2; color: #991B1B; }
+    .card-topic-badge--heat      { background: #FFEDD5; color: #9A3412; }
+    .card-topic-badge--fluids    { background: #CFFAFE; color: #155E75; }
+    .card-topic-badge--materials { background: #E0E7FF; color: #3730A3; }
+    .card-topic-badge--machine   { background: #D1FAE5; color: #065F46; }
+    .card-topic-badge--gdt       { background: #EDE9FE; color: #5B21B6; }
+
+    .card-body {
+      padding: 28px;
+    }
+
+    .card-question {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+
+    .card-context {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      background: #F8FAFC;
+      border-radius: 10px;
+      border-left: 3px solid #E2E8F0;
+    }
+
+    /* ── Option styles ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .option:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+
+    .option-marker {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.4;
+    }
+
+    /* ── Estimation input mock ── */
+    .estimate-input-group {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+
+    .estimate-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 14px 18px;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+    }
+
+    .estimate-input:focus {
+      border-color: #6366F1;
+    }
+
+    .estimate-unit {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      background: #F1F5F9;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748B;
+      white-space: nowrap;
+    }
+
+    /* ── Ranking mock ── */
+    .ranking-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: #fff;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      cursor: grab;
+      transition: border-color 0.15s;
+    }
+
+    .ranking-item:hover {
+      border-color: #CBD5E1;
+    }
+
+    .ranking-handle {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .ranking-handle span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: #CBD5E1;
+      border-radius: 1px;
+    }
+
+    .ranking-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+
+    .ranking-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.4;
+    }
+
+    /* ── Check button mock ── */
+    .card-footer {
+      padding: 20px 28px 28px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .check-btn {
+      padding: 12px 40px;
+      background: #58CC02;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 0 #46A302;
+      cursor: pointer;
+      transition: filter 0.1s, transform 0.1s, box-shadow 0.1s;
+    }
+
+    .check-btn:active {
+      box-shadow: 0 2px 0 #46A302;
+      transform: translateY(2px);
+    }
+
+    .check-btn:hover {
+      filter: brightness(1.05);
+    }
+
+    /* ── TOPICS SECTION ── */
+    .topics {
+      padding: 64px 24px 80px;
+      text-align: center;
+    }
+
+    .topics-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 28px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .pill {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 100px;
+      border: none;
+      white-space: nowrap;
+      transition: transform 0.15s;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+    }
+
+    .pill--statics        { background: #DBEAFE; color: #1E40AF; }
+    .pill--dynamics       { background: #FEF3C7; color: #92400E; }
+    .pill--strength       { background: #FCE7F3; color: #9D174D; }
+    .pill--thermo         { background: #FEE2E2; color: #991B1B; }
+    .pill--heat           { background: #FFEDD5; color: #9A3412; }
+    .pill--fluids         { background: #CFFAFE; color: #155E75; }
+    .pill--materials      { background: #E0E7FF; color: #3730A3; }
+    .pill--machine        { background: #D1FAE5; color: #065F46; }
+    .pill--gdt            { background: #EDE9FE; color: #5B21B6; }
+    .pill--interview      { background: #F1F5F9; color: #334155; }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      padding: 80px 24px 100px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .final-cta-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.2;
+      max-width: 500px;
+      margin-bottom: 12px;
+    }
+
+    .final-cta-sub {
+      font-size: 16px;
+      font-weight: 600;
+      color: #64748B;
+      margin-bottom: 36px;
+    }
+
+    .final-cta .hero-cta {
+      margin-top: 0;
+    }
+
+    .final-cta .hero-login {
+      margin-top: 20px;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 900;
+      color: #6366F1;
+      line-height: 1;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .tab-bar {
+        gap: 6px;
+      }
+
+      .tab-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-top {
+        padding: 18px 20px 16px;
+      }
+
+      .card-question {
+        font-size: 16px;
+      }
+
+      .option {
+        padding: 12px 14px;
+      }
+
+      .card-footer {
+        padding: 16px 20px 20px;
+      }
+
+      .question-panels {
+        min-height: 380px;
+      }
+
+      .stats-row {
+        gap: 32px;
+      }
+
+      .stat-number {
+        font-size: 26px;
+      }
+
+      .hero-cta {
+        padding: 16px 48px;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .tab-btn {
+        padding: 7px 12px;
+        font-size: 12px;
+      }
+
+      .estimate-input-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="wordmark">MechReady</a>
+      <a href="/login" class="nav-login">Log in</a>
+    </div>
+  </nav>
+
+  <!-- Hero (compact) -->
+  <section class="hero">
+    <h1 class="hero-headline">Not just flashcards. 12 question types that actually prepare you.</h1>
+    <p class="hero-subtitle">200+ mechanical engineering interview questions across 10 units. Estimation, design decisions, failure analysis, and more.</p>
+    <a href="/register" class="hero-cta">Get started free</a>
+    <a href="/login" class="hero-login">I already have an account</a>
+  </section>
+
+  <!-- Showcase: Question Types -->
+  <section class="showcase">
+    <div class="showcase-header">
+      <p class="showcase-label">See it in action</p>
+      <h2 class="showcase-title">Every question type, previewed</h2>
+      <p class="showcase-subtitle">Click a type below to see a real example from the app. This is how you'll practice.</p>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="mc">Multiple Choice</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="estimation">Estimation</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="design">Design Decision</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="flaw">Spot the Flaw</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="fails">What Fails First</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="ranking">Ranking</button>
+    </div>
+
+    <!-- Question panels -->
+    <div class="question-panels">
+
+      <!-- 1. Multiple Choice -->
+      <div class="question-card active" data-panel="mc">
+        <div class="card-top">
+          <span class="card-type-badge">Multiple Choice</span>
+          <span class="card-topic-badge card-topic-badge--statics">Statics</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">A beam is fixed at one end and free at the other. A point load P is applied at the free end. Where does the maximum bending moment occur?</p>
+          <div class="options">
+            <div class="option">
+              <span class="option-marker">A</span>
+              <span class="option-text">At the free end where the load is applied</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">B</span>
+              <span class="option-text">At the midpoint of the beam</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">C</span>
+              <span class="option-text">At the fixed support (wall)</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">D</span>
+              <span class="option-text">Equally distributed along the beam</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+      <!-- 2. Estimation -->
+      <div class="question-card" data-panel="estimation">
+        <div class="card-top">
+          <span class="card-type-badge">Estimation</span>
+          <span class="card-topic-badge card-topic-badge--heat">Heat Transfer</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">Estimate the heat loss through a single-pane glass window (1 m x 1.5 m, 6 mm thick) on a winter day.</p>
+          <div class="card-context">
+            Assume: outside temp = 0 C, inside temp = 22 C, glass thermal conductivity k = 1.0 W/(m*K). Ignore convective resistances for this estimate.
+          </div>
+          <div class="estimate-input-group">
+            <input type="text" class="estimate-input" placeholder="Your estimate..." readonly>
+            <span class="estimate-unit">Watts (W)</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+      <!-- 3. Design Decision -->
+      <div class="question-card" data-panel="design">
+        <div class="card-top">
+          <span class="card-type-badge">Design Decision</span>
+          <span class="card-topic-badge card-topic-badge--machine">Machine Elements</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">You're designing a shaft coupling that must transmit 50 kW at 1500 RPM and accommodate 2 degrees of angular misalignment. Which coupling type do you choose?</p>
+          <div class="card-context">
+            The system runs 24/7 in a food processing plant. Maintenance windows are limited to 4 hours per month. Cost is a secondary concern to reliability.
+          </div>
+          <div class="options">
+            <div class="option">
+              <span class="option-marker">A</span>
+              <span class="option-text">Rigid flange coupling with precision alignment</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">B</span>
+              <span class="option-text">Flexible jaw coupling (elastomer insert)</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">C</span>
+              <span class="option-text">Gear coupling with continuous lubrication</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">D</span>
+              <span class="option-text">Disc coupling (dry, maintenance-free)</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+      <!-- 4. Spot the Flaw -->
+      <div class="question-card" data-panel="flaw">
+        <div class="card-top">
+          <span class="card-type-badge">Spot the Flaw</span>
+          <span class="card-topic-badge card-topic-badge--strength">Strength of Materials</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">A junior engineer submitted this calculation for a pressure vessel. Find the error in the reasoning.</p>
+          <div class="card-context">
+            "The cylindrical vessel has inner radius r = 500 mm and wall thickness t = 10 mm under internal pressure p = 2 MPa. I calculated the hoop stress as sigma = pr/t = 100 MPa. Since the axial stress is the same as hoop stress in a cylinder, the von Mises equivalent stress is also 100 MPa."
+          </div>
+          <div class="options">
+            <div class="option">
+              <span class="option-marker">A</span>
+              <span class="option-text">The hoop stress formula pr/t is only valid for thick-walled vessels</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">B</span>
+              <span class="option-text">Axial stress is pr/(2t), not pr/t -- it is half the hoop stress</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">C</span>
+              <span class="option-text">The vessel should be analyzed using Lame's equations instead</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">D</span>
+              <span class="option-text">Von Mises stress cannot be applied to pressure vessels</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+      <!-- 5. What Fails First -->
+      <div class="question-card" data-panel="fails">
+        <div class="card-top">
+          <span class="card-type-badge">What Fails First</span>
+          <span class="card-topic-badge card-topic-badge--materials">Materials Science</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">A bolted flange joint connects two steel pipes carrying pressurized steam at 450 C. After 3 years of continuous service, which component is most likely to fail first?</p>
+          <div class="card-context">
+            The joint uses: A193 B7 alloy steel bolts, spiral wound gasket with graphite filler, A105 carbon steel flanges. Bolt preload was set correctly at installation.
+          </div>
+          <div class="options">
+            <div class="option">
+              <span class="option-marker">A</span>
+              <span class="option-text">Bolts -- creep relaxation reduces clamping force over time at this temperature</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">B</span>
+              <span class="option-text">Gasket -- graphite degrades and loses sealing ability above 400 C</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">C</span>
+              <span class="option-text">Flanges -- carbon steel loses strength significantly at 450 C</span>
+            </div>
+            <div class="option">
+              <span class="option-marker">D</span>
+              <span class="option-text">Pipe wall -- erosion-corrosion thins the wall near the joint</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+      <!-- 6. Ranking -->
+      <div class="question-card" data-panel="ranking">
+        <div class="card-top">
+          <span class="card-type-badge">Ranking</span>
+          <span class="card-topic-badge card-topic-badge--fluids">Fluid Mechanics</span>
+        </div>
+        <div class="card-body">
+          <p class="card-question">Rank these pipe modifications from most to least effective at reducing pressure drop in a turbulent flow system.</p>
+          <div class="card-context">
+            Current system: 50 m of 4" Schedule 40 steel pipe, water at 20 C, flow rate = 10 L/s, fully turbulent (Re > 100,000). Drag the items to reorder.
+          </div>
+          <div class="ranking-items">
+            <div class="ranking-item">
+              <div class="ranking-handle">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="ranking-number">1</span>
+              <span class="ranking-text">Increase pipe diameter from 4" to 6"</span>
+            </div>
+            <div class="ranking-item">
+              <div class="ranking-handle">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="ranking-number">2</span>
+              <span class="ranking-text">Reduce pipe length by 40% (reroute)</span>
+            </div>
+            <div class="ranking-item">
+              <div class="ranking-handle">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="ranking-number">3</span>
+              <span class="ranking-text">Replace 5 sharp 90-degree elbows with long-radius bends</span>
+            </div>
+            <div class="ranking-item">
+              <div class="ranking-handle">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="ranking-number">4</span>
+              <span class="ranking-text">Apply smooth epoxy lining to reduce surface roughness</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="check-btn">Check</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-row" style="padding: 0 24px 80px;">
+    <div class="stat">
+      <div class="stat-number">200+</div>
+      <div class="stat-label">Questions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Question Types</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">10</div>
+      <div class="stat-label">Units</div>
+    </div>
+  </section>
+
+  <!-- Topic pills -->
+  <section class="topics">
+    <p class="topics-label">10 units. Everything you need.</p>
+    <div class="pills">
+      <span class="pill pill--statics">Statics</span>
+      <span class="pill pill--dynamics">Dynamics</span>
+      <span class="pill pill--strength">Strength of Materials</span>
+      <span class="pill pill--thermo">Thermodynamics</span>
+      <span class="pill pill--heat">Heat Transfer</span>
+      <span class="pill pill--fluids">Fluid Mechanics</span>
+      <span class="pill pill--materials">Materials Science</span>
+      <span class="pill pill--machine">Machine Elements</span>
+      <span class="pill pill--gdt">GD&amp;T</span>
+      <span class="pill pill--interview">Interview Prep</span>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2 class="final-cta-title">Ready to practice like you'll perform?</h2>
+    <p class="final-cta-sub">Free. No credit card. Start in 30 seconds.</p>
+    <a href="/register" class="hero-cta">Get started free</a>
+    <a href="/login" class="hero-login">I already have an account</a>
+  </section>
+
+  <!-- Tab switching logic -->
+  <script>
+    (function() {
+      var tabs = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.question-card');
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var target = this.getAttribute('data-tab');
+
+          // Update tab states
+          tabs.forEach(function(t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
+
+          // Update panel states
+          panels.forEach(function(p) {
+            p.classList.remove('active');
+          });
+          var activePanel = document.querySelector('[data-panel="' + target + '"]');
+          if (activePanel) {
+            activePanel.classList.add('active');
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
