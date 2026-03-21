@@ -418,6 +418,28 @@ export function CourseHeader() {
                           <span style={{ fontSize: 14, fontWeight: 700, color: '#B56E00' }}>Upgrade to Pro</span>
                         </Link>
                       )}
+
+                      {session?.user?.id === process.env.NEXT_PUBLIC_ADMIN_USER_ID && (
+                        <Link
+                          href="/admin/users"
+                          onClick={closePopover}
+                          className="flex items-center transition-colors hover:bg-indigo-50"
+                          style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
+                        >
+                          <div
+                            className="flex items-center justify-center"
+                            style={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: 8,
+                              background: '#EEF2FF',
+                            }}
+                          >
+                            <Shield style={{ width: 16, height: 16, color: '#4F46E5' }} />
+                          </div>
+                          <span style={{ fontSize: 14, fontWeight: 700, color: '#4F46E5' }}>Admin Panel</span>
+                        </Link>
+                      )}
                     </div>
 
                     {/* Divider + Logout */}

@@ -7925,9 +7925,9 @@
 <div class="card" data-name="Stagnation Point" data-cat="Fluids">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
   <!-- Body (airfoil-like) -->
-  <path d="M30,40 Q30,28 50,28 Q70,28 70,40 Q70,52 50,52 Q30,52 30,40" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/>
+  <path d="M30,40 Q30,28 50,28 Q70,28 70,40 Q70,52 50,52 Q30,52 30,40" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.1"/>
   <!-- Streamlines approaching -->
-  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+  <g class="s-stroke" stroke-width="0.4" opacity="0.5">
     <path d="M4,30 L22,30 Q28,32 28,36" fill="none"/>
     <path d="M4,36 L20,36 Q26,38 28,40" fill="none"/>
     <path d="M4,40 L28,40" fill="none"/>
@@ -7935,23 +7935,23 @@
     <path d="M4,50 L22,50 Q28,48 28,44" fill="none"/>
   </g>
   <!-- Streamlines over body -->
-  <g class="s-stroke" stroke-width="0.3" opacity="0.2">
+  <g class="s-stroke" stroke-width="0.3" opacity="0.35">
     <path d="M28,36 Q40,24 60,26 Q74,28 76,34" fill="none"/>
     <path d="M28,44 Q40,56 60,54 Q74,52 76,46" fill="none"/>
   </g>
   <!-- Stagnation point (bright dot) -->
   <circle cx="30" cy="40" r="2.5" class="s-fill-l" opacity="0.3">
     <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="30" cy="40" r="1" class="s-fill"/>
+  <circle cx="30" cy="40" r="2" class="s-fill"/>
   <text x="22" y="36" font-size="2.5" class="s-fill-l" opacity="0.5">S</text>
   <!-- V=0 label -->
   <text x="20" y="48" font-size="2.5" class="s-fill" opacity="0.4">V=0</text>
   <!-- Pressure maximum -->
   <text x="20" y="54" font-size="2.5" class="s-fill" opacity="0.4">P=P_max</text>
   <!-- Free stream -->
-  <g opacity="0.4">
+  <g opacity="0.6">
     <line x1="6" y1="16" x2="16" y2="16" stroke-width="0.5" class="s-stroke"/>
     <polygon points="16,14.5 16,17.5 19,16" class="s-fill"/>
     <text x="12" y="14" font-size="2.5" class="s-fill">V∞</text>
