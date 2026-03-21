@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { course } from '@/data/course';
 import { shuffleArray } from '@/lib/utils';
-import type { CourseProgress, ActiveLesson, LessonResult } from '@/data/course/types';
+import type { CourseProgress, ActiveLesson, LessonResult, Unit } from '@/data/course/types';
 
 interface CourseState {
   progress: CourseProgress;

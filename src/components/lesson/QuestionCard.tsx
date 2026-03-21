@@ -36,6 +36,18 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Shuffle MC option display order so correct answer isn't always A
+    const shuffledIndices = useMemo(() => {
+      if (question.type !== 'multiple-choice' || !question.options) return [];
+      const indices = question.options.map((_, i) => i);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      return indices;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [question.id]);
+
     useEffect(() => {
       setSelectedIndex(null);
       setSelectedBool(null);
@@ -66,7 +78,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       let correct = false;
       switch (question.type) {
         case 'multiple-choice':
-          correct = selectedIndex === question.correctIndex;
+          correct = selectedIndex !== null && shuffledIndices[selectedIndex] === question.correctIndex;
           break;
         case 'true-false':
           correct = selectedBool === question.correctAnswer;
@@ -176,9 +188,10 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         {/* Multiple Choice */}
         {question.type === 'multiple-choice' && question.options && (
           <div className="flex flex-col" style={{ gap: 8 }}>
-            {question.options.map((option, index) => {
-              const isSelected = selectedIndex === index;
-              const isCorrectOption = index === question.correctIndex;
+            {shuffledIndices.map((originalIndex, displayIndex) => {
+              const option = question.options![originalIndex];
+              const isSelected = selectedIndex === displayIndex;
+              const isCorrectOption = originalIndex === question.correctIndex;
 
               let bg = 'rgba(255,255,255,0.65)';
               let border = '2px solid transparent';
@@ -214,8 +227,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
 
               return (
                 <motion.button
-                  key={index}
-                  onClick={() => !answered && setSelectedIndex(index)}
+                  key={originalIndex}
+                  onClick={() => !answered && setSelectedIndex(displayIndex)}
                   disabled={answered}
                   whileTap={!answered ? { scale: 0.98 } : undefined}
                   className="w-full text-left flex items-center"
@@ -241,7 +254,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                       fontWeight: 800,
                     }}
                   >
-                    {String.fromCharCode(65 + index)}
+                    {String.fromCharCode(65 + displayIndex)}
                   </span>
                   <span
                     style={{

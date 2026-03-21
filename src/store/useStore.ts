@@ -7,7 +7,7 @@ import type { Question, TopicId, Difficulty, UserProgress, SessionRecord, TopicP
 import { seedProgress } from '@/data/seed-progress';
 import { levels } from '@/data/levels';
 import { achievements as allAchievements } from '@/data/achievements';
-import { allQuestions, getQuestionsByTopic } from '@/data/questions';
+import { allQuestions } from '@/data/questions';
 import { shuffleArray, getTodayString, calculateXP } from '@/lib/utils';
 
 // --- Session Types ---
@@ -42,6 +42,9 @@ interface AppState {
   // User Progress
   progress: UserProgress;
 
+  // Content (loaded from DB, with static fallback)
+  questions: Question[];
+
   // Active Session
   session: ActiveSession | null;
   sessionSummary: SessionSummary | null;
@@ -49,6 +52,9 @@ interface AppState {
   // UI State
   sidebarOpen: boolean;
   showAchievementToast: string | null;
+
+  // Actions — Content
+  setQuestions: (questions: Question[]) => void;
 
   // Actions — Session
   startSession: (type: SessionType, options?: { topicId?: TopicId; difficulty?: Difficulty; questionIds?: string[] }) => void;
@@ -90,37 +96,37 @@ function getDefaultProgress(): UserProgress {
   };
 }
 
-function selectQuestionsForSession(type: SessionType, options?: { topicId?: TopicId; difficulty?: Difficulty; questionIds?: string[] }): Question[] {
+function selectQuestionsForSession(type: SessionType, allQs: Question[], options?: { topicId?: TopicId; difficulty?: Difficulty; questionIds?: string[] }): Question[] {
   let pool: Question[] = [];
   let count = 10;
 
   if (options?.questionIds) {
-    return options.questionIds.map(id => allQuestions.find(q => q.id === id)!).filter(Boolean);
+    return options.questionIds.map(id => allQs.find(q => q.id === id)!).filter(Boolean);
   }
 
   switch (type) {
     case 'topic-deep-dive':
       if (options?.topicId) {
-        pool = getQuestionsByTopic(options.topicId);
+        pool = allQs.filter(q => q.topic === options.topicId);
       }
       count = 8;
       break;
     case 'interview-sim':
-      pool = [...allQuestions];
+      pool = [...allQs];
       count = 15;
       break;
     case 'daily-challenge':
-      pool = [...allQuestions];
+      pool = [...allQs];
       count = 5;
       break;
     case 'real-world':
-      pool = getQuestionsByTopic('real-world-mechanisms');
+      pool = allQs.filter(q => q.topic === 'real-world-mechanisms');
       count = 6;
       break;
     case 'weak-areas':
     case 'adaptive':
     default:
-      pool = [...allQuestions];
+      pool = [...allQs];
       count = 10;
       break;
   }
@@ -250,13 +256,16 @@ export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
       progress: seedProgress,
+      questions: allQuestions as Question[],
       session: null,
       sessionSummary: null,
       sidebarOpen: true,
       showAchievementToast: null,
 
+      setQuestions: (questions: Question[]) => set({ questions }),
+
       startSession: (type, options) => {
-        const questions = selectQuestionsForSession(type, options);
+        const questions = selectQuestionsForSession(type, get().questions, options);
         if (questions.length === 0) return;
 
         set({

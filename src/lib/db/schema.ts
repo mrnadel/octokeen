@@ -309,3 +309,63 @@ export const leagueState = pgTable('league_state', {
   competitors: jsonb('competitors').notNull(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().notNull(),
 })
+
+// ─── Content Management ──────────────────────────────────────
+
+export const courseUnits = pgTable('course_units', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  color: text('color').notNull(),
+  icon: text('icon').notNull(),
+  orderIndex: integer('order_index').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const courseLessons = pgTable('course_lessons', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  unitId: text('unit_id').notNull().references(() => courseUnits.id, { onDelete: 'cascade' }),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  icon: text('icon').notNull(),
+  xpReward: integer('xp_reward').notNull().default(10),
+  orderIndex: integer('order_index').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const courseQuestions = pgTable('course_questions', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  lessonId: text('lesson_id').notNull().references(() => courseLessons.id, { onDelete: 'cascade' }),
+  type: text('type').notNull(),
+  question: text('question').notNull(),
+  options: jsonb('options').$type<string[]>(),
+  correctIndex: integer('correct_index'),
+  correctAnswer: text('correct_answer'),
+  acceptedAnswers: jsonb('accepted_answers').$type<string[]>(),
+  explanation: text('explanation').notNull(),
+  hint: text('hint'),
+  diagram: text('diagram'),
+  orderIndex: integer('order_index').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const practiceQuestions = pgTable('practice_questions', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  type: text('type').notNull(),
+  topic: text('topic').notNull(),
+  subtopic: text('subtopic').notNull(),
+  difficulty: text('difficulty').notNull(),
+  question: text('question').notNull(),
+  explanation: text('explanation').notNull(),
+  interviewInsight: text('interview_insight').notNull(),
+  realWorldConnection: text('real_world_connection'),
+  commonMistake: text('common_mistake').notNull(),
+  tags: jsonb('tags').$type<string[]>().notNull().default([]),
+  typeData: jsonb('type_data').notNull().default({}),
+  orderIndex: integer('order_index').notNull().default(0),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
