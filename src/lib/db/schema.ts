@@ -370,3 +370,19 @@ export const practiceQuestions = pgTable('practice_questions', {
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });
+
+// ── Mastery Events ──────────────────────────────────────────
+export const masteryEvents = pgTable('mastery_events', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  questionId: text('question_id').notNull(),
+  topicId: text('topic_id').notNull(),
+  subtopic: text('subtopic'),
+  difficulty: text('difficulty').notNull(),
+  correct: boolean('correct').notNull(),
+  source: text('source').notNull(),
+  answeredAt: timestamp('answered_at', { mode: 'string' }).notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+}, (table) => [
+  index('mastery_events_user_topic_idx').on(table.userId, table.topicId),
+]);
