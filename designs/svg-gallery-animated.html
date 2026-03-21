@@ -688,24 +688,43 @@
 <!-- ====== 11. Rotating Flywheel — Dynamics ====== -->
 <div class="card" data-name="Rotating Flywheel" data-cat="Dynamics">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Flywheel (rotating) -->
   <g>
     <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/>
-    <circle cx="40" cy="40" r="26" class="s-fill" opacity="0.1"/>
-    <circle cx="40" cy="40" r="26" class="s-stroke" stroke-width="3" fill="none"/>
-    <circle cx="40" cy="40" r="19" class="s-stroke-l" stroke-width="1.5" fill="none" opacity="0.25"/>
-    <line x1="40" y1="14" x2="40" y2="66" class="s-stroke-l" stroke-width="2" opacity="0.3"/>
-    <line x1="14" y1="40" x2="66" y2="40" class="s-stroke-l" stroke-width="2" opacity="0.3"/>
-    <line x1="22" y1="22" x2="58" y2="58" class="s-stroke-l" stroke-width="1.5" opacity="0.2"/>
-    <line x1="58" y1="22" x2="22" y2="58" class="s-stroke-l" stroke-width="1.5" opacity="0.2"/>
-    <circle cx="40" cy="14" r="3" class="s-fill-d" opacity="0.5"/>
-    <circle cx="40" cy="66" r="3" class="s-fill-d" opacity="0.3"/>
+    <!-- Heavy rim (thick outer ring — stores rotational energy) -->
+    <circle cx="40" cy="40" r="28" class="s-fill" opacity="0.06"/>
+    <circle cx="40" cy="40" r="28" class="s-stroke" stroke-width="4" fill="none"/>
+    <circle cx="40" cy="40" r="24" class="s-stroke-l" stroke-width="0.8" fill="none" opacity="0.12"/>
+    <!-- Web disc -->
+    <circle cx="40" cy="40" r="16" class="s-fill" opacity="0.03"/>
+    <!-- Spokes (4 cardinal directions) -->
+    <line x1="40" y1="12" x2="40" y2="68" class="s-stroke-l" stroke-width="2.5" opacity="0.18" stroke-linecap="round"/>
+    <line x1="12" y1="40" x2="68" y2="40" class="s-stroke-l" stroke-width="2.5" opacity="0.18" stroke-linecap="round"/>
+    <!-- Lightening holes (between spokes, common in flywheels) -->
+    <circle cx="50" cy="28" r="4" fill="none" class="s-stroke-l" stroke-width="0.6" opacity="0.1"/>
+    <circle cx="52" cy="52" r="4" fill="none" class="s-stroke-l" stroke-width="0.6" opacity="0.1"/>
+    <circle cx="28" cy="52" r="4" fill="none" class="s-stroke-l" stroke-width="0.6" opacity="0.1"/>
+    <circle cx="30" cy="28" r="4" fill="none" class="s-stroke-l" stroke-width="0.6" opacity="0.1"/>
+    <!-- Rim balance marks (4 dots at 45° on rim) -->
+    <circle cx="59.8" cy="20.2" r="2" class="s-fill-d" opacity="0.35"/>
+    <circle cx="59.8" cy="59.8" r="2" class="s-fill-d" opacity="0.25"/>
+    <circle cx="20.2" cy="59.8" r="2" class="s-fill-d" opacity="0.3"/>
+    <circle cx="20.2" cy="20.2" r="2" class="s-fill-d" opacity="0.25"/>
   </g>
-  <circle cx="40" cy="40" r="5" class="s-fill-d"/>
+  <!-- Hub (static — shaft bore with keyway) -->
+  <circle cx="40" cy="40" r="6" class="s-fill-d"/>
+  <circle cx="40" cy="40" r="3" fill="white" opacity="0.12"/>
+  <rect x="38.5" y="34" width="3" height="6" rx="0.5" fill="white" opacity="0.08"/>
+  <!-- Angular velocity indicator (ω) -->
+  <path d="M8,32 A14,14 0 0,1 8,48" class="s-stroke-d" stroke-width="1" fill="none" opacity="0.2"/>
+  <polygon points="6.5,47 8.5,51 10,46.5" class="s-fill-d" opacity="0.2"/>
+  <text x="4" y="42" text-anchor="middle" font-size="6" class="s-fill-d" opacity="0.25" font-style="italic">ω</text>
+  <!-- Motion blur arcs (pulsing) -->
   <path d="M70,30 Q76,40 70,50" class="s-stroke-l" stroke-width="1.5" opacity="0.3" fill="none">
-    <animate attributeName="opacity" values="0.1;0.5;0.1" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.08;0.35;0.08" dur="0.7s" repeatCount="indefinite"/>
   </path>
   <path d="M74,34 Q79,40 74,46" class="s-stroke-l" stroke-width="1" opacity="0.2" fill="none">
-    <animate attributeName="opacity" values="0.1;0.4;0.1" dur="0.8s" begin="0.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.05;0.25;0.05" dur="0.7s" begin="0.2s" repeatCount="indefinite"/>
   </path>
 </svg></div>
 <div class="card-label">Rotating Flywheel</div>
