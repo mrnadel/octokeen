@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getLessonById } from '@/data/course';
 import { getUnitTheme } from '@/lib/unitThemes';
 import { useBackHandler } from '@/hooks/useBackHandler';
+import { ContinuationHooks } from '@/components/engagement/ContinuationHooks';
+import { useEngagementActions } from '@/store/useEngagementStore';
 
 export { ResultScreen };
 export default function ResultScreen() {

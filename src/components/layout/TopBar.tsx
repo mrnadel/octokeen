@@ -4,10 +4,16 @@ import { Menu, Flame, Zap, Star } from 'lucide-react';
 import { useSidebar, useProgress } from '@/store/useStore';
 import { cn } from '@/lib/utils';
 import { levels } from '@/data/levels';
+import { GemCounter } from '@/components/engagement/GemCounter';
+import { DoubleXpTimer } from '@/components/engagement/DoubleXpTimer';
+import { useLeague } from '@/store/useEngagementStore';
+import { leagueTiers } from '@/data/league';
 
 export default function TopBar() {
   const progress = useProgress();
   const { toggleSidebar } = useSidebar();
+  const league = useLeague();
+  const leagueTier = leagueTiers.find((t) => t.tier === league.currentTier);
 
   const currentLevel = levels.find(l => l.level === progress.currentLevel) || levels[0];
   const nextLevel = levels.find(l => l.level === progress.currentLevel + 1);
@@ -51,6 +57,23 @@ export default function TopBar() {
             <Star className="w-4 h-4" aria-hidden="true" />
             <span>{progress.totalXp}</span>
           </div>
+
+          {/* Gems */}
+          <GemCounter />
+
+          {/* League tier icon */}
+          {leagueTier && (
+            <div
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-sm font-medium"
+              style={{ background: `${leagueTier.color}15`, color: leagueTier.color }}
+              aria-label={`${leagueTier.name} league`}
+            >
+              <span className="text-base" aria-hidden="true">{leagueTier.icon}</span>
+            </div>
+          )}
+
+          {/* Double XP Timer */}
+          <DoubleXpTimer />
 
           {/* Level + Progress */}
           <div className="hidden sm:flex items-center gap-2">

@@ -16,6 +16,8 @@ import {
   Target,
   CreditCard,
   Sparkles,
+  Crown,
+  ShoppingBag,
 } from 'lucide-react';
 import { useSidebar, useProgress } from '@/store/useStore';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -29,7 +31,9 @@ const navItems = [
   { href: '/practice/daily', label: 'Daily Challenge', icon: Calendar },
   { href: '/practice/real-world', label: 'Real-World Systems', icon: Wrench },
   { href: '/practice/weak-areas', label: 'Weak Areas', icon: AlertTriangle },
+  { href: '/league', label: 'League', icon: Crown },
   { divider: true } as const,
+  { href: '/shop', label: 'Gem Shop', icon: ShoppingBag },
   { href: '/pricing', label: 'Pricing', icon: CreditCard },
   { href: '/progress', label: 'Progress & Analytics', icon: BarChart3 },
   { href: '/skills', label: 'Skill Map', icon: Target },

@@ -5501,6 +5501,473 @@
 <div class="card-label">Cotter Joint</div>
 </div>
 
+<!-- ====== 117. Screw Jack — Machine Design ====== -->
+<div class="card" data-name="Screw Jack" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Base plate -->
+  <rect x="14" y="64" width="52" height="6" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Body/nut housing -->
+  <path d="M24,64 L24,32 Q24,28 28,28 L52,28 Q56,28 56,32 L56,64" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <rect x="24" y="28" width="32" height="36" class="s-fill" opacity="0.03"/>
+  <!-- Screw thread (helical pattern) -->
+  <g class="s-stroke" stroke-width="0.5" opacity="0.35">
+    <path d="M36,28 Q40,24 44,28" fill="none"/>
+    <path d="M36,32 Q40,28 44,32" fill="none"/>
+    <path d="M36,36 Q40,32 44,36" fill="none"/>
+    <path d="M36,40 Q40,36 44,40" fill="none"/>
+    <path d="M36,44 Q40,40 44,44" fill="none"/>
+    <path d="M36,48 Q40,44 44,48" fill="none"/>
+    <path d="M36,52 Q40,48 44,52" fill="none"/>
+    <path d="M36,56 Q40,52 44,56" fill="none"/>
+  </g>
+  <!-- Screw shaft -->
+  <rect x="37" y="8" width="6" height="56" rx="1" stroke-width="0.6" class="s-stroke" fill="none">
+    <animate attributeName="y" values="8;4;8" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Load platform -->
+  <rect x="20" y="6" width="40" height="5" rx="1.5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06">
+    <animate attributeName="y" values="6;2;6" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Handle -->
+  <rect x="18" y="26" width="44" height="3" rx="1" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <circle cx="18" cy="27.5" r="2" stroke-width="0.4" class="s-stroke" fill="none"/>
+  <circle cx="62" cy="27.5" r="2" stroke-width="0.4" class="s-stroke" fill="none"/>
+  <!-- Rotation arrow on handle -->
+  <path d="M16,22 A6,3 0 0,1 22,22" stroke-width="0.4" class="s-stroke-d" opacity="0.35" fill="none"/>
+  <polygon points="22,21 22,23 24,22" class="s-fill-d" opacity="0.35"/>
+  <!-- Load arrow -->
+  <g opacity="0.4">
+    <line x1="50" y1="2" x2="50" y2="6" stroke-width="0.5" class="s-stroke-d">
+      <animate attributeName="y2" values="6;2;6" dur="4s" repeatCount="indefinite"/>
+    </line>
+    <text x="54" y="4" font-size="3" class="s-fill-d">W</text>
+  </g>
+  <!-- Lead/pitch label -->
+  <text x="48" y="44" font-size="2.5" class="s-fill-d" opacity="0.3">lead l</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">mechanical advantage</text>
+</svg></div>
+<div class="card-label">Screw Jack</div>
+</div>
+
+<!-- ====== 118. Archimedes Screw — Fluids ====== -->
+<div class="card" data-name="Archimedes Screw" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Trough/cylinder (angled) -->
+  <g transform="rotate(-30,40,50)">
+    <rect x="8" y="42" width="64" height="16" rx="3" stroke-width="0.8" class="s-stroke" fill="none"/>
+    <!-- Screw helix pattern -->
+    <g class="s-stroke" stroke-width="0.6" opacity="0.4">
+      <path d="M14,42 Q18,50 14,58" fill="none"/>
+      <path d="M22,42 Q26,50 22,58" fill="none"/>
+      <path d="M30,42 Q34,50 30,58" fill="none"/>
+      <path d="M38,42 Q42,50 38,58" fill="none"/>
+      <path d="M46,42 Q50,50 46,58" fill="none"/>
+      <path d="M54,42 Q58,50 54,58" fill="none"/>
+      <path d="M62,42 Q66,50 62,58" fill="none"/>
+    </g>
+    <!-- Central shaft -->
+    <line x1="10" y1="50" x2="70" y2="50" stroke-width="0.6" class="s-stroke-d" opacity="0.3"/>
+    <!-- Water pockets -->
+    <g class="s-fill-l" opacity="0.15">
+      <ellipse cx="18" cy="53" rx="3" ry="2">
+        <animate attributeName="cx" values="18;26;18" dur="2s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="34" cy="53" rx="3" ry="2">
+        <animate attributeName="cx" values="34;42;34" dur="2s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="50" cy="53" rx="3" ry="2">
+        <animate attributeName="cx" values="50;58;50" dur="2s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+  </g>
+  <!-- Water level (bottom) -->
+  <path d="M2,68 Q10,66 18,68 Q26,70 34,68" stroke-width="0.5" class="s-stroke-l" opacity="0.3" fill="none"/>
+  <rect x="2" y="68" width="32" height="8" class="s-fill-l" opacity="0.06"/>
+  <!-- Upper discharge -->
+  <circle r="1" class="s-fill-l" opacity="0.5">
+    <animate attributeName="cx" values="62;64;66" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="22;24;28" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.3;0" dur="0.8s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Rotation indicator -->
+  <path d="M64,8 A5,5 0 0,1 58,14" stroke-width="0.4" class="s-stroke-d" opacity="0.35" fill="none"/>
+  <polygon points="58,14 60,11 56,12" class="s-fill-d" opacity="0.35"/>
+  <text x="62" y="7" font-size="2.5" class="s-fill-d" opacity="0.4">ω</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">positive displacement</text>
+</svg></div>
+<div class="card-label">Archimedes Screw</div>
+</div>
+
+<!-- ====== 119. Poisson's Ratio — Materials ====== -->
+<div class="card" data-name="Poisson Ratio" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Original specimen (dashed outline) -->
+  <rect x="28" y="14" width="24" height="52" rx="1" stroke-width="0.5" class="s-stroke-d" opacity="0.2" stroke-dasharray="2,2"/>
+  <!-- Deformed specimen (narrower, taller) -->
+  <rect x="30" y="10" width="20" height="60" rx="1" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.06">
+    <animate attributeName="x" values="29;31;29" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="22;18;22" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="12;8;12" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="56;64;56" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Axial tension arrows -->
+  <g opacity="0.5">
+    <line x1="40" y1="6" x2="40" y2="2" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,2 41.5,2 40,0" class="s-fill"/>
+    <line x1="40" y1="74" x2="40" y2="78" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,78 41.5,78 40,80" class="s-fill"/>
+    <text x="44" y="4" font-size="3" class="s-fill">F</text>
+    <text x="44" y="78" font-size="3" class="s-fill">F</text>
+  </g>
+  <!-- Lateral contraction arrows -->
+  <g opacity="0.35">
+    <line x1="22" y1="40" x2="26" y2="40" stroke-width="0.5" class="s-stroke-d">
+      <animate attributeName="x2" values="25;28;25" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <polygon points="26,38.8 26,41.2 28,40" class="s-fill-d">
+      <animate attributeName="points" values="25,38.8 25,41.2 27,40;28,38.8 28,41.2 30,40;25,38.8 25,41.2 27,40" dur="3s" repeatCount="indefinite"/>
+    </polygon>
+    <line x1="58" y1="40" x2="54" y2="40" stroke-width="0.5" class="s-stroke-d">
+      <animate attributeName="x2" values="55;52;55" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <polygon points="54,38.8 54,41.2 52,40" class="s-fill-d">
+      <animate attributeName="points" values="55,38.8 55,41.2 53,40;52,38.8 52,41.2 50,40;55,38.8 55,41.2 53,40" dur="3s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  <!-- Dimension labels -->
+  <text x="16" y="42" font-size="3" class="s-fill-d" opacity="0.4">ε_lat</text>
+  <text x="7" y="40" font-size="3" class="s-fill" opacity="0.5">ε_ax</text>
+  <!-- Formula -->
+  <text x="40" y="76" text-anchor="middle" font-size="4.5" class="s-fill" opacity="0.45">ν = −ε_lat / ε_ax</text>
+</svg></div>
+<div class="card-label">Poisson Ratio</div>
+</div>
+
+<!-- ====== 120. Stirling Engine — Thermo ====== -->
+<div class="card" data-name="Stirling Engine" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Hot cylinder (left) -->
+  <rect x="6" y="24" width="20" height="36" rx="2" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <text x="16" y="66" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">hot</text>
+  <!-- Cold cylinder (right) -->
+  <rect x="54" y="24" width="20" height="36" rx="2" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <text x="64" y="66" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">cold</text>
+  <!-- Regenerator/connection tube -->
+  <rect x="26" y="34" width="28" height="8" rx="2" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.2">
+    <line x1="32" y1="35" x2="32" y2="41"/><line x1="36" y1="35" x2="36" y2="41"/>
+    <line x1="40" y1="35" x2="40" y2="41"/><line x1="44" y1="35" x2="44" y2="41"/>
+    <line x1="48" y1="35" x2="48" y2="41"/>
+  </g>
+  <text x="40" y="40" font-size="2.2" class="s-fill-d" opacity="0.3" text-anchor="middle">regen</text>
+  <!-- Hot piston -->
+  <rect x="8" y="30" width="16" height="4" rx="0.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.15">
+    <animate attributeName="y" values="28;40;28" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Cold piston (90° phase shift) -->
+  <rect x="56" y="30" width="16" height="4" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.08">
+    <animate attributeName="y" values="36;28;36" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1"/>
+  </rect>
+  <!-- Gas particles -->
+  <circle r="0.8" class="s-fill-l" opacity="0.3">
+    <animate attributeName="cx" values="16;40;64;40;16" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="44;38;44;38;44" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Heat source (flames under hot) -->
+  <g opacity="0.4">
+    <path d="M12,62 Q14,58 12,56 Q14,54 16,58 Q18,54 20,58 Q18,62 20,64" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="1s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Cold sink (wavy lines above cold) -->
+  <g opacity="0.3">
+    <path d="M56,22 Q60,20 64,22 Q68,24 72,22" stroke-width="0.4" class="s-stroke" fill="none"/>
+    <path d="M56,20 Q60,18 64,20 Q68,22 72,20" stroke-width="0.4" class="s-stroke" fill="none"/>
+  </g>
+  <!-- Flywheel linkage (top) -->
+  <circle cx="40" cy="14" r="6" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <circle cx="40" cy="14" r="1.5" class="s-fill" opacity="0.15"/>
+  <g>
+    <line x1="40" y1="14" x2="44" y2="10" stroke-width="0.5" class="s-stroke" opacity="0.4"/>
+    <circle cx="44" cy="10" r="1" class="s-fill" opacity="0.3"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,40,14;360,40,14" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">external combustion</text>
+</svg></div>
+<div class="card-label">Stirling Engine</div>
+</div>
+
+<!-- ====== 121. Gear Train Ratio — Machine Design ====== -->
+<div class="card" data-name="Gear Train" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Gear 1 (input, small) -->
+  <circle cx="16" cy="40" r="10" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <circle cx="16" cy="40" r="2" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+    <line x1="16" y1="30" x2="16" y2="32"/><line x1="16" y1="48" x2="16" y2="50"/>
+    <line x1="6" y1="40" x2="8" y2="40"/><line x1="24" y1="40" x2="26" y2="40"/>
+    <line x1="9" y1="33" x2="10.5" y2="34.5"/><line x1="21.5" y1="45.5" x2="23" y2="47"/>
+    <line x1="9" y1="47" x2="10.5" y2="45.5"/><line x1="21.5" y1="34.5" x2="23" y2="33"/>
+  </g>
+  <!-- Gear 2 (idler, medium) -->
+  <circle cx="40" cy="40" r="14" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <circle cx="40" cy="40" r="2.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+    <line x1="40" y1="26" x2="40" y2="28"/><line x1="40" y1="52" x2="40" y2="54"/>
+    <line x1="26" y1="40" x2="28" y2="40"/><line x1="52" y1="40" x2="54" y2="40"/>
+    <line x1="30.1" y1="30.1" x2="31.5" y2="31.5"/><line x1="48.5" y1="48.5" x2="49.9" y2="49.9"/>
+    <line x1="30.1" y1="49.9" x2="31.5" y2="48.5"/><line x1="48.5" y1="31.5" x2="49.9" y2="30.1"/>
+  </g>
+  <!-- Gear 3 (output, large) -->
+  <circle cx="66" cy="40" r="10" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <circle cx="66" cy="40" r="2" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+    <line x1="66" y1="30" x2="66" y2="32"/><line x1="66" y1="48" x2="66" y2="50"/>
+    <line x1="56" y1="40" x2="58" y2="40"/><line x1="74" y1="40" x2="76" y2="40"/>
+    <line x1="59" y1="33" x2="60.5" y2="34.5"/><line x1="71.5" y1="45.5" x2="73" y2="47"/>
+    <line x1="59" y1="47" x2="60.5" y2="45.5"/><line x1="71.5" y1="34.5" x2="73" y2="33"/>
+  </g>
+  <!-- Rotation indicators -->
+  <g>
+    <circle cx="16" cy="31" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,16,40;360,16,40" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <circle cx="40" cy="27" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="360,40,40;0,40,40" dur="2.8s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <circle cx="66" cy="31" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,66,40;360,66,40" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- Speed labels -->
+  <text x="16" y="22" font-size="2.8" class="s-fill" opacity="0.5" text-anchor="middle">Z₁=12</text>
+  <text x="40" y="18" font-size="2.8" class="s-fill" opacity="0.5" text-anchor="middle">Z₂=18</text>
+  <text x="66" y="22" font-size="2.8" class="s-fill" opacity="0.5" text-anchor="middle">Z₃=12</text>
+  <!-- Arrows -->
+  <text x="16" y="58" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">input</text>
+  <text x="66" y="58" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">output</text>
+  <!-- Ratio formula -->
+  <text x="40" y="70" font-size="3.5" class="s-fill" opacity="0.4" text-anchor="middle">i = Z₂·Z₃ / Z₁·Z₂</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">speed reduction</text>
+</svg></div>
+<div class="card-label">Gear Train</div>
+</div>
+
+<!-- ====== 122. Euler Column — Statics ====== -->
+<div class="card" data-name="Euler Column" data-cat="Statics">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Original straight column (dashed) -->
+  <line x1="40" y1="12" x2="40" y2="68" stroke-width="0.5" class="s-stroke-d" opacity="0.2" stroke-dasharray="2,2"/>
+  <!-- Buckled column (sinusoidal) -->
+  <path d="M40,12 Q52,28 40,40 Q28,52 40,68" stroke-width="1.2" class="s-stroke" fill="none">
+    <animate attributeName="d" values="M40,12 Q42,28 40,40 Q38,52 40,68;M40,12 Q52,28 40,40 Q28,52 40,68;M40,12 Q42,28 40,40 Q38,52 40,68" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Fixed support (bottom) -->
+  <rect x="30" y="68" width="20" height="4" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.2">
+    <line x1="32" y1="72" x2="29" y2="76"/><line x1="36" y1="72" x2="33" y2="76"/>
+    <line x1="40" y1="72" x2="37" y2="76"/><line x1="44" y1="72" x2="41" y2="76"/>
+    <line x1="48" y1="72" x2="45" y2="76"/>
+  </g>
+  <!-- Pin support (top) -->
+  <polygon points="37,12 43,12 40,8" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <!-- Compressive load -->
+  <g opacity="0.5">
+    <line x1="40" y1="2" x2="40" y2="7" stroke-width="0.7" class="s-stroke"/>
+    <polygon points="38.5,7 41.5,7 40,9" class="s-fill"/>
+    <text x="46" y="6" font-size="3.5" class="s-fill">P_cr</text>
+  </g>
+  <!-- Deflection δ -->
+  <line x1="40" y1="40" x2="50" y2="40" stroke-width="0.4" class="s-stroke-d" opacity="0.3" stroke-dasharray="1,1">
+    <animate attributeName="x2" values="41;50;41" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <text x="52" y="42" font-size="3" class="s-fill-d" opacity="0.4">δ</text>
+  <!-- Effective length -->
+  <line x1="60" y1="12" x2="60" y2="68" stroke-width="0.3" class="s-stroke-d" opacity="0.25"/>
+  <line x1="58" y1="12" x2="62" y2="12" stroke-width="0.3" class="s-stroke-d" opacity="0.25"/>
+  <line x1="58" y1="68" x2="62" y2="68" stroke-width="0.3" class="s-stroke-d" opacity="0.25"/>
+  <text x="64" y="42" font-size="2.5" class="s-fill-d" opacity="0.3">L_eff</text>
+  <!-- Formula -->
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill" opacity="0.4">P_cr = π²EI/L²</text>
+</svg></div>
+<div class="card-label">Euler Column</div>
+</div>
+
+<!-- ====== 123. Hydraulic Accumulator — Fluids ====== -->
+<div class="card" data-name="Hydraulic Accumulator" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Pressure vessel body -->
+  <path d="M28,14 Q28,6 40,6 Q52,6 52,14 L52,60 Q52,68 40,68 Q28,68 28,60 Z" stroke-width="1" class="s-stroke" fill="none"/>
+  <!-- Gas section (top, nitrogen) -->
+  <path d="M28,14 Q28,6 40,6 Q52,6 52,14 L52,30 Q40,28 28,30 Z" class="s-fill" opacity="0.05"/>
+  <text x="40" y="18" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">N₂</text>
+  <!-- Bladder/diaphragm -->
+  <path d="M28,30 Q40,28 52,30" stroke-width="0.8" class="s-stroke-l" fill="none">
+    <animate attributeName="d" values="M28,26 Q40,24 52,26;M28,40 Q40,38 52,40;M28,26 Q40,24 52,26" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <!-- Hydraulic fluid (bottom) -->
+  <path d="M28,30 Q40,28 52,30 L52,60 Q52,68 40,68 Q28,68 28,60 Z" class="s-fill-l" opacity="0.1">
+    <animate attributeName="d" values="M28,26 Q40,24 52,26 L52,60 Q52,68 40,68 Q28,68 28,60 Z;M28,40 Q40,38 52,40 L52,60 Q52,68 40,68 Q28,68 28,60 Z;M28,26 Q40,24 52,26 L52,60 Q52,68 40,68 Q28,68 28,60 Z" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <text x="40" y="54" font-size="3" class="s-fill-l" opacity="0.3" text-anchor="middle">oil</text>
+  <!-- Port at bottom -->
+  <rect x="37" y="66" width="6" height="8" rx="1" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <!-- Flow arrow -->
+  <g opacity="0.4">
+    <line x1="40" y1="74" x2="40" y2="78" stroke-width="0.5" class="s-stroke-d"/>
+    <polygon points="38.5,78 41.5,78 40,80" class="s-fill-d">
+      <animate attributeName="points" values="38.5,78 41.5,78 40,80;38.5,74 41.5,74 40,72;38.5,78 41.5,78 40,80" dur="4s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  <!-- Pressure gauge -->
+  <circle cx="60" cy="45" r="5" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <line x1="52" y1="45" x2="55" y2="45" stroke-width="0.4" class="s-stroke"/>
+  <line x1="60" y1="45" x2="62" y2="42" stroke-width="0.4" class="s-stroke">
+    <animateTransform attributeName="transform" type="rotate" values="0,60,45;-30,60,45;0,60,45" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <text x="60" y="53" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">P</text>
+  <text x="16" y="40" font-size="3.5" class="s-fill-d" opacity="0.15" text-anchor="middle" transform="rotate(-90,16,40)">energy storage</text>
+</svg></div>
+<div class="card-label">Hydraulic Accumulator</div>
+</div>
+
+<!-- ====== 124. Charpy Impact — Materials ====== -->
+<div class="card" data-name="Charpy Impact" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Support anvil -->
+  <rect x="24" y="48" width="32" height="6" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Support spans -->
+  <rect x="26" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <rect x="50" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <!-- Specimen (notched bar) -->
+  <rect x="28" y="40" width="24" height="4" rx="0.3" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <!-- V-notch -->
+  <path d="M39,40 L40,42 L41,40" stroke-width="0.5" class="s-stroke-l"/>
+  <!-- Pendulum arm -->
+  <g>
+    <line x1="40" y1="10" x2="40" y2="40" stroke-width="0.8" class="s-stroke"/>
+    <!-- Hammer head -->
+    <rect x="36" y="36" width="8" height="5" rx="1" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.08"/>
+    <animateTransform attributeName="transform" type="rotate" values="-60,40,10;0,40,10;40,40,10;0,40,10;-60,40,10" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1"/>
+  </g>
+  <!-- Pivot point -->
+  <circle cx="40" cy="10" r="2" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Angle scale arc -->
+  <path d="M20,10 A20,20 0 0,1 60,10" stroke-width="0.3" class="s-stroke-d" opacity="0.2" fill="none"/>
+  <!-- Angle markings -->
+  <g class="s-stroke-d" stroke-width="0.2" opacity="0.2">
+    <line x1="20" y1="10" x2="22" y2="12"/><line x1="28" y1="4" x2="29" y2="7"/>
+    <line x1="40" y1="2" x2="40" y2="5"/><line x1="52" y1="4" x2="51" y2="7"/>
+    <line x1="60" y1="10" x2="58" y2="12"/>
+  </g>
+  <!-- Height labels -->
+  <text x="14" y="28" font-size="3" class="s-fill-d" opacity="0.4">h₁</text>
+  <text x="62" y="28" font-size="3" class="s-fill-d" opacity="0.4">h₂</text>
+  <!-- Energy formula -->
+  <text x="40" y="62" font-size="3.5" class="s-fill" opacity="0.4" text-anchor="middle">E = mg(h₁−h₂)</text>
+  <!-- Ground -->
+  <line x1="10" y1="54" x2="70" y2="54" stroke-width="0.4" class="s-stroke" opacity="0.2"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">impact toughness</text>
+</svg></div>
+<div class="card-label">Charpy Impact</div>
+</div>
+
+<!-- ====== 125. Steam Trap — Thermo ====== -->
+<div class="card" data-name="Steam Trap" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Trap body -->
+  <rect x="20" y="24" width="40" height="32" rx="4" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <!-- Inlet pipe -->
+  <rect x="2" y="34" width="18" height="8" rx="1" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <text x="11" y="40" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">in</text>
+  <!-- Outlet pipe -->
+  <rect x="60" y="34" width="18" height="8" rx="1" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <text x="69" y="40" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">out</text>
+  <!-- Float ball -->
+  <circle cx="40" cy="40" r="6" stroke-width="0.7" class="s-stroke s-fill-l" fill-opacity="0.1">
+    <animate attributeName="cy" values="44;36;44" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Condensate level -->
+  <rect x="21" y="40" width="38" height="15" rx="2" class="s-fill-l" opacity="0.08">
+    <animate attributeName="height" values="15;8;15" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="40;47;40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Valve seat -->
+  <rect x="56" y="36" width="4" height="4" rx="0.5" stroke-width="0.4" class="s-stroke" fill="none"/>
+  <!-- Steam bubbles (top) -->
+  <g opacity="0.25">
+    <circle cx="30" cy="30" r="1" class="s-stroke" stroke-width="0.3" fill="none">
+      <animate attributeName="cy" values="32;26;32" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="28" r="0.8" class="s-stroke" stroke-width="0.3" fill="none">
+      <animate attributeName="cy" values="30;24;30" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+    <circle cx="50" cy="30" r="1.2" class="s-stroke" stroke-width="0.3" fill="none">
+      <animate attributeName="cy" values="31;25;31" dur="2s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite" begin="1s"/>
+    </circle>
+  </g>
+  <!-- Condensate droplets flowing out -->
+  <circle r="0.8" class="s-fill-l" opacity="0.5">
+    <animate attributeName="cx" values="58;66;74" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="39;38;38" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.3;0" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Labels -->
+  <text x="40" y="22" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">steam (retained)</text>
+  <text x="40" y="60" font-size="2.5" class="s-fill-l" opacity="0.35" text-anchor="middle">condensate (discharged)</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">condensate removal</text>
+</svg></div>
+<div class="card-label">Steam Trap</div>
+</div>
+
+<!-- ====== 126. Timing Belt — Machine Design ====== -->
+<div class="card" data-name="Timing Belt" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Crankshaft pulley (bottom, larger) -->
+  <circle cx="24" cy="54" r="12" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <circle cx="24" cy="54" r="2" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Camshaft pulley (top, smaller) -->
+  <circle cx="56" cy="26" r="8" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <circle cx="56" cy="26" r="1.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Belt path -->
+  <line x1="24" y1="42" x2="56" y2="18" stroke-width="1" class="s-stroke"/>
+  <line x1="24" y1="66" x2="56" y2="34" stroke-width="1" class="s-stroke"/>
+  <!-- Tooth pattern (top run) -->
+  <g class="s-stroke" stroke-width="0.3" opacity="0.3">
+    <line x1="30" y1="39.5" x2="30" y2="37.5" transform="rotate(-30,40,40)"/>
+    <line x1="34" y1="37" x2="34" y2="35" transform="rotate(-30,40,40)"/>
+    <line x1="38" y1="34.5" x2="38" y2="32.5" transform="rotate(-30,40,40)"/>
+    <line x1="42" y1="32" x2="42" y2="30" transform="rotate(-30,40,40)"/>
+    <line x1="46" y1="29.5" x2="46" y2="27.5" transform="rotate(-30,40,40)"/>
+  </g>
+  <!-- Rotation indicators -->
+  <g>
+    <circle cx="24" cy="43" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,24,54;360,24,54" dur="4s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <circle cx="56" cy="19" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,56,26;360,56,26" dur="2.7s" repeatCount="indefinite"/>
+  </g>
+  <!-- Tensioner -->
+  <circle cx="18" cy="36" r="4" stroke-width="0.5" class="s-stroke-d" opacity="0.4" fill="none"/>
+  <text x="8" y="34" font-size="2.5" class="s-fill-d" opacity="0.35">tens.</text>
+  <!-- Labels -->
+  <text x="24" y="72" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">crank 2:1</text>
+  <text x="56" y="14" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">cam 1:1</text>
+  <!-- Moving belt marker -->
+  <circle r="1.2" class="s-fill-l" opacity="0.6">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M24,42 L56,18 A8,8 0 1,1 56,34 L24,66 A12,12 0 1,1 24,42"/>
+  </circle>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">synchronous drive</text>
+</svg></div>
+<div class="card-label">Timing Belt</div>
+</div>
+
 </div><!-- end grid -->
 
 <!-- LIGHTBOX MODAL -->

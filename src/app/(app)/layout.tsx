@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useDbSync } from '@/hooks/useDbSync';
 import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
+import { useEngagementInit } from '@/lib/engagement-init';
 
 function LoadingSkeleton() {
   return (
@@ -22,6 +23,9 @@ function LoadingSkeleton() {
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { status } = useSession();
   const { isHydrated } = useDbSync();
+
+  // Initialize engagement systems (streak freeze, quests, league, comeback)
+  useEngagementInit();
 
   const isAuthenticated = status === 'authenticated';
 
