@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Lesson Variations</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F0F0F0;
+    padding: 32px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 { text-align: center; font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+  .subtitle { text-align: center; font-size: 14px; color: #888; font-weight: 600; margin-bottom: 36px; }
+  .grid { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+
+  .variation { display: flex; flex-direction: column; gap: 10px; }
+  .var-label { font-size: 13px; font-weight: 800; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Simulated unit background strip */
+  .unit-bg {
+    background: #E8F8D4;
+    border-radius: 20px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* ── Normal completed lesson (baseline) ── */
+  .lesson {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    border: 1.5px solid rgba(255,255,255,0.9);
+    box-shadow: 0 3px 0 #3B870022, 0 1px 3px rgba(0,0,0,0.06);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s;
+  }
+  .lesson:hover { transform: scale(1.01); }
+  .lesson:active { transform: scale(0.97) translateY(2px); }
+
+  .icon-box {
+    width: 38px; height: 38px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 16px;
+  }
+  .icon-box.normal { background: #58CC0220; }
+
+  .info { flex: 1; min-width: 0; }
+  .title { font-size: 14.5px; font-weight: 700; color: #3C3C3C; line-height: 1.2; }
+  .meta { font-size: 11.5px; font-weight: 600; color: #AFAFAF; margin-top: 1px; }
+
+  .badge { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+  .dots { display: flex; gap: 4px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .dot.on { background: #58CC02; }
+  .dot.off { background: #D4D4D4; }
+
+  .star { display: flex; }
+
+  /* Check SVG for normal */
+  .check-icon { color: #58CC02; }
+
+  /* Crown SVG */
+  .crown-svg path { fill: #FFB800; }
+  .crown-svg circle { fill: #FFF8E1; }
+
+  /* ── Golden variations ── */
+
+  /* 1: Warm cream with amber border */
+  .g1 { background: #FFF8E1; border-color: #F5C842; box-shadow: 0 3px 0 #D4A01722, 0 1px 3px rgba(0,0,0,0.06); }
+  .g1 .icon-box { background: #FFECB3; }
+  .g1 .dot.on { background: #F5C842; }
+
+  /* 2: Solid gold with dark amber shadow */
+  .g2 { background: #FFD54F; border-color: #DAA520; box-shadow: 0 3px 0 #B8860B44; }
+  .g2 .icon-box { background: #FFC107; }
+  .g2 .dot.on { background: #FFA000; }
+  .g2 .title { color: #5D4200; }
+  .g2 .meta { color: #8B7340; }
+
+  /* 3: Light gold, left accent bar */
+  .g3 { background: #FFF8E1; border-color: #FFD54F; border-left: 4px solid #FFB300; }
+  .g3 .icon-box { background: #FFE082; }
+  .g3 .dot.on { background: #FFB300; }
+
+  /* 4: White with gold bottom shadow (gold bar feel) */
+  .g4 { background: #FFFDF5; border-color: #EED98C; box-shadow: 0 4px 0 #DAA520; }
+  .g4 .icon-box { background: #FFE082; }
+  .g4 .dot.on { background: #DAA520; }
+
+  /* 5: Deep gold, dark text */
+  .g5 { background: #FFC107; border-color: #E5A800; box-shadow: 0 3px 0 #B8860B55; }
+  .g5 .icon-box { background: #FFB300; }
+  .g5 .title { color: #3E2C00; }
+  .g5 .meta { color: #6B5520; }
+  .g5 .dot.on { background: #E5A800; }
+
+  /* 6: Subtle — white bg with gold ring border */
+  .g6 { background: #FFFFFF; border: 2px solid #FFD54F; box-shadow: 0 3px 0 #C8960022, 0 1px 3px rgba(0,0,0,0.06); }
+  .g6 .icon-box { background: #FFF3D0; }
+  .g6 .dot.on { background: #FFB800; }
+
+  /* 7: Muted gold — desaturated warm */
+  .g7 { background: #F5ECD3; border-color: #D4BA6A; box-shadow: 0 3px 0 #B09A5022; }
+  .g7 .icon-box { background: #E8D9A8; }
+  .g7 .dot.on { background: #C4A94D; }
+
+  /* 8: Bright amber */
+  .g8 { background: #FFF0C2; border-color: #FFB300; box-shadow: 0 3px 0 #CC8F0033; }
+  .g8 .icon-box { background: #FFD54F; }
+  .g8 .dot.on { background: #FFB300; }
+
+  /* 9: Gold top edge accent */
+  .g9 { background: #FFFDF7; border-color: #E8DCC0; border-top: 3px solid #FFB800; box-shadow: 0 3px 0 #D4A01722; }
+  .g9 .icon-box { background: #FFF3D0; }
+  .g9 .dot.on { background: #FFB800; }
+
+  /* 10: Inverted — dark gold bg, light text */
+  .g10 { background: #A67C00; border-color: #8B6914; box-shadow: 0 3px 0 #5D420055; }
+  .g10 .icon-box { background: #C8960B; }
+  .g10 .title { color: #FFF8E1; }
+  .g10 .meta { color: #FFECB3; }
+  .g10 .dot.on { background: #FFD54F; }
+  .g10 .dot.off { background: #7A5F10; }
+
+  /* 11: Honey — warm orange-gold */
+  .g11 { background: #FFEABD; border-color: #F0A830; box-shadow: 0 3px 0 #CC850022; }
+  .g11 .icon-box { background: #FFD080; }
+  .g11 .dot.on { background: #F0A830; }
+
+  /* 12: Platinum gold — cool-toned gold */
+  .g12 { background: #F8F3E3; border-color: #C9B97A; box-shadow: 0 3px 0 #A89A6022; }
+  .g12 .icon-box { background: #E6D9AE; }
+  .g12 .dot.on { background: #B5A565; }
+  .g12 .title { color: #4A4228; }
+
+  /* 13: Gold with double border */
+  .g13 { background: #FFF8E1; border: 2px solid #FFD54F; outline: 2px solid #FFE08244; outline-offset: -1px; box-shadow: 0 3px 0 #C8960022; }
+  .g13 .icon-box { background: #FFECB3; }
+  .g13 .dot.on { background: #FFC107; }
+
+  /* 14: Flat gold, rounded pill icon */
+  .g14 { background: #FFFAED; border-color: #F5D060; box-shadow: 0 3px 0 #C8A83022; }
+  .g14 .icon-box { background: #FFD54F; border-radius: 50%; }
+  .g14 .dot.on { background: #F5D060; }
+
+  /* 15: Ochre earth tone */
+  .g15 { background: #F2E8D0; border-color: #C4A45A; box-shadow: 0 3px 0 #9E843A22; }
+  .g15 .icon-box { background: #D9C48B; }
+  .g15 .dot.on { background: #B59540; }
+  .g15 .title { color: #4A3D20; }
+  .g15 .meta { color: #8A7A55; }
+
+  /* 16: Minimal — just gold icon box + gold dots, rest white */
+  .g16 { background: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.9); box-shadow: 0 3px 0 #3B870022, 0 1px 3px rgba(0,0,0,0.06); }
+  .g16 .icon-box { background: #FFD54F; }
+  .g16 .dot.on { background: #FFB800; }
+
+  /* 17: Gold bottom bar */
+  .g17 { background: #FFFDF5; border-color: #EED98C; border-bottom: 3px solid #FFB800; box-shadow: 0 1px 0 #FFB80033; }
+  .g17 .icon-box { background: #FFF3D0; }
+  .g17 .dot.on { background: #FFB800; }
+
+  /* 18: Soft peach-gold */
+  .g18 { background: #FFF5E6; border-color: #F0C060; box-shadow: 0 3px 0 #CC940022; }
+  .g18 .icon-box { background: #FFE0A0; }
+  .g18 .dot.on { background: #E8A820; }
+
+  /* 19: Rich gold with inset top highlight */
+  .g19 { background: #FFE082; border-color: #DAA520; box-shadow: 0 3px 0 #B8860B44, inset 0 2px 0 #FFF3D088; }
+  .g19 .icon-box { background: #FFD54F; }
+  .g19 .title { color: #4A3500; }
+  .g19 .meta { color: #7A6020; }
+  .g19 .dot.on { background: #DAA520; }
+
+  /* 20: Goldenrod — slightly green-gold */
+  .g20 { background: #F8F0C8; border-color: #C8B040; box-shadow: 0 3px 0 #9E8A2022; }
+  .g20 .icon-box { background: #E0D080; }
+  .g20 .dot.on { background: #B8A030; }
+  .g20 .title { color: #3E3810; }
+</style>
+</head>
+<body>
+
+<h1>Golden Lesson Variations</h1>
+<p class="subtitle">Normal completed lesson on top, golden variation below. Hover to interact.</p>
+
+<div class="grid">
+
+  <!-- Helper: normal lesson row -->
+  <!-- We'll repeat inline since this is a static HTML -->
+
+  <!-- #1: Warm cream with amber border -->
+  <div class="variation">
+    <div class="var-label">1 &mdash; Warm Cream + Amber Border</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g1">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #2: Solid Gold -->
+  <div class="variation">
+    <div class="var-label">2 &mdash; Solid Gold Bar</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g2">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #3: Left accent bar -->
+  <div class="variation">
+    <div class="var-label">3 &mdash; Left Gold Accent Bar</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g3">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #4: White + gold bottom shadow -->
+  <div class="variation">
+    <div class="var-label">4 &mdash; White + Gold Bottom Shadow</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g4">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #5: Deep Gold -->
+  <div class="variation">
+    <div class="var-label">5 &mdash; Deep Gold</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g5">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #6: White + Gold Ring -->
+  <div class="variation">
+    <div class="var-label">6 &mdash; White + Gold Ring Border</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g6">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #7: Muted / Desaturated Gold -->
+  <div class="variation">
+    <div class="var-label">7 &mdash; Muted Desaturated Gold</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g7">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #8: Bright Amber -->
+  <div class="variation">
+    <div class="var-label">8 &mdash; Bright Amber</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g8">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #9: Gold Top Edge -->
+  <div class="variation">
+    <div class="var-label">9 &mdash; Gold Top Edge Accent</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g9">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #10: Inverted Dark Gold -->
+  <div class="variation">
+    <div class="var-label">10 &mdash; Inverted Dark Gold</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g10">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFD54F" stroke="#FFB800" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #11: Honey -->
+  <div class="variation">
+    <div class="var-label">11 &mdash; Honey Warm</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g11">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #12: Platinum Gold -->
+  <div class="variation">
+    <div class="var-label">12 &mdash; Platinum Gold (cool)</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g12">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #13: Double Border -->
+  <div class="variation">
+    <div class="var-label">13 &mdash; Double Gold Border</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g13">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #14: Round Icon -->
+  <div class="variation">
+    <div class="var-label">14 &mdash; Round Gold Icon Pill</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g14">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #15: Ochre Earth -->
+  <div class="variation">
+    <div class="var-label">15 &mdash; Ochre Earth Tone</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g15">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #16: Minimal — only icon + dots gold -->
+  <div class="variation">
+    <div class="var-label">16 &mdash; Minimal (Gold Icon + Dots Only)</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g16">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #17: Gold Bottom Bar -->
+  <div class="variation">
+    <div class="var-label">17 &mdash; Gold Bottom Bar</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g17">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #18: Soft Peach-Gold -->
+  <div class="variation">
+    <div class="var-label">18 &mdash; Soft Peach-Gold</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g18">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #19: Rich Gold + Inset Highlight -->
+  <div class="variation">
+    <div class="var-label">19 &mdash; Rich Gold + Inset Top Highlight</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g19">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #20: Goldenrod -->
+  <div class="variation">
+    <div class="var-label">20 &mdash; Goldenrod (green-gold)</div>
+    <div class="unit-bg">
+      <div class="lesson">
+        <div class="icon-box normal"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5L8.5 14L15 6" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none" stroke="#FFB800" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="lesson g20">
+        <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="crown-svg"><path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z"/><path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="12" cy="16" r="1.2"/><circle cx="16.5" cy="16" r="1.2"/></svg></div>
+        <div class="info"><div class="title">Free Body Diagrams</div><div class="meta">5 questions &middot; 20 XP</div></div>
+        <div class="badge"><div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div><svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#FFB800" stroke="#C8960B" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
