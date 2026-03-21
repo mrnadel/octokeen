@@ -10,6 +10,7 @@ import LessonProgressBar from './LessonProgressBar';
 import QuestionCard from './QuestionCard';
 import type { QuestionCardHandle } from './QuestionCard';
 import ResultScreen from './ResultScreen';
+import FlagButton from '@/components/feedback/FlagButton';
 
 export { LessonView };
 export default function LessonView() {
@@ -406,6 +407,7 @@ export default function LessonView() {
                   {currentQuestion.explanation}
                 </p>
               )}
+              <FlagButton contentType="lesson-question" contentId={currentQuestion.id} />
             </div>
 
             <button
