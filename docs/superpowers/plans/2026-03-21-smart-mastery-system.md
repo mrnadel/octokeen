@@ -119,7 +119,7 @@ export function computeAllMastery(
   return topicIds.map((topicId) => {
     const topicEvents = events.filter((e) => e.topicId === topicId);
     const score = computeMastery(topicEvents);
-    const lastEvent = topicEvents
+    const lastEvent = [...topicEvents]
       .sort((a, b) => new Date(b.answeredAt).getTime() - new Date(a.answeredAt).getTime())[0];
 
     return {
@@ -454,9 +454,20 @@ git commit -m "feat: log mastery events from course lessons"
 
 In `src/lib/db/schema.ts`, add `index` to the drizzle-orm imports if not already present, then add the table definition after the existing tables (before any `relations` definitions):
 
-Add `index` to imports:
+Add `index` to the existing imports (preserve all existing imports like `primaryKey` and `uniqueIndex`):
 ```typescript
-import { pgTable, text, integer, real, boolean, timestamp, jsonb, index } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  text,
+  timestamp,
+  integer,
+  jsonb,
+  real,
+  boolean,
+  primaryKey,
+  uniqueIndex,
+  index,
+} from 'drizzle-orm/pg-core';
 ```
 
 Add table definition:
@@ -558,28 +569,22 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, inserted: 0 });
   }
 
-  // Insert with ON CONFLICT DO NOTHING for deduplication
-  let inserted = 0;
-  for (const event of events) {
-    try {
-      await db.insert(masteryEvents).values({
-        id: event.id,
-        userId,
-        questionId: event.questionId,
-        topicId: event.topicId,
-        subtopic: event.subtopic ?? null,
-        difficulty: event.difficulty,
-        correct: event.correct,
-        source: event.source,
-        answeredAt: event.answeredAt,
-      }).onConflictDoNothing();
-      inserted++;
-    } catch {
-      // Skip duplicates
-    }
-  }
+  // Batch insert with ON CONFLICT DO NOTHING for deduplication
+  const rows = events.map((event) => ({
+    id: event.id,
+    userId,
+    questionId: event.questionId,
+    topicId: event.topicId,
+    subtopic: event.subtopic ?? null,
+    difficulty: event.difficulty,
+    correct: event.correct,
+    source: event.source,
+    answeredAt: event.answeredAt,
+  }));
 
-  return NextResponse.json({ ok: true, inserted });
+  await db.insert(masteryEvents).values(rows).onConflictDoNothing();
+
+  return NextResponse.json({ ok: true, inserted: rows.length });
 }
 ```
 

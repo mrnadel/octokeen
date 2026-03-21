@@ -13,6 +13,8 @@ export { ResultScreen };
 export default function ResultScreen() {
   const lessonResult = useCourseStore((s) => s.lessonResult);
   const dismissResult = useCourseStore((s) => s.dismissResult);
+  const { updateQuestProgress, updateLeagueXp, addGems } = useEngagementActions();
+  const engagementTracked = useRef(false);
 
   // Mobile back button dismisses result
   useBackHandler(!!lessonResult, dismissResult);
@@ -33,6 +35,24 @@ export default function ResultScreen() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [lessonResult, dismissResult]);
+
+  // Track engagement metrics when lesson result appears
+  useEffect(() => {
+    if (!lessonResult || engagementTracked.current) return;
+    engagementTracked.current = true;
+
+    // Quest tracking
+    updateQuestProgress('lessons_completed', 1);
+    updateLeagueXp(lessonResult.xpEarned);
+    updateQuestProgress('xp_earned', lessonResult.xpEarned);
+    if (lessonResult.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1);
+    if (lessonResult.accuracy === 100 && lessonResult.totalQuestions >= 3) updateQuestProgress('perfect_sessions', 1);
+    if (lessonResult.stars === 3) updateQuestProgress('stars_earned', 1);
+    updateQuestProgress('topics_practiced', 1);
+
+    // Gem awards
+    if (lessonResult.isFirstCompletion && lessonResult.stars === 3) addGems(10, '3_star_first_time');
+  }, [lessonResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!lessonResult) return null;
 
@@ -287,6 +307,11 @@ export default function ResultScreen() {
               )}
             </div>
           )}
+
+          {/* Continuation hooks */}
+          <div style={{ marginTop: 12 }}>
+            <ContinuationHooks />
+          </div>
         </motion.div>
 
         {/* Continue button */}

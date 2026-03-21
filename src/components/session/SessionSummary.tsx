@@ -1,12 +1,15 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import type { SessionSummary as SessionSummaryType } from '@/store/useStore';
 import { Trophy, Target, Clock, Zap, Star, ArrowRight, Home, RotateCcw } from 'lucide-react';
 import { cn, formatDuration } from '@/lib/utils';
-import { useSessionActions } from '@/store/useStore';
+import { useSessionActions, useStore } from '@/store/useStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { achievements } from '@/data/achievements';
+import { ContinuationHooks } from '@/components/engagement/ContinuationHooks';
+import { useEngagementActions } from '@/store/useEngagementStore';
 
 interface Props {
   summary: SessionSummaryType;
@@ -14,9 +17,28 @@ interface Props {
 
 export default function SessionSummary({ summary }: Props) {
   const { startSession, abandonSession } = useSessionActions();
+  const { updateQuestProgress, updateLeagueXp } = useEngagementActions();
+  const tracked = useRef(false);
 
   // Mobile back button dismisses summary and returns to practice page
   useBackHandler(true, abandonSession);
+
+  // Track engagement metrics (fires once)
+  useEffect(() => {
+    if (tracked.current) return;
+    tracked.current = true;
+
+    updateQuestProgress('sessions_completed', 1);
+    updateQuestProgress('questions_correct', summary.questionsCorrect);
+    updateLeagueXp(summary.xpEarned);
+    updateQuestProgress('xp_earned', summary.xpEarned);
+    if (summary.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1);
+    if (summary.accuracy === 100 && summary.questionsAttempted >= 3) updateQuestProgress('perfect_sessions', 1);
+    updateQuestProgress('topics_practiced', 1);
+    if (summary.type === 'daily-challenge') updateQuestProgress('daily_challenges_completed', 1);
+    const currentStreak = useStore.getState().progress.currentStreak;
+    if (currentStreak > 0) updateQuestProgress('streak_days', currentStreak);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getGrade = (accuracy: number) => {
     if (accuracy >= 90) return { label: 'Outstanding', color: 'text-emerald-600', bg: 'bg-emerald-50' };
@@ -102,6 +124,11 @@ export default function SessionSummary({ summary }: Props) {
         >
           <RotateCcw className="w-4 h-4" /> Practice Again
         </button>
+      </div>
+
+      {/* Continuation hooks */}
+      <div className="mt-4">
+        <ContinuationHooks />
       </div>
     </div>
   );
