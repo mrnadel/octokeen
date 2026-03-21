@@ -316,6 +316,10 @@ export default function ProfilePage() {
   );
 
   const masteryEvents = useMasteryStore((s) => s.events);
+  const hydrateFromServer = useMasteryStore((s) => s.hydrateFromServer);
+  useEffect(() => {
+    hydrateFromServer();
+  }, [hydrateFromServer]);
   const topicIds = useMemo(() => topics.map((t) => t.id), []);
   const masteryScores = useMemo(
     () => computeAllMastery(masteryEvents, topicIds),

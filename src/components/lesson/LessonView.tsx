@@ -28,6 +28,12 @@ export default function LessonView() {
   const [xpGain, setXpGain] = useState(0);
   const questionRef = useRef<QuestionCardHandle>(null);
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
+  const syncMastery = useMasteryStore((s) => s.syncToServer);
+  useEffect(() => {
+    if (lessonResult) {
+      syncMastery();
+    }
+  }, [lessonResult, syncMastery]);
 
   const lessonData = useMemo(() => {
     if (!activeLesson) return null;

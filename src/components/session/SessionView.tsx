@@ -37,6 +37,14 @@ export default function SessionView() {
     }
   }, [isTimedOut, completeSession]);
 
+  // Sync mastery events to server when session completes
+  const syncMastery = useMasteryStore((s) => s.syncToServer);
+  useEffect(() => {
+    if (sessionSummary) {
+      syncMastery();
+    }
+  }, [sessionSummary, syncMastery]);
+
   // Show summary
   if (sessionSummary) {
     return <SessionSummary summary={sessionSummary} />;
