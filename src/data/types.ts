@@ -301,3 +301,17 @@ export interface UserProgress {
   weakAreas: string[];
   strongAreas: string[];
 }
+
+// --------------- Content Feedback ---------------
+
+export type ContentFeedbackType = 'question' | 'lesson-question';
+export type FeedbackReason = 'confusing' | 'incorrect' | 'too-easy' | 'too-hard';
+
+export const VALID_CONTENT_TYPES: ContentFeedbackType[] = ['question', 'lesson-question'];
+export const VALID_REASONS: FeedbackReason[] = ['confusing', 'incorrect', 'too-easy', 'too-hard'];
+
+export interface UserFlagItem {
+  contentType: ContentFeedbackType;
+  contentId: string;
+  reason: FeedbackReason;
+}
