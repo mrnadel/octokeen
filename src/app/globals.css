@@ -331,13 +331,13 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── Golden Lesson Effects (flat gold bar with hover shine) ── */
+/* ── Golden Lesson Effects ── */
 
-/* Golden node on course map — gold bar look */
+/* Golden node on course map */
 .golden-node {
-  background: #FFD54F !important;
-  border: 1.5px solid #DAA520 !important;
-  box-shadow: 0 3px 0 #B8860B44, 0 1px 3px rgba(0,0,0,0.08);
+  background: #FFB800 !important;
+  border: none !important;
+  box-shadow: 0 4px 0 #996E00;
   position: relative;
   overflow: hidden;
 }
@@ -345,19 +345,18 @@
   content: '';
   position: absolute;
   top: -30%;
-  left: -120%;
-  width: 40%;
+  left: 15%;
+  width: 12%;
   height: 160%;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.3);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.5s ease;
+  transition: left 0.45s ease;
 }
 .golden-node:hover::after {
-  left: 120%;
+  left: 75%;
 }
-/* Keep text above the shine */
 .golden-node > * {
   position: relative;
   z-index: 1;
@@ -365,13 +364,13 @@
 
 /* Golden icon container on the course map */
 .golden-icon-box {
-  background: #FFC107;
+  background: #CC9400;
 }
 
 /* Badge shimmer for in-lesson golden tag */
 .golden-badge-shimmer {
-  background: #FFD54F;
-  border: 1.5px solid #DAA520;
+  background: #FFB800;
+  border: none;
   position: relative;
   overflow: hidden;
 }
@@ -379,22 +378,22 @@
   content: '';
   position: absolute;
   top: -30%;
-  left: -120%;
-  width: 40%;
+  left: 15%;
+  width: 14%;
   height: 160%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.5s ease;
+  transition: left 0.4s ease;
 }
 .golden-badge-shimmer:hover::after {
-  left: 120%;
+  left: 70%;
 }
 
 /* Golden result header */
 .golden-result-header {
-  background: #FFE082;
+  background: #FFB800;
   position: relative;
   overflow: hidden;
 }
@@ -402,28 +401,28 @@
   content: '';
   position: absolute;
   top: -30%;
-  left: -120%;
-  width: 30%;
+  left: 20%;
+  width: 10%;
   height: 160%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.6s ease;
+  transition: left 0.5s ease;
 }
 .golden-result-header:hover::after {
-  left: 120%;
+  left: 70%;
 }
 
 /* Golden text */
 .golden-text {
-  color: #8B6914;
+  color: #5D4200;
 }
 
 /* Golden mastery achievement row */
 .golden-achievement {
-  background: #FFD54F;
-  border: 1.5px solid #DAA520;
+  background: #FFB800;
+  border: none;
   position: relative;
   overflow: hidden;
 }
@@ -431,23 +430,23 @@
   content: '';
   position: absolute;
   top: -30%;
-  left: -120%;
-  width: 40%;
+  left: 15%;
+  width: 12%;
   height: 160%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.5s ease;
+  transition: left 0.45s ease;
 }
 .golden-achievement:hover::after {
-  left: 120%;
+  left: 75%;
 }
 
 /* Golden continue button */
 .golden-btn {
-  background: #FFA000;
-  box-shadow: 0 4px 0 #B8860B;
+  background: #FFB800;
+  box-shadow: 0 4px 0 #996E00;
   border: none;
   position: relative;
   overflow: hidden;
@@ -456,17 +455,17 @@
   content: '';
   position: absolute;
   top: -30%;
-  left: -120%;
-  width: 40%;
+  left: 15%;
+  width: 14%;
   height: 160%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 0;
   transition: left 0.4s ease;
 }
 .golden-btn:hover::after {
-  left: 120%;
+  left: 70%;
 }
 
 /* Golden star on course map */
@@ -476,5 +475,5 @@
 
 /* Golden dots on map */
 .golden-dot {
-  background: #FFC107;
+  background: #FFFFFF;
 }

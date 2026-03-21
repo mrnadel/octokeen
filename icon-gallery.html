@@ -10,7 +10,7 @@
   h1{text-align:center;font-size:28px;font-weight:900;color:#3C3C3C;margin-bottom:6px}
   h1 span{color:#58CC02}
   p.sub{text-align:center;color:#AFAFAF;font-size:14px;font-weight:600;margin-bottom:40px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px;max-width:1200px;margin:0 auto}
   .card{background:white;border-radius:20px;padding:20px 12px 14px;text-align:center;border:2px solid #EBEBEB;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:8px}
   .card:hover{border-color:#58CC02;transform:translateY(-3px);box-shadow:0 8px 24px rgba(88,204,2,.12)}
   .num{font-size:11px;font-weight:800;color:#C0C0C0;letter-spacing:1px}
@@ -27,10 +27,10 @@
 </head>
 <body>
 <h1><span>Mech</span>Ready Mascot</h1>
-<p class="sub">20 illustrated arm types — two-tone shading, structural depth — click to preview</p>
+<p class="sub">20 illustrated hydraulic arms — click to preview in header</p>
 <div class="mock-header">
   <div id="header-preview" style="width:36px;height:43px">
-    <svg width="36" height="43" viewBox="0 0 200 240"><rect width="200" height="240" rx="20" fill="#E5E5E5"/><text x="100" y="125" text-anchor="middle" dominant-baseline="central" fill="#AAA" font-size="40" font-weight="800">?</text></svg>
+    <svg width="36" height="43" viewBox="0 0 240 280"><rect width="240" height="280" rx="20" fill="#E5E5E5"/><text x="120" y="145" text-anchor="middle" dominant-baseline="central" fill="#AAA" font-size="48" font-weight="800">?</text></svg>
   </div>
   <div class="right">
     <span style="font-size:15px">&#9889;</span><span class="stat">3</span>
@@ -40,665 +40,266 @@
 </div>
 <div class="grid">
 
-<!-- ====== #1 CLASSIC CRANE — Yellow ====== -->
+<!-- ====== #1 YELLOW — Reference faithful ====== -->
 <div class="card" onclick="pick(this)"><div class="num">#1</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="100" cy="236" rx="62" ry="8" fill="#000" opacity="0.08"/>
-<!-- base dark -->
-<rect x="42" y="218" width="116" height="22" rx="11" fill="#455A64"/>
-<!-- base bright -->
-<rect x="48" y="200" width="104" height="24" rx="9" fill="#F9A825"/>
-<rect x="48" y="200" width="104" height="12" rx="7" fill="#FFD54F" opacity="0.4"/>
-<circle cx="68" cy="212" r="4" fill="#E8971A"/><circle cx="80" cy="212" r="2.8" fill="#FFD54F"/><circle cx="88" cy="212" r="2" fill="white" opacity="0.4"/>
-<!-- structural connectors -->
-<path d="M82,200 L78,178 L122,178 L118,200Z" fill="#455A64"/>
-<circle cx="112" cy="95" r="20" fill="#455A64"/>
-<rect x="162" y="120" width="16" height="18" rx="4" fill="#455A64"/>
-<!-- upper arm (behind) shadow+bright -->
-<rect x="101" y="22" width="32" height="78" rx="16" fill="#E8971A" transform="rotate(118,115,95)"/>
-<rect x="98" y="20" width="32" height="78" rx="16" fill="#F9A825" transform="rotate(118,115,95)"/>
-<rect x="104" y="30" width="8" height="60" rx="4" fill="#FFD54F" opacity="0.3" transform="rotate(118,115,95)"/>
-<!-- gripper -->
-<path d="M178,117 L190,115 Q198,119 196,127 L189,125 Q192,121 188,119 L178,121Z" fill="#BDBDBD"/>
-<path d="M178,135 L190,137 Q198,133 196,127 L189,129 Q192,133 188,135 L178,133Z" fill="#9E9E9E"/>
-<!-- lower arm (front) shadow+bright -->
-<rect x="83" y="92" width="40" height="112" rx="20" fill="#E8971A" transform="rotate(9,100,200)"/>
-<rect x="80" y="90" width="40" height="112" rx="20" fill="#F9A825" transform="rotate(9,100,200)"/>
-<rect x="86" y="100" width="10" height="90" rx="5" fill="#FFD54F" opacity="0.3" transform="rotate(9,100,200)"/>
-<!-- joints -->
-<circle cx="112" cy="95" r="16" fill="#F9A825"/><circle cx="112" cy="95" r="8" fill="#37474F"/>
-<circle cx="100" cy="200" r="14" fill="#F9A825"/><circle cx="100" cy="200" r="7" fill="#37474F"/>
-<circle cx="170" cy="128" r="9" fill="#F9A825"/><circle cx="170" cy="128" r="4.5" fill="#37474F"/>
-</svg>
-<div class="label">Classic Crane</div><div class="desc">Reference-style: stepped base, two-tone segments, C-gripper</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="100" cy="236" rx="62" ry="8" fill="#000" opacity="0.08"/><rect x="42" y="218" width="116" height="22" rx="11" fill="#455A64"/><rect x="48" y="200" width="104" height="24" rx="9" fill="#F9A825"/><rect x="101" y="22" width="32" height="78" rx="16" fill="#F9A825" transform="rotate(118,115,95)"/><rect x="80" y="90" width="40" height="112" rx="20" fill="#F9A825" transform="rotate(9,100,200)"/><circle cx="112" cy="95" r="16" fill="#F9A825"/><circle cx="112" cy="95" r="8" fill="#37474F"/><circle cx="100" cy="200" r="14" fill="#F9A825"/></svg><span>36</span></div>
-</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<!-- ground shadow -->
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<!-- base dark slab -->
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270 Z" fill="#4A5568"/>
+<!-- base yellow housing — rounded trapezoid -->
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258 Z" fill="#F6AD2B"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254 Z" fill="#F9C846" opacity="0.5"/>
+<!-- base buttons -->
+<circle cx="78" cy="244" r="5" fill="#D4911E"/><circle cx="92" cy="244" r="3.5" fill="#F9C846"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<!-- === STRUCTURAL dark connectors (behind arms) === -->
+<!-- base-to-arm connector -->
+<path d="M88,232 L82,208 L138,208 L132,232 Z" fill="#4A5568"/>
+<!-- elbow connector -->
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118 Z" fill="#4A5568"/>
+<!-- wrist connector -->
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
 
-<!-- ====== #2 STUBBY BOT — Blue ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#2</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="100" cy="236" rx="70" ry="8" fill="#000" opacity="0.08"/>
-<rect x="22" y="216" width="156" height="24" rx="12" fill="#455A64"/>
-<rect x="30" y="200" width="140" height="22" rx="10" fill="#42A5F5"/>
-<rect x="30" y="200" width="140" height="11" rx="8" fill="#90CAF9" opacity="0.4"/>
-<circle cx="56" cy="211" r="3.5" fill="#1E88E5"/><circle cx="66" cy="211" r="2.5" fill="#90CAF9"/>
-<!-- structural -->
-<rect x="72" y="185" width="56" height="22" rx="4" fill="#455A64"/>
-<circle cx="120" cy="138" r="24" fill="#455A64"/>
-<!-- stubby upper (behind) — very short, very fat -->
-<rect x="105" y="108" width="55" height="48" rx="24" fill="#1E88E5" transform="rotate(30,130,138)"/>
-<rect x="102" y="106" width="55" height="48" rx="24" fill="#42A5F5" transform="rotate(30,130,138)"/>
-<rect x="112" y="112" width="12" height="36" rx="6" fill="#90CAF9" opacity="0.3" transform="rotate(30,130,138)"/>
-<!-- tiny prong fingers -->
-<rect x="164" y="102" width="10" height="26" rx="5" fill="#BDBDBD" transform="rotate(-10,169,102)"/>
-<rect x="176" y="105" width="10" height="26" rx="5" fill="#9E9E9E" transform="rotate(10,181,105)"/>
-<!-- stubby lower (front) — very short, very fat -->
-<rect x="60" y="135" width="60" height="68" rx="30" fill="#1E88E5" transform="rotate(5,90,200)"/>
-<rect x="57" y="133" width="60" height="68" rx="30" fill="#42A5F5" transform="rotate(5,90,200)"/>
-<rect x="66" y="140" width="14" height="52" rx="7" fill="#90CAF9" opacity="0.3" transform="rotate(5,90,200)"/>
-<!-- HUGE joints -->
-<circle cx="120" cy="138" r="20" fill="#42A5F5"/><circle cx="120" cy="138" r="11" fill="#37474F"/>
-<circle cx="90" cy="198" r="18" fill="#42A5F5"/><circle cx="90" cy="198" r="10" fill="#37474F"/>
-<circle cx="172" cy="108" r="11" fill="#42A5F5"/><circle cx="172" cy="108" r="6" fill="#37474F"/>
-</svg>
-<div class="label">Stubby Bot</div><div class="desc">Super short fat segments, oversized joints, tiny fingers</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="100" cy="236" rx="70" ry="8" fill="#000" opacity="0.08"/><rect x="22" y="216" width="156" height="24" rx="12" fill="#455A64"/><rect x="30" y="200" width="140" height="22" rx="10" fill="#42A5F5"/><rect x="102" y="106" width="55" height="48" rx="24" fill="#42A5F5" transform="rotate(30,130,138)"/><rect x="57" y="133" width="60" height="68" rx="30" fill="#42A5F5" transform="rotate(5,90,200)"/><circle cx="120" cy="138" r="20" fill="#42A5F5"/><circle cx="120" cy="138" r="11" fill="#37474F"/><circle cx="90" cy="198" r="18" fill="#42A5F5"/></svg><span>36</span></div>
-</div>
+<!-- === UPPER ARM (behind, goes elbow→right-down to wrist) === -->
+<!-- It's a tapered pill: wider at elbow, narrower at wrist -->
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82 Z" fill="#D4911E"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80 Z" fill="#F6AD2B"/>
+<!-- upper arm highlight -->
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68 Z" fill="#F9C846" opacity="0.35"/>
 
-<!-- ====== #3 THREE-SEGMENT — Coral ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#3</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="72" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/>
-<ellipse cx="65" cy="232" rx="30" ry="8" fill="#455A64"/>
-<rect x="48" y="200" width="34" height="34" rx="10" fill="#FF7043"/>
-<rect x="48" y="200" width="34" height="17" rx="8" fill="#FFAB91" opacity="0.4"/>
-<!-- structural -->
-<circle cx="68" cy="162" r="12" fill="#455A64"/>
-<circle cx="88" cy="112" r="11" fill="#455A64"/>
-<circle cx="128" cy="78" r="10" fill="#455A64"/>
-<!-- seg 3 (behind) -->
-<rect x="120" y="32" width="20" height="52" rx="10" fill="#E64A19" transform="rotate(55,130,78)"/>
-<rect x="117" y="30" width="20" height="52" rx="10" fill="#FF7043" transform="rotate(55,130,78)"/>
-<!-- seg 2 -->
-<rect x="76" y="70" width="22" height="48" rx="11" fill="#E64A19" transform="rotate(25,87,112)"/>
-<rect x="73" y="68" width="22" height="48" rx="11" fill="#FF7043" transform="rotate(25,87,112)"/>
-<rect x="79" y="74" width="6" height="36" rx="3" fill="#FFAB91" opacity="0.3" transform="rotate(25,87,112)"/>
-<!-- gripper tip -->
-<path d="M164,42 L158,28 L162,26 L166,38 L170,26 L174,28 L168,42Z" fill="#9E9E9E"/>
-<!-- seg 1 (front) -->
-<rect x="53" y="105" width="26" height="62" rx="13" fill="#E64A19" transform="rotate(10,66,162)"/>
-<rect x="50" y="103" width="26" height="62" rx="13" fill="#FF7043" transform="rotate(10,66,162)"/>
-<rect x="56" y="110" width="7" height="48" rx="3.5" fill="#FFAB91" opacity="0.3" transform="rotate(10,66,162)"/>
-<!-- joints -->
-<circle cx="68" cy="162" r="10" fill="#FF7043"/><circle cx="68" cy="162" r="5" fill="#37474F"/>
-<circle cx="88" cy="112" r="9" fill="#FF7043"/><circle cx="88" cy="112" r="4.5" fill="#37474F"/>
-<circle cx="128" cy="78" r="8.5" fill="#FF7043"/><circle cx="128" cy="78" r="4" fill="#37474F"/>
-<circle cx="65" cy="200" r="11" fill="#FF7043"/><circle cx="65" cy="200" r="5.5" fill="#37474F"/>
-</svg>
-<div class="label">Three-Segment</div><div class="desc">Three thinner arms zig-zagging with V-tip</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="72" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/><ellipse cx="65" cy="232" rx="30" ry="8" fill="#455A64"/><rect x="48" y="200" width="34" height="34" rx="10" fill="#FF7043"/><rect x="117" y="30" width="20" height="52" rx="10" fill="#FF7043" transform="rotate(55,130,78)"/><rect x="73" y="68" width="22" height="48" rx="11" fill="#FF7043" transform="rotate(25,87,112)"/><rect x="50" y="103" width="26" height="62" rx="13" fill="#FF7043" transform="rotate(10,66,162)"/><circle cx="88" cy="112" r="9" fill="#FF7043"/><circle cx="128" cy="78" r="8.5" fill="#FF7043"/></svg><span>36</span></div>
-</div>
+<!-- === GRIPPER (metallic gray C-shape) === -->
+<!-- top prong -->
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116 Z" fill="#B8BEC6"/>
+<!-- bottom prong -->
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146 Z" fill="#8E949C"/>
+<!-- gripper inner shadow -->
+<path d="M210,126 Q214,130 210,134" fill="#6B7280" opacity="0.3"/>
 
-<!-- ====== #4 TOWER CRANE — Teal ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#4</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="80" cy="236" rx="58" ry="7" fill="#000" opacity="0.08"/>
-<rect x="22" y="222" width="100" height="16" rx="4" fill="#455A64"/>
-<!-- tower -->
-<rect x="58" y="42" width="30" height="182" rx="4" fill="#00897B"/>
-<rect x="58" y="42" width="15" height="182" fill="#26A69A" rx="4"/>
-<rect x="61" y="80" width="24" height="5" rx="2" fill="#455A64"/>
-<rect x="61" y="120" width="24" height="5" rx="2" fill="#455A64"/>
-<rect x="61" y="160" width="24" height="5" rx="2" fill="#455A64"/>
-<!-- boom (shadow+bright) -->
-<rect x="60" y="38" width="118" height="20" rx="5" fill="#00897B"/>
-<rect x="60" y="36" width="118" height="20" rx="5" fill="#26A69A"/>
-<rect x="60" y="36" width="118" height="8" rx="4" fill="#80CBC4" opacity="0.35"/>
-<!-- counterweight -->
-<rect x="18" y="30" width="46" height="24" rx="5" fill="#455A64"/>
-<rect x="20" y="28" width="42" height="22" rx="4" fill="#00897B"/>
-<!-- pivot joint -->
-<circle cx="70" cy="46" r="10" fill="#26A69A"/><circle cx="70" cy="46" r="5" fill="#37474F"/>
-<!-- cable -->
-<rect x="168" y="56" width="3" height="76" rx="1.5" fill="#455A64"/>
-<!-- hook -->
-<path d="M160,132 L165,126 L175,126 L180,132 Q180,148 170,152 Q160,148 160,132Z" fill="#9E9E9E"/>
-<path d="M163,130 Q170,145 177,130Z" fill="#757575" opacity="0.5"/>
-<rect x="166" y="122" width="8" height="8" rx="2" fill="#455A64"/>
-</svg>
-<div class="label">Tower Crane</div><div class="desc">Vertical tower, horizontal boom, counterweight, dangling hook</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="80" cy="236" rx="58" ry="7" fill="#000" opacity="0.08"/><rect x="22" y="222" width="100" height="16" rx="4" fill="#455A64"/><rect x="58" y="42" width="30" height="182" rx="4" fill="#26A69A"/><rect x="60" y="36" width="118" height="20" rx="5" fill="#26A69A"/><rect x="20" y="28" width="42" height="22" rx="4" fill="#00897B"/><circle cx="70" cy="46" r="10" fill="#26A69A"/><path d="M160,132 L165,126 L175,126 L180,132 Q180,148 170,152 Q160,148 160,132Z" fill="#9E9E9E"/></svg><span>36</span></div>
-</div>
+<!-- === LOWER ARM (front, goes base→up-right to elbow) === -->
+<!-- Tapered: wider at base, narrower at elbow -->
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220 Z" fill="#D4911E"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218 Z" fill="#F6AD2B"/>
+<!-- lower arm highlight streak -->
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210 Z" fill="#F9C846" opacity="0.35"/>
 
-<!-- ====== #5 CRAB PINCER — Red ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#5</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="90" cy="236" rx="55" ry="7" fill="#000" opacity="0.08"/>
-<rect x="42" y="218" width="80" height="22" rx="10" fill="#455A64"/>
-<rect x="48" y="200" width="68" height="24" rx="8" fill="#EF5350"/>
-<rect x="48" y="200" width="68" height="12" rx="6" fill="#EF9A9A" opacity="0.4"/>
-<!-- structural -->
-<circle cx="88" cy="155" r="16" fill="#455A64"/>
-<circle cx="120" cy="100" r="15" fill="#455A64"/>
-<!-- short arm (front) -->
-<rect x="68" y="112" width="36" height="52" rx="18" fill="#C62828" transform="rotate(8,86,155)"/>
-<rect x="65" y="110" width="36" height="52" rx="18" fill="#EF5350" transform="rotate(8,86,155)"/>
-<!-- upper stub -->
-<rect x="100" y="72" width="30" height="36" rx="15" fill="#C62828" transform="rotate(35,115,100)"/>
-<rect x="97" y="70" width="30" height="36" rx="15" fill="#EF5350" transform="rotate(35,115,100)"/>
-<!-- MASSIVE top pincer -->
-<path d="M132,82 Q140,56 156,44 Q168,36 174,45 Q178,58 168,74 L145,88Z" fill="#C62828"/>
-<path d="M134,84 Q142,62 154,50 Q164,42 168,50 Q172,60 164,72Z" fill="#EF5350"/>
-<!-- MASSIVE bottom pincer -->
-<path d="M136,98 Q148,110 162,115 Q178,118 180,108 Q180,96 168,86 L145,88Z" fill="#C62828"/>
-<path d="M138,96 Q150,106 160,110 Q172,112 174,104 Q174,96 166,88Z" fill="#EF9A9A"/>
-<!-- joints -->
-<circle cx="88" cy="155" r="13" fill="#EF5350"/><circle cx="88" cy="155" r="6.5" fill="#37474F"/>
-<circle cx="82" cy="200" r="12" fill="#EF5350"/><circle cx="82" cy="200" r="6" fill="#37474F"/>
-<circle cx="120" cy="100" r="12" fill="#EF5350"/><circle cx="120" cy="100" r="6" fill="#37474F"/>
-<circle cx="142" cy="88" r="8" fill="#EF5350"/><circle cx="142" cy="88" r="4" fill="#37474F"/>
-</svg>
-<div class="label">Crab Pincer</div><div class="desc">Short arm with massive curved pincer claws</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="90" cy="236" rx="55" ry="7" fill="#000" opacity="0.08"/><rect x="42" y="218" width="80" height="22" rx="10" fill="#455A64"/><rect x="48" y="200" width="68" height="24" rx="8" fill="#EF5350"/><rect x="65" y="110" width="36" height="52" rx="18" fill="#EF5350" transform="rotate(8,86,155)"/><path d="M132,82 Q140,56 156,44 Q168,36 174,45 Q178,58 168,74 L145,88Z" fill="#C62828"/><path d="M136,98 Q148,110 162,115 Q178,118 180,108 Q180,96 168,86 L145,88Z" fill="#C62828"/><circle cx="120" cy="100" r="12" fill="#EF5350"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #6 TELESCOPE — Purple ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#6</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="100" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/>
-<rect x="52" y="216" width="62" height="24" rx="8" fill="#455A64"/>
-<rect x="56" y="206" width="54" height="16" rx="5" fill="#8E24AA"/>
-<!-- cylinder 1 -->
-<rect x="62" y="130" width="46" height="80" rx="10" fill="#8E24AA"/>
-<rect x="59" y="128" width="46" height="80" rx="10" fill="#AB47BC"/>
-<rect x="65" y="136" width="12" height="64" rx="6" fill="#CE93D8" opacity="0.3"/>
-<rect x="57" y="128" width="52" height="6" rx="3" fill="#6A1B9A"/>
-<!-- cylinder 2 -->
-<rect x="68" y="68" width="38" height="68" rx="8" fill="#8E24AA"/>
-<rect x="65" y="66" width="38" height="68" rx="8" fill="#AB47BC"/>
-<rect x="71" y="74" width="10" height="52" rx="5" fill="#CE93D8" opacity="0.3"/>
-<rect x="63" y="66" width="42" height="5" rx="2.5" fill="#6A1B9A"/>
-<!-- cylinder 3 -->
-<rect x="74" y="22" width="28" height="52" rx="6" fill="#8E24AA"/>
-<rect x="71" y="20" width="28" height="52" rx="6" fill="#AB47BC"/>
-<rect x="77" y="28" width="8" height="38" rx="4" fill="#CE93D8" opacity="0.3"/>
-<rect x="69" y="20" width="32" height="5" rx="2.5" fill="#6A1B9A"/>
-<!-- magnet disc top -->
-<ellipse cx="87" cy="18" rx="18" ry="6" fill="#6A1B9A"/>
-<ellipse cx="85" cy="17" rx="14" ry="4" fill="#CE93D8" opacity="0.5"/>
-</svg>
-<div class="label">Telescope</div><div class="desc">Nested cylinders extending up, each narrower, magnet cap</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="100" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/><rect x="52" y="216" width="62" height="24" rx="8" fill="#455A64"/><rect x="59" y="128" width="46" height="80" rx="10" fill="#AB47BC"/><rect x="65" y="66" width="38" height="68" rx="8" fill="#AB47BC"/><rect x="71" y="20" width="28" height="52" rx="6" fill="#AB47BC"/><rect x="57" y="128" width="52" height="6" rx="3" fill="#6A1B9A"/><rect x="63" y="66" width="42" height="5" rx="2.5" fill="#6A1B9A"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #7 TANK TREADS — Green ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#7</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="95" cy="236" rx="68" ry="7" fill="#000" opacity="0.08"/>
-<!-- tracks -->
-<rect x="16" y="216" width="64" height="22" rx="11" fill="#37474F"/>
-<rect x="20" y="220" width="56" height="14" rx="7" fill="#455A64"/>
-<rect x="90" y="216" width="64" height="22" rx="11" fill="#37474F"/>
-<rect x="94" y="220" width="56" height="14" rx="7" fill="#455A64"/>
-<!-- platform -->
-<rect x="28" y="198" width="114" height="22" rx="6" fill="#43A047"/>
-<rect x="28" y="198" width="114" height="11" rx="5" fill="#66BB6A"/>
-<rect x="28" y="198" width="57" height="11" rx="5" fill="#81C784" opacity="0.3"/>
-<!-- structural -->
-<path d="M72,198 L68,176 L112,176 L108,198Z" fill="#455A64"/>
-<circle cx="102" cy="98" r="18" fill="#455A64"/>
-<!-- upper arm (behind) -->
-<rect x="88" y="28" width="28" height="74" rx="14" fill="#43A047" transform="rotate(58,102,98)"/>
-<rect x="85" y="26" width="28" height="74" rx="14" fill="#66BB6A" transform="rotate(58,102,98)"/>
-<rect x="91" y="34" width="8" height="56" rx="4" fill="#81C784" opacity="0.3" transform="rotate(58,102,98)"/>
-<!-- gripper -->
-<path d="M168,62 L180,60 Q186,64 184,70 L178,68 Q180,64 176,63 L168,65Z" fill="#BDBDBD"/>
-<path d="M168,78 L180,80 Q186,76 184,70 L178,72 Q180,76 176,78 L168,76Z" fill="#9E9E9E"/>
-<!-- lower arm (front) -->
-<rect x="75" y="98" width="34" height="104" rx="17" fill="#43A047" transform="rotate(8,90,198)"/>
-<rect x="72" y="96" width="34" height="104" rx="17" fill="#66BB6A" transform="rotate(8,90,198)"/>
-<rect x="78" y="104" width="9" height="84" rx="4.5" fill="#81C784" opacity="0.3" transform="rotate(8,90,198)"/>
-<!-- joints -->
-<circle cx="102" cy="98" r="14" fill="#66BB6A"/><circle cx="102" cy="98" r="7" fill="#37474F"/>
-<circle cx="90" cy="198" r="12" fill="#66BB6A"/><circle cx="90" cy="198" r="6" fill="#37474F"/>
-<circle cx="170" cy="70" r="8" fill="#66BB6A"/><circle cx="170" cy="70" r="4" fill="#37474F"/>
-</svg>
-<div class="label">Tank Treads</div><div class="desc">Mobile tracked base, two-tone arm with C-gripper</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="95" cy="236" rx="68" ry="7" fill="#000" opacity="0.08"/><rect x="16" y="216" width="64" height="22" rx="11" fill="#37474F"/><rect x="90" y="216" width="64" height="22" rx="11" fill="#37474F"/><rect x="28" y="198" width="114" height="22" rx="6" fill="#66BB6A"/><rect x="85" y="26" width="28" height="74" rx="14" fill="#66BB6A" transform="rotate(58,102,98)"/><rect x="72" y="96" width="34" height="104" rx="17" fill="#66BB6A" transform="rotate(8,90,198)"/><circle cx="102" cy="98" r="14" fill="#66BB6A"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #8 EXCAVATOR — Gold ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#8</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="80" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/>
-<!-- tracks -->
-<rect x="8" y="220" width="52" height="18" rx="9" fill="#37474F"/>
-<rect x="64" y="220" width="52" height="18" rx="9" fill="#37474F"/>
-<!-- heavy body -->
-<rect x="14" y="198" width="96" height="26" rx="6" fill="#455A64"/>
-<rect x="18" y="192" width="88" height="14" rx="5" fill="#FDD835"/>
-<rect x="18" y="192" width="44" height="14" rx="5" fill="#FFF176" opacity="0.4"/>
-<!-- structural -->
-<circle cx="88" cy="160" r="16" fill="#455A64"/>
-<circle cx="108" cy="92" r="13" fill="#455A64"/>
-<!-- boom -->
-<rect x="73" y="72" width="28" height="94" rx="5" fill="#F9A825" transform="rotate(12,87,160)"/>
-<rect x="70" y="70" width="28" height="94" rx="5" fill="#FDD835" transform="rotate(12,87,160)"/>
-<rect x="75" y="78" width="8" height="76" rx="4" fill="#FFF176" opacity="0.3" transform="rotate(12,87,160)"/>
-<!-- stick -->
-<rect x="98" y="42" width="22" height="56" rx="4" fill="#F9A825" transform="rotate(62,108,92)"/>
-<rect x="95" y="40" width="22" height="56" rx="4" fill="#FDD835" transform="rotate(62,108,92)"/>
-<!-- bucket -->
-<path d="M154,90 L146,105 Q148,122 158,126 L172,126 Q182,122 184,105 L176,90Z" fill="#455A64"/>
-<path d="M156,92 L150,105 Q152,118 160,122 L170,122 Q178,118 180,105 L174,92Z" fill="#F9A825"/>
-<!-- bucket teeth -->
-<rect x="152" y="124" width="5" height="8" rx="1" fill="#455A64"/>
-<rect x="161" y="124" width="5" height="8" rx="1" fill="#455A64"/>
-<rect x="170" y="124" width="5" height="8" rx="1" fill="#455A64"/>
-<!-- joints -->
-<circle cx="88" cy="160" r="12" fill="#FDD835"/><circle cx="88" cy="160" r="6" fill="#37474F"/>
-<circle cx="108" cy="92" r="10" fill="#FDD835"/><circle cx="108" cy="92" r="5" fill="#37474F"/>
-<circle cx="84" cy="194" r="10" fill="#FDD835"/><circle cx="84" cy="194" r="5" fill="#37474F"/>
-</svg>
-<div class="label">Excavator</div><div class="desc">Heavy tracked body, boom + stick + toothed bucket scoop</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="80" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/><rect x="8" y="220" width="52" height="18" rx="9" fill="#37474F"/><rect x="64" y="220" width="52" height="18" rx="9" fill="#37474F"/><rect x="18" y="192" width="88" height="14" rx="5" fill="#FDD835"/><rect x="70" y="70" width="28" height="94" rx="5" fill="#FDD835" transform="rotate(12,87,160)"/><rect x="95" y="40" width="22" height="56" rx="4" fill="#FDD835" transform="rotate(62,108,92)"/><path d="M154,90 L146,105 Q148,122 158,126 L172,126 Q182,122 184,105 L176,90Z" fill="#455A64"/><circle cx="88" cy="160" r="12" fill="#FDD835"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #9 FORKLIFT — Amber ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#9</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="95" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/>
-<rect x="35" y="218" width="90" height="22" rx="6" fill="#455A64"/>
-<!-- mast -->
-<rect x="65" y="42" width="34" height="180" rx="4" fill="#EF6C00"/>
-<rect x="62" y="40" width="34" height="180" rx="4" fill="#FFA726"/>
-<rect x="67" y="48" width="10" height="164" rx="5" fill="#FFD54F" opacity="0.3"/>
-<!-- mast rail grooves -->
-<rect x="74" y="50" width="4" height="166" rx="2" fill="#455A64"/>
-<rect x="86" y="50" width="4" height="166" rx="2" fill="#455A64"/>
-<!-- carriage -->
-<rect x="56" y="62" width="52" height="28" rx="5" fill="#455A64"/>
-<rect x="58" y="60" width="48" height="26" rx="4" fill="#EF6C00"/>
-<rect x="58" y="60" width="48" height="13" rx="4" fill="#FFA726"/>
-<!-- backing plate -->
-<rect x="104" y="56" width="12" height="46" rx="3" fill="#455A64"/>
-<!-- fork prongs -->
-<rect x="114" y="65" width="52" height="12" rx="4" fill="#FFA726"/>
-<rect x="114" y="65" width="52" height="6" rx="3" fill="#FFD54F" opacity="0.4"/>
-<rect x="114" y="88" width="52" height="12" rx="4" fill="#EF6C00"/>
-<rect x="114" y="88" width="52" height="6" rx="3" fill="#FFA726"/>
-<!-- prong tips -->
-<path d="M162,65 Q172,65 172,73 L172,77 L162,77Z" fill="#FFA726"/>
-<path d="M162,88 Q172,88 172,96 L172,100 L162,100Z" fill="#EF6C00"/>
-<!-- top cap -->
-<rect x="58" y="34" width="48" height="12" rx="5" fill="#455A64"/>
-<circle cx="82" cy="40" r="4" fill="#37474F"/>
-</svg>
-<div class="label">Forklift</div><div class="desc">Vertical mast, sliding carriage, twin fork prongs</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="95" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/><rect x="35" y="218" width="90" height="22" rx="6" fill="#455A64"/><rect x="62" y="40" width="34" height="180" rx="4" fill="#FFA726"/><rect x="58" y="60" width="48" height="26" rx="4" fill="#EF6C00"/><rect x="104" y="56" width="12" height="46" rx="3" fill="#455A64"/><rect x="114" y="65" width="52" height="12" rx="4" fill="#FFA726"/><rect x="114" y="88" width="52" height="12" rx="4" fill="#EF6C00"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #10 SUCTION CUP — Brown ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#10</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="85" cy="236" rx="52" ry="7" fill="#000" opacity="0.08"/>
-<rect x="40" y="218" width="62" height="22" rx="8" fill="#455A64"/>
-<rect x="46" y="200" width="50" height="24" rx="7" fill="#8D6E63"/>
-<rect x="46" y="200" width="50" height="12" rx="6" fill="#BCAAA4" opacity="0.4"/>
-<!-- structural -->
-<circle cx="78" cy="152" r="14" fill="#455A64"/>
-<circle cx="98" cy="98" r="12" fill="#455A64"/>
-<!-- lower arm -->
-<rect x="61" y="100" width="30" height="58" rx="15" fill="#5D4037" transform="rotate(8,76,152)"/>
-<rect x="58" y="98" width="30" height="58" rx="15" fill="#8D6E63" transform="rotate(8,76,152)"/>
-<rect x="64" y="106" width="8" height="44" rx="4" fill="#BCAAA4" opacity="0.3" transform="rotate(8,76,152)"/>
-<!-- upper arm -->
-<rect x="84" y="50" width="24" height="54" rx="12" fill="#5D4037" transform="rotate(45,96,98)"/>
-<rect x="81" y="48" width="24" height="54" rx="12" fill="#8D6E63" transform="rotate(45,96,98)"/>
-<!-- suction cup bell -->
-<path d="M138,62 Q124,54 118,70 Q116,82 124,90 Q134,96 152,96 Q170,96 178,90 Q186,82 184,70 Q178,54 164,62Z" fill="#5D4037"/>
-<path d="M140,64 Q128,58 124,72 Q122,82 128,88 Q136,92 152,92 Q168,92 176,88 Q182,82 180,72 Q176,58 164,64Z" fill="#8D6E63"/>
-<path d="M142,66 Q134,62 130,72 Q128,78 132,84Z" fill="#BCAAA4" opacity="0.3"/>
-<!-- rubber rim -->
-<ellipse cx="152" cy="95" rx="26" ry="7" fill="#455A64"/>
-<ellipse cx="150" cy="94" rx="20" ry="5" fill="#5D4037"/>
-<!-- joints -->
-<circle cx="78" cy="152" r="11" fill="#8D6E63"/><circle cx="78" cy="152" r="5.5" fill="#37474F"/>
-<circle cx="98" cy="98" r="10" fill="#8D6E63"/><circle cx="98" cy="98" r="5" fill="#37474F"/>
-<circle cx="71" cy="200" r="10" fill="#8D6E63"/><circle cx="71" cy="200" r="5" fill="#37474F"/>
-</svg>
-<div class="label">Suction Cup</div><div class="desc">Bell-shaped vacuum gripper with rubber rim</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="85" cy="236" rx="52" ry="7" fill="#000" opacity="0.08"/><rect x="40" y="218" width="62" height="22" rx="8" fill="#455A64"/><rect x="46" y="200" width="50" height="24" rx="7" fill="#8D6E63"/><rect x="58" y="98" width="30" height="58" rx="15" fill="#8D6E63" transform="rotate(8,76,152)"/><rect x="81" y="48" width="24" height="54" rx="12" fill="#8D6E63" transform="rotate(45,96,98)"/><path d="M138,62 Q124,54 118,70 Q116,82 124,90 Q134,96 152,96 Q170,96 178,90 Q186,82 184,70 Q178,54 164,62Z" fill="#5D4037"/><ellipse cx="152" cy="95" rx="26" ry="7" fill="#455A64"/><circle cx="98" cy="98" r="10" fill="#8D6E63"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #11 DRILL — Indigo ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#11</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="80" cy="236" rx="52" ry="7" fill="#000" opacity="0.08"/>
-<rect x="32" y="216" width="72" height="24" rx="8" fill="#455A64"/>
-<rect x="38" y="198" width="60" height="24" rx="7" fill="#5C6BC0"/>
-<rect x="38" y="198" width="60" height="12" rx="6" fill="#9FA8DA" opacity="0.4"/>
-<!-- structural -->
-<circle cx="74" cy="152" r="15" fill="#455A64"/>
-<circle cx="96" cy="98" r="14" fill="#455A64"/>
-<!-- lower arm -->
-<rect x="58" y="98" width="32" height="60" rx="16" fill="#3949AB" transform="rotate(6,74,152)"/>
-<rect x="55" y="96" width="32" height="60" rx="16" fill="#5C6BC0" transform="rotate(6,74,152)"/>
-<rect x="61" y="104" width="8" height="46" rx="4" fill="#9FA8DA" opacity="0.3" transform="rotate(6,74,152)"/>
-<!-- upper arm -->
-<rect x="82" y="42" width="26" height="62" rx="13" fill="#3949AB" transform="rotate(52,94,98)"/>
-<rect x="79" y="40" width="26" height="62" rx="13" fill="#5C6BC0" transform="rotate(52,94,98)"/>
-<!-- drill chuck -->
-<circle cx="148" cy="62" r="16" fill="#455A64"/>
-<circle cx="146" cy="60" r="12" fill="#5C6BC0"/>
-<!-- drill bit -->
-<path d="M162,50 L192,16 L168,44Z" fill="#3949AB"/>
-<path d="M164,46 L192,16 L172,40Z" fill="#5C6BC0"/>
-<path d="M168,42 Q176,30 174,26" fill="none" stroke="#283593" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M172,36 Q180,22 180,18" fill="none" stroke="#283593" stroke-width="2" stroke-linecap="round"/>
-<!-- joints -->
-<circle cx="74" cy="152" r="12" fill="#5C6BC0"/><circle cx="74" cy="152" r="6" fill="#37474F"/>
-<circle cx="96" cy="98" r="11" fill="#5C6BC0"/><circle cx="96" cy="98" r="5.5" fill="#37474F"/>
-<circle cx="68" cy="200" r="10" fill="#5C6BC0"/><circle cx="68" cy="200" r="5" fill="#37474F"/>
-</svg>
-<div class="label">Drill Arm</div><div class="desc">Heavy arm with conical spiral drill bit end</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="80" cy="236" rx="52" ry="7" fill="#000" opacity="0.08"/><rect x="32" y="216" width="72" height="24" rx="8" fill="#455A64"/><rect x="38" y="198" width="60" height="24" rx="7" fill="#5C6BC0"/><rect x="55" y="96" width="32" height="60" rx="16" fill="#5C6BC0" transform="rotate(6,74,152)"/><rect x="79" y="40" width="26" height="62" rx="13" fill="#5C6BC0" transform="rotate(52,94,98)"/><circle cx="146" cy="60" r="12" fill="#5C6BC0"/><path d="M162,50 L192,16 L168,44Z" fill="#3949AB"/><circle cx="96" cy="98" r="11" fill="#5C6BC0"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #12 MAGNET DISC — Rose ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#12</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="78" cy="236" rx="46" ry="6" fill="#000" opacity="0.08"/>
-<ellipse cx="72" cy="232" rx="26" ry="8" fill="#455A64"/>
-<rect x="58" y="200" width="28" height="34" rx="9" fill="#F06292"/>
-<rect x="58" y="200" width="28" height="17" rx="8" fill="#F8BBD0" opacity="0.4"/>
-<!-- structural -->
-<circle cx="76" cy="155" r="11" fill="#455A64"/>
-<circle cx="88" cy="108" r="10" fill="#455A64"/>
-<!-- lower arm (thin) -->
-<rect x="63" y="112" width="22" height="48" rx="11" fill="#E91E63" transform="rotate(6,74,155)"/>
-<rect x="60" y="110" width="22" height="48" rx="11" fill="#F06292" transform="rotate(6,74,155)"/>
-<!-- upper arm (thin) -->
-<rect x="76" y="62" width="20" height="52" rx="10" fill="#E91E63" transform="rotate(40,86,108)"/>
-<rect x="73" y="60" width="20" height="52" rx="10" fill="#F06292" transform="rotate(40,86,108)"/>
-<!-- connector -->
-<rect x="125" y="52" width="8" height="18" rx="3" fill="#455A64" transform="rotate(40,129,61)"/>
-<!-- LARGE electromagnet disc -->
-<circle cx="152" cy="58" r="30" fill="#E91E63"/>
-<circle cx="150" cy="56" r="28" fill="#F06292"/>
-<circle cx="152" cy="58" r="20" fill="#E91E63"/>
-<circle cx="150" cy="56" r="18" fill="#F8BBD0" opacity="0.5"/>
-<circle cx="152" cy="58" r="10" fill="#E91E63"/>
-<circle cx="150" cy="56" r="8" fill="#F06292"/>
-<!-- field arcs -->
-<path d="M128,42 Q120,30 128,20" fill="none" stroke="#AD1457" stroke-width="3" stroke-linecap="round"/>
-<path d="M176,42 Q184,30 176,20" fill="none" stroke="#AD1457" stroke-width="3" stroke-linecap="round"/>
-<!-- joints -->
-<circle cx="76" cy="155" r="9" fill="#F06292"/><circle cx="76" cy="155" r="4.5" fill="#37474F"/>
-<circle cx="88" cy="108" r="8" fill="#F06292"/><circle cx="88" cy="108" r="4" fill="#37474F"/>
-<circle cx="72" cy="200" r="9" fill="#F06292"/><circle cx="72" cy="200" r="4.5" fill="#37474F"/>
-</svg>
-<div class="label">Magnet Disc</div><div class="desc">Thin elegant arm with large electromagnetic disc</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="78" cy="236" rx="46" ry="6" fill="#000" opacity="0.08"/><ellipse cx="72" cy="232" rx="26" ry="8" fill="#455A64"/><rect x="58" y="200" width="28" height="34" rx="9" fill="#F06292"/><rect x="60" y="110" width="22" height="48" rx="11" fill="#F06292" transform="rotate(6,74,155)"/><rect x="73" y="60" width="20" height="52" rx="10" fill="#F06292" transform="rotate(40,86,108)"/><circle cx="150" cy="56" r="28" fill="#F06292"/><circle cx="152" cy="58" r="20" fill="#E91E63"/><circle cx="150" cy="56" r="18" fill="#F8BBD0" opacity="0.5"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #13 DOUBLE ARM — Lime ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#13</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="100" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/>
-<rect x="34" y="218" width="100" height="22" rx="10" fill="#455A64"/>
-<rect x="40" y="200" width="88" height="24" rx="8" fill="#9CCC65"/>
-<rect x="40" y="200" width="88" height="12" rx="6" fill="#C5E1A5" opacity="0.4"/>
-<!-- LEFT arm -->
-<circle cx="56" cy="168" r="10" fill="#455A64"/>
-<rect x="38" y="108" width="24" height="66" rx="12" fill="#7CB342" transform="rotate(-6,50,168)"/>
-<rect x="35" y="106" width="24" height="66" rx="12" fill="#9CCC65" transform="rotate(-6,50,168)"/>
-<rect x="28" y="52" width="20" height="60" rx="10" fill="#7CB342" transform="rotate(-22,38,108)"/>
-<rect x="25" y="50" width="20" height="60" rx="10" fill="#9CCC65" transform="rotate(-22,38,108)"/>
-<circle cx="50" cy="168" r="8" fill="#9CCC65"/><circle cx="50" cy="168" r="4" fill="#37474F"/>
-<circle cx="38" cy="108" r="7.5" fill="#9CCC65"/><circle cx="38" cy="108" r="3.5" fill="#37474F"/>
-<rect x="10" y="28" width="7" height="20" rx="3" fill="#BDBDBD" transform="rotate(-10,13,28)"/>
-<rect x="22" y="30" width="7" height="20" rx="3" fill="#9E9E9E" transform="rotate(8,25,30)"/>
-<!-- RIGHT arm -->
-<circle cx="110" cy="168" r="10" fill="#455A64"/>
-<rect x="96" y="100" width="24" height="72" rx="12" fill="#7CB342" transform="rotate(10,108,168)"/>
-<rect x="93" y="98" width="24" height="72" rx="12" fill="#9CCC65" transform="rotate(10,108,168)"/>
-<rect x="105" y="40" width="20" height="64" rx="10" fill="#7CB342" transform="rotate(48,115,100)"/>
-<rect x="102" y="38" width="20" height="64" rx="10" fill="#9CCC65" transform="rotate(48,115,100)"/>
-<circle cx="108" cy="168" r="8" fill="#9CCC65"/><circle cx="108" cy="168" r="4" fill="#37474F"/>
-<circle cx="115" cy="100" r="7.5" fill="#9CCC65"/><circle cx="115" cy="100" r="3.5" fill="#37474F"/>
-<rect x="152" y="38" width="7" height="20" rx="3" fill="#BDBDBD" transform="rotate(-8,155,38)"/>
-<rect x="162" y="40" width="7" height="20" rx="3" fill="#9E9E9E" transform="rotate(10,165,40)"/>
-</svg>
-<div class="label">Double Arm</div><div class="desc">Twin independent arms from one wide base</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="100" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/><rect x="34" y="218" width="100" height="22" rx="10" fill="#455A64"/><rect x="40" y="200" width="88" height="24" rx="8" fill="#9CCC65"/><rect x="35" y="106" width="24" height="66" rx="12" fill="#9CCC65" transform="rotate(-6,50,168)"/><rect x="25" y="50" width="20" height="60" rx="10" fill="#9CCC65" transform="rotate(-22,38,108)"/><rect x="93" y="98" width="24" height="72" rx="12" fill="#9CCC65" transform="rotate(10,108,168)"/><rect x="102" y="38" width="20" height="64" rx="10" fill="#9CCC65" transform="rotate(48,115,100)"/></svg><span>36</span></div>
-</div>
-
-<!-- ====== #14 PADDLE — Cyan ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#14</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="85" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/>
-<ellipse cx="75" cy="232" rx="28" ry="8" fill="#455A64"/>
-<rect x="56" y="200" width="34" height="34" rx="10" fill="#29B6F6"/>
-<rect x="56" y="200" width="34" height="17" rx="8" fill="#81D4FA" opacity="0.4"/>
-<!-- structural -->
-<circle cx="76" cy="155" r="12" fill="#455A64"/>
-<circle cx="92" cy="105" r="11" fill="#455A64"/>
-<!-- lower arm (thin) -->
-<rect x="60" y="108" width="24" height="52" rx="12" fill="#0288D1" transform="rotate(6,72,155)"/>
-<rect x="57" y="106" width="24" height="52" rx="12" fill="#29B6F6" transform="rotate(6,72,155)"/>
-<!-- upper arm (thin) -->
-<rect x="78" y="58" width="22" height="52" rx="11" fill="#0288D1" transform="rotate(42,89,105)"/>
-<rect x="75" y="56" width="22" height="52" rx="11" fill="#29B6F6" transform="rotate(42,89,105)"/>
-<!-- WIDE paddle -->
-<rect x="128" y="28" width="56" height="48" rx="8" fill="#0288D1" transform="rotate(10,156,52)"/>
-<rect x="125" y="26" width="56" height="48" rx="8" fill="#29B6F6" transform="rotate(10,156,52)"/>
-<rect x="131" y="32" width="14" height="36" rx="7" fill="#81D4FA" opacity="0.3" transform="rotate(10,156,52)"/>
+<!-- === JOINTS (on top) === -->
+<!-- base pivot -->
+<circle cx="110" cy="218" r="18" fill="#F6AD2B"/>
+<circle cx="110" cy="218" r="17" fill="#F9C846" opacity="0.3"/>
+<circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<!-- elbow -->
+<circle cx="120" cy="96" r="20" fill="#F6AD2B"/>
+<circle cx="118" cy="94" r="18" fill="#F9C846" opacity="0.3"/>
+<circle cx="120" cy="96" r="10" fill="#3D4550"/>
 <!-- wrist -->
-<rect x="118" y="50" width="16" height="14" rx="4" fill="#455A64" transform="rotate(10,126,57)"/>
-<!-- joints -->
-<circle cx="76" cy="155" r="10" fill="#29B6F6"/><circle cx="76" cy="155" r="5" fill="#37474F"/>
-<circle cx="92" cy="105" r="9" fill="#29B6F6"/><circle cx="92" cy="105" r="4.5" fill="#37474F"/>
-<circle cx="73" cy="200" r="10" fill="#29B6F6"/><circle cx="73" cy="200" r="5" fill="#37474F"/>
+<circle cx="198" cy="132" r="10" fill="#F6AD2B"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Paddle Arm</div><div class="desc">Thin elegant arm ending in wide flat paddle</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="85" cy="236" rx="50" ry="7" fill="#000" opacity="0.08"/><ellipse cx="75" cy="232" rx="28" ry="8" fill="#455A64"/><rect x="56" y="200" width="34" height="34" rx="10" fill="#29B6F6"/><rect x="57" y="106" width="24" height="52" rx="12" fill="#29B6F6" transform="rotate(6,72,155)"/><rect x="75" y="56" width="22" height="52" rx="11" fill="#29B6F6" transform="rotate(42,89,105)"/><rect x="125" y="26" width="56" height="48" rx="8" fill="#29B6F6" transform="rotate(10,156,52)"/><circle cx="92" cy="105" r="9" fill="#29B6F6"/></svg><span>36</span></div>
+<div class="label">Classic Yellow</div><div class="desc">Reference style — tapered segments, two-tone, C-gripper</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#F6AD2B"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#F6AD2B"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#F6AD2B"/><circle cx="120" cy="96" r="20" fill="#F6AD2B"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#F6AD2B"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #15 CATERPILLAR — Pink ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#15</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="70" cy="236" rx="46" ry="6" fill="#000" opacity="0.08"/>
-<rect x="34" y="218" width="52" height="22" rx="8" fill="#455A64"/>
-<rect x="38" y="204" width="44" height="20" rx="6" fill="#EC407A"/>
-<rect x="38" y="204" width="44" height="10" rx="5" fill="#F48FB1" opacity="0.4"/>
-<!-- chain of segments curving right -->
-<rect x="46" y="172" width="26" height="34" rx="12" fill="#EC407A"/>
-<rect x="43" y="170" width="26" height="34" rx="12" fill="#F48FB1"/>
-<rect x="52" y="142" width="24" height="34" rx="11" fill="#EC407A" transform="rotate(10,64,158)"/>
-<rect x="49" y="140" width="24" height="34" rx="11" fill="#F48FB1" transform="rotate(10,64,158)"/>
-<rect x="62" y="112" width="22" height="32" rx="10" fill="#EC407A" transform="rotate(22,73,128)"/>
-<rect x="59" y="110" width="22" height="32" rx="10" fill="#F48FB1" transform="rotate(22,73,128)"/>
-<rect x="78" y="86" width="20" height="30" rx="9" fill="#EC407A" transform="rotate(35,88,101)"/>
-<rect x="75" y="84" width="20" height="30" rx="9" fill="#F48FB1" transform="rotate(35,88,101)"/>
-<rect x="98" y="64" width="18" height="28" rx="8" fill="#EC407A" transform="rotate(48,107,78)"/>
-<rect x="95" y="62" width="18" height="28" rx="8" fill="#F48FB1" transform="rotate(48,107,78)"/>
-<rect x="118" y="48" width="16" height="26" rx="7" fill="#EC407A" transform="rotate(58,126,61)"/>
-<rect x="115" y="46" width="16" height="26" rx="7" fill="#F48FB1" transform="rotate(58,126,61)"/>
-<rect x="136" y="38" width="14" height="24" rx="6" fill="#EC407A" transform="rotate(68,143,50)"/>
-<rect x="133" y="36" width="14" height="24" rx="6" fill="#F48FB1" transform="rotate(68,143,50)"/>
-<!-- tapered tip -->
-<path d="M160,30 L164,18 L168,30Z" fill="#C2185B"/>
-<!-- small joint dots -->
-<circle cx="56" cy="174" r="4.5" fill="#C2185B"/>
-<circle cx="62" cy="146" r="4" fill="#C2185B"/>
-<circle cx="72" cy="118" r="3.5" fill="#C2185B"/>
-<circle cx="86" cy="94" r="3" fill="#C2185B"/>
-<circle cx="104" cy="72" r="2.5" fill="#C2185B"/>
-<circle cx="124" cy="54" r="2.5" fill="#C2185B"/>
-<circle cx="60" cy="204" r="8" fill="#EC407A"/><circle cx="60" cy="204" r="4" fill="#37474F"/>
+<!-- ====== #2 DUOLINGO GREEN — same shape language ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#2</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#46A302"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#58CC02" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="#3D8B02"/><circle cx="92" cy="244" r="3.5" fill="#58CC02"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#3D8B02"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#46A302"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#58CC02" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#3D8B02"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#46A302"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#58CC02" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="#46A302"/><circle cx="110" cy="218" r="17" fill="#58CC02" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="#46A302"/><circle cx="118" cy="94" r="18" fill="#58CC02" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="#46A302"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Caterpillar</div><div class="desc">Chain of segments curving like a snake, tapered tip</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="70" cy="236" rx="46" ry="6" fill="#000" opacity="0.08"/><rect x="34" y="218" width="52" height="22" rx="8" fill="#455A64"/><rect x="38" y="204" width="44" height="20" rx="6" fill="#EC407A"/><rect x="43" y="170" width="26" height="34" rx="12" fill="#F48FB1"/><rect x="49" y="140" width="24" height="34" rx="11" fill="#F48FB1" transform="rotate(10,64,158)"/><rect x="59" y="110" width="22" height="32" rx="10" fill="#F48FB1" transform="rotate(22,73,128)"/><rect x="75" y="84" width="20" height="30" rx="9" fill="#F48FB1" transform="rotate(35,88,101)"/><rect x="95" y="62" width="18" height="28" rx="8" fill="#F48FB1" transform="rotate(48,107,78)"/></svg><span>36</span></div>
+<div class="label">Duo Green</div><div class="desc">Duolingo green — same shape, app-ready palette</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#46A302"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#46A302"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#46A302"/><circle cx="120" cy="96" r="20" fill="#46A302"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#46A302"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #16 SCISSOR LIFT — Deep Orange ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#16</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="100" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/>
-<rect x="30" y="218" width="140" height="22" rx="6" fill="#455A64"/>
-<!-- X-pattern scissor (2 sets) -->
-<!-- bottom X -->
-<rect x="40" y="166" width="12" height="56" rx="4" fill="#E64A19" transform="rotate(-25,46,194)"/>
-<rect x="37" y="164" width="12" height="56" rx="4" fill="#FF5722" transform="rotate(-25,46,194)"/>
-<rect x="120" y="166" width="12" height="56" rx="4" fill="#E64A19" transform="rotate(25,126,194)"/>
-<rect x="117" y="164" width="12" height="56" rx="4" fill="#FF8A65" transform="rotate(25,126,194)"/>
-<!-- top X -->
-<rect x="48" y="110" width="10" height="56" rx="4" fill="#E64A19" transform="rotate(-25,53,138)"/>
-<rect x="45" y="108" width="10" height="56" rx="4" fill="#FF5722" transform="rotate(-25,53,138)"/>
-<rect x="112" y="110" width="10" height="56" rx="4" fill="#E64A19" transform="rotate(25,117,138)"/>
-<rect x="109" y="108" width="10" height="56" rx="4" fill="#FF8A65" transform="rotate(25,117,138)"/>
-<!-- platform on top -->
-<rect x="32" y="98" width="106" height="18" rx="5" fill="#455A64"/>
-<rect x="34" y="94" width="102" height="16" rx="4" fill="#FF5722"/>
-<rect x="34" y="94" width="102" height="8" rx="4" fill="#FF8A65"/>
-<!-- railing -->
-<rect x="34" y="80" width="4" height="16" rx="2" fill="#FF5722"/>
-<rect x="132" y="80" width="4" height="16" rx="2" fill="#FF5722"/>
-<rect x="34" y="80" width="102" height="4" rx="2" fill="#FF8A65"/>
-<!-- cross pivot bolts -->
-<circle cx="82" cy="170" r="5" fill="#FF8A65"/><circle cx="82" cy="170" r="2.5" fill="#37474F"/>
-<circle cx="82" cy="118" r="4.5" fill="#FF8A65"/><circle cx="82" cy="118" r="2.2" fill="#37474F"/>
+<!-- ====== #3 OCEAN BLUE ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#3</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#1976D2"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#42A5F5" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="#1565C0"/><circle cx="92" cy="244" r="3.5" fill="#42A5F5"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#1565C0"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#1976D2"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#42A5F5" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#1565C0"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#1976D2"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#42A5F5" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="#1976D2"/><circle cx="110" cy="218" r="17" fill="#42A5F5" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="#1976D2"/><circle cx="118" cy="94" r="18" fill="#42A5F5" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="#1976D2"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Scissor Lift</div><div class="desc">X-pattern scissor mechanism lifting a platform</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="100" cy="236" rx="60" ry="7" fill="#000" opacity="0.08"/><rect x="30" y="218" width="140" height="22" rx="6" fill="#455A64"/><rect x="37" y="164" width="12" height="56" rx="4" fill="#FF5722" transform="rotate(-25,46,194)"/><rect x="117" y="164" width="12" height="56" rx="4" fill="#FF8A65" transform="rotate(25,126,194)"/><rect x="45" y="108" width="10" height="56" rx="4" fill="#FF5722" transform="rotate(-25,53,138)"/><rect x="109" y="108" width="10" height="56" rx="4" fill="#FF8A65" transform="rotate(25,117,138)"/><rect x="34" y="94" width="102" height="16" rx="4" fill="#FF5722"/></svg><span>36</span></div>
+<div class="label">Ocean Blue</div><div class="desc">Cool blue — same faithful arm shape</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#1976D2"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#1976D2"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#1976D2"/><circle cx="120" cy="96" r="20" fill="#1976D2"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#1976D2"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #17 BALL JOINT — Steel ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#17</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<defs><radialGradient id="bj" cx="0.35" cy="0.3"><stop offset="0%" stop-color="#CFD8DC"/><stop offset="50%" stop-color="#90A4AE"/><stop offset="100%" stop-color="#546E7A"/></radialGradient></defs>
-<ellipse cx="95" cy="236" rx="56" ry="7" fill="#000" opacity="0.08"/>
-<rect x="42" y="218" width="76" height="22" rx="8" fill="#37474F"/>
-<rect x="48" y="200" width="64" height="24" rx="7" fill="#78909C"/>
-<rect x="48" y="200" width="64" height="12" rx="6" fill="#B0BEC5" opacity="0.4"/>
-<!-- lower arm -->
-<rect x="66" y="100" width="28" height="100" rx="5" fill="#546E7A" transform="rotate(8,80,198)"/>
-<rect x="63" y="98" width="28" height="100" rx="5" fill="#78909C" transform="rotate(8,80,198)"/>
-<rect x="68" y="106" width="8" height="82" rx="4" fill="#B0BEC5" opacity="0.3" transform="rotate(8,80,198)"/>
-<!-- upper arm -->
-<rect x="82" y="32" width="24" height="72" rx="5" fill="#546E7A" transform="rotate(56,94,98)"/>
-<rect x="79" y="30" width="24" height="72" rx="5" fill="#78909C" transform="rotate(56,94,98)"/>
-<rect x="84" y="38" width="7" height="56" rx="3.5" fill="#B0BEC5" opacity="0.3" transform="rotate(56,94,98)"/>
-<!-- gripper -->
-<path d="M164,58 L176,56 Q183,60 181,67 L175,65 Q177,61 173,59 L164,61Z" fill="#CFD8DC"/>
-<path d="M164,76 L176,78 Q183,74 181,67 L175,69 Q177,73 173,75 L164,73Z" fill="#90A4AE"/>
-<!-- BALL joints (spheres with gradient) -->
-<circle cx="80" cy="198" r="18" fill="url(#bj)"/>
-<circle cx="75" cy="192" r="5" fill="#CFD8DC" opacity="0.4"/>
-<circle cx="94" cy="98" r="20" fill="url(#bj)"/>
-<circle cx="88" cy="91" r="6" fill="#CFD8DC" opacity="0.4"/>
-<circle cx="166" cy="67" r="12" fill="url(#bj)"/>
-<circle cx="162" cy="63" r="3.5" fill="#CFD8DC" opacity="0.4"/>
+<!-- ====== #4 CORAL RED ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#4</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#E53935"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#EF5350" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="#C62828"/><circle cx="92" cy="244" r="3.5" fill="#EF5350"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#C62828"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#E53935"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#EF5350" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#C62828"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#E53935"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#EF5350" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="#E53935"/><circle cx="110" cy="218" r="17" fill="#EF5350" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="#E53935"/><circle cx="118" cy="94" r="18" fill="#EF5350" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="#E53935"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Ball Joint</div><div class="desc">Glossy sphere joints with gradient highlights</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><defs><radialGradient id="bjs" cx="0.35" cy="0.3"><stop offset="0%" stop-color="#CFD8DC"/><stop offset="50%" stop-color="#90A4AE"/><stop offset="100%" stop-color="#546E7A"/></radialGradient></defs><ellipse cx="95" cy="236" rx="56" ry="7" fill="#000" opacity="0.08"/><rect x="42" y="218" width="76" height="22" rx="8" fill="#37474F"/><rect x="48" y="200" width="64" height="24" rx="7" fill="#78909C"/><rect x="63" y="98" width="28" height="100" rx="5" fill="#78909C" transform="rotate(8,80,198)"/><rect x="79" y="30" width="24" height="72" rx="5" fill="#78909C" transform="rotate(56,94,98)"/><circle cx="80" cy="198" r="18" fill="url(#bjs)"/><circle cx="94" cy="98" r="20" fill="url(#bjs)"/></svg><span>36</span></div>
+<div class="label">Coral Red</div><div class="desc">Warm red — bold and confident</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#E53935"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#E53935"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#E53935"/><circle cx="120" cy="96" r="20" fill="#E53935"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#E53935"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #18 TENTACLE — Aqua ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#18</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="75" cy="236" rx="48" ry="7" fill="#000" opacity="0.08"/>
-<path d="M38,236 Q36,210 50,204 Q60,200 78,200 Q96,200 100,210 Q102,236 102,236Z" fill="#455A64"/>
-<path d="M42,236 Q40,212 52,208 Q60,204 72,204 Q72,236 72,236Z" fill="#546E7A"/>
-<!-- smooth curving tentacle — two-tone -->
-<path d="M55,204 Q50,170 52,140 Q55,110 66,85 Q78,60 96,46 Q115,32 138,28 Q158,26 170,34 Q178,40 174,48 Q168,54 156,50 Q142,48 128,54 Q114,62 104,76 Q94,90 88,108 Q82,128 80,150 Q78,172 80,192 Q82,200 92,204Z" fill="#00ACC1"/>
-<path d="M58,204 Q54,172 56,144 Q58,116 66,92 Q76,68 92,52 Q108,38 126,34 Q144,30 156,36 Q164,40 162,46 Q158,50 148,48 Q136,46 124,52 Q112,60 102,74 Q92,90 86,110 Q80,132 78,155 Q76,178 78,196 Q80,202 82,204Z" fill="#4DD0E1"/>
-<path d="M60,204 Q56,175 58,148 Q60,120 68,98 Q76,74 88,58 Q100,44 116,38 Q132,34 144,38 L140,44 Q128,40 116,46 Q104,54 96,68 Q86,84 80,106 Q74,130 72,158 Q70,182 72,200Z" fill="#80DEEA" opacity="0.3"/>
-<!-- suckers -->
-<ellipse cx="78" cy="170" rx="5" ry="3" fill="#00ACC1" opacity="0.6"/>
-<ellipse cx="76" cy="142" rx="4.5" ry="2.5" fill="#00ACC1" opacity="0.6"/>
-<ellipse cx="80" cy="116" rx="4" ry="2" fill="#00ACC1" opacity="0.6"/>
-<ellipse cx="90" cy="94" rx="3.5" ry="1.8" fill="#00ACC1" opacity="0.5"/>
-<!-- curl tip -->
-<path d="M170,34 Q182,28 186,36 Q188,44 180,48 Q174,50 170,44" fill="#4DD0E1"/>
-<path d="M172,36 Q180,32 182,38 Q184,42 178,46" fill="#80DEEA" opacity="0.4"/>
+<!-- ====== #5 TEAL ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#5</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#00897B"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#26A69A" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="#00695C"/><circle cx="92" cy="244" r="3.5" fill="#26A69A"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#00695C"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#00897B"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#26A69A" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#00695C"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#00897B"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#26A69A" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="#00897B"/><circle cx="110" cy="218" r="17" fill="#26A69A" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="#00897B"/><circle cx="118" cy="94" r="18" fill="#26A69A" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="#00897B"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Tentacle</div><div class="desc">Smooth organic curve, no joints, tapers to a curl</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="75" cy="236" rx="48" ry="7" fill="#000" opacity="0.08"/><path d="M38,236 Q36,210 50,204 Q60,200 78,200 Q96,200 100,210 Q102,236 102,236Z" fill="#455A64"/><path d="M58,204 Q54,172 56,144 Q58,116 66,92 Q76,68 92,52 Q108,38 126,34 Q144,30 156,36 Q164,40 162,46 Q158,50 148,48 Q136,46 124,52 Q112,60 102,74 Q92,90 86,110 Q80,132 78,155 Q76,178 78,196 Q80,202 82,204Z" fill="#4DD0E1"/><path d="M170,34 Q182,28 186,36 Q188,44 180,48 Q174,50 170,44" fill="#4DD0E1"/></svg><span>36</span></div>
+<div class="label">Jade Teal</div><div class="desc">Deep teal — elegant and calm</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#00897B"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#00897B"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#00897B"/><circle cx="120" cy="96" r="20" fill="#00897B"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#00897B"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #19 HOOK CRANE — Vermillion ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#19</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="88" cy="236" rx="55" ry="7" fill="#000" opacity="0.08"/>
-<rect x="38" y="218" width="72" height="22" rx="8" fill="#455A64"/>
-<rect x="44" y="200" width="60" height="24" rx="7" fill="#FF5722"/>
-<rect x="44" y="200" width="60" height="12" rx="6" fill="#FF8A65" opacity="0.5"/>
-<!-- structural -->
-<circle cx="80" cy="155" r="15" fill="#455A64"/>
-<!-- single tall arm -->
-<rect x="64" y="50" width="32" height="112" rx="16" fill="#E64A19" transform="rotate(6,80,155)"/>
-<rect x="61" y="48" width="32" height="112" rx="16" fill="#FF5722" transform="rotate(6,80,155)"/>
-<rect x="67" y="56" width="9" height="92" rx="4.5" fill="#FF8A65" opacity="0.3" transform="rotate(6,80,155)"/>
-<!-- horizontal boom at top -->
-<rect x="78" y="36" width="90" height="22" rx="6" fill="#E64A19"/>
-<rect x="78" y="34" width="90" height="20" rx="5" fill="#FF5722"/>
-<rect x="78" y="34" width="90" height="8" rx="4" fill="#FF8A65" opacity="0.35"/>
-<!-- boom pivot -->
-<circle cx="86" cy="46" r="11" fill="#FF5722"/><circle cx="86" cy="46" r="5.5" fill="#37474F"/>
-<!-- cable -->
-<rect x="160" y="54" width="3" height="72" rx="1.5" fill="#455A64"/>
-<!-- heavy hook -->
-<path d="M152,126 L156,118 L168,118 L172,126 Q172,146 162,150 Q152,146 152,126Z" fill="#9E9E9E"/>
-<path d="M155,124 Q162,142 169,124Z" fill="#757575" opacity="0.4"/>
-<rect x="158" y="114" width="8" height="8" rx="2" fill="#455A64"/>
-<!-- joints -->
-<circle cx="80" cy="155" r="12" fill="#FF5722"/><circle cx="80" cy="155" r="6" fill="#37474F"/>
-<circle cx="74" cy="200" r="11" fill="#FF5722"/><circle cx="74" cy="200" r="5.5" fill="#37474F"/>
+<!-- ====== #6 PURPLE ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#6</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#7B1FA2"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#AB47BC" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="#6A1B9A"/><circle cx="92" cy="244" r="3.5" fill="#AB47BC"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#6A1B9A"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#7B1FA2"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#AB47BC" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#6A1B9A"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#7B1FA2"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#AB47BC" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="#7B1FA2"/><circle cx="110" cy="218" r="17" fill="#AB47BC" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="#7B1FA2"/><circle cx="118" cy="94" r="18" fill="#AB47BC" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="#7B1FA2"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Hook Crane</div><div class="desc">Single tall arm, horizontal boom, cable with heavy hook</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="88" cy="236" rx="55" ry="7" fill="#000" opacity="0.08"/><rect x="38" y="218" width="72" height="22" rx="8" fill="#455A64"/><rect x="44" y="200" width="60" height="24" rx="7" fill="#FF5722"/><rect x="61" y="48" width="32" height="112" rx="16" fill="#FF5722" transform="rotate(6,80,155)"/><rect x="78" y="34" width="90" height="20" rx="5" fill="#FF5722"/><circle cx="86" cy="46" r="11" fill="#FF5722"/><rect x="160" y="54" width="3" height="72" rx="1.5" fill="#455A64"/><path d="M152,126 L156,118 L168,118 L172,126 Q172,146 162,150 Q152,146 152,126Z" fill="#9E9E9E"/></svg><span>36</span></div>
+<div class="label">Royal Purple</div><div class="desc">Rich purple — premium and playful</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#7B1FA2"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#7B1FA2"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#7B1FA2"/><circle cx="120" cy="96" r="20" fill="#7B1FA2"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#7B1FA2"/></svg><span>36</span></div>
 </div>
 
-<!-- ====== #20 BLOCKY ANGULAR — Slate ====== -->
-<div class="card" onclick="pick(this)"><div class="num">#20</div>
-<svg class="icon" width="192" height="230" viewBox="0 0 200 240" fill="none">
-<ellipse cx="95" cy="236" rx="58" ry="7" fill="#000" opacity="0.08"/>
-<!-- SHARP base — no roundness -->
-<rect x="32" y="216" width="96" height="24" fill="#37474F"/>
-<rect x="40" y="198" width="80" height="24" fill="#607D8B"/>
-<rect x="40" y="198" width="80" height="12" fill="#90A4AE" opacity="0.4"/>
-<rect x="58" y="208" width="8" height="8" fill="#455A64"/>
-<rect x="72" y="208" width="6" height="6" fill="#B0BEC5"/>
-<!-- structural -->
-<rect x="68" y="174" width="36" height="28" fill="#37474F"/>
-<rect x="88" y="82" width="30" height="24" fill="#37474F"/>
-<!-- lower arm — sharp rect -->
-<rect x="72" y="96" width="30" height="108" fill="#546E7A" transform="rotate(8,87,200)"/>
-<rect x="69" y="94" width="30" height="108" fill="#607D8B" transform="rotate(8,87,200)"/>
-<rect x="74" y="100" width="8" height="92" fill="#90A4AE" opacity="0.3" transform="rotate(8,87,200)"/>
-<!-- upper arm — sharp rect -->
-<rect x="90" y="28" width="26" height="60" fill="#78909C" transform="rotate(55,103,82)"/>
-<rect x="87" y="26" width="26" height="60" fill="#90A4AE" transform="rotate(55,103,82)"/>
-<rect x="92" y="32" width="7" height="48" fill="#CFD8DC" opacity="0.3" transform="rotate(55,103,82)"/>
-<!-- angular claw — sharp V -->
-<polygon points="158,66 148,48 152,46 162,60 172,46 176,48 166,66" fill="#607D8B"/>
-<polygon points="158,66 150,50 154,48 160,60" fill="#90A4AE"/>
-<!-- SQUARE joints -->
-<rect x="78" y="190" width="18" height="18" fill="#90A4AE"/>
-<rect x="82" y="194" width="10" height="10" fill="#37474F"/>
-<rect x="93" y="73" width="20" height="20" fill="#B0BEC5"/>
-<rect x="97" y="77" width="12" height="12" fill="#37474F"/>
-<rect x="155" y="58" width="14" height="14" fill="#B0BEC5"/>
-<rect x="158" y="61" width="8" height="8" fill="#37474F"/>
+<!-- Remaining 14 colors using same arm template -->
+<!-- #7-#20: same paths, different color fills -->
+
+<!-- ====== #7 AMBER ====== -->
+<div class="card" onclick="pick(this)"><div class="num">#7</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#FF8F00"/><path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="#FFB300" opacity="0.5"/><circle cx="78" cy="244" r="5" fill="#E65100"/><circle cx="92" cy="244" r="3.5" fill="#FFB300"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/><path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/><path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/><rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/><path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="#E65100"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#FF8F00"/><path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="#FFB300" opacity="0.35"/><path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/><path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/><path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="#E65100"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#FF8F00"/><path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="#FFB300" opacity="0.35"/><circle cx="110" cy="218" r="18" fill="#FF8F00"/><circle cx="110" cy="218" r="17" fill="#FFB300" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/><circle cx="120" cy="96" r="20" fill="#FF8F00"/><circle cx="118" cy="94" r="18" fill="#FFB300" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="198" cy="132" r="10" fill="#FF8F00"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
 </svg>
-<div class="label">Blocky Angular</div><div class="desc">All sharp rectangles, zero roundness, square bolts</div>
-<div class="sizes"><svg width="36" height="43" viewBox="0 0 200 240" fill="none"><ellipse cx="95" cy="236" rx="58" ry="7" fill="#000" opacity="0.08"/><rect x="32" y="216" width="96" height="24" fill="#37474F"/><rect x="40" y="198" width="80" height="24" fill="#607D8B"/><rect x="69" y="94" width="30" height="108" fill="#607D8B" transform="rotate(8,87,200)"/><rect x="87" y="26" width="26" height="60" fill="#90A4AE" transform="rotate(55,103,82)"/><polygon points="158,66 148,48 152,46 162,60 172,46 176,48 166,66" fill="#607D8B"/><rect x="93" y="73" width="20" height="20" fill="#B0BEC5"/><rect x="78" y="190" width="18" height="18" fill="#90A4AE"/></svg><span>36</span></div>
+<div class="label">Amber</div><div class="desc">Deep amber — warm and industrial</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="#FF8F00"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="#FF8F00"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="#FF8F00"/><circle cx="120" cy="96" r="20" fill="#FF8F00"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="#FF8F00"/></svg><span>36</span></div>
 </div>
 
+<!-- #8-20: Same template with remaining palettes -->
+<!-- For brevity, generating remaining 13 with a compact JS template approach -->
+
 </div>
+
 <script>
+// Generate remaining 13 arms (#8-#20) using the same path template with different colors
+const palettes = [
+  {id:8, name:"Hot Pink", desc:"Vibrant pink — fun and energetic", main:"#E91E63", shadow:"#C2185B", highlight:"#F48FB1"},
+  {id:9, name:"Navy", desc:"Deep navy — serious and strong", main:"#283593", shadow:"#1A237E", highlight:"#5C6BC0"},
+  {id:10, name:"Olive", desc:"Natural olive — earthy and grounded", main:"#7CB342", shadow:"#558B2F", highlight:"#AED581"},
+  {id:11, name:"Cyan", desc:"Bright cyan — fresh and modern", main:"#00ACC1", shadow:"#00838F", highlight:"#4DD0E1"},
+  {id:12, name:"Brown", desc:"Warm brown — rustic and reliable", main:"#8D6E63", shadow:"#5D4037", highlight:"#BCAAA4"},
+  {id:13, name:"Indigo", desc:"Deep indigo — mysterious and smart", main:"#5C6BC0", shadow:"#3949AB", highlight:"#9FA8DA"},
+  {id:14, name:"Rose", desc:"Soft rose — gentle and approachable", main:"#F06292", shadow:"#E91E63", highlight:"#F8BBD0"},
+  {id:15, name:"Lime", desc:"Bright lime — fresh and zingy", main:"#9CCC65", shadow:"#7CB342", highlight:"#C5E1A5"},
+  {id:16, name:"Deep Orange", desc:"Burnt orange — fiery and bold", main:"#FF5722", shadow:"#E64A19", highlight:"#FF8A65"},
+  {id:17, name:"Steel", desc:"Cool steel — sleek and minimal", main:"#607D8B", shadow:"#455A64", highlight:"#90A4AE"},
+  {id:18, name:"Leaf Green", desc:"Forest green — natural and fresh", main:"#43A047", shadow:"#2E7D32", highlight:"#81C784"},
+  {id:19, name:"Turquoise", desc:"Vivid turquoise — tropical vibe", main:"#26C6DA", shadow:"#00ACC1", highlight:"#80DEEA"},
+  {id:20, name:"Slate", desc:"Muted slate — professional and clean", main:"#78909C", shadow:"#546E7A", highlight:"#B0BEC5"},
+];
+
+const grid = document.querySelector('.grid');
+palettes.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.onclick = function(){ pick(this); };
+  card.innerHTML = `<div class="num">#${p.id}</div>
+<svg class="icon" width="210" height="245" viewBox="0 0 240 280" fill="none">
+<ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/>
+<path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/>
+<path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="${p.main}"/>
+<path d="M44,254 Q42,246 48,240 L58,234 Q64,230 80,230 L136,230 Q148,230 156,234 L166,240 Q172,246 168,254Z" fill="${p.highlight}" opacity="0.5"/>
+<circle cx="78" cy="244" r="5" fill="${p.shadow}"/><circle cx="92" cy="244" r="3.5" fill="${p.highlight}"/><circle cx="102" cy="244" r="2.5" fill="white" opacity="0.35"/>
+<path d="M88,232 L82,208 L138,208 L132,232Z" fill="#4A5568"/>
+<path d="M108,118 Q94,110 92,96 Q92,82 104,76 L138,76 Q150,82 150,96 Q148,110 134,118Z" fill="#4A5568"/>
+<rect x="188" y="122" width="18" height="22" rx="5" fill="#4A5568"/>
+<path d="M108,82 Q104,72 108,66 L128,58 Q142,56 148,64 L190,118 Q196,128 190,136 L178,140 Q168,142 164,134 L118,96 Q110,90 108,82Z" fill="${p.shadow}"/>
+<path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="${p.main}"/>
+<path d="M110,74 Q108,68 112,62 L124,58 Q132,56 136,60 L156,88 Q140,72 120,68Z" fill="${p.highlight}" opacity="0.35"/>
+<path d="M204,118 L218,112 Q228,116 228,126 Q228,132 222,134 L212,130 Q218,128 218,124 Q218,118 212,116Z" fill="#B8BEC6"/>
+<path d="M204,142 L218,148 Q228,144 228,134 Q228,130 222,128 L212,132 Q218,134 218,138 Q218,144 212,146Z" fill="#8E949C"/>
+<path d="M82,218 Q72,216 68,206 L62,152 Q58,128 62,118 Q66,108 78,102 L104,92 Q116,88 124,96 L128,108 Q132,118 128,128 L120,188 Q118,204 112,212 Q108,218 98,220Z" fill="${p.shadow}"/>
+<path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="${p.main}"/>
+<path d="M72,210 Q66,206 64,196 L58,148 Q56,130 58,120 Q60,112 68,108 L72,148 Q74,180 72,210Z" fill="${p.highlight}" opacity="0.35"/>
+<circle cx="110" cy="218" r="18" fill="${p.main}"/><circle cx="110" cy="218" r="17" fill="${p.highlight}" opacity="0.3"/><circle cx="110" cy="218" r="9" fill="#3D4550"/>
+<circle cx="120" cy="96" r="20" fill="${p.main}"/><circle cx="118" cy="94" r="18" fill="${p.highlight}" opacity="0.3"/><circle cx="120" cy="96" r="10" fill="#3D4550"/>
+<circle cx="198" cy="132" r="10" fill="${p.main}"/><circle cx="198" cy="132" r="5" fill="#3D4550"/>
+</svg>
+<div class="label">${p.name}</div><div class="desc">${p.desc}</div>
+<div class="sizes"><svg width="36" height="42" viewBox="0 0 240 280" fill="none"><ellipse cx="110" cy="268" rx="80" ry="10" fill="#000" opacity="0.07"/><path d="M24,270 Q24,258 34,256 L186,256 Q196,258 196,270Z" fill="#4A5568"/><path d="M42,258 Q38,248 44,240 L56,232 Q62,228 80,228 L140,228 Q158,228 164,232 L176,240 Q182,248 178,258Z" fill="${p.main}"/><path d="M106,80 Q102,70 106,64 L126,56 Q140,54 146,62 L188,116 Q194,126 188,134 L176,138 Q166,140 162,132 L116,94 Q108,88 106,80Z" fill="${p.main}"/><path d="M80,216 Q70,214 66,204 L60,150 Q56,126 60,116 Q64,106 76,100 L102,90 Q114,86 122,94 L126,106 Q130,116 126,126 L118,186 Q116,202 110,210 Q106,216 96,218Z" fill="${p.main}"/><circle cx="120" cy="96" r="20" fill="${p.main}"/><circle cx="120" cy="96" r="10" fill="#3D4550"/><circle cx="110" cy="218" r="18" fill="${p.main}"/></svg><span>36</span></div>`;
+  grid.appendChild(card);
+});
+
 function pick(card){
   document.querySelectorAll('.card').forEach(c=>c.style.borderColor='#EBEBEB');
   card.style.borderColor='#58CC02';
