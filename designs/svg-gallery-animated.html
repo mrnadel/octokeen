@@ -5968,6 +5968,464 @@
 <div class="card-label">Timing Belt</div>
 </div>
 
+<!-- ====== 127. Watt Linkage — Dynamics ====== -->
+<div class="card" data-name="Watt Linkage" data-cat="Dynamics">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Fixed pivots -->
+  <circle cx="16" cy="40" r="2" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <circle cx="64" cy="40" r="2" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Ground -->
+  <line x1="16" y1="42" x2="16" y2="52" stroke-width="0.5" class="s-stroke" opacity="0.3"/>
+  <line x1="64" y1="42" x2="64" y2="52" stroke-width="0.5" class="s-stroke" opacity="0.3"/>
+  <line x1="8" y1="52" x2="72" y2="52" stroke-width="0.5" class="s-stroke" opacity="0.2"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.15">
+    <line x1="12" y1="52" x2="9" y2="55"/><line x1="18" y1="52" x2="15" y2="55"/>
+    <line x1="24" y1="52" x2="21" y2="55"/><line x1="58" y1="52" x2="55" y2="55"/>
+    <line x1="64" y1="52" x2="61" y2="55"/><line x1="70" y1="52" x2="67" y2="55"/>
+  </g>
+  <!-- Left rocker (A-B) -->
+  <line x1="16" y1="40" x2="32" y2="32" stroke-width="1.2" class="s-stroke">
+    <animate attributeName="x2" values="32;30;32;34;32" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <!-- Coupler (B-C) -->
+  <line x1="32" y1="32" x2="48" y2="32" stroke-width="1.2" class="s-stroke-l">
+    <animate attributeName="x1" values="32;30;32;34;32" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y1" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="48;50;48;46;48" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <!-- Right rocker (C-D) -->
+  <line x1="48" y1="32" x2="64" y2="40" stroke-width="1.2" class="s-stroke">
+    <animate attributeName="x1" values="48;50;48;46;48" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y1" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <!-- Joint pins -->
+  <circle r="1.5" class="s-fill" opacity="0.4">
+    <animate attributeName="cx" values="32;30;32;34;32" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="1.5" class="s-fill" opacity="0.4">
+    <animate attributeName="cx" values="48;50;48;46;48" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Coupler midpoint trace (approximate straight line) -->
+  <circle r="1.2" class="s-fill-l" opacity="0.6">
+    <animate attributeName="cx" values="40;40;40;40;40" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="28;34;40;34;28" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Straight-line guide -->
+  <line x1="40" y1="24" x2="40" y2="44" stroke-width="0.4" class="s-stroke-d" opacity="0.2" stroke-dasharray="1.5,1.5"/>
+  <text x="44" y="22" font-size="2.5" class="s-fill-d" opacity="0.35">≈ straight</text>
+  <!-- Labels -->
+  <text x="16" y="58" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">A</text>
+  <text x="64" y="58" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">D</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">approximate straight line</text>
+</svg></div>
+<div class="card-label">Watt Linkage</div>
+</div>
+
+<!-- ====== 128. Thermostat — Thermo ====== -->
+<div class="card" data-name="Thermostat" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Housing -->
+  <rect x="16" y="20" width="48" height="40" rx="4" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <!-- Bimetallic strip (coiled) -->
+  <path d="M40,52 Q28,50 26,40 Q24,30 34,28 Q44,26 46,36 Q48,42 40,44" stroke-width="1.2" class="s-stroke-l" fill="none">
+    <animate attributeName="d" values="M40,52 Q28,50 26,40 Q24,30 34,28 Q44,26 46,36 Q48,42 40,44;M40,52 Q24,48 22,38 Q20,26 32,24 Q46,22 50,34 Q52,44 40,48;M40,52 Q28,50 26,40 Q24,30 34,28 Q44,26 46,36 Q48,42 40,44" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <!-- Contact point -->
+  <circle cx="40" cy="44" r="1.5" class="s-fill" opacity="0.4">
+    <animate attributeName="cy" values="44;48;44" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Fixed contact -->
+  <line x1="50" y1="44" x2="56" y2="44" stroke-width="0.8" class="s-stroke" opacity="0.5"/>
+  <circle cx="50" cy="44" r="1" class="s-fill" opacity="0.3"/>
+  <!-- Electrical terminals -->
+  <line x1="40" y1="52" x2="40" y2="62" stroke-width="0.6" class="s-stroke"/>
+  <line x1="56" y1="44" x2="56" y2="62" stroke-width="0.6" class="s-stroke"/>
+  <circle cx="40" cy="64" r="2" stroke-width="0.4" class="s-stroke" fill="none"/>
+  <circle cx="56" cy="64" r="2" stroke-width="0.4" class="s-stroke" fill="none"/>
+  <!-- Temperature scale -->
+  <g opacity="0.3">
+    <rect x="10" y="24" width="3" height="32" rx="1" stroke-width="0.3" class="s-stroke" fill="none"/>
+    <rect x="10.5" y="40" width="2" height="16" rx="0.5" class="s-fill-l" opacity="0.3">
+      <animate attributeName="height" values="12;20;12" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="44;36;44" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="11.5" y="22" font-size="2" class="s-fill-d" text-anchor="middle">°C</text>
+  </g>
+  <!-- Metal labels -->
+  <text x="34" y="18" font-size="2.5" class="s-fill-d" opacity="0.35">brass</text>
+  <text x="46" y="18" font-size="2.5" class="s-fill-d" opacity="0.35">steel</text>
+  <!-- Set point -->
+  <text x="48" y="70" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">set point</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">bimetallic switch</text>
+</svg></div>
+<div class="card-label">Thermostat</div>
+</div>
+
+<!-- ====== 129. Knuckle Joint — Machine Design ====== -->
+<div class="card" data-name="Knuckle Joint" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Rod A (left) with single eye -->
+  <rect x="2" y="37" width="26" height="6" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <circle cx="30" cy="40" r="8" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <!-- Rod B (right) with forked eye -->
+  <rect x="52" y="37" width="26" height="6" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <circle cx="50" cy="40" r="8" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <!-- Fork prongs (above and below) -->
+  <path d="M52,33 Q48,33 46,34 A8,8 0 0,0 46,46 Q48,47 52,47" stroke-width="0.5" class="s-stroke" fill="none" opacity="0.4"/>
+  <!-- Knuckle pin -->
+  <rect x="28" y="28" width="4" height="24" rx="1.5" stroke-width="0.8" class="s-stroke-l s-fill-l" fill-opacity="0.15"/>
+  <circle cx="30" cy="28" r="2" stroke-width="0.5" class="s-stroke-l" fill="none" opacity="0.5"/>
+  <circle cx="30" cy="52" r="2" stroke-width="0.5" class="s-stroke-l" fill="none" opacity="0.5"/>
+  <!-- Pin hole -->
+  <circle cx="40" cy="40" r="3" stroke-width="0.5" class="s-stroke" fill="none" opacity="0.3"/>
+  <!-- Angular motion indicator -->
+  <path d="M50,28 A12,12 0 0,1 50,52" stroke-width="0.4" class="s-stroke-d" opacity="0.25" fill="none"/>
+  <g>
+    <line x1="50" y1="40" x2="58" y2="36" stroke-width="0.4" class="s-stroke-d" opacity="0.3"/>
+    <animateTransform attributeName="transform" type="rotate" values="-10,40,40;10,40,40;-10,40,40" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <!-- Tension arrows -->
+  <g opacity="0.45">
+    <polygon points="2,38.5 2,41.5 -1,40" class="s-fill"/>
+    <text x="-3" y="41.5" font-size="3" class="s-fill" text-anchor="end">P</text>
+    <polygon points="78,38.5 78,41.5 81,40" class="s-fill"/>
+    <text x="82" y="41.5" font-size="3" class="s-fill">P</text>
+  </g>
+  <!-- Labels -->
+  <text x="16" y="34" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">eye</text>
+  <text x="64" y="34" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">fork</text>
+  <text x="30" y="24" font-size="2.5" class="s-fill-l" opacity="0.4" text-anchor="middle">pin</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">articulating joint</text>
+</svg></div>
+<div class="card-label">Knuckle Joint</div>
+</div>
+
+<!-- ====== 130. Manometer — Fluids ====== -->
+<div class="card" data-name="Manometer" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- U-tube -->
+  <path d="M24,14 L24,58 Q24,66 32,66 L48,66 Q56,66 56,58 L56,14" stroke-width="1" class="s-stroke" fill="none"/>
+  <!-- Manometric fluid (heavy liquid in U-bend) -->
+  <path d="M24.5,44 L24.5,58 Q24.5,65.5 32,65.5 L48,65.5 Q55.5,65.5 55.5,58 L55.5,36" class="s-fill-l" opacity="0.15"/>
+  <!-- Left fluid column top -->
+  <line x1="22" y1="44" x2="26" y2="44" stroke-width="0.5" class="s-stroke-l" opacity="0.5">
+    <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <!-- Right fluid column top -->
+  <line x1="54" y1="36" x2="58" y2="36" stroke-width="0.5" class="s-stroke-l" opacity="0.5">
+    <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="40;40;40" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <!-- h measurement -->
+  <line x1="62" y1="36" x2="62" y2="44" stroke-width="0.4" class="s-stroke-d" opacity="0.4">
+    <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <line x1="60" y1="36" x2="64" y2="36" stroke-width="0.3" class="s-stroke-d" opacity="0.4">
+    <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="36;40;36" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <line x1="60" y1="44" x2="64" y2="44" stroke-width="0.3" class="s-stroke-d" opacity="0.4">
+    <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <text x="66" y="42" font-size="3.5" class="s-fill-d" opacity="0.5">h</text>
+  <!-- Pressure connection (left) -->
+  <line x1="10" y1="20" x2="24" y2="20" stroke-width="0.6" class="s-stroke"/>
+  <text x="8" y="21.5" font-size="3" class="s-fill" text-anchor="end">P₁</text>
+  <!-- Open/reference (right) -->
+  <text x="58" y="12" font-size="3" class="s-fill-d" opacity="0.4">P_atm</text>
+  <!-- Fluid labels -->
+  <text x="40" y="62" font-size="2.5" class="s-fill-l" opacity="0.35" text-anchor="middle">mercury</text>
+  <!-- Formula -->
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill" opacity="0.4">ΔP = ρgh</text>
+</svg></div>
+<div class="card-label">Manometer</div>
+</div>
+
+<!-- ====== 131. Thermal Stress — Materials ====== -->
+<div class="card" data-name="Thermal Stress" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Fixed wall (left) -->
+  <rect x="4" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.2">
+    <line x1="2" y1="26" x2="4" y2="28"/><line x1="2" y1="32" x2="4" y2="34"/>
+    <line x1="2" y1="38" x2="4" y2="40"/><line x1="2" y1="44" x2="4" y2="46"/>
+    <line x1="2" y1="50" x2="4" y2="52"/>
+  </g>
+  <!-- Fixed wall (right) -->
+  <rect x="70" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <g class="s-stroke" stroke-width="0.3" opacity="0.2">
+    <line x1="76" y1="28" x2="78" y2="26"/><line x1="76" y1="34" x2="78" y2="32"/>
+    <line x1="76" y1="40" x2="78" y2="38"/><line x1="76" y1="46" x2="78" y2="44"/>
+    <line x1="76" y1="52" x2="78" y2="50"/>
+  </g>
+  <!-- Bar (constrained) -->
+  <rect x="10" y="34" width="60" height="12" rx="1.5" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.06"/>
+  <!-- Temperature rise indication (color pulse) -->
+  <rect x="11" y="35" width="58" height="10" rx="1" class="s-fill-l" opacity="0.05">
+    <animate attributeName="opacity" values="0.03;0.15;0.03" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Attempted expansion arrows (blocked) -->
+  <g opacity="0.35">
+    <line x1="14" y1="40" x2="10" y2="40" stroke-width="0.5" class="s-stroke-d"/>
+    <polygon points="10,38.5 10,41.5 8,40" class="s-fill-d"/>
+    <line x1="66" y1="40" x2="70" y2="40" stroke-width="0.5" class="s-stroke-d"/>
+    <polygon points="70,38.5 70,41.5 72,40" class="s-fill-d"/>
+  </g>
+  <!-- Reaction compression arrows -->
+  <g opacity="0.4">
+    <line x1="8" y1="40" x2="12" y2="40" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="12,38.5 12,41.5 14,40" class="s-fill"/>
+    <line x1="72" y1="40" x2="68" y2="40" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="68,38.5 68,41.5 66,40" class="s-fill"/>
+  </g>
+  <!-- ΔT indicator -->
+  <text x="40" y="30" font-size="3.5" class="s-fill" opacity="0.4" text-anchor="middle">ΔT ↑</text>
+  <!-- Temperature wavy lines -->
+  <g opacity="0.2">
+    <path d="M20,52 Q22,48 24,52" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M38,52 Q40,48 42,52" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="0.5s"/>
+    </path>
+    <path d="M56,52 Q58,48 60,52" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="1s"/>
+    </path>
+  </g>
+  <!-- Formula -->
+  <text x="40" y="64" font-size="3.5" class="s-fill" opacity="0.4" text-anchor="middle">σ = EαΔT</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">constrained expansion</text>
+</svg></div>
+<div class="card-label">Thermal Stress</div>
+</div>
+
+<!-- ====== 132. Oldham Coupling — Machine Design ====== -->
+<div class="card" data-name="Oldham Coupling" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Input shaft (left, offset up) -->
+  <rect x="2" y="28" width="18" height="6" rx="1" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Output shaft (right, offset down) -->
+  <rect x="60" y="40" width="18" height="6" rx="1" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Hub 1 (left disc) -->
+  <circle cx="24" cy="31" r="10" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <!-- Tongue on hub 1 (vertical) -->
+  <rect x="22" y="23" width="4" height="16" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Center disc (floating) -->
+  <ellipse cx="40" cy="36" rx="12" ry="11" stroke-width="0.7" class="s-stroke-l" fill="none">
+    <animate attributeName="cy" values="34;38;34" dur="2s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Cross slots on center disc -->
+  <rect x="38" y="26" width="4" height="20" rx="0.5" stroke-width="0.4" class="s-stroke-l" fill="none" opacity="0.4">
+    <animate attributeName="y" values="24;28;24" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="30" y="34" width="20" height="4" rx="0.5" stroke-width="0.4" class="s-stroke-l" fill="none" opacity="0.4">
+    <animate attributeName="y" values="32;36;32" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Hub 2 (right disc) -->
+  <circle cx="56" cy="43" r="10" stroke-width="0.7" class="s-stroke" fill="none"/>
+  <!-- Tongue on hub 2 (horizontal) -->
+  <rect x="48" y="41" width="16" height="4" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Rotation indicators -->
+  <g>
+    <circle cx="24" cy="22" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,24,31;360,24,31" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <circle cx="56" cy="34" r="0.8" class="s-fill" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,56,43;360,56,43" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <!-- Offset dimension -->
+  <line x1="70" y1="31" x2="70" y2="43" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="68" y1="31" x2="72" y2="31" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <line x1="68" y1="43" x2="72" y2="43" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <text x="74" y="38" font-size="2.5" class="s-fill-d" opacity="0.4">e</text>
+  <!-- Labels -->
+  <text x="24" y="18" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">hub 1</text>
+  <text x="56" y="58" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">hub 2</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">parallel misalignment</text>
+</svg></div>
+<div class="card-label">Oldham Coupling</div>
+</div>
+
+<!-- ====== 133. Bourdon Gauge — Fluids ====== -->
+<div class="card" data-name="Bourdon Gauge" data-cat="Fluids">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Gauge face -->
+  <circle cx="40" cy="40" r="28" stroke-width="1" class="s-stroke" fill="none"/>
+  <circle cx="40" cy="40" r="26" stroke-width="0.3" class="s-stroke" fill="none" opacity="0.2"/>
+  <!-- Scale markings -->
+  <g class="s-stroke" stroke-width="0.4" opacity="0.4">
+    <line x1="40" y1="14" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="66"/>
+    <line x1="14" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="66" y2="40"/>
+    <line x1="21.6" y1="21.6" x2="24.4" y2="24.4"/>
+    <line x1="58.4" y1="21.6" x2="55.6" y2="24.4"/>
+    <line x1="21.6" y1="58.4" x2="24.4" y2="55.6"/>
+    <line x1="58.4" y1="58.4" x2="55.6" y2="55.6"/>
+  </g>
+  <!-- Scale numbers -->
+  <text x="40" y="22" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">6</text>
+  <text x="58" y="24" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">8</text>
+  <text x="64" y="42" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">10</text>
+  <text x="22" y="24" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">4</text>
+  <text x="16" y="42" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">2</text>
+  <text x="22" y="60" font-size="3" class="s-fill" opacity="0.35" text-anchor="middle">0</text>
+  <!-- Needle -->
+  <g>
+    <line x1="40" y1="40" x2="24" y2="54" stroke-width="0.8" class="s-stroke"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;-120,40,40;0,40,40" dur="5s" repeatCount="indefinite"/>
+  </g>
+  <!-- Center pin -->
+  <circle cx="40" cy="40" r="2.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Bourdon tube (C-shape, inside) -->
+  <path d="M40,58 Q26,54 24,40 Q22,26 36,22" stroke-width="0.8" class="s-stroke-l" fill="none" opacity="0.3">
+    <animate attributeName="d" values="M40,58 Q28,56 26,44 Q24,30 36,26;M40,58 Q22,50 20,36 Q18,22 32,18;M40,58 Q28,56 26,44 Q24,30 36,26" dur="5s" repeatCount="indefinite"/>
+  </path>
+  <!-- Pressure inlet -->
+  <rect x="37" y="64" width="6" height="8" rx="1" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="40" y="77" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">pressure in</text>
+  <!-- Unit label -->
+  <text x="40" y="50" font-size="3" class="s-fill-d" opacity="0.3" text-anchor="middle">bar</text>
+</svg></div>
+<div class="card-label">Bourdon Gauge</div>
+</div>
+
+<!-- ====== 134. Fatigue Crack Growth — Materials ====== -->
+<div class="card" data-name="Fatigue Crack Growth" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Specimen block -->
+  <rect x="10" y="16" width="60" height="48" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.03"/>
+  <!-- Initial notch -->
+  <path d="M10,40 L22,40" stroke-width="1" class="s-stroke"/>
+  <!-- Growing crack -->
+  <path d="M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40" stroke-width="0.8" class="s-stroke-l" fill="none">
+    <animate attributeName="d" values="M22,40 L26,40.5 L28,39.5;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40 L48,40.5 L52,39.5 L56,40" dur="6s" repeatCount="indefinite"/>
+  </path>
+  <!-- Crack tip stress field (plastic zone) -->
+  <circle cx="44" cy="40" r="4" class="s-fill-l" opacity="0.1">
+    <animate attributeName="cx" values="28;44;56" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="2;4;6" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Cyclic load arrows -->
+  <g opacity="0.4">
+    <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,14 41.5,14 40,16" class="s-fill"/>
+    <line x1="40" y1="76" x2="40" y2="66" stroke-width="0.6" class="s-stroke"/>
+    <polygon points="38.5,66 41.5,66 40,64" class="s-fill"/>
+    <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/>
+  </g>
+  <!-- Beach marks (striations) -->
+  <g class="s-stroke" stroke-width="0.2" opacity="0.15">
+    <path d="M26,36 Q26,40 26,44" fill="none"/>
+    <path d="M30,35 Q30,40 30,45" fill="none"/>
+    <path d="M34,34.5 Q34,40 34,45.5" fill="none"/>
+    <path d="M38,34 Q38,40 38,46" fill="none"/>
+    <path d="M42,33.5 Q42,40 42,46.5" fill="none"/>
+  </g>
+  <!-- Crack length label -->
+  <line x1="22" y1="50" x2="44" y2="50" stroke-width="0.3" class="s-stroke-d" opacity="0.3"/>
+  <text x="33" y="54" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">a</text>
+  <!-- da/dN label -->
+  <text x="40" y="12" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">da/dN = C(ΔK)ᵐ</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">Paris law</text>
+</svg></div>
+<div class="card-label">Fatigue Crack Growth</div>
+</div>
+
+<!-- ====== 135. Swash Plate — Machine Design ====== -->
+<div class="card" data-name="Swash Plate" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Main shaft -->
+  <rect x="4" y="38" width="72" height="4" rx="1" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Swash plate (tilted disc) -->
+  <ellipse cx="40" cy="40" rx="6" ry="20" stroke-width="0.8" class="s-stroke" fill="none" transform="rotate(15,40,40)"/>
+  <ellipse cx="40" cy="40" rx="6" ry="20" class="s-fill" opacity="0.04" transform="rotate(15,40,40)"/>
+  <!-- Pistons around the plate -->
+  <g>
+    <!-- Piston 1 (top, extended) -->
+    <rect x="54" y="16" width="6" height="10" rx="1" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.06">
+      <animate attributeName="y" values="14;22;14" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="12;4;12" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="55" y="12" width="4" height="6" rx="0.5" stroke-width="0.4" class="s-stroke" fill="none">
+      <animate attributeName="y" values="10;18;10" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Piston 2 (bottom, retracted) -->
+    <rect x="54" y="54" width="6" height="10" rx="1" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.06">
+      <animate attributeName="y" values="56;48;56" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="8;16;8" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="55" y="62" width="4" height="6" rx="0.5" stroke-width="0.4" class="s-stroke" fill="none">
+      <animate attributeName="y" values="64;64;64" dur="2s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <!-- Cylinder block -->
+  <rect x="50" y="10" width="14" height="60" rx="2" stroke-width="0.6" class="s-stroke" fill="none" opacity="0.4"/>
+  <!-- Rotation arrow on shaft -->
+  <path d="M20,34 A6,3 0 0,1 20,46" stroke-width="0.4" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="20,46 18,43 22,44" class="s-fill-d" opacity="0.3"/>
+  <text x="14" y="42" font-size="2.5" class="s-fill-d" opacity="0.4">ω</text>
+  <!-- Tilt angle -->
+  <line x1="40" y1="18" x2="40" y2="62" stroke-width="0.3" class="s-stroke-d" opacity="0.15" stroke-dasharray="2,2"/>
+  <text x="32" y="24" font-size="2.5" class="s-fill-d" opacity="0.35">α</text>
+  <!-- Flow labels -->
+  <text x="72" y="16" font-size="2.5" class="s-fill-d" opacity="0.35">out</text>
+  <text x="72" y="70" font-size="2.5" class="s-fill-d" opacity="0.35">in</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">variable displacement</text>
+</svg></div>
+<div class="card-label">Swash Plate</div>
+</div>
+
+<!-- ====== 136. Radiation Heat — Thermo ====== -->
+<div class="card" data-name="Radiation Heat" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Hot body (left) -->
+  <rect x="6" y="24" width="20" height="32" rx="3" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.08"/>
+  <text x="16" y="42" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">T₁</text>
+  <!-- Cold body (right) -->
+  <rect x="54" y="24" width="20" height="32" rx="3" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/>
+  <text x="64" y="42" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">T₂</text>
+  <!-- Radiation waves (sinusoidal) -->
+  <g class="s-stroke-l" stroke-width="0.5" opacity="0.35">
+    <path d="M28,30 Q32,28 36,30 Q40,32 44,30 Q48,28 52,30" fill="none">
+      <animate attributeName="opacity" values="0.2;0.45;0.2" dur="2s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;4,0;0,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M28,36 Q32,34 36,36 Q40,38 44,36 Q48,34 52,36" fill="none">
+      <animate attributeName="opacity" values="0.2;0.45;0.2" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;4,0;0,0" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </path>
+    <path d="M28,42 Q32,40 36,42 Q40,44 44,42 Q48,40 52,42" fill="none">
+      <animate attributeName="opacity" values="0.2;0.45;0.2" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;4,0;0,0" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+    </path>
+    <path d="M28,48 Q32,46 36,48 Q40,50 44,48 Q48,46 52,48" fill="none">
+      <animate attributeName="opacity" values="0.2;0.45;0.2" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;4,0;0,0" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+    </path>
+  </g>
+  <!-- Arrow direction -->
+  <g opacity="0.4">
+    <line x1="34" y1="56" x2="46" y2="56" stroke-width="0.5" class="s-stroke-d"/>
+    <polygon points="46,54.5 46,57.5 49,56" class="s-fill-d"/>
+    <text x="40" y="62" font-size="2.5" class="s-fill-d" text-anchor="middle">Q_rad</text>
+  </g>
+  <!-- Emissivity labels -->
+  <text x="16" y="20" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">ε₁</text>
+  <text x="64" y="20" font-size="2.5" class="s-fill-d" opacity="0.35" text-anchor="middle">ε₂</text>
+  <!-- Stefan-Boltzmann formula -->
+  <text x="40" y="72" font-size="3" class="s-fill" opacity="0.4" text-anchor="middle">Q = εσA(T₁⁴−T₂⁴)</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3" class="s-fill-d" opacity="0.15" font-style="italic">Stefan-Boltzmann</text>
+</svg></div>
+<div class="card-label">Radiation Heat</div>
+</div>
+
 </div><!-- end grid -->
 
 <!-- LIGHTBOX MODAL -->
