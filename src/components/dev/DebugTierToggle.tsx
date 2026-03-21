@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
+import { useCourseStore } from '@/store/useCourseStore';
+import { getTotalLessons } from '@/data/course';
 import type { SubscriptionTier } from '@/lib/subscription';
 
 const TIERS: { value: SubscriptionTier | null; label: string }[] = [
@@ -13,6 +15,9 @@ const TIERS: { value: SubscriptionTier | null; label: string }[] = [
 export function DebugTierToggle() {
   const [isOpen, setIsOpen] = useState(false);
   const { debugTierOverride, setDebugTierOverride } = useSubscriptionStore();
+  const completedCount = useCourseStore((s) => Object.keys(s.progress.completedLessons).length);
+  const debugSetProgress = useCourseStore((s) => s.debugSetProgress);
+  const totalLessons = getTotalLessons();
 
   if (process.env.NODE_ENV !== 'development') return null;
 
@@ -22,7 +27,7 @@ export function DebugTierToggle() {
   return (
     <div className="fixed bottom-4 right-4 z-[9999]">
       {isOpen && (
-        <div className="absolute bottom-12 right-0 bg-white rounded-lg shadow-xl border border-gray-200 p-3 min-w-[160px]">
+        <div className="absolute bottom-12 right-0 bg-white rounded-lg shadow-xl border border-gray-200 p-3 min-w-[200px]">
           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
             Test as
           </p>
@@ -31,7 +36,6 @@ export function DebugTierToggle() {
               key={label}
               onClick={() => {
                 setDebugTierOverride(value);
-                setIsOpen(false);
               }}
               className={`w-full text-left px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 debugTierOverride === value
@@ -45,6 +49,24 @@ export function DebugTierToggle() {
               )}
             </button>
           ))}
+
+          <div className="border-t border-gray-200 mt-3 pt-3">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+              Lesson Progress
+            </p>
+            <input
+              type="range"
+              min={0}
+              max={totalLessons}
+              value={completedCount}
+              onChange={(e) => debugSetProgress(Number(e.target.value))}
+              className="w-full accent-indigo-600"
+            />
+            <div className="flex justify-between text-[11px] text-gray-500 mt-1">
+              <span>{completedCount} / {totalLessons}</span>
+              <span>{totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0}%</span>
+            </div>
+          </div>
         </div>
       )}
       <button

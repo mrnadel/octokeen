@@ -1359,27 +1359,62 @@
 <!-- ====== 31. Ball Bearing — Machine Design ====== -->
 <div class="card" data-name="Ball Bearing" data-cat="Machine Design">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
-  <circle cx="40" cy="40" r="28" class="s-fill" opacity="0.06"/>
-  <circle cx="40" cy="40" r="28" class="s-stroke" stroke-width="2.5" fill="none" opacity="0.35"/>
-  <circle cx="40" cy="40" r="24" class="s-stroke-l" stroke-width="1.5" fill="none" opacity="0.15"/>
-  <circle cx="40" cy="40" r="12" class="s-fill" opacity="0.08"/>
-  <circle cx="40" cy="40" r="12" class="s-stroke-d" stroke-width="2.5" fill="none"/>
+  <!-- Outer race -->
+  <circle cx="40" cy="40" r="28" class="s-fill" opacity="0.05"/>
+  <circle cx="40" cy="40" r="28" class="s-stroke" stroke-width="3" fill="none" opacity="0.3"/>
+  <!-- Outer raceway groove (where balls contact) -->
+  <circle cx="40" cy="40" r="23.5" class="s-stroke-l" stroke-width="3" fill="none" opacity="0.06"/>
+  <!-- Inner race -->
+  <circle cx="40" cy="40" r="12.5" class="s-fill" opacity="0.06"/>
+  <circle cx="40" cy="40" r="12.5" class="s-stroke-d" stroke-width="3" fill="none"/>
+  <!-- Inner raceway groove -->
+  <circle cx="40" cy="40" r="13.5" class="s-stroke-l" stroke-width="2" fill="none" opacity="0.06"/>
+  <!-- Inner race crosshairs (shaft rotation indicator) -->
   <g>
     <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/>
-    <line x1="40" y1="28" x2="40" y2="52" class="s-stroke-d" stroke-width="1" opacity="0.2"/>
-    <line x1="28" y1="40" x2="52" y2="40" class="s-stroke-d" stroke-width="1" opacity="0.2"/>
+    <line x1="40" y1="28" x2="40" y2="52" class="s-stroke-d" stroke-width="0.8" opacity="0.15"/>
+    <line x1="28" y1="40" x2="52" y2="40" class="s-stroke-d" stroke-width="0.8" opacity="0.15"/>
   </g>
-  <circle cx="40" cy="40" r="5" class="s-fill-d" opacity="0.3"/>
+  <!-- Shaft bore -->
+  <circle cx="40" cy="40" r="5" class="s-fill-d" opacity="0.25"/>
+  <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/>
+  <!-- Ball cage + balls (cage speed ≈ half shaft speed) -->
   <g>
-    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/>
-    <circle cx="40" cy="22" r="5" class="s-fill" opacity="0.3"/><circle cx="40" cy="22" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="53" cy="26" r="5" class="s-fill" opacity="0.3"/><circle cx="53" cy="26" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="58" cy="40" r="5" class="s-fill" opacity="0.3"/><circle cx="58" cy="40" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="53" cy="54" r="5" class="s-fill" opacity="0.3"/><circle cx="53" cy="54" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="40" cy="58" r="5" class="s-fill" opacity="0.3"/><circle cx="40" cy="58" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="27" cy="54" r="5" class="s-fill" opacity="0.3"/><circle cx="27" cy="54" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="22" cy="40" r="5" class="s-fill" opacity="0.3"/><circle cx="22" cy="40" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-    <circle cx="27" cy="26" r="5" class="s-fill" opacity="0.3"/><circle cx="27" cy="26" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/>
+    <!-- Cage retainer ring -->
+    <circle cx="40" cy="40" r="18" class="s-stroke-l" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/>
+    <!-- Ball 0° -->
+    <circle cx="58" cy="40" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="58" cy="40" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 45° -->
+    <circle cx="52.7" cy="27.3" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="52.7" cy="27.3" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 90° -->
+    <circle cx="40" cy="22" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="40" cy="22" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 135° -->
+    <circle cx="27.3" cy="27.3" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="27.3" cy="27.3" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 180° -->
+    <circle cx="22" cy="40" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="22" cy="40" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 225° -->
+    <circle cx="27.3" cy="52.7" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="27.3" cy="52.7" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 270° -->
+    <circle cx="40" cy="58" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="40" cy="58" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/>
+    <!-- Ball 315° -->
+    <circle cx="52.7" cy="52.7" r="5" class="s-fill" opacity="0.22"/>
+    <circle cx="52.7" cy="52.7" r="5" class="s-stroke-d" stroke-width="1.5" fill="none"/>
+    <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/>
   </g>
 </svg></div>
 <div class="card-label">Ball Bearing</div>

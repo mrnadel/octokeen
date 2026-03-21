@@ -18,6 +18,9 @@ interface CourseState {
   exitLesson: () => void;
   dismissResult: () => void;
 
+  // Debug
+  debugSetProgress: (lessonCount: number) => void;
+
   // Helpers
   isLessonUnlocked: (unitIndex: number, lessonIndex: number) => boolean;
   getCompletedCount: () => number;
@@ -209,6 +212,38 @@ export const useCourseStore = create<CourseState>()(
 
       dismissResult: () => {
         set({ lessonResult: null });
+      },
+
+      debugSetProgress: (lessonCount: number) => {
+        // Build completedLessons for the first N lessons in course order
+        const completedLessons: Record<string, { stars: number; bestAccuracy: number; attempts: number; lastAttempted: string }> = {};
+        let xp = 0;
+        let count = 0;
+        const today = getTodayString();
+
+        for (const unit of course) {
+          for (const lesson of unit.lessons) {
+            if (count >= lessonCount) break;
+            completedLessons[lesson.id] = {
+              stars: 3,
+              bestAccuracy: 95,
+              attempts: 1,
+              lastAttempted: today,
+            };
+            xp += lesson.xpReward * 3;
+            count++;
+          }
+          if (count >= lessonCount) break;
+        }
+
+        set({
+          progress: {
+            ...get().progress,
+            totalXp: xp,
+            completedLessons,
+            lastActiveDate: lessonCount > 0 ? today : '',
+          },
+        });
       },
 
       isLessonUnlocked: (unitIndex: number, lessonIndex: number) => {
