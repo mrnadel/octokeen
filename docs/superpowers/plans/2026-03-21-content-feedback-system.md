@@ -76,7 +76,7 @@ git commit -m "feat(feedback): add ContentFeedbackType, FeedbackReason, and User
 
 - [ ] **Step 1: Add `contentFeedback` and `contentFeedbackDismissals` tables**
 
-Append at the end of `src/lib/db/schema.ts` (after line 230):
+Append at the end of `src/lib/db/schema.ts` (after line 231, the closing `);` of `dailyUsage`):
 
 ```typescript
 // ─── Content Feedback ───────────────────────────────────────
@@ -299,6 +299,10 @@ export async function DELETE(req: NextRequest) {
   const body = await req.json();
   const { contentType, contentId } = body;
 
+  if (!contentType || !contentId) {
+    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+  }
+
   await db
     .delete(contentFeedback)
     .where(
@@ -337,11 +341,10 @@ git commit -m "feat(feedback): add user-facing content-feedback API (GET, POST, 
 
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
-import { sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
-import { allQuestions, getQuestionById } from '@/data/questions';
+import { getQuestionById } from '@/data/questions';
 import { course } from '@/data/course';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
 
@@ -487,13 +490,15 @@ export async function POST(req: NextRequest) {
 }
 ```
 
-- [ ] **Step 3: Add `ADMIN_USER_ID` to `.env.local`**
+- [ ] **Step 3: Add `ADMIN_USER_ID` to `.env.local` and `.env.example`**
 
 Add this line to `.env.local` (the value is your own user ID from the `users` table):
 
 ```
 ADMIN_USER_ID=your-user-id-here
 ```
+
+Also append `ADMIN_USER_ID=` to `.env.example` (if the file exists) so the variable is documented for future reference.
 
 - [ ] **Step 4: Verify compile**
 
