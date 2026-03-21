@@ -283,13 +283,12 @@ export default function LessonView() {
 
           {activeLesson.isGolden && (
             <div
-              className="flex-shrink-0 flex items-center"
+              className="flex-shrink-0 flex items-center golden-badge-shimmer"
               style={{
                 gap: 4,
                 padding: '4px 10px',
                 borderRadius: 10,
-                background: '#FFF8E1',
-                color: '#B8860B',
+                color: '#8B6914',
                 fontWeight: 800,
                 fontSize: 11,
                 letterSpacing: 0.3,
@@ -297,8 +296,15 @@ export default function LessonView() {
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="#FFB800" />
-                <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="#FFB800" />
+                <defs>
+                  <linearGradient id="badgeCrownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFD54F" />
+                    <stop offset="50%" stopColor="#FFA000" />
+                    <stop offset="100%" stopColor="#FF8F00" />
+                  </linearGradient>
+                </defs>
+                <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="url(#badgeCrownGrad)" />
+                <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="url(#badgeCrownGrad)" />
               </svg>
               Golden
             </div>

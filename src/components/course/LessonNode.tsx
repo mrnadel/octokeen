@@ -15,17 +15,18 @@ interface LessonRowProps {
   theme: UnitTheme;
 }
 
-function CompletedDots({ count, color }: { count: number; color: string }) {
+function CompletedDots({ count, color, isGolden }: { count: number; color: string; isGolden?: boolean }) {
   return (
     <div className="flex items-center" style={{ gap: 4 }}>
       {[1, 2, 3].map((i) => (
         <div
           key={i}
+          className={i <= count && isGolden ? 'golden-dot' : ''}
           style={{
             width: 9,
             height: 9,
             borderRadius: '50%',
-            backgroundColor: i <= count ? color : '#D4D4D4',
+            backgroundColor: i <= count ? (isGolden ? undefined : color) : '#D4D4D4',
           }}
         />
       ))}
@@ -34,16 +35,37 @@ function CompletedDots({ count, color }: { count: number; color: string }) {
 }
 
 const GOLD = '#FFB800';
-const GOLD_LIGHT = '#FFF8E1';
+const GOLD_DARK = '#C8960B';
 
 function GoldenStar({ filled }: { filled: boolean }) {
+  if (!filled) {
+    return (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
+          fill="none"
+          stroke={GOLD}
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="golden-star-pulse">
+      <defs>
+        <linearGradient id="goldStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFD54F" />
+          <stop offset="40%" stopColor="#FFC107" />
+          <stop offset="70%" stopColor="#FFB300" />
+          <stop offset="100%" stopColor="#FF8F00" />
+        </linearGradient>
+      </defs>
       <path
         d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-        fill={filled ? GOLD : 'none'}
-        stroke={GOLD}
-        strokeWidth="2"
+        fill="url(#goldStarGrad)"
+        stroke={GOLD_DARK}
+        strokeWidth="1.2"
         strokeLinejoin="round"
       />
     </svg>
@@ -61,11 +83,13 @@ export function LessonNode({
 }: LessonRowProps) {
   return (
     <motion.button
-      className="w-full flex items-center text-left"
+      className={`w-full flex items-center text-left ${state === 'completed' && golden ? 'golden-node' : ''}`}
       style={{
         padding: '12px 14px',
         background:
-          state === 'locked' ? 'transparent' : 'rgba(255,255,255,0.85)',
+          state === 'locked' ? 'transparent'
+          : (state === 'completed' && golden) ? undefined  /* handled by .golden-node */
+          : 'rgba(255,255,255,0.85)',
         borderRadius: 16,
         gap: 12,
         opacity: state === 'locked' ? 0.45 : 1,
@@ -73,10 +97,12 @@ export function LessonNode({
         boxShadow:
           state === 'locked'
             ? 'none'
+            : (state === 'completed' && golden) ? undefined /* handled by .golden-node */
             : `0 3px 0 ${theme.dark}22, 0 1px 3px rgba(0,0,0,0.06)`,
         border:
           state === 'locked'
             ? 'none'
+            : (state === 'completed' && golden) ? undefined /* handled by .golden-node */
             : '1.5px solid rgba(255,255,255,0.9)',
         position: 'relative',
         WebkitTapHighlightColor: 'transparent',
@@ -97,25 +123,32 @@ export function LessonNode({
     >
       {/* Icon */}
       <div
-        className="flex items-center justify-center flex-shrink-0"
+        className={`flex items-center justify-center flex-shrink-0 ${state === 'completed' && golden ? 'golden-icon-box' : ''}`}
         style={{
           width: 38,
           height: 38,
           borderRadius: 12,
           background:
             state === 'locked' ? '#F0F0F0'
-            : (state === 'completed' && golden) ? GOLD_LIGHT
+            : (state === 'completed' && golden) ? undefined /* handled by .golden-icon-box */
             : `${theme.color}20`,
           fontSize: 16,
         }}
       >
         {state === 'completed' && golden ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
-            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
-            <circle cx="7.5" cy="16" r="1" fill="#FFF8E1" />
-            <circle cx="12" cy="16" r="1" fill="#FFF8E1" />
-            <circle cx="16.5" cy="16" r="1" fill="#FFF8E1" />
+            <defs>
+              <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFD54F" />
+                <stop offset="50%" stopColor="#FFA000" />
+                <stop offset="100%" stopColor="#FF8F00" />
+              </linearGradient>
+            </defs>
+            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="url(#crownGrad)" />
+            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="url(#crownGrad)" />
+            <circle cx="7.5" cy="16" r="1.2" fill="#FFF8E1" />
+            <circle cx="12" cy="16" r="1.2" fill="#FFF8E1" />
+            <circle cx="16.5" cy="16" r="1.2" fill="#FFF8E1" />
           </svg>
         ) : state === 'completed' ? (
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -171,7 +204,7 @@ export function LessonNode({
       <div className="flex-shrink-0">
         {state === 'completed' && stars !== undefined && stars > 0 ? (
           <div className="flex items-center" style={{ gap: 8 }}>
-            <CompletedDots count={stars} color={golden ? GOLD : theme.color} />
+            <CompletedDots count={stars} color={golden ? GOLD : theme.color} isGolden={golden} />
             <GoldenStar filled={!!golden} />
           </div>
         ) : state === 'current' ? (

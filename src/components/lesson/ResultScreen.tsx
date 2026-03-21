@@ -69,7 +69,6 @@ export default function ResultScreen() {
   };
 
   // Golden overrides for theme colors
-  const headerBg = isGolden ? '#FFF8E1' : theme.bg;
   const accentColor = isGolden ? '#FFB800' : theme.color;
   const accentDark = isGolden ? '#B8860B' : theme.dark;
 
@@ -91,12 +90,53 @@ export default function ResultScreen() {
         <div className="w-full h-full max-w-3xl flex flex-col bg-white lg:shadow-lg lg:border-x lg:border-gray-200">
         {/* Colored header area */}
         <div
-          className="flex flex-col items-center"
+          className={`flex flex-col items-center ${isGolden ? 'golden-result-header' : ''}`}
           style={{
-            background: headerBg,
+            background: isGolden ? undefined : theme.bg,
             padding: '36px 24px 28px',
+            position: 'relative',
           }}
         >
+          {/* Golden sparkle particles */}
+          {isGolden && (
+            <>
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={`sparkle-${i}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0.6, 0],
+                    scale: [0, 1, 0.8, 0],
+                    y: [0, -15 - Math.random() * 30, -30 - Math.random() * 20, -50],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 1.5,
+                    delay: 0.3 + Math.random() * 0.8,
+                    repeat: Infinity,
+                    repeatDelay: 1 + Math.random() * 2,
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: `${20 + Math.random() * 50}%`,
+                    left: `${10 + Math.random() * 80}%`,
+                    width: 4 + Math.random() * 4,
+                    height: 4 + Math.random() * 4,
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }}
+                >
+                  <svg viewBox="0 0 10 10" width="100%" height="100%">
+                    <path
+                      d="M5 0L6 4L10 5L6 6L5 10L4 6L0 5L4 4Z"
+                      fill={i % 2 === 0 ? '#FFD54F' : '#FFA000'}
+                      opacity={0.8}
+                    />
+                  </svg>
+                </motion.div>
+              ))}
+            </>
+          )}
+
           {/* Icon */}
           <motion.div
             className="flex items-center justify-center"
@@ -104,16 +144,28 @@ export default function ResultScreen() {
               width: 72,
               height: 72,
               borderRadius: 24,
-              background: accentColor,
-              boxShadow: `0 6px 0 ${accentDark}`,
+              background: isGolden
+                ? 'linear-gradient(145deg, #FFC107 0%, #FFB300 40%, #FFA000 70%, #FF8F00 100%)'
+                : accentColor,
+              boxShadow: isGolden
+                ? '0 6px 0 #C8860B, 0 0 20px rgba(255, 184, 0, 0.35), inset 0 1px 2px rgba(255, 245, 200, 0.5)'
+                : `0 6px 0 ${accentDark}`,
               fontSize: 36,
               marginBottom: 16,
+              position: 'relative',
+              zIndex: 2,
             }}
             initial={{ scale: 0, rotate: -20 }}
-            animate={{ scale: 1, rotate: 0 }}
+            animate={isGolden ? { scale: 1, rotate: 0 } : { scale: 1, rotate: 0 }}
             transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.15 }}
           >
-            {isGolden ? '\uD83D\uDC51' : lessonResult.stars === 3 ? '\uD83D\uDC51' : '\uD83C\uDFC6'}
+            <motion.span
+              animate={isGolden ? { rotate: [0, -5, 5, -3, 3, 0] } : undefined}
+              transition={isGolden ? { duration: 1.2, delay: 0.6, ease: 'easeInOut' } : undefined}
+              style={{ display: 'inline-block' }}
+            >
+              {isGolden ? '\uD83D\uDC51' : lessonResult.stars === 3 ? '\uD83D\uDC51' : '\uD83C\uDFC6'}
+            </motion.span>
           </motion.div>
 
           {/* Heading */}
@@ -121,11 +173,14 @@ export default function ResultScreen() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className={isGolden ? 'golden-text' : ''}
             style={{
-              fontSize: 24,
+              fontSize: isGolden ? 28 : 24,
               fontWeight: 800,
-              color: accentDark,
+              color: isGolden ? undefined : accentDark,
               margin: '0 0 8px',
+              position: 'relative',
+              zIndex: 2,
             }}
           >
             {getMessage()}
@@ -134,26 +189,35 @@ export default function ResultScreen() {
           {/* Stars as dots (or golden star for golden completion) */}
           <motion.div
             className="flex items-center"
-            style={{ gap: 6 }}
+            style={{ gap: 6, position: 'relative', zIndex: 2 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             {isGolden ? (
               <motion.svg
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
+                className="golden-star-pulse"
+                initial={{ scale: 0, rotate: -30 }}
+                animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.55 }}
               >
+                <defs>
+                  <linearGradient id="resultStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFD54F" />
+                    <stop offset="40%" stopColor="#FFC107" />
+                    <stop offset="70%" stopColor="#FFB300" />
+                    <stop offset="100%" stopColor="#FF8F00" />
+                  </linearGradient>
+                </defs>
                 <path
                   d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-                  fill="#FFB800"
-                  stroke="#B8860B"
-                  strokeWidth="1.5"
+                  fill="url(#resultStarGrad)"
+                  stroke="#C8960B"
+                  strokeWidth="1"
                   strokeLinejoin="round"
                 />
               </motion.svg>
@@ -298,17 +362,21 @@ export default function ResultScreen() {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.9 }}
-                  className="flex items-center"
+                  className="flex items-center golden-achievement"
                   style={{
                     gap: 8,
                     padding: '10px 14px',
                     borderRadius: 14,
-                    background: '#FFF8E1',
-                    border: '1.5px solid #FFE4B8',
                   }}
                 >
-                  <span style={{ fontSize: 16 }}>{'\uD83D\uDC51'}</span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#B8860B' }}>
+                  <motion.span
+                    style={{ fontSize: 16, display: 'inline-block' }}
+                    animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
+                    transition={{ duration: 1, delay: 1.2, ease: 'easeInOut' }}
+                  >
+                    {'\uD83D\uDC51'}
+                  </motion.span>
+                  <span className="golden-text" style={{ fontSize: 13, fontWeight: 800 }}>
                     Golden mastery unlocked!
                   </span>
                 </motion.div>
@@ -374,7 +442,7 @@ export default function ResultScreen() {
         >
           <button
             onClick={dismissResult}
-            className="w-full transition-transform active:scale-[0.98]"
+            className={`w-full transition-transform active:scale-[0.98] ${isGolden ? 'golden-btn' : ''}`}
             style={{
               padding: '14px 0',
               borderRadius: 16,
@@ -382,11 +450,13 @@ export default function ResultScreen() {
               fontWeight: 800,
               textTransform: 'uppercase',
               letterSpacing: 0.8,
-              background: accentColor,
+              background: isGolden ? undefined : accentColor,
               color: '#FFFFFF',
-              boxShadow: `0 4px 0 ${accentDark}`,
+              boxShadow: isGolden ? undefined : `0 4px 0 ${accentDark}`,
               border: 'none',
               cursor: 'pointer',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
             Continue
