@@ -262,25 +262,58 @@
 <!-- ====== 2. Truss Bridge — Statics ====== -->
 <div class="card" data-name="Truss Bridge" data-cat="Statics">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
-  <rect x="4" y="64" width="72" height="5" rx="2.5" class="s-fill" opacity="0.08"/>
-  <rect x="8" y="55" width="64" height="4" rx="2" class="s-fill" opacity="0.5"/>
-  <rect x="8" y="33" width="64" height="4" rx="2" class="s-fill" opacity="0.5"/>
-  <rect x="7" y="33" width="3.5" height="26" rx="1.75" class="s-fill-l" opacity="0.5"/>
-  <rect x="22.25" y="33" width="3.5" height="26" rx="1.75" class="s-fill-l" opacity="0.5"/>
-  <rect x="38.25" y="33" width="3.5" height="26" rx="1.75" class="s-fill-l" opacity="0.5"/>
-  <rect x="54.25" y="33" width="3.5" height="26" rx="1.75" class="s-fill-l" opacity="0.5"/>
-  <rect x="69.5" y="33" width="3.5" height="26" rx="1.75" class="s-fill-l" opacity="0.5"/>
-  <line x1="9" y1="35" x2="24" y2="57" class="s-stroke-l" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-  <line x1="24" y1="35" x2="40" y2="57" class="s-stroke-l" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-  <line x1="40" y1="35" x2="56" y2="57" class="s-stroke-l" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-  <line x1="56" y1="35" x2="71" y2="57" class="s-stroke-l" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-  <circle cx="9" cy="62" r="4" class="s-fill-d" opacity="0.3"/>
-  <circle cx="71" cy="62" r="4" class="s-fill-d" opacity="0.3"/>
+  <!-- Ground line + hatching -->
+  <line x1="2" y1="66" x2="78" y2="66" class="s-stroke-d" stroke-width="1" opacity="0.15"/>
+  <line x1="5" y1="66" x2="2" y2="70" class="s-stroke-d" stroke-width="0.6" opacity="0.1"/>
+  <line x1="11" y1="66" x2="8" y2="70" class="s-stroke-d" stroke-width="0.6" opacity="0.1"/>
+  <line x1="69" y1="66" x2="66" y2="70" class="s-stroke-d" stroke-width="0.6" opacity="0.1"/>
+  <line x1="75" y1="66" x2="72" y2="70" class="s-stroke-d" stroke-width="0.6" opacity="0.1"/>
+  <!-- Pin support (left) -->
+  <polygon points="8,56 4,64 12,64" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <!-- Roller support (right) -->
+  <polygon points="72,56 68,62 76,62" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <circle cx="70" cy="64" r="1.5" class="s-fill-d" opacity="0.2"/>
+  <circle cx="74" cy="64" r="1.5" class="s-fill-d" opacity="0.2"/>
+  <line x1="68" y1="66" x2="76" y2="66" class="s-stroke-d" stroke-width="0.6" opacity="0.2"/>
+  <!-- Diagonals (Pratt — symmetric V-pattern, in tension) -->
+  <line x1="8" y1="54" x2="24" y2="32" class="s-stroke-l" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+  <line x1="24" y1="54" x2="40" y2="32" class="s-stroke-l" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+  <line x1="56" y1="54" x2="40" y2="32" class="s-stroke-l" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+  <line x1="72" y1="54" x2="56" y2="32" class="s-stroke-l" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+  <!-- Verticals (compression members) -->
+  <line x1="8" y1="32" x2="8" y2="54" class="s-stroke" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <line x1="24" y1="32" x2="24" y2="54" class="s-stroke" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <line x1="40" y1="32" x2="40" y2="54" class="s-stroke" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <line x1="56" y1="32" x2="56" y2="54" class="s-stroke" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <line x1="72" y1="32" x2="72" y2="54" class="s-stroke" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <!-- Top chord (compression) -->
+  <line x1="8" y1="32" x2="72" y2="32" class="s-stroke-d" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Bottom chord (tension, sags under load) -->
+  <path class="s-stroke-d" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <animate attributeName="d" values="M8,54 Q40,54 72,54;M8,54 Q40,56.5 72,54;M8,54 Q40,54 72,54" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+  </path>
+  <!-- Joint dots -->
+  <circle cx="8" cy="32" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="24" cy="32" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="40" cy="32" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="56" cy="32" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="72" cy="32" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="8" cy="54" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="24" cy="54" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="40" cy="54" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="56" cy="54" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <circle cx="72" cy="54" r="1.8" class="s-fill-d" opacity="0.3"/>
+  <!-- Moving load with force arrow -->
   <g>
     <animateTransform attributeName="transform" type="translate" values="0,0;64,0;0,0" dur="4s" repeatCount="indefinite"/>
-    <rect x="3" y="22" width="10" height="7" rx="3.5" class="s-fill-d" opacity="0.5"/>
-    <line x1="8" y1="29" x2="8" y2="33" class="s-stroke-d" stroke-width="2.5" stroke-linecap="round"/>
-    <circle cx="8" cy="33" r="2" class="s-fill-d" opacity="0.6"/>
+    <!-- Vehicle body -->
+    <rect x="3" y="22" width="10" height="5" rx="2" class="s-fill-d" opacity="0.4"/>
+    <!-- Wheels -->
+    <circle cx="5" cy="28" r="1.5" class="s-fill-d" opacity="0.3"/>
+    <circle cx="11" cy="28" r="1.5" class="s-fill-d" opacity="0.3"/>
+    <!-- Downward force arrow -->
+    <line x1="8" y1="28.5" x2="8" y2="31" class="s-stroke-d" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+    <polygon points="6.5,30 8,33 9.5,30" class="s-fill-d" opacity="0.45"/>
   </g>
 </svg></div>
 <div class="card-label">Truss Bridge</div>
