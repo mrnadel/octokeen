@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { course } from '@/data/course';
+import { shuffleArray } from '@/lib/utils';
 import type { CourseProgress, ActiveLesson, LessonResult } from '@/data/course/types';
 
 interface CourseState {
@@ -79,6 +80,13 @@ export const useCourseStore = create<CourseState>()(
       lessonResult: null,
 
       startLesson: (unitIndex: number, lessonIndex: number) => {
+        const unit = course[unitIndex];
+        const lesson = unit.lessons[lessonIndex];
+        const allIds = lesson.questions.map((q) => q.id);
+        const shuffled = shuffleArray(allIds);
+        const SESSION_SIZE = 10;
+        const sessionQuestionIds = shuffled.slice(0, Math.min(SESSION_SIZE, shuffled.length));
+
         set({
           activeLesson: {
             unitIndex,
@@ -86,6 +94,7 @@ export const useCourseStore = create<CourseState>()(
             currentQuestionIndex: 0,
             answers: [],
             startTime: Date.now(),
+            sessionQuestionIds,
           },
           lessonResult: null,
         });
@@ -111,11 +120,9 @@ export const useCourseStore = create<CourseState>()(
         set((state) => {
           if (!state.activeLesson) return state;
 
-          const unit = course[state.activeLesson.unitIndex];
-          const lesson = unit.lessons[state.activeLesson.lessonIndex];
           const nextIndex = state.activeLesson.currentQuestionIndex + 1;
 
-          if (nextIndex >= lesson.questions.length) {
+          if (nextIndex >= state.activeLesson.sessionQuestionIds.length) {
             return state; // No more questions; use completeLesson instead
           }
 
@@ -132,11 +139,11 @@ export const useCourseStore = create<CourseState>()(
         const state = get();
         if (!state.activeLesson) return;
 
-        const { unitIndex, lessonIndex, answers } = state.activeLesson;
+        const { unitIndex, lessonIndex, answers, sessionQuestionIds } = state.activeLesson;
         const unit = course[unitIndex];
         const lesson = unit.lessons[lessonIndex];
 
-        const totalQuestions = lesson.questions.length;
+        const totalQuestions = sessionQuestionIds.length;
         const correctAnswers = answers.filter((a) => a.correct).length;
         const accuracy = totalQuestions > 0
           ? Math.round((correctAnswers / totalQuestions) * 100)

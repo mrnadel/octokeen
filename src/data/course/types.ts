@@ -53,6 +53,7 @@ export interface ActiveLesson {
   currentQuestionIndex: number;
   answers: { questionId: string; correct: boolean }[];
   startTime: number;
+  sessionQuestionIds: string[];
 }
 
 export interface LessonResult {

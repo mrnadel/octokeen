@@ -41,10 +41,18 @@ export default function LessonView() {
     return getUnitTheme(activeLesson.unitIndex);
   }, [activeLesson]);
 
-  const currentQuestion = useMemo(() => {
-    if (!activeLesson || !lessonData) return null;
-    return lessonData.lesson.questions[activeLesson.currentQuestionIndex] ?? null;
+  const sessionQuestions = useMemo(() => {
+    if (!activeLesson || !lessonData) return [];
+    const questionMap = new Map(lessonData.lesson.questions.map((q) => [q.id, q]));
+    return activeLesson.sessionQuestionIds
+      .map((id) => questionMap.get(id))
+      .filter(Boolean) as typeof lessonData.lesson.questions;
   }, [activeLesson, lessonData]);
+
+  const currentQuestion = useMemo(() => {
+    if (!activeLesson) return null;
+    return sessionQuestions[activeLesson.currentQuestionIndex] ?? null;
+  }, [activeLesson, sessionQuestions]);
 
   const isCurrentAnswered = useMemo(() => {
     if (!activeLesson || !currentQuestion) return false;
@@ -52,12 +60,12 @@ export default function LessonView() {
   }, [activeLesson, currentQuestion]);
 
   const isLastQuestion = useMemo(() => {
-    if (!activeLesson || !lessonData) return false;
-    return activeLesson.currentQuestionIndex >= lessonData.lesson.questions.length - 1;
-  }, [activeLesson, lessonData]);
+    if (!activeLesson) return false;
+    return activeLesson.currentQuestionIndex >= sessionQuestions.length - 1;
+  }, [activeLesson, sessionQuestions]);
 
   const answeredCount = activeLesson?.answers.length ?? 0;
-  const totalQuestions = lessonData?.lesson.questions.length ?? 0;
+  const totalQuestions = sessionQuestions.length;
 
   const getCorrectAnswerDisplay = useCallback((): string => {
     if (!currentQuestion) return '';
