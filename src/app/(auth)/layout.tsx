@@ -2,31 +2,31 @@ import Link from 'next/link';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#F7F5F0] flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Back to landing */}
-        <div className="mb-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M11 4.5L6.5 9L11 13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Back
-          </Link>
-        </div>
+    <div className="min-h-screen bg-[#FAFAFA]">
+      <div className="max-w-[480px] mx-auto min-h-screen flex flex-col px-6 pt-4 pb-8">
+        {/* Back */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm font-bold text-surface-300 hover:text-surface-500 transition-colors w-fit"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12 5L7 10L12 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-lg mb-4">
-            <span className="text-4xl">&#x2699;&#xFE0F;</span>
+        <div className="flex flex-col items-center mt-8 mb-10">
+          <div
+            className="w-20 h-20 bg-white rounded-[20px] flex items-center justify-center mb-4"
+            style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}
+          >
+            <span className="text-4xl leading-none">&#x2699;&#xFE0F;</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">MechReady</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Master mechanical engineering interviews
-          </p>
+          <h1 className="text-xl font-black text-surface-900">MechReady</h1>
         </div>
-        {children}
+
+        {/* Page content */}
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   );

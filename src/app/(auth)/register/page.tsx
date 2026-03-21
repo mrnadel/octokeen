@@ -30,38 +30,38 @@ function GoogleIcon() {
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
-    { label: '8+ characters', met: password.length >= 8 },
-    { label: 'Uppercase letter', met: /[A-Z]/.test(password) },
+    { label: '8+ chars', met: password.length >= 8 },
+    { label: 'Uppercase', met: /[A-Z]/.test(password) },
     { label: 'Number', met: /\d/.test(password) },
   ];
 
   if (!password) return null;
 
   const score = checks.filter((c) => c.met).length;
-  const color =
-    score === 3
-      ? 'bg-[#58CC02]'
-      : score === 2
-        ? 'bg-yellow-400'
-        : 'bg-red-400';
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 pt-1">
       <div className="flex gap-1">
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className={`h-1.5 flex-1 rounded-full transition-colors ${
-              i <= score ? color : 'bg-gray-200'
+            className={`h-1 flex-1 rounded-full transition-colors ${
+              i <= score
+                ? score === 3
+                  ? 'bg-[#58CC02]'
+                  : score === 2
+                    ? 'bg-amber-400'
+                    : 'bg-red-400'
+                : 'bg-surface-200'
             }`}
           />
         ))}
       </div>
-      <div className="flex flex-wrap gap-x-3 gap-y-1">
+      <div className="flex gap-3">
         {checks.map((check) => (
           <span
             key={check.label}
-            className={`text-xs ${check.met ? 'text-[#58CC02]' : 'text-gray-400'}`}
+            className={`text-xs font-bold ${check.met ? 'text-[#58CC02]' : 'text-surface-300'}`}
           >
             {check.met ? '\u2713' : '\u2022'} {check.label}
           </span>
@@ -100,7 +100,6 @@ export default function RegisterPage() {
         return;
       }
 
-      // Auto-login after registration
       const result = await signIn('credentials', {
         email,
         password,
@@ -126,68 +125,63 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
-        Join MechReady! &#x1F393;
-      </h2>
-      <p className="text-center text-gray-500 mb-6">
-        Your engineering journey starts here &#x1F6E0;&#xFE0F;
-      </p>
+    <>
+      <h2 className="text-2xl font-black text-surface-900 mb-8">Create account</h2>
 
-      {/* Google Sign Up */}
+      {/* Google */}
       <button
         onClick={handleGoogleSignIn}
         disabled={googleLoading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 disabled:opacity-60 transition-colors"
+        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-surface-200 rounded-2xl text-surface-700 font-bold hover:border-surface-300 disabled:opacity-60 transition-colors"
       >
         <GoogleIcon />
-        {googleLoading ? 'Redirecting...' : 'Sign up with Google'}
+        {googleLoading ? 'Redirecting...' : 'Continue with Google'}
       </button>
 
       {/* Divider */}
       <div className="flex items-center gap-4 my-6">
-        <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-sm text-gray-400">or sign up with email</span>
-        <div className="flex-1 h-px bg-gray-200" />
+        <div className="flex-1 h-px bg-surface-200" />
+        <span className="text-xs font-bold text-surface-300 uppercase tracking-wider">or</span>
+        <div className="flex-1 h-px bg-surface-200" />
       </div>
 
-      {/* Registration Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-3">
         {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center">
+          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
             {error}
           </div>
         )}
 
         <input
           type="text"
-          placeholder="Display name"
+          placeholder="Name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
           minLength={2}
           maxLength={50}
-          className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+          className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+          className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
-        <div className="space-y-2">
+        <div>
           <input
             type="password"
-            placeholder="Password (8+ characters)"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+            className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
           />
           <PasswordStrength password={password} />
         </div>
@@ -195,21 +189,21 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading || password.length < 8}
-          className="w-full py-3.5 bg-[#58CC02] hover:bg-[#4CAD02] disabled:bg-gray-300 text-white font-bold rounded-xl transition-colors text-lg shadow-[0_4px_0_#46a302] hover:shadow-[0_2px_0_#46a302] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px]"
+          className="w-full py-3.5 bg-[#58CC02] hover:bg-[#4CAD02] disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
+          style={{
+            boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #46A302',
+          }}
         >
-          {loading ? 'Creating account...' : 'Create Account'}
+          {loading ? 'Creating account...' : 'CREATE ACCOUNT'}
         </button>
       </form>
 
-      <p className="text-center text-gray-500 text-sm mt-6">
+      <p className="text-center text-surface-400 text-sm font-semibold mt-8">
         Already have an account?{' '}
-        <Link
-          href="/login"
-          className="text-[#1CB0F6] font-semibold hover:underline"
-        >
+        <Link href="/login" className="text-[#1CB0F6] font-bold">
           Sign in
         </Link>
       </p>
-    </div>
+    </>
   );
 }

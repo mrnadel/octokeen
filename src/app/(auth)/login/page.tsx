@@ -62,46 +62,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
-        Welcome back! &#x1F44B;
-      </h2>
-      <p className="text-center text-gray-500 mb-6">
-        Let&apos;s crush some interviews! &#x1F680;
-      </p>
+    <>
+      <h2 className="text-2xl font-black text-surface-900 mb-8">Sign in</h2>
 
-      {/* Google Sign In */}
+      {/* Google */}
       <button
         onClick={handleGoogleSignIn}
         disabled={googleLoading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 disabled:opacity-60 transition-colors"
+        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-surface-200 rounded-2xl text-surface-700 font-bold hover:border-surface-300 disabled:opacity-60 transition-colors"
       >
         <GoogleIcon />
-        {googleLoading ? 'Redirecting...' : 'Sign in with Google'}
+        {googleLoading ? 'Redirecting...' : 'Continue with Google'}
       </button>
 
       {/* Divider */}
       <div className="flex items-center gap-4 my-6">
-        <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-sm text-gray-400">or continue with email</span>
-        <div className="flex-1 h-px bg-gray-200" />
+        <div className="flex-1 h-px bg-surface-200" />
+        <span className="text-xs font-bold text-surface-300 uppercase tracking-wider">or</span>
+        <div className="flex-1 h-px bg-surface-200" />
       </div>
 
-      {/* Email/Password Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-3">
         {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center">
+          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
             {error}
           </div>
         )}
 
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+          className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
         <input
@@ -110,27 +105,27 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+          className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3.5 bg-[#58CC02] hover:bg-[#4CAD02] disabled:bg-gray-300 text-white font-bold rounded-xl transition-colors text-lg shadow-[0_4px_0_#46a302] hover:shadow-[0_2px_0_#46a302] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px]"
+          className="w-full py-3.5 bg-[#58CC02] hover:bg-[#4CAD02] disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
+          style={{
+            boxShadow: loading ? 'none' : '0 5px 0 #46A302',
+          }}
         >
-          {loading ? 'Signing in...' : 'Sign In'}
+          {loading ? 'Signing in...' : 'LOG IN'}
         </button>
       </form>
 
-      <p className="text-center text-gray-500 text-sm mt-6">
+      <p className="text-center text-surface-400 text-sm font-semibold mt-8">
         Don&apos;t have an account?{' '}
-        <Link
-          href="/register"
-          className="text-[#1CB0F6] font-semibold hover:underline"
-        >
+        <Link href="/register" className="text-[#1CB0F6] font-bold">
           Sign up
         </Link>
       </p>
-    </div>
+    </>
   );
 }
