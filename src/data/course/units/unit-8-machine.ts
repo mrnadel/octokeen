@@ -591,10 +591,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A bearing application requires 99% reliability instead of the standard 90%. How does this affect the bearing life compared to L10?',
           options: [
-            'L1 = 0.21 × L10 (about one-fifth of the standard life rating)',
+            'L1 = 0.21 × L10 (one-fifth of standard life)',
             'L1 = 0.5 × L10 (half the standard life rating)',
-            'L1 = 0.9 × L10 (only slightly less than standard)',
-            'L1 = 0.99 × L10 (essentially the same as standard)'
+            'L1 = 0.9 × L10 (slightly less than standard)',
+            'L1 = 0.99 × L10 (essentially same as standard)'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" class="s-stroke s-fill" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
@@ -734,8 +734,8 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What is the key design limitation of thrust ball bearings?',
           options: [
-            'They cannot handle any radial load — they are purely axial load bearings',
-            'They have a speed limitation due to centrifugal forces on the balls — at high',
+            'Cannot handle any radial load — purely axial bearings',
+            'Speed limited by centrifugal forces on balls at high RPM',
             'They can only be used in vertical shaft orientations',
             'They require oil lubrication and cannot use grease'
           ],
@@ -1392,8 +1392,8 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'For a bolt with unthreaded shank length L_s, threaded length in the grip L_t, tensile stress area A_t, and nominal area A_d,?',
           options: [
-            'k_b = E\xD7A_d / (L_s + L_t) using full shank area',
-            'k_b = 1 / (L_s/(E*A_d) + L_t/(E*A_t)) — the bolt acts as two springs',
+            'k_b = E\xD7A_d / (L_s + L_t) using shank area only',
+            'k_b = 1/(L_s/(EA_d) + L_t/(EA_t)), two springs',
             'k_b = E\xD7(A_d + A_t) / (L_s + L_t) average area',
             'k_b = E\xD7A_t / L_t, only threaded portion matters'
           ],
@@ -1434,8 +1434,8 @@ export const unit8: Unit = {
           options: [
             'Seating condition always requires more bolt load',
             'Operating condition always requires more bolt load',
-            'It depends on the gasket type and internal pressure — soft gaskets (low m, low',
-            'Both conditions always require exactly the same bolt load'
+            'Depends on gasket type and pressure — soft vs metallic',
+            'Both conditions require exactly the same bolt load'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
@@ -1512,7 +1512,7 @@ export const unit8: Unit = {
           question: 'In a welded structure, what is the most common location for fatigue crack initiation?',
           options: [
             'At center of weld bead, where metal is hottest',
-            'At the weld toe — the geometric transition between the weld face and the base',
+            'At the weld toe — transition between weld and base',
             'In base metal far from weld, highest residual stress',
             'At the midpoint of the weld length precisely'
           ],
@@ -1779,10 +1779,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'The spring buckles during operation. What is the likely cause and solution?',
           options: [
-            'The spring material is too soft — use a higher-grade spring wire',
-            'The free length to mean diameter ratio (L_f/D = 6) is too high — springs',
-            'The wire diameter is too large — use thinner wire',
-            'The number of coils is too few — add more coils to stiffen the spring'
+            'Material is too soft — use a higher-grade wire',
+            'L_f/D = 6 is too high — spring will buckle under load',
+            'Wire diameter is too large — use thinner wire',
+            'Too few coils — add more coils to stiffen spring'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
@@ -1818,9 +1818,9 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What is the primary stress distribution in each leaf?',
           options: [
-            'Pure torsion — the leaves twist under load',
-            'Pure tension — the leaves are stretched by the vehicle weight',
-            'Bending stress — each leaf acts as a beam, with the stress varying linearly',
+            'Pure torsion — the leaves twist under the load',
+            'Pure tension — leaves stretched by vehicle weight',
+            'Bending stress — each leaf acts as a loaded beam',
             'Uniform compressive stress through leaf thickness'
           ],
           correctIndex: 2,
@@ -1883,7 +1883,7 @@ export const unit8: Unit = {
           question: 'An extension spring has hooks at both ends. Where is the most likely failure location, and why?',
           options: [
             'At center of spring body, where stress is highest',
-            'At the hooks (end loops) — the bend radius at the hook transition creates',
+            'At hooks — bend radius at hook transition is critical',
             'At the point where spring contacts its anchor point',
             'Extension springs fail randomly along their length'
           ],
@@ -1937,7 +1937,7 @@ export const unit8: Unit = {
           question: 'A mechanical face seal is leaking excessively. What is the most likely cause?',
           options: [
             'The seal was installed upside down incorrectly',
-            'Particulate contamination in the process fluid — hard particles entered',
+            'Particulate contamination — hard particles entered',
             'The seal spring force is set too high for use',
             'Shaft speed is too low for hydrodynamic lift'
           ],
@@ -1951,10 +1951,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between backup rings and anti-extrusion rings in O-ring seal design?',
           options: [
-            'They are different names for the same component — a hard ring installed on',
+            'Different names for the same hard ring component',
             'Backup rings prevent the O-ring from moving out',
             'Backup rings are used with static seals only',
-            'They serve completely different functions — backup rings center the O-ring'
+            'Different functions — backup rings center the O-ring'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Crankshaft pulley (bottom, larger) --> <circle cx="24" cy="54" r="12" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="24" cy="54" r="2" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/> <!-- Camshaft pulley (top, smaller) --> <circle cx="56" cy="26" r="8" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="56" cy="26" r="1.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.1"/> <!-- Belt path --> <line x1="24" y1="42" x2="56" y2="18" stroke-width="1" stroke="#58CC02"/> <line x1="24" y1="66" x2="56" y2="34" stroke-width="1" stroke="#58CC02"/> <!-- Tooth pattern (top run) --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.3"> <line x1="30" y1="39.5" x2="30" y2="37.5" transform="rotate(-30,40,40)"/> <line x1="34" y1="37" x2="34" y2="35" transform="rotate(-30,40,40)"/> <line x1="38" y1="34.5" x2="38" y2="32.5" transform="rotate(-30,40,40)"/> <line x1="42" y1="32" x2="42" y2="30" transform="rotate(-30,40,40)"/> <line x1="46" y1="29.5" x2="46" y2="27.5" transform="rotate(-30,40,40)"/> </g> <!-- Rotation indicators --> <g> <circle cx="24" cy="43" r="0.8" fill="#58CC02" opacity="0.4"/> <animateTransform attributeName="transform" type="rotate" values="0,24,54;360,24,54" dur="4s" repeatCount="indefinite"/> </g> <g> <circle cx="56" cy="19" r="0.8" fill="#58CC02" opacity="0.4"/> <animateTransform attributeName="transform" type="rotate" values="0,56,26;360,56,26" dur="2.7s" repeatCount="indefinite"/> </g> <!-- Tensioner --> <circle cx="18" cy="36" r="4" stroke-width="0.5" stroke="#3B8700" opacity="0.4" fill="none"/> <text x="8" y="34" font-size="2.5" fill="#3B8700" opacity="0.35">tens.</text> <!-- Labels --> <text x="24" y="72" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">crank 2:1</text> <text x="56" y="14" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">cam 1:1</text> <!-- Moving belt marker --> <circle r="1.2" fill="#A5E86C" opacity="0.6"> <animateMotion dur="3s" repeatCount="indefinite" path="M24,42 L56,18 A8,8 0 1,1 56,34 L24,66 A12,12 0 1,1 24,42"/> </circle> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">synchronous drive</text> </svg>',

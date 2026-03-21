@@ -2572,7 +2572,7 @@ export const unit3: Unit = {
           type: 'multiple-choice',
           question: "A spherical pressure vessel and a cylindrical pressure vessel have the same diameter and wall thickness under the same pressure. How do their stress states compare?",
           options: [
-            "Sphere: sigma = pD/(4t) biaxial; cylinder: sigma_h = pD/(2t) \u2014 sphere is more efficient",
+            "Sphere: pD/(4t) biaxial; cylinder: pD/(2t) — sphere is more efficient",
             "Both have the same stress magnitude in all principal directions",
             "The cylinder is more efficient because it has lower average stress level",
             "The sphere has higher stress because pressure acts on a larger surface",

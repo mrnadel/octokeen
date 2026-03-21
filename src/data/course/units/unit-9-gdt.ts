@@ -49,9 +49,9 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A drawing specifies ∅50 +0.000/−0.050 mm for a bore and ∅50 +0.025/+0.050 mm for the mating shaft. What type of fit is this?',
           options: [
-            'Clearance fit with no concerns — the shaft is always smaller than the hole',
-            'Interference fit — the shaft maximum (50.050) always exceeds the hole maximum',
-            'Transition fit — sometimes clearance',
+            'Clearance fit — shaft is always smaller than the hole',
+            'Interference fit — shaft max always exceeds hole min',
+            'Transition fit — sometimes clearance, sometimes not',
             'Tolerances are invalid, shaft cannot exceed nominal'
           ],
           correctIndex: 1,
@@ -353,7 +353,7 @@ export const unit9: Unit = {
           question: 'A drawing callout shows ∅20 ±0.05 with a note "INTERPRET PER ASME Y14.5-2018." Under Rule #1, what does this imply about the?',
           options: [
             'Any form is acceptable if two-point measurement is OK',
-            'At MMC (∅20.05 for a shaft), the feature must have perfect form — meaning it',
+            'At MMC the feature must have perfect form per Rule #1',
             'Form control requires separate GD&T callout always',
             'Rule #1 only applies to angles, not to diameters'
           ],
@@ -578,10 +578,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A perpendicularity tolerance of 0.05 is applied to a flat surface relative to datum A. What is the shape of the tolerance zone?',
           options: [
-            'A cylinder of ∅0.05 around the surface normal',
-            'Two parallel planes 0.05 apart that are exactly perpendicular to datum A —',
+            'A cylinder of ∅0.05 around the surface normal axis',
+            'Two planes 0.05 apart, perpendicular to datum A',
             'A single plane exactly 0.05 away from datum A',
-            'A square zone 0.05 × 0.05'
+            'A square zone of 0.05 × 0.05 around the feature'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
@@ -593,10 +593,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the "virtual condition" of an external feature (shaft) specified at ∅20.0 ± 0.1 with a perpendicularity tolerance of ∅0.05 at MMC?',
           options: [
-            '∅20.00 — just the nominal size',
-            '∅20.15 — MMC size (20.1) plus the geometric tolerance (0.05), representing',
-            '∅20.10 — just the MMC size — an incomplete explanation that overlooks',
-            '∅20.05 — nominal plus geometric tolerance'
+            '∅20.00 — just the nominal size of the feature',
+            '∅20.15 — MMC size (20.1) plus geometric tol (0.05)',
+            '∅20.10 — just the MMC size, incomplete explanation',
+            '∅20.05 — nominal size plus geometric tolerance'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer ring (hub) --> <rect x="22" y="20" width="36" height="40" rx="3" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/> <!-- Inner shaft --> <rect x="30" y="16" width="20" height="48" rx="2" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.1"> <animate attributeName="y" values="10;20;10" dur="3s" repeatCount="indefinite"/> <animate attributeName="height" values="48;48;48" dur="3s" repeatCount="indefinite"/> </rect> <!-- Contact pressure arrows (radial, inward on shaft) --> <g opacity="0.35"> <line x1="24" y1="40" x2="29" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="29,38.8 29,41.2 31,40" fill="#3B8700"/> <line x1="56" y1="40" x2="51" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="51,38.8 51,41.2 49,40" fill="#3B8700"/> </g> <!-- Dimension lines --> <line x1="30" y1="68" x2="30" y2="72" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <line x1="50" y1="68" x2="50" y2="72" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <line x1="30" y1="71" x2="50" y2="71" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="40" y="75" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">d_shaft > d_hole</text> <!-- Press-in force arrow --> <g opacity="0.5"> <line x1="40" y1="4" x2="40" y2="12" stroke-width="0.7" stroke="#58CC02"/> <polygon points="38.5,12 41.5,12 40,15" fill="#58CC02"/> <text x="45" y="8" font-size="3" fill="#58CC02">F</text> </g> <!-- Stress halo --> <rect x="28" y="22" width="24" height="36" rx="2" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/> </rect> <!-- Labels --> <text x="14" y="42" font-size="3" fill="#3B8700" opacity="0.4">hub</text> <text x="40" y="42" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">shaft</text> </svg>',
@@ -672,8 +672,8 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A designer applies a parallelism tolerance of 0.02 to a surface. Must the surface also be flat within 0.02?',
           options: [
-            'No — parallelism and flatness are independent',
-            'Yes — orientation tolerances (parallelism, perpendicularity, angularity)',
+            'No — parallelism and flatness are independent controls',
+            'Yes — orientation tolerances inherently control form',
             'Only if a separate flatness callout is also applied',
             'Parallelism does not apply to surfaces, only axes'
           ],
@@ -696,10 +696,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the fixed fastener formula for calculating the required positional tolerance for a clearance hole pattern?',
           options: [
-            'T = hole size × bolt size',
-            'T = (MMC hole size − MMC fastener size) / 2, applied equally to each part,',
+            'T = hole size × bolt size product formula',
+            'T = (MMC hole − MMC fastener) / 2 per part',
             'T = hole size + bolt size summed together',
-            'T = MMC hole size − LMC bolt size'
+            'T = MMC hole size minus LMC bolt size value'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
@@ -712,7 +712,7 @@ export const unit9: Unit = {
           question: 'What does the lower segment control?',
           options: [
             'Same as upper segment but with a tighter tolerance',
-            'The lower segment (FRTZF — Feature Relating Tolerance Zone Framework) controls',
+            'FRTZF controls pattern location relative to datums',
             'Lower segment applies only to the smallest hole',
             'The lower segment overrides upper segment entirely'
           ],
@@ -774,9 +774,9 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'You need to control the wobble of a turned flange face relative to the shaft axis. Which geometric tolerance is most appropriate?',
           options: [
-            'Flatness — to ensure the face is flat',
-            'Circular runout — to control the face wobble (axial FIM) as the part rotates',
-            'Parallelism — to ensure the face is parallel to a reference, excluding',
+            'Flatness — to ensure the face surface is flat',
+            'Circular runout — controls face wobble as part rotates',
+            'Parallelism — face parallel to a reference surface',
             'Straightness — to control line elements on the face'
           ],
           correctIndex: 1,
@@ -975,10 +975,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'When a cylindrical feature is used as the primary datum, how many degrees of freedom does it constrain?',
           options: [
-            '2 DOF — two translations perpendicular to the axis',
-            '3 DOF — two translations perpendicular to the axis plus one rotation about',
-            '4 DOF — two translations perpendicular to the axis plus two rotations about',
-            '5 DOF — all except axial translation'
+            '2 DOF — two translations perpendicular to axis',
+            '3 DOF — two translations plus one rotation about it',
+            '4 DOF — two translations plus two rotations about it',
+            '5 DOF — all except the axial translation only'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer ring (hub) --> <rect x="22" y="20" width="36" height="40" rx="3" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.04"/> <!-- Inner shaft --> <rect x="30" y="16" width="20" height="48" rx="2" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.1"> <animate attributeName="y" values="10;20;10" dur="3s" repeatCount="indefinite"/> <animate attributeName="height" values="48;48;48" dur="3s" repeatCount="indefinite"/> </rect> <!-- Contact pressure arrows (radial, inward on shaft) --> <g opacity="0.35"> <line x1="24" y1="40" x2="29" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="29,38.8 29,41.2 31,40" fill="#3B8700"/> <line x1="56" y1="40" x2="51" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="51,38.8 51,41.2 49,40" fill="#3B8700"/> </g> <!-- Dimension lines --> <line x1="30" y1="68" x2="30" y2="72" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <line x1="50" y1="68" x2="50" y2="72" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <line x1="30" y1="71" x2="50" y2="71" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="40" y="75" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">d_shaft > d_hole</text> <!-- Press-in force arrow --> <g opacity="0.5"> <line x1="40" y1="4" x2="40" y2="12" stroke-width="0.7" stroke="#58CC02"/> <polygon points="38.5,12 41.5,12 40,15" fill="#58CC02"/> <text x="45" y="8" font-size="3" fill="#58CC02">F</text> </g> <!-- Stress halo --> <rect x="28" y="22" width="24" height="36" rx="2" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/> </rect> <!-- Labels --> <text x="14" y="42" font-size="3" fill="#3B8700" opacity="0.4">hub</text> <text x="40" y="42" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">shaft</text> </svg>',
@@ -1127,7 +1127,7 @@ export const unit9: Unit = {
           question: 'A part has a conical (tapered) feature designated as a datum. How does a cone establish a datum?',
           options: [
             'A cone cannot be used as a datum feature at all',
-            'A cone establishes a datum axis and a datum point simultaneously — the axis',
+            'Cone establishes both a datum axis and datum point',
             'A cone only establishes a datum plane at its base',
             'Cone establishes two perpendicular datum planes'
           ],
@@ -1654,8 +1654,8 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A colleague argues this result may not be reliable. Are they right, and why?',
           options: [
-            'They are wrong — 9 points is sufficient for any flatness measurement, provided',
-            'They are right — 9 points on a large surface may miss local deviations between',
+            'Wrong — 9 points is sufficient for flatness measurement',
+            'Right — 9 points on large surface may miss deviations',
             'Point count does not matter for this measurement',
             'They are right, but only for very small surfaces'
           ],
@@ -1971,7 +1971,7 @@ export const unit9: Unit = {
           question: 'A surface finish symbol on a drawing has a circle in the V-notch. What does this indicate?',
           options: [
             'The surface must be machined to specification',
-            'The surface must not be machined — it must remain in the as-manufactured state',
+            'Surface must remain as-manufactured state (unmachined)',
             'The surface requires electrical discharge machining',
             'Roughness applies only to first article, not production'
           ],

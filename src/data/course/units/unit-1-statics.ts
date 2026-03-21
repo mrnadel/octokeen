@@ -867,7 +867,7 @@ export const unit1: Unit = {
           type: 'multiple-choice',
           question: 'How do you efficiently find one member force deep inside a large truss?',
           options: [
-            'Method of sections: cut through target member (\u22643 cuts), use 3 equations',
+            'Sections: cut through target member, use 3 equilibrium equations',
             'Use FEA software — large trusses cannot be solved by hand',
             'Start method of joints from the nearest support and work inward',
             'Remove zero-force members first to simplify the truss',
@@ -1480,7 +1480,7 @@ export const unit1: Unit = {
           type: 'multiple-choice',
           question: 'Two blocks A (top) and B (bottom) are stacked on a horizontal surface. A horizontal force P is applied to block B. The friction coefficient between A and B is μ₁, and between B and the floor is μ₂. What is the maximum P for which both blocks move together?',
           options: [
-            'P = (\u03bc\u2081m_A + \u03bc\u2082(m_A+m_B))g — limited by top block sliding off',
+            'P = (\u03bc\u2081m_A + \u03bc\u2082(m_A+m_B))g — top-block slip limit',
             'P = \u03bc\u2082(m_A+m_B)g — only bottom friction matters',
             'P = \u03bc\u2081m_Ag — only interface friction matters',
             'P = (\u03bc\u2081+\u03bc\u2082)(m_A+m_B)g — coefficients add directly',
@@ -1614,7 +1614,7 @@ export const unit1: Unit = {
           type: 'multiple-choice',
           question: ' the moment of inertia of a composite T-section by simply adding the centroidal moments of inertia of the flange and web without using the parallel axis theorem. What error will this introduce?',
           options: [
-            'Significantly underestimates I — the Ad\u00b2 transfer terms (often dominant) are missing',
+            'Underestimates I — the Ad\u00b2 transfer terms are missing',
             'Slightly too high but close enough for preliminary design',
             'Correct for symmetric sections, wrong for asymmetric ones',
             'No error — parallel axis theorem is only for non-centroidal axes',
@@ -1636,7 +1636,7 @@ export const unit1: Unit = {
           type: 'multiple-choice',
           question: 'Which cross-section gives the best I-to-area ratio for minimum beam weight?',
           options: [
-            'I-beam — flanges far from neutral axis maximize I via Ad\u00b2 contribution',
+            'I-beam — flanges far from NA maximize I via Ad\u00b2',
             'Solid circle — distributes bending stress most evenly',
             'Solid square — provides equal stiffness in all directions',
             'Thin-walled tube — theoretical maximum I per area',
