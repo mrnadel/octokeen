@@ -199,7 +199,11 @@ export default function LessonView() {
 
       if (!isCurrentAnswered) {
         const key = e.key.toLowerCase();
-        if (['1', '2', '3', '4'].includes(key)) {
+        if (key === '1' && questionRef.current?.questionType === 'true-false') {
+          questionRef.current?.selectBool(true);
+        } else if (key === '2' && questionRef.current?.questionType === 'true-false') {
+          questionRef.current?.selectBool(false);
+        } else if (['1', '2', '3', '4'].includes(key)) {
           questionRef.current?.selectOption(parseInt(key) - 1);
         } else if (['a', 'b', 'c', 'd'].includes(key)) {
           questionRef.current?.selectOption(key.charCodeAt(0) - 97);
@@ -347,7 +351,7 @@ export default function LessonView() {
                   }}
                 >
                   {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
-                  {currentQuestion?.type === 'true-false' && 'T/F select \u00b7 '}
+                  {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
                   {currentQuestion?.type === 'fill-blank' && 'Type answer \u00b7 '}
                   Enter check \u00b7 Esc exit
                 </motion.div>
