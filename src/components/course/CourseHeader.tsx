@@ -282,8 +282,117 @@ export function CourseHeader() {
               />
 
               {/* Content */}
-              <div style={{ padding: 20, position: 'relative' }}>
-                {popover === 'streak' ? (
+              <div style={{ padding: popover === 'menu' ? 8 : 20, position: 'relative' }}>
+                {popover === 'menu' ? (
+                  <div>
+                    {/* User card */}
+                    <div
+                      className="flex items-center"
+                      style={{ gap: 12, padding: '12px 12px 14px', borderBottom: '1.5px solid #F0F0F0' }}
+                    >
+                      {userImage ? (
+                        <img
+                          src={userImage}
+                          alt={userName}
+                          style={{ width: 40, height: 40, borderRadius: '50%', border: '2px solid #E5E5E5' }}
+                        />
+                      ) : (
+                        <div
+                          className="flex items-center justify-center"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, #89E219 0%, #58CC02 100%)',
+                            color: 'white',
+                            fontSize: 16,
+                            fontWeight: 800,
+                            flexShrink: 0,
+                          }}
+                        >
+                          {initial}
+                        </div>
+                      )}
+                      <div style={{ minWidth: 0 }}>
+                        <p style={{ fontSize: 14, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {userName}
+                        </p>
+                        {session?.user?.email && (
+                          <p style={{ fontSize: 11, fontWeight: 600, color: '#AFAFAF', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {session.user.email}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Menu items */}
+                    <div style={{ padding: '4px 0' }}>
+                      <Link
+                        href="/profile"
+                        onClick={closePopover}
+                        className="flex items-center transition-colors hover:bg-gray-50"
+                        style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
+                      >
+                        <div
+                          className="flex items-center justify-center"
+                          style={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 8,
+                            background: '#F0F0F0',
+                          }}
+                        >
+                          <User style={{ width: 16, height: 16, color: '#777' }} />
+                        </div>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: '#3C3C3C' }}>Profile</span>
+                      </Link>
+
+                      {tier === 'free' && (
+                        <Link
+                          href="/pricing"
+                          onClick={closePopover}
+                          className="flex items-center transition-colors hover:bg-amber-50"
+                          style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
+                        >
+                          <div
+                            className="flex items-center justify-center"
+                            style={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: 8,
+                              background: '#FFF4E0',
+                            }}
+                          >
+                            <Sparkles style={{ width: 16, height: 16, color: '#B56E00' }} />
+                          </div>
+                          <span style={{ fontSize: 14, fontWeight: 700, color: '#B56E00' }}>Upgrade to Pro</span>
+                        </Link>
+                      )}
+                    </div>
+
+                    {/* Divider + Logout */}
+                    <div style={{ borderTop: '1.5px solid #F0F0F0', padding: '4px 0' }}>
+                      <button
+                        onClick={() => signOut({ callbackUrl: '/login' })}
+                        className="flex items-center w-full transition-colors hover:bg-red-50"
+                        style={{ gap: 12, padding: '10px 12px', borderRadius: 10 }}
+                      >
+                        <div
+                          className="flex items-center justify-center"
+                          style={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 8,
+                            background: '#FEF2F2',
+                          }}
+                        >
+                          <LogOut style={{ width: 16, height: 16, color: '#EF4444' }} />
+                        </div>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: '#EF4444' }}>Log Out</span>
+                      </button>
+                    </div>
+                  </div>
+                ) : popover === 'streak' ? (
                   <div>
                     {/* Header */}
                     <div className="flex items-center" style={{ gap: 10, marginBottom: 16 }}>

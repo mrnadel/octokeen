@@ -2570,41 +2570,42 @@
   <!-- Base plate -->
   <rect x="10" y="62" width="60" height="6" rx="2" class="s-fill" opacity="0.12"/>
   <rect x="10" y="62" width="60" height="6" rx="2" class="s-stroke-d" stroke-width="1.5" fill="none"/>
-  <!-- Fixed pivot on base -->
-  <circle cx="50" cy="62" r="3" class="s-fill-d" opacity="0.35"/>
-  <!-- Handle (upper link, animated toggle) -->
-  <g>
-    <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite"
-      values="0,50,62;-70,50,62;-70,50,62;0,50,62" keyTimes="0;0.35;0.65;1"
-      calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
-    <line x1="50" y1="62" x2="50" y2="30" class="s-stroke" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="50" cy="30" r="3" class="s-fill-d" opacity="0.4"/>
-    <!-- Handle grip -->
-    <rect x="44" y="24" width="12" height="6" rx="3" class="s-fill" opacity="0.2"/>
-    <rect x="44" y="24" width="12" height="6" rx="3" class="s-stroke-d" stroke-width="1" fill="none"/>
-  </g>
-  <!-- Clamping arm (lower link) -->
-  <line class="s-stroke-d" stroke-width="2.5" stroke-linecap="round">
-    <animate attributeName="x1" values="50;26;26;50" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
-    <animate attributeName="y1" values="30;40;40;30" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
-    <animate attributeName="x2" values="20;20;20;20" dur="3s" repeatCount="indefinite"/>
-    <animate attributeName="y2" values="52;62;62;52" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
-  </line>
-  <!-- Clamp tip -->
-  <rect class="s-fill-d" opacity="0.3" rx="2">
-    <animate attributeName="x" values="16;16;16;16" dur="3s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="50;60;60;50" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
-    <animate attributeName="width" values="8;8;8;8" dur="3s" repeatCount="indefinite"/>
-    <animate attributeName="height" values="6;4;4;6" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1"/>
-  </rect>
-  <!-- Workpiece being clamped -->
+  <!-- Workpiece -->
   <rect x="14" y="56" width="12" height="6" rx="1" class="s-fill-l" opacity="0.15"/>
   <rect x="14" y="56" width="12" height="6" rx="1" class="s-stroke-l" stroke-width="1" fill="none" opacity="0.25"/>
-  <!-- Force arrows (appear when clamped) -->
+  <!-- Fixed pivot on base -->
+  <circle cx="50" cy="62" r="3" class="s-fill-d" opacity="0.35"/>
+  <!-- Handle link (pivot→handle joint): 4 states all as coordinate animation -->
+  <line x1="50" y1="62" class="s-stroke" stroke-width="3" stroke-linecap="round">
+    <animate attributeName="x2" values="50;20;20;50" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+    <animate attributeName="y2" values="30;51;51;30" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+  </line>
+  <!-- Handle grip (at end of handle link) -->
+  <rect width="12" height="6" rx="3" class="s-fill" opacity="0.2">
+    <animate attributeName="x" values="44;14;14;44" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+    <animate attributeName="y" values="24;45;45;24" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+  </rect>
+  <!-- Clamping arm (handle joint → clamp tip) -->
+  <line class="s-stroke-d" stroke-width="2.5" stroke-linecap="round">
+    <animate attributeName="x1" values="50;20;20;50" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+    <animate attributeName="y1" values="30;51;51;30" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+    <animate attributeName="x2" values="20;20;20;20" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="48;62;62;48" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+  </line>
+  <!-- Handle joint dot -->
+  <circle r="2.5" class="s-fill-d" opacity="0.4">
+    <animate attributeName="cx" values="50;20;20;50" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+    <animate attributeName="cy" values="30;51;51;30" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+  </circle>
+  <!-- Clamp tip dot -->
+  <circle cx="20" r="2" class="s-fill-d" opacity="0.3">
+    <animate attributeName="cy" values="48;62;62;48" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.5 0 0.5 1;0.3 0 0.7 1"/>
+  </circle>
+  <!-- Force arrow (appears when clamped) -->
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0.3;0.3;0" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1"/>
+    <animate attributeName="opacity" values="0;0.35;0.35;0" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.65;1"/>
     <polygon points="18,54 20,51 22,54" class="s-fill-d"/>
-    <text x="24" y="48" font-size="5" class="s-fill-d" font-style="italic">F</text>
+    <text x="26" y="50" font-size="5" class="s-fill-d" font-style="italic">F</text>
   </g>
   <text x="40" y="78" text-anchor="middle" font-size="4" class="s-fill-d" opacity="0.15" font-style="italic">mechanical advantage</text>
 </svg></div>
