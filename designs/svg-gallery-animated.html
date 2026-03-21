@@ -641,30 +641,70 @@
 <!-- ====== 14. Heat Exchanger — Thermo ====== -->
 <div class="card" data-name="Heat Exchanger" data-cat="Thermo">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
-  <rect x="8" y="22" width="64" height="36" rx="10" class="s-fill" opacity="0.08"/>
-  <rect x="8" y="22" width="64" height="36" rx="10" class="s-stroke-d" stroke-width="2" fill="none"/>
-  <rect x="14" y="27" width="52" height="12" rx="6" class="s-fill-l" opacity="0.12"/>
-  <rect x="14" y="27" width="52" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
-  <rect x="14" y="41" width="52" height="12" rx="6" class="s-fill-l" opacity="0.12"/>
-  <rect x="14" y="41" width="52" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
-  <circle r="3" class="s-fill-d" opacity="0.5">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M16,33 L64,33"/>
+  <!-- Shell -->
+  <rect x="8" y="20" width="64" height="40" rx="8" class="s-fill" opacity="0.06"/>
+  <rect x="8" y="20" width="64" height="40" rx="8" class="s-stroke-d" stroke-width="2" fill="none"/>
+  <!-- Inlet/outlet pipe stubs -->
+  <rect x="2" y="28" width="8" height="6" rx="3" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <rect x="70" y="28" width="8" height="6" rx="3" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <rect x="70" y="46" width="8" height="6" rx="3" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <rect x="2" y="46" width="8" height="6" rx="3" class="s-stroke-d" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <!-- Hot tube (upper) -->
+  <rect x="12" y="25" width="56" height="12" rx="6" class="s-fill-l" opacity="0.1"/>
+  <rect x="12" y="25" width="56" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
+  <!-- Cold tube (lower) -->
+  <rect x="12" y="43" width="56" height="12" rx="6" class="s-fill-l" opacity="0.1"/>
+  <rect x="12" y="43" width="56" height="12" rx="6" class="s-stroke" stroke-width="1.5" fill="none"/>
+  <!-- Heat transfer arrows (hot→cold, pulsing) -->
+  <g>
+    <line x1="26" y1="37.5" x2="26" y2="42" class="s-stroke-d" stroke-width="0.8" opacity="0.2"/>
+    <polygon points="24.5,41 26,43.5 27.5,41" class="s-fill-d" opacity="0.2"/>
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <line x1="40" y1="37.5" x2="40" y2="42" class="s-stroke-d" stroke-width="0.8" opacity="0.2"/>
+    <polygon points="38.5,41 40,43.5 41.5,41" class="s-fill-d" opacity="0.2"/>
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+  </g>
+  <g>
+    <line x1="54" y1="37.5" x2="54" y2="42" class="s-stroke-d" stroke-width="0.8" opacity="0.2"/>
+    <polygon points="52.5,41 54,43.5 55.5,41" class="s-fill-d" opacity="0.2"/>
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="1s"/>
+  </g>
+  <!-- Hot fluid particles (→) — opacity fades as heat is lost -->
+  <circle r="3" class="s-fill-d">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31"/>
+    <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite"/>
   </circle>
-  <circle r="2.5" class="s-fill" opacity="0.35">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M16,33 L64,33" begin="0.5s"/>
+  <circle r="2.5" class="s-fill-d">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="0.55s"/>
+    <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="0.55s"/>
   </circle>
-  <circle r="2.5" class="s-fill" opacity="0.35">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M16,33 L64,33" begin="1s"/>
+  <circle r="2.5" class="s-fill-d">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="1.1s"/>
+    <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="1.1s"/>
   </circle>
-  <circle r="3" class="s-fill-d" opacity="0.5">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M64,47 L16,47"/>
+  <!-- Cold fluid particles (←) — opacity grows as heat is gained -->
+  <circle r="3" class="s-fill">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49"/>
+    <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite"/>
   </circle>
-  <circle r="2.5" class="s-fill" opacity="0.35">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M64,47 L16,47" begin="0.5s"/>
+  <circle r="2.5" class="s-fill">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="0.55s"/>
+    <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="0.55s"/>
   </circle>
-  <circle r="2.5" class="s-fill" opacity="0.35">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M64,47 L16,47" begin="1s"/>
+  <circle r="2.5" class="s-fill">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="1.1s"/>
+    <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="1.1s"/>
   </circle>
+  <!-- Flow direction arrows on tubes -->
+  <polygon points="42,29 45,31 42,33" class="s-fill-d" opacity="0.12"/>
+  <polygon points="38,47 35,49 38,51" class="s-fill-d" opacity="0.12"/>
+  <!-- Temperature labels -->
+  <text x="5" y="24" font-size="4" class="s-fill-d" opacity="0.25" font-style="italic">T_H</text>
+  <text x="68" y="44" font-size="4" class="s-fill-d" opacity="0.25" font-style="italic">T_C</text>
+  <!-- Counterflow label -->
+  <text x="40" y="72" text-anchor="middle" font-size="4.5" class="s-fill-d" opacity="0.2">counterflow</text>
 </svg></div>
 <div class="card-label">Heat Exchanger</div>
 </div>
