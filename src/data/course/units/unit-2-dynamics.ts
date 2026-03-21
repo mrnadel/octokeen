@@ -578,7 +578,7 @@ export const unit2: Unit = {
           options: [
             'No — maximum friction acceleration = μ_s × g = 0.4 × 9.81 = 3.92 m/s², which exceeds the truck\'s 3 m/s², so friction can accelerate the box with the truck',
             'Yes — the box will slide because it has no engine or drive mechanism of its own, so it cannot independently accelerate along with the truck',
-            'No — the box\'s inertia keeps it in place without needing friction',
+            'No — the box\'s own inertia keeps it stationary in the ground reference frame without requiring any friction force from the truck bed surface',
             'Yes — friction always opposes relative motion so it pushes the box backward relative to the truck bed as the truck accelerates forward',
           ],
           correctIndex: 0,
@@ -1213,7 +1213,7 @@ export const unit2: Unit = {
           options: [
             'Conservation of momentum — it applies to all collisions regardless of deformation, giving the post-impact velocity of the combined wreckage',
             'Conservation of energy — calculate the kinetic energy before and after the collision to directly find the final combined velocity of the masses',
-            'Newton\'s second law — compute the impact force and integrate over time',
+            'Newton\'s second law — compute the instantaneous impact force from deformation data and integrate it over the contact time to find velocity',
             'Conservation of momentum only applies to perfectly elastic collisions, so kinetic energy conservation must be used for inelastic collision analysis',
           ],
           correctIndex: 0,
@@ -1557,7 +1557,7 @@ export const unit2: Unit = {
           question: 'A solid sphere and a hollow sphere of the same mass and radius roll down the same incline without slipping. Which reaches the bottom first, and what is the physical reasoning?',
           options: [
             'The solid sphere — it has a smaller I/(mR^2) ratio, meaning less gravitational PE is "diverted" to rotational KE, leaving more for translational speed',
-            'The hollow sphere — its mass at a larger effective radius gives it more rotational momentum to maintain speed',
+            'The hollow sphere — its mass concentrated at a larger effective radius gives it more rotational momentum, helping it maintain speed down the incline',
             'They arrive at the bottom simultaneously — since both spheres have the same mass and radius, their translational motion down the incline is identical',
             'It depends on the incline angle — steeper inclines favor the solid sphere while shallow inclines favor the hollow sphere',
           ],
@@ -1842,7 +1842,7 @@ export const unit2: Unit = {
           options: [
             'The spinning wheels create angular momentum — tilting the bike changes the direction of L, requiring a torque that produces a corrective steering precession, making self-stabilization possible',
             'The forward motion of the bicycle creates a significant aerodynamic force that pushes against the bike and rider, keeping the system upright and stable',
-            'The rider\'s weight is more evenly distributed when moving',
+            'The rider\'s weight becomes more evenly distributed across both wheels when the bicycle is moving, lowering the center of gravity for better stability',
             'The spinning tires grip the road surface better when the bicycle is moving forward, creating a larger friction footprint that prevents sideways tipping',
           ],
           correctIndex: 0,
@@ -2150,9 +2150,9 @@ export const unit2: Unit = {
           question: 'An undamped absorber (tuned mass damper) is added to a structure to suppress vibration at a specific frequency. What must the absorber\'s natural frequency equal?',
           options: [
             'The excitation (forcing) frequency — the absorber vibrates in antiphase and cancels the force at the attachment point',
-            'The structure\'s natural frequency',
-            'Twice the forcing frequency',
-            'Half the forcing frequency',
+            'The structure\'s own natural frequency — the absorber should match the structure\'s resonance to amplify its own vibration response',
+            'Twice the excitation forcing frequency — the absorber operates at double the forcing frequency to create destructive interference effects',
+            'Half the excitation forcing frequency — the absorber operates at half speed to provide a gradual phase-shifted cancellation of the vibration',
           ],
           correctIndex: 0,
           explanation: 'A tuned mass damper (TMD) works by tuning its natural frequency to exactly match the excitation frequency: ω_absorber = ω_forcing. At this frequency, the absorber oscillates in antiphase (180° out of phase) with the excitation force, producing a reaction force that exactly cancels the excitation at the attachment point. The primary mass theoretically has zero steady-state response. TMDs are used in tall buildings (Taipei 101 has a 730-ton pendulum), helicopter rotors, and engine crankshafts. The limitation: they only work at ONE specific frequency.',

@@ -34,6 +34,28 @@ export default function AdminUsersPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [updating, setUpdating] = useState<string | null>(null);
+
+  const toggleTier = async (userId: string, currentTier: string) => {
+    const newTier = currentTier === 'pro' ? 'free' : 'pro';
+    setUpdating(userId);
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, tier: newTier }),
+      });
+      if (res.ok) {
+        setUsers((prev) =>
+          prev.map((u) => (u.id === userId ? { ...u, tier: newTier } : u))
+        );
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setUpdating(null);
+    }
+  };
 
   useEffect(() => {
     if (status !== 'authenticated') return;
@@ -91,9 +113,9 @@ export default function AdminUsersPage() {
                   marginBottom: 12,
                 }}
               >
-                {/* Name + tier badge */}
+                {/* Name + tier badge + toggle */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <span style={{ fontSize: 15, fontWeight: 700 }}>
+                  <span style={{ fontSize: 15, fontWeight: 700, flex: 1 }}>
                     {user.name || user.email || '-'}
                   </span>
                   <span
@@ -109,6 +131,27 @@ export default function AdminUsersPage() {
                   >
                     {user.tier}
                   </span>
+                  <button
+                    onClick={() => toggleTier(user.id, user.tier)}
+                    disabled={updating === user.id}
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      border: 'none',
+                      cursor: updating === user.id ? 'wait' : 'pointer',
+                      background: user.tier === 'pro' ? '#FFEBEE' : '#E8F5E9',
+                      color: user.tier === 'pro' ? '#C62828' : '#2E7D32',
+                      opacity: updating === user.id ? 0.5 : 1,
+                    }}
+                  >
+                    {updating === user.id
+                      ? '...'
+                      : user.tier === 'pro'
+                        ? 'Revoke Pro'
+                        : 'Grant Pro'}
+                  </button>
                 </div>
 
                 {/* Email */}

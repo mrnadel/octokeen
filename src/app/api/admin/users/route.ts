@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { users, userProgress, subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
@@ -44,4 +44,45 @@ export async function GET() {
   }));
 
   return NextResponse.json({ users: result, total: result.length });
+}
+
+// PATCH: Update a user's subscription tier
+export async function PATCH(req: NextRequest) {
+  const adminId = await getAuthUserId();
+  if (!adminId || adminId !== ADMIN_USER_ID) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
+  const { userId, tier } = await req.json();
+  if (!userId || !['free', 'pro', 'team'].includes(tier)) {
+    return NextResponse.json({ error: 'Invalid userId or tier' }, { status: 400 });
+  }
+
+  // If setting to free, delete the subscription row
+  if (tier === 'free') {
+    await db.delete(subscriptions).where(eq(subscriptions.userId, userId));
+    return NextResponse.json({ success: true, tier: 'free' });
+  }
+
+  // Upsert: check if subscription exists
+  const [existing] = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.userId, userId))
+    .limit(1);
+
+  if (existing) {
+    await db
+      .update(subscriptions)
+      .set({ tier, status: 'active', updatedAt: new Date() })
+      .where(eq(subscriptions.userId, userId));
+  } else {
+    await db.insert(subscriptions).values({
+      userId,
+      tier,
+      status: 'active',
+    });
+  }
+
+  return NextResponse.json({ success: true, tier });
 }
