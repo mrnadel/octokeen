@@ -181,6 +181,7 @@ export function CourseHeader() {
               <button
                 onClick={() => togglePopover('menu')}
                 className="transition-transform active:scale-95"
+                style={{ flexShrink: 0 }}
               >
                 {userImage ? (
                   <img

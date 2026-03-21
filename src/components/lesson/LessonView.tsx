@@ -83,7 +83,7 @@ export default function LessonView() {
       case 'true-false':
         return currentQuestion.correctAnswer ? 'True' : 'False';
       case 'fill-blank':
-        return currentQuestion.acceptedAnswers?.[0] ?? '';
+        return currentQuestion.blanks?.join(', ') ?? currentQuestion.acceptedAnswers?.[0] ?? '';
       default:
         return '';
     }

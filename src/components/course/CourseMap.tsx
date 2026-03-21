@@ -72,9 +72,15 @@ export function CourseMap() {
     return null;
   }, [getLessonState]);
 
+  // Only the active unit is expanded; everything else collapsed
   const [expandedUnits, setExpandedUnits] = useState<Set<number>>(
-    new Set([activeUnitIndex])
+    () => new Set([activeUnitIndex])
   );
+
+  // When the active unit changes (e.g. user completes a unit), re-focus
+  useEffect(() => {
+    setExpandedUnits(new Set([activeUnitIndex]));
+  }, [activeUnitIndex]);
 
   const toggleUnit = (index: number) => {
     setExpandedUnits((prev) => {
@@ -88,17 +94,17 @@ export function CourseMap() {
     });
   };
 
-  // Auto-scroll to the current lesson on mount
+  // Auto-scroll to the current lesson after mount + expansion animation
   useEffect(() => {
+    // Two-phase scroll: first try the lesson ref, fall back to unit ref
     const timer = setTimeout(() => {
       const target = currentLessonRef.current || currentUnitRef.current;
       if (target) {
-        const rect = target.getBoundingClientRect();
-        const scrollY = window.scrollY + rect.top - window.innerHeight * 0.3;
-        window.scrollTo({ top: Math.max(0, scrollY), behavior: 'smooth' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    }, 450);
+    }, 500);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

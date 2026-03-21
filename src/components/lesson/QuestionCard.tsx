@@ -4,12 +4,11 @@ import {
   useState,
   useMemo,
   useCallback,
-  useRef,
   useEffect,
   useImperativeHandle,
   forwardRef,
 } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 
 export interface QuestionCardHandle {
@@ -32,9 +31,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
   function QuestionCard({ question, onAnswer, onSelectionChange, answered, unitColor }, ref) {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [selectedBool, setSelectedBool] = useState<boolean | null>(null);
-    const [textValue, setTextValue] = useState('');
+    const [filledBlanks, setFilledBlanks] = useState<(string | null)[]>([]);
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
 
     // Shuffle MC option display order so correct answer isn't always A
     const shuffledIndices = useMemo(() => {
@@ -48,12 +46,35 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [question.id]);
 
+    // Shuffle word bank for fill-blank
+    const shuffledWordBank = useMemo(() => {
+      if (question.type !== 'fill-blank' || !question.wordBank) return [];
+      const words = [...question.wordBank];
+      for (let i = words.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [words[i], words[j]] = [words[j], words[i]];
+      }
+      return words;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [question.id]);
+
+    // Split question text into parts around _____ for fill-blank rendering
+    const questionParts = useMemo(() => {
+      if (question.type !== 'fill-blank') return [];
+      return question.question.split('_____');
+    }, [question.type, question.question]);
+
+    const blankCount = useMemo(() => {
+      if (question.type !== 'fill-blank') return 0;
+      return question.blanks?.length ?? 1;
+    }, [question.type, question.blanks]);
+
     useEffect(() => {
       setSelectedIndex(null);
       setSelectedBool(null);
-      setTextValue('');
+      setFilledBlanks(new Array(question.blanks?.length ?? 1).fill(null));
       setLocalCorrect(null);
-    }, [question.id]);
+    }, [question.id, question.blanks?.length]);
 
     const hasSelection = (() => {
       switch (question.type) {
@@ -62,7 +83,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         case 'true-false':
           return selectedBool !== null;
         case 'fill-blank':
-          return textValue.trim().length > 0;
+          return filledBlanks.length > 0 && filledBlanks.every((b) => b !== null);
         default:
           return false;
       }
@@ -84,25 +105,39 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           correct = selectedBool === question.correctAnswer;
           break;
         case 'fill-blank': {
-          const trimmed = textValue.trim().toLowerCase();
-          correct =
-            question.acceptedAnswers?.some(
-              (a) => a.toLowerCase() === trimmed
-            ) ?? false;
+          if (question.blanks) {
+            correct = question.blanks.every(
+              (b, i) => filledBlanks[i]?.toLowerCase() === b.toLowerCase()
+            );
+          }
           break;
         }
       }
 
       setLocalCorrect(correct);
       onAnswer(correct);
-    }, [answered, hasSelection, question, selectedIndex, selectedBool, textValue, onAnswer]);
+    }, [answered, hasSelection, question, selectedIndex, selectedBool, filledBlanks, shuffledIndices, onAnswer]);
 
-    useEffect(() => {
-      if (question.type === 'fill-blank' && inputRef.current) {
-        const timer = setTimeout(() => inputRef.current?.focus(), 300);
-        return () => clearTimeout(timer);
-      }
-    }, [question.id, question.type]);
+    const handleWordTap = useCallback((word: string) => {
+      if (answered) return;
+      setFilledBlanks((prev) => {
+        const next = [...prev];
+        const emptyIdx = next.findIndex((b) => b === null);
+        if (emptyIdx !== -1) {
+          next[emptyIdx] = word;
+        }
+        return next;
+      });
+    }, [answered]);
+
+    const handleBlankTap = useCallback((blankIdx: number) => {
+      if (answered) return;
+      setFilledBlanks((prev) => {
+        const next = [...prev];
+        next[blankIdx] = null;
+        return next;
+      });
+    }, [answered]);
 
     useImperativeHandle(
       ref,
@@ -123,6 +158,28 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       }),
       [handleCheck, hasSelection, answered, question]
     );
+
+    // Words already placed in blanks (for hiding from word bank)
+    const usedWords = useMemo(() => {
+      const used: Record<string, number> = {};
+      for (const word of filledBlanks) {
+        if (word) used[word] = (used[word] || 0) + 1;
+      }
+      return used;
+    }, [filledBlanks]);
+
+    // Available words in word bank (not yet placed)
+    const availableWords = useMemo(() => {
+      const remaining = [...shuffledWordBank];
+      const usedCopy = { ...usedWords };
+      return remaining.map((word) => {
+        if (usedCopy[word] && usedCopy[word] > 0) {
+          usedCopy[word]--;
+          return { word, available: false };
+        }
+        return { word, available: true };
+      });
+    }, [shuffledWordBank, usedWords]);
 
     return (
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
@@ -150,18 +207,68 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
             />
           )}
 
-          {/* Question text */}
-          <h2
-            style={{
-              fontSize: 17,
-              fontWeight: 800,
-              color: '#3C3C3C',
-              lineHeight: 1.35,
-              margin: 0,
-            }}
-          >
-            {question.question}
-          </h2>
+          {/* Question text - for fill-blank, render inline blanks */}
+          {question.type === 'fill-blank' && question.blanks ? (
+            <div
+              style={{
+                fontSize: 17,
+                fontWeight: 800,
+                color: '#3C3C3C',
+                lineHeight: 2,
+                margin: 0,
+              }}
+            >
+              {questionParts.map((part, i) => (
+                <span key={i}>
+                  {part}
+                  {i < blankCount && (
+                    <motion.button
+                      onClick={() => handleBlankTap(i)}
+                      disabled={answered}
+                      whileTap={!answered && filledBlanks[i] ? { scale: 0.95 } : undefined}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: 80,
+                        height: 34,
+                        padding: '2px 14px',
+                        borderRadius: 10,
+                        margin: '0 4px',
+                        verticalAlign: 'middle',
+                        fontSize: 15,
+                        fontWeight: 800,
+                        cursor: answered ? 'default' : filledBlanks[i] ? 'pointer' : 'default',
+                        transition: 'all 0.15s ease',
+                        ...(answered && localCorrect !== null
+                          ? filledBlanks[i]?.toLowerCase() === question.blanks![i]?.toLowerCase()
+                            ? { background: '#D7FFB8', border: '2px solid #58CC02', color: '#58A700' }
+                            : { background: '#FFDFE0', border: '2px solid #FF4B4B', color: '#EA2B2B' }
+                          : filledBlanks[i]
+                            ? { background: 'white', border: `2.5px solid ${unitColor}`, color: '#3C3C3C' }
+                            : { background: '#F0F0F0', border: '2px dashed #CFCFCF', color: '#CFCFCF' }
+                        ),
+                      }}
+                    >
+                      {filledBlanks[i] || '\u00A0'}
+                    </motion.button>
+                  )}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <h2
+              style={{
+                fontSize: 17,
+                fontWeight: 800,
+                color: '#3C3C3C',
+                lineHeight: 1.35,
+                margin: 0,
+              }}
+            >
+              {question.question}
+            </h2>
+          )}
 
           {/* Hint */}
           {question.hint && !answered && (
@@ -327,44 +434,40 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           </div>
         )}
 
-        {/* Fill in the Blank */}
-        {question.type === 'fill-blank' && (
-          <div>
-            <input
-              ref={inputRef}
-              type="text"
-              value={textValue}
-              onChange={(e) => setTextValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && hasSelection && !answered) {
-                  handleCheck();
-                }
-              }}
-              disabled={answered}
-              placeholder="Type your answer..."
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: 14,
-                border: answered
-                  ? localCorrect
-                    ? '2px solid #58CC02'
-                    : '2px solid #FF4B4B'
-                  : textValue.trim().length > 0
-                    ? `2.5px solid ${unitColor}`
-                    : '2px solid #E5E5E5',
-                background: answered
-                  ? localCorrect
-                    ? '#D7FFB8'
-                    : '#FFDFE0'
-                  : 'white',
-                fontSize: 16,
-                fontWeight: 700,
-                color: '#3C3C3C',
-                outline: 'none',
-                transition: 'all 0.15s ease',
-              }}
-            />
+        {/* Fill in the Blank - Word Bank */}
+        {question.type === 'fill-blank' && question.wordBank && (
+          <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center' }}>
+            <AnimatePresence>
+              {availableWords.map(({ word, available }, i) => (
+                <motion.button
+                  key={`${word}-${i}`}
+                  onClick={() => available && handleWordTap(word)}
+                  disabled={answered || !available}
+                  whileTap={!answered && available ? { scale: 0.93 } : undefined}
+                  layout
+                  initial={{ opacity: 1, scale: 1 }}
+                  animate={{
+                    opacity: available ? 1 : 0.35,
+                    scale: available ? 1 : 0.95,
+                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  style={{
+                    padding: '10px 18px',
+                    borderRadius: 12,
+                    fontSize: 15,
+                    fontWeight: 700,
+                    cursor: answered ? 'default' : available ? 'pointer' : 'default',
+                    transition: 'all 0.15s ease',
+                    background: available ? 'white' : '#F5F5F5',
+                    border: available ? '2px solid #E5E5E5' : '2px solid #EFEFEF',
+                    color: available ? '#3C3C3C' : '#CFCFCF',
+                    boxShadow: available ? '0 2px 0 #E0E0E0' : 'none',
+                  }}
+                >
+                  {word}
+                </motion.button>
+              ))}
+            </AnimatePresence>
           </div>
         )}
 
