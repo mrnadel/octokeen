@@ -8,6 +8,7 @@ import {
   boolean,
   primaryKey,
   uniqueIndex,
+  index,
 } from 'drizzle-orm/pg-core';
 
 // ─── Auth.js required tables ───────────────────────────────────
