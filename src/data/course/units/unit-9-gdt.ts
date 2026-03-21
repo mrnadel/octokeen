@@ -1413,7 +1413,8 @@ export const unit9: Unit = {
           id: 'u9-L4-Q21',
           type: 'fill-blank',
           question: 'A process capability index (Cpk) of 1.33 indicates that the process variation uses approximately _____% of the tolerance band.',
-          acceptedAnswers: ['75', '75%'],
+          blanks: ['75'],
+          wordBank: ['75', '50', '100', '60', '90'],
           explanation: 'Cpk = 1.33 means the process spread (6σ) occupies 75% of the tolerance band (6σ = 0.75 × tolerance width), and the process is centered. This corresponds to approximately 63 parts per million (ppm) defective. The relationship: at Cpk = 1.0, the process uses 100% of the tolerance (2700 ppm); at Cpk = 1.33, it uses 75% (63 ppm); at Cpk = 1.67, it uses 60% (0.6 ppm); at Cpk = 2.0, it uses 50% (0.002 ppm, which is Six Sigma). Many industries require Cpk ≥ 1.33 as a minimum for production processes, with safety-critical applications requiring higher values.',
           hint: 'At Cpk = 1.0, the process uses 100%. At Cpk = 1.33, what fraction is used?'
         },
@@ -1507,7 +1508,8 @@ export const unit9: Unit = {
           id: 'u9-L4-Q29',
           type: 'fill-blank',
           question: 'When tolerance analysis shows the gap can become negative (parts interfere), one low-cost solution is to insert a selectable _____ between parts to absorb the variation.',
-          acceptedAnswers: ['shim', 'Shim', 'spacer', 'Spacer'],
+          blanks: ['shim'],
+          wordBank: ['shim', 'gasket', 'washer', 'bushing', 'insert'],
           explanation: 'Shims (or spacers) are thin plates of precise thickness used to fill gaps and absorb tolerance stack-up variation. During assembly, the actual gap is measured and the appropriate shim thickness is selected to achieve the target dimension. Shims effectively "break" the tolerance chain at one point, decoupling the accumulated variation from the assembly requirement. They are widely used in gearbox assemblies (bearing preload), machine tool alignments, aerospace structural joints, and engine assemblies. The trade-off is additional assembly time, shim inventory, and field maintenance complexity.',
           hint: 'This thin insert is selected at assembly time to fill the gap and absorb variation.'
         },
@@ -1700,7 +1702,8 @@ export const unit9: Unit = {
           id: 'u9-L5-Q13',
           type: 'fill-blank',
           question: 'The surface roughness parameter Rz measures the average maximum peak-to-_____ height over the evaluation length.',
-          acceptedAnswers: ['valley', 'Valley', 'trough'],
+          blanks: ['valley'],
+          wordBank: ['valley', 'mean', 'peak', 'baseline', 'center'],
           explanation: 'Rz is defined as the average of the individual maximum peak-to-valley heights (Rzi) measured in each of the five sampling lengths within the evaluation length: Rz = (Rz1 + Rz2 + Rz3 + Rz4 + Rz5) / 5. Each Rzi is the vertical distance from the highest peak to the deepest valley within that sampling length. Unlike Ra, which averages all deviations, Rz captures the extreme heights, making it more representative of features like seal contact, coating thickness requirements, and fatigue crack initiation sites. Typical ratio: Rz ≈ 4-7 × Ra for most machined surfaces.',
           hint: 'Rz measures the extreme heights — from the tallest peak down to the deepest ___.'
         },
@@ -1772,7 +1775,8 @@ export const unit9: Unit = {
           id: 'u9-L5-Q19',
           type: 'fill-blank',
           question: 'The standard reference temperature for dimensional measurement, defined by ISO 1, is _____ °C.',
-          acceptedAnswers: ['20', '20°C'],
+          blanks: ['20'],
+          wordBank: ['20', '25', '15', '22', '0'],
           explanation: '20°C (68°F) is the international standard reference temperature for industrial length measurements, established by ISO 1. All calibrated length standards (gauge blocks, ring gauges, plug gauges) are certified at this temperature. When measurements are made at different temperatures, corrections using the coefficient of thermal expansion must be applied. The choice of 20°C was a compromise — close to typical indoor temperatures in industrialized countries while being practical for temperature-controlled laboratories. This standard ensures dimensional traceability across different locations, times, and measuring equipment worldwide.',
           hint: 'This temperature is the universal reference for dimensional metrology — slightly below typical room temperature.'
         },
@@ -1844,7 +1848,8 @@ export const unit9: Unit = {
           id: 'u9-L5-Q25',
           type: 'fill-blank',
           question: 'The surface lay symbol "C" indicates a _____ lay pattern, typically produced by turning or facing operations.',
-          acceptedAnswers: ['circular', 'Circular'],
+          blanks: ['circular'],
+          wordBank: ['circular', 'crossed', 'radial', 'parallel', 'multi-directional'],
           explanation: 'The "C" lay symbol indicates concentric circular marks centered on the feature axis, characteristic of turning, facing, and boring operations. The tool feeds linearly while the workpiece rotates, creating circular grooves. Circular lay is desirable for: (1) reciprocating seal surfaces (the grooves do not create axial leak paths); (2) thrust bearing surfaces (grooves distribute lubricant evenly). Other lay symbols: "=" parallel, "⊥" perpendicular, "X" crossed (honing), "M" multi-directional (lapping), "R" radial, "P" particulate (non-directional, from EDM or shot blast).',
           hint: 'Turning creates concentric ring-shaped marks — what geometric pattern is that?'
         },
