@@ -4099,6 +4099,482 @@
 <div class="card-label">Keyway Joint</div>
 </div>
 
+<!-- ====== 87. Diesel Cycle — Thermo ====== -->
+<div class="card" data-name="Diesel Cycle" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- PV axes -->
+  <line x1="12" y1="68" x2="12" y2="8" stroke-width="0.7" class="s-stroke"/>
+  <line x1="12" y1="68" x2="75" y2="68" stroke-width="0.7" class="s-stroke"/>
+  <text x="6" y="10" font-size="4" class="s-fill" text-anchor="middle">P</text>
+  <text x="75" y="74" font-size="4" class="s-fill" text-anchor="middle">V</text>
+  <!-- Cycle path: 1→2 adiabatic compression, 2→3 constant pressure, 3→4 adiabatic expansion, 4→1 constant volume -->
+  <path d="M60,62 Q20,58 16,16 L40,16 Q62,20 60,62 Z" stroke-width="1.2" class="s-stroke" fill="none"/>
+  <!-- Point labels -->
+  <circle cx="60" cy="62" r="1.5" class="s-fill"/>
+  <circle cx="16" cy="16" r="1.5" class="s-fill"/>
+  <circle cx="40" cy="16" r="1.5" class="s-fill"/>
+  <circle cx="60" cy="62" r="1.5" class="s-fill"/>
+  <text x="63" y="66" font-size="3.5" class="s-fill">1</text>
+  <text x="13" y="13" font-size="3.5" class="s-fill">2</text>
+  <text x="42" y="13" font-size="3.5" class="s-fill">3</text>
+  <!-- Shaded cycle area -->
+  <path d="M60,62 Q20,58 16,16 L40,16 Q62,20 60,62 Z" class="s-fill" opacity="0.08"/>
+  <!-- Arrows on cycle -->
+  <polygon points="22,22 20,26 24,25" class="s-fill" opacity="0.6"/>
+  <polygon points="28,16 32,14.5 30,18" class="s-fill" opacity="0.6"/>
+  <polygon points="58,35 60,31 56,33" class="s-fill" opacity="0.6"/>
+  <polygon points="60,55 58,59 62,57" class="s-fill" opacity="0.6"/>
+  <!-- Process labels -->
+  <text x="30" y="40" font-size="3" class="s-fill-d" opacity="0.5" transform="rotate(-70,30,40)">adiabatic</text>
+  <text x="28" y="12" font-size="3" class="s-fill-d" opacity="0.5">const P</text>
+  <text x="54" y="38" font-size="3" class="s-fill-d" opacity="0.5" transform="rotate(72,54,38)">adiabatic</text>
+  <text x="62" y="50" font-size="3" class="s-fill-d" opacity="0.5" transform="rotate(-90,62,50)">const V</text>
+  <!-- Animated tracer dot -->
+  <circle r="2" class="s-fill-l" opacity="0.8">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M60,62 Q20,58 16,16 L40,16 Q62,20 60,62 Z"/>
+  </circle>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">compression ignition</text>
+</svg></div>
+<div class="card-label">Diesel Cycle</div>
+</div>
+
+<!-- ====== 88. Refrigeration Cycle — Thermo ====== -->
+<div class="card" data-name="Refrigeration Cycle" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Four components as boxes -->
+  <rect x="28" y="4" width="24" height="10" rx="2" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <text x="40" y="11" font-size="3.2" class="s-fill" text-anchor="middle">Condenser</text>
+  <rect x="28" y="62" width="24" height="10" rx="2" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <text x="40" y="69" font-size="3.2" class="s-fill" text-anchor="middle">Evaporator</text>
+  <rect x="58" y="30" width="16" height="12" rx="2" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <text x="66" y="37.5" font-size="2.8" class="s-fill" text-anchor="middle">Comp.</text>
+  <rect x="6" y="30" width="16" height="12" rx="2" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <text x="14" y="37.5" font-size="2.8" class="s-fill" text-anchor="middle">Exp.</text>
+  <!-- Connecting pipes -->
+  <line x1="66" y1="30" x2="66" y2="14" stroke-width="1" class="s-stroke"/>
+  <line x1="66" y1="14" x2="52" y2="9" stroke-width="1" class="s-stroke"/>
+  <line x1="28" y1="9" x2="14" y2="14" stroke-width="1" class="s-stroke"/>
+  <line x1="14" y1="14" x2="14" y2="30" stroke-width="1" class="s-stroke"/>
+  <line x1="14" y1="42" x2="14" y2="62" stroke-width="1" class="s-stroke"/>
+  <line x1="14" y1="62" x2="28" y2="67" stroke-width="1" class="s-stroke"/>
+  <line x1="52" y1="67" x2="66" y2="62" stroke-width="1" class="s-stroke"/>
+  <line x1="66" y1="62" x2="66" y2="42" stroke-width="1" class="s-stroke"/>
+  <!-- Flow arrows (animated) -->
+  <circle r="1.5" class="s-fill-l" opacity="0.9">
+    <animateMotion dur="6s" repeatCount="indefinite" path="M66,42 L66,62 L52,67 L28,67 L14,62 L14,42 L14,30 L14,14 L28,9 L52,9 L66,14 L66,30 Z"/>
+  </circle>
+  <circle r="1.5" class="s-fill-l" opacity="0.9">
+    <animateMotion dur="6s" repeatCount="indefinite" begin="3s" path="M66,42 L66,62 L52,67 L28,67 L14,62 L14,42 L14,30 L14,14 L28,9 L52,9 L66,14 L66,30 Z"/>
+  </circle>
+  <!-- Heat flow indicators -->
+  <text x="40" y="2.5" font-size="3" class="s-fill-d" opacity="0.4">Q_H ↑</text>
+  <text x="40" y="78" font-size="3" class="s-fill-d" opacity="0.4">Q_L ↓</text>
+  <!-- W_in arrow -->
+  <line x1="76" y1="36" x2="74" y2="36" stroke-width="0.8" class="s-stroke-d" opacity="0.4"/>
+  <polygon points="74,34.5 74,37.5 71,36" class="s-fill-d" opacity="0.4"/>
+  <text x="77" y="37" font-size="2.5" class="s-fill-d" opacity="0.4">W</text>
+</svg></div>
+<div class="card-label">Refrigeration Cycle</div>
+</div>
+
+<!-- ====== 89. Pelton Wheel — Machine Design ====== -->
+<div class="card" data-name="Pelton Wheel" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Wheel hub -->
+  <circle cx="40" cy="40" r="22" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <circle cx="40" cy="40" r="3" stroke-width="0.7" class="s-stroke" class="s-fill" fill-opacity="0.1"/>
+  <!-- Buckets (12 around the wheel) -->
+  <g class="s-stroke" stroke-width="0.7">
+    <path d="M40,18 Q38,21 40,22 Q42,21 40,18"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(30,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(60,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(90,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(120,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(150,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(180,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(210,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(240,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(270,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(300,40,40)"/>
+    <path d="M51,19.5 Q49.5,22.5 51.5,23 Q52.5,21.5 51,19.5" transform="rotate(330,40,40)"/>
+  </g>
+  <!-- Spokes -->
+  <g class="s-stroke" stroke-width="0.4" opacity="0.3">
+    <line x1="40" y1="37" x2="40" y2="20"/><line x1="43" y1="37" x2="60" y2="40"/>
+    <line x1="37" y1="37" x2="20" y2="40"/><line x1="40" y1="43" x2="40" y2="60"/>
+    <line x1="42" y1="38" x2="54" y2="26"/><line x1="38" y1="42" x2="26" y2="54"/>
+    <line x1="42" y1="42" x2="54" y2="54"/><line x1="38" y1="38" x2="26" y2="26"/>
+  </g>
+  <!-- Wheel rotation -->
+  <animateTransform xlink:href="#peltonWheel" attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/>
+  <g id="peltonWheel">
+    <circle cx="40" cy="40" r="22" stroke-width="0" fill="none"/>
+  </g>
+  <!-- Nozzle jet -->
+  <rect x="2" y="17" width="18" height="4" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <text x="11" y="20" font-size="2.5" class="s-fill" text-anchor="middle">nozzle</text>
+  <!-- Water jet particles -->
+  <circle r="0.8" class="s-fill-l" opacity="0.7">
+    <animate attributeName="cx" values="20;40" dur="0.6s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="19;18" dur="0.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="0.8" class="s-fill-l" opacity="0.7">
+    <animate attributeName="cx" values="20;40" dur="0.6s" repeatCount="indefinite" begin="0.2s"/>
+    <animate attributeName="cy" values="19;18" dur="0.6s" repeatCount="indefinite" begin="0.2s"/>
+  </circle>
+  <circle r="0.8" class="s-fill-l" opacity="0.7">
+    <animate attributeName="cx" values="20;40" dur="0.6s" repeatCount="indefinite" begin="0.4s"/>
+    <animate attributeName="cy" values="19;18" dur="0.6s" repeatCount="indefinite" begin="0.4s"/>
+  </circle>
+  <!-- Splash after bucket -->
+  <circle r="0.6" class="s-fill-l" opacity="0.4">
+    <animate attributeName="cx" values="42;50;55" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="20;24;32" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.2;0" dur="0.8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">impulse turbine</text>
+</svg></div>
+<div class="card-label">Pelton Wheel</div>
+</div>
+
+<!-- ====== 90. Hydraulic Cylinder — Machine Design ====== -->
+<div class="card" data-name="Hydraulic Cylinder" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Cylinder body -->
+  <rect x="8" y="30" width="45" height="20" rx="2" stroke-width="1" class="s-stroke" fill="none"/>
+  <!-- Piston rod -->
+  <rect x="53" y="37" width="20" height="6" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.1">
+    <animate attributeName="x" values="38;53;38" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Piston head inside cylinder -->
+  <rect x="35" y="31.5" width="4" height="17" rx="0.5" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.15">
+    <animate attributeName="x" values="20;35;20" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Rod end fitting -->
+  <circle cx="73" cy="40" r="3" stroke-width="0.7" class="s-stroke" fill="none">
+    <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="73" cy="40" r="1" class="s-fill" opacity="0.3">
+    <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Hydraulic fluid (left chamber) -->
+  <rect x="9" y="31" width="26" height="18" rx="1" class="s-fill-l" opacity="0.12">
+    <animate attributeName="width" values="11;26;11" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Port connections -->
+  <line x1="15" y1="30" x2="15" y2="22" stroke-width="0.8" class="s-stroke"/>
+  <line x1="45" y1="30" x2="45" y2="22" stroke-width="0.8" class="s-stroke"/>
+  <text x="15" y="20" font-size="3" class="s-fill" text-anchor="middle">P₁</text>
+  <text x="45" y="20" font-size="3" class="s-fill" text-anchor="middle">P₂</text>
+  <!-- Seals -->
+  <line x1="8" y1="32" x2="8" y2="48" stroke-width="1.5" class="s-stroke-d" opacity="0.3"/>
+  <!-- Force arrow -->
+  <line x1="73" y1="55" x2="73" y2="55" stroke-width="0.8" class="s-stroke-d" opacity="0.4">
+    <animate attributeName="x1" values="58;73;58" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="58;73;58" dur="3s" repeatCount="indefinite"/>
+  </line>
+  <g opacity="0.5">
+    <line x1="66" y1="58" x2="73" y2="58" stroke-width="0.6" class="s-stroke-d"/>
+    <polygon points="73,56.5 73,59.5 76,58" class="s-fill-d"/>
+    <text x="70" y="63" font-size="3" class="s-fill-d" text-anchor="middle">F</text>
+  </g>
+  <!-- Base mount -->
+  <rect x="4" y="34" width="4" height="12" rx="1" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <!-- Hatching for fixed mount -->
+  <line x1="2" y1="35" x2="4" y2="37" stroke-width="0.3" class="s-stroke" opacity="0.3"/>
+  <line x1="2" y1="38" x2="4" y2="40" stroke-width="0.3" class="s-stroke" opacity="0.3"/>
+  <line x1="2" y1="41" x2="4" y2="43" stroke-width="0.3" class="s-stroke" opacity="0.3"/>
+  <line x1="2" y1="44" x2="4" y2="46" stroke-width="0.3" class="s-stroke" opacity="0.3"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">linear actuator</text>
+</svg></div>
+<div class="card-label">Hydraulic Cylinder</div>
+</div>
+
+<!-- ====== 91. Universal Joint — Machine Design ====== -->
+<div class="card" data-name="Universal Joint" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Input shaft -->
+  <rect x="2" y="37" width="22" height="6" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Output shaft (angled) -->
+  <rect x="52" y="32" width="24" height="6" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.08" transform="rotate(15,52,35)"/>
+  <!-- Yoke 1 (input) -->
+  <g>
+    <path d="M24,34 L30,30 L30,50 L24,46 Z" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06">
+      <animateTransform attributeName="transform" type="rotate" values="0,27,40;360,27,40" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Cross/spider -->
+  <g>
+    <line x1="35" y1="40" x2="45" y2="40" stroke-width="2" class="s-stroke"/>
+    <line x1="40" y1="33" x2="40" y2="47" stroke-width="2" class="s-stroke"/>
+    <circle cx="40" cy="40" r="2.5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.1"/>
+    <circle cx="35" cy="40" r="1.2" class="s-fill" opacity="0.3"/>
+    <circle cx="45" cy="40" r="1.2" class="s-fill" opacity="0.3"/>
+    <circle cx="40" cy="33" r="1.2" class="s-fill" opacity="0.3"/>
+    <circle cx="40" cy="47" r="1.2" class="s-fill" opacity="0.3"/>
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;10,40,40;0,40,40;-10,40,40;0,40,40" dur="1.5s" repeatCount="indefinite"/>
+  </g>
+  <!-- Yoke 2 (output) -->
+  <g>
+    <path d="M50,30 L56,34 L56,46 L50,50 Z" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.06">
+      <animateTransform attributeName="transform" type="rotate" values="0,53,40;360,53,40" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Angle indicator -->
+  <path d="M26,40 Q40,40 54,35" stroke-width="0.4" class="s-stroke-d" opacity="0.3" fill="none" stroke-dasharray="2,1"/>
+  <text x="48" y="28" font-size="3" class="s-fill-d" opacity="0.4">θ</text>
+  <!-- Rotation arrows -->
+  <path d="M10,32 A8,8 0 0,1 10,48" stroke-width="0.5" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="10,48 8,45 12,46" class="s-fill-d" opacity="0.3"/>
+  <path d="M70,28 A8,8 0 0,1 70,44" stroke-width="0.5" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="70,44 68,41 72,42" class="s-fill-d" opacity="0.3"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">Cardan joint</text>
+</svg></div>
+<div class="card-label">Universal Joint</div>
+</div>
+
+<!-- ====== 92. Chain Drive — Machine Design ====== -->
+<div class="card" data-name="Chain Drive" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Driver sprocket (large) -->
+  <circle cx="22" cy="40" r="14" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <circle cx="22" cy="40" r="11" stroke-width="0.4" class="s-stroke" opacity="0.3" fill="none"/>
+  <circle cx="22" cy="40" r="2.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Sprocket teeth (driver) -->
+  <g class="s-stroke" stroke-width="0.5" opacity="0.5">
+    <line x1="22" y1="26" x2="22" y2="28"/><line x1="22" y1="52" x2="22" y2="54"/>
+    <line x1="8" y1="40" x2="10" y2="40"/><line x1="34" y1="40" x2="36" y2="40"/>
+    <line x1="12.1" y1="30.1" x2="13.5" y2="31.5"/><line x1="30.5" y1="48.5" x2="31.9" y2="49.9"/>
+    <line x1="31.9" y1="30.1" x2="30.5" y2="31.5"/><line x1="13.5" y1="48.5" x2="12.1" y2="49.9"/>
+  </g>
+  <!-- Driven sprocket (small) -->
+  <circle cx="62" cy="40" r="8" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <circle cx="62" cy="40" r="5.5" stroke-width="0.4" class="s-stroke" opacity="0.3" fill="none"/>
+  <circle cx="62" cy="40" r="2" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.1"/>
+  <!-- Chain (top and bottom runs) -->
+  <line x1="22" y1="26" x2="62" y2="32" stroke-width="1.2" class="s-stroke"/>
+  <line x1="22" y1="54" x2="62" y2="48" stroke-width="1.2" class="s-stroke"/>
+  <!-- Chain links pattern (top) -->
+  <g class="s-stroke" stroke-width="0.3" opacity="0.4">
+    <rect x="28" y="25.5" width="3" height="2" rx="0.3"/><rect x="34" y="26.5" width="3" height="2" rx="0.3"/>
+    <rect x="40" y="27.5" width="3" height="2" rx="0.3"/><rect x="46" y="28.5" width="3" height="2" rx="0.3"/>
+    <rect x="52" y="29.5" width="3" height="2" rx="0.3"/>
+  </g>
+  <!-- Chain links pattern (bottom) -->
+  <g class="s-stroke" stroke-width="0.3" opacity="0.4">
+    <rect x="28" y="52" width="3" height="2" rx="0.3"/><rect x="34" y="51" width="3" height="2" rx="0.3"/>
+    <rect x="40" y="50" width="3" height="2" rx="0.3"/><rect x="46" y="49" width="3" height="2" rx="0.3"/>
+    <rect x="52" y="48" width="3" height="2" rx="0.3"/>
+  </g>
+  <!-- Rotation animation -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="4s" repeatCount="indefinite"/>
+    <circle cx="22" cy="27" r="0.8" class="s-fill" opacity="0.4"/>
+    <circle cx="22" cy="53" r="0.8" class="s-fill" opacity="0.4"/>
+  </g>
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0,62,40;360,62,40" dur="2.3s" repeatCount="indefinite"/>
+    <circle cx="62" cy="33" r="0.8" class="s-fill" opacity="0.4"/>
+    <circle cx="62" cy="47" r="0.8" class="s-fill" opacity="0.4"/>
+  </g>
+  <!-- Moving chain particle -->
+  <circle r="1.2" class="s-fill-l" opacity="0.7">
+    <animate attributeName="cx" values="22;62;62;22;22" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.5;0.85;1"/>
+    <animate attributeName="cy" values="26;32;48;54;26" dur="3s" repeatCount="indefinite" keyTimes="0;0.35;0.5;0.85;1"/>
+  </circle>
+  <!-- Labels -->
+  <text x="22" y="20" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">driver</text>
+  <text x="62" y="25" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">driven</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">power transmission</text>
+</svg></div>
+<div class="card-label">Chain Drive</div>
+</div>
+
+<!-- ====== 93. Pneumatic Cylinder — Machine Design ====== -->
+<div class="card" data-name="Pneumatic Cylinder" data-cat="Machine Design">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Cylinder body -->
+  <rect x="10" y="28" width="50" height="24" rx="3" stroke-width="1" class="s-stroke" fill="none"/>
+  <!-- End caps -->
+  <rect x="8" y="30" width="4" height="20" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <rect x="58" y="30" width="4" height="20" rx="1" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/>
+  <!-- Piston -->
+  <rect y="29.5" width="3" height="21" rx="0.5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.2">
+    <animate attributeName="x" values="14;48;14" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Piston rod -->
+  <rect y="38" width="18" height="4" rx="0.8" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.1">
+    <animate attributeName="x" values="17;51;17" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Rod exit through end cap -->
+  <rect x="60" y="38.5" width="14" height="3" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Air pressure (left side) -->
+  <g opacity="0.15">
+    <circle cx="18" cy="35" r="1" class="s-fill-l">
+      <animate attributeName="cx" values="18;30;18" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="20" cy="42" r="0.8" class="s-fill-l">
+      <animate attributeName="cx" values="20;34;20" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="16" cy="38" r="0.6" class="s-fill-l">
+      <animate attributeName="cx" values="16;28;16" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <!-- Air ports -->
+  <line x1="20" y1="28" x2="20" y2="22" stroke-width="0.7" class="s-stroke"/>
+  <line x1="50" y1="28" x2="50" y2="22" stroke-width="0.7" class="s-stroke"/>
+  <circle cx="20" cy="21" r="1.5" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <circle cx="50" cy="21" r="1.5" stroke-width="0.5" class="s-stroke" fill="none"/>
+  <text x="20" y="18" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">A</text>
+  <text x="50" y="18" font-size="2.5" class="s-fill-d" opacity="0.4" text-anchor="middle">B</text>
+  <!-- Stroke indicator -->
+  <line x1="14" y1="58" x2="55" y2="58" stroke-width="0.4" class="s-stroke-d" opacity="0.3"/>
+  <line x1="14" y1="56" x2="14" y2="60" stroke-width="0.4" class="s-stroke-d" opacity="0.3"/>
+  <line x1="55" y1="56" x2="55" y2="60" stroke-width="0.4" class="s-stroke-d" opacity="0.3"/>
+  <text x="35" y="63" font-size="3" class="s-fill-d" opacity="0.3" text-anchor="middle">stroke</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">double-acting</text>
+</svg></div>
+<div class="card-label">Pneumatic Cylinder</div>
+</div>
+
+<!-- ====== 94. Heat Sink — Thermo ====== -->
+<div class="card" data-name="Heat Sink" data-cat="Thermo">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Base plate -->
+  <rect x="12" y="48" width="56" height="6" rx="1" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.08"/>
+  <!-- Fins -->
+  <rect x="14" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="20" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="26" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="32" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="38" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="44" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="50" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="56" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <rect x="62" y="16" width="3" height="32" rx="0.5" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <!-- Heat source below -->
+  <rect x="25" y="56" width="30" height="5" rx="1" stroke-width="0.6" class="s-stroke-d" opacity="0.4" fill="none"/>
+  <text x="40" y="60" font-size="2.8" class="s-fill-d" opacity="0.4" text-anchor="middle">IC chip</text>
+  <!-- Rising heat waves -->
+  <g opacity="0.3">
+    <path d="M17,14 Q19,10 17,6" stroke-width="0.5" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M29,14 Q31,10 29,6" stroke-width="0.5" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </path>
+    <path d="M41,14 Q43,10 41,6" stroke-width="0.5" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+    </path>
+    <path d="M53,14 Q55,10 53,6" stroke-width="0.5" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+    </path>
+    <path d="M64,14 Q66,10 64,6" stroke-width="0.5" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+    </path>
+  </g>
+  <!-- Temperature gradient color hint -->
+  <rect x="12" y="48" width="56" height="2" rx="0.5" class="s-fill-l" opacity="0.15"/>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">thermal management</text>
+</svg></div>
+<div class="card-label">Heat Sink</div>
+</div>
+
+<!-- ====== 95. Thermocouple — Materials ====== -->
+<div class="card" data-name="Thermocouple" data-cat="Materials">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Junction bead -->
+  <circle cx="40" cy="60" r="3" stroke-width="0.8" class="s-stroke s-fill-l" fill-opacity="0.2"/>
+  <!-- Wire A (left) -->
+  <path d="M40,57 Q30,40 20,15" stroke-width="1.2" class="s-stroke" fill="none"/>
+  <!-- Wire B (right) -->
+  <path d="M40,57 Q50,40 60,15" stroke-width="1.2" class="s-stroke-d" fill="none" stroke-dasharray="2,1"/>
+  <!-- Terminal block -->
+  <rect x="12" y="8" width="18" height="10" rx="1.5" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <rect x="50" y="8" width="18" height="10" rx="1.5" stroke-width="0.6" class="s-stroke" fill="none"/>
+  <text x="21" y="15" font-size="3" class="s-fill" text-anchor="middle">+</text>
+  <text x="59" y="15" font-size="3" class="s-fill" text-anchor="middle">−</text>
+  <!-- Wire labels -->
+  <text x="24" y="35" font-size="3" class="s-fill-d" opacity="0.5">Type K</text>
+  <text x="50" y="35" font-size="3" class="s-fill-d" opacity="0.5">Alumel</text>
+  <text x="24" y="39" font-size="3" class="s-fill-d" opacity="0.5">Chromel</text>
+  <!-- Voltage readout -->
+  <line x1="30" y1="5" x2="50" y2="5" stroke-width="0.5" class="s-stroke-d" opacity="0.3"/>
+  <text x="40" y="4" font-size="3" class="s-fill-d" opacity="0.4" text-anchor="middle">ΔV</text>
+  <!-- Heat indication at junction -->
+  <g opacity="0.35">
+    <path d="M35,63 Q33,67 35,70" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M40,63 Q38,68 40,72" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.5s" repeatCount="indefinite" begin="0.3s"/>
+    </path>
+    <path d="M45,63 Q43,67 45,70" stroke-width="0.4" class="s-stroke-l" fill="none">
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.5s" repeatCount="indefinite" begin="0.6s"/>
+    </path>
+  </g>
+  <!-- Pulsing junction glow -->
+  <circle cx="40" cy="60" r="5" class="s-fill-l" opacity="0.1">
+    <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.15;0.05;0.15" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Electron flow dots -->
+  <circle r="0.7" class="s-fill-l" opacity="0.5">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M40,57 Q30,40 20,15"/>
+  </circle>
+  <circle r="0.7" class="s-fill-l" opacity="0.5">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M40,57 Q50,40 60,15"/>
+  </circle>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">Seebeck effect</text>
+</svg></div>
+<div class="card-label">Thermocouple</div>
+</div>
+
+<!-- ====== 96. Moment of Inertia — Dynamics ====== -->
+<div class="card" data-name="Moment of Inertia" data-cat="Dynamics">
+<div class="card-top"><svg viewBox="0 0 80 80" fill="none">
+  <!-- Axis of rotation -->
+  <line x1="40" y1="5" x2="40" y2="75" stroke-width="0.5" class="s-stroke-d" opacity="0.25" stroke-dasharray="2,2"/>
+  <text x="42" y="8" font-size="3" class="s-fill-d" opacity="0.4">axis</text>
+  <!-- Rotating disc -->
+  <ellipse cx="40" cy="40" rx="24" ry="8" stroke-width="0.8" class="s-stroke" fill="none"/>
+  <ellipse cx="40" cy="40" rx="24" ry="8" class="s-fill" opacity="0.04"/>
+  <!-- dm elements at different radii -->
+  <rect x="15" y="38" width="3" height="3" rx="0.5" stroke-width="0.5" class="s-stroke-l s-fill-l" fill-opacity="0.2">
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="55" y="38" width="3" height="3" rx="0.5" stroke-width="0.5" class="s-stroke-l s-fill-l" fill-opacity="0.2">
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="28" y="35" width="3" height="3" rx="0.5" stroke-width="0.5" class="s-stroke-l s-fill-l" fill-opacity="0.15">
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="48" y="42" width="3" height="3" rx="0.5" stroke-width="0.5" class="s-stroke-l s-fill-l" fill-opacity="0.15">
+    <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Radius line r -->
+  <line x1="40" y1="40" x2="64" y2="40" stroke-width="0.5" class="s-stroke-d" opacity="0.4"/>
+  <text x="52" y="38" font-size="3.5" class="s-fill-d" opacity="0.5">r</text>
+  <!-- dm label -->
+  <text x="18" y="36" font-size="3" class="s-fill-l" opacity="0.5">dm</text>
+  <!-- Formula -->
+  <text x="40" y="60" text-anchor="middle" font-size="4.5" class="s-fill" opacity="0.5">I = ∫r²dm</text>
+  <!-- Center point -->
+  <circle cx="40" cy="40" r="1.5" class="s-fill" opacity="0.3"/>
+  <!-- Rotation arrow -->
+  <path d="M62,28 A26,10 0 0,1 62,52" stroke-width="0.5" class="s-stroke-d" opacity="0.3" fill="none"/>
+  <polygon points="62,52 60,48 64,49" class="s-fill-d" opacity="0.3"/>
+  <text x="67" y="42" font-size="3" class="s-fill-d" opacity="0.3">ω</text>
+  <text x="40" y="76" text-anchor="middle" font-size="3.5" class="s-fill-d" opacity="0.15" font-style="italic">rotational inertia</text>
+</svg></div>
+<div class="card-label">Moment of Inertia</div>
+</div>
+
 </div><!-- end grid -->
 
 <!-- LIGHTBOX MODAL -->

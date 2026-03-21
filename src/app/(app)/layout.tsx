@@ -40,8 +40,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[480px] mx-auto min-h-screen">
+    <div className="min-h-screen bg-[#FAFAFA] lg:bg-[#E8E8E8]">
+      <div className="max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200">
         {children}
       </div>
       <DebugTierToggle />
