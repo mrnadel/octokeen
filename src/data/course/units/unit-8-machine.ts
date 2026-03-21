@@ -20,10 +20,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A shaft broke at a keyway. Beach marks radiate from the keyway corner. What failure mode is this?',
           options: [
-            'The shaft was overloaded in a single event.',
-            'Fatigue failure initiated at the stress concentration from the keyway corner.',
+            'The shaft was overloaded in a single static event.',
+            'Fatigue initiated at stress concentration from keyway.',
             'The key was too loose, causing the shaft to twist and shear at the keyway.',
-            'Corrosion weakened the shaft at the keyway.'
+            'Corrosion gradually weakened the shaft at the keyway.'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
@@ -216,10 +216,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'How does it combine the individual critical speeds?',
           options: [
-            'Add all individual critical speeds: omega_c = omega_1 + omega_2 + omega_3',
-            'Take the average: omega_c = (omega_1 + omega_2 + omega_3)/3',
-            'Use the reciprocal sum: 1/omega_c^2 = 1/omega_1^2 + 1/omega_2^2 + 1/omega_3^2',
-            'Use the product: omega_c = omega_1 * omega_2 * omega_3'
+            'Add all speeds: \u03C9_c = \u03C9_1 + \u03C9_2 + \u03C9_3 directly',
+            'Average: \u03C9_c = (\u03C9_1 + \u03C9_2 + \u03C9_3)/3 of each speed',
+            'Reciprocal sum: 1/\u03C9_c\xB2 = 1/\u03C9_1\xB2 + 1/\u03C9_2\xB2 + 1/\u03C9_3\xB2',
+            'Product: \u03C9_c = \u03C9_1 \xD7 \u03C9_2 \xD7 \u03C9_3 of all speeds'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
@@ -537,9 +537,9 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What property of this bearing makes it suitable?',
           options: [
-            'It has a higher load capacity than standard deep groove bearings',
-            'It can accommodate angular misalignment of 2-3 degrees between the inner',
-            'It has lower friction than any other bearing type',
+            'Higher load capacity than standard deep groove bearings',
+            'Accommodates angular misalignment of 2-3\xB0 between rings',
+            'It has lower friction than any other bearing type used',
             'It can handle high axial loads in both directions'
           ],
           correctIndex: 1,
@@ -670,10 +670,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A hydrodynamic journal bearing operates with a Sommerfeld number of 0.15. What does an eccentricity ratio of 0.6 mean physically?',
           options: [
-            'The shaft center is displaced 60% of the radial clearance from the bearing',
-            'The bearing is 60% worn',
-            'The shaft is rotating at 60% of the maximum speed',
-            'The oil fills 60% of the bearing clearance'
+            'Shaft center displaced 60% of radial clearance',
+            'The bearing is 60% worn from its original size',
+            'Shaft is rotating at 60% of the maximum speed',
+            'The oil fills 60% of the bearing clearance gap'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="24" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Inner race --> <circle cx="40" cy="40" r="12" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="16" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Shaft hole --> <circle cx="40" cy="40" r="6" stroke-width="0.6" class="s-stroke s-fill" fill-opacity="0.04"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.2"/> <!-- Rolling elements (balls) positioned between races --> <g> <circle cx="40" cy="20" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="54.1" cy="23.9" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="60" cy="40" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="54.1" cy="56.1" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="40" cy="60" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="25.9" cy="56.1" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="20" cy="40" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <circle cx="25.9" cy="23.9" r="3.5" stroke-width="0.6" class="s-stroke s-fill-l" fill-opacity="0.1"/> <!-- Cage rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="6s" repeatCount="indefinite"/> </g> <!-- Inner race rotation indicator --> <g> <line x1="40" y1="40" x2="40" y2="34" stroke-width="0.5" stroke="#3B8700" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Load arrow --> <line x1="40" y1="2" x2="40" y2="10" stroke-width="0.6" stroke="#3B8700" opacity="0.4"/> <polygon points="38.5,10 41.5,10 40,13" fill="#3B8700" opacity="0.4"/> <text x="44" y="7" font-size="3" fill="#3B8700" opacity="0.4">W</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">anti-friction bearing</text> </svg>',
@@ -901,9 +901,9 @@ export const unit8: Unit = {
           question: 'What does the Lewis form factor depend on?',
           options: [
             'Only the gear material and hardness — a secondary effect only',
-            'Only the module and face width, prior to any post-processing',
-            'The number of teeth (which determines the tooth shape/geometry at the root)',
-            'The rotational speed and power transmitted'
+            'Only the module and face width, not tooth count',
+            'Number of teeth determines tooth geometry at the root',
+            'The rotational speed and the power transmitted'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Worm shaft (horizontal cylinder) --> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Worm thread (scrolling animation) --> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="64" y1="20" x2="70" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <!-- Worm wheel (below, slow rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="56" r="13" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Teeth --> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="52.7" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="52.7" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> <!-- Input/output arrows --> <polygon points="74,25 78,26 74,27" fill="#3B8700" opacity="0.2"/> <path d="M22,68 A14,14 0 0,0 26,72" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <polygon points="25,71 28,74 24,73" fill="#A5E86C" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">high ratio</text> </svg>',
@@ -1047,9 +1047,9 @@ export const unit8: Unit = {
           question: 'When designing gears for a speed reducer, the pinion is typically made harder than the gear. Why?',
           options: [
             'The pinion costs less to harden because it is smaller',
-            'The pinion makes more contact cycles than the gear (because it rotates faster',
-            'The pinion is always the input gear, and input gears must be harder by code',
-            'Making the pinion harder reduces gear noise'
+            'Pinion makes more contact cycles, rotating faster',
+            'Pinion is always input gear, must be harder by code',
+            'Making the pinion harder significantly reduces noise'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ring gear (fixed outer, static) --> <circle cx="40" cy="40" r="30" stroke="#3B8700" stroke-width="3" fill="none" opacity="0.2"/> <circle cx="40" cy="40" r="27" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.08"/> <!-- Carrier arm (rotating slowly) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="6s" repeatCount="indefinite"/> <line x1="40" y1="40" x2="40" y2="22" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.25"/> <line x1="40" y1="40" x2="40" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.25"/> <!-- Planet gear 1 (top) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,24;-720,40,24" dur="6s" repeatCount="indefinite"/> <circle cx="40" cy="24" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="24" r="8" stroke="#58CC02" stroke-width="1.5" fill="none"/> <line x1="40" y1="16" x2="40" y2="32" stroke="#A5E86C" stroke-width="0.8" opacity="0.2"/> <circle cx="40" cy="24" r="2" fill="#3B8700" opacity="0.4"/> </g> <!-- Planet gear 2 (bottom) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-720,40,56" dur="6s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="56" r="8" stroke="#58CC02" stroke-width="1.5" fill="none"/> <line x1="40" y1="48" x2="40" y2="64" stroke="#A5E86C" stroke-width="0.8" opacity="0.2"/> <circle cx="40" cy="56" r="2" fill="#3B8700" opacity="0.4"/> </g> </g> <!-- Sun gear (center, fast rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;-360,40,40" dur="3s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="8" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="40" y1="32" x2="40" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="32" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.2"/> </g> <circle cx="40" cy="40" r="3" fill="#3B8700"/> <circle cx="40" cy="40" r="1.2" fill="white" opacity="0.2"/> <!-- Labels --> <text x="40" y="10" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2">ring (fixed)</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2">sun + planets + carrier</text> </svg>',
@@ -1100,10 +1100,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'The AGMA dynamic factor (Kv) accounts for what effect in gear design?',
           options: [
-            'The effect of material density on gear weight',
-            'Internal dynamic loads generated by gear tooth errors, profile errors,',
-            'The dynamic viscosity of the lubricant',
-            'The effect of gear inertia during startup and shutdown'
+            'Effect of material density on overall gear weight',
+            'Internal dynamic loads from tooth errors and profiles',
+            'The dynamic viscosity of the lubricant in the mesh',
+            'Effect of gear inertia during startup and shutdown'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Worm shaft (horizontal cylinder) --> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Worm thread (scrolling animation) --> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="64" y1="20" x2="70" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <!-- Worm wheel (below, slow rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="56" r="13" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Teeth --> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="52.7" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="52.7" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> <!-- Input/output arrows --> <polygon points="74,25 78,26 74,27" fill="#3B8700" opacity="0.2"/> <path d="M22,68 A14,14 0 0,0 26,72" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <polygon points="25,71 28,74 24,73" fill="#A5E86C" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">high ratio</text> </svg>',
@@ -1164,10 +1164,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'Which of the following is the PRIMARY reason for applying positive profile shift to a small pinion?',
           options: [
-            'To make the gear cheaper to manufacture',
-            'To avoid undercutting of the tooth root when the pinion has fewer teeth than',
-            'To increase the gear ratio beyond what the tooth count allows',
-            'To reduce gear noise at high speeds'
+            'To make the gear cheaper to manufacture overall',
+            'Avoid tooth root undercutting when pinion has few teeth',
+            'Increase the gear ratio beyond tooth count limits',
+            'To reduce gear noise at high operating speeds'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" class="s-stroke s-fill" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
@@ -1190,8 +1190,8 @@ export const unit8: Unit = {
           options: [
             'Surface durability failure governed by Hertzian contact stress (sigma_H)',
             'Bending fatigue failure governed by the bending stress at the tooth root',
-            'Scoring failure governed by flash temperature',
-            'Wear failure governed by sliding velocity'
+            'Scoring failure governed by flash temperature rise',
+            'Wear failure governed by the sliding velocity rate'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Worm shaft (horizontal cylinder) --> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Worm thread (scrolling animation) --> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="64" y1="20" x2="70" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <!-- Worm wheel (below, slow rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="56" r="13" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Teeth --> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="52.7" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="52.7" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> <!-- Input/output arrows --> <polygon points="74,25 78,26 74,27" fill="#3B8700" opacity="0.2"/> <path d="M22,68 A14,14 0 0,0 26,72" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <polygon points="25,71 28,74 24,73" fill="#A5E86C" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">high ratio</text> </svg>',
@@ -1354,9 +1354,9 @@ export const unit8: Unit = {
           question: 'What is the difference between a slip-critical (friction-type) bolted connection and a bearing-type bolted connection?',
           options: [
             'They are the same — just different terminology used by different codes,',
-            'In slip-critical connections, the load is transferred by friction between',
-            'Slip-critical uses higher-grade bolts',
-            'Slip-critical is for static loads'
+            'Slip-critical transfers load by friction between plates',
+            'Slip-critical uses higher-grade bolts than bearing',
+            'Slip-critical connections are for static loads only'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axle mount (center) --> <rect x="34" y="18" width="12" height="8" rx="3" fill="#3B8700" opacity="0.25"/> <rect x="34" y="18" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Spring leaves (stacked, deflecting) --> <path stroke="#58CC02" stroke-width="3" fill="none" stroke-linecap="round"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M10,30 Q40,30 70,30;M10,30 Q40,38 70,30;M10,30 Q40,30 70,30"/> </path> <path stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M14,34 Q40,34 66,34;M14,34 Q40,40 66,34;M14,34 Q40,34 66,34"/> </path> <path stroke="#58CC02" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M20,38 Q40,38 60,38;M20,38 Q40,42 60,38;M20,38 Q40,38 60,38"/> </path> <path stroke="#A5E86C" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M26,42 Q40,42 54,42;M26,42 Q40,44 54,42;M26,42 Q40,42 54,42"/> </path> <!-- Eye ends (mounting points) --> <circle cx="10" cy="30" r="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="10" cy="30" r="1" fill="#3B8700" opacity="0.3"/> <circle cx="70" cy="30" r="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="70" cy="30" r="1" fill="#3B8700" opacity="0.3"/> <!-- Load arrow --> <g> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2.5s" repeatCount="indefinite"/> <line x1="40" y1="10" x2="40" y2="16" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="38,15 40,19 42,15" fill="#3B8700"/> </g> <!-- Wheels --> <circle cx="14" cy="56" r="8" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="14" cy="56" r="2" fill="#3B8700" opacity="0.15"/> <circle cx="66" cy="56" r="8" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="66" cy="56" r="2" fill="#3B8700" opacity="0.15"/> <!-- Shackle links --> <line x1="10" y1="33" x2="14" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <line x1="70" y1="33" x2="66" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <text x="40" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">multi-leaf</text> </svg>',
@@ -1392,10 +1392,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'For a bolt with unthreaded shank length L_s, threaded length in the grip L_t, tensile stress area A_t, and nominal area A_d,?',
           options: [
-            'k_b = E*A_d / (L_s + L_t)',
+            'k_b = E\xD7A_d / (L_s + L_t) using full shank area',
             'k_b = 1 / (L_s/(E*A_d) + L_t/(E*A_t)) — the bolt acts as two springs',
-            'k_b = E*(A_d + A_t) / (L_s + L_t)',
-            'k_b = E*A_t / L_t (only the threaded portion matters)'
+            'k_b = E\xD7(A_d + A_t) / (L_s + L_t) average area',
+            'k_b = E\xD7A_t / L_t, only threaded portion matters'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
@@ -1407,10 +1407,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What is the main advantage of a butt weld over a fillet weld for joining two plates in tension?',
           options: [
-            'Butt welds are cheaper and faster to produce',
-            'A complete joint penetration (CJP) butt weld has the full cross-section of',
-            'Butt welds do not require any edge preparation',
-            'Butt welds never have residual stresses'
+            'Butt welds are cheaper and faster to produce overall',
+            'CJP butt weld has the full cross-section of parent metal',
+            'Butt welds do not require any edge preparation work',
+            'Butt welds never develop any residual stresses'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
@@ -1432,8 +1432,8 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A gasketed flange joint is being designed. Which condition typically requires more bolt load?',
           options: [
-            'The seating condition always requires more bolt load',
-            'The operating condition always requires more bolt load',
+            'Seating condition always requires more bolt load',
+            'Operating condition always requires more bolt load',
             'It depends on the gasket type and internal pressure — soft gaskets (low m, low',
             'Both conditions always require exactly the same bolt load'
           ],
@@ -1447,10 +1447,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'What is the Junker test, and what does it evaluate?',
           options: [
-            'A test for bolt tensile strength under impact loading',
-            'A vibration test that applies transverse (side-to-side) motion to a bolted',
-            'A test for gasket creep under high temperature',
-            'A non-destructive test for weld defects'
+            'A test for bolt tensile strength under impact loads',
+            'Vibration test applying transverse motion to a joint',
+            'A test for gasket creep under high temperature use',
+            'A non-destructive testing method for weld defects'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
@@ -1511,10 +1511,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'In a welded structure, what is the most common location for fatigue crack initiation?',
           options: [
-            'At the center of the weld bead, where the metal is hottest during welding,',
+            'At center of weld bead, where metal is hottest',
             'At the weld toe — the geometric transition between the weld face and the base',
-            'In the base metal far from the weld, where residual stresses are highest',
-            'At the midpoint of the weld length'
+            'In base metal far from weld, highest residual stress',
+            'At the midpoint of the weld length precisely'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
@@ -1638,9 +1638,9 @@ export const unit8: Unit = {
           question: 'The spring index (D/d) is 4.5. What is the likely cause, and what would you change?',
           options: [
             'The spring material is defective — replace the supplier and use the same',
-            'The spring index is too low (tightly wound), causing a high Wahl correction',
-            'The spring is corroding at that location',
-            'The spring is bottoming out (going solid) during operation, causing impact'
+            'Spring index too low, causing high Wahl correction factor',
+            'The spring is corroding at that specific location',
+            'Spring is bottoming out during operation causing impact'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
@@ -1821,7 +1821,7 @@ export const unit8: Unit = {
             'Pure torsion — the leaves twist under load',
             'Pure tension — the leaves are stretched by the vehicle weight',
             'Bending stress — each leaf acts as a beam, with the stress varying linearly',
-            'Uniform compressive stress through the leaf thickness'
+            'Uniform compressive stress through leaf thickness'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flywheel (left disc) --> <ellipse cx="26" cy="40" rx="4" ry="22" stroke-width="0.8" stroke="#58CC02" fill="none"/> <ellipse cx="26" cy="40" rx="4" ry="22" fill="#58CC02" opacity="0.03"/> <ellipse cx="26" cy="40" rx="1.5" ry="6" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Pressure plate (right disc) --> <ellipse cx="38" cy="40" rx="3" ry="20" stroke-width="0.7" stroke="#58CC02" fill="none"> <animate attributeName="cx" values="42;34;42" dur="3s" repeatCount="indefinite"/> </ellipse> <!-- Friction disc (between) --> <ellipse cx="32" cy="40" rx="2" ry="18" stroke-width="0.8" class="s-stroke-l s-fill-l" fill-opacity="0.1"> <animate attributeName="cx" values="34;30;34" dur="3s" repeatCount="indefinite"/> </ellipse> <!-- Input shaft (left) --> <rect x="2" y="38" width="22" height="4" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.05"/> <!-- Output shaft (right) --> <rect x="42" y="38" width="36" height="4" rx="0.5" stroke-width="0.5" class="s-stroke s-fill" fill-opacity="0.05"/> <!-- Spring (engagement force) --> <path d="M48,26 L50,28 L46,30 L50,32 L46,34 L50,36" stroke-width="0.4" stroke="#3B8700" fill="none" opacity="0.3"> <animate attributeName="d" values="M52,26 L54,28 L50,30 L54,32 L50,34 L54,36;M44,26 L46,28 L42,30 L46,32 L42,34 L46,36;M52,26 L54,28 L50,30 L54,32 L50,34 L54,36" dur="3s" repeatCount="indefinite"/> </path> <!-- Engage/disengage arrow --> <g opacity="0.35"> <line x1="44" y1="14" x2="36" y2="14" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="x2" values="40;32;40" dur="3s" repeatCount="indefinite"/> </line> <polygon points="36,12.5 36,15.5 34,14" fill="#3B8700"> <animate attributeName="points" values="40,12.5 40,15.5 38,14;32,12.5 32,15.5 30,14;40,12.5 40,15.5 38,14" dur="3s" repeatCount="indefinite"/> </polygon> <text x="46" y="15.5" font-size="2.5" fill="#3B8700">F_n</text> </g> <!-- Rotation indicators --> <g> <circle cx="10" cy="36" r="0.7" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,40;360,10,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Torque label --> <text x="60" y="34" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">T = μF_nR</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">torque transmission</text> </svg>',
@@ -1882,9 +1882,9 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'An extension spring has hooks at both ends. Where is the most likely failure location, and why?',
           options: [
-            'At the center of the spring body, where the stress is highest',
+            'At center of spring body, where stress is highest',
             'At the hooks (end loops) — the bend radius at the hook transition creates',
-            'At the point where the spring contacts its anchor',
+            'At the point where spring contacts its anchor point',
             'Extension springs fail randomly along their length'
           ],
           correctIndex: 1,
@@ -1936,10 +1936,10 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A mechanical face seal is leaking excessively. What is the most likely cause?',
           options: [
-            'The seal was installed upside down',
+            'The seal was installed upside down incorrectly',
             'Particulate contamination in the process fluid — hard particles entered',
-            'The seal spring force is too high',
-            'The shaft speed is too low for hydrodynamic lift'
+            'The seal spring force is set too high for use',
+            'Shaft speed is too low for hydrodynamic lift'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
@@ -1952,7 +1952,7 @@ export const unit8: Unit = {
           question: 'What is the difference between backup rings and anti-extrusion rings in O-ring seal design?',
           options: [
             'They are different names for the same component — a hard ring installed on',
-            'Backup rings prevent the O-ring from moving',
+            'Backup rings prevent the O-ring from moving out',
             'Backup rings are used with static seals only',
             'They serve completely different functions — backup rings center the O-ring'
           ],

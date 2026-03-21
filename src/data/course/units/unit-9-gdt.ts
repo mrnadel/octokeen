@@ -52,7 +52,7 @@ export const unit9: Unit = {
             'Clearance fit with no concerns — the shaft is always smaller than the hole',
             'Interference fit — the shaft maximum (50.050) always exceeds the hole maximum',
             'Transition fit — sometimes clearance',
-            'The tolerances are invalid because the shaft cannot be larger than nominal'
+            'Tolerances are invalid, shaft cannot exceed nominal'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Vertical scale (dimension axis) --> <line x1="40" y1="72" x2="40" y2="8" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <!-- Nominal dimension line (50.000) --> <line x1="12" y1="44" x2="68" y2="44" stroke="#3B8700" stroke-width="1" stroke-dasharray="3,2" opacity="0.3"/> <text x="40" y="78" font-size="4.5" fill="#334155" text-anchor="middle">Nominal ∅50</text> <!-- Hole tolerance zone (H: 50.000 to 49.950) --> <rect x="16" y="44" width="14" height="20" rx="1" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/> <!-- Hole upper deviation = 0.000 (at nominal) --> <line x1="14" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="0.8" opacity="0.5"/> <text x="23" y="42" font-size="3.5" fill="#334155" text-anchor="middle">+0.000</text> <!-- Hole lower deviation = -0.050 --> <line x1="14" y1="64" x2="32" y2="64" stroke="#58CC02" stroke-width="0.8" opacity="0.5"/> <text x="23" y="70" font-size="3.5" fill="#334155" text-anchor="middle">-0.050</text> <!-- Hole label --> <text x="23" y="56" font-size="5" fill="#58CC02" text-anchor="middle" font-weight="bold">Hole</text> <!-- Shaft tolerance zone (above nominal: +0.025 to +0.050) --> <rect x="50" y="24" width="14" height="10" rx="1" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1.2"/> <!-- Shaft upper deviation = +0.050 --> <line x1="48" y1="24" x2="66" y2="24" stroke="#3B8700" stroke-width="0.8" opacity="0.5"/> <text x="57" y="22" font-size="3.5" fill="#334155" text-anchor="middle">+0.050</text> <!-- Shaft lower deviation = +0.025 --> <line x1="48" y1="34" x2="66" y2="34" stroke="#3B8700" stroke-width="0.8" opacity="0.5"/> <text x="57" y="39" font-size="3.5" fill="#334155" text-anchor="middle">+0.025</text> <!-- Shaft label --> <text x="57" y="31" font-size="5" fill="#3B8700" text-anchor="middle" font-weight="bold">Shaft</text> <!-- Interference zone indicator (shaft always above hole) --> <line x1="36" y1="34" x2="36" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.4"/> <polygon points="34.5,35 36,32 37.5,35" fill="#3B8700" opacity="0.4"/> <polygon points="34.5,43 36,46 37.5,43" fill="#3B8700" opacity="0.4"/> <text x="40" y="10" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">Interference</text> <!-- Scale markers --> <text x="10" y="46" font-size="3" fill="#6B7280">50.000</text> <text x="10" y="26" font-size="3" fill="#6B7280">50.050</text> </svg>',
@@ -104,10 +104,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'In the ISO hole-basis system, what does the designation H7/g6 represent?',
           options: [
-            'A hole with fundamental deviation H and IT grade 7, mating with a shaft',
-            'A hole of 7 mm mating with a shaft of 6 mm',
+            'Hole with H deviation and IT7, mating with g6 shaft',
+            'A hole of 7 mm mating with a shaft of 6 mm size',
             'An interference fit with 7 mm hole and 6 mm shaft',
-            'A transition fit where H and g are surface finish symbols'
+            'Transition fit where H and g are surface finishes'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Title --> <text x="40" y="7" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">H7 / g6 Clearance Fit</text> <!-- Cross-section view --> <!-- Hole (outer circle, larger) --> <circle cx="26" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="26" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Shaft (inner circle, smaller with gap) --> <circle cx="26" cy="40" r="14" fill="#3B8700" opacity="0.1"/> <circle cx="26" cy="40" r="14" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Clearance gap visible between circles --> <text x="26" y="42" font-size="4" fill="#334155" text-anchor="middle">shaft</text> <text x="26" y="62" font-size="4" fill="#334155" text-anchor="middle">hole</text> <!-- Clearance arrow --> <line x1="40" y1="40" x2="44" y2="40" stroke="#6B7280" stroke-width="0.8" opacity="0.5"/> <polygon points="43,38.5 46,40 43,41.5" fill="#6B7280" opacity="0.5"/> <text x="48" y="38" font-size="3.5" fill="#6B7280">gap</text> <!-- Right side: tolerance zone diagram --> <!-- Vertical scale --> <line x1="62" y1="68" x2="62" y2="14" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <!-- Nominal line --> <line x1="52" y1="44" x2="76" y2="44" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/> <text x="76" y="46" font-size="3" fill="#6B7280">nom</text> <!-- H7 tolerance zone (starts at nominal, goes up) --> <rect x="54" y="30" width="6" height="14" rx="1" fill="#58CC02" opacity="0.2" stroke="#58CC02" stroke-width="1"/> <text x="57" y="38" font-size="3.5" fill="#58CC02" text-anchor="middle" font-weight="bold">H7</text> <text x="52" y="29" font-size="3" fill="#334155" text-anchor="end">+0.025</text> <text x="52" y="46" font-size="3" fill="#334155" text-anchor="end">0</text> <!-- g6 tolerance zone (below nominal) --> <rect x="66" y="48" width="6" height="10" rx="1" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1"/> <text x="69" y="55" font-size="3.5" fill="#3B8700" text-anchor="middle" font-weight="bold">g6</text> <text x="74" y="49" font-size="3" fill="#334155">-0.009</text> <text x="74" y="60" font-size="3" fill="#334155">-0.025</text> <!-- Clearance bracket --> <line x1="62" y1="44" x2="62" y2="48" stroke="#A5E86C" stroke-width="1.5" opacity="0.5"> <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite"/> </line> <text x="62" y="72" font-size="3.5" fill="#6B7280" text-anchor="middle">clearance</text> </svg>',
@@ -313,9 +313,9 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between "tolerance" and "allowance" in the context of fits?',
           options: [
-            'They are synonyms and can be used interchangeably',
-            'Tolerance is the total permissible variation in a single part dimension',
-            'Tolerance applies to holes and allowance applies to shafts',
+            'They are synonyms and are used interchangeably',
+            'Tolerance is total permissible variation in one part',
+            'Tolerance applies to holes, allowance to shafts',
             'Allowance is always larger than tolerance'
           ],
           correctIndex: 1,
@@ -352,10 +352,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A drawing callout shows ∅20 ±0.05 with a note "INTERPRET PER ASME Y14.5-2018." Under Rule #1, what does this imply about the?',
           options: [
-            'The feature can have any form as long as its two-point measurement is within',
+            'Any form is acceptable if two-point measurement is OK',
             'At MMC (∅20.05 for a shaft), the feature must have perfect form — meaning it',
-            'Form control requires a separate GD&T callout regardless of Rule #1',
-            'Rule #1 only applies to angular dimensions, not diameters'
+            'Form control requires separate GD&T callout always',
+            'Rule #1 only applies to angles, not to diameters'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Specimen surface --> <rect x="6" y="28" width="68" height="24" rx="3" fill="#58CC02" opacity="0.06"/> <rect x="6" y="28" width="68" height="24" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Gauge backing (bonded to surface) --> <rect x="22" y="32" width="36" height="16" rx="2" fill="#A5E86C" opacity="0.08"/> <rect x="22" y="32" width="36" height="16" rx="2" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"/> <!-- Serpentine foil pattern (stretches under strain) --> <path stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.5"> <animate attributeName="d" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M26,36 L26,44 L30,44 L30,36 L34,36 L34,44 L38,44 L38,36 L42,36 L42,44 L46,44 L46,36 L50,36 L50,44 L54,44 L54,36;M24,36 L24,44 L29,44 L29,36 L34,36 L34,44 L39,44 L39,36 L44,36 L44,44 L49,44 L49,36 L54,36 L54,44 L58,44 L58,36;M26,36 L26,44 L30,44 L30,36 L34,36 L34,44 L38,44 L38,36 L42,36 L42,44 L46,44 L46,36 L50,36 L50,44 L54,44 L54,36"/> </path> <!-- Wire leads --> <line x1="26" y1="40" x2="16" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="54" y1="40" x2="64" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <!-- Solder tabs --> <circle cx="26" cy="40" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.3"/> <!-- Strain arrows --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="3s" repeatCount="indefinite"/> <polygon points="6,38 2,40 6,42" fill="#3B8700"/> <polygon points="74,38 78,40 74,42" fill="#3B8700"/> </g> <!-- Resistance change indicator --> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">ΔR/R = GF·ε</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12">Wheatstone bridge</text> </svg>',
@@ -426,9 +426,9 @@ export const unit9: Unit = {
           question: 'Why is position tolerance almost always applied at MMC rather than RFS for clearance-hole bolt patterns?',
           options: [
             'MMC is simply the default — there is no functional reason to prefer it over',
-            'Because at MMC the holes are smallest and shafts largest (tightest fit), so if',
+            'At MMC holes are smallest, shafts largest \u2014 tightest',
             'RFS is actually preferred but MMC is cheaper to inspect',
-            'MMC only applies to shafts, not holes, so it is used for the bolt side only'
+            'MMC only applies to shafts, not holes, for bolts only'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Feature Control Frame --> <!-- Outer frame box --> <rect x="6" y="12" width="68" height="14" rx="1" fill="#58CC02" opacity="0.04" stroke="#3B8700" stroke-width="1.5"/> <!-- Compartment dividers --> <line x1="22" y1="12" x2="22" y2="26" stroke="#3B8700" stroke-width="1.2"/> <line x1="40" y1="12" x2="40" y2="26" stroke="#3B8700" stroke-width="1.2"/> <line x1="52" y1="12" x2="52" y2="26" stroke="#3B8700" stroke-width="1.2"/> <line x1="60" y1="12" x2="60" y2="26" stroke="#3B8700" stroke-width="1.2"/> <!-- Geometric symbol (position = crosshair in circle) --> <circle cx="14" cy="19" r="4" stroke="#58CC02" stroke-width="1.2" fill="none"/> <line x1="14" y1="15" x2="14" y2="23" stroke="#58CC02" stroke-width="1"/> <line x1="10" y1="19" x2="18" y2="19" stroke="#58CC02" stroke-width="1"/> <!-- Diameter symbol + tolerance value --> <text x="24" y="22" font-size="5" fill="#334155">∅ 0.25</text> <!-- MMC modifier --> <text x="42" y="22" font-size="5" fill="#334155" font-weight="bold">M</text> <circle cx="46" cy="19" r="4" stroke="#334155" stroke-width="0.8" fill="none"/> <!-- Datum A --> <text x="54" y="22" font-size="6" fill="#334155" font-weight="bold">A</text> <!-- Datum B --> <text x="63" y="22" font-size="6" fill="#334155" font-weight="bold">B</text> <!-- Labels below with lines --> <!-- Geometric symbol label --> <line x1="14" y1="26" x2="14" y2="34" stroke="#6B7280" stroke-width="0.5" opacity="0.4"/> <text x="14" y="40" font-size="4" fill="#6B7280" text-anchor="middle">Geo.</text> <text x="14" y="45" font-size="4" fill="#6B7280" text-anchor="middle">symbol</text> <!-- Tolerance label --> <line x1="31" y1="26" x2="31" y2="34" stroke="#6B7280" stroke-width="0.5" opacity="0.4"/> <text x="31" y="40" font-size="4" fill="#6B7280" text-anchor="middle">Tolerance</text> <text x="31" y="45" font-size="4" fill="#6B7280" text-anchor="middle">value</text> <!-- Modifier label --> <line x1="46" y1="26" x2="46" y2="34" stroke="#6B7280" stroke-width="0.5" opacity="0.4"/> <text x="46" y="40" font-size="4" fill="#6B7280" text-anchor="middle">Mod.</text> <text x="46" y="45" font-size="4" fill="#6B7280" text-anchor="middle">(MMC)</text> <!-- Datum label --> <line x1="60" y1="26" x2="60" y2="34" stroke="#6B7280" stroke-width="0.5" opacity="0.4"/> <text x="60" y="40" font-size="4" fill="#6B7280" text-anchor="middle">Datum</text> <text x="60" y="45" font-size="4" fill="#6B7280" text-anchor="middle">refs</text> <!-- Example part sketch below --> <rect x="14" y="54" width="52" height="16" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <!-- Hole in part --> <circle cx="40" cy="62" r="4" fill="white" stroke="#3B8700" stroke-width="1"/> <!-- Leader line from FCF to hole --> <line x1="40" y1="26" x2="40" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,2" opacity="0.3"/> <!-- Datum A triangle --> <polygon points="14,70 12,75 16,75" fill="#3B8700" opacity="0.4"/> <text x="14" y="78" font-size="4" fill="#334155" text-anchor="middle">A</text> </svg>',
@@ -580,7 +580,7 @@ export const unit9: Unit = {
           options: [
             'A cylinder of ∅0.05 around the surface normal',
             'Two parallel planes 0.05 apart that are exactly perpendicular to datum A —',
-            'A single plane exactly 0.05 from datum A',
+            'A single plane exactly 0.05 away from datum A',
             'A square zone 0.05 × 0.05'
           ],
           correctIndex: 1,
@@ -633,9 +633,9 @@ export const unit9: Unit = {
           question: 'An angularity tolerance of 0.1 is applied to a surface at 45° to datum A. What does this control?',
           options: [
             'The surface must be at exactly 45° ± 0.1° to datum A',
-            'The surface must lie between two parallel planes 0.1 apart, oriented',
+            'Surface between two planes 0.1 apart at 45\xB0 to A',
             'The feature must be within a cylindrical zone of ∅0.1',
-            'The surface must be flat within 0.1'
+            'The surface must be flat within 0.1 tolerance'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
@@ -675,7 +675,7 @@ export const unit9: Unit = {
             'No — parallelism and flatness are independent',
             'Yes — orientation tolerances (parallelism, perpendicularity, angularity)',
             'Only if a separate flatness callout is also applied',
-            'Parallelism does not apply to surfaces, only to axes'
+            'Parallelism does not apply to surfaces, only axes'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ground --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <!-- Ground hatching at supports --> <line x1="9" y1="66" x2="6" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="14" y1="66" x2="11" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="19" y1="66" x2="16" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="61" y1="66" x2="58" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="66" y1="66" x2="63" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="71" y1="66" x2="68" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <!-- Pin support (left) --> <polygon points="14,52 10,62 18,62" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="14" cy="52" r="1.5" fill="#3B8700" opacity="0.25"/> <!-- Roller support (right) --> <polygon points="66,52 62,60 70,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="64" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <circle cx="68" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <line x1="62" y1="64" x2="70" y2="64" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <!-- Beam (deflects under load) --> <path fill="#58CC02" opacity="0.08"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z;M14,46 Q40,49 66,46 L66,52 Q40,55 14,52 Z;M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z"/> </path> <path stroke="#58CC02" stroke-width="4" fill="none" stroke-linecap="round"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,49 Q40,49 66,49;M14,49 Q40,52 66,49;M14,49 Q40,49 66,49"/> </path> <!-- Applied force F₁ (x=32, larger) --> <g> <line x1="32" y1="36" x2="32" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;22;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="30,43 32,47 34,43" fill="#3B8700" opacity="0.5"/> <text x="32" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;18;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₁ </text> </g> <!-- Applied force F₂ (x=52, smaller) --> <g> <line x1="52" y1="36" x2="52" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;28;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="50,43 52,47 54,43" fill="#3B8700" opacity="0.5"/> <text x="52" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;24;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₂ </text> </g> <!-- Reaction forces (appear when loaded) --> <!-- R₁ at pin support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="14" y1="65" x2="14" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="12.5,59 14,56 15.5,59" fill="#3B8700"/> <text x="14" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₁</text> </g> <!-- R₂ at roller support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="66" y1="65" x2="66" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="64.5,59 66,56 67.5,59" fill="#3B8700"/> <text x="66" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₂</text> </g> </svg>',
@@ -698,7 +698,7 @@ export const unit9: Unit = {
           options: [
             'T = hole size × bolt size',
             'T = (MMC hole size − MMC fastener size) / 2, applied equally to each part,',
-            'T = hole size + bolt size',
+            'T = hole size + bolt size summed together',
             'T = MMC hole size − LMC bolt size'
           ],
           correctIndex: 1,
@@ -711,10 +711,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What does the lower segment control?',
           options: [
-            'The same thing as the upper segment but with a tighter tolerance',
+            'Same as upper segment but with a tighter tolerance',
             'The lower segment (FRTZF — Feature Relating Tolerance Zone Framework) controls',
-            'The lower segment applies only to the smallest hole in the pattern',
-            'The lower segment overrides the upper segment entirely'
+            'Lower segment applies only to the smallest hole',
+            'The lower segment overrides upper segment entirely'
           ],
           correctIndex: 1,
           explanation: 'Composite position tolerance has two levels: the upper segment (PLTZF — Pattern Locating Tolerance Zone Framework) locates the entire pattern relative to the specified datums (A, B, C).',
@@ -734,9 +734,9 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the projected tolerance zone, and when is it used?',
           options: [
-            'A tolerance zone extending beyond the feature into the mating part space',
-            'A tolerance zone that applies only in projected (2D) views',
-            'A zone projected onto the datum plane for measurement convenience',
+            'Zone extending beyond feature into mating part space',
+            'A tolerance zone applied only in projected 2D views',
+            'Zone projected onto datum plane for measurement ease',
             'An enlarged tolerance zone used for prototype parts'
           ],
           correctIndex: 0,
@@ -881,10 +881,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A cylindrical feature is used as both the primary and secondary datum. What does the bore (datum B) constrain?',
           options: [
-            '3 degrees of freedom (one translation + two rotations)',
-            '2 degrees of freedom (two translations perpendicular to the bore axis)',
-            '1 degree of freedom (rotation about the bore axis)',
-            '4 degrees of freedom (all but axial translation and axial rotation)'
+            '3 DOF (one translation plus two rotations total)',
+            '2 DOF (two translations perpendicular to bore axis)',
+            '1 DOF (rotation about the bore axis only)',
+            '4 DOF (all but axial translation and rotation)'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ground --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <!-- Ground hatching at supports --> <line x1="9" y1="66" x2="6" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="14" y1="66" x2="11" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="19" y1="66" x2="16" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="61" y1="66" x2="58" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="66" y1="66" x2="63" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="71" y1="66" x2="68" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <!-- Pin support (left) --> <polygon points="14,52 10,62 18,62" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="14" cy="52" r="1.5" fill="#3B8700" opacity="0.25"/> <!-- Roller support (right) --> <polygon points="66,52 62,60 70,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="64" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <circle cx="68" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <line x1="62" y1="64" x2="70" y2="64" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <!-- Beam (deflects under load) --> <path fill="#58CC02" opacity="0.08"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z;M14,46 Q40,49 66,46 L66,52 Q40,55 14,52 Z;M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z"/> </path> <path stroke="#58CC02" stroke-width="4" fill="none" stroke-linecap="round"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,49 Q40,49 66,49;M14,49 Q40,52 66,49;M14,49 Q40,49 66,49"/> </path> <!-- Applied force F₁ (x=32, larger) --> <g> <line x1="32" y1="36" x2="32" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;22;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="30,43 32,47 34,43" fill="#3B8700" opacity="0.5"/> <text x="32" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;18;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₁ </text> </g> <!-- Applied force F₂ (x=52, smaller) --> <g> <line x1="52" y1="36" x2="52" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;28;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="50,43 52,47 54,43" fill="#3B8700" opacity="0.5"/> <text x="52" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;24;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₂ </text> </g> <!-- Reaction forces (appear when loaded) --> <!-- R₁ at pin support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="14" y1="65" x2="14" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="12.5,59 14,56 15.5,59" fill="#3B8700"/> <text x="14" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₁</text> </g> <!-- R₂ at roller support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="66" y1="65" x2="66" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="64.5,59 66,56 67.5,59" fill="#3B8700"/> <text x="66" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₂</text> </g> </svg>',
@@ -1053,10 +1053,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the physical implication of MMC on datum B?',
           options: [
-            'The datum axis is established at the MMC size of the bore',
-            'The datum simulator is a fixed pin at the virtual condition size of the bore',
-            'The tolerance only applies when the bore is at MMC',
-            'The bore must be produced at exactly MMC to function as a datum'
+            'Datum axis established at the MMC size of the bore',
+            'Datum simulator is a fixed pin at virtual condition',
+            'Tolerance only applies when the bore is at MMC size',
+            'Bore must be produced at exactly MMC to be a datum'
           ],
           correctIndex: 1,
           explanation: 'When a datum feature of size is referenced at MMC, the datum simulator is fixed at the datum feature\'s virtual condition boundary .',
@@ -1068,7 +1068,7 @@ export const unit9: Unit = {
           question: 'How should datums be specified to ensure repeatable measurement?',
           options: [
             'Use standard full-surface datums — the flexibility does not matter',
-            'Use datum targets with a specified clamping/restraint system that replicates',
+            'Use datum targets with clamping that replicates use',
             'Sheet metal parts do not need datum references',
             'Use only one datum point to minimize deformation'
           ],
@@ -1104,9 +1104,9 @@ export const unit9: Unit = {
           question: 'Why is it sometimes necessary to specify secondary and tertiary datums even when the primary datum appears to fully locate the feature?',
           options: [
             'It is never necessary — one datum is always sufficient',
-            'To fully define the measurement coordinate system and eliminate ambiguity',
-            'Additional datums are only for CMM alignment, not for function',
-            'Multiple datums are only needed for position tolerance'
+            'To fully define measurement coordinate system',
+            'Additional datums are only for CMM alignment',
+            'Multiple datums are only for position tolerance'
           ],
           correctIndex: 1,
           explanation: 'Consider a position tolerance on a hole pattern relative to only datum A (a plane).',
@@ -1126,10 +1126,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A part has a conical (tapered) feature designated as a datum. How does a cone establish a datum?',
           options: [
-            'A cone cannot be used as a datum feature',
+            'A cone cannot be used as a datum feature at all',
             'A cone establishes a datum axis and a datum point simultaneously — the axis',
             'A cone only establishes a datum plane at its base',
-            'A cone establishes two datum planes perpendicular to each other'
+            'Cone establishes two perpendicular datum planes'
           ],
           correctIndex: 1,
           explanation: 'A conical datum feature is unique because it simultaneously establishes a datum axis and a datum point.',
@@ -1140,10 +1140,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the "simultaneous requirement" for datum features in ASME Y14.5?',
           options: [
-            'All datums must be manufactured at the same time, which would only hold true',
-            'All geometric tolerances sharing the same datum reference frame and material',
-            'The three datums must be measured simultaneously on the CMM',
-            'The datum features must all have the same tolerance value'
+            'All datums must be manufactured at the same time',
+            'Tolerances sharing same DRF and modifier are linked',
+            'Three datums must be measured simultaneously on CMM',
+            'Datum features must all have the same tolerance'
           ],
           correctIndex: 1,
           explanation: 'The simultaneous requirement (ASME Y14.5-2018, Section 4.19) means that if multiple feature control frames reference the same datums in the same order with the same material condition modifiers,.',
@@ -1163,9 +1163,9 @@ export const unit9: Unit = {
           question: 'What datums would typically be specified?',
           options: [
             'Only the flange face — one datum is sufficient',
-            'The flange face as primary datum (A), the bore or pilot diameter as secondary',
-            'Two of the four holes as datums A and B',
-            'The outer diameter of the flange as the only datum'
+            'Flange face primary (A), bore secondary, hole clocks',
+            'Two of the four holes serve as datums A and B',
+            'Outer diameter of the flange as the only datum'
           ],
           correctIndex: 1,
           explanation: 'For a circular bolt pattern on a flange.',
@@ -1176,10 +1176,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What happens if the primary datum feature has poor form (e.g., significant waviness) and no datum targets are specified?',
           options: [
-            'The datum plane is wavy, matching the surface',
-            'The part rocks on the datum simulator, contacting different high points each',
-            'The CMM software automatically corrects for poor form',
-            'Poor form on a datum feature has no effect on measurements'
+            'Datum plane is wavy, matching the actual surface',
+            'Part rocks on simulator, contacting different points',
+            'CMM software automatically corrects for poor form',
+            'Poor form on datum feature has no effect at all'
           ],
           correctIndex: 1,
           explanation: 'When a full-surface primary datum has significant form error and no datum targets are specified, the part can rock on the datum simulator (surface plate), contacting different sets of three high.',
@@ -1309,10 +1309,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'In a tolerance stack-up, what is the first step before performing any calculations?',
           options: [
-            'Select the analysis method (worst-case or RSS)',
-            'Identify the critical assembly requirement (the gap or clearance of interest)',
-            'Assign tolerances to all dimensions',
-            'Build a prototype and measure it'
+            'Select analysis method (worst-case or RSS approach)',
+            'Identify the critical assembly gap or clearance',
+            'Assign tolerances to all contributing dimensions',
+            'Build a prototype and measure it for validation'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Specimen surface --> <rect x="6" y="28" width="68" height="24" rx="3" fill="#58CC02" opacity="0.06"/> <rect x="6" y="28" width="68" height="24" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Gauge backing (bonded to surface) --> <rect x="22" y="32" width="36" height="16" rx="2" fill="#A5E86C" opacity="0.08"/> <rect x="22" y="32" width="36" height="16" rx="2" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"/> <!-- Serpentine foil pattern (stretches under strain) --> <path stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.5"> <animate attributeName="d" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="M26,36 L26,44 L30,44 L30,36 L34,36 L34,44 L38,44 L38,36 L42,36 L42,44 L46,44 L46,36 L50,36 L50,44 L54,44 L54,36;M24,36 L24,44 L29,44 L29,36 L34,36 L34,44 L39,44 L39,36 L44,36 L44,44 L49,44 L49,36 L54,36 L54,44 L58,44 L58,36;M26,36 L26,44 L30,44 L30,36 L34,36 L34,44 L38,44 L38,36 L42,36 L42,44 L46,44 L46,36 L50,36 L50,44 L54,44 L54,36"/> </path> <!-- Wire leads --> <line x1="26" y1="40" x2="16" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="54" y1="40" x2="64" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <!-- Solder tabs --> <circle cx="26" cy="40" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.3"/> <!-- Strain arrows --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="3s" repeatCount="indefinite"/> <polygon points="6,38 2,40 6,42" fill="#3B8700"/> <polygon points="74,38 78,40 74,42" fill="#3B8700"/> </g> <!-- Resistance change indicator --> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">ΔR/R = GF·ε</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12">Wheatstone bridge</text> </svg>',
@@ -1656,8 +1656,8 @@ export const unit9: Unit = {
           options: [
             'They are wrong — 9 points is sufficient for any flatness measurement, provided',
             'They are right — 9 points on a large surface may miss local deviations between',
-            'Point count does not matter',
-            'They are right, but only'
+            'Point count does not matter for this measurement',
+            'They are right, but only for very small surfaces'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ground --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <!-- Ground hatching at supports --> <line x1="9" y1="66" x2="6" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="14" y1="66" x2="11" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="19" y1="66" x2="16" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="61" y1="66" x2="58" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="66" y1="66" x2="63" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="71" y1="66" x2="68" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <!-- Pin support (left) --> <polygon points="14,52 10,62 18,62" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="14" cy="52" r="1.5" fill="#3B8700" opacity="0.25"/> <!-- Roller support (right) --> <polygon points="66,52 62,60 70,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="64" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <circle cx="68" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <line x1="62" y1="64" x2="70" y2="64" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <!-- Beam (deflects under load) --> <path fill="#58CC02" opacity="0.08"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z;M14,46 Q40,49 66,46 L66,52 Q40,55 14,52 Z;M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z"/> </path> <path stroke="#58CC02" stroke-width="4" fill="none" stroke-linecap="round"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,49 Q40,49 66,49;M14,49 Q40,52 66,49;M14,49 Q40,49 66,49"/> </path> <!-- Applied force F₁ (x=32, larger) --> <g> <line x1="32" y1="36" x2="32" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;22;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="30,43 32,47 34,43" fill="#3B8700" opacity="0.5"/> <text x="32" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;18;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₁ </text> </g> <!-- Applied force F₂ (x=52, smaller) --> <g> <line x1="52" y1="36" x2="52" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;28;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="50,43 52,47 54,43" fill="#3B8700" opacity="0.5"/> <text x="52" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;24;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₂ </text> </g> <!-- Reaction forces (appear when loaded) --> <!-- R₁ at pin support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="14" y1="65" x2="14" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="12.5,59 14,56 15.5,59" fill="#3B8700"/> <text x="14" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₁</text> </g> <!-- R₂ at roller support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="66" y1="65" x2="66" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="64.5,59 66,56 67.5,59" fill="#3B8700"/> <text x="66" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₂</text> </g> </svg>',
@@ -1970,10 +1970,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A surface finish symbol on a drawing has a circle in the V-notch. What does this indicate?',
           options: [
-            'The surface must be machined',
+            'The surface must be machined to specification',
             'The surface must not be machined — it must remain in the as-manufactured state',
-            'The surface requires electrical discharge machining (EDM)',
-            'The roughness applies only to the first article, not production parts'
+            'The surface requires electrical discharge machining',
+            'Roughness applies only to first article, not production'
           ],
           correctIndex: 1,
           explanation: 'Per ISO 1302, the circle in the V-notch (open triangle) of the surface texture symbol indicates that the surface must be obtained by a non-material-removal process — meaning no machining is allowed.',
