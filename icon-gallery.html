@@ -10,13 +10,13 @@
   h1{text-align:center;font-size:28px;font-weight:900;color:#3C3C3C;margin-bottom:6px}
   h1 span{color:#58CC02}
   p.sub{text-align:center;color:#AFAFAF;font-size:14px;font-weight:600;margin-bottom:40px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;max-width:1200px;margin:0 auto}
-  .card{background:white;border-radius:20px;padding:24px 16px 16px;text-align:center;border:2px solid #EBEBEB;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+  .card{background:white;border-radius:20px;padding:24px 16px 16px;text-align:center;border:2px solid #EBEBEB;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:10px}
   .card:hover{border-color:#58CC02;transform:translateY(-3px);box-shadow:0 8px 24px rgba(88,204,2,.12)}
   .num{font-size:11px;font-weight:800;color:#C0C0C0;letter-spacing:1px}
   .label{font-size:15px;font-weight:800;color:#3C3C3C}
   .desc{font-size:11px;font-weight:600;color:#AFAFAF;line-height:1.4}
-  .sizes{display:flex;align-items:center;gap:10px;margin-top:4px}
+  .sizes{display:flex;align-items:center;gap:10px;margin-top:2px}
   .sizes span{font-size:9px;color:#CCC;font-weight:700}
   .mock-header{max-width:400px;margin:0 auto 40px;background:white;border-radius:16px;border:2px solid #EBEBEB;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
   .mock-header .right{display:flex;align-items:center;gap:8px}
@@ -27,7 +27,7 @@
 </head>
 <body>
 <h1><span>Mech</span>Ready Mascot</h1>
-<p class="sub">20 artist takes on a cute hydraulic arm — click to preview in header</p>
+<p class="sub">20 different structural takes — click to preview in header</p>
 <div class="mock-header">
   <div id="header-preview" style="width:32px;height:38px">
     <svg width="32" height="38" viewBox="0 0 200 240"><rect width="200" height="240" rx="20" fill="#E5E5E5"/><text x="100" y="125" text-anchor="middle" dominant-baseline="central" fill="#AAA" font-size="40" font-weight="800">?</text></svg>
@@ -40,445 +40,616 @@
 </div>
 <div class="grid">
 
-<!-- #1 Duo Green — classic L-bend -->
+<!-- ========== #1 CLASSIC CRANE ========== -->
+<!-- Faithful to reference: flared base, 2 pill segments, bolt joints, V-gripper -->
 <div class="card" onclick="pick(this)">
 <div class="num">#1</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="50" y="218" width="56" height="22" rx="8" fill="#3D9402"/>
-<rect x="62" y="198" width="32" height="24" rx="6" fill="#46A302"/>
-<rect x="82" y="15" width="34" height="80" rx="17" fill="#62D916" transform="rotate(122,99,95)"/>
-<g transform="translate(167,138) rotate(122)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#46A302"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#58CC02"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#58CC02"/></g>
-<rect x="59" y="93" width="38" height="112" rx="19" fill="#58CC02" transform="rotate(12,78,205)"/>
-<circle cx="99" cy="95" r="16" fill="#62D916"/><circle cx="99" cy="95" r="8" fill="#3D9402"/>
-<circle cx="78" cy="205" r="14" fill="#46A302"/><circle cx="78" cy="205" r="7" fill="#3D9402"/>
-<circle cx="167" cy="138" r="9" fill="#62D916"/><circle cx="167" cy="138" r="4.5" fill="#3D9402"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- flared base -->
+<path d="M52,238 Q52,226 62,222 L62,206 Q62,198 74,198 L90,198 Q102,198 102,206 L102,222 Q112,226 112,238Z" fill="#3D9402"/>
+<path d="M56,238 Q56,228 64,225 L64,208 Q64,202 75,202 L89,202 Q100,202 100,208 L100,225 Q108,228 108,238Z" fill="#46A302"/>
+<!-- upper arm (behind) -->
+<rect x="83" y="18" width="32" height="80" rx="16" fill="#62D916" transform="rotate(120,100,95)"/>
+<!-- gripper -->
+<rect x="163" y="130" width="12" height="18" rx="4" fill="#46A302" transform="rotate(30,169,139)"/>
+<rect x="157" y="147" width="8" height="24" rx="3.5" fill="#58CC02" transform="rotate(-14,161,147)"/>
+<rect x="173" y="147" width="8" height="24" rx="3.5" fill="#62D916" transform="rotate(14,177,147)"/>
+<!-- lower arm (front) -->
+<rect x="62" y="92" width="36" height="114" rx="18" fill="#58CC02" transform="rotate(12,80,205)"/>
+<!-- joints -->
+<circle cx="100" cy="95" r="15" fill="#62D916"/><circle cx="100" cy="95" r="7" fill="#3D9402"/>
+<circle cx="80" cy="205" r="13" fill="#58CC02"/><circle cx="80" cy="205" r="6" fill="#3D9402"/>
+<circle cx="169" cy="135" r="9" fill="#62D916"/><circle cx="169" cy="135" r="4.5" fill="#3D9402"/>
 </svg>
-<div class="label">Duo</div>
-<div class="desc">Classic Duolingo green, standard crane pose</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#3D9402"/><rect x="62" y="198" width="32" height="24" rx="6" fill="#46A302"/><rect x="82" y="15" width="34" height="80" rx="17" fill="#62D916" transform="rotate(122,99,95)"/><rect x="59" y="93" width="38" height="112" rx="19" fill="#58CC02" transform="rotate(12,78,205)"/><circle cx="99" cy="95" r="16" fill="#62D916"/><circle cx="99" cy="95" r="8" fill="#3D9402"/><circle cx="78" cy="205" r="14" fill="#46A302"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#3D9402"/><rect x="82" y="15" width="34" height="80" rx="17" fill="#62D916" transform="rotate(122,99,95)"/><rect x="59" y="93" width="38" height="112" rx="19" fill="#58CC02" transform="rotate(12,78,205)"/><circle cx="99" cy="95" r="16" fill="#62D916"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Classic Crane</div>
+<div class="desc">Reference style — flared base, pill segments, bolt joints, V-claw</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><path d="M52,238 Q52,226 62,222 L62,206 Q62,198 74,198 L90,198 Q102,198 102,206 L102,222 Q112,226 112,238Z" fill="#3D9402"/><rect x="83" y="18" width="32" height="80" rx="16" fill="#62D916" transform="rotate(120,100,95)"/><rect x="62" y="92" width="36" height="114" rx="18" fill="#58CC02" transform="rotate(12,80,205)"/><circle cx="100" cy="95" r="15" fill="#62D916"/><circle cx="100" cy="95" r="7" fill="#3D9402"/><circle cx="80" cy="205" r="13" fill="#58CC02"/></svg><span>32</span></div>
+</div>
 
-<!-- #2 Ocean — reaching up-right -->
+<!-- ========== #2 STUBBY WIDE ========== -->
+<!-- Everything super short & fat, oversized bolts, tiny fingers -->
 <div class="card" onclick="pick(this)">
 <div class="num">#2</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="54" y="218" width="56" height="22" rx="8" fill="#1565C0"/>
-<rect x="66" y="198" width="32" height="24" rx="6" fill="#1976D2"/>
-<rect x="72" y="14" width="32" height="76" rx="16" fill="#42A5F5" transform="rotate(62,88,90)"/>
-<g transform="translate(155,54) rotate(62)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#1976D2"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#2196F3"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#2196F3"/></g>
-<rect x="64" y="90" width="36" height="115" rx="18" fill="#2196F3" transform="rotate(3,82,205)"/>
-<circle cx="88" cy="90" r="16" fill="#42A5F5"/><circle cx="88" cy="90" r="8" fill="#1565C0"/>
-<circle cx="82" cy="205" r="14" fill="#1976D2"/><circle cx="82" cy="205" r="7" fill="#1565C0"/>
-<circle cx="155" cy="54" r="9" fill="#42A5F5"/><circle cx="155" cy="54" r="4.5" fill="#1565C0"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- wide flat base -->
+<rect x="20" y="210" width="160" height="30" rx="15" fill="#1565C0"/>
+<rect x="40" y="200" width="120" height="20" rx="10" fill="#1976D2"/>
+<!-- stubby lower arm (nearly square) -->
+<rect x="50" y="130" width="60" height="75" rx="30" fill="#2196F3" transform="rotate(5,80,205)"/>
+<!-- stubby upper arm -->
+<rect x="78" y="75" width="55" height="60" rx="27" fill="#42A5F5" transform="rotate(40,105,105)"/>
+<!-- tiny stubby fingers -->
+<rect x="148" y="75" width="10" height="28" rx="5" fill="#2196F3" transform="rotate(-10,153,75)"/>
+<rect x="160" y="78" width="10" height="28" rx="5" fill="#42A5F5" transform="rotate(10,165,78)"/>
+<!-- HUGE oversized joint bolts -->
+<circle cx="80" cy="200" r="22" fill="#42A5F5"/><circle cx="80" cy="200" r="12" fill="#1565C0"/>
+<circle cx="110" cy="108" r="20" fill="#42A5F5"/><circle cx="110" cy="108" r="10" fill="#1565C0"/>
+<circle cx="152" cy="80" r="12" fill="#42A5F5"/><circle cx="152" cy="80" r="6" fill="#1565C0"/>
 </svg>
-<div class="label">Ocean</div>
-<div class="desc">Cool blue, arm reaching skyward</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="54" y="218" width="56" height="22" rx="8" fill="#1565C0"/><rect x="66" y="198" width="32" height="24" rx="6" fill="#1976D2"/><rect x="72" y="14" width="32" height="76" rx="16" fill="#42A5F5" transform="rotate(62,88,90)"/><rect x="64" y="90" width="36" height="115" rx="18" fill="#2196F3" transform="rotate(3,82,205)"/><circle cx="88" cy="90" r="16" fill="#42A5F5"/><circle cx="88" cy="90" r="8" fill="#1565C0"/><circle cx="82" cy="205" r="14" fill="#1976D2"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="54" y="218" width="56" height="22" rx="8" fill="#1565C0"/><rect x="72" y="14" width="32" height="76" rx="16" fill="#42A5F5" transform="rotate(62,88,90)"/><rect x="64" y="90" width="36" height="115" rx="18" fill="#2196F3" transform="rotate(3,82,205)"/><circle cx="88" cy="90" r="16" fill="#42A5F5"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Stubby Wide</div>
+<div class="desc">Super short fat segments, oversized bolt joints, tiny fingers</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="20" y="210" width="160" height="30" rx="15" fill="#1565C0"/><rect x="40" y="200" width="120" height="20" rx="10" fill="#1976D2"/><rect x="50" y="130" width="60" height="75" rx="30" fill="#2196F3" transform="rotate(5,80,205)"/><rect x="78" y="75" width="55" height="60" rx="27" fill="#42A5F5" transform="rotate(40,105,105)"/><circle cx="80" cy="200" r="22" fill="#42A5F5"/><circle cx="80" cy="200" r="12" fill="#1565C0"/><circle cx="110" cy="108" r="20" fill="#42A5F5"/></svg><span>32</span></div>
+</div>
 
-<!-- #3 Ember — extended far right -->
+<!-- ========== #3 THREE-SEGMENT ========== -->
+<!-- 3 thinner segments creating a zig-zag path -->
 <div class="card" onclick="pick(this)">
 <div class="num">#3</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="24" y="218" width="56" height="22" rx="8" fill="#BF360C"/>
-<rect x="36" y="198" width="32" height="24" rx="6" fill="#E55100"/>
-<rect x="50" y="-4" width="34" height="105" rx="17" fill="#FF8A5C" transform="rotate(88,67,101)"/>
-<g transform="translate(172,97) rotate(88)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#E55100"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#FF6B35"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#FF6B35"/></g>
-<rect x="32" y="100" width="40" height="105" rx="20" fill="#FF6B35" transform="rotate(8,52,205)"/>
-<circle cx="67" cy="101" r="16" fill="#FF8A5C"/><circle cx="67" cy="101" r="8" fill="#BF360C"/>
-<circle cx="52" cy="205" r="14" fill="#E55100"/><circle cx="52" cy="205" r="7" fill="#BF360C"/>
-<circle cx="172" cy="97" r="9" fill="#FF8A5C"/><circle cx="172" cy="97" r="4.5" fill="#BF360C"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- compact round base -->
+<ellipse cx="65" cy="232" rx="32" ry="8" fill="#BF360C"/>
+<rect x="50" y="200" width="30" height="34" rx="10" fill="#E55100"/>
+<!-- segment 1 — up-right -->
+<rect x="52" y="118" width="24" height="88" rx="12" fill="#FF6B35" transform="rotate(10,64,205)"/>
+<!-- segment 2 — sharp right -->
+<rect x="70" y="78" width="22" height="65" rx="11" fill="#FF8A5C" transform="rotate(65,80,118)"/>
+<!-- segment 3 — down-right -->
+<rect x="120" y="55" width="20" height="58" rx="10" fill="#FF6B35" transform="rotate(110,138,72)"/>
+<!-- gripper tip -->
+<path d="M170,108 L162,130 L168,130 L172,116 L176,130 L182,130 L174,108Z" fill="#E55100"/>
+<!-- joints -->
+<circle cx="64" cy="205" r="10" fill="#FF8A5C"/><circle cx="64" cy="205" r="5" fill="#BF360C"/>
+<circle cx="80" cy="118" r="11" fill="#FF8A5C"/><circle cx="80" cy="118" r="5.5" fill="#BF360C"/>
+<circle cx="138" cy="72" r="10" fill="#FF8A5C"/><circle cx="138" cy="72" r="5" fill="#BF360C"/>
+<circle cx="172" cy="110" r="8" fill="#FF8A5C"/><circle cx="172" cy="110" r="4" fill="#BF360C"/>
 </svg>
-<div class="label">Ember</div>
-<div class="desc">Warm orange, long horizontal reach</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="24" y="218" width="56" height="22" rx="8" fill="#BF360C"/><rect x="36" y="198" width="32" height="24" rx="6" fill="#E55100"/><rect x="50" y="-4" width="34" height="105" rx="17" fill="#FF8A5C" transform="rotate(88,67,101)"/><rect x="32" y="100" width="40" height="105" rx="20" fill="#FF6B35" transform="rotate(8,52,205)"/><circle cx="67" cy="101" r="16" fill="#FF8A5C"/><circle cx="67" cy="101" r="8" fill="#BF360C"/><circle cx="52" cy="205" r="14" fill="#E55100"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="24" y="218" width="56" height="22" rx="8" fill="#BF360C"/><rect x="50" y="-4" width="34" height="105" rx="17" fill="#FF8A5C" transform="rotate(88,67,101)"/><rect x="32" y="100" width="40" height="105" rx="20" fill="#FF6B35" transform="rotate(8,52,205)"/><circle cx="67" cy="101" r="16" fill="#FF8A5C"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Three-Segment</div>
+<div class="desc">Three thinner arms zig-zagging, more dexterous look</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><ellipse cx="65" cy="232" rx="32" ry="8" fill="#BF360C"/><rect x="50" y="200" width="30" height="34" rx="10" fill="#E55100"/><rect x="52" y="118" width="24" height="88" rx="12" fill="#FF6B35" transform="rotate(10,64,205)"/><rect x="70" y="78" width="22" height="65" rx="11" fill="#FF8A5C" transform="rotate(65,80,118)"/><rect x="120" y="55" width="20" height="58" rx="10" fill="#FF6B35" transform="rotate(110,138,72)"/><circle cx="80" cy="118" r="11" fill="#FF8A5C"/><circle cx="138" cy="72" r="10" fill="#FF8A5C"/></svg><span>32</span></div>
+</div>
 
-<!-- #4 Grape — curling back left -->
+<!-- ========== #4 TOWER CRANE ========== -->
+<!-- Vertical tower + horizontal boom + hanging hook -->
 <div class="card" onclick="pick(this)">
 <div class="num">#4</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="62" y="218" width="56" height="22" rx="8" fill="#6A1B9A"/>
-<rect x="74" y="198" width="32" height="24" rx="6" fill="#7B1FA2"/>
-<rect x="103" y="36" width="30" height="65" rx="15" fill="#BA68C8" transform="rotate(-38,118,101)"/>
-<g transform="translate(78,50) rotate(-38)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#7B1FA2"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#9C27B0"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#9C27B0"/></g>
-<rect x="72" y="97" width="36" height="108" rx="18" fill="#9C27B0" transform="rotate(15,90,205)"/>
-<circle cx="118" cy="101" r="16" fill="#BA68C8"/><circle cx="118" cy="101" r="8" fill="#6A1B9A"/>
-<circle cx="90" cy="205" r="14" fill="#7B1FA2"/><circle cx="90" cy="205" r="7" fill="#6A1B9A"/>
-<circle cx="78" cy="50" r="9" fill="#BA68C8"/><circle cx="78" cy="50" r="4.5" fill="#6A1B9A"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- wide slab base -->
+<rect x="20" y="220" width="100" height="20" rx="4" fill="#004D40"/>
+<!-- vertical tower -->
+<rect x="55" y="42" width="30" height="180" rx="4" fill="#00897B"/>
+<rect x="55" y="42" width="15" height="180" fill="#26A69A"/>
+<!-- cross braces on tower -->
+<rect x="58" y="80" width="24" height="6" rx="2" fill="#004D40"/>
+<rect x="58" y="120" width="24" height="6" rx="2" fill="#004D40"/>
+<rect x="58" y="160" width="24" height="6" rx="2" fill="#004D40"/>
+<!-- horizontal boom -->
+<rect x="60" y="36" width="120" height="22" rx="6" fill="#26A69A"/>
+<rect x="60" y="36" width="120" height="11" fill="#4DB6AC"/>
+<!-- counterweight -->
+<rect x="22" y="30" width="42" height="28" rx="5" fill="#00695C"/>
+<!-- boom pivot -->
+<circle cx="70" cy="47" r="10" fill="#4DB6AC"/><circle cx="70" cy="47" r="5" fill="#004D40"/>
+<!-- cable -->
+<rect x="168" y="56" width="4" height="80" rx="2" fill="#004D40"/>
+<!-- hook -->
+<path d="M160,136 L164,130 L176,130 L180,136 Q180,152 170,156 Q160,152 160,136Z" fill="#00695C"/>
+<path d="M165,134 Q170,148 175,134Z" fill="#004D40"/>
 </svg>
-<div class="label">Grape</div>
-<div class="desc">Royal purple, arm curling back</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="62" y="218" width="56" height="22" rx="8" fill="#6A1B9A"/><rect x="74" y="198" width="32" height="24" rx="6" fill="#7B1FA2"/><rect x="103" y="36" width="30" height="65" rx="15" fill="#BA68C8" transform="rotate(-38,118,101)"/><rect x="72" y="97" width="36" height="108" rx="18" fill="#9C27B0" transform="rotate(15,90,205)"/><circle cx="118" cy="101" r="16" fill="#BA68C8"/><circle cx="118" cy="101" r="8" fill="#6A1B9A"/><circle cx="90" cy="205" r="14" fill="#7B1FA2"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="62" y="218" width="56" height="22" rx="8" fill="#6A1B9A"/><rect x="103" y="36" width="30" height="65" rx="15" fill="#BA68C8" transform="rotate(-38,118,101)"/><rect x="72" y="97" width="36" height="108" rx="18" fill="#9C27B0" transform="rotate(15,90,205)"/><circle cx="118" cy="101" r="16" fill="#BA68C8"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Tower Crane</div>
+<div class="desc">Vertical lattice tower, horizontal boom, dangling hook</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="20" y="220" width="100" height="20" rx="4" fill="#004D40"/><rect x="55" y="42" width="30" height="180" rx="4" fill="#00897B"/><rect x="60" y="36" width="120" height="22" rx="6" fill="#26A69A"/><rect x="22" y="30" width="42" height="28" rx="5" fill="#00695C"/><circle cx="70" cy="47" r="10" fill="#4DB6AC"/><rect x="168" y="56" width="4" height="80" rx="2" fill="#004D40"/><path d="M160,136 L164,130 L176,130 L180,136 Q180,152 170,156 Q160,152 160,136Z" fill="#00695C"/></svg><span>32</span></div>
+</div>
 
-<!-- #5 Cherry — straight up, chunky -->
+<!-- ========== #5 CRAB PINCER ========== -->
+<!-- Short arm with MASSIVE oversized pincer claw -->
 <div class="card" onclick="pick(this)">
 <div class="num">#5</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="52" y="218" width="56" height="22" rx="8" fill="#B71C1C"/>
-<rect x="64" y="198" width="32" height="24" rx="6" fill="#C62828"/>
-<rect x="62" y="20" width="36" height="77" rx="18" fill="#EF5350" transform="rotate(63,80,97)"/>
-<g transform="translate(149,62) rotate(63)"><path d="M-5,0L-3.5,-10L3.5,-10L5,0Z" fill="#C62828"/><path d="M-4,-10L-10,-26L-6,-26L-1,-12Z" fill="#E53935"/><path d="M4,-10L10,-26L6,-26L1,-12Z" fill="#E53935"/></g>
-<rect x="59" y="97" width="42" height="108" rx="21" fill="#E53935" transform="rotate(0,80,205)"/>
-<circle cx="80" cy="97" r="18" fill="#EF5350"/><circle cx="80" cy="97" r="9" fill="#B71C1C"/>
-<circle cx="80" cy="205" r="15" fill="#C62828"/><circle cx="80" cy="205" r="7.5" fill="#B71C1C"/>
-<circle cx="149" cy="62" r="10" fill="#EF5350"/><circle cx="149" cy="62" r="5" fill="#B71C1C"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- base -->
+<rect x="45" y="218" width="50" height="22" rx="8" fill="#B71C1C"/>
+<rect x="52" y="200" width="36" height="24" rx="6" fill="#C62828"/>
+<!-- short lower arm -->
+<rect x="55" y="138" width="32" height="68" rx="16" fill="#E53935" transform="rotate(5,71,205)"/>
+<!-- short upper arm stub -->
+<rect x="62" y="100" width="28" height="48" rx="14" fill="#EF5350" transform="rotate(35,76,142)"/>
+<!-- GIANT left pincer -->
+<path d="M115,92 Q105,65 85,50 Q75,44 72,55 Q70,70 80,88 L100,100Z" fill="#E53935"/>
+<path d="M115,92 Q108,72 92,58 Q84,52 80,60 Q78,72 85,85Z" fill="#EF5350"/>
+<!-- GIANT right pincer -->
+<path d="M120,88 Q135,58 155,48 Q168,44 172,56 Q175,72 162,88 L135,98Z" fill="#C62828"/>
+<path d="M120,88 Q132,62 150,52 Q160,48 164,58 Q166,70 156,84Z" fill="#E53935"/>
+<!-- wrist -->
+<circle cx="118" cy="95" r="14" fill="#EF5350"/><circle cx="118" cy="95" r="7" fill="#B71C1C"/>
+<!-- joints -->
+<circle cx="76" cy="142" r="13" fill="#EF5350"/><circle cx="76" cy="142" r="6.5" fill="#B71C1C"/>
+<circle cx="71" cy="205" r="12" fill="#E53935"/><circle cx="71" cy="205" r="6" fill="#B71C1C"/>
 </svg>
-<div class="label">Cherry</div>
-<div class="desc">Bold red, extra chunky straight-up stance</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="52" y="218" width="56" height="22" rx="8" fill="#B71C1C"/><rect x="64" y="198" width="32" height="24" rx="6" fill="#C62828"/><rect x="62" y="20" width="36" height="77" rx="18" fill="#EF5350" transform="rotate(63,80,97)"/><rect x="59" y="97" width="42" height="108" rx="21" fill="#E53935" transform="rotate(0,80,205)"/><circle cx="80" cy="97" r="18" fill="#EF5350"/><circle cx="80" cy="97" r="9" fill="#B71C1C"/><circle cx="80" cy="205" r="15" fill="#C62828"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="52" y="218" width="56" height="22" rx="8" fill="#B71C1C"/><rect x="62" y="20" width="36" height="77" rx="18" fill="#EF5350" transform="rotate(63,80,97)"/><rect x="59" y="97" width="42" height="108" rx="21" fill="#E53935"/><circle cx="80" cy="97" r="18" fill="#EF5350"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Crab Pincer</div>
+<div class="desc">Short arm, massive curved pincer claws</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="45" y="218" width="50" height="22" rx="8" fill="#B71C1C"/><rect x="52" y="200" width="36" height="24" rx="6" fill="#C62828"/><rect x="55" y="138" width="32" height="68" rx="16" fill="#E53935" transform="rotate(5,71,205)"/><path d="M115,92 Q105,65 85,50 Q75,44 72,55 Q70,70 80,88 L100,100Z" fill="#E53935"/><path d="M120,88 Q135,58 155,48 Q168,44 172,56 Q175,72 162,88 L135,98Z" fill="#C62828"/><circle cx="118" cy="95" r="14" fill="#EF5350"/><circle cx="76" cy="142" r="13" fill="#EF5350"/></svg><span>32</span></div>
+</div>
 
-<!-- #6 Jade — teal, hanging down-right -->
+<!-- ========== #6 PISTON HYDRAULIC ========== -->
+<!-- Visible hydraulic piston cylinders alongside segments -->
 <div class="card" onclick="pick(this)">
 <div class="num">#6</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="37" y="218" width="56" height="22" rx="8" fill="#004D40"/>
-<rect x="49" y="198" width="32" height="24" rx="6" fill="#00695C"/>
-<rect x="81" y="6" width="32" height="88" rx="16" fill="#26A69A" transform="rotate(122,97,94)"/>
-<g transform="translate(172,141) rotate(122)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#00695C"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#00897B"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#00897B"/></g>
-<rect x="47" y="90" width="35" height="115" rx="18" fill="#00897B" transform="rotate(16,65,205)"/>
-<circle cx="97" cy="94" r="16" fill="#26A69A"/><circle cx="97" cy="94" r="8" fill="#004D40"/>
-<circle cx="65" cy="205" r="14" fill="#00695C"/><circle cx="65" cy="205" r="7" fill="#004D40"/>
-<circle cx="172" cy="141" r="9" fill="#26A69A"/><circle cx="172" cy="141" r="4.5" fill="#004D40"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- base -->
+<rect x="42" y="216" width="56" height="24" rx="8" fill="#E65100"/>
+<rect x="52" y="200" width="36" height="22" rx="6" fill="#FF8F00"/>
+<!-- lower arm -->
+<rect x="54" y="92" width="32" height="114" rx="16" fill="#FFB300" transform="rotate(8,70,205)"/>
+<!-- PISTON cylinder alongside lower arm -->
+<rect x="90" y="108" width="14" height="70" rx="5" fill="#E65100" transform="rotate(8,70,205)"/>
+<rect x="92" y="100" width="10" height="40" rx="4" fill="#FFCA28" transform="rotate(8,70,205)"/>
+<!-- upper arm -->
+<rect x="76" y="22" width="28" height="76" rx="14" fill="#FFCA28" transform="rotate(65,90,95)"/>
+<!-- PISTON alongside upper arm -->
+<rect x="74" y="40" width="12" height="55" rx="4" fill="#E65100" transform="rotate(65,90,95)"/>
+<rect x="76" y="34" width="8" height="30" rx="3" fill="#FFB300" transform="rotate(65,90,95)"/>
+<!-- gripper -->
+<rect x="152" y="92" width="8" height="22" rx="3" fill="#FFB300" transform="rotate(-12,156,92)"/>
+<rect x="162" y="94" width="8" height="22" rx="3" fill="#FFCA28" transform="rotate(12,166,94)"/>
+<!-- joints -->
+<circle cx="70" cy="205" r="13" fill="#FFCA28"/><circle cx="70" cy="205" r="6.5" fill="#E65100"/>
+<circle cx="90" cy="95" r="14" fill="#FFCA28"/><circle cx="90" cy="95" r="7" fill="#E65100"/>
+<circle cx="158" cy="92" r="9" fill="#FFCA28"/><circle cx="158" cy="92" r="4.5" fill="#E65100"/>
 </svg>
-<div class="label">Jade</div>
-<div class="desc">Rich teal, drooping crane pose</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="37" y="218" width="56" height="22" rx="8" fill="#004D40"/><rect x="49" y="198" width="32" height="24" rx="6" fill="#00695C"/><rect x="81" y="6" width="32" height="88" rx="16" fill="#26A69A" transform="rotate(122,97,94)"/><rect x="47" y="90" width="35" height="115" rx="18" fill="#00897B" transform="rotate(16,65,205)"/><circle cx="97" cy="94" r="16" fill="#26A69A"/><circle cx="97" cy="94" r="8" fill="#004D40"/><circle cx="65" cy="205" r="14" fill="#00695C"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="37" y="218" width="56" height="22" rx="8" fill="#004D40"/><rect x="81" y="6" width="32" height="88" rx="16" fill="#26A69A" transform="rotate(122,97,94)"/><rect x="47" y="90" width="35" height="115" rx="18" fill="#00897B" transform="rotate(16,65,205)"/><circle cx="97" cy="94" r="16" fill="#26A69A"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Piston Hydraulic</div>
+<div class="desc">Visible piston cylinders running alongside each segment</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="42" y="216" width="56" height="24" rx="8" fill="#E65100"/><rect x="54" y="92" width="32" height="114" rx="16" fill="#FFB300" transform="rotate(8,70,205)"/><rect x="90" y="108" width="14" height="70" rx="5" fill="#E65100" transform="rotate(8,70,205)"/><rect x="76" y="22" width="28" height="76" rx="14" fill="#FFCA28" transform="rotate(65,90,95)"/><rect x="74" y="40" width="12" height="55" rx="4" fill="#E65100" transform="rotate(65,90,95)"/><circle cx="90" cy="95" r="14" fill="#FFCA28"/><circle cx="90" cy="95" r="7" fill="#E65100"/></svg><span>32</span></div>
+</div>
 
-<!-- #7 Honey — amber, thick, flexing up -->
+<!-- ========== #7 TELESCOPE ========== -->
+<!-- Nested extending cylinders, each narrower than the last -->
 <div class="card" onclick="pick(this)">
 <div class="num">#7</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="47" y="218" width="56" height="22" rx="8" fill="#E65100"/>
-<rect x="59" y="198" width="32" height="24" rx="6" fill="#FF8F00"/>
-<rect x="88" y="31" width="38" height="74" rx="19" fill="#FFCA28" transform="rotate(44,107,105)"/>
-<g transform="translate(158,52) rotate(44)"><path d="M-5,0L-3.5,-10L3.5,-10L5,0Z" fill="#FF8F00"/><path d="M-4,-10L-10,-26L-6,-26L-1,-12Z" fill="#FFB300"/><path d="M4,-10L10,-26L6,-26L1,-12Z" fill="#FFB300"/></g>
-<rect x="53" y="100" width="44" height="105" rx="22" fill="#FFB300" transform="rotate(18,75,205)"/>
-<circle cx="107" cy="105" r="18" fill="#FFCA28"/><circle cx="107" cy="105" r="9" fill="#E65100"/>
-<circle cx="75" cy="205" r="16" fill="#FF8F00"/><circle cx="75" cy="205" r="8" fill="#E65100"/>
-<circle cx="158" cy="52" r="10" fill="#FFCA28"/><circle cx="158" cy="52" r="5" fill="#E65100"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- box base -->
+<rect x="45" y="210" width="60" height="30" rx="6" fill="#6A1B9A"/>
+<rect x="50" y="205" width="50" height="12" rx="4" fill="#7B1FA2"/>
+<!-- cylinder 1 (widest) -->
+<rect x="56" y="130" width="40" height="80" rx="10" fill="#9C27B0"/>
+<rect x="56" y="130" width="20" height="80" rx="10" fill="#AB47BC"/>
+<!-- cylinder 2 -->
+<rect x="62" y="70" width="32" height="68" rx="8" fill="#BA68C8"/>
+<rect x="62" y="70" width="16" height="68" rx="8" fill="#CE93D8"/>
+<!-- cylinder 3 -->
+<rect x="67" y="22" width="24" height="56" rx="6" fill="#9C27B0"/>
+<rect x="67" y="22" width="12" height="56" rx="6" fill="#AB47BC"/>
+<!-- cylinder 4 (narrowest) -->
+<rect x="72" y="2" width="16" height="28" rx="4" fill="#BA68C8"/>
+<rect x="72" y="2" width="8" height="28" rx="4" fill="#CE93D8"/>
+<!-- magnet disc at top -->
+<ellipse cx="80" cy="4" rx="16" ry="5" fill="#7B1FA2"/>
+<ellipse cx="80" cy="4" rx="12" ry="3" fill="#E1BEE7"/>
+<!-- ring grooves between sections -->
+<rect x="54" y="128" width="44" height="6" rx="3" fill="#7B1FA2"/>
+<rect x="60" y="68" width="36" height="6" rx="3" fill="#7B1FA2"/>
+<rect x="65" y="20" width="28" height="5" rx="2.5" fill="#7B1FA2"/>
 </svg>
-<div class="label">Honey</div>
-<div class="desc">Amber gold, extra thicc, flexing up</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="47" y="218" width="56" height="22" rx="8" fill="#E65100"/><rect x="59" y="198" width="32" height="24" rx="6" fill="#FF8F00"/><rect x="88" y="31" width="38" height="74" rx="19" fill="#FFCA28" transform="rotate(44,107,105)"/><rect x="53" y="100" width="44" height="105" rx="22" fill="#FFB300" transform="rotate(18,75,205)"/><circle cx="107" cy="105" r="18" fill="#FFCA28"/><circle cx="107" cy="105" r="9" fill="#E65100"/><circle cx="75" cy="205" r="16" fill="#FF8F00"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="47" y="218" width="56" height="22" rx="8" fill="#E65100"/><rect x="88" y="31" width="38" height="74" rx="19" fill="#FFCA28" transform="rotate(44,107,105)"/><rect x="53" y="100" width="44" height="105" rx="22" fill="#FFB300" transform="rotate(18,75,205)"/><circle cx="107" cy="105" r="18" fill="#FFCA28"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Telescope</div>
+<div class="desc">Nested extending cylinders, each progressively narrower</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="45" y="210" width="60" height="30" rx="6" fill="#6A1B9A"/><rect x="56" y="130" width="40" height="80" rx="10" fill="#9C27B0"/><rect x="62" y="70" width="32" height="68" rx="8" fill="#BA68C8"/><rect x="67" y="22" width="24" height="56" rx="6" fill="#9C27B0"/><rect x="72" y="2" width="16" height="28" rx="4" fill="#BA68C8"/><rect x="54" y="128" width="44" height="6" rx="3" fill="#7B1FA2"/><rect x="60" y="68" width="36" height="6" rx="3" fill="#7B1FA2"/></svg><span>32</span></div>
+</div>
 
-<!-- #8 Midnight — navy, reaching back-left -->
+<!-- ========== #8 TANK TREADS ========== -->
+<!-- Mobile base with tank track ovals -->
 <div class="card" onclick="pick(this)">
 <div class="num">#8</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="64" y="218" width="56" height="22" rx="8" fill="#1A237E"/>
-<rect x="76" y="198" width="32" height="24" rx="6" fill="#283593"/>
-<rect x="87" y="25" width="30" height="70" rx="15" fill="#5C6BC0" transform="rotate(-55,102,95)"/>
-<g transform="translate(45,55) rotate(-55)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#283593"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#3F51B5"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#3F51B5"/></g>
-<rect x="75" y="95" width="34" height="110" rx="17" fill="#3F51B5" transform="rotate(5,92,205)"/>
-<circle cx="102" cy="95" r="15" fill="#5C6BC0"/><circle cx="102" cy="95" r="7.5" fill="#1A237E"/>
-<circle cx="92" cy="205" r="14" fill="#283593"/><circle cx="92" cy="205" r="7" fill="#1A237E"/>
-<circle cx="45" cy="55" r="9" fill="#5C6BC0"/><circle cx="45" cy="55" r="4.5" fill="#1A237E"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- left track -->
+<rect x="18" y="212" width="60" height="26" rx="13" fill="#1A237E"/>
+<rect x="22" y="216" width="52" height="18" rx="9" fill="#283593"/>
+<circle cx="35" cy="225" r="7" fill="#1A237E"/><circle cx="61" cy="225" r="7" fill="#1A237E"/>
+<!-- right track -->
+<rect x="85" y="212" width="60" height="26" rx="13" fill="#1A237E"/>
+<rect x="89" y="216" width="52" height="18" rx="9" fill="#283593"/>
+<circle cx="102" cy="225" r="7" fill="#1A237E"/><circle cx="128" cy="225" r="7" fill="#1A237E"/>
+<!-- body platform -->
+<rect x="30" y="196" width="105" height="20" rx="5" fill="#3F51B5"/>
+<rect x="30" y="196" width="105" height="10" rx="5" fill="#5C6BC0"/>
+<!-- standard arm lower -->
+<rect x="65" y="98" width="30" height="102" rx="15" fill="#3F51B5" transform="rotate(8,80,200)"/>
+<!-- upper arm -->
+<rect x="78" y="30" width="26" height="72" rx="13" fill="#5C6BC0" transform="rotate(60,92,98)"/>
+<!-- gripper -->
+<rect x="148" y="68" width="7" height="22" rx="3" fill="#3F51B5" transform="rotate(-14,152,68)"/>
+<rect x="159" y="70" width="7" height="22" rx="3" fill="#5C6BC0" transform="rotate(14,163,70)"/>
+<!-- joints -->
+<circle cx="92" cy="98" r="13" fill="#5C6BC0"/><circle cx="92" cy="98" r="6.5" fill="#1A237E"/>
+<circle cx="80" cy="200" r="11" fill="#3F51B5"/><circle cx="80" cy="200" r="5.5" fill="#1A237E"/>
+<circle cx="155" cy="70" r="8" fill="#5C6BC0"/><circle cx="155" cy="70" r="4" fill="#1A237E"/>
 </svg>
-<div class="label">Midnight</div>
-<div class="desc">Deep navy, dramatic back-reach</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="64" y="218" width="56" height="22" rx="8" fill="#1A237E"/><rect x="76" y="198" width="32" height="24" rx="6" fill="#283593"/><rect x="87" y="25" width="30" height="70" rx="15" fill="#5C6BC0" transform="rotate(-55,102,95)"/><rect x="75" y="95" width="34" height="110" rx="17" fill="#3F51B5" transform="rotate(5,92,205)"/><circle cx="102" cy="95" r="15" fill="#5C6BC0"/><circle cx="102" cy="95" r="7.5" fill="#1A237E"/><circle cx="92" cy="205" r="14" fill="#283593"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="64" y="218" width="56" height="22" rx="8" fill="#1A237E"/><rect x="87" y="25" width="30" height="70" rx="15" fill="#5C6BC0" transform="rotate(-55,102,95)"/><rect x="75" y="95" width="34" height="110" rx="17" fill="#3F51B5" transform="rotate(5,92,205)"/><circle cx="102" cy="95" r="15" fill="#5C6BC0"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Tank Treads</div>
+<div class="desc">Mobile tracked base, standard arm on top</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="18" y="212" width="60" height="26" rx="13" fill="#1A237E"/><rect x="85" y="212" width="60" height="26" rx="13" fill="#1A237E"/><rect x="30" y="196" width="105" height="20" rx="5" fill="#3F51B5"/><rect x="65" y="98" width="30" height="102" rx="15" fill="#3F51B5" transform="rotate(8,80,200)"/><rect x="78" y="30" width="26" height="72" rx="13" fill="#5C6BC0" transform="rotate(60,92,98)"/><circle cx="92" cy="98" r="13" fill="#5C6BC0"/></svg><span>32</span></div>
+</div>
 
-<!-- #9 Bubblegum — pink, reaching right -->
+<!-- ========== #9 CATERPILLAR CHAIN ========== -->
+<!-- Many small rounded segments in a curving chain -->
 <div class="card" onclick="pick(this)">
 <div class="num">#9</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="40" y="218" width="56" height="22" rx="8" fill="#880E4F"/>
-<rect x="52" y="198" width="32" height="24" rx="6" fill="#C2185B"/>
-<rect x="69" y="19" width="32" height="88" rx="16" fill="#F48FB1" transform="rotate(59,85,107)"/>
-<g transform="translate(160,62) rotate(59)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#C2185B"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#EC407A"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#EC407A"/></g>
-<rect x="49" y="105" width="38" height="100" rx="19" fill="#EC407A" transform="rotate(10,68,205)"/>
-<circle cx="85" cy="107" r="16" fill="#F48FB1"/><circle cx="85" cy="107" r="8" fill="#880E4F"/>
-<circle cx="68" cy="205" r="14" fill="#C2185B"/><circle cx="68" cy="205" r="7" fill="#880E4F"/>
-<circle cx="160" cy="62" r="9" fill="#F48FB1"/><circle cx="160" cy="62" r="4.5" fill="#880E4F"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- base -->
+<rect x="35" y="218" width="50" height="22" rx="8" fill="#880E4F"/>
+<rect x="42" y="205" width="36" height="18" rx="6" fill="#C2185B"/>
+<!-- chain of 8 small rounded segments curving right then up -->
+<rect x="48" y="178" width="24" height="30" rx="10" fill="#EC407A"/>
+<rect x="52" y="150" width="24" height="32" rx="10" fill="#F48FB1" transform="rotate(8,64,166)"/>
+<rect x="58" y="122" width="22" height="32" rx="10" fill="#EC407A" transform="rotate(18,69,138)"/>
+<rect x="70" y="96" width="22" height="32" rx="10" fill="#F48FB1" transform="rotate(30,81,112)"/>
+<rect x="88" y="74" width="20" height="30" rx="10" fill="#EC407A" transform="rotate(45,98,89)"/>
+<rect x="110" y="58" width="20" height="28" rx="10" fill="#F48FB1" transform="rotate(55,120,72)"/>
+<rect x="132" y="50" width="18" height="26" rx="9" fill="#EC407A" transform="rotate(65,141,63)"/>
+<rect x="150" y="48" width="16" height="24" rx="8" fill="#F48FB1" transform="rotate(75,158,60)"/>
+<!-- tapered tip (no gripper, just pointed) -->
+<path d="M168,42 L172,32 L176,42Z" fill="#C2185B"/>
+<!-- small joint dots at each connection -->
+<circle cx="60" cy="180" r="5" fill="#C2185B"/>
+<circle cx="64" cy="153" r="5" fill="#C2185B"/>
+<circle cx="72" cy="127" r="5" fill="#C2185B"/>
+<circle cx="84" cy="102" r="5" fill="#C2185B"/>
+<circle cx="100" cy="80" r="4.5" fill="#C2185B"/>
+<circle cx="122" cy="62" r="4" fill="#C2185B"/>
+<circle cx="143" cy="52" r="3.5" fill="#C2185B"/>
+<circle cx="60" cy="205" r="8" fill="#EC407A"/><circle cx="60" cy="205" r="4" fill="#880E4F"/>
 </svg>
-<div class="label">Bubblegum</div>
-<div class="desc">Hot pink, energetic diagonal reach</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="40" y="218" width="56" height="22" rx="8" fill="#880E4F"/><rect x="52" y="198" width="32" height="24" rx="6" fill="#C2185B"/><rect x="69" y="19" width="32" height="88" rx="16" fill="#F48FB1" transform="rotate(59,85,107)"/><rect x="49" y="105" width="38" height="100" rx="19" fill="#EC407A" transform="rotate(10,68,205)"/><circle cx="85" cy="107" r="16" fill="#F48FB1"/><circle cx="85" cy="107" r="8" fill="#880E4F"/><circle cx="68" cy="205" r="14" fill="#C2185B"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="40" y="218" width="56" height="22" rx="8" fill="#880E4F"/><rect x="69" y="19" width="32" height="88" rx="16" fill="#F48FB1" transform="rotate(59,85,107)"/><rect x="49" y="105" width="38" height="100" rx="19" fill="#EC407A" transform="rotate(10,68,205)"/><circle cx="85" cy="107" r="16" fill="#F48FB1"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Caterpillar</div>
+<div class="desc">Chain of small segments curving like a snake, tapered tip</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="35" y="218" width="50" height="22" rx="8" fill="#880E4F"/><rect x="48" y="178" width="24" height="30" rx="10" fill="#EC407A"/><rect x="52" y="150" width="24" height="32" rx="10" fill="#F48FB1" transform="rotate(8,64,166)"/><rect x="58" y="122" width="22" height="32" rx="10" fill="#EC407A" transform="rotate(18,69,138)"/><rect x="70" y="96" width="22" height="32" rx="10" fill="#F48FB1" transform="rotate(30,81,112)"/><rect x="88" y="74" width="20" height="30" rx="10" fill="#EC407A" transform="rotate(45,98,89)"/><rect x="110" y="58" width="20" height="28" rx="10" fill="#F48FB1" transform="rotate(55,120,72)"/><rect x="132" y="50" width="18" height="26" rx="9" fill="#EC407A" transform="rotate(65,141,63)"/></svg><span>32</span></div>
+</div>
 
-<!-- #10 Olive — classic with olive tones -->
+<!-- ========== #10 FORKLIFT ========== -->
+<!-- Vertical column with fork prongs -->
 <div class="card" onclick="pick(this)">
 <div class="num">#10</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="57" y="218" width="56" height="22" rx="8" fill="#33691E"/>
-<rect x="69" y="198" width="32" height="24" rx="6" fill="#558B2F"/>
-<rect x="93" y="13" width="34" height="77" rx="17" fill="#9CCC65" transform="rotate(117,110,90)"/>
-<g transform="translate(179,125) rotate(117)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#558B2F"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#7CB342"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#7CB342"/></g>
-<rect x="67" y="87" width="36" height="118" rx="18" fill="#7CB342" transform="rotate(12,85,205)"/>
-<circle cx="110" cy="90" r="16" fill="#9CCC65"/><circle cx="110" cy="90" r="8" fill="#33691E"/>
-<circle cx="85" cy="205" r="14" fill="#558B2F"/><circle cx="85" cy="205" r="7" fill="#33691E"/>
-<circle cx="179" cy="125" r="9" fill="#9CCC65"/><circle cx="179" cy="125" r="4.5" fill="#33691E"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- wide base -->
+<rect x="30" y="216" width="100" height="24" rx="6" fill="#33691E"/>
+<!-- vertical mast -->
+<rect x="62" y="50" width="36" height="170" rx="5" fill="#7CB342"/>
+<rect x="62" y="50" width="18" height="170" fill="#9CCC65" rx="5"/>
+<!-- mast rail grooves -->
+<rect x="72" y="55" width="4" height="160" rx="2" fill="#558B2F"/>
+<rect x="86" y="55" width="4" height="160" rx="2" fill="#558B2F"/>
+<!-- carriage (sliding block) -->
+<rect x="56" y="70" width="48" height="30" rx="5" fill="#558B2F"/>
+<rect x="56" y="70" width="48" height="15" rx="5" fill="#7CB342"/>
+<!-- fork backing plate -->
+<rect x="100" y="65" width="12" height="50" rx="3" fill="#558B2F"/>
+<!-- fork prongs -->
+<rect x="108" y="72" width="55" height="12" rx="4" fill="#9CCC65"/>
+<rect x="108" y="96" width="55" height="12" rx="4" fill="#7CB342"/>
+<!-- prong tips bent down -->
+<path d="M159,72 Q168,72 168,80 L168,84 L159,84Z" fill="#9CCC65"/>
+<path d="M159,96 Q168,96 168,104 L168,108 L159,108Z" fill="#7CB342"/>
+<!-- top cap -->
+<rect x="58" y="42" width="44" height="14" rx="5" fill="#558B2F"/>
+<circle cx="80" cy="49" r="5" fill="#33691E"/>
 </svg>
-<div class="label">Olive</div>
-<div class="desc">Earthy olive, sweeping down-right</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="57" y="218" width="56" height="22" rx="8" fill="#33691E"/><rect x="69" y="198" width="32" height="24" rx="6" fill="#558B2F"/><rect x="93" y="13" width="34" height="77" rx="17" fill="#9CCC65" transform="rotate(117,110,90)"/><rect x="67" y="87" width="36" height="118" rx="18" fill="#7CB342" transform="rotate(12,85,205)"/><circle cx="110" cy="90" r="16" fill="#9CCC65"/><circle cx="110" cy="90" r="8" fill="#33691E"/><circle cx="85" cy="205" r="14" fill="#558B2F"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="57" y="218" width="56" height="22" rx="8" fill="#33691E"/><rect x="93" y="13" width="34" height="77" rx="17" fill="#9CCC65" transform="rotate(117,110,90)"/><rect x="67" y="87" width="36" height="118" rx="18" fill="#7CB342" transform="rotate(12,85,205)"/><circle cx="110" cy="90" r="16" fill="#9CCC65"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Forklift</div>
+<div class="desc">Vertical mast column with sliding fork prongs</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="30" y="216" width="100" height="24" rx="6" fill="#33691E"/><rect x="62" y="50" width="36" height="170" rx="5" fill="#7CB342"/><rect x="56" y="70" width="48" height="30" rx="5" fill="#558B2F"/><rect x="100" y="65" width="12" height="50" rx="3" fill="#558B2F"/><rect x="108" y="72" width="55" height="12" rx="4" fill="#9CCC65"/><rect x="108" y="96" width="55" height="12" rx="4" fill="#7CB342"/></svg><span>32</span></div>
+</div>
 
-<!-- #11 Aqua — cyan, diagonal up-right -->
+<!-- ========== #11 PADDLE ARM ========== -->
+<!-- Thin arm with wide flat paddle end -->
 <div class="card" onclick="pick(this)">
 <div class="num">#11</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="30" y="218" width="56" height="22" rx="8" fill="#006064"/>
-<rect x="42" y="198" width="32" height="24" rx="6" fill="#0097A7"/>
-<rect x="54" y="12" width="30" height="86" rx="15" fill="#4DD0E1" transform="rotate(75,69,98)"/>
-<g transform="translate(152,76) rotate(75)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#0097A7"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#00BCD4"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#00BCD4"/></g>
-<rect x="40" y="97" width="35" height="108" rx="18" fill="#00BCD4" transform="rotate(6,58,205)"/>
-<circle cx="69" cy="98" r="15" fill="#4DD0E1"/><circle cx="69" cy="98" r="7.5" fill="#006064"/>
-<circle cx="58" cy="205" r="14" fill="#0097A7"/><circle cx="58" cy="205" r="7" fill="#006064"/>
-<circle cx="152" cy="76" r="9" fill="#4DD0E1"/><circle cx="152" cy="76" r="4.5" fill="#006064"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- round base -->
+<ellipse cx="68" cy="230" rx="30" ry="10" fill="#006064"/>
+<rect x="52" y="200" width="32" height="34" rx="8" fill="#0097A7"/>
+<!-- thin lower arm -->
+<rect x="56" y="108" width="22" height="98" rx="11" fill="#00BCD4" transform="rotate(6,67,205)"/>
+<!-- thin upper arm -->
+<rect x="65" y="46" width="20" height="68" rx="10" fill="#4DD0E1" transform="rotate(48,75,110)"/>
+<!-- WIDE flat paddle -->
+<rect x="118" y="36" width="60" height="48" rx="8" fill="#00BCD4" transform="rotate(12,148,60)"/>
+<rect x="118" y="36" width="60" height="24" rx="8" fill="#4DD0E1" transform="rotate(12,148,60)"/>
+<!-- paddle handle/wrist -->
+<rect x="108" y="60" width="18" height="14" rx="4" fill="#0097A7" transform="rotate(12,117,67)"/>
+<!-- joints -->
+<circle cx="67" cy="205" r="10" fill="#4DD0E1"/><circle cx="67" cy="205" r="5" fill="#006064"/>
+<circle cx="75" cy="110" r="11" fill="#4DD0E1"/><circle cx="75" cy="110" r="5.5" fill="#006064"/>
+<circle cx="118" cy="68" r="8" fill="#4DD0E1"/><circle cx="118" cy="68" r="4" fill="#006064"/>
 </svg>
-<div class="label">Aqua</div>
-<div class="desc">Bright cyan, sleek angular pose</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="30" y="218" width="56" height="22" rx="8" fill="#006064"/><rect x="42" y="198" width="32" height="24" rx="6" fill="#0097A7"/><rect x="54" y="12" width="30" height="86" rx="15" fill="#4DD0E1" transform="rotate(75,69,98)"/><rect x="40" y="97" width="35" height="108" rx="18" fill="#00BCD4" transform="rotate(6,58,205)"/><circle cx="69" cy="98" r="15" fill="#4DD0E1"/><circle cx="69" cy="98" r="7.5" fill="#006064"/><circle cx="58" cy="205" r="14" fill="#0097A7"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="30" y="218" width="56" height="22" rx="8" fill="#006064"/><rect x="54" y="12" width="30" height="86" rx="15" fill="#4DD0E1" transform="rotate(75,69,98)"/><rect x="40" y="97" width="35" height="108" rx="18" fill="#00BCD4" transform="rotate(6,58,205)"/><circle cx="69" cy="98" r="15" fill="#4DD0E1"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Paddle Arm</div>
+<div class="desc">Thin segments ending in a wide flat paddle</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><ellipse cx="68" cy="230" rx="30" ry="10" fill="#006064"/><rect x="52" y="200" width="32" height="34" rx="8" fill="#0097A7"/><rect x="56" y="108" width="22" height="98" rx="11" fill="#00BCD4" transform="rotate(6,67,205)"/><rect x="65" y="46" width="20" height="68" rx="10" fill="#4DD0E1" transform="rotate(48,75,110)"/><rect x="118" y="36" width="60" height="48" rx="8" fill="#00BCD4" transform="rotate(12,148,60)"/><circle cx="75" cy="110" r="11" fill="#4DD0E1"/></svg><span>32</span></div>
+</div>
 
-<!-- #12 Cocoa — warm brown, drooping -->
+<!-- ========== #12 SUCTION CUP ========== -->
+<!-- Arm ending in a bell-shaped suction cup -->
 <div class="card" onclick="pick(this)">
 <div class="num">#12</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="50" y="218" width="56" height="22" rx="8" fill="#4E342E"/>
-<rect x="62" y="198" width="32" height="24" rx="6" fill="#6D4C41"/>
-<rect x="97" y="29" width="36" height="75" rx="18" fill="#A1887F" transform="rotate(130,115,104)"/>
-<g transform="translate(173,152) rotate(130)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#6D4C41"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#8D6E63"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#8D6E63"/></g>
-<rect x="57" y="97" width="42" height="108" rx="21" fill="#8D6E63" transform="rotate(20,78,205)"/>
-<circle cx="115" cy="104" r="17" fill="#A1887F"/><circle cx="115" cy="104" r="8.5" fill="#4E342E"/>
-<circle cx="78" cy="205" r="15" fill="#6D4C41"/><circle cx="78" cy="205" r="7.5" fill="#4E342E"/>
-<circle cx="173" cy="152" r="10" fill="#A1887F"/><circle cx="173" cy="152" r="5" fill="#4E342E"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- base -->
+<rect x="40" y="216" width="54" height="24" rx="8" fill="#4E342E"/>
+<rect x="48" y="200" width="38" height="22" rx="6" fill="#6D4C41"/>
+<!-- lower arm -->
+<rect x="52" y="100" width="30" height="108" rx="15" fill="#8D6E63" transform="rotate(10,67,205)"/>
+<!-- upper arm (thinner) -->
+<rect x="70" y="42" width="22" height="64" rx="11" fill="#A1887F" transform="rotate(50,81,100)"/>
+<!-- suction cup connector tube -->
+<rect x="124" y="54" width="10" height="22" rx="4" fill="#6D4C41" transform="rotate(50,129,65)"/>
+<!-- bell-shaped suction cup -->
+<path d="M130,90 Q115,82 108,100 Q105,110 112,118 Q120,124 140,124 Q160,124 168,118 Q175,110 172,100 Q165,82 150,90Z" fill="#8D6E63"/>
+<path d="M132,92 Q120,86 114,100 Q112,108 118,115 Q124,120 140,120 Q156,120 162,115 Q168,108 166,100 Q160,86 148,92Z" fill="#A1887F"/>
+<!-- rim -->
+<ellipse cx="140" cy="123" rx="24" ry="6" fill="#6D4C41"/>
+<ellipse cx="140" cy="123" rx="18" ry="4" fill="#8D6E63"/>
+<!-- joints -->
+<circle cx="67" cy="205" r="12" fill="#A1887F"/><circle cx="67" cy="205" r="6" fill="#4E342E"/>
+<circle cx="81" cy="100" r="13" fill="#A1887F"/><circle cx="81" cy="100" r="6.5" fill="#4E342E"/>
 </svg>
-<div class="label">Cocoa</div>
-<div class="desc">Warm chocolate brown, heavy hang</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#4E342E"/><rect x="62" y="198" width="32" height="24" rx="6" fill="#6D4C41"/><rect x="97" y="29" width="36" height="75" rx="18" fill="#A1887F" transform="rotate(130,115,104)"/><rect x="57" y="97" width="42" height="108" rx="21" fill="#8D6E63" transform="rotate(20,78,205)"/><circle cx="115" cy="104" r="17" fill="#A1887F"/><circle cx="115" cy="104" r="8.5" fill="#4E342E"/><circle cx="78" cy="205" r="15" fill="#6D4C41"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#4E342E"/><rect x="97" y="29" width="36" height="75" rx="18" fill="#A1887F" transform="rotate(130,115,104)"/><rect x="57" y="97" width="42" height="108" rx="21" fill="#8D6E63" transform="rotate(20,78,205)"/><circle cx="115" cy="104" r="17" fill="#A1887F"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Suction Cup</div>
+<div class="desc">Bell-shaped vacuum gripper with rubber rim</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="40" y="216" width="54" height="24" rx="8" fill="#4E342E"/><rect x="48" y="200" width="38" height="22" rx="6" fill="#6D4C41"/><rect x="52" y="100" width="30" height="108" rx="15" fill="#8D6E63" transform="rotate(10,67,205)"/><rect x="70" y="42" width="22" height="64" rx="11" fill="#A1887F" transform="rotate(50,81,100)"/><path d="M130,90 Q115,82 108,100 Q105,110 112,118 Q120,124 140,124 Q160,124 168,118 Q175,110 172,100 Q165,82 150,90Z" fill="#8D6E63"/><ellipse cx="140" cy="123" rx="24" ry="6" fill="#6D4C41"/><circle cx="81" cy="100" r="13" fill="#A1887F"/></svg><span>32</span></div>
+</div>
 
-<!-- #13 Dusk — indigo, reaching up-right -->
+<!-- ========== #13 DRILL ARM ========== -->
+<!-- Sturdy arm with conical drill bit -->
 <div class="card" onclick="pick(this)">
 <div class="num">#13</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="44" y="218" width="56" height="22" rx="8" fill="#283593"/>
-<rect x="56" y="198" width="32" height="24" rx="6" fill="#3949AB"/>
-<rect x="70" y="9" width="30" height="87" rx="15" fill="#7986CB" transform="rotate(57,85,96)"/>
-<g transform="translate(158,49) rotate(57)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#3949AB"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#5C6BC0"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#5C6BC0"/></g>
-<rect x="55" y="95" width="34" height="110" rx="17" fill="#5C6BC0" transform="rotate(7,72,205)"/>
-<circle cx="85" cy="96" r="15" fill="#7986CB"/><circle cx="85" cy="96" r="7.5" fill="#283593"/>
-<circle cx="72" cy="205" r="14" fill="#3949AB"/><circle cx="72" cy="205" r="7" fill="#283593"/>
-<circle cx="158" cy="49" r="9" fill="#7986CB"/><circle cx="158" cy="49" r="4.5" fill="#283593"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- heavy base -->
+<rect x="32" y="214" width="65" height="26" rx="6" fill="#283593"/>
+<rect x="38" y="198" width="52" height="22" rx="6" fill="#3949AB"/>
+<!-- thick lower arm -->
+<rect x="48" y="100" width="34" height="106" rx="17" fill="#5C6BC0" transform="rotate(6,65,205)"/>
+<!-- upper arm angled right -->
+<rect x="72" y="42" width="28" height="64" rx="14" fill="#7986CB" transform="rotate(55,86,100)"/>
+<!-- drill chuck housing -->
+<circle cx="148" cy="68" r="16" fill="#3949AB"/>
+<circle cx="148" cy="68" r="11" fill="#5C6BC0"/>
+<!-- drill bit (cone with spiral) -->
+<path d="M160,56 L192,14 L168,48Z" fill="#7986CB"/>
+<path d="M164,50 L192,14 L172,44Z" fill="#5C6BC0"/>
+<!-- spiral groove lines on drill -->
+<path d="M165,48 Q172,38 170,34" fill="none" stroke="#283593" stroke-width="2.5"/>
+<path d="M168,42 Q176,30 175,25" fill="none" stroke="#283593" stroke-width="2"/>
+<path d="M172,36 Q180,22 180,18" fill="none" stroke="#283593" stroke-width="1.5"/>
+<!-- joints -->
+<circle cx="65" cy="205" r="13" fill="#7986CB"/><circle cx="65" cy="205" r="6.5" fill="#283593"/>
+<circle cx="86" cy="100" r="14" fill="#7986CB"/><circle cx="86" cy="100" r="7" fill="#283593"/>
 </svg>
-<div class="label">Dusk</div>
-<div class="desc">Soft indigo, elegant upward reach</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="44" y="218" width="56" height="22" rx="8" fill="#283593"/><rect x="56" y="198" width="32" height="24" rx="6" fill="#3949AB"/><rect x="70" y="9" width="30" height="87" rx="15" fill="#7986CB" transform="rotate(57,85,96)"/><rect x="55" y="95" width="34" height="110" rx="17" fill="#5C6BC0" transform="rotate(7,72,205)"/><circle cx="85" cy="96" r="15" fill="#7986CB"/><circle cx="85" cy="96" r="7.5" fill="#283593"/><circle cx="72" cy="205" r="14" fill="#3949AB"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="44" y="218" width="56" height="22" rx="8" fill="#283593"/><rect x="70" y="9" width="30" height="87" rx="15" fill="#7986CB" transform="rotate(57,85,96)"/><rect x="55" y="95" width="34" height="110" rx="17" fill="#5C6BC0" transform="rotate(7,72,205)"/><circle cx="85" cy="96" r="15" fill="#7986CB"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Drill Arm</div>
+<div class="desc">Heavy arm with conical spiral drill bit</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="32" y="214" width="65" height="26" rx="6" fill="#283593"/><rect x="48" y="100" width="34" height="106" rx="17" fill="#5C6BC0" transform="rotate(6,65,205)"/><rect x="72" y="42" width="28" height="64" rx="14" fill="#7986CB" transform="rotate(55,86,100)"/><circle cx="148" cy="68" r="16" fill="#3949AB"/><path d="M160,56 L192,14 L168,48Z" fill="#7986CB"/><circle cx="86" cy="100" r="14" fill="#7986CB"/></svg><span>32</span></div>
+</div>
 
-<!-- #14 Citrus — lime, curling back -->
+<!-- ========== #14 MAGNET DISC ========== -->
+<!-- Thin elegant arm with large electromagnet disc -->
 <div class="card" onclick="pick(this)">
 <div class="num">#14</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="60" y="218" width="56" height="22" rx="8" fill="#827717"/>
-<rect x="72" y="198" width="32" height="24" rx="6" fill="#9E9D24"/>
-<rect x="94" y="37" width="34" height="71" rx="17" fill="#D4E157" transform="rotate(-46,111,108)"/>
-<g transform="translate(60,59) rotate(-46)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#9E9D24"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#C0CA33"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#C0CA33"/></g>
-<rect x="68" y="105" width="40" height="100" rx="20" fill="#C0CA33" transform="rotate(13,88,205)"/>
-<circle cx="111" cy="108" r="16" fill="#D4E157"/><circle cx="111" cy="108" r="8" fill="#827717"/>
-<circle cx="88" cy="205" r="14" fill="#9E9D24"/><circle cx="88" cy="205" r="7" fill="#827717"/>
-<circle cx="60" cy="59" r="9" fill="#D4E157"/><circle cx="60" cy="59" r="4.5" fill="#827717"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- slim pedestal base -->
+<ellipse cx="72" cy="234" rx="26" ry="6" fill="#AD1457"/>
+<rect x="60" y="200" width="24" height="36" rx="8" fill="#E91E63"/>
+<!-- thin lower arm -->
+<rect x="60" y="112" width="20" height="94" rx="10" fill="#F06292" transform="rotate(5,70,205)"/>
+<!-- thin upper arm -->
+<rect x="66" y="58" width="18" height="60" rx="9" fill="#F8BBD0" transform="rotate(42,75,114)"/>
+<!-- magnet arm connector -->
+<rect x="118" y="52" width="10" height="24" rx="4" fill="#E91E63" transform="rotate(42,123,64)"/>
+<!-- LARGE electromagnet disc -->
+<circle cx="148" cy="66" r="30" fill="#E91E63"/>
+<circle cx="148" cy="66" r="24" fill="#F06292"/>
+<circle cx="148" cy="66" r="16" fill="#E91E63"/>
+<circle cx="148" cy="66" r="10" fill="#F8BBD0"/>
+<!-- magnetic field arcs -->
+<path d="M125,48 Q118,38 125,28" fill="none" stroke="#AD1457" stroke-width="3" stroke-linecap="round"/>
+<path d="M172,48 Q179,38 172,28" fill="none" stroke="#AD1457" stroke-width="3" stroke-linecap="round"/>
+<!-- joints -->
+<circle cx="70" cy="205" r="9" fill="#F8BBD0"/><circle cx="70" cy="205" r="4.5" fill="#AD1457"/>
+<circle cx="75" cy="114" r="10" fill="#F8BBD0"/><circle cx="75" cy="114" r="5" fill="#AD1457"/>
 </svg>
-<div class="label">Citrus</div>
-<div class="desc">Zesty lime-yellow, scooping back</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="60" y="218" width="56" height="22" rx="8" fill="#827717"/><rect x="72" y="198" width="32" height="24" rx="6" fill="#9E9D24"/><rect x="94" y="37" width="34" height="71" rx="17" fill="#D4E157" transform="rotate(-46,111,108)"/><rect x="68" y="105" width="40" height="100" rx="20" fill="#C0CA33" transform="rotate(13,88,205)"/><circle cx="111" cy="108" r="16" fill="#D4E157"/><circle cx="111" cy="108" r="8" fill="#827717"/><circle cx="88" cy="205" r="14" fill="#9E9D24"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="60" y="218" width="56" height="22" rx="8" fill="#827717"/><rect x="94" y="37" width="34" height="71" rx="17" fill="#D4E157" transform="rotate(-46,111,108)"/><rect x="68" y="105" width="40" height="100" rx="20" fill="#C0CA33" transform="rotate(13,88,205)"/><circle cx="111" cy="108" r="16" fill="#D4E157"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Magnet Disc</div>
+<div class="desc">Thin elegant arm with large electromagnet end</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><ellipse cx="72" cy="234" rx="26" ry="6" fill="#AD1457"/><rect x="60" y="200" width="24" height="36" rx="8" fill="#E91E63"/><rect x="60" y="112" width="20" height="94" rx="10" fill="#F06292" transform="rotate(5,70,205)"/><rect x="66" y="58" width="18" height="60" rx="9" fill="#F8BBD0" transform="rotate(42,75,114)"/><circle cx="148" cy="66" r="30" fill="#E91E63"/><circle cx="148" cy="66" r="24" fill="#F06292"/><circle cx="148" cy="66" r="16" fill="#E91E63"/><circle cx="75" cy="114" r="10" fill="#F8BBD0"/></svg><span>32</span></div>
+</div>
 
-<!-- #15 Magma — deep orange, sweeping right -->
+<!-- ========== #15 DOUBLE ARM ========== -->
+<!-- Two arms from one base, like chopsticks -->
 <div class="card" onclick="pick(this)">
 <div class="num">#15</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="34" y="218" width="56" height="22" rx="8" fill="#BF360C"/>
-<rect x="46" y="198" width="32" height="24" rx="6" fill="#E64A19"/>
-<rect x="72" y="15" width="33" height="81" rx="16" fill="#FF8A65" transform="rotate(101,89,96)"/>
-<g transform="translate(169,112) rotate(101)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#E64A19"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#FF5722"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#FF5722"/></g>
-<rect x="43" y="93" width="38" height="112" rx="19" fill="#FF5722" transform="rotate(14,62,205)"/>
-<circle cx="89" cy="96" r="16" fill="#FF8A65"/><circle cx="89" cy="96" r="8" fill="#BF360C"/>
-<circle cx="62" cy="205" r="14" fill="#E64A19"/><circle cx="62" cy="205" r="7" fill="#BF360C"/>
-<circle cx="169" cy="112" r="9" fill="#FF8A65"/><circle cx="169" cy="112" r="4.5" fill="#BF360C"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- wide base -->
+<rect x="30" y="216" width="80" height="24" rx="8" fill="#827717"/>
+<rect x="40" y="200" width="60" height="22" rx="6" fill="#9E9D24"/>
+<!-- LEFT arm: lower -->
+<rect x="34" y="108" width="26" height="98" rx="13" fill="#C0CA33" transform="rotate(-5,47,205)"/>
+<!-- LEFT arm: upper -->
+<rect x="22" y="48" width="22" height="66" rx="11" fill="#D4E157" transform="rotate(-20,33,110)"/>
+<!-- LEFT claw -->
+<rect x="12" y="18" width="7" height="20" rx="3" fill="#C0CA33" transform="rotate(-25,16,18)"/>
+<rect x="26" y="22" width="7" height="20" rx="3" fill="#D4E157" transform="rotate(5,30,22)"/>
+<!-- RIGHT arm: lower -->
+<rect x="80" y="108" width="26" height="98" rx="13" fill="#C0CA33" transform="rotate(12,93,205)"/>
+<!-- RIGHT arm: upper -->
+<rect x="90" y="38" width="22" height="70" rx="11" fill="#D4E157" transform="rotate(50,101,105)"/>
+<!-- RIGHT claw -->
+<rect x="148" y="42" width="7" height="20" rx="3" fill="#C0CA33" transform="rotate(-10,152,42)"/>
+<rect x="160" y="45" width="7" height="20" rx="3" fill="#D4E157" transform="rotate(20,164,45)"/>
+<!-- joints LEFT -->
+<circle cx="47" cy="205" r="10" fill="#D4E157"/><circle cx="47" cy="205" r="5" fill="#827717"/>
+<circle cx="33" cy="110" r="11" fill="#D4E157"/><circle cx="33" cy="110" r="5.5" fill="#827717"/>
+<circle cx="22" cy="30" r="7" fill="#D4E157"/><circle cx="22" cy="30" r="3.5" fill="#827717"/>
+<!-- joints RIGHT -->
+<circle cx="93" cy="205" r="10" fill="#D4E157"/><circle cx="93" cy="205" r="5" fill="#827717"/>
+<circle cx="101" cy="105" r="11" fill="#D4E157"/><circle cx="101" cy="105" r="5.5" fill="#827717"/>
+<circle cx="155" cy="48" r="7" fill="#D4E157"/><circle cx="155" cy="48" r="3.5" fill="#827717"/>
 </svg>
-<div class="label">Magma</div>
-<div class="desc">Deep orange, wide sweeping motion</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="34" y="218" width="56" height="22" rx="8" fill="#BF360C"/><rect x="46" y="198" width="32" height="24" rx="6" fill="#E64A19"/><rect x="72" y="15" width="33" height="81" rx="16" fill="#FF8A65" transform="rotate(101,89,96)"/><rect x="43" y="93" width="38" height="112" rx="19" fill="#FF5722" transform="rotate(14,62,205)"/><circle cx="89" cy="96" r="16" fill="#FF8A65"/><circle cx="89" cy="96" r="8" fill="#BF360C"/><circle cx="62" cy="205" r="14" fill="#E64A19"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="34" y="218" width="56" height="22" rx="8" fill="#BF360C"/><rect x="72" y="15" width="33" height="81" rx="16" fill="#FF8A65" transform="rotate(101,89,96)"/><rect x="43" y="93" width="38" height="112" rx="19" fill="#FF5722" transform="rotate(14,62,205)"/><circle cx="89" cy="96" r="16" fill="#FF8A65"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Double Arm</div>
+<div class="desc">Two independent arms from one base, chopstick style</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="30" y="216" width="80" height="24" rx="8" fill="#827717"/><rect x="40" y="200" width="60" height="22" rx="6" fill="#9E9D24"/><rect x="34" y="108" width="26" height="98" rx="13" fill="#C0CA33" transform="rotate(-5,47,205)"/><rect x="22" y="48" width="22" height="66" rx="11" fill="#D4E157" transform="rotate(-20,33,110)"/><rect x="80" y="108" width="26" height="98" rx="13" fill="#C0CA33" transform="rotate(12,93,205)"/><rect x="90" y="38" width="22" height="70" rx="11" fill="#D4E157" transform="rotate(50,101,105)"/><circle cx="33" cy="110" r="11" fill="#D4E157"/><circle cx="101" cy="105" r="11" fill="#D4E157"/></svg><span>32</span></div>
+</div>
 
-<!-- #16 Chrome — steel blue-gray, flexing up -->
+<!-- ========== #16 ACCORDION BELLOWS ========== -->
+<!-- Segments connected by zigzag accordion folds -->
 <div class="card" onclick="pick(this)">
 <div class="num">#16</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="52" y="218" width="56" height="22" rx="8" fill="#263238"/>
-<rect x="64" y="198" width="32" height="24" rx="6" fill="#455A64"/>
-<rect x="95" y="30" width="34" height="76" rx="17" fill="#78909C" transform="rotate(48,112,106)"/>
-<g transform="translate(169,55) rotate(48)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#455A64"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#607D8B"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#607D8B"/></g>
-<rect x="61" y="101" width="38" height="104" rx="19" fill="#607D8B" transform="rotate(18,80,205)"/>
-<circle cx="112" cy="106" r="16" fill="#78909C"/><circle cx="112" cy="106" r="8" fill="#263238"/>
-<circle cx="80" cy="205" r="14" fill="#455A64"/><circle cx="80" cy="205" r="7" fill="#263238"/>
-<circle cx="169" cy="55" r="9" fill="#78909C"/><circle cx="169" cy="55" r="4.5" fill="#263238"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- base -->
+<rect x="44" y="218" width="52" height="22" rx="6" fill="#BF360C"/>
+<rect x="50" y="202" width="40" height="20" rx="5" fill="#E64A19"/>
+<!-- lower segment -->
+<rect x="54" y="148" width="32" height="58" rx="8" fill="#FF5722"/>
+<!-- BELLOWS between lower and upper (zigzag fold) -->
+<path d="M56,148 L84,148 L80,140 L60,140 L56,132 L84,132 L80,124 L60,124 L56,116 L84,116 L84,148" fill="#E64A19"/>
+<path d="M56,148 L56,116 L60,124 L56,132 L60,140Z" fill="#FF8A65"/>
+<!-- upper segment -->
+<rect x="56" y="62" width="28" height="56" rx="7" fill="#FF8A65" transform="rotate(30,70,90)"/>
+<!-- BELLOWS between upper and gripper -->
+<path d="M105,52 Q108,48 112,52 Q115,48 118,52 Q121,48 124,52 L124,62 Q121,58 118,62 Q115,58 112,62 Q108,58 105,62Z" fill="#E64A19" transform="rotate(30,114,57)"/>
+<!-- gripper -->
+<rect x="130" y="20" width="8" height="24" rx="3" fill="#FF5722" transform="rotate(-8,134,20)"/>
+<rect x="142" y="22" width="8" height="24" rx="3" fill="#FF8A65" transform="rotate(15,146,22)"/>
+<!-- connector to base (bellows) -->
+<path d="M56,206 L84,206 L80,198 L60,198 L56,190 L84,190 L84,206" fill="#E64A19"/>
+<!-- wrist -->
+<circle cx="138" cy="30" r="8" fill="#FF8A65"/><circle cx="138" cy="30" r="4" fill="#BF360C"/>
 </svg>
-<div class="label">Chrome</div>
-<div class="desc">Cool steel gray, industrial chic</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="52" y="218" width="56" height="22" rx="8" fill="#263238"/><rect x="64" y="198" width="32" height="24" rx="6" fill="#455A64"/><rect x="95" y="30" width="34" height="76" rx="17" fill="#78909C" transform="rotate(48,112,106)"/><rect x="61" y="101" width="38" height="104" rx="19" fill="#607D8B" transform="rotate(18,80,205)"/><circle cx="112" cy="106" r="16" fill="#78909C"/><circle cx="112" cy="106" r="8" fill="#263238"/><circle cx="80" cy="205" r="14" fill="#455A64"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="52" y="218" width="56" height="22" rx="8" fill="#263238"/><rect x="95" y="30" width="34" height="76" rx="17" fill="#78909C" transform="rotate(48,112,106)"/><rect x="61" y="101" width="38" height="104" rx="19" fill="#607D8B" transform="rotate(18,80,205)"/><circle cx="112" cy="106" r="16" fill="#78909C"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Accordion</div>
+<div class="desc">Segments connected by zigzag bellows folds</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="44" y="218" width="52" height="22" rx="6" fill="#BF360C"/><rect x="54" y="148" width="32" height="58" rx="8" fill="#FF5722"/><path d="M56,148 L84,148 L80,140 L60,140 L56,132 L84,132 L80,124 L60,124 L56,116 L84,116 L84,148" fill="#E64A19"/><rect x="56" y="62" width="28" height="56" rx="7" fill="#FF8A65" transform="rotate(30,70,90)"/><circle cx="138" cy="30" r="8" fill="#FF8A65"/></svg><span>32</span></div>
+</div>
 
-<!-- #17 Fern — leaf green, sweeping hang -->
+<!-- ========== #17 BALL JOINTS ========== -->
+<!-- Same layout but joints are full 3D spheres with highlights -->
 <div class="card" onclick="pick(this)">
 <div class="num">#17</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="40" y="218" width="56" height="22" rx="8" fill="#2E7D32"/>
-<rect x="52" y="198" width="32" height="24" rx="6" fill="#43A047"/>
-<rect x="69" y="10" width="32" height="88" rx="16" fill="#81C784" transform="rotate(110,85,98)"/>
-<g transform="translate(168,128) rotate(110)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#43A047"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#66BB6A"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#66BB6A"/></g>
-<rect x="50" y="97" width="36" height="108" rx="18" fill="#66BB6A" transform="rotate(9,68,205)"/>
-<circle cx="85" cy="98" r="16" fill="#81C784"/><circle cx="85" cy="98" r="8" fill="#2E7D32"/>
-<circle cx="68" cy="205" r="14" fill="#43A047"/><circle cx="68" cy="205" r="7" fill="#2E7D32"/>
-<circle cx="168" cy="128" r="9" fill="#81C784"/><circle cx="168" cy="128" r="4.5" fill="#2E7D32"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<defs><radialGradient id="ball" cx="0.35" cy="0.35"><stop offset="0%" stop-color="#90A4AE"/><stop offset="60%" stop-color="#607D8B"/><stop offset="100%" stop-color="#37474F"/></radialGradient></defs>
+<!-- base -->
+<rect x="42" y="216" width="56" height="24" rx="8" fill="#263238"/>
+<rect x="50" y="200" width="40" height="22" rx="6" fill="#37474F"/>
+<!-- lower arm -->
+<rect x="55" y="105" width="28" height="100" rx="6" fill="#607D8B" transform="rotate(8,69,205)"/>
+<rect x="55" y="105" width="14" height="100" rx="6" fill="#78909C" transform="rotate(8,69,205)"/>
+<!-- upper arm -->
+<rect x="70" y="30" width="24" height="74" rx="5" fill="#78909C" transform="rotate(58,82,100)"/>
+<rect x="70" y="30" width="12" height="74" rx="5" fill="#90A4AE" transform="rotate(58,82,100)"/>
+<!-- gripper -->
+<rect x="152" y="62" width="7" height="22" rx="3" fill="#607D8B" transform="rotate(-12,155,62)"/>
+<rect x="162" y="64" width="7" height="22" rx="3" fill="#78909C" transform="rotate(12,166,64)"/>
+<!-- BALL joints (sphere-like with gradient) -->
+<circle cx="69" cy="205" r="16" fill="url(#ball)"/>
+<circle cx="82" cy="100" r="18" fill="url(#ball)"/>
+<circle cx="157" cy="66" r="11" fill="url(#ball)"/>
+<!-- highlight dots on balls -->
+<circle cx="64" cy="199" r="4" fill="#B0BEC5" opacity="0.6"/>
+<circle cx="76" cy="93" r="5" fill="#B0BEC5" opacity="0.6"/>
+<circle cx="153" cy="61" r="3" fill="#B0BEC5" opacity="0.6"/>
 </svg>
-<div class="label">Fern</div>
-<div class="desc">Fresh leaf green, smooth arc swing</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="40" y="218" width="56" height="22" rx="8" fill="#2E7D32"/><rect x="52" y="198" width="32" height="24" rx="6" fill="#43A047"/><rect x="69" y="10" width="32" height="88" rx="16" fill="#81C784" transform="rotate(110,85,98)"/><rect x="50" y="97" width="36" height="108" rx="18" fill="#66BB6A" transform="rotate(9,68,205)"/><circle cx="85" cy="98" r="16" fill="#81C784"/><circle cx="85" cy="98" r="8" fill="#2E7D32"/><circle cx="68" cy="205" r="14" fill="#43A047"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="40" y="218" width="56" height="22" rx="8" fill="#2E7D32"/><rect x="69" y="10" width="32" height="88" rx="16" fill="#81C784" transform="rotate(110,85,98)"/><rect x="50" y="97" width="36" height="108" rx="18" fill="#66BB6A" transform="rotate(9,68,205)"/><circle cx="85" cy="98" r="16" fill="#81C784"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Ball Joints</div>
+<div class="desc">Full 3D sphere joints with glossy highlights</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><defs><radialGradient id="balls" cx="0.35" cy="0.35"><stop offset="0%" stop-color="#90A4AE"/><stop offset="60%" stop-color="#607D8B"/><stop offset="100%" stop-color="#37474F"/></radialGradient></defs><rect x="42" y="216" width="56" height="24" rx="8" fill="#263238"/><rect x="55" y="105" width="28" height="100" rx="6" fill="#607D8B" transform="rotate(8,69,205)"/><rect x="70" y="30" width="24" height="74" rx="5" fill="#78909C" transform="rotate(58,82,100)"/><circle cx="69" cy="205" r="16" fill="url(#balls)"/><circle cx="82" cy="100" r="18" fill="url(#balls)"/><circle cx="157" cy="66" r="11" fill="url(#balls)"/></svg><span>32</span></div>
+</div>
 
-<!-- #18 Blush — rose pink, arm straight up -->
+<!-- ========== #18 EXCAVATOR ========== -->
+<!-- Heavy base, 3 segments, bucket scoop at end -->
 <div class="card" onclick="pick(this)">
 <div class="num">#18</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="54" y="218" width="56" height="22" rx="8" fill="#AD1457"/>
-<rect x="66" y="198" width="32" height="24" rx="6" fill="#E91E63"/>
-<rect x="94" y="42" width="30" height="61" rx="15" fill="#F8BBD0" transform="rotate(-1,109,103)"/>
-<g transform="translate(108,42) rotate(-1)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#E91E63"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#F06292"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#F06292"/></g>
-<rect x="64" y="99" width="36" height="106" rx="18" fill="#F06292" transform="rotate(15,82,205)"/>
-<circle cx="109" cy="103" r="15" fill="#F8BBD0"/><circle cx="109" cy="103" r="7.5" fill="#AD1457"/>
-<circle cx="82" cy="205" r="14" fill="#E91E63"/><circle cx="82" cy="205" r="7" fill="#AD1457"/>
-<circle cx="108" cy="42" r="9" fill="#F8BBD0"/><circle cx="108" cy="42" r="4.5" fill="#AD1457"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- heavy rectangular body/base -->
+<rect x="15" y="200" width="90" height="40" rx="6" fill="#2E7D32"/>
+<rect x="15" y="200" width="90" height="20" rx="6" fill="#43A047"/>
+<!-- track left -->
+<rect x="10" y="230" width="50" height="10" rx="5" fill="#1B5E20"/>
+<!-- track right -->
+<rect x="65" y="230" width="50" height="10" rx="5" fill="#1B5E20"/>
+<!-- boom (segment 1 - longest) -->
+<rect x="68" y="80" width="28" height="124" rx="6" fill="#66BB6A" transform="rotate(12,82,205)"/>
+<rect x="68" y="80" width="14" height="124" rx="6" fill="#81C784" transform="rotate(12,82,205)"/>
+<!-- stick (segment 2) -->
+<rect x="88" y="32" width="22" height="62" rx="5" fill="#81C784" transform="rotate(70,99,90)"/>
+<rect x="88" y="32" width="11" height="62" rx="5" fill="#A5D6A7" transform="rotate(70,99,90)"/>
+<!-- bucket (U-shape scoop) -->
+<path d="M152,95 L145,108 Q145,125 155,130 Q165,130 175,125 Q178,108 170,95Z" fill="#43A047"/>
+<path d="M154,97 L148,108 Q148,120 155,125 Q162,125 168,120 Q170,108 166,97Z" fill="#66BB6A"/>
+<!-- bucket teeth -->
+<rect x="148" y="128" width="5" height="8" rx="1" fill="#2E7D32"/>
+<rect x="157" y="128" width="5" height="8" rx="1" fill="#2E7D32"/>
+<rect x="166" y="128" width="5" height="8" rx="1" fill="#2E7D32"/>
+<!-- joints -->
+<circle cx="82" cy="205" r="14" fill="#81C784"/><circle cx="82" cy="205" r="7" fill="#1B5E20"/>
+<circle cx="99" cy="90" r="12" fill="#81C784"/><circle cx="99" cy="90" r="6" fill="#1B5E20"/>
+<circle cx="155" cy="96" r="9" fill="#81C784"/><circle cx="155" cy="96" r="4.5" fill="#1B5E20"/>
 </svg>
-<div class="label">Blush</div>
-<div class="desc">Soft rose, arm pointing straight up</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="54" y="218" width="56" height="22" rx="8" fill="#AD1457"/><rect x="66" y="198" width="32" height="24" rx="6" fill="#E91E63"/><rect x="94" y="42" width="30" height="61" rx="15" fill="#F8BBD0" transform="rotate(-1,109,103)"/><rect x="64" y="99" width="36" height="106" rx="18" fill="#F06292" transform="rotate(15,82,205)"/><circle cx="109" cy="103" r="15" fill="#F8BBD0"/><circle cx="109" cy="103" r="7.5" fill="#AD1457"/><circle cx="82" cy="205" r="14" fill="#E91E63"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="54" y="218" width="56" height="22" rx="8" fill="#AD1457"/><rect x="94" y="42" width="30" height="61" rx="15" fill="#F8BBD0" transform="rotate(-1,109,103)"/><rect x="64" y="99" width="36" height="106" rx="18" fill="#F06292" transform="rotate(15,82,205)"/><circle cx="109" cy="103" r="15" fill="#F8BBD0"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Excavator</div>
+<div class="desc">Heavy tracked base, boom + stick + bucket scoop</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="15" y="200" width="90" height="40" rx="6" fill="#2E7D32"/><rect x="10" y="230" width="50" height="10" rx="5" fill="#1B5E20"/><rect x="65" y="230" width="50" height="10" rx="5" fill="#1B5E20"/><rect x="68" y="80" width="28" height="124" rx="6" fill="#66BB6A" transform="rotate(12,82,205)"/><rect x="88" y="32" width="22" height="62" rx="5" fill="#81C784" transform="rotate(70,99,90)"/><path d="M152,95 L145,108 Q145,125 155,130 Q165,130 175,125 Q178,108 170,95Z" fill="#43A047"/><circle cx="99" cy="90" r="12" fill="#81C784"/></svg><span>32</span></div>
+</div>
 
-<!-- #19 Lagoon — turquoise, long reach up-right -->
+<!-- ========== #19 TENTACLE ========== -->
+<!-- One smooth curving arm, no visible joints, tapers from thick to thin -->
 <div class="card" onclick="pick(this)">
 <div class="num">#19</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="27" y="218" width="56" height="22" rx="8" fill="#00838F"/>
-<rect x="39" y="198" width="32" height="24" rx="6" fill="#00ACC1"/>
-<rect x="59" y="0" width="30" height="97" rx="15" fill="#4DD0E1" transform="rotate(62,74,97)"/>
-<g transform="translate(160,52) rotate(62)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#00ACC1"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#26C6DA"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#26C6DA"/></g>
-<rect x="37" y="95" width="36" height="110" rx="18" fill="#26C6DA" transform="rotate(10,55,205)"/>
-<circle cx="74" cy="97" r="15" fill="#4DD0E1"/><circle cx="74" cy="97" r="7.5" fill="#00838F"/>
-<circle cx="55" cy="205" r="14" fill="#00ACC1"/><circle cx="55" cy="205" r="7" fill="#00838F"/>
-<circle cx="160" cy="52" r="9" fill="#4DD0E1"/><circle cx="160" cy="52" r="4.5" fill="#00838F"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- organic round base -->
+<ellipse cx="65" cy="232" rx="34" ry="8" fill="#00838F"/>
+<path d="M38,232 Q38,205 50,200 Q58,197 72,197 Q85,197 92,205 Q92,232 92,232Z" fill="#00ACC1"/>
+<path d="M42,232 Q42,208 52,204 Q58,200 65,200 Q65,232 65,232Z" fill="#26C6DA"/>
+<!-- smooth curving tentacle arm — one continuous tapered shape -->
+<path d="M52,200 Q48,170 50,140 Q52,110 62,85 Q72,60 90,45 Q108,30 130,25 Q150,22 165,28 Q175,34 172,42 Q168,50 155,48 Q140,46 125,50 Q110,55 98,65 Q86,78 78,95 Q70,112 68,135 Q66,158 68,180 Q70,195 82,200Z" fill="#26C6DA"/>
+<path d="M54,200 Q50,170 52,142 Q54,115 62,90 Q70,68 85,52 Q100,38 118,32 Q135,28 148,32 Q158,36 155,42 Q150,46 140,44 Q128,42 115,48 Q102,55 92,68 Q82,82 76,100 Q70,118 68,140 Q66,162 68,185 Q69,198 72,200Z" fill="#4DD0E1"/>
+<!-- tip curl -->
+<path d="M165,28 Q178,24 182,32 Q184,40 176,44 Q170,46 165,42" fill="#26C6DA"/>
+<path d="M168,30 Q176,28 178,34 Q180,38 174,42" fill="#4DD0E1"/>
+<!-- sucker/ring detail along the arm -->
+<ellipse cx="68" cy="170" rx="6" ry="4" fill="#00ACC1"/>
+<ellipse cx="66" cy="145" rx="5.5" ry="3.5" fill="#00ACC1"/>
+<ellipse cx="70" cy="120" rx="5" ry="3" fill="#00ACC1"/>
+<ellipse cx="80" cy="98" rx="4.5" ry="2.5" fill="#00ACC1"/>
+<ellipse cx="95" cy="78" rx="4" ry="2" fill="#00ACC1"/>
 </svg>
-<div class="label">Lagoon</div>
-<div class="desc">Tropical turquoise, long elegant reach</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="27" y="218" width="56" height="22" rx="8" fill="#00838F"/><rect x="39" y="198" width="32" height="24" rx="6" fill="#00ACC1"/><rect x="59" y="0" width="30" height="97" rx="15" fill="#4DD0E1" transform="rotate(62,74,97)"/><rect x="37" y="95" width="36" height="110" rx="18" fill="#26C6DA" transform="rotate(10,55,205)"/><circle cx="74" cy="97" r="15" fill="#4DD0E1"/><circle cx="74" cy="97" r="7.5" fill="#00838F"/><circle cx="55" cy="205" r="14" fill="#00ACC1"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="27" y="218" width="56" height="22" rx="8" fill="#00838F"/><rect x="59" y="0" width="30" height="97" rx="15" fill="#4DD0E1" transform="rotate(62,74,97)"/><rect x="37" y="95" width="36" height="110" rx="18" fill="#26C6DA" transform="rotate(10,55,205)"/><circle cx="74" cy="97" r="15" fill="#4DD0E1"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Tentacle</div>
+<div class="desc">Smooth organic curve, no joints, tapers to a curl</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><ellipse cx="65" cy="232" rx="34" ry="8" fill="#00838F"/><path d="M38,232 Q38,205 50,200 Q58,197 72,197 Q85,197 92,205 Q92,232 92,232Z" fill="#00ACC1"/><path d="M52,200 Q48,170 50,140 Q52,110 62,85 Q72,60 90,45 Q108,30 130,25 Q150,22 165,28 Q175,34 172,42 Q168,50 155,48 Q140,46 125,50 Q110,55 98,65 Q86,78 78,95 Q70,112 68,135 Q66,158 68,180 Q70,195 82,200Z" fill="#26C6DA"/><path d="M54,200 Q50,170 52,142 Q54,115 62,90 Q70,68 85,52 Q100,38 118,32 Q135,28 148,32 Q158,36 155,42 Q150,46 140,44 Q128,42 115,48 Q102,55 92,68 Q82,82 76,100 Q70,118 68,140 Q66,162 68,185 Q69,198 72,200Z" fill="#4DD0E1"/></svg><span>32</span></div>
+</div>
 
-<!-- #20 Storm — slate gray, horizontal sweep -->
+<!-- ========== #20 BLOCKY ANGULAR ========== -->
+<!-- All sharp rectangles, no roundness at all, angular claw -->
 <div class="card" onclick="pick(this)">
 <div class="num">#20</div>
-<svg class="icon" width="160" height="192" viewBox="0 0 200 240" fill="none">
-<rect x="50" y="218" width="56" height="22" rx="8" fill="#37474F"/>
-<rect x="62" y="198" width="32" height="24" rx="6" fill="#546E7A"/>
-<rect x="82" y="17" width="36" height="75" rx="18" fill="#90A4AE" transform="rotate(96,100,92)"/>
-<g transform="translate(175,100) rotate(96)"><path d="M-4,0L-3,-9L3,-9L4,0Z" fill="#546E7A"/><path d="M-3,-9L-9,-24L-5,-24L-1,-11Z" fill="#78909C"/><path d="M3,-9L9,-24L5,-24L1,-11Z" fill="#78909C"/></g>
-<rect x="58" y="90" width="40" height="115" rx="20" fill="#78909C" transform="rotate(11,78,205)"/>
-<circle cx="100" cy="92" r="16" fill="#90A4AE"/><circle cx="100" cy="92" r="8" fill="#37474F"/>
-<circle cx="78" cy="205" r="14" fill="#546E7A"/><circle cx="78" cy="205" r="7" fill="#37474F"/>
-<circle cx="175" cy="100" r="9" fill="#90A4AE"/><circle cx="175" cy="100" r="4.5" fill="#37474F"/>
+<svg class="icon" width="180" height="216" viewBox="0 0 200 240" fill="none">
+<!-- sharp rectangular base -->
+<rect x="35" y="215" width="70" height="25" fill="#37474F"/>
+<rect x="45" y="198" width="50" height="22" fill="#455A64"/>
+<!-- lower arm — sharp rectangle, no radius -->
+<rect x="55" y="100" width="30" height="104" fill="#546E7A" transform="rotate(8,70,205)"/>
+<rect x="55" y="100" width="15" height="104" fill="#607D8B" transform="rotate(8,70,205)"/>
+<!-- upper arm — sharp rectangle -->
+<rect x="72" y="36" width="26" height="70" fill="#78909C" transform="rotate(55,85,100)"/>
+<rect x="72" y="36" width="13" height="70" fill="#90A4AE" transform="rotate(55,85,100)"/>
+<!-- angular claw (sharp V, no curves) -->
+<polygon points="150,72 140,60 144,58 154,68 164,58 168,60 158,72" fill="#607D8B"/>
+<polygon points="150,72 142,62 146,60 152,68" fill="#78909C"/>
+<!-- SQUARE joints instead of circles -->
+<rect x="61" y="196" width="18" height="18" fill="#78909C"/>
+<rect x="65" y="200" width="10" height="10" fill="#37474F"/>
+<rect x="76" y="91" width="18" height="18" fill="#90A4AE"/>
+<rect x="80" y="95" width="10" height="10" fill="#37474F"/>
+<rect x="147" y="67" width="14" height="14" fill="#90A4AE"/>
+<rect x="150" y="70" width="8" height="8" fill="#37474F"/>
 </svg>
-<div class="label">Storm</div>
-<div class="desc">Cool slate, nearly horizontal sweep</div>
-<div class="sizes">
-<svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#37474F"/><rect x="62" y="198" width="32" height="24" rx="6" fill="#546E7A"/><rect x="82" y="17" width="36" height="75" rx="18" fill="#90A4AE" transform="rotate(96,100,92)"/><rect x="58" y="90" width="40" height="115" rx="20" fill="#78909C" transform="rotate(11,78,205)"/><circle cx="100" cy="92" r="16" fill="#90A4AE"/><circle cx="100" cy="92" r="8" fill="#37474F"/><circle cx="78" cy="205" r="14" fill="#546E7A"/></svg>
-<span>32</span>
-<svg width="24" height="29" viewBox="0 0 200 240" fill="none"><rect x="50" y="218" width="56" height="22" rx="8" fill="#37474F"/><rect x="82" y="17" width="36" height="75" rx="18" fill="#90A4AE" transform="rotate(96,100,92)"/><rect x="58" y="90" width="40" height="115" rx="20" fill="#78909C" transform="rotate(11,78,205)"/><circle cx="100" cy="92" r="16" fill="#90A4AE"/></svg>
-<span>24</span>
-</div></div>
+<div class="label">Blocky Angular</div>
+<div class="desc">All sharp rectangles, zero roundness, square bolts</div>
+<div class="sizes"><svg width="32" height="38" viewBox="0 0 200 240" fill="none"><rect x="35" y="215" width="70" height="25" fill="#37474F"/><rect x="45" y="198" width="50" height="22" fill="#455A64"/><rect x="55" y="100" width="30" height="104" fill="#546E7A" transform="rotate(8,70,205)"/><rect x="72" y="36" width="26" height="70" fill="#78909C" transform="rotate(55,85,100)"/><polygon points="150,72 140,60 144,58 154,68 164,58 168,60 158,72" fill="#607D8B"/><rect x="76" y="91" width="18" height="18" fill="#90A4AE"/><rect x="61" y="196" width="18" height="18" fill="#78909C"/></svg><span>32</span></div>
+</div>
 
 </div>
 <script>
