@@ -46,17 +46,28 @@ export function LessonNode({
       style={{
         padding: '12px 14px',
         background:
-          state === 'locked' ? 'transparent' : 'rgba(255,255,255,0.65)',
+          state === 'locked' ? 'transparent' : 'rgba(255,255,255,0.85)',
         borderRadius: 16,
         gap: 12,
         opacity: state === 'locked' ? 0.45 : 1,
         cursor: state === 'locked' ? 'default' : 'pointer',
+        boxShadow:
+          state === 'locked'
+            ? 'none'
+            : `0 3px 0 ${theme.dark}22, 0 1px 3px rgba(0,0,0,0.06)`,
+        border:
+          state === 'locked'
+            ? 'none'
+            : '1.5px solid rgba(255,255,255,0.9)',
+        position: 'relative',
+        WebkitTapHighlightColor: 'transparent',
       }}
       onClick={onClick}
-      whileTap={state !== 'locked' ? { scale: 0.99 } : undefined}
+      whileHover={state !== 'locked' ? { scale: 1.015, backgroundColor: 'rgba(255,255,255,0.95)' } : undefined}
+      whileTap={state !== 'locked' ? { scale: 0.97, y: 2, boxShadow: `0 1px 0 ${theme.dark}22, 0 0px 2px rgba(0,0,0,0.04)` } : undefined}
       initial={{ opacity: 0, x: -8 }}
       animate={{ opacity: state === 'locked' ? 0.45 : 1, x: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.25 }}
+      transition={{ delay: index * 0.05, duration: 0.25, scale: { duration: 0.1 }, y: { duration: 0.1 }, boxShadow: { duration: 0.1 } }}
       aria-label={
         state === 'completed'
           ? `Replay: ${lesson.title}`

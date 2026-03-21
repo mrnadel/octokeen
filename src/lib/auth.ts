@@ -77,8 +77,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
       }
-      if (trigger === 'update' && session?.name) {
-        token.name = session.name;
+      if (trigger === 'update') {
+        if (session?.name) token.name = session.name;
+        if (session?.image !== undefined) token.picture = session.image;
       }
       return token;
     },
@@ -88,6 +89,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       if (token.name) {
         session.user.name = token.name;
+      }
+      if (token.picture) {
+        session.user.image = token.picture as string;
       }
       return session;
     },
