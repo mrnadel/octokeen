@@ -7689,45 +7689,45 @@
 <div class="card" data-name="Karman Vortex" data-cat="Fluids">
 <div class="card-top"><svg viewBox="0 0 80 80" fill="none">
   <!-- Cylinder (bluff body) -->
-  <circle cx="18" cy="40" r="6" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.05"/>
+  <circle cx="18" cy="40" r="6" stroke-width="0.8" class="s-stroke s-fill" fill-opacity="0.12"/>
   <!-- Free stream flow -->
-  <g opacity="0.3" class="s-stroke" stroke-width="0.3">
+  <g opacity="0.5" class="s-stroke" stroke-width="0.3">
     <line x1="2" y1="28" x2="12" y2="28"/><line x1="2" y1="34" x2="12" y2="34"/>
     <line x1="2" y1="40" x2="12" y2="40"/><line x1="2" y1="46" x2="12" y2="46"/>
     <line x1="2" y1="52" x2="12" y2="52"/>
   </g>
-  <g opacity="0.3" class="s-fill">
+  <g opacity="0.5" class="s-fill">
     <polygon points="12,27 12,29 14,28"/><polygon points="12,33 12,35 14,34"/>
     <polygon points="12,39 12,41 14,40"/><polygon points="12,45 12,47 14,46"/>
     <polygon points="12,51 12,53 14,52"/>
   </g>
   <!-- Vortex street (alternating top and bottom) -->
   <!-- Top row vortices -->
-  <g opacity="0.25">
-    <circle cx="32" cy="34" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+  <g opacity="0.45">
+    <circle cx="32" cy="34" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="0,32,34;360,32,34" dur="2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="48" cy="34" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+    <circle cx="48" cy="34" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="0,48,34;360,48,34" dur="2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="64" cy="34" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+    <circle cx="64" cy="34" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="0,64,34;360,64,34" dur="2s" repeatCount="indefinite"/>
     </circle>
   </g>
   <!-- Bottom row vortices (offset) -->
-  <g opacity="0.25">
-    <circle cx="40" cy="46" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+  <g opacity="0.45">
+    <circle cx="40" cy="46" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="360,40,46;0,40,46" dur="2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="56" cy="46" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+    <circle cx="56" cy="46" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="360,56,46;0,56,46" dur="2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="72" cy="46" r="4" stroke-width="0.5" class="s-stroke-l" fill="none">
+    <circle cx="72" cy="46" r="4" stroke-width="0.7" class="s-stroke-l" fill="none">
       <animateTransform attributeName="transform" type="rotate" values="360,72,46;0,72,46" dur="2s" repeatCount="indefinite"/>
     </circle>
   </g>
   <!-- Rotation indicators inside vortices -->
-  <g class="s-fill" opacity="0.15">
+  <g class="s-fill" opacity="0.35">
     <circle cx="32" cy="32" r="0.6"/><circle cx="48" cy="32" r="0.6"/><circle cx="64" cy="32" r="0.6"/>
     <circle cx="40" cy="48" r="0.6"/><circle cx="56" cy="48" r="0.6"/><circle cx="72" cy="48" r="0.6"/>
   </g>

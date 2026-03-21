@@ -6,7 +6,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
-import { Sparkles, User, LogOut } from 'lucide-react';
+import { Sparkles, User, LogOut, Shield } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
 
 type PopoverType = 'streak' | 'xp' | 'menu' | null;
