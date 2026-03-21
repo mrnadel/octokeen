@@ -58,21 +58,27 @@ export function CourseHeader() {
       setPopoverPos(null);
       return;
     }
-    const ref = type === 'streak' ? streakBtnRef : xpBtnRef;
+    const ref = type === 'streak' ? streakBtnRef : type === 'xp' ? xpBtnRef : null;
     const headerEl = headerRef.current;
-    if (ref.current && headerEl) {
-      const btnRect = ref.current.getBoundingClientRect();
+    if (headerEl) {
       const headerRect = headerEl.getBoundingClientRect();
-      const btnCenterX = btnRect.left + btnRect.width / 2;
-      const vw = window.innerWidth;
-      const popoverRight = 16;
-      const popoverRightEdge = vw - popoverRight;
-      const arrowRight = popoverRightEdge - btnCenterX - 7;
-      const maxW = Math.min(300, vw - 32);
-      setPopoverPos({
-        top: headerRect.bottom + 10,
-        arrowRight: Math.max(24, Math.min(arrowRight, maxW - 24)),
-      });
+      if (ref?.current) {
+        const btnRect = ref.current.getBoundingClientRect();
+        const btnCenterX = btnRect.left + btnRect.width / 2;
+        const popoverRightEdge = headerRect.right - 16;
+        const arrowRight = popoverRightEdge - btnCenterX - 7;
+        const maxW = Math.min(300, headerRect.width - 32);
+        setPopoverPos({
+          top: headerRect.bottom + 10,
+          arrowRight: Math.max(24, Math.min(arrowRight, maxW - 24)),
+        });
+      } else {
+        // Menu popover: align to right edge of header
+        setPopoverPos({
+          top: headerRect.bottom + 10,
+          arrowRight: 24,
+        });
+      }
     }
     setPopover(type);
   };

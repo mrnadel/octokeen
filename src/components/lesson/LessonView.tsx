@@ -220,14 +220,13 @@ export default function LessonView() {
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed inset-0 z-50 flex flex-col"
+        className="fixed inset-0 z-50 flex items-center justify-center"
         style={{
           backgroundColor: '#FAFAFA',
           paddingTop: 'env(safe-area-inset-top, 0px)',
-          paddingLeft: 'env(safe-area-inset-left, 0px)',
-          paddingRight: 'env(safe-area-inset-right, 0px)',
         }}
       >
+        <div className="w-full h-full max-w-3xl flex flex-col bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200">
         {/* Top bar */}
         <div
           className="flex items-center"
@@ -442,6 +441,8 @@ export default function LessonView() {
           </motion.div>
         )}
 
+        </div>{/* end centered wrapper */}
+
         {/* Exit confirmation modal */}
         <AnimatePresence>
           {showExitConfirm && (
@@ -449,20 +450,20 @@ export default function LessonView() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[60] flex items-end justify-center"
+              className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center"
               onClick={handleCancelExit}
             >
               <div className="absolute inset-0 bg-black/40" />
               <motion.div
-                className="relative w-full bg-white"
+                className="relative w-full sm:w-auto bg-white"
                 style={{
                   maxWidth: 480,
-                  borderRadius: '24px 24px 0 0',
+                  borderRadius: 24,
                   padding: '20px 20px 32px',
                 }}
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: '100%', opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 onClick={(e) => e.stopPropagation()}
               >

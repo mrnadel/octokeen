@@ -253,7 +253,7 @@ export function CourseMap() {
             return (
               <motion.div
                 key="jump-overlay"
-                className="fixed inset-0 z-50 flex items-end justify-center"
+                className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -261,10 +261,10 @@ export function CourseMap() {
               >
                 <div className="absolute inset-0 bg-black/40" />
                 <motion.div
-                  className="relative w-full bg-white"
+                  className="relative w-full sm:w-auto bg-white sm:mx-4"
                   style={{
                     maxWidth: 480,
-                    borderRadius: '24px 24px 0 0',
+                    borderRadius: 24,
                     padding: '20px 20px 32px',
                   }}
                   initial={{ y: '100%' }}

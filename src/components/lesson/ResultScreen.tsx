@@ -51,13 +51,14 @@ export default function ResultScreen() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 z-50 flex flex-col"
+        className="fixed inset-0 z-50 flex items-center justify-center"
         style={{
           background: 'white',
           paddingTop: 'env(safe-area-inset-top, 0px)',
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         }}
       >
+        <div className="w-full h-full max-w-3xl flex flex-col bg-white lg:shadow-lg lg:border-x lg:border-gray-200">
         {/* Colored header area */}
         <div
           className="flex flex-col items-center"
@@ -316,6 +317,7 @@ export default function ResultScreen() {
             Continue
           </button>
         </motion.div>
+        </div>{/* end centered wrapper */}
       </motion.div>
     </AnimatePresence>
   );
