@@ -110,18 +110,28 @@ export default function AdminSubscriptionsPage() {
   if (status === 'loading') return <p style={{ padding: 40 }}>Loading...</p>;
   if (status !== 'authenticated') return <p style={{ padding: 40 }}>Not authenticated</p>;
 
-  const thStyle: React.CSSProperties = {
-    padding: '8px 12px',
-    fontWeight: 700,
-    textAlign: 'left',
+  const labelStyle: React.CSSProperties = {
+    fontSize: 12,
+    color: '#999',
+    fontWeight: 500,
+    marginBottom: 2,
   };
 
-  const tdStyle: React.CSSProperties = {
-    padding: '10px 12px',
+  const valueStyle: React.CSSProperties = {
+    fontSize: 14,
+    fontWeight: 600,
+  };
+
+  const cardStyle: React.CSSProperties = {
+    background: 'white',
+    borderRadius: 12,
+    border: '1px solid #E5E5E5',
+    padding: 16,
+    marginBottom: 12,
   };
 
   return (
-    <div style={{ maxWidth: 1000, margin: '0 auto', padding: '32px 24px', fontFamily: 'system-ui' }}>
+    <div style={{ padding: '32px 24px', fontFamily: 'system-ui' }}>
       <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Subscriptions</h1>
       <p style={{ fontSize: 14, color: '#666', marginBottom: 24 }}>
         Subscription and revenue overview.
@@ -133,7 +143,7 @@ export default function AdminSubscriptionsPage() {
       {!loading && !error && data && (
         <>
           {/* Overview Cards */}
-          <div style={{ display: 'flex', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 32 }}>
             {[
               { label: 'Free', value: data.overview.free },
               { label: 'Pro', value: data.overview.pro },
@@ -149,8 +159,6 @@ export default function AdminSubscriptionsPage() {
                   borderRadius: 12,
                   border: '1px solid #E5E5E5',
                   padding: '20px 24px',
-                  flex: '1 1 140px',
-                  minWidth: 140,
                 }}
               >
                 <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 4 }}>
@@ -168,50 +176,44 @@ export default function AdminSubscriptionsPage() {
           {data.subscriptions.length === 0 ? (
             <p style={{ color: '#999', fontSize: 14, marginBottom: 32 }}>No paid subscriptions yet.</p>
           ) : (
-            <div style={{ overflowX: 'auto', marginBottom: 32 }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
-                <thead>
-                  <tr style={{ borderBottom: '2px solid #E5E5E5' }}>
-                    <th style={thStyle}>User</th>
-                    <th style={thStyle}>Tier</th>
-                    <th style={thStyle}>Status</th>
-                    <th style={thStyle}>Billing</th>
-                    <th style={thStyle}>Period End</th>
-                    <th style={thStyle}>Cancel at End</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.subscriptions.map((sub) => (
-                    <tr key={sub.id} style={{ borderBottom: '1px solid #F0F0F0' }}>
-                      <td style={tdStyle}>
-                        <div style={{ fontWeight: 600 }}>{sub.userName ?? 'Unknown'}</div>
-                        <div style={{ fontSize: 12, color: '#999' }}>{sub.userEmail ?? ''}</div>
-                      </td>
-                      <td style={tdStyle}>
-                        <span style={tierBadgeStyle(sub.tier)}>{sub.tier}</span>
-                      </td>
-                      <td style={tdStyle}>
-                        <span style={{ textTransform: 'capitalize' }}>{sub.status}</span>
-                      </td>
-                      <td style={tdStyle}>
+            <div style={{ marginBottom: 32 }}>
+              {data.subscriptions.map((sub) => (
+                <div key={sub.id} style={cardStyle}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontWeight: 700, fontSize: 15 }}>{sub.userName ?? 'Unknown'}</span>
+                    <span style={tierBadgeStyle(sub.tier)}>{sub.tier}</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: '#999', marginBottom: 12 }}>
+                    {sub.userEmail ?? ''}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 14 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={labelStyle}>Billing</span>
+                      <span style={valueStyle}>
                         {sub.billingInterval ? sub.billingInterval : '-'}
-                      </td>
-                      <td style={tdStyle}>
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={labelStyle}>Period End</span>
+                      <span style={valueStyle}>
                         {sub.currentPeriodEnd
                           ? new Date(sub.currentPeriodEnd).toLocaleDateString()
                           : '-'}
-                      </td>
-                      <td style={tdStyle}>
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={labelStyle}>Cancel at End</span>
+                      <span style={valueStyle}>
                         {sub.cancelAtPeriodEnd ? (
                           <span style={{ color: '#C62828', fontWeight: 700 }}>Yes</span>
                         ) : (
                           <span style={{ color: '#999' }}>No</span>
                         )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 
@@ -220,42 +222,26 @@ export default function AdminSubscriptionsPage() {
           {data.recentPayments.length === 0 ? (
             <p style={{ color: '#999', fontSize: 14 }}>No payments yet.</p>
           ) : (
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
-                <thead>
-                  <tr style={{ borderBottom: '2px solid #E5E5E5' }}>
-                    <th style={thStyle}>User</th>
-                    <th style={thStyle}>Amount</th>
-                    <th style={thStyle}>Currency</th>
-                    <th style={thStyle}>Status</th>
-                    <th style={thStyle}>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.recentPayments.map((p) => (
-                    <tr key={p.id} style={{ borderBottom: '1px solid #F0F0F0' }}>
-                      <td style={tdStyle}>
-                        <div style={{ fontWeight: 600 }}>{p.userName ?? 'Unknown'}</div>
-                        <div style={{ fontSize: 12, color: '#999' }}>{p.userEmail ?? ''}</div>
-                      </td>
-                      <td style={{ ...tdStyle, fontWeight: 700 }}>
-                        {formatDollars(p.amountCents)}
-                      </td>
-                      <td style={tdStyle}>
-                        <span style={{ textTransform: 'uppercase' }}>{p.currency}</span>
-                      </td>
-                      <td style={tdStyle}>
-                        <span style={paymentStatusStyle(p.status)}>{p.status}</span>
-                      </td>
-                      <td style={tdStyle}>
-                        {p.createdAt
-                          ? new Date(p.createdAt).toLocaleDateString()
-                          : '-'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div>
+              {data.recentPayments.map((p) => (
+                <div key={p.id} style={cardStyle}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span style={{ fontWeight: 700, fontSize: 16 }}>
+                      {formatDollars(p.amountCents)}{' '}
+                      <span style={{ fontSize: 12, fontWeight: 500, textTransform: 'uppercase', color: '#666' }}>
+                        {p.currency}
+                      </span>
+                    </span>
+                    <span style={paymentStatusStyle(p.status)}>{p.status}</span>
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600 }}>{p.userName ?? 'Unknown'}</div>
+                  <div style={{ fontSize: 13, color: '#999' }}>
+                    {p.createdAt
+                      ? new Date(p.createdAt).toLocaleDateString()
+                      : '-'}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </>

@@ -82,6 +82,10 @@ export const userProgress = pgTable('user_progress', {
     .default([]),
   weakAreas: jsonb('weak_areas').$type<string[]>().default([]),
   strongAreas: jsonb('strong_areas').$type<string[]>().default([]),
+  streakFreezes: integer('streak_freezes').default(0),
+  gemsBalance: integer('gems_balance').default(0),
+  gemsTotalEarned: integer('gems_total_earned').default(0),
+  streakMilestones: jsonb('streak_milestones').default([]),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });
@@ -272,3 +276,36 @@ export const contentFeedbackDismissals = pgTable(
     ),
   ]
 );
+
+// ─── Engagement system tables ─────────────────────────────────
+
+// Gems ledger
+export const gemTransactions = pgTable('gem_transactions', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  amount: integer('amount').notNull(),
+  source: text('source').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+})
+
+// Quest progress (server-side sync)
+export const questProgress = pgTable('quest_progress', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  questDate: text('quest_date').notNull(),
+  questType: text('quest_type').notNull(),
+  quests: jsonb('quests').notNull(),
+  chestClaimed: boolean('chest_claimed').default(false),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+})
+
+// League state
+export const leagueState = pgTable('league_state', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  tier: integer('tier').default(1),
+  weeklyXp: integer('weekly_xp').default(0),
+  weekStart: text('week_start').notNull(),
+  competitors: jsonb('competitors').notNull(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().notNull(),
+})

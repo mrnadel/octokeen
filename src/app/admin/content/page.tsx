@@ -50,9 +50,7 @@ for (const t of topics) {
 // --------------- Styles ---------------
 
 const containerStyle: React.CSSProperties = {
-  maxWidth: 1000,
-  margin: '0 auto',
-  padding: '32px 24px',
+  padding: '32px 0',
   fontFamily: 'system-ui',
 };
 
@@ -63,12 +61,13 @@ const tabBarStyle: React.CSSProperties = {
   borderRadius: 10,
   overflow: 'hidden',
   border: '1.5px solid #E5E5E5',
-  width: 'fit-content',
+  width: '100%',
 };
 
 function tabStyle(active: boolean): React.CSSProperties {
   return {
-    padding: '10px 24px',
+    flex: 1,
+    padding: '10px 0',
     fontSize: 14,
     fontWeight: 700,
     border: 'none',
@@ -76,12 +75,13 @@ function tabStyle(active: boolean): React.CSSProperties {
     background: active ? '#3B82F6' : 'white',
     color: active ? 'white' : '#333',
     transition: 'background 0.15s',
+    textAlign: 'center',
   };
 }
 
 const filterBarStyle: React.CSSProperties = {
   display: 'flex',
-  gap: 12,
+  gap: 8,
   marginBottom: 16,
   alignItems: 'center',
   flexWrap: 'wrap',
@@ -94,44 +94,8 @@ const selectStyle: React.CSSProperties = {
   borderRadius: 8,
   background: 'white',
   cursor: 'pointer',
-  minWidth: 160,
-};
-
-const tableStyle: React.CSSProperties = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  fontSize: 13,
-};
-
-const thStyle: React.CSSProperties = {
-  padding: '8px 10px',
-  fontWeight: 700,
-  textAlign: 'left',
-  borderBottom: '2px solid #E5E5E5',
-  fontSize: 12,
-  textTransform: 'uppercase',
-  color: '#666',
-  letterSpacing: '0.03em',
-};
-
-function rowStyle(isExpanded: boolean): React.CSSProperties {
-  return {
-    borderBottom: '1px solid #F0F0F0',
-    cursor: 'pointer',
-    background: isExpanded ? '#F8FAFF' : 'white',
-    transition: 'background 0.1s',
-  };
-}
-
-const cellStyle: React.CSSProperties = {
-  padding: '8px 10px',
-  verticalAlign: 'top',
-};
-
-const monoCell: React.CSSProperties = {
-  ...cellStyle,
-  fontFamily: 'monospace',
-  fontSize: 11,
+  minWidth: 0,
+  flex: '1 1 160px',
 };
 
 const badgeStyle = (bg: string, color: string): React.CSSProperties => ({
@@ -148,14 +112,6 @@ const difficultyColors: Record<Difficulty, { bg: string; fg: string }> = {
   beginner: { bg: '#E8F5E9', fg: '#2E7D32' },
   intermediate: { bg: '#FFF8E1', fg: '#F57F17' },
   advanced: { bg: '#FFEBEE', fg: '#C62828' },
-};
-
-const expandedDetailStyle: React.CSSProperties = {
-  padding: '16px 20px',
-  background: '#FAFBFF',
-  borderBottom: '1px solid #E5E5E5',
-  fontSize: 13,
-  lineHeight: 1.6,
 };
 
 const detailLabelStyle: React.CSSProperties = {
@@ -178,26 +134,30 @@ const sectionHeaderStyle: React.CSSProperties = {
   marginBottom: 8,
   background: 'white',
   transition: 'background 0.1s',
+  gap: 8,
 };
 
 const lessonRowStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '10px 16px 10px 32px',
+  padding: '10px 16px 10px 16px',
   cursor: 'pointer',
   borderBottom: '1px solid #F0F0F0',
   fontSize: 13,
   transition: 'background 0.1s',
+  gap: 8,
 };
 
 const courseQuestionRowStyle: React.CSSProperties = {
   display: 'flex',
-  gap: 12,
-  padding: '8px 16px 8px 56px',
+  gap: 8,
+  padding: '8px 16px 8px 24px',
   borderBottom: '1px solid #F5F5F5',
   fontSize: 12,
   color: '#555',
+  flexWrap: 'wrap',
+  alignItems: 'center',
 };
 
 const countBadge: React.CSSProperties = {
@@ -209,6 +169,45 @@ const countBadge: React.CSSProperties = {
   color: '#555',
   marginBottom: 24,
   display: 'inline-block',
+};
+
+// --------------- Question Card Styles ---------------
+
+const cardStyle = (isExpanded: boolean): React.CSSProperties => ({
+  background: 'white',
+  borderRadius: 10,
+  border: '1.5px solid #E5E5E5',
+  padding: 12,
+  marginBottom: 8,
+  cursor: 'pointer',
+  transition: 'background 0.1s',
+  ...(isExpanded ? { background: '#F8FAFF', borderColor: '#C5D5F6' } : {}),
+});
+
+const cardTopRow: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  flexWrap: 'wrap',
+  marginBottom: 6,
+};
+
+const cardQuestionText: React.CSSProperties = {
+  fontSize: 13,
+  lineHeight: 1.5,
+  color: '#222',
+  wordBreak: 'break-word',
+  overflowWrap: 'anywhere',
+};
+
+const cardExpandedSection: React.CSSProperties = {
+  marginTop: 12,
+  paddingTop: 12,
+  borderTop: '1px solid #E5E5E5',
+  display: 'grid',
+  gap: 14,
+  fontSize: 13,
+  lineHeight: 1.6,
 };
 
 // --------------- Component ---------------
@@ -283,38 +282,26 @@ function QuestionsTab() {
 
       <div style={countBadge}>{filtered.length} questions</div>
 
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={thStyle}>ID</th>
-            <th style={thStyle}>Topic</th>
-            <th style={thStyle}>Subtopic</th>
-            <th style={thStyle}>Type</th>
-            <th style={thStyle}>Difficulty</th>
-            <th style={thStyle}>Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.map((q) => {
-            const isExpanded = expandedId === q.id;
-            const dc = difficultyColors[q.difficulty];
-            return (
-              <QuestionRow
-                key={q.id}
-                q={q}
-                isExpanded={isExpanded}
-                dc={dc}
-                onToggle={() => setExpandedId(isExpanded ? null : q.id)}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+      <div>
+        {filtered.map((q) => {
+          const isExpanded = expandedId === q.id;
+          const dc = difficultyColors[q.difficulty];
+          return (
+            <QuestionCard
+              key={q.id}
+              q={q}
+              isExpanded={isExpanded}
+              dc={dc}
+              onToggle={() => setExpandedId(isExpanded ? null : q.id)}
+            />
+          );
+        })}
+      </div>
     </>
   );
 }
 
-function QuestionRow({
+function QuestionCard({
   q,
   isExpanded,
   dc,
@@ -326,44 +313,34 @@ function QuestionRow({
   onToggle: () => void;
 }) {
   return (
-    <>
-      <tr style={rowStyle(isExpanded)} onClick={onToggle}>
-        <td style={monoCell}>{q.id}</td>
-        <td style={cellStyle}>{topicNameMap[q.topic] ?? q.topic}</td>
-        <td style={cellStyle}>{q.subtopic}</td>
-        <td style={cellStyle}>
-          <span style={badgeStyle('#E3F2FD', '#1565C0')}>{q.type}</span>
-        </td>
-        <td style={cellStyle}>
-          <span style={badgeStyle(dc.bg, dc.fg)}>{q.difficulty}</span>
-        </td>
-        <td style={cellStyle}>{truncate(q.question, 60)}</td>
-      </tr>
+    <div style={cardStyle(isExpanded)} onClick={onToggle}>
+      <div style={cardTopRow}>
+        <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#999' }}>{q.id}</span>
+        <span style={badgeStyle(dc.bg, dc.fg)}>{q.difficulty}</span>
+        <span style={badgeStyle('#E3F2FD', '#1565C0')}>{q.type}</span>
+      </div>
+      <div style={cardQuestionText}>
+        {isExpanded ? q.question : truncate(q.question, 100)}
+      </div>
       {isExpanded && (
-        <tr>
-          <td colSpan={6} style={expandedDetailStyle}>
-            <div style={{ display: 'grid', gap: 14 }}>
-              <div>
-                <div style={detailLabelStyle}>Full Question</div>
-                <div>{q.question}</div>
-              </div>
-              <div>
-                <div style={detailLabelStyle}>Explanation</div>
-                <div>{q.explanation}</div>
-              </div>
-              <div>
-                <div style={detailLabelStyle}>Interview Insight</div>
-                <div>{q.interviewInsight}</div>
-              </div>
-              <div>
-                <div style={detailLabelStyle}>Correct Answer</div>
-                <div style={{ fontFamily: 'monospace', fontSize: 13 }}>{getCorrectAnswer(q)}</div>
-              </div>
+        <div style={cardExpandedSection}>
+          <div>
+            <div style={detailLabelStyle}>Explanation</div>
+            <div style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{q.explanation}</div>
+          </div>
+          <div>
+            <div style={detailLabelStyle}>Interview Insight</div>
+            <div style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{q.interviewInsight}</div>
+          </div>
+          <div>
+            <div style={detailLabelStyle}>Correct Answer</div>
+            <div style={{ fontFamily: 'monospace', fontSize: 13, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+              {getCorrectAnswer(q)}
             </div>
-          </td>
-        </tr>
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -388,7 +365,7 @@ function LessonsTab() {
 
   return (
     <>
-      <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
+      <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
         <span style={countBadge}>{course.length} units</span>
         <span style={countBadge}>{totalLessons} lessons</span>
         <span style={countBadge}>{totalQuestions} questions</span>
@@ -407,13 +384,13 @@ function LessonsTab() {
               }}
               onClick={() => setExpandedUnit(isUnitExpanded ? null : unit.id)}
             >
-              <div>
-                <span style={{ fontWeight: 800, fontSize: 15 }}>{unit.title}</span>
-                <span style={{ color: '#999', fontSize: 13, marginLeft: 12 }}>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <span style={{ fontWeight: 800, fontSize: 15, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{unit.title}</span>
+                <span style={{ color: '#999', fontSize: 13, marginLeft: 12, whiteSpace: 'nowrap' }}>
                   {unit.lessons.length} lessons &middot; {unitQuestions} questions
                 </span>
               </div>
-              <span style={{ fontSize: 16, color: '#999' }}>{isUnitExpanded ? '\u25B2' : '\u25BC'}</span>
+              <span style={{ fontSize: 16, color: '#999', flexShrink: 0 }}>{isUnitExpanded ? '\u25B2' : '\u25BC'}</span>
             </div>
 
             {isUnitExpanded &&
@@ -429,13 +406,13 @@ function LessonsTab() {
                       }}
                       onClick={() => setExpandedLesson(isLessonExpanded ? null : lesson.id)}
                     >
-                      <div>
+                      <div style={{ minWidth: 0, flex: 1, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
                         <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#999', marginRight: 10 }}>
                           {lesson.id}
                         </span>
                         <span style={{ fontWeight: 600 }}>{lesson.title}</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
                         <span style={badgeStyle('#F0F0F0', '#555')}>
                           {lesson.questions.length} q
                         </span>
@@ -448,11 +425,13 @@ function LessonsTab() {
                     {isLessonExpanded &&
                       lesson.questions.map((cq) => (
                         <div key={cq.id} style={courseQuestionRowStyle}>
-                          <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#999', minWidth: 80 }}>
+                          <span style={{ fontFamily: 'monospace', fontSize: 11, color: '#999', flexShrink: 0 }}>
                             {cq.id}
                           </span>
                           <span style={badgeStyle('#E3F2FD', '#1565C0')}>{cq.type}</span>
-                          <span>{truncate(cq.question, 60)}</span>
+                          <span style={{ wordBreak: 'break-word', overflowWrap: 'anywhere', minWidth: 0 }}>
+                            {truncate(cq.question, 60)}
+                          </span>
                         </div>
                       ))}
                   </div>

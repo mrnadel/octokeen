@@ -6,6 +6,8 @@ import {
   userProgress,
   topicProgress as topicProgressTable,
   sessionHistory,
+  gemTransactions,
+  leagueState,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { progressSyncSchema } from '@/lib/validation';
