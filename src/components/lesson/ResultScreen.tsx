@@ -145,10 +145,10 @@ export default function ResultScreen() {
               height: 72,
               borderRadius: 24,
               background: isGolden
-                ? 'linear-gradient(145deg, #FFC107 0%, #FFB300 40%, #FFA000 70%, #FF8F00 100%)'
+                ? '#FFB300'
                 : accentColor,
               boxShadow: isGolden
-                ? '0 6px 0 #C8860B, 0 0 20px rgba(255, 184, 0, 0.35), inset 0 1px 2px rgba(255, 245, 200, 0.5)'
+                ? '0 6px 0 #C8860B'
                 : `0 6px 0 ${accentDark}`,
               fontSize: 36,
               marginBottom: 16,
@@ -205,17 +205,9 @@ export default function ResultScreen() {
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.55 }}
               >
-                <defs>
-                  <linearGradient id="resultStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFD54F" />
-                    <stop offset="40%" stopColor="#FFC107" />
-                    <stop offset="70%" stopColor="#FFB300" />
-                    <stop offset="100%" stopColor="#FF8F00" />
-                  </linearGradient>
-                </defs>
                 <path
                   d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-                  fill="url(#resultStarGrad)"
+                  fill="#FFB800"
                   stroke="#C8960B"
                   strokeWidth="1"
                   strokeLinejoin="round"

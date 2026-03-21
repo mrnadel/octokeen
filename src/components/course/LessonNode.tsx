@@ -53,17 +53,9 @@ function GoldenStar({ filled }: { filled: boolean }) {
   }
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="golden-star-pulse">
-      <defs>
-        <linearGradient id="goldStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFD54F" />
-          <stop offset="40%" stopColor="#FFC107" />
-          <stop offset="70%" stopColor="#FFB300" />
-          <stop offset="100%" stopColor="#FF8F00" />
-        </linearGradient>
-      </defs>
       <path
         d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-        fill="url(#goldStarGrad)"
+        fill={GOLD}
         stroke={GOLD_DARK}
         strokeWidth="1.2"
         strokeLinejoin="round"
@@ -137,15 +129,8 @@ export function LessonNode({
       >
         {state === 'completed' && golden ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <defs>
-              <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFD54F" />
-                <stop offset="50%" stopColor="#FFA000" />
-                <stop offset="100%" stopColor="#FF8F00" />
-              </linearGradient>
-            </defs>
-            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="url(#crownGrad)" />
-            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="url(#crownGrad)" />
+            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
+            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
             <circle cx="7.5" cy="16" r="1.2" fill="#FFF8E1" />
             <circle cx="12" cy="16" r="1.2" fill="#FFF8E1" />
             <circle cx="16.5" cy="16" r="1.2" fill="#FFF8E1" />

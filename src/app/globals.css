@@ -331,170 +331,64 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── Golden Lesson Effects ── */
-
-/* Metallic shimmer sweep across an element */
-@keyframes goldenShimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Slow gentle pulse glow */
-@keyframes goldenGlow {
-  0%, 100% { box-shadow: 0 0 8px 0 rgba(255, 184, 0, 0.25), 0 3px 0 #C8960022, 0 1px 3px rgba(0,0,0,0.06); }
-  50% { box-shadow: 0 0 16px 2px rgba(255, 184, 0, 0.4), 0 3px 0 #C8960022, 0 1px 3px rgba(0,0,0,0.06); }
-}
-
-/* Sparkle twinkle for result screen particles */
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1) rotate(180deg); }
-}
-
-/* Floating sparkles drift upward */
-@keyframes sparkleFloat {
-  0% { opacity: 0; transform: translateY(0) scale(0); }
-  20% { opacity: 1; transform: translateY(-8px) scale(1); }
-  80% { opacity: 0.6; transform: translateY(-28px) scale(0.8); }
-  100% { opacity: 0; transform: translateY(-40px) scale(0); }
-}
-
-/* Crown bob animation */
-@keyframes crownBob {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-3px) rotate(-3deg); }
-  75% { transform: translateY(-1px) rotate(3deg); }
-}
+/* ── Golden Lesson Effects (flat) ── */
 
 /* Golden node on course map */
 .golden-node {
-  background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 30%, #FFE082 60%, #FFF8E1 100%) !important;
+  background: #FFF3D0 !important;
   border: 1.5px solid #FFD54F !important;
-  animation: goldenGlow 3s ease-in-out infinite;
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 3px 0 #C8960022, 0 1px 3px rgba(0,0,0,0.06);
 }
 .golden-node::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 30%,
-    rgba(255, 215, 0, 0.15) 45%,
-    rgba(255, 245, 200, 0.3) 50%,
-    rgba(255, 215, 0, 0.15) 55%,
-    transparent 70%
-  );
-  background-size: 200% 100%;
-  animation: goldenShimmer 4s ease-in-out infinite;
-  pointer-events: none;
-  border-radius: inherit;
+  display: none;
 }
 
 /* Golden icon container on the course map */
 .golden-icon-box {
-  background: linear-gradient(145deg, #FFE082 0%, #FFD54F 40%, #FFC107 70%, #FFB300 100%);
-  box-shadow: inset 0 1px 2px rgba(255, 245, 200, 0.6), 0 2px 4px rgba(184, 134, 11, 0.2);
+  background: #FFD54F;
 }
 
 /* Badge shimmer for in-lesson golden tag */
 .golden-badge-shimmer {
-  background: linear-gradient(
-    105deg,
-    #FFF8E1 0%,
-    #FFECB3 25%,
-    #FFF8E1 50%,
-    #FFECB3 75%,
-    #FFF8E1 100%
-  );
-  background-size: 200% 100%;
-  animation: goldenShimmer 3s ease-in-out infinite;
+  background: #FFF3D0;
   border: 1.5px solid #FFD54F;
 }
 
-/* Golden result header gradient */
+/* Golden result header */
 .golden-result-header {
-  background: linear-gradient(170deg, #FFF8E1 0%, #FFECB3 25%, #FFE082 50%, #FFECB3 75%, #FFF8E1 100%);
-  background-size: 200% 200%;
-  animation: goldenShimmer 6s ease-in-out infinite;
-  position: relative;
-  overflow: hidden;
+  background: #FFF3D0;
 }
 
-/* Golden text with metallic effect */
+/* Golden text */
 .golden-text {
-  background: linear-gradient(180deg, #C8960B 0%, #8B6914 50%, #C8960B 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 1px rgba(184, 134, 11, 0.3));
+  color: #B8860B;
 }
 
 /* Golden mastery achievement row */
 .golden-achievement {
-  background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 50%, #FFF8E1 100%);
+  background: #FFF3D0;
   border: 1.5px solid #FFD54F;
-  position: relative;
-  overflow: hidden;
 }
 .golden-achievement::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255, 215, 0, 0.12) 48%,
-    rgba(255, 245, 200, 0.25) 50%,
-    rgba(255, 215, 0, 0.12) 52%,
-    transparent 65%
-  );
-  background-size: 200% 100%;
-  animation: goldenShimmer 3.5s ease-in-out infinite;
-  pointer-events: none;
-  border-radius: inherit;
+  display: none;
 }
 
 /* Golden continue button */
 .golden-btn {
-  background: linear-gradient(180deg, #FFC107 0%, #FFB300 50%, #FFA000 100%);
-  box-shadow: 0 4px 0 #C8860B, inset 0 1px 0 rgba(255, 245, 200, 0.4);
+  background: #FFB300;
+  box-shadow: 0 4px 0 #C8860B;
   border: none;
-  position: relative;
-  overflow: hidden;
 }
 .golden-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0.2) 60%,
-    transparent 100%
-  );
-  animation: goldenShimmer 3s ease-in-out infinite;
-  pointer-events: none;
+  display: none;
 }
 
-/* Golden star on course map with pulse */
+/* Golden star on course map */
 .golden-star-pulse {
-  filter: drop-shadow(0 0 3px rgba(255, 184, 0, 0.5));
-  animation: goldenStarPulse 2.5s ease-in-out infinite;
-}
-@keyframes goldenStarPulse {
-  0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 184, 0, 0.4)); }
-  50% { filter: drop-shadow(0 0 8px rgba(255, 184, 0, 0.7)); }
+  filter: drop-shadow(0 0 2px rgba(255, 184, 0, 0.3));
 }
 
-/* Golden dots (replaces flat gold dots on map) */
+/* Golden dots on map */
 .golden-dot {
-  background: linear-gradient(135deg, #FFD54F 0%, #FFC107 50%, #FFB300 100%);
-  box-shadow: 0 0 4px rgba(255, 184, 0, 0.4);
+  background: #FFC107;
 }
