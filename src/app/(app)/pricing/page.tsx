@@ -79,10 +79,6 @@ const FAQ_ITEMS = [
     q: 'What happens to my progress if I upgrade?',
     a: 'Your progress is always saved. When you upgrade to Pro, you keep everything you\'ve earned and unlock all additional units and features instantly.',
   },
-  {
-    q: 'Is there a student discount?',
-    a: 'Yes! Students with a valid .edu email get 50% off Pro. Contact support@mechready.com with your student email to claim your discount.',
-  },
 ];
 
 export default function PricingPage() {
