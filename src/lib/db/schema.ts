@@ -247,6 +247,7 @@ export const contentFeedback = pgTable(
     contentType: text('content_type').notNull(),
     contentId: text('content_id').notNull(),
     reason: text('reason').notNull(),
+    comment: text('comment'),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
     updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
   },

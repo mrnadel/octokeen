@@ -201,10 +201,11 @@ export default function LessonView() {
         const key = e.key.toLowerCase();
         const qType = questionRef.current?.questionType;
 
-        if (['1', '2', '3', '4'].includes(key)) {
+        if (/^[1-9]$/.test(key)) {
           const idx = parseInt(key) - 1;
-          if (qType === 'true-false') {
-            // 1 = True, 2 = False
+          if (qType === 'fill-blank') {
+            questionRef.current?.selectWord(idx);
+          } else if (qType === 'true-false') {
             if (idx === 0) questionRef.current?.selectBool(true);
             else if (idx === 1) questionRef.current?.selectBool(false);
           } else {
@@ -387,7 +388,7 @@ export default function LessonView() {
                 >
                   {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
                   {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
-                  {currentQuestion?.type === 'fill-blank' && 'Type answer \u00b7 '}
+                  {currentQuestion?.type === 'fill-blank' && '1\u20139 select word \u00b7 '}
                   Enter check \u00b7 Esc exit
                 </motion.div>
               )}

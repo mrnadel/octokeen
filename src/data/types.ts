@@ -314,6 +314,7 @@ export interface UserFlagItem {
   contentType: ContentFeedbackType;
   contentId: string;
   reason: FeedbackReason;
+  comment?: string | null;
 }
 
 export * from './engagement-types'

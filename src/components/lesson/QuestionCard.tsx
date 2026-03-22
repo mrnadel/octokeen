@@ -16,7 +16,9 @@ export interface QuestionCardHandle {
   hasSelection: boolean;
   selectOption: (index: number) => void;
   selectBool: (value: boolean) => void;
+  selectWord: (index: number) => void;
   questionType: string;
+  availableWordCount: number;
 }
 
 interface QuestionCardProps {
@@ -139,26 +141,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       });
     }, [answered]);
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        check: handleCheck,
-        hasSelection,
-        selectOption: (index: number) => {
-          if (!answered && question.type === 'multiple-choice' && question.options && index < question.options.length) {
-            setSelectedIndex(index);
-          }
-        },
-        selectBool: (value: boolean) => {
-          if (!answered && question.type === 'true-false') {
-            setSelectedBool(value);
-          }
-        },
-        questionType: question.type,
-      }),
-      [handleCheck, hasSelection, answered, question]
-    );
-
     // Words already placed in blanks (for hiding from word bank)
     const usedWords = useMemo(() => {
       const used: Record<string, number> = {};
@@ -180,6 +162,35 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         return { word, available: true };
       });
     }, [shuffledWordBank, usedWords]);
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        check: handleCheck,
+        hasSelection,
+        selectOption: (index: number) => {
+          if (!answered && question.type === 'multiple-choice' && question.options && index < question.options.length) {
+            setSelectedIndex(index);
+          }
+        },
+        selectBool: (value: boolean) => {
+          if (!answered && question.type === 'true-false') {
+            setSelectedBool(value);
+          }
+        },
+        selectWord: (index: number) => {
+          if (!answered && question.type === 'fill-blank') {
+            const item = availableWords[index];
+            if (item && item.available) {
+              handleWordTap(item.word);
+            }
+          }
+        },
+        questionType: question.type,
+        availableWordCount: availableWords.length,
+      }),
+      [handleCheck, hasSelection, answered, question, availableWords, handleWordTap]
+    );
 
     return (
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>

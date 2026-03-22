@@ -18,6 +18,7 @@ export async function GET() {
       contentType: contentFeedback.contentType,
       contentId: contentFeedback.contentId,
       reason: contentFeedback.reason,
+      comment: contentFeedback.comment,
     })
     .from(contentFeedback)
     .where(eq(contentFeedback.userId, userId));
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { contentType, contentId, reason } = body;
+  const { contentType, contentId, reason, comment } = body;
 
   // Validate
   if (!VALID_CONTENT_TYPES.includes(contentType as ContentFeedbackType)) {
@@ -45,6 +46,7 @@ export async function POST(req: NextRequest) {
   if (!contentId || typeof contentId !== 'string' || contentId.length > 50) {
     return NextResponse.json({ error: 'Invalid contentId' }, { status: 400 });
   }
+  const sanitizedComment = typeof comment === 'string' ? comment.trim().slice(0, 500) || null : null;
 
   // Upsert: delete existing + insert
   await db.transaction(async (tx) => {
@@ -62,6 +64,7 @@ export async function POST(req: NextRequest) {
       contentType,
       contentId,
       reason,
+      comment: sanitizedComment,
     });
   });
 
