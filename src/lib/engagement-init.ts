@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
+import { initFakeUserPool, progressFakeUsers } from '@/lib/fake-user-generator';
 
 function getYesterday(): string {
   const d = new Date();
@@ -49,6 +50,9 @@ export function useEngagementInit() {
     }
 
     // Initialize all engagement systems
+    // Initialize fake user pool (must happen before league simulation)
+    initFakeUserPool();
+    progressFakeUsers();
     useEngagementStore.getState().initDailyQuests();
     useEngagementStore.getState().initWeeklyQuests();
     useEngagementStore.getState().simulateLeagueWeek();

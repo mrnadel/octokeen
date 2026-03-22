@@ -31,11 +31,11 @@ import {
   getCurrentWeekMonday,
 } from '@/lib/quest-engine';
 import {
-  generateCompetitors,
   simulateCompetitorXp,
   getUserRank,
   getWeekResult,
 } from '@/lib/league-simulator';
+import { drawCompetitorsFromPool } from '@/lib/fake-user-generator';
 import { useStore } from '@/store/useStore';
 
 // --------------- Default State Factories ---------------
@@ -58,7 +58,7 @@ function getDefaultLeague(): LeagueState {
     currentTier: 1,
     weeklyXp: 0,
     weekStartDate: monday,
-    competitors: generateCompetitors(monday, 1),
+    competitors: drawCompetitorsFromPool(monday, 1),
     lastWeekResult: null,
     resultSeen: true,
   };
@@ -437,7 +437,7 @@ export const useEngagementStore = create<EngagementStore>()(
             };
 
             // Generate new competitors for new week
-            const newCompetitors = generateCompetitors(monday, result.newTier);
+            const newCompetitors = drawCompetitorsFromPool(monday, result.newTier);
 
             set({
               league: {
@@ -584,7 +584,7 @@ export const useEngagementStore = create<EngagementStore>()(
             league: {
               ...state.league,
               currentTier: clamped,
-              competitors: generateCompetitors(state.league.weekStartDate, clamped),
+              competitors: drawCompetitorsFromPool(state.league.weekStartDate, clamped),
             },
           }));
         },

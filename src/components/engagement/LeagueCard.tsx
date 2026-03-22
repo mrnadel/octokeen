@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLeague } from '@/store/useEngagementStore';
 import { leagueTiers } from '@/data/league';
 import { getUserRank } from '@/lib/league-simulator';
+import { CompetitorAvatar } from './CompetitorAvatar';
 
 export function LeagueCard() {
   const league = useLeague();
@@ -70,12 +71,12 @@ export function LeagueCard() {
               >
                 {i + 1}
               </span>
-              <div
-                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-                style={{ background: isUser ? '#4F46E5' : '#6B7280' }}
-              >
-                {entry.avatarInitial}
-              </div>
+              <CompetitorAvatar
+                fakeUserId={(entry as { fakeUserId?: string }).fakeUserId}
+                avatarInitial={entry.avatarInitial}
+                isUser={isUser}
+                size={24}
+              />
               <span
                 className="flex-1 text-xs font-semibold truncate"
                 style={{ color: isUser ? '#4F46E5' : '#374151' }}
