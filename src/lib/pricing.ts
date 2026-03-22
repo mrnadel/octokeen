@@ -65,9 +65,7 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
     priceMonthly: 0,
     priceYearly: 0,
     minSeats: 1,
-    features: [
-      FEATURES.ALL_PRACTICE_MODES,   // modes available, but daily cap applies
-    ],
+    features: [],   // basic topic practice only; advanced modes require Pro
     highlighted: false,
   },
   pro: {

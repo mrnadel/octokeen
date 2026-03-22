@@ -3,6 +3,8 @@
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
 import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
+import { UpgradeGate } from '@/components/ui/UpgradeGate';
+import { FEATURES } from '@/lib/pricing';
 import { AlertTriangle, ArrowRight } from 'lucide-react';
 import { topics } from '@/data/topics';
 import Link from 'next/link';
@@ -38,49 +40,51 @@ export default function WeakAreasPage() {
         </p>
       </div>
 
-      <DailyLimitBanner />
+      <UpgradeGate feature={FEATURES.ALL_PRACTICE_MODES} reason="Weak areas practice targets your lowest-scoring topics to improve fastest.">
+        <DailyLimitBanner />
 
-      {weakTopics.length > 0 ? (
-        <>
-          <div className="space-y-3 mb-8">
-            {weakTopics.map(({ topic, accuracy, questionsAttempted }) => (
-              <div key={topic.id} className="card p-4 flex items-center gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
-                  style={{ backgroundColor: `${topic.color}15` }}
-                >
-                  {topic.icon}
+        {weakTopics.length > 0 ? (
+          <>
+            <div className="space-y-3 mb-8">
+              {weakTopics.map(({ topic, accuracy, questionsAttempted }) => (
+                <div key={topic.id} className="card p-4 flex items-center gap-4">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
+                    style={{ backgroundColor: `${topic.color}15` }}
+                  >
+                    {topic.icon}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-surface-900">{topic.name}</p>
+                    <p className="text-sm text-surface-500">
+                      {accuracy}% accuracy · {questionsAttempted} questions attempted
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <span className="badge-error">{accuracy}%</span>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-surface-900">{topic.name}</p>
-                  <p className="text-sm text-surface-500">
-                    {accuracy}% accuracy · {questionsAttempted} questions attempted
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="badge-error">{accuracy}%</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            <button
+              onClick={() => startSession('weak-areas')}
+              className="btn-primary w-full text-lg py-3 bg-red-500 hover:bg-red-600"
+            >
+              Start Weak Areas Practice <ArrowRight className="w-4 h-4" />
+            </button>
+          </>
+        ) : (
+          <div className="card p-8 text-center">
+            <p className="text-surface-500 mb-4">
+              No weak areas detected yet. Keep practicing to build your profile!
+            </p>
+            <Link href="/practice/adaptive" className="btn-primary">
+              Try Adaptive Practice
+            </Link>
           </div>
-
-          <button
-            onClick={() => startSession('weak-areas')}
-            className="btn-primary w-full text-lg py-3 bg-red-500 hover:bg-red-600"
-          >
-            Start Weak Areas Practice <ArrowRight className="w-4 h-4" />
-          </button>
-        </>
-      ) : (
-        <div className="card p-8 text-center">
-          <p className="text-surface-500 mb-4">
-            No weak areas detected yet. Keep practicing to build your profile!
-          </p>
-          <Link href="/practice/adaptive" className="btn-primary">
-            Try Adaptive Practice
-          </Link>
-        </div>
-      )}
+        )}
+      </UpgradeGate>
     </div>
   );
 }

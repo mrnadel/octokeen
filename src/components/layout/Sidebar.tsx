@@ -26,12 +26,12 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/practice/adaptive', label: 'Adaptive Practice', icon: Zap },
+  { href: '/practice/adaptive', label: 'Adaptive Practice', icon: Zap, pro: true },
   { href: '/practice/topics', label: 'Topic Deep Dive', icon: BookOpen },
-  { href: '/practice/interview', label: 'Interview Simulation', icon: Timer },
+  { href: '/practice/interview', label: 'Interview Simulation', icon: Timer, pro: true },
   { href: '/practice/daily', label: 'Daily Challenge', icon: Calendar },
   { href: '/practice/real-world', label: 'Real-World Systems', icon: Wrench },
-  { href: '/practice/weak-areas', label: 'Weak Areas', icon: AlertTriangle },
+  { href: '/practice/weak-areas', label: 'Weak Areas', icon: AlertTriangle, pro: true },
   { href: '/quests', label: 'Quests', icon: Swords },
   { href: '/league', label: 'League', icon: Crown },
   { divider: true } as const,
@@ -42,7 +42,7 @@ const navItems = [
   { href: '/achievements', label: 'Achievements', icon: Trophy },
 ];
 
-type NavItem = { href: string; label: string; icon: React.ComponentType<{ className?: string }> } | { divider: true };
+type NavItem = { href: string; label: string; icon: React.ComponentType<{ className?: string }>; pro?: boolean } | { divider: true };
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -100,6 +100,8 @@ export default function Sidebar() {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
 
+            const showProBadge = item.pro && !isProUser;
+
             return (
               <Link
                 key={item.href}
@@ -112,7 +114,16 @@ export default function Sidebar() {
                 )}
               >
                 <Icon className={cn('w-5 h-5 shrink-0', isActive ? 'text-primary-600' : 'text-surface-400')} />
-                {sidebarOpen && <span>{item.label}</span>}
+                {sidebarOpen && (
+                  <span className="flex-1 flex items-center justify-between">
+                    <span>{item.label}</span>
+                    {showProBadge && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">
+                        PRO
+                      </span>
+                    )}
+                  </span>
+                )}
               </Link>
             );
           })}

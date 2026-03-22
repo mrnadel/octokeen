@@ -143,6 +143,6 @@ function getTierFeatures(tier: SubscriptionTier): Feature[] {
       FEATURES.DETAILED_EXPLANATIONS,
     ];
   }
-  // free
-  return [FEATURES.ALL_PRACTICE_MODES];
+  // free — basic topic practice only; advanced modes require Pro
+  return [];
 }
