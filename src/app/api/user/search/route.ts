@@ -3,11 +3,21 @@ import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { users, userProgress, friendRequests } from '@/lib/db/schema';
 import { eq, ilike, ne, sql, and, notInArray, type SQL } from 'drizzle-orm';
+import { rateLimit } from '@/lib/rate-limit';
+
+function escapeIlike(input: string): string {
+  return input.replace(/[%_\\]/g, '\\$&');
+}
 
 export async function GET(request: Request) {
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`user-search:${userId}`, { limit: 30, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
   }
 
   const { searchParams } = new URL(request.url);
@@ -32,7 +42,7 @@ export async function GET(request: Request) {
 
   // Build conditions array (avoids passing undefined to and())
   const conditions: SQL[] = [
-    ilike(users.displayName, `%${query}%`),
+    ilike(users.displayName, `%${escapeIlike(query)}%`),
     ne(users.id, userId),
   ];
   if (declinedIds.length > 0) {
@@ -52,5 +62,11 @@ export async function GET(request: Request) {
     .where(and(...conditions))
     .limit(10);
 
-  return NextResponse.json({ users: results });
+  const safeResults = results.map((u) => ({
+    ...u,
+    displayName: u.displayName ?? 'Unknown',
+    level: u.level ?? 1,
+  }));
+
+  return NextResponse.json({ users: safeResults });
 }

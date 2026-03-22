@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { UserPlus, UserCheck, Clock, UserMinus, Loader2 } from 'lucide-react';
 
 type Relationship = 'none' | 'request_sent' | 'request_received' | 'friends';
@@ -21,6 +21,18 @@ export default function AddFriendButton({
   const [relationship, setRelationship] = useState(initialRelationship);
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showMenu) return;
+    function handleClick(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [showMenu]);
 
   async function sendRequest() {
     setLoading(true);
@@ -108,7 +120,7 @@ export default function AddFriendButton({
 
   if (relationship === 'request_sent') {
     return (
-      <div className="relative">
+      <div className="relative" ref={menuRef}>
         <button
           onClick={() => setShowMenu(!showMenu)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-100 text-surface-500 text-sm font-semibold"
@@ -146,7 +158,7 @@ export default function AddFriendButton({
 
   // friends
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         onClick={() => setShowMenu(!showMenu)}
         className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-primary-200 text-primary-700 text-sm font-semibold hover:bg-primary-50 transition-colors"

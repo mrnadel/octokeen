@@ -15,7 +15,12 @@ export async function PATCH(
   }
 
   const { id: requestId } = await params;
-  const body = await request.json();
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
   const { action } = body;
 
   if (action !== 'accept' && action !== 'decline') {
@@ -42,12 +47,13 @@ export async function PATCH(
     }
 
     const [low, high] = sortFriendPair(userId, req.senderId);
-    await db.insert(friendships).values({ userId: low, friendId: high });
-
-    await db
-      .update(friendRequests)
-      .set({ status: 'accepted', updatedAt: new Date() })
-      .where(eq(friendRequests.id, requestId));
+    await db.transaction(async (tx) => {
+      await tx.insert(friendships).values({ userId: low, friendId: high });
+      await tx
+        .update(friendRequests)
+        .set({ status: 'accepted', updatedAt: new Date() })
+        .where(eq(friendRequests.id, requestId));
+    });
 
     return NextResponse.json({ status: 'accepted' });
   }

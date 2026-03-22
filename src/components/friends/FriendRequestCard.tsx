@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Check, X, Loader2 } from 'lucide-react';
 
 interface FriendRequestCardProps {
@@ -78,9 +77,7 @@ export default function FriendRequestCard({
   if (hidden) return null;
 
   return (
-    <motion.div
-      layout
-      exit={{ opacity: 0, x: -50 }}
+    <div
       className="flex items-center gap-3 p-4 rounded-xl border border-surface-200 bg-white"
     >
       <Link
@@ -129,6 +126,6 @@ export default function FriendRequestCard({
           Cancel
         </button>
       )}
-    </motion.div>
+    </div>
   );
 }

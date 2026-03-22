@@ -8,6 +8,7 @@ import {
   getExistingRequest,
   isFriendCapReached,
 } from '@/lib/db/friends';
+import { rateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
   const userId = await getAuthUserId();
@@ -15,7 +16,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await request.json();
+  const rl = rateLimit(`friend-request:${userId}`, { limit: 20, windowMs: 3600_000 });
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
   const { receiverId } = body;
 
   if (!receiverId || typeof receiverId !== 'string') {
@@ -48,6 +59,9 @@ export async function POST(request: Request) {
   if (existing) {
     if (existing.status === 'pending') {
       return NextResponse.json({ error: 'Request already exists' }, { status: 409 });
+    }
+    if (existing.status === 'accepted') {
+      return NextResponse.json({ error: 'Already friends' }, { status: 409 });
     }
     if (existing.status === 'declined') {
       const updatedAt = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
