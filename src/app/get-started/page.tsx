@@ -299,7 +299,9 @@ export default function GetStartedPage() {
     if (navigating) return;
     setNavigating(true);
     savePreferences();
-    router.push('/');
+    // Hard navigation — more reliable than client-side router.push
+    // which can hang if the home page takes too long to compile
+    window.location.href = '/';
   };
 
   // Which steps can go back
