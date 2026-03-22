@@ -19,7 +19,7 @@ export const machineElementsQuestions: Question[] = [
       <circle cx="150" cy="150" r="35" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
       <circle cx="150" cy="150" r="22" fill="none" stroke="#94a3b8" stroke-width="3"/>
       <!-- Shaft hole -->
-      <circle cx="150" cy="150" r="18" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <circle cx="150" cy="150" r="18" fill="#334155" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
       <!-- Balls in raceway -->
       <circle cx="150" cy="80" r="12" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
       <circle cx="203" cy="97" r="12" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
@@ -83,11 +83,11 @@ export const machineElementsQuestions: Question[] = [
       <text x="50" y="182" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Flank</text>
       <line x1="53" y1="175" x2="78" y2="175" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="3,2"/>
       <!-- Pitting damage on flank -->
-      <ellipse cx="90" cy="140" rx="6" ry="4" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
-      <ellipse cx="100" cy="160" rx="8" ry="5" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
-      <ellipse cx="88" cy="180" rx="5" ry="3" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
-      <ellipse cx="95" cy="200" rx="7" ry="4" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
-      <ellipse cx="105" cy="125" rx="4" ry="3" fill="#1e293b" stroke="#f472b6" stroke-width="1"/>
+      <ellipse cx="90" cy="140" rx="6" ry="4" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
+      <ellipse cx="100" cy="160" rx="8" ry="5" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
+      <ellipse cx="88" cy="180" rx="5" ry="3" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
+      <ellipse cx="95" cy="200" rx="7" ry="4" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
+      <ellipse cx="105" cy="125" rx="4" ry="3" fill="#334155" stroke="#f472b6" stroke-width="1"/>
       <!-- Pitting label -->
       <text x="30" y="128" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Pits</text>
       <line x1="45" y1="130" x2="84" y2="139" stroke="#f472b6" stroke-width="1" stroke-dasharray="3,2"/>
@@ -165,7 +165,7 @@ export const machineElementsQuestions: Question[] = [
       <circle cx="110" cy="145" r="25" fill="none" stroke="#94a3b8" stroke-width="1"/>
       <circle cx="110" cy="145" r="15" fill="none" stroke="#94a3b8" stroke-width="2.5"/>
       <!-- Shaft center -->
-      <circle cx="110" cy="145" r="12" fill="#1e293b" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2"/>
+      <circle cx="110" cy="145" r="12" fill="#334155" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2"/>
       <!-- Balls (angled contact line shown) -->
       <circle cx="110" cy="91" r="8" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
       <circle cx="148" cy="105" r="8" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
@@ -189,7 +189,7 @@ export const machineElementsQuestions: Question[] = [
       <!-- Oil film (crescent shape) -->
       <path d="M268 145 A42 42 0 1 1 352 145 A38 38 0 1 0 268 145" fill="#fb923c" opacity="0.25" stroke="#fb923c" stroke-width="1"/>
       <!-- Shaft (offset for eccentricity) -->
-      <circle cx="313" cy="150" r="36" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+      <circle cx="313" cy="150" r="36" fill="#334155" stroke="#60a5fa" stroke-width="2"/>
       <!-- Oil film label -->
       <text x="270" y="115" fill="#fb923c" font-family="system-ui, sans-serif" font-size="8">Oil film</text>
       <text x="270" y="123" fill="#fb923c" font-family="system-ui, sans-serif" font-size="8">(wedge)</text>
@@ -281,7 +281,7 @@ export const machineElementsQuestions: Question[] = [
       <!-- Nut -->
       <rect x="130" y="156" width="30" height="14" fill="#60a5fa" opacity="0.8" stroke="#60a5fa" stroke-width="1.5" rx="2"/>
       <!-- Hole through flanges -->
-      <rect x="138" y="70" width="14" height="80" fill="#1e293b"/>
+      <rect x="138" y="70" width="14" height="80" fill="#334155"/>
       <!-- Bolt over hole -->
       <rect x="140" y="70" width="10" height="80" fill="#60a5fa" opacity="0.5"/>
       <!-- Preload arrows (compression on flanges) -->
@@ -347,7 +347,7 @@ export const machineElementsQuestions: Question[] = [
       <!-- LEFT: Correct squeeze (10-30%) -->
       <text x="100" y="48" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Correct: 10-30%</text>
       <!-- Groove (rectangular pocket) -->
-      <rect x="40" y="80" width="120" height="50" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+      <rect x="40" y="80" width="120" height="50" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
       <!-- Mating surface (top) -->
       <rect x="20" y="60" width="160" height="20" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
       <!-- Housing (bottom/sides of groove) -->
@@ -374,7 +374,7 @@ export const machineElementsQuestions: Question[] = [
       <!-- RIGHT TOP: Too little squeeze -->
       <text x="310" y="48" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Too Little Squeeze</text>
       <!-- Groove -->
-      <rect x="260" y="60" width="100" height="45" fill="#1e293b" stroke="#94a3b8" stroke-width="1"/>
+      <rect x="260" y="60" width="100" height="45" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
       <!-- Mating surface -->
       <line x1="250" y1="60" x2="370" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
       <!-- O-ring barely touching -->
@@ -387,7 +387,7 @@ export const machineElementsQuestions: Question[] = [
       <!-- RIGHT BOTTOM: Too much squeeze -->
       <text x="310" y="150" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Too Much Squeeze</text>
       <!-- Groove -->
-      <rect x="260" y="162" width="100" height="35" fill="#1e293b" stroke="#94a3b8" stroke-width="1"/>
+      <rect x="260" y="162" width="100" height="35" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
       <!-- Mating surface -->
       <line x1="250" y1="162" x2="370" y2="162" stroke="#94a3b8" stroke-width="1.5"/>
       <!-- O-ring crushed flat -->
@@ -616,7 +616,7 @@ export const machineElementsQuestions: Question[] = [
       <rect x="15" y="35" width="115" height="105" fill="none" stroke="#f472b6" stroke-width="1.5" rx="4"/>
       <!-- Washer shape (helical split) -->
       <ellipse cx="72" cy="72" rx="18" ry="18" fill="none" stroke="#94a3b8" stroke-width="2"/>
-      <line x1="72" y1="54" x2="72" y2="60" stroke="#1e293b" stroke-width="4"/>
+      <line x1="72" y1="54" x2="72" y2="60" stroke="#334155" stroke-width="4"/>
       <line x1="66" y1="56" x2="78" y2="52" stroke="#94a3b8" stroke-width="2"/>
       <text x="72" y="105" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Split Lock</text>
       <text x="72" y="115" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Washer</text>

@@ -182,11 +182,11 @@ function HeroStat({
       className="flex-1 flex flex-col items-center py-3.5 rounded-2xl"
       style={{ background: bg, border: `1.5px solid ${border}` }}
     >
-      <span style={{ fontSize: 22, lineHeight: 1 }}>{emoji}</span>
-      <p className="text-xl font-extrabold tracking-tight mt-1.5" style={{ color: valueColor }}>
+      <span className="text-lg sm:text-[22px] leading-none">{emoji}</span>
+      <p className="text-lg sm:text-xl font-extrabold tracking-tight mt-1.5" style={{ color: valueColor }}>
         <AnimatedNumber value={value} />
       </p>
-      <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: `${valueColor}99` }}>
+      <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: `${valueColor}99` }}>
         {label}
       </p>
     </motion.div>
@@ -626,7 +626,7 @@ export default function ProfilePage() {
               ) : (
                 <motion.div key="display" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                   <div className="flex items-center justify-center gap-2">
-                    <h2 className="text-2xl font-extrabold text-white tracking-tight">{displayName}</h2>
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight truncate max-w-[220px] sm:max-w-xs">{displayName}</h2>
                     <button
                       onClick={() => { setNewName(displayName); setEditingName(true); }}
                       className="p-1 text-white/30 hover:text-white/70 transition-colors"
@@ -639,7 +639,7 @@ export default function ProfilePage() {
             </AnimatePresence>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-              <p className="text-sm text-white/40 mt-1">{email}</p>
+              <p className="text-sm text-white/40 mt-1 truncate max-w-[280px] sm:max-w-sm mx-auto">{email}</p>
               <div className="flex items-center justify-center gap-3 mt-2 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-300/80 bg-amber-400/10 px-2.5 py-1 rounded-full">
                   <Crown className="w-3 h-3" />
@@ -687,15 +687,15 @@ export default function ProfilePage() {
       </motion.div>
 
       {/* ─── Stats Row ───────────────────────────────────── */}
-      <div className="px-4 -mt-5 relative z-10">
-        <div className="flex gap-2.5">
+      <div className="px-3 sm:px-4 -mt-5 relative z-10">
+        <div className="flex gap-2 sm:gap-2.5">
           <HeroStat emoji="⭐" value={totalXp} label="Total XP" bg="#FFFBEB" border="#FDE68A" valueColor="#B45309" delay={0.2} />
           <HeroStat emoji="⚡" value={currentStreak} label="Day Streak" bg="#FFF7ED" border="#FED7AA" valueColor="#C2410C" delay={0.3} />
           <HeroStat emoji="🎯" value={accuracy} label="Accuracy" bg="#F0FDF4" border="#BBF7D0" valueColor="#15803D" delay={0.4} />
         </div>
       </div>
 
-      <div className="px-4 mt-6 space-y-6">
+      <div className="px-3 sm:px-4 mt-6 space-y-6">
         {/* ─── Topic Mastery ────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

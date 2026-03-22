@@ -163,7 +163,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       onClick={() => setOpen(!open)}
       className="w-full text-left"
     >
-      <div className="flex items-center justify-between py-3">
+      <div className="flex items-center justify-between py-3 min-h-[44px]">
         <span className="text-sm font-medium text-surface-800 pr-4">{question}</span>
         <ChevronDown
           className={cn(

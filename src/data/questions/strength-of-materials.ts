@@ -724,7 +724,7 @@ export const strengthOfMaterialsQuestions: Question[] = [
       <text x="40" y="185" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10">J = \u03C0d\u2074/32</text>
       <!-- HOLLOW SHAFT cross-section -->
       <circle cx="310" cy="100" r="55" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
-      <circle cx="310" cy="100" r="27" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <circle cx="310" cy="100" r="27" fill="#334155" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
       <circle cx="310" cy="100" r="3" fill="#94a3b8"/>
       <!-- shear stress distribution (starts at inner radius) -->
       <line x1="337" y1="100" x2="365" y2="100" stroke="#f472b6" stroke-width="2.5"/>

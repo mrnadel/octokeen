@@ -126,32 +126,24 @@ export default function SkillMapPage() {
     <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
       {/* Header */}
       <header
-        className="sticky top-0 z-30 bg-white"
-        style={{ borderBottom: '2px solid #E5E5E5', padding: '12px 20px' }}
+        className="sticky top-0 z-30 bg-white px-4 sm:px-5 py-3"
+        style={{ borderBottom: '2px solid #E5E5E5' }}
       >
-        <div className="flex items-center" style={{ gap: 12 }}>
+        <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="flex items-center justify-center transition-transform active:scale-90"
-            style={{ width: 36, height: 36, borderRadius: 10, background: '#F0F0F0' }}
+            className="flex items-center justify-center w-11 h-11 sm:w-9 sm:h-9 rounded-[10px] bg-[#F0F0F0] transition-transform active:scale-90"
           >
             <ChevronLeft style={{ width: 20, height: 20, color: '#777' }} />
           </Link>
-          <h1 style={{ fontSize: 20, fontWeight: 800, color: '#3C3C3C' }}>Interview Readiness</h1>
+          <h1 className="text-lg sm:text-xl font-extrabold text-[#3C3C3C]">Interview Readiness</h1>
         </div>
       </header>
 
-      <div style={{ padding: '20px 20px 40px', maxWidth: 600, margin: '0 auto' }}>
+      <div className="px-4 sm:px-5 pt-5 pb-10 max-w-[600px] mx-auto">
         {/* ── Readiness Score Ring ── */}
         <motion.div
-          className="flex flex-col items-center"
-          style={{
-            background: 'white',
-            borderRadius: 20,
-            padding: '28px 20px 24px',
-            border: '2px solid #E5E5E5',
-            marginBottom: 20,
-          }}
+          className="flex flex-col items-center bg-white rounded-2xl border-2 border-[#E5E5E5] mb-5 px-4 sm:px-5 pt-7 pb-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -201,14 +193,14 @@ export default function SkillMapPage() {
             {ringMessage}
           </p>
           {/* Quick counts */}
-          <div className="flex items-center justify-center" style={{ gap: 16, marginTop: 14 }}>
+          <div className="grid grid-cols-4 gap-3 sm:gap-4 mt-3.5 w-full max-w-xs mx-auto">
             {[
               { n: strengths.length, label: 'Strong', color: '#10B981' },
               { n: growing.length, label: 'Growing', color: '#F59E0B' },
               { n: weaknesses.length, label: 'Weak', color: '#EF4444' },
               { n: untouched.length, label: 'New', color: '#C0C0C0' },
             ].map((s) => (
-              <div key={s.label} className="flex flex-col items-center" style={{ minWidth: 48 }}>
+              <div key={s.label} className="flex flex-col items-center">
                 <span style={{ fontSize: 20, fontWeight: 900, color: s.color, lineHeight: 1 }}>
                   {s.n}
                 </span>
@@ -376,7 +368,7 @@ function TopicRow({ topic, compact }: TopicRowProps) {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="flex items-center justify-between" style={{ gap: 8 }}>
-            <h3 style={{ fontSize: 15, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+            <h3 className="text-sm sm:text-[15px] font-extrabold text-[#3C3C3C] leading-tight truncate">
               {topic.name}
             </h3>
             {topic.attempted > 0 && (
@@ -385,22 +377,16 @@ function TopicRow({ topic, compact }: TopicRowProps) {
               </span>
             )}
           </div>
-          <div className="flex items-center" style={{ gap: 8, marginTop: 3 }}>
+          <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 mt-1">
             <span
-              style={{
-                fontSize: 11,
-                fontWeight: 700,
-                color: meta.color,
-                padding: '1px 6px',
-                borderRadius: 6,
-                background: meta.bg,
-              }}
+              className="text-[11px] font-bold px-1.5 rounded-md shrink-0"
+              style={{ color: meta.color, background: meta.bg }}
             >
               {meta.label}
             </span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: '#CFCFCF' }}>{relevanceLabel}</span>
+            <span className="text-[11px] font-semibold text-[#CFCFCF] shrink-0">{relevanceLabel}</span>
             {topic.totalLessons > 0 && (
-              <span style={{ fontSize: 11, fontWeight: 600, color: '#CFCFCF' }}>
+              <span className="text-[11px] font-semibold text-[#CFCFCF] shrink-0">
                 {topic.completedLessonCount}/{topic.totalLessons} lessons
               </span>
             )}
@@ -425,11 +411,13 @@ function TopicRow({ topic, compact }: TopicRowProps) {
                   }}
                 />
                 <span
+                  className="truncate"
                   style={{
                     flex: 1,
                     fontSize: 12,
                     fontWeight: 600,
                     color: sub.attempted > 0 ? '#3C3C3C' : '#AFAFAF',
+                    minWidth: 0,
                   }}
                 >
                   {sub.name}

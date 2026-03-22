@@ -332,7 +332,7 @@ export default function AdminUsersPage() {
                             onClick={() => toggleTier(user.id, user.tier)}
                             disabled={updating === user.id}
                             className={cn(
-                              'text-[11px] font-bold px-2.5 py-1 rounded-lg transition-colors disabled:opacity-50',
+                              'text-[11px] font-bold px-2.5 py-1.5 min-h-[32px] rounded-lg transition-colors disabled:opacity-50',
                               user.tier === 'pro'
                                 ? 'bg-red-50 text-red-600 hover:bg-red-100'
                                 : 'bg-green-50 text-green-600 hover:bg-green-100'
@@ -346,7 +346,7 @@ export default function AdminUsersPage() {
                           </button>
                           <button
                             onClick={() => { setDeleteTarget(user); setConfirmText(''); }}
-                            className="p-1.5 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors"
+                            className="p-2 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors"
                             title="Delete user"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -416,7 +416,7 @@ export default function AdminUsersPage() {
                       onClick={() => toggleTier(user.id, user.tier)}
                       disabled={updating === user.id}
                       className={cn(
-                        'text-[11px] font-bold px-2.5 py-1 rounded-lg transition-colors disabled:opacity-50',
+                        'text-[11px] font-bold px-2.5 py-2 min-h-[44px] rounded-lg transition-colors disabled:opacity-50',
                         user.tier === 'pro'
                           ? 'bg-red-50 text-red-600 hover:bg-red-100'
                           : 'bg-green-50 text-green-600 hover:bg-green-100'
@@ -430,9 +430,9 @@ export default function AdminUsersPage() {
                     </button>
                     <button
                       onClick={() => { setDeleteTarget(user); setConfirmText(''); }}
-                      className="p-1.5 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors"
+                      className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

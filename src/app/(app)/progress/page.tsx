@@ -35,8 +35,8 @@ export default function ProgressPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-surface-900 flex items-center gap-3">
-          <BarChart3 className="w-7 h-7 text-primary-500" />
+        <h1 className="text-xl sm:text-2xl font-bold text-surface-900 flex items-center gap-2 sm:gap-3">
+          <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-primary-500 shrink-0" />
           Progress &amp; Analytics
         </h1>
         <p className="text-surface-500 mt-1">Track your improvement and identify areas to focus on.</p>
@@ -104,7 +104,7 @@ export default function ProgressPage() {
           <h2 className="font-bold text-surface-900 mb-4">Performance by Topic</h2>
           <div className="space-y-4">
             {topicBreakdown.map(({ topic, attempted, correct, accuracy }) => (
-              <div key={topic.id} className="flex items-center gap-4">
+              <div key={topic.id} className="flex items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0"
                   style={{ backgroundColor: `${topic.color}15` }}>
                   {topic.icon}
@@ -126,7 +126,7 @@ export default function ProgressPage() {
                         }}
                       />
                     </div>
-                    <span className="text-xs text-surface-400 shrink-0 w-20 text-right">
+                    <span className="text-xs text-surface-400 shrink-0 w-20 text-right hidden sm:inline">
                       {`${correct}/${attempted} correct`}
                     </span>
                   </div>

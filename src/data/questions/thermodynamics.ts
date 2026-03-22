@@ -22,27 +22,27 @@ export const thermodynamicsQuestions: Question[] = [
       <line x1="200" y1="80" x2="200" y2="220" stroke="#94a3b8" stroke-width="2"/>
       <text x="195" y="155" text-anchor="start" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" transform="rotate(90,195,155)">OPEN</text>
       <!-- Cold air inside fridge -->
-      <text x="110" y="130" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="12">Q_in</text>
-      <text x="110" y="150" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="11">(cold side)</text>
+      <text x="110" y="130" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12">Q_in</text>
+      <text x="110" y="150" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="11">(cold side)</text>
       <!-- Compressor at bottom -->
       <rect x="65" y="200" width="90" height="30" rx="3" fill="#334155" stroke="#fb923c" stroke-width="2"/>
       <text x="110" y="220" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="11">Compressor</text>
       <!-- Work input arrow -->
       <defs>
         <marker id="thermo001-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
-        <marker id="thermo001-arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
-        <marker id="thermo001-arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+        <marker id="thermo001-arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
+        <marker id="thermo001-arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
       </defs>
       <!-- W_in from wall plug -->
       <line x1="30" y1="215" x2="60" y2="215" stroke="#34d399" stroke-width="2" marker-end="url(#thermo001-arrow)"/>
       <text x="30" y="208" fill="#34d399" font-family="system-ui, sans-serif" font-size="11">W_in</text>
       <!-- Q_hot output to room (wavy arrow) -->
-      <path d="M170,100 Q185,95 195,100 Q205,105 215,100 Q225,95 240,100" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#thermo001-arrow-red)"/>
-      <path d="M170,120 Q185,115 195,120 Q205,125 215,120 Q225,115 240,120" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#thermo001-arrow-red)"/>
-      <text x="260" y="105" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12">Q_out = Q_in + W</text>
-      <text x="260" y="125" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11">(heats the room)</text>
+      <path d="M170,100 Q185,95 195,100 Q205,105 215,100 Q225,95 240,100" fill="none" stroke="#f472b6" stroke-width="2" marker-end="url(#thermo001-arrow-red)"/>
+      <path d="M170,120 Q185,115 195,120 Q205,125 215,120 Q225,115 240,120" fill="none" stroke="#f472b6" stroke-width="2" marker-end="url(#thermo001-arrow-red)"/>
+      <text x="260" y="105" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12">Q_out = Q_in + W</text>
+      <text x="260" y="125" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11">(heats the room)</text>
       <!-- Room temperature indicator -->
-      <text x="300" y="200" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">T_room &#x2191;</text>
+      <text x="300" y="200" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">T_room &#x2191;</text>
       <text x="300" y="220" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">Net heat added</text>
       <text x="300" y="235" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">= W_compressor</text>
       <!-- Energy balance box -->
@@ -113,8 +113,8 @@ export const thermodynamicsQuestions: Question[] = [
       <text x="290" y="268" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Brayton</text>
       <text x="290" y="279" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8">(gas turb.)</text>
       <!-- Rankine ~35% -->
-      <rect x="330" y="185" width="50" height="63" rx="2" fill="#a78bfa" opacity="0.8"/>
-      <text x="355" y="180" text-anchor="middle" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~35%</text>
+      <rect x="330" y="185" width="50" height="63" rx="2" fill="#f472b6" opacity="0.8"/>
+      <text x="355" y="180" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~35%</text>
       <text x="355" y="268" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Rankine</text>
       <text x="355" y="279" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8">(steam)</text>
       <!-- Temperature limits label -->
@@ -146,8 +146,8 @@ export const thermodynamicsQuestions: Question[] = [
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo003-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
-        <marker id="thermo003-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
-        <marker id="thermo003-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+        <marker id="thermo003-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
+        <marker id="thermo003-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
       </defs>
       <text x="200" y="16" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Energy Flow Comparison</text>
       <!-- Left side: Resistance Heater -->
@@ -159,8 +159,8 @@ export const thermodynamicsQuestions: Question[] = [
       <line x1="100" y1="55" x2="100" y2="95" stroke="#34d399" stroke-width="2" marker-end="url(#thermo003-arr)"/>
       <text x="125" y="75" fill="#34d399" font-family="system-ui, sans-serif" font-size="11">W = 1 kW</text>
       <!-- Q_out arrow -->
-      <line x1="100" y1="155" x2="100" y2="195" stroke="#ef4444" stroke-width="2" marker-end="url(#thermo003-arr-red)"/>
-      <text x="125" y="182" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11">Q = 1 kW</text>
+      <line x1="100" y1="155" x2="100" y2="195" stroke="#f472b6" stroke-width="2" marker-end="url(#thermo003-arr-red)"/>
+      <text x="125" y="182" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11">Q = 1 kW</text>
       <!-- Room -->
       <rect x="55" y="200" width="90" height="35" rx="4" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
       <text x="100" y="222" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">Room</text>
@@ -175,13 +175,13 @@ export const thermodynamicsQuestions: Question[] = [
       <line x1="300" y1="55" x2="300" y2="95" stroke="#34d399" stroke-width="2" marker-end="url(#thermo003-arr)"/>
       <text x="325" y="75" fill="#34d399" font-family="system-ui, sans-serif" font-size="11">W = 1 kW</text>
       <!-- Q_cold from outside -->
-      <line x1="225" y1="125" x2="242" y2="125" stroke="#3b82f6" stroke-width="2" marker-end="url(#thermo003-arr-blue)"/>
-      <text x="210" y="115" text-anchor="end" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10">Q_cold</text>
-      <text x="210" y="128" text-anchor="end" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10">2.5 kW</text>
+      <line x1="225" y1="125" x2="242" y2="125" stroke="#60a5fa" stroke-width="2" marker-end="url(#thermo003-arr-blue)"/>
+      <text x="210" y="115" text-anchor="end" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10">Q_cold</text>
+      <text x="210" y="128" text-anchor="end" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10">2.5 kW</text>
       <text x="210" y="141" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">(from outdoors)</text>
       <!-- Q_hot output to room -->
-      <line x1="300" y1="155" x2="300" y2="195" stroke="#ef4444" stroke-width="3" marker-end="url(#thermo003-arr-red)"/>
-      <text x="335" y="182" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Q = 3.5 kW</text>
+      <line x1="300" y1="155" x2="300" y2="195" stroke="#f472b6" stroke-width="3" marker-end="url(#thermo003-arr-red)"/>
+      <text x="335" y="182" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Q = 3.5 kW</text>
       <!-- Room -->
       <rect x="255" y="200" width="90" height="35" rx="4" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
       <text x="300" y="222" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">Room</text>
@@ -229,17 +229,17 @@ export const thermodynamicsQuestions: Question[] = [
       <rect x="30" y="50" width="140" height="140" rx="6" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
       <text x="100" y="45" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Low Entropy</text>
       <!-- Hot coffee cup -->
-      <rect x="65" y="85" width="70" height="50" rx="4" fill="#334155" stroke="#ef4444" stroke-width="2"/>
-      <text x="100" y="115" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11">HOT</text>
+      <rect x="65" y="85" width="70" height="50" rx="4" fill="#334155" stroke="#f472b6" stroke-width="2"/>
+      <text x="100" y="115" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11">HOT</text>
       <!-- Steam lines above cup -->
-      <path d="M80,80 Q82,70 85,75 Q88,80 90,70" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.7"/>
-      <path d="M100,80 Q102,70 105,75 Q108,80 110,70" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.7"/>
+      <path d="M80,80 Q82,70 85,75 Q88,80 90,70" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.7"/>
+      <path d="M100,80 Q102,70 105,75 Q108,80 110,70" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.7"/>
       <!-- Cool surroundings dots -->
-      <circle cx="50" cy="165" r="3" fill="#3b82f6" opacity="0.4"/>
-      <circle cx="70" cy="170" r="3" fill="#3b82f6" opacity="0.4"/>
-      <circle cx="130" cy="160" r="3" fill="#3b82f6" opacity="0.4"/>
-      <circle cx="145" cy="175" r="3" fill="#3b82f6" opacity="0.4"/>
-      <text x="100" y="155" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10">cool surroundings</text>
+      <circle cx="50" cy="165" r="3" fill="#60a5fa" opacity="0.4"/>
+      <circle cx="70" cy="170" r="3" fill="#60a5fa" opacity="0.4"/>
+      <circle cx="130" cy="160" r="3" fill="#60a5fa" opacity="0.4"/>
+      <circle cx="145" cy="175" r="3" fill="#60a5fa" opacity="0.4"/>
+      <text x="100" y="155" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10">cool surroundings</text>
       <!-- Arrow: time -->
       <defs>
         <marker id="thermo004-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
@@ -303,8 +303,8 @@ export const thermodynamicsQuestions: Question[] = [
       <!-- Liquid-vapor curve (vaporization line) -->
       <path d="M90,240 Q150,210 200,170 Q250,120 310,75 Q340,55 360,40" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
       <!-- Region labels -->
-      <text x="130" y="100" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">LIQUID</text>
-      <text x="300" y="200" fill="#ef4444" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">VAPOR</text>
+      <text x="130" y="100" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">LIQUID</text>
+      <text x="300" y="200" fill="#f472b6" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">VAPOR</text>
       <!-- Sea level point: 101.3 kPa, 100°C -->
       <circle cx="262" cy="108" r="6" fill="#34d399" stroke="#34d399" stroke-width="1"/>
       <line x1="60" y1="108" x2="256" y2="108" stroke="#34d399" stroke-width="1" stroke-dasharray="4,3"/>
@@ -347,7 +347,7 @@ export const thermodynamicsQuestions: Question[] = [
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo006-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
-        <marker id="thermo006-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+        <marker id="thermo006-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
       </defs>
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Energy Flow: 1 Gallon of Gasoline (120 MJ)</text>
       <!-- Fuel input arrow (wide) -->
@@ -368,20 +368,20 @@ export const thermodynamicsQuestions: Question[] = [
       <text x="338" y="124" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">36 MJ (30%)</text>
       <!-- Waste heat outputs -->
       <!-- Exhaust -->
-      <line x1="175" y1="184" x2="175" y2="210" stroke="#ef4444" stroke-width="2" marker-end="url(#thermo006-arr-red)"/>
-      <rect x="120" y="213" width="55" height="45" rx="3" fill="none" stroke="#ef4444" stroke-width="1.5"/>
-      <text x="148" y="229" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">Exhaust</text>
-      <text x="148" y="245" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~40 MJ</text>
+      <line x1="175" y1="184" x2="175" y2="210" stroke="#f472b6" stroke-width="2" marker-end="url(#thermo006-arr-red)"/>
+      <rect x="120" y="213" width="55" height="45" rx="3" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="148" y="229" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">Exhaust</text>
+      <text x="148" y="245" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~40 MJ</text>
       <!-- Coolant -->
-      <line x1="234" y1="155" x2="265" y2="175" stroke="#ef4444" stroke-width="2" marker-end="url(#thermo006-arr-red)"/>
-      <rect x="245" y="178" width="58" height="45" rx="3" fill="none" stroke="#ef4444" stroke-width="1.5"/>
-      <text x="274" y="194" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">Coolant</text>
-      <text x="274" y="210" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~30 MJ</text>
+      <line x1="234" y1="155" x2="265" y2="175" stroke="#f472b6" stroke-width="2" marker-end="url(#thermo006-arr-red)"/>
+      <rect x="245" y="178" width="58" height="45" rx="3" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="274" y="194" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">Coolant</text>
+      <text x="274" y="210" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~30 MJ</text>
       <!-- Friction/radiation -->
-      <line x1="310" y1="155" x2="340" y2="175" stroke="#ef4444" stroke-width="1.5" marker-end="url(#thermo006-arr-red)"/>
-      <rect x="315" y="178" width="70" height="45" rx="3" fill="none" stroke="#ef4444" stroke-width="1.5"/>
-      <text x="350" y="194" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">Friction/Rad.</text>
-      <text x="350" y="210" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~14 MJ</text>
+      <line x1="310" y1="155" x2="340" y2="175" stroke="#f472b6" stroke-width="1.5" marker-end="url(#thermo006-arr-red)"/>
+      <rect x="315" y="178" width="70" height="45" rx="3" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="350" y="194" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">Friction/Rad.</text>
+      <text x="350" y="210" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">~14 MJ</text>
       <!-- Total waste -->
       <rect x="120" y="260" width="268" height="18" rx="2" fill="none" stroke="#f472b6" stroke-width="1"/>
       <text x="254" y="274" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11">Total waste heat: 84 MJ (70%) &#x2248; 47 space heaters for 1 hour</text>
@@ -417,15 +417,15 @@ export const thermodynamicsQuestions: Question[] = [
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo007-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
-        <marker id="thermo007-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+        <marker id="thermo007-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
         <marker id="thermo007-arr-grn" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
       </defs>
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Air Conditioner Energy Balance (COP = 4)</text>
       <!-- Cold room (left) -->
-      <rect x="20" y="70" width="110" height="120" rx="5" fill="none" stroke="#3b82f6" stroke-width="2"/>
-      <text x="75" y="60" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Cold Room</text>
-      <text x="75" y="120" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="12">Q_cold</text>
-      <text x="75" y="140" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">4 kW</text>
+      <rect x="20" y="70" width="110" height="120" rx="5" fill="none" stroke="#60a5fa" stroke-width="2"/>
+      <text x="75" y="60" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Cold Room</text>
+      <text x="75" y="120" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12">Q_cold</text>
+      <text x="75" y="140" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">4 kW</text>
       <text x="75" y="160" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">(heat removed)</text>
       <!-- AC unit (center) -->
       <rect x="155" y="80" width="90" height="100" rx="5" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
@@ -433,15 +433,15 @@ export const thermodynamicsQuestions: Question[] = [
       <text x="200" y="133" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">Unit</text>
       <text x="200" y="155" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">COP = 4</text>
       <!-- Hot outdoors (right) -->
-      <rect x="270" y="70" width="110" height="120" rx="5" fill="none" stroke="#ef4444" stroke-width="2"/>
-      <text x="325" y="60" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Hot Outdoors</text>
-      <text x="325" y="120" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12">Q_hot</text>
-      <text x="325" y="140" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">5 kW</text>
+      <rect x="270" y="70" width="110" height="120" rx="5" fill="none" stroke="#f472b6" stroke-width="2"/>
+      <text x="325" y="60" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Hot Outdoors</text>
+      <text x="325" y="120" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12">Q_hot</text>
+      <text x="325" y="140" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">5 kW</text>
       <text x="325" y="160" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">(heat rejected)</text>
       <!-- Q_cold arrow -->
-      <line x1="133" y1="130" x2="152" y2="130" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#thermo007-arr)"/>
+      <line x1="133" y1="130" x2="152" y2="130" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#thermo007-arr)"/>
       <!-- Q_hot arrow -->
-      <line x1="248" y1="130" x2="267" y2="130" stroke="#ef4444" stroke-width="2.5" marker-end="url(#thermo007-arr-red)"/>
+      <line x1="248" y1="130" x2="267" y2="130" stroke="#f472b6" stroke-width="2.5" marker-end="url(#thermo007-arr-red)"/>
       <!-- W_in arrow from top -->
       <line x1="200" y1="40" x2="200" y2="76" stroke="#34d399" stroke-width="2.5" marker-end="url(#thermo007-arr-grn)"/>
       <text x="200" y="35" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">W = 1 kW</text>

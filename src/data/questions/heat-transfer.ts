@@ -11,15 +11,15 @@ export const heatTransferQuestions: Question[] = [
     question: 'Rank these heat transfer mechanisms by importance in cooling a laptop computer (most important first):',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="ht001-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+        <marker id="ht001-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
         <marker id="ht001-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
         <marker id="ht001-arr-grn" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
       </defs>
       <text x="200" y="16" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Laptop Thermal Path</text>
       <!-- CPU die -->
-      <rect x="30" y="110" width="50" height="30" rx="2" fill="#ef4444" opacity="0.3" stroke="#ef4444" stroke-width="2"/>
-      <text x="55" y="130" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">CPU</text>
-      <text x="55" y="100" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">~95&#xB0;C</text>
+      <rect x="30" y="110" width="50" height="30" rx="2" fill="#f472b6" opacity="0.3" stroke="#f472b6" stroke-width="2"/>
+      <text x="55" y="130" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">CPU</text>
+      <text x="55" y="100" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">~95&#xB0;C</text>
       <!-- Thermal paste -->
       <rect x="85" y="118" width="20" height="14" rx="1" fill="#fb923c" opacity="0.5" stroke="#fb923c" stroke-width="1.5"/>
       <text x="95" y="148" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="8">Thermal</text>
@@ -48,9 +48,9 @@ export const heatTransferQuestions: Question[] = [
       <line x1="365" y1="125" x2="390" y2="125" stroke="#34d399" stroke-width="1.5" marker-end="url(#ht001-arr-grn)"/>
       <line x1="365" y1="135" x2="385" y2="145" stroke="#34d399" stroke-width="1.5" marker-end="url(#ht001-arr-grn)"/>
       <!-- Conduction arrow path (red, dominant) -->
-      <path d="M80,125 L108,125" fill="none" stroke="#ef4444" stroke-width="2.5" marker-end="url(#ht001-arr)"/>
+      <path d="M80,125 L108,125" fill="none" stroke="#f472b6" stroke-width="2.5" marker-end="url(#ht001-arr)"/>
       <!-- Labels for each stage -->
-      <text x="55" y="175" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">#1 Conduction</text>
+      <text x="55" y="175" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">#1 Conduction</text>
       <text x="55" y="187" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8">(bottleneck!)</text>
       <text x="275" y="175" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">#2 Forced Conv.</text>
       <text x="275" y="187" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8">(fan + fins)</text>
@@ -103,16 +103,16 @@ export const heatTransferQuestions: Question[] = [
       <line x1="40" y1="170" x2="40" y2="155" stroke="#94a3b8" stroke-width="2"/>
       <line x1="180" y1="170" x2="180" y2="155" stroke="#94a3b8" stroke-width="2"/>
       <!-- Soup surface -->
-      <line x1="42" y1="155" x2="178" y2="155" stroke="#ef4444" stroke-width="2"/>
-      <text x="110" y="180" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10">Hot Soup</text>
+      <line x1="42" y1="155" x2="178" y2="155" stroke="#f472b6" stroke-width="2"/>
+      <text x="110" y="180" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">Hot Soup</text>
       <!-- Stagnant boundary layer (thick warm zone) -->
-      <rect x="42" y="95" width="136" height="58" rx="3" fill="#ef4444" opacity="0.1" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3"/>
-      <text x="110" y="112" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">Warm, humid</text>
-      <text x="110" y="125" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">stagnant boundary layer</text>
-      <text x="110" y="138" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">(insulating blanket)</text>
+      <rect x="42" y="95" width="136" height="58" rx="3" fill="#f472b6" opacity="0.1" stroke="#f472b6" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="110" y="112" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">Warm, humid</text>
+      <text x="110" y="125" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">stagnant boundary layer</text>
+      <text x="110" y="138" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">(insulating blanket)</text>
       <!-- Steam wisps -->
-      <path d="M70,90 Q73,78 76,82 Q79,86 82,74" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.5"/>
-      <path d="M120,88 Q123,76 126,80 Q129,84 132,72" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.5"/>
+      <path d="M70,90 Q73,78 76,82 Q79,86 82,74" fill="none" stroke="#f472b6" stroke-width="1" opacity="0.5"/>
+      <path d="M120,88 Q123,76 126,80 Q129,84 132,72" fill="none" stroke="#f472b6" stroke-width="1" opacity="0.5"/>
       <!-- Small heat arrows (slow) -->
       <text x="110" y="72" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Slow cooling</text>
       <!-- "X" for poor cooling -->
@@ -126,10 +126,10 @@ export const heatTransferQuestions: Question[] = [
       <line x1="240" y1="170" x2="240" y2="155" stroke="#94a3b8" stroke-width="2"/>
       <line x1="380" y1="170" x2="380" y2="155" stroke="#94a3b8" stroke-width="2"/>
       <!-- Soup surface -->
-      <line x1="242" y1="155" x2="378" y2="155" stroke="#ef4444" stroke-width="2"/>
-      <text x="310" y="180" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10">Hot Soup</text>
+      <line x1="242" y1="155" x2="378" y2="155" stroke="#f472b6" stroke-width="2"/>
+      <text x="310" y="180" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">Hot Soup</text>
       <!-- Thin boundary layer -->
-      <rect x="242" y="140" width="136" height="13" rx="2" fill="#ef4444" opacity="0.08" stroke="#ef4444" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <rect x="242" y="140" width="136" height="13" rx="2" fill="#f472b6" opacity="0.08" stroke="#f472b6" stroke-width="0.5" stroke-dasharray="3,3"/>
       <text x="310" y="137" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="8">thin boundary layer</text>
       <!-- Blowing air arrows -->
       <line x1="220" y1="110" x2="248" y2="118" stroke="#60a5fa" stroke-width="2" marker-end="url(#ht002-arr)"/>
@@ -138,8 +138,8 @@ export const heatTransferQuestions: Question[] = [
       <text x="222" y="100" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">Fresh cool</text>
       <text x="222" y="92" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">dry air</text>
       <!-- Swept away arrows -->
-      <line x1="370" y1="105" x2="392" y2="100" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
-      <line x1="370" y1="118" x2="392" y2="115" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
+      <line x1="370" y1="105" x2="392" y2="100" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
+      <line x1="370" y1="118" x2="392" y2="115" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
       <!-- Evaporation arrows (upward) -->
       <path d="M280,152 Q282,130 285,120" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
       <path d="M320,152 Q322,128 325,118" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#ht002-arr)"/>
@@ -175,27 +175,27 @@ export const heatTransferQuestions: Question[] = [
     question: 'You need to design a heat exchanger to cool engine oil from 120°C to 80°C using 20°C water. Which configuration do you choose?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="ht003-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
-        <marker id="ht003-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+        <marker id="ht003-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
+        <marker id="ht003-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
       </defs>
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Shell-and-Tube HX: Oil on Shell Side with Baffles</text>
       <!-- Outer shell -->
       <rect x="60" y="60" width="280" height="140" rx="10" fill="none" stroke="#94a3b8" stroke-width="2.5"/>
       <text x="200" y="55" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Shell (oil side)</text>
       <!-- Tubes (horizontal lines through shell) -->
-      <line x1="50" y1="100" x2="350" y2="100" stroke="#3b82f6" stroke-width="2"/>
-      <line x1="50" y1="130" x2="350" y2="130" stroke="#3b82f6" stroke-width="2"/>
-      <line x1="50" y1="160" x2="350" y2="160" stroke="#3b82f6" stroke-width="2"/>
+      <line x1="50" y1="100" x2="350" y2="100" stroke="#60a5fa" stroke-width="2"/>
+      <line x1="50" y1="130" x2="350" y2="130" stroke="#60a5fa" stroke-width="2"/>
+      <line x1="50" y1="160" x2="350" y2="160" stroke="#60a5fa" stroke-width="2"/>
       <!-- Tube labels -->
-      <text x="38" y="132" text-anchor="end" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="9">Tubes</text>
+      <text x="38" y="132" text-anchor="end" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">Tubes</text>
       <!-- Water flow arrows in tubes -->
-      <line x1="50" y1="92" x2="72" y2="92" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
-      <line x1="50" y1="122" x2="72" y2="122" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
-      <line x1="50" y1="152" x2="72" y2="152" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
+      <line x1="50" y1="92" x2="72" y2="92" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
+      <line x1="50" y1="122" x2="72" y2="122" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
+      <line x1="50" y1="152" x2="72" y2="152" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#ht003-arr-blue)"/>
       <!-- Water labels -->
-      <text x="35" y="78" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Water in</text>
-      <text x="35" y="90" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="9">20&#xB0;C</text>
-      <text x="355" y="78" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Water out</text>
+      <text x="35" y="78" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Water in</text>
+      <text x="35" y="90" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">20&#xB0;C</text>
+      <text x="355" y="78" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Water out</text>
       <!-- Baffles (vertical plates with gaps) -->
       <line x1="130" y1="60" x2="130" y2="150" stroke="#e2e8f0" stroke-width="2"/>
       <line x1="190" y1="110" x2="190" y2="200" stroke="#e2e8f0" stroke-width="2"/>
@@ -203,12 +203,12 @@ export const heatTransferQuestions: Question[] = [
       <line x1="310" y1="110" x2="310" y2="200" stroke="#e2e8f0" stroke-width="2"/>
       <text x="160" y="215" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Baffles</text>
       <!-- Oil flow path (zigzag through baffles) -->
-      <path d="M70,75 L125,75 L125,185 L135,185 L185,185 L185,75 L195,75 L245,75 L245,185 L255,185 L305,185 L305,75 L340,75" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#ht003-arr-red)"/>
+      <path d="M70,75 L125,75 L125,185 L135,185 L185,185 L185,75 L195,75 L245,75 L245,185 L255,185 L305,185 L305,75 L340,75" fill="none" stroke="#f472b6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#ht003-arr-red)"/>
       <!-- Oil labels -->
-      <text x="72" y="70" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Oil in</text>
-      <text x="72" y="60" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">120&#xB0;C</text>
-      <text x="348" y="70" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Oil out</text>
-      <text x="348" y="60" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">80&#xB0;C</text>
+      <text x="72" y="70" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Oil in</text>
+      <text x="72" y="60" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">120&#xB0;C</text>
+      <text x="348" y="70" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Oil out</text>
+      <text x="348" y="60" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">80&#xB0;C</text>
       <!-- Advantages box -->
       <rect x="40" y="228" width="320" height="65" rx="4" fill="none" stroke="#34d399" stroke-width="1"/>
       <text x="200" y="244" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Why baffles + oil on shell side?</text>
@@ -257,15 +257,15 @@ export const heatTransferQuestions: Question[] = [
     question: 'A composite wall has three layers: brick (k=0.7 W/mK, 20 cm), insulation (k=0.04 W/mK, 5 cm), and plaster (k=0.5 W/mK, 2 cm). Which layer dominates the total thermal resistance?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="ht004-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+        <marker id="ht004-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
       </defs>
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Composite Wall: Thermal Resistance</text>
       <!-- Hot side label -->
-      <text x="30" y="90" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">HOT</text>
-      <text x="30" y="105" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10">Outside</text>
+      <text x="30" y="90" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">HOT</text>
+      <text x="30" y="105" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">Outside</text>
       <!-- Heat flow arrow -->
-      <line x1="15" y1="140" x2="55" y2="140" stroke="#ef4444" stroke-width="2.5" marker-end="url(#ht004-arr)"/>
-      <text x="37" y="132" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10">Q</text>
+      <line x1="15" y1="140" x2="55" y2="140" stroke="#f472b6" stroke-width="2.5" marker-end="url(#ht004-arr)"/>
+      <text x="37" y="132" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">Q</text>
       <!-- Brick layer (widest) -->
       <rect x="60" y="50" width="100" height="180" rx="0" fill="#fb923c" opacity="0.15" stroke="#fb923c" stroke-width="2"/>
       <text x="110" y="130" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Brick</text>
@@ -302,8 +302,8 @@ export const heatTransferQuestions: Question[] = [
       <text x="245" y="158" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">2 cm</text>
       <text x="245" y="254" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">R = 0.040</text>
       <!-- Cold side -->
-      <text x="280" y="90" text-anchor="start" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">COLD</text>
-      <text x="280" y="105" text-anchor="start" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="10">Inside</text>
+      <text x="280" y="90" text-anchor="start" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">COLD</text>
+      <text x="280" y="105" text-anchor="start" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10">Inside</text>
       <!-- Resistance bar chart at bottom -->
       <text x="200" y="278" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10">R = L/(kA) per unit area (m&#xB2;&#xB7;K/W)</text>
       <!-- Percentage breakdown -->
@@ -357,8 +357,8 @@ export const heatTransferQuestions: Question[] = [
       <rect x="105" y="80" width="130" height="100" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
       <text x="170" y="120" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Satellite</text>
       <!-- Electronics inside -->
-      <rect x="130" y="130" width="80" height="30" rx="2" fill="none" stroke="#ef4444" stroke-width="1.5"/>
-      <text x="170" y="150" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">Electronics 500W</text>
+      <rect x="130" y="130" width="80" height="30" rx="2" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="170" y="150" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">Electronics 500W</text>
       <text x="170" y="108" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">0&#xB0;C to 50&#xB0;C range</text>
       <!-- MLI on sun-facing side -->
       <line x1="103" y1="82" x2="103" y2="178" stroke="#fb923c" stroke-width="3"/>
@@ -371,7 +371,7 @@ export const heatTransferQuestions: Question[] = [
       <text x="280" y="145" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">&#x3B5; &#x2248; 0.85</text>
       <text x="280" y="160" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">T &#x2248; 300K</text>
       <!-- Heat pipe from electronics to radiator -->
-      <line x1="212" y1="145" x2="238" y2="130" stroke="#ef4444" stroke-width="2"/>
+      <line x1="212" y1="145" x2="238" y2="130" stroke="#f472b6" stroke-width="2"/>
       <text x="225" y="162" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="7">Heat pipe</text>
       <!-- Radiation arrows from radiator to space -->
       <path d="M258,85 Q270,82 280,78 Q290,74 300,75" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#ht005-arr-rad)"/>
@@ -422,18 +422,18 @@ export const heatTransferQuestions: Question[] = [
     diagram: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ht006-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#94a3b8"/></marker>
-        <marker id="ht006-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+        <marker id="ht006-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
         <marker id="ht006-arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
       </defs>
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Nusselt Number: Nu = hL/k</text>
       <!-- Left side: Pure conduction (Nu = 1) -->
       <text x="110" y="42" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Stagnant Fluid (Nu = 1)</text>
       <!-- Hot wall left -->
-      <rect x="30" y="60" width="12" height="130" fill="#ef4444" opacity="0.3" stroke="#ef4444" stroke-width="2"/>
-      <text x="36" y="55" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">T_hot</text>
+      <rect x="30" y="60" width="12" height="130" fill="#f472b6" opacity="0.3" stroke="#f472b6" stroke-width="2"/>
+      <text x="36" y="55" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">T_hot</text>
       <!-- Cold wall left -->
-      <rect x="175" y="60" width="12" height="130" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="2"/>
-      <text x="181" y="55" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="9">T_cold</text>
+      <rect x="175" y="60" width="12" height="130" fill="#60a5fa" opacity="0.3" stroke="#60a5fa" stroke-width="2"/>
+      <text x="181" y="55" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">T_cold</text>
       <!-- Stagnant fluid between walls -->
       <rect x="44" y="62" width="129" height="126" fill="#334155" opacity="0.3"/>
       <text x="110" y="120" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Stagnant</text>
@@ -442,8 +442,8 @@ export const heatTransferQuestions: Question[] = [
       <line x1="42" y1="80" x2="175" y2="80" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,3"/>
       <text x="110" y="77" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="8">linear T gradient</text>
       <!-- Single slow heat arrow -->
-      <line x1="55" y1="155" x2="160" y2="155" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ht006-arr-red)"/>
-      <text x="110" y="170" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">q = k&#x394;T/L (conduction only)</text>
+      <line x1="55" y1="155" x2="160" y2="155" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ht006-arr-red)"/>
+      <text x="110" y="170" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">q = k&#x394;T/L (conduction only)</text>
       <!-- L dimension -->
       <line x1="42" y1="198" x2="175" y2="198" stroke="#34d399" stroke-width="1"/>
       <line x1="42" y1="193" x2="42" y2="203" stroke="#34d399" stroke-width="1"/>
@@ -454,21 +454,21 @@ export const heatTransferQuestions: Question[] = [
       <!-- Right side: Convection (Nu >> 1) -->
       <text x="310" y="42" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Moving Fluid (Nu = 100)</text>
       <!-- Hot wall right -->
-      <rect x="220" y="60" width="12" height="130" fill="#ef4444" opacity="0.3" stroke="#ef4444" stroke-width="2"/>
-      <text x="226" y="55" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">T_hot</text>
+      <rect x="220" y="60" width="12" height="130" fill="#f472b6" opacity="0.3" stroke="#f472b6" stroke-width="2"/>
+      <text x="226" y="55" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">T_hot</text>
       <!-- Cold wall right -->
-      <rect x="378" y="60" width="12" height="130" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="2"/>
-      <text x="384" y="55" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="9">T_cold</text>
+      <rect x="378" y="60" width="12" height="130" fill="#60a5fa" opacity="0.3" stroke="#60a5fa" stroke-width="2"/>
+      <text x="384" y="55" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">T_cold</text>
       <!-- Moving fluid -->
       <rect x="234" y="62" width="142" height="126" fill="#334155" opacity="0.3"/>
       <!-- Circulation arrows -->
       <path d="M260,85 Q310,70 340,85 Q350,100 340,120 Q310,135 260,120 Q250,100 260,85" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#ht006-arr-blue)"/>
       <text x="305" y="108" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="9">Mixing</text>
       <!-- Multiple fast heat arrows -->
-      <line x1="245" y1="145" x2="280" y2="145" stroke="#ef4444" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
-      <line x1="280" y1="150" x2="320" y2="150" stroke="#ef4444" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
-      <line x1="320" y1="155" x2="365" y2="155" stroke="#ef4444" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
-      <text x="310" y="172" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="9">q = h&#x394;T (100x more!)</text>
+      <line x1="245" y1="145" x2="280" y2="145" stroke="#f472b6" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
+      <line x1="280" y1="150" x2="320" y2="150" stroke="#f472b6" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
+      <line x1="320" y1="155" x2="365" y2="155" stroke="#f472b6" stroke-width="2" marker-end="url(#ht006-arr-red)"/>
+      <text x="310" y="172" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="9">q = h&#x394;T (100x more!)</text>
       <!-- Bottom formula -->
       <rect x="50" y="225" width="300" height="30" rx="3" fill="none" stroke="#60a5fa" stroke-width="1"/>
       <text x="200" y="244" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Nu = hL/k = convection / conduction</text>

@@ -245,7 +245,7 @@ export const manufacturingQuestions: Question[] = [
       <line x1="135" y1="55" x2="175" y2="225" stroke="#94a3b8" stroke-width="0.3" opacity="0.3"/>
       <line x1="155" y1="55" x2="185" y2="185" stroke="#94a3b8" stroke-width="0.3" opacity="0.3"/>
       <!-- Slot (2mm wide, 20mm deep - drawn proportionally) -->
-      <rect x="109" y="50" width="22" height="150" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
+      <rect x="109" y="50" width="22" height="150" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
       <!-- Dimension: width = 2mm -->
       <line x1="109" y1="42" x2="131" y2="42" stroke="#60a5fa" stroke-width="1"/>
       <line x1="109" y1="38" x2="109" y2="46" stroke="#60a5fa" stroke-width="1"/>

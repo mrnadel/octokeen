@@ -25,8 +25,8 @@ export default function AchievementsPage() {
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-surface-900 flex items-center gap-3">
-            <Trophy className="w-7 h-7 text-amber-500" />
+          <h1 className="text-xl sm:text-2xl font-bold text-surface-900 flex items-center gap-2 sm:gap-3">
+            <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500 shrink-0" />
             Achievements
           </h1>
           <p className="text-surface-500 mt-1">
@@ -34,7 +34,7 @@ export default function AchievementsPage() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-3xl font-bold text-amber-500">{unlockedCount}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-amber-500">{unlockedCount}</p>
           <p className="text-xs text-surface-400">/ {achievements.length}</p>
         </div>
       </div>

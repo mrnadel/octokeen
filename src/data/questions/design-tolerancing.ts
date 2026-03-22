@@ -13,7 +13,7 @@ export const designTolerancingQuestions: Question[] = [
   <!-- Part cross-section -->
   <rect x="50" y="40" width="300" height="120" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
   <!-- Hole -->
-  <ellipse cx="200" cy="100" rx="30" ry="30" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <ellipse cx="200" cy="100" rx="30" ry="30" fill="#334155" stroke="#60a5fa" stroke-width="2"/>
   <!-- Hole centerlines -->
   <line x1="200" y1="60" x2="200" y2="140" stroke="#60a5fa" stroke-width="0.8" stroke-dasharray="6,3"/>
   <line x1="160" y1="100" x2="240" y2="100" stroke="#60a5fa" stroke-width="0.8" stroke-dasharray="6,3"/>
@@ -138,9 +138,9 @@ export const designTolerancingQuestions: Question[] = [
   <rect x="100" y="40" width="200" height="220" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
   <text x="200" y="30" text-anchor="middle" fill="#94a3b8" font-size="12">Housing</text>
   <!-- Bearing outer race -->
-  <circle cx="200" cy="150" r="70" fill="#1e293b" stroke="#f472b6" stroke-width="2.5"/>
+  <circle cx="200" cy="150" r="70" fill="#334155" stroke="#f472b6" stroke-width="2.5"/>
   <!-- Bearing inner race -->
-  <circle cx="200" cy="150" r="45" fill="#1e293b" stroke="#f472b6" stroke-width="2.5"/>
+  <circle cx="200" cy="150" r="45" fill="#334155" stroke="#f472b6" stroke-width="2.5"/>
   <!-- Rolling elements suggestion -->
   <circle cx="200" cy="93" r="6" fill="none" stroke="#94a3b8" stroke-width="1"/>
   <circle cx="243" cy="107" r="6" fill="none" stroke="#94a3b8" stroke-width="1"/>
@@ -151,7 +151,7 @@ export const designTolerancingQuestions: Question[] = [
   <circle cx="143" cy="150" r="6" fill="none" stroke="#94a3b8" stroke-width="1"/>
   <circle cx="157" cy="107" r="6" fill="none" stroke="#94a3b8" stroke-width="1"/>
   <!-- Shaft -->
-  <circle cx="200" cy="150" r="28" fill="#475569" stroke="#60a5fa" stroke-width="2"/>
+  <circle cx="200" cy="150" r="28" fill="#94a3b8" stroke="#60a5fa" stroke-width="2"/>
   <!-- Interference fit indicator (housing-to-bearing OD) -->
   <line x1="270" y1="95" x2="270" y2="80" stroke="#fb923c" stroke-width="1"/>
   <line x1="270" y1="80" x2="285" y2="80" stroke="#fb923c" stroke-width="1"/>
@@ -238,7 +238,7 @@ export const designTolerancingQuestions: Question[] = [
   <text x="368" y="136" text-anchor="middle" fill="#e2e8f0" font-size="11">A</text>
 
   <!-- Hierarchy arrow -->
-  <text x="200" y="180" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">GD&T Hierarchy</text>
+  <text x="200" y="180" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">GD&amp;T Hierarchy</text>
   <!-- Form -> Orientation -> Location -->
   <rect x="50" y="195" width="80" height="24" rx="4" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
   <text x="90" y="211" text-anchor="middle" fill="#60a5fa" font-size="11">Form</text>

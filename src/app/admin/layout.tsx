@@ -21,7 +21,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="bg-white border-b border-gray-200 px-4 flex items-center h-12 gap-3">
         <Link
           href="/"
-          className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-500 hover:text-gray-700 transition-colors shrink-0"
+          className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-500 hover:text-gray-700 transition-colors shrink-0 min-h-[44px] px-1"
         >
           <span className="text-base leading-none">&larr;</span>
           App
@@ -41,7 +41,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={href}
                 href={href}
                 className={cn(
-                  'text-[13px] py-2.5 px-3.5 -mb-[2px] whitespace-nowrap border-b-2 transition-colors',
+                  'text-[13px] py-3 px-4 -mb-[2px] whitespace-nowrap border-b-2 transition-colors min-h-[44px] flex items-center',
                   isActive
                     ? 'font-bold text-gray-900 border-gray-900'
                     : 'font-medium text-gray-400 border-transparent hover:text-gray-600'

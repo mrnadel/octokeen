@@ -84,10 +84,10 @@ export default function PublicProfilePage() {
   if (error || !profile) {
     return (
       <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
-        <header style={{ borderBottom: '2px solid #E5E5E5', padding: '12px 20px' }}>
-          <Link href="/friends" className="flex items-center gap-2">
+        <header className="px-4 sm:px-5 py-3" style={{ borderBottom: '2px solid #E5E5E5' }}>
+          <Link href="/friends" className="flex items-center gap-2 min-h-[44px]">
             <ChevronLeft className="w-5 h-5" />
-            <span style={{ fontSize: 16, fontWeight: 700 }}>Back</span>
+            <span className="text-base font-bold">Back</span>
           </Link>
         </header>
         <div className="flex flex-col items-center justify-center gap-4 py-20 px-6">
@@ -117,13 +117,13 @@ export default function PublicProfilePage() {
   return (
     <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
       <header
-        className="sticky top-0 z-10 bg-white"
-        style={{ borderBottom: '2px solid #E5E5E5', padding: '12px 20px' }}
+        className="sticky top-0 z-10 bg-white px-4 sm:px-5 py-3"
+        style={{ borderBottom: '2px solid #E5E5E5' }}
       >
         <div className="flex items-center justify-between">
-          <Link href="/friends" className="flex items-center gap-2">
+          <Link href="/friends" className="flex items-center gap-2 min-h-[44px]">
             <ChevronLeft className="w-5 h-5" />
-            <span style={{ fontSize: 16, fontWeight: 700 }}>Profile</span>
+            <span className="text-base font-bold">Profile</span>
           </Link>
           {profile.relationship !== 'self' && (
             <AddFriendButton
@@ -135,7 +135,7 @@ export default function PublicProfilePage() {
         </div>
       </header>
 
-      <div style={{ padding: '24px 20px', maxWidth: 600, margin: '0 auto' }}>
+      <div className="px-4 sm:px-5 py-6 max-w-[600px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -152,7 +152,7 @@ export default function PublicProfilePage() {
             )}
           </div>
           <div className="text-center">
-            <h1 className="text-xl font-extrabold text-surface-900">
+            <h1 className="text-xl font-extrabold text-surface-900 truncate max-w-[280px] sm:max-w-none mx-auto">
               {profile.displayName}
             </h1>
             {profile.joinedDate && (
@@ -237,7 +237,7 @@ export default function PublicProfilePage() {
               <Trophy className="w-4 h-4 text-amber-500" />
               Achievements ({earnedAchievements.length})
             </h2>
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {earnedAchievements.map((ach) => (
                 <div key={ach.id} className="flex flex-col items-center gap-1">
                   <span className="text-2xl">{ach.icon}</span>

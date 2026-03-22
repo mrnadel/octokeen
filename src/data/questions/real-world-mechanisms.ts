@@ -15,7 +15,7 @@ export const realWorldMechanismsQuestions: Question[] = [
   <!-- Fluid -->
   <rect x="42" y="170" width="316" height="48" rx="2" fill="#60a5fa" opacity="0.15"/>
   <!-- Small cylinder (pump) -->
-  <rect x="70" y="80" width="40" height="90" rx="2" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="70" y="80" width="40" height="90" rx="2" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
   <!-- Small piston -->
   <rect x="74" y="95" width="32" height="12" rx="1" fill="#60a5fa" stroke="#60a5fa" stroke-width="1"/>
   <!-- Pump handle -->
@@ -28,7 +28,7 @@ export const realWorldMechanismsQuestions: Question[] = [
   <!-- Small piston label -->
   <text x="90" y="78" text-anchor="middle" fill="#60a5fa" font-size="10">A = 2 cm\u00B2</text>
   <!-- Large cylinder (lift) -->
-  <rect x="260" y="60" width="80" height="110" rx="2" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="260" y="60" width="80" height="110" rx="2" fill="#334155" stroke="#34d399" stroke-width="1.5"/>
   <!-- Large piston -->
   <rect x="264" y="75" width="72" height="15" rx="1" fill="#34d399" stroke="#34d399" stroke-width="1"/>
   <!-- Lift platform -->
@@ -86,19 +86,19 @@ export const realWorldMechanismsQuestions: Question[] = [
   <!-- Car body (simplified top-down) -->
   <rect x="100" y="80" width="100" height="160" rx="15" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
   <!-- Front wheels -->
-  <rect x="82" y="95" width="18" height="35" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
-  <rect x="200" y="95" width="18" height="35" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="82" y="95" width="18" height="35" rx="4" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="200" y="95" width="18" height="35" rx="4" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
   <!-- Rear axle -->
   <line x1="91" y1="215" x2="209" y2="215" stroke="#60a5fa" stroke-width="2.5"/>
   <!-- Differential (circle in center of rear axle) -->
-  <circle cx="150" cy="215" r="14" fill="#1e293b" stroke="#f472b6" stroke-width="2"/>
+  <circle cx="150" cy="215" r="14" fill="#334155" stroke="#f472b6" stroke-width="2"/>
   <!-- Spider gears inside -->
   <circle cx="145" cy="215" r="4" fill="none" stroke="#f472b6" stroke-width="1"/>
   <circle cx="155" cy="215" r="4" fill="none" stroke="#f472b6" stroke-width="1"/>
   <text x="150" y="245" text-anchor="middle" fill="#f472b6" font-size="10" font-weight="bold">Differential</text>
   <!-- Rear wheels -->
-  <rect x="82" y="198" width="18" height="35" rx="4" fill="#475569" stroke="#60a5fa" stroke-width="1.5"/>
-  <rect x="200" y="198" width="18" height="35" rx="4" fill="#475569" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="82" y="198" width="18" height="35" rx="4" fill="#94a3b8" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="200" y="198" width="18" height="35" rx="4" fill="#94a3b8" stroke="#34d399" stroke-width="1.5"/>
   <!-- Inner wheel arc (shorter) -->
   <path d="M 91 200 A 80 80 0 0 1 91 232" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
   <!-- Outer wheel arc (longer) -->
@@ -143,7 +143,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     question: 'You are designing a door closer mechanism for a commercial building. Which type do you choose?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Door frame -->
-  <rect x="180" y="30" width="12" height="200" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="180" y="30" width="12" height="200" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
   <!-- Door (open position, angled) -->
   <line x1="186" y1="35" x2="310" y2="90" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round"/>
   <!-- Door (closed position, dashed) -->
@@ -306,7 +306,7 @@ export const realWorldMechanismsQuestions: Question[] = [
   <!-- Winch at top -->
   <circle cx="350" cy="108" r="18" fill="#334155" stroke="#34d399" stroke-width="2"/>
   <!-- Drum (inner) -->
-  <circle cx="350" cy="108" r="7" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <circle cx="350" cy="108" r="7" fill="#334155" stroke="#34d399" stroke-width="1.5"/>
   <!-- Crank handle -->
   <line x1="350" y1="108" x2="385" y2="85" stroke="#e2e8f0" stroke-width="2.5"/>
   <circle cx="385" cy="85" r="4" fill="#e2e8f0"/>
@@ -499,7 +499,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     question: 'A residential clothes dryer is making a loud squealing noise and occasionally not tumbling. What component has likely failed first?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Dryer cabinet outline -->
-  <rect x="60" y="30" width="280" height="220" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="60" y="30" width="280" height="220" rx="6" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
   <!-- Drum (large circle) -->
   <circle cx="200" cy="130" r="85" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
   <!-- Drum interior hatching for rotation -->

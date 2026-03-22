@@ -89,7 +89,7 @@ export default function BillingSettingsPage() {
         </div>
       </div>
 
-      <div className="px-4 pt-6 space-y-6">
+      <div className="px-4 pt-6 space-y-6 max-w-lg mx-auto">
         {/* Current Plan Card */}
         <div className="bg-white rounded-2xl border border-gray-200 p-5">
           <div className="flex items-center justify-between mb-4">
