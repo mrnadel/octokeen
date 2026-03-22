@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { href: '/admin/feedback', label: 'Feedback' },
@@ -15,83 +16,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F8F9FA', fontFamily: 'system-ui' }}>
-      {/* Top bar: back + title */}
-      <div
-        style={{
-          background: 'white',
-          borderBottom: '1px solid #E5E5E5',
-          padding: '0 16px',
-          display: 'flex',
-          alignItems: 'center',
-          height: 48,
-          gap: 12,
-        }}
-      >
+    <div className="min-h-screen bg-gray-50">
+      {/* Top bar */}
+      <div className="bg-white border-b border-gray-200 px-4 flex items-center h-12 gap-3">
         <Link
           href="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 13,
-            fontWeight: 600,
-            color: '#666',
-            textDecoration: 'none',
-            flexShrink: 0,
-          }}
+          className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-500 hover:text-gray-700 transition-colors shrink-0"
         >
-          <span style={{ fontSize: 16, lineHeight: 1 }}>&larr;</span>
+          <span className="text-base leading-none">&larr;</span>
           App
         </Link>
-
-        <span
-          style={{
-            fontSize: 15,
-            fontWeight: 800,
-            color: '#111',
-            marginLeft: 'auto',
-          }}
-        >
+        <span className="text-[15px] font-extrabold text-gray-900 ml-auto">
           Admin
         </span>
       </div>
 
-      {/* Nav tabs: horizontally scrollable */}
-      <nav
-        style={{
-          background: 'white',
-          borderBottom: '2px solid #E5E5E5',
-          overflowX: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            padding: '0 12px',
-            gap: 2,
-            minWidth: 'max-content',
-          }}
-        >
+      {/* Nav tabs */}
+      <nav className="bg-white border-b-2 border-gray-200 overflow-x-auto scrollbar-none">
+        <div className="flex px-3 gap-0.5 min-w-max">
           {NAV_LINKS.map(({ href, label }) => {
             const isActive = pathname.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href}
-                style={{
-                  fontSize: 13,
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#111' : '#888',
-                  textDecoration: 'none',
-                  padding: '10px 14px',
-                  borderBottom: isActive ? '2px solid #111' : '2px solid transparent',
-                  marginBottom: -2,
-                  whiteSpace: 'nowrap',
-                  transition: 'color 0.15s',
-                }}
+                className={cn(
+                  'text-[13px] py-2.5 px-3.5 -mb-[2px] whitespace-nowrap border-b-2 transition-colors',
+                  isActive
+                    ? 'font-bold text-gray-900 border-gray-900'
+                    : 'font-medium text-gray-400 border-transparent hover:text-gray-600'
+                )}
               >
                 {label}
               </Link>
@@ -101,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </nav>
 
       {/* Page content */}
-      <main style={{ padding: '16px' }}>
+      <main className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
         {children}
       </main>
     </div>
