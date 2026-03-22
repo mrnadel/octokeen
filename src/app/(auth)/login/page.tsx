@@ -63,7 +63,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <h2 className="text-2xl font-black text-surface-900 mb-8">Sign in</h2>
+      <h2 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Sign in</h2>
 
       {/* Google */}
       <button
@@ -83,7 +83,7 @@ export default function LoginPage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-3">
         {error && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
             {error}

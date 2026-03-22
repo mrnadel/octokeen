@@ -45,7 +45,7 @@ function PasswordStrength({ password }: { password: string }) {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full transition-colors ${
+            className={`h-1.5 sm:h-1 flex-1 rounded-full transition-colors ${
               i <= score
                 ? score === 3
                   ? 'bg-[#58CC02]'
@@ -126,7 +126,7 @@ export default function RegisterPage() {
 
   return (
     <>
-      <h2 className="text-2xl font-black text-surface-900 mb-8">Create account</h2>
+      <h2 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Create account</h2>
 
       {/* Google */}
       <button
@@ -146,7 +146,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-3">
         {error && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
             {error}

@@ -9,6 +9,52 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Everyday Machines',
     difficulty: 'beginner',
     question: 'How does a hydraulic car jack work? Explain the physics that lets a small hand force lift a 2-ton car.',
+    diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Reservoir / body -->
+  <rect x="40" y="140" width="320" height="80" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Fluid -->
+  <rect x="42" y="170" width="316" height="48" rx="2" fill="#60a5fa" opacity="0.15"/>
+  <!-- Small cylinder (pump) -->
+  <rect x="70" y="80" width="40" height="90" rx="2" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- Small piston -->
+  <rect x="74" y="95" width="32" height="12" rx="1" fill="#60a5fa" stroke="#60a5fa" stroke-width="1"/>
+  <!-- Pump handle -->
+  <line x1="90" y1="95" x2="90" y2="40" stroke="#e2e8f0" stroke-width="2.5"/>
+  <line x1="90" y1="40" x2="50" y2="40" stroke="#e2e8f0" stroke-width="2.5"/>
+  <!-- Hand force arrow -->
+  <line x1="50" y1="40" x2="50" y2="20" stroke="#f472b6" stroke-width="2"/>
+  <polygon points="46,25 54,25 50,15" fill="#f472b6"/>
+  <text x="50" y="12" text-anchor="middle" fill="#f472b6" font-size="10" font-weight="bold">F = 100 N</text>
+  <!-- Small piston label -->
+  <text x="90" y="78" text-anchor="middle" fill="#60a5fa" font-size="10">A = 2 cm\u00B2</text>
+  <!-- Large cylinder (lift) -->
+  <rect x="260" y="60" width="80" height="110" rx="2" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Large piston -->
+  <rect x="264" y="75" width="72" height="15" rx="1" fill="#34d399" stroke="#34d399" stroke-width="1"/>
+  <!-- Lift platform -->
+  <rect x="250" y="50" width="100" height="12" rx="2" fill="#334155" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="300" y="48" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold">CAR (2 ton)</text>
+  <!-- Lift force arrow -->
+  <line x1="300" y1="75" x2="300" y2="35" stroke="#34d399" stroke-width="2"/>
+  <polygon points="296,40 304,40 300,30" fill="#34d399"/>
+  <text x="355" y="42" fill="#34d399" font-size="10" font-weight="bold">F = 2000 N</text>
+  <!-- Large piston label -->
+  <text x="300" y="105" text-anchor="middle" fill="#34d399" font-size="10">A = 40 cm\u00B2</text>
+  <!-- Fluid connection arrows -->
+  <line x1="110" y1="185" x2="260" y2="185" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="6,3"/>
+  <polygon points="255,182 255,188 262,185" fill="#60a5fa"/>
+  <!-- Pressure label -->
+  <text x="185" y="180" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold">P = F/A = 50 N/cm\u00B2</text>
+  <text x="185" y="195" text-anchor="middle" fill="#60a5fa" font-size="10">(equal throughout fluid)</text>
+  <!-- Check valve symbol -->
+  <circle cx="150" cy="170" r="6" fill="none" stroke="#fb923c" stroke-width="1.2"/>
+  <polygon points="147,167 153,167 150,173" fill="#fb923c"/>
+  <text x="150" y="162" text-anchor="middle" fill="#fb923c" font-size="8">Check valve</text>
+  <!-- Pascal's principle -->
+  <text x="200" y="245" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Pascal\u2019s Principle: P\u2081 = P\u2082</text>
+  <text x="200" y="263" text-anchor="middle" fill="#e2e8f0" font-size="11">Area ratio 40:2 = 20:1 mechanical advantage</text>
+  <text x="200" y="280" text-anchor="middle" fill="#94a3b8" font-size="10">Trade-off: many pumps needed (force \u00D7 distance conserved)</text>
+</svg>`,
     sampleAnswer: 'A hydraulic jack uses Pascal\'s principle: pressure applied to a confined fluid is transmitted equally in all directions. The jack has two cylinders — a small one (the pump) and a large one (the lift). When you pump the handle, you push a small piston into the small cylinder, creating high pressure. This pressure is transmitted through oil to the large piston.\n\nThe mechanical advantage comes from the area ratio. If the small piston has an area of 2 cm² and the large piston has 40 cm², the area ratio is 20:1. A 100 N hand force creates 50 N/cm² pressure, which acts on the 40 cm² large piston, generating 2,000 N of lift force. Combined with the lever ratio of the pump handle (typically 5:1-10:1), the total mechanical advantage can be 100:1 to 200:1.\n\nThe trade-off: you pump many times because each pump stroke moves only a small volume of oil, and the large piston moves very little per stroke (volume conservation). You gain force at the expense of distance.',
     keyPoints: [
       'Pascal\'s principle: pressure is transmitted equally through confined fluid',
@@ -31,6 +77,48 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Automotive Systems',
     difficulty: 'intermediate',
     question: 'In a conventional rear-wheel-drive car, what does the differential do and why is it necessary?',
+    diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Top-down view of car turning -->
+  <!-- Turn arc -->
+  <path d="M 300 230 A 120 120 0 0 0 300 60" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="340" y="150" fill="#94a3b8" font-size="10">Turn center</text>
+  <circle cx="320" cy="145" r="3" fill="#94a3b8"/>
+  <!-- Car body (simplified top-down) -->
+  <rect x="100" y="80" width="100" height="160" rx="15" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Front wheels -->
+  <rect x="82" y="95" width="18" height="35" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="200" y="95" width="18" height="35" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Rear axle -->
+  <line x1="91" y1="215" x2="209" y2="215" stroke="#60a5fa" stroke-width="2.5"/>
+  <!-- Differential (circle in center of rear axle) -->
+  <circle cx="150" cy="215" r="14" fill="#1e293b" stroke="#f472b6" stroke-width="2"/>
+  <!-- Spider gears inside -->
+  <circle cx="145" cy="215" r="4" fill="none" stroke="#f472b6" stroke-width="1"/>
+  <circle cx="155" cy="215" r="4" fill="none" stroke="#f472b6" stroke-width="1"/>
+  <text x="150" y="245" text-anchor="middle" fill="#f472b6" font-size="10" font-weight="bold">Differential</text>
+  <!-- Rear wheels -->
+  <rect x="82" y="198" width="18" height="35" rx="4" fill="#475569" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="200" y="198" width="18" height="35" rx="4" fill="#475569" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Inner wheel arc (shorter) -->
+  <path d="M 91 200 A 80 80 0 0 1 91 232" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- Outer wheel arc (longer) -->
+  <path d="M 209 198 A 150 150 0 0 1 209 232" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- Speed labels -->
+  <text x="60" y="220" text-anchor="end" fill="#60a5fa" font-size="10" font-weight="bold">Slower</text>
+  <text x="240" y="220" fill="#34d399" font-size="10" font-weight="bold">Faster</text>
+  <!-- Arc length labels -->
+  <text x="55" y="235" text-anchor="end" fill="#60a5fa" font-size="9">Shorter arc</text>
+  <text x="240" y="235" fill="#34d399" font-size="9">Longer arc</text>
+  <!-- Driveshaft from engine -->
+  <line x1="150" y1="200" x2="150" y2="170" stroke="#fb923c" stroke-width="2.5"/>
+  <text x="150" y="165" text-anchor="middle" fill="#fb923c" font-size="9">From engine</text>
+  <!-- Key insight -->
+  <text x="150" y="273" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Splits torque while allowing different wheel speeds</text>
+  <!-- Turn direction arrow -->
+  <path d="M 230 140 A 40 40 0 0 1 250 120" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <polygon points="250,117 254,125 247,123" fill="#e2e8f0"/>
+  <text x="255" y="115" fill="#e2e8f0" font-size="10">Turn</text>
+</svg>`,
     options: [
       { id: 'a', text: 'It changes gear ratios for different driving speeds, like a transmission' },
       { id: 'b', text: 'It allows the left and right wheels to rotate at different speeds during turns while transmitting torque to both' },
@@ -53,6 +141,40 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Everyday Machines',
     difficulty: 'intermediate',
     question: 'You are designing a door closer mechanism for a commercial building. Which type do you choose?',
+    diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Door frame -->
+  <rect x="180" y="30" width="12" height="200" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Door (open position, angled) -->
+  <line x1="186" y1="35" x2="310" y2="90" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round"/>
+  <!-- Door (closed position, dashed) -->
+  <line x1="186" y1="35" x2="186" y2="175" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="172" y="185" text-anchor="end" fill="#94a3b8" font-size="9">Closed</text>
+  <!-- Door closer body (overhead) -->
+  <rect x="195" y="38" width="55" height="18" rx="3" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="222" y="51" text-anchor="middle" fill="#60a5fa" font-size="8">Closer</text>
+  <!-- Arm mechanism -->
+  <line x1="250" y1="47" x2="290" y2="65" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="290" y1="65" x2="305" y2="82" stroke="#60a5fa" stroke-width="2"/>
+  <circle cx="250" cy="47" r="3" fill="#60a5fa"/>
+  <circle cx="290" cy="65" r="2.5" fill="#60a5fa"/>
+  <circle cx="305" cy="82" r="3" fill="#60a5fa"/>
+  <!-- Hinge point -->
+  <circle cx="186" cy="35" r="5" fill="#f472b6" stroke="#f472b6" stroke-width="1"/>
+  <text x="176" y="30" text-anchor="end" fill="#f472b6" font-size="9">Hinge</text>
+  <!-- Closing arc arrow -->
+  <path d="M 290 100 A 110 110 0 0 1 195 170" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <polygon points="198,167 190,172 198,174" fill="#34d399"/>
+  <text x="260" y="150" fill="#34d399" font-size="10">Controlled</text>
+  <text x="260" y="163" fill="#34d399" font-size="10">closing</text>
+  <!-- Requirements box -->
+  <rect x="10" y="210" width="380" height="62" rx="4" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <text x="200" y="228" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Requirements</text>
+  <text x="30" y="245" fill="#fb923c" font-size="10">Door: 50 kg</text>
+  <text x="140" y="245" fill="#fb923c" font-size="10">ADA: max 5 lbf</text>
+  <text x="270" y="245" fill="#fb923c" font-size="10">500+ cycles/day</text>
+  <text x="30" y="262" fill="#94a3b8" font-size="10">Wind resistance needed</text>
+  <text x="200" y="262" fill="#94a3b8" font-size="10">Adjustable closing + latching speed</text>
+</svg>`,
     context: 'The door is a heavy (50 kg) exterior door that must close reliably against wind pressure. It needs to comply with ADA accessibility requirements (max opening force 5 lbf, closing speed controlled). The building has 500+ door cycles per day.',
     designOptions: [
       {
@@ -92,6 +214,50 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Linkages & Mechanisms',
     difficulty: 'intermediate',
     question: 'A four-bar linkage has link lengths of 2, 4, 5, and 6 cm. According to Grashof\'s criterion, which statement is true?',
+    diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Ground link (frame) -->
+  <line x1="80" y1="180" x2="280" y2="180" stroke="#94a3b8" stroke-width="3"/>
+  <!-- Ground hatching -->
+  <line x1="80" y1="185" x2="70" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="100" y1="185" x2="90" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="120" y1="185" x2="110" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="140" y1="185" x2="130" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="160" y1="185" x2="150" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="180" y1="185" x2="170" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="200" y1="185" x2="190" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="220" y1="185" x2="210" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="240" y1="185" x2="230" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="260" y1="185" x2="250" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="280" y1="185" x2="270" y2="195" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Link 1 (ground) label -->
+  <text x="180" y="200" text-anchor="middle" fill="#94a3b8" font-size="11">Ground (d = 5 cm)</text>
+  <!-- Crank (shortest link = 2cm, can fully rotate) -->
+  <line x1="80" y1="180" x2="110" y2="120" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rotation arc for crank -->
+  <path d="M 100 180 A 40 40 0 1 1 60 180" fill="none" stroke="#f472b6" stroke-width="1" stroke-dasharray="4,3"/>
+  <polygon points="62,176 58,183 65,181" fill="#f472b6"/>
+  <text x="50" y="148" fill="#f472b6" font-size="10" font-weight="bold">Crank</text>
+  <text x="50" y="161" fill="#f472b6" font-size="10">(S = 2 cm)</text>
+  <text x="50" y="174" fill="#f472b6" font-size="10">Full rotation</text>
+  <!-- Coupler link -->
+  <line x1="110" y1="120" x2="280" y2="120" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/>
+  <text x="195" y="113" text-anchor="middle" fill="#60a5fa" font-size="11">Coupler (L = 6 cm)</text>
+  <!-- Rocker -->
+  <line x1="280" y1="180" x2="280" y2="120" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rocker arc -->
+  <path d="M 280 140 A 20 20 0 0 1 295 160" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="310" y="145" fill="#34d399" font-size="10" font-weight="bold">Rocker</text>
+  <text x="310" y="158" fill="#34d399" font-size="10">(Q = 4 cm)</text>
+  <!-- Joint circles -->
+  <circle cx="80" cy="180" r="5" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
+  <circle cx="110" cy="120" r="5" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
+  <circle cx="280" cy="120" r="5" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
+  <circle cx="280" cy="180" r="5" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- Grashof check -->
+  <rect x="50" y="220" width="300" height="45" rx="4" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <text x="200" y="238" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Grashof Check: S + L \u2264 P + Q</text>
+  <text x="200" y="256" text-anchor="middle" fill="#34d399" font-size="12">2 + 6 = 8 \u2264 4 + 5 = 9  \u2713 Grashof linkage</text>
+</svg>`,
     options: [
       { id: 'a', text: 'It is a Grashof linkage — the shortest link can make a full rotation' },
       { id: 'b', text: 'It is a non-Grashof linkage — no link can make a full rotation (all links rock)' },
@@ -114,6 +280,49 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Everyday Machines',
     difficulty: 'intermediate',
     question: 'Estimate the gear ratio of a hand-operated winch that allows one person to pull a 2,000 kg boat up a ramp.',
+    diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Ramp surface -->
+  <line x1="50" y1="250" x2="350" y2="120" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Water line -->
+  <line x1="20" y1="260" x2="100" y2="260" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M 20 265 Q 35 260 50 265 T 80 265 T 100 265" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.5"/>
+  <!-- Boat (simplified) -->
+  <path d="M 120 210 L 100 230 L 200 240 L 220 220 Z" fill="#334155" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="160" y="232" text-anchor="middle" fill="#e2e8f0" font-size="10">2,000 kg</text>
+  <!-- Weight vector (down) -->
+  <line x1="160" y1="240" x2="160" y2="275" stroke="#f472b6" stroke-width="1.5"/>
+  <polygon points="157,275 163,275 160,282" fill="#f472b6"/>
+  <text x="175" y="280" fill="#f472b6" font-size="9">W = 20,000 N</text>
+  <!-- Force component along ramp -->
+  <line x1="160" y1="225" x2="110" y2="240" stroke="#fb923c" stroke-width="2"/>
+  <polygon points="113,237 108,243 115,242" fill="#fb923c"/>
+  <text x="100" y="220" fill="#fb923c" font-size="9">F_ramp = W\u00B7sin10\u00B0</text>
+  <text x="100" y="232" fill="#fb923c" font-size="9">\u2248 3,470 N</text>
+  <!-- Ramp angle -->
+  <path d="M 100 250 A 40 40 0 0 0 105 243" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <text x="115" y="255" fill="#94a3b8" font-size="10">10\u00B0</text>
+  <!-- Cable from boat to winch -->
+  <line x1="220" y1="218" x2="345" y2="115" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- Winch at top -->
+  <circle cx="350" cy="108" r="18" fill="#334155" stroke="#34d399" stroke-width="2"/>
+  <!-- Drum (inner) -->
+  <circle cx="350" cy="108" r="7" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Crank handle -->
+  <line x1="350" y1="108" x2="385" y2="85" stroke="#e2e8f0" stroke-width="2.5"/>
+  <circle cx="385" cy="85" r="4" fill="#e2e8f0"/>
+  <!-- Hand force -->
+  <line x1="385" y1="82" x2="385" y2="60" stroke="#34d399" stroke-width="1.5"/>
+  <polygon points="382,63 388,63 385,55" fill="#34d399"/>
+  <text x="385" y="52" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">~150 N</text>
+  <text x="385" y="43" text-anchor="middle" fill="#34d399" font-size="9">hand force</text>
+  <!-- Winch label -->
+  <text x="350" y="138" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">Winch</text>
+  <!-- Calculation box -->
+  <rect x="20" y="15" width="230" height="70" rx="4" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <text x="135" y="33" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Required mechanical advantage:</text>
+  <text x="135" y="50" text-anchor="middle" fill="#e2e8f0" font-size="11">~4,450 N / 150 N \u2248 30:1</text>
+  <text x="135" y="68" text-anchor="middle" fill="#94a3b8" font-size="10">= gear ratio (5:1) \u00D7 crank leverage (6:1)</text>
+</svg>`,
     hints: [
       'A person can comfortably sustain about 100-200 N of force on a crank handle',
       'The boat on the ramp has a component of gravity along the ramp — assume 10° incline',
@@ -144,6 +353,49 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Failure Case Studies',
     difficulty: 'advanced',
     question: 'Spot the flaw in this failure analysis conclusion:',
+    diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Bridge tower (left) -->
+  <rect x="40" y="40" width="20" height="160" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Bridge tower (right) -->
+  <rect x="340" y="40" width="20" height="160" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Main cable catenary -->
+  <path d="M 50 50 Q 200 130 350 50" fill="none" stroke="#60a5fa" stroke-width="3"/>
+  <!-- Suspender cables -->
+  <line x1="110" y1="78" x2="110" y2="180" stroke="#60a5fa" stroke-width="1"/>
+  <line x1="160" y1="98" x2="160" y2="180" stroke="#60a5fa" stroke-width="1"/>
+  <line x1="200" y1="108" x2="200" y2="180" stroke="#60a5fa" stroke-width="1"/>
+  <line x1="240" y1="98" x2="240" y2="180" stroke="#60a5fa" stroke-width="1"/>
+  <line x1="290" y1="78" x2="290" y2="180" stroke="#60a5fa" stroke-width="1"/>
+  <!-- Bridge deck -->
+  <rect x="60" y="180" width="280" height="10" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Cable clamp (failure point) -->
+  <rect x="155" y="72" width="12" height="16" rx="2" fill="#fb923c" stroke="#fb923c" stroke-width="1"/>
+  <!-- Failure point X -->
+  <text x="161" y="68" text-anchor="middle" fill="#fb923c" font-size="16" font-weight="bold">X</text>
+  <line x1="161" y1="55" x2="161" y2="40" stroke="#fb923c" stroke-width="1"/>
+  <text x="161" y="37" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="bold">Failure at clamp</text>
+  <!-- Water droplets at clamp -->
+  <circle cx="155" cy="90" r="2" fill="#60a5fa" opacity="0.6"/>
+  <circle cx="165" cy="92" r="2" fill="#60a5fa" opacity="0.6"/>
+  <text x="180" y="95" fill="#60a5fa" font-size="8">Water pooling</text>
+  <!-- Three contributing factors -->
+  <rect x="20" y="210" width="110" height="55" rx="4" fill="none" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="75" y="228" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold">Corrosion</text>
+  <text x="75" y="242" text-anchor="middle" fill="#94a3b8" font-size="9">Water + salt at</text>
+  <text x="75" y="254" text-anchor="middle" fill="#94a3b8" font-size="9">cable clamp</text>
+  <text x="133" y="237" fill="#e2e8f0" font-size="14" font-weight="bold">+</text>
+  <rect x="145" y="210" width="110" height="55" rx="4" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="200" y="228" text-anchor="middle" fill="#f472b6" font-size="10" font-weight="bold">Static stress</text>
+  <text x="200" y="242" text-anchor="middle" fill="#94a3b8" font-size="9">Constant cable</text>
+  <text x="200" y="254" text-anchor="middle" fill="#94a3b8" font-size="9">tension</text>
+  <text x="258" y="237" fill="#e2e8f0" font-size="14" font-weight="bold">+</text>
+  <rect x="270" y="210" width="110" height="55" rx="4" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <text x="325" y="228" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">Cyclic fatigue</text>
+  <text x="325" y="242" text-anchor="middle" fill="#94a3b8" font-size="9">Traffic + wind</text>
+  <text x="325" y="254" text-anchor="middle" fill="#94a3b8" font-size="9">loading</text>
+  <!-- Bottom text -->
+  <text x="200" y="278" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Flaw: Concluded corrosion only \u2014 missed synergistic SCC/fatigue</text>
+</svg>`,
     statement: 'A steel bridge cable failed after 15 years of service. Visual inspection showed a corroded region at a cable clamp where water accumulated. The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
     flaw: {
       text: 'The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
@@ -165,6 +417,63 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Automotive Systems',
     difficulty: 'intermediate',
     question: 'Which of the following happen when you press the brake pedal in a car with disc brakes and ABS? (Select all that apply)',
+    diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Brake pedal -->
+  <rect x="20" y="80" width="8" height="50" rx="2" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
+  <ellipse cx="24" cy="135" rx="12" ry="8" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="24" y="155" text-anchor="middle" fill="#e2e8f0" font-size="9">Pedal</text>
+  <!-- Foot force arrow -->
+  <line x1="24" y1="75" x2="24" y2="55" stroke="#f472b6" stroke-width="1.5"/>
+  <polygon points="21,58 27,58 24,50" fill="#f472b6"/>
+  <text x="24" y="47" text-anchor="middle" fill="#f472b6" font-size="9">Foot force</text>
+  <!-- Arrow to booster -->
+  <line x1="36" y1="105" x2="58" y2="105" stroke="#94a3b8" stroke-width="1.2"/>
+  <polygon points="55,102 55,108 62,105" fill="#94a3b8"/>
+  <!-- Vacuum booster -->
+  <circle cx="85" cy="105" r="22" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="85" y="102" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold">Vacuum</text>
+  <text x="85" y="113" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold">Booster</text>
+  <text x="85" y="135" text-anchor="middle" fill="#60a5fa" font-size="8">3-4x amplify</text>
+  <!-- Arrow to master cylinder -->
+  <line x1="107" y1="105" x2="125" y2="105" stroke="#94a3b8" stroke-width="1.2"/>
+  <polygon points="122,102 122,108 129,105" fill="#94a3b8"/>
+  <!-- Master cylinder -->
+  <rect x="130" y="90" width="45" height="30" rx="3" fill="#334155" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="152" y="103" text-anchor="middle" fill="#f472b6" font-size="8" font-weight="bold">Master</text>
+  <text x="152" y="114" text-anchor="middle" fill="#f472b6" font-size="8" font-weight="bold">Cylinder</text>
+  <!-- Brake lines -->
+  <line x1="175" y1="95" x2="210" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="175" y1="115" x2="210" y2="150" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- ABS module -->
+  <rect x="210" y="85" width="45" height="35" rx="3" fill="#334155" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="232" y="101" text-anchor="middle" fill="#fb923c" font-size="8" font-weight="bold">ABS</text>
+  <text x="232" y="113" text-anchor="middle" fill="#fb923c" font-size="8" font-weight="bold">Module</text>
+  <!-- Lines to calipers -->
+  <line x1="255" y1="95" x2="285" y2="60" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="255" y1="115" x2="285" y2="150" stroke="#94a3b8" stroke-width="1.2"/>
+  <!-- Disc brake (top) -->
+  <circle cx="320" cy="50" r="28" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="320" cy="50" r="12" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Caliper (top) -->
+  <path d="M 305 25 L 305 75 L 310 75 L 310 55 L 330 55 L 330 75 L 335 75 L 335 25 Z" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Pads -->
+  <rect x="308" y="40" width="4" height="15" fill="#34d399"/>
+  <rect x="328" y="40" width="4" height="15" fill="#34d399"/>
+  <text x="320" y="88" text-anchor="middle" fill="#34d399" font-size="8">Caliper + Pads</text>
+  <!-- Disc brake (bottom) -->
+  <circle cx="320" cy="160" r="28" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="320" cy="160" r="12" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 305 135 L 305 185 L 310 185 L 310 165 L 330 165 L 330 185 L 335 185 L 335 135 Z" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="308" y="150" width="4" height="15" fill="#34d399"/>
+  <rect x="328" y="150" width="4" height="15" fill="#34d399"/>
+  <!-- ABS note -->
+  <rect x="30" y="200" width="340" height="45" rx="4" fill="none" stroke="#fb923c" stroke-width="1.2"/>
+  <text x="200" y="218" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold">ABS modulates pressure 15-20x/sec to prevent lock-up</text>
+  <text x="200" y="235" text-anchor="middle" fill="#e2e8f0" font-size="10">ABS can only REDUCE pressure, never INCREASE it</text>
+  <!-- Flow sequence -->
+  <text x="200" y="265" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Foot \u2192 Booster \u2192 Master Cyl \u2192 ABS \u2192 Calipers \u2192 Pads \u2192 Rotor</text>
+  <text x="200" y="282" text-anchor="middle" fill="#94a3b8" font-size="10">Kinetic energy \u2192 Heat (via friction)</text>
+</svg>`,
     options: [
       { id: 'a', text: 'The brake pedal pushes a piston in the master cylinder, pressurizing brake fluid' },
       { id: 'b', text: 'A vacuum booster amplifies your foot force before it reaches the master cylinder' },
@@ -188,6 +497,44 @@ export const realWorldMechanismsQuestions: Question[] = [
     subtopic: 'Failure Case Studies',
     difficulty: 'advanced',
     question: 'A residential clothes dryer is making a loud squealing noise and occasionally not tumbling. What component has likely failed first?',
+    diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <!-- Dryer cabinet outline -->
+  <rect x="60" y="30" width="280" height="220" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Drum (large circle) -->
+  <circle cx="200" cy="130" r="85" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Drum interior hatching for rotation -->
+  <path d="M 200 45 A 85 85 0 0 1 285 130" fill="none" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="3,5"/>
+  <!-- Drum rollers (bottom, where they support the drum) -->
+  <circle cx="145" cy="200" r="8" fill="#334155" stroke="#f472b6" stroke-width="2.5"/>
+  <circle cx="255" cy="200" r="8" fill="#334155" stroke="#f472b6" stroke-width="2.5"/>
+  <!-- Roller flat spots (wear) -->
+  <line x1="138" y1="207" x2="152" y2="207" stroke="#fb923c" stroke-width="2"/>
+  <line x1="248" y1="207" x2="262" y2="207" stroke="#fb923c" stroke-width="2"/>
+  <!-- Roller labels -->
+  <line x1="145" y1="210" x2="120" y2="240" stroke="#f472b6" stroke-width="1"/>
+  <text x="80" y="245" fill="#f472b6" font-size="10" font-weight="bold">Drum rollers</text>
+  <text x="80" y="258" fill="#f472b6" font-size="10">(FAIL FIRST)</text>
+  <!-- Flat spot callout -->
+  <line x1="255" y1="210" x2="290" y2="240" stroke="#fb923c" stroke-width="1"/>
+  <text x="275" y="250" fill="#fb923c" font-size="9">Worn flat spots</text>
+  <text x="275" y="262" fill="#fb923c" font-size="9">\u2192 squealing</text>
+  <!-- Belt around drum -->
+  <ellipse cx="200" cy="130" rx="88" ry="88" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="8,4"/>
+  <!-- Motor (bottom right) -->
+  <rect x="280" y="215" width="35" height="25" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+  <text x="297" y="232" text-anchor="middle" fill="#94a3b8" font-size="8">Motor</text>
+  <!-- Belt path to motor -->
+  <line x1="280" y1="218" x2="260" y2="210" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- Belt label -->
+  <text x="310" y="195" fill="#60a5fa" font-size="9">Drive belt</text>
+  <!-- Failure chain -->
+  <text x="200" y="288" text-anchor="middle" fill="#e2e8f0" font-size="10">Failure chain: Rollers wear \u2192 friction/squeal \u2192 belt stress \u2192 belt breaks \u2192 drum stops</text>
+  <!-- Noise indicator -->
+  <text x="200" y="25" text-anchor="middle" fill="#fb923c" font-size="12" font-weight="bold">SQUEAL + intermittent tumble failure</text>
+  <!-- Rotation arrow -->
+  <path d="M 235 48 A 82 82 0 0 1 280 85" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+  <polygon points="278,82 284,88 282,79" fill="#94a3b8"/>
+</svg>`,
     components: [
       { id: 'a', text: 'The drum belt — stretched or broken from years of cycling' },
       { id: 'b', text: 'The drum roller bearings — worn from supporting the drum weight' },

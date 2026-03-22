@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#FAFAFA] lg:bg-[#E5E7EB] flex flex-col items-center lg:justify-center">
-      <div className="w-full max-w-md mx-auto flex flex-col min-h-screen lg:min-h-0 px-6 pt-4 pb-8 bg-[#FAFAFA] lg:rounded-2xl lg:shadow-xl lg:border lg:border-gray-200 lg:my-8 lg:pb-10 lg:pt-8">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto flex flex-col min-h-screen lg:min-h-0 px-5 sm:px-6 pt-4 pb-8 bg-[#FAFAFA] lg:rounded-2xl lg:shadow-xl lg:border lg:border-gray-200 lg:my-8 lg:pb-10 lg:pt-8">
         {/* Back */}
         <Link
           href="/"
@@ -16,8 +16,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </Link>
 
         {/* Logo */}
-        <div className="flex flex-col items-center mt-10 sm:mt-16 mb-10 lg:mt-6 lg:mb-8">
-          <span className="text-2xl font-black text-surface-900 tracking-tight">MechReady</span>
+        <div className="flex flex-col items-center mt-8 sm:mt-12 mb-8 lg:mt-6 lg:mb-8">
+          <span className="text-xl sm:text-2xl font-black text-surface-900 tracking-tight">MechReady</span>
           <p className="hidden lg:block text-sm text-surface-400 font-semibold mt-2">
             Mechanical engineering interview prep
           </p>
