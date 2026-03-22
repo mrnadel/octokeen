@@ -61,13 +61,15 @@ const PRO_FEATURES = [
 const FREE_LIMITS = [
   '5 questions per day',
   'Unit 1 only',
+  'Basic practice modes only',
   'No streak protection',
+  'Limited analytics',
 ];
 
 const FAQ_ITEMS = [
   {
     q: 'What do I get for free?',
-    a: 'Full access to Unit 1 with up to 5 practice questions per day, all practice modes, and progress tracking. It\'s a great way to experience MechReady before upgrading.',
+    a: 'Full access to Unit 1 with up to 5 practice questions per day using Topic Deep Dive, Daily Challenge, and Real-World Systems modes. Basic progress stats included. Upgrade to Pro for adaptive learning, interview simulation, full analytics, and more.',
   },
   {
     q: 'Can I cancel anytime?',

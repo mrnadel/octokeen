@@ -97,7 +97,8 @@ export function useSubscription() {
   const activeTier = isDev && store.debugTierOverride ? store.debugTierOverride : store.tier;
 
   const isTrialing = store.status === 'trialing';
-  const isProUser = activeTier === 'pro' || isTrialing;
+  const isPastDue = store.status === 'past_due';
+  const isProUser = activeTier === 'pro' || isTrialing || isPastDue;
 
   const trialDaysLeft = (() => {
     if (!isTrialing || !store.trialEnd) return 0;
@@ -108,11 +109,12 @@ export function useSubscription() {
 
   const canAccess = useCallback(
     (feature: Feature): boolean => {
-      const effectiveTier = isTrialing ? 'pro' : activeTier;
+      // Trialing and past_due (grace period) both grant Pro access
+      const effectiveTier = (isTrialing || isPastDue) ? 'pro' : activeTier;
       const tierDef = { features: getTierFeatures(effectiveTier) };
       return tierDef.features.includes(feature);
     },
-    [activeTier, isTrialing],
+    [activeTier, isTrialing, isPastDue],
   );
 
   return {

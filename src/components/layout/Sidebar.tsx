@@ -37,7 +37,7 @@ const navItems = [
   { divider: true } as const,
   { href: '/shop', label: 'Gem Shop', icon: ShoppingBag },
   { href: '/pricing', label: 'Pricing', icon: CreditCard },
-  { href: '/progress', label: 'Progress & Analytics', icon: BarChart3 },
+  { href: '/progress', label: 'Progress & Analytics', icon: BarChart3, pro: true },
   { href: '/skills', label: 'Skill Map', icon: Target },
   { href: '/achievements', label: 'Achievements', icon: Trophy },
 ];

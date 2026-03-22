@@ -19,8 +19,12 @@ export function UpgradeGate({ feature, reason, children, inline }: UpgradeGatePr
   const { canAccess, isLoading } = useSubscription();
   const [showModal, setShowModal] = useState(false);
 
-  // While loading, show children to avoid flash
-  if (isLoading) return <>{children}</>;
+  // While loading, show a skeleton to prevent flash of Pro content
+  if (isLoading) {
+    return inline
+      ? <span className="inline-block w-12 h-6 rounded-lg bg-gray-100 animate-pulse" />
+      : <div className="rounded-2xl bg-gray-50 border border-gray-100 animate-pulse h-32" />;
+  }
 
   if (canAccess(feature)) return <>{children}</>;
 
