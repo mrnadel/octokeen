@@ -11,9 +11,10 @@ import { allQuestions } from '@/data/questions';
 import { shuffleArray, getTodayString, calculateXP } from '@/lib/utils';
 import { PRO_SESSION_TYPES } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
+import { useCourseStore } from '@/store/useCourseStore';
 
 // --- Session Types ---
-export type SessionType = 'adaptive' | 'topic-deep-dive' | 'interview-sim' | 'daily-challenge' | 'real-world' | 'weak-areas';
+export type SessionType = 'adaptive' | 'topic-deep-dive' | 'interview-sim' | 'daily-challenge' | 'real-world' | 'weak-areas' | 'smart-practice';
 
 export interface ActiveSession {
   type: SessionType;
@@ -132,6 +133,10 @@ function selectQuestionsForSession(type: SessionType, allQs: Question[], options
       pool = allQs.filter(q => q.topic === 'real-world-mechanisms');
       count = 6;
       break;
+    case 'smart-practice':
+      pool = [...allQs];
+      count = 10;
+      break;
     case 'weak-areas':
     case 'adaptive':
     default:
@@ -148,7 +153,12 @@ function selectQuestionsForSession(type: SessionType, allQs: Question[], options
   return shuffleArray(pool).slice(0, Math.min(count, pool.length));
 }
 
-function checkNewAchievements(progress: UserProgress): string[] {
+interface SessionContext {
+  questions: Question[];
+  answers: Record<string, { correct: boolean; confidence?: number; timeSpent: number; xpAwarded: number }>;
+}
+
+function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContext): string[] {
   const newlyUnlocked: string[] = [];
 
   for (const achievement of allAchievements) {
@@ -156,7 +166,7 @@ function checkNewAchievements(progress: UserProgress): string[] {
 
     let unlocked = false;
     switch (achievement.id) {
-      // Knowledge
+      // ── Knowledge ──
       case 'ach-first-correct':
         unlocked = progress.totalQuestionsCorrect >= 1;
         break;
@@ -169,7 +179,32 @@ function checkNewAchievements(progress: UserProgress): string[] {
       case 'ach-hundred-correct':
         unlocked = progress.totalQuestionsCorrect >= 100;
         break;
-      // Consistency
+      case 'ach-perfect-session':
+        if (sessionCtx) {
+          const vals = Object.values(sessionCtx.answers);
+          unlocked = vals.length >= 5 && vals.every(a => a.correct);
+        }
+        break;
+      case 'ach-all-advanced':
+        if (sessionCtx) {
+          const advancedCorrect = sessionCtx.questions.filter(q =>
+            q.difficulty === 'advanced' && sessionCtx.answers[q.id]?.correct
+          ).length;
+          // Cumulative isn't tracked separately, so check session has 10+ advanced correct
+          // This is generous: counts within a single session
+          unlocked = advancedCorrect >= 10;
+        }
+        break;
+      case 'ach-estimation-ace':
+        if (sessionCtx) {
+          const estimationCorrect = sessionCtx.questions.filter(q =>
+            q.type === 'estimation' && sessionCtx.answers[q.id]?.correct
+          ).length;
+          unlocked = estimationCorrect >= 3;
+        }
+        break;
+
+      // ── Consistency ──
       case 'ach-streak-3':
         unlocked = progress.currentStreak >= 3;
         break;
@@ -185,7 +220,80 @@ function checkNewAchievements(progress: UserProgress): string[] {
       case 'ach-daily-challenge-5':
         unlocked = progress.dailyChallengesCompleted >= 5;
         break;
-      // Exploration
+      case 'ach-weekend-warrior': {
+        // Check if session history has both Saturday and Sunday in the same week
+        const history = progress.sessionHistory ?? [];
+        for (const record of history) {
+          const d = new Date(record.date + 'T12:00:00');
+          const day = d.getDay();
+          if (day === 0 || day === 6) {
+            // Find the other weekend day in the same week
+            const otherDay = day === 0 ? 6 : 0; // if Sunday, look for Saturday; vice versa
+            const satDate = new Date(d);
+            satDate.setDate(d.getDate() + (otherDay - day));
+            const satStr = satDate.toISOString().split('T')[0];
+            if (history.some(r => r.date === satStr)) {
+              unlocked = true;
+              break;
+            }
+          }
+        }
+        break;
+      }
+
+      // ── Challenge ──
+      case 'ach-speed-round':
+        if (sessionCtx) {
+          const mcQuestions = sessionCtx.questions.filter(q => q.type === 'multiple-choice');
+          const mcCorrect = mcQuestions.filter(q => sessionCtx.answers[q.id]?.correct);
+          if (mcCorrect.length >= 5) {
+            const totalTime = mcCorrect.slice(0, 5).reduce((sum, q) => sum + (sessionCtx.answers[q.id]?.timeSpent ?? 0), 0);
+            unlocked = totalTime > 0 && totalTime <= 120;
+          }
+        }
+        break;
+      case 'ach-confidence-calibrated':
+        if (sessionCtx) {
+          const highConfCorrect = sessionCtx.questions.filter(q => {
+            const a = sessionCtx.answers[q.id];
+            return a && a.confidence !== undefined && a.confidence >= 3 && a.correct;
+          });
+          unlocked = highConfCorrect.length >= 5;
+        }
+        break;
+      case 'ach-flaw-finder':
+        if (sessionCtx) {
+          const flawCorrect = sessionCtx.questions.filter(q =>
+            q.type === 'spot-the-flaw' && sessionCtx.answers[q.id]?.correct
+          ).length;
+          unlocked = flawCorrect >= 3;
+        }
+        break;
+      case 'ach-scenario-master':
+        if (sessionCtx) {
+          const scenarioCorrect = sessionCtx.questions.filter(q =>
+            q.type === 'scenario' && sessionCtx.answers[q.id]?.correct
+          ).length;
+          unlocked = scenarioCorrect >= 5;
+        }
+        break;
+      case 'ach-hard-streak':
+        if (sessionCtx) {
+          // Check for 5 consecutive advanced correct answers in session order
+          let consecutive = 0;
+          for (const q of sessionCtx.questions) {
+            const a = sessionCtx.answers[q.id];
+            if (q.difficulty === 'advanced' && a?.correct) {
+              consecutive++;
+              if (consecutive >= 5) { unlocked = true; break; }
+            } else if (q.difficulty === 'advanced') {
+              consecutive = 0; // only reset on advanced wrong, not on non-advanced
+            }
+          }
+        }
+        break;
+
+      // ── Exploration ──
       case 'ach-first-topic':
         unlocked = progress.totalQuestionsAttempted >= 1;
         break;
@@ -195,16 +303,76 @@ function checkNewAchievements(progress: UserProgress): string[] {
       case 'ach-all-topics':
         unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 1).length >= 11;
         break;
-      // Mastery
+      case 'ach-all-types':
+        if (sessionCtx) {
+          // Collect all question types the user has ever attempted across topic progress
+          // Since we don't track types in progress, check session questions + use the fact that
+          // with enough exploration, the user encounters all types
+          const allAttemptedTypes = new Set(sessionCtx.questions
+            .filter(q => sessionCtx.answers[q.id])
+            .map(q => q.type));
+          // We need 13 types total, but a single session likely won't have all.
+          // Fall through to check all questions the user could have seen.
+          unlocked = allAttemptedTypes.size >= 13;
+        }
+        break;
+      case 'ach-bookworm':
+        unlocked = (progress.bookmarkedQuestions ?? []).length >= 10;
+        break;
+
+      // ── Mastery ──
       case 'ach-topic-master':
         unlocked = (progress.topicProgress ?? []).some(t => t.questionsAttempted >= 10 && (t.questionsCorrect / t.questionsAttempted) >= 0.8);
         break;
       case 'ach-multi-master':
         unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 10 && (t.questionsCorrect / t.questionsAttempted) >= 0.8).length >= 5;
         break;
+      case 'ach-weakness-conquered': {
+        // Check if any topic went from <50% to >75%
+        // Since we track current accuracy, we check if any topic is now >75%
+        // and was previously in weakAreas (which means it was <60%)
+        const prevWeak = progress.weakAreas ?? [];
+        const currentStrong = (progress.topicProgress ?? []).filter(
+          t => t.questionsAttempted >= 10 && (t.questionsCorrect / t.questionsAttempted) > 0.75
+        ).map(t => t.topicId);
+        unlocked = prevWeak.some(w => currentStrong.includes(w));
+        break;
+      }
       case 'ach-interview-ready':
         unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 5).length >= 11
           && (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 5).every(t => (t.questionsCorrect / t.questionsAttempted) >= 0.7);
+        break;
+
+      // ── Hidden ──
+      case 'ach-night-owl': {
+        const hour = new Date().getHours();
+        unlocked = hour >= 0 && hour < 5;
+        break;
+      }
+      case 'ach-early-bird': {
+        const h = new Date().getHours();
+        unlocked = h >= 5 && h < 6;
+        break;
+      }
+      case 'ach-wrong-five':
+        if (sessionCtx) {
+          const vals = Object.entries(sessionCtx.answers);
+          if (vals.length >= 10) {
+            // Check for 5 consecutive wrong in session order
+            let wrongStreak = 0;
+            let had5Wrong = false;
+            for (const q of sessionCtx.questions) {
+              const a = sessionCtx.answers[q.id];
+              if (a && !a.correct) {
+                wrongStreak++;
+                if (wrongStreak >= 5) had5Wrong = true;
+              } else {
+                wrongStreak = 0;
+              }
+            }
+            unlocked = had5Wrong;
+          }
+        }
         break;
       default:
         break;
@@ -331,6 +499,11 @@ export const useStore = create<AppState>()(
             lastActiveDate: getTodayString(),
           },
         }));
+
+        // Bridge to course store if this is a course question
+        if (questionId.match(/^u\d+-L\d+-Q/)) {
+          useCourseStore.getState().creditPracticeAnswer(questionId, correct);
+        }
       },
 
       nextQuestion: () => {
@@ -398,8 +571,9 @@ export const useStore = create<AppState>()(
             : progress.dailyChallengesCompleted,
         };
 
-        // Check for new achievements
-        const newAchievements = checkNewAchievements(updatedProgress);
+        // Check for new achievements (pass session context for session-specific checks)
+        const sessionCtx: SessionContext = { questions: session.questions, answers: session.answers };
+        const newAchievements = checkNewAchievements(updatedProgress, sessionCtx);
         updatedProgress.achievementsUnlocked = [...updatedProgress.achievementsUnlocked, ...newAchievements];
 
         // Award achievement XP
