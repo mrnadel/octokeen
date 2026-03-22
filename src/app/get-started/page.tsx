@@ -300,7 +300,6 @@ export default function GetStartedPage() {
     setNavigating(true);
     savePreferences();
     router.push('/');
-    router.refresh();
   };
 
   // Which steps can go back
