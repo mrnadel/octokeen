@@ -18,6 +18,7 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { streakMilestones } from '@/data/streak-milestones';
+import { PracticeCard } from '@/components/course/PracticeCard';
 
 export default function HomePage() {
   const { status } = useSession();
@@ -48,12 +49,37 @@ export default function HomePage() {
   const handleMilestoneClose = () => {
     if (unclaimedMilestone) {
       addGems(unclaimedMilestone.gems, `streak_milestone_${unclaimedMilestone.days}`);
-      useEngagementStore.setState((s) => ({
-        streak: {
-          ...s.streak,
-          milestonesReached: [...s.streak.milestonesReached, unclaimedMilestone.days],
-        },
-      }));
+
+      // Grant milestone frame + title to inventory
+      const streakFrameMap: Record<number, string> = {
+        30: 'reward-frame-streak-iron',
+        60: 'reward-frame-streak-diamond',
+        100: 'reward-frame-streak-centurion',
+      };
+      const streakTitleMap: Record<number, string> = {
+        14: 'reward-title-consistent',
+        30: 'reward-title-iron-will',
+        60: 'reward-title-diamond-mind',
+        100: 'reward-title-centurion',
+      };
+      useEngagementStore.setState((s) => {
+        const frames = [...s.gems.inventory.activeFrames];
+        const titles = [...s.gems.inventory.activeTitles];
+        const frameId = streakFrameMap[unclaimedMilestone.days];
+        const titleId = streakTitleMap[unclaimedMilestone.days];
+        if (frameId && !frames.includes(frameId)) frames.push(frameId);
+        if (titleId && !titles.includes(titleId)) titles.push(titleId);
+        return {
+          streak: {
+            ...s.streak,
+            milestonesReached: [...s.streak.milestonesReached, unclaimedMilestone.days],
+          },
+          gems: {
+            ...s.gems,
+            inventory: { ...s.gems.inventory, activeFrames: frames, activeTitles: titles },
+          },
+        };
+      });
     }
     setShownMilestone(null);
   };
@@ -79,6 +105,9 @@ export default function HomePage() {
 
       {/* Quick-nav buttons: Quests · League · Skills */}
       <EngagementBar />
+
+      {/* Smart Practice card */}
+      <PracticeCard />
 
       {/* Course map */}
       <CourseMap />

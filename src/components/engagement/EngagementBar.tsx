@@ -171,16 +171,6 @@ export function EngagementBar() {
 
   const buttons = [
     {
-      href: '/practice/smart',
-      icon: '\uD83E\uDDE0',
-      label: 'Practice',
-      badge: null,
-      badgeDone: false,
-      bg: '#F5F3FF',
-      border: '#DDD6FE',
-      color: '#7C3AED',
-    },
-    {
       href: '/league',
       icon: tier.icon,
       label: tier.name,
