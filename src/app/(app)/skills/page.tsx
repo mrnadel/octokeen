@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
@@ -105,6 +106,8 @@ export default function SkillMapPage() {
     }
     return totalWeight > 0 ? Math.round(weightedScore / totalWeight) : 0;
   }, [analyzed]);
+
+  const router = useRouter();
 
   const strengths = analyzed.filter((t) => t.level === 'mastered' || t.level === 'strong');
   const weaknesses = analyzed.filter((t) => t.level === 'weak').sort((a, b) => a.score - b.score);
@@ -222,7 +225,7 @@ export default function SkillMapPage() {
             delay={0.1}
           >
             {weaknesses.map((t) => (
-              <TopicRow key={t.id} topic={t} />
+              <TopicRow key={t.id} topic={t} onPractice={(topicId) => router.push(`/practice/smart?topic=${topicId}`)} />
             ))}
           </Section>
         )}
@@ -237,7 +240,7 @@ export default function SkillMapPage() {
             delay={0.15}
           >
             {growing.map((t) => (
-              <TopicRow key={t.id} topic={t} />
+              <TopicRow key={t.id} topic={t} onPractice={(topicId) => router.push(`/practice/smart?topic=${topicId}`)} />
             ))}
           </Section>
         )}
@@ -252,7 +255,7 @@ export default function SkillMapPage() {
             delay={0.2}
           >
             {strengths.map((t) => (
-              <TopicRow key={t.id} topic={t} compact />
+              <TopicRow key={t.id} topic={t} compact onPractice={(topicId) => router.push(`/practice/smart?topic=${topicId}`)} />
             ))}
           </Section>
         )}
@@ -267,7 +270,7 @@ export default function SkillMapPage() {
             delay={0.25}
           >
             {untouched.map((t) => (
-              <TopicRow key={t.id} topic={t} compact />
+              <TopicRow key={t.id} topic={t} compact onPractice={(topicId) => router.push(`/practice/smart?topic=${topicId}`)} />
             ))}
           </Section>
         )}
@@ -331,9 +334,10 @@ interface TopicRowProps {
     subs: { id: string; name: string; level: Mastery; score: number; accuracy: number; attempted: number }[];
   };
   compact?: boolean;
+  onPractice?: (topicId: string) => void;
 }
 
-function TopicRow({ topic, compact }: TopicRowProps) {
+function TopicRow({ topic, compact, onPractice }: TopicRowProps) {
   const meta = masteryMeta[topic.level];
   const relevanceLabel =
     topic.interviewRelevance === 'critical'
@@ -343,12 +347,15 @@ function TopicRow({ topic, compact }: TopicRowProps) {
         : '⚪ Medium';
 
   return (
-    <div
+    <button
+      onClick={() => onPractice?.(topic.id)}
+      className="w-full text-left transition-transform active:scale-[0.98]"
       style={{
         background: 'white',
         borderRadius: 16,
         border: `2px solid ${meta.color}25`,
         padding: compact ? '14px 16px' : '16px 16px 14px',
+        cursor: onPractice ? 'pointer' : 'default',
       }}
     >
       {/* Header */}
@@ -374,6 +381,22 @@ function TopicRow({ topic, compact }: TopicRowProps) {
             {topic.attempted > 0 && (
               <span style={{ fontSize: 20, fontWeight: 900, color: meta.color, flexShrink: 0 }}>
                 {topic.score}%
+              </span>
+            )}
+            {onPractice && (
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#7C3AED',
+                  background: '#F5F3FF',
+                  padding: '2px 8px',
+                  borderRadius: 8,
+                  marginLeft: 8,
+                  flexShrink: 0,
+                }}
+              >
+                Practice &rarr;
               </span>
             )}
           </div>
@@ -430,6 +453,6 @@ function TopicRow({ topic, compact }: TopicRowProps) {
           })}
         </div>
       )}
-    </div>
+    </button>
   );
 }
