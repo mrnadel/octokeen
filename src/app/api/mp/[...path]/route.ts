@@ -2,15 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const MIXPANEL_API = 'https://api-js.mixpanel.com';
 
-export async function POST(req: NextRequest) {
-  const url = new URL(req.url);
-  const target = url.searchParams.get('endpoint');
-  if (!target) {
-    return NextResponse.json({ error: 'Missing endpoint' }, { status: 400 });
-  }
-
+export async function POST(
+  req: NextRequest,
+  { params }: { params: Promise<{ path: string[] }> },
+) {
+  const { path } = await params;
+  const endpoint = path.join('/');
+  const search = req.nextUrl.searchParams.toString();
   const body = await req.text();
-  const resp = await fetch(`${MIXPANEL_API}/${target}?${url.searchParams.toString()}`, {
+
+  const resp = await fetch(`${MIXPANEL_API}/${endpoint}?${search}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body,
