@@ -499,7 +499,7 @@ export default function LessonView() {
                   {currentQuestion.explanation}
                 </p>
               )}
-              <FlagButton contentType="lesson-question" contentId={currentQuestion.id} />
+              <FlagButton contentType="lesson-question" contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />
             </div>
 
             <button

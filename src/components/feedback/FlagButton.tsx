@@ -18,15 +18,20 @@ const REASON_LABELS: Record<FeedbackReason, string> = {
 interface Props {
   contentType: ContentFeedbackType;
   contentId: string;
+  hasGraphic?: boolean;
 }
 
-export default function FlagButton({ contentType, contentId }: Props) {
+export default function FlagButton({ contentType, contentId, hasGraphic }: Props) {
   const flagKey = `${contentType}:${contentId}`;
   const existingReason = useFeedbackStore((s) => s.flags[flagKey] ?? null);
   const existingComment = useFeedbackStore((s) => s.comments[flagKey] ?? '');
   const setStoreFlag = useFeedbackStore((s) => s.setFlag);
   const setStoreComment = useFeedbackStore((s) => s.setComment);
   const removeStoreFlag = useFeedbackStore((s) => s.removeFlag);
+
+  const visibleReasons = hasGraphic
+    ? VALID_REASONS
+    : VALID_REASONS.filter((r) => r !== 'bad-graphic');
 
   const [expanded, setExpanded] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -175,7 +180,7 @@ export default function FlagButton({ contentType, contentId }: Props) {
                   Remove flag
                 </button>
               ) : (
-                VALID_REASONS.map((reason) => (
+                visibleReasons.map((reason) => (
                   <button
                     key={reason}
                     onClick={() => handleSelectReason(reason)}
