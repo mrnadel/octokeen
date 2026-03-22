@@ -12,6 +12,14 @@ export default function CookieConsent() {
 
   useEffect(() => {
     const consent = localStorage.getItem(STORAGE_KEY);
+
+    // Migrate old "true" value from previous banner to new "accepted" format
+    if (consent === 'true') {
+      localStorage.setItem(STORAGE_KEY, 'accepted');
+      window.dispatchEvent(new CustomEvent('cookie-consent', { detail: 'accepted' }));
+      return;
+    }
+
     if (!consent) {
       setVisible(true);
     }
