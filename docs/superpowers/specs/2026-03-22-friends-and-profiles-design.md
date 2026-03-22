@@ -274,7 +274,7 @@ The pending request count needs to be available globally for the nav badge:
 The league board currently shows simulated competitors. This design does NOT change the league to show real users — that's a separate project. However:
 
 - If a league competitor happens to be a real user (future), their card links to `/user/[id]`
-- The friends list acts as a "friend leaderboard" by sorting friends by weekly XP
+- The friends list acts as a "friend leaderboard" by sorting friends by total XP
 
 ### 7.2 Profile Page
 

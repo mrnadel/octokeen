@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, Flame, Zap, Star } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useSidebar, useProgress } from '@/store/useStore';
 import { cn } from '@/lib/utils';
 import { levels } from '@/data/levels';
@@ -50,21 +50,21 @@ export default function TopBar() {
           {/* Streak */}
           <div
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium',
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold',
               progress.currentStreak > 0 ? 'bg-orange-50 text-orange-600' : 'bg-surface-100 text-surface-400'
             )}
             aria-label={`${progress.currentStreak} day streak`}
           >
-            <Flame className="w-4 h-4" aria-hidden="true" />
+            <span className="text-base leading-none" aria-hidden="true">🔥</span>
             <span>{progress.currentStreak}</span>
           </div>
 
           {/* XP */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-medium"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold"
             aria-label={`${progress.totalXp} experience points`}
           >
-            <Star className="w-4 h-4" aria-hidden="true" />
+            <span className="text-base leading-none" aria-hidden="true">⭐</span>
             <span>{progress.totalXp}</span>
           </div>
 
@@ -91,7 +91,7 @@ export default function TopBar() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-50 text-primary-600 text-sm font-medium"
               aria-label={`Level ${progress.currentLevel}`}
             >
-              <Zap className="w-4 h-4" aria-hidden="true" />
+              <span className="text-base leading-none" aria-hidden="true">⚡</span>
               <span>Lv. {progress.currentLevel}</span>
             </div>
             {nextLevel && (

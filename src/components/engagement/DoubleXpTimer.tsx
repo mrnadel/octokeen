@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap } from 'lucide-react';
+// Icons: ⚡ = double XP / energy boost (emoji convention)
 import { useDoubleXpExpiry } from '@/store/useEngagementStore';
 
 function formatMmSs(ms: number): string {
@@ -53,7 +53,7 @@ export function DoubleXpTimer() {
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold"
           style={{ background: '#F3F4F6', color: '#6B7280' }}
         >
-          <Zap className="w-4 h-4" />
+          <span className="text-base leading-none">⚡</span>
           Double XP ended
         </motion.div>
       </AnimatePresence>
@@ -80,7 +80,7 @@ export function DoubleXpTimer() {
           : {}
       }
     >
-      <Zap className="w-4 h-4" style={{ color: '#D97706' }} />
+      <span className="text-base leading-none">⚡</span>
       <span>2× XP</span>
       <span
         className="ml-1 px-2 py-0.5 rounded-full text-xs font-extrabold"
