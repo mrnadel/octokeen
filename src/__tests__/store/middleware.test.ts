@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// We'll test the middleware logic by extracting the handler inline.
-// The middleware file does: export default auth((req) => { ... })
-// So auth() wraps a handler. We mock auth to capture and return the handler.
+// vi.hoisted runs before vi.mock, making the variable available in the mock factory
+const { middlewareHandlerRef } = vi.hoisted(() => {
+  const ref = { current: null as ((req: any) => any) | null };
+  return { middlewareHandlerRef: ref };
+});
 
 // Mock NextResponse
 vi.mock('next/server', () => ({
@@ -13,17 +15,14 @@ vi.mock('next/server', () => ({
 }));
 
 // Capture the handler function that middleware passes to auth()
-let middlewareHandler: ((req: any) => any) | null = null;
-
 vi.mock('@/lib/auth', () => ({
   auth: (handler: any) => {
-    middlewareHandler = handler;
+    middlewareHandlerRef.current = handler;
     return handler;
   },
 }));
 
-// Force the module to load (vi.mock is hoisted before this runs)
-// This will call auth(handler) synchronously during module init
+// Force the module to load -- this calls auth(handler) at module init time
 import '@/middleware';
 import { config } from '@/middleware';
 import { NextResponse } from 'next/server';
@@ -42,8 +41,8 @@ describe('middleware', () => {
   });
 
   it('captured the middleware handler', () => {
-    expect(middlewareHandler).not.toBeNull();
-    expect(typeof middlewareHandler).toBe('function');
+    expect(middlewareHandlerRef.current).not.toBeNull();
+    expect(typeof middlewareHandlerRef.current).toBe('function');
   });
 
   describe('config', () => {
@@ -56,7 +55,7 @@ describe('middleware', () => {
   describe('authenticated user on auth pages', () => {
     it('redirects logged-in user from /login to /', () => {
       const req = createMockRequest('/login', true);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
       const redirectUrl = (NextResponse.redirect as any).mock.calls[0][0];
@@ -65,7 +64,7 @@ describe('middleware', () => {
 
     it('redirects logged-in user from /register to /', () => {
       const req = createMockRequest('/register', true);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
       const redirectUrl = (NextResponse.redirect as any).mock.calls[0][0];
@@ -74,7 +73,7 @@ describe('middleware', () => {
 
     it('redirects logged-in user from /get-started to /', () => {
       const req = createMockRequest('/get-started', true);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
     });
@@ -83,7 +82,7 @@ describe('middleware', () => {
   describe('unauthenticated user on protected routes', () => {
     it('redirects unauthenticated user from /profile to /login with callbackUrl', () => {
       const req = createMockRequest('/profile', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
       const redirectUrl = (NextResponse.redirect as any).mock.calls[0][0];
@@ -93,7 +92,7 @@ describe('middleware', () => {
 
     it('redirects unauthenticated user from /analytics to /login', () => {
       const req = createMockRequest('/analytics', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
       const redirectUrl = (NextResponse.redirect as any).mock.calls[0][0];
@@ -103,7 +102,7 @@ describe('middleware', () => {
 
     it('redirects unauthenticated user from /analytics/topic to /login', () => {
       const req = createMockRequest('/analytics/topic', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.redirect).toHaveBeenCalled();
     });
@@ -112,35 +111,35 @@ describe('middleware', () => {
   describe('public routes', () => {
     it('allows unauthenticated user on /login', () => {
       const req = createMockRequest('/login', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
     });
 
     it('allows unauthenticated user on /', () => {
       const req = createMockRequest('/', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
     });
 
     it('allows authenticated user on /', () => {
       const req = createMockRequest('/', true);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
     });
 
     it('allows unauthenticated user on /course', () => {
       const req = createMockRequest('/course', false);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
     });
 
     it('allows authenticated user on /profile', () => {
       const req = createMockRequest('/profile', true);
-      middlewareHandler!(req);
+      middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
     });
