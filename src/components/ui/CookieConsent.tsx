@@ -11,15 +11,19 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem(STORAGE_KEY);
-    if (!accepted) {
+    const consent = localStorage.getItem(STORAGE_KEY);
+    if (!consent) {
       setVisible(true);
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
+  const handleResponse = (accepted: boolean) => {
+    const value = accepted ? 'accepted' : 'declined';
+    localStorage.setItem(STORAGE_KEY, value);
     setVisible(false);
+
+    // Notify providers (e.g. MixpanelProvider) of the consent decision
+    window.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
   };
 
   return (
@@ -36,8 +40,8 @@ export default function CookieConsent() {
             <div className="flex items-center gap-3 text-sm text-surface-600">
               <Cookie className="hidden h-5 w-5 flex-shrink-0 text-surface-400 sm:block" />
               <p>
-                We use essential cookies to keep you signed in and remember your
-                progress. No tracking cookies.{' '}
+                We use essential cookies to keep you signed in and optional
+                analytics cookies to improve the app.{' '}
                 <Link
                   href="/privacy"
                   className="text-primary-600 underline hover:text-primary-700"
@@ -46,12 +50,20 @@ export default function CookieConsent() {
                 </Link>
               </p>
             </div>
-            <button
-              onClick={handleAccept}
-              className="flex-shrink-0 rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
-            >
-              Got it
-            </button>
+            <div className="flex flex-shrink-0 items-center gap-2">
+              <button
+                onClick={() => handleResponse(false)}
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-surface-500 hover:text-surface-700 transition-colors"
+              >
+                Decline
+              </button>
+              <button
+                onClick={() => handleResponse(true)}
+                className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
+              >
+                Accept
+              </button>
+            </div>
           </div>
         </motion.div>
       )}

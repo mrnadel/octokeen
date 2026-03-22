@@ -25,11 +25,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.paddle.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.paddle.com https://cdn.mxpnl.com",
       "style-src 'self' 'unsafe-inline' https://*.paddle.com",
       "img-src 'self' data: blob: https://*.googleusercontent.com https://*.paddle.com",
       "font-src 'self' https://*.paddle.com",
-      "connect-src 'self' https://*.paddle.com https://*.supabase.co",
+      "connect-src 'self' https://*.paddle.com https://*.supabase.co https://api-js.mixpanel.com https://api.mixpanel.com",
       "frame-src https://*.paddle.com",
       "object-src 'none'",
       "base-uri 'self'",

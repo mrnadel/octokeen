@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Nunito, JetBrains_Mono } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/providers/SessionProvider';
+import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
 import './globals.css';
 
@@ -52,7 +53,9 @@ export default function RootLayout({
     <html lang="en" className={`${nunito.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen">
         <AuthSessionProvider>
-          {children}
+          <MixpanelProvider>
+            {children}
+          </MixpanelProvider>
           <CookieConsent />
         </AuthSessionProvider>
       </body>
