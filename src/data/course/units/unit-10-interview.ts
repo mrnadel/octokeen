@@ -250,8 +250,8 @@ export const unit10: Unit = {
             'About 30 kN',
             'About 300 kN'
           ],
-          correctIndex: 1,
-          explanation: 'Euler buckling load: P_cr = pi^2 * E * I / L^2. For a 20 mm diameter rod: I = pi/64 * d^4 = pi/64 * (0.02)^4 = 7.85e-9 m^4.',
+          correctIndex: 2,
+          explanation: 'Euler buckling load: P_cr = pi^2 * E * I / L^2. For a 20 mm diameter rod: I = pi/64 * d^4 = pi/64 * (0.02)^4 = 7.85e-9 m^4. P_cr = 9.87 * 200e9 * 7.85e-9 / 1^2 = 15,500 N ~ 15.5 kN, closest to 30 kN among the choices.',
           hint: 'P_cr = pi^2*EI/L^2.'
         },
         {

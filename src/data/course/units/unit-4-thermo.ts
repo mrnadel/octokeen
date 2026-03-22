@@ -267,7 +267,7 @@ export const unit4: Unit = {
             'Any value of R since the equation auto-adjusts',
           ],
           correctIndex: 0,
-          explanation: 'The form PV = mRT uses the specific gas constant R = R_u/M, where M is the molar mass. For air (M ≈ 28.7 kg/kmol), R = 8.14/28.7 = 0.87 kJ/(kg·K). For helium (M = 4), R = 2.77 kJ/(kg·K).',
+          explanation: 'The form PV = mRT uses the specific gas constant R = R_u/M, where M is the molar mass. For air (M ≈ 28.97 kg/kmol), R = 8.314/28.97 = 0.287 kJ/(kg·K). For helium (M = 4), R = 8.314/4 = 2.079 kJ/(kg·K).',
           hint: 'Is the mass in your equation in kg or kmol?',
         },
         {
@@ -380,7 +380,7 @@ export const unit4: Unit = {
             'Yes — the variation is negligible for all gases',
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="18" width="48" height="32" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="16" y="18" width="48" height="32" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="19" y="30" width="42" height="18" rx="3" fill="#A5E86C" opacity="0.15"/> <circle cx="32" cy="40" r="3" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="44;26" dur="1.8s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.8s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="40" r="2.5" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="43;28" dur="1.5s" begin="0.4s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.4;0" dur="1.5s" begin="0.4s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="40" r="2.8" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="42;24" dur="2s" begin="0.8s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.4;0" dur="2s" begin="0.8s" repeatCount="indefinite"/> </circle> <rect x="16" y="50" width="3" height="16" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="61" y="50" width="3" height="16" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="10" y="64" width="60" height="4" rx="2" fill="#3B8700" opacity="0.2"/> <ellipse cx="34" cy="59" rx="6" ry="8" fill="#58CC02" opacity="0.4"> <animate attributeName="ry" values="8;10;6;9;8" dur="0.5s" repeatCount="indefinite"/> <animate attributeName="rx" values="6;4.5;7;5;6" dur="0.5s" repeatCount="indefinite"/> </ellipse> <ellipse cx="46" cy="59" rx="5" ry="7" fill="#A5E86C" opacity="0.3"> <animate attributeName="ry" values="7;9;5;7" dur="0.6s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="58" rx="4" ry="6" fill="#3B8700" opacity="0.35"> <animate attributeName="ry" values="6;8;4;6" dur="0.45s" repeatCount="indefinite"/> </ellipse> </svg>',
+          diagram: undefined,
           explanation: 'Even for ideal gases, cp varies with temperature because higher vibrational energy modes become active at higher temperatures.',
           hint: 'Does the molecular energy storage capacity change?',
         },
