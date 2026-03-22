@@ -1,18 +1,29 @@
 'use client';
 
+import { useState } from 'react';
 import { useLeague } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
 import { leagueTiers } from '@/data/league';
 import { getUserRank, getTierConfig } from '@/lib/league-simulator';
+import { CompetitorAvatar } from './CompetitorAvatar';
+import { CompetitorPreview } from './CompetitorPreview';
 
 export function LeagueBoard() {
   const league = useLeague();
   const displayName = useStore((s) => s.progress.displayName);
+  const [previewUserId, setPreviewUserId] = useState<string | null>(null);
 
   const tier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
   const tierConfig = getTierConfig(league.currentTier);
 
-  const userEntry = {
+  const userEntry: {
+    id: string;
+    name: string;
+    avatarInitial: string;
+    countryFlag: string;
+    weeklyXp: number;
+    fakeUserId?: string;
+  } = {
     id: 'user',
     name: displayName ?? 'You',
     avatarInitial: (displayName ?? 'Y')[0].toUpperCase(),
@@ -28,6 +39,7 @@ export function LeagueBoard() {
       avatarInitial: c.avatarInitial,
       countryFlag: c.countryFlag,
       weeklyXp: c.weeklyXp,
+      fakeUserId: c.fakeUserId,
     })),
     userEntry,
   ].sort((a, b) => b.weeklyXp - a.weeklyXp);
@@ -82,7 +94,14 @@ export function LeagueBoard() {
           return (
             <div
               key={entry.id}
-              className="flex items-center gap-3 px-4 py-2.5 border-b border-gray-50 last:border-0"
+              className={`flex items-center gap-3 px-4 py-2.5 border-b border-gray-50 last:border-0 ${
+                !isUser ? 'cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors' : ''
+              }`}
+              onClick={() => {
+                if (!isUser && entry.fakeUserId) {
+                  setPreviewUserId(entry.fakeUserId);
+                }
+              }}
               style={{
                 background: isUser ? '#EEF2FF' : 'transparent',
                 borderLeft: inPromoteZone
@@ -109,13 +128,13 @@ export function LeagueBoard() {
                 {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank}
               </span>
 
-              {/* Avatar initial */}
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                style={{ background: isUser ? '#4F46E5' : '#6B7280' }}
-              >
-                {entry.avatarInitial}
-              </div>
+              {/* Avatar */}
+              <CompetitorAvatar
+                fakeUserId={entry.fakeUserId}
+                avatarInitial={entry.avatarInitial}
+                isUser={isUser}
+                size={32}
+              />
 
               {/* Name + flag */}
               <div className="flex-1 min-w-0">
@@ -138,6 +157,12 @@ export function LeagueBoard() {
           );
         })}
       </div>
+
+      <CompetitorPreview
+        fakeUserId={previewUserId}
+        isOpen={previewUserId !== null}
+        onClose={() => setPreviewUserId(null)}
+      />
     </div>
   );
 }
