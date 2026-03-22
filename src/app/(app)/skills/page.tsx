@@ -2,27 +2,15 @@
 
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useProgress } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
-import { topics } from '@/data/topics';
 import { course } from '@/data/course';
+import { topics } from '@/data/topics';
 import Link from 'next/link';
 import { ChevronLeft, TrendingUp, AlertTriangle, Trophy } from 'lucide-react';
 
 /* ── helpers ── */
 
 type Mastery = 'untouched' | 'weak' | 'growing' | 'strong' | 'mastered';
-
-function getMastery(attempted: number, correct: number): { level: Mastery; score: number } {
-  if (attempted === 0) return { level: 'untouched', score: 0 };
-  const accuracy = correct / attempted;
-  const depth = Math.min(attempted / 15, 1);
-  const score = Math.round(accuracy * depth * 100);
-  if (score >= 75) return { level: 'mastered', score };
-  if (score >= 50) return { level: 'strong', score };
-  if (score >= 25) return { level: 'growing', score };
-  return { level: 'weak', score };
-}
 
 const masteryMeta: Record<Mastery, { label: string; color: string; bg: string }> = {
   untouched: { label: 'Not started', color: '#C0C0C0', bg: '#F5F5F5' },
@@ -32,35 +20,78 @@ const masteryMeta: Record<Mastery, { label: string; color: string; bg: string }>
   mastered:  { label: 'Mastered',    color: '#10B981', bg: '#ECFDF5' },
 };
 
+function scoreToMastery(score: number): Mastery {
+  if (score >= 75) return 'mastered';
+  if (score >= 50) return 'strong';
+  if (score >= 25) return 'growing';
+  if (score > 0) return 'weak';
+  return 'untouched';
+}
+
 /* ── page ── */
 
 export default function SkillMapPage() {
-  const progress = useProgress();
-  const courseProgress = useCourseStore((s) => s.progress);
-  const startLesson = useCourseStore((s) => s.startLesson);
+  const completedLessons = useCourseStore((s) => s.progress.completedLessons);
 
+  // Derive topic stats directly from completed course lessons
   const analyzed = useMemo(() => {
-    const result = topics.map((topic) => {
-      const tp = progress.topicProgress.find((t) => t.topicId === topic.id);
-      const attempted = tp?.questionsAttempted ?? 0;
-      const correct = tp?.questionsCorrect ?? 0;
-      const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
-      const { level, score } = getMastery(attempted, correct);
+    // Map each topic to stats from course units
+    return topics.map((topic) => {
+      // Find all course units that map to this topic
+      const matchingUnits = course.filter((u) => u.topicId === topic.id);
 
-      const subs = topic.subtopics.map((sub) => {
-        const sp = tp?.subtopicBreakdown?.[sub.name];
-        const sa = sp?.attempted ?? 0;
-        const sc = sp?.correct ?? 0;
-        const sAcc = sa > 0 ? Math.round((sc / sa) * 100) : 0;
-        const sm = getMastery(sa, sc);
-        return { ...sub, attempted: sa, correct: sc, accuracy: sAcc, ...sm };
+      let totalQuestions = 0;
+      let totalCorrect = 0;
+      let totalLessons = 0;
+      let completedLessonCount = 0;
+
+      for (const unit of matchingUnits) {
+        for (const lesson of unit.lessons) {
+          totalLessons++;
+          const lp = completedLessons[lesson.id];
+          if (lp) {
+            completedLessonCount++;
+            const qCount = lesson.questions.length;
+            totalQuestions += qCount;
+            // Use bestAccuracy to estimate correct answers
+            totalCorrect += Math.round((lp.bestAccuracy / 100) * qCount);
+          }
+        }
+      }
+
+      const accuracy = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+      // Score combines accuracy with coverage (how many lessons done)
+      const coverage = totalLessons > 0 ? completedLessonCount / totalLessons : 0;
+      const score = totalQuestions > 0 ? Math.round(accuracy * coverage) : 0;
+      const level = scoreToMastery(score);
+
+      // Per-subtopic: distribute proportionally across subtopics
+      const subs = topic.subtopics.map((sub, i) => {
+        if (totalQuestions === 0) {
+          return { ...sub, attempted: 0, correct: 0, accuracy: 0, score: 0, level: 'untouched' as Mastery };
+        }
+        // Distribute questions roughly evenly across subtopics
+        const n = topic.subtopics.length;
+        const subAttempted = Math.floor(totalQuestions / n) + (i < totalQuestions % n ? 1 : 0);
+        const subCorrect = Math.floor(totalCorrect / n) + (i < totalCorrect % n ? 1 : 0);
+        const subAcc = subAttempted > 0 ? Math.round((subCorrect / subAttempted) * 100) : 0;
+        const subScore = Math.round(subAcc * coverage);
+        return { ...sub, attempted: subAttempted, correct: subCorrect, accuracy: subAcc, score: subScore, level: scoreToMastery(subScore) };
       });
 
-      return { ...topic, attempted, correct, accuracy, level, score, subs };
+      return {
+        ...topic,
+        attempted: totalQuestions,
+        correct: totalCorrect,
+        accuracy,
+        score,
+        level,
+        completedLessonCount,
+        totalLessons,
+        subs,
+      };
     });
-
-    return result;
-  }, [progress.topicProgress]);
+  }, [completedLessons]);
 
   // Overall readiness score (weighted by interview relevance)
   const readiness = useMemo(() => {
@@ -75,30 +106,11 @@ export default function SkillMapPage() {
     return totalWeight > 0 ? Math.round(weightedScore / totalWeight) : 0;
   }, [analyzed]);
 
-  // Sorted lists
   const strengths = analyzed.filter((t) => t.level === 'mastered' || t.level === 'strong');
-  const weaknesses = analyzed
-    .filter((t) => t.level === 'weak' && t.attempted > 0)
-    .sort((a, b) => a.score - b.score);
+  const weaknesses = analyzed.filter((t) => t.level === 'weak').sort((a, b) => a.score - b.score);
   const untouched = analyzed.filter((t) => t.level === 'untouched');
   const growing = analyzed.filter((t) => t.level === 'growing');
 
-  // Find the best lesson to practice a topic
-  const findLessonForTopic = (topicId: string) => {
-    for (let ui = 0; ui < course.length; ui++) {
-      for (let li = 0; li < course[ui].lessons.length; li++) {
-        const lesson = course[ui].lessons[li];
-        const tag = lesson.id.toLowerCase();
-        const tid = topicId.toLowerCase().replace(/[^a-z]/g, '');
-        if (tag.includes(tid.slice(0, 4)) && !courseProgress.completedLessons[lesson.id]) {
-          return { unitIndex: ui, lessonIndex: li, lesson };
-        }
-      }
-    }
-    return null;
-  };
-
-  // Readiness ring color
   const ringColor =
     readiness >= 70 ? '#10B981' : readiness >= 40 ? '#F59E0B' : readiness >= 1 ? '#EF4444' : '#E5E5E5';
   const ringMessage =
@@ -218,14 +230,7 @@ export default function SkillMapPage() {
             delay={0.1}
           >
             {weaknesses.map((t) => (
-              <TopicRow
-                key={t.id}
-                topic={t}
-                onPractice={() => {
-                  const loc = findLessonForTopic(t.id);
-                  if (loc) startLesson(loc.unitIndex, loc.lessonIndex);
-                }}
-              />
+              <TopicRow key={t.id} topic={t} />
             ))}
           </Section>
         )}
@@ -240,14 +245,7 @@ export default function SkillMapPage() {
             delay={0.15}
           >
             {growing.map((t) => (
-              <TopicRow
-                key={t.id}
-                topic={t}
-                onPractice={() => {
-                  const loc = findLessonForTopic(t.id);
-                  if (loc) startLesson(loc.unitIndex, loc.lessonIndex);
-                }}
-              />
+              <TopicRow key={t.id} topic={t} />
             ))}
           </Section>
         )}
@@ -404,29 +402,25 @@ function Section({
 
 /* ── Topic Row ── */
 
-type AnalyzedTopic = ReturnType<typeof useMemo> extends (infer T)[] ? T : never;
-
-function TopicRow({
-  topic,
-  compact,
-  onPractice,
-}: {
+interface TopicRowProps {
   topic: {
     id: string;
     name: string;
     icon: string;
     color: string;
-    description: string;
     interviewRelevance: string;
     level: Mastery;
     score: number;
     accuracy: number;
     attempted: number;
+    completedLessonCount: number;
+    totalLessons: number;
     subs: { id: string; name: string; level: Mastery; score: number; accuracy: number; attempted: number }[];
   };
   compact?: boolean;
-  onPractice?: () => void;
-}) {
+}
+
+function TopicRow({ topic, compact }: TopicRowProps) {
   const meta = masteryMeta[topic.level];
   const relevanceLabel =
     topic.interviewRelevance === 'critical'
@@ -442,7 +436,6 @@ function TopicRow({
         borderRadius: 16,
         border: `2px solid ${meta.color}25`,
         padding: compact ? '14px 16px' : '16px 16px 14px',
-        transition: 'box-shadow 0.2s',
       }}
     >
       {/* Header */}
@@ -485,6 +478,11 @@ function TopicRow({
               {meta.label}
             </span>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#CFCFCF' }}>{relevanceLabel}</span>
+            {topic.totalLessons > 0 && (
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#CFCFCF' }}>
+                {topic.completedLessonCount}/{topic.totalLessons} lessons
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -522,28 +520,6 @@ function TopicRow({
             );
           })}
         </div>
-      )}
-
-      {/* Practice CTA */}
-      {onPractice && (
-        <button
-          onClick={onPractice}
-          className="w-full transition-transform active:scale-[0.98]"
-          style={{
-            marginTop: 12,
-            padding: '10px 0',
-            borderRadius: 12,
-            fontSize: 13,
-            fontWeight: 800,
-            color: 'white',
-            background: topic.level === 'untouched' ? '#3C3C3C' : meta.color,
-            boxShadow: `0 3px 0 ${topic.level === 'untouched' ? '#2A2A2A' : meta.color}CC`,
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          {topic.level === 'untouched' ? 'Start Learning' : 'Practice Now'}
-        </button>
       )}
     </div>
   );
