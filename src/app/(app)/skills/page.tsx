@@ -272,20 +272,12 @@ export default function SkillMapPage() {
           <Section
             icon={<span style={{ fontSize: 14 }}>🆕</span>}
             title="Unexplored"
-            subtitle="Start these to discover where you stand"
+            subtitle="Complete lessons to discover where you stand"
             color="#C0C0C0"
             delay={0.25}
           >
             {untouched.map((t) => (
-              <TopicRow
-                key={t.id}
-                topic={t}
-                compact
-                onPractice={() => {
-                  const loc = findLessonForTopic(t.id);
-                  if (loc) startLesson(loc.unitIndex, loc.lessonIndex);
-                }}
-              />
+              <TopicRow key={t.id} topic={t} compact />
             ))}
           </Section>
         )}
