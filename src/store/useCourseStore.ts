@@ -38,6 +38,9 @@ interface CourseState {
   dismissChapterCompletion: () => void;
   dismissCourseCompletion: () => void;
 
+  // Practice bridging
+  creditPracticeAnswer: (questionId: string, correct: boolean) => void;
+
   // Debug
   debugSetProgress: (lessonCount: number) => void;
 
@@ -219,7 +222,9 @@ export const useCourseStore = create<CourseState>()(
 
         // XP based on accuracy performance within this session
         const accuracyMultiplier = calculateStars(accuracy); // 1-3 based on accuracy
-        const xpEarned = lesson.xpReward * accuracyMultiplier;
+        const doubleXpExpiry = useEngagementStore.getState().doubleXpExpiry;
+        const isDoubleXp = doubleXpExpiry ? new Date(doubleXpExpiry).getTime() > Date.now() : false;
+        const xpEarned = lesson.xpReward * accuracyMultiplier * (isDoubleXp ? 2 : 1);
 
         // Build updated lesson progress
         const updatedLessonProgress = {
@@ -232,22 +237,37 @@ export const useCourseStore = create<CourseState>()(
           correctQuestionIds: mergedCorrect,
         };
 
-        // Update streak
+        // Update streak (with freeze support)
         const today = getTodayString();
         const yesterday = getYesterdayString();
         const lastActive = state.progress.lastActiveDate;
+        const engState = useEngagementStore.getState();
 
         let newStreak = state.progress.currentStreak;
+        let streakFrozen = false;
         if (lastActive !== today) {
           if (lastActive === yesterday) {
             newStreak += 1;
           } else if (!lastActive) {
             newStreak = 1;
           } else {
-            newStreak = 1; // Streak broken
+            // Missed day(s) — check for streak freeze
+            if (engState.streak.freezesOwned > 0 && newStreak > 0) {
+              // Use a freeze to preserve the streak
+              engState.useStreakFreeze();
+              streakFrozen = true;
+              newStreak += 1; // Continue as if no break
+            } else {
+              // Record the break for repair window
+              if (newStreak > 0) {
+                engState.recordStreakBreak(newStreak);
+              }
+              newStreak = 1; // Streak broken
+            }
           }
         }
         // If lastActive === today, keep current streak unchanged
+        void streakFrozen; // used for future toast/notification
 
         const newTotalXp = state.progress.totalXp + xpEarned;
 
@@ -337,6 +357,52 @@ export const useCourseStore = create<CourseState>()(
 
       dismissCourseCompletion: () => {
         set({ courseJustCompleted: false });
+      },
+
+      creditPracticeAnswer: (questionId: string, correct: boolean) => {
+        const courseData = get().courseData;
+        let targetLessonId: string | null = null;
+
+        for (const unit of courseData) {
+          for (const lesson of unit.lessons) {
+            if (lesson.questions.some(q => q.id === questionId)) {
+              targetLessonId = lesson.id;
+              break;
+            }
+          }
+          if (targetLessonId) break;
+        }
+
+        if (!targetLessonId) return;
+
+        set(state => {
+          const existing = state.progress.completedLessons[targetLessonId!];
+
+          const prevAnswered = existing?.answeredQuestionIds ?? [];
+          const prevCorrect = existing?.correctQuestionIds ?? [];
+          const newAnswered = prevAnswered.includes(questionId) ? prevAnswered : [...prevAnswered, questionId];
+          const newCorrect = correct && !prevCorrect.includes(questionId)
+            ? [...prevCorrect, questionId]
+            : prevCorrect;
+
+          if (!existing) {
+            return state;
+          }
+
+          return {
+            progress: {
+              ...state.progress,
+              completedLessons: {
+                ...state.progress.completedLessons,
+                [targetLessonId!]: {
+                  ...existing,
+                  answeredQuestionIds: newAnswered,
+                  correctQuestionIds: newCorrect,
+                },
+              },
+            },
+          };
+        });
       },
 
       debugSetProgress: (lessonCount: number) => {
