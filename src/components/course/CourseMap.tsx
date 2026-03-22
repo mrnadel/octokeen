@@ -152,11 +152,11 @@ export function CourseMap() {
             <div
               key={unit.id}
               ref={isActive ? currentUnitRef : undefined}
+              className={isAllGolden ? 'golden-unit' : ''}
               style={{
                 borderRadius: 24,
                 overflow: 'hidden',
-                backgroundColor: isAllGolden ? '#FFF8E1' : theme.bg,
-                border: isAllGolden ? '2px solid #FFD54F' : undefined,
+                backgroundColor: isAllGolden ? undefined : theme.bg,
                 transition: 'box-shadow 0.3s ease',
                 animation: 'unitSlideUp 0.5s ease backwards',
                 animationDelay: `${Math.min(unitIndex * 0.1, 0.5)}s`,

@@ -18,10 +18,9 @@ interface UnitHeaderProps {
   theme: UnitTheme;
 }
 
-const GOLD_BG = '#FFF8E1';
-const GOLD_COLOR = '#FFB800';
-const GOLD_DARK = '#B8860B';
-const GOLD_MID = '#D4A017';
+const GOLD_COLOR = '#FFFFFF';
+const GOLD_DARK = '#5D4200';
+const GOLD_MID = '#7A5A00';
 
 export function UnitHeader({
   unit,
@@ -42,7 +41,6 @@ export function UnitHeader({
   const displayColor = isAllGolden ? GOLD_COLOR : theme.color;
   const displayDark = isAllGolden ? GOLD_DARK : theme.dark;
   const displayMid = isAllGolden ? GOLD_MID : theme.mid;
-  const displayBg = isAllGolden ? GOLD_BG : theme.bg;
 
   return (
     <div>
@@ -128,7 +126,7 @@ export function UnitHeader({
               }}
             >
               {isAllGolden
-                ? 'All lessons mastered!'
+                ? '✨ All lessons mastered!'
                 : `${completedInUnit} of ${totalInUnit} lessons complete`}
             </div>
           )}
@@ -158,7 +156,7 @@ export function UnitHeader({
             width: 32,
             height: 32,
             borderRadius: '50%',
-            background: 'rgba(255,255,255,0.6)',
+            background: isAllGolden ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
           }}
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.3 }}
@@ -185,7 +183,7 @@ export function UnitHeader({
           style={{
             height: 10,
             borderRadius: 5,
-            background: 'rgba(255,255,255,0.5)',
+            background: isAllGolden ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.5)',
           }}
         >
           <motion.div
