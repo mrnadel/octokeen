@@ -383,7 +383,8 @@ export const useEngagementStore = create<EngagementStore>()(
           const repairCost = 50;
           if (state.gems.balance < repairCost) return false;
 
-          // Deduct gems and mark repair used
+          // Deduct gems, mark repair used, and restore streak
+          const previousStreak = state.streak.lastStreakValueBeforeBreak;
           set((s) => ({
             gems: {
               ...s.gems,
@@ -398,6 +399,21 @@ export const useEngagementStore = create<EngagementStore>()(
               repairAvailable: false,
             },
           }));
+
+          // Restore the streak in the main progress store
+          if (previousStreak > 0) {
+            const { useStore } = require('@/store/useStore');
+            useStore.setState((s: { progress: Record<string, unknown> }) => ({
+              progress: {
+                ...s.progress,
+                currentStreak: previousStreak,
+                longestStreak: Math.max(
+                  (s.progress.longestStreak as number) || 0,
+                  previousStreak,
+                ),
+              },
+            }));
+          }
 
           return true;
         },

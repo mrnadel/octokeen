@@ -34,28 +34,35 @@ export const changePasswordSchema = z.object({
   newPassword: passwordSchema,
 });
 
+// Reasonable caps to prevent client-side cheating
+const MAX_XP = 500_000;
+const MAX_LEVEL = 50;
+const MAX_STREAK = 3650; // 10 years
+const MAX_QUESTIONS = 100_000;
+const MAX_GEMS = 100_000;
+
 export const progressSyncSchema = z.object({
   progress: z.object({
-    displayName: z.string().optional(),
-    totalXp: z.number().int().min(0),
-    currentStreak: z.number().int().min(0),
-    longestStreak: z.number().int().min(0),
+    displayName: z.string().min(2).max(50).optional(),
+    totalXp: z.number().int().min(0).max(MAX_XP),
+    currentStreak: z.number().int().min(0).max(MAX_STREAK),
+    longestStreak: z.number().int().min(0).max(MAX_STREAK),
     lastActiveDate: z.string(),
     completedLessons: z.record(z.string(), z.unknown()).optional(),
-    currentLevel: z.number().int().min(1).optional(),
-    achievementsUnlocked: z.array(z.string()).optional(),
-    dailyChallengesCompleted: z.number().int().min(0).optional(),
-    totalQuestionsAttempted: z.number().int().min(0).optional(),
-    totalQuestionsCorrect: z.number().int().min(0).optional(),
-    bookmarkedQuestions: z.array(z.string()).optional(),
-    weakAreas: z.array(z.string()).optional(),
-    strongAreas: z.array(z.string()).optional(),
+    currentLevel: z.number().int().min(1).max(MAX_LEVEL).optional(),
+    achievementsUnlocked: z.array(z.string()).max(100).optional(),
+    dailyChallengesCompleted: z.number().int().min(0).max(MAX_QUESTIONS).optional(),
+    totalQuestionsAttempted: z.number().int().min(0).max(MAX_QUESTIONS).optional(),
+    totalQuestionsCorrect: z.number().int().min(0).max(MAX_QUESTIONS).optional(),
+    bookmarkedQuestions: z.array(z.string()).max(500).optional(),
+    weakAreas: z.array(z.string()).max(20).optional(),
+    strongAreas: z.array(z.string()).max(20).optional(),
     topicProgress: z
       .array(
         z.object({
           topicId: z.string(),
-          questionsAttempted: z.number().int().min(0),
-          questionsCorrect: z.number().int().min(0),
+          questionsAttempted: z.number().int().min(0).max(MAX_QUESTIONS),
+          questionsCorrect: z.number().int().min(0).max(MAX_QUESTIONS),
           averageConfidence: z.number().min(0).max(1),
           lastAttempted: z.string(),
           subtopicBreakdown: z.record(
@@ -67,21 +74,44 @@ export const progressSyncSchema = z.object({
           ),
         })
       )
+      .max(20)
       .optional(),
     sessionHistory: z
       .array(
         z.object({
           id: z.string(),
           date: z.string(),
-          durationMinutes: z.number().int().min(0),
-          questionsAttempted: z.number().int().min(0),
-          questionsCorrect: z.number().int().min(0),
+          durationMinutes: z.number().int().min(0).max(600),
+          questionsAttempted: z.number().int().min(0).max(200),
+          questionsCorrect: z.number().int().min(0).max(200),
           topicsCovered: z.array(z.string()),
-          xpEarned: z.number().int().min(0),
+          xpEarned: z.number().int().min(0).max(5000),
         })
       )
+      .max(50)
       .optional(),
   }),
+  engagement: z.object({
+    gems: z.object({
+      balance: z.number().int().min(0).max(MAX_GEMS),
+      totalEarned: z.number().int().min(0).max(MAX_GEMS),
+    }).optional(),
+    leagueTier: z.number().int().min(0).max(10).optional(),
+    streakFreezes: z.number().int().min(0).max(10).optional(),
+    streakMilestones: z.array(z.string()).max(20).optional(),
+    weeklyXp: z.number().int().min(0).max(MAX_XP).optional(),
+    weekStart: z.string().optional(),
+    competitors: z.array(z.object({
+      name: z.string().max(50),
+      xp: z.number().int().min(0).max(MAX_XP),
+      avatar: z.string().max(200).optional(),
+      country: z.string().max(10).optional(),
+    })).max(30).optional(),
+    newGemTransactions: z.array(z.object({
+      amount: z.number().int().min(-1000).max(1000),
+      source: z.string().max(50),
+    })).max(50).optional(),
+  }).optional(),
 });
 
 // Helper to extract the first validation error message

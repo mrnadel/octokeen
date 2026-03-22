@@ -61,7 +61,14 @@ export function trackFailedLogin(email: string): void {
   const now = Date.now();
   const entry = failedLogins.get(email);
 
-  if (!entry || entry.lockedUntil <= now) {
+  if (!entry) {
+    // First failed attempt — start tracking
+    failedLogins.set(email, { count: 1, lockedUntil: 0 });
+    return;
+  }
+
+  // If previously locked and lock has expired, reset counter
+  if (entry.lockedUntil > 0 && entry.lockedUntil <= now) {
     failedLogins.set(email, { count: 1, lockedUntil: 0 });
     return;
   }
@@ -75,7 +82,7 @@ export function trackFailedLogin(email: string): void {
 export function isLoginLocked(email: string): boolean {
   const entry = failedLogins.get(email);
   if (!entry) return false;
-  if (entry.lockedUntil <= Date.now()) {
+  if (entry.lockedUntil > 0 && entry.lockedUntil <= Date.now()) {
     failedLogins.delete(email);
     return false;
   }

@@ -165,6 +165,7 @@ async function handleSubscriptionPaused(sub: SubscriptionNotification) {
   if (!userId) return;
 
   await upsertSubscription(userId, {
+    tier: 'free',
     status: 'canceled',
   });
 }

@@ -148,34 +148,7 @@ export async function POST(request: NextRequest) {
     .set({ displayName: progress.displayName, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
-  // Upsert topic progress rows
-  for (const tp of progress.topicProgress) {
-    const existingTopic = await db
-      .select({ id: topicProgressTable.id })
-      .from(topicProgressTable)
-      .where(eq(topicProgressTable.userId, userId))
-      .limit(1);
-
-    // Find matching row
-    const match = existingTopic.length > 0
-      ? await db
-          .select({ id: topicProgressTable.id })
-          .from(topicProgressTable)
-          .where(eq(topicProgressTable.userId, userId))
-          .then((rows) =>
-            db
-              .select({ id: topicProgressTable.id })
-              .from(topicProgressTable)
-              .where(eq(topicProgressTable.userId, userId))
-          )
-      : null;
-
-    // Simpler approach: delete all topic progress and re-insert
-    // This is safe because it's a single-user sync
-    void match; // unused after simplification
-  }
-
-  // Delete and re-insert topic progress (atomic for single user)
+  // Delete and re-insert topic progress
   await db
     .delete(topicProgressTable)
     .where(eq(topicProgressTable.userId, userId));
@@ -220,9 +193,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Sync engagement data if provided
-  if (body.engagement) {
-    const { gems, leagueTier, streakFreezes, streakMilestones, newGemTransactions } = body.engagement;
+  // Sync engagement data if provided (now validated by Zod schema)
+  const engagement = parsed.data.engagement;
+  if (engagement) {
+    const { gems, leagueTier, streakFreezes, streakMilestones, newGemTransactions } = engagement;
 
     // Update userProgress engagement columns
     await db.update(userProgress).set({
@@ -244,7 +218,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Upsert league state
-    if (leagueTier !== undefined && body.engagement.weekStart !== undefined) {
+    if (leagueTier !== undefined && engagement.weekStart !== undefined) {
       const existingLeague = await db
         .select({ id: leagueState.id })
         .from(leagueState)
@@ -254,9 +228,9 @@ export async function POST(request: NextRequest) {
       const leagueData = {
         userId,
         tier: leagueTier,
-        weeklyXp: body.engagement.weeklyXp ?? 0,
-        weekStart: body.engagement.weekStart,
-        competitors: body.engagement.competitors ?? [],
+        weeklyXp: engagement.weeklyXp ?? 0,
+        weekStart: engagement.weekStart,
+        competitors: engagement.competitors ?? [],
         updatedAt: new Date(),
       };
 

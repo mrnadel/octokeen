@@ -30,21 +30,21 @@ export function useEngagementInit() {
         (todayDate.getTime() - lastActive.getTime()) / (24 * 60 * 60 * 1000),
       );
 
-      if (daysDiff === 1 && engagement.streak.freezesOwned > 0) {
-        // Missed exactly 1 day — consume freeze, preserve streak
+      if (daysDiff === 2 && engagement.streak.freezesOwned > 0) {
+        // Missed exactly 1 day (daysDiff=2 means last active 2 days ago) — consume freeze, preserve streak
         useEngagementStore.getState().useStreakFreeze();
         useStore.setState((state) => ({
           progress: { ...state.progress, lastActiveDate: getYesterday() },
         }));
-      } else if (daysDiff >= 2 && engagement.streak.freezesOwned > 0) {
+      } else if (daysDiff >= 3 && engagement.streak.freezesOwned > 0) {
         // Multi-day gap — freeze can't bridge it, record break
         useEngagementStore.getState().recordStreakBreak(progress.currentStreak);
       } else if (
-        daysDiff >= 1 &&
+        daysDiff >= 2 &&
         engagement.streak.freezesOwned === 0 &&
         progress.currentStreak > 0
       ) {
-        // No freeze — record break for repair offer
+        // No freeze and missed 1+ days — record break for repair offer
         useEngagementStore.getState().recordStreakBreak(progress.currentStreak);
       }
     }
