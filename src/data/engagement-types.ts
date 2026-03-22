@@ -105,6 +105,7 @@ export interface LeagueCompetitor {
   weeklyXp: number;
   dailyXpRate: number;
   variance: number;
+  fakeUserId?: string;
 }
 
 export interface LeagueWeekResult {
@@ -134,6 +135,37 @@ export interface LeagueTier {
     min: number;
     max: number;
   };
+}
+
+// --------------- Fake User Pool ---------------
+
+export interface FakeUser {
+  id: string;
+  name: string;
+  nameQuality: 1 | 2 | 3 | 4 | 5;
+  avatarType: 'none' | 'dicebear';
+  avatarStyle?: string;
+  avatarSeed: string;
+  countryFlag: string;
+  joinDate: string;
+  totalXp: number;
+  currentStreak: number;
+  longestStreak: number;
+  achievementsUnlocked: string[];
+  topicMastery: {
+    topicId: string;
+    masteryLevel: 'not-started' | 'needs-work' | 'developing' | 'strong';
+  }[];
+  currentTier: 1 | 2 | 3 | 4 | 5;
+  activityLevel: number;
+  consistency: number;
+  lastProgressedWeek: string;
+}
+
+export interface FakeUserPool {
+  version: number;
+  pool: FakeUser[];
+  lastWeekProcessed: string;
 }
 
 // --------------- Streak ---------------
