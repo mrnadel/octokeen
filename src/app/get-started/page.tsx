@@ -5,17 +5,8 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Briefcase,
-  GraduationCap,
-  Target,
-  RefreshCw,
   ChevronRight,
   Rocket,
-  Flame,
-  Zap,
-  Trophy,
-  Timer,
-  Check,
   Sparkles,
   ArrowLeft,
   Loader2,
@@ -25,42 +16,7 @@ import Link from 'next/link';
 
 /* ─── Constants ─── */
 
-const TOTAL_STEPS = 8;
-
-const GOALS = [
-  { id: 'interview', label: 'Interview Prep', desc: 'Ace your next ME interview', icon: Briefcase, emoji: '💼' },
-  { id: 'skill', label: 'Skill Building', desc: 'Deepen your engineering knowledge', icon: Target, emoji: '🎯' },
-  { id: 'exam', label: 'Exam Prep', desc: 'Prepare for PE / FE exams', icon: GraduationCap, emoji: '📚' },
-  { id: 'career', label: 'Career Switch', desc: 'Transition into mechanical engineering', icon: RefreshCw, emoji: '🔄' },
-] as const;
-
-const EXPERIENCE_LEVELS = [
-  { id: 'student', label: 'Still in school', desc: 'Currently studying ME', badge: '🎓' },
-  { id: 'junior', label: '0 – 3 years', desc: 'Early career engineer', badge: '🌱' },
-  { id: 'mid', label: '3 – 7 years', desc: 'Experienced practitioner', badge: '⚡' },
-  { id: 'senior', label: '7+ years', desc: 'Seasoned professional', badge: '👑' },
-] as const;
-
-const TOPICS = [
-  { id: 'engineering-mechanics', name: 'Engineering Mechanics', icon: '⚖️' },
-  { id: 'strength-of-materials', name: 'Strength of Materials', icon: '🏗️' },
-  { id: 'thermodynamics', name: 'Thermodynamics', icon: '🔥' },
-  { id: 'heat-transfer', name: 'Heat Transfer', icon: '🌡️' },
-  { id: 'fluid-mechanics', name: 'Fluid Mechanics', icon: '💧' },
-  { id: 'materials-engineering', name: 'Materials Engineering', icon: '🔬' },
-  { id: 'manufacturing', name: 'Manufacturing', icon: '🏭' },
-  { id: 'machine-elements', name: 'Machine Elements', icon: '⚙️' },
-  { id: 'design-tolerancing', name: 'Design & GD&T', icon: '📐' },
-  { id: 'vibrations', name: 'Vibrations', icon: '〰️' },
-  { id: 'real-world-mechanisms', name: 'Real-World Mechanisms', icon: '🔧' },
-] as const;
-
-const DAILY_GOALS = [
-  { id: 'casual', label: 'Casual', desc: '5 min / day', detail: '1–2 questions', icon: Timer, color: 'text-blue-500' },
-  { id: 'regular', label: 'Regular', desc: '10 min / day', detail: '~5 questions', icon: Flame, color: 'text-orange-500' },
-  { id: 'serious', label: 'Serious', desc: '15 min / day', detail: '~10 questions', icon: Zap, color: 'text-amber-500' },
-  { id: 'intense', label: 'Intense', desc: '20 min / day', detail: '15+ questions', icon: Trophy, color: 'text-red-500' },
-] as const;
+const TOTAL_STEPS = 4;
 
 const SAMPLE_QUESTIONS = [
   {
@@ -190,12 +146,6 @@ export default function GetStartedPage() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  // Preferences
-  const [goal, setGoal] = useState<string | null>(null);
-  const [experience, setExperience] = useState<string | null>(null);
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
-  const [dailyGoal, setDailyGoal] = useState<string | null>(null);
-
   // Sample question
   const [sampleAnswer, setSampleAnswer] = useState<string | null>(null);
   const [sampleRevealed, setSampleRevealed] = useState(false);
@@ -224,29 +174,10 @@ export default function GetStartedPage() {
     setStep((s) => Math.max(s - 1, 0));
   }, []);
 
-  const toggleTopic = (topicId: string) => {
-    setSelectedTopics((prev) =>
-      prev.includes(topicId)
-        ? prev.filter((t) => t !== topicId)
-        : [...prev, topicId]
-    );
-  };
-
-  const selectAllTopics = () => {
-    setSelectedTopics(
-      selectedTopics.length === TOPICS.length ? [] : TOPICS.map((t) => t.id)
-    );
-  };
-
   const handleSampleAnswer = (optionId: string) => {
     if (sampleRevealed) return;
     setSampleAnswer(optionId);
     setSampleRevealed(true);
-  };
-
-  const savePreferences = () => {
-    const prefs = { goal, experience, topics: selectedTopics, dailyGoal };
-    localStorage.setItem('mechready_onboarding', JSON.stringify(prefs));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -279,7 +210,6 @@ export default function GetStartedPage() {
         setError('Account created but login failed. Try signing in.');
         setLoading(false);
       } else {
-        savePreferences();
         nextStep();
         setLoading(false);
       }
@@ -290,7 +220,6 @@ export default function GetStartedPage() {
   };
 
   const handleGoogleSignIn = () => {
-    savePreferences();
     setGoogleLoading(true);
     signIn('google', { callbackUrl: '/' });
   };
@@ -298,9 +227,6 @@ export default function GetStartedPage() {
   const completeOnboarding = () => {
     if (navigating) return;
     setNavigating(true);
-    savePreferences();
-    // Hard navigation — more reliable than client-side router.push
-    // which can hang if the home page takes too long to compile
     window.location.href = '/';
   };
 
@@ -437,259 +363,8 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 1: Goal ═══ */}
+          {/* ═══ Step 1: Sample Question ═══ */}
           {step === 1 && (
-            <motion.div
-              key="goal"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-sm mx-auto w-full"
-            >
-              <h2 className="text-2xl font-black text-gray-900 mb-1 text-center">
-                What brings you here?
-              </h2>
-              <p className="text-gray-400 text-sm font-semibold mb-6 text-center">
-                We&apos;ll tailor your experience
-              </p>
-
-              <div className="space-y-3 mb-6">
-                {GOALS.map((g) => {
-                  const selected = goal === g.id;
-                  return (
-                    <button
-                      key={g.id}
-                      onClick={() => {
-                        setGoal(g.id);
-                        setTimeout(nextStep, 300);
-                      }}
-                      className={cn(
-                        'w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all active:scale-[0.98]',
-                        selected
-                          ? 'border-[#58CC02] bg-[#58CC02]/5 shadow-sm'
-                          : 'border-gray-200 bg-white hover:border-gray-300'
-                      )}
-                    >
-                      <span className="text-2xl">{g.emoji}</span>
-                      <div className="text-left">
-                        <p className={cn('font-bold', selected ? 'text-[#58CC02]' : 'text-gray-800')}>
-                          {g.label}
-                        </p>
-                        <p className="text-xs text-gray-400 font-medium">{g.desc}</p>
-                      </div>
-                      {selected && (
-                        <div className="ml-auto w-6 h-6 rounded-full bg-[#58CC02] flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ═══ Step 2: Experience ═══ */}
-          {step === 2 && (
-            <motion.div
-              key="experience"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-sm mx-auto w-full"
-            >
-              <h2 className="text-2xl font-black text-gray-900 mb-1 text-center">
-                How experienced are you?
-              </h2>
-              <p className="text-gray-400 text-sm font-semibold mb-6 text-center">
-                No wrong answer — we&apos;ll adapt to your level
-              </p>
-
-              <div className="space-y-3 mb-6">
-                {EXPERIENCE_LEVELS.map((lvl) => {
-                  const selected = experience === lvl.id;
-                  return (
-                    <button
-                      key={lvl.id}
-                      onClick={() => {
-                        setExperience(lvl.id);
-                        setTimeout(nextStep, 300);
-                      }}
-                      className={cn(
-                        'w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all active:scale-[0.98]',
-                        selected
-                          ? 'border-[#58CC02] bg-[#58CC02]/5 shadow-sm'
-                          : 'border-gray-200 bg-white hover:border-gray-300'
-                      )}
-                    >
-                      <span className="text-2xl">{lvl.badge}</span>
-                      <div className="text-left">
-                        <p className={cn('font-bold', selected ? 'text-[#58CC02]' : 'text-gray-800')}>
-                          {lvl.label}
-                        </p>
-                        <p className="text-xs text-gray-400 font-medium">{lvl.desc}</p>
-                      </div>
-                      {selected && (
-                        <div className="ml-auto w-6 h-6 rounded-full bg-[#58CC02] flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ═══ Step 3: Topics ═══ */}
-          {step === 3 && (
-            <motion.div
-              key="topics"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-sm mx-auto w-full"
-            >
-              <h2 className="text-2xl font-black text-gray-900 mb-1 text-center">
-                What interests you most?
-              </h2>
-              <p className="text-gray-400 text-sm font-semibold mb-5 text-center">
-                Pick as many as you like
-              </p>
-
-              {/* Select All */}
-              <button
-                onClick={selectAllTopics}
-                className={cn(
-                  'w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 mb-3 text-sm font-bold transition-all',
-                  selectedTopics.length === TOPICS.length
-                    ? 'border-[#58CC02] bg-[#58CC02]/5 text-[#58CC02]'
-                    : 'border-gray-200 text-gray-500 hover:border-gray-300'
-                )}
-              >
-                <Sparkles className="w-4 h-4" />
-                {selectedTopics.length === TOPICS.length ? 'All selected!' : 'Select all topics'}
-              </button>
-
-              <div className="grid grid-cols-2 gap-2 mb-6">
-                {TOPICS.map((topic) => {
-                  const selected = selectedTopics.includes(topic.id);
-                  return (
-                    <button
-                      key={topic.id}
-                      onClick={() => toggleTopic(topic.id)}
-                      className={cn(
-                        'flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left active:scale-[0.97]',
-                        selected
-                          ? 'border-[#58CC02] bg-[#58CC02]/5'
-                          : 'border-gray-200 bg-white hover:border-gray-300'
-                      )}
-                    >
-                      <span className="text-base">{topic.icon}</span>
-                      <span className={cn(
-                        'text-xs font-bold leading-tight',
-                        selected ? 'text-[#58CC02]' : 'text-gray-600'
-                      )}>
-                        {topic.name}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <button
-                onClick={nextStep}
-                disabled={selectedTopics.length === 0}
-                className={cn(
-                  'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
-                  selectedTopics.length > 0
-                    ? 'bg-[#58CC02] text-white'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                )}
-                style={{
-                  boxShadow: selectedTopics.length > 0 ? '0 5px 0 #46A302' : 'none',
-                }}
-              >
-                CONTINUE
-              </button>
-            </motion.div>
-          )}
-
-          {/* ═══ Step 4: Daily Goal ═══ */}
-          {step === 4 && (
-            <motion.div
-              key="daily-goal"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-sm mx-auto w-full"
-            >
-              <h2 className="text-2xl font-black text-gray-900 mb-1 text-center">
-                Set a daily goal
-              </h2>
-              <p className="text-gray-400 text-sm font-semibold mb-6 text-center">
-                You can always change this later
-              </p>
-
-              <div className="space-y-3 mb-6">
-                {DAILY_GOALS.map((dg) => {
-                  const selected = dailyGoal === dg.id;
-                  const Icon = dg.icon;
-                  return (
-                    <button
-                      key={dg.id}
-                      onClick={() => {
-                        setDailyGoal(dg.id);
-                        setTimeout(nextStep, 300);
-                      }}
-                      className={cn(
-                        'w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all active:scale-[0.98]',
-                        selected
-                          ? 'border-[#58CC02] bg-[#58CC02]/5 shadow-sm'
-                          : 'border-gray-200 bg-white hover:border-gray-300'
-                      )}
-                    >
-                      <div className={cn(
-                        'w-10 h-10 rounded-xl flex items-center justify-center',
-                        selected ? 'bg-[#58CC02]/10' : 'bg-gray-100'
-                      )}>
-                        <Icon className={cn('w-5 h-5', selected ? 'text-[#58CC02]' : dg.color)} />
-                      </div>
-                      <div className="text-left flex-1">
-                        <div className="flex items-baseline gap-2">
-                          <p className={cn('font-bold', selected ? 'text-[#58CC02]' : 'text-gray-800')}>
-                            {dg.label}
-                          </p>
-                          <span className="text-xs text-gray-400 font-medium">{dg.desc}</span>
-                        </div>
-                        <p className="text-xs text-gray-400">{dg.detail}</p>
-                      </div>
-                      {selected && (
-                        <div className="w-6 h-6 rounded-full bg-[#58CC02] flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ═══ Step 5: Sample Question ═══ */}
-          {step === 5 && (
             <motion.div
               key="sample"
               custom={direction}
@@ -796,8 +471,8 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 6: Create Account ═══ */}
-          {step === 6 && (
+          {/* ═══ Step 2: Create Account ═══ */}
+          {step === 2 && (
             <motion.div
               key="signup"
               custom={direction}
@@ -913,8 +588,8 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 7: Ready! ═══ */}
-          {step === 7 && (
+          {/* ═══ Step 3: Ready! ═══ */}
+          {step === 3 && (
             <motion.div
               key="ready"
               custom={direction}
@@ -925,7 +600,7 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="text-center max-w-sm mx-auto w-full"
             >
-              {/* Confetti-style celebration */}
+              {/* Celebration */}
               <motion.div
                 className="relative mx-auto mb-6 w-24 h-24"
                 initial={{ scale: 0.5, rotate: -20 }}
@@ -961,7 +636,7 @@ export default function GetStartedPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                Your path is ready!
+                You&apos;re all set!
               </motion.h2>
 
               <motion.p
@@ -970,47 +645,10 @@ export default function GetStartedPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                We&apos;ve personalized your learning path.
-                <br />
                 Start with Unit 1 — it&apos;s completely free.
+                <br />
+                Dive in and master mechanical engineering!
               </motion.p>
-
-              {/* Summary cards */}
-              <motion.div
-                className="grid grid-cols-3 gap-3 mb-8"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                {[
-                  {
-                    label: 'Goal',
-                    value: GOALS.find((g) => g.id === goal)?.label || 'Interview Prep',
-                    emoji: GOALS.find((g) => g.id === goal)?.emoji || '💼',
-                  },
-                  {
-                    label: 'Topics',
-                    value: `${selectedTopics.length} selected`,
-                    emoji: '📖',
-                  },
-                  {
-                    label: 'Daily',
-                    value: DAILY_GOALS.find((d) => d.id === dailyGoal)?.desc || '10 min',
-                    emoji: '🔥',
-                  },
-                ].map((card) => (
-                  <div
-                    key={card.label}
-                    className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100"
-                  >
-                    <span className="text-xl">{card.emoji}</span>
-                    <p className="text-xs font-bold text-gray-800 mt-1">{card.value}</p>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                      {card.label}
-                    </p>
-                  </div>
-                ))}
-              </motion.div>
 
               <motion.button
                 onClick={completeOnboarding}

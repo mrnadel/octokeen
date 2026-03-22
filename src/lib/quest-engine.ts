@@ -7,13 +7,26 @@ import { dailyQuestPool, weeklyQuestPool } from '@/data/quests';
 
 // --------------- Date Utilities ---------------
 
-export function getTodayDate(): string {
+// Debug day offset — admin "Skip day" increments this so
+// getTodayDate / getCurrentWeekMonday advance without waiting.
+let _debugDayOffset = 0;
+export function getDebugDayOffset() { return _debugDayOffset; }
+export function addDebugDayOffset(days: number) { _debugDayOffset += days; }
+export function resetDebugDayOffset() { _debugDayOffset = 0; }
+
+function getSimulatedNow(): Date {
   const d = new Date();
+  if (_debugDayOffset) d.setDate(d.getDate() + _debugDayOffset);
+  return d;
+}
+
+export function getTodayDate(): string {
+  const d = getSimulatedNow();
   return d.toISOString().slice(0, 10); // YYYY-MM-DD
 }
 
 export function getCurrentWeekMonday(): string {
-  const d = new Date();
+  const d = getSimulatedNow();
   const day = d.getUTCDay(); // 0=Sun, 1=Mon, ..., 6=Sat
   const diff = (day === 0 ? -6 : 1 - day); // days to subtract to get Monday
   const monday = new Date(d);

@@ -14,6 +14,7 @@ import {
 import { leagueTiers } from '@/data/league';
 import { getUserRank } from '@/lib/league-simulator';
 import { dailyChestReward, weeklyChestReward } from '@/data/quests';
+import { addDebugDayOffset } from '@/lib/quest-engine';
 import { QuestCard } from './QuestCard';
 import { ChestAnimation } from './ChestAnimation';
 
@@ -96,13 +97,15 @@ export function EngagementBar() {
   };
 
   const skipToNextDay = useCallback(() => {
-    // Reset dailyQuestDate to force initDailyQuests to generate new quests
+    // Advance simulated date by 1 day, then re-init both daily and weekly
+    addDebugDayOffset(1);
     useEngagementStore.setState({
       dailyQuestDate: '',
       dailyChestClaimed: false,
     });
     initDailyQuests();
-  }, [initDailyQuests]);
+    initWeeklyQuests();
+  }, [initDailyQuests, initWeeklyQuests]);
 
   const completeAllQuests = useCallback(() => {
     useEngagementStore.setState((state) => ({
