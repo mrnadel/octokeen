@@ -29,18 +29,18 @@ function TopicDeepDiveContent() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-surface-900 flex items-center gap-3">
-          <BookOpen className="w-7 h-7 text-primary-500" />
+    <div className="max-w-4xl mx-auto px-4 sm:px-0">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold text-surface-900 flex items-center gap-2 sm:gap-3">
+          <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-primary-500 shrink-0" />
           Topic Deep Dive
         </h1>
-        <p className="text-surface-500 mt-1">Choose a topic and difficulty, then go deep.</p>
+        <p className="text-sm sm:text-base text-surface-500 mt-1">Choose a topic and difficulty, then go deep.</p>
       </div>
 
       <DailyLimitBanner />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 sm:mb-8">
         {topics.map((topic) => {
           const tp = progress.topicProgress.find(t => t.topicId === topic.id);
           const attempted = tp?.questionsAttempted ?? 0;
@@ -64,8 +64,8 @@ function TopicDeepDiveContent() {
                 <span className="font-semibold text-sm text-surface-900">{topic.name}</span>
               </div>
               <p className="text-xs text-surface-500 mb-3 line-clamp-2">{topic.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-surface-400">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs text-surface-400 truncate">
                   {attempted > 0 ? `${accuracy}% accuracy · ${attempted} questions` : 'Not started'}
                 </span>
                 <span className={cn(
@@ -83,7 +83,7 @@ function TopicDeepDiveContent() {
       </div>
 
       {selectedTopic && (
-        <div className="card p-6 mb-6 animate-slide-up">
+        <div className="card p-4 sm:p-6 mb-6 animate-slide-up">
           <h3 className="font-semibold text-surface-900 mb-4">Select Difficulty (optional)</h3>
           <div className="flex gap-3 flex-wrap mb-6">
             <button

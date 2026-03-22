@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
+import { cn } from '@/lib/utils';
 
 interface FlaggedItem {
   contentId: string;
@@ -67,34 +68,35 @@ export default function AdminFeedbackPage() {
     }
   };
 
-  if (status === 'loading') return <p style={{ padding: 40 }}>Loading...</p>;
-  if (status !== 'authenticated') return <p style={{ padding: 40 }}>Not authenticated</p>;
+  if (status === 'loading') return <p className="p-10 text-gray-500">Loading...</p>;
+  if (status !== 'authenticated') return <p className="p-10 text-gray-500">Not authenticated</p>;
 
   return (
-    <div style={{ fontFamily: 'system-ui' }}>
-      <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Content Feedback</h1>
-      <p style={{ fontSize: 14, color: '#666', marginBottom: 24 }}>
+    <div>
+      <h1 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-1">Content Feedback</h1>
+      <p className="text-sm text-gray-500 mb-5">
         Flagged questions sorted by total flags. Review and dismiss after fixing.
       </p>
 
-      <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24, fontSize: 14, cursor: 'pointer' }}>
+      <label className="flex items-center gap-2 mb-5 text-sm cursor-pointer min-h-[44px]">
         <input
           type="checkbox"
           checked={showDismissed}
           onChange={(e) => setShowDismissed(e.target.checked)}
+          className="w-4 h-4"
         />
         Show dismissed items
       </label>
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <p className="text-sm text-gray-500">Loading...</p>}
+      {error && <p className="text-sm text-red-500">{error}</p>}
 
       {!loading && !error && items.length === 0 && (
-        <p style={{ color: '#999', fontSize: 14 }}>No flagged content yet.</p>
+        <p className="text-sm text-gray-400 py-8 text-center">No flagged content yet.</p>
       )}
 
       {!loading && !error && items.length > 0 && (
-        <div>
+        <div className="space-y-3">
           {items.map((item) => {
             const key = `${item.contentType}:${item.contentId}`;
             const isExpanded = expandedId === key;
@@ -102,60 +104,46 @@ export default function AdminFeedbackPage() {
               <div
                 key={key}
                 onClick={() => setExpandedId(isExpanded ? null : key)}
-                style={{
-                  background: item.dismissedAt ? '#FAFAFA' : 'white',
-                  opacity: item.dismissedAt ? 0.6 : 1,
-                  borderRadius: 12,
-                  border: '1px solid #E5E5E5',
-                  padding: 16,
-                  marginBottom: 12,
-                  cursor: 'pointer',
-                }}
+                className={cn(
+                  'rounded-xl border border-gray-200 p-3.5 sm:p-4 cursor-pointer transition-colors',
+                  item.dismissedAt ? 'bg-gray-50 opacity-60' : 'bg-white'
+                )}
               >
                 {/* Top row: ID + type badge + flag count */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontFamily: 'monospace', fontSize: 12, color: '#888' }}>
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <span className="font-mono text-xs text-gray-400 truncate max-w-[150px] sm:max-w-none">
                     {item.contentId}
                   </span>
                   <span
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      padding: '2px 8px',
-                      borderRadius: 6,
-                      background: item.contentType === 'question' ? '#E8F5E9' : '#E3F2FD',
-                      color: item.contentType === 'question' ? '#2E7D32' : '#1565C0',
-                    }}
+                    className={cn(
+                      'text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0',
+                      item.contentType === 'question'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-blue-100 text-blue-700'
+                    )}
                   >
                     {item.contentType === 'question' ? 'Practice' : 'Lesson'}
                   </span>
-                  <span style={{ marginLeft: 'auto', fontWeight: 800, fontSize: 16 }}>
+                  <span className="ml-auto font-extrabold text-base text-gray-900 shrink-0">
                     {item.totalFlags}
                   </span>
                 </div>
 
                 {/* Question text */}
-                <p style={{ fontSize: 14, margin: '0 0 10px 0', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                <p className="text-sm text-gray-700 mb-2.5 leading-relaxed break-words">
                   {isExpanded
                     ? item.questionText
                     : item.questionText.slice(0, 60) + (item.questionText.length > 60 ? '...' : '')}
                 </p>
 
                 {/* Reason chips */}
-                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
+                <div className="flex gap-1 flex-wrap mb-2.5">
                   {(Object.entries(item.reasons) as [FeedbackReason, number][])
                     .filter(([, count]) => count > 0)
                     .map(([reason, count]) => (
                       <span
                         key={reason}
-                        style={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          padding: '2px 8px',
-                          borderRadius: 6,
-                          background: '#F5F5F5',
-                          color: '#666',
-                        }}
+                        className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-gray-100 text-gray-500"
                       >
                         {REASON_LABELS[reason]} ({count})
                       </span>
@@ -164,21 +152,11 @@ export default function AdminFeedbackPage() {
 
                 {/* User comments */}
                 {item.comments.length > 0 && (
-                  <div style={{ marginBottom: 10 }}>
+                  <div className="space-y-1 mb-2.5">
                     {item.comments.map((c, i) => (
                       <div
                         key={i}
-                        style={{
-                          fontSize: 12,
-                          color: '#555',
-                          padding: '4px 8px',
-                          background: '#FFF9E8',
-                          border: '1px solid #FFE4B8',
-                          borderRadius: 6,
-                          marginBottom: 4,
-                          lineHeight: 1.4,
-                          wordBreak: 'break-word',
-                        }}
+                        className="text-xs text-gray-600 px-2 py-1 bg-amber-50 border border-amber-200 rounded-md leading-relaxed break-words"
                       >
                         &ldquo;{c}&rdquo;
                       </div>
@@ -193,22 +171,13 @@ export default function AdminFeedbackPage() {
                       e.stopPropagation();
                       handleDismiss(item.contentType, item.contentId);
                     }}
-                    style={{
-                      width: '100%',
-                      fontSize: 12,
-                      fontWeight: 700,
-                      padding: '8px 14px',
-                      borderRadius: 8,
-                      border: '1.5px solid #E5E5E5',
-                      background: 'white',
-                      cursor: 'pointer',
-                    }}
+                    className="w-full text-xs font-bold py-2.5 min-h-[44px] rounded-lg border-[1.5px] border-gray-200 bg-white hover:bg-gray-50 transition-colors cursor-pointer"
                   >
                     Dismiss
                   </button>
                 )}
                 {item.dismissedAt && (
-                  <span style={{ fontSize: 11, color: '#999' }}>Dismissed</span>
+                  <span className="text-[11px] text-gray-400">Dismissed</span>
                 )}
               </div>
             );

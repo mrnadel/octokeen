@@ -345,7 +345,7 @@ export default function PricingPage() {
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-4 py-3.5 text-left"
+                  className="w-full flex items-center justify-between px-4 py-3.5 min-h-[44px] text-left"
                 >
                   <span className="text-sm font-medium text-surface-800 pr-3">{item.q}</span>
                   <ChevronDown className={cn(

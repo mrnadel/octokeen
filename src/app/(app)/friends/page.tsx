@@ -36,33 +36,33 @@ export default function FriendsPage() {
   }, [mutateFriends, mutateRequests]);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
       <header
-        className="sticky top-0 z-10 bg-white"
-        style={{ borderBottom: '2px solid #E5E5E5', padding: '12px 20px' }}
+        className="sticky top-0 z-10 bg-white px-4 sm:px-5 py-3"
+        style={{ borderBottom: '2px solid #E5E5E5' }}
       >
-        <div className="flex items-center" style={{ gap: 12 }}>
+        <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="flex items-center justify-center active:scale-90 transition-transform"
-            style={{ width: 36, height: 36, borderRadius: 10, background: '#F0F0F0' }}
+            className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[10px] active:scale-90 transition-transform"
+            style={{ background: '#F0F0F0' }}
           >
             <ChevronLeft style={{ width: 20, height: 20, color: '#3C3C3C' }} />
           </Link>
           <div>
-            <h1 style={{ fontSize: 20, fontWeight: 800, color: '#3C3C3C' }}>Friends</h1>
-            <p style={{ fontSize: 12, color: '#9CA3AF', fontWeight: 600 }}>Study together, grow together</p>
+            <h1 className="text-lg sm:text-xl font-extrabold" style={{ color: '#3C3C3C' }}>Friends</h1>
+            <p className="text-xs font-semibold" style={{ color: '#9CA3AF' }}>Study together, grow together</p>
           </div>
         </div>
       </header>
 
-      <div style={{ padding: '20px 20px', maxWidth: 600, margin: '0 auto' }}>
+      <div className="px-4 sm:px-5 py-5 max-w-[600px] mx-auto">
         <UserSearch />
 
         <div className="flex gap-2 mb-5">
           <button
             onClick={() => setTab('friends')}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-colors ${
+            className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-colors ${
               tab === 'friends'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
@@ -72,7 +72,7 @@ export default function FriendsPage() {
           </button>
           <button
             onClick={() => setTab('requests')}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-colors relative ${
+            className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-colors relative ${
               tab === 'requests'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-100 text-surface-500 hover:bg-surface-200'

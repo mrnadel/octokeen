@@ -29,12 +29,12 @@ export default function WeakAreasPage() {
     .sort((a, b) => a.accuracy - b.accuracy);
 
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-red-50 mb-6">
-          <AlertTriangle className="w-10 h-10 text-red-500" />
+    <div className="max-w-2xl mx-auto px-4 sm:px-0 py-6 sm:py-8">
+      <div className="text-center mb-6 sm:mb-8">
+        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-red-50 mb-4 sm:mb-6">
+          <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
         </div>
-        <h1 className="text-2xl font-bold text-surface-900 mb-3">Weak Areas</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-surface-900 mb-3">Weak Areas</h1>
         <p className="text-surface-500 max-w-md mx-auto">
           Focus on topics where you&apos;re struggling. These questions are selected to strengthen your weakest points.
         </p>
@@ -47,20 +47,20 @@ export default function WeakAreasPage() {
           <>
             <div className="space-y-3 mb-8">
               {weakTopics.map(({ topic, accuracy, questionsAttempted }) => (
-                <div key={topic.id} className="card p-4 flex items-center gap-4">
+                <div key={topic.id} className="card p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-lg sm:text-xl shrink-0"
                     style={{ backgroundColor: `${topic.color}15` }}
                   >
                     {topic.icon}
                   </div>
-                  <div className="flex-1">
-                    <p className="font-semibold text-surface-900">{topic.name}</p>
-                    <p className="text-sm text-surface-500">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-surface-900 text-sm sm:text-base">{topic.name}</p>
+                    <p className="text-xs sm:text-sm text-surface-500 truncate">
                       {accuracy}% accuracy · {questionsAttempted} questions attempted
                     </p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <span className="badge-error">{accuracy}%</span>
                   </div>
                 </div>

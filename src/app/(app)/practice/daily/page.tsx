@@ -29,7 +29,7 @@ export default function DailyChallengePage() {
         {challenge.description}
       </p>
 
-      <div className="card p-6 mb-8 max-w-md mx-auto">
+      <div className="card p-4 sm:p-6 mb-6 sm:mb-8 max-w-md mx-auto">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Star className="w-5 h-5 text-amber-500" />
@@ -41,7 +41,7 @@ export default function DailyChallengePage() {
           <p>5 curated questions on today&apos;s theme</p>
           <p>Bonus XP for completing the challenge</p>
         </div>
-        <div className="mt-4 pt-4 border-t border-surface-200 flex items-center gap-4 text-sm">
+        <div className="mt-4 pt-4 border-t border-surface-200 flex items-center gap-3 sm:gap-4 text-sm flex-wrap">
           <span className="flex items-center gap-1 text-amber-600">
             <Star className="w-4 h-4" /> Bonus XP
           </span>
@@ -55,7 +55,7 @@ export default function DailyChallengePage() {
 
       <button
         onClick={() => startSession('daily-challenge', { questionIds: challenge.questionIds })}
-        className="btn-primary text-lg py-3 px-8 bg-amber-500 hover:bg-amber-600"
+        className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-amber-500 hover:bg-amber-600"
       >
         Start Today&apos;s Challenge
       </button>
