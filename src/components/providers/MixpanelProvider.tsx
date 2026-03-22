@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { initMixpanel, identifyUser, trackPageView, resetUser } from '@/lib/mixpanel';
+import { initMixpanel, identifyUser, trackPageView, resetUser, analytics } from '@/lib/mixpanel';
+import { useStore } from '@/store/useStore';
 
 const CONSENT_KEY = 'mechready-cookie-consent';
 
@@ -45,6 +46,18 @@ export default function MixpanelProvider({ children }: { children: React.ReactNo
   useEffect(() => {
     trackPageView(pathname);
   }, [pathname]);
+
+  // Track session_started via Zustand subscribe (avoids modifying every call site)
+  useEffect(() => {
+    return useStore.subscribe(
+      (state) => state.session,
+      (current, previous) => {
+        if (current && !previous) {
+          analytics.sessionStarted(current.type, current.topicId);
+        }
+      },
+    );
+  }, []);
 
   return <>{children}</>;
 }

@@ -10,6 +10,7 @@ import { useBackHandler } from '@/hooks/useBackHandler';
 import { achievements } from '@/data/achievements';
 import { ContinuationHooks } from '@/components/engagement/ContinuationHooks';
 import { useEngagementActions } from '@/store/useEngagementStore';
+import { analytics } from '@/lib/mixpanel';
 
 interface Props {
   summary: SessionSummaryType;
@@ -38,6 +39,19 @@ export default function SessionSummary({ summary }: Props) {
     if (summary.type === 'daily-challenge') updateQuestProgress('daily_challenges_completed', 1);
     const currentStreak = useStore.getState().progress.currentStreak;
     if (currentStreak > 0) updateQuestProgress('streak_days', currentStreak);
+
+    // Mixpanel tracking
+    analytics.sessionCompleted({
+      mode: summary.type,
+      questionsAttempted: summary.questionsAttempted,
+      questionsCorrect: summary.questionsCorrect,
+      xpEarned: summary.xpEarned,
+      durationSeconds: summary.duration,
+    });
+    summary.newAchievements.forEach(id => {
+      const achievement = achievements.find(a => a.id === id);
+      analytics.achievementUnlocked(id, achievement?.name ?? id);
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getGrade = (accuracy: number) => {

@@ -217,7 +217,7 @@ export function CourseHeader() {
               <button
                 onClick={() => togglePopover('menu')}
                 className="transition-transform active:scale-95"
-                style={{ flexShrink: 0 }}
+                style={{ flexShrink: 0, position: 'relative' }}
               >
                 {userImage ? (
                   <img
@@ -246,6 +246,28 @@ export function CourseHeader() {
                     }}
                   >
                     {initial}
+                  </div>
+                )}
+                {isProUser && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: -2,
+                      right: -2,
+                      width: 16,
+                      height: 16,
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+                      border: '2px solid white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 0 6px rgba(245, 158, 11, 0.4)',
+                    }}
+                  >
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="#FFFBEB">
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                    </svg>
                   </div>
                 )}
               </button>
