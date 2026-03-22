@@ -14,6 +14,7 @@ export function initMixpanel() {
     ignore_dnt: false,
     debug: !IS_PROD,
     api_host: '/api/mp', // proxy through our own API to bypass ad blockers
+    api_transport: 'XHR', // required for custom api_host
   });
 
   initialized = true;

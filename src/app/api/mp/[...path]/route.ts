@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const MIXPANEL_API = 'https://api-js.mixpanel.com';
+const MIXPANEL_API = 'https://api-eu.mixpanel.com';
 
 export async function POST(
   req: NextRequest,
