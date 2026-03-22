@@ -123,6 +123,58 @@ export const lesson3: Lesson = {
         'The outdoor condenser pumps cold air through ducts to the indoor unit',
         'An electric cooling element (Peltier device) in the indoor unit removes heat',
       ],
+      diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <rect x="2" y="2" width="76" height="76" rx="8" fill="#58CC02" opacity="0.06"/>
+  <!-- Indoor unit -->
+  <rect x="4" y="12" width="28" height="18" rx="3" stroke="#3B8700" stroke-width="2" fill="#A5E86C" opacity="0.15"/>
+  <text x="18" y="20" font-size="3.5" fill="#334155" text-anchor="middle">Evaporator</text>
+  <!-- Evaporator coil -->
+  <path d="M 8 24 Q 11 22 14 24 Q 17 26 20 24 Q 23 22 26 24" stroke="#58CC02" stroke-width="1.5" fill="none"/>
+  <!-- Cold air arrows from indoor unit -->
+  <line x1="10" y1="33" x2="10" y2="38" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="10,39 8,35.5 12,35.5" fill="#58CC02"/>
+  <line x1="18" y1="33" x2="18" y2="38" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="18,39 16,35.5 20,35.5" fill="#58CC02"/>
+  <line x1="26" y1="33" x2="26" y2="38" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="26,39 24,35.5 28,35.5" fill="#58CC02"/>
+  <text x="18" y="44" font-size="3.5" fill="#58CC02" text-anchor="middle">cool air</text>
+  <!-- Outdoor unit -->
+  <rect x="48" y="12" width="28" height="18" rx="3" stroke="#3B8700" stroke-width="2" fill="#A5E86C" opacity="0.15"/>
+  <text x="62" y="20" font-size="3.5" fill="#334155" text-anchor="middle">Condenser</text>
+  <!-- Condenser coil -->
+  <path d="M 52 24 Q 55 22 58 24 Q 61 26 64 24 Q 67 22 70 24" stroke="#3B8700" stroke-width="1.5" fill="none"/>
+  <!-- Hot air arrows from outdoor unit -->
+  <line x1="54" y1="10" x2="54" y2="5" stroke="#3B8700" stroke-width="1.5"/>
+  <polygon points="54,3.5 51.5,7.5 56.5,7.5" fill="#3B8700"/>
+  <line x1="62" y1="10" x2="62" y2="5" stroke="#3B8700" stroke-width="1.5"/>
+  <polygon points="62,3.5 59.5,7.5 64.5,7.5" fill="#3B8700"/>
+  <line x1="70" y1="10" x2="70" y2="5" stroke="#3B8700" stroke-width="1.5"/>
+  <polygon points="70,3.5 67.5,7.5 72.5,7.5" fill="#3B8700"/>
+  <text x="62" y="2" font-size="3.5" fill="#3B8700" text-anchor="middle">hot air</text>
+  <!-- Connecting pipes -->
+  <line x1="32" y1="17" x2="48" y2="17" stroke="#3B8700" stroke-width="1.5"/>
+  <line x1="32" y1="25" x2="48" y2="25" stroke="#3B8700" stroke-width="1.5"/>
+  <!-- Animated refrigerant dots — top pipe (to condenser) -->
+  <circle r="1.8" fill="#58CC02">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 32 17 L 48 17" calcMode="spline" keySplines="0.3 0 0.7 1"/>
+  </circle>
+  <circle r="1.8" fill="#58CC02">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 32 17 L 48 17" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1s"/>
+  </circle>
+  <!-- Animated refrigerant dots — bottom pipe (to evaporator) -->
+  <circle r="1.8" fill="#3B8700">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 48 25 L 32 25" calcMode="spline" keySplines="0.3 0 0.7 1"/>
+  </circle>
+  <circle r="1.8" fill="#3B8700">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 48 25 L 32 25" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1s"/>
+  </circle>
+  <!-- Circuit labels -->
+  <text x="40" y="55" font-size="3.5" fill="#6B7280" text-anchor="middle">Refrigerant circuit</text>
+  <!-- Circular flow arrows -->
+  <path d="M 18 50 L 18 60 Q 18 66 24 66 L 56 66 Q 62 66 62 60 L 62 50" stroke="#6B7280" stroke-width="1" stroke-dasharray="2 1.5" fill="none"/>
+  <polygon points="62,50 60,53 64,53" fill="#6B7280"/>
+  <polygon points="18,50 16,53 20,53" fill="#6B7280"/>
+</svg>`,
       correctIndex: 1,
       explanation: 'The refrigerant enters the evaporator as a low-pressure liquid. It absorbs latent heat from room air to evaporate, cooling the air blown over the coil. This phase-change heat absorption is the core of the vapor-compression refrigeration cycle used in virtually all residential and commercial HVAC systems.',
     },
@@ -180,6 +232,58 @@ export const lesson3: Lesson = {
         'Vacuum suction created at the drum center',
         'Electromagnetic force from the motor repelling water molecules',
       ],
+      diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <rect x="2" y="2" width="76" height="76" rx="8" fill="#58CC02" opacity="0.06"/>
+  <!-- Outer drum circle -->
+  <circle cx="40" cy="38" r="26" stroke="#3B8700" stroke-width="2" fill="none"/>
+  <!-- Drum perforations -->
+  <circle cx="40" cy="12" r="1" fill="#6B7280"/>
+  <circle cx="62" cy="24" r="1" fill="#6B7280"/>
+  <circle cx="66" cy="38" r="1" fill="#6B7280"/>
+  <circle cx="62" cy="52" r="1" fill="#6B7280"/>
+  <circle cx="40" cy="64" r="1" fill="#6B7280"/>
+  <circle cx="18" cy="52" r="1" fill="#6B7280"/>
+  <circle cx="14" cy="38" r="1" fill="#6B7280"/>
+  <circle cx="18" cy="24" r="1" fill="#6B7280"/>
+  <!-- Inner contents (clothes mass) rotating -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 40 38;360 40 38" dur="2s" repeatCount="indefinite"/>
+    <!-- Clothes blobs -->
+    <ellipse cx="35" cy="30" rx="5" ry="3.5" fill="#A5E86C" opacity="0.5"/>
+    <ellipse cx="48" cy="42" rx="4" ry="3" fill="#A5E86C" opacity="0.5"/>
+    <ellipse cx="33" cy="46" rx="4.5" ry="3" fill="#A5E86C" opacity="0.5"/>
+  </g>
+  <!-- Animated water droplets flung outward -->
+  <circle r="1.2" fill="#58CC02" opacity="0.8">
+    <animate attributeName="cx" values="46,68" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1"/>
+    <animate attributeName="cy" values="30,18" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1"/>
+    <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="1.2" fill="#58CC02" opacity="0.8">
+    <animate attributeName="cx" values="48,72" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="0.5s"/>
+    <animate attributeName="cy" values="44,52" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="0.5s"/>
+    <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  <circle r="1.2" fill="#58CC02" opacity="0.8">
+    <animate attributeName="cx" values="32,10" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1s"/>
+    <animate attributeName="cy" values="48,60" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1s"/>
+    <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" begin="1s"/>
+  </circle>
+  <circle r="1.2" fill="#58CC02" opacity="0.8">
+    <animate attributeName="cx" values="34,12" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1.5s"/>
+    <animate attributeName="cy" values="30,20" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1" begin="1.5s"/>
+    <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+  </circle>
+  <!-- Radial outward arrows -->
+  <line x1="52" y1="25" x2="60" y2="19" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="62,17.5 57,20 59,24" fill="#58CC02"/>
+  <line x1="52" y1="50" x2="60" y2="56" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="62,58 59,52 57,56" fill="#58CC02"/>
+  <!-- Center dot -->
+  <circle cx="40" cy="38" r="1.5" fill="#3B8700"/>
+  <!-- Label -->
+  <text x="40" y="74" font-size="4" fill="#6B7280" text-anchor="middle">centrifugal direction</text>
+</svg>`,
       correctIndex: 1,
       explanation: 'In the rotating reference frame, the centrifugal effect pushes water radially outward through the drum holes. In the inertial frame, the water\'s inertia resists the circular path and it flies off tangentially. Understanding rotating-frame pseudo-forces is essential for designing centrifuges, separators, and rotating machinery.',
       hint: 'Think about what happens to objects in a rotating frame — Newton\'s first law.',
@@ -316,6 +420,35 @@ export const lesson4: Lesson = {
         'The required force stays the same — only speed changes',
         'The required force is reduced to one-quarter',
       ],
+      diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <rect x="2" y="2" width="76" height="76" rx="8" fill="#58CC02" opacity="0.06"/>
+  <!-- Bolt (top view) -->
+  <polygon points="40,22 44,24 44,28 40,30 36,28 36,24" stroke="#3B8700" stroke-width="1.5" fill="#A5E86C" opacity="0.3"/>
+  <!-- Short wrench (faded background) -->
+  <rect x="40" y="23" width="18" height="5" rx="1" stroke="#6B7280" stroke-width="1" fill="#6B7280" opacity="0.12" stroke-dasharray="2 1"/>
+  <text x="49" y="22" font-size="3.5" fill="#6B7280" text-anchor="middle" font-style="italic">d&#x2081;</text>
+  <!-- Extended wrench with cheater pipe -->
+  <rect x="40" y="34" width="18" height="5" rx="1" stroke="#3B8700" stroke-width="1.5" fill="#A5E86C" opacity="0.25"/>
+  <rect x="56" y="33.5" width="16" height="6" rx="1.5" stroke="#58CC02" stroke-width="1.5" fill="#58CC02" opacity="0.15" stroke-dasharray="3 1.5"/>
+  <!-- Bolt for extended wrench -->
+  <polygon points="40,33 44,35 44,39 40,41 36,39 36,35" stroke="#3B8700" stroke-width="1.5" fill="#A5E86C" opacity="0.3"/>
+  <!-- d2 label for full length -->
+  <line x1="40" y1="43" x2="72" y2="43" stroke="#6B7280" stroke-width="1" stroke-dasharray="2 1"/>
+  <text x="56" y="47" font-size="3.5" fill="#334155" text-anchor="middle" font-style="italic">d&#x2082;</text>
+  <!-- Force arrow at end of cheater pipe -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+    <line x1="72" y1="36" x2="72" y2="28" stroke="#58CC02" stroke-width="2"/>
+    <polygon points="72,26 69.5,31 74.5,31" fill="#58CC02"/>
+    <text x="75" y="27" font-size="5" fill="#334155" font-style="italic">F</text>
+  </g>
+  <!-- Labels -->
+  <text x="49" y="20" font-size="3.5" fill="#6B7280" text-anchor="middle">short wrench</text>
+  <text x="56" y="53" font-size="3.5" fill="#6B7280" text-anchor="middle">+ cheater pipe</text>
+  <text x="40" y="64" font-size="4" fill="#334155" text-anchor="middle">Longer arm = less force needed</text>
+  <!-- Cheater pipe label -->
+  <text x="64" y="31" font-size="3" fill="#58CC02" text-anchor="middle">cheater</text>
+</svg>`,
       correctIndex: 0,
       explanation: 'Torque = Force × lever arm. Doubling the lever arm from 0.3 m to 0.6 m halves the required force: F = 60/0.6 = 100 N instead of 60/0.3 = 200 N. This is the fundamental principle behind all lever-based mechanical advantage. However, using cheater pipes can exceed the wrench\'s design load and cause tool failure.',
     },
@@ -360,6 +493,45 @@ export const lesson4: Lesson = {
         '1,000 N',
         '5,000 N',
       ],
+      diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <rect x="2" y="2" width="76" height="76" rx="8" fill="#58CC02" opacity="0.06"/>
+  <!-- Small cylinder (left) -->
+  <rect x="10" y="20" width="12" height="35" rx="1" stroke="#3B8700" stroke-width="2" fill="none"/>
+  <!-- Large cylinder (right) -->
+  <rect x="48" y="20" width="24" height="35" rx="1" stroke="#3B8700" stroke-width="2" fill="none"/>
+  <!-- Connecting channel at bottom -->
+  <rect x="22" y="45" width="26" height="8" stroke="#3B8700" stroke-width="2" fill="none"/>
+  <!-- Fluid fill -->
+  <rect x="11" y="38" width="10" height="16" fill="#58CC02" opacity="0.15"/>
+  <rect x="23" y="46" width="24" height="6" fill="#58CC02" opacity="0.15"/>
+  <rect x="49" y="32" width="22" height="22" fill="#58CC02" opacity="0.15"/>
+  <!-- Small piston (animated) -->
+  <g>
+    <animate attributeName="opacity" values="1;1" dur="2s" repeatCount="indefinite"/>
+    <rect x="10" y="33" width="12" height="4" rx="0.5" stroke="#334155" stroke-width="1.5" fill="#A5E86C">
+      <animate attributeName="y" values="33;38;33" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+    </rect>
+  </g>
+  <!-- Large piston (animated - moves less) -->
+  <g>
+    <rect x="48" y="28" width="24" height="4" rx="0.5" stroke="#334155" stroke-width="1.5" fill="#A5E86C">
+      <animate attributeName="y" values="30;28;30" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+    </rect>
+  </g>
+  <!-- Force arrow F1 (small, down) -->
+  <line x1="16" y1="14" x2="16" y2="28" stroke="#58CC02" stroke-width="2"/>
+  <polygon points="16,30 13.5,25 18.5,25" fill="#58CC02"/>
+  <text x="16" y="11" font-size="4.5" fill="#334155" text-anchor="middle" font-style="italic">F&#x2081;</text>
+  <!-- Force arrow F2 (large, up) -->
+  <line x1="60" y1="24" x2="60" y2="14" stroke="#58CC02" stroke-width="2.5"/>
+  <polygon points="60,12 56.5,18 63.5,18" fill="#58CC02"/>
+  <text x="60" y="10" font-size="5" fill="#334155" text-anchor="middle" font-style="italic">F&#x2082;</text>
+  <!-- Area labels -->
+  <text x="16" y="62" font-size="3.5" fill="#6B7280" text-anchor="middle" font-style="italic">A&#x2081;</text>
+  <text x="60" y="62" font-size="3.5" fill="#6B7280" text-anchor="middle" font-style="italic">A&#x2082;</text>
+  <!-- Pascal's law label -->
+  <text x="40" y="73" font-size="4" fill="#334155" text-anchor="middle">P = F&#x2081;/A&#x2081; = F&#x2082;/A&#x2082;</text>
+</svg>`,
       correctIndex: 2,
       explanation: 'Pascal\'s law states that pressure is transmitted uniformly in an enclosed fluid. Pressure = 100 N / 5 cm² = 20 N/cm². Force on large piston = 20 N/cm² × 50 cm² = 1,000 N. The mechanical advantage is the area ratio (50/5 = 10×). However, the small piston must travel 10× farther — energy is conserved, not force.',
     },
@@ -418,6 +590,50 @@ export const lesson4: Lesson = {
         'Third-class lever — effort between fulcrum and load',
         'It is not a lever system; it operates on hydraulic principles',
       ],
+      diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <rect x="2" y="2" width="76" height="76" rx="8" fill="#58CC02" opacity="0.06"/>
+  <!-- Top handle (upper jaw + handle) -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 40 36;-3 40 36;0 40 36" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+    <!-- Handle -->
+    <line x1="40" y1="36" x2="72" y2="28" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/>
+    <!-- Jaw -->
+    <line x1="40" y1="36" x2="14" y2="30" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <!-- Bottom handle (lower jaw + handle) -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 40 36;3 40 36;0 40 36" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>
+    <!-- Handle -->
+    <line x1="40" y1="36" x2="72" y2="44" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/>
+    <!-- Jaw -->
+    <line x1="40" y1="36" x2="14" y2="42" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <!-- Pivot/fulcrum -->
+  <circle cx="40" cy="36" r="3" stroke="#334155" stroke-width="1.5" fill="white"/>
+  <circle cx="40" cy="36" r="1" fill="#334155"/>
+  <!-- Fulcrum triangle symbol -->
+  <polygon points="40,41 37,46 43,46" stroke="#334155" stroke-width="1" fill="none"/>
+  <text x="40" y="52" font-size="3.5" fill="#334155" text-anchor="middle">Fulcrum</text>
+  <!-- Effort label and arrow at handles -->
+  <line x1="72" y1="24" x2="72" y2="18" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="72,16 70,20 74,20" fill="#58CC02"/>
+  <line x1="72" y1="48" x2="72" y2="54" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="72,56 70,52 74,52" fill="#58CC02"/>
+  <text x="72" y="14" font-size="3.5" fill="#58CC02" text-anchor="middle">Effort</text>
+  <!-- Load label and arrow at jaws -->
+  <line x1="14" y1="28" x2="14" y2="22" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="14,24 12,28 16,28" fill="#58CC02"/>
+  <line x1="14" y1="44" x2="14" y2="50" stroke="#58CC02" stroke-width="1.5"/>
+  <polygon points="14,48 12,44 16,44" fill="#58CC02"/>
+  <text x="14" y="18" font-size="3.5" fill="#58CC02" text-anchor="middle">Load</text>
+  <!-- Distance labels -->
+  <line x1="40" y1="58" x2="72" y2="58" stroke="#6B7280" stroke-width="1" stroke-dasharray="2 1"/>
+  <text x="56" y="63" font-size="3.5" fill="#6B7280" text-anchor="middle" font-style="italic">d_effort</text>
+  <line x1="14" y1="58" x2="40" y2="58" stroke="#6B7280" stroke-width="1" stroke-dasharray="2 1"/>
+  <text x="27" y="63" font-size="3.5" fill="#6B7280" text-anchor="middle" font-style="italic">d_load</text>
+  <!-- Class label -->
+  <text x="40" y="73" font-size="4" fill="#334155" text-anchor="middle">1st-class lever</text>
+</svg>`,
       correctIndex: 0,
       explanation: 'Pliers and scissors are first-class levers: the pivot (fulcrum) sits between your hand force (effort) and the gripping/cutting force (load). Mechanical advantage = distance from fulcrum to handle / distance from fulcrum to jaw tip. Longer handles or a fulcrum closer to the jaws increases the gripping force — the same trade-off in all lever mechanisms.',
     },
