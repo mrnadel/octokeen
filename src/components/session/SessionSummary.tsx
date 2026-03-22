@@ -16,6 +16,13 @@ interface Props {
   summary: SessionSummaryType;
 }
 
+function getGrade(accuracy: number) {
+  if (accuracy >= 90) return { label: 'Outstanding', color: 'text-emerald-600', bg: 'bg-emerald-50' };
+  if (accuracy >= 75) return { label: 'Strong', color: 'text-blue-600', bg: 'bg-blue-50' };
+  if (accuracy >= 60) return { label: 'Good Progress', color: 'text-amber-600', bg: 'bg-amber-50' };
+  return { label: 'Keep Practicing', color: 'text-orange-600', bg: 'bg-orange-50' };
+}
+
 export default function SessionSummary({ summary }: Props) {
   const { startSession, abandonSession } = useSessionActions();
   const { updateQuestProgress, updateLeagueXp } = useEngagementActions();
@@ -41,25 +48,25 @@ export default function SessionSummary({ summary }: Props) {
     if (currentStreak > 0) updateQuestProgress('streak_days', currentStreak);
 
     // Mixpanel tracking
-    analytics.sessionCompleted({
+    const grade = getGrade(summary.accuracy);
+    analytics.session({
+      status: 'completed',
       mode: summary.type,
       questionsAttempted: summary.questionsAttempted,
       questionsCorrect: summary.questionsCorrect,
+      accuracy: summary.accuracy,
       xpEarned: summary.xpEarned,
       durationSeconds: summary.duration,
+      grade: grade.label,
     });
     summary.newAchievements.forEach(id => {
       const achievement = achievements.find(a => a.id === id);
-      analytics.achievementUnlocked(id, achievement?.name ?? id);
+      analytics.milestone({ type: 'achievement', name: achievement?.name ?? id });
     });
+    if (summary.newLevel) {
+      analytics.milestone({ type: 'level_up' });
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const getGrade = (accuracy: number) => {
-    if (accuracy >= 90) return { label: 'Outstanding', color: 'text-emerald-600', bg: 'bg-emerald-50' };
-    if (accuracy >= 75) return { label: 'Strong', color: 'text-blue-600', bg: 'bg-blue-50' };
-    if (accuracy >= 60) return { label: 'Good Progress', color: 'text-amber-600', bg: 'bg-amber-50' };
-    return { label: 'Keep Practicing', color: 'text-orange-600', bg: 'bg-orange-50' };
-  };
 
   const grade = getGrade(summary.accuracy);
 

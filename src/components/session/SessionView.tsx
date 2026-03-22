@@ -8,7 +8,6 @@ import SessionSummary from './SessionSummary';
 import { X, Clock, Zap } from 'lucide-react';
 import { cn, formatDuration } from '@/lib/utils';
 import { useMasteryStore } from '@/store/useMasteryStore';
-import { analytics } from '@/lib/mixpanel';
 
 export default function SessionView() {
   const { session, sessionSummary } = useSession();
@@ -67,15 +66,6 @@ export default function SessionView() {
       difficulty: currentQuestion.difficulty,
       correct,
       source: 'practice',
-    });
-    analytics.questionAnswered({
-      questionId: currentQuestion.id,
-      topicId: currentQuestion.topic,
-      subtopic: currentQuestion.subtopic,
-      difficulty: currentQuestion.difficulty,
-      correct,
-      timeSpentMs: timeSpent ?? 0,
-      mode: session.type,
     });
   };
 

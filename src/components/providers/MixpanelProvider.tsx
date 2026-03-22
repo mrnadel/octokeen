@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { initMixpanel, identifyUser, trackPageView, resetUser, analytics } from '@/lib/mixpanel';
+import { initMixpanel, identifyUser, resetUser, analytics } from '@/lib/mixpanel';
 import { useStore } from '@/store/useStore';
 
 const CONSENT_KEY = 'mechready-cookie-consent';
 
 export default function MixpanelProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const { data: session, status } = useSession();
 
   // Initialize Mixpanel when consent is given
@@ -42,18 +40,27 @@ export default function MixpanelProvider({ children }: { children: React.ReactNo
     }
   }, [session, status]);
 
-  // Track page views on route change
-  useEffect(() => {
-    trackPageView(pathname);
-  }, [pathname]);
-
-  // Track session_started via Zustand subscribe (avoids modifying every call site)
+  // Track session abandoned via Zustand subscribe
+  // (session completed is tracked in SessionSummary)
   useEffect(() => {
     return useStore.subscribe(
       (state) => state.session,
       (current, previous) => {
-        if (current && !previous) {
-          analytics.sessionStarted(current.type, current.topicId);
+        // Session was active and is now null, but no summary = abandoned
+        if (!current && previous && !useStore.getState().sessionSummary) {
+          const answers = Object.values(previous.answers);
+          const correct = answers.filter(a => a.correct).length;
+          const duration = Math.round((Date.now() - previous.startTime) / 1000);
+          analytics.session({
+            status: 'abandoned',
+            mode: previous.type,
+            questionsAttempted: answers.length,
+            questionsCorrect: correct,
+            accuracy: answers.length > 0 ? Math.round((correct / answers.length) * 100) : 0,
+            xpEarned: answers.reduce((sum, a) => sum + a.xpAwarded, 0),
+            durationSeconds: duration,
+            topicId: previous.topicId,
+          });
         }
       },
     );
