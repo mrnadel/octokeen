@@ -173,16 +173,6 @@ export function LessonNode({
         >
           {lesson.title}
         </div>
-        <div
-          style={{
-            fontSize: 11.5,
-            fontWeight: 600,
-            color: '#AFAFAF',
-            marginTop: 1,
-          }}
-        >
-          {lesson.questions.length} questions &middot; {lesson.xpReward} XP
-        </div>
       </div>
 
       {/* Badge */}
