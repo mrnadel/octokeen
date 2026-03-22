@@ -115,14 +115,13 @@ export default function PricingPage() {
         body: JSON.stringify({ priceId }),
       });
       if (!res.ok) return;
-      const { customerId } = await res.json();
+      const { email } = await res.json();
 
       const paddle = await getPaddle();
       if (!paddle) return;
       paddle.Checkout.open({
         items: [{ priceId, quantity: 1 }],
-        customer: { id: customerId },
-        customData: { userId: session.user.id },
+        customer: { email },
         settings: {
           successUrl: `${window.location.origin}/checkout/success`,
         },

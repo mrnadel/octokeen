@@ -57,47 +57,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  // Reuse existing Paddle customer or create one
-  const [existingSub] = await db
-    .select({ paddleCustomerId: subscriptions.paddleCustomerId })
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId))
-    .limit(1);
-
-  let customerId = existingSub?.paddleCustomerId ?? undefined;
-
-  if (!customerId) {
-    // Try to find existing Paddle customer by email, or create a new one
-    try {
-      const customer = await paddle.customers.create({
-        email: user.email,
-      });
-      customerId = customer.id;
-    } catch (err: unknown) {
-      // If customer already exists in Paddle, list and find by email
-      const message = err instanceof Error ? err.message : '';
-      if (message.includes('conflicts')) {
-        const customers = await paddle.customers.list({ email: [user.email] });
-        for await (const c of customers) {
-          customerId = c.id;
-          break;
-        }
-      }
-      if (!customerId) throw err;
-    }
-
-    // Save the Paddle customer ID for future checkouts
-    await db.insert(subscriptions).values({
-      userId,
-      tier: 'free',
-      status: 'active',
-      paddleCustomerId: customerId,
-    }).onConflictDoUpdate({
-      target: subscriptions.userId,
-      set: { paddleCustomerId: customerId, updatedAt: new Date() },
-    });
-  }
-
-  // Return customer ID so the client can open the Paddle checkout overlay
-  return NextResponse.json({ customerId });
+  // Return the email so the client can open the Paddle checkout overlay
+  // Paddle will handle customer creation/lookup automatically
+  return NextResponse.json({ email: user.email });
 }
