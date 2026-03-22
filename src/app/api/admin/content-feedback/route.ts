@@ -41,6 +41,7 @@ export async function GET(req: NextRequest) {
       contentType: contentFeedback.contentType,
       contentId: contentFeedback.contentId,
       reason: contentFeedback.reason,
+      comment: contentFeedback.comment,
       createdAt: contentFeedback.createdAt,
     })
     .from(contentFeedback);
@@ -60,6 +61,7 @@ export async function GET(req: NextRequest) {
     contentId: string;
     totalFlags: number;
     reasons: Record<string, number>;
+    comments: string[];
     latestFlagAt: Date | null;
   }>();
 
@@ -71,12 +73,14 @@ export async function GET(req: NextRequest) {
         contentId: row.contentId,
         totalFlags: 0,
         reasons: { confusing: 0, incorrect: 0, 'too-easy': 0, 'too-hard': 0 },
+        comments: [],
         latestFlagAt: null,
       });
     }
     const g = grouped.get(key)!;
     g.totalFlags++;
     g.reasons[row.reason] = (g.reasons[row.reason] || 0) + 1;
+    if (row.comment) g.comments.push(row.comment);
     if (!g.latestFlagAt || (row.createdAt && row.createdAt > g.latestFlagAt)) {
       g.latestFlagAt = row.createdAt;
     }
@@ -98,6 +102,7 @@ export async function GET(req: NextRequest) {
       questionText: getQuestionText(g.contentType, g.contentId),
       totalFlags: g.totalFlags,
       reasons: g.reasons as Record<FeedbackReason, number>,
+      comments: g.comments,
       dismissedAt: dismissedAt?.toISOString() ?? null,
     });
   }

@@ -10,6 +10,7 @@ interface FlaggedItem {
   questionText: string;
   totalFlags: number;
   reasons: Record<FeedbackReason, number>;
+  comments: string[];
   dismissedAt: string | null;
 }
 
@@ -159,6 +160,30 @@ export default function AdminFeedbackPage() {
                       </span>
                     ))}
                 </div>
+
+                {/* User comments */}
+                {item.comments.length > 0 && (
+                  <div style={{ marginBottom: 10 }}>
+                    {item.comments.map((c, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          fontSize: 12,
+                          color: '#555',
+                          padding: '4px 8px',
+                          background: '#FFF9E8',
+                          border: '1px solid #FFE4B8',
+                          borderRadius: 6,
+                          marginBottom: 4,
+                          lineHeight: 1.4,
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        &ldquo;{c}&rdquo;
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* Dismiss button or dismissed label */}
                 {!item.dismissedAt && (

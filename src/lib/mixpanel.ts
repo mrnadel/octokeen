@@ -9,7 +9,7 @@ export function initMixpanel() {
   if (initialized || !MIXPANEL_TOKEN) return;
 
   mixpanel.init(MIXPANEL_TOKEN, {
-    track_pageview: false, // we track manually on route change
+    track_pageview: false,
     persistence: 'localStorage',
     ignore_dnt: false,
     debug: !IS_PROD,
@@ -38,52 +38,43 @@ export function resetUser() {
   mixpanel.reset();
 }
 
-export function trackPageView(url: string) {
-  trackEvent('page_view', { url });
-}
-
-// Convenience functions for key events
+// Lean event model — few events, rich properties
 export const analytics = {
-  sessionStarted(mode: string, topicId?: string) {
-    trackEvent('session_started', { mode, topic_id: topicId });
-  },
-
-  sessionCompleted(props: {
+  // Fires once when a practice session ends (completed or abandoned)
+  session(props: {
+    status: 'completed' | 'abandoned';
     mode: string;
     questionsAttempted: number;
     questionsCorrect: number;
+    accuracy: number;
     xpEarned: number;
     durationSeconds: number;
     topicId?: string;
+    grade?: string;
   }) {
-    trackEvent('session_completed', props);
+    trackEvent('session', props);
   },
 
-  questionAnswered(props: {
-    questionId: string;
-    topicId: string;
-    subtopic?: string;
-    difficulty: string;
-    correct: boolean;
-    timeSpentMs: number;
-    mode: string;
+  // Fires on meaningful milestones
+  milestone(props: {
+    type: 'achievement' | 'level_up' | 'streak' | 'onboarding_completed';
+    name?: string;
+    value?: number;
   }) {
-    trackEvent('question_answered', props);
+    trackEvent('milestone', props);
   },
 
-  achievementUnlocked(achievementId: string, name: string) {
-    trackEvent('achievement_unlocked', { achievement_id: achievementId, name });
+  // Fires on subscription changes
+  subscription(props: {
+    action: 'started' | 'cancelled' | 'upgraded' | 'downgraded';
+    plan: string;
+    interval?: string;
+  }) {
+    trackEvent('subscription', props);
   },
 
-  onboardingCompleted() {
-    trackEvent('onboarding_completed');
-  },
-
-  subscriptionStarted(plan: string, interval: string) {
-    trackEvent('subscription_started', { plan, interval });
-  },
-
-  featureUsed(feature: string, details?: Record<string, unknown>) {
-    trackEvent('feature_used', { feature, ...details });
+  // Fires when user engages with a specific feature
+  feature(name: string, details?: Record<string, unknown>) {
+    trackEvent('feature', { name, ...details });
   },
 };
