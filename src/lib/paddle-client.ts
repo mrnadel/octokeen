@@ -8,10 +8,12 @@ let paddleInstance: Paddle | undefined;
 
 export async function getPaddle(): Promise<Paddle | null> {
   if (paddleInstance) return paddleInstance;
-  const isSandbox = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN?.startsWith('test_') ?? false;
+  const token = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN ?? '';
+  const isSandbox = token.startsWith('test_');
+  console.log('[Paddle] Initializing with token:', token ? `${token.slice(0, 10)}...${token.slice(-4)} (${token.length} chars)` : 'MISSING');
   paddleInstance = await initializePaddle({
     environment: isSandbox ? 'sandbox' : 'production',
-    token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN!,
+    token,
   });
   return paddleInstance ?? null;
 }
