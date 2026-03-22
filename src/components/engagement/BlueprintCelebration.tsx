@@ -343,7 +343,7 @@ export function BlueprintCelebration({ unitIndex, isGolden, onDismiss }: Bluepri
                 }}
               >
                 CONTINUE
-              </button>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
