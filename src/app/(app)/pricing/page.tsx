@@ -118,7 +118,11 @@ export default function PricingPage() {
       const { email } = await res.json();
 
       const paddle = await getPaddle();
-      if (!paddle) return;
+      if (!paddle) {
+        console.error('Paddle SDK failed to initialize');
+        return;
+      }
+      console.log('[Checkout] Opening with:', { priceId, email });
       paddle.Checkout.open({
         items: [{ priceId, quantity: 1 }],
         customer: { email },
