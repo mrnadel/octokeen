@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Check, X, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface FriendRequestCardProps {
   id: string;
@@ -11,6 +12,7 @@ interface FriendRequestCardProps {
   image: string | null;
   level: number;
   type: 'incoming' | 'outgoing';
+  index: number;
   onAction?: () => void;
 }
 
@@ -21,10 +23,12 @@ export default function FriendRequestCard({
   image,
   level,
   type,
+  index,
   onAction,
 }: FriendRequestCardProps) {
   const [loading, setLoading] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [accepted, setAccepted] = useState(false);
   const initials = (displayName || '?').charAt(0).toUpperCase();
 
   async function handleAccept() {
@@ -36,8 +40,9 @@ export default function FriendRequestCard({
         body: JSON.stringify({ action: 'accept' }),
       });
       if (res.ok) {
-        setHidden(true);
+        setAccepted(true);
         onAction?.();
+        setTimeout(() => setHidden(true), 1000);
       }
     } finally {
       setLoading(false);
@@ -77,8 +82,11 @@ export default function FriendRequestCard({
   if (hidden) return null;
 
   return (
-    <div
-      className="flex items-center gap-3 p-4 rounded-xl border border-surface-200 bg-white"
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className="card-hover flex items-center gap-3 p-4"
     >
       <Link
         href={`/user/${userId}`}
@@ -99,7 +107,12 @@ export default function FriendRequestCard({
         <p className="text-xs text-surface-400 font-semibold">Level {level}</p>
       </div>
 
-      {loading ? (
+      {accepted ? (
+        <span className="flex items-center gap-1.5 text-sm font-bold text-green-600">
+          <Check className="w-4 h-4" />
+          Added!
+        </span>
+      ) : loading ? (
         <Loader2 className="w-5 h-5 animate-spin text-surface-400 shrink-0" />
       ) : type === 'incoming' ? (
         <div className="flex gap-2 shrink-0">
@@ -126,6 +139,6 @@ export default function FriendRequestCard({
           Cancel
         </button>
       )}
-    </div>
+    </motion.div>
   );
 }
