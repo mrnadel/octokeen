@@ -394,6 +394,8 @@ npm install @dicebear/core @dicebear/adventurer @dicebear/avataaars @dicebear/lo
 
 Import individual style packages (not `@dicebear/collection`) to minimize bundle size (~50-80KB vs 300KB+).
 
+**Note:** After installation, verify DiceBear import patterns match the installed version. The `import *` syntax below works for DiceBear v9 — if the API differs, adjust to default imports (e.g., `import { adventurer } from '@dicebear/adventurer'`).
+
 - [ ] **Step 2: Create `src/lib/fake-avatar.ts`**
 
 ```typescript
@@ -471,12 +473,13 @@ This is the core module. It will be built across Tasks 4-6.
 - [ ] **Step 1: Create `src/lib/fake-user-generator.ts` with pool creation logic**
 
 ```typescript
-import type { FakeUser, FakeUserPool } from '@/data/engagement-types';
+import type { FakeUser, FakeUserPool, LeagueCompetitor } from '@/data/engagement-types';
 import { fakeNames } from '@/data/fake-names';
 import { competitorFlags, leagueTiers } from '@/data/league';
 import { achievements } from '@/data/achievements';
 import { topics } from '@/data/topics';
 import { seededRandom, hashSeed, getTierConfig } from '@/lib/league-simulator';
+import { getCurrentWeekMonday } from '@/lib/quest-engine';
 import { getLevelForXp } from '@/data/levels';
 
 // --------------- Constants ---------------
@@ -546,14 +549,22 @@ const TOPIC_COUNTS: Record<number, { min: number; max: number }> = {
   5: { min: 8, max: 11 },
 };
 
-// Achievement tiers: which achievements are available at each tier
+// Achievement tiers: base achievements available at each tier (always in the eligible pool)
 const ACHIEVEMENT_TIERS: Record<number, string[]> = {
   1: ['ach-first-correct', 'ach-first-topic', 'ach-streak-3'],
-  2: ['ach-ten-correct', 'ach-streak-7', 'ach-daily-challenge-5', 'ach-five-topics', 'ach-estimation-ace', 'ach-flaw-finder'],
-  3: ['ach-fifty-correct', 'ach-streak-14', 'ach-perfect-session', 'ach-topic-master', 'ach-all-types', 'ach-all-advanced', 'ach-confidence-calibrated', 'ach-weakness-conquered'],
+  2: ['ach-ten-correct', 'ach-streak-7', 'ach-daily-challenge-5', 'ach-five-topics'],
+  3: ['ach-fifty-correct', 'ach-streak-14', 'ach-perfect-session', 'ach-topic-master', 'ach-all-types', 'ach-all-advanced'],
   4: ['ach-hundred-correct', 'ach-streak-30', 'ach-speed-round', 'ach-multi-master', 'ach-all-topics'],
   5: ['ach-interview-ready', 'ach-hard-streak', 'ach-scenario-master'],
 };
+
+// Probability-gated achievements: only added if rng() < probability AND tier >= minTier
+const TIER_GATED_ACHIEVEMENTS = [
+  { id: 'ach-estimation-ace', minTier: 2, probability: 0.15 },
+  { id: 'ach-flaw-finder', minTier: 2, probability: 0.15 },
+  { id: 'ach-confidence-calibrated', minTier: 3, probability: 0.20 },
+  { id: 'ach-weakness-conquered', minTier: 3, probability: 0.15 },
+];
 
 // Sprinkle achievements (any tier, with probability)
 const SPRINKLE_ACHIEVEMENTS = [
@@ -618,14 +629,7 @@ function daysAgoToISO(daysAgo: number): string {
   return d.toISOString().split('T')[0];
 }
 
-function getCurrentWeekMonday(): string {
-  const now = new Date();
-  const day = now.getDay();
-  const diff = day === 0 ? 6 : day - 1;
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - diff);
-  return monday.toISOString().split('T')[0];
-}
+// getCurrentWeekMonday is imported from @/lib/quest-engine (not redefined)
 
 // --------------- Pool Generation ---------------
 
@@ -648,7 +652,14 @@ function generateAchievements(
   const shuffled = shuffleArray(eligible, rng);
   const selected = shuffled.slice(0, Math.min(count, shuffled.length));
 
-  // Add sprinkle achievements
+  // Add tier-gated achievements (probability-based, per spec)
+  for (const gated of TIER_GATED_ACHIEVEMENTS) {
+    if (tier >= gated.minTier && rng() < gated.probability && !selected.includes(gated.id)) {
+      selected.push(gated.id);
+    }
+  }
+
+  // Add sprinkle achievements (any tier)
   for (const sprinkle of SPRINKLE_ACHIEVEMENTS) {
     if (rng() < sprinkle.probability && !selected.includes(sprinkle.id)) {
       selected.push(sprinkle.id);
@@ -1052,11 +1063,9 @@ git commit -m "feat(league): add weekly progression and tier movement for fake u
 
 - [ ] **Step 1: Add `drawCompetitorsFromPool()` function**
 
-Append to `src/lib/fake-user-generator.ts`:
+Append to `src/lib/fake-user-generator.ts`. Note: `LeagueCompetitor` is already imported at the top of the file (added in Task 4's combined import).
 
 ```typescript
-import type { LeagueCompetitor } from '@/data/engagement-types';
-
 // --------------- League Drawing ---------------
 
 /**
@@ -1120,8 +1129,6 @@ function drawFromPool(
   });
 }
 ```
-
-**Note:** The `LeagueCompetitor` import should be added to the top of the file alongside the existing imports.
 
 - [ ] **Step 2: Verify build**
 

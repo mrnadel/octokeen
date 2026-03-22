@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   useDailyQuests,
   useWeeklyQuests,
@@ -15,6 +16,25 @@ import { dailyChestReward } from '@/data/quests';
 import { QuestCard } from './QuestCard';
 import { ChestAnimation } from './ChestAnimation';
 
+function useMidnightCountdown() {
+  const [timeLeft, setTimeLeft] = useState('');
+  useEffect(() => {
+    function update() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      const diff = midnight.getTime() - now.getTime();
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      setTimeLeft(`${h}h ${m}m`);
+    }
+    update();
+    const id = setInterval(update, 60000);
+    return () => clearInterval(id);
+  }, []);
+  return timeLeft;
+}
+
 export function EngagementBar() {
   const dailyQuests = useDailyQuests();
   const weeklyQuests = useWeeklyQuests();
@@ -25,6 +45,7 @@ export function EngagementBar() {
   const [questsOpen, setQuestsOpen] = useState(false);
   const [chestOpen, setChestOpen] = useState<{ type: 'daily' | 'weekly'; reward: { xp: number; gems: number } } | null>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const timeLeft = useMidnightCountdown();
 
   useEffect(() => {
     initDailyQuests();
@@ -50,6 +71,7 @@ export function EngagementBar() {
   const totalDone = dailyDone + weeklyDone;
   const questsRemaining = totalQuests - totalDone;
   const allDailyComplete = dailyQuests.length >= 3 && dailyQuests.every((q) => q.completed);
+  const dailyProgressPercent = dailyQuests.length > 0 ? (dailyDone / dailyQuests.length) * 100 : 0;
 
   // League stats
   const tier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
@@ -87,11 +109,11 @@ export function EngagementBar() {
   return (
     <div style={{ padding: '12px 20px 0' }}>
       <div className="flex" style={{ gap: 8 }}>
-        {/* Quests button — opens popover */}
+        {/* Quests button */}
         <div className="flex-1 relative" ref={popoverRef}>
           <button
             onClick={() => setQuestsOpen((v) => !v)}
-            className="w-full flex items-center justify-center transition-transform active:scale-95"
+            className="w-full flex items-center justify-center transition-all active:scale-95"
             style={{
               gap: 6,
               padding: '10px 8px',
@@ -99,26 +121,20 @@ export function EngagementBar() {
               background: questsOpen ? '#FFF3D6' : '#FFF9E8',
               border: `1.5px solid ${questsOpen ? '#F59E0B' : '#FFE4B8'}`,
               cursor: 'pointer',
+              boxShadow: questsOpen ? '0 2px 8px rgba(245, 158, 11, 0.15)' : 'none',
             }}
           >
             <span style={{ fontSize: 18 }}>⚔️</span>
-            <span
-              style={{
-                fontSize: 13,
-                fontWeight: 800,
-                color: '#B56E00',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <span style={{ fontSize: 13, fontWeight: 800, color: '#B56E00', whiteSpace: 'nowrap' }}>
               Quests
             </span>
-            {questsRemaining > 0 ? (
+            {totalQuests > 0 && (
               <span
                 style={{
                   fontSize: 10,
                   fontWeight: 800,
-                  color: '#B56E00',
-                  background: 'rgba(0,0,0,0.06)',
+                  color: questsRemaining === 0 ? 'white' : '#B56E00',
+                  background: questsRemaining === 0 ? '#58CC02' : 'rgba(0,0,0,0.06)',
                   padding: '1px 6px',
                   borderRadius: 8,
                   marginLeft: 2,
@@ -126,88 +142,110 @@ export function EngagementBar() {
               >
                 {totalDone}/{totalQuests}
               </span>
-            ) : totalQuests > 0 ? (
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 800,
-                  color: 'white',
-                  background: '#58CC02',
-                  padding: '1px 6px',
-                  borderRadius: 8,
-                  marginLeft: 2,
-                }}
-              >
-                {totalDone}/{totalQuests}
-              </span>
-            ) : null}
+            )}
           </button>
 
           {/* Quest popover */}
-          {questsOpen && (
-            <div
-              className="absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden"
-              style={{ minWidth: 280, maxWidth: 360, width: '100%' }}
-            >
-              {/* Daily quests header */}
-              <div className="flex items-center justify-between px-3.5 pt-3.5 pb-1.5">
-                <div>
-                  <h3 className="text-sm font-extrabold text-gray-800">Daily Quests</h3>
+          <AnimatePresence>
+            {questsOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className="absolute left-0 top-full mt-2 z-50 bg-white rounded-2xl border border-gray-200 overflow-hidden"
+                style={{
+                  minWidth: 300,
+                  width: 'calc(100vw - 40px)',
+                  maxWidth: 380,
+                  boxShadow: '0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)',
+                }}
+              >
+                {/* Header */}
+                <div className="px-4 pt-4 pb-2">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div>
+                      <h3 className="text-[15px] font-extrabold text-gray-900">Daily Quests</h3>
+                      <p className="text-[11px] text-gray-400 font-medium mt-0.5">
+                        Resets in {timeLeft}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleDailyChest}
+                      disabled={!allDailyComplete || dailyChestClaimed}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                      style={{
+                        background: dailyChestClaimed
+                          ? '#F0FDF4'
+                          : allDailyComplete
+                            ? 'linear-gradient(135deg, #8B5CF6, #7C3AED)'
+                            : '#F3F4F6',
+                        color: dailyChestClaimed
+                          ? '#16A34A'
+                          : allDailyComplete
+                            ? '#FFFFFF'
+                            : '#9CA3AF',
+                        cursor: allDailyComplete && !dailyChestClaimed ? 'pointer' : 'default',
+                        border: 'none',
+                        boxShadow: allDailyComplete && !dailyChestClaimed
+                          ? '0 2px 8px rgba(124, 58, 237, 0.3)'
+                          : 'none',
+                      }}
+                    >
+                      {dailyChestClaimed ? '✓ Collected' : '🎁 Open Chest'}
+                    </button>
+                  </div>
+
+                  {/* Overall progress bar */}
+                  <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${dailyProgressPercent}%` }}
+                      transition={{ duration: 0.5, ease: 'easeOut' }}
+                      style={{
+                        background: allDailyComplete
+                          ? 'linear-gradient(90deg, #34D399, #10B981)'
+                          : 'linear-gradient(90deg, #F59E0B, #F97316)',
+                      }}
+                    />
+                  </div>
                 </div>
-                <button
-                  onClick={handleDailyChest}
-                  disabled={!allDailyComplete || dailyChestClaimed}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all"
-                  style={{
-                    background: dailyChestClaimed
-                      ? '#F0FDF4'
-                      : allDailyComplete
-                        ? '#7C3AED'
-                        : '#F3F4F6',
-                    color: dailyChestClaimed
-                      ? '#16A34A'
-                      : allDailyComplete
-                        ? '#FFFFFF'
-                        : '#9CA3AF',
-                    cursor: allDailyComplete && !dailyChestClaimed ? 'pointer' : 'default',
-                    border: 'none',
-                  }}
-                >
-                  {dailyChestClaimed ? '✓ Collected' : '🎁 Chest'}
-                </button>
-              </div>
 
-              {/* Daily quest cards */}
-              <div className="px-2.5 pb-2 space-y-1.5">
-                {dailyQuests.slice(0, 3).map((quest) => (
-                  <QuestCard
-                    key={quest.definitionId}
-                    quest={quest}
-                    onClaim={claimQuestReward}
-                  />
-                ))}
-                {dailyQuests.length === 0 && (
-                  <p className="text-center text-xs text-gray-400 py-3">No quests today yet.</p>
-                )}
-              </div>
+                {/* Quest cards */}
+                <div className="px-3 pb-3 space-y-1">
+                  {dailyQuests.slice(0, 3).map((quest) => (
+                    <QuestCard
+                      key={quest.definitionId}
+                      quest={quest}
+                      onClaim={claimQuestReward}
+                      compact
+                    />
+                  ))}
+                  {dailyQuests.length === 0 && (
+                    <p className="text-center text-xs text-gray-400 py-4">No quests today yet.</p>
+                  )}
+                </div>
 
-              {/* Weekly progress summary */}
-              {weeklyQuests.length > 0 && (
-                <div className="border-t border-gray-100 px-3.5 py-2.5">
+                {/* Weekly + view all */}
+                <div className="border-t border-gray-100">
                   <Link
                     href="/quests"
                     onClick={() => setQuestsOpen(false)}
-                    className="flex items-center justify-between text-xs"
+                    className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
                   >
-                    <span className="font-semibold text-gray-500">
-                      Weekly: {weeklyDone}/{weeklyQuests.length} done
-                    </span>
-                    <span className="font-bold text-primary-600">View all →</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">📋</span>
+                      <span className="text-[13px] font-semibold text-gray-600">
+                        Weekly: {weeklyDone}/{weeklyQuests.length} done
+                      </span>
+                    </div>
+                    <span className="text-[13px] font-bold text-primary-600">View all →</span>
                   </Link>
                 </div>
-              )}
-            </div>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Other buttons (League, Skills) */}
@@ -227,14 +265,7 @@ export function EngagementBar() {
             }}
           >
             <span style={{ fontSize: 18 }}>{btn.icon}</span>
-            <span
-              style={{
-                fontSize: 13,
-                fontWeight: 800,
-                color: btn.color,
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <span style={{ fontSize: 13, fontWeight: 800, color: btn.color, whiteSpace: 'nowrap' }}>
               {btn.label}
             </span>
             {btn.badge && (
