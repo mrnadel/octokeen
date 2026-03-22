@@ -215,7 +215,7 @@ export const lesson5: Lesson = {
       type: 'true-false',
       question: 'In a golf swing, doubling the club head speed at impact will exactly double the ball\'s launch speed.',
       correctAnswer: false,
-      explanation: 'Ball speed depends on both club head speed and the mass ratio (club head mass / ball mass), following the collision equation: v_ball = v_club × (1 + COR) / (1 + m_ball/m_club). While ball speed increases with club speed, the relationship is not a simple doubling because the COR and mass ratio also play roles. Additionally, COR can decrease at very high impact speeds due to greater deformation.',
+      explanation: 'The collision equation v_ball = v_club × (1 + COR) / (1 + m_ball/m_club) is linear in v_club when COR and masses are constant — so at first glance, doubling speed should double ball speed. However, in reality COR decreases at higher impact speeds because the ball and face undergo greater deformation, dissipating more energy. This speed-dependent COR makes the actual relationship nonlinear, so doubling club speed produces less than double the ball speed.',
     },
     // ── MIXED / CROSS-TOPIC ──
     {
@@ -270,13 +270,13 @@ export const lesson6: Lesson = {
       type: 'multiple-choice',
       question: 'An elevator cable supports a 2000 kg cab with a 1500 kg counterweight. When the cab accelerates upward at 1.5 m/s², what is the net force the motor must provide?',
       options: [
-        '(2000 − 1500) × 9.81 + 2000 × 1.5 = 7905 N — gravity imbalance plus acceleration force',
-        '2000 × 9.81 = 19620 N — the full weight of the cab',
-        '(2000 − 1500) × 9.81 = 4905 N — just the weight difference',
-        '2000 × 1.5 = 3000 N — only the acceleration force',
+        '(2000 − 1500) × 9.81 + (2000 + 1500) × 1.5 = 10,155 N — gravity imbalance plus inertia of both masses',
+        '2000 × 9.81 = 19,620 N — the full weight of the cab',
+        '(2000 − 1500) × 9.81 = 4,905 N — just the weight difference',
+        '2000 × 1.5 = 3,000 N — only the acceleration force on the cab',
       ],
       correctIndex: 0,
-      explanation: 'The motor must overcome: (1) the net gravitational imbalance = (m_cab − m_cw) × g = 500 × 9.81 = 4905 N, plus (2) the force to accelerate the cab upward = m_cab × a = 2000 × 1.5 = 3000 N. Total ≈ 7905 N. Without the counterweight, the motor would need 2000 × (9.81 + 1.5) = 22620 N — the counterweight reduces the required motor force by about 65%.',
+      explanation: 'The motor must overcome: (1) the net gravitational imbalance = (m_cab − m_cw) × g = 500 × 9.81 = 4905 N, plus (2) the inertia of both masses (cab going up + counterweight going down, both accelerating) = (m_cab + m_cw) × a = 3500 × 1.5 = 5250 N. Total ≈ 10,155 N. Both masses are connected by the cable, so the motor must accelerate both.',
       hint: 'The counterweight cancels most of the gravitational load. The motor handles the difference plus the acceleration.',
     },
     {
@@ -449,15 +449,15 @@ export const lesson6: Lesson = {
     {
       id: 'u7-L6-Q18',
       type: 'multiple-choice',
-      question: 'An escalator carries 30 passengers (average 75 kg each) up a 10 m rise at 0.5 m/s. What minimum motor power is needed, ignoring friction and efficiency losses?',
+      question: 'An escalator carries 30 passengers (average 75 kg each) up a vertical rise of 10 m. The belt moves at 0.5 m/s along the incline at 30°. What minimum motor power is needed, ignoring friction and efficiency losses?',
       options: [
-        'About 11 kW — P = mgh/t = total weight × velocity × sin(θ), or equivalently P = Fv = (30 × 75 × 9.81) × 0.5 × sin(30°) for a 30° escalator',
+        'About 5.5 kW — P = total weight × belt speed × sin(30°) = 30 × 75 × 9.81 × 0.5 × 0.5',
         'About 110 kW — must account for the weight of the stairs themselves',
         'About 1.1 kW — only the horizontal component matters',
-        'Cannot be calculated without knowing the escalator angle',
+        'About 11 kW — P = total weight × belt speed',
       ],
       correctIndex: 0,
-      explanation: 'Power = rate of potential energy gain = (total mass × g × vertical velocity). Vertical velocity = 0.5 × sin(θ). For a typical 30° escalator: P = 30 × 75 × 9.81 × 0.5 × sin(30°) = 30 × 75 × 9.81 × 0.25 ≈ 5.5 kW. More generally, P = mgv_vertical. The actual motor must be larger to account for friction, step chain weight, and efficiency (typically 3-5× the theoretical minimum).',
+      explanation: 'Power = rate of potential energy gain = total mass × g × vertical velocity. The vertical component of belt speed = 0.5 × sin(30°) = 0.25 m/s. So P = 30 × 75 × 9.81 × 0.25 ≈ 5,520 W ≈ 5.5 kW. The actual motor must be larger to account for friction, step chain weight, and efficiency (typically 3-5× the theoretical minimum).',
       hint: 'Power equals the rate of doing work against gravity: P = (total weight) × (vertical component of velocity).',
     },
     {

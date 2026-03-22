@@ -32,10 +32,17 @@ export async function POST(request: NextRequest) {
 
   // Validate the priceId is one we recognise
   const validPrices = [
-    PADDLE_PRICES.PRO_MONTHLY,
-    PADDLE_PRICES.PRO_YEARLY,
+    process.env.PADDLE_PRO_MONTHLY_PRICE_ID || '',
+    process.env.PADDLE_PRO_YEARLY_PRICE_ID || '',
   ];
+
   if (!priceId || !validPrices.includes(priceId)) {
+    console.error('Checkout price validation failed', {
+      priceId,
+      validPrices,
+      envMonthly: process.env.PADDLE_PRO_MONTHLY_PRICE_ID ?? 'MISSING',
+      envYearly: process.env.PADDLE_PRO_YEARLY_PRICE_ID ?? 'MISSING',
+    });
     return NextResponse.json({ error: 'Invalid price' }, { status: 400 });
   }
 

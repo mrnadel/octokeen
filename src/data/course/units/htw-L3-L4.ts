@@ -175,10 +175,10 @@ export const lesson3: Lesson = {
     {
       id: 'u7-L3-Q15',
       type: 'fill-blank',
-      question: 'Double-glazed windows reduce heat loss by trapping a layer of ___ between two panes, which acts as a barrier to ___ heat transfer.',
-      blanks: ['gas', 'conductive'],
-      wordBank: ['gas', 'conductive', 'radiative', 'liquid', 'convective'],
-      explanation: 'The trapped gas layer (air or argon) has low thermal conductivity, creating a barrier to conduction. The narrow gap also suppresses natural convection currents. This is the same insulation principle used in vacuum flasks and double-walled piping — minimizing conduction paths to reduce overall heat transfer.',
+      question: 'Double-glazed windows reduce heat loss by trapping a layer of ___ between two panes, which has low thermal ___ and thus resists heat flow.',
+      blanks: ['gas', 'conductivity'],
+      wordBank: ['gas', 'conductivity', 'capacity', 'liquid', 'density'],
+      explanation: 'The trapped gas layer (air or argon) has low thermal conductivity (~0.025 W/m·K for air), creating a high thermal resistance barrier. The narrow gap also suppresses natural convection currents. This is the same insulation principle used in vacuum flasks and double-walled piping — minimizing conduction paths to reduce overall heat transfer.',
       hint: 'Think about what fills the space between the panes and what mode of heat transfer it blocks.',
     },
     {
@@ -237,7 +237,7 @@ export const lesson3: Lesson = {
         'The pipe diameter becomes too small relative to the flow at that height',
       ],
       correctIndex: 1,
-      explanation: 'Atmospheric pressure (101.3 kPa) equals the hydrostatic pressure of a 10.3 m water column (ρgh). Above this height, the pressure at the siphon crest drops below absolute zero (vacuum), and the siphon breaks. This limit applies to suction pumps as well — it\'s why deep wells require submersible pumps rather than surface suction pumps.',
+      explanation: 'Atmospheric pressure (101.3 kPa) equals the hydrostatic pressure of a 10.3 m water column (ρgh). Above this height, the absolute pressure at the siphon crest would need to go negative, which is physically impossible — the water column breaks and the siphon fails. This same limit applies to suction pumps, which is why deep wells require submersible pumps rather than surface suction pumps.',
     },
   ],
 };
@@ -459,10 +459,10 @@ export const lesson4: Lesson = {
     {
       id: 'u7-L4-Q19',
       type: 'fill-blank',
-      question: 'The vial of a spirit level is slightly curved (barrel-shaped) so that the bubble acts as a ___, seeking the highest point of the vial when the surface is ___.',
-      blanks: ['pendulum', 'level'],
-      wordBank: ['pendulum', 'level', 'tilted', 'inclined', 'accelerometer'],
-      explanation: 'The curved vial creates a restoring force: when the level tilts, the bubble moves away from center (toward the high side), acting like an inverted pendulum seeking its equilibrium position. When the surface is truly level, the bubble rests at the geometric center. The vial curvature radius determines sensitivity — a larger radius (flatter curve) makes the bubble more responsive to small tilts, much like increasing the length of a pendulum increases its period and sensitivity.',
+      question: 'The vial of a spirit level is slightly curved (barrel-shaped) so that the bubble acts as an ___, seeking the highest point of the vial when the surface is ___.',
+      blanks: ['indicator', 'level'],
+      wordBank: ['indicator', 'level', 'tilted', 'inclined', 'accelerometer'],
+      explanation: 'The curved vial creates a restoring force: when the level tilts, the bubble moves away from center (toward the high side), indicating the direction of tilt. When the surface is truly level, the bubble rests at the geometric center. The vial curvature radius determines sensitivity — a larger radius (flatter curve) makes the bubble more responsive to small tilts.',
     },
     {
       id: 'u7-L4-Q20',

@@ -222,10 +222,10 @@ export const lesson7: Lesson = {
       id: 'u7-L7-Q13',
       type: 'true-false',
       question:
-        'When you bend a metal paper clip back and forth until it breaks, it fails by fatigue — and it always breaks at the bend because that is the location of maximum stress concentration and plastic strain.',
+        'When you bend a metal paper clip back and forth until it breaks, it fails by low-cycle fatigue — it always breaks where you bend it because that is where the bending stress and plastic strain are greatest.',
       correctAnswer: true,
       explanation:
-        'The sharp bend in the wire is both the point of highest bending stress and the greatest stress concentration. Each reversal plastically deforms the metal (work hardening it and reducing ductility), initiates micro-cracks at the outer surface of the bend, and propagates them until fracture. You can feel the wire getting stiffer and warmer before it snaps — that is work hardening and hysteretic heat generation in action.',
+        'The bend location experiences the highest bending stress and plastic strain. Each reversal plastically deforms the metal (work hardening it and reducing ductility), initiates micro-cracks at the outer surface, and propagates them until fracture. You can feel the wire getting stiffer and warmer before it snaps — that is work hardening and hysteretic heat generation. This is low-cycle fatigue: high strain amplitude, few cycles to failure.',
     },
 
     // ── TF 2 – Radiator Hose Creep ────────────────────────────────────
@@ -279,9 +279,9 @@ export const lesson7: Lesson = {
       id: 'u7-L7-Q18',
       type: 'fill-blank',
       question:
-        'The thermal stress in a fully constrained solid is given by σ = E·___·ΔT, where E is elastic modulus and ΔT is temperature change. Pyrex resists thermal shock because it has a low value of ___.',
-      blanks: ['α', 'α'],
-      wordBank: ['α', 'ρ', 'ν', 'σ_y', 'k'],
+        'The thermal stress in a fully constrained solid is given by σ = E·___·ΔT, where E is elastic modulus and ΔT is temperature change. Pyrex resists thermal shock because its coefficient of thermal ___ is very low.',
+      blanks: ['α', 'expansion'],
+      wordBank: ['α', 'expansion', 'ρ', 'ν', 'k'],
       explanation:
         'The thermal stress formula σ = EαΔT shows that stress is directly proportional to the coefficient of thermal expansion (α). Pyrex borosilicate glass has α ≈ 3.3 × 10⁻⁶/°C compared to ~9 × 10⁻⁶/°C for soda-lime glass. With roughly one-third the α, Pyrex develops about one-third the thermal stress for the same temperature change, keeping it below the fracture stress.',
       hint: 'The Greek letter for the coefficient of thermal expansion is the key variable here.',

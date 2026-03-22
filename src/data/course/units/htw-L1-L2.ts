@@ -188,10 +188,10 @@ export const lesson1: Lesson = {
     {
       id: 'u7-L1-Q17',
       type: 'fill-blank',
-      question: 'Unlike a conventional oven which heats food from the outside in via ___, a microwave heats food volumetrically by exciting water molecules throughout the bulk.',
+      question: 'In a conventional oven, heat reaches the food\'s interior from its hot surface via ___, which is slow because food has low thermal conductivity. Microwaves bypass this entirely by heating volumetrically.',
       blanks: ['conduction'],
       wordBank: ['conduction', 'radiation', 'induction', 'sublimation', 'advection'],
-      explanation: 'A conventional oven heats the food surface (by radiation and convection from hot air), then heat conducts inward following Fourier\'s law. This is slow because food has low thermal conductivity. Microwaves bypass this by depositing energy directly inside the food volume.',
+      explanation: 'A conventional oven heats the food surface (by radiation and convection from hot air), then heat conducts inward following Fourier\'s law. This inward conduction step is the bottleneck — food has low thermal conductivity (~0.5 W/m·K). Microwaves bypass this by depositing energy directly inside the food volume.',
     },
 
     // --- POT/PAN ON STOVE (Q18-Q20) ---
@@ -365,7 +365,7 @@ export const lesson2: Lesson = {
       question: 'In first gear, a transmission provides high torque but low speed at the wheels. This is because:',
       options: [
         'The engine produces more power in first gear',
-        'A large gear drives a small gear, multiplying torque at the cost of speed',
+        'A small engine gear drives a large output gear, multiplying torque at the cost of speed',
         'The clutch slips more in first gear, adding torque',
         'First gear bypasses the differential',
       ],
