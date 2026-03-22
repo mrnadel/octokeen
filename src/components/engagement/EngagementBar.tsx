@@ -140,6 +140,19 @@ export function EngagementBar() {
     initWeeklyQuests();
   }, [initDailyQuests, initWeeklyQuests]);
 
+  const debugSimulateMissedDay = useCallback(() => {
+    // Set lastActiveDate to 2 days ago so next lesson triggers streak break/freeze
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+    const dateStr = twoDaysAgo.toISOString().slice(0, 10);
+    useStore.setState((state) => ({
+      progress: { ...state.progress, lastActiveDate: dateStr },
+    }));
+    useEngagementStore.setState((state) => ({
+      streak: { ...state.streak, freezeUsedToday: false },
+    }));
+  }, []);
+
   const debugResetAll = useCallback(() => {
     useStore.getState().resetProgress();
     resetDebugDayOffset();
@@ -148,7 +161,7 @@ export function EngagementBar() {
       weeklyQuestDate: '',
       dailyChestClaimed: false,
       weeklyChestClaimed: false,
-      gems: { balance: 0, transactions: [], totalEarned: 0, inventory: { activeTitles: [], activeFrames: [] } },
+      gems: { balance: 0, transactions: [], totalEarned: 0, inventory: { activeTitles: [], activeFrames: [] }, selectedTitle: null, selectedFrame: null },
     });
     initDailyQuests();
     initWeeklyQuests();
@@ -157,6 +170,16 @@ export function EngagementBar() {
   // ---- End debug actions ----
 
   const buttons = [
+    {
+      href: '/practice/smart',
+      icon: '\uD83E\uDDE0',
+      label: 'Practice',
+      badge: null,
+      badgeDone: false,
+      bg: '#F5F3FF',
+      border: '#DDD6FE',
+      color: '#7C3AED',
+    },
     {
       href: '/league',
       icon: tier.icon,
@@ -363,8 +386,9 @@ export function EngagementBar() {
                         </div>
                       </div>
                       <div>
-                        <p className="text-[10px] font-semibold text-gray-400 mb-1">Streak</p>
+                        <p className="text-[10px] font-semibold text-gray-400 mb-1">Streak ({streak.freezesOwned} freeze{streak.freezesOwned !== 1 ? 's' : ''})</p>
                         <div className="flex flex-wrap gap-1.5">
+                          <button onClick={debugSimulateMissedDay} className={`${debugBtn} text-cyan-600 bg-cyan-50 hover:bg-cyan-100`}>Miss Day</button>
                           <button onClick={debugResetStreak} className={`${debugBtn} text-red-600 bg-red-50 hover:bg-red-100`}>Break</button>
                           <button onClick={() => debugSetStreak(7)} className={`${debugBtn} text-amber-600 bg-amber-50 hover:bg-amber-100`}>7d</button>
                           <button onClick={() => debugSetStreak(30)} className={`${debugBtn} text-amber-600 bg-amber-50 hover:bg-amber-100`}>30d</button>
