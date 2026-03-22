@@ -1,192 +1,187 @@
 const fs = require('fs');
 
 // ============================================================
-// CUSTOM SVG DIAGRAMS FOR REPLACEMENT
+// REPLACEMENT SVGs
 // ============================================================
+const TAPERED_BAR = '<svg viewBox="0 0 80 80" fill="none"> <!-- Tapered bar under axial load --> <polygon points="10,30 70,35 70,45 10,50" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <text x="12" y="28" font-size="4" fill="#3B8700" opacity="0.5">A\u2081</text> <text x="62" y="33" font-size="4" fill="#3B8700" opacity="0.5">A\u2082</text> <line x1="3" y1="40" x2="9" y2="40" stroke="#3B8700" stroke-width="1.5"/> <polygon points="9,38 9,42 12,40" fill="#3B8700" opacity="0.5"/> <line x1="77" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="1.5"/> <polygon points="71,38 71,42 68,40" fill="#3B8700" opacity="0.5"/> <text x="4" y="48" font-size="4" fill="#3B8700" opacity="0.4">F</text> <text x="73" y="48" font-size="4" fill="#3B8700" opacity="0.4">F</text> <text x="40" y="60" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">\u03c3 = F/A</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#6B7280" opacity="0.5">max \u03c3 at min A</text> </svg>';
 
-const solidVsHollowSquareSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Solid square (left) --><rect x="8" y="22" width="24" height="24" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.5"/><text x="20" y="18" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Solid</text><line x1="4" y1="34" x2="36" y2="34" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.4"/><text x="38" y="35" font-size="3.5" fill="#6B7280" font-style="italic">NA</text><text x="20" y="55" text-anchor="middle" font-size="4" fill="#6B7280">a</text><line x1="8" y1="52" x2="32" y2="52" stroke="#6B7280" stroke-width="0.5"/><line x1="8" y1="50" x2="8" y2="54" stroke="#6B7280" stroke-width="0.5"/><line x1="32" y1="50" x2="32" y2="54" stroke="#6B7280" stroke-width="0.5"/><!-- Hollow square tube (right) --><rect x="48" y="22" width="24" height="24" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.5"/><rect x="54" y="28" width="12" height="12" fill="white" stroke="#58CC02" stroke-width="1" stroke-dasharray="1.5,1.5"/><text x="60" y="18" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Hollow</text><line x1="44" y1="34" x2="76" y2="34" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.4"/><text x="78" y="35" font-size="3.5" fill="#6B7280" font-style="italic">NA</text><text x="60" y="55" text-anchor="middle" font-size="4" fill="#6B7280">a</text><line x1="48" y1="52" x2="72" y2="52" stroke="#6B7280" stroke-width="0.5"/><line x1="48" y1="50" x2="48" y2="54" stroke="#6B7280" stroke-width="0.5"/><line x1="72" y1="50" x2="72" y2="54" stroke="#6B7280" stroke-width="0.5"/><!-- Annotation --><text x="40" y="65" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.6">Same A, higher I</text><text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#6B7280">Material farther from NA</text><text x="40" y="78" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">I = \u222by\u00b2dA</text></svg>';
+const HANGING_BAR = '<svg viewBox="0 0 80 80" fill="none"> <!-- Bar hanging under own weight --> <rect x="25" y="5" width="30" height="4" fill="#334155" opacity="0.3"/> <line x1="25" y1="5" x2="55" y2="5" stroke="#3B8700" stroke-width="2"/> <line x1="28" y1="5" x2="26" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <line x1="33" y1="5" x2="31" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <line x1="38" y1="5" x2="36" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <line x1="43" y1="5" x2="41" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <line x1="48" y1="5" x2="46" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <line x1="53" y1="5" x2="51" y2="2" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <rect x="35" y="9" width="10" height="50" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5" rx="1"/> <line x1="40" y1="20" x2="40" y2="26" stroke="#6B7280" stroke-width="0.5" opacity="0.3"/> <polygon points="39,26 41,26 40,28" fill="#6B7280" opacity="0.3"/> <line x1="40" y1="32" x2="40" y2="38" stroke="#6B7280" stroke-width="0.6" opacity="0.4"/> <polygon points="39,38 41,38 40,40" fill="#6B7280" opacity="0.4"/> <line x1="40" y1="44" x2="40" y2="50" stroke="#6B7280" stroke-width="0.7" opacity="0.5"/> <polygon points="39,50 41,50 40,52" fill="#6B7280" opacity="0.5"/> <text x="28" y="14" font-size="3" fill="#3B8700" opacity="0.4">x=0</text> <text x="28" y="60" font-size="3" fill="#3B8700" opacity="0.4">x=L</text> <line x1="50" y1="18" x2="50" y2="58" stroke="#A5E86C" stroke-width="0.5" opacity="0.3"/> <line x1="50" y1="18" x2="62" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.4"/> <line x1="62" y1="18" x2="50" y2="58" stroke="#58CC02" stroke-width="1" opacity="0.5"/> <text x="64" y="17" font-size="3" fill="#3B8700" opacity="0.4">\u03c3max</text> <text x="51" y="62" font-size="3" fill="#6B7280" opacity="0.4">\u03c3=0</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">\u03c3(x) = \u03c1g(L\u2212x)</text> </svg>';
 
-const rectWithHoleSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Outer rectangle --><rect x="15" y="15" width="50" height="50" fill="#58CC02" opacity="0.12" stroke="#58CC02" stroke-width="1.5"/><!-- Inner hole --><rect x="27" y="24" width="26" height="23" fill="white" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,1.5"/><!-- Centroidal axis --><line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><text x="74" y="41" font-size="3.5" fill="#6B7280" font-style="italic">NA</text><!-- Outer dimensions --><text x="40" y="12" text-anchor="middle" font-size="4.5" fill="#334155">40 mm</text><line x1="15" y1="13" x2="65" y2="13" stroke="#6B7280" stroke-width="0.4"/><text x="70" y="40" font-size="4.5" fill="#334155" transform="rotate(90,70,40)">60 mm</text><!-- Hole dimensions --><text x="40" y="50" text-anchor="middle" font-size="3.5" fill="#6B7280">20\u00d730 hole</text><!-- Formula --><text x="40" y="74" text-anchor="middle" font-size="4.5" fill="#334155" font-style="italic">I\u2099\u2091\u209c = I\u2092\u1d64\u209c \u2212 I\u2095\u2092\u2097\u2091</text></svg>';
+const RECT_CROSS = '<svg viewBox="0 0 80 80" fill="none"> <!-- Beam cross-section orientation --> <rect x="8" y="10" width="12" height="30" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <text x="14" y="8" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.5">50</text> <text x="3" y="27" font-size="3.5" fill="#3B8700" opacity="0.5">100</text> <path d="M 28,25 C 33,15 43,15 48,25" stroke="#6B7280" stroke-width="1" fill="none" stroke-dasharray="2,1"/> <polygon points="47,23 49,26 46,26" fill="#6B7280" opacity="0.5"/> <rect x="52" y="18" width="24" height="14" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <text x="64" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.5">100</text> <text x="49" y="27" font-size="3.5" fill="#3B8700" opacity="0.5">50</text> <line x1="8" y1="25" x2="20" y2="25" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,1"/> <line x1="52" y1="25" x2="76" y2="25" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,1"/> <text x="14" y="50" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">I=bh\u00B3/12</text> <text x="14" y="56" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">h=100</text> <text x="64" y="42" text-anchor="middle" font-size="3.5" fill="#6B7280" opacity="0.5">I=bh\u00B3/12</text> <text x="64" y="48" text-anchor="middle" font-size="3" fill="#6B7280" opacity="0.4">h=50</text> <text x="40" y="70" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.4">I \u221D h\u00B3</text> </svg>';
 
-const triangleCentroidSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Triangle --><polygon points="20,65 60,65 20,15" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1.5"/><!-- Base label --><text x="40" y="74" text-anchor="middle" font-size="4.5" fill="#334155">base</text><!-- Height label --><line x1="16" y1="65" x2="16" y2="15" stroke="#6B7280" stroke-width="0.5"/><line x1="14" y1="65" x2="18" y2="65" stroke="#6B7280" stroke-width="0.5"/><line x1="14" y1="15" x2="18" y2="15" stroke="#6B7280" stroke-width="0.5"/><text x="12" y="42" font-size="5" fill="#334155" font-style="italic" text-anchor="middle">h</text><!-- Centroid at h/3 --><circle cx="33" cy="48.3" r="2.5" fill="#58CC02" opacity="0.4"/><circle cx="33" cy="48.3" r="2.5" stroke="#3B8700" stroke-width="1" fill="none"/><text x="37" y="47" font-size="4" fill="#334155" font-weight="bold">C</text><!-- h/3 marker --><line x1="62" y1="65" x2="62" y2="48.3" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,1.5"/><line x1="60" y1="65" x2="64" y2="65" stroke="#3B8700" stroke-width="0.5"/><line x1="60" y1="48.3" x2="64" y2="48.3" stroke="#3B8700" stroke-width="0.5"/><text x="67" y="58" font-size="4.5" fill="#3B8700" font-style="italic">h/3</text></svg>';
+const HOLLOW_CIRCLE = '<svg viewBox="0 0 80 80" fill="none"> <!-- Hollow circular cross-section --> <circle cx="40" cy="38" r="25" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="2"/> <circle cx="40" cy="38" r="20" fill="white" stroke="#3B8700" stroke-width="1.5" stroke-dasharray="2,2"/> <line x1="40" y1="38" x2="65" y2="38" stroke="#6B7280" stroke-width="0.8" stroke-dasharray="1,1"/> <text x="53" y="36" font-size="3.5" fill="#3B8700" opacity="0.6">D</text> <line x1="40" y1="38" x2="40" y2="18" stroke="#6B7280" stroke-width="0.8" stroke-dasharray="1,1"/> <text x="42" y="26" font-size="3.5" fill="#3B8700" opacity="0.6">d</text> <circle cx="40" cy="38" r="1.5" fill="#3B8700" opacity="0.4"/> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">I = \u03c0(D\u2074\u2212d\u2074)/64</text> </svg>';
 
-const tSectionCentroidSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Flange --><rect x="15" y="10" width="50" height="8" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/><!-- Web --><rect x="33" y="18" width="14" height="44" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/><!-- Centroid axis --><line x1="10" y1="36" x2="70" y2="36" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><!-- Centroid dot --><circle cx="40" cy="36" r="2" fill="#3B8700" opacity="0.5"/><text x="44" y="35" font-size="4" fill="#334155" font-weight="bold">C</text><!-- Bottom reference --><line x1="10" y1="62" x2="70" y2="62" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="2,2" opacity="0.3"/><!-- y-bar dimension --><line x1="72" y1="62" x2="72" y2="36" stroke="#3B8700" stroke-width="0.6"/><line x1="70" y1="62" x2="74" y2="62" stroke="#3B8700" stroke-width="0.5"/><line x1="70" y1="36" x2="74" y2="36" stroke="#3B8700" stroke-width="0.5"/><text x="76" y="50" font-size="4" fill="#3B8700" font-style="italic">\u0233</text><!-- Dimensions --><text x="40" y="8" text-anchor="middle" font-size="3.5" fill="#6B7280">200 mm</text><text x="28" y="42" font-size="3.5" fill="#6B7280" text-anchor="end">20</text><text x="6" y="15" font-size="3.5" fill="#6B7280">20</text></svg>';
+const SHEAR_DIST_RECT = '<svg viewBox="0 0 80 80" fill="none"> <!-- Shear stress distribution in rectangular section --> <rect x="15" y="10" width="20" height="55" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5" rx="1"/> <line x1="15" y1="37.5" x2="35" y2="37.5" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,1"/> <text x="36" y="39" font-size="3.5" fill="#A5E86C" opacity="0.6">NA</text> <path d="M 42,10 Q 65,37.5 42,65" fill="none" stroke="#3B8700" stroke-width="1.5"/> <line x1="42" y1="10" x2="42" y2="65" stroke="#6B7280" stroke-width="0.5" opacity="0.3"/> <line x1="42" y1="15" x2="47" y2="15" stroke="#3B8700" stroke-width="0.6" opacity="0.3"/> <line x1="42" y1="25" x2="55" y2="25" stroke="#3B8700" stroke-width="0.8" opacity="0.4"/> <line x1="42" y1="37.5" x2="62" y2="37.5" stroke="#3B8700" stroke-width="1" opacity="0.6"/> <line x1="42" y1="50" x2="55" y2="50" stroke="#3B8700" stroke-width="0.8" opacity="0.4"/> <line x1="42" y1="60" x2="47" y2="60" stroke="#3B8700" stroke-width="0.6" opacity="0.3"/> <text x="64" y="39" font-size="3.5" fill="#3B8700" opacity="0.5">\u03c4max</text> <text x="44" y="9" font-size="3" fill="#6B7280" opacity="0.4">\u03c4=0</text> <text x="44" y="70" font-size="3" fill="#6B7280" opacity="0.4">\u03c4=0</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">\u03c4 = VQ/(Ib)</text> </svg>';
 
-const rectTwoAxesSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Rectangle --><rect x="20" y="15" width="40" height="50" fill="#58CC02" opacity="0.12" stroke="#58CC02" stroke-width="1.5"/><!-- Centroidal axis --><line x1="10" y1="40" x2="70" y2="40" stroke="#58CC02" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><text x="72" y="41" font-size="3.5" fill="#58CC02" font-style="italic">centroid</text><!-- Base axis --><line x1="10" y1="65" x2="70" y2="65" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><text x="72" y="66" font-size="3.5" fill="#3B8700" font-style="italic">base</text><!-- d = h/2 dimension --><line x1="65" y1="40" x2="65" y2="65" stroke="#6B7280" stroke-width="0.5"/><line x1="63" y1="40" x2="67" y2="40" stroke="#6B7280" stroke-width="0.4"/><line x1="63" y1="65" x2="67" y2="65" stroke="#6B7280" stroke-width="0.4"/><text x="68" y="54" font-size="4" fill="#6B7280" font-style="italic">h/2</text><!-- b and h labels --><text x="40" y="12" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">b</text><text x="15" y="42" font-size="5" fill="#334155" font-style="italic" text-anchor="middle">h</text><!-- Formulas --><text x="40" y="74" text-anchor="middle" font-size="4" fill="#334155">I\u2081 = bh\u00b3/12 \u2192 I\u2082 = bh\u00b3/3</text></svg>';
+const I_VS_RECT = '<svg viewBox="0 0 80 80" fill="none"> <!-- Solid rectangle vs I-beam --> <rect x="8" y="18" width="14" height="40" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <text x="15" y="14" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.5">Rectangle</text> <rect x="53" y="18" width="20" height="4" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="1.2"/> <rect x="60" y="22" width="6" height="32" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.2"/> <rect x="53" y="54" width="20" height="4" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="1.2"/> <text x="63" y="14" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.5">I-beam</text> <line x1="8" y1="38" x2="22" y2="38" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,1"/> <line x1="53" y1="38" x2="73" y2="38" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,1"/> <text x="40" y="42" text-anchor="middle" font-size="3" fill="#6B7280" opacity="0.5">same A</text> <text x="40" y="70" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">I-beam: higher I</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#6B7280" opacity="0.5">material far from NA</text> </svg>';
 
-const circleSectionSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Circle --><circle cx="40" cy="38" r="22" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1.5"/><!-- Centroidal axis --><line x1="10" y1="38" x2="70" y2="38" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><!-- Center dot --><circle cx="40" cy="38" r="1.5" fill="#3B8700" opacity="0.4"/><!-- Diameter dimension --><line x1="18" y1="48" x2="62" y2="48" stroke="#6B7280" stroke-width="0.5"/><line x1="18" y1="46" x2="18" y2="50" stroke="#6B7280" stroke-width="0.4"/><line x1="62" y1="46" x2="62" y2="50" stroke="#6B7280" stroke-width="0.4"/><text x="40" y="54" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">d</text><!-- dA strip --><rect x="38" y="18" width="4" height="3" fill="#A5E86C" opacity="0.3" stroke="#A5E86C" stroke-width="0.5"/><line x1="40" y1="38" x2="40" y2="19.5" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="1,1"/><text x="44" y="27" font-size="3.5" fill="#6B7280" font-style="italic">y</text><text x="46" y="19" font-size="3" fill="#A5E86C">dA</text><!-- Formula --><text x="40" y="70" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">I = \u03c0d\u2074/64</text><text x="40" y="77" text-anchor="middle" font-size="3.5" fill="#6B7280">I = \u222by\u00b2dA</text></svg>';
+const SECTION_MOD = '<svg viewBox="0 0 80 80" fill="none"> <!-- Section modulus diagram --> <rect x="25" y="15" width="30" height="40" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5" rx="1"/> <line x1="25" y1="35" x2="55" y2="35" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,1"/> <text x="57" y="37" font-size="3.5" fill="#A5E86C" opacity="0.6">NA</text> <line x1="60" y1="15" x2="60" y2="35" stroke="#6B7280" stroke-width="0.6"/> <line x1="58" y1="15" x2="62" y2="15" stroke="#6B7280" stroke-width="0.6"/> <line x1="58" y1="35" x2="62" y2="35" stroke="#6B7280" stroke-width="0.6"/> <text x="63" y="27" font-size="3.5" fill="#3B8700" opacity="0.5">c</text> <line x1="15" y1="15" x2="25" y2="35" stroke="#3B8700" stroke-width="1" opacity="0.5"/> <line x1="15" y1="55" x2="25" y2="35" stroke="#3B8700" stroke-width="1" opacity="0.5"/> <text x="10" y="14" font-size="3" fill="#3B8700" opacity="0.4">\u2212\u03c3</text> <text x="10" y="58" font-size="3" fill="#3B8700" opacity="0.4">+\u03c3</text> <text x="40" y="65" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">S = I/c</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.5">\u03c3max = M/S</text> </svg>';
 
-const hollowCircleSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Outer circle --><circle cx="40" cy="38" r="22" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1.5"/><!-- Inner circle (hole) --><circle cx="40" cy="38" r="13" fill="white" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,1.5"/><!-- Centroidal axis --><line x1="10" y1="38" x2="70" y2="38" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.4"/><!-- Center dot --><circle cx="40" cy="38" r="1.5" fill="#3B8700" opacity="0.4"/><!-- D label --><line x1="18" y1="52" x2="62" y2="52" stroke="#6B7280" stroke-width="0.5"/><line x1="18" y1="50" x2="18" y2="54" stroke="#6B7280" stroke-width="0.4"/><line x1="62" y1="50" x2="62" y2="54" stroke="#6B7280" stroke-width="0.4"/><text x="40" y="57" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">D</text><!-- d label --><line x1="27" y1="45" x2="53" y2="45" stroke="#6B7280" stroke-width="0.4"/><text x="40" y="44" text-anchor="middle" font-size="4" fill="#6B7280" font-style="italic">d</text><!-- Formula --><text x="40" y="70" text-anchor="middle" font-size="4.5" fill="#334155" font-style="italic">I = \u03c0(D\u2074\u2212d\u2074)/64</text></svg>';
-
-const genericSectionSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Generic cross-section shape --><rect x="18" y="18" width="44" height="44" rx="3" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1.5"/><!-- Neutral axis --><line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><text x="74" y="41" font-size="3.5" fill="#6B7280" font-style="italic">NA</text><!-- dA strip --><rect x="20" y="24" width="40" height="3" fill="#A5E86C" opacity="0.25" stroke="#A5E86C" stroke-width="0.5"/><text x="63" y="26" font-size="3" fill="#A5E86C">dA</text><!-- y distance --><line x1="40" y1="40" x2="40" y2="25.5" stroke="#6B7280" stroke-width="0.5" stroke-dasharray="1.5,1"/><text x="44" y="33" font-size="4" fill="#6B7280" font-style="italic">y</text><!-- Center dot --><circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.4"/><!-- Formula --><text x="40" y="72" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">I = \u222by\u00b2dA</text></svg>';
-
-const cChannelSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- C-channel shape --><rect x="20" y="15" width="40" height="8" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/><rect x="20" y="57" width="40" height="8" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/><rect x="20" y="23" width="10" height="34" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="1.2"/><!-- Centroid (offset from web) --><circle cx="32" cy="40" r="2.5" fill="#3B8700" opacity="0.4"/><circle cx="32" cy="40" r="2.5" stroke="#3B8700" stroke-width="0.8" fill="none"/><text x="36" y="39" font-size="4" fill="#334155" font-weight="bold">C</text><!-- Geometric center reference --><line x1="40" y1="10" x2="40" y2="70" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="2,2" opacity="0.3"/><!-- Offset annotation --><line x1="32" y1="68" x2="40" y2="68" stroke="#3B8700" stroke-width="0.5"/><text x="36" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" font-style="italic">e</text><text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#6B7280">shear center offset</text></svg>';
-
-const solidSquareSvg = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><!-- Square --><rect x="18" y="18" width="44" height="44" fill="#58CC02" opacity="0.12" stroke="#58CC02" stroke-width="1.5"/><!-- Centroidal axis --><line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.5"/><text x="74" y="41" font-size="3.5" fill="#6B7280" font-style="italic">NA</text><!-- Center dot --><circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.4"/><!-- Side dimension --><line x1="18" y1="68" x2="62" y2="68" stroke="#6B7280" stroke-width="0.5"/><line x1="18" y1="66" x2="18" y2="70" stroke="#6B7280" stroke-width="0.4"/><line x1="62" y1="66" x2="62" y2="70" stroke="#6B7280" stroke-width="0.4"/><text x="40" y="74" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">a</text><!-- Formula --><text x="40" y="12" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">I = a\u2074/12</text></svg>';
+const COMBINED_AXIAL_BEND = '<svg viewBox="0 0 80 80" fill="none"> <!-- Combined bending + axial --> <rect x="10" y="35" width="60" height="10" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5" rx="1"/> <line x1="2" y1="40" x2="9" y2="40" stroke="#3B8700" stroke-width="1.5"/> <polygon points="9,38 9,42 12,40" fill="#3B8700" opacity="0.5"/> <text x="2" y="36" font-size="3.5" fill="#3B8700" opacity="0.5">P</text> <path d="M 35,28 A 8,8 0 0,1 45,28" stroke="#58CC02" stroke-width="1" fill="none"/> <polygon points="45,28 44,25 47,27" fill="#58CC02" opacity="0.5"/> <text x="40" y="24" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.5">M</text> <text x="40" y="56" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.5">\u03c3 = P/A \u00B1 My/I</text> <rect x="15" y="62" width="8" height="8" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="0.5"/> <text x="19" y="76" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.4">P/A</text> <text x="30" y="68" font-size="4" fill="#334155" opacity="0.3">+</text> <line x1="35" y1="62" x2="45" y2="70" stroke="#58CC02" stroke-width="1" opacity="0.5"/> <line x1="35" y1="62" x2="35" y2="70" stroke="#6B7280" stroke-width="0.5" opacity="0.3"/> <text x="40" y="76" text-anchor="middle" font-size="2.5" fill="#58CC02" opacity="0.4">My/I</text> <text x="52" y="68" font-size="4" fill="#334155" opacity="0.3">=</text> <line x1="57" y1="61" x2="67" y2="71" stroke="#3B8700" stroke-width="1.2" opacity="0.5"/> <line x1="57" y1="61" x2="57" y2="71" stroke="#6B7280" stroke-width="0.5" opacity="0.3"/> <text x="62" y="76" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.4">combined</text> </svg>';
 
 // ============================================================
-// REPLACEMENT FUNCTION
+// Define mismatches to fix: questionId -> action
 // ============================================================
 
-function replaceDiagram(content, questionId, newDiagramSvg) {
-  const idPattern = "id: '" + questionId + "'";
-  const idIdx = content.indexOf(idPattern);
-  if (idIdx === -1) {
-    console.log('WARNING: Could not find ' + questionId);
-    return content;
+const UNIT3_FIXES = {
+  'u3-L1-Q7': TAPERED_BAR,
+  'u3-L1-Q9': 'REMOVE',
+  'u3-L1-Q17': 'REMOVE',
+  'u3-L1-Q23': 'REMOVE',
+  'u3-L1-Q26': HANGING_BAR,
+  'u3-L2-Q4': RECT_CROSS,
+  'u3-L2-Q6': SECTION_MOD,
+  'u3-L2-Q8': I_VS_RECT,
+  'u3-L2-Q15': SECTION_MOD,
+  'u3-L2-Q17': SHEAR_DIST_RECT,
+  'u3-L2-Q24': HOLLOW_CIRCLE,
+  'u3-L2-Q26': 'REMOVE',
+  'u3-L4-Q28': 'REMOVE',
+  'u3-L5-Q14': COMBINED_AXIAL_BEND,
+  'u3-L5-Q29': 'REMOVE',
+  'u3-L6-Q1': 'REMOVE',
+  'u3-L6-Q3': 'REMOVE',
+  'u3-L6-Q5': 'REMOVE',
+  'u3-L6-Q8': 'REMOVE',
+  'u3-L6-Q16': 'REMOVE',
+  'u3-L6-Q28': 'REMOVE',
+};
+
+const UNIT4_FIXES = {
+  'u4-L1-Q1': 'REMOVE',
+  'u4-L1-Q2': 'REMOVE',
+  'u4-L1-Q8': 'REMOVE',
+  'u4-L1-Q10': 'REMOVE',
+  'u4-L1-Q11': 'REMOVE',
+  'u4-L1-Q13': 'REMOVE',
+  'u4-L1-Q16': 'REMOVE',
+  'u4-L1-Q17': 'REMOVE',
+  'u4-L1-Q21': 'REMOVE',
+  'u4-L1-Q24': 'REMOVE',
+  'u4-L2-Q5': 'REMOVE',
+  'u4-L2-Q9': 'REMOVE',
+  'u4-L2-Q10': 'REMOVE',
+  'u4-L2-Q11': 'REMOVE',
+  'u4-L2-Q25': 'REMOVE',
+  'u4-L3-Q11': 'REMOVE',
+  'u4-L3-Q20': 'REMOVE',
+  'u4-L4-Q3': 'REMOVE',
+  'u4-L4-Q6': 'REMOVE',
+  'u4-L4-Q9': 'REMOVE',
+  'u4-L4-Q10': 'REMOVE',
+  'u4-L4-Q13': 'REMOVE',
+  'u4-L4-Q15': 'REMOVE',
+  'u4-L4-Q16': 'REMOVE',
+  'u4-L4-Q17': 'REMOVE',
+  'u4-L4-Q18': 'REMOVE',
+  'u4-L4-Q19': 'REMOVE',
+  'u4-L4-Q20': 'REMOVE',
+  'u4-L4-Q21': 'REMOVE',
+  'u4-L4-Q22': 'REMOVE',
+  'u4-L4-Q24': 'REMOVE',
+  'u4-L4-Q27': 'REMOVE',
+  'u4-L4-Q30': 'REMOVE',
+  'u4-L5-Q3': 'REMOVE',
+  'u4-L5-Q6': 'REMOVE',
+  'u4-L5-Q8': 'REMOVE',
+  'u4-L5-Q10': 'REMOVE',
+  'u4-L5-Q11': 'REMOVE',
+  'u4-L5-Q12': 'REMOVE',
+  'u4-L5-Q16': 'REMOVE',
+  'u4-L5-Q17': 'REMOVE',
+  'u4-L5-Q18': 'REMOVE',
+  'u4-L5-Q19': 'REMOVE',
+  'u4-L5-Q20': 'REMOVE',
+  'u4-L5-Q22': 'REMOVE',
+  'u4-L5-Q23': 'REMOVE',
+  'u4-L5-Q24': 'REMOVE',
+  'u4-L5-Q25': 'REMOVE',
+  'u4-L5-Q26': 'REMOVE',
+  'u4-L5-Q28': 'REMOVE',
+  'u4-L5-Q29': 'REMOVE',
+};
+
+const UNIT5_FIXES = {
+  'u5-L1-Q4': 'REMOVE',
+  'u5-L1-Q30': 'REMOVE',
+  'u5-L4-Q26': 'REMOVE',
+  'u5-L4-Q30': 'REMOVE',
+};
+
+// ============================================================
+// Process each file
+// ============================================================
+function processFile(filePath, fixes) {
+  let content = fs.readFileSync(filePath, 'utf-8');
+  const lines = content.split('\n');
+
+  let currentId = null;
+  let changeCount = 0;
+  let changeList = [];
+  const appliedFixes = {};
+
+  for (let i = 0; i < lines.length; i++) {
+    const stripped = lines[i].trim();
+
+    // Detect question id
+    const idMatch = stripped.match(/id:\s*'([^']+)'/);
+    if (idMatch && idMatch[1].includes('-Q')) {
+      currentId = idMatch[1];
+    }
+
+    // Check if this line has a diagram and current question needs fixing
+    if (currentId && fixes[currentId] && !appliedFixes[currentId] &&
+        stripped.startsWith('diagram:') && stripped.includes('<svg')) {
+      const fix = fixes[currentId];
+
+      if (fix === 'REMOVE') {
+        const indent = lines[i].match(/^(\s*)/)[1];
+        lines[i] = indent + 'diagram: undefined,';
+        changeCount++;
+        changeList.push('  ' + currentId + ': REMOVED diagram');
+      } else {
+        const indent = lines[i].match(/^(\s*)/)[1];
+        lines[i] = indent + "diagram: '" + fix + "',";
+        changeCount++;
+        changeList.push('  ' + currentId + ': REPLACED diagram');
+      }
+
+      appliedFixes[currentId] = true;
+    }
   }
 
-  // Find the next }, to scope our search
-  const afterId = content.substring(idIdx);
-  const nextQuestionEnd = afterId.indexOf('\n        },');
-  const searchArea = afterId.substring(0, nextQuestionEnd > 0 ? nextQuestionEnd : 2000);
-
-  const diagramLineRegex = /\n(\s*diagram: ')([^]*?)(',?\s*\n)/;
-  const diagramMatch = searchArea.match(diagramLineRegex);
-  if (!diagramMatch) {
-    console.log('WARNING: No diagram found for ' + questionId);
-    return content;
+  if (changeCount > 0) {
+    fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
   }
 
-  const matchStart = idIdx + searchArea.indexOf(diagramMatch[0]);
-  const matchEnd = matchStart + diagramMatch[0].length;
-
-  if (newDiagramSvg === null) {
-    // Remove the diagram line entirely
-    content = content.substring(0, matchStart) + '\n' + content.substring(matchEnd);
-    console.log('REMOVED diagram from ' + questionId);
-  } else {
-    // Replace with new SVG
-    const indent = diagramMatch[1]; // includes the newline and spaces
-    const trailing = diagramMatch[3];
-    const newLine = '\n' + indent + newDiagramSvg + trailing;
-    content = content.substring(0, matchStart) + newLine + content.substring(matchEnd);
-    console.log('REPLACED diagram in ' + questionId);
-  }
-  return content;
+  return { changeCount, changeList };
 }
 
-// ============================================================
-// UNIT 1 FIXES
-// ============================================================
-let u1 = fs.readFileSync('src/data/course/units/unit-1-statics.ts', 'utf8');
+// Process Unit 3
+console.log('Processing Unit 3...');
+const r3 = processFile(
+  'src/data/course/units/unit-3-strength.ts',
+  UNIT3_FIXES
+);
+console.log('  ' + r3.changeCount + ' changes');
+r3.changeList.forEach(function(c) { console.log(c); });
 
-// --- L5: Rotating disc -> proper cross-section diagrams ---
-u1 = replaceDiagram(u1, 'u1-L5-Q3', genericSectionSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q5', rectWithHoleSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q7', triangleCentroidSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q8', rectTwoAxesSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q9', genericSectionSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q10', tSectionCentroidSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q12', circleSectionSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q14', hollowCircleSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q15', cChannelSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q17', null);  // abstract concept
-u1 = replaceDiagram(u1, 'u1-L5-Q19', null);  // abstract concept
-u1 = replaceDiagram(u1, 'u1-L5-Q20', solidSquareSvg);
-u1 = replaceDiagram(u1, 'u1-L5-Q29', solidVsHollowSquareSvg);
+// Process Unit 4
+console.log('\nProcessing Unit 4...');
+const r4 = processFile(
+  'src/data/course/units/unit-4-thermo.ts',
+  UNIT4_FIXES
+);
+console.log('  ' + r4.changeCount + ' changes');
+r4.changeList.forEach(function(c) { console.log(c); });
 
-// --- L1: Remove mismatched diagrams on abstract vector questions ---
-u1 = replaceDiagram(u1, 'u1-L1-Q4', null);   // direction cosines - had FBD mass with friction
-u1 = replaceDiagram(u1, 'u1-L1-Q6', null);   // couple concept - had beam diagram
-u1 = replaceDiagram(u1, 'u1-L1-Q7', null);   // two forces at 60 deg at a point - had beam
-u1 = replaceDiagram(u1, 'u1-L1-Q9', null);   // collinear forces - had beam
-u1 = replaceDiagram(u1, 'u1-L1-Q10', null);  // concurrent forces equilibrium - had rotating
+// Process Unit 5
+console.log('\nProcessing Unit 5...');
+const r5 = processFile(
+  'src/data/course/units/unit-5-heat.ts',
+  UNIT5_FIXES
+);
+console.log('  ' + r5.changeCount + ' changes');
+r5.changeList.forEach(function(c) { console.log(c); });
 
-// --- L4: Remove ball-on-incline used for non-incline friction questions ---
-u1 = replaceDiagram(u1, 'u1-L4-Q7', null);   // horizontal surface - had incline
-u1 = replaceDiagram(u1, 'u1-L4-Q14', null);  // belt friction - had incline
-u1 = replaceDiagram(u1, 'u1-L4-Q15', null);  // jack screw - had incline
-u1 = replaceDiagram(u1, 'u1-L4-Q24', null);  // V-belt - had incline
-u1 = replaceDiagram(u1, 'u1-L4-Q27', null);  // disc clutch - had incline
-
-// --- L5: Other non-rotating-disc mismatches ---
-u1 = replaceDiagram(u1, 'u1-L5-Q21', null);  // solid vs hollow shaft J - had rotating
-
-// --- L2: Pulley question had rotating/ball-on-incline ---
-u1 = replaceDiagram(u1, 'u1-L2-Q22', null);  // pulley FBD - had ball-on-incline
-
-fs.writeFileSync('src/data/course/units/unit-1-statics.ts', u1, 'utf8');
-console.log('\n=== Unit 1 saved ===');
-console.log('Remaining "Rotating disc" in u1:', (u1.match(/Rotating disc/g) || []).length);
-console.log('Remaining "rotational inertia" in u1:', (u1.match(/rotational inertia/g) || []).length);
-
-// ============================================================
-// UNIT 2 FIXES
-// ============================================================
-let u2 = fs.readFileSync('src/data/course/units/unit-2-dynamics.ts', 'utf8');
-
-// --- L1: Linear kinematics questions with ROTATING (ball-on-incline) diagram ---
-// These are about projectiles, linear motion, braking etc. - not about rotation
-u2 = replaceDiagram(u2, 'u2-L1-Q1', null);   // accelerometer on vehicle
-u2 = replaceDiagram(u2, 'u2-L1-Q2', null);   // projectile components
-u2 = replaceDiagram(u2, 'u2-L1-Q5', null);   // boat crossing river
-u2 = replaceDiagram(u2, 'u2-L1-Q7', null);   // x(t) polynomial accel
-u2 = replaceDiagram(u2, 'u2-L1-Q8', null);   // a=0.5t velocity
-u2 = replaceDiagram(u2, 'u2-L1-Q9', null);   // velocity zero, accel zero?
-u2 = replaceDiagram(u2, 'u2-L1-Q10', null);  // projectile max height
-u2 = replaceDiagram(u2, 'u2-L1-Q11', null);  // relative velocity of cars
-u2 = replaceDiagram(u2, 'u2-L1-Q14', null);  // air resistance angle
-u2 = replaceDiagram(u2, 'u2-L1-Q16', null);  // projectile symmetry
-u2 = replaceDiagram(u2, 'u2-L1-Q17', null);  // max velocity of particle
-u2 = replaceDiagram(u2, 'u2-L1-Q19', null);  // car braking distance
-u2 = replaceDiagram(u2, 'u2-L1-Q25', null);  // displacement from v(t)
-u2 = replaceDiagram(u2, 'u2-L1-Q27', null);  // helicopter drops package
-u2 = replaceDiagram(u2, 'u2-L1-Q29', null);  // relative displacement
-u2 = replaceDiagram(u2, 'u2-L1-Q30', null);  // v^2 equation validity
-
-// --- L2: Newton's laws with wrong rotating diagram ---
-u2 = replaceDiagram(u2, 'u2-L2-Q2', null);   // Atwood machine - rotating is wrong
-u2 = replaceDiagram(u2, 'u2-L2-Q3', null);   // car over hilltop
-u2 = replaceDiagram(u2, 'u2-L2-Q7', null);   // block on 30 deg incline - ball on incline
-u2 = replaceDiagram(u2, 'u2-L2-Q13', null);  // friction formula
-u2 = replaceDiagram(u2, 'u2-L2-Q15', null);  // truck accelerates box
-u2 = replaceDiagram(u2, 'u2-L2-Q21', null);  // skier descending
-u2 = replaceDiagram(u2, 'u2-L2-Q24', null);  // block from two ropes
-u2 = replaceDiagram(u2, 'u2-L2-Q25', null);  // conveyor belt
-u2 = replaceDiagram(u2, 'u2-L2-Q28', null);  // Atwood tension
-
-// --- L3: Work-energy with wrong rotating diagram ---
-u2 = replaceDiagram(u2, 'u2-L3-Q4', null);   // motor lifts load
-u2 = replaceDiagram(u2, 'u2-L3-Q5', null);   // roller coaster
-u2 = replaceDiagram(u2, 'u2-L3-Q7', null);   // car braking energy
-u2 = replaceDiagram(u2, 'u2-L3-Q12', null);  // block on frictionless ramp
-u2 = replaceDiagram(u2, 'u2-L3-Q17', null);  // elevator motor work
-u2 = replaceDiagram(u2, 'u2-L3-Q22', null);  // braking distance comparison
-u2 = replaceDiagram(u2, 'u2-L3-Q25', null);  // engine power at speed
-u2 = replaceDiagram(u2, 'u2-L3-Q28', null);  // block on rough incline
-
-// --- L4: Impulse/momentum with wrong rotating diagram ---
-u2 = replaceDiagram(u2, 'u2-L4-Q3', null);   // elastic collision
-u2 = replaceDiagram(u2, 'u2-L4-Q4', null);   // lost KE in collision
-u2 = replaceDiagram(u2, 'u2-L4-Q5', null);   // head-on collision
-u2 = replaceDiagram(u2, 'u2-L4-Q7', null);   // elastic collision calc
-u2 = replaceDiagram(u2, 'u2-L4-Q8', null);   // coefficient of restitution
-u2 = replaceDiagram(u2, 'u2-L4-Q9', null);   // perfectly inelastic
-u2 = replaceDiagram(u2, 'u2-L4-Q10', null);  // explosion
-u2 = replaceDiagram(u2, 'u2-L4-Q12', null);  // hockey collision
-u2 = replaceDiagram(u2, 'u2-L4-Q14', null);  // ball rebounds from wall
-u2 = replaceDiagram(u2, 'u2-L4-Q15', null);  // rocket
-u2 = replaceDiagram(u2, 'u2-L4-Q17', null);  // baseball impulse
-u2 = replaceDiagram(u2, 'u2-L4-Q19', null);  // sand on conveyor
-u2 = replaceDiagram(u2, 'u2-L4-Q21', null);  // collision with restitution
-u2 = replaceDiagram(u2, 'u2-L4-Q22', null);  // fire hose thrust
-u2 = replaceDiagram(u2, 'u2-L4-Q24', null);  // person on boat
-u2 = replaceDiagram(u2, 'u2-L4-Q25', null);  // ballistic pendulum
-u2 = replaceDiagram(u2, 'u2-L4-Q27', null);  // elastic KE fraction
-u2 = replaceDiagram(u2, 'u2-L4-Q30', null);  // machine gun recoil
-
-// --- L4-Q11: Water jet on plate has BEAM_SUPPORTS diagram --- MISMATCH
-u2 = replaceDiagram(u2, 'u2-L4-Q11', null);
-
-// --- L5: Rotational dynamics - most are OK (rotating disc IS appropriate here) ---
-// But check for non-rotational ones
-u2 = replaceDiagram(u2, 'u2-L5-Q26', null);  // rolling ball friction - rotating is OK but question is true/false about rolling friction doing negative work
-
-// --- L6: Vibrations - check pendulum ---
-u2 = replaceDiagram(u2, 'u2-L6-Q18', null);  // simple pendulum - had rotating (ball on incline)
-
-fs.writeFileSync('src/data/course/units/unit-2-dynamics.ts', u2, 'utf8');
-console.log('\n=== Unit 2 saved ===');
-console.log('Remaining "Rotating disc" in u2:', (u2.match(/Rotating disc/g) || []).length);
-console.log('Remaining "rotational inertia" in u2:', (u2.match(/rotational inertia/g) || []).length);
+console.log('\nTotal: ' + (r3.changeCount + r4.changeCount + r5.changeCount) + ' diagram fixes applied');
