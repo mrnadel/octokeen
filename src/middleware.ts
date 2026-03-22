@@ -12,7 +12,7 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
   const { pathname } = req.nextUrl;
 
-  const isAuthPage = pathname === '/login' || pathname === '/register';
+  const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === '/get-started';
 
   // Authenticated users visiting auth pages -> redirect to home
   if (isAuthPage && isLoggedIn) {

@@ -144,7 +144,7 @@ export function LandingPage() {
           <AnimateIn delay={0.3}>
             <div className="landing-hero-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
               <Link
-                href="/register"
+                href="/get-started"
                 className="landing-btn-primary"
                 style={{
                   display: 'inline-block', background: '#58CC02', color: '#fff',
@@ -428,7 +428,7 @@ export function LandingPage() {
           <AnimateIn delay={0.3}>
             <div style={{ textAlign: 'center' }}>
               <Link
-                href="/register"
+                href="/get-started"
                 className="landing-btn-primary"
                 style={{
                   display: 'inline-block', background: '#58CC02', color: '#fff',
@@ -504,7 +504,7 @@ export function LandingPage() {
           <AnimateIn delay={0.3}>
             <div style={{ textAlign: 'center' }}>
               <Link
-                href="/register"
+                href="/get-started"
                 className="landing-btn-primary"
                 style={{
                   display: 'inline-block', background: '#58CC02', color: '#fff',
@@ -533,7 +533,7 @@ export function LandingPage() {
             Mechanical engineering interview prep that actually sticks.
           </p>
           <p style={{ marginTop: 8, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>
-            <Link href="/register" style={{ color: '#1CB0F6', fontWeight: 700, textDecoration: 'none' }}>Sign up</Link>
+            <Link href="/get-started" style={{ color: '#1CB0F6', fontWeight: 700, textDecoration: 'none' }}>Sign up</Link>
             {' '}&middot;{' '}
             <Link href="/login" style={{ color: '#1CB0F6', fontWeight: 700, textDecoration: 'none' }}>Log in</Link>
           </p>
