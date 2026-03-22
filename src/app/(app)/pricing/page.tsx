@@ -99,7 +99,7 @@ export default function PricingPage() {
     : monthlyPrice;
 
   const handleCheckout = async () => {
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       router.push('/login?callbackUrl=/pricing');
       return;
     }
@@ -109,14 +109,22 @@ export default function PricingPage() {
 
     setCheckoutLoading(true);
     try {
-      const paddle = await getPaddle();
-      if (!paddle) {
-        console.error('Paddle SDK failed to initialize');
+      const res = await fetch('/api/paddle/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        console.error('Checkout API error:', err);
         return;
       }
+      const { transactionId } = await res.json();
+
+      const paddle = await getPaddle();
+      if (!paddle) return;
       paddle.Checkout.open({
-        items: [{ priceId, quantity: 1 }],
-        customer: { email: session.user.email },
+        transactionId,
         settings: {
           successUrl: `${window.location.origin}/checkout/success`,
         },

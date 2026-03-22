@@ -57,7 +57,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  // Return the email so the client can open the Paddle checkout overlay
-  // Paddle will handle customer creation/lookup automatically
-  return NextResponse.json({ email: user.email });
+  // Create a transaction server-side and return its ID
+  // This avoids client-side transaction creation issues
+  try {
+    const transaction = await paddle.transactions.create({
+      items: [{ priceId, quantity: 1 }],
+    });
+    return NextResponse.json({ transactionId: transaction.id });
+  } catch (err) {
+    console.error('Paddle transaction create failed:', err);
+    return NextResponse.json({ error: 'Failed to create checkout' }, { status: 500 });
+  }
 }
