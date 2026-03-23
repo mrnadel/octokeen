@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
     const message = err instanceof Error ? err.message : String(err);
     const details = err && typeof err === 'object' && 'code' in err ? (err as Record<string, unknown>).code : undefined;
     console.error('Paddle transaction create failed:', message, details);
-    return NextResponse.json({ error: 'Failed to create checkout', message, details }, { status: 500 });
+    // Do not leak internal error details to the client
+    return NextResponse.json({ error: 'Failed to create checkout' }, { status: 500 });
   }
 }
