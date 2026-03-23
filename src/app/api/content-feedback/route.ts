@@ -39,7 +39,10 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { contentType, contentId, reason, comment } = body;
+  const contentType = body.contentType as string;
+  const contentId = body.contentId as string;
+  const reason = body.reason as string;
+  const comment = body.comment as string | undefined;
 
   // Validate
   if (!VALID_CONTENT_TYPES.includes(contentType as ContentFeedbackType)) {
@@ -89,7 +92,8 @@ export async function DELETE(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { contentType, contentId } = body;
+  const contentType = body.contentType as string | undefined;
+  const contentId = body.contentId as string | undefined;
 
   if (!contentType || !contentId) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });

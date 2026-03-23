@@ -36,7 +36,7 @@ export async function getExistingRequest(userA: string, userB: string) {
 }
 
 /** Count current friends for a user */
-async function countFriends(userId: string): Promise<number> {
+export async function countFriends(userId: string): Promise<number> {
   const rows = await db
     .select({ count: sql<number>`count(*)::int` })
     .from(friendships)

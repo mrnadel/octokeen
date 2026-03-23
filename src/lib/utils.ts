@@ -1,4 +1,5 @@
 import type { Difficulty, QuestionType } from '@/data/types';
+import { getTodayDate } from '@/lib/quest-engine';
 
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -129,7 +130,7 @@ export { getTodayDate as getTodayString } from '@/lib/quest-engine';
 
 export function getStreakStatus(lastActiveDate: string): 'active' | 'at-risk' | 'broken' {
   if (!lastActiveDate) return 'broken';
-  const today = getTodayString();
+  const today = getTodayDate();
   if (lastActiveDate === today) return 'active';
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);

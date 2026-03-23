@@ -47,8 +47,8 @@ export function resetUser() {
 }
 
 export function setSuperProperties(props: Record<string, unknown>) {
-  if (!initialized) return;
-  mixpanel.register(props);
+  if (!initialized || !mixpanelLib) return;
+  mixpanelLib.register(props);
 }
 
 // Lean event model — few events, rich properties

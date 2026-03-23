@@ -40,7 +40,7 @@ export async function PATCH(request: NextRequest) {
 
   // ── Handle display name update ──
   if (body.displayName !== undefined) {
-    const { displayName } = body;
+    const displayName = body.displayName as string | null;
     if (!displayName || displayName.length < 2 || displayName.length > 50) {
       return NextResponse.json(
         { error: 'Display name must be 2-50 characters' },

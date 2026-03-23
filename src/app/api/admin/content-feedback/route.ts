@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
-import { getQuestionById } from '@/data/questions';
 import { course } from '@/data/course';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
 
@@ -16,11 +15,7 @@ function getCourseQuestionText(contentId: string): string | null {
   return null;
 }
 
-function getQuestionText(contentType: string, contentId: string): string {
-  if (contentType === 'question') {
-    const q = getQuestionById(contentId);
-    return q ? q.question.slice(0, 80) : `[Unknown: ${contentId}]`;
-  }
+function getQuestionText(_contentType: string, contentId: string): string {
   const text = getCourseQuestionText(contentId);
   return text ? text.slice(0, 80) : `[Unknown: ${contentId}]`;
 }
