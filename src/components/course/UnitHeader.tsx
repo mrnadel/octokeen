@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { Unit } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
@@ -22,7 +23,7 @@ const GOLD_COLOR = '#FFFFFF';
 const GOLD_DARK = '#5D4200';
 const GOLD_MID = '#7A5A00';
 
-export function UnitHeader({
+export const UnitHeader = memo(function UnitHeader({
   unit,
   unitIndex,
   completedInUnit,
@@ -220,4 +221,4 @@ export function UnitHeader({
       </div>
     </div>
   );
-}
+});

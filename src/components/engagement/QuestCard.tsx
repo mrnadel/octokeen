@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { Quest } from '@/data/engagement-types';
 
@@ -9,7 +10,7 @@ interface Props {
   compact?: boolean;
 }
 
-export function QuestCard({ quest, onClaim, compact = false }: Props) {
+export const QuestCard = memo(function QuestCard({ quest, onClaim, compact = false }: Props) {
   const progressPercent = Math.min((quest.progress / quest.target) * 100, 100);
   const isComplete = quest.completed;
   const isClaimed = quest.claimed;
@@ -149,4 +150,4 @@ export function QuestCard({ quest, onClaim, compact = false }: Props) {
       </div>
     </div>
   );
-}
+});

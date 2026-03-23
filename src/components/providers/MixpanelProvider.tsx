@@ -11,17 +11,17 @@ const CONSENT_KEY = 'mechready-cookie-consent';
 export default function MixpanelProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
 
-  // Initialize Mixpanel when consent is given
+  // Initialize Mixpanel when consent is given (async - loads library on demand)
   useEffect(() => {
     const consent = localStorage.getItem(CONSENT_KEY);
     if (consent === 'accepted') {
-      initMixpanel();
+      void initMixpanel();
     }
 
     function handleConsent(e: Event) {
       const detail = (e as CustomEvent<string>).detail;
       if (detail === 'accepted') {
-        initMixpanel();
+        void initMixpanel();
       }
     }
 

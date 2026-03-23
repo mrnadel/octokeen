@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import Image from 'next/image';
 import { getFakeUserById } from '@/lib/fake-user-generator';
 import { getFakeAvatarUrl, getInitialsColor } from '@/lib/fake-avatar';
@@ -15,7 +15,7 @@ interface CompetitorAvatarProps {
   frameStyle?: string;
 }
 
-export function CompetitorAvatar({
+export const CompetitorAvatar = memo(function CompetitorAvatar({
   fakeUserId,
   avatarInitial,
   isUser,
@@ -78,4 +78,4 @@ export function CompetitorAvatar({
       {avatarContent}
     </div>
   );
-}
+});

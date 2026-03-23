@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGems, useEngagementActions, useStreakEnhancements, useEngagementStore } from '@/store/useEngagementStore';
 import { shopItems } from '@/data/gem-shop';
@@ -46,7 +46,7 @@ const RARITY_COLORS: Record<string, { dot: string; bg: string; text: string }> =
   legendary: { dot: '#F59E0B', bg: '#FFFBEB', text: '#B45309' },
 };
 
-function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, isEquipped, onBuy, onToggleEquip }: ShopCardProps) {
+const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, isEquipped, onBuy, onToggleEquip }: ShopCardProps) {
   const isCosmetic = item.type === 'title' || item.type === 'frame';
   const rarity = item.rarity;
   const rarityStyle = rarity ? RARITY_COLORS[rarity] : null;
@@ -142,7 +142,7 @@ function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, isEqui
       </div>
     </div>
   );
-}
+});
 
 export function GemShop() {
   const gems = useGems();
