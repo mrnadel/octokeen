@@ -3,6 +3,8 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, courseProgress } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { canAccessUnit } from '@/lib/access-control';
+import { getLessonById } from '@/data/course';
 import { progressSyncSchema } from '@/lib/validation';
 import type { CourseProgress } from '@/data/course/types';
 
@@ -57,6 +59,19 @@ export async function POST(request: NextRequest) {
   }
   const { progress } = parsed.data as { progress: CourseProgress };
 
+  // ── Server-side unit access enforcement ──
+  // Strip out completedLessons for units the user cannot access
+  const filteredLessons: CourseProgress['completedLessons'] = {};
+  for (const [lessonId, lessonData] of Object.entries(progress.completedLessons)) {
+    const info = getLessonById(lessonId);
+    if (!info) continue; // Unknown lesson ID — skip
+    const access = await canAccessUnit(userId, info.unitIndex);
+    if (access.allowed) {
+      filteredLessons[lessonId] = lessonData;
+    }
+    // Silently drop lessons from units the user has no access to
+  }
+
   const existing = await db
     .select({ id: courseProgress.id })
     .from(courseProgress)
@@ -69,7 +84,7 @@ export async function POST(request: NextRequest) {
     currentStreak: progress.currentStreak,
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
-    completedLessons: progress.completedLessons,
+    completedLessons: filteredLessons,
     updatedAt: new Date(),
   };
 

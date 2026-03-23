@@ -10,6 +10,7 @@ import {
   leagueState,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { incrementDailyUsage, canStartPracticeSession } from '@/lib/access-control';
 import { progressSyncSchema } from '@/lib/validation';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
@@ -179,6 +180,21 @@ export async function POST(request: NextRequest) {
   );
 
   if (newSessions.length > 0) {
+    // ── Server-side daily usage enforcement ──
+    // Check if the user can still answer questions today before accepting new sessions.
+    const limitCheck = await canStartPracticeSession(userId);
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todaySessions = newSessions.filter((s) => s.date === todayStr);
+    const todayQuestionsAttempted = todaySessions.reduce((sum, s) => sum + s.questionsAttempted, 0);
+
+    // If the user is on the free tier AND daily limit is reached, reject the new sessions
+    if (!limitCheck.allowed && todayQuestionsAttempted > 0) {
+      return NextResponse.json(
+        { error: 'Daily question limit reached', remaining: 0, limit: limitCheck.limit },
+        { status: 403 }
+      );
+    }
+
     await db.insert(sessionHistory).values(
       newSessions.map((s) => ({
         userId,
@@ -191,6 +207,11 @@ export async function POST(request: NextRequest) {
         xpEarned: s.xpEarned,
       }))
     );
+
+    // Track daily usage for each question answered today
+    for (let i = 0; i < todayQuestionsAttempted; i++) {
+      await incrementDailyUsage(userId);
+    }
   }
 
   // Sync engagement data if provided (now validated by Zod schema)

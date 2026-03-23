@@ -5,6 +5,8 @@ import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { course } from '@/data/course';
 import { topics } from '@/data/topics';
 import { shuffleArray } from '@/lib/utils';
+import { LIMITS } from '@/lib/pricing';
+import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
@@ -112,6 +114,18 @@ export const useCourseStore = create<CourseState>()(
       setCourseData: (data: Unit[]) => set({ courseData: data }),
 
       startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => {
+        // ── Client-side unit access check ──
+        // Free users can only access unit 0; Pro users can access all units.
+        const subStore = useSubscriptionStore.getState();
+        const isDev = process.env.NODE_ENV === 'development';
+        const activeTier = isDev && subStore.debugTierOverride ? subStore.debugTierOverride : subStore.tier;
+        const isTrialing = subStore.status === 'trialing';
+        const isPastDue = subStore.status === 'past_due';
+        const effectiveTier = (isTrialing || isPastDue) ? 'pro' : activeTier;
+        if (!LIMITS[effectiveTier].unlockedUnits.includes(unitIndex)) {
+          return; // Unit is locked for this tier
+        }
+
         const unit = get().courseData[unitIndex];
         const lesson = unit.lessons[lessonIndex];
         const allIds = lesson.questions.map((q) => q.id);
