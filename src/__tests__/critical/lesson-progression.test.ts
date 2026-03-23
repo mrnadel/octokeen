@@ -41,6 +41,7 @@ vi.mock('@/lib/utils', async (importOriginal) => {
 });
 
 import { useCourseStore } from '@/store/useCourseStore';
+import { course } from '@/data/course';
 
 // --- Helpers ---
 
@@ -55,9 +56,8 @@ function getDateString(daysAgo: number): string {
 }
 
 function resetStore() {
-  const courseData = useCourseStore.getState().courseData;
   useCourseStore.setState({
-    courseData,
+    courseData: course,
     progress: {
       displayName: 'Engineer',
       totalXp: 0,

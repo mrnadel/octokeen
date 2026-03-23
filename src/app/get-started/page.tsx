@@ -10,10 +10,14 @@ import {
   Sparkles,
   ArrowLeft,
   Loader2,
+  BookOpen,
+  Trophy,
+  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/mixpanel';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /* ─── Constants ─── */
 
@@ -72,6 +76,12 @@ const SAMPLE_QUESTIONS = [
     correctAnswer: 'b',
     explanation: 'Hot soup creates a stagnant boundary layer of warm, humid air. Blowing strips it away, replacing it with fresh, cooler, drier air — boosting both convection and evaporation.',
   },
+];
+
+const FEATURES = [
+  { icon: BookOpen, label: 'Bite-sized lessons', color: 'text-blue-500' },
+  { icon: Zap, label: 'Real interview Qs', color: 'text-amber-500' },
+  { icon: Trophy, label: 'Track progress', color: 'text-emerald-500' },
 ];
 
 /* ─── Animation Variants ─── */
@@ -137,6 +147,26 @@ function GoogleIcon() {
       <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
       <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
     </svg>
+  );
+}
+
+/* ─── Mascot Component ─── */
+
+function Mascot({ className, size = 'md' }: { className?: string; size?: 'sm' | 'md' | 'lg' }) {
+  const sizes = {
+    sm: { width: 80, height: 80 },
+    md: { width: 140, height: 140 },
+    lg: { width: 200, height: 200 },
+  };
+  return (
+    <Image
+      src="/mascot.png"
+      alt="MechReady mascot"
+      width={sizes[size].width}
+      height={sizes[size].height}
+      className={cn('select-none pointer-events-none', className)}
+      priority
+    />
   );
 }
 
@@ -240,7 +270,7 @@ export default function GetStartedPage() {
   const canGoBack = step > 0 && step !== TOTAL_STEPS - 1;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-[100dvh] bg-white flex flex-col">
       {/* ── Loading Overlay ── */}
       <AnimatePresence>
         {navigating && (
@@ -249,18 +279,12 @@ export default function GetStartedPage() {
             animate={{ opacity: 1 }}
             className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4"
           >
-            <motion.svg
-              width="64"
-              height="64"
-              viewBox="0 0 80 80"
-              fill="none"
-              animate={{ scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
             >
-              <path d="M40 8L67 23.6V54.4L40 70L13 54.4V23.6L40 8Z" stroke="#58CC02" strokeWidth="2.5" fill="#58CC02" fillOpacity="0.06" />
-              <path d="M40 22L54.5 30.4V47.6L40 56L25.5 47.6V30.4L40 22Z" stroke="#58CC02" strokeWidth="2" fill="#58CC02" fillOpacity="0.12" />
-              <circle cx="40" cy="39" r="7" stroke="#58CC02" strokeWidth="2.5" fill="white" />
-            </motion.svg>
+              <Mascot size="md" />
+            </motion.div>
             <p className="text-lg font-black text-gray-900">Preparing your course...</p>
             <Loader2 className="w-6 h-6 animate-spin text-[#58CC02]" />
           </motion.div>
@@ -269,7 +293,7 @@ export default function GetStartedPage() {
 
       {/* ── Progress Bar ── */}
       <div className="px-5 pt-4 pb-2">
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 max-w-lg mx-auto">
           {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
             <div
               key={i}
@@ -284,7 +308,7 @@ export default function GetStartedPage() {
             />
           ))}
         </div>
-        <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center justify-between mt-3 max-w-lg mx-auto">
           {canGoBack ? (
             <button
               onClick={prevStep}
@@ -315,80 +339,117 @@ export default function GetStartedPage() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="text-center max-w-sm mx-auto"
+              className="max-w-lg mx-auto w-full"
             >
-              <motion.svg
-                width="80"
-                height="80"
-                viewBox="0 0 80 80"
-                fill="none"
-                className="mx-auto mb-8"
-                initial={{ scale: 0.7, rotate: -30 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
-              >
-                <path
-                  d="M40 8L67 23.6V54.4L40 70L13 54.4V23.6L40 8Z"
-                  stroke="#58CC02"
-                  strokeWidth="2.5"
-                  fill="#58CC02"
-                  fillOpacity="0.06"
-                />
-                <path
-                  d="M40 22L54.5 30.4V47.6L40 56L25.5 47.6V30.4L40 22Z"
-                  stroke="#58CC02"
-                  strokeWidth="2"
-                  fill="#58CC02"
-                  fillOpacity="0.12"
-                />
-                <circle cx="40" cy="39" r="7" stroke="#58CC02" strokeWidth="2.5" fill="white" />
-              </motion.svg>
+              {/* Desktop: side-by-side layout */}
+              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                {/* Mascot */}
+                <motion.div
+                  className="shrink-0"
+                  initial={{ scale: 0.6, rotate: -15 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.1, type: 'spring', stiffness: 180, damping: 14 }}
+                >
+                  <div className="relative">
+                    <Mascot size="lg" className="drop-shadow-xl" />
+                    {/* Floating sparkles around mascot */}
+                    {[
+                      { x: -12, y: 8, delay: 0.6 },
+                      { x: '85%', y: -4, delay: 0.8 },
+                      { x: '90%', y: '80%', delay: 0.7 },
+                    ].map((spark, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute text-amber-400"
+                        style={{ left: spark.x, top: spark.y }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: [0, 1, 0.6, 1], scale: 1 }}
+                        transition={{ delay: spark.delay, duration: 0.5, type: 'spring' }}
+                      >
+                        <Sparkles className="w-4 h-4" />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
 
-              <motion.h1
-                className="text-2xl sm:text-3xl font-black text-gray-900 mb-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                Ready to ace your{' '}
-                <span className="text-primary-600">ME interview</span>?
-              </motion.h1>
+                {/* Text content */}
+                <div className="text-center md:text-left flex-1">
+                  <motion.div
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#58CC02]/10 text-[#58CC02] text-xs font-black uppercase tracking-wider mb-4"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <Zap className="w-3 h-3" />
+                    Free to start
+                  </motion.div>
 
-              <motion.p
-                className="text-gray-500 text-base mb-10 leading-relaxed"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                Bite-sized lessons. Real interview questions.
-                <br />
-                Master mechanical engineering, one concept at a time.
-              </motion.p>
+                  <motion.h1
+                    className="text-3xl sm:text-4xl font-black text-gray-900 mb-3 leading-tight"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    Ace your{' '}
+                    <span className="text-primary-600">ME interview</span>
+                  </motion.h1>
 
-              <motion.button
-                onClick={nextStep}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#58CC02] text-white font-extrabold text-lg rounded-2xl transition-all active:translate-y-[2px] disabled:opacity-70"
-                style={{ boxShadow: '0 5px 0 #46A302' }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                GET STARTED
-                <ChevronRight className="w-5 h-5" />
-              </motion.button>
+                  <motion.p
+                    className="text-gray-500 text-base sm:text-lg mb-6 leading-relaxed"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Master mechanical engineering concepts with bite-sized lessons and real interview questions.
+                  </motion.p>
 
-              <motion.p
-                className="mt-6 text-sm text-gray-400 font-semibold"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                Already have an account?{' '}
-                <Link href="/login" className="text-[#1CB0F6] font-bold">
-                  Log in
-                </Link>
-              </motion.p>
+                  {/* Feature pills */}
+                  <motion.div
+                    className="flex flex-wrap justify-center md:justify-start gap-2 mb-8"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35 }}
+                  >
+                    {FEATURES.map((f) => (
+                      <div
+                        key={f.label}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100"
+                      >
+                        <f.icon className={cn('w-3.5 h-3.5', f.color)} />
+                        <span className="text-xs font-bold text-gray-600">{f.label}</span>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  <motion.div
+                    className="flex flex-col sm:flex-row items-center gap-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <button
+                      onClick={nextStep}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#58CC02] text-white font-extrabold text-lg rounded-2xl transition-all active:translate-y-[2px]"
+                      style={{ boxShadow: '0 5px 0 #46A302' }}
+                    >
+                      GET STARTED
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </motion.div>
+
+                  <motion.p
+                    className="mt-5 text-sm text-gray-400 font-semibold"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    Already have an account?{' '}
+                    <Link href="/login" className="text-[#1CB0F6] font-bold">
+                      Log in
+                    </Link>
+                  </motion.p>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -402,24 +463,41 @@ export default function GetStartedPage() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-sm mx-auto w-full"
+              className="max-w-lg mx-auto w-full"
             >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">{sampleQuestion.topicIcon}</span>
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Try a question
-                </span>
+              {/* Mascot speech bubble */}
+              <div className="flex items-start gap-3 mb-5">
+                <motion.div
+                  className="shrink-0"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                >
+                  <Mascot size="sm" className="drop-shadow-md" />
+                </motion.div>
+                <motion.div
+                  className="relative bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 flex-1"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-lg">{sampleQuestion.topicIcon}</span>
+                    <span className="text-xs font-black text-[#58CC02] uppercase tracking-wider">
+                      Try a question
+                    </span>
+                  </div>
+                  <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
+                    {sampleQuestion.question}
+                  </h2>
+                </motion.div>
               </div>
 
-              <h2 className="text-lg font-black text-gray-900 mb-5 leading-snug">
-                {sampleQuestion.question}
-              </h2>
-
               <div className="space-y-2.5 mb-5">
-                {sampleQuestion.options.map((opt) => {
+                {sampleQuestion.options.map((opt, idx) => {
                   const isCorrect = opt.id === sampleQuestion.correctAnswer;
                   const isSelected = sampleAnswer === opt.id;
-                  let optionStyle = 'border-gray-200 bg-white hover:border-gray-300';
+                  let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
                   if (sampleRevealed) {
                     if (isCorrect) {
                       optionStyle = 'border-[#58CC02] bg-[#58CC02]/5';
@@ -433,12 +511,15 @@ export default function GetStartedPage() {
                   }
 
                   return (
-                    <button
+                    <motion.button
                       key={opt.id}
                       onClick={() => handleSampleAnswer(opt.id)}
                       disabled={sampleRevealed}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + idx * 0.06 }}
                       className={cn(
-                        'w-full flex items-start gap-3 p-3.5 sm:p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
+                        'w-full flex items-start gap-3 p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
                         optionStyle
                       )}
                     >
@@ -455,7 +536,7 @@ export default function GetStartedPage() {
                       <span className="text-sm font-semibold text-gray-700 leading-snug">
                         {opt.text}
                       </span>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -514,12 +595,12 @@ export default function GetStartedPage() {
             >
               <div className="text-center mb-6">
                 <motion.div
-                  className="w-16 h-16 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  initial={{ scale: 0.6, y: 10 }}
+                  animate={{ scale: 1, y: 0 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                  className="mb-3"
                 >
-                  <Sparkles className="w-8 h-8 text-[#58CC02]" />
+                  <Mascot size="sm" className="mx-auto drop-shadow-md" />
                 </motion.div>
                 <h2 className="text-2xl font-black text-gray-900 mb-1">
                   Save your progress
@@ -629,22 +710,20 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="text-center max-w-sm mx-auto w-full"
             >
-              {/* Celebration */}
+              {/* Mascot celebration */}
               <motion.div
-                className="relative mx-auto mb-6 w-24 h-24"
+                className="relative mx-auto mb-6"
                 initial={{ scale: 0.5, rotate: -20 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 12 }}
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl flex items-center justify-center">
-                  <Rocket className="w-12 h-12 text-[#58CC02]" />
-                </div>
+                <Mascot size="lg" className="mx-auto drop-shadow-xl" />
                 {/* Sparkle decorations */}
                 {[
-                  { x: -16, y: -12, delay: 0.3, size: 16 },
-                  { x: 90, y: -8, delay: 0.4, size: 14 },
-                  { x: -10, y: 80, delay: 0.5, size: 12 },
-                  { x: 94, y: 76, delay: 0.35, size: 15 },
+                  { x: 0, y: 0, delay: 0.3, size: 18 },
+                  { x: '100%', y: 0, delay: 0.4, size: 16 },
+                  { x: -8, y: '85%', delay: 0.5, size: 14 },
+                  { x: '105%', y: '80%', delay: 0.35, size: 16 },
                 ].map((spark, i) => (
                   <motion.div
                     key={i}

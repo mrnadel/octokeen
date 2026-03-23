@@ -23,6 +23,8 @@ vi.mock('@/hooks/useSubscription', () => ({
 }));
 
 import { useStore } from '@/store/useStore';
+import { useCourseStore } from '@/store/useCourseStore';
+import { course } from '@/data/course';
 import { achievements } from '@/data/achievements';
 
 // --- Fixtures ---
@@ -85,18 +87,12 @@ function getYesterday(): string {
   return d.toISOString().split('T')[0];
 }
 
-function resetStore(questionPool?: Question[]) {
-  const questions = questionPool || [
-    ...makeQuestionPool(30, 'thermodynamics'),
-    ...makeQuestionPool(30, 'fluid-mechanics'),
-    ...makeQuestionPool(30, 'strength-of-materials'),
-  ];
+function resetStore() {
+  useCourseStore.setState({ courseData: course });
   useStore.setState({
     progress: getDefaultProgress(),
-    questions,
     session: null,
     sessionSummary: null,
-    sidebarOpen: false,
     showAchievementToast: null,
   });
 }

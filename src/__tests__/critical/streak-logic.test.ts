@@ -23,6 +23,8 @@ vi.mock('@/hooks/useSubscription', () => ({
 }));
 
 import { useStore } from '@/store/useStore';
+import { useCourseStore } from '@/store/useCourseStore';
+import { course } from '@/data/course';
 
 // --- Fixtures ---
 
@@ -79,13 +81,11 @@ function getDefaultProgress(): UserProgress {
 }
 
 function resetStore() {
-  const questions = makeQuestionPool(30, 'thermodynamics');
+  useCourseStore.setState({ courseData: course });
   useStore.setState({
     progress: getDefaultProgress(),
-    questions,
     session: null,
     sessionSummary: null,
-    sidebarOpen: false,
     showAchievementToast: null,
   });
   subscriptionMockState.tier = 'pro';

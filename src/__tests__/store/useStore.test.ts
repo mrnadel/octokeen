@@ -26,6 +26,8 @@ vi.mock('@/hooks/useSubscription', () => ({
 
 import { useStore } from '@/store/useStore';
 import type { SessionType } from '@/store/useStore';
+import { useCourseStore } from '@/store/useCourseStore';
+import { course } from '@/data/course';
 
 // -- Test Fixtures --
 
@@ -79,17 +81,12 @@ function makeQuestionPool(count: number, topic: TopicId = 'thermodynamics'): Que
 }
 
 function resetStore() {
-  const questions = [
-    ...makeQuestionPool(20, 'thermodynamics'),
-    ...makeQuestionPool(20, 'fluid-mechanics'),
-    ...makeQuestionPool(20, 'strength-of-materials'),
-  ];
+  // Pre-load full course data so startSession doesn't trigger async lazy-load
+  useCourseStore.setState({ courseData: course });
   useStore.setState({
     progress: getDefaultProgress(),
-    questions,
     session: null,
     sessionSummary: null,
-    sidebarOpen: true,
     showAchievementToast: null,
   });
   // Reset subscription mock to pro
