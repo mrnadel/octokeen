@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { courseLessons, courseQuestions } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { courseLessons } from '@/lib/db/schema';
+import { getAuthUserId } from '@/lib/auth-utils';
+
+const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
+  const userId = await getAuthUserId();
+  if (!userId || userId !== ADMIN_USER_ID) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
@@ -33,17 +35,15 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
+  const userId = await getAuthUserId();
+  if (!userId || userId !== ADMIN_USER_ID) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
   const { id } = await params;
 
-  // Delete all questions for this lesson first
-  await db.delete(courseQuestions).where(eq(courseQuestions.lessonId, id));
-
-  // Delete the lesson itself
+  // Schema has onDelete: cascade on courseQuestions.lessonId,
+  // so deleting the lesson automatically cascades to its questions.
   const [deleted] = await db
     .delete(courseLessons)
     .where(eq(courseLessons.id, id))
