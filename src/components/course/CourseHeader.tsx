@@ -91,63 +91,60 @@ export function CourseHeader() {
       {/* Header */}
       <header
         ref={headerRef}
-        className="sticky top-0 z-30 bg-[#FAFAFA] px-4 sm:px-5 py-3"
+        className="sticky top-0 z-30 bg-[#FAFAFA] px-4 sm:px-5 py-1.5"
       >
-        <div className="flex items-center justify-center" style={{ gap: 8 }}>
-            {/* Streak */}
+        <div className="flex items-center justify-center" style={{ gap: 4 }}>
             <button
               ref={streakBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 4,
+                gap: 3,
                 fontWeight: 800,
-                fontSize: 15,
+                fontSize: 13,
                 color: popover === 'streak' ? '#D97706' : '#3C3C3C',
-                padding: '8px 10px',
-                borderRadius: 12,
+                padding: '5px 8px',
+                borderRadius: 10,
                 background: popover === 'streak' ? '#FFFBEB' : 'transparent',
               }}
               onClick={() => togglePopover('streak')}
             >
-              <span style={{ fontSize: 18 }}>⚡</span>
+              <span style={{ fontSize: 15 }}>⚡</span>
               <span>{progress.currentStreak}</span>
             </button>
 
-            {/* XP */}
             <button
               ref={xpBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 4,
+                gap: 3,
                 fontWeight: 800,
-                fontSize: 15,
+                fontSize: 13,
                 color: popover === 'xp' ? '#7B2FBE' : '#3C3C3C',
-                padding: '8px 10px',
-                borderRadius: 12,
+                padding: '5px 8px',
+                borderRadius: 10,
                 background: popover === 'xp' ? '#F3E6FF' : 'transparent',
               }}
               onClick={() => togglePopover('xp')}
             >
-              <span style={{ fontSize: 18 }}>⭐</span>
+              <span style={{ fontSize: 15 }}>⭐</span>
               <span>{progress.totalXp.toLocaleString()}</span>
             </button>
 
-            {/* Gems */}
             <button
               ref={gemsBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 4,
+                gap: 3,
                 fontWeight: 800,
-                fontSize: 15,
+                fontSize: 13,
                 color: popover === 'gems' ? '#7C3AED' : '#3C3C3C',
-                padding: '8px 10px',
-                borderRadius: 12,
+                padding: '5px 8px',
+                borderRadius: 10,
                 background: popover === 'gems' ? '#F3E8FF' : 'transparent',
               }}
               onClick={() => togglePopover('gems')}
             >
-              <span style={{ fontSize: 18 }}>💎</span>
+              <span style={{ fontSize: 15 }}>💎</span>
               <span>{gems.balance}</span>
             </button>
 
