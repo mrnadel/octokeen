@@ -21,7 +21,12 @@ import { PracticeCard } from '@/components/course/PracticeCard';
 
 export default function HomePage() {
   const { status } = useSession();
-  const { activeLesson, lessonResult, chapterJustCompleted, dismissChapterCompletion, courseJustCompleted, dismissCourseCompletion } = useCourseStore();
+  const activeLesson = useCourseStore((s) => s.activeLesson);
+  const lessonResult = useCourseStore((s) => s.lessonResult);
+  const chapterJustCompleted = useCourseStore((s) => s.chapterJustCompleted);
+  const dismissChapterCompletion = useCourseStore((s) => s.dismissChapterCompletion);
+  const courseJustCompleted = useCourseStore((s) => s.courseJustCompleted);
+  const dismissCourseCompletion = useCourseStore((s) => s.dismissCourseCompletion);
   const currentStreak = useStore((s) => s.progress.currentStreak);
   const milestonesReached = useEngagementStore((s) => s.streak.milestonesReached);
   const addGems = useEngagementStore((s) => s.addGems);
