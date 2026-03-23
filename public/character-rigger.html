@@ -1137,27 +1137,66 @@ function finishLasso() {
   pushUndo();
   const tab = document.querySelector('.tab.active')?.dataset.tab;
   const poly = S.lasso.points;
-  let count = 0;
-  S.paths.forEach((p, i) => {
-    if (pointInPolygon(p.centroid, poly)) {
-      if (tab === 'rig' && S.selJoint !== null) {
-        p.jointId = S.selJoint;
-      }
-      S.selPaths.add(i);
-      count++;
+
+  // Classify every path: fully inside, fully outside, or straddling
+  const newPaths = [];
+  let cutCount = 0, selCount = 0;
+  S.selPaths.clear();
+
+  S.paths.forEach(p => {
+    const pts = samplePathPoints(p);
+    let hasIn = false, hasOut = false;
+    for (const pt of pts) {
+      if (pointInPolygon(pt, poly)) hasIn = true; else hasOut = true;
+      if (hasIn && hasOut) break;
+    }
+
+    if (hasIn && hasOut) {
+      // Straddles the boundary → split into two pieces
+      cutCount++;
+      const polyClone = poly.map(pt => ({x:pt.x, y:pt.y}));
+      const inside = { ...p, clipPoly: polyClone, clipInside: true,
+        centroid: clippedCentroid(p, poly, true), index: 0 };
+      if (p.subPaths) inside.subPaths = p.subPaths.map(sp => ({...sp}));
+      const outside = { ...p, clipPoly: polyClone, clipInside: false,
+        centroid: clippedCentroid(p, poly, false), index: 0 };
+      if (p.subPaths) outside.subPaths = p.subPaths.map(sp => ({...sp}));
+      newPaths.push(inside);
+      newPaths.push(outside);
+    } else {
+      newPaths.push(p);
     }
   });
 
-  // Feature 8: Auto-merge on lasso
+  S.paths = newPaths;
+  S.paths.forEach((p, i) => p.index = i);
+  S.hiddenPaths.clear();
+
+  // Select all inside pieces (cut insides + fully-inside paths)
+  S.paths.forEach((p, i) => {
+    if (p.clipPoly && p.clipInside) { S.selPaths.add(i); selCount++; }
+    else if (!p.clipPoly) {
+      // Check if centroid is inside the lasso (fully-inside path)
+      if (pointInPolygon(p.centroid, poly)) {
+        if (tab === 'rig' && S.selJoint !== null) p.jointId = S.selJoint;
+        S.selPaths.add(i);
+        selCount++;
+      }
+    }
+  });
+
+  // Auto-merge if enabled
   if (S.autoMergeLasso && S.selPaths.size >= 2) {
     doMergeSelected();
-    stInfo.textContent = `Lasso: merged ${count} paths into 1`;
+    stInfo.textContent = `Lasso: cut ${cutCount}, merged ${selCount} paths into 1`;
   } else {
-    const action = (tab === 'rig' && S.selJoint !== null) ? 'selected & assigned' : 'selected';
-    stInfo.textContent = `Lasso: ${action} ${count} paths`;
+    const parts = [];
+    if (cutCount) parts.push(`cut ${cutCount}`);
+    parts.push(`selected ${selCount}`);
+    stInfo.textContent = `Lasso: ${parts.join(', ')}`;
   }
 
-  S.lastLassoPoly = [...poly]; // store for cut operation
+  S.lastLassoPoly = [...poly];
   S.lasso = { active: false, points: [] };
   renderJointList();
   renderAll();
