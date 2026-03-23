@@ -56,4 +56,16 @@ describe('calcEngine', () => {
     it('handles chained multiplication', () => { expect(evaluate('2*3*4')).toBe(24); });
     it('handles mixed chained ops with precedence', () => { expect(evaluate('2+3*4-1')).toBe(13); });
   });
+
+  describe('implicit multiplication', () => {
+    it('handles number before paren', () => {
+      expect(evaluate('3(4+5)')).toBe(27);
+    });
+    it('handles number before constant', () => {
+      expect(evaluate('2pi')).toBeCloseTo(6.28318, 4);
+    });
+    it('handles paren before number', () => {
+      expect(evaluate('(2+3)4')).toBe(20);
+    });
+  });
 });

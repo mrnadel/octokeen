@@ -83,7 +83,21 @@ function tokenize(expr: string): Token[] | null {
     return null;
   }
 
-  return tokens;
+  // Insert implicit multiplication: "2pi" → "2*pi", "3(4+5)" → "3*(4+5)", "(2+3)4" → "(2+3)*4"
+  const result: Token[] = [];
+  for (let j = 0; j < tokens.length; j++) {
+    result.push(tokens[j]);
+    const curr = tokens[j];
+    const next = tokens[j + 1];
+    if (!next) continue;
+    const needsMul =
+      (curr.type === 'number' && (next.type === 'paren' && next.value === '(' || next.type === 'fn' || next.type === 'number')) ||
+      (curr.type === 'paren' && curr.value === ')' && (next.type === 'number' || next.type === 'paren' && next.value === '(' || next.type === 'fn'));
+    if (needsMul) {
+      result.push({ type: 'op', value: '*' });
+    }
+  }
+  return result;
 }
 
 function peek(ctx: Ctx): Token | null {
