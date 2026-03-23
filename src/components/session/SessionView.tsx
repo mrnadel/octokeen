@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useSession, useSessionActions } from '@/store/useStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
-import QuestionCard from '../question/QuestionCard';
-import type { QuestionCardHandle } from '../question/QuestionCard';
+import QuestionCard from '../lesson/QuestionCard';
+import type { QuestionCardHandle } from '../lesson/QuestionCard';
 import SessionSummary from './SessionSummary';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import LessonProgressBar from '../lesson/LessonProgressBar';
@@ -66,16 +66,11 @@ export default function SessionView() {
     if (!currentQuestion) return '';
     switch (currentQuestion.type) {
       case 'multiple-choice':
-      case 'confidence-rated':
-        return currentQuestion.options.find((o) => o.id === currentQuestion.correctAnswer)?.text ?? '';
-      case 'two-choice-tradeoff':
-        return currentQuestion.choices.find((c) => c.id === currentQuestion.preferredAnswer)?.text ?? '';
-      case 'what-fails-first':
-        return currentQuestion.components.find((c) => c.id === currentQuestion.correctAnswer)?.text ?? '';
-      case 'design-decision':
-        return currentQuestion.designOptions.find((d) => d.id === currentQuestion.bestOption)?.text ?? '';
-      case 'material-selection':
-        return currentQuestion.candidates.find((c) => c.id === currentQuestion.bestChoice)?.name ?? '';
+        return currentQuestion.options?.[currentQuestion.correctIndex ?? 0] ?? '';
+      case 'true-false':
+        return currentQuestion.correctAnswer ? 'True' : 'False';
+      case 'fill-blank':
+        return currentQuestion.blanks?.join(', ') ?? '';
       default:
         return '';
     }

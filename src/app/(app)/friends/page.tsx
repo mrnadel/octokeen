@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, Users, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import UserSearch from '@/components/friends/UserSearch';
+import InviteShare from '@/components/friends/InviteShare';
 import FriendCard from '@/components/friends/FriendCard';
 import FriendRequestCard from '@/components/friends/FriendRequestCard';
 import useSWR from 'swr';
@@ -61,7 +61,7 @@ export default function FriendsPage() {
       </header>
 
       <div className="px-4 sm:px-5 py-5 max-w-[600px] mx-auto">
-        <UserSearch />
+        <InviteShare />
 
         <div className="flex gap-2 mb-5">
           <button
@@ -114,18 +114,9 @@ export default function FriendsPage() {
                     </div>
                   </div>
                   <p className="text-surface-700 font-bold text-sm mb-1">No friends yet</p>
-                  <p className="text-surface-400 text-xs mb-4">
-                    Challenge friends to see who can master thermodynamics first!
+                  <p className="text-surface-400 text-xs">
+                    Share your invite link above to add friends!
                   </p>
-                  <button
-                    onClick={() => {
-                      const input = document.querySelector<HTMLInputElement>('input[placeholder*="Search"]');
-                      input?.focus();
-                    }}
-                    className="px-4 py-2 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors"
-                  >
-                    Find Friends
-                  </button>
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">

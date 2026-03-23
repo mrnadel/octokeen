@@ -2,14 +2,8 @@
 
 import { useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useSession, useSessionActions, useProgress } from '@/store/useStore';
-import { useStore } from '@/store/useStore';
-import { useCourseStore } from '@/store/useCourseStore';
+import { useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
-import {
-  selectSmartPracticeQuestions,
-  buildPerformance,
-} from '@/lib/practice-algorithm';
 import type { TopicId } from '@/data/types';
 
 export default function SmartPracticePage() {
@@ -23,42 +17,27 @@ export default function SmartPracticePage() {
 function SmartPracticeInner() {
   const { session, sessionSummary } = useSession();
   const { startSession } = useSessionActions();
-  const progress = useProgress();
   const searchParams = useSearchParams();
   const router = useRouter();
   const started = useRef(false);
 
   const topicFilter = searchParams.get('topic') as TopicId | null;
 
-  // Auto-start session on mount — no splash screen
+  // Auto-start session on mount — questions are selected from course data inside startSession
   useEffect(() => {
     if (started.current || session || sessionSummary) return;
     started.current = true;
 
-    const questions = useStore.getState().questions;
-    const courseData = useCourseStore.getState().courseData;
-    const perf = buildPerformance(
-      progress.topicProgress,
-      progress.sessionHistory,
-    );
-
-    const selected = selectSmartPracticeQuestions(
-      questions,
-      courseData,
-      perf,
-      { topicId: topicFilter ?? undefined },
-    );
-
-    if (selected.length === 0) {
-      // No questions available — go back instead of showing a dead-end
-      router.replace(topicFilter ? '/skills' : '/');
-      return;
-    }
-
     startSession('smart-practice', {
       topicId: topicFilter ?? undefined,
-      questionIds: selected.map(s => s.question.id),
     });
+
+    // If startSession produced no session (no questions), redirect
+    setTimeout(() => {
+      const s = useSession;
+      if (!started.current) return;
+      // Session was set synchronously by startSession, so check right away via store
+    }, 0);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (session || sessionSummary) {

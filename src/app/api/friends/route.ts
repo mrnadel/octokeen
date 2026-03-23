@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
-import { friendships, users, userProgress, leagueState } from '@/lib/db/schema';
-import { eq, or, inArray, desc } from 'drizzle-orm';
+import { friendships, users, userProgress, leagueState, sessionHistory } from '@/lib/db/schema';
+import { eq, or, inArray, desc, and, sql } from 'drizzle-orm';
 
 export async function GET() {
   const userId = await getAuthUserId();
@@ -37,6 +37,19 @@ export async function GET() {
     .where(inArray(users.id, friendIds))
     .orderBy(desc(userProgress.totalXp));
 
+  // Get today's XP for all friends in one query
+  const today = new Date().toISOString().split('T')[0];
+  const todayXpRows = await db
+    .select({
+      userId: sessionHistory.userId,
+      todayXp: sql<number>`coalesce(sum(${sessionHistory.xpEarned}), 0)::int`,
+    })
+    .from(sessionHistory)
+    .where(and(inArray(sessionHistory.userId, friendIds), eq(sessionHistory.date, today)))
+    .groupBy(sessionHistory.userId);
+
+  const todayXpMap = new Map(todayXpRows.map((r) => [r.userId, r.todayXp]));
+
   const result = friends.map((f) => ({
     id: f.id,
     displayName: f.displayName ?? 'Unknown',
@@ -45,6 +58,7 @@ export async function GET() {
     currentStreak: f.currentStreak ?? 0,
     totalXp: f.totalXp ?? 0,
     leagueTier: f.leagueTier ?? 1,
+    todayXp: todayXpMap.get(f.id) ?? 0,
   }));
 
   return NextResponse.json({ friends: result });

@@ -3,11 +3,11 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
-import type { Question, TopicId, Difficulty, UserProgress, SessionRecord, TopicProgress } from '@/data/types';
+import type { TopicId, Difficulty, UserProgress, SessionRecord, TopicProgress } from '@/data/types';
+import type { CourseQuestion } from '@/data/course/types';
 import { seedProgress } from '@/data/seed-progress';
 import { levels } from '@/data/levels';
 import { achievements as allAchievements } from '@/data/achievements';
-import { allQuestions } from '@/data/questions';
 import { shuffleArray, getTodayString, calculateXP } from '@/lib/utils';
 import { PRO_SESSION_TYPES } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
@@ -16,11 +16,18 @@ import { useCourseStore } from '@/store/useCourseStore';
 // --- Session Types ---
 export type SessionType = 'adaptive' | 'topic-deep-dive' | 'interview-sim' | 'daily-challenge' | 'real-world' | 'weak-areas' | 'smart-practice';
 
+// CourseQuestion enriched with topic metadata for practice sessions
+export type PracticeQuestion = CourseQuestion & {
+  topic: TopicId;
+  subtopic: string;
+  difficulty: Difficulty;
+};
+
 export interface ActiveSession {
   type: SessionType;
   topicId?: TopicId;
   difficulty?: Difficulty;
-  questions: Question[];
+  questions: PracticeQuestion[];
   currentIndex: number;
   answers: Record<string, { correct: boolean; confidence?: number; timeSpent: number; xpAwarded: number }>;
   startTime: number;
@@ -45,9 +52,6 @@ interface AppState {
   // User Progress
   progress: UserProgress;
 
-  // Content (loaded from DB, with static fallback)
-  questions: Question[];
-
   // Active Session
   session: ActiveSession | null;
   sessionSummary: SessionSummary | null;
@@ -56,11 +60,8 @@ interface AppState {
   sidebarOpen: boolean;
   showAchievementToast: string | null;
 
-  // Actions — Content
-  setQuestions: (questions: Question[]) => void;
-
   // Actions — Session
-  startSession: (type: SessionType, options?: { topicId?: TopicId; difficulty?: Difficulty; questionIds?: string[] }) => void;
+  startSession: (type: SessionType, options?: { topicId?: TopicId; difficulty?: Difficulty; resolvedQuestions?: PracticeQuestion[] }) => void;
   answerQuestion: (questionId: string, correct: boolean, confidence?: number, timeSpent?: number) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
@@ -106,43 +107,67 @@ function getDefaultProgress(): UserProgress {
   };
 }
 
-function selectQuestionsForSession(type: SessionType, allQs: Question[], options?: { topicId?: TopicId; difficulty?: Difficulty; questionIds?: string[] }): Question[] {
-  let pool: Question[] = [];
-  let count = 10;
-
-  if (options?.questionIds) {
-    return options.questionIds.map(id => allQs.find(q => q.id === id)!).filter(Boolean);
+/** Gather all course questions as PracticeQuestions with topic metadata. */
+function gatherCourseQuestions(): PracticeQuestion[] {
+  const courseData = useCourseStore.getState().courseData;
+  const all: PracticeQuestion[] = [];
+  for (let ui = 0; ui < courseData.length; ui++) {
+    const unit = courseData[ui];
+    if (!unit.topicId) continue;
+    const difficulty: Difficulty = ui < 4 ? 'beginner' : ui < 8 ? 'intermediate' : 'advanced';
+    for (const lesson of unit.lessons) {
+      for (const q of lesson.questions) {
+        all.push({ ...q, topic: unit.topicId, subtopic: lesson.title, difficulty });
+      }
+    }
   }
+  return all;
+}
+
+function selectQuestionsForSession(type: SessionType, options?: { topicId?: TopicId; difficulty?: Difficulty; resolvedQuestions?: PracticeQuestion[] }): PracticeQuestion[] {
+  if (options?.resolvedQuestions && options.resolvedQuestions.length > 0) {
+    return options.resolvedQuestions;
+  }
+
+  let pool = gatherCourseQuestions();
+  let count = 10;
 
   switch (type) {
     case 'topic-deep-dive':
-      if (options?.topicId) {
-        pool = allQs.filter(q => q.topic === options.topicId);
-      }
+      if (options?.topicId) pool = pool.filter(q => q.topic === options.topicId);
       count = 8;
       break;
     case 'interview-sim':
-      pool = [...allQs];
       count = 15;
       break;
-    case 'daily-challenge':
-      pool = [...allQs];
-      count = 5;
-      break;
+    case 'daily-challenge': {
+      // Deterministic daily selection: stable order + date-based offset
+      const sorted = pool.sort((a, b) => a.id.localeCompare(b.id));
+      const dayNum = parseInt(getTodayString().replace(/-/g, '').slice(-4));
+      const start = dayNum % sorted.length;
+      const daily: PracticeQuestion[] = [];
+      for (let i = 0; i < Math.min(5, sorted.length); i++) {
+        daily.push(sorted[(start + i * 7) % sorted.length]);
+      }
+      return daily;
+    }
     case 'real-world':
-      pool = allQs.filter(q => q.topic === 'real-world-mechanisms');
+      pool = pool.filter(q => q.topic === 'real-world-mechanisms');
       count = 6;
       break;
     case 'smart-practice':
-      pool = [...allQs];
       count = 10;
       break;
     case 'weak-areas':
     case 'adaptive':
     default:
-      pool = [...allQs];
       count = 10;
       break;
+  }
+
+  if (options?.topicId && type !== 'topic-deep-dive') {
+    const filtered = pool.filter(q => q.topic === options.topicId);
+    if (filtered.length > 0) pool = filtered;
   }
 
   if (options?.difficulty) {
@@ -154,7 +179,7 @@ function selectQuestionsForSession(type: SessionType, allQs: Question[], options
 }
 
 interface SessionContext {
-  questions: Question[];
+  questions: PracticeQuestion[];
   answers: Record<string, { correct: boolean; confidence?: number; timeSpent: number; xpAwarded: number }>;
 }
 
@@ -196,12 +221,7 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         }
         break;
       case 'ach-estimation-ace':
-        if (sessionCtx) {
-          const estimationCorrect = sessionCtx.questions.filter(q =>
-            q.type === 'estimation' && sessionCtx.answers[q.id]?.correct
-          ).length;
-          unlocked = estimationCorrect >= 3;
-        }
+        // Removed: estimation questions no longer exist (course questions only)
         break;
 
       // ── Consistency ──
@@ -262,20 +282,10 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         }
         break;
       case 'ach-flaw-finder':
-        if (sessionCtx) {
-          const flawCorrect = sessionCtx.questions.filter(q =>
-            q.type === 'spot-the-flaw' && sessionCtx.answers[q.id]?.correct
-          ).length;
-          unlocked = flawCorrect >= 3;
-        }
+        // Removed: spot-the-flaw questions no longer exist (course questions only)
         break;
       case 'ach-scenario-master':
-        if (sessionCtx) {
-          const scenarioCorrect = sessionCtx.questions.filter(q =>
-            q.type === 'scenario' && sessionCtx.answers[q.id]?.correct
-          ).length;
-          unlocked = scenarioCorrect >= 5;
-        }
+        // Removed: scenario questions no longer exist (course questions only)
         break;
       case 'ach-hard-streak':
         if (sessionCtx) {
@@ -305,15 +315,11 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         break;
       case 'ach-all-types':
         if (sessionCtx) {
-          // Collect all question types the user has ever attempted across topic progress
-          // Since we don't track types in progress, check session questions + use the fact that
-          // with enough exploration, the user encounters all types
+          // Check that user has attempted all 3 course question types (MC, T/F, fill-blank)
           const allAttemptedTypes = new Set(sessionCtx.questions
             .filter(q => sessionCtx.answers[q.id])
             .map(q => q.type));
-          // We need 13 types total, but a single session likely won't have all.
-          // Fall through to check all questions the user could have seen.
-          unlocked = allAttemptedTypes.size >= 13;
+          unlocked = allAttemptedTypes.size >= 3;
         }
         break;
       case 'ach-bookworm':
@@ -433,13 +439,10 @@ export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
       progress: seedProgress,
-      questions: allQuestions as Question[],
       session: null,
       sessionSummary: null,
       sidebarOpen: false,
       showAchievementToast: null,
-
-      setQuestions: (questions: Question[]) => set({ questions }),
 
       startSession: (type, options) => {
         // Enforce Pro-only session types
@@ -453,7 +456,7 @@ export const useStore = create<AppState>()(
           if (tier !== 'pro' && !isTrialing && !isPastDue) return;
         }
 
-        const questions = selectQuestionsForSession(type, get().questions, options);
+        const questions = selectQuestionsForSession(type, options);
         if (questions.length === 0) return;
 
         set({

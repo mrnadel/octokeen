@@ -11,7 +11,14 @@ interface FriendCardProps {
   level: number;
   currentStreak: number;
   totalXp: number;
+  todayXp?: number;
   index: number;
+}
+
+function getActivitySnippet(streak: number, todayXp: number, level: number): string {
+  if (streak >= 3) return `On a ${streak}-day streak`;
+  if (todayXp > 0) return `Earned ${todayXp} XP today`;
+  return `Level ${level}`;
 }
 
 export default function FriendCard({
@@ -21,9 +28,11 @@ export default function FriendCard({
   level,
   currentStreak,
   totalXp,
+  todayXp = 0,
   index,
 }: FriendCardProps) {
   const initials = (displayName || '?').charAt(0).toUpperCase();
+  const subtitle = getActivitySnippet(currentStreak, todayXp, level);
 
   return (
     <motion.div
@@ -48,7 +57,7 @@ export default function FriendCard({
 
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold text-surface-900 truncate">{displayName}</p>
-          <p className="text-xs text-surface-400 font-semibold">Level {level}</p>
+          <p className="text-xs text-surface-400 font-semibold">{subtitle}</p>
         </div>
 
         <div className="flex items-center gap-3 shrink-0">

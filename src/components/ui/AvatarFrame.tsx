@@ -142,13 +142,14 @@ export function AvatarFrame({ frameStyle, size, children, className = '' }: Avat
 
       {/* Avatar content */}
       <div
-        className="absolute rounded-full overflow-hidden"
+        className={`absolute overflow-hidden${def.avatarClipPath ? '' : ' rounded-full'}`}
         style={{
           top: FRAME_INSET,
           left: FRAME_INSET,
           width: innerSize,
           height: innerSize,
           zIndex: 1,
+          ...(def.avatarClipPath && { clipPath: def.avatarClipPath }),
         }}
       >
         {children}
@@ -166,6 +167,25 @@ interface FrameDef {
   glowBlur?: number;
   glowOpacity?: number;
   animated?: boolean;
+  avatarClipPath?: string;
+}
+
+// Helpers for generating CSS clip-path polygons (percentage-based)
+function polyClip(sides: number, offsetDeg: number, r = 48): string {
+  const pts = Array.from({ length: sides }, (_, i) => {
+    const a = ((360 / sides) * i + offsetDeg) * (Math.PI / 180);
+    return `${(50 + r * Math.cos(a)).toFixed(1)}% ${(50 + r * Math.sin(a)).toFixed(1)}%`;
+  });
+  return `polygon(${pts.join(', ')})`;
+}
+
+function starClip(spikes: number, outerR: number, innerR: number, offsetDeg = -90): string {
+  const pts = Array.from({ length: spikes * 2 }, (_, i) => {
+    const a = ((i * 360) / (spikes * 2) + offsetDeg) * (Math.PI / 180);
+    const r = i % 2 === 0 ? outerR : innerR;
+    return `${(50 + r * Math.cos(a)).toFixed(1)}% ${(50 + r * Math.sin(a)).toFixed(1)}%`;
+  });
+  return `polygon(${pts.join(', ')})`;
 }
 
 const FRAME_DEFS: Record<string, FrameDef> = {
@@ -261,6 +281,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(16,185,129,0.3)',
     glowBlur: 10,
+    avatarClipPath: polyClip(6, -30),
   },
 
   // ── Ruby: starburst / spiked ring ──
@@ -295,6 +316,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(239,68,68,0.3)',
     glowBlur: 10,
+    avatarClipPath: starClip(12, 48, 43, -90),
   },
 
   // ── Sapphire: scalloped / wave edge ──
@@ -542,6 +564,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     glowColor: 'rgba(0,188,212,0.3)',
     glowBlur: 12,
     animated: true,
+    avatarClipPath: polyClip(8, -22.5),
   },
 
   // ── Masters League: crown-shaped frame with animated glow ──
@@ -584,6 +607,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     glowBlur: 14,
     glowOpacity: 0.7,
     animated: true,
+    avatarClipPath: starClip(5, 48, 44, -90),
   },
 
   // ══════════════════════════════════════════════════════════
@@ -609,6 +633,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(100,116,139,0.25)',
     glowBlur: 8,
+    avatarClipPath: 'inset(0 round 30%)',
   },
 
   // ── Diamond Mind (60-day): faceted diamond cut ──
@@ -644,6 +669,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(96,165,250,0.3)',
     glowBlur: 10,
+    avatarClipPath: starClip(4, 48, 34, -90),
   },
 
   // ── Centurion (100-day): rotating laurel wreath ──
@@ -766,6 +792,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(161,161,170,0.2)',
     glowBlur: 8,
+    avatarClipPath: polyClip(6, -30),
   },
 
   // ── Blueprint: double circles with cross-hair lines ──
@@ -863,6 +890,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(68,64,60,0.2)',
     glowBlur: 8,
+    avatarClipPath: 'inset(0 round 35%)',
   },
 
   // ── Spring: scalloped circle in green ──
@@ -931,6 +959,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(168,162,158,0.2)',
     glowBlur: 8,
+    avatarClipPath: starClip(12, 48, 43, -90),
   },
 
   // ── Gasket: flat red thick circle ──
@@ -1258,6 +1287,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     },
     glowColor: 'rgba(245,158,11,0.3)',
     glowBlur: 10,
+    avatarClipPath: starClip(8, 48, 44, -90),
   },
 
   // ══════════════════════════════════════════════════════════
@@ -1347,6 +1377,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     glowBlur: 14,
     glowOpacity: 0.6,
     animated: true,
+    avatarClipPath: polyClip(8, -22.5),
   },
 
   // ── Supernova: rotating 12-pointed starburst with stroke-width animation and debris ──
@@ -1395,6 +1426,7 @@ const FRAME_DEFS: Record<string, FrameDef> = {
     glowBlur: 14,
     glowOpacity: 0.7,
     animated: true,
+    avatarClipPath: starClip(12, 48, 44, -90),
   },
 
   // ── All-Gold: thick 5-stop gold gradient circle with laurel leaves and rotating inner ring ──

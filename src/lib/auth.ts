@@ -7,6 +7,9 @@ import { eq } from 'drizzle-orm';
 import { db } from './db';
 import { users, accounts } from './db/schema';
 import { isLoginLocked, trackFailedLogin, clearFailedLogins } from './rate-limit';
+import { cookies } from 'next/headers';
+import { friendships } from './db/schema';
+import { sortFriendPair, countFriends } from './db/friends';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -94,6 +97,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.image = (token.picture as string) || undefined;
       }
       return session;
+    },
+    async signIn({ user }) {
+      if (user.id) {
+        try {
+          const cookieStore = await cookies();
+          const inviterId = cookieStore.get('invite_ref')?.value;
+
+          if (inviterId && inviterId !== user.id) {
+            const [inviterCount, userCount] = await Promise.all([
+              countFriends(inviterId),
+              countFriends(user.id),
+            ]);
+
+            if (inviterCount < 50 && userCount < 50) {
+              const [low, high] = sortFriendPair(user.id, inviterId);
+              await db.insert(friendships).values({ userId: low, friendId: high }).onConflictDoNothing();
+            }
+
+            cookieStore.delete('invite_ref');
+          }
+        } catch {
+          // Non-critical — don't block sign-in
+        }
+      }
+      return true;
     },
   },
   events: {

@@ -88,8 +88,10 @@ export default function ResultScreen() {
     return 'Lesson Complete!';
   };
 
-  const bgColor = !passed ? '#8B5E5E' : isFlawless ? '#6D28D9' : isGolden ? '#FFB800' : theme.color;
-  const darkColor = !passed ? '#5C3D3D' : isFlawless ? '#4C1D95' : isGolden ? '#996E00' : theme.dark;
+  // Theme-consistent accent colors (light bg, vibrant accents — matches app style)
+  const accentColor = !passed ? '#FF4B4B' : isFlawless ? '#7B68EE' : isGolden ? '#FFB800' : theme.color;
+  const accentDark = !passed ? '#CC2D2D' : isFlawless ? '#5C49CE' : isGolden ? '#996E00' : theme.dark;
+  const accentBg = !passed ? '#FFE5E5' : isFlawless ? '#EDEAFF' : isGolden ? '#FFF5D4' : theme.bg;
 
   return (
     <AnimatePresence>
@@ -101,7 +103,7 @@ export default function ResultScreen() {
         transition={{ duration: 0.3 }}
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{
-          background: bgColor,
+          background: '#FAFAFA',
           paddingTop: 'env(safe-area-inset-top, 0px)',
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         }}
@@ -138,8 +140,8 @@ export default function ResultScreen() {
                   <svg viewBox="0 0 10 10" width="100%" height="100%">
                     <path
                       d="M5 0L6 4L10 5L6 6L5 10L4 6L0 5L4 4Z"
-                      fill={['#C4B5FD', '#A78BFA', '#818CF8', '#E9D5FF'][i % 4]}
-                      opacity={0.9}
+                      fill={['#7B68EE', '#9585F0', '#5C49CE', '#A78BFA'][i % 4]}
+                      opacity={0.7}
                     />
                   </svg>
                 </motion.div>
@@ -196,7 +198,8 @@ export default function ResultScreen() {
                 width: 80,
                 height: 80,
                 borderRadius: 28,
-                background: 'rgba(255,255,255,0.25)',
+                background: accentBg,
+                border: `3px solid ${accentColor}30`,
                 fontSize: 40,
                 marginBottom: 20,
               }}
@@ -221,7 +224,7 @@ export default function ResultScreen() {
               style={{
                 fontSize: 28,
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: accentDark,
                 margin: '0 0 10px',
                 textAlign: 'center',
               }}
@@ -237,7 +240,7 @@ export default function ResultScreen() {
               style={{
                 fontSize: 14,
                 fontWeight: 700,
-                color: 'rgba(255,255,255,0.7)',
+                color: '#AFAFAF',
                 marginBottom: 24,
                 textAlign: 'center',
               }}
@@ -265,7 +268,7 @@ export default function ResultScreen() {
                 >
                   <path
                     d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-                    fill="#FFFFFF"
+                    fill={accentColor}
                     strokeLinejoin="round"
                   />
                 </motion.svg>
@@ -285,7 +288,7 @@ export default function ResultScreen() {
                       width: 12,
                       height: 12,
                       borderRadius: '50%',
-                      background: n <= attempts ? '#FFFFFF' : 'rgba(255,255,255,0.3)',
+                      background: n <= attempts ? accentColor : '#E5E5E5',
                     }}
                   />
                 ))
@@ -296,8 +299,9 @@ export default function ResultScreen() {
             <motion.div
               className="flex items-stretch"
               style={{
-                background: 'rgba(255,255,255,0.2)',
+                background: '#FFFFFF',
                 borderRadius: 20,
+                border: `2px solid ${accentColor}20`,
                 width: '100%',
                 maxWidth: 320,
                 overflow: 'hidden',
@@ -314,7 +318,7 @@ export default function ResultScreen() {
                 <div style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: '#FFFFFF',
+                  color: accentDark,
                   lineHeight: 1,
                 }}>
                   {lessonResult.accuracy}%
@@ -322,7 +326,7 @@ export default function ResultScreen() {
                 <div style={{
                   fontSize: 11,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.6)',
+                  color: '#AFAFAF',
                   textTransform: 'uppercase',
                   letterSpacing: 0.8,
                   marginTop: 4,
@@ -334,7 +338,7 @@ export default function ResultScreen() {
               {/* Divider */}
               <div style={{
                 width: 1.5,
-                background: 'rgba(255,255,255,0.15)',
+                background: '#E5E5E5',
                 margin: '12px 0',
               }} />
 
@@ -347,7 +351,7 @@ export default function ResultScreen() {
                   style={{
                     fontSize: 28,
                     fontWeight: 800,
-                    color: '#FFFFFF',
+                    color: accentDark,
                     lineHeight: 1,
                   }}
                   initial={{ scale: 0.5, opacity: 0 }}
@@ -359,7 +363,7 @@ export default function ResultScreen() {
                 <div style={{
                   fontSize: 11,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.6)',
+                  color: '#AFAFAF',
                   textTransform: 'uppercase',
                   letterSpacing: 0.8,
                   marginTop: 4,
@@ -371,7 +375,7 @@ export default function ResultScreen() {
               {/* Divider */}
               <div style={{
                 width: 1.5,
-                background: 'rgba(255,255,255,0.15)',
+                background: '#E5E5E5',
                 margin: '12px 0',
               }} />
 
@@ -383,7 +387,7 @@ export default function ResultScreen() {
                 <div style={{
                   fontSize: 28,
                   fontWeight: 800,
-                  color: '#FFFFFF',
+                  color: accentDark,
                   lineHeight: 1,
                 }}>
                   {lessonResult.correctAnswers}/{lessonResult.totalQuestions}
@@ -391,7 +395,7 @@ export default function ResultScreen() {
                 <div style={{
                   fontSize: 11,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.6)',
+                  color: '#AFAFAF',
                   textTransform: 'uppercase',
                   letterSpacing: 0.8,
                   marginTop: 4,
@@ -411,7 +415,7 @@ export default function ResultScreen() {
                   marginTop: 16,
                   fontSize: 14,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.85)',
+                  color: accentDark,
                   textAlign: 'center',
                 }}
               >
@@ -429,7 +433,7 @@ export default function ResultScreen() {
                   marginTop: 16,
                   fontSize: 14,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.9)',
+                  color: accentDark,
                   textAlign: 'center',
                 }}
               >
@@ -447,7 +451,7 @@ export default function ResultScreen() {
                   marginTop: 16,
                   fontSize: 13,
                   fontWeight: 700,
-                  color: 'rgba(255,255,255,0.85)',
+                  color: accentDark,
                   textAlign: 'center',
                 }}
               >
@@ -485,9 +489,9 @@ export default function ResultScreen() {
                 fontWeight: 800,
                 textTransform: 'uppercase',
                 letterSpacing: 0.8,
-                background: '#FFFFFF',
-                color: darkColor,
-                boxShadow: `0 4px 0 ${darkColor}40`,
+                background: accentColor,
+                color: '#FFFFFF',
+                boxShadow: `0 4px 0 ${accentDark}`,
                 border: 'none',
                 cursor: 'pointer',
               }}

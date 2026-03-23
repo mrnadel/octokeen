@@ -77,8 +77,8 @@ export function LeagueBoard() {
         </div>
       </div>
 
-      {/* Scrollable leaderboard */}
-      <div className="overflow-y-auto" style={{ maxHeight: 480 }}>
+      {/* Leaderboard */}
+      <div>
         {allEntries.map((entry, idx) => {
           const rank = idx + 1;
           const isUser = entry.id === 'user';

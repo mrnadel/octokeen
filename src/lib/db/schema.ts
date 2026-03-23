@@ -27,6 +27,7 @@ export const users = pgTable('users', {
   passwordHash: text('password_hash'),
   displayName: text('display_name'),
   joinedDate: text('joined_date'),
+  inviteCode: text('invite_code').unique(),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });
@@ -133,7 +134,9 @@ export const sessionHistory = pgTable('session_history', {
   questionsCorrect: integer('questions_correct').default(0).notNull(),
   topicsCovered: jsonb('topics_covered').$type<string[]>().default([]),
   xpEarned: integer('xp_earned').default(0).notNull(),
-});
+}, (table) => [
+  index('session_history_user_date_idx').on(table.userId, table.date),
+]);
 
 export const courseProgress = pgTable('course_progress', {
   id: text('id')

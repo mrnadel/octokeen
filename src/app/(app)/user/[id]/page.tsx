@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import { achievements } from '@/data/achievements';
 import { getXpToNextLevel } from '@/data/levels';
-import AddFriendButton from '@/components/friends/AddFriendButton';
 
 interface PublicProfile {
   id: string;
@@ -204,11 +203,6 @@ export default function PublicProfilePage() {
             </button>
             <h1 className="text-lg font-extrabold text-gray-900 ml-2">Profile</h1>
           </div>
-          <AddFriendButton
-            targetUserId={profile.id}
-            initialRelationship={profile.relationship as 'none' | 'friends' | 'request_sent' | 'request_received'}
-            requestId={profile.requestId}
-          />
         </div>
       </div>
 

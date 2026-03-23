@@ -172,19 +172,6 @@ export function CourseHeader() {
         </div>
       </header>
 
-      {/* Greeting */}
-      <div className="px-4 sm:px-5 pt-5 sm:pt-6 pb-2">
-        <h2 style={{ fontSize: 22, fontWeight: 800, color: '#3C3C3C' }}>
-          {getGreeting()}
-        </h2>
-        <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 700, marginTop: 2 }}>
-          {completedCount === 0
-            ? 'Start your first lesson today!'
-            : progress.currentStreak > 0
-              ? `Keep your streak going — ${lessonsToNext} lessons to next level`
-              : 'Pick up where you left off'}
-        </p>
-      </div>
 
       {/* Popover overlay */}
       <AnimatePresence>

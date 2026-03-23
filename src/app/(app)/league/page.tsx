@@ -1,14 +1,15 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import { LeagueBoard } from '@/components/engagement/LeagueBoard';
 import { LeaguePromotion } from '@/components/engagement/LeaguePromotion';
+import { FriendLeaderboard } from '@/components/engagement/FriendLeaderboard';
 
 function getWeekDateRange(): string {
   const now = new Date();
-  const day = now.getUTCDay(); // 0=Sun..6=Sat
+  const day = now.getUTCDay();
   const diffToMonday = day === 0 ? -6 : 1 - day;
   const monday = new Date(now);
   monday.setUTCDate(now.getUTCDate() + diffToMonday);
@@ -23,6 +24,7 @@ function getWeekDateRange(): string {
 
 export default function LeaguePage() {
   const weekRange = useMemo(() => getWeekDateRange(), []);
+  const [tab, setTab] = useState<'league' | 'friends'>('league');
 
   return (
     <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
@@ -41,7 +43,7 @@ export default function LeaguePage() {
           </Link>
           <div>
             <h1 className="text-lg sm:text-xl font-extrabold" style={{ color: '#3C3C3C', lineHeight: 1.2 }}>
-              League
+              Leaderboard
             </h1>
             <p className="text-xs font-semibold mt-px" style={{ color: '#AFAFAF' }}>
               {weekRange}
@@ -50,10 +52,42 @@ export default function LeaguePage() {
         </div>
       </header>
 
-      {/* League content */}
-      <div className="px-4 sm:px-5 pt-4 pb-8 max-w-2xl mx-auto">
-        <LeagueBoard />
-        <LeaguePromotion />
+      {/* Tabs */}
+      <div className="px-4 sm:px-5 pt-4 max-w-2xl mx-auto">
+        <div className="flex gap-2 mb-4">
+          <button
+            onClick={() => setTab('league')}
+            className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-colors ${
+              tab === 'league'
+                ? 'bg-primary-600 text-white'
+                : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
+            }`}
+          >
+            League
+          </button>
+          <button
+            onClick={() => setTab('friends')}
+            className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-colors ${
+              tab === 'friends'
+                ? 'bg-primary-600 text-white'
+                : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
+            }`}
+          >
+            Friends
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="px-4 sm:px-5 pb-8 max-w-2xl mx-auto">
+        {tab === 'league' ? (
+          <>
+            <LeagueBoard />
+            <LeaguePromotion />
+          </>
+        ) : (
+          <FriendLeaderboard />
+        )}
       </div>
     </div>
   );

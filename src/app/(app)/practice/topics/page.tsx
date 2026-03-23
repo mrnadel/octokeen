@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useRef, useCallback, Suspense } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import { topics } from '@/data/topics';
 import SessionView from '@/components/session/SessionView';
 import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
-import { BookOpen, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { cn, getDifficultyColor, getDifficultyLabel } from '@/lib/utils';
 import type { Difficulty, TopicId } from '@/data/types';
 
@@ -18,6 +19,15 @@ function TopicDeepDiveContent() {
   const { session, sessionSummary } = useSession();
   const { startSession } = useSessionActions();
   const progress = useProgress();
+  const startPanelRef = useRef<HTMLDivElement>(null);
+
+  const handleTopicSelect = useCallback((topicId: TopicId) => {
+    setSelectedTopic(topicId);
+    // Auto-scroll to the start panel after React renders it
+    setTimeout(() => {
+      startPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 50);
+  }, []);
 
   if (session || sessionSummary) {
     return <SessionView />;
@@ -29,95 +39,149 @@ function TopicDeepDiveContent() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-0">
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold text-surface-900 flex items-center gap-2 sm:gap-3">
-          <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-primary-500 shrink-0" />
-          Topic Deep Dive
-        </h1>
-        <p className="text-sm sm:text-base text-surface-500 mt-1">Choose a topic and difficulty, then go deep.</p>
-      </div>
+    <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
+      {/* Header */}
+      <header
+        className="sticky top-0 z-30 bg-white px-4 sm:px-5 py-3"
+        style={{ borderBottom: '2px solid #E5E5E5' }}
+      >
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[10px] transition-transform active:scale-90 lg:hidden"
+            style={{ background: '#F0F0F0' }}
+          >
+            <ChevronLeft style={{ width: 20, height: 20, color: '#777' }} />
+          </Link>
+          <div>
+            <h1 className="text-lg sm:text-xl font-extrabold" style={{ color: '#3C3C3C', lineHeight: 1.2 }}>
+              Topic Deep Dive
+            </h1>
+            <p className="text-xs font-semibold mt-px" style={{ color: '#AFAFAF' }}>
+              Choose a topic and difficulty, then go deep
+            </p>
+          </div>
+        </div>
+      </header>
 
-      <DailyLimitBanner />
+      <div className="px-4 sm:px-5 pt-4 pb-8">
+        <DailyLimitBanner />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 sm:mb-8">
-        {topics.map((topic) => {
-          const tp = progress.topicProgress.find(t => t.topicId === topic.id);
-          const attempted = tp?.questionsAttempted ?? 0;
-          const correct = tp?.questionsCorrect ?? 0;
-          const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
-          const isSelected = selectedTopic === topic.id;
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          {topics.map((topic) => {
+            const tp = progress.topicProgress.find(t => t.topicId === topic.id);
+            const attempted = tp?.questionsAttempted ?? 0;
+            const correct = tp?.questionsCorrect ?? 0;
+            const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+            const isSelected = selectedTopic === topic.id;
 
-          return (
-            <button
-              key={topic.id}
-              onClick={() => setSelectedTopic(topic.id as TopicId)}
-              className={cn(
-                'p-4 rounded-xl border-2 text-left transition-all duration-200',
-                isSelected
-                  ? 'border-primary-500 bg-primary-50 shadow-sm'
-                  : 'border-surface-200 hover:border-surface-300 hover:bg-surface-50'
-              )}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">{topic.icon}</span>
-                <span className="font-semibold text-sm text-surface-900">{topic.name}</span>
-              </div>
-              <p className="text-xs text-surface-500 mb-3 line-clamp-2">{topic.description}</p>
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-xs text-surface-400 truncate">
-                  {attempted > 0 ? `${accuracy}% accuracy · ${attempted} questions` : 'Not started'}
-                </span>
-                <span className={cn(
-                  'text-xs px-2 py-0.5 rounded-full font-medium',
-                  topic.interviewRelevance === 'critical' ? 'bg-red-50 text-red-600' :
-                  topic.interviewRelevance === 'high' ? 'bg-amber-50 text-amber-600' :
-                  'bg-surface-100 text-surface-500'
-                )}>
-                  {topic.interviewRelevance}
-                </span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {selectedTopic && (
-        <div className="card p-4 sm:p-6 mb-6 animate-slide-up">
-          <h3 className="font-semibold text-surface-900 mb-4">Select Difficulty (optional)</h3>
-          <div className="flex gap-3 flex-wrap mb-6">
-            <button
-              onClick={() => setSelectedDifficulty(undefined)}
-              className={cn(
-                'px-4 py-2 rounded-lg border-2 text-sm font-medium transition-colors',
-                !selectedDifficulty
-                  ? 'border-primary-500 bg-primary-50 text-primary-700'
-                  : 'border-surface-200 text-surface-500 hover:border-surface-300'
-              )}
-            >
-              All Levels
-            </button>
-            {(['beginner', 'intermediate', 'advanced'] as Difficulty[]).map(d => (
+            return (
               <button
-                key={d}
-                onClick={() => setSelectedDifficulty(d)}
+                key={topic.id}
+                onClick={() => handleTopicSelect(topic.id as TopicId)}
                 className={cn(
-                  'px-4 py-2 rounded-lg border-2 text-sm font-medium transition-colors',
-                  selectedDifficulty === d
-                    ? cn('border-current', getDifficultyColor(d))
-                    : 'border-surface-200 text-surface-500 hover:border-surface-300'
+                  'relative bg-white rounded-2xl text-left transition-all duration-200 overflow-hidden group',
+                  isSelected
+                    ? 'ring-2 ring-offset-1 shadow-md'
+                    : 'border border-gray-100 hover:border-gray-200 hover:shadow-sm'
+                )}
+                style={isSelected ? { '--tw-ring-color': topic.color } as React.CSSProperties : undefined}
+              >
+                {/* Colored top accent */}
+                <div
+                  className="h-1.5 w-full"
+                  style={{ background: isSelected ? topic.color : '#E5E7EB' }}
+                />
+
+                <div className="p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0"
+                      style={{ background: `${topic.color}15` }}
+                    >
+                      {topic.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-gray-900 truncate">{topic.name}</span>
+                        {isSelected && (
+                          <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: topic.color }} />
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">{topic.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Stats row */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs text-gray-400">
+                      {attempted > 0 ? `${accuracy}% accuracy · ${attempted} Qs` : 'Not started'}
+                    </span>
+                    <span className={cn(
+                      'text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full',
+                      topic.interviewRelevance === 'critical' ? 'bg-red-50 text-red-500' :
+                      topic.interviewRelevance === 'high' ? 'bg-amber-50 text-amber-500' :
+                      'bg-gray-50 text-gray-400'
+                    )}>
+                      {topic.interviewRelevance}
+                    </span>
+                  </div>
+
+                  {/* Accuracy bar */}
+                  {attempted > 0 && (
+                    <div className="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${accuracy}%`,
+                          background: accuracy >= 80 ? '#10B981' : accuracy >= 60 ? '#F59E0B' : '#EF4444',
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {selectedTopic && (
+          <div ref={startPanelRef} className="bg-white rounded-2xl border border-gray-100 p-4 sm:p-6 mb-6 animate-slide-up">
+            <h3 className="font-bold text-gray-900 mb-4">Select Difficulty (optional)</h3>
+            <div className="flex gap-3 flex-wrap mb-6">
+              <button
+                onClick={() => setSelectedDifficulty(undefined)}
+                className={cn(
+                  'px-4 py-2 rounded-xl border-2 text-sm font-semibold transition-colors',
+                  !selectedDifficulty
+                    ? 'border-primary-500 bg-primary-50 text-primary-700'
+                    : 'border-gray-200 text-gray-400 hover:border-gray-300'
                 )}
               >
-                {getDifficultyLabel(d)}
+                All Levels
               </button>
-            ))}
-          </div>
+              {(['beginner', 'intermediate', 'advanced'] as Difficulty[]).map(d => (
+                <button
+                  key={d}
+                  onClick={() => setSelectedDifficulty(d)}
+                  className={cn(
+                    'px-4 py-2 rounded-xl border-2 text-sm font-semibold transition-colors',
+                    selectedDifficulty === d
+                      ? cn('border-current', getDifficultyColor(d))
+                      : 'border-gray-200 text-gray-400 hover:border-gray-300'
+                  )}
+                >
+                  {getDifficultyLabel(d)}
+                </button>
+              ))}
+            </div>
 
-          <button onClick={handleStart} className="btn-primary w-full sm:w-auto">
-            Start Deep Dive <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+            <button onClick={handleStart} className="btn-primary w-full sm:w-auto">
+              Start Deep Dive <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

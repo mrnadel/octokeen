@@ -1,4 +1,4 @@
-import type { Difficulty, Question, QuestionType } from '@/data/types';
+import type { Difficulty, QuestionType } from '@/data/types';
 
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -83,7 +83,7 @@ export function getQuestionTypeIcon(type: QuestionType): string {
   return icons[type] || '?';
 }
 
-export function calculateXP(question: Question, correct: boolean, timeSpent: number, confidence?: number): number {
+export function calculateXP(question: { difficulty: Difficulty }, correct: boolean, timeSpent: number, confidence?: number): number {
   if (!correct) return Math.round(baseXPForDifficulty(question.difficulty) * 0.15);
 
   let xp = baseXPForDifficulty(question.difficulty);

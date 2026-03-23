@@ -4,7 +4,16 @@ import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
 import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
 import { Calendar, Star, Flame } from 'lucide-react';
-import { dailyChallenges } from '@/data/daily-challenges';
+
+const DAY_THEMES = [
+  { dayName: 'Sunday', theme: 'Sunday Systems Review', description: 'Wrap up the week with a cross-topic review — connect concepts across disciplines.' },
+  { dayName: 'Monday', theme: 'Mechanical Monday', description: 'Start the week strong with core mechanical engineering fundamentals.' },
+  { dayName: 'Tuesday', theme: 'Tradeoff Tuesday', description: 'Engineering is all about tradeoffs. Practice weighing competing requirements.' },
+  { dayName: 'Wednesday', theme: 'Materials Wednesday', description: 'Dive into material properties, selection criteria, and failure modes.' },
+  { dayName: 'Thursday', theme: 'Thermo Thursday', description: 'Heat transfer, thermodynamics, and energy systems — stay sharp.' },
+  { dayName: 'Friday', theme: 'Fluids Friday', description: 'Fluid mechanics, pipe flow, and turbomachinery fundamentals.' },
+  { dayName: 'Saturday', theme: 'Saturday Special', description: 'A mixed challenge across all topics — test your breadth.' },
+];
 
 export default function DailyChallengePage() {
   const { session, sessionSummary } = useSession();
@@ -16,7 +25,7 @@ export default function DailyChallengePage() {
   }
 
   const today = new Date().getDay();
-  const challenge = dailyChallenges.find(c => c.dayOfWeek === today) || dailyChallenges[0];
+  const theme = DAY_THEMES[today];
 
   return (
     <div className="max-w-2xl mx-auto text-center px-4 sm:px-0 py-8 sm:py-12">
@@ -24,9 +33,9 @@ export default function DailyChallengePage() {
         <Calendar className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
       </div>
       <h1 className="text-xl sm:text-2xl font-bold text-surface-900 mb-1">Daily Challenge</h1>
-      <p className="text-base sm:text-lg font-semibold text-amber-600 mb-3">{challenge.theme}</p>
+      <p className="text-base sm:text-lg font-semibold text-amber-600 mb-3">{theme.theme}</p>
       <p className="text-surface-500 mb-6 sm:mb-8 max-w-md mx-auto">
-        {challenge.description}
+        {theme.description}
       </p>
 
       <div className="card p-4 sm:p-6 mb-6 sm:mb-8 max-w-md mx-auto">
@@ -35,10 +44,10 @@ export default function DailyChallengePage() {
             <Star className="w-5 h-5 text-amber-500" />
             <span className="font-semibold text-surface-800">Today&apos;s Challenge</span>
           </div>
-          <span className="text-xs text-surface-400">{challenge.dayName}</span>
+          <span className="text-xs text-surface-400">{theme.dayName}</span>
         </div>
         <div className="text-sm text-surface-600 space-y-2">
-          <p>5 curated questions on today&apos;s theme</p>
+          <p>5 questions from your course lessons</p>
           <p>Bonus XP for completing the challenge</p>
         </div>
         <div className="mt-4 pt-4 border-t border-surface-200 flex items-center gap-3 sm:gap-4 text-sm flex-wrap">
@@ -54,7 +63,7 @@ export default function DailyChallengePage() {
       <DailyLimitBanner />
 
       <button
-        onClick={() => startSession('daily-challenge', { questionIds: challenge.questionIds })}
+        onClick={() => startSession('daily-challenge')}
         className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-amber-500 hover:bg-amber-600"
       >
         Start Today&apos;s Challenge

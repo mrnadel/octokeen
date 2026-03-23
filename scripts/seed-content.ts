@@ -5,7 +5,6 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from '../src/lib/db/schema';
 import { course } from '../src/data/course';
-import { allQuestions } from '../src/data/questions';
 
 const connectionString = process.env.POSTGRES_URL!;
 if (!connectionString) {
@@ -15,13 +14,6 @@ if (!connectionString) {
 
 const client = postgres(connectionString, { prepare: false });
 const db = drizzle(client, { schema });
-
-// BaseQuestion fields to extract — everything else goes into typeData
-const BASE_FIELDS = new Set([
-  'id', 'type', 'topic', 'subtopic', 'difficulty',
-  'question', 'explanation', 'interviewInsight',
-  'realWorldConnection', 'commonMistake', 'tags',
-]);
 
 async function seedCourseContent() {
   console.log('--- Seeding course content (units, lessons, questions) ---');
@@ -95,60 +87,11 @@ async function seedCourseContent() {
   console.log('--- Course content seeded successfully ---\n');
 }
 
-async function seedPracticeQuestions() {
-  console.log('--- Seeding practice questions ---');
-
-  await db.transaction(async (tx) => {
-    // Insert in batches to avoid overly long transactions
-    const BATCH_SIZE = 50;
-    let inserted = 0;
-
-    for (let i = 0; i < allQuestions.length; i += BATCH_SIZE) {
-      const batch = allQuestions.slice(i, i + BATCH_SIZE);
-
-      const rows = batch.map((q, batchIdx) => {
-        // Separate base fields from type-specific fields
-        const typeData: Record<string, unknown> = {};
-        for (const [key, value] of Object.entries(q)) {
-          if (!BASE_FIELDS.has(key)) {
-            typeData[key] = value;
-          }
-        }
-
-        return {
-          id: q.id,
-          type: q.type,
-          topic: q.topic,
-          subtopic: q.subtopic,
-          difficulty: q.difficulty,
-          question: q.question,
-          explanation: q.explanation,
-          interviewInsight: q.interviewInsight,
-          realWorldConnection: q.realWorldConnection ?? null,
-          commonMistake: q.commonMistake,
-          tags: q.tags,
-          typeData,
-          orderIndex: i + batchIdx,
-        };
-      });
-
-      await tx.insert(schema.practiceQuestions).values(rows);
-      inserted += rows.length;
-      console.log(`  Progress: ${inserted}/${allQuestions.length} practice questions`);
-    }
-
-    console.log(`  Inserted: ${inserted} practice questions`);
-  });
-
-  console.log('--- Practice questions seeded successfully ---\n');
-}
-
 async function main() {
   console.log('=== Starting content seed ===\n');
 
   try {
     await seedCourseContent();
-    await seedPracticeQuestions();
     console.log('=== All content seeded successfully ===');
   } catch (error) {
     console.error('Seed failed:', error);

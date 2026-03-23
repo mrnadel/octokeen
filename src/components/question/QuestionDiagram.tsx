@@ -18,7 +18,7 @@ export default function QuestionDiagram({ svg, className = '' }: QuestionDiagram
       <button
         type="button"
         onClick={toggle}
-        className={`diagram-container group relative w-full my-4 rounded-xl bg-[#0F172A] border border-surface-200/30 cursor-zoom-in overflow-hidden ${className}`}
+        className={`diagram-container group relative w-full my-4 rounded-xl bg-white border-2 border-[#E5E5E5] cursor-zoom-in overflow-hidden ${className}`}
         aria-label="Tap to enlarge diagram"
       >
         <div

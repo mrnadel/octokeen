@@ -516,6 +516,17 @@
   display: block;
 }
 
+/* Remap dark-theme SVG colors for light diagram backgrounds */
+.diagram-svg [fill="#e2e8f0"] {
+  fill: #334155 !important;
+}
+.diagram-svg [fill="#334155"] {
+  fill: #94a3b8 !important;
+}
+.diagram-svg [stroke="#94a3b8"] {
+  stroke: #64748b !important;
+}
+
 /* Boost text legibility on small screens */
 @media (max-width: 640px) {
   .diagram-svg text {
