@@ -7,7 +7,7 @@ import * as schema from '../src/lib/db/schema';
 import { course } from '../src/data/course';
 import { allQuestions } from '../src/data/questions';
 
-const connectionString = process.env.POSTGRES_URL!;
+const connectionString = process.env.POSTGRES_URL;
 if (!connectionString) {
   console.error('Missing POSTGRES_URL in .env.local');
   process.exit(1);

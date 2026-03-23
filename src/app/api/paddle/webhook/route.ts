@@ -11,11 +11,13 @@ import {
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { serverEnv } from '@/lib/env';
 
 export const runtime = 'nodejs';
 
-const isSandbox = process.env.PADDLE_API_KEY?.startsWith('pdl_sdbx_') ?? false;
-const paddle = new Paddle(process.env.PADDLE_API_KEY!, {
+const env = serverEnv();
+const isSandbox = env.PADDLE_API_KEY.startsWith('pdl_sdbx_');
+const paddle = new Paddle(env.PADDLE_API_KEY, {
   environment: isSandbox ? Environment.sandbox : Environment.production,
 });
 
@@ -50,7 +52,7 @@ export async function POST(request: NextRequest) {
   try {
     event = await paddle.webhooks.unmarshal(
       body,
-      process.env.PADDLE_WEBHOOK_SECRET!,
+      env.PADDLE_WEBHOOK_SECRET,
       signature,
     );
   } catch (err) {
@@ -95,8 +97,8 @@ export async function POST(request: NextRequest) {
 // ─── Helpers ────────────────────────────────────────────────────
 
 function tierFromPriceId(priceId: string | null): 'free' | 'pro' {
-  const proMonthly = process.env.PADDLE_PRO_MONTHLY_PRICE_ID;
-  const proYearly = process.env.PADDLE_PRO_YEARLY_PRICE_ID;
+  const proMonthly = env.PADDLE_PRO_MONTHLY_PRICE_ID;
+  const proYearly = env.PADDLE_PRO_YEARLY_PRICE_ID;
 
   if (priceId === proMonthly || priceId === proYearly) return 'pro';
   return 'free';
