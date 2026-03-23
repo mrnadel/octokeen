@@ -95,12 +95,15 @@ export function LandingPage() {
           height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <Link href="/" style={{
-            fontSize: 24, fontWeight: 900, color: '#6366F1',
+            fontSize: 24, fontWeight: 900,
             letterSpacing: -0.5, textDecoration: 'none',
             display: 'flex', alignItems: 'center', gap: 10,
           }}>
-            <img src="/icon-48.png" alt="" width={32} height={32} style={{ borderRadius: 10 }} />
-            MechReady
+            <img src="/icon-48.png" alt="" width={34} height={34} style={{ borderRadius: 10, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }} />
+            <span>
+              <span style={{ color: '#F5B800', textShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>Mech</span>
+              <span style={{ color: '#3D4654', textShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>Ready</span>
+            </span>
           </Link>
           <Link href="/login" style={{
             fontSize: 14, fontWeight: 800, color: '#1CB0F6',
@@ -527,9 +530,12 @@ export function LandingPage() {
       <footer style={{ padding: '40px 24px', borderTop: '1px solid #E2E8F0', textAlign: 'center' }}>
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
           <p>
-            <Link href="/" style={{ fontSize: 20, fontWeight: 900, color: '#6366F1', letterSpacing: -0.5, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <Link href="/" style={{ fontSize: 20, fontWeight: 900, letterSpacing: -0.5, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
               <img src="/icon-48.png" alt="" width={26} height={26} style={{ borderRadius: 8 }} />
-              MechReady
+              <span>
+                <span style={{ color: '#F5B800' }}>Mech</span>
+                <span style={{ color: '#3D4654' }}>Ready</span>
+              </span>
             </Link>
           </p>
           <p style={{ marginTop: 12, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>

@@ -24,8 +24,11 @@ export default function DesktopSideNav() {
       aria-label="Desktop navigation"
     >
       <div className="px-5 py-5 flex items-center gap-2.5">
-        <img src="/icon-48.png" alt="" width={28} height={28} className="rounded-lg" />
-        <p className="text-lg font-black text-surface-800">MechReady</p>
+        <img src="/icon-48.png" alt="" width={28} height={28} className="rounded-lg" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }} />
+        <p className="text-lg font-black" style={{ letterSpacing: -0.3 }}>
+          <span style={{ color: '#F5B800', textShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>Mech</span>
+          <span style={{ color: '#3D4654', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>Ready</span>
+        </p>
       </div>
 
       <div className="flex flex-col gap-1 px-3 mt-2">
