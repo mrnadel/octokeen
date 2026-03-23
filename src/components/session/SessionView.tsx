@@ -11,6 +11,7 @@ import SessionSummary from './SessionSummary';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import LessonProgressBar from '../lesson/LessonProgressBar';
 import FlagButton from '@/components/feedback/FlagButton';
+import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
 
 const PRACTICE_THEME = {
   color: '#6366F1',
@@ -25,6 +26,7 @@ export default function SessionView() {
   const router = useRouter();
 
   const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [xpGain, setXpGain] = useState(0);
   const [hasSelection, setHasSelection] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
@@ -128,6 +130,11 @@ export default function SessionView() {
   // Global keyboard handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      if (activeEl && activeEl.closest('[aria-label="Engineering calculator"]')) {
+        return;
+      }
+
       if (showExitConfirm) {
         if (e.key === 'Escape') {
           e.preventDefault();
@@ -139,6 +146,12 @@ export default function SessionView() {
       if (e.key === 'Escape') {
         e.preventDefault();
         handleExitClick();
+        return;
+      }
+
+      if (e.key === '`') {
+        e.preventDefault();
+        setIsCalcOpen(c => !c);
         return;
       }
 
@@ -181,7 +194,7 @@ export default function SessionView() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showExitConfirm, isCurrentAnswered, hasSelection, handleCheck, handleContinue, handleExitClick]);
+  }, [showExitConfirm, isCalcOpen, isCurrentAnswered, hasSelection, handleCheck, handleContinue, handleExitClick]);
 
   if (sessionSummary) {
     return <SessionSummary summary={sessionSummary} />;
@@ -282,6 +295,33 @@ export default function SessionView() {
               </svg>
               <span aria-live="polite">+{xpGain} XP</span>
             </motion.div>
+
+            {/* Calculator toggle */}
+            <button
+              onClick={() => setIsCalcOpen(c => !c)}
+              className="flex-shrink-0 flex items-center justify-center transition-transform active:scale-90"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 12,
+                background: isCalcOpen ? PRACTICE_THEME.bg : '#F5F5F5',
+                border: isCalcOpen ? `1.5px solid ${PRACTICE_THEME.color}` : '1.5px solid transparent',
+                cursor: 'pointer',
+              }}
+              aria-label={isCalcOpen ? 'Close calculator' : 'Open calculator'}
+              title="Calculator (`)"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="2" width="16" height="20" rx="2" stroke={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} strokeWidth="2" />
+                <rect x="7" y="5" width="10" height="4" rx="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="8.5" cy="13" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="12" cy="13" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="15.5" cy="13" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="8.5" cy="17" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="12" cy="17" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+                <circle cx="15.5" cy="17" r="1" fill={isCalcOpen ? PRACTICE_THEME.color : '#AFAFAF'} />
+              </svg>
+            </button>
           </div>
 
           {/* Question area */}
@@ -446,6 +486,18 @@ export default function SessionView() {
             </motion.div>
           )}
         </div>
+
+        {/* Calculator panel */}
+        <AnimatePresence>
+          {isCalcOpen && (
+            <EngineeringCalculator
+              isOpen={isCalcOpen}
+              onClose={() => setIsCalcOpen(false)}
+              accentColor={PRACTICE_THEME.color}
+              accentDark={PRACTICE_THEME.dark}
+            />
+          )}
+        </AnimatePresence>
 
         {/* Exit confirmation modal — matches LessonView */}
         <AnimatePresence>
