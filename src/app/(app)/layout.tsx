@@ -6,6 +6,7 @@ import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 import { useEngagementInit } from '@/lib/engagement-init';
 import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
+import DesktopSideNav from '@/components/layout/DesktopSideNav';
 
 function LoadingSkeleton() {
   return (
@@ -47,9 +48,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] lg:bg-[#E8E8E8]">
-      <div className="max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200 flex flex-col">
-        <main className="flex-1 pb-16">
+    <div className="min-h-screen bg-[#FAFAFA] lg:bg-[#E8E8E8] lg:flex">
+      {/* Left sidebar for desktop navigation */}
+      <DesktopSideNav />
+
+      <div className="max-w-3xl lg:mx-auto min-h-screen bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200 flex flex-col flex-1 lg:max-w-3xl">
+        <main className="flex-1 pb-16 lg:pb-0">
           {children}
         </main>
         <Footer />
