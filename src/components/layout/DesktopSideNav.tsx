@@ -7,12 +7,12 @@ import { cn } from '@/lib/utils';
 import FriendsBadge from '@/components/friends/FriendsBadge';
 
 const tabs = [
-  { href: '/', label: 'Home', icon: LayoutDashboard, activeColor: 'text-indigo-600', activeBg: 'bg-indigo-50', iconColor: 'text-indigo-500' },
-  { href: '/quests', label: 'Quests', icon: Swords, activeColor: 'text-orange-600', activeBg: 'bg-orange-50', iconColor: 'text-orange-500' },
-  { href: '/practice/topics', label: 'Practice', icon: BookOpen, activeColor: 'text-emerald-600', activeBg: 'bg-emerald-50', iconColor: 'text-emerald-500' },
-  { href: '/league', label: 'League', icon: Trophy, activeColor: 'text-amber-600', activeBg: 'bg-amber-50', iconColor: 'text-amber-500' },
-  { href: '/friends', label: 'Friends', icon: Users, badge: true, activeColor: 'text-pink-600', activeBg: 'bg-pink-50', iconColor: 'text-pink-500' },
-  { href: '/profile', label: 'Profile', icon: User, activeColor: 'text-sky-600', activeBg: 'bg-sky-50', iconColor: 'text-sky-500' },
+  { href: '/', label: 'Home', icon: LayoutDashboard },
+  { href: '/quests', label: 'Quests', icon: Swords },
+  { href: '/practice/topics', label: 'Practice', icon: BookOpen },
+  { href: '/league', label: 'League', icon: Trophy },
+  { href: '/friends', label: 'Friends', icon: Users, badge: true },
+  { href: '/profile', label: 'Profile', icon: User },
 ];
 
 export default function DesktopSideNav() {
@@ -23,12 +23,8 @@ export default function DesktopSideNav() {
       className="hidden lg:flex flex-col w-56 shrink-0 bg-[#FAFAFA] h-screen sticky top-0"
       aria-label="Desktop navigation"
     >
-      <div className="px-5 py-5 flex items-center gap-2.5">
-        <img src="/icon-48.png" alt="" width={28} height={28} className="rounded-lg" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }} />
-        <p className="text-lg font-black" style={{ letterSpacing: -0.3 }}>
-          <span style={{ color: '#F5B800', textShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>Mech</span>
-          <span style={{ color: '#3D4654', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>Ready</span>
-        </p>
+      <div className="px-5 py-5">
+        <p className="text-lg font-black text-surface-800">MechReady</p>
       </div>
 
       <div className="flex flex-col gap-1 px-3 mt-2">
@@ -41,13 +37,13 @@ export default function DesktopSideNav() {
               key={tab.href}
               href={tab.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-semibold',
+                'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-sm font-semibold min-h-[44px]',
                 isActive
-                  ? `${tab.activeBg} ${tab.activeColor}`
+                  ? 'bg-primary-50 text-primary-600'
                   : 'text-surface-500 hover:bg-surface-50 hover:text-surface-700'
               )}
             >
-              <span className={cn('relative', isActive && tab.iconColor)}>
+              <span className="relative">
                 <Icon className="w-5 h-5" />
                 {tab.badge && <FriendsBadge />}
               </span>
