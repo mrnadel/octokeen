@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLeague } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
@@ -29,32 +29,28 @@ export function LeagueBoard() {
   const tier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
   const tierConfig = getTierConfig(league.currentTier);
 
-  const userEntry: {
-    id: string;
-    name: string;
-    avatarInitial: string;
-    weeklyXp: number;
-    fakeUserId?: string;
-    frameStyle?: string;
-  } = {
-    id: 'user',
-    name: displayName ?? 'You',
-    avatarInitial: (displayName ?? 'Y')[0].toUpperCase(),
-    weeklyXp: league.weeklyXp,
-  };
-
-  // Build full sorted list
-  const allEntries = [
-    ...league.competitors.map((c) => ({
-      id: c.id,
-      name: c.name,
-      avatarInitial: c.avatarInitial,
-      weeklyXp: c.weeklyXp,
-      fakeUserId: c.fakeUserId,
-      frameStyle: c.frameStyle,
-    })),
-    userEntry,
-  ].sort((a, b) => b.weeklyXp - a.weeklyXp);
+  // Memoize the sorted leaderboard entries to avoid re-sorting on every render
+  const allEntries = useMemo(() => {
+    const userEntry = {
+      id: 'user',
+      name: displayName ?? 'You',
+      avatarInitial: (displayName ?? 'Y')[0].toUpperCase(),
+      weeklyXp: league.weeklyXp,
+      fakeUserId: undefined as string | undefined,
+      frameStyle: undefined as string | undefined,
+    };
+    return [
+      ...league.competitors.map((c) => ({
+        id: c.id,
+        name: c.name,
+        avatarInitial: c.avatarInitial,
+        weeklyXp: c.weeklyXp,
+        fakeUserId: c.fakeUserId,
+        frameStyle: c.frameStyle,
+      })),
+      userEntry,
+    ].sort((a, b) => b.weeklyXp - a.weeklyXp);
+  }, [league.competitors, league.weeklyXp, displayName]);
 
   const userRank = getUserRank(league.weeklyXp, league.competitors);
   const promoteCount = tierConfig.promoteCount;

@@ -1,27 +1,34 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { useSession } from 'next-auth/react';
 import { CourseHeader } from '@/components/course/CourseHeader';
 import { CourseMap } from '@/components/course/CourseMap';
-import { LessonView } from '@/components/lesson/LessonView';
-import { ResultScreen } from '@/components/lesson/ResultScreen';
-import { LandingPage } from '@/components/landing/LandingPage';
-import { WelcomeBack } from '@/components/engagement/WelcomeBack';
-import { LeaguePromotion } from '@/components/engagement/LeaguePromotion';
-import { StreakFreeze } from '@/components/engagement/StreakFreeze';
-import { StreakMilestone } from '@/components/engagement/StreakMilestone';
-import { BlueprintCelebration } from '@/components/engagement/BlueprintCelebration';
-import { CourseCompleteCelebration } from '@/components/engagement/CourseCompleteCelebration';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { streakMilestones } from '@/data/streak-milestones';
 import { PracticeCard } from '@/components/course/PracticeCard';
 
+// Lazy-load heavy components that are conditionally rendered
+const LandingPage = lazy(() => import('@/components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
+const LessonView = lazy(() => import('@/components/lesson/LessonView'));
+const ResultScreen = lazy(() => import('@/components/lesson/ResultScreen'));
+const WelcomeBack = lazy(() => import('@/components/engagement/WelcomeBack').then(m => ({ default: m.WelcomeBack })));
+const LeaguePromotion = lazy(() => import('@/components/engagement/LeaguePromotion').then(m => ({ default: m.LeaguePromotion })));
+const StreakFreeze = lazy(() => import('@/components/engagement/StreakFreeze').then(m => ({ default: m.StreakFreeze })));
+const StreakMilestone = lazy(() => import('@/components/engagement/StreakMilestone').then(m => ({ default: m.StreakMilestone })));
+const BlueprintCelebration = lazy(() => import('@/components/engagement/BlueprintCelebration').then(m => ({ default: m.BlueprintCelebration })));
+const CourseCompleteCelebration = lazy(() => import('@/components/engagement/CourseCompleteCelebration').then(m => ({ default: m.CourseCompleteCelebration })));
+
 export default function HomePage() {
   const { status } = useSession();
-  const { activeLesson, lessonResult, chapterJustCompleted, dismissChapterCompletion, courseJustCompleted, dismissCourseCompletion } = useCourseStore();
+  const activeLesson = useCourseStore((s) => s.activeLesson);
+  const lessonResult = useCourseStore((s) => s.lessonResult);
+  const chapterJustCompleted = useCourseStore((s) => s.chapterJustCompleted);
+  const dismissChapterCompletion = useCourseStore((s) => s.dismissChapterCompletion);
+  const courseJustCompleted = useCourseStore((s) => s.courseJustCompleted);
+  const dismissCourseCompletion = useCourseStore((s) => s.dismissCourseCompletion);
   const currentStreak = useStore((s) => s.progress.currentStreak);
   const milestonesReached = useEngagementStore((s) => s.streak.milestonesReached);
   const addGems = useEngagementStore((s) => s.addGems);
@@ -86,18 +93,24 @@ export default function HomePage() {
   if (status === 'loading') return null;
 
   if (status === 'unauthenticated') {
-    return <LandingPage />;
+    return (
+      <Suspense fallback={null}>
+        <LandingPage />
+      </Suspense>
+    );
   }
 
   return (
     <>
-      {/* Overlays */}
-      <WelcomeBack />
-      <LeaguePromotion />
-      <StreakFreeze />
-      {unclaimedMilestone && shownMilestone === unclaimedMilestone.days && (
-        <StreakMilestone milestone={unclaimedMilestone} onClose={handleMilestoneClose} />
-      )}
+      {/* Overlays - lazy loaded since they're conditional modals */}
+      <Suspense fallback={null}>
+        <WelcomeBack />
+        <LeaguePromotion />
+        <StreakFreeze />
+        {unclaimedMilestone && shownMilestone === unclaimedMilestone.days && (
+          <StreakMilestone milestone={unclaimedMilestone} onClose={handleMilestoneClose} />
+        )}
+      </Suspense>
 
       {/* Header */}
       <CourseHeader />
@@ -108,18 +121,20 @@ export default function HomePage() {
       {/* Course map */}
       <CourseMap />
 
-      {activeLesson && <LessonView />}
-      {lessonResult && <ResultScreen />}
-      {!lessonResult && chapterJustCompleted && (
-        <BlueprintCelebration
-          unitIndex={chapterJustCompleted.unitIndex}
-          isGolden={chapterJustCompleted.isGolden}
-          onDismiss={dismissChapterCompletion}
-        />
-      )}
-      {!lessonResult && !chapterJustCompleted && courseJustCompleted && (
-        <CourseCompleteCelebration onDismiss={dismissCourseCompletion} />
-      )}
+      <Suspense fallback={null}>
+        {activeLesson && <LessonView />}
+        {lessonResult && <ResultScreen />}
+        {!lessonResult && chapterJustCompleted && (
+          <BlueprintCelebration
+            unitIndex={chapterJustCompleted.unitIndex}
+            isGolden={chapterJustCompleted.isGolden}
+            onDismiss={dismissChapterCompletion}
+          />
+        )}
+        {!lessonResult && !chapterJustCompleted && courseJustCompleted && (
+          <CourseCompleteCelebration onDismiss={dismissCourseCompletion} />
+        )}
+      </Suspense>
     </>
   );
 }

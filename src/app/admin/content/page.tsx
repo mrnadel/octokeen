@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import CourseEditor from './CourseEditor';
-import PracticeEditor from './PracticeEditor';
+import { useState, lazy, Suspense } from 'react';
+
+const CourseEditor = lazy(() => import('./CourseEditor'));
+const PracticeEditor = lazy(() => import('./PracticeEditor'));
 
 export default function ContentPage() {
   const [tab, setTab] = useState<'course' | 'practice'>('course');
@@ -39,7 +40,9 @@ export default function ContentPage() {
         </button>
       </div>
 
-      {tab === 'course' ? <CourseEditor /> : <PracticeEditor />}
+      <Suspense fallback={<div style={{ padding: 20, textAlign: 'center', color: '#999' }}>Loading editor...</div>}>
+        {tab === 'course' ? <CourseEditor /> : <PracticeEditor />}
+      </Suspense>
     </div>
   );
 }

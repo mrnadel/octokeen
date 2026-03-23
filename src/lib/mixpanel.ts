@@ -1,13 +1,21 @@
-import mixpanel from 'mixpanel-browser';
-
 const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
 const IS_PROD = process.env.NODE_ENV === 'production';
 
 let initialized = false;
+let mixpanelLib: typeof import('mixpanel-browser').default | null = null;
 
-export function initMixpanel() {
+async function getMixpanel() {
+  if (!mixpanelLib) {
+    const mod = await import('mixpanel-browser');
+    mixpanelLib = mod.default;
+  }
+  return mixpanelLib;
+}
+
+export async function initMixpanel() {
   if (initialized || !MIXPANEL_TOKEN) return;
 
+  const mixpanel = await getMixpanel();
   mixpanel.init(MIXPANEL_TOKEN, {
     track_pageview: false,
     persistence: 'localStorage',
@@ -21,21 +29,21 @@ export function initMixpanel() {
 }
 
 export function trackEvent(event: string, properties?: Record<string, unknown>) {
-  if (!initialized) return;
-  mixpanel.track(event, properties);
+  if (!initialized || !mixpanelLib) return;
+  mixpanelLib.track(event, properties);
 }
 
 export function identifyUser(userId: string, traits?: Record<string, unknown>) {
-  if (!initialized) return;
-  mixpanel.identify(userId);
+  if (!initialized || !mixpanelLib) return;
+  mixpanelLib.identify(userId);
   if (traits) {
-    mixpanel.people.set(traits);
+    mixpanelLib.people.set(traits);
   }
 }
 
 export function resetUser() {
-  if (!initialized) return;
-  mixpanel.reset();
+  if (!initialized || !mixpanelLib) return;
+  mixpanelLib.reset();
 }
 
 // Lean event model — few events, rich properties

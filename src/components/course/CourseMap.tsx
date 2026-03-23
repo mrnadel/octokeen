@@ -28,8 +28,8 @@ export function CourseMap() {
     lessonIndex: number;
   } | null>(null);
 
-  const isFreeLocked = (unitIndex: number) =>
-    !isGuest && !isProUser && unitIndex > 0;
+  const isFreeLocked = useCallback((unitIndex: number) =>
+    !isGuest && !isProUser && unitIndex > 0, [isGuest, isProUser]);
 
   const getLessonState = useCallback(
     (
@@ -61,7 +61,7 @@ export function CourseMap() {
     return lastCompletedUnit;
   }, [getLessonState]);
 
-  const activeUnitIndex = findActiveUnitIndex();
+  const activeUnitIndex = useMemo(() => findActiveUnitIndex(), [findActiveUnitIndex]);
 
   // Find the last completed lesson to scroll to
   const currentLessonId = useMemo(() => {
@@ -97,6 +97,24 @@ export function CourseMap() {
       return next;
     });
   };
+
+  // Stable callback for lesson clicks — avoids creating new function refs per lesson
+  const handleLessonClick = useCallback(
+    (unitIndex: number, lessonIndex: number, state: 'completed' | 'current' | 'locked', lessonProgress: { attempts?: number } | undefined) => {
+      if (isFreeLocked(unitIndex)) {
+        setShowUpgradeModal(true);
+      } else if (state === 'locked') {
+        setJumpConfirm({ unitIndex, lessonIndex });
+      } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) < 3) {
+        startLesson(unitIndex, lessonIndex, false);
+      } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) >= 3) {
+        startLesson(unitIndex, lessonIndex, true);
+      } else {
+        startLesson(unitIndex, lessonIndex);
+      }
+    },
+    [isFreeLocked, startLesson]
+  );
 
   // Auto-scroll to the current lesson after mount + animations settle
   useEffect(() => {
@@ -223,21 +241,7 @@ export function CourseMap() {
                               stars={lessonProgress?.stars}
                               golden={lessonProgress?.golden}
                               index={lessonIndex}
-                              onClick={() => {
-                                if (isProLocked) {
-                                  setShowUpgradeModal(true);
-                                } else if (state === 'locked') {
-                                  setJumpConfirm({ unitIndex, lessonIndex });
-                                } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) < 3) {
-                                  // Completed but fewer than 3 attempts: regular retry with incorrect questions
-                                  startLesson(unitIndex, lessonIndex, false);
-                                } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) >= 3) {
-                                  // 3+ attempts done: start golden (or re-do golden)
-                                  startLesson(unitIndex, lessonIndex, true);
-                                } else {
-                                  startLesson(unitIndex, lessonIndex);
-                                }
-                              }}
+                              onClick={() => handleLessonClick(unitIndex, lessonIndex, state, lessonProgress)}
                               theme={theme}
                             />
                           </div>

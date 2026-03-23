@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { Lesson } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
@@ -54,7 +55,7 @@ function CompletionBadge({ stars, color, darkColor, isGolden }: { stars: number;
   );
 }
 
-export function LessonNode({
+export const LessonNode = memo(function LessonNode({
   lesson,
   state,
   stars,
@@ -211,6 +212,6 @@ export function LessonNode({
       </div>
     </motion.button>
   );
-}
+});
 
 export { LessonNode as LessonRow };
