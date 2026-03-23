@@ -335,7 +335,7 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         const currentStrong = (progress.topicProgress ?? []).filter(
           t => t.questionsAttempted >= 10 && (t.questionsCorrect / t.questionsAttempted) > 0.75
         ).map(t => t.topicId);
-        unlocked = prevWeak.some(w => currentStrong.includes(w));
+        unlocked = prevWeak.some(w => currentStrong.includes(w as typeof currentStrong[number]));
         break;
       }
       case 'ach-interview-ready':

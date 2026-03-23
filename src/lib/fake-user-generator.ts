@@ -366,6 +366,7 @@ function generateFakeUser(
     totalXp,
     currentStreak,
     longestStreak,
+    accuracy: randInt(rng, 45, 98),
     achievementsUnlocked,
     topicMastery,
     currentTier: tier,

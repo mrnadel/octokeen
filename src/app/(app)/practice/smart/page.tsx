@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import { useStore } from '@/store/useStore';
@@ -13,6 +13,14 @@ import {
 import type { TopicId } from '@/data/types';
 
 export default function SmartPracticePage() {
+  return (
+    <Suspense>
+      <SmartPracticeInner />
+    </Suspense>
+  );
+}
+
+function SmartPracticeInner() {
   const { session, sessionSummary } = useSession();
   const { startSession } = useSessionActions();
   const progress = useProgress();

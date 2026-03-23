@@ -94,6 +94,7 @@ export interface BaseQuestion {
   question: string;
   diagram?: string;
   explanation: string;
+  keyPoints?: string[];
   interviewInsight: string;
   realWorldConnection?: string;
   commonMistake: string;

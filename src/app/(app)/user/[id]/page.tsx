@@ -206,7 +206,7 @@ export default function PublicProfilePage() {
           </div>
           <AddFriendButton
             targetUserId={profile.id}
-            initialRelationship={profile.relationship}
+            initialRelationship={profile.relationship as 'none' | 'friends' | 'request_sent' | 'request_received'}
             requestId={profile.requestId}
           />
         </div>

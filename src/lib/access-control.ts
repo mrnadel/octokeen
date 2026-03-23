@@ -118,8 +118,10 @@ export async function incrementDailyUsage(userId: string): Promise<void> {
     })
     .where(and(eq(dailyUsage.userId, userId), eq(dailyUsage.date, today)));
 
+  const rowCount = (result as unknown as { rowCount: number }).rowCount;
+
   // If no row was updated, this is the first question today — insert
-  if (result.rowCount === 0) {
+  if (rowCount === 0) {
     await db.insert(dailyUsage).values({
       userId,
       date: today,
@@ -127,7 +129,7 @@ export async function incrementDailyUsage(userId: string): Promise<void> {
     }).onConflictDoNothing();
 
     // If insert was a no-op (concurrent insert won), do the increment
-    if (result.rowCount === 0) {
+    if (rowCount === 0) {
       await db
         .update(dailyUsage)
         .set({

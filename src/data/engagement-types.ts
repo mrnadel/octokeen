@@ -155,6 +155,7 @@ export interface FakeUser {
   totalXp: number;
   currentStreak: number;
   longestStreak: number;
+  accuracy: number;
   achievementsUnlocked: string[];
   topicMastery: {
     topicId: string;
