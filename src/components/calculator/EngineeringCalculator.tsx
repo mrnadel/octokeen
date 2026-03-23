@@ -20,6 +20,7 @@ interface HistoryEntry {
 const STORAGE_KEY = 'calc-history';
 
 function loadHistory(): HistoryEntry[] {
+  if (typeof window === 'undefined') return [];
   try {
     const raw = sessionStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -188,7 +189,7 @@ export default function EngineeringCalculator({ isOpen, onClose, accentColor = '
       case 'util':
         return { ...base, background: '#F5F5F5', color: '#AFAFAF', fontSize: 11 };
       case 'equals':
-        return { ...base, background: accentColor, color: '#FFFFFF', fontSize: 18 };
+        return { ...base, background: accentColor, color: '#FFFFFF', fontSize: 18, boxShadow: `0 3px 0 ${accentDark}` };
       default:
         return base;
     }
