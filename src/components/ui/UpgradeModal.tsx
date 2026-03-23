@@ -28,14 +28,15 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
         body: JSON.stringify({ priceId: PADDLE_PRICES.PRO_MONTHLY }),
       });
       if (!res.ok) return;
-      const { customerId } = await res.json();
+      const { transactionId } = await res.json();
 
       const paddle = await getPaddle();
-      if (!paddle) return;
+      if (!paddle || !transactionId) return;
+
+      // Open checkout using the server-created transaction (price-validated).
+      // This prevents client-side price/plan tampering.
       paddle.Checkout.open({
-        items: [{ priceId: PADDLE_PRICES.PRO_MONTHLY, quantity: 1 }],
-        customer: { id: customerId },
-        customData: { userId: session.user.id },
+        transactionId,
         settings: {
           successUrl: `${window.location.origin}/checkout/success`,
         },

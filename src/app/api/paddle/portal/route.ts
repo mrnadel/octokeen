@@ -43,10 +43,18 @@ export async function POST() {
   }
 
   // Fetch subscription from Paddle to get management URLs
-  const paddleSub = await paddle.subscriptions.get(sub.paddleSubscriptionId);
+  try {
+    const paddleSub = await paddle.subscriptions.get(sub.paddleSubscriptionId);
 
-  return NextResponse.json({
-    updateUrl: paddleSub.managementUrls?.updatePaymentMethod ?? null,
-    cancelUrl: paddleSub.managementUrls?.cancel ?? null,
-  });
+    return NextResponse.json({
+      updateUrl: paddleSub.managementUrls?.updatePaymentMethod ?? null,
+      cancelUrl: paddleSub.managementUrls?.cancel ?? null,
+    });
+  } catch (err) {
+    console.error('Failed to fetch Paddle subscription:', err);
+    return NextResponse.json(
+      { error: 'Failed to load subscription details' },
+      { status: 502 },
+    );
+  }
 }
