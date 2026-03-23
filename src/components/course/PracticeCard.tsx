@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useStore } from '@/store/useStore';
 
 const THEME = {
-  bg: '#EDEAFF',
-  color: '#7B68EE',
-  dark: '#5C49CE',
-  mid: '#9585F0',
+  bg: '#EEF2FF',
+  color: '#6366F1',
+  dark: '#4338CA',
+  mid: '#818CF8',
 };
 
 export function PracticeCard() {

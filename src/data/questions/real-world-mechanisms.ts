@@ -4,11 +4,18 @@ export const realWorldMechanismsQuestions: Question[] = [
   // RWM-001 — Free Text / Explanation
   {
     id: 'rwm-001',
-    type: 'free-text',
+    type: 'multiple-choice',
     topic: 'real-world-mechanisms',
     subtopic: 'Everyday Machines',
     difficulty: 'beginner',
-    question: 'How does a hydraulic car jack work? Explain the physics that lets a small hand force lift a 2-ton car.',
+    question: 'Which principle lets a hydraulic jack multiply a small hand force to lift a 2-ton car?',
+    options: [
+      { id: 'a', text: 'Archimedes\' principle — the buoyant force of the hydraulic fluid supports the car\'s weight' },
+      { id: 'b', text: 'Pascal\'s principle — pressure applied to a confined fluid is transmitted equally, and the area ratio between pistons multiplies the force' },
+      { id: 'c', text: 'Bernoulli\'s principle — fluid velocity increases in the narrow cylinder, creating a lifting pressure differential' },
+      { id: 'd', text: 'Hooke\'s law — the compressed fluid acts as a spring that stores and releases energy' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Reservoir / body -->
   <rect x="40" y="140" width="320" height="80" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
@@ -55,7 +62,6 @@ export const realWorldMechanismsQuestions: Question[] = [
   <text x="200" y="263" text-anchor="middle" fill="#e2e8f0" font-size="11">Area ratio 40:2 = 20:1 mechanical advantage</text>
   <text x="200" y="280" text-anchor="middle" fill="#94a3b8" font-size="10">Trade-off: many pumps needed (force \u00D7 distance conserved)</text>
 </svg>`,
-    sampleAnswer: 'A hydraulic jack uses Pascal\'s principle: pressure applied to a confined fluid is transmitted equally in all directions. The jack has two cylinders — a small one (the pump) and a large one (the lift). When you pump the handle, you push a small piston into the small cylinder, creating high pressure. This pressure is transmitted through oil to the large piston.\n\nThe mechanical advantage comes from the area ratio. If the small piston has an area of 2 cm² and the large piston has 40 cm², the area ratio is 20:1. A 100 N hand force creates 50 N/cm² pressure, which acts on the 40 cm² large piston, generating 2,000 N of lift force. Combined with the lever ratio of the pump handle (typically 5:1-10:1), the total mechanical advantage can be 100:1 to 200:1.\n\nThe trade-off: you pump many times because each pump stroke moves only a small volume of oil, and the large piston moves very little per stroke (volume conservation). You gain force at the expense of distance.',
     keyPoints: [
       'Pascal\'s principle: pressure is transmitted equally through confined fluid',
       'Mechanical advantage = area ratio of large piston to small piston',
@@ -76,7 +82,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     topic: 'real-world-mechanisms',
     subtopic: 'Automotive Systems',
     difficulty: 'intermediate',
-    question: 'In a conventional rear-wheel-drive car, what does the differential do and why is it necessary?',
+    question: 'What does the differential do in a rear-wheel-drive car?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Top-down view of car turning -->
   <!-- Turn arc -->
@@ -120,16 +126,16 @@ export const realWorldMechanismsQuestions: Question[] = [
   <text x="255" y="115" fill="#e2e8f0" font-size="10">Turn</text>
 </svg>`,
     options: [
-      { id: 'a', text: 'It changes gear ratios for different driving speeds, like a transmission' },
-      { id: 'b', text: 'It allows the left and right wheels to rotate at different speeds during turns while transmitting torque to both' },
-      { id: 'c', text: 'It absorbs road shocks before they reach the driveshaft, like a shock absorber' },
-      { id: 'd', text: 'It disconnects the engine from the wheels when the car is coasting to save fuel' },
+      { id: 'a', text: 'Changes gear ratios like a transmission' },
+      { id: 'b', text: 'Allows left/right wheels to spin at different speeds in turns' },
+      { id: 'c', text: 'Absorbs road shocks like a shock absorber' },
+      { id: 'd', text: 'Disconnects engine from wheels when coasting' },
     ],
     correctAnswer: 'b',
-    explanation: 'When a car turns, the outer wheel travels a longer arc than the inner wheel. Without a differential, both wheels would be forced to rotate at the same speed, causing the inner wheel to scrub and skip. The differential uses a set of bevel gears (spider gears on a cross pin) that allow the output shafts to rotate at different speeds while still splitting the engine torque between them. The average speed of both wheels equals the input speed.',
-    interviewInsight: 'This is a classic mechanism question. The interviewer may follow up by asking about limited-slip differentials and why a standard open differential is bad for off-road or racing.',
-    realWorldConnection: 'The limitation of an open differential: if one wheel loses traction (on ice), all the torque goes to the spinning wheel and none to the wheel with grip. Limited-slip differentials solve this by adding clutches or geared coupling between the output shafts.',
-    commonMistake: 'Confusing the differential with the transmission. The transmission changes gear ratios; the differential splits torque between left and right wheels.',
+    explanation: 'Outer wheel travels a longer arc in turns. Differential uses bevel gears (spider gears) to let output shafts spin at different speeds while splitting torque. Average speed equals input speed.',
+    interviewInsight: 'Classic mechanism question. Follow-up: why open differentials are bad for off-road/racing.',
+    realWorldConnection: 'Open diff limitation: one wheel on ice gets all torque. Limited-slip adds clutches to fix this.',
+    commonMistake: 'Confusing differential (splits torque left/right) with transmission (changes gear ratios).',
     tags: ['differential', 'automotive', 'turning', 'bevel-gear', 'torque-split'],
   },
 
@@ -140,7 +146,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     topic: 'real-world-mechanisms',
     subtopic: 'Everyday Machines',
     difficulty: 'intermediate',
-    question: 'You are designing a door closer mechanism for a commercial building. Which type do you choose?',
+    question: 'Choose a door closer for a heavy commercial exterior door. Which type?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Door frame -->
   <rect x="180" y="30" width="12" height="200" fill="#94a3b8" stroke="#94a3b8" stroke-width="1"/>
@@ -175,7 +181,7 @@ export const realWorldMechanismsQuestions: Question[] = [
   <text x="30" y="262" fill="#94a3b8" font-size="10">Wind resistance needed</text>
   <text x="200" y="262" fill="#94a3b8" font-size="10">Adjustable closing + latching speed</text>
 </svg>`,
-    context: 'The door is a heavy (50 kg) exterior door that must close reliably against wind pressure. It needs to comply with ADA accessibility requirements (max opening force 5 lbf, closing speed controlled). The building has 500+ door cycles per day.',
+    context: '50 kg exterior door, must close against wind. ADA compliant (max 5 lbf opening force). 500+ cycles/day.',
     designOptions: [
       {
         id: 'a',
@@ -279,7 +285,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     topic: 'real-world-mechanisms',
     subtopic: 'Everyday Machines',
     difficulty: 'intermediate',
-    question: 'Estimate the gear ratio of a hand-operated winch that allows one person to pull a 2,000 kg boat up a ramp.',
+    question: 'Estimate gear ratio for a hand winch to pull a 2,000 kg boat up a ramp.',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Ramp surface -->
   <line x1="50" y1="250" x2="350" y2="120" stroke="#94a3b8" stroke-width="2"/>
@@ -348,11 +354,11 @@ export const realWorldMechanismsQuestions: Question[] = [
   // RWM-006 — Spot the Flaw
   {
     id: 'rwm-006',
-    type: 'spot-the-flaw',
+    type: 'multiple-choice',
     topic: 'real-world-mechanisms',
     subtopic: 'Failure Case Studies',
     difficulty: 'advanced',
-    question: 'Spot the flaw in this failure analysis conclusion:',
+    question: 'A bridge cable failed at a clamp point. The initial analysis concludes "pure corrosion." What critical failure mechanism was likely missed?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Bridge tower (left) -->
   <rect x="40" y="40" width="20" height="160" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
@@ -396,14 +402,14 @@ export const realWorldMechanismsQuestions: Question[] = [
   <!-- Bottom text -->
   <text x="200" y="278" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Flaw: Concluded corrosion only \u2014 missed synergistic SCC/fatigue</text>
 </svg>`,
-    statement: 'A steel bridge cable failed after 15 years of service. Visual inspection showed a corroded region at a cable clamp where water accumulated. The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
-    flaw: {
-      text: 'The failure analysis concluded that the cable failed due to corrosion only, recommending better coating and drainage as the sole corrective actions.',
-      flawIndex: 2,
-      flawExplanation: 'The analysis likely missed stress corrosion cracking (SCC) or corrosion fatigue. A bridge cable is under constant tension (stress) and cyclic loading from traffic and wind (fatigue). When corrosion reduces the cross-section and creates surface pits, these pits act as stress concentrators that accelerate crack initiation. The failure mode is not pure corrosion — it is the synergy of corrosion + stress + fatigue cycling. Corrective actions must address ALL three: corrosion protection AND load verification AND fatigue life reassessment.',
-    },
-    correctedStatement: 'The cable failure was likely caused by corrosion fatigue or stress corrosion cracking — the combined effect of corrosion, static tension, and cyclic loading from traffic. Corrective actions should include improved corrosion protection (coating and drainage), load-path verification, fatigue reassessment of remaining cables, and inspection of all cable clamp locations for similar damage.',
-    explanation: 'Corrosion rarely acts alone in structural failures. The synergy between corrosion and mechanical loading (stress corrosion cracking, corrosion fatigue, hydrogen embrittlement) is far more dangerous than corrosion alone. A complete failure analysis must consider the loading environment.',
+    options: [
+      { id: 'a', text: 'Thermal expansion fatigue from daily temperature swings' },
+      { id: 'b', text: 'Stress corrosion cracking — corrosion accelerated by sustained tensile stress at the clamp' },
+      { id: 'c', text: 'Creep rupture from long-term static loading' },
+      { id: 'd', text: 'Erosion from wind-driven rain particles' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'Stress corrosion cracking (SCC) occurs when corrosion and sustained tensile stress act together — the combination is far more damaging than either alone. Cable clamp points create stress concentrations where SCC nucleates. A "pure corrosion" conclusion misses this synergy.',
     interviewInsight: 'This tests whether you understand that real failures are usually multi-mechanism. An interviewer asking about failure analysis wants to see that you consider the full picture: environment + loading + material.',
     commonMistake: 'Accepting a single-cause failure analysis without considering synergistic mechanisms. Corrosion fatigue is much faster than either corrosion or fatigue acting alone.',
     tags: ['failure-analysis', 'corrosion-fatigue', 'SCC', 'bridge', 'cable', 'root-cause'],
@@ -416,7 +422,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     topic: 'real-world-mechanisms',
     subtopic: 'Automotive Systems',
     difficulty: 'intermediate',
-    question: 'Which of the following happen when you press the brake pedal in a car with disc brakes and ABS? (Select all that apply)',
+    question: 'What happens when you press the brake pedal in a car with disc brakes and ABS? (Select all)',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Brake pedal -->
   <rect x="20" y="80" width="8" height="50" rx="2" fill="#e2e8f0" stroke="#e2e8f0" stroke-width="1"/>
@@ -496,7 +502,7 @@ export const realWorldMechanismsQuestions: Question[] = [
     topic: 'real-world-mechanisms',
     subtopic: 'Failure Case Studies',
     difficulty: 'advanced',
-    question: 'A residential clothes dryer is making a loud squealing noise and occasionally not tumbling. What component has likely failed first?',
+    question: 'Clothes dryer squealing and sometimes not tumbling. What component failed?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Dryer cabinet outline -->
   <rect x="60" y="30" width="280" height="220" rx="6" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>

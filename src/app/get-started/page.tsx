@@ -243,13 +243,18 @@ export default function GetStartedPage() {
             animate={{ opacity: 1 }}
             className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4"
           >
-            <motion.div
-              className="w-20 h-20 bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl flex items-center justify-center"
-              animate={{ scale: [1, 1.05, 1] }}
+            <motion.svg
+              width="64"
+              height="64"
+              viewBox="0 0 80 80"
+              fill="none"
+              animate={{ scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
-              <span className="text-4xl">⚙️</span>
-            </motion.div>
+              <path d="M40 8L67 23.6V54.4L40 70L13 54.4V23.6L40 8Z" stroke="#58CC02" strokeWidth="2.5" fill="#58CC02" fillOpacity="0.06" />
+              <path d="M40 22L54.5 30.4V47.6L40 56L25.5 47.6V30.4L40 22Z" stroke="#58CC02" strokeWidth="2" fill="#58CC02" fillOpacity="0.12" />
+              <circle cx="40" cy="39" r="7" stroke="#58CC02" strokeWidth="2.5" fill="white" />
+            </motion.svg>
             <p className="text-lg font-black text-gray-900">Preparing your course...</p>
             <Loader2 className="w-6 h-6 animate-spin text-[#58CC02]" />
           </motion.div>
@@ -306,14 +311,32 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="text-center max-w-sm mx-auto"
             >
-              <motion.div
-                className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-8"
-                initial={{ scale: 0.7, rotate: -15 }}
+              <motion.svg
+                width="80"
+                height="80"
+                viewBox="0 0 80 80"
+                fill="none"
+                className="mx-auto mb-8"
+                initial={{ scale: 0.7, rotate: -30 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
               >
-                <span className="text-5xl">⚙️</span>
-              </motion.div>
+                <path
+                  d="M40 8L67 23.6V54.4L40 70L13 54.4V23.6L40 8Z"
+                  stroke="#58CC02"
+                  strokeWidth="2.5"
+                  fill="#58CC02"
+                  fillOpacity="0.06"
+                />
+                <path
+                  d="M40 22L54.5 30.4V47.6L40 56L25.5 47.6V30.4L40 22Z"
+                  stroke="#58CC02"
+                  strokeWidth="2"
+                  fill="#58CC02"
+                  fillOpacity="0.12"
+                />
+                <circle cx="40" cy="39" r="7" stroke="#58CC02" strokeWidth="2.5" fill="white" />
+              </motion.svg>
 
               <motion.h1
                 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3"

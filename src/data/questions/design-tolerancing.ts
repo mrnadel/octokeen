@@ -8,7 +8,7 @@ export const designTolerancingQuestions: Question[] = [
     topic: 'design-tolerancing',
     subtopic: 'GD&T Fundamentals',
     difficulty: 'beginner',
-    question: 'On a GD&T drawing, a position tolerance of ⌀0.25 is specified at MMC for a hole. The hole\'s actual size is 0.5 mm larger than its MMC size. What is the total allowable positional tolerance?',
+    question: 'Position tolerance ⌀0.25 at MMC for a hole. Hole is 0.5 mm larger than MMC. Total allowable position tolerance?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Part cross-section -->
   <rect x="50" y="40" width="300" height="120" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
@@ -48,10 +48,10 @@ export const designTolerancingQuestions: Question[] = [
       { id: 'd', text: '⌀0.125 — tolerance shrinks at larger sizes' },
     ],
     correctAnswer: 'b',
-    explanation: 'At MMC (Maximum Material Condition), the positional tolerance is the stated value: ⌀0.25. When the hole is produced larger than MMC, bonus tolerance is gained. Bonus = actual size - MMC size = 0.5 mm. Total positional tolerance = 0.25 + 0.50 = ⌀0.75. This "bonus tolerance" concept exists because a larger hole is easier to assemble even if its position shifts — the function (pin fits in hole) is still guaranteed.',
-    interviewInsight: 'Bonus tolerance / MMC is one of the most commonly asked GD&T topics. If you do not understand MMC and bonus tolerance, you cannot read or create functional GD&T drawings.',
-    realWorldConnection: 'This directly affects inspection — a hole that is at the large end of its size tolerance is allowed more positional deviation. This reduces scrap rates while still guaranteeing assembly.',
-    commonMistake: 'Thinking the tolerance is always fixed at ⌀0.25 regardless of actual size (this would be RFS — Regardless of Feature Size). MMC explicitly allows bonus tolerance.',
+    explanation: 'At MMC, tolerance is ⌀0.25. Hole larger than MMC gains bonus = 0.5 mm. Total = 0.25 + 0.50 = ⌀0.75. Larger hole = easier assembly even with position shift.',
+    interviewInsight: 'Bonus tolerance / MMC is the most commonly asked GD&T topic.',
+    realWorldConnection: 'Larger holes get more positional tolerance, reducing scrap while guaranteeing assembly.',
+    commonMistake: 'Thinking tolerance is fixed at ⌀0.25 (that would be RFS). MMC allows bonus tolerance.',
     tags: ['GD&T', 'MMC', 'bonus-tolerance', 'position', 'hole', 'tolerance'],
   },
 
@@ -62,7 +62,7 @@ export const designTolerancingQuestions: Question[] = [
     topic: 'design-tolerancing',
     subtopic: 'Tolerance Stack-Up',
     difficulty: 'advanced',
-    question: 'Three parts are stacked in series. Each has a dimension of 25.0 ± 0.1 mm. Estimate the total assembly dimension and tolerance using both worst-case and RSS methods.',
+    question: 'Three parts stacked: each 25.0 ± 0.1 mm. Total assembly tolerance using worst-case and RSS?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Three stacked parts -->
   <rect x="40" y="60" width="95" height="80" rx="2" fill="#334155" stroke="#60a5fa" stroke-width="1.5"/>
@@ -119,20 +119,27 @@ export const designTolerancingQuestions: Question[] = [
       'Use worst-case when failure is catastrophic (safety-critical assemblies)',
       'Use RSS when statistical quality is acceptable (consumer products, high-volume)',
     ],
-    explanation: 'Worst-case analysis guarantees 100% assembly success but requires tighter individual tolerances (more expensive). RSS assumes tolerances follow normal distributions and rarely all stack in the same direction — it gives ~99.73% (3σ) success rate with looser individual tolerances.',
-    interviewInsight: 'Tolerance stack-up is a core design engineering skill. The worst-case vs. RSS decision is a cost-quality tradeoff that comes up in every product design interview.',
-    commonMistake: 'Using worst-case for everything (too conservative, drives cost up). Or using RSS without understanding that it allows a small percentage of assemblies to fall outside the tolerance.',
+    explanation: 'Worst-case: ±0.3 mm (100% success but expensive). RSS: ±0.173 mm (~99.73% success, 42% tighter). RSS assumes normal distributions.',
+    interviewInsight: 'Worst-case vs. RSS is a cost-quality tradeoff in every product design interview.',
+    commonMistake: 'Using worst-case for everything (too costly). Or using RSS without understanding the small fallout risk.',
     tags: ['tolerance-stack', 'worst-case', 'RSS', 'statistical', 'assembly', 'dimension'],
   },
 
   // DT-003 — Free Text / Explanation
   {
     id: 'dt-003',
-    type: 'explanation',
+    type: 'multiple-choice',
     topic: 'design-tolerancing',
     subtopic: 'Fits & Limits',
     difficulty: 'intermediate',
-    question: 'A design calls for a bearing pressed into a housing (interference fit) and a shaft that slides into the bearing inner race (clearance fit). Explain how you specify these fits and why.',
+    question: 'A design calls for a bearing pressed into a housing (interference fit) and a shaft that slides into the bearing inner race (clearance fit). Which ISO fit specification is most appropriate for the bearing outer race in the housing?',
+    options: [
+      { id: 'a', text: 'H7/g6 — clearance fit to allow easy assembly and removal' },
+      { id: 'b', text: 'H7/p6 — interference fit to prevent creep and fretting' },
+      { id: 'c', text: 'H7/h6 — transition fit for a snug sliding connection' },
+      { id: 'd', text: 'H11/a11 — loose running fit for high-speed rotation' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Housing outer -->
   <rect x="100" y="40" width="200" height="220" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
@@ -167,7 +174,6 @@ export const designTolerancingQuestions: Question[] = [
   <!-- Key rule -->
   <text x="200" y="280" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Rule: loaded race gets the tighter fit</text>
 </svg>`,
-    sampleAnswer: 'The bearing outer race-to-housing interface is an interference fit because the bearing must not rotate or move within the housing during operation. A typical specification is H7/p6 (ISO system): the housing bore is H7 (hole basis, tolerance just above nominal) and the bearing OD is p6 (shaft basis, tolerance above nominal, creating interference). The interference is typically 0.005-0.025 mm, requiring the bearing to be pressed in or the housing heated for thermal installation.\n\nThe shaft-to-bearing inner race interface is a clearance or transition fit. For a rotating shaft, the inner race typically rotates with the shaft and is specified as k5/H7 or m5/H7 (slight interference to light press fit). However, if the inner race is stationary and the shaft rotates relative to it, a looser fit (g6/H7) may be acceptable.\n\nThe rationale: tight fits prevent fretting (micro-motion wear) between the bearing race and housing/shaft. The loaded race must ALWAYS be interference fit to prevent creep.',
     keyPoints: [
       'Interference fit (H7/p6) for bearing OD in housing — prevents creep and fretting',
       'Transition or light interference fit (k5 or m5 on shaft) for bearing ID on shaft',
@@ -269,11 +275,11 @@ export const designTolerancingQuestions: Question[] = [
   // DT-005 — Spot the Flaw
   {
     id: 'dt-005',
-    type: 'spot-the-flaw',
+    type: 'multiple-choice',
     topic: 'design-tolerancing',
     subtopic: 'Engineering Drawings',
     difficulty: 'advanced',
-    question: 'Spot the flaw in this GD&T callout:',
+    question: 'A position tolerance references datum A, but datum A is defined on the same feature being toleranced. What is wrong with this GD&T callout?',
     diagram: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Shaft (cylindrical feature shown as side view) -->
   <rect x="120" y="50" width="200" height="60" rx="3" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
@@ -307,14 +313,14 @@ export const designTolerancingQuestions: Question[] = [
   <text x="200" y="215" text-anchor="middle" fill="#e2e8f0" font-size="11">Position references datum A</text>
   <text x="200" y="235" text-anchor="middle" fill="#fb923c" font-size="12" font-weight="bold">A feature cannot be positioned relative to itself</text>
 </svg>`,
-    statement: 'A cylindrical shaft feature has a position tolerance of ⌀0.05 mm applied at MMC, referenced to datums A, B, and C. Datum A is the shaft\'s own cylindrical surface.',
-    flaw: {
-      text: 'Datum A is the shaft\'s own cylindrical surface.',
-      flawIndex: 2,
-      flawExplanation: 'You cannot reference a feature\'s position to itself. A position tolerance controls where a feature is relative to a datum reference frame. If the datum IS the feature itself, the callout is circular and meaningless — the feature is always at its own location. Datum A should be an independent feature (like a flat mounting face or a different bore) that establishes the reference frame for the shaft\'s position.',
-    },
-    correctedStatement: 'The position tolerance for the cylindrical shaft should reference independent datums — for example, datum A as a mounting face (primary, establishing a plane), datum B as a locating bore (secondary, establishing an axis), and datum C if needed for rotational constraint.',
-    explanation: 'Self-referencing datums are a common GD&T error. The purpose of datums is to establish an external reference frame. A feature cannot be its own reference — that provides no constraint or verification.',
+    options: [
+      { id: 'a', text: 'Position tolerance requires at least two datums' },
+      { id: 'b', text: 'A feature cannot reference itself as a datum — this is a circular reference' },
+      { id: 'c', text: 'Position tolerance cannot be applied to cylindrical features' },
+      { id: 'd', text: 'Datum A should always be the largest feature' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'A datum provides a reference frame for measuring another feature. If a feature references itself as a datum, there is no independent reference — the tolerance becomes meaningless. The datum must be on a separate, stable feature.',
     interviewInsight: 'GD&T errors are very common in industry. The interviewer wants to see that you can catch logical errors in tolerance callouts, not just read valid ones.',
     commonMistake: 'Not recognizing that self-referencing is circular. This error appears on real engineering drawings more often than you would expect.',
     tags: ['GD&T', 'datum', 'position', 'self-reference', 'drawing-error', 'tolerance'],
@@ -327,7 +333,7 @@ export const designTolerancingQuestions: Question[] = [
     topic: 'design-tolerancing',
     subtopic: 'Tolerance Stack-Up',
     difficulty: 'advanced',
-    question: 'Your assembly has a critical gap that must be 1.0 ± 0.3 mm. The tolerance stack-up of the five contributing parts gives ±0.5 mm worst-case. How do you fix it?',
+    question: 'Critical gap 1.0 ± 0.3 mm, but stack-up gives ±0.5 mm. How do you fix it?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
   <!-- Five parts stacked showing the gap -->
   <rect x="30" y="60" width="50" height="80" rx="2" fill="#334155" stroke="#94a3b8" stroke-width="1.2"/>

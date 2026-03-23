@@ -129,7 +129,7 @@ describe('useCourseStore', () => {
         lessonResult: {
           lessonId: 'old', unitTitle: '', lessonTitle: '', totalQuestions: 0,
           correctAnswers: 0, xpEarned: 0, accuracy: 0, stars: 0,
-          isNewBest: false, isFirstCompletion: false, isGolden: false,
+          passed: false, isFlawless: false, isNewBest: false, isFirstCompletion: false, isGolden: false,
         },
       });
       useCourseStore.getState().startLesson(0, 0);
@@ -159,6 +159,7 @@ describe('useCourseStore', () => {
               bestAccuracy: 50,
               attempts: 1,
               lastAttempted: '2026-01-01',
+              passed: true,
               golden: false,
               answeredQuestionIds: allQIds.slice(0, 10),
               correctQuestionIds: allQIds.slice(0, 5),
@@ -193,6 +194,7 @@ describe('useCourseStore', () => {
               bestAccuracy: 90,
               attempts: 3,
               lastAttempted: '2026-01-01',
+              passed: true,
               golden: false,
               answeredQuestionIds: allQIds.slice(0, 10),
               correctQuestionIds: allQIds.slice(0, 10),
@@ -322,9 +324,9 @@ describe('useCourseStore', () => {
     it('computes XP based on accuracy multiplier', () => {
       const xpReward = useCourseStore.getState().courseData[0].lessons[0].xpReward;
 
-      // 90%+ accuracy -> multiplier 3
+      // 100% accuracy -> flawless multiplier 4
       completeWithAccuracy(10, 10);
-      expect(useCourseStore.getState().lessonResult!.xpEarned).toBe(xpReward * 3);
+      expect(useCourseStore.getState().lessonResult!.xpEarned).toBe(xpReward * 4);
     });
 
     it('computes XP for 70-89% accuracy (multiplier 2)', () => {
@@ -524,7 +526,7 @@ describe('useCourseStore', () => {
           completedLessons: {
             [firstLessonId]: {
               stars: 1, bestAccuracy: 80, attempts: 1,
-              lastAttempted: '2026-01-01', golden: false,
+              lastAttempted: '2026-01-01', passed: true, golden: false,
               answeredQuestionIds: [], correctQuestionIds: [],
             },
           },
@@ -544,7 +546,7 @@ describe('useCourseStore', () => {
           completedLessons: {
             [lastLessonId]: {
               stars: 1, bestAccuracy: 80, attempts: 1,
-              lastAttempted: '2026-01-01', golden: false,
+              lastAttempted: '2026-01-01', passed: true, golden: false,
               answeredQuestionIds: [], correctQuestionIds: [],
             },
           },

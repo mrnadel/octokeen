@@ -8,7 +8,7 @@ export const manufacturingQuestions: Question[] = [
     topic: 'manufacturing',
     subtopic: 'Machining',
     difficulty: 'beginner',
-    question: 'You need a surface finish of Ra 0.4 μm on a steel shaft. Which process is most appropriate?',
+    question: 'Which process achieves Ra 0.4 μm on a steel shaft?',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Surface Finish (Ra) by Process</text>
@@ -56,10 +56,10 @@ export const manufacturingQuestions: Question[] = [
       { id: 'd', text: 'Sand casting with no post-machining' },
     ],
     correctAnswer: 'b',
-    explanation: 'Ra 0.4 μm is a fine finish that requires an abrasive process. Standard turning typically achieves Ra 0.8-3.2 μm. Cylindrical grinding routinely achieves Ra 0.2-0.8 μm. Milling gives Ra 1.6-6.3 μm. Sand casting produces Ra 12-25 μm. For even finer finishes (Ra < 0.1), lapping or superfinishing would be needed.',
-    interviewInsight: 'Knowing which process achieves which surface finish is fundamental manufacturing knowledge. Interviewers test this to see if you can specify realistic finishes on drawings.',
-    realWorldConnection: 'Bearing journals, seal surfaces, and gauge blocks all require grinding or better finishes. Specifying an unnecessarily fine finish on a non-critical surface wastes money.',
-    commonMistake: 'Thinking that turning can achieve any finish with a slow enough feed rate. While fine turning can approach Ra 0.8, achieving Ra 0.4 consistently requires grinding.',
+    explanation: 'Ra 0.4 requires abrasive process. Turning: 0.8-3.2, grinding: 0.2-0.8, milling: 1.6-6.3, sand casting: 12-25 μm. For Ra < 0.1, use lapping.',
+    interviewInsight: 'Must know which process achieves which surface finish to specify realistic drawings.',
+    realWorldConnection: 'Bearing journals and seal surfaces require grinding. Unnecessary fine finish wastes money.',
+    commonMistake: 'Thinking turning can achieve Ra 0.4. Fine turning reaches ~0.8; grinding is needed for 0.4.',
     tags: ['surface-finish', 'grinding', 'turning', 'Ra', 'machining'],
   },
 
@@ -70,7 +70,7 @@ export const manufacturingQuestions: Question[] = [
     topic: 'manufacturing',
     subtopic: 'Casting & Molding',
     difficulty: 'intermediate',
-    question: 'You need 10,000 units per year of a complex aluminum housing (about 300mm × 200mm × 100mm, 2-3mm wall thickness). Which process do you choose?',
+    question: '10,000/year complex aluminum housing (300×200×100 mm, 2-3 mm walls). Which process?',
     diagram: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">High-Pressure Die Casting (HPDC)</text>
@@ -111,7 +111,7 @@ export const manufacturingQuestions: Question[] = [
       <text x="200" y="275" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Tooling: $50-100k | Near-net-shape</text>
       <text x="200" y="290" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="10">At 10k/yr: tooling amortizes to ~$5-10/part</text>
     </svg>`,
-    context: 'The part has internal ribs, bosses for fasteners, and requires a Class A external surface (painted). Tolerances are ±0.2mm on critical features. Weight target is under 400g.',
+    context: 'Internal ribs, fastener bosses, Class A painted surface. ±0.2 mm tolerances. Under 400 g.',
     designOptions: [
       {
         id: 'a',
@@ -136,9 +136,9 @@ export const manufacturingQuestions: Question[] = [
     ],
     bestOption: 'b',
     evaluationCriteria: ['Per-unit cost at 10k/year volume', 'Surface finish quality', 'Dimensional accuracy', 'Ability to produce thin walls and complex geometry', 'Tooling amortization'],
-    explanation: 'At 10,000 units/year, HPDC amortizes the high tooling cost to ~$5-10 per part while delivering near-net-shape parts with excellent surface finish. The fast cycle time (~30-60 seconds) and minimal secondary machining make it the cost winner. Sand casting would require too much post-machining. CNC is too expensive per part. Investment casting is overkill for aluminum.',
-    interviewInsight: 'Process selection for a given volume and geometry is the most common manufacturing interview question. The interviewer wants to see that you can match process capabilities to requirements and consider the economics.',
-    commonMistake: 'Choosing CNC machining because it gives the best quality — at 10k units/year, the per-part cost is prohibitive. Also, not knowing that die casting can achieve ±0.1mm tolerances.',
+    explanation: 'At 10k/year, HPDC tooling amortizes to ~$5-10/part with near-net-shape, excellent finish, and 30-60s cycles. Sand casting needs too much machining. CNC too expensive per part.',
+    interviewInsight: 'Process selection for volume and geometry is the most common manufacturing interview question.',
+    commonMistake: 'Choosing CNC for quality — prohibitive per-part cost at 10k/year.',
     tags: ['die-casting', 'aluminum', 'process-selection', 'volume', 'tooling-cost'],
   },
 
@@ -149,7 +149,7 @@ export const manufacturingQuestions: Question[] = [
     topic: 'manufacturing',
     subtopic: 'Welding & Joining',
     difficulty: 'intermediate',
-    question: 'Which of the following are TRUE about the heat-affected zone (HAZ) in a steel weld? (Select all that apply)',
+    question: 'Which are TRUE about the heat-affected zone (HAZ) in a steel weld? (Select all)',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Weld Cross-Section: Zones</text>
@@ -227,11 +227,18 @@ export const manufacturingQuestions: Question[] = [
   // MFG-004 — Free Text / Explanation
   {
     id: 'mfg-004',
-    type: 'explanation',
+    type: 'multiple-choice',
     topic: 'manufacturing',
     subtopic: 'Design for Manufacturing',
     difficulty: 'intermediate',
-    question: 'A designer sends you a part with a deep, narrow slot (20mm deep, 2mm wide) machined into a steel block. You are the manufacturing engineer. What feedback do you give?',
+    question: 'A designer sends you a part with a deep, narrow slot (20mm deep, 2mm wide) machined into a steel block. As the manufacturing engineer, what is the primary DFM concern?',
+    options: [
+      { id: 'a', text: 'The slot is too shallow for effective coolant flow during machining' },
+      { id: 'b', text: 'The 10:1 aspect ratio causes severe tool deflection, poor chip evacuation, and high risk of tool breakage' },
+      { id: 'c', text: 'Steel is too soft for narrow slot machining and will deform plastically' },
+      { id: 'd', text: 'The slot width exceeds standard end mill diameters, requiring custom tooling' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">DFM Issue: Deep Narrow Slot (10:1 Aspect Ratio)</text>
@@ -286,7 +293,6 @@ export const manufacturingQuestions: Question[] = [
       <rect x="245" y="245" width="145" height="25" fill="none" stroke="#fb923c" stroke-width="1.5" rx="4"/>
       <text x="317" y="262" text-anchor="middle" fill="#fb923c" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Aspect ratio: 10:1</text>
     </svg>`,
-    sampleAnswer: 'That slot has a depth-to-width aspect ratio of 10:1, which is very challenging to machine. Issues include:\n\n1. Tool deflection: A 2mm end mill is extremely flexible. At 20mm depth, it will deflect significantly, causing taper and poor surface finish on the slot walls.\n\n2. Chip evacuation: Chips cannot escape a deep narrow slot easily, leading to re-cutting, heat buildup, and potential tool breakage.\n\n3. Tool breakage: The slender tool is prone to snapping, especially if there is any chatter or chip packing.\n\n4. Cycle time: Multiple light passes are needed, with pecking cycles for chip clearing, dramatically increasing machining time.\n\nRecommendations: (1) Widen the slot to at least 4mm if function allows (aspect ratio drops to 5:1, much more feasible). (2) Add a relief radius at the bottom if sharp corners are not required. (3) Consider wire EDM if the narrow width is truly required — it handles deep narrow slots easily regardless of aspect ratio. (4) If volume justifies it, broaching is another option for through-slots.',
     keyPoints: [
       'High aspect ratio (10:1) causes tool deflection and chip evacuation problems',
       'Tool breakage risk is high with a 2mm end mill at 20mm depth',
@@ -391,11 +397,11 @@ export const manufacturingQuestions: Question[] = [
   // MFG-006 — Spot the Flaw
   {
     id: 'mfg-006',
-    type: 'spot-the-flaw',
+    type: 'multiple-choice',
     topic: 'manufacturing',
     subtopic: 'Metal Forming',
     difficulty: 'intermediate',
-    question: 'Spot the flaw in this manufacturing plan:',
+    question: 'A manufacturing plan uses the same minimum bend radius for stainless steel and mild steel sheet of equal thickness. Why will this fail?',
     diagram: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Sheet Metal Bending: Springback Comparison</text>
@@ -445,14 +451,14 @@ export const manufacturingQuestions: Question[] = [
       <text x="250" y="298" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10">Low</text>
       <text x="350" y="298" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">High</text>
     </svg>`,
-    statement: 'To make 100,000 stainless steel brackets per year, we will laser-cut the flat blanks from sheet metal and then cold-form them in a press brake to create 90-degree bends. Since stainless steel is ductile, we can use the same bend radius as mild steel — one material thickness minimum.',
-    flaw: {
-      text: 'Since stainless steel is ductile, we can use the same bend radius as mild steel — one material thickness minimum.',
-      flawIndex: 2,
-      flawExplanation: 'Stainless steel work-hardens much more aggressively than mild steel and has higher springback. The minimum bend radius for stainless steel is typically 1.5-2× material thickness, compared to 0.5-1× for mild steel. Using too tight a radius will cause cracking on the outer surface of the bend. Additionally, the greater springback means you need to overbend by several degrees to achieve a 90° final angle.',
-    },
-    correctedStatement: 'Stainless steel requires a larger minimum bend radius (1.5-2× thickness) than mild steel due to its higher work-hardening rate and greater springback. The press brake must also compensate for this springback (typically 3-5° overbend for 90° final angle).',
-    explanation: 'Stainless steel\'s work-hardening behavior is one of its defining characteristics. While it provides good formability overall, the higher flow stress and springback must be accounted for in bend tooling and process setup.',
+    options: [
+      { id: 'a', text: 'Stainless is lighter and needs smaller tooling' },
+      { id: 'b', text: 'Stainless has higher yield strength and springback, requiring a larger bend radius' },
+      { id: 'c', text: 'Stainless cannot be bent at room temperature' },
+      { id: 'd', text: 'Mild steel work-hardens faster than stainless' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'Stainless steel has significantly higher yield strength than mild steel, causing more elastic springback after bending. The minimum bend radius must be larger (typically 1.5-2x) to avoid cracking on the outer fiber. The plan must also over-bend to compensate for springback.',
     interviewInsight: 'This tests whether you know the practical differences between forming mild steel and stainless steel. It is a very common manufacturing engineering interview topic.',
     commonMistake: 'Assuming all "ductile metals" form the same way. Stainless steel, aluminum, and mild steel all have different minimum bend radii and springback characteristics.',
     tags: ['bending', 'stainless-steel', 'springback', 'work-hardening', 'press-brake', 'DFM'],

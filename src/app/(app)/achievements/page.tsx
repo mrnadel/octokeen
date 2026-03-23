@@ -2,117 +2,250 @@
 
 import { useProgress } from '@/store/useStore';
 import { achievements } from '@/data/achievements';
-import { Trophy, Lock, Star } from 'lucide-react';
+import { Trophy, Lock, Star, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { AchievementCategory } from '@/data/types';
+import Link from 'next/link';
+
+const categoryConfig: Record<AchievementCategory, { label: string; icon: string; gradient: string; badgeBg: string; badgeText: string; cardBorder: string; iconBg: string }> = {
+  knowledge: {
+    label: 'Knowledge',
+    icon: '📘',
+    gradient: 'from-blue-500 to-blue-600',
+    badgeBg: 'bg-blue-100',
+    badgeText: 'text-blue-700',
+    cardBorder: 'border-blue-200',
+    iconBg: 'bg-blue-50',
+  },
+  consistency: {
+    label: 'Consistency',
+    icon: '🔥',
+    gradient: 'from-orange-500 to-orange-600',
+    badgeBg: 'bg-orange-100',
+    badgeText: 'text-orange-700',
+    cardBorder: 'border-orange-200',
+    iconBg: 'bg-orange-50',
+  },
+  challenge: {
+    label: 'Challenge',
+    icon: '⚔️',
+    gradient: 'from-purple-500 to-purple-600',
+    badgeBg: 'bg-purple-100',
+    badgeText: 'text-purple-700',
+    cardBorder: 'border-purple-200',
+    iconBg: 'bg-purple-50',
+  },
+  exploration: {
+    label: 'Exploration',
+    icon: '🧭',
+    gradient: 'from-emerald-500 to-emerald-600',
+    badgeBg: 'bg-emerald-100',
+    badgeText: 'text-emerald-700',
+    cardBorder: 'border-emerald-200',
+    iconBg: 'bg-emerald-50',
+  },
+  mastery: {
+    label: 'Mastery',
+    icon: '👑',
+    gradient: 'from-amber-500 to-amber-600',
+    badgeBg: 'bg-amber-100',
+    badgeText: 'text-amber-700',
+    cardBorder: 'border-amber-200',
+    iconBg: 'bg-amber-50',
+  },
+  hidden: {
+    label: 'Hidden',
+    icon: '🔮',
+    gradient: 'from-surface-500 to-surface-600',
+    badgeBg: 'bg-surface-100',
+    badgeText: 'text-surface-600',
+    cardBorder: 'border-surface-200',
+    iconBg: 'bg-surface-100',
+  },
+};
+
+const categoryOrder: AchievementCategory[] = ['knowledge', 'consistency', 'challenge', 'exploration', 'mastery', 'hidden'];
+
+function ProgressRing({ percent, size = 80, stroke = 6 }: { percent: number; size?: number; stroke?: number }) {
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percent / 100) * circumference;
+
+  return (
+    <svg width={size} height={size} className="transform -rotate-90">
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#E2E8F0"
+        strokeWidth={stroke}
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#F59E0B"
+        strokeWidth={stroke}
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        strokeLinecap="round"
+        className="transition-all duration-700 ease-out"
+      />
+    </svg>
+  );
+}
 
 export default function AchievementsPage() {
   const progress = useProgress();
   const unlockedSet = new Set(progress.achievementsUnlocked);
 
-  const categories: { id: AchievementCategory; label: string; color: string }[] = [
-    { id: 'knowledge', label: 'Knowledge', color: 'text-blue-600 bg-blue-50' },
-    { id: 'consistency', label: 'Consistency', color: 'text-orange-600 bg-orange-50' },
-    { id: 'challenge', label: 'Challenge', color: 'text-purple-600 bg-purple-50' },
-    { id: 'exploration', label: 'Exploration', color: 'text-emerald-600 bg-emerald-50' },
-    { id: 'mastery', label: 'Mastery', color: 'text-amber-600 bg-amber-50' },
-    { id: 'hidden', label: 'Hidden', color: 'text-surface-600 bg-surface-100' },
-  ];
-
   const unlockedCount = achievements.filter(a => unlockedSet.has(a.id)).length;
+  const totalCount = achievements.length;
+  const percent = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
+
+  // Total XP from unlocked achievements
+  const totalAchievementXp = achievements
+    .filter(a => unlockedSet.has(a.id))
+    .reduce((sum, a) => sum + a.xpReward, 0);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-surface-900 flex items-center gap-2 sm:gap-3">
-            <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500 shrink-0" />
-            Achievements
-          </h1>
-          <p className="text-surface-500 mt-1">
-            {`${unlockedCount} of ${achievements.length} unlocked`}
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-2xl sm:text-3xl font-bold text-amber-500">{unlockedCount}</p>
-          <p className="text-xs text-surface-400">/ {achievements.length}</p>
+    <div className="max-w-3xl mx-auto px-4 pb-12 animate-fade-in">
+      {/* Header */}
+      <div className="card p-5 sm:p-6 mb-6">
+        <div className="flex items-center gap-4 sm:gap-6">
+          {/* Progress Ring */}
+          <div className="relative shrink-0">
+            <ProgressRing percent={percent} size={72} stroke={5} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Trophy className="w-6 h-6 text-amber-500" />
+            </div>
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-xl font-bold text-surface-900">Achievements</h1>
+            <p className="text-sm text-surface-500 mt-0.5">
+              {unlockedCount} of {totalCount} unlocked
+            </p>
+            {/* Progress bar */}
+            <div className="progress-bar h-2 mt-2.5">
+              <div
+                className="progress-bar-fill bg-amber-400"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="text-right shrink-0">
+            <p className="text-2xl font-bold text-amber-500">{percent}%</p>
+            <p className="text-xs text-surface-400 mt-0.5 flex items-center justify-end gap-1">
+              <Star className="w-3 h-3" /> {totalAchievementXp.toLocaleString()} XP
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="progress-bar h-3">
-        <div
-          className="progress-bar-fill bg-amber-400"
-          style={{ width: `${(unlockedCount / achievements.length) * 100}%` }}
-        />
-      </div>
-
-      {/* Empty State Encouragement */}
+      {/* Empty State */}
       {unlockedCount === 0 && (
-        <div className="card p-6 text-center border-amber-200 bg-amber-50/50">
+        <div className="card p-6 text-center mb-6" style={{ borderColor: '#FDE68A', background: 'rgba(254, 243, 199, 0.3)' }}>
           <Trophy className="w-10 h-10 text-amber-300 mx-auto mb-3" />
-          <p className="text-surface-600 font-medium mb-1">No achievements unlocked yet</p>
-          <p className="text-sm text-surface-500">Start practicing to earn your first achievement!</p>
+          <p className="text-surface-700 font-medium mb-1">No achievements yet</p>
+          <p className="text-sm text-surface-500 mb-3">Start practicing to earn your first achievement!</p>
+          <Link href="/" className="btn-primary text-sm">
+            Start Practicing <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
       )}
 
-      {/* By category */}
-      {categories.map(cat => {
-        const catAchievements = achievements.filter(a => a.category === cat.id);
-        if (catAchievements.length === 0) return null;
+      {/* Categories */}
+      <div className="space-y-6">
+        {categoryOrder.map(catId => {
+          const config = categoryConfig[catId];
+          const catAchievements = achievements.filter(a => a.category === catId);
+          if (catAchievements.length === 0) return null;
 
-        return (
-          <div key={cat.id}>
-            <h2 className={cn('font-bold text-lg mb-3 flex items-center gap-2', cat.color.split(' ')[0])}>
-              <span className={cn('px-2.5 py-0.5 rounded-full text-sm', cat.color)}>{cat.label}</span>
-              <span className="text-sm font-normal text-surface-400">
-                {catAchievements.filter(a => unlockedSet.has(a.id)).length}/{catAchievements.length}
-              </span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-              {catAchievements.map(achievement => {
-                const unlocked = unlockedSet.has(achievement.id);
-                const isHidden = achievement.category === 'hidden' && !unlocked;
+          const catUnlocked = catAchievements.filter(a => unlockedSet.has(a.id)).length;
+          const catComplete = catUnlocked === catAchievements.length;
 
-                return (
-                  <div
-                    key={achievement.id}
-                    className={cn(
-                      'card p-4 flex items-start gap-3 transition-all duration-200',
-                      unlocked ? 'border-amber-200 bg-amber-50/50' : 'opacity-60'
-                    )}
-                  >
-                    <div className={cn(
-                      'w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0',
-                      unlocked ? 'bg-amber-100' : 'bg-surface-100'
-                    )}>
-                      {isHidden ? <Lock className="w-5 h-5 text-surface-400" /> : achievement.icon}
-                    </div>
-                    <div className="min-w-0">
-                      <p className={cn('font-semibold text-sm', unlocked ? 'text-surface-900' : 'text-surface-500')}>
-                        {isHidden ? '???' : achievement.name}
-                      </p>
-                      <p className="text-xs text-surface-500 mt-0.5">
-                        {isHidden ? 'Keep exploring to discover this achievement' : achievement.description}
-                      </p>
-                      {!isHidden && (
-                        <div className="flex items-center gap-2 mt-2">
-                          <span className="flex items-center gap-1 text-xs text-amber-600">
-                            <Star className="w-3 h-3" /> +{achievement.xpReward} XP
-                          </span>
-                          {unlocked && (
-                            <span className="badge-success text-[10px]">Unlocked</span>
-                          )}
-                        </div>
+          return (
+            <div key={catId}>
+              {/* Category Header */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-base">{config.icon}</span>
+                <span className={cn('text-sm font-bold px-2 py-0.5 rounded-full', config.badgeBg, config.badgeText)}>
+                  {config.label}
+                </span>
+                <span className="text-xs text-surface-400 font-medium">
+                  {catUnlocked}/{catAchievements.length}
+                </span>
+                {catComplete && (
+                  <span className="badge-success text-[10px] ml-auto">Complete!</span>
+                )}
+              </div>
+
+              {/* Achievement Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {catAchievements.map(achievement => {
+                  const unlocked = unlockedSet.has(achievement.id);
+                  const isHidden = achievement.category === 'hidden' && !unlocked;
+
+                  return (
+                    <div
+                      key={achievement.id}
+                      className={cn(
+                        'card p-3.5 flex items-center gap-3 transition-all duration-200',
+                        unlocked
+                          ? cn(config.cardBorder, 'ring-1', config.cardBorder.replace('border-', 'ring-').replace('-200', '-100'))
+                          : 'opacity-50 grayscale'
                       )}
+                    >
+                      {/* Icon */}
+                      <div className={cn(
+                        'w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0',
+                        unlocked ? config.iconBg : 'bg-surface-100'
+                      )}>
+                        {isHidden ? (
+                          <Lock className="w-4.5 h-4.5 text-surface-400" />
+                        ) : (
+                          <span>{achievement.icon}</span>
+                        )}
+                      </div>
+
+                      {/* Text */}
+                      <div className="flex-1 min-w-0">
+                        <p className={cn(
+                          'font-semibold text-sm leading-tight',
+                          unlocked ? 'text-surface-900' : 'text-surface-500'
+                        )}>
+                          {isHidden ? '???' : achievement.name}
+                        </p>
+                        <p className="text-xs text-surface-400 mt-0.5 leading-snug line-clamp-2">
+                          {isHidden ? 'Keep exploring to discover this' : achievement.description}
+                        </p>
+                      </div>
+
+                      {/* Right side: XP or status */}
+                      <div className="shrink-0 text-right">
+                        {unlocked ? (
+                          <span className="text-xs font-semibold text-amber-600 flex items-center gap-0.5">
+                            <Star className="w-3 h-3" />
+                            +{achievement.xpReward}
+                          </span>
+                        ) : !isHidden ? (
+                          <span className="text-[10px] text-surface-400 font-medium">
+                            +{achievement.xpReward} XP
+                          </span>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

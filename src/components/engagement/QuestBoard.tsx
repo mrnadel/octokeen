@@ -69,20 +69,24 @@ export function QuestBoard() {
 
   // Determine displayed daily quests
   const displayDailyQuests = comeback.isInComebackFlow
-    ? comebackQuests.map((def) => ({
-        definitionId: def.id,
-        type: 'daily' as const,
-        title: def.title,
-        description: def.description,
-        icon: def.icon,
-        target: def.target,
-        progress: 0,
-        reward: def.reward,
-        trackingKey: def.trackingKey,
-        filter: def.filter,
-        completed: false,
-        claimed: false,
-      }))
+    ? comebackQuests.map((def, idx) => {
+        // Use actual quest progress from store if available, otherwise default
+        const storeQuest = dailyQuests[idx];
+        return {
+          definitionId: def.id,
+          type: 'daily' as const,
+          title: def.title,
+          description: def.description,
+          icon: def.icon,
+          target: def.target,
+          progress: storeQuest?.progress ?? 0,
+          reward: def.reward,
+          trackingKey: def.trackingKey,
+          filter: def.filter,
+          completed: storeQuest?.completed ?? false,
+          claimed: storeQuest?.claimed ?? false,
+        };
+      })
     : dailyQuests;
 
   return (

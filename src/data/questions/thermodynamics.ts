@@ -8,7 +8,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Laws of Thermodynamics',
     difficulty: 'beginner',
-    question: 'You leave the refrigerator door open in a sealed, insulated kitchen. After several hours, the kitchen temperature will:',
+    question: 'Fridge door left open in a sealed, insulated kitchen. After hours, temperature will:',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <!-- Insulated kitchen boundary -->
       <rect x="20" y="20" width="360" height="260" rx="6" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8,4"/>
@@ -56,10 +56,10 @@ export const thermodynamicsQuestions: Question[] = [
       { id: 'd', text: 'Decrease initially, then increase once the compressor overheats' },
     ],
     correctAnswer: 'c',
-    explanation: 'A refrigerator is a heat pump that moves thermal energy from inside the fridge to the outside (the room) plus the work input from the compressor motor. With the door open, it cools air that immediately re-enters the fridge. Meanwhile, the compressor motor converts electrical energy to heat (Q_out = Q_in + W). The net effect is the work input being added as heat to the room. The room warms up.',
-    interviewInsight: 'This is a classic first-law and second-law reasoning question. It tests whether you understand that a refrigerator is not a cold-generator — it is a heat mover with an energy cost.',
-    realWorldConnection: 'This principle is why data center cooling is such a massive energy cost. Every watt of compute generates heat that must be moved, and the moving itself adds more heat.',
-    commonMistake: 'Thinking the room cools down or stays the same. People forget about the compressor work input, which is always positive and always ends up as heat.',
+    explanation: 'The fridge moves heat from inside to outside plus compressor work (Q_out = Q_in + W). Net effect: compressor work is added as heat to the room. Room warms up.',
+    interviewInsight: 'Tests first-law reasoning: a fridge is a heat mover with an energy cost, not a cold-generator.',
+    realWorldConnection: 'Why data center cooling is a massive energy cost — moving heat adds more heat.',
+    commonMistake: 'Forgetting the compressor work input, which always ends up as heat.',
     tags: ['first-law', 'refrigerator', 'heat-pump', 'COP', 'energy-balance'],
   },
 
@@ -70,7 +70,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Power & Refrigeration Cycles',
     difficulty: 'intermediate',
-    question: 'Rank these power cycles by typical thermal efficiency (highest first) when operating between the same temperature limits:',
+    question: 'Rank by thermal efficiency (highest first), same temperature limits:',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo002-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#94a3b8"/></marker>
@@ -128,10 +128,10 @@ export const thermodynamicsQuestions: Question[] = [
       { id: 'e', text: 'Simple Brayton cycle (single gas turbine)' },
     ],
     correctOrder: ['a', 'b', 'd', 'e', 'c'],
-    explanation: 'Carnot is always the theoretical max (~60-70% for typical limits). Combined cycle plants achieve 55-62% by cascading a gas turbine (Brayton) with a steam turbine (Rankine). The Otto cycle in modern engines reaches 25-35%. A simple Brayton (gas turbine) achieves 25-35%. A simple Rankine cycle typically achieves 30-40%, but when constrained to the same temperature limits as the others, its efficiency is limited by the saturation temperature of water.',
-    interviewInsight: 'Knowing the relative efficiencies of real cycles shows practical knowledge. Interviewers want to see that you understand WHY combined cycle is better — it captures waste heat from one cycle to drive another.',
-    realWorldConnection: 'Combined-cycle gas turbines (CCGT) have revolutionized power generation, achieving efficiencies above 60%. This is why many new power plants use this technology.',
-    commonMistake: 'Putting Carnot last because "it is just theoretical." Also, not realizing that combined cycle can get remarkably close to Carnot efficiency for practical applications.',
+    explanation: 'Carnot is theoretical max. Combined cycle cascades gas + steam turbines for 55-62%. Otto 25-35%, Brayton 25-35%, Rankine 30-40% but limited by water saturation temperature.',
+    interviewInsight: 'Shows practical knowledge of why combined cycle works — captures waste heat from one cycle to drive another.',
+    realWorldConnection: 'CCGT plants achieve >60% efficiency, revolutionizing power generation.',
+    commonMistake: 'Putting Carnot last as "just theoretical." Combined cycle gets remarkably close to Carnot.',
     tags: ['thermal-efficiency', 'carnot', 'rankine', 'otto', 'brayton', 'combined-cycle'],
   },
 
@@ -142,7 +142,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Applied Thermodynamics',
     difficulty: 'intermediate',
-    question: 'A building needs heating in winter. Should you use electric resistance heating or a heat pump?',
+    question: 'Winter heating: electric resistance heater or heat pump?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo003-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
@@ -209,20 +209,27 @@ export const thermodynamicsQuestions: Question[] = [
     preferredAnswer: 'b',
     acceptableAnswer: 'either',
     justification: 'In most climates, a heat pump is far more efficient because it moves existing thermal energy rather than creating it from electricity. The COP advantage means 2.5-4.5x less electricity consumption. However, in extremely cold climates (below -15°C regularly), resistance heating or a dual-fuel system may be more practical.',
-    explanation: 'A heat pump exploits the second law of thermodynamics: it takes low-grade ambient heat and "upgrades" it using work input. The total heat delivered is Q_cold + W, which is always greater than W alone. This is the thermodynamic reason heat pumps can have COP > 1 — they are not creating energy, they are moving it.',
-    interviewInsight: 'This question tests whether you truly understand COP and the second law. The insight that a heat pump delivers more heat than the electricity it consumes is counterintuitive to many people.',
-    commonMistake: 'Saying "nothing can be more than 100% efficient" and therefore doubting COP > 1. COP is not the same as thermodynamic efficiency — it is a ratio of useful heat to work input.',
+    explanation: 'Heat pump moves ambient heat using work input. Total heat = Q_cold + W > W. COP > 1 because it moves energy, not creates it.',
+    interviewInsight: 'Tests understanding of COP and second law. Heat pump delivering more heat than electricity consumed is counterintuitive.',
+    commonMistake: 'Doubting COP > 1. COP is not thermodynamic efficiency — it is useful heat / work input.',
     tags: ['heat-pump', 'COP', 'efficiency', 'HVAC', 'second-law', 'energy'],
   },
 
   // THERMO-004 — Free Text
   {
     id: 'thermo-004',
-    type: 'free-text',
+    type: 'multiple-choice',
     topic: 'thermodynamics',
     subtopic: 'Laws of Thermodynamics',
     difficulty: 'intermediate',
-    question: 'Explain entropy to a non-engineer in 60 seconds. Then explain why it matters for engineering design.',
+    question: 'Which statement best describes why entropy matters for engineering design?',
+    options: [
+      { id: 'a', text: 'Entropy determines the mass flow rate required in any thermodynamic cycle' },
+      { id: 'b', text: 'Entropy sets the theoretical maximum efficiency of heat engines (Carnot limit) — every real process generates entropy, meaning some energy is always unavailable for useful work' },
+      { id: 'c', text: 'Entropy only applies to closed systems and has no practical impact on open engineering systems' },
+      { id: 'd', text: 'Entropy measures the total internal energy of a system and determines its temperature' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Entropy: Energy Dispersal</text>
       <!-- Left: concentrated energy (low entropy) -->
@@ -268,15 +275,7 @@ export const thermodynamicsQuestions: Question[] = [
       <!-- S arrow -->
       <text x="200" y="245" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12">S_universe always increases &#x2192; spontaneous direction</text>
     </svg>`,
-    sampleAnswer: 'For a non-engineer: Entropy measures the "spreading out" of energy. Hot coffee cools down because its concentrated thermal energy spontaneously disperses into the surrounding air. Energy always spreads from concentrated to dispersed — that is the second law. You never see a cold coffee spontaneously get hot by pulling heat from the room, even though the first law (energy conservation) would allow it.\n\nFor engineering: Entropy tells us that every energy conversion wastes something. A car engine cannot convert all fuel energy to motion — some must become waste heat. Entropy sets the theoretical limit on efficiency for any thermal system (Carnot limit). It determines how much useful work we can extract, how to size heat rejection systems, and why perpetual motion machines are impossible.',
-    keyPoints: [
-      'Entropy measures energy dispersal / disorder',
-      'Second law: entropy of an isolated system always increases',
-      'Sets theoretical efficiency limits (Carnot)',
-      'Every real process generates entropy — wasted potential for work',
-      'Determines the direction of spontaneous processes',
-    ],
-    explanation: 'The ability to explain entropy simply is a hallmark of deep understanding. Engineers who can bridge technical concepts to plain language are more effective communicators and leaders.',
+    explanation: 'Entropy measures energy dispersal — not disorder. When you burn fuel, the energy doesn\'t vanish; it spreads into heat across the environment and becomes unavailable for useful work. This is why 100% efficient engines are impossible (Second Law).',
     interviewInsight: 'Communication skills matter as much as technical knowledge. If you can explain entropy clearly, you demonstrate mastery of the concept AND the ability to work with non-technical stakeholders.',
     commonMistake: 'Using the vague "disorder" analogy without connecting it to energy. Also, getting lost in mathematical definitions instead of building intuition first.',
     tags: ['entropy', 'second-law', 'communication', 'fundamentals', 'thermodynamics'],
@@ -289,7 +288,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Properties & State',
     difficulty: 'beginner',
-    question: 'Water boils at 100°C at sea level. On top of Mount Everest (atmospheric pressure ~34 kPa), it boils at roughly:',
+    question: 'At what temperature does water boil on Mount Everest (~34 kPa)?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo005-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#94a3b8"/></marker>
@@ -329,10 +328,10 @@ export const thermodynamicsQuestions: Question[] = [
       { id: 'd', text: '100°C — pressure only affects the freezing point, not the boiling point' },
     ],
     correctAnswer: 'b',
-    explanation: 'Boiling occurs when the vapor pressure of the liquid equals the surrounding pressure. At lower atmospheric pressure, less energy (lower temperature) is needed for the vapor pressure to reach this threshold. At ~34 kPa (Everest summit), water boils at roughly 70°C. This is why pressure cookers work in reverse — high pressure raises the boiling point, cooking food faster.',
-    interviewInsight: 'This tests understanding of phase behavior and the Clausius-Clapeyron relationship. It also connects to practical engineering: vacuum systems, pressure vessels, and boiler design.',
-    realWorldConnection: 'This is why you cannot make a good cup of tea on Everest — the water is not hot enough when it boils. It is also why power plant condensers operate under vacuum, and why cavitation occurs in pumps.',
-    commonMistake: 'Thinking boiling point is a fixed material constant. It depends on pressure — that is the entire basis of the steam tables.',
+    explanation: 'Boiling occurs when vapor pressure equals surrounding pressure. Lower atmospheric pressure = lower boiling temperature. At ~34 kPa, water boils at ~70°C.',
+    interviewInsight: 'Tests phase behavior understanding and Clausius-Clapeyron relationship.',
+    realWorldConnection: 'Why pressure cookers work, power plant condensers use vacuum, and pumps cavitate.',
+    commonMistake: 'Thinking boiling point is fixed. It depends on pressure — the basis of steam tables.',
     tags: ['boiling-point', 'pressure', 'phase-change', 'vapor-pressure', 'altitude'],
   },
 
@@ -343,7 +342,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Applied Thermodynamics',
     difficulty: 'advanced',
-    question: 'Estimate the thermal efficiency of a typical car engine and calculate how much fuel energy is wasted as heat per gallon of gasoline.',
+    question: 'Estimate car engine thermal efficiency and fuel energy wasted as heat per gallon.',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo006-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#34d399"/></marker>
@@ -400,20 +399,20 @@ export const thermodynamicsQuestions: Question[] = [
       'Breakdown: roughly 1/3 exhaust heat, 1/3 coolant heat, 1/3 useful work (with some to friction and accessories)',
       'At 30 mpg and 60 mph, this is about 168 MJ/hr ≈ 47 kW of waste heat — equivalent to 47 space heaters!',
     ],
-    explanation: 'A car engine is fundamentally a heat engine limited by Carnot efficiency. With combustion temperatures around 2000K and exhaust at 800K, Carnot efficiency would be ~60%. Real engines achieve about half that due to irreversibilities, friction, and incomplete combustion.',
-    interviewInsight: 'This question tests order-of-magnitude thinking and thermodynamic intuition. Showing the "equivalent space heaters" calculation demonstrates the ability to make abstract numbers tangible.',
-    commonMistake: 'Overestimating engine efficiency (many people guess 50-60%). Modern gasoline engines are still only 25-35% efficient, which is why electrification is such a game-changer.',
+    explanation: 'Carnot limit ~60% (2000K combustion, 800K exhaust). Real engines achieve ~30% due to irreversibilities, friction, and incomplete combustion.',
+    interviewInsight: 'Tests order-of-magnitude thinking and making abstract numbers tangible.',
+    commonMistake: 'Overestimating efficiency at 50-60%. Modern gasoline engines are only 25-35% efficient.',
     tags: ['efficiency', 'engine', 'waste-heat', 'estimation', 'gasoline', 'automotive'],
   },
 
-  // THERMO-007 — Spot the Flaw
+  // THERMO-007 — Multiple Choice (COP & Energy Conservation)
   {
     id: 'thermo-007',
-    type: 'spot-the-flaw',
+    type: 'multiple-choice',
     topic: 'thermodynamics',
     subtopic: 'Laws of Thermodynamics',
     difficulty: 'intermediate',
-    question: 'Spot the flaw in this claim about air conditioning:',
+    question: 'An air conditioner has a COP of 4 and consumes 1 kW of electrical power. Which statement correctly describes this system?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo007-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#60a5fa"/></marker>
@@ -452,16 +451,16 @@ export const thermodynamicsQuestions: Question[] = [
       <!-- No violation note -->
       <text x="200" y="275" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11" font-style="italic">No energy is created. COP &gt; 1 means heat is MOVED, not created.</text>
     </svg>`,
-    statement: 'An air conditioner with a COP of 4 is 400% efficient, meaning it creates 4 times more cooling energy than the electrical energy it consumes. This violates conservation of energy but is allowed by the second law of thermodynamics.',
-    flaw: {
-      text: 'This violates conservation of energy but is allowed by the second law of thermodynamics.',
-      flawIndex: 2,
-      flawExplanation: 'A COP of 4 does NOT violate conservation of energy. The system absorbs Q_cold from the room and adds work W from the compressor, then rejects Q_hot = Q_cold + W to the outdoors. Energy is perfectly conserved. COP = Q_cold/W = 4 means the device moves 4 units of heat for every 1 unit of work, but it also rejects 5 units total outside. No energy is created.',
-    },
-    correctedStatement: 'An air conditioner with a COP of 4 moves 4 units of thermal energy from the cold space for every 1 unit of electrical work input. This is perfectly consistent with conservation of energy — the total heat rejected to the hot side equals Q_cold + W. COP is not "efficiency" in the thermodynamic sense, and no energy is created.',
-    explanation: 'COP > 1 confuses many people into thinking energy is being created. The key insight is that the heat pump is MOVING existing thermal energy, not creating it. The work input is the "payment" to move heat from cold to hot, which would not happen spontaneously.',
-    interviewInsight: 'This reveals whether you can think clearly about energy balances and distinguish between COP and thermodynamic efficiency. Many practicing engineers get confused by COP > 1.',
-    commonMistake: 'Accepting the "violates conservation" claim or struggling to explain why COP > 1 is legitimate.',
+    options: [
+      { id: 'a', text: 'The system is 400% efficient and creates 4 kW of cooling from 1 kW of electricity, violating conservation of energy' },
+      { id: 'b', text: 'The system moves 4 kW of heat from the cold space using 1 kW of work, and rejects 5 kW total to the hot side — energy is conserved' },
+      { id: 'c', text: 'COP of 4 means only 25% of the input energy is wasted, making this a highly efficient system' },
+      { id: 'd', text: 'The system violates the second law of thermodynamics because it moves heat from cold to hot' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'A COP of 4 does NOT violate conservation of energy. The system absorbs Q_cold = 4 kW from the room and adds W = 1 kW from the compressor, then rejects Q_hot = Q_cold + W = 5 kW to the outdoors. COP > 1 simply means the device moves more heat than the work it consumes — no energy is created. Moving heat from cold to hot requires work input but does not violate any law.',
+    interviewInsight: 'Tests clear thinking about energy balances and COP vs. thermodynamic efficiency.',
+    commonMistake: 'Accepting the "violates conservation" claim. COP is not thermodynamic efficiency — it is useful heat / work input.',
     tags: ['COP', 'first-law', 'second-law', 'air-conditioning', 'energy-conservation'],
   },
 
@@ -472,7 +471,7 @@ export const thermodynamicsQuestions: Question[] = [
     topic: 'thermodynamics',
     subtopic: 'Power & Refrigeration Cycles',
     difficulty: 'advanced',
-    question: 'Which of the following modifications to a simple Rankine cycle will INCREASE its thermal efficiency? (Select all that apply)',
+    question: 'Which modifications to a Rankine cycle INCREASE thermal efficiency? (Select all)',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="thermo008-arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#60a5fa"/></marker>
@@ -537,9 +536,9 @@ export const thermodynamicsQuestions: Question[] = [
       { id: 'e', text: 'Adding a reheat stage between high-pressure and low-pressure turbines' },
     ],
     correctAnswers: ['a', 'c', 'd', 'e'],
-    explanation: 'Raising the average temperature at which heat is added (superheating, higher boiler pressure, reheat) increases efficiency per the Carnot principle. Regeneration (feedwater heater) raises the average temperature of heat addition by using extracted steam to preheat feedwater. Increasing condenser pressure is WRONG — it raises the heat rejection temperature, which DECREASES efficiency. You want the condenser as cold (low pressure) as possible.',
-    interviewInsight: 'This is a standard power engineering interview question. It tests whether you understand the link between the Carnot principle and practical cycle modifications.',
-    commonMistake: 'Selecting option (b) — increasing condenser pressure. Higher rejection temperature hurts efficiency. Students sometimes confuse "higher pressure = better" as a blanket rule.',
+    explanation: 'Higher average heat-addition temperature improves efficiency (superheat, higher boiler P, reheat, regeneration). Increasing condenser pressure DECREASES efficiency by raising rejection temperature.',
+    interviewInsight: 'Tests the link between Carnot principle and practical cycle modifications.',
+    commonMistake: 'Selecting higher condenser pressure. Higher rejection temperature hurts efficiency.',
     tags: ['rankine', 'superheat', 'reheat', 'regeneration', 'boiler-pressure', 'efficiency'],
   },
 ];

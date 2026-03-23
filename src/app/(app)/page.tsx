@@ -7,7 +7,6 @@ import { CourseMap } from '@/components/course/CourseMap';
 import { LessonView } from '@/components/lesson/LessonView';
 import { ResultScreen } from '@/components/lesson/ResultScreen';
 import { LandingPage } from '@/components/landing/LandingPage';
-import { EngagementBar } from '@/components/engagement/EngagementBar';
 import { WelcomeBack } from '@/components/engagement/WelcomeBack';
 import { LeaguePromotion } from '@/components/engagement/LeaguePromotion';
 import { StreakFreeze } from '@/components/engagement/StreakFreeze';
@@ -102,9 +101,6 @@ export default function HomePage() {
 
       {/* Header */}
       <CourseHeader />
-
-      {/* Quick-nav buttons: Quests · League · Skills */}
-      <EngagementBar />
 
       {/* Smart Practice card */}
       <PracticeCard />

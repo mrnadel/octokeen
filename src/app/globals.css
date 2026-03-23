@@ -34,7 +34,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth is set via data-scroll-behavior on <html> for Next.js compat */
   }
 
   body {
@@ -505,4 +505,41 @@
 /* Golden dots on map */
 .golden-dot {
   background: #FFFFFF;
+}
+
+/* ── Question Diagrams — mobile-friendly SVG rendering ── */
+
+/* Make inline SVGs fill their container */
+.diagram-svg svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Boost text legibility on small screens */
+@media (max-width: 640px) {
+  .diagram-svg text {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+  .diagram-svg line,
+  .diagram-svg rect,
+  .diagram-svg circle,
+  .diagram-svg path,
+  .diagram-svg polygon,
+  .diagram-svg polyline,
+  .diagram-svg ellipse {
+    stroke-width: 2.5px;
+  }
+}
+
+/* Expanded/fullscreen diagram */
+.diagram-expanded svg {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+}
+.diagram-expanded text {
+  font-size: 15px !important;
+  font-weight: 700 !important;
 }

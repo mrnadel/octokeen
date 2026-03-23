@@ -8,7 +8,7 @@ export const materialsEngineeringQuestions: Question[] = [
     topic: 'materials-engineering',
     subtopic: 'Material Selection',
     difficulty: 'intermediate',
-    question: 'You need to select a material for a bicycle frame that must be lightweight, stiff, and affordable for mass production. What do you choose?',
+    question: 'Select a material for a mass-produced bicycle frame: lightweight, stiff, affordable.',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Bicycle frame outline -->
       <polygon points="120,200 200,100 280,200 240,200 200,150 160,200" fill="none" stroke="#94a3b8" stroke-width="2"/>
@@ -65,10 +65,10 @@ export const materialsEngineeringQuestions: Question[] = [
     ],
     bestChoice: 'a',
     selectionReasoning: 'For mass production at 50k+ units, 6061-T6 aluminum provides the best balance. Its specific stiffness is competitive with steel and titanium, it is easily TIG welded into frame tubes using hydroformed or butted tubing, and the cost is reasonable at scale. CFRP would be lighter but is 3-5x more expensive and requires more labor-intensive manufacturing. Steel is heavier. Titanium is cost-prohibitive for this volume.',
-    explanation: 'Material selection is always a multi-objective optimization. The "best" material depends on the constraints — change the volume to 100 units (custom bikes) and titanium or CFRP becomes viable. Change the budget to premium and CFRP wins.',
-    interviewInsight: 'Material selection questions test your ability to balance competing requirements. There is no universally correct answer — the interviewer wants to see your reasoning process and awareness of tradeoffs.',
-    realWorldConnection: 'This is why the majority of mid-range bicycles use 6061-T6 aluminum. Only high-end bikes use CFRP, and boutique/custom bikes use titanium or steel.',
-    commonMistake: 'Choosing CFRP because it is the "best" material without considering the cost constraint. Also, not recognizing that specific stiffness (E/ρ) is more relevant than absolute stiffness for a weight-limited application.',
+    explanation: 'Material selection is multi-objective optimization. Change volume to 100 units and Ti/CFRP becomes viable. Change budget to premium and CFRP wins.',
+    interviewInsight: 'No universal answer. Interviewer wants your reasoning process and tradeoff awareness.',
+    realWorldConnection: 'Most mid-range bikes use 6061-T6 aluminum. High-end uses CFRP, boutique uses Ti or steel.',
+    commonMistake: 'Choosing CFRP without considering cost. Specific stiffness (E/ρ) matters more than absolute stiffness.',
     tags: ['material-selection', 'aluminum', 'bicycle', 'specific-stiffness', 'manufacturing'],
   },
 
@@ -79,7 +79,7 @@ export const materialsEngineeringQuestions: Question[] = [
     topic: 'materials-engineering',
     subtopic: 'Metals & Alloys',
     difficulty: 'beginner',
-    question: 'What happens when you heat-treat 1045 carbon steel by quenching it in oil from 850°C?',
+    question: 'What happens when you quench 1045 steel in oil from 850°C?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Temperature axis -->
       <line x1="50" y1="20" x2="50" y2="240" stroke="#94a3b8" stroke-width="1.5"/>
@@ -134,21 +134,29 @@ export const materialsEngineeringQuestions: Question[] = [
       { id: 'd', text: 'It becomes magnetic but does not change mechanical properties' },
     ],
     correctAnswer: 'b',
-    explanation: 'At 850°C, the steel is fully austenitic (FCC crystal structure). Rapid quenching in oil prevents the equilibrium transformation to ferrite + pearlite. Instead, the austenite transforms to martensite (BCT structure) — a very hard, strong, but brittle phase. The carbon atoms are trapped in the distorted lattice, creating internal stress that makes the material hard. Tempering afterward restores some ductility.',
-    interviewInsight: 'Heat treatment is one of the most commonly asked materials topics. Interviewers want to see that you understand the austenite-martensite transformation and its effects on properties.',
-    realWorldConnection: 'This is how tools, springs, and gears are hardened. A blacksmith quenching a blade in oil is performing exactly this transformation. The subsequent tempering step (reheating to 200-600°C) controls the final hardness-toughness balance.',
-    commonMistake: 'Confusing quenching (makes hard/brittle) with annealing (slow cool, makes soft/ductile). Also, not knowing that carbon content determines hardenability — pure iron cannot form martensite.',
+    explanation: 'At 850°C steel is austenitic (FCC). Rapid quenching traps carbon in a distorted lattice, forming martensite (BCT) — hard, strong, brittle. Tempering afterward restores ductility.',
+    interviewInsight: 'Must understand the austenite-martensite transformation and property effects.',
+    realWorldConnection: 'How tools, springs, and gears are hardened. Tempering (200-600°C) controls final hardness-toughness balance.',
+    commonMistake: 'Confusing quenching (hard/brittle) with annealing (soft/ductile).',
     tags: ['heat-treatment', 'martensite', 'quenching', 'steel', 'phase-transformation'],
   },
 
-  // MAT-003 — Scenario
+  // MAT-003 — Multiple Choice
   {
     id: 'mat-003',
-    type: 'scenario',
+    type: 'multiple-choice',
     topic: 'materials-engineering',
     subtopic: 'Corrosion & Degradation',
     difficulty: 'advanced',
-    question: 'You need to join two dissimilar metals in a corrosive marine environment. Walk through your options.',
+    question: 'You need to bolt a stainless steel bracket to an aluminum hull in seawater. What is the biggest risk?',
+    options: [
+      { id: 'a', text: 'Thermal expansion mismatch cracking the joint' },
+      { id: 'b', text: 'Galvanic corrosion accelerating aluminum dissolution' },
+      { id: 'c', text: 'Hydrogen embrittlement of the stainless steel' },
+      { id: 'd', text: 'Fatigue failure from wave vibration' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'When dissimilar metals are electrically coupled in an electrolyte (seawater), galvanic corrosion attacks the more anodic metal — here aluminum. The stainless steel acts as cathode and is protected while the aluminum corrodes rapidly. Insulating bushings or sacrificial anodes mitigate this.',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Stainless steel part (left) -->
       <rect x="30" y="80" width="130" height="60" rx="3" fill="#334155" stroke="#60a5fa" stroke-width="2"/>
@@ -201,23 +209,6 @@ export const materialsEngineeringQuestions: Question[] = [
       <text x="30" y="260" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Mitigations:</text>
       <text x="30" y="275" fill="#34d399" font-family="system-ui, sans-serif" font-size="9">1. Isolate  2. Barrier coat  3. Sacrificial Zn anode  4. Marine sealant</text>
     </svg>`,
-    context: 'A stainless steel fitting must connect to an aluminum structural member on a boat. The joint will be exposed to saltwater spray. It must carry moderate structural loads.',
-    steps: [
-      {
-        prompt: 'What is the primary concern with this joint?',
-        idealResponse: 'Galvanic corrosion. Stainless steel and aluminum are far apart on the galvanic series — stainless steel is noble (cathodic) and aluminum is active (anodic). In saltwater (an excellent electrolyte), the aluminum will corrode preferentially and rapidly at the joint interface.',
-      },
-      {
-        prompt: 'How would you mitigate the galvanic corrosion?',
-        idealResponse: 'Several strategies: (1) Electrically isolate the metals using non-conductive bushings, washers, and sealant at the joint. Nylon or PTFE isolation kits are standard. (2) Apply a barrier coating or sealant (marine epoxy) to prevent electrolyte contact. (3) Use a sacrificial anode (zinc) nearby to protect the aluminum. (4) Consider a transition joint — a bimetallic strip that is friction-welded with aluminum on one side and stainless on the other.',
-      },
-      {
-        prompt: 'Which joining method would you use for the structural connection?',
-        idealResponse: 'Mechanical fastening with isolation is the most practical: stainless steel bolts with nylon insulating sleeves and washers to prevent metal-to-metal contact. Apply a polysulfide or silicone marine sealant in the joint to block water ingress. Avoid welding or brazing dissimilar metals — the intermetallic compounds are brittle, and the thermal cycle creates residual stresses that accelerate corrosion.',
-      },
-    ],
-    keyTakeaway: 'Dissimilar metal joints in corrosive environments require electrical isolation, barrier coatings, or sacrificial protection. The galvanic series and the electrolyte aggressiveness determine the severity.',
-    explanation: 'Galvanic corrosion is one of the most common failure modes in marine, automotive, and aerospace applications where mixed materials are unavoidable. The severity depends on the potential difference between the metals, the electrolyte conductivity, and the cathode-to-anode area ratio.',
     interviewInsight: 'This scenario tests corrosion knowledge AND practical problem-solving. The interviewer wants to see that you can identify the mechanism, quantify the risk (galvanic series), and propose multiple mitigation strategies.',
     commonMistake: 'Not considering galvanic corrosion at all when joining dissimilar metals. Also, suggesting welding — you generally cannot weld aluminum to stainless steel conventionally.',
     tags: ['galvanic-corrosion', 'dissimilar-metals', 'marine', 'isolation', 'joining'],

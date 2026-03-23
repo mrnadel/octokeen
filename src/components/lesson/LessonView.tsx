@@ -23,6 +23,7 @@ export default function LessonView() {
   const exitLesson = useCourseStore((s) => s.exitLesson);
 
   const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [showDebugMenu, setShowDebugMenu] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const [xpGain, setXpGain] = useState(0);
@@ -319,26 +320,84 @@ export default function LessonView() {
 
           {/* Debug: skip to end */}
           {process.env.NODE_ENV === 'development' && (
-            <button
-              onClick={completeLesson}
-              title="Debug: skip lesson"
-              className="flex-shrink-0 transition-transform active:scale-90"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 8,
-                background: '#FEE2E2',
-                border: '1px solid #FECACA',
-                cursor: 'pointer',
-                fontSize: 12,
-                lineHeight: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              ⏭
-            </button>
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => setShowDebugMenu((v) => !v)}
+                title="Debug: skip lesson"
+                className="flex-shrink-0 transition-transform active:scale-90"
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  background: '#FEE2E2',
+                  border: '1px solid #FECACA',
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  lineHeight: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                ⏭
+              </button>
+              {showDebugMenu && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 34,
+                    right: 0,
+                    background: '#FFFFFF',
+                    borderRadius: 12,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                    border: '1px solid #E5E7EB',
+                    padding: 4,
+                    zIndex: 100,
+                    minWidth: 150,
+                  }}
+                >
+                  {[
+                    { label: '✅ Pass (90%)', correct: 9 },
+                    { label: '⚠️ Pass (70%)', correct: 7 },
+                    { label: '❌ Fail (40%)', correct: 4 },
+                    { label: '💎 Flawless', correct: 10 },
+                  ].map(({ label, correct }) => (
+                    <button
+                      key={label}
+                      onClick={() => {
+                        if (!activeLesson) return;
+                        const ids = activeLesson.sessionQuestionIds;
+                        const total = ids.length;
+                        const correctCount = Math.min(correct, total);
+                        // Fill remaining answers to hit target
+                        const alreadyAnswered = activeLesson.answers.length;
+                        for (let i = alreadyAnswered; i < total; i++) {
+                          submitAnswer(ids[i], i < correctCount);
+                        }
+                        setShowDebugMenu(false);
+                        setTimeout(completeLesson, 10);
+                      }}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '8px 12px',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        textAlign: 'left',
+                        background: 'transparent',
+                        border: 'none',
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = '#F3F4F6')}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
 
           <motion.div

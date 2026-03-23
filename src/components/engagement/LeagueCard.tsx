@@ -76,6 +76,7 @@ export function LeagueCard() {
                 avatarInitial={entry.avatarInitial}
                 isUser={isUser}
                 size={24}
+                frameStyle={(entry as { frameStyle?: string }).frameStyle}
               />
               <span
                 className="flex-1 text-xs font-semibold truncate"

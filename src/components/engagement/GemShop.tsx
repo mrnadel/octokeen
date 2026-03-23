@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGems, useEngagementActions, useStreakEnhancements } from '@/store/useEngagementStore';
+import { useGems, useEngagementActions, useStreakEnhancements, useEngagementStore } from '@/store/useEngagementStore';
 import { shopItems } from '@/data/gem-shop';
 import type { ShopItem } from '@/data/engagement-types';
 import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
@@ -32,24 +32,56 @@ interface ShopCardProps {
   isDisabled: boolean;
   disabledReason: string | null;
   isOwned: boolean;
+  isEquipped: boolean;
   onBuy: (itemId: string) => void;
+  onToggleEquip: (itemId: string) => void;
 }
 
-function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, onBuy }: ShopCardProps) {
+const RARITY_COLORS: Record<string, { dot: string; bg: string; text: string }> = {
+  common: { dot: '#9CA3AF', bg: '#F3F4F6', text: '#6B7280' },
+  rare: { dot: '#3B82F6', bg: '#EFF6FF', text: '#2563EB' },
+  epic: { dot: '#A855F7', bg: '#FAF5FF', text: '#7C3AED' },
+  legendary: { dot: '#F59E0B', bg: '#FFFBEB', text: '#B45309' },
+};
+
+function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, isEquipped, onBuy, onToggleEquip }: ShopCardProps) {
+  const isCosmetic = item.type === 'title' || item.type === 'frame';
+  const rarity = item.rarity;
+  const rarityStyle = rarity ? RARITY_COLORS[rarity] : null;
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col gap-3">
+    <div
+      className="bg-white rounded-2xl border shadow-sm p-4 flex flex-col gap-3"
+      style={{
+        borderColor: isEquipped ? (item.type === 'frame' && item.metadata?.frameStyle === 'diamond' ? '#818CF8' : '#F59E0B') : '#F3F4F6',
+        boxShadow: isEquipped ? '0 0 0 1px rgba(245,158,11,0.2)' : undefined,
+      }}
+    >
       {/* Icon + name */}
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center text-2xl">
           {item.icon}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-bold text-gray-800 leading-tight">{item.name}</h3>
+          <div className="flex items-center gap-1.5">
+            <h3 className="text-sm font-bold text-gray-800 leading-tight">{item.name}</h3>
+            {isEquipped && (
+              <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-md uppercase">Active</span>
+            )}
+            {rarityStyle && (
+              <span
+                className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-md leading-none"
+                style={{ background: rarityStyle.bg, color: rarityStyle.text }}
+              >
+                {rarity}
+              </span>
+            )}
+          </div>
           <p className="text-xs text-gray-500 mt-0.5 leading-snug">{item.description}</p>
         </div>
       </div>
 
-      {/* Cost + buy button */}
+      {/* Cost + buy/equip button */}
       <div className="flex items-center justify-between mt-auto">
         <div className="flex items-center gap-1">
           <span className="text-base">💎</span>
@@ -57,28 +89,43 @@ function ShopCard({ item, canAfford, isDisabled, disabledReason, isOwned, onBuy 
         </div>
 
         <div className="relative group">
-          <button
-            onClick={() => !isDisabled && onBuy(item.id)}
-            disabled={isDisabled}
-            className="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all"
-            style={{
-              background: isOwned
-                ? '#F0FDF4'
-                : isDisabled
-                  ? '#F3F4F6'
-                  : '#7C3AED',
-              color: isOwned
-                ? '#16A34A'
-                : isDisabled
-                  ? '#9CA3AF'
-                  : '#FFFFFF',
-              border: 'none',
-              cursor: isDisabled ? 'not-allowed' : 'pointer',
-              boxShadow: isDisabled || isOwned ? 'none' : '0 2px 0 #5B21B6',
-            }}
-          >
-            {isOwned ? 'Owned' : 'Buy'}
-          </button>
+          {isOwned && isCosmetic ? (
+            <button
+              onClick={() => onToggleEquip(item.id)}
+              className="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all"
+              style={{
+                background: isEquipped ? '#FEF3C7' : '#F0FDF4',
+                color: isEquipped ? '#B45309' : '#16A34A',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {isEquipped ? 'Unequip' : 'Equip'}
+            </button>
+          ) : (
+            <button
+              onClick={() => !isDisabled && onBuy(item.id)}
+              disabled={isDisabled}
+              className="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all"
+              style={{
+                background: isOwned
+                  ? '#F0FDF4'
+                  : isDisabled
+                    ? '#F3F4F6'
+                    : '#7C3AED',
+                color: isOwned
+                  ? '#16A34A'
+                  : isDisabled
+                    ? '#9CA3AF'
+                    : '#FFFFFF',
+                border: 'none',
+                cursor: isDisabled ? 'not-allowed' : 'pointer',
+                boxShadow: isDisabled || isOwned ? 'none' : '0 2px 0 #5B21B6',
+              }}
+            >
+              {isOwned ? 'Owned' : 'Buy'}
+            </button>
+          )}
 
           {/* Tooltip for disabled state */}
           {isDisabled && disabledReason && !isOwned && (
@@ -117,21 +164,40 @@ export function GemShop() {
     }
   }
 
+  function handleToggleEquip(itemId: string) {
+    const item = shopItems.find((i) => i.id === itemId);
+    if (!item) return;
+    const { equipTitle, equipFrame } = useEngagementStore.getState();
+    if (item.type === 'title') {
+      const isCurrently = gems.selectedTitle === itemId;
+      equipTitle(isCurrently ? null : itemId);
+      showToast(isCurrently ? `Unequipped ${item.name}` : `Equipped ${item.name}!`);
+    } else if (item.type === 'frame') {
+      const isCurrently = gems.selectedFrame === itemId;
+      equipFrame(isCurrently ? null : itemId);
+      showToast(isCurrently ? `Unequipped ${item.name}` : `Equipped ${item.name}!`);
+    }
+  }
+
   function getItemState(item: ShopItem): {
     isOwned: boolean;
+    isEquipped: boolean;
     isDisabled: boolean;
     disabledReason: string | null;
     canAfford: boolean;
   } {
     const canAfford = gems.balance >= item.cost;
     let isOwned = false;
+    let isEquipped = false;
     let isDisabled = false;
     let disabledReason: string | null = null;
 
     if (item.type === 'title') {
       isOwned = gems.inventory.activeTitles.includes(item.id);
+      isEquipped = gems.selectedTitle === item.id;
     } else if (item.type === 'frame') {
       isOwned = gems.inventory.activeFrames.includes(item.id);
+      isEquipped = gems.selectedFrame === item.id;
     }
 
     if (isOwned) {
@@ -144,26 +210,77 @@ export function GemShop() {
       disabledReason = `Need ${item.cost - gems.balance} more gems`;
     }
 
-    return { isOwned, isDisabled, disabledReason, canAfford };
+    return { isOwned, isEquipped, isDisabled, disabledReason, canAfford };
   }
 
-  return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {shopItems.map((item) => {
-          const { isOwned, isDisabled, disabledReason, canAfford } = getItemState(item);
+  const powerUps = shopItems.filter((i) => i.category === 'power-up');
+  const titles = shopItems.filter((i) => i.type === 'title');
+  const frames = shopItems.filter((i) => i.type === 'frame');
+
+  const legendaryFrames = frames.filter((i) => i.rarity === 'legendary');
+  const epicFrames = frames.filter((i) => i.rarity === 'epic');
+  const rareFrames = frames.filter((i) => i.rarity === 'rare');
+  const commonFrames = frames.filter((i) => i.rarity === 'common');
+
+  function renderGrid(items: ShopItem[]) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {items.map((item) => {
+          const { isOwned, isEquipped, isDisabled, disabledReason, canAfford } = getItemState(item);
           return (
             <ShopCard
               key={item.id}
               item={item}
               isOwned={isOwned}
+              isEquipped={isEquipped}
               isDisabled={isDisabled}
               disabledReason={disabledReason}
               canAfford={canAfford}
               onBuy={handleBuy}
+              onToggleEquip={handleToggleEquip}
             />
           );
         })}
+      </div>
+    );
+  }
+
+  const rarityGroups: { label: string; colorClass: string; items: ShopItem[] }[] = [
+    { label: 'Legendary', colorClass: 'text-amber-500', items: legendaryFrames },
+    { label: 'Epic', colorClass: 'text-purple-500', items: epicFrames },
+    { label: 'Rare', colorClass: 'text-blue-500', items: rareFrames },
+    { label: 'Common', colorClass: 'text-gray-500', items: commonFrames },
+  ];
+
+  return (
+    <div className="space-y-8">
+      {/* Power-ups */}
+      <div>
+        <h3 className="text-sm font-extrabold text-gray-500 uppercase tracking-wider mb-3">Power-ups</h3>
+        {renderGrid(powerUps)}
+      </div>
+
+      {/* Avatar Frames — grouped by rarity */}
+      <div>
+        <h3 className="text-sm font-extrabold text-gray-500 uppercase tracking-wider mb-4">Avatar Frames</h3>
+        <div className="space-y-6">
+          {rarityGroups.map(({ label, colorClass, items }) =>
+            items.length > 0 ? (
+              <div key={label}>
+                <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${colorClass}`}>
+                  {label}
+                </h4>
+                {renderGrid(items)}
+              </div>
+            ) : null,
+          )}
+        </div>
+      </div>
+
+      {/* Titles */}
+      <div>
+        <h3 className="text-sm font-extrabold text-gray-500 uppercase tracking-wider mb-3">Titles</h3>
+        {renderGrid(titles)}
       </div>
 
       {/* Success toasts */}

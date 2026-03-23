@@ -12,18 +12,27 @@ export { ResultScreen };
 export default function ResultScreen() {
   const lessonResult = useCourseStore((s) => s.lessonResult);
   const dismissResult = useCourseStore((s) => s.dismissResult);
+  const startLesson = useCourseStore((s) => s.startLesson);
   const { updateQuestProgress, updateLeagueXp, addGems } = useEngagementActions();
   const engagementTracked = useRef(false);
 
   // Mobile back button dismisses result
   useBackHandler(!!lessonResult, dismissResult);
 
+  const lessonInfo = lessonResult ? getLessonById(lessonResult.lessonId) : null;
+
   useEffect(() => {
     if (!lessonResult) return;
+    const info = lessonInfo;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        dismissResult();
+        if (!lessonResult.passed && info) {
+          dismissResult();
+          startLesson(info.unitIndex, info.lessonIndex);
+        } else {
+          dismissResult();
+        }
       }
     };
     const timer = setTimeout(() => {
@@ -33,34 +42,45 @@ export default function ResultScreen() {
       clearTimeout(timer);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [lessonResult, dismissResult]);
+  }, [lessonResult, dismissResult, startLesson, lessonInfo]);
 
-  // Track engagement metrics when lesson result appears
+  // Track engagement metrics when lesson result appears (only on passing attempts)
   useEffect(() => {
     if (!lessonResult || engagementTracked.current) return;
     engagementTracked.current = true;
 
-    updateQuestProgress('lessons_completed', 1);
+    // Always award XP and league XP (even on failure — multiplier handles reduced amount)
     updateLeagueXp(lessonResult.xpEarned);
     updateQuestProgress('xp_earned', lessonResult.xpEarned);
-    if (lessonResult.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1);
-    if (lessonResult.accuracy === 100 && lessonResult.totalQuestions >= 3) updateQuestProgress('perfect_sessions', 1);
-    if (lessonResult.stars === 3) updateQuestProgress('stars_earned', 1);
-    updateQuestProgress('topics_practiced', 1);
 
-    if (lessonResult.isFirstCompletion && lessonResult.stars === 3) addGems(10, '3_star_first_time');
+    // Quest/achievement progress only on passing attempts
+    if (lessonResult.passed) {
+      updateQuestProgress('lessons_completed', 1);
+      if (lessonResult.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1);
+      if (lessonResult.accuracy === 100 && lessonResult.totalQuestions >= 3) updateQuestProgress('perfect_sessions', 1);
+      if (lessonResult.stars === 3) updateQuestProgress('stars_earned', 1);
+      updateQuestProgress('topics_practiced', 1);
+
+      if (lessonResult.isFirstCompletion && lessonResult.stars === 3) addGems(10, '3_star_first_time');
+    }
   }, [lessonResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!lessonResult) return null;
 
-  const lessonInfo = getLessonById(lessonResult.lessonId);
   const theme = getUnitTheme(lessonInfo?.unitIndex ?? 0);
   const isGolden = lessonResult.isGolden;
 
   const lessonProgress = useCourseStore((s) => s.progress.completedLessons[lessonResult.lessonId]);
   const attempts = lessonProgress?.attempts ?? 1;
 
+  const passed = lessonResult.passed;
+  const isFlawless = lessonResult.isFlawless;
+  const requiredCorrect = Math.ceil(lessonResult.totalQuestions * 0.7);
+
   const getMessage = () => {
+    if (!passed) return 'Keep Practicing!';
+    if (isFlawless && isGolden) return 'Flawless Mastery!';
+    if (isFlawless) return 'Flawless!';
     if (isGolden) return 'Mastered!';
     if (attempts >= 3) return 'Golden Unlocked!';
     if (lessonResult.accuracy >= 90) return 'Perfect Score!';
@@ -68,8 +88,8 @@ export default function ResultScreen() {
     return 'Lesson Complete!';
   };
 
-  const bgColor = isGolden ? '#FFB800' : theme.color;
-  const darkColor = isGolden ? '#996E00' : theme.dark;
+  const bgColor = !passed ? '#8B5E5E' : isFlawless ? '#6D28D9' : isGolden ? '#FFB800' : theme.color;
+  const darkColor = !passed ? '#5C3D3D' : isFlawless ? '#4C1D95' : isGolden ? '#996E00' : theme.dark;
 
   return (
     <AnimatePresence>
@@ -87,6 +107,46 @@ export default function ResultScreen() {
         }}
       >
         <div className="w-full h-full max-w-3xl flex flex-col lg:shadow-lg">
+          {/* Flawless sparkles */}
+          {isFlawless && !isGolden && (
+            <>
+              {[...Array(10)].map((_, i) => (
+                <motion.div
+                  key={`flawless-${i}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0.8, 0],
+                    scale: [0, 1.2, 0.9, 0],
+                    y: [0, -20 - Math.random() * 40, -40 - Math.random() * 30, -70],
+                  }}
+                  transition={{
+                    duration: 2.5 + Math.random() * 1.5,
+                    delay: 0.2 + Math.random() * 0.6,
+                    repeat: Infinity,
+                    repeatDelay: 0.8 + Math.random() * 1.5,
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: `${15 + Math.random() * 50}%`,
+                    left: `${5 + Math.random() * 90}%`,
+                    width: 5 + Math.random() * 5,
+                    height: 5 + Math.random() * 5,
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }}
+                >
+                  <svg viewBox="0 0 10 10" width="100%" height="100%">
+                    <path
+                      d="M5 0L6 4L10 5L6 6L5 10L4 6L0 5L4 4Z"
+                      fill={['#C4B5FD', '#A78BFA', '#818CF8', '#E9D5FF'][i % 4]}
+                      opacity={0.9}
+                    />
+                  </svg>
+                </motion.div>
+              ))}
+            </>
+          )}
+
           {/* Golden sparkles */}
           {isGolden && (
             <>
@@ -149,7 +209,7 @@ export default function ResultScreen() {
                 transition={isGolden ? { duration: 1.2, delay: 0.6, ease: 'easeInOut' } : undefined}
                 style={{ display: 'inline-block' }}
               >
-                {isGolden ? '👑' : lessonResult.stars === 3 ? '👑' : '🏆'}
+                {!passed ? '📚' : isFlawless ? '💎' : isGolden ? '👑' : lessonResult.stars === 3 ? '👑' : '🏆'}
               </motion.span>
             </motion.div>
 
@@ -341,8 +401,44 @@ export default function ResultScreen() {
               </div>
             </motion.div>
 
+            {/* Failure hint */}
+            {!passed && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                style={{
+                  marginTop: 16,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: 'rgba(255,255,255,0.85)',
+                  textAlign: 'center',
+                }}
+              >
+                Need {requiredCorrect}/{lessonResult.totalQuestions} correct to pass
+              </motion.div>
+            )}
+
+            {/* Flawless bonus hint */}
+            {isFlawless && passed && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                style={{
+                  marginTop: 16,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: 'rgba(255,255,255,0.9)',
+                  textAlign: 'center',
+                }}
+              >
+                💎 Flawless! 4x XP bonus
+              </motion.div>
+            )}
+
             {/* Achievement inline — subtle, no extra button */}
-            {(isGolden || (!isGolden && attempts >= 3)) && (
+            {passed && !isFlawless && (isGolden || (!isGolden && attempts >= 3)) && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -360,7 +456,7 @@ export default function ResultScreen() {
             )}
           </div>
 
-          {/* Continue button */}
+          {/* Continue / Try Again button */}
           <motion.div
             style={{
               padding: '16px 24px',
@@ -373,7 +469,14 @@ export default function ResultScreen() {
             transition={{ delay: 0.9 }}
           >
             <button
-              onClick={dismissResult}
+              onClick={() => {
+                if (!passed && lessonInfo) {
+                  dismissResult();
+                  startLesson(lessonInfo.unitIndex, lessonInfo.lessonIndex);
+                } else {
+                  dismissResult();
+                }
+              }}
               className="w-full transition-transform active:scale-[0.98]"
               style={{
                 padding: '16px 0',
@@ -389,7 +492,7 @@ export default function ResultScreen() {
                 cursor: 'pointer',
               }}
             >
-              Continue
+              {passed ? 'Continue' : 'Try Again'}
             </button>
           </motion.div>
         </div>

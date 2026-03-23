@@ -2,18 +2,16 @@
 
 import { useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useCourseStore } from '@/store/useCourseStore';
 import { course } from '@/data/course';
-import { Sparkles, User, LogOut, Shield } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useGems } from '@/store/useEngagementStore';
-import { shopItems, findFrameById, findTitleById } from '@/data/gem-shop';
-import { AvatarFrame } from '@/components/ui/AvatarFrame';
-import type { FrameStyleId } from '@/components/ui/AvatarFrame';
+import { shopItems } from '@/data/gem-shop';
 
-type PopoverType = 'streak' | 'xp' | 'gems' | 'menu' | null;
+type PopoverType = 'streak' | 'xp' | 'gems' | null;
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -35,10 +33,10 @@ function getWeekDays() {
 }
 
 export function CourseHeader() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const progress = useCourseStore((s) => s.progress);
   const [popover, setPopover] = useState<PopoverType>(null);
-  const { tier, isProUser, hasFetched } = useSubscription();
+  const { tier, hasFetched } = useSubscription();
   const gems = useGems();
 
   const headerRef = useRef<HTMLElement>(null);
@@ -46,13 +44,6 @@ export function CourseHeader() {
   const xpBtnRef = useRef<HTMLButtonElement>(null);
   const gemsBtnRef = useRef<HTMLButtonElement>(null);
   const [popoverPos, setPopoverPos] = useState<{ top: number; arrowRight: number; right: number; width: number } | null>(null);
-
-  const userName = session?.user?.name || progress.displayName || 'Engineer';
-  const userImage = session?.user?.image;
-  const initial = userName.charAt(0).toUpperCase();
-
-  const equippedFrameMeta = gems.selectedFrame ? findFrameById(gems.selectedFrame) : null;
-  const equippedFrameStyle = equippedFrameMeta?.frameStyle;
 
   const completedCount = Object.keys(progress.completedLessons).length;
   const totalLessons = course.reduce((s, u) => s + u.lessons.length, 0);
@@ -85,14 +76,6 @@ export function CourseHeader() {
           width: popoverWidth,
           arrowRight: Math.max(24, Math.min(arrowRight, popoverWidth - 24)),
         });
-      } else {
-        // Menu popover: align to right edge of header
-        setPopoverPos({
-          top: headerRect.bottom + 10,
-          right: headerRight,
-          width: popoverWidth,
-          arrowRight: 24,
-        });
       }
     }
     setPopover(type);
@@ -108,54 +91,9 @@ export function CourseHeader() {
       {/* Header */}
       <header
         ref={headerRef}
-        className="sticky top-0 z-30 bg-white px-4 sm:px-5 py-3"
-        style={{ borderBottom: '2px solid #E5E5E5' }}
+        className="sticky top-0 z-30 bg-[#FAFAFA] px-4 sm:px-5 py-3"
       >
-        <div className="flex items-center justify-between">
-          {/* Logo – full text on sm+, compact icon on mobile */}
-          <div className="hidden sm:block" style={{ fontSize: 24, fontWeight: 900, letterSpacing: -0.5 }}>
-            <span style={{ color: '#58CC02' }}>Mech</span>
-            <span style={{ color: '#3C3C3C' }}>Ready</span>
-          </div>
-          <div
-            className="flex sm:hidden items-center justify-center"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, #6BD913 0%, #58CC02 100%)',
-              boxShadow: '0 2px 0 #46A302',
-              flexShrink: 0,
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              {/* Gear shape */}
-              <path
-                d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                fill="white"
-              />
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
-                fill="rgba(255,255,255,0.5)"
-              />
-              {/* Bold M */}
-              <text
-                x="12"
-                y="13.5"
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="white"
-                fontSize="9"
-                fontWeight="900"
-                fontFamily="system-ui, sans-serif"
-              >
-                M
-              </text>
-            </svg>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center" style={{ gap: 8 }}>
+        <div className="flex items-center justify-center" style={{ gap: 8 }}>
             {/* Streak */}
             <button
               ref={streakBtnRef}
@@ -175,7 +113,7 @@ export function CourseHeader() {
               <span>{progress.currentStreak}</span>
             </button>
 
-            {/* XP / Gems */}
+            {/* XP */}
             <button
               ref={xpBtnRef}
               className="flex items-center transition-all active:scale-95"
@@ -234,85 +172,6 @@ export function CourseHeader() {
                 <span>Pro</span>
               </Link>
             )}
-
-            {/* Avatar / Menu */}
-            {status === 'loading' ? (
-              <div
-                className="animate-pulse"
-                style={{ width: 34, height: 34, borderRadius: '50%', background: '#E5E5E5' }}
-              />
-            ) : session ? (
-              <button
-                onClick={() => togglePopover('menu')}
-                className="transition-transform active:scale-95"
-                style={{ flexShrink: 0, position: 'relative' }}
-              >
-                <AvatarFrame
-                  frameStyle={popover === 'menu' ? null : (equippedFrameStyle as FrameStyleId)}
-                  size={38}
-                >
-                  {userImage ? (
-                    <img
-                      src={userImage}
-                      alt={userName}
-                      className="w-full h-full object-cover"
-                      style={{
-                        border: popover === 'menu' ? '2px solid #58CC02' : 'none',
-                      }}
-                    />
-                  ) : (
-                    <div
-                      className="w-full h-full flex items-center justify-center text-white font-extrabold"
-                      style={{
-                        background: 'linear-gradient(135deg, #89E219 0%, #58CC02 100%)',
-                        fontSize: 14,
-                        border: popover === 'menu' ? '2px solid #58CC02' : 'none',
-                      }}
-                    >
-                      {initial}
-                    </div>
-                  )}
-                </AvatarFrame>
-                {hasFetched && isProUser && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: -2,
-                      right: -2,
-                      width: 16,
-                      height: 16,
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #F59E0B, #D97706)',
-                      border: '2px solid white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 0 6px rgba(245, 158, 11, 0.4)',
-                    }}
-                  >
-                    <svg width="8" height="8" viewBox="0 0 24 24" fill="#FFFBEB">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                    </svg>
-                  </div>
-                )}
-              </button>
-            ) : (
-              <Link
-                href="/register"
-                className="transition-transform active:scale-95"
-                style={{
-                  padding: '6px 14px',
-                  borderRadius: 17,
-                  background: '#58CC02',
-                  color: 'white',
-                  fontSize: 13,
-                  fontWeight: 800,
-                }}
-              >
-                Sign Up
-              </Link>
-            )}
-          </div>
         </div>
       </header>
 
@@ -379,148 +238,8 @@ export function CourseHeader() {
               />
 
               {/* Content */}
-              <div style={{ padding: popover === 'menu' ? 8 : 20, position: 'relative' }}>
-                {popover === 'menu' ? (
-                  <div>
-                    {/* User card */}
-                    <div
-                      className="flex items-center"
-                      style={{ gap: 12, padding: '12px 12px 14px', borderBottom: '1.5px solid #F0F0F0' }}
-                    >
-                      {userImage ? (
-                        <img
-                          src={userImage}
-                          alt={userName}
-                          style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', border: '2px solid #E5E5E5', flexShrink: 0 }}
-                        />
-                      ) : (
-                        <div
-                          className="flex items-center justify-center"
-                          style={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #89E219 0%, #58CC02 100%)',
-                            border: '2px solid #E5E5E5',
-                            color: 'white',
-                            fontSize: 16,
-                            fontWeight: 800,
-                            flexShrink: 0,
-                          }}
-                        >
-                          {initial}
-                        </div>
-                      )}
-                      <div style={{ minWidth: 0 }}>
-                        <p style={{ fontSize: 14, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {userName}
-                        </p>
-                        {gems.selectedTitle && (() => {
-                          const titleText = findTitleById(gems.selectedTitle);
-                          return titleText ? (
-                            <p style={{ fontSize: 10, fontWeight: 800, color: '#D97706', marginTop: 1, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                              {titleText}
-                            </p>
-                          ) : null;
-                        })()}
-                        {session?.user?.email && (
-                          <p style={{ fontSize: 11, fontWeight: 600, color: '#AFAFAF', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {session.user.email}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Menu items */}
-                    <div style={{ padding: '4px 0' }}>
-                      <Link
-                        href="/profile"
-                        onClick={closePopover}
-                        className="flex items-center transition-colors hover:bg-gray-50"
-                        style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
-                      >
-                        <div
-                          className="flex items-center justify-center"
-                          style={{
-                            width: 32,
-                            height: 32,
-                            borderRadius: 8,
-                            background: '#F0F0F0',
-                          }}
-                        >
-                          <User style={{ width: 16, height: 16, color: '#777' }} />
-                        </div>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: '#3C3C3C' }}>Profile</span>
-                      </Link>
-
-                      {hasFetched && tier === 'free' && (
-                        <Link
-                          href="/pricing"
-                          onClick={closePopover}
-                          className="flex items-center transition-colors hover:bg-amber-50"
-                          style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
-                        >
-                          <div
-                            className="flex items-center justify-center"
-                            style={{
-                              width: 32,
-                              height: 32,
-                              borderRadius: 8,
-                              background: '#FFF4E0',
-                            }}
-                          >
-                            <Sparkles style={{ width: 16, height: 16, color: '#B56E00' }} />
-                          </div>
-                          <span style={{ fontSize: 14, fontWeight: 700, color: '#B56E00' }}>Upgrade to Pro</span>
-                        </Link>
-                      )}
-
-                      {session?.user?.id === process.env.NEXT_PUBLIC_ADMIN_USER_ID && (
-                        <Link
-                          href="/admin/users"
-                          onClick={closePopover}
-                          className="flex items-center transition-colors hover:bg-indigo-50"
-                          style={{ gap: 12, padding: '10px 12px', borderRadius: 10, textDecoration: 'none' }}
-                        >
-                          <div
-                            className="flex items-center justify-center"
-                            style={{
-                              width: 32,
-                              height: 32,
-                              borderRadius: 8,
-                              background: '#EEF2FF',
-                            }}
-                          >
-                            <Shield style={{ width: 16, height: 16, color: '#4F46E5' }} />
-                          </div>
-                          <span style={{ fontSize: 14, fontWeight: 700, color: '#4F46E5' }}>Admin Panel</span>
-                        </Link>
-                      )}
-                    </div>
-
-                    {/* Divider + Logout */}
-                    <div style={{ borderTop: '1.5px solid #F0F0F0', padding: '4px 0' }}>
-                      <button
-                        onClick={() => signOut({ callbackUrl: '/login' })}
-                        className="flex items-center w-full transition-colors hover:bg-red-50"
-                        style={{ gap: 12, padding: '10px 12px', borderRadius: 10 }}
-                      >
-                        <div
-                          className="flex items-center justify-center"
-                          style={{
-                            width: 32,
-                            height: 32,
-                            borderRadius: 8,
-                            background: '#FEF2F2',
-                          }}
-                        >
-                          <LogOut style={{ width: 16, height: 16, color: '#EF4444' }} />
-                        </div>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: '#EF4444' }}>Log Out</span>
-                      </button>
-                    </div>
-                  </div>
-                ) : popover === 'streak' ? (
+              <div style={{ padding: 20, position: 'relative' }}>
+                {popover === 'streak' ? (
                   <div>
                     {/* Header */}
                     <div className="flex items-center" style={{ gap: 10, marginBottom: 16 }}>

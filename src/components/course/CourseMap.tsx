@@ -42,7 +42,7 @@ export function CourseMap() {
       if (isGuest && unitIndex > 0) return 'locked';
       if (isFreeLocked(unitIndex)) return 'locked';
 
-      if (progress.completedLessons[lessonId]) return 'completed';
+      if (progress.completedLessons[lessonId]?.passed) return 'completed';
       if (isLessonUnlocked(unitIndex, lessonIndex)) return 'current';
       return 'locked';
     },
@@ -50,26 +50,30 @@ export function CourseMap() {
   );
 
   const findActiveUnitIndex = useCallback((): number => {
+    let lastCompletedUnit = 0;
     for (let ui = 0; ui < course.length; ui++) {
       for (let li = 0; li < course[ui].lessons.length; li++) {
-        if (getLessonState(ui, li) === 'current') return ui;
+        if (getLessonState(ui, li) === 'completed') {
+          lastCompletedUnit = ui;
+        }
       }
     }
-    return 0;
+    return lastCompletedUnit;
   }, [getLessonState]);
 
   const activeUnitIndex = findActiveUnitIndex();
 
-  // Find the exact first "current" lesson to scroll to
+  // Find the last completed lesson to scroll to
   const currentLessonId = useMemo(() => {
+    let lastCompletedId: string | null = null;
     for (let ui = 0; ui < course.length; ui++) {
       for (let li = 0; li < course[ui].lessons.length; li++) {
-        if (getLessonState(ui, li) === 'current') {
-          return course[ui].lessons[li].id;
+        if (getLessonState(ui, li) === 'completed') {
+          lastCompletedId = course[ui].lessons[li].id;
         }
       }
     }
-    return null;
+    return lastCompletedId;
   }, [getLessonState]);
 
   // Only the active unit is expanded; everything else collapsed
@@ -138,7 +142,7 @@ export function CourseMap() {
         {course.map((unit, unitIndex) => {
           const theme = getUnitTheme(unitIndex);
           const completedInUnit = unit.lessons.filter(
-            (l) => progress.completedLessons[l.id]
+            (l) => progress.completedLessons[l.id]?.passed
           ).length;
           const isExpanded = expandedUnits.has(unitIndex);
           const isActive = unitIndex === activeUnitIndex;

@@ -206,8 +206,8 @@ describe('getQuestionTypeLabel()', () => {
   it('maps all known types', () => {
     const types: QuestionType[] = [
       'multiple-choice', 'two-choice-tradeoff', 'multi-select', 'ranking',
-      'scenario', 'free-text', 'spot-the-flaw', 'estimation',
-      'explanation', 'confidence-rated', 'what-fails-first',
+      'scenario', 'spot-the-flaw', 'estimation',
+      'confidence-rated', 'what-fails-first',
       'design-decision', 'material-selection',
     ];
     for (const t of types) {
@@ -224,8 +224,8 @@ describe('getQuestionTypeIcon()', () => {
   it('maps all known types to a non-? icon', () => {
     const types: QuestionType[] = [
       'multiple-choice', 'two-choice-tradeoff', 'multi-select', 'ranking',
-      'scenario', 'free-text', 'spot-the-flaw', 'estimation',
-      'explanation', 'confidence-rated', 'what-fails-first',
+      'scenario', 'spot-the-flaw', 'estimation',
+      'confidence-rated', 'what-fails-first',
       'design-decision', 'material-selection',
     ];
     for (const t of types) {

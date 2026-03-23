@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { getPublicProfile, getPublicProgress, getRelationship } from '@/lib/db/friends';
 import { db } from '@/lib/db';
-import { leagueState, masteryEvents } from '@/lib/db/schema';
+import { leagueState, masteryEvents, userProgress } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { topics } from '@/data/topics';
 import { computeAllMastery } from '@/data/mastery';
@@ -28,6 +28,20 @@ export async function GET(
 
   // Get progress
   const progress = await getPublicProgress(targetId);
+
+  // Get accuracy data
+  const [accuracyData] = await db
+    .select({
+      totalQuestionsAttempted: userProgress.totalQuestionsAttempted,
+      totalQuestionsCorrect: userProgress.totalQuestionsCorrect,
+    })
+    .from(userProgress)
+    .where(eq(userProgress.userId, targetId))
+    .limit(1);
+
+  const attempted = accuracyData?.totalQuestionsAttempted ?? 0;
+  const correct = accuracyData?.totalQuestionsCorrect ?? 0;
+  const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
   // Get league tier
   const [league] = await db
@@ -56,6 +70,9 @@ export async function GET(
   const topicMastery = masteryScores.map((m) => ({
     topicId: m.topicId,
     masteryLevel: m.level,
+    score: m.score,
+    eventCount: m.eventCount,
+    lastPracticed: m.lastPracticed,
   }));
 
   // Get relationship (returns both type and requestId if applicable)
@@ -70,6 +87,7 @@ export async function GET(
     totalXp: progress?.totalXp ?? 0,
     currentStreak: progress?.currentStreak ?? 0,
     longestStreak: progress?.longestStreak ?? 0,
+    accuracy,
     leagueTier: league?.tier ?? 1,
     achievements: progress?.achievementsUnlocked ?? [],
     topicMastery,

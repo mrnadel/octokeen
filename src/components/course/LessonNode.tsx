@@ -74,7 +74,7 @@ export function LessonNode({
           : 'rgba(255,255,255,0.85)',
         borderRadius: 16,
         gap: 12,
-        opacity: state === 'locked' ? 0.45 : 1,
+        opacity: state === 'locked' ? 0.7 : 1,
         cursor: state === 'locked' ? 'default' : 'pointer',
         boxShadow:
           state === 'locked'
@@ -93,7 +93,7 @@ export function LessonNode({
       whileHover={state !== 'locked' ? { scale: 1.015, ...((state === 'completed' && golden) ? {} : { backgroundColor: 'rgba(255,255,255,0.95)' }) } : undefined}
       whileTap={state !== 'locked' ? { scale: 0.97, y: 2, boxShadow: (state === 'completed' && golden) ? '0 1px 0 #996E00' : `0 1px 0 ${theme.dark}22, 0 0px 2px rgba(0,0,0,0.04)` } : undefined}
       initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: state === 'locked' ? 0.45 : 1, x: 0 }}
+      animate={{ opacity: state === 'locked' ? 0.7 : 1, x: 0 }}
       transition={{ delay: index * 0.05, duration: 0.25, scale: { duration: 0.1 }, y: { duration: 0.1 }, boxShadow: { duration: 0.1 } }}
       aria-label={
         state === 'completed'

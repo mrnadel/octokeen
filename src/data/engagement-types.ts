@@ -80,6 +80,8 @@ export interface GemsState {
     activeTitles: string[];
     activeFrames: string[];
   };
+  selectedTitle: string | null;   // item ID of equipped title
+  selectedFrame: string | null;   // item ID of equipped frame
 }
 
 // --------------- Shop ---------------
@@ -92,6 +94,7 @@ export interface ShopItem {
   cost: number;
   category: string;
   type: string;
+  rarity?: 'common' | 'rare' | 'epic' | 'legendary';
   metadata?: Record<string, unknown>;
 }
 
@@ -106,6 +109,7 @@ export interface LeagueCompetitor {
   dailyXpRate: number;
   variance: number;
   fakeUserId?: string;
+  frameStyle?: string;
 }
 
 export interface LeagueWeekResult {
@@ -160,6 +164,7 @@ export interface FakeUser {
   activityLevel: number;
   consistency: number;
   lastProgressedWeek: string;
+  frameStyle?: string;
 }
 
 export interface FakeUserPool {

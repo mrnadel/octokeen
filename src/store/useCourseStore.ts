@@ -71,6 +71,8 @@ function getYesterdayString(): string {
   return d.toISOString().split('T')[0];
 }
 
+const PASSING_ACCURACY = 70;
+
 function calculateStars(accuracy: number): number {
   if (accuracy >= 90) return 3;
   if (accuracy >= 70) return 2;
@@ -85,11 +87,14 @@ function getPreviousLessonId(courseData: Unit[], unitIndex: number, lessonIndex:
   if (unitIndex === 0 && lessonIndex === 0) return null;
 
   if (lessonIndex > 0) {
-    return courseData[unitIndex].lessons[lessonIndex - 1].id;
+    const unit = courseData[unitIndex];
+    if (!unit?.lessons) return null;
+    return unit.lessons[lessonIndex - 1]?.id ?? null;
   }
 
   // First lesson of a unit -> last lesson of previous unit
   const prevUnit = courseData[unitIndex - 1];
+  if (!prevUnit?.lessons?.length) return null;
   return prevUnit.lessons[prevUnit.lessons.length - 1].id;
 }
 
@@ -123,8 +128,8 @@ export const useCourseStore = create<CourseState>()(
           // If fewer than 5 unseen, use all questions as comprehensive review
           const pool = unseen.length >= 5 ? unseen : allIds;
           sessionQuestionIds = shuffleArray(pool).slice(0, Math.min(SESSION_SIZE, pool.length));
-        } else if (existing && existing.attempts > 0) {
-          // Retry session (attempt 2 or 3): focus on questions not yet answered correctly
+        } else if (existing && existing.answeredQuestionIds.length > 0) {
+          // Retry session: focus on questions not yet answered correctly
           const correctSet = new Set(existing.correctQuestionIds ?? []);
           const incorrectPool = allIds.filter((id) => !correctSet.has(id));
           // If enough incorrect questions, use those; otherwise pad with all
@@ -202,10 +207,12 @@ export const useCourseStore = create<CourseState>()(
 
         // Check if this is a new best or first completion
         const existingProgress = state.progress.completedLessons[lesson.id];
-        const isFirstCompletion = !existingProgress;
-        const isNewBest = isFirstCompletion || accuracy > existingProgress.bestAccuracy;
+        const passed = accuracy >= PASSING_ACCURACY;
+        const wasPreviouslyPassed = existingProgress?.passed ?? false;
+        const isFirstCompletion = !wasPreviouslyPassed && passed;
+        const isNewBest = !existingProgress || accuracy > existingProgress.bestAccuracy;
 
-        // Merge answered question IDs
+        // Merge answered question IDs (always, even on failure — for retry pool)
         const previousAnswered = existingProgress?.answeredQuestionIds ?? [];
         const mergedAnswered = [...new Set([...previousAnswered, ...sessionQuestionIds])];
 
@@ -214,14 +221,16 @@ export const useCourseStore = create<CourseState>()(
         const newCorrect = answers.filter((a) => a.correct).map((a) => a.questionId);
         const mergedCorrect = [...new Set([...previousCorrect, ...newCorrect])];
 
-        // Stars = attempt count (capped at 3), not accuracy
-        const newAttempts = existingProgress ? existingProgress.attempts + 1 : 1;
+        // Only increment attempts on passing attempts — stars = successful attempt count
+        const prevAttempts = existingProgress?.attempts ?? 0;
+        const newAttempts = passed ? prevAttempts + 1 : prevAttempts;
         const stars = isGolden
           ? 3 // Golden always shows 3 stars
           : Math.min(newAttempts, 3);
 
         // XP based on accuracy performance within this session
-        const accuracyMultiplier = calculateStars(accuracy); // 1-3 based on accuracy
+        const isFlawless = accuracy === 100 && totalQuestions >= 3;
+        const accuracyMultiplier = isFlawless ? 4 : calculateStars(accuracy); // 4x flawless, 1-3 otherwise
         const doubleXpExpiry = useEngagementStore.getState().doubleXpExpiry;
         const isDoubleXp = doubleXpExpiry ? new Date(doubleXpExpiry).getTime() > Date.now() : false;
         const xpEarned = lesson.xpReward * accuracyMultiplier * (isDoubleXp ? 2 : 1);
@@ -232,6 +241,7 @@ export const useCourseStore = create<CourseState>()(
           bestAccuracy: existingProgress ? Math.max(existingProgress.bestAccuracy, accuracy) : accuracy,
           attempts: newAttempts,
           lastAttempted: getTodayString(),
+          passed: passed || wasPreviouslyPassed,
           golden: isGolden ? true : (existingProgress?.golden ?? false),
           answeredQuestionIds: mergedAnswered,
           correctQuestionIds: mergedCorrect,
@@ -280,6 +290,8 @@ export const useCourseStore = create<CourseState>()(
           xpEarned,
           accuracy,
           stars,
+          passed,
+          isFlawless,
           isNewBest,
           isFirstCompletion,
           isGolden,
@@ -291,15 +303,15 @@ export const useCourseStore = create<CourseState>()(
         };
 
         // Detect chapter (unit) completion:
-        // All lessons in this unit must be completed
+        // All lessons in this unit must be passed (>=70% accuracy)
         const allUnitLessonsCompleted = unit.lessons.every(
-          (l) => l.id in newCompletedLessons
+          (l) => newCompletedLessons[l.id]?.passed
         );
 
         // Check if this lesson was the one that completed the chapter
         // (it wasn't completed before, or it just went golden and now all are golden)
         const wasAlreadyAllCompleted = unit.lessons.every(
-          (l) => l.id in state.progress.completedLessons
+          (l) => state.progress.completedLessons[l.id]?.passed
         );
         const allGolden = allUnitLessonsCompleted && unit.lessons.every(
           (l) => newCompletedLessons[l.id]?.golden
@@ -323,7 +335,7 @@ export const useCourseStore = create<CourseState>()(
         if (chapterJustCompleted) {
           const allCourseData = get().courseData;
           courseJustCompleted = allCourseData.every((u) =>
-            u.lessons.every((l) => l.id in newCompletedLessons)
+            u.lessons.every((l) => newCompletedLessons[l.id]?.passed)
           );
         }
 
@@ -427,6 +439,7 @@ export const useCourseStore = create<CourseState>()(
               bestAccuracy: 95,
               attempts: isGolden ? 4 : Math.min(count + 1, 3),
               lastAttempted: today,
+              passed: true,
               golden: isGolden,
               answeredQuestionIds: isGolden
                 ? lesson.questions.map(q => q.id)
@@ -545,11 +558,11 @@ export const useCourseStore = create<CourseState>()(
         if (!prevLessonId) return true;
 
         const { progress } = get();
-        return prevLessonId in progress.completedLessons;
+        return progress.completedLessons[prevLessonId]?.passed === true;
       },
 
       getCompletedCount: () => {
-        return Object.keys(get().progress.completedLessons).length;
+        return Object.values(get().progress.completedLessons).filter(lp => lp.passed).length;
       },
 
       getTotalXp: () => {
@@ -571,6 +584,7 @@ export const useCourseStore = create<CourseState>()(
         for (const [id, lp] of Object.entries(completedLessons)) {
           migratedLessons[id] = {
             ...lp,
+            passed: (lp as any).passed ?? (lp.attempts > 0),
             golden: lp.golden ?? false,
             answeredQuestionIds: lp.answeredQuestionIds ?? [],
             correctQuestionIds: (lp as any).correctQuestionIds ?? [],

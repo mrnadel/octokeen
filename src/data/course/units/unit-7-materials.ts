@@ -200,6 +200,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="44" width="60" height="22" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <g opacity="0.4"> <circle cx="24" cy="36" r="2.5" fill="#3B8700" opacity="0.4"> <animate attributeName="cy" values="20;44" dur="1s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="30" r="2.5" fill="#3B8700" opacity="0.4"> <animate attributeName="cy" values="14;44" dur="1s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="56" cy="34" r="2.5" fill="#3B8700" opacity="0.4"> <animate attributeName="cy" values="18;44" dur="1s" begin="0.6s" repeatCount="indefinite"/> </circle> </g> <path d="M12,44 Q20,42 28,44 Q36,42 44,44 Q52,42 60,44 Q68,42 70,44" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.3"/> <text x="40" y="58" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">compressive</text> <text x="40" y="64" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">residual stress</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">shot peening</text> </svg>',
+
           explanation: "Shot peening introduces compressive residual stresses in a thin surface layer. Since fatigue cracks initiate and grow under tensile stress, the compressive layer suppresses crack initiation at surface defects.",
           hint: "Fatigue cracks start at the surface under tension."
         },
@@ -524,6 +526,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="78" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">%C</text> <text x="7" y="38" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">T</text> <path d="M12,56 Q20,52 28,36 L36,20 Q40,14 44,20 L52,36 Q56,44 62,50 L70,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <text x="34" y="40" text-anchor="middle" font-size="4.5" fill="#58CC02" opacity="0.3" font-style="italic">γ</text> <circle cx="36" cy="20" r="2.5" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <line x1="36" y1="22" x2="36" y2="68" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="36" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">2.14%</text> <text x="20" y="64" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">α+γ</text> <text x="52" y="64" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">γ+Fe₃C</text> </svg>',
+
           explanation: "Austenite (FCC) can dissolve up to 2.14 wt% C at 1147°C. Above 2.14% C, the alloy is classified as cast iron rather than steel. Ferrite (BCC) can only dissolve 0.022 wt% C at 727°C.",
           hint: "This value marks the boundary between steels and cast."
         },
@@ -587,7 +591,7 @@ export const unit7: Unit = {
           question: "Fe-C diagram: alloys above _____ wt% C are cast _____, not steels.",
           blanks: ['2.14', 'iron'],
           wordBank: ['2.14', 'iron', '0.8', 'steel', '4.3', 'bronze'],
-
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="10" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <line x1="10" y1="68" x2="10" y2="8" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="6" y="38" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">T</text> <text x="42" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">wt% C</text> <line x1="36" y1="10" x2="36" y2="68" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/> <text x="36" y="78" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.3">2.14%</text> <text x="22" y="56" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.3" font-style="italic">steels</text> <text x="54" y="56" text-anchor="middle" font-size="4" fill="#A5E86C" opacity="0.3" font-style="italic">cast iron</text> <path d="M12,14 L36,14 L52,36 L70,36" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> </svg>',
           explanation: "The 2.14 wt% C boundary separates steels (<2.14% C) from cast irons (2.14-6.67% C). Cast irons contain enough carbon to form a eutectic reaction at 1147°C, producing lower melting temperatures and excellent castability.",
           hint: "The 2.14% carbon boundary separates two major families of ferrous alloys."
         },
@@ -681,6 +685,8 @@ export const unit7: Unit = {
           question: "Nitriding requires quenching to achieve surface hardness.",
           correctAnswer: false,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="36" width="52" height="28" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="14" y="36" width="52" height="8" rx="0" fill="#3B8700" opacity="0.1"/> <text x="40" y="42" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">N diffusion layer</text> <text x="40" y="54" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">core</text> <g opacity="0.3"> <circle cx="24" cy="28" r="1.5" fill="#58CC02"> <animate attributeName="cy" values="20;36" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="26" r="1.5" fill="#58CC02"> <animate attributeName="cy" values="18;36" dur="2s" begin="0.4s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0" dur="2s" begin="0.4s" repeatCount="indefinite"/> </circle> <circle cx="56" cy="30" r="1.5" fill="#58CC02"> <animate attributeName="cy" values="22;36" dur="2s" begin="0.8s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0" dur="2s" begin="0.8s" repeatCount="indefinite"/> </circle> </g> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">NH₃ gas</text> <text x="40" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">no quench needed</text> </svg>',
+
           explanation: "Nitriding does NOT require quenching. Since no phase transformation is involved, there is minimal distortion.",
           hint: "The hardening mechanism in nitriding is compound formation."
         },
@@ -711,6 +717,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">Jominy distance</text> <text x="7" y="36" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">HRC</text> <path d="M16,14 Q24,16 32,30 Q40,42 52,52 L68,58" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <path d="M16,14 Q28,15 40,18 Q52,24 60,34 L68,42" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/> </path> <text x="70" y="56" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">plain C</text> <text x="70" y="40" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">Cr-Ni</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">hardenability</text> </svg>',
+
           explanation: "Alloying elements (Cr, Ni, Mo, Mn, Si) dissolve in austenite and retard carbon diffusion during cooling, shifting TTT/CCT curves to the right. Chromium is particularly effective per unit cost.",
           hint: "The key benefit is shifting the transformation curves."
         },
@@ -720,6 +728,8 @@ export const unit7: Unit = {
           question: "Austempering is an isothermal heat treatment where steel is quenched to a temperature above Ms (typically 250-400°C) and held to form _____, which provides an excellent combination of strength and toughness.",
           blanks: ['bainite'],
           wordBank: ['bainite', 'martensite', 'pearlite', 'ferrite', 'austenite'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="78" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">log t</text> <text x="7" y="38" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">T</text> <path d="M14,14 L14,20 Q14,22 20,22 L20,60 L70,60" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.4"> <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/> </path> <line x1="12" y1="60" x2="74" y2="60" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.2"/> <text x="44" y="58" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">bainite zone</text> <line x1="12" y1="48" x2="74" y2="48" stroke="#3B8700" stroke-width="0.4" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">Ms</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">austempering</text> </svg>',
 
           explanation: "Austempering involves quenching into a salt bath at 250-400°C and holding until transformation is complete, producing bainite. It is widely used for ductile iron, springs, clips, and fasteners.",
           hint: "This microstructure forms isothermally between the."
@@ -744,6 +754,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Induction hardening can be used to selectively harden specific surface areas of a medium-carbon steel part without affecting the entire component.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="30" y="14" width="20" height="52" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="30" y="14" width="20" height="52" rx="0" fill="#3B8700" opacity="0.06"/> <rect x="32" y="26" width="16" height="16" rx="1" fill="#3B8700" opacity="0.15"/> <path d="M22,28 Q18,28 18,34 Q18,40 22,40" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <path d="M58,28 Q62,28 62,34 Q62,40 58,40" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g opacity="0.25"> <line x1="14" y1="34" x2="30" y2="34" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="1,2"/> <line x1="50" y1="34" x2="66" y2="34" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="1,2"/> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1s" repeatCount="indefinite"/> </g> <text x="40" y="36" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">heated</text> <text x="40" y="58" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">core soft</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">induction coil</text> </svg>',
 
           explanation: "Induction hardening uses electromagnetic induction to rapidly heat a localized surface layer above the austenitizing temperature, followed by immediate quenching (usually water spray). Only the heated layer transforms to martensite; the core remains unaffected.",
           hint: "Induction heating concentrates energy in a thin surface."
@@ -799,6 +811,8 @@ export const unit7: Unit = {
           question: "Normalizing and full annealing both involve heating above the upper critical temperature, but normalizing uses air cooling while full annealing uses slow furnace cooling.",
           correctAnswer: true,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="78" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="7" y="38" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">T</text> <path d="M16,14 Q28,22 40,40 Q48,52 56,62" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M16,14 Q36,28 52,48 Q62,58 70,62" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="2,2"/> <text x="50" y="48" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">normalizing</text> <text x="50" y="54" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">(air cool)</text> <text x="62" y="40" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">annealing</text> <text x="62" y="46" font-size="3" fill="#A5E86C" opacity="0.15" font-style="italic">(furnace)</text> </svg>',
+
           explanation: "Both normalizing and full annealing heat hypoeutectoid steels above A₃ to fully austenitize the steel. The difference is cooling rate: normalizing uses still-air cooling (faster), producing finer pearlite with higher hardness and strength.",
           hint: "Same heating, different cooling rates."
         },
@@ -808,7 +822,7 @@ export const unit7: Unit = {
           question: "The iron-carbon phase diagram shows that the _____ reaction occurs at 4.3 wt% C and 1147°C, where liquid transforms simultaneously into austenite and cementite. This mixture is called _____.",
           blanks: ['eutectic', 'ledeburite'],
           wordBank: ['eutectic', 'ledeburite', 'eutectoid', 'pearlite', 'peritectic', 'cementite'],
-
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="10" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <line x1="10" y1="68" x2="10" y2="8" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="6" y="38" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">T</text> <text x="42" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">wt% C</text> <path d="M12,12 L30,12 L48,34 L70,34" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M12,24 L30,24 L48,34" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0.3"/> <line x1="10" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.25"/> <circle cx="48" cy="34" r="2.5" fill="#58CC02" opacity="0.3" stroke="#3B8700" stroke-width="1"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <text x="48" y="44" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.3" font-style="italic">4.3%C</text> <text x="74" y="32" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">1147°C</text> <text x="40" y="56" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">eutectic → ledeburite</text> </svg>',
           explanation: "Ledeburite is the eutectic mixture of austenite and cementite formed at 4.3% C and 1147°C. The eutectic reaction transforms liquid into two solid phases simultaneously.",
           hint: "This eutectic mixture is named after the German city."
         }
@@ -857,6 +871,8 @@ export const unit7: Unit = {
           question: 'In casting, should the riser solidify before or after the casting?',
           correctAnswer: false,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="34" width="40" height="30" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="50" y="24" width="18" height="40" rx="2" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <path d="M50,40 L50,48" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <g opacity="0.3"> <circle cx="59" cy="36" r="2" fill="#58CC02"> <animate attributeName="opacity" values="0.4;0.15;0.4" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="59" cy="48" r="2" fill="#58CC02"> <animate attributeName="opacity" values="0.35;0.1;0.35" dur="3s" begin="0.5s" repeatCount="indefinite"/> </circle> </g> <text x="30" y="52" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">casting</text> <text x="59" y="18" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">riser</text> <polygon points="48,44 52,42 52,46" fill="#3B8700" opacity="0.25"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </polygon> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">riser feeds shrinkage</text> </svg>',
+
           explanation: 'A riser must solidify AFTER the casting section it feeds. If the riser freezes first, it cannot supply metal to the casting, resulting in shrinkage porosity.',
           hint: 'The function of a riser.',
                 },
@@ -871,6 +887,8 @@ export const unit7: Unit = {
             'No flash is generated, reducing material waste',
           ],
           correctIndex: 1,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,30 L30,30 L30,10 L50,10 L50,30 L70,30" stroke="#3B8700" stroke-width="2" fill="#3B8700" opacity="0.1"/> <path d="M10,50 L30,50 L30,70 L50,70 L50,50 L70,50" stroke="#3B8700" stroke-width="2" fill="#3B8700" opacity="0.1"/> <rect x="30" y="34" width="20" height="12" rx="1" fill="#58CC02" opacity="0.2" stroke="#3B8700" stroke-width="1"/> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="2s" repeatCount="indefinite"/> <path d="M10,30 L30,30 L30,10 L50,10 L50,30 L70,30" stroke="#3B8700" stroke-width="2" fill="#3B8700" opacity="0.1"/> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">closed-die forging</text> <text x="40" y="44" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">billet</text> </svg>',
 
           explanation: 'Closed-die (impression-die) forging confines the workpiece, producing parts with better dimensional accuracy, superior grain flow following the part contour, and excellent mechanical properties. It achieves near-net shape, reducing machining.',
           hint: 'Closed dies control material flow to achieve a specific.'
@@ -887,6 +905,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="30" height="28" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="10" y="32" width="22" height="20" rx="1" fill="#3B8700" opacity="0.08"/> <text x="21" y="46" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">sand</text> <rect x="44" y="28" width="30" height="28" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M50,32 Q54,36 58,32 Q62,36 66,32 L66,52 Q62,48 58,52 Q54,48 50,52 Z" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="0.5"/> <text x="59" y="46" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">investment</text> <text x="21" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">rough</text> <text x="59" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">fine detail</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">casting comparison</text> </svg>',
+
           explanation: 'Investment (lost-wax) casting is the right process here. Sand casting cannot reliably produce 3 mm walls, and its tolerances (±1-2 mm) are well outside the ±0.2 mm requirement.',
           hint: 'Each process\'s capabilities against the three key.'
                 },
@@ -896,6 +916,8 @@ export const unit7: Unit = {
           question: 'Vertical surfaces on the pattern must have a slight taper (typically 1-3°) to allow the pattern to be withdrawn from the sand mold without damaging the cavity. This taper is called the _____ angle.',
           blanks: ['draft'],
           wordBank: ['draft', 'parting', 'relief', 'clearance', 'rake'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="34" width="48" height="30" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M30,34 L28,8 L52,8 L50,34" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="3s" repeatCount="indefinite"/> <path d="M30,34 L28,8 L52,8 L50,34" fill="#A5E86C" opacity="0.08" stroke="#3B8700" stroke-width="1"/> </g> <line x1="54" y1="34" x2="54" y2="8" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.2"/> <path d="M50,34 Q52,20 54,20" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.3"/> <text x="60" y="22" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">draft</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">1–3° taper</text> <polygon points="38,6 40,2 42,6" fill="#3B8700" opacity="0.25"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.5s" repeatCount="indefinite"/> </polygon> </svg>',
 
           explanation: 'Draft angles are essential for pattern withdrawal from the sand mold. Without draft, the pattern would drag against the mold walls during removal, collapsing the cavity.',
           hint: 'This taper prevents the mold cavity from being damaged.'
@@ -927,6 +949,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="2" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/> <rect x="44" y="22" width="28" height="36" rx="2" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/> <rect x="12" y="28" width="20" height="24" rx="1" fill="#58CC02" opacity="0.1"/> <g opacity="0.3"> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5"/> <polygon points="42,38 46,40 42,42" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">injection</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">die cavity</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">die casting</text> </svg>',
+
           explanation: "Die casting injects molten metal at high pressure into reusable steel molds, producing parts with excellent tolerances (±0.05-0.1 mm), smooth surfaces (1-3 μm Ra), and cycle times of 30-90 seconds. Sand casting has lower tooling costs but poorer tolerances (±1-2 mm) and rougher surfaces (12-25 μm Ra).",
           hint: "The precision, speed, and tooling cost between."
         },
@@ -935,6 +959,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Hot tears (hot cracking) in castings occur during solidification when thermal contraction stresses exceed the strength of the partially solidified metal.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="20" width="52" height="36" rx="3" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M40,20 Q38,28 42,34 Q38,40 40,48 Q42,52 40,56" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </path> <g opacity="0.2"> <line x1="30" y1="38" x2="24" y2="38" stroke="#3B8700" stroke-width="0.8"/> <polygon points="26,36.5 22,38 26,39.5" fill="#3B8700"/> <line x1="50" y1="38" x2="56" y2="38" stroke="#3B8700" stroke-width="0.8"/> <polygon points="54,36.5 58,38 54,39.5" fill="#3B8700"/> </g> <text x="40" y="66" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">thermal contraction</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">hot tear</text> </svg>',
 
           explanation: "Hot tears form in the final stages of solidification when a thin film of liquid remains between dendrites. The casting is contracting thermally but is restrained by the mold, cores, or previously solidified sections.",
           hint: "During solidification, the casting wants to shrink but."
@@ -950,6 +976,8 @@ export const unit7: Unit = {
             "Lower ram force",
           ],
           correctIndex: 3,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="26" width="60" height="24" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="14" y="30" width="20" height="16" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="54" y="34" width="14" height="8" rx="1" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <g opacity="0.4"> <line x1="4" y1="38" x2="12" y2="38" stroke="#3B8700" stroke-width="1.5"/> <polygon points="11,36 15,38 11,40" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <polygon points="68,36 76,38 68,40" fill="#58CC02" opacity="0.3"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.5s" repeatCount="indefinite"/> </polygon> <text x="24" y="42" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">ram</text> <text x="62" y="42" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.2" font-style="italic">product</text> <text x="40" y="60" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">die</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">extrusion</text> </svg>',
 
           explanation: "In direct extrusion, the billet slides along the container wall, creating significant friction that adds to the required force. In indirect extrusion, the die moves into the stationary billet.",
           hint: "What relative motion exists between the billet and."
@@ -981,6 +1009,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 0,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,50 L30,50 Q40,50 40,30 L40,20" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M10,50 L30,50 Q42,50 44,32 L46,22" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="2,2"/> <path d="M42,24 Q44,22 46,22" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2"/> <text x="50" y="28" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">springback</text> <line x1="40" y1="18" x2="46" y2="18" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <text x="64" y="50" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">desired</text> <text x="64" y="56" font-size="3.5" fill="#A5E86C" opacity="0.2" font-style="italic">actual</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">overbend to compensate</text> </svg>',
+
           explanation: "When the bending force is removed, the elastic portion of the deformation recovers, causing the bend angle to spring open by 2-10° depending on the material, thickness, bend radius, and ratio of R/t. Higher yield strength and larger R/t ratio produce more springback.",
           hint: "When you bend a sheet and release the force."
         },
@@ -990,6 +1020,8 @@ export const unit7: Unit = {
           question: "The maximum possible reduction per pass is limited by the _____ between the rolls and the workpiece. The maximum draft (reduction in thickness) equals μ² × R, where μ is the coefficient of friction and R is the roll _____.",
           blanks: ['friction', 'radius'],
           wordBank: ['friction', 'radius', 'pressure', 'diameter', 'speed', 'torque'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="26" cy="24" r="16" fill="none" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <circle cx="54" cy="24" r="16" fill="none" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <rect x="16" y="38" width="48" height="8" rx="1" fill="#58CC02" opacity="0.12" stroke="#3B8700" stroke-width="1"/> <g opacity="0.3"> <line x1="4" y1="42" x2="14" y2="42" stroke="#3B8700" stroke-width="1.2"/> <polygon points="13,40 17,42 13,44" fill="#3B8700"/> <line x1="66" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="1.2"/> <polygon points="74,40 78,42 74,44" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <animateTransform attributeName="transform" type="rotate" from="0 26 24" to="360 26 24" dur="3s" repeatCount="indefinite"/> <text x="40" y="58" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">friction grip</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">rolling mill</text> </svg>',
 
           explanation: "The bite condition in rolling requires that the horizontal component of friction force exceeds the horizontal component of the normal force, otherwise the rolls cannot pull the workpiece in. Larger rolls (larger R) and rougher surfaces (larger μ) allow greater reductions per pass.",
           hint: "The formula for maximum draft depends on friction."
@@ -1006,6 +1038,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="16" width="52" height="44" rx="3" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <circle cx="28" cy="30" r="3" fill="none" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <circle cx="44" cy="26" r="2" fill="none" stroke="#3B8700" stroke-width="0.8" opacity="0.25"/> <circle cx="52" cy="38" r="3.5" fill="none" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <circle cx="36" cy="44" r="2.5" fill="none" stroke="#3B8700" stroke-width="0.8" opacity="0.25"/> <circle cx="24" cy="48" r="1.5" fill="none" stroke="#3B8700" stroke-width="0.6" opacity="0.2"/> <circle cx="56" cy="50" r="2" fill="none" stroke="#3B8700" stroke-width="0.6" opacity="0.2"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> <circle cx="28" cy="30" r="3" fill="#A5E86C" opacity="0.2"/> <circle cx="52" cy="38" r="3.5" fill="#A5E86C" opacity="0.2"/> </g> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">gas porosity</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">dissolved gas</text> </svg>',
+
           explanation: "Gas porosity: dissolved gases have much higher solubility in liquid metal than solid. As the metal solidifies, gases come out of solution and form round, smooth-walled bubbles trapped in the solidifying metal.",
           hint: "One is caused by gas bubbles (round)."
         },
@@ -1021,6 +1055,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="20" width="16" height="20" rx="1" fill="#A5E86C" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <text x="12" y="34" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2">wax</text> <rect x="24" y="18" width="16" height="24" rx="1" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <text x="32" y="34" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.2">shell</text> <rect x="44" y="18" width="16" height="24" rx="1" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <text x="52" y="34" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.2">pour</text> <rect x="64" y="20" width="14" height="20" rx="1" fill="#58CC02" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/> <text x="71" y="34" text-anchor="middle" font-size="2.5" fill="#3B8700" opacity="0.2">part</text> <g opacity="0.25"> <line x1="20" y1="30" x2="24" y2="30" stroke="#3B8700" stroke-width="0.8"/> <polygon points="23,29 25,30 23,31" fill="#3B8700"/> <line x1="40" y1="30" x2="44" y2="30" stroke="#3B8700" stroke-width="0.8"/> <polygon points="43,29 45,30 43,31" fill="#3B8700"/> <line x1="60" y1="30" x2="64" y2="30" stroke="#3B8700" stroke-width="0.8"/> <polygon points="63,29 65,30 63,31" fill="#3B8700"/> </g> <text x="40" y="58" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">investment casting</text> <text x="40" y="68" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">wax → shell → pour → part</text> </svg>',
+
           explanation: "Investment casting sequence: (1) Inject wax or plastic patterns using a metal die. (2) Assemble patterns onto a wax tree (sprue).",
           hint: "The \"investment\" is the ceramic shell built around a."
         },
@@ -1029,6 +1065,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Deep drawing is a sheet metal forming process where a flat blank is drawn into a cylindrical cup shape without any change in the blank thickness.",
           correctAnswer: false,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="36" width="48" height="6" rx="1" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1"/> <path d="M24,36 L24,36 Q24,44 28,52 L28,60 L52,60 L52,52 Q56,44 56,36" stroke="#3B8700" stroke-width="1.5" fill="#58CC02" opacity="0.08"> <animate attributeName="d" values="M24,36 L24,36 Q24,36 28,36 L52,36 L52,36 Q56,36 56,36;M24,36 L24,36 Q24,44 28,52 L28,60 L52,60 L52,52 Q56,44 56,36" dur="3s" repeatCount="indefinite"/> </path> <rect x="30" y="14" width="20" height="20" rx="2" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"> <animate attributeName="y" values="14;30;14" dur="3s" repeatCount="indefinite"/> </rect> <text x="40" y="26" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">punch</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">deep drawing</text> </svg>',
 
           explanation: "During deep drawing, thickness changes do occur. The blank thins at the punch nose radius and thickens at the flange. Excessive thinning at the punch radius leads to tearing.",
           hint: "To the material at different locations: the punch nose.",
@@ -1075,6 +1113,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 0,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="20" width="30" height="36" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M38,20 L50,30 L50,46 L38,56" stroke="#3B8700" stroke-width="1.5" fill="#3B8700" opacity="0.08"/> <rect x="50" y="30" width="24" height="16" rx="1" fill="#58CC02" opacity="0.12" stroke="#3B8700" stroke-width="1"/> <g opacity="0.3"> <line x1="2" y1="38" x2="8" y2="38" stroke="#3B8700" stroke-width="1.5"/> <polygon points="7,36 11,38 7,40" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <text x="23" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">A₀</text> <text x="62" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">A_f</text> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">R = A₀/A_f</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">extrusion ratio</text> </svg>',
+
           explanation: "Extrusion ratio R = A_billet/A_extrudate. For aluminum alloys, ratios of 10:1 to 100:1 are common (some reach 400:1 for soft alloys). Higher ratios require greater force and generate more heat.",
           hint: "The extrusion ratio measures how much the cross-section."
         },
@@ -1083,6 +1123,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "In sand casting, cores form internal cavities or holes.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="20" width="60" height="36" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <ellipse cx="40" cy="38" rx="14" ry="10" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5" stroke-dasharray="2,2"/> <text x="40" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">core</text> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">mold</text> <g opacity="0.2"> <line x1="10" y1="36" x2="26" y2="36" stroke="#58CC02" stroke-width="0.8"/> <line x1="54" y1="36" x2="70" y2="36" stroke="#58CC02" stroke-width="0.8"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">internal cavity</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">core prints support</text> </svg>',
 
           explanation: "Cores are pre-formed shapes placed inside the mold cavity to create internal features that cannot be formed by the pattern alone. Cores must have adequate strength to resist metal pressure, sufficient permeability to allow gas escape, and enough collapsibility to break down as the casting cools and contracts.",
           hint: "how you would create a hollow cylinder by casting.",
@@ -1099,6 +1141,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="18" width="52" height="36" rx="3" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <rect x="20" y="24" width="40" height="24" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <text x="40" y="38" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">Zn part</text> <g opacity="0.3"> <line x1="4" y1="36" x2="14" y2="36" stroke="#3B8700" stroke-width="1.2"/> <polygon points="12,34 16,36 12,38" fill="#3B8700"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.5s" repeatCount="indefinite"/> </g> <text x="40" y="62" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">low melt point</text> <text x="40" y="70" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">thin walls, fine detail</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">high volume</text> </svg>',
+
           explanation: "Zinc alloys (Zamak 3, 5, 7) melt at ~385°C vs. ~660°C for aluminum, causing much less thermal fatigue in the die — zinc dies last 500k-2M shots vs. 50k-200k for aluminum.",
           hint: "The melting temperatures and what that means for die."
         },
@@ -1113,6 +1157,8 @@ export const unit7: Unit = {
             "Barreling results from the elastic springback of the billet after forging",
           ],
           correctIndex: 1,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="24" y="8" width="32" height="8" rx="1" fill="#3B8700" opacity="0.15" stroke="#3B8700" stroke-width="1.5"/> <rect x="24" y="60" width="32" height="8" rx="1" fill="#3B8700" opacity="0.15" stroke="#3B8700" stroke-width="1.5"/> <path d="M30,16 Q24,38 30,60 L50,60 Q56,38 50,16 Z" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <g opacity="0.3"> <polygon points="38,4 40,0 42,4" fill="#3B8700"/> <polygon points="38,72 40,76 42,72" fill="#3B8700"/> <line x1="40" y1="0" x2="40" y2="8" stroke="#3B8700" stroke-width="1"/> <line x1="40" y1="68" x2="40" y2="76" stroke="#3B8700" stroke-width="1"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <text x="62" y="40" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">barrel</text> <text x="18" y="40" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">friction</text> </svg>',
 
           explanation: "During upsetting, friction at the die-billet interface restricts lateral expansion at the top and bottom faces, creating a \"dead zone\" of minimal deformation. The mid-height, free of friction, flows outward more, producing the barrel shape.",
           hint: "Where is friction highest in an upsetting operation."
@@ -1148,6 +1194,8 @@ export const unit7: Unit = {
           question: "Wire drawing is compressive because the die squeezes the wire.",
           correctAnswer: false,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M30,28 L40,36 L40,44 L30,52" stroke="#3B8700" stroke-width="2" fill="#3B8700" opacity="0.1"/> <rect x="6" y="32" width="24" height="16" rx="1" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="40" y="36" width="30" height="8" rx="1" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="1"/> <g opacity="0.4"> <line x1="70" y1="40" x2="78" y2="40" stroke="#3B8700" stroke-width="1.5"/> <polygon points="76,38 80,40 76,42" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <text x="76" y="36" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">F</text> <text x="35" y="42" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">die</text> <text x="40" y="64" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">tensile pull</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">wire drawing</text> </svg>',
+
           explanation: "Although the deformation zone inside the die involves compressive stresses, wire drawing is classified as a TENSILE forming process because the pulling force (drawing force) on the exit side is what drives the wire through the die. The bulk stress state in the workpiece is tensile.",
           hint: "What drives the wire through the die."
         },
@@ -1178,6 +1226,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="32" width="72" height="6" rx="0" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="8" y="14" width="14" height="16" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="28" y="14" width="14" height="16" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="48" y="14" width="14" height="16" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <g opacity="0.3"> <polygon points="14,10 15,6 16,10" fill="#3B8700"/> <polygon points="34,10 35,6 36,10" fill="#3B8700"/> <polygon points="54,10 55,6 56,10" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1s" repeatCount="indefinite"/> </g> <line x1="4" y1="38" x2="76" y2="38" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="74,36 78,38 74,40" fill="#3B8700" opacity="0.2"/> <text x="15" y="52" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2">Stn 1</text> <text x="35" y="52" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2">Stn 2</text> <text x="55" y="52" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2">Stn 3</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">progressive die</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">strip advances</text> </svg>',
+
           explanation: "Progressive dies combine multiple operations in sequential stations within a single die set. The sheet metal strip feeds forward by a precise pitch distance with each press stroke.",
           hint: "Multiple operations happen in sequence as the strip."
         },
@@ -1193,6 +1243,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="24" cy="36" r="16" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <circle cx="24" cy="36" r="8" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <circle cx="58" cy="36" r="16" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"> <animate attributeName="r" values="18;16;16" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="58" cy="36" r="8" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <text x="24" y="62" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">press fit</text> <text x="58" y="62" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">shrink fit</text> <text x="24" y="70" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">force</text> <text x="58" y="70" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">heat+cool</text> </svg>',
+
           explanation: "Both produce an interference fit where the shaft is slightly larger than the hole. Press fit: the parts are forced together at ambient temperature.",
           hint: "One uses force, the other uses temperature change."
         },
@@ -1201,6 +1253,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "In metal forming, flow stress increases with temperature.",
           correctAnswer: false,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <text x="7" y="36" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">σ</text> <path d="M16,18 Q28,20 40,22 Q56,24 68,26" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M16,34 Q28,38 40,40 Q56,42 68,44" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <text x="72" y="24" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">cold</text> <text x="72" y="42" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">hot</text> <text x="40" y="58" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">flow stress ↓ with T ↑</text> </svg>',
 
           explanation: "Flow stress DECREASES with increasing temperature. Higher temperature provides more thermal energy for dislocation movement and activates diffusion-based recovery mechanisms, reducing the resistance to plastic deformation.",
           hint: "why we heat metals before forging them.",
@@ -1211,6 +1265,8 @@ export const unit7: Unit = {
           question: "In forging, excess material between die halves at the _____ line is called _____.",
           blanks: ['parting', 'flash'],
           wordBank: ['parting', 'flash', 'shear', 'burr', 'trim', 'draft'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,38 L30,38 Q40,38 40,24 L40,18" stroke="#3B8700" stroke-width="1.5" fill="#3B8700" opacity="0.08"/> <path d="M10,42 L30,42 Q40,42 40,56 L40,62" stroke="#3B8700" stroke-width="1.5" fill="#3B8700" opacity="0.08"/> <rect x="30" y="28" width="30" height="24" rx="2" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <line x1="26" y1="40" x2="64" y2="40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/> <rect x="60" y="36" width="14" height="8" rx="0" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <text x="67" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">flash</text> <text x="20" y="36" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">parting</text> <text x="20" y="46" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">line</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">forging flash</text> </svg>',
 
           explanation: "Flash is the thin fin of excess metal forced out between the die halves in closed-die (impression-die) forging at the parting line. The flash land creates high resistance to flow, forcing metal to fill the die cavity completely before escaping.",
           hint: "This thin fin of excess material around the parting."
@@ -1369,6 +1425,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M14,50 L40,50 L40,20 L60,20" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M40,50 L40,20" stroke="#3B8700" stroke-width="2.5"/> <path d="M36,26 Q38,30 40,30" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <path d="M40,44 Q44,44 44,46" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <text x="30" y="24" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">crater</text> <text x="50" y="50" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">flank</text> <circle cx="40" cy="35" r="2" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="1.5s" repeatCount="indefinite"/> </circle> <text x="48" y="36" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">nose</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">tool wear zones</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">flank wear preferred</text> </svg>',
+
           explanation: "The three primary wear modes: (1) Flank wear — abrasion on the relief face from rubbing against the machined surface. Progressive and predictable — used as the standard tool life criterion.",
           hint: "One wear mode progresses gradually and predictably."
         },
@@ -1409,6 +1467,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="34" r="18" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <circle cx="40" cy="34" r="2" fill="#3B8700" opacity="0.3"/> <line x1="40" y1="34" x2="58" y2="34" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <text x="50" y="32" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">D</text> <g> <line x1="40" y1="16" x2="44" y2="14" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" from="0 40 34" to="360 40 34" dur="2s" repeatCount="indefinite"/> </g> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">N = 1000V/(πD)</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">V = 25 m/min</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">D = 20 mm</text> </svg>',
+
           explanation: "N = 1000V/(πD) = 1000 × 25/(π × 20) = 25000/62.83 = 397.9 ≈ 398 RPM. For drilling, the cutting speed is at the outer diameter of the drill.",
           hint: "N = 1000V/(πD) where V is in m/min and D is in mm."
         },
@@ -1448,6 +1508,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="32" y="8" width="16" height="40" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <rect x="36" y="48" width="8" height="8" rx="0" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1"/> <rect x="10" y="58" width="60" height="10" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <line x1="62" y1="8" x2="62" y2="56" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.2"/> <polygon points="60,8 64,8 62,5" fill="#3B8700" opacity="0.2"/> <polygon points="60,56 64,56 62,59" fill="#3B8700" opacity="0.2"/> <text x="68" y="34" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">H</text> <text x="40" y="30" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">tool</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">G43 offset</text> </svg>',
+
           explanation: "Each tool in the magazine has a different length. Without compensation, the programmer would need to calculate Z positions for each specific tool.",
           hint: "Different tools have different lengths."
         },
@@ -1486,6 +1548,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "In CNC milling, cutter radius compensation (G41/G42) allows the programmer to program the actual part contour",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M16,20 L60,20 L60,56 L16,56 Z" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <path d="M12,20 L64,20 L64,56 L12,56 Z" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2" stroke-dasharray="2,2"/> <circle cx="40" cy="20" r="4" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="1"> <animate attributeName="cx" values="20;60;60;20;20" dur="4s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20;56;56;20" dur="4s" repeatCount="indefinite"/> </circle> <text x="40" y="40" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">part</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">G41/G42</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">cutter comp</text> </svg>',
 
           explanation: "Without cutter compensation, the programmer must calculate an offset path that keeps the tool center the correct distance from the part wall. G41 (left compensation) and G42 (right compensation) allow programming the actual part geometry; the CNC controller shifts the tool path outward by the cutter radius stored in the D offset register.",
           hint: "The programmer programs the part shape."
@@ -1527,6 +1591,8 @@ export const unit7: Unit = {
           blanks: ['cut'],
           wordBank: ['cut', 'pass', 'bore', 'thread', 'groove'],
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="20" y="22" width="44" height="32" rx="10" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <g> <animateTransform attributeName="transform" type="rotate" from="0 42 38" to="360 42 38" dur="2s" repeatCount="indefinite"/> <line x1="42" y1="22" x2="42" y2="26" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> </g> <path d="M64,34 L70,30 L70,46 L64,42" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1"/> <line x1="64" y1="38" x2="56" y2="38" stroke="#A5E86C" stroke-width="0.8" opacity="0.2"/> <polygon points="58,37 54,38 58,39" fill="#A5E86C" opacity="0.2"/> <text x="42" y="60" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">MRR = V·f·d</text> <text x="42" y="70" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">V=speed f=feed</text> <text x="42" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">d=depth of cut</text> </svg>',
+
           explanation: "MRR = V × f × d (mm³/min) where V = cutting speed (mm/min), f = feed per revolution (mm/rev), d = depth of cut (mm). For unit consistency, V = πDN (mm/min).",
           hint: "This is the radial engagement of the tool."
         },
@@ -1550,6 +1616,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Electrical discharge machining (EDM) can only machine electrically conductive materials because it relies on spark erosion between the tool electrode and the workpiece.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="30" y="8" width="20" height="24" rx="1" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/> <rect x="24" y="44" width="32" height="22" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <g opacity="0.4"> <line x1="36" y1="32" x2="34" y2="44" stroke="#A5E86C" stroke-width="1" stroke-linecap="round"/> <line x1="40" y1="32" x2="40" y2="44" stroke="#A5E86C" stroke-width="1.2" stroke-linecap="round"/> <line x1="44" y1="32" x2="46" y2="44" stroke="#A5E86C" stroke-width="1" stroke-linecap="round"/> <animate attributeName="opacity" values="0.1;0.5;0.1" dur="0.8s" repeatCount="indefinite"/> </g> <text x="40" y="22" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">electrode</text> <text x="40" y="58" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">workpiece</text> <text x="40" y="38" text-anchor="middle" font-size="3" fill="#A5E86C" opacity="0.2" font-style="italic">spark</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">EDM (conductive)</text> </svg>',
 
           explanation: "EDM uses electrical sparks (discharges) between a tool electrode and the workpiece, submerged in dielectric fluid. Each spark melts and vaporizes a tiny amount of workpiece material.",
           hint: "The process requires an electrical circuit through the."
@@ -1596,6 +1664,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M14,50 L40,50 L40,20 L60,20" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M40,24 Q36,28 38,32 Q40,34 42,30" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <path d="M42,20 Q46,18 48,22 Q46,26 42,24 Q40,28 38,32" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/> </path> <text x="54" y="16" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">chip curls</text> <text x="54" y="22" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">&amp; breaks</text> <rect x="10" y="50" width="60" height="8" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">chip breaker</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">controls chip form</text> </svg>',
+
           explanation: "Long, continuous chips are dangerous and problematic. Chip breakers are grooves or obstacles molded into the insert rake face that curl and break chips into short, manageable segments.",
           hint: "Continuous chips are dangerous and difficult to manage."
         },
@@ -1639,6 +1709,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="50" width="52" height="8" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <rect x="20" y="42" width="40" height="8" rx="0" fill="#3B8700" opacity="0.06"/> <line x1="38" y1="10" x2="30" y2="42" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <line x1="42" y1="10" x2="50" y2="42" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <circle cx="40" cy="10" r="3" fill="#58CC02" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="1s" repeatCount="indefinite"/> </circle> <line x1="20" y1="42" x2="60" y2="42" stroke="#3B8700" stroke-width="1" opacity="0.3"> <animate attributeName="y1" values="42;42;34;34" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="42;42;34;34" dur="4s" repeatCount="indefinite"/> </line> <text x="40" y="8" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">laser</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">SLM / DMLS</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">layer by layer</text> </svg>',
+
           explanation: 'The decision is multifaceted. Material savings are significant for titanium ($50-$100/kg), but DMLS build rates are slow, and the part needs extensive post-processing: stress relief heat treatment, support structure removal, hot isostatic pressing (HIP) to close internal voids, and surface finishing of functional features.',
           hint: 'Material cost savings alone do not justify the switch.'
                 },
@@ -1654,6 +1726,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="34" width="52" height="30" rx="2" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M28,34 L26,10 L54,10 L52,34" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6;0,0" dur="3s" repeatCount="indefinite"/> <path d="M28,34 L26,10 L54,10 L52,34" fill="#A5E86C" opacity="0.06" stroke="#3B8700" stroke-width="1"/> </g> <line x1="56" y1="10" x2="56" y2="34" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.2"/> <text x="62" y="24" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">draft</text> <text x="40" y="52" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">mold</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">ejection ease</text> </svg>',
+
           explanation: 'Draft angles prevent the part from gripping the mold core as the plastic shrinks during cooling. Without draft, ejection requires excessive force, causing part deformation, surface scratching, or even breakage.',
           hint: 'When a cooled plastic part shrinks onto the mold core.',
                 },
@@ -1662,6 +1736,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: 'The minimum recommended inside bend radius for most ductile metals is equal to the material thickness (1T bend radius).',
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,50 L30,50 Q40,50 40,30 L40,16" stroke="#3B8700" stroke-width="2.5" fill="none" opacity="0.4"/> <line x1="40" y1="50" x2="40" y2="30" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.2"/> <line x1="40" y1="38" x2="30" y2="50" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <text x="30" y="40" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">R</text> <text x="48" y="50" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">t</text> <line x1="44" y1="46" x2="44" y2="54" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">R ≥ 1t</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">min bend radius</text> </svg>',
 
           explanation: 'For most ductile sheet metals, a minimum inside bend radius of 1T is a safe general rule that prevents cracking on the outer surface. Harder or less ductile materials may require 2T–4T or more.',
           hint: 'This is a standard DFM guideline.'
@@ -1678,6 +1754,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="14" width="52" height="40" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M26,14 L26,38" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <path d="M28,14 L28,38" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <circle cx="26" cy="38" r="0" fill="none" stroke="#3B8700" stroke-width="0.5" opacity="0.3"/> <circle cx="50" cy="30" r="4" fill="none" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <line x1="50" y1="14" x2="50" y2="54" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.2"/> <g opacity="0.3"> <line x1="22" y1="40" x2="18" y2="44" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="18" y1="40" x2="22" y2="44" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> </g> <text x="26" y="50" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">sharp</text> <text x="26" y="56" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">corner</text> <text x="50" y="60" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">narrow slot</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">DFM issues</text> </svg>',
+
           explanation: 'This is a classic DFM review scenario. Sharp internal corners cause stress concentrations in both the molded part (cracking, warping) and the mold.',
           hint: 'what features create problems for the mold.',
                 },
@@ -1692,6 +1770,8 @@ export const unit7: Unit = {
             'Escalate to management — tolerance disputes need higher-level resolution',
           ],
           correctIndex: 2,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="34" r="16" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <circle cx="40" cy="34" r="10" fill="none" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/> <line x1="40" y1="34" x2="50" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.3"/> <text x="46" y="32" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">±0.01</text> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">non-critical bore</text> <text x="40" y="70" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">over-toleranced</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">cost ↑</text> </svg>',
 
           explanation: 'This is a common DFM scenario. Many tight tolerances result from over-specification rather than functional need." The engineering approach is collaborative: ask what function or fit drives the requirement.',
           hint: 'The best approach combines technical inquiry (what.'
@@ -1718,6 +1798,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 0,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="16" width="32" height="44" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="44" y="16" width="32" height="44" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="8" y="40" width="24" height="4" rx="0" fill="#3B8700" opacity="0.1"/> <line x1="14" y1="30" x2="28" y2="40" stroke="#A5E86C" stroke-width="1" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1s" repeatCount="indefinite"/> </line> <rect x="48" y="36" width="24" height="8" rx="0" fill="#3B8700" opacity="0.08"/> <circle cx="60" cy="30" r="2" fill="#A5E86C" opacity="0.3"> <animate attributeName="cx" values="52;68" dur="2s" repeatCount="indefinite"/> </circle> <text x="20" y="14" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-weight="bold">SLA</text> <text x="60" y="14" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-weight="bold">SLS</text> <text x="20" y="68" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">liquid resin</text> <text x="60" y="68" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">powder bed</text> </svg>',
+
           explanation: "SLA: a UV laser selectively cures (polymerizes) layers of liquid photopolymer resin. Excellent resolution (25-50 μm layers) and smooth surfaces, but parts require support structures for overhangs, and post-curing under UV light.",
           hint: "One process works in a vat of liquid."
         },
@@ -1733,6 +1815,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="20" y="20" width="40" height="40" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <line x1="20" y1="28" x2="60" y2="28" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="20" y1="36" x2="60" y2="36" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="20" y1="44" x2="60" y2="44" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="20" y1="52" x2="60" y2="52" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="68" y1="56" x2="68" y2="24" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <polygon points="66,24 70,24 68,20" fill="#3B8700" opacity="0.3"/> <text x="72" y="42" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">Z</text> <line x1="24" y1="64" x2="56" y2="64" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <polygon points="56,62 56,66 60,64" fill="#3B8700" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">X-Y</text> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">layers = weak Z</text> </svg>',
+
           explanation: "FDM builds parts layer by layer. Within each layer, the filament is continuous and relatively strong.",
           hint: "FDM parts are built by stacking fused layers."
         },
@@ -1741,6 +1825,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Increasing the wall thickness uniformly throughout a part generally reduces cycle time because the thicker walls cool more uniformly.",
           correctAnswer: false,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="20" width="24" height="36" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="14" y="24" width="16" height="28" rx="1" fill="#3B8700" opacity="0.06"/> <rect x="46" y="20" width="24" height="36" rx="2" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <rect x="48" y="22" width="20" height="32" rx="1" fill="#3B8700" opacity="0.1"/> <text x="22" y="42" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">thin</text> <text x="58" y="42" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">thick</text> <text x="22" y="66" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.25" font-style="italic">fast cool</text> <text x="58" y="66" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">slow cool</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">thicker = longer cycle</text> </svg>',
 
           explanation: "Thicker walls INCREASE cycle time because cooling time increases approximately with the square of wall thickness (t_cool ∝ s²). Doubling wall thickness roughly quadruples the cooling time, which is typically the longest phase of the injection cycle.5-3 mm for most polymers), (2) uniform walls to prevent differential cooling, and (3) coring out thick sections.",
           hint: "Cooling time is proportional to the square of wall."
@@ -1757,6 +1843,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M20,60 L20,52 L28,52 L28,44 L36,44 L36,36 L44,36 L44,28 L52,28 L52,20 L60,20" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M20,60 Q40,40 60,20" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="2,2"/> <text x="64" y="18" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">ideal</text> <text x="64" y="46" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">staircase</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">thinner layers = smoother</text> </svg>',
+
           explanation: "All layer-based AM processes approximate curves and angles as a series of discrete steps (stair-steps). The step height equals the layer thickness.",
           hint: "Layer-based building creates visible steps on angled."
         },
@@ -1772,6 +1860,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,36 Q40,30 70,36" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M10,44 Q40,50 70,44" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M10,40 L70,40" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2,2"/> <g opacity="0.25"> <line x1="30" y1="30" x2="30" y2="24" stroke="#3B8700" stroke-width="0.8"/> <polygon points="28,24 32,24 30,20" fill="#3B8700"/> <line x1="50" y1="50" x2="50" y2="56" stroke="#3B8700" stroke-width="0.8"/> <polygon points="48,56 52,56 50,60" fill="#3B8700"/> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> </g> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">warpage</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">large flat panel</text> </svg>',
+
           explanation: "Large flat panels are notoriously difficult to mold without warpage. Differential cooling between the cavity (outer) and core (inner) sides, non-uniform packing pressure from a single gate, and molecular orientation all cause the panel to warp.",
           hint: "Large flat parts have very low stiffness."
         },
@@ -1786,6 +1876,8 @@ export const unit7: Unit = {
             "DFA ensures each part is as complex as possible to maximize functionality",
           ],
           correctIndex: 0,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="40" width="52" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="24" y="24" width="14" height="16" rx="1" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1"> <animate attributeName="y" values="10;24" dur="2s" repeatCount="indefinite"/> </rect> <rect x="44" y="24" width="14" height="16" rx="1" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1"> <animate attributeName="y" values="8;24" dur="2s" begin="0.5s" repeatCount="indefinite"/> </rect> <text x="40" y="50" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">base part</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">DFA</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">minimize part count</text> </svg>',
 
           explanation: "DFA evaluates each part using three criteria: (1) Must the part move relative to adjacent parts? (2) Must the part be a different material? (3) Must the part be separate for assembly/service? If none apply, combine it with an adjacent part. DFA analysis typically reduces part count by 30-60%, dramatically cutting assembly time and cost.",
           hint: "The core idea: every separate part costs money to."
@@ -1812,6 +1904,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="20" width="32" height="32" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="44" y="20" width="32" height="32" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M10,30 L14,26 L22,34 L30,28" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="20" y="46" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">DMLS</text> <rect x="50" y="28" width="20" height="16" rx="1" fill="#3B8700" opacity="0.06"/> <path d="M60,28 L60,44" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <text x="60" y="46" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">CNC</text> <text x="20" y="62" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">complex OK</text> <text x="60" y="62" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">stronger</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Ti bracket trade-off</text> </svg>',
+
           explanation: "DMLS excels when: (1) Geometry is too complex for subtractive manufacturing. (2) Buy-to-fly ratio for machining is extreme. (3) Volume is low — each part is unique or near-unique.",
           hint: "Additive manufacturing's advantage is geometric freedom."
         },
@@ -1827,6 +1921,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,56 L34,56 Q40,56 40,40 L40,16" stroke="#3B8700" stroke-width="2.5" fill="none" opacity="0.4"/> <line x1="34" y1="56" x2="34" y2="16" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.15"/> <line x1="34" y1="40" x2="40" y2="40" stroke="#A5E86C" stroke-width="0.8" opacity="0.3"/> <text x="44" y="42" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">t</text> <text x="28" y="40" font-size="3" fill="#A5E86C" opacity="0.25" font-style="italic">neutral</text> <text x="28" y="46" font-size="3" fill="#A5E86C" opacity="0.25" font-style="italic">axis</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">K = tₙ/t</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">bend allowance</text> </svg>',
+
           explanation: "The K-factor (typically 0.3-0.5) defines where the neutral axis sits within the sheet thickness during bending: t_neutral = K × t. For air bending of mild steel, K ≈ 0.33-0.40.",
           hint: "The neutral axis is not at the center of the sheet."
         },
@@ -1835,6 +1931,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Topology optimization uses software algorithms to determine the optimal material distribution within a design space, often producing organic-looking shapes that are ideally suited for additive manufacturing.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="16" width="28" height="20" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <text x="24" y="30" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">solid</text> <path d="M44,16 L62,16 Q72,16 72,26 L72,36 L62,36 Q52,36 52,26 L52,22 Q52,16 56,16" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <text x="58" y="30" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">optimized</text> <g opacity="0.25"> <line x1="38" y1="26" x2="44" y2="26" stroke="#3B8700" stroke-width="1"/> <polygon points="42,24 46,26 42,28" fill="#3B8700"/> </g> <text x="40" y="52" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">topology optimization</text> <text x="40" y="62" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">remove unnecessary</text> <text x="40" y="70" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">material</text> </svg>',
 
           explanation: "Topology optimization starts with a design space (maximum envelope), loads, constraints, and boundary conditions, then iteratively removes material from low-stress regions while maintaining structural requirements. The result is often an organic, bone-like structure that places material only where it is needed.",
           hint: "Algorithms distribute material optimally."
@@ -1851,6 +1949,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="16" width="52" height="40" rx="3" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <circle cx="20" cy="36" r="2" fill="#3B8700" opacity="0.3"/> <path d="M22,36 Q32,30 40,36 Q48,42 58,36" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </path> <path d="M22,36 Q32,42 40,36 Q48,30 58,36" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" begin="0.5s" repeatCount="indefinite"/> </path> <line x1="58" y1="20" x2="58" y2="52" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-dasharray="2,2"/> <text x="64" y="38" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">weld</text> <text x="64" y="44" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">line</text> <text x="20" y="36" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2">gate</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">flow fronts meet</text> </svg>',
+
           explanation: "When molten plastic flows around an obstacle (hole, boss, core) or from multiple gates, the flow fronts must rejoin. At the meeting point, if the fronts are too cool, molecules cannot intertwine properly, creating a visible line and mechanical weakness.",
           hint: "When two plastic flow fronts meet."
         },
@@ -1865,6 +1965,8 @@ export const unit7: Unit = {
             "Orient to minimize overhangs below 45° from horizontal (self-supporting angle)",
           ],
           correctIndex: 3,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="18" y="50" width="44" height="6" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <path d="M24,50 L24,20 L56,20 L56,50" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <path d="M30,50 L24,20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="1.5,2"/> <text x="22" y="38" font-size="3" fill="#A5E86C" opacity="0.2" font-style="italic">support</text> <line x1="64" y1="50" x2="64" y2="20" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="62,20 66,20 64,16" fill="#3B8700" opacity="0.2"/> <text x="68" y="36" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">Z</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">build orientation</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">minimize supports</text> </svg>',
 
           explanation: "Metal AM build orientation profoundly affects: (1) Support structures. (2) Residual stress.",
           hint: "Overhangs, residual stress, surface quality."
@@ -1890,6 +1992,8 @@ export const unit7: Unit = {
           question: "The minimum distance between a hole edge and a bend line should be at least 2-3 times the material thickness plus the bend radius to prevent the hole from distorting during bending.",
           correctAnswer: true,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,50 L36,50 Q44,50 44,34 L44,16" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <circle cx="24" cy="42" r="4" fill="none" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <line x1="28" y1="42" x2="36" y2="50" stroke="#A5E86C" stroke-width="0.5" stroke-dasharray="1,1.5" opacity="0.3"/> <text x="32" y="40" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">≥2-3t+R</text> <line x1="36" y1="16" x2="36" y2="50" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="38" y="58" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">bend line</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">hole-to-bend clearance</text> </svg>',
+
           explanation: "If a hole is too close to a bend line, the material deformation from bending distorts the hole. The minimum distance from the edge of the hole to the bend line should be ≥ 2-3T + R.",
           hint: "Bending deforms the material around the bend line."
         },
@@ -1905,6 +2009,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="20" width="32" height="36" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <line x1="20" y1="20" x2="20" y2="36" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <rect x="12" y="36" width="16" height="16" rx="1" fill="#3B8700" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <rect x="44" y="20" width="32" height="36" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <line x1="60" y1="20" x2="60" y2="36" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <rect x="52" y="36" width="16" height="16" rx="1" fill="#3B8700" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <text x="20" y="64" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">cold runner</text> <text x="60" y="64" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.25" font-style="italic">hot runner</text> <text x="20" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">waste</text> <text x="60" y="72" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.15" font-style="italic">no waste</text> </svg>',
+
           explanation: "Hot runner: the runner system is heated, keeping plastic molten. Advantages: no runner waste, faster cycles, better part quality.",
           hint: "One system keeps the runner plastic molten;"
         },
@@ -1919,6 +2025,8 @@ export const unit7: Unit = {
             "The metal does not fully melt during printing and needs heat treatment to densify",
           ],
           correctIndex: 1,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="20" width="52" height="28" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <line x1="14" y1="28" x2="66" y2="28" stroke="#3B8700" stroke-width="0.4" opacity="0.12"/> <line x1="14" y1="36" x2="66" y2="36" stroke="#3B8700" stroke-width="0.4" opacity="0.12"/> <g opacity="0.25"> <path d="M20,24 Q22,20 24,24" stroke="#3B8700" stroke-width="0.6"/> <path d="M36,32 Q38,28 40,32" stroke="#3B8700" stroke-width="0.6"/> <path d="M52,40 Q54,36 56,40" stroke="#3B8700" stroke-width="0.6"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </g> <text x="40" y="58" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">residual stress</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">→ heat treat</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">stress relief required</text> </svg>',
 
           explanation: "In SLM/DMLS, each laser pass melts a thin layer that solidifies and contracts rapidly. The constraint of the solid material below prevents free contraction, creating tensile stresses in the new layer and compressive stresses below.",
           hint: "Rapid solidification on top of previously solidified."
@@ -1945,6 +2053,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 0,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="20" width="52" height="32" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="18" y="36" width="44" height="12" rx="0" fill="#3B8700" opacity="0.06"/> <line x1="18" y1="30" x2="62" y2="30" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <circle cx="30" cy="24" r="2" fill="#3B8700" opacity="0.2"> <animate attributeName="cx" values="22;58" dur="2s" repeatCount="indefinite"/> </circle> <text x="40" y="44" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">fusing agent</text> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">MJF</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">faster, finer detail</text> </svg>',
+
           explanation: "HP Multi Jet Fusion (MJF) deposits fusing agent (carbon black ink) on powder where it should melt, and detailing agent at boundaries for sharp edges. An infrared lamp then passes over the entire layer simultaneously, fusing all marked areas at once.",
           hint: "How each technology exposes each layer: a point."
         },
@@ -1953,6 +2063,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Bend relief cuts are required at the end of a bend line that terminates at an edge or another feature, to prevent tearing of the material.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="20" width="60" height="36" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <line x1="40" y1="20" x2="40" y2="56" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.2"/> <rect x="36" y="16" width="8" height="8" rx="0" fill="none" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <text x="44" y="14" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">relief</text> <text x="44" y="20" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">cut</text> <text x="30" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">bend line</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">prevents tearing</text> </svg>',
 
           explanation: "When a bend line intersects another feature, the material at the intersection experiences complex stress states and will tear or deform unpredictably without a relief. Bend relief cuts are small slots or notches placed at the ends of the bend line, typically with width ≥ material thickness and length extending slightly beyond the bend radius.",
           hint: "Without a relief, the material at the end of a bend."
@@ -1984,6 +2096,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">T</text> <text x="7" y="36" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">V</text> <path d="M16,58 L36,42 L40,40" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M40,40 L60,16" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="40" y1="40" x2="40" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2" opacity="0.2"/> <circle cx="40" cy="40" r="2.5" fill="#3B8700" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </circle> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">T_g</text> <text x="22" y="56" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">glassy</text> <text x="56" y="28" font-size="3" fill="#A5E86C" opacity="0.2" font-style="italic">rubbery</text> </svg>',
+
           explanation: "For amorphous polymers, Tg is essentially the maximum use temperature. Semi-crystalline polymers (nylon, POM, PE, PP) also have a Tg but can function above Tg up to near their melting point because the crystalline regions maintain structure.",
           hint: "Amorphous polymers go from rigid to rubbery at one key."
         },
@@ -1999,6 +2113,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 2,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">qty</text> <text x="7" y="36" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">$/part</text> <path d="M16,18 Q30,30 44,42 Q58,50 70,54" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.4"/> <path d="M16,48 L70,46" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <text x="68" y="42" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">CNC</text> <text x="68" y="54" font-size="3.5" fill="#A5E86C" opacity="0.25" font-style="italic">FDM</text> <circle cx="44" cy="44" r="2" fill="#3B8700" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
+
           explanation: "CF-nylon FDM advantages: no tooling, rapid iteration, complex geometry, lower cost at 50 units. Disadvantages: tensile strength ~80-120 MPa vs. ~270 MPa for 6061-T6; stiffness ~6-10 GPa vs.",
           hint: "Specific mechanical properties, environmental resistance."
         },
@@ -2007,6 +2123,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "The clamping force must exceed the force generated by the injection pressure acting on the projected area of the part, otherwise the mold will open and cause flash.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="20" y="20" width="40" height="36" rx="2" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="28" y="28" width="24" height="20" rx="1" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1"/> <g opacity="0.35"> <line x1="14" y1="38" x2="20" y2="38" stroke="#3B8700" stroke-width="1.5"/> <polygon points="18,36 22,38 18,40" fill="#3B8700"/> <line x1="60" y1="38" x2="66" y2="38" stroke="#3B8700" stroke-width="1.5"/> <polygon points="62,36 58,38 62,40" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.45;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <text x="10" y="46" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">F_c</text> <text x="40" y="40" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">cavity</text> <text x="40" y="66" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">F_c &gt; P·A</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
 
           explanation: "The injection pressure acts on the projected area of the part and runner system, creating a force that tends to push the mold halves apart. If the clamping force is insufficient, the mold opens slightly, and plastic squeezes into the gap, creating flash.",
           hint: "The injection pressure pushes against the projected area."
@@ -2017,6 +2135,8 @@ export const unit7: Unit = {
           question: "The process of cutting a flat pattern from a sheet using a punch and die set is called _____ (also known as stamping or die cutting).",
           blanks: ['blanking'],
           wordBank: ['blanking', 'shearing', 'notching', 'piercing', 'trimming'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="32" width="60" height="6" rx="0" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <rect x="30" y="12" width="20" height="20" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"> <animate attributeName="y" values="12;30;12" dur="2s" repeatCount="indefinite"/> </rect> <rect x="30" y="40" width="20" height="20" rx="1" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/> <rect x="32" y="42" width="16" height="16" rx="0" fill="#58CC02" opacity="0.08"/> <text x="40" y="26" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">punch</text> <text x="40" y="52" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">die</text> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">blanking</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">punch &amp; die</text> </svg>',
 
           explanation: "Blanking is a shearing process where the desired shape (the blank) is cut from the sheet. Both use the same principle, but they differ in which piece is the product.",
           hint: "This shearing operation produces a flat part (the."
@@ -2106,6 +2226,8 @@ export const unit7: Unit = {
           blanks: ['intermetallic', 'mechanical'],
           wordBank: ['intermetallic', 'mechanical', 'eutectic', 'adhesive', 'galvanic', 'thermal'],
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="22" width="28" height="32" rx="2" fill="#A5E86C" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="46" y="22" width="28" height="32" rx="2" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="34" y="22" width="12" height="32" rx="0" fill="#3B8700" opacity="0.15" stroke="#3B8700" stroke-width="1"/> <g opacity="0.3"> <line x1="37" y1="26" x2="43" y2="32" stroke="#3B8700" stroke-width="1" stroke-linecap="round"/> <line x1="43" y1="26" x2="37" y2="32" stroke="#3B8700" stroke-width="1" stroke-linecap="round"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </g> <text x="20" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">Al</text> <text x="60" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">Steel</text> <text x="40" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">IMC</text> <text x="40" y="66" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">brittle intermetallic</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">compounds</text> </svg>',
+
           explanation: 'Joining aluminum to steel is a classic dissimilar-metal problem. Fusion welding creates brittle Fe-Al intermetallic compounds that crack easily.',
           hint: 'Fusion welding creates brittle intermetallics.'
                 },
@@ -2160,6 +2282,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="30" width="28" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="46" y="30" width="28" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M34,30 L40,24 L46,30 L46,46 L40,52 L34,46 Z" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1"/> <g opacity="0.3"> <circle cx="40" cy="38" r="3" fill="#A5E86C" opacity="0.3"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.5s" repeatCount="indefinite"/> </circle> </g> <text x="20" y="40" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">6061</text> <text x="60" y="40" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">6061</text> <text x="40" y="40" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.25" font-style="italic">filler</text> <text x="40" y="66" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">4043 or 5356</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Al filler selection</text> </svg>',
+
           explanation: "For structural 6061-T6: ER5356 (Al-5%Mg) provides higher as-welded shear strength, better color match after anodizing, and good corrosion resistance. ER4043 (Al-5%Si) has a lower melting range reducing hot cracking risk, produces shinier/smoother welds (cosmetic), and is easier to feed through the wire liner.",
           hint: "One filler prioritizes strength and structural integrity;"
         },
@@ -2174,6 +2298,8 @@ export const unit7: Unit = {
             "The HAZ only exists in stick welding, never in TIG or MIG welds",
           ],
           correctIndex: 1,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="26" width="68" height="24" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="32" y="26" width="16" height="24" rx="0" fill="#3B8700" opacity="0.12"/> <rect x="22" y="26" width="10" height="24" rx="0" fill="#A5E86C" opacity="0.08"/> <rect x="48" y="26" width="10" height="24" rx="0" fill="#A5E86C" opacity="0.08"/> <text x="40" y="42" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.3" font-style="italic">weld</text> <text x="27" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">HAZ</text> <text x="53" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">HAZ</text> <text x="12" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">base</text> <text x="68" y="42" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">base</text> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">HAZ = weakest zone</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">grain growth region</text> </svg>',
 
           explanation: "The HAZ experiences a gradient of peak temperatures from near-melting to ambient. In carbon steel: the coarse-grained HAZ (>1100°C) has reduced toughness; the intercritical HAZ (727-910°C) can form local brittle zones.",
           hint: "The base metal near the weld gets heated."
@@ -2214,6 +2340,8 @@ export const unit7: Unit = {
             "Excessive voltage (long arc) or incorrect wire feed speed",
           ],
           correctIndex: 3,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="46" width="60" height="14" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <line x1="40" y1="10" x2="40" y2="46" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <circle cx="40" cy="46" r="6" fill="#3B8700" opacity="0.12"> <animate attributeName="r" values="4;7;4" dur="1.5s" repeatCount="indefinite"/> </circle> <g opacity="0.3"> <circle cx="30" cy="36" r="1.5" fill="#3B8700"> <animate attributeName="cy" values="42;30;22" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="38;30;26" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.4;0.2;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="34" r="1" fill="#3B8700"> <animate attributeName="cy" values="40;32;24" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="cx" values="42;50;54" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.3;0.15;0" dur="1.2s" repeatCount="indefinite"/> </circle> </g> <text x="40" y="8" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">wire</text> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">spatter</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">voltage/feed issues</text> </svg>',
 
           explanation: "GMAW spatter causes: (1) Excessive voltage — creates a long, unstable arc that explodes droplets. (2) Wire feed too fast or slow — causes globular or short-circuit instability.",
           hint: "Spatter indicates arc instability."
@@ -2269,6 +2397,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 3,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="40" width="28" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="46" y="40" width="28" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <circle cx="40" cy="32" r="8" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1.5"> <animateTransform attributeName="transform" type="rotate" from="0 40 32" to="360 40 32" dur="1s" repeatCount="indefinite"/> </circle> <line x1="40" y1="24" x2="40" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <rect x="38" y="40" width="4" height="12" rx="0" fill="#3B8700" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">tool</text> <text x="20" y="52" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">plate 1</text> <text x="60" y="52" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">plate 2</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">FSW</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">solid state join</text> </svg>',
+
           explanation: "FSW uses a rotating tool with a shoulder and pin that plunges into the joint and traverses along it. Frictional heat plasticizes (but does not melt) the material, and the tool mechanically stirs the softened material from both sides together.",
           hint: "A spinning tool plasticizes the material without melting it."
         },
@@ -2284,6 +2414,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 0,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="30" width="60" height="20" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M40,30 Q38,36 42,40 Q38,44 40,50" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> <g opacity="0.3"> <path d="M14,28 Q14,24 20,24 Q26,24 26,28" stroke="#3B8700" stroke-width="0.8" fill="none"/> <path d="M54,28 Q54,24 60,24 Q66,24 66,28" stroke="#3B8700" stroke-width="0.8" fill="none"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </g> <circle cx="38" cy="36" r="1" fill="#3B8700" opacity="0.3"/> <circle cx="42" cy="38" r="1" fill="#3B8700" opacity="0.3"/> <circle cx="40" cy="42" r="1" fill="#3B8700" opacity="0.3"/> <text x="40" y="62" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">MPI</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">surface cracks</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">ferromagnetic only</text> </svg>',
+
           explanation: "Magnetic particle testing (MT) detects surface and shallow subsurface (up to ~3 mm) discontinuities in ferromagnetic materials. The part is magnetized, and ferrous particles are applied.",
           hint: "This method exploits the magnetic properties of."
         },
@@ -2292,6 +2424,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "The minimum overlap should be at least 5 times the thickness of the thinner member to ensure adequate load transfer.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="44" height="8" rx="1" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <rect x="30" y="40" width="44" height="8" rx="1" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <line x1="30" y1="36" x2="50" y2="36" stroke="#3B8700" stroke-width="0.6" opacity="0.3"/> <line x1="30" y1="52" x2="30" y2="54" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <line x1="50" y1="52" x2="50" y2="54" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <line x1="30" y1="54" x2="50" y2="54" stroke="#3B8700" stroke-width="0.5" opacity="0.2"/> <text x="40" y="58" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">≥5t</text> <text x="8" y="26" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">t</text> <text x="40" y="70" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">lap joint</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">overlap ≥ 5t</text> </svg>',
 
           explanation: "AWS D1.1 and most structural codes require a minimum overlap of 5× the thinner plate thickness for fillet-welded lap joints. Insufficient overlap creates: (1) High peeling/rotation forces on the fillet welds.",
           hint: "Short overlaps cause the fillet welds to experience."
@@ -2323,6 +2457,8 @@ export const unit7: Unit = {
           ],
           correctIndex: 1,
 
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5"/> <text x="44" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="7" y="36" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">T</text> <path d="M16,60 L20,20 L50,20 L58,60" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.4"> <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3s" repeatCount="indefinite"/> </path> <text x="36" y="16" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">hold</text> <text x="40" y="58" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">PWHT</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">stress relief</text> </svg>',
+
           explanation: "PWHT (stress relief) heats the welded assembly uniformly to reduce residual stresses from ~yield strength to ~10-20% of yield. (2) Distortion during subsequent machining.",
           hint: "Residual stresses from welding approach yield strength."
         },
@@ -2332,6 +2468,8 @@ export const unit7: Unit = {
           question: "The effective load-carrying dimension of a fillet weld is the _____ of the weld, equal to 0.707 times the _____ size for an equal-leg fillet.",
           blanks: ['throat', 'leg'],
           wordBank: ['throat', 'leg', 'root', 'face', 'toe', 'bead'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="40" width="60" height="20" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <rect x="38" y="10" width="20" height="30" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M38,40 L38,52 L26,40 Z" fill="#3B8700" opacity="0.15" stroke="#3B8700" stroke-width="1.5"/> <line x1="32" y1="46" x2="38" y2="40" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="1,1.5" opacity="0.3"/> <text x="30" y="48" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">throat</text> <text x="22" y="40" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">a</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">a = 0.707w</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">fillet weld</text> </svg>',
 
           explanation: "The throat is the shortest distance from the root of the fillet to the face (hypotenuse). For an equal-leg fillet with leg size w, the throat a = w × cos(45°) = 0.707w.",
           hint: "In the triangular cross-section of a fillet weld."
@@ -2356,6 +2494,8 @@ export const unit7: Unit = {
           type: 'true-false',
           question: "Laser beam welding (LBW) produces a very narrow weld with a high depth-to-width ratio and minimal HAZ compared to arc welding processes.",
           correctAnswer: true,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="40" width="60" height="16" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <line x1="40" y1="8" x2="40" y2="40" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"> <animate attributeName="opacity" values="0.15;0.4;0.15" dur="1s" repeatCount="indefinite"/> </line> <rect x="36" y="40" width="8" height="14" rx="0" fill="#3B8700" opacity="0.12"/> <text x="40" y="6" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">laser</text> <text x="50" y="50" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">deep narrow</text> <text x="50" y="56" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">weld</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">LBW</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">high depth:width</text> </svg>',
 
           explanation: "Laser welding focuses a high-power-density beam (10⁶-10⁸ W/cm²) onto the workpiece, creating a keyhole that penetrates deep into the material. The result: very narrow weld (0.5-2 mm wide), high depth-to-width ratio, very narrow HAZ (0.1-0.5 mm), low heat input, minimal distortion, and high welding speed (1-10 m/min).",
           hint: "A laser beam concentrates enormous energy into a tiny spot."
@@ -2386,6 +2526,8 @@ export const unit7: Unit = {
             "Acetylene does not require oxygen for combustion to occur",
           ],
           correctIndex: 1,
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="14" y="44" width="52" height="14" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/> <path d="M36,8 Q34,14 38,20 Q34,26 38,32 Q34,38 36,44" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M44,8 Q46,14 42,20 Q46,26 42,32 Q46,38 44,44" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </path> <text x="40" y="6" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">C₂H₂ + O₂</text> <text x="40" y="52" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">steel</text> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">oxy-fuel cutting</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">3300°C flame</text> </svg>',
 
           explanation: "Oxy-fuel cutting of steel works by: (1) Preheating the steel to ~870°C with the oxy-fuel flame. (2) Directing a high-pressure oxygen jet at the hot steel.",
           hint: "The cutting process requires rapid heating to the."
@@ -2420,6 +2562,8 @@ export const unit7: Unit = {
           question: "When a fillet weld is loaded in shear parallel to the weld axis (longitudinal loading), the failure plane passes through the weld _____, which is the minimum cross-sectional dimension of the weld.",
           blanks: ['throat'],
           wordBank: ['throat', 'root', 'toe', 'face', 'leg'],
+
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="40" width="60" height="16" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/> <path d="M38,40 L38,52 L26,40 Z" fill="#3B8700" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/> <g opacity="0.3"> <line x1="24" y1="32" x2="16" y2="32" stroke="#3B8700" stroke-width="1"/> <polygon points="18,30 14,32 18,34" fill="#3B8700"/> <line x1="52" y1="32" x2="60" y2="32" stroke="#3B8700" stroke-width="1"/> <polygon points="58,30 62,32 58,34" fill="#3B8700"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <line x1="32" y1="46" x2="38" y2="40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="1,1.5" opacity="0.3"/> <text x="28" y="30" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">F</text> <text x="56" y="30" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">F</text> <text x="40" y="66" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">shear on throat</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">longitudinal load</text> </svg>',
 
           explanation: "Under any loading direction, fillet weld failure occurs through the throat. For longitudinal shear, the shear stress τ = F/(a × L) where a = throat = 0.707 × leg for equal-leg fillets, and L = weld length.",
           hint: "The minimum dimension through a fillet weld."

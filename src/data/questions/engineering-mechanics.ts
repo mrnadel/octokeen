@@ -8,7 +8,7 @@ export const engineeringMechanicsQuestions: Question[] = [
     topic: 'engineering-mechanics',
     subtopic: 'Statics & Equilibrium',
     difficulty: 'beginner',
-    question: 'A rigid beam is pinned at one end and supported by a cable at the other. A load hangs from the midpoint. If you cut the cable, which direction does the reaction force at the pin shift?',
+    question: 'If you cut the cable supporting one end of a pinned beam with a midpoint load, how does the pin reaction change?',
     diagram: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em001-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -64,27 +64,34 @@ export const engineeringMechanicsQuestions: Question[] = [
       <circle cx="350" cy="210" r="2" fill="#34d399"/>
     </svg>`,
     options: [
-      { id: 'a', text: 'The horizontal component vanishes and the vertical component equals the load' },
-      { id: 'b', text: 'Both horizontal and vertical components increase' },
-      { id: 'c', text: 'The reaction remains unchanged because the pin was already carrying the load' },
-      { id: 'd', text: 'The pin cannot support the beam alone — the system collapses' },
+      { id: 'a', text: 'Horizontal vanishes, vertical equals the load' },
+      { id: 'b', text: 'Both components increase' },
+      { id: 'c', text: 'Reaction stays the same' },
+      { id: 'd', text: 'Pin can\'t support it — system collapses' },
     ],
     correctAnswer: 'a',
-    explanation: 'The cable was providing both a vertical lift and a horizontal pull. Once cut, the beam can only be supported at the pin, which must now carry the full weight vertically. The horizontal component from the cable tension disappears. If the pin is truly frictionless with no horizontal load, the horizontal reaction drops to zero.',
-    interviewInsight: 'Interviewers want to see that you can reason through equilibrium changes when a constraint is removed, not just solve textbook statics.',
-    realWorldConnection: 'This is analogous to a rigging failure scenario — understanding how loads redistribute when a support fails is critical in crane and scaffolding design.',
-    commonMistake: 'Candidates often forget that the cable was introducing a horizontal force component. They say the reaction "stays the same" because the total vertical load hasn\'t changed.',
+    explanation: 'The cable provided vertical lift and horizontal pull. Once cut, the pin carries the full weight vertically. With no other horizontal load, the horizontal reaction drops to zero.',
+    interviewInsight: 'Tests your ability to reason through equilibrium changes when a constraint is removed.',
+    realWorldConnection: 'Analogous to rigging failure — load redistribution when a support fails is critical in crane design.',
+    commonMistake: 'Forgetting the cable introduced a horizontal component. The total vertical load hasn\'t changed, but the horizontal has.',
     tags: ['statics', 'equilibrium', 'pin-reactions', 'cable', 'free-body-diagram'],
   },
 
   // EM-002 — Explanation / Free Text
   {
     id: 'em-002',
-    type: 'free-text',
+    type: 'multiple-choice',
     topic: 'engineering-mechanics',
     subtopic: 'Free-Body Diagrams',
     difficulty: 'intermediate',
-    question: 'Why does a bicycle stay upright while moving but fall over when stationary? Walk through the mechanics.',
+    question: 'Why does a moving bicycle stay upright but a stationary one falls over?',
+    options: [
+      { id: 'a', text: 'Gyroscopic precession of the spinning wheels is the sole stabilizing mechanism' },
+      { id: 'b', text: 'Trail (caster effect) in the steering geometry is the primary stabilizer, supplemented by gyroscopic precession' },
+      { id: 'c', text: 'The rider\'s weight is centered perfectly above the wheels, creating a stable equilibrium' },
+      { id: 'd', text: 'Air resistance at speed pushes the bicycle upright like a kite' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em002-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -139,17 +146,16 @@ export const engineeringMechanicsQuestions: Question[] = [
       <path d="M 305 195 A 20 20 0 0 1 305 225" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#em002-arrowhead-green)"/>
       <text x="310" y="215" fill="#34d399" font-family="system-ui, sans-serif" font-size="9">gyro</text>
     </svg>`,
-    sampleAnswer: 'A moving bicycle is stabilized primarily by trail and caster effect in the steering geometry, supplemented by gyroscopic precession of the wheels. When the bike begins to lean, the front wheel steers into the fall due to the fork geometry (trail), creating a centripetal force that pushes the contact patch back under the center of gravity. Gyroscopic precession of the spinning wheel also contributes a steering torque in the same helpful direction, though it is a secondary effect. At rest, none of these dynamic corrections occur — there is no velocity to generate centripetal correction or gyroscopic torques, so the unstable inverted-pendulum simply topples.',
     keyPoints: [
       'Trail / caster effect causes counter-steering when the bike leans',
       'Gyroscopic precession provides a supplementary (not primary) stabilizing torque',
       'At rest, the system is an unstable inverted pendulum with no corrective mechanism',
       'Rider input also plays a role at low speeds',
     ],
-    explanation: 'This is a famously subtle dynamics problem. The key insight is that geometry (trail) matters more than the gyroscopic effect most people cite. Research by Kooijman et al. (2011) showed bikes can self-stabilize even without spinning wheels if the geometry is right.',
-    interviewInsight: 'This tests whether you can separate popular misconception (gyroscopes keep bikes up) from actual mechanics. Interviewers love it because it shows depth of understanding vs. surface knowledge.',
-    realWorldConnection: 'Motorcycle and bicycle designers tune trail, rake angle, and wheel inertia to achieve the right self-stability envelope for their target speed range.',
-    commonMistake: 'Almost everyone says "gyroscopic effect" as the sole answer. That is incomplete and not even the primary mechanism.',
+    explanation: 'Trail geometry matters more than gyroscopic effect. Bikes can self-stabilize without spinning wheels if the geometry is right (Kooijman et al., 2011).',
+    interviewInsight: 'Tests whether you can separate the "gyroscope" misconception from actual mechanics (trail/caster).',
+    realWorldConnection: 'Bike designers tune trail, rake angle, and wheel inertia for the target speed stability envelope.',
+    commonMistake: 'Saying "gyroscopic effect" as the sole answer. It is secondary, not primary.',
     tags: ['dynamics', 'stability', 'gyroscope', 'bicycle', 'counter-steering'],
   },
 
@@ -160,7 +166,7 @@ export const engineeringMechanicsQuestions: Question[] = [
     topic: 'engineering-mechanics',
     subtopic: 'Dynamics & Kinematics',
     difficulty: 'intermediate',
-    question: 'Estimate the force your quadriceps must produce when you stand up from a chair.',
+    question: 'Estimate quadriceps force when standing up from a chair.',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em003-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -226,10 +232,10 @@ export const engineeringMechanicsQuestions: Question[] = [
       'Mechanical disadvantage is roughly 6:1, so quadriceps force ~ 560 N x 6 = ~3,360 N per leg at peak',
       'Account for acceleration (standing up in ~1 s) which adds another 10-20%',
     ],
-    explanation: 'The knee joint operates at a severe mechanical disadvantage. The patellar tendon inserts close to the knee pivot while the body weight acts at a long lever arm. This is why the quadriceps is the largest muscle in the body — it routinely generates forces 3-5 times body weight.',
-    interviewInsight: 'Estimation questions test structured thinking and order-of-magnitude reasoning. Interviewers care about your approach, not hitting a magic number.',
-    realWorldConnection: 'Knee implant designers and physical therapists must understand these forces. Knee replacement bearing surfaces are designed to handle up to 5-8x body weight during activities like stair descent.',
-    commonMistake: 'Candidates often just say "body weight" without considering the mechanical advantage of the joint. The actual muscle force is many times larger than the external load.',
+    explanation: 'The knee operates at ~6:1 mechanical disadvantage. The patellar tendon inserts close to the pivot while body weight acts at a long lever arm, so quadriceps force is 3-5x body weight.',
+    interviewInsight: 'Tests structured estimation and order-of-magnitude reasoning. Approach matters more than the exact number.',
+    realWorldConnection: 'Knee replacements are designed for up to 5-8x body weight during stair descent.',
+    commonMistake: 'Saying "body weight" without considering the joint mechanical disadvantage.',
     tags: ['estimation', 'biomechanics', 'lever-arm', 'knee-joint', 'mechanical-advantage'],
   },
 
@@ -240,7 +246,7 @@ export const engineeringMechanicsQuestions: Question[] = [
     topic: 'engineering-mechanics',
     subtopic: 'Friction & Contact',
     difficulty: 'intermediate',
-    question: 'You are designing a braking system for a conveyor belt. Should you use a band brake or a disc brake?',
+    question: 'For a conveyor belt braking system: band brake or disc brake?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em004-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -311,10 +317,10 @@ export const engineeringMechanicsQuestions: Question[] = [
     ],
     preferredAnswer: 'b',
     acceptableAnswer: 'either',
-    justification: 'For a conveyor belt that may run in both directions and needs reliable, repeatable braking with easy maintenance, the disc brake is generally preferred. However, if the conveyor only runs one direction and cost is paramount, a band brake with proper thermal management is a valid choice.',
-    explanation: 'This is a classic tradeoff between simplicity/cost and performance/maintenance. The self-energizing effect of a band brake is powerful but also dangerous — if the friction coefficient changes (wet, worn lining), braking force changes dramatically.',
-    interviewInsight: 'Tradeoff questions have no single right answer. Interviewers want to see that you identify the relevant criteria (cost, maintenance, direction, thermal) and reason through them systematically.',
-    commonMistake: 'Candidates pick one without discussing the tradeoffs. The interviewer wants the analysis, not just the answer.',
+    justification: 'Disc brake preferred for bi-directional operation with reliable, maintainable braking. Band brake valid if single-direction and cost-driven.',
+    explanation: 'Classic simplicity/cost vs. performance/maintenance tradeoff. Band brake self-energizing effect is powerful but sensitive to friction coefficient changes.',
+    interviewInsight: 'No single right answer. Interviewers want systematic reasoning through cost, maintenance, direction, and thermal criteria.',
+    commonMistake: 'Picking one without discussing tradeoffs. The analysis matters more than the answer.',
     tags: ['brakes', 'friction', 'conveyor', 'design-tradeoff', 'self-energizing'],
   },
 
@@ -325,7 +331,7 @@ export const engineeringMechanicsQuestions: Question[] = [
     topic: 'engineering-mechanics',
     subtopic: 'Work & Energy Methods',
     difficulty: 'intermediate',
-    question: 'Rank these scenarios by the translational speed (and translational kinetic energy) the object has at the bottom of an identical frictionless ramp (highest first):',
+    question: 'Rank by translational speed at the bottom of a frictionless ramp (highest first):',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em005-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -372,21 +378,21 @@ export const engineeringMechanicsQuestions: Question[] = [
       { id: 'd', text: 'A solid cylinder rolling without slipping' },
     ],
     correctOrder: ['c', 'a', 'd', 'b'],
-    explanation: 'All objects start with the same potential energy. The sliding block converts all PE to translational KE. Rolling objects split PE between translational and rotational KE. The fraction going to rotation depends on the moment of inertia: solid sphere (2/5 mr^2), solid cylinder (1/2 mr^2), hollow sphere (2/3 mr^2). Higher rotational inertia means less translational speed at the bottom, so the hollow sphere is slowest.',
-    interviewInsight: 'This tests whether you truly understand energy partitioning between translational and rotational modes. It is one of the most commonly asked conceptual questions in dynamics interviews.',
-    realWorldConnection: 'Flywheel energy storage systems exploit high rotational inertia. Understanding how energy partitions between rotation and translation also matters in vehicle dynamics — heavier wheels reduce acceleration.',
-    commonMistake: 'Many candidates think all objects arrive at the same speed because they have the same mass and ramp height. They forget that rolling objects must "spend" some energy on spin.',
+    explanation: 'Same PE, but rolling objects split energy between translational and rotational KE. Higher moment of inertia = more energy in rotation = less translational speed. Block (no rotation) is fastest, hollow sphere slowest.',
+    interviewInsight: 'Tests energy partitioning between translational and rotational modes.',
+    realWorldConnection: 'Heavier wheels reduce acceleration in vehicles. Flywheels exploit high rotational inertia for energy storage.',
+    commonMistake: 'Thinking all objects arrive at the same speed. Rolling objects spend energy on spin.',
     tags: ['energy', 'rolling', 'moment-of-inertia', 'ranking', 'ramp'],
   },
 
-  // EM-006 — Spot the Flaw
+  // EM-006 — Multiple Choice
   {
     id: 'em-006',
-    type: 'spot-the-flaw',
+    type: 'multiple-choice',
     topic: 'engineering-mechanics',
     subtopic: 'Statics & Equilibrium',
     difficulty: 'advanced',
-    question: 'Spot the flaw in this engineering claim:',
+    question: 'Why does a 3-legged stool never wobble on an uneven floor, while a 4-legged one often does?',
     diagram: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="90" y="20" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">3-Legged Stool</text>
@@ -440,16 +446,16 @@ export const engineeringMechanicsQuestions: Question[] = [
       <path d="M 240 178 Q 260 172 280 178 Q 300 184 320 178 Q 340 172 360 178" fill="none" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2"/>
       <text x="340" y="190" fill="#fb923c" font-family="system-ui, sans-serif" font-size="9">rocks!</text>
     </svg>`,
-    statement: 'A three-legged stool is less stable than a four-legged stool because it has fewer support points. That is why most chairs have four legs — the additional leg provides extra stability against tipping.',
-    flaw: {
-      text: 'A three-legged stool is less stable than a four-legged stool because it has fewer support points.',
-      flawIndex: 0,
-      flawExplanation: 'A three-legged stool is actually MORE stable in one important sense: it always sits flat on an uneven surface because three points always define a plane. A four-legged stool on an uneven surface will rock because four points are over-constrained unless the surface is perfectly flat. Four-legged chairs trade this advantage for a wider support polygon, which resists tipping better in all directions.',
-    },
-    correctedStatement: 'A three-legged stool always sits flat on uneven surfaces because three points define a unique plane, while a four-legged stool can rock. However, a four-legged chair provides a larger support polygon, which improves resistance to tipping — that is the actual reason most chairs have four legs.',
-    explanation: 'The concepts of stability against wobble (three legs wins) and stability against tipping (larger polygon wins) are different. This is a classic confusion between determinacy and stability.',
-    interviewInsight: 'This tests whether you understand static determinacy vs. practical stability. It also shows if you can communicate nuanced engineering concepts clearly.',
-    commonMistake: 'Accepting the statement at face value without distinguishing between "will it wobble?" and "will it tip over?".',
+    options: [
+      { id: 'a', text: 'Three legs have less total weight' },
+      { id: 'b', text: 'Three points always define a unique plane, so all legs contact the surface' },
+      { id: 'c', text: 'The center of gravity is lower with three legs' },
+      { id: 'd', text: 'Three legs distribute load more evenly' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'Three non-collinear points always define exactly one plane. A 3-legged stool places all feet in contact with the surface regardless of unevenness. A 4th leg creates an over-constrained system that can rock between two stable positions.',
+    interviewInsight: 'Tests understanding of static determinacy vs. practical stability.',
+    commonMistake: 'Not distinguishing "will it wobble?" from "will it tip over?".',
     tags: ['statics', 'stability', 'determinacy', 'over-constrained', 'support-polygon'],
   },
 
@@ -460,7 +466,7 @@ export const engineeringMechanicsQuestions: Question[] = [
     topic: 'engineering-mechanics',
     subtopic: 'Dynamics & Kinematics',
     difficulty: 'intermediate',
-    question: 'A car is turning on a flat (unbanked) road at constant speed. What provides the centripetal force?',
+    question: 'What provides centripetal force for a car turning on a flat road at constant speed?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em007-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -504,27 +510,27 @@ export const engineeringMechanicsQuestions: Question[] = [
     </svg>`,
     options: [
       { id: 'a', text: 'The engine driving the wheels forward' },
-      { id: 'b', text: 'Static friction between the tires and road, directed toward the center of the turn' },
-      { id: 'c', text: 'The normal force from the road tilting the car inward' },
+      { id: 'b', text: 'Static friction between tires and road, toward turn center' },
+      { id: 'c', text: 'Normal force tilting the car inward' },
       { id: 'd', text: 'The car\'s weight component resolved toward the turn center' },
     ],
     correctAnswer: 'b',
     confidenceLevels: ['Guessing', 'Somewhat sure', 'Very confident'],
-    explanation: 'On a flat road, the only horizontal force available is friction. For a car turning at constant speed, static friction (not kinetic — the tires are not sliding) acts laterally, pointing toward the center of the circular path. This is why you skid on ice: no friction means no centripetal force.',
-    interviewInsight: 'Confidence-rated questions reveal calibration. An engineer who is very confident and correct is great. One who is very confident and wrong has a calibration problem — that is a red flag.',
-    realWorldConnection: 'Tire engineers design tread patterns and rubber compounds to maximize lateral grip. Race car engineers tune tire pressure and camber to optimize the friction circle.',
-    commonMistake: 'Confusing the role of the engine (which provides tangential force for speed) with the centripetal force (which is perpendicular to velocity). Also, saying "kinetic friction" instead of "static friction."',
+    explanation: 'Static friction (not kinetic) acts laterally toward the turn center. No friction = no centripetal force, which is why cars skid on ice.',
+    interviewInsight: 'Tests basic dynamics and confidence calibration.',
+    realWorldConnection: 'Tire tread patterns and rubber compounds are designed to maximize lateral grip.',
+    commonMistake: 'Confusing engine force (tangential) with centripetal force (perpendicular to velocity). Also saying "kinetic" instead of "static" friction.',
     tags: ['centripetal-force', 'friction', 'circular-motion', 'automotive', 'tires'],
   },
 
-  // EM-008 — Scenario
+  // EM-008 — Multiple Choice
   {
     id: 'em-008',
-    type: 'scenario',
+    type: 'multiple-choice',
     topic: 'engineering-mechanics',
     subtopic: 'Work & Energy Methods',
     difficulty: 'advanced',
-    question: 'You are designing a cargo elevator counterweight system. Walk through the design.',
+    question: 'A cargo elevator weighing 2000 kg needs a counterweight to minimize motor power. What counterweight mass minimizes peak motor load?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="em008-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -584,23 +590,14 @@ export const engineeringMechanicsQuestions: Question[] = [
       <!-- optimization note -->
       <text x="55" y="290" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10">CW = car + half max payload = 2,500 kg (minimizes peak motor power)</text>
     </svg>`,
-    context: 'A freight elevator carries up to 2,000 kg of cargo. The car itself weighs 1,500 kg. It travels 20 meters between floors. Your task is to design the counterweight to minimize motor power.',
-    steps: [
-      {
-        prompt: 'What should the counterweight mass be?',
-        idealResponse: 'Set the counterweight to balance the car plus half the maximum payload: 1,500 + 1,000 = 2,500 kg. This way, the motor only needs to lift/lower the difference (up to 1,000 kg equivalent) regardless of load direction.',
-      },
-      {
-        prompt: 'Why not set the counterweight equal to the full loaded weight (3,500 kg)?',
-        idealResponse: 'If counterweight equals full load, the motor saves energy going up fully loaded but must work hard when the elevator is empty going up (lifting the 2,000 kg excess counterweight). Balancing at half-load minimizes the maximum imbalance in both directions.',
-      },
-      {
-        prompt: 'How does this affect motor sizing?',
-        idealResponse: 'The motor peak power is proportional to the maximum imbalance times velocity. With half-load balancing, the peak imbalance is 1,000 kg x g x v_max. Without a counterweight, it would be 3,500 kg x g x v_max — the motor would need to be 3.5 times larger.',
-      },
+    options: [
+      { id: 'a', text: 'Equal to the empty car (2000 kg)' },
+      { id: 'b', text: 'Equal to car plus half the max payload' },
+      { id: 'c', text: 'Equal to the maximum payload alone' },
+      { id: 'd', text: 'Twice the car weight to ensure safety' },
     ],
-    keyTakeaway: 'Counterweight design is an optimization problem: balance at the midpoint of the expected load range to minimize peak motor power and energy consumption.',
-    explanation: 'This is one of the oldest and most elegant energy-saving mechanisms in engineering. Every traction elevator in the world uses this principle. The counterweight also reduces cable tension and brake loads.',
+    correctAnswer: 'b',
+    explanation: 'The optimal counterweight equals the car weight plus half the maximum payload. This balances the load so the motor works equally hard going up full and down empty, minimizing peak power demand.',
     interviewInsight: 'Scenario questions test your ability to think through a design problem step by step, making and defending engineering decisions. There is no single formula to apply.',
     commonMistake: 'Setting the counterweight equal to the car weight alone (1,500 kg) — this ignores that the average load is not zero. Or setting it to the full loaded weight and not considering the empty-car case.',
     tags: ['counterweight', 'elevator', 'energy', 'motor-sizing', 'optimization'],

@@ -8,7 +8,7 @@ export const machineElementsQuestions: Question[] = [
     topic: 'machine-elements',
     subtopic: 'Bearings',
     difficulty: 'intermediate',
-    question: 'A deep groove ball bearing has a basic dynamic load rating (C) of 25 kN. If the applied radial load is 5 kN, what is the approximate L10 life in millions of revolutions?',
+    question: 'Ball bearing: C = 25 kN, radial load P = 5 kN. Approximate L10 life?',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Deep Groove Ball Bearing — L10 Life</text>
@@ -55,10 +55,10 @@ export const machineElementsQuestions: Question[] = [
       { id: 'd', text: '625 million revolutions' },
     ],
     correctAnswer: 'c',
-    explanation: 'For ball bearings, L10 = (C/P)³ = (25/5)³ = 5³ = 125 million revolutions. The L10 life is the number of revolutions at which 10% of a population of identical bearings will have failed. The exponent is 3 for ball bearings and 10/3 for roller bearings. The cubic relationship means doubling the load reduces life by a factor of 8.',
-    interviewInsight: 'Bearing life calculation is one of the most commonly asked machine design questions. The interviewer expects you to know the formula and the significance of the exponent.',
-    realWorldConnection: 'Every rotating machine — from hard drives to wind turbines — requires this calculation. The bearing is often the life-limiting component, and under-specifying it means premature failure.',
-    commonMistake: 'Using the wrong exponent (3 for ball bearings vs. 10/3 for roller bearings). Also, confusing C (dynamic load rating) with C0 (static load rating).',
+    explanation: 'L10 = (C/P)³ = (25/5)³ = 125 million rev. Exponent: 3 for ball, 10/3 for roller. Doubling load = 1/8 the life.',
+    interviewInsight: 'Must know the formula and significance of the exponent.',
+    realWorldConnection: 'Every rotating machine needs this calculation. Bearing is often the life-limiting component.',
+    commonMistake: 'Wrong exponent (3 for ball vs. 10/3 for roller). Confusing C (dynamic) with C0 (static).',
     tags: ['bearing', 'L10-life', 'dynamic-load-rating', 'ball-bearing', 'fatigue'],
   },
 
@@ -69,7 +69,7 @@ export const machineElementsQuestions: Question[] = [
     topic: 'machine-elements',
     subtopic: 'Gears & Gear Trains',
     difficulty: 'advanced',
-    question: 'A spur gear pair in an industrial gearbox runs continuously at high torque and moderate speed. Which failure mode occurs first?',
+    question: 'Spur gear pair running continuously at high torque. Which failure mode occurs first?',
     diagram: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Gear Tooth Failure: Surface Pitting</text>
@@ -137,10 +137,10 @@ export const machineElementsQuestions: Question[] = [
       'Pitting generates debris that contaminates the lubricant, accelerating wear of other components',
       'Eventually, a large pit undermines the tooth surface, leading to tooth breakage',
     ],
-    explanation: 'In a well-designed gear system, bending fatigue is prevented by adequate root fillet radius and proper tooth size. Scoring is prevented by proper lubrication. Overload fracture requires a shock load beyond the design margin. That leaves pitting as the most common service failure mode — it is essentially contact fatigue and is the basis for gear life rating standards (AGMA, ISO).',
-    interviewInsight: 'Gear failure modes are a standard interview topic for anyone working with power transmission. The interviewer wants to see that you know pitting is the normal life-limiting mode, not tooth breakage.',
-    realWorldConnection: 'Gear oils contain anti-pitting additives (EP additives) specifically to delay this failure mode. Periodic oil analysis showing metallic particles is an early indicator of pitting.',
-    commonMistake: 'Choosing tooth bending fatigue because it sounds more dramatic. In practice, pitting on the tooth flanks is far more common in well-designed gearboxes.',
+    explanation: 'In well-designed gears, bending and scoring are prevented by proper design and lubrication. Pitting (contact fatigue) is the normal life-limiting mode and basis for AGMA/ISO ratings.',
+    interviewInsight: 'Must know pitting is the normal life-limiting mode, not tooth breakage.',
+    realWorldConnection: 'Gear oils contain EP additives to delay pitting. Oil analysis detects early metallic particles.',
+    commonMistake: 'Choosing tooth bending because it sounds dramatic. Pitting is far more common.',
     tags: ['gears', 'pitting', 'hertzian-contact', 'fatigue', 'failure-mode', 'lubrication'],
   },
 
@@ -151,7 +151,7 @@ export const machineElementsQuestions: Question[] = [
     topic: 'machine-elements',
     subtopic: 'Bearings',
     difficulty: 'intermediate',
-    question: 'For a high-speed spindle (15,000 RPM), should you use a rolling element bearing or a hydrodynamic (journal) bearing?',
+    question: 'High-speed spindle (15,000 RPM): rolling element bearing or journal bearing?',
     diagram: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Bearing Comparison: Rolling vs. Journal</text>
@@ -336,11 +336,18 @@ export const machineElementsQuestions: Question[] = [
   // ME-005 — Free Text / Explanation
   {
     id: 'me-005',
-    type: 'free-text',
+    type: 'multiple-choice',
     topic: 'machine-elements',
     subtopic: 'Seals & Gaskets',
     difficulty: 'intermediate',
-    question: 'Explain why an O-ring groove is designed with a specific squeeze percentage. What happens if you use too much or too little squeeze?',
+    question: 'An O-ring groove is designed with a specific squeeze percentage. What happens if the squeeze is excessive?',
+    options: [
+      { id: 'a', text: 'The O-ring loses contact with the mating surface and leaks under pressure' },
+      { id: 'b', text: 'The O-ring performs optimally because more squeeze always means a better seal' },
+      { id: 'c', text: 'Accelerated wear, heat generation, premature compression set, and possible nibbling/extrusion into the gap' },
+      { id: 'd', text: 'The O-ring vulcanizes in place and becomes a permanent bond between the surfaces' },
+    ],
+    correctAnswer: 'c',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="20" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">O-Ring Groove Design: Squeeze</text>
@@ -403,7 +410,6 @@ export const machineElementsQuestions: Question[] = [
       <text x="205" y="252" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="10">Static seal: 15-30% squeeze | Dynamic seal: 10-20% squeeze</text>
       <text x="205" y="267" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Groove volume must exceed O-ring volume for thermal expansion</text>
     </svg>`,
-    sampleAnswer: 'An O-ring seals by being compressed (squeezed) between the groove and the mating surface. The squeeze creates a contact stress that exceeds the system pressure, preventing leakage. Standard squeeze is 10-30% of the O-ring cross-section diameter, depending on the application (static vs. dynamic, pressure level).\n\nToo little squeeze: The contact stress is insufficient to overcome the system pressure, especially as the O-ring ages, hardens, and takes a compression set. The seal leaks. At very low squeeze, the O-ring may not even contact the mating surface properly.\n\nToo much squeeze: Excessive squeeze creates high friction, accelerated wear, and heat generation in dynamic applications (reciprocating or rotating). It also overstresses the elastomer, causing premature compression set (permanent deformation), cracking, and nibbling (extrusion into the gap). The seal life is dramatically shortened.',
     keyPoints: [
       'Squeeze creates contact stress that must exceed fluid pressure',
       'Standard squeeze: 10-30% depending on application (less for dynamic seals)',
@@ -504,14 +510,21 @@ export const machineElementsQuestions: Question[] = [
     tags: ['gear-ratio', 'torque', 'speed', 'reducer', 'power-transmission'],
   },
 
-  // ME-007 — Scenario
+  // ME-007 — Multiple Choice
   {
     id: 'me-007',
-    type: 'scenario',
+    type: 'multiple-choice',
     topic: 'machine-elements',
     subtopic: 'Shafts & Couplings',
     difficulty: 'advanced',
-    question: 'A pump shaft connected to a motor through a flexible coupling is vibrating excessively. Diagnose and fix the problem.',
+    question: 'A pump connected to a motor through a flexible coupling vibrates excessively. What is the most likely root cause?',
+    options: [
+      { id: 'a', text: 'The flexible coupling is too stiff' },
+      { id: 'b', text: 'Shaft misalignment between motor and pump' },
+      { id: 'c', text: 'The pump impeller is too large' },
+      { id: 'd', text: 'The motor is running above rated speed' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Title -->
       <text x="200" y="18" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Shaft Misalignment — Angular + Parallel</text>
@@ -579,23 +592,7 @@ export const machineElementsQuestions: Question[] = [
       <text x="297" y="258" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Laser alignment (&lt;0.05mm)</text>
       <text x="297" y="270" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">Check soft foot + thermal growth</text>
     </svg>`,
-    context: 'A 50 HP motor at 1800 RPM drives a centrifugal pump through a jaw-type flexible coupling. After 6 months of operation, the coupling spider (elastomeric insert) has shredded, and the pump bearing has failed. The shaft shows wear marks at the bearing location.',
-    steps: [
-      {
-        prompt: 'What is the most likely root cause?',
-        idealResponse: 'Shaft misalignment — either angular, parallel (offset), or both. The flexible coupling was masking the misalignment by absorbing the resulting forces, but those forces overloaded the coupling spider and the pump bearing. The coupling is a symptom absorber, not a cure for misalignment.',
-      },
-      {
-        prompt: 'How would you verify misalignment?',
-        idealResponse: 'Use a dial indicator setup or laser alignment tool. Check for both angular misalignment (shafts at an angle) and parallel offset (shafts parallel but not collinear). Acceptable alignment for a jaw coupling at 1800 RPM is typically <0.05mm offset and <0.05mm/100mm angular. Also check for soft foot (base not flat), thermal growth (motor/pump expand when hot), and pipe strain (piping forces pulling the pump out of alignment).',
-      },
-      {
-        prompt: 'How do you fix it permanently?',
-        idealResponse: 'First, correct the alignment using laser alignment tools to bring within coupling specifications. Install a new coupling spider and bearing. Then address root causes: (1) Install shims for soft foot correction. (2) Account for thermal growth — align cold with a calculated offset so the shafts are aligned when hot. (3) Ensure piping does not impose forces on the pump flanges. (4) Implement a periodic alignment check program (annually or after any maintenance).',
-      },
-    ],
-    keyTakeaway: 'Shaft misalignment is the #1 cause of coupling and bearing failure in rotating machinery. Flexible couplings accommodate SMALL misalignment — they are not a substitute for proper alignment.',
-    explanation: 'Misalignment imposes cyclic forces on bearings and couplings at shaft rotational frequency. These forces accelerate fatigue in bearings and generate heat in coupling elements. The symptoms (coupling failure, bearing failure, vibration) are classic indicators.',
+    explanation: 'Shaft misalignment (angular or parallel offset) is the #1 cause of vibration in coupled rotating equipment. Even flexible couplings have limited misalignment tolerance. Laser alignment tools are used to achieve sub-0.05mm precision.',
     interviewInsight: 'This is a real-world troubleshooting scenario that comes up in every rotating machinery interview. The interviewer wants to see systematic diagnosis, not guesswork.',
     commonMistake: 'Saying "replace the coupling with a stronger one." This treats the symptom, not the cause. The misalignment will just destroy the new coupling too, albeit more slowly.',
     tags: ['alignment', 'coupling', 'bearing-failure', 'vibration', 'troubleshooting', 'pump'],

@@ -33,6 +33,7 @@ function PasswordStrength({ password }: { password: string }) {
     { label: '8+ chars', met: password.length >= 8 },
     { label: 'Uppercase', met: /[A-Z]/.test(password) },
     { label: 'Number', met: /\d/.test(password) },
+    { label: 'Special char', met: /[^A-Za-z0-9]/.test(password) },
   ];
 
   if (!password) return null;
@@ -42,14 +43,14 @@ function PasswordStrength({ password }: { password: string }) {
   return (
     <div className="space-y-2 pt-1">
       <div className="flex gap-1">
-        {[1, 2, 3].map((i) => (
+        {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
             className={`h-1.5 sm:h-1 flex-1 rounded-full transition-colors ${
               i <= score
-                ? score === 3
+                ? score >= 4
                   ? 'bg-[#58CC02]'
-                  : score === 2
+                  : score === 3
                     ? 'bg-amber-400'
                     : 'bg-red-400'
                 : 'bg-surface-200'

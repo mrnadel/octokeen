@@ -10,10 +10,8 @@ export type QuestionType =
   | 'multi-select'
   | 'ranking'
   | 'scenario'
-  | 'free-text'
   | 'spot-the-flaw'
   | 'estimation'
-  | 'explanation'
   | 'confidence-rated'
   | 'what-fails-first'
   | 'design-decision'
@@ -137,12 +135,6 @@ export interface ScenarioQuestion extends BaseQuestion {
   keyTakeaway: string;
 }
 
-export interface FreeTextQuestion extends BaseQuestion {
-  type: 'free-text' | 'explanation';
-  sampleAnswer: string;
-  keyPoints: string[];
-}
-
 export interface SpotTheFlawQuestion extends BaseQuestion {
   type: 'spot-the-flaw';
   statement: string;
@@ -196,7 +188,6 @@ export type Question =
   | MultiSelectQuestion
   | RankingQuestion
   | ScenarioQuestion
-  | FreeTextQuestion
   | SpotTheFlawQuestion
   | EstimationQuestion
   | ConfidenceRatedQuestion

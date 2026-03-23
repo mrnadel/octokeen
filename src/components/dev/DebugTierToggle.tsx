@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
@@ -58,13 +58,77 @@ export function DebugTierToggle() {
     }, 150);
   }, [debugSetProgress]);
 
+  // Dragging state
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef({ x: 0, y: 0, posX: 0, posY: 0 });
+  const hasDraggedRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Load saved position
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dev-btn-pos');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setPos({ x: parsed.x ?? 0, y: parsed.y ?? 0 });
+      }
+    } catch {}
+  }, []);
+
+  // Save position on change
+  useEffect(() => {
+    if (pos.x !== 0 || pos.y !== 0) {
+      localStorage.setItem('dev-btn-pos', JSON.stringify(pos));
+    }
+  }, [pos]);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (isOpen) return;
+    hasDraggedRef.current = false;
+    dragStartRef.current = { x: e.clientX, y: e.clientY, posX: pos.x, posY: pos.y };
+    setIsDragging(true);
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, [isOpen, pos.x, pos.y]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartRef.current.x;
+    const dy = e.clientY - dragStartRef.current.y;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+      hasDraggedRef.current = true;
+    }
+    setPos({
+      x: dragStartRef.current.posX + dx,
+      y: dragStartRef.current.posY + dy,
+    });
+  }, [isDragging]);
+
+  const handlePointerUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleClick = useCallback(() => {
+    if (!hasDraggedRef.current) {
+      setIsOpen((v) => !v);
+    }
+  }, []);
+
   if (process.env.NODE_ENV !== 'development') return null;
 
   const currentLabel = TIERS.find((t) => t.value === debugTierOverride)?.label ?? 'Real';
   const isOverriding = debugTierOverride !== null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999]">
+    <div
+      ref={containerRef}
+      className="fixed z-[9999]"
+      style={{
+        bottom: `calc(1rem + ${-pos.y}px)`,
+        right: `calc(1rem + ${-pos.x}px)`,
+        touchAction: 'none',
+      }}
+    >
       {isOpen && (
         <div className="absolute bottom-12 right-0 bg-white rounded-lg shadow-xl border border-gray-200 p-3 min-w-[200px]">
           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
@@ -120,12 +184,21 @@ export function DebugTierToggle() {
         </div>
       )}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold shadow-lg transition-colors ${
-          isOverriding
-            ? 'bg-amber-500 text-white hover:bg-amber-600'
-            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onClick={handleClick}
+        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold shadow-lg transition-colors select-none ${
+          isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
+        style={{
+          background: isOverriding
+            ? 'rgba(245, 158, 11, 0.4)'
+            : 'rgba(31, 41, 55, 0.35)',
+          color: isOverriding ? '#FFF' : 'rgba(209, 213, 219, 0.9)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+        }}
       >
         <span className="text-sm">&#x1F527;</span>
         {isOverriding ? currentLabel.toUpperCase() : 'DEV'}

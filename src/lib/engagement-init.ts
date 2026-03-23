@@ -49,6 +49,19 @@ export function useEngagementInit() {
       }
     }
 
+    // Grant Bronze league frame if not already owned (everyone starts in Bronze)
+    if (!engagement.gems.inventory.activeFrames.includes('reward-frame-league-bronze')) {
+      useEngagementStore.setState((s) => ({
+        gems: {
+          ...s.gems,
+          inventory: {
+            ...s.gems.inventory,
+            activeFrames: [...s.gems.inventory.activeFrames, 'reward-frame-league-bronze'],
+          },
+        },
+      }));
+    }
+
     // Initialize all engagement systems
     // Initialize fake user pool (must happen before league simulation)
     initFakeUserPool();

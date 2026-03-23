@@ -7,7 +7,7 @@ import { getCurrentWeekMonday } from '@/lib/quest-engine';
 
 // --------------- Constants ---------------
 
-const POOL_VERSION = 1;
+const POOL_VERSION = 4; // v4: ~20% avatars with random photos (picsum), 80% initials only
 const POOL_STORAGE_KEY = 'mechready-fake-users';
 const MAX_POOL_SIZE = 300;
 
@@ -24,12 +24,80 @@ const NAME_QUALITY_DIST: Record<number, number[]> = {
   5: [0.00, 0.00, 0.10, 0.40, 0.50],
 };
 
-// Avatar probability (chance of having a DiceBear avatar) per tier
+// Avatar probability (chance of having a profile image) per tier — ~20% have one
 const AVATAR_PROBABILITY: Record<number, number> = {
-  1: 0.50, 2: 0.65, 3: 0.80, 4: 0.90, 5: 0.95,
+  1: 0.12, 2: 0.15, 3: 0.20, 4: 0.25, 5: 0.30,
 };
 
-const DICEBEAR_STYLES = ['adventurer', 'avataaars', 'lorelei', 'thumbs'];
+// Frame probability per tier (chance of having any frame equipped)
+const FRAME_PROBABILITY: Record<number, number> = {
+  1: 0.15, 2: 0.30, 3: 0.50, 4: 0.70, 5: 0.85,
+};
+
+// Frame pool per tier — weighted by rarity (higher tiers get rarer frames)
+const FRAME_POOLS: Record<number, { style: string; weight: number }[]> = {
+  1: [
+    // Bronze: mostly common, tiny chance of rare
+    { style: 'steel', weight: 10 }, { style: 'copper', weight: 10 }, { style: 'bolt', weight: 10 },
+    { style: 'wire', weight: 10 }, { style: 'concrete', weight: 8 }, { style: 'gasket', weight: 8 },
+    { style: 'titanium', weight: 6 }, { style: 'gold', weight: 4 },
+    { style: 'league-bronze', weight: 5 },
+    { style: 'wrench', weight: 2 }, { style: 'piston', weight: 1 },
+  ],
+  2: [
+    // Silver: common + rare
+    { style: 'gold', weight: 6 }, { style: 'emerald', weight: 6 }, { style: 'ruby', weight: 5 },
+    { style: 'blueprint', weight: 5 }, { style: 'rivet', weight: 5 }, { style: 'spring', weight: 4 },
+    { style: 'gear', weight: 4 }, { style: 'cast-iron', weight: 3 },
+    { style: 'league-bronze', weight: 4 }, { style: 'league-silver', weight: 5 },
+    { style: 'wrench', weight: 6 }, { style: 'piston', weight: 5 }, { style: 'circuit', weight: 5 },
+    { style: 'diamond', weight: 3 }, { style: 'sunset', weight: 2 },
+  ],
+  3: [
+    // Gold: rare + some epic
+    { style: 'sapphire', weight: 4 }, { style: 'emerald', weight: 3 }, { style: 'ruby', weight: 3 },
+    { style: 'league-silver', weight: 3 }, { style: 'league-gold', weight: 6 },
+    { style: 'diamond', weight: 6 }, { style: 'sunset', weight: 5 }, { style: 'wrench', weight: 4 },
+    { style: 'circuit', weight: 4 }, { style: 'thermal', weight: 5 }, { style: 'weld', weight: 5 },
+    { style: 'aurora', weight: 3 }, { style: 'neon', weight: 3 }, { style: 'turbine', weight: 2 },
+    { style: 'streak-iron', weight: 2 },
+  ],
+  4: [
+    // Platinum: rare + epic + some legendary
+    { style: 'league-gold', weight: 3 }, { style: 'league-platinum', weight: 6 },
+    { style: 'thermal', weight: 4 }, { style: 'weld', weight: 4 },
+    { style: 'aurora', weight: 5 }, { style: 'neon', weight: 5 }, { style: 'turbine', weight: 5 },
+    { style: 'plasma', weight: 5 }, { style: 'star-drive', weight: 4 },
+    { style: 'streak-iron', weight: 3 }, { style: 'streak-diamond', weight: 2 },
+    { style: 'singularity', weight: 2 }, { style: 'fusion-reactor', weight: 1 },
+    { style: 'perfectionist', weight: 2 }, { style: 'marathon', weight: 2 },
+  ],
+  5: [
+    // Masters: epic + legendary dominate
+    { style: 'league-platinum', weight: 2 }, { style: 'league-masters', weight: 8 },
+    { style: 'aurora', weight: 3 }, { style: 'turbine', weight: 3 }, { style: 'plasma', weight: 4 },
+    { style: 'star-drive', weight: 4 },
+    { style: 'singularity', weight: 5 }, { style: 'fusion-reactor', weight: 5 },
+    { style: 'supernova', weight: 4 }, { style: 'all-gold', weight: 2 },
+    { style: 'streak-diamond', weight: 3 }, { style: 'streak-centurion', weight: 2 },
+    { style: 'perfectionist', weight: 2 }, { style: 'speed-demon', weight: 2 },
+  ],
+};
+
+function pickRandomFrame(rng: () => number, tier: number): string | undefined {
+  if (rng() > FRAME_PROBABILITY[tier]) return undefined;
+  const pool = FRAME_POOLS[tier];
+  const totalWeight = pool.reduce((s, p) => s + p.weight, 0);
+  let roll = rng() * totalWeight;
+  for (const entry of pool) {
+    roll -= entry.weight;
+    if (roll <= 0) return entry.style;
+  }
+  return pool[pool.length - 1].style;
+}
+
+// Avatar styles (kept for seed generation, photos come from pravatar.cc)
+const AVATAR_STYLES = ['photo-a', 'photo-b', 'photo-c', 'photo-d'];
 
 // XP ranges per tier (aligned with levels.ts)
 const TIER_XP_RANGES: Record<number, { min: number; max: number }> = {
@@ -237,7 +305,7 @@ function generateFakeUser(
 
   // Avatar
   const hasAvatar = rng() < AVATAR_PROBABILITY[tier];
-  const avatarStyle = DICEBEAR_STYLES[Math.floor(rng() * DICEBEAR_STYLES.length)];
+  const avatarStyle = AVATAR_STYLES[Math.floor(rng() * AVATAR_STYLES.length)];
 
   // Join date: tier determines how long ago
   const joinDaysRanges: Record<number, { min: number; max: number }> = {
@@ -283,6 +351,9 @@ function generateFakeUser(
   const activityLevel = randFloat(rng, 0.1, 1.0);
   const consistency = randFloat(rng, 0.2, 0.95);
 
+  // Frame
+  const frameStyle = pickRandomFrame(rng, tier);
+
   return {
     id,
     name,
@@ -301,6 +372,7 @@ function generateFakeUser(
     activityLevel,
     consistency,
     lastProgressedWeek: getCurrentWeekMonday(),
+    frameStyle,
   };
 }
 
@@ -598,6 +670,7 @@ function drawFromPool(
       dailyXpRate,
       variance,
       fakeUserId: user.id,
+      frameStyle: user.frameStyle,
     };
   });
 }

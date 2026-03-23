@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Rigger</title>
+<style>
+:root {
+  --bg:#0d0d12; --s1:#16161e; --s2:#1e1e28; --s3:#282834;
+  --b:#2a2a38; --t:#e4e4ee; --t2:#7a7a8e; --t3:#50506a;
+  --acc:#f5a623; --acc2:#4a9eff; --red:#ff4a6a; --grn:#4aff8a;
+  --r:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--t);height:100vh;display:flex;flex-direction:column;overflow:hidden;font-size:13px}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;height:44px;background:var(--s1);border-bottom:1px solid var(--b);padding:0 12px;gap:2px;flex-shrink:0}
+.logo{font-weight:800;font-size:13px;color:var(--acc);margin-right:20px;letter-spacing:.03em}
+.tab{padding:10px 16px;font-size:12px;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;user-select:none}
+.tab:hover{color:var(--t)}.tab.active{color:var(--acc);border-color:var(--acc)}.tab.locked{opacity:.3;pointer-events:none}
+/* Layout */
+.workspace{display:flex;flex:1;overflow:hidden}
+.panel{width:280px;background:var(--s1);border-right:1px solid var(--b);overflow-y:auto;flex-shrink:0}
+.panel-section{padding:14px;border-bottom:1px solid var(--b)}
+.panel-section h3{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:10px;font-weight:600}
+.canvas-wrap{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background-image:linear-gradient(45deg,#12121a 25%,transparent 25%),linear-gradient(-45deg,#12121a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#12121a 75%),linear-gradient(-45deg,transparent 75%,#12121a 75%);
+  background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+#canvas-svg{max-width:95%;max-height:95%;filter:drop-shadow(0 4px 24px rgba(0,0,0,.4))}
+/* Controls */
+label{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--t2);margin-bottom:4px}
+label .v{color:var(--t);font-variant-numeric:tabular-nums;min-width:24px;text-align:right}
+input[type=range]{width:100%;height:3px;-webkit-appearance:none;background:var(--b);border-radius:2px;outline:0;margin-bottom:10px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--acc);cursor:pointer}
+button,.btn{padding:7px 14px;border:1px solid var(--b);background:var(--s2);color:var(--t);border-radius:var(--r);cursor:pointer;font-size:11px;transition:.12s;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+button:hover{background:var(--s3)}.btn-p{background:var(--acc);color:#000;border-color:var(--acc)}.btn-p:hover{background:#e09518}
+.btn-d{border-color:var(--red);color:var(--red)}.btn-sm{padding:4px 8px;font-size:10px}
+.btn-active{background:var(--acc)!important;color:#000!important;border-color:var(--acc)!important}
+select{background:var(--s2);border:1px solid var(--b);color:var(--t);padding:4px 8px;border-radius:4px;font-size:11px;width:100%}
+.row{display:flex;gap:4px;margin-bottom:8px}.row>*{flex:1}
+/* Drop zone */
+.drop-zone{border:2px dashed var(--b);border-radius:var(--r);padding:32px 16px;text-align:center;cursor:pointer;transition:.2s}
+.drop-zone:hover,.drop-zone.over{border-color:var(--acc);background:rgba(245,166,35,.04)}
+.drop-zone .icon{font-size:28px;margin-bottom:6px;display:block}
+.drop-zone p{color:var(--t2);font-size:12px}
+/* Joint items */
+.joint-item{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--s2);border-radius:var(--r);margin-bottom:3px;cursor:pointer;font-size:11px;border:1px solid transparent}
+.joint-item:hover{background:var(--s3)}.joint-item.sel{border-color:var(--acc)}
+.jdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.joint-item input{background:0;border:0;color:var(--t);font-size:11px;width:60px;outline:0}
+.joint-item select{width:70px;padding:2px 4px}
+.joint-item .cnt{color:var(--t3);font-size:10px;margin-left:auto}
+.joint-item .del{color:var(--red);cursor:pointer;font-size:14px;margin-left:4px;opacity:.5}
+.joint-item .del:hover{opacity:1}
+/* Anim row */
+.anim-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.anim-row label{width:60px;margin:0;flex-shrink:0}.anim-row input[type=range]{flex:1;margin:0}.anim-row .v{width:36px;text-align:right;font-size:11px;font-variant-numeric:tabular-nums}
+/* Tab pages */
+.page{display:none}.page.active{display:block}
+/* Status */
+.status{height:24px;background:var(--s1);border-top:1px solid var(--b);display:flex;align-items:center;padding:0 12px;font-size:10px;color:var(--t3);gap:12px;flex-shrink:0}
+/* SVG interactions */
+#canvas-svg path{transition:opacity .08s}
+#canvas-svg path.dim{opacity:.15}
+#canvas-svg path.hi{stroke:var(--acc);stroke-width:2;stroke-linejoin:round}
+.joint-handle{cursor:grab;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.joint-handle:hover{filter:drop-shadow(0 0 6px var(--acc))}
+.bone-line{pointer-events:none}
+/* Presets */
+.preset-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px}
+/* Color chips for groups */
+.group-colors{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.gchip{width:14px;height:14px;border-radius:3px;border:1px solid var(--b)}
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:0}::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+.hidden{display:none!important}
+.sep{height:1px;background:var(--b);margin:10px 0}
+.help{font-size:10px;color:var(--t3);line-height:1.5;margin-top:6px}
+.img-preview{max-width:100%;max-height:120px;border-radius:var(--r);margin-top:8px;object-fit:contain}
+/* Lasso */
+.lasso-poly{fill:rgba(245,166,35,.08);stroke:var(--acc);stroke-width:2;stroke-dasharray:6 3;pointer-events:none}
+/* Centroid dots */
+.centroid-dot{pointer-events:none;opacity:.7}
+/* Path tint by joint */
+.path-tinted{stroke-width:2;stroke-linejoin:round}
+.static-ring{fill:none;stroke:#4aff8a;stroke-width:2.5;stroke-dasharray:2 4;pointer-events:none;opacity:.8}
+.flag-badge{font-size:9px;pointer-events:none;font-family:system-ui;font-weight:700;text-anchor:middle}
+.eye-handle{filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="logo">RIGGER</div>
+  <div class="tab active" data-tab="upload">1. Edit</div>
+  <div class="tab locked" data-tab="rig">2. Rig</div>
+  <div class="tab locked" data-tab="animate">3. Animate</div>
+  <div class="tab locked" data-tab="export">4. Export</div>
+</div>
+
+<div class="workspace">
+<div class="panel" id="panel">
+
+  <!-- UPLOAD TAB -->
+  <div class="page active" id="p-upload">
+    <div class="panel-section">
+      <h3>Image</h3>
+      <div class="drop-zone" id="drop-zone">
+        <span class="icon">+</span>
+        <p>Drop image or click to browse</p>
+      </div>
+      <input type="file" id="file-input" accept="image/*" class="hidden">
+      <img id="img-preview" class="img-preview hidden">
+    </div>
+    <div class="panel-section" id="convert-controls" class="hidden">
+      <h3>Conversion</h3>
+      <label>Detail <span class="v" id="v-detail">5</span></label>
+      <input type="range" id="s-detail" min="1" max="10" value="5">
+      <label>Colors <span class="v" id="v-colors">8</span></label>
+      <input type="range" id="s-colors" min="2" max="10" value="8">
+      <label>Smoothness <span class="v" id="v-smooth">6</span></label>
+      <input type="range" id="s-smooth" min="1" max="10" value="6">
+      <details style="margin-top:4px">
+        <summary style="font-size:11px;color:var(--t3);cursor:pointer;margin-bottom:8px">Advanced</summary>
+        <label>Speckle filter <span class="v" id="v-speckle">4</span></label>
+        <input type="range" id="s-speckle" min="1" max="30" value="4">
+        <label>Layer diff <span class="v" id="v-layer">16</span></label>
+        <input type="range" id="s-layer" min="4" max="48" value="16">
+        <label>Corner threshold <span class="v" id="v-corner">60</span></label>
+        <input type="range" id="s-corner" min="10" max="170" value="60">
+        <label style="margin-top:6px">Shape mode</label>
+        <div class="row">
+          <button class="btn-sm" id="mode-spline">Spline</button>
+          <button class="btn-sm btn-active" id="mode-polygon">Polygon</button>
+        </div>
+        <label>Layer mode</label>
+        <div class="row">
+          <button class="btn-sm btn-active" id="hier-cutout">Cutout</button>
+          <button class="btn-sm" id="hier-stacked">Stacked</button>
+        </div>
+        <p class="help">Cutout = each shape is independent (best for rigging). Stacked = shapes layer on top of each other.</p>
+      </details>
+      <div class="sep"></div>
+      <button class="btn-p" id="btn-convert" style="width:100%">Convert to SVG</button>
+      <p id="convert-status" class="help"></p>
+    </div>
+    <!-- Edit tools (shown after conversion) -->
+    <div id="edit-tools" class="hidden">
+      <div class="panel-section">
+        <h3>Edit Parts</h3>
+        <div class="row">
+          <button id="tool-select" class="btn-active">Select</button>
+          <button id="tool-lasso">Lasso</button>
+          <button id="tool-eye">+ Eye</button>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <button id="btn-undo" class="btn-sm" disabled>Undo</button>
+          <button id="btn-redo" class="btn-sm" disabled>Redo</button>
+        </div>
+        <label style="margin-top:4px"><input type="checkbox" id="chk-centroids" style="margin-right:6px"> Show path centroids</label>
+        <p class="help" id="tool-help">Click paths to select them. Shift+click to multi-select. Lasso to draw around areas.</p>
+        <div id="sel-assign-bar" class="hidden" style="margin-top:8px;padding:8px;background:var(--s2);border-radius:var(--r)">
+          <p style="font-size:11px;color:var(--t2);margin-bottom:6px"><span id="sel-count">0</span></p>
+          <button id="btn-merge-sel" class="btn-sm" style="width:100%;margin-bottom:4px;border-color:var(--acc2);color:var(--acc2)">Merge into one part</button>
+          <button id="btn-keep-sel" class="btn-sm" style="width:100%;margin-bottom:4px;border-color:var(--grn);color:var(--grn)">Keep only selected</button>
+          <button id="btn-delete-sel" class="btn-d btn-sm" style="width:100%;margin-bottom:4px">Delete selected</button>
+          <div class="sep"></div>
+          <button id="btn-static-sel" class="btn-sm" style="width:100%;margin-bottom:4px;border-color:#4aff8a;color:#4aff8a">Mark as Static</button>
+          <button id="btn-clear-flags" class="btn-sm" style="width:100%">Clear static flag</button>
+        </div>
+      </div>
+      <div class="panel-section" id="eye-list-section" class="hidden">
+        <h3>Eyes</h3>
+        <div id="eye-list"></div>
+        <p class="help" style="margin-top:4px">Click + Eye, then click on the character to place. Drag edge to resize.</p>
+      </div>
+      <div class="panel-section">
+        <button class="btn-p" id="btn-to-rig" style="width:100%">Continue to Rig</button>
+        <button id="btn-reset-all" class="btn-d btn-sm" style="width:100%;margin-top:6px">Reset everything</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIG TAB -->
+  <div class="page" id="p-rig">
+    <div class="panel-section">
+      <h3>Place Joints</h3>
+      <p class="help" style="margin-bottom:8px">Click on the character to place pivot points, then assign parts to them.</p>
+      <div class="row">
+        <button id="tool-joint" class="btn-active">+ Joint</button>
+        <button id="tool-assign">Assign</button>
+      </div>
+    </div>
+    <div class="panel-section">
+      <h3>Joints</h3>
+      <div id="joint-list"></div>
+      <button id="btn-add-joint" class="btn-sm" style="width:100%;margin-top:6px">+ Add joint at center</button>
+    </div>
+    <div class="panel-section">
+      <button id="btn-auto-assign" style="width:100%;margin-bottom:6px">Auto-assign to nearest bone</button>
+      <button id="btn-clear-assign" class="btn-d btn-sm" style="width:100%">Clear assignments</button>
+    </div>
+    <div class="panel-section">
+      <button class="btn-p" id="btn-to-animate" style="width:100%">Continue to Animate</button>
+    </div>
+  </div>
+
+  <!-- ANIMATE TAB -->
+  <div class="page" id="p-animate">
+    <div class="panel-section">
+      <h3>Joint Rotations</h3>
+      <div id="anim-sliders"></div>
+      <button id="btn-reset-rot" class="btn-sm" style="width:100%;margin-top:8px">Reset all to 0</button>
+    </div>
+    <div class="panel-section">
+      <h3>Presets</h3>
+      <div class="preset-grid">
+        <button data-preset="idle">Idle</button>
+        <button data-preset="wave">Wave</button>
+        <button data-preset="nod">Nod</button>
+        <button data-preset="bounce">Bounce</button>
+        <button data-preset="wiggle">Wiggle</button>
+        <button data-preset="dance">Dance</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="btn-play">Play</button>
+        <button id="btn-stop">Stop</button>
+      </div>
+      <label style="margin-top:8px">Speed <span class="v" id="v-speed">1.0</span>x</label>
+      <input type="range" id="s-speed" min="0.2" max="3" value="1" step="0.1">
+    </div>
+    <div class="panel-section">
+      <h3>Eyes (Blink)</h3>
+      <p class="help" id="eye-status" style="margin-bottom:6px">No eye paths set</p>
+      <label>Blink interval <span class="v" id="v-blink-rate">3.0</span>s</label>
+      <input type="range" id="s-blink-rate" min="0.5" max="8" value="3" step="0.5">
+      <label>Blink speed <span class="v" id="v-blink-dur">0.15</span>s</label>
+      <input type="range" id="s-blink-dur" min="0.05" max="0.5" value="0.15" step="0.05">
+    </div>
+    <div class="panel-section">
+      <h3>Squash &amp; Stretch</h3>
+      <label>Amount <span class="v" id="v-squash">0.3</span></label>
+      <input type="range" id="s-squash" min="0" max="1" value="0.3" step="0.05">
+      <p class="help">Adds rubbery deformation based on joint rotation.</p>
+    </div>
+    <div class="panel-section">
+      <button class="btn-p" id="btn-to-export" style="width:100%">Continue to Export</button>
+    </div>
+  </div>
+
+  <!-- EXPORT TAB -->
+  <div class="page" id="p-export">
+    <div class="panel-section">
+      <h3>Export</h3>
+      <button class="btn-p" id="btn-download" style="width:100%;margin-bottom:6px">Download SVG</button>
+      <button id="btn-download-anim" style="width:100%;margin-bottom:6px">Download animated HTML</button>
+      <button id="btn-copy-svg" style="width:100%">Copy SVG code</button>
+      <p class="help" style="margin-top:8px">SVG is grouped by joint with transform-origin set on each group for easy CSS animation.</p>
+    </div>
+    <div class="panel-section">
+      <h3>Stats</h3>
+      <div id="export-stats" style="font-size:11px;color:var(--t2);line-height:1.8"></div>
+    </div>
+  </div>
+</div>
+
+<div class="canvas-wrap" id="canvas-wrap">
+  <svg id="canvas-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+</div>
+
+<div class="status">
+  <span id="st-paths">No image loaded</span>
+  <span id="st-joints">Joints: 0</span>
+  <span id="st-tool">Tool: -</span>
+  <span id="st-info" style="margin-left:auto"></span>
+</div>
+
+<script>
+// ─── STATE ───
+const S = {
+  paths: [],         // {d, fill, tx, ty, jointId, centroid}
+  joints: [],        // {id, name, x, y, parentId, color}
+  eyes: [],          // {id, x, y, radius, jointId}
+  imgData: null,
+  svgW: 1024, svgH: 1024,
+  tool: 'select',    // select | joint | assign | lasso
+  selPaths: new Set(),
+  selJoint: null,
+  mode: 'polygon',
+  anim: { playing: false, time: 0, preset: null, speed: 1, blinkRate: 3, blinkDur: 0.15, squashAmt: 0.3 },
+  jointIdCounter: 0,
+  lasso: { active: false, points: [] },
+  showCentroids: false,
+  hierarchical: 'cutout',
+};
+
+const JCOLORS = ['#ff4a6a','#4a9eff','#4aff8a','#f5a623','#c94aff','#ff8a4a','#4affee','#ff4adb','#8aff4a','#ffee4a','#4a6aff','#ff6a8a'];
+
+// ─── UNDO / REDO ───
+const history = { stack: [], idx: -1, maxSize: 60 };
+
+function snapshot() {
+  return {
+    joints: JSON.parse(JSON.stringify(S.joints)),
+    paths: S.paths.map(p => {
+      const base = { d: p.d, fill: p.fill, tx: p.tx, ty: p.ty, jointId: p.jointId, isStatic: !!p.isStatic };
+      if (p.subPaths) base.subPaths = p.subPaths.map(sp => ({ d: sp.d, fill: sp.fill, tx: sp.tx, ty: sp.ty }));
+      return base;
+    }),
+    eyes: JSON.parse(JSON.stringify(S.eyes)),
+    selJoint: S.selJoint,
+  };
+}
+
+function applySnapshot(snap) {
+  S.joints = JSON.parse(JSON.stringify(snap.joints));
+  S.paths = snap.paths.map((p, i) => ({ ...p, index: i, centroid: calcCentroid(p) }));
+  S.eyes = snap.eyes ? JSON.parse(JSON.stringify(snap.eyes)) : [];
+  S.selJoint = snap.selJoint;
+  S.selPaths.clear();
+  S.jointIdCounter = Math.max(S.jointIdCounter, ...S.joints.map(j => parseInt(j.id.slice(1)) || 0), 0);
+  renderJointList();
+  renderEyeList();
+  renderAll();
+  updateUndoButtons();
+}
+
+function pushUndo() {
+  // Discard any redo states ahead of current position
+  history.stack = history.stack.slice(0, history.idx + 1);
+  history.stack.push(snapshot());
+  if (history.stack.length > history.maxSize) history.stack.shift();
+  history.idx = history.stack.length - 1;
+  updateUndoButtons();
+}
+
+function undo() {
+  if (history.idx <= 0) return;
+  history.idx--;
+  applySnapshot(history.stack[history.idx]);
+  stInfo.textContent = `Undo (${history.idx}/${history.stack.length - 1})`;
+}
+
+function redo() {
+  if (history.idx >= history.stack.length - 1) return;
+  history.idx++;
+  applySnapshot(history.stack[history.idx]);
+  stInfo.textContent = `Redo (${history.idx}/${history.stack.length - 1})`;
+}
+
+function updateUndoButtons() {
+  const u = $('btn-undo'), r = $('btn-redo');
+  if (u) u.disabled = history.idx <= 0;
+  if (r) r.disabled = history.idx >= history.stack.length - 1;
+}
+
+// ─── DOM REFS ───
+const $ = id => document.getElementById(id);
+const svg = $('canvas-svg');
+const stPaths = $('st-paths'), stJoints = $('st-joints'), stTool = $('st-tool'), stInfo = $('st-info');
+
+// ─── TABS ───
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  if (t.classList.contains('locked')) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  $('p-' + t.dataset.tab).classList.add('active');
+  // Set default tool per tab
+  if (t.dataset.tab === 'upload') setTool('select');
+  if (t.dataset.tab === 'rig') setTool('joint');
+  if (t.dataset.tab === 'animate') { buildAnimSliders(); startBlinkLoop(); }
+  else { stopBlinkLoop(); }
+  if (t.dataset.tab === 'export') buildExportStats();
+  renderAll();
+}));
+
+function unlockTab(name) {
+  document.querySelector(`.tab[data-tab="${name}"]`).classList.remove('locked');
+}
+
+// ─── UPLOAD ───
+const dropZone = $('drop-zone');
+const fileInput = $('file-input');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('over'); handleFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+function handleFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    S.imgData = e.target.result;
+    $('img-preview').src = S.imgData;
+    $('img-preview').classList.remove('hidden');
+    dropZone.innerHTML = '<span class="icon">&#10003;</span><p>Image loaded. Adjust settings and convert.</p>';
+    $('convert-controls').classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── SLIDERS ───
+function bindSlider(id, valId, fn) {
+  const s = $(id), v = $(valId);
+  s.addEventListener('input', () => { v.textContent = s.value; if (fn) fn(); });
+}
+bindSlider('s-detail', 'v-detail');
+bindSlider('s-colors', 'v-colors');
+bindSlider('s-smooth', 'v-smooth');
+bindSlider('s-speckle', 'v-speckle');
+bindSlider('s-layer', 'v-layer');
+bindSlider('s-corner', 'v-corner');
+bindSlider('s-speed', 'v-speed', () => { S.anim.speed = parseFloat($('s-speed').value); });
+
+$('mode-spline').addEventListener('click', () => { S.mode = 'spline'; $('mode-spline').classList.add('btn-active'); $('mode-polygon').classList.remove('btn-active'); });
+$('mode-polygon').addEventListener('click', () => { S.mode = 'polygon'; $('mode-polygon').classList.add('btn-active'); $('mode-spline').classList.remove('btn-active'); });
+$('hier-cutout').addEventListener('click', () => { S.hierarchical = 'cutout'; $('hier-cutout').classList.add('btn-active'); $('hier-stacked').classList.remove('btn-active'); });
+$('hier-stacked').addEventListener('click', () => { S.hierarchical = 'stacked'; $('hier-stacked').classList.add('btn-active'); $('hier-cutout').classList.remove('btn-active'); });
+
+// ─── CONVERT ───
+$('btn-convert').addEventListener('click', async () => {
+  if (!S.imgData) return;
+  const btn = $('btn-convert');
+  const status = $('convert-status');
+  btn.disabled = true; btn.textContent = 'Converting...';
+  status.textContent = '';
+
+  const detail = parseInt($('s-detail').value);
+  const colors = parseInt($('s-colors').value);
+  const smooth = parseInt($('s-smooth').value);
+
+  // Map simple sliders to vtracer params
+  const filter_speckle = parseInt($('s-speckle').value) || Math.max(1, 12 - detail);
+  const color_precision = parseInt($('s-colors').value);
+  const layer_difference = parseInt($('s-layer').value) || Math.max(4, 40 - detail * 4);
+
+  try {
+    const res = await fetch('/api/convert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        image: S.imgData,
+        mode: S.mode,
+        hierarchical: S.hierarchical,
+        filter_speckle,
+        color_precision,
+        layer_difference,
+        corner_threshold: parseInt($('s-corner').value),
+        length_threshold: Math.max(1, 10 - smooth),
+        splice_threshold: 45,
+        path_precision: smooth >= 7 ? 3 : 2,
+      }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    S.paths = data.paths.map((p, i) => ({ ...p, jointId: null, index: i, centroid: calcCentroid(p) }));
+    S.svgW = data.width;
+    S.svgH = data.height;
+    S.joints = [];
+    S.selPaths.clear();
+    S.selJoint = null;
+
+    status.textContent = `${S.paths.length} paths generated`;
+    $('edit-tools').classList.remove('hidden');
+    unlockTab('rig');
+    // Init undo history
+    history.stack = [snapshot()];
+    history.idx = 0;
+    updateUndoButtons();
+    renderAll();
+  } catch (e) {
+    status.textContent = 'Error: ' + e.message;
+  }
+  btn.disabled = false; btn.textContent = 'Convert to SVG';
+});
+
+// ─── CENTROID CALC ───
+function calcCentroid(p) {
+  const nums = p.d.match(/-?[\d.]+/g);
+  if (!nums || nums.length < 2) return { x: p.tx, y: p.ty };
+  let sx = 0, sy = 0, n = 0;
+  for (let i = 0; i < nums.length - 1; i += 2) {
+    sx += parseFloat(nums[i]);
+    sy += parseFloat(nums[i + 1]);
+    n++;
+  }
+  return { x: sx / n + p.tx, y: sy / n + p.ty };
+}
+
+// ─── SVG RENDERING ───
+function renderAll() {
+  const activeTab = document.querySelector('.tab.active')?.dataset.tab;
+  if (activeTab === 'animate') {
+    renderAnimated();
+    renderOverlay('animate');
+    updateStatus();
+    return;
+  }
+  renderPaths(activeTab);
+  renderOverlay(activeTab);
+  updateStatus();
+  // Show/hide selection assign bar
+  const bar = $('sel-assign-bar');
+  if (bar) {
+    if (S.selPaths.size > 0 && (activeTab === 'upload' || activeTab === 'rig')) {
+      bar.classList.remove('hidden');
+      const statC = [...S.selPaths].filter(i => S.paths[i]?.isStatic).length;
+      let label = S.selPaths.size + ' paths selected';
+      if (statC) label += ` (${statC} static)`;
+      $('sel-count').textContent = label;
+    } else {
+      bar.classList.add('hidden');
+    }
+  }
+}
+
+function renderPaths(tab) {
+  let html = '';
+
+  S.paths.forEach((p, i) => {
+    let cls = '';
+    let extra = '';
+    if (tab === 'upload' || tab === 'rig') {
+      if (S.selPaths.has(i)) cls = 'hi';
+      else if (tab === 'rig' && S.tool === 'assign' && S.selJoint !== null && p.jointId !== null && p.jointId !== S.selJoint) cls = 'dim';
+      // Tint outline by joint color
+      if (p.jointId) {
+        const j = S.joints.find(x => x.id === p.jointId);
+        if (j) extra = ` stroke="${j.color}" stroke-width="1.5" stroke-opacity="0.5"`;
+      }
+    }
+    const gAttr = p.jointId !== null ? ` data-joint="${p.jointId}"` : '';
+    if (p.subPaths) {
+      // Render merged group: each sub-path keeps its own fill and transform
+      html += `<g class="${cls}" data-idx="${i}"${gAttr}>`;
+      p.subPaths.forEach(sp => {
+        html += `<path d="${sp.d}" fill="${sp.fill}" transform="translate(${sp.tx},${sp.ty})"${extra}/>`;
+      });
+      html += `</g>`;
+    } else {
+      html += `<path d="${p.d}" fill="${p.fill}" transform="translate(${p.tx},${p.ty})" class="${cls}" data-idx="${i}"${gAttr}${extra}/>`;
+    }
+  });
+
+  svg.setAttribute('viewBox', `0 0 ${S.svgW} ${S.svgH}`);
+  svg.innerHTML = html;
+}
+
+function renderOverlay(tab) {
+  if (tab !== 'upload' && tab !== 'rig' && tab !== 'animate') return;
+  const ns = 'http://www.w3.org/2000/svg';
+
+  // Draw bones
+  S.joints.forEach(j => {
+    if (!j.parentId) return;
+    const parent = S.joints.find(x => x.id === j.parentId);
+    if (!parent) return;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', parent.x); line.setAttribute('y1', parent.y);
+    line.setAttribute('x2', j.x); line.setAttribute('y2', j.y);
+    line.setAttribute('stroke', j.color);
+    line.setAttribute('stroke-width', '3');
+    line.setAttribute('stroke-opacity', '0.4');
+    line.setAttribute('stroke-dasharray', '8 4');
+    line.classList.add('bone-line');
+    svg.appendChild(line);
+  });
+
+  // Show centroids with joint-color tint
+  if (S.showCentroids && (tab === 'upload' || tab === 'rig')) {
+    S.paths.forEach(p => {
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('cx', p.centroid.x);
+      dot.setAttribute('cy', p.centroid.y);
+      dot.setAttribute('r', 4);
+      const j = p.jointId ? S.joints.find(x => x.id === p.jointId) : null;
+      dot.setAttribute('fill', j ? j.color : '#666');
+      dot.setAttribute('stroke', '#000');
+      dot.setAttribute('stroke-width', '1');
+      dot.classList.add('centroid-dot');
+      svg.appendChild(dot);
+    });
+  }
+
+  // Static path markers
+  if (tab === 'upload' || tab === 'rig') {
+    S.paths.forEach(p => {
+      if (!p.isStatic) return;
+      const cx = p.centroid.x, cy = p.centroid.y;
+      const ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+      ring.setAttribute('r', 12);
+      ring.classList.add('static-ring');
+      svg.appendChild(ring);
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy - 16);
+      label.setAttribute('fill', '#4aff8a');
+      label.classList.add('flag-badge');
+      label.textContent = 'STATIC';
+      svg.appendChild(label);
+    });
+  }
+
+  // Eye widgets (circles with handles)
+  if (tab === 'upload' || tab === 'rig') {
+    S.eyes.forEach(eye => {
+      // Eye circle outline
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', eye.x); c.setAttribute('cy', eye.y);
+      c.setAttribute('r', eye.radius);
+      c.setAttribute('fill', 'rgba(255,238,74,0.08)');
+      c.setAttribute('stroke', '#ffee4a');
+      c.setAttribute('stroke-width', '2');
+      c.setAttribute('stroke-dasharray', '6 3');
+      c.classList.add('eye-handle');
+      c.dataset.eyeId = eye.id;
+      c.dataset.mode = 'resize';
+      c.style.cursor = 'nwse-resize';
+      svg.appendChild(c);
+      // Center handle (move)
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('cx', eye.x); dot.setAttribute('cy', eye.y);
+      dot.setAttribute('r', 6);
+      dot.setAttribute('fill', '#ffee4a');
+      dot.setAttribute('fill-opacity', '0.8');
+      dot.classList.add('eye-handle');
+      dot.dataset.eyeId = eye.id;
+      dot.dataset.mode = 'move';
+      dot.style.cursor = 'grab';
+      svg.appendChild(dot);
+      // Label
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', parseFloat(eye.x));
+      label.setAttribute('y', parseFloat(eye.y) - eye.radius - 8);
+      label.setAttribute('fill', '#ffee4a');
+      label.setAttribute('font-size', '11');
+      label.setAttribute('font-family', 'system-ui');
+      label.setAttribute('font-weight', '600');
+      label.setAttribute('text-anchor', 'middle');
+      label.textContent = 'EYE';
+      label.style.pointerEvents = 'none';
+      svg.appendChild(label);
+    });
+  }
+
+  // Draw lasso polygon with live preview
+  if (S.lasso.points.length > 0) {
+    const pts = [...S.lasso.points];
+    if (S.lasso._preview) pts.push(S.lasso._preview);
+    const poly = document.createElementNS(ns, 'polygon');
+    poly.setAttribute('points', pts.map(p => `${p.x},${p.y}`).join(' '));
+    poly.classList.add('lasso-poly');
+    svg.appendChild(poly);
+    // Draw vertex dots
+    S.lasso.points.forEach(p => {
+      const d = document.createElementNS(ns, 'circle');
+      d.setAttribute('cx', p.x); d.setAttribute('cy', p.y); d.setAttribute('r', 4);
+      d.setAttribute('fill', 'var(--acc)'); d.style.pointerEvents = 'none';
+      svg.appendChild(d);
+    });
+  }
+
+  // Draw joint handles
+  S.joints.forEach(j => {
+    // Outer ring
+    const outer = document.createElementNS(ns, 'circle');
+    outer.setAttribute('cx', j.x); outer.setAttribute('cy', j.y);
+    outer.setAttribute('r', S.selJoint === j.id ? 14 : 10);
+    outer.setAttribute('fill', j.color);
+    outer.setAttribute('fill-opacity', '0.3');
+    outer.setAttribute('stroke', j.color);
+    outer.setAttribute('stroke-width', S.selJoint === j.id ? 3 : 2);
+    outer.classList.add('joint-handle');
+    outer.dataset.jointId = j.id;
+    svg.appendChild(outer);
+
+    // Path count badge
+    const cnt = S.paths.filter(p => p.jointId === j.id).length;
+    if (cnt > 0) {
+      const badge = document.createElementNS(ns, 'text');
+      badge.setAttribute('x', parseFloat(j.x) - 3);
+      badge.setAttribute('y', parseFloat(j.y) + 4);
+      badge.setAttribute('fill', '#fff');
+      badge.setAttribute('font-size', '10');
+      badge.setAttribute('font-family', 'system-ui');
+      badge.setAttribute('font-weight', '700');
+      badge.textContent = cnt;
+      badge.style.pointerEvents = 'none';
+      svg.appendChild(badge);
+    }
+
+    // Inner dot
+    const inner = document.createElementNS(ns, 'circle');
+    inner.setAttribute('cx', j.x); inner.setAttribute('cy', j.y);
+    inner.setAttribute('r', 4);
+    inner.setAttribute('fill', j.color);
+    inner.classList.add('joint-handle');
+    inner.dataset.jointId = j.id;
+    svg.appendChild(inner);
+
+    // Label
+    const text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', parseFloat(j.x) + 16);
+    text.setAttribute('y', parseFloat(j.y) + 4);
+    text.setAttribute('fill', j.color);
+    text.setAttribute('font-size', '14');
+    text.setAttribute('font-family', 'system-ui');
+    text.setAttribute('font-weight', '600');
+    text.textContent = j.name;
+    text.style.pointerEvents = 'none';
+    svg.appendChild(text);
+  });
+}
+
+// ─── CANVAS INTERACTION ───
+let draggingJoint = null;
+let dragOffset = { x: 0, y: 0 };
+
+function svgCoords(e) {
+  const rect = svg.getBoundingClientRect();
+  const vb = svg.viewBox.baseVal;
+  return {
+    x: (e.clientX - rect.left) / rect.width * vb.width,
+    y: (e.clientY - rect.top) / rect.height * vb.height,
+  };
+}
+
+svg.addEventListener('mousedown', e => {
+  const tab = document.querySelector('.tab.active')?.dataset.tab;
+  const coords = svgCoords(e);
+
+  // Check if clicking a joint handle
+  const handle = e.target.closest('.joint-handle');
+  if (handle && (tab === 'rig' || tab === 'animate')) {
+    const jid = handle.dataset.jointId;
+    if (S.tool === 'select' || S.tool === 'assign' || S.tool === 'lasso' || tab === 'animate') {
+      S.selJoint = jid;
+      renderJointList();
+      renderAll();
+    }
+    // Start drag (not during lasso)
+    if (S.tool !== 'lasso') {
+      pushUndo(); // save state before drag
+      draggingJoint = jid;
+      const j = S.joints.find(x => x.id === jid);
+      dragOffset = { x: coords.x - j.x, y: coords.y - j.y };
+    }
+    e.preventDefault();
+    return;
+  }
+
+  // Check if clicking an eye handle
+  const eyeHandle = e.target.closest('.eye-handle');
+  if (eyeHandle && (tab === 'upload' || tab === 'rig')) {
+    const eid = eyeHandle.dataset.eyeId;
+    const mode = eyeHandle.dataset.mode; // 'move' or 'resize'
+    const eye = S.eyes.find(x => x.id === eid);
+    if (eye) {
+      pushUndo();
+      S._draggingEye = { id: eid, mode, startX: coords.x, startY: coords.y, origX: eye.x, origY: eye.y, origR: eye.radius };
+    }
+    e.preventDefault();
+    return;
+  }
+
+  // Upload tab: place eyes
+  if (tab === 'upload' && S.tool === 'eye') {
+    pushUndo();
+    const id = 'eye' + (S.eyes.length + 1);
+    S.eyes.push({ id, x: Math.round(coords.x), y: Math.round(coords.y), radius: 30, jointId: null });
+    renderEyeList();
+    renderAll();
+    e.preventDefault();
+    return;
+  }
+
+  // Upload tab: select & lasso paths for editing
+  if (tab === 'upload' || tab === 'rig') {
+    if (S.tool === 'lasso') {
+      S.lasso.points.push({ x: coords.x, y: coords.y });
+      S.lasso.active = true;
+      renderAll();
+    } else if (S.tool === 'select') {
+      const pathEl = e.target.closest('[data-idx]');
+      if (pathEl) {
+        const idx = parseInt(pathEl.dataset.idx);
+        if (e.shiftKey || e.ctrlKey) {
+          if (S.selPaths.has(idx)) S.selPaths.delete(idx); else S.selPaths.add(idx);
+        } else {
+          S.selPaths.clear();
+          S.selPaths.add(idx);
+        }
+        renderAll();
+      }
+    }
+  }
+  // Rig tab: place joints & assign paths
+  if (tab === 'rig') {
+    if (S.tool === 'joint') {
+      addJoint(coords.x, coords.y);
+    } else if (S.tool === 'assign') {
+      const pathEl = e.target.closest('[data-idx]');
+      if (pathEl && S.selJoint !== null) {
+        pushUndo();
+        const idx = parseInt(pathEl.dataset.idx);
+        const p = S.paths[idx];
+        if (p.jointId === S.selJoint) {
+          p.jointId = null;
+        } else {
+          p.jointId = S.selJoint;
+        }
+        renderJointList();
+        renderAll();
+      }
+    }
+  }
+});
+
+// Lasso: double-click to close and select/assign
+svg.addEventListener('dblclick', e => {
+  if (S.tool !== 'lasso' || S.lasso.points.length < 3) return;
+  finishLasso();
+});
+
+function finishLasso() {
+  pushUndo();
+  const tab = document.querySelector('.tab.active')?.dataset.tab;
+  const poly = S.lasso.points;
+  let count = 0;
+  S.paths.forEach((p, i) => {
+    if (pointInPolygon(p.centroid, poly)) {
+      // In rig mode: assign to selected joint; in upload mode: just select
+      if (tab === 'rig' && S.selJoint !== null) {
+        p.jointId = S.selJoint;
+      }
+      S.selPaths.add(i);
+      count++;
+    }
+  });
+  const action = (tab === 'rig' && S.selJoint !== null) ? 'selected & assigned' : 'selected';
+  stInfo.textContent = `Lasso: ${action} ${count} paths`;
+  S.lasso = { active: false, points: [] };
+  renderJointList();
+  renderAll();
+}
+
+function pointInPolygon(pt, poly) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const xi = poly[i].x, yi = poly[i].y;
+    const xj = poly[j].x, yj = poly[j].y;
+    if (((yi > pt.y) !== (yj > pt.y)) && (pt.x < (xj - xi) * (pt.y - yi) / (yj - yi) + xi)) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+svg.addEventListener('mousemove', e => {
+  const coords = svgCoords(e);
+  // Eye dragging
+  if (S._draggingEye) {
+    const de = S._draggingEye;
+    const eye = S.eyes.find(x => x.id === de.id);
+    if (eye) {
+      if (de.mode === 'move') {
+        eye.x = Math.round(de.origX + (coords.x - de.startX));
+        eye.y = Math.round(de.origY + (coords.y - de.startY));
+      } else {
+        const dist = Math.hypot(coords.x - eye.x, coords.y - eye.y);
+        eye.radius = Math.max(8, Math.round(dist));
+      }
+      renderAll();
+    }
+    return;
+  }
+  if (draggingJoint) {
+    const j = S.joints.find(x => x.id === draggingJoint);
+    if (j) {
+      j.x = Math.round(coords.x - dragOffset.x);
+      j.y = Math.round(coords.y - dragOffset.y);
+      renderAll();
+    }
+    return;
+  }
+  // Live lasso preview: update last point
+  if (S.tool === 'lasso' && S.lasso.active && S.lasso.points.length > 0) {
+    // Show a temporary closing line by rendering with a temp point
+    S.lasso._preview = coords;
+    renderAll();
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  if (S._draggingEye) {
+    S._draggingEye = null;
+    renderEyeList();
+  }
+  if (draggingJoint) {
+    draggingJoint = null;
+    renderJointList();
+  }
+});
+
+// ─── TOOLS ───
+$('tool-select').addEventListener('click', () => setTool('select'));
+$('tool-joint').addEventListener('click', () => setTool('joint'));
+$('tool-lasso').addEventListener('click', () => setTool('lasso'));
+$('tool-assign').addEventListener('click', () => setTool('assign'));
+$('tool-eye').addEventListener('click', () => setTool('eye'));
+$('chk-centroids').addEventListener('change', e => { S.showCentroids = e.target.checked; renderAll(); });
+$('btn-undo').addEventListener('click', undo);
+$('btn-redo').addEventListener('click', redo);
+
+// Delete selected paths
+$('btn-delete-sel').addEventListener('click', () => {
+  if (!S.selPaths.size) return;
+  const count = S.selPaths.size;
+  pushUndo();
+  const toRemove = new Set(S.selPaths);
+  S.paths = S.paths.filter((_, i) => !toRemove.has(i));
+  S.paths.forEach((p, i) => p.index = i);
+  S.selPaths.clear();
+  stInfo.textContent = `Deleted ${count} paths (Ctrl+Z to undo)`;
+  renderJointList();
+  renderAll();
+});
+
+// Keep only selected (delete everything else)
+$('btn-keep-sel').addEventListener('click', () => {
+  if (!S.selPaths.size) return;
+  const keepCount = S.selPaths.size;
+  const deleteCount = S.paths.length - keepCount;
+  pushUndo();
+  const toKeep = new Set(S.selPaths);
+  S.paths = S.paths.filter((_, i) => toKeep.has(i));
+  S.paths.forEach((p, i) => p.index = i);
+  S.selPaths.clear();
+  stInfo.textContent = `Kept ${keepCount} paths, deleted ${deleteCount} (Ctrl+Z to undo)`;
+  renderJointList();
+  renderAll();
+});
+
+// Merge selected paths into a single compound part (preserves individual fills)
+$('btn-merge-sel').addEventListener('click', () => {
+  if (S.selPaths.size < 2) { stInfo.textContent = 'Select at least 2 paths to merge'; return; }
+  pushUndo();
+  const indices = [...S.selPaths].sort((a, b) => a - b);
+  const selected = indices.map(i => S.paths[i]);
+
+  // Store each sub-path with its own fill, d, and translated coordinates
+  const subPaths = selected.map(p => ({
+    d: p.d, fill: p.fill, tx: p.tx, ty: p.ty,
+    // also flatten any nested subPaths from previous merges
+    ...(p.subPaths ? {} : {}),
+  }));
+  // Flatten: if any selected path was itself a merged group, inline its children
+  const flatSubs = [];
+  selected.forEach(p => {
+    if (p.subPaths) p.subPaths.forEach(sp => flatSubs.push(sp));
+    else flatSubs.push({ d: p.d, fill: p.fill, tx: p.tx, ty: p.ty });
+  });
+
+  // Use the largest sub-path's fill as the "label" fill
+  const dominantFill = flatSubs.reduce((best, sp) => sp.d.length > best.d.length ? sp : best, flatSubs[0]).fill;
+
+  // Compute centroid from all sub-paths
+  let cx = 0, cy = 0, n = 0;
+  flatSubs.forEach(sp => {
+    const c = calcCentroid(sp);
+    cx += c.x; cy += c.y; n++;
+  });
+
+  const merged = {
+    d: flatSubs[0].d, fill: dominantFill,
+    tx: flatSubs[0].tx, ty: flatSubs[0].ty,
+    jointId: selected[0].jointId,
+    index: 0,
+    centroid: { x: cx / n, y: cy / n },
+    subPaths: flatSubs,
+  };
+
+  // Remove old paths, insert merged one at first position
+  const toRemove = new Set(indices);
+  const insertAt = indices[0];
+  S.paths = S.paths.filter((_, i) => !toRemove.has(i));
+  S.paths.splice(insertAt, 0, merged);
+  S.paths.forEach((p, i) => p.index = i);
+  S.selPaths.clear();
+  S.selPaths.add(insertAt);
+  stInfo.textContent = `Merged ${indices.length} paths into 1 group (${flatSubs.length} sub-paths, Ctrl+Z to undo)`;
+  renderJointList();
+  renderAll();
+});
+
+function setTool(t) {
+  S.tool = t;
+  S.lasso = { active: false, points: [] };
+  ['tool-select', 'tool-joint', 'tool-lasso', 'tool-assign', 'tool-eye'].forEach(id => { const el = $(id); if (el) el.classList.remove('btn-active'); });
+  const btn = $('tool-' + t);
+  if (btn) btn.classList.add('btn-active');
+  const helps = {
+    select: 'Click paths to select. Shift+click to multi-select.',
+    joint: 'Click on the character to place a joint pivot point.',
+    lasso: 'Draw around paths to select them. Double-click to close.',
+    assign: 'Click paths to assign/unassign them to the active joint.',
+    eye: 'Click to place an eye. Drag the ring edge to resize.',
+  };
+  const helpEl = $('tool-help');
+  if (helpEl) helpEl.textContent = helps[t] || '';
+  stTool.textContent = 'Tool: ' + t;
+  svg.style.cursor = (t === 'lasso' || t === 'eye' || t === 'joint') ? 'crosshair' : '';
+  renderAll();
+}
+
+// ─── JOINTS ───
+function addJoint(x, y) {
+  pushUndo();
+  const id = 'j' + (++S.jointIdCounter);
+  const color = JCOLORS[S.joints.length % JCOLORS.length];
+  const name = 'joint_' + S.joints.length;
+  S.joints.push({ id, name, x: Math.round(x), y: Math.round(y), parentId: null, color, rotation: 0 });
+  S.selJoint = id;
+  unlockTab('animate');
+  renderJointList();
+  renderAll();
+}
+
+$('btn-add-joint').addEventListener('click', () => {
+  addJoint(S.svgW / 2, S.svgH / 2);
+});
+
+function renderJointList() {
+  const el = $('joint-list');
+  if (!S.joints.length) { el.innerHTML = '<p class="help">No joints yet. Use + Joint tool to place them.</p>'; return; }
+
+  el.innerHTML = S.joints.map(j => {
+    const pathCount = S.paths.filter(p => p.jointId === j.id).length;
+    const parentOpts = '<option value="">(root)</option>' +
+      S.joints.filter(x => x.id !== j.id).map(x =>
+        `<option value="${x.id}"${x.id === j.parentId ? ' selected' : ''}>${x.name}</option>`
+      ).join('');
+    return `
+      <div class="joint-item${S.selJoint === j.id ? ' sel' : ''}" data-jid="${j.id}">
+        <div class="jdot" style="background:${j.color}"></div>
+        <input value="${j.name}" data-field="name" data-jid="${j.id}">
+        <select data-field="parent" data-jid="${j.id}">${parentOpts}</select>
+        <span class="cnt">${pathCount}p</span>
+        <span class="del" data-del="${j.id}">&times;</span>
+      </div>`;
+  }).join('');
+
+  // Event delegation
+  el.querySelectorAll('.joint-item').forEach(item => {
+    item.addEventListener('click', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.dataset.del) return;
+      S.selJoint = item.dataset.jid;
+      renderJointList();
+      renderAll();
+    });
+  });
+  el.querySelectorAll('input[data-field="name"]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const j = S.joints.find(x => x.id === inp.dataset.jid);
+      if (j) j.name = inp.value;
+    });
+  });
+  el.querySelectorAll('select[data-field="parent"]').forEach(sel => {
+    sel.addEventListener('change', () => {
+      pushUndo();
+      const j = S.joints.find(x => x.id === sel.dataset.jid);
+      if (j) {
+        j.parentId = sel.value || null;
+        // Prevent circular
+        if (j.parentId && wouldCreateCycle(j.id, j.parentId)) {
+          j.parentId = null;
+          sel.value = '';
+          alert('Cannot create circular parent chain.');
+        }
+      }
+      renderAll();
+    });
+  });
+  el.querySelectorAll('[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pushUndo();
+      const id = btn.dataset.del;
+      S.joints = S.joints.filter(j => j.id !== id);
+      S.joints.forEach(j => { if (j.parentId === id) j.parentId = null; });
+      S.paths.forEach(p => { if (p.jointId === id) p.jointId = null; });
+      if (S.selJoint === id) S.selJoint = null;
+      renderJointList();
+      renderAll();
+    });
+  });
+  stJoints.textContent = `Joints: ${S.joints.length}`;
+}
+
+function wouldCreateCycle(id, parentId) {
+  let cur = parentId;
+  const visited = new Set();
+  while (cur) {
+    if (cur === id) return true;
+    if (visited.has(cur)) return true;
+    visited.add(cur);
+    const j = S.joints.find(x => x.id === cur);
+    cur = j ? j.parentId : null;
+  }
+  return false;
+}
+
+// ─── AUTO-ASSIGN ───
+// Distance from point to line segment
+function distToSegment(px, py, ax, ay, bx, by) {
+  const dx = bx - ax, dy = by - ay;
+  const lenSq = dx * dx + dy * dy;
+  if (lenSq === 0) return Math.hypot(px - ax, py - ay);
+  let t = ((px - ax) * dx + (py - ay) * dy) / lenSq;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+}
+
+$('btn-auto-assign').addEventListener('click', () => {
+  if (!S.joints.length) { alert('Add joints first.'); return; }
+  pushUndo();
+
+  // Build bone segments: each joint with a parent forms a bone
+  const bones = [];
+  S.joints.forEach(j => {
+    if (j.parentId) {
+      const parent = S.joints.find(x => x.id === j.parentId);
+      if (parent) bones.push({ joint: j, parent, x1: parent.x, y1: parent.y, x2: j.x, y2: j.y });
+    }
+  });
+
+  S.paths.forEach(p => {
+    const cx = p.centroid.x, cy = p.centroid.y;
+
+    if (bones.length > 0) {
+      // Assign to the joint of the nearest bone segment
+      let minDist = Infinity, closest = null;
+      bones.forEach(b => {
+        const d = distToSegment(cx, cy, b.x1, b.y1, b.x2, b.y2);
+        if (d < minDist) { minDist = d; closest = b.joint.id; }
+      });
+      // Also check root joints (no parent, no bone) by point distance
+      S.joints.filter(j => !j.parentId).forEach(j => {
+        const d = Math.hypot(cx - j.x, cy - j.y);
+        if (d < minDist) { minDist = d; closest = j.id; }
+      });
+      p.jointId = closest;
+    } else {
+      // No bones: fallback to nearest joint
+      let minDist = Infinity, closest = null;
+      S.joints.forEach(j => {
+        const d = Math.hypot(cx - j.x, cy - j.y);
+        if (d < minDist) { minDist = d; closest = j.id; }
+      });
+      p.jointId = closest;
+    }
+  });
+  // Also assign eyes to nearest joint
+  S.eyes.forEach(eye => {
+    let minDist = Infinity, closest = null;
+    S.joints.forEach(j => {
+      const d = Math.hypot(eye.x - j.x, eye.y - j.y);
+      if (d < minDist) { minDist = d; closest = j.id; }
+    });
+    eye.jointId = closest;
+  });
+  renderJointList();
+  renderAll();
+});
+
+$('btn-clear-assign').addEventListener('click', () => {
+  pushUndo();
+  S.paths.forEach(p => p.jointId = null);
+  S.eyes.forEach(e => e.jointId = null);
+  renderJointList();
+  renderAll();
+});
+
+$('btn-to-rig').addEventListener('click', () => {
+  unlockTab('rig');
+  document.querySelector('.tab[data-tab="rig"]').click();
+});
+
+$('btn-to-animate').addEventListener('click', () => {
+  unlockTab('animate');
+  document.querySelector('.tab[data-tab="animate"]').click();
+});
+
+// ─── ANIMATE ───
+function buildAnimSliders() {
+  const el = $('anim-sliders');
+  if (!S.joints.length) { el.innerHTML = '<p class="help">No joints defined.</p>'; return; }
+  el.innerHTML = S.joints.map(j => `
+    <div class="anim-row">
+      <label><span class="jdot" style="background:${j.color};display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px"></span>${j.name}</label>
+      <input type="range" min="-180" max="180" value="${j.rotation || 0}" data-anim-jid="${j.id}">
+      <span class="v" data-anim-val="${j.id}">${j.rotation || 0}°</span>
+    </div>`).join('');
+
+  el.querySelectorAll('input[data-anim-jid]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const j = S.joints.find(x => x.id === inp.dataset.animJid);
+      if (j) j.rotation = parseFloat(inp.value);
+      document.querySelector(`[data-anim-val="${inp.dataset.animJid}"]`).textContent = inp.value + '°';
+      renderAnimated();
+      renderOverlay('animate');
+    });
+  });
+
+  // Update eye status
+  const eyeCount = S.eyes.length;
+  const staticCount = S.paths.filter(p => p.isStatic).length;
+  const eyeStatus = $('eye-status');
+  if (eyeStatus) {
+    const parts = [];
+    if (eyeCount) parts.push(`${eyeCount} eye${eyeCount > 1 ? 's' : ''} placed`);
+    else parts.push('No eyes placed (set in Edit step)');
+    if (staticCount) parts.push(`${staticCount} static`);
+    eyeStatus.textContent = parts.join(' | ');
+  }
+}
+
+$('btn-reset-rot').addEventListener('click', () => {
+  S.joints.forEach(j => j.rotation = 0);
+  buildAnimSliders();
+  renderAnimated();
+});
+
+// Helper: append a path (or merged group of sub-paths) to a parent SVG element
+function appendPath(p, parentEl, ns) {
+  if (p.subPaths) {
+    p.subPaths.forEach(sp => {
+      const el = document.createElementNS(ns, 'path');
+      el.setAttribute('d', sp.d);
+      el.setAttribute('fill', sp.fill);
+      el.setAttribute('transform', `translate(${sp.tx},${sp.ty})`);
+      parentEl.appendChild(el);
+    });
+  } else {
+    const el = document.createElementNS(ns, 'path');
+    el.setAttribute('d', p.d);
+    el.setAttribute('fill', p.fill);
+    el.setAttribute('transform', `translate(${p.tx},${p.ty})`);
+    parentEl.appendChild(el);
+  }
+}
+
+// Returns 0 (closed) to 1 (fully open) for eyelid animation
+function getBlinkOpenness() {
+  const t = performance.now() / 1000;
+  const rate = S.anim.blinkRate;
+  const dur = S.anim.blinkDur;
+  const cycle = t % rate;
+  if (cycle < dur) {
+    const half = dur / 2;
+    if (cycle < half) return Math.max(0, 1 - cycle / half);
+    return Math.max(0, (cycle - half) / half);
+  }
+  return 1;
+}
+
+// Draw eyelids over an eye circle. openness: 0=closed, 1=open
+function drawEyelids(parentEl, ns, eye, openness) {
+  const { x, y, radius: r } = eye;
+  // Clip to eye circle
+  const clipId = 'clip-' + eye.id;
+  const defs = document.createElementNS(ns, 'defs');
+  const clip = document.createElementNS(ns, 'clipPath');
+  clip.setAttribute('id', clipId);
+  const clipCircle = document.createElementNS(ns, 'circle');
+  clipCircle.setAttribute('cx', x); clipCircle.setAttribute('cy', y);
+  clipCircle.setAttribute('r', r);
+  clip.appendChild(clipCircle);
+  defs.appendChild(clip);
+  parentEl.appendChild(defs);
+
+  const g = document.createElementNS(ns, 'g');
+  g.setAttribute('clip-path', `url(#${clipId})`);
+
+  // Skin color (matches surrounding character)
+  const lidColor = '#d4a574';
+  const lidOffset = r * (1 - openness); // how far lid has closed
+
+  // Upper eyelid
+  const upper = document.createElementNS(ns, 'ellipse');
+  upper.setAttribute('cx', x);
+  upper.setAttribute('cy', y - r + lidOffset);
+  upper.setAttribute('rx', r + 2);
+  upper.setAttribute('ry', r);
+  upper.setAttribute('fill', lidColor);
+  g.appendChild(upper);
+
+  // Lower eyelid
+  const lower = document.createElementNS(ns, 'ellipse');
+  lower.setAttribute('cx', x);
+  lower.setAttribute('cy', y + r - lidOffset);
+  lower.setAttribute('rx', r + 2);
+  lower.setAttribute('ry', r);
+  lower.setAttribute('fill', lidColor);
+  g.appendChild(lower);
+
+  // Eyelid line (crease) when partially/fully closed
+  if (openness < 0.95) {
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', x - r); line.setAttribute('y1', y);
+    line.setAttribute('x2', x + r); line.setAttribute('y2', y);
+    line.setAttribute('stroke', '#8a6040');
+    line.setAttribute('stroke-width', Math.max(1, 2 * (1 - openness)));
+    line.setAttribute('stroke-linecap', 'round');
+    g.appendChild(line);
+  }
+
+  parentEl.appendChild(g);
+}
+
+function renderAnimated() {
+  svg.setAttribute('viewBox', `0 0 ${S.svgW} ${S.svgH}`);
+  svg.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+
+  const openness = getBlinkOpenness();
+  const sqAmt = S.anim.squashAmt;
+
+  const roots = S.joints.filter(j => !j.parentId);
+
+  // Static paths always render first with no transforms
+  S.paths.filter(p => p.isStatic).forEach(p => appendPath(p, svg, ns));
+
+  // Unassigned non-static paths
+  S.paths.filter(p => p.jointId === null && !p.isStatic).forEach(p => appendPath(p, svg, ns));
+
+  // Recursively render joint groups
+  function renderJointGroup(joint, parentEl) {
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('id', joint.name);
+    g.style.transformOrigin = `${joint.x}px ${joint.y}px`;
+
+    const rot = (joint.rotation || 0) * Math.PI / 180;
+    const stretchFactor = 1 + Math.abs(Math.sin(rot)) * sqAmt * 0.5;
+    const squashFactor = 1 / stretchFactor;
+    if (sqAmt > 0) {
+      g.style.transform = `rotate(${joint.rotation || 0}deg) scaleX(${squashFactor.toFixed(3)}) scaleY(${stretchFactor.toFixed(3)})`;
+    } else {
+      g.style.transform = `rotate(${joint.rotation || 0}deg)`;
+    }
+
+    // Paths assigned to this joint (skip static)
+    S.paths.filter(p => p.jointId === joint.id && !p.isStatic).forEach(p => appendPath(p, g, ns));
+
+    // Eyes assigned to this joint
+    S.eyes.filter(e => e.jointId === joint.id).forEach(eye => {
+      drawEyelids(g, ns, eye, openness);
+    });
+
+    // Child joints (recursive)
+    S.joints.filter(j => j.parentId === joint.id).forEach(child => {
+      renderJointGroup(child, g);
+    });
+
+    // Joint visual
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', joint.x); dot.setAttribute('cy', joint.y);
+    dot.setAttribute('r', 6);
+    dot.setAttribute('fill', joint.color);
+    dot.setAttribute('fill-opacity', '0.5');
+    dot.setAttribute('stroke', joint.color);
+    dot.setAttribute('stroke-width', '2');
+    g.appendChild(dot);
+
+    parentEl.appendChild(g);
+  }
+
+  roots.forEach(j => renderJointGroup(j, svg));
+  S.joints.filter(j => !j.parentId && !roots.includes(j)).forEach(j => renderJointGroup(j, svg));
+
+  // Unassigned eyes (not linked to a joint)
+  S.eyes.filter(e => !e.jointId).forEach(eye => {
+    drawEyelids(svg, ns, eye, openness);
+  });
+}
+
+// ─── EYE LIST ───
+function renderEyeList() {
+  const el = $('eye-list');
+  if (!el) return;
+  if (!S.eyes.length) { el.innerHTML = '<p class="help">No eyes placed yet.</p>'; return; }
+  el.innerHTML = S.eyes.map(eye => `
+    <div class="joint-item" data-eid="${eye.id}">
+      <div class="jdot" style="background:#ffee4a"></div>
+      <span style="font-size:11px">${eye.id}</span>
+      <span class="cnt" style="font-size:10px;color:var(--t3);margin-left:auto">r=${eye.radius}</span>
+      <span class="del" data-del-eye="${eye.id}">&times;</span>
+    </div>`).join('');
+
+  el.querySelectorAll('[data-del-eye]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pushUndo();
+      S.eyes = S.eyes.filter(e => e.id !== btn.dataset.delEye);
+      renderEyeList();
+      renderAll();
+    });
+  });
+}
+
+// ─── BLINK LOOP (runs when animate tab is active, even when not playing) ───
+let blinkFrame = null;
+function startBlinkLoop() {
+  if (blinkFrame) return;
+  if (!S.eyes.length) return;
+  function loop() {
+    if (!S.anim.playing) { // only run independent blink loop when preset isn't playing
+      renderAnimated();
+      renderOverlay('animate');
+    }
+    blinkFrame = requestAnimationFrame(loop);
+  }
+  blinkFrame = requestAnimationFrame(loop);
+}
+function stopBlinkLoop() {
+  if (blinkFrame) { cancelAnimationFrame(blinkFrame); blinkFrame = null; }
+}
+
+// ─── ANIMATION PRESETS ───
+const PRESETS = {
+  idle: (t, joints) => {
+    joints.forEach((j, i) => {
+      j.rotation = Math.sin(t * 1.5 + i * 0.5) * (3 + i * 2);
+    });
+  },
+  wave: (t, joints) => {
+    joints.forEach((j, i) => {
+      const phase = t * 3 + i * 0.8;
+      j.rotation = Math.sin(phase) * (8 + i * 5) * Math.max(0, Math.sin(t * 0.5));
+    });
+  },
+  nod: (t, joints) => {
+    joints.forEach((j, i) => {
+      j.rotation = Math.sin(t * 2) * (i === joints.length - 1 ? 15 : 3);
+    });
+  },
+  bounce: (t, joints) => {
+    joints.forEach((j, i) => {
+      const bounce = Math.abs(Math.sin(t * 2.5));
+      j.rotation = Math.sin(t * 3 + i) * 5 * bounce;
+    });
+  },
+  wiggle: (t, joints) => {
+    joints.forEach((j, i) => {
+      j.rotation = Math.sin(t * 4 + i * 1.2) * 8;
+    });
+  },
+  dance: (t, joints) => {
+    joints.forEach((j, i) => {
+      const beat = Math.sin(t * 3.14) > 0 ? 1 : -1;
+      j.rotation = beat * (5 + i * 3) * Math.abs(Math.sin(t * 1.57 + i));
+    });
+  },
+};
+
+let animFrame = null;
+let animStart = 0;
+
+document.querySelectorAll('[data-preset]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    S.anim.preset = btn.dataset.preset;
+    document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('btn-active'));
+    btn.classList.add('btn-active');
+  });
+});
+
+$('btn-play').addEventListener('click', () => {
+  if (S.anim.playing) return;
+  S.anim.playing = true;
+  animStart = performance.now();
+  animLoop();
+});
+
+$('btn-stop').addEventListener('click', stopAnim);
+
+function stopAnim() {
+  S.anim.playing = false;
+  if (animFrame) cancelAnimationFrame(animFrame);
+  animFrame = null;
+}
+
+function animLoop() {
+  if (!S.anim.playing) return;
+  const t = (performance.now() - animStart) / 1000 * S.anim.speed;
+  if (S.anim.preset && PRESETS[S.anim.preset]) {
+    PRESETS[S.anim.preset](t, S.joints);
+    // Update sliders
+    S.joints.forEach(j => {
+      const inp = document.querySelector(`[data-anim-jid="${j.id}"]`);
+      const val = document.querySelector(`[data-anim-val="${j.id}"]`);
+      if (inp) inp.value = Math.round(j.rotation);
+      if (val) val.textContent = Math.round(j.rotation) + '°';
+    });
+  }
+  // Always re-render (handles blink animation even without preset)
+  renderAnimated();
+  renderOverlay('animate');
+  animFrame = requestAnimationFrame(animLoop);
+}
+
+$('btn-to-export').addEventListener('click', () => {
+  stopAnim();
+  stopBlinkLoop();
+  unlockTab('export');
+  document.querySelector('.tab[data-tab="export"]').click();
+});
+
+// ─── EXPORT ───
+function generateGroupedSVG() {
+  let out = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S.svgW} ${S.svgH}" width="${Math.round(S.svgW / 2)}" height="${Math.round(S.svgH / 2)}">\n`;
+
+  // Helper: write a single path or merged group
+  function writePath(p, pad) {
+    if (p.subPaths) {
+      p.subPaths.forEach(sp => {
+        out += `${pad}<path d="${sp.d}" fill="${sp.fill}" transform="translate(${sp.tx},${sp.ty})"/>\n`;
+      });
+    } else {
+      out += `${pad}<path d="${p.d}" fill="${p.fill}" transform="translate(${p.tx},${p.ty})"/>\n`;
+    }
+  }
+
+  // Static paths (never animated)
+  const statics = S.paths.filter(p => p.isStatic);
+  if (statics.length) {
+    out += `  <g id="static">\n`;
+    statics.forEach(p => writePath(p, '    '));
+    out += `  </g>\n\n`;
+  }
+
+  // Unassigned non-static paths
+  const unassigned = S.paths.filter(p => p.jointId === null && !p.isStatic);
+  if (unassigned.length) {
+    out += `  <g id="background">\n`;
+    unassigned.forEach(p => writePath(p, '    '));
+    out += `  </g>\n\n`;
+  }
+
+  // Joint groups (recursive)
+  const roots = S.joints.filter(j => !j.parentId);
+
+  function writeEye(eye, pad) {
+    out += `${pad}<g class="eye">\n`;
+    out += `${pad}  <clipPath id="clip-${eye.id}"><circle cx="${eye.x}" cy="${eye.y}" r="${eye.radius}"/></clipPath>\n`;
+    out += `${pad}  <g clip-path="url(#clip-${eye.id})">\n`;
+    out += `${pad}    <ellipse class="eyelid-upper" cx="${eye.x}" cy="${eye.y - eye.radius}" rx="${eye.radius + 2}" ry="${eye.radius}" fill="#d4a574"/>\n`;
+    out += `${pad}    <ellipse class="eyelid-lower" cx="${eye.x}" cy="${eye.y + eye.radius}" rx="${eye.radius + 2}" ry="${eye.radius}" fill="#d4a574"/>\n`;
+    out += `${pad}  </g>\n`;
+    out += `${pad}</g>\n`;
+  }
+
+  function writeGroup(joint, indent) {
+    const pad = '  '.repeat(indent);
+    out += `${pad}<g id="${joint.name}" style="transform-origin: ${joint.x}px ${joint.y}px">\n`;
+    S.paths.filter(p => p.jointId === joint.id && !p.isStatic).forEach(p => writePath(p, pad + '  '));
+    S.eyes.filter(e => e.jointId === joint.id).forEach(e => writeEye(e, pad + '  '));
+    S.joints.filter(j => j.parentId === joint.id).forEach(child => writeGroup(child, indent + 1));
+    out += `${pad}</g>\n`;
+  }
+
+  roots.forEach(j => writeGroup(j, 1));
+
+  // Unassigned eyes
+  S.eyes.filter(e => !e.jointId).forEach(e => writeEye(e, '  '));
+  out += '</svg>';
+  return out;
+}
+
+function generateAnimatedHTML() {
+  const svgCode = generateGroupedSVG();
+
+  // Build CSS keyframes from preset or current rotations
+  let animCSS = '';
+  S.joints.forEach(j => {
+    animCSS += `  #${j.name} {\n    animation: anim-${j.name} 2s ease-in-out infinite;\n  }\n`;
+    animCSS += `  @keyframes anim-${j.name} {\n    0%, 100% { transform: rotate(0deg); }\n    50% { transform: rotate(${j.rotation || 10}deg); }\n  }\n`;
+  });
+  // Eye blink animation
+  if (S.eyes.length) {
+    const rate = S.anim.blinkRate;
+    const durPct = Math.round((S.anim.blinkDur / rate) * 100);
+    const halfPct = Math.round(durPct / 2);
+    animCSS += `  .eyelid-upper, .eyelid-lower {\n    animation: blink ${rate}s ease-in-out infinite;\n  }\n`;
+    animCSS += `  @keyframes blink {\n    0%, ${100 - durPct}%, 100% { transform: translateY(0); }\n    ${100 - halfPct}% { transform: translateY(0); }\n  }\n`;
+  }
+
+  return `<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Animated Character</title>
+<style>
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #1a1a2e; margin: 0; }
+  svg { max-width: 80vmin; max-height: 80vmin; }
+${animCSS}
+</style>
+</head>
+<body>
+${svgCode}
+</body></html>`;
+}
+
+$('btn-download').addEventListener('click', () => {
+  download('character.svg', generateGroupedSVG(), 'image/svg+xml');
+});
+
+$('btn-download-anim').addEventListener('click', () => {
+  download('character-animated.html', generateAnimatedHTML(), 'text/html');
+});
+
+$('btn-copy-svg').addEventListener('click', () => {
+  navigator.clipboard.writeText(generateGroupedSVG()).then(() => {
+    $('btn-copy-svg').textContent = 'Copied!';
+    setTimeout(() => $('btn-copy-svg').textContent = 'Copy SVG code', 1500);
+  });
+});
+
+function download(name, content, type) {
+  const blob = new Blob([content], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function buildExportStats() {
+  const assigned = S.paths.filter(p => p.jointId !== null).length;
+  const groups = {};
+  S.joints.forEach(j => { groups[j.name] = S.paths.filter(p => p.jointId === j.id).length; });
+
+  $('export-stats').innerHTML = `
+    <div>Total paths: <strong>${S.paths.length}</strong></div>
+    <div>Assigned: <strong>${assigned}</strong> / ${S.paths.length}</div>
+    <div>Unassigned: <strong>${S.paths.length - assigned}</strong></div>
+    <div>Joints: <strong>${S.joints.length}</strong></div>
+    <div style="margin-top:6px">${Object.entries(groups).map(([k, v]) => `<span style="color:var(--t2)">${k}:</span> ${v} paths`).join('<br>')}</div>
+  `;
+  // Also render the final SVG
+  renderAnimated();
+}
+
+// ─── STATUS ───
+function updateStatus() {
+  stPaths.textContent = S.paths.length ? `Paths: ${S.paths.length}` : 'No image loaded';
+  stJoints.textContent = `Joints: ${S.joints.length}`;
+  const assigned = S.paths.filter(p => p.jointId !== null).length;
+  stInfo.textContent = assigned ? `${assigned}/${S.paths.length} paths assigned` : '';
+}
+
+// ─── KEYBOARD ───
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  const tab = document.querySelector('.tab.active')?.dataset.tab;
+
+  // Undo/Redo everywhere
+  if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); return; }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); return; }
+
+  if (tab === 'upload' || tab === 'rig') {
+    if (tab === 'upload') {
+      if (e.key === 'v' || e.key === '1') setTool('select');
+      if (e.key === 'l' || e.key === '2') setTool('lasso');
+      if (e.key === 'e' || e.key === '3') setTool('eye');
+    }
+    if (tab === 'rig') {
+      if (e.key === 'j' || e.key === '1') setTool('joint');
+      if (e.key === 'a' || e.key === '2') setTool('assign');
+    }
+    if (e.key === 'Backspace') {
+      // During lasso: remove last point
+      if (S.tool === 'lasso' && S.lasso.points.length > 0) {
+        e.preventDefault();
+        S.lasso.points.pop();
+        if (S.lasso.points.length === 0) S.lasso.active = false;
+        stInfo.textContent = S.lasso.points.length ? `Lasso: ${S.lasso.points.length} points` : 'Lasso cleared';
+        renderAll();
+      }
+      // Otherwise: delete selected paths
+      else if (S.selPaths.size > 0) {
+        pushUndo();
+        const toRemove = new Set(S.selPaths);
+        S.paths = S.paths.filter((_, i) => !toRemove.has(i));
+        S.paths.forEach((p, i) => p.index = i);
+        S.selPaths.clear();
+        stInfo.textContent = `Deleted ${toRemove.size} paths`;
+        renderJointList();
+        renderAll();
+      }
+    }
+    if (e.key === 'Delete') {
+      if (S.selPaths.size > 0) {
+        pushUndo();
+        const toRemove = new Set(S.selPaths);
+        S.paths = S.paths.filter((_, i) => !toRemove.has(i));
+        S.paths.forEach((p, i) => p.index = i);
+        S.selPaths.clear();
+        stInfo.textContent = `Deleted ${toRemove.size} paths`;
+        renderJointList();
+        renderAll();
+      }
+    }
+    if (e.key === 'Escape') {
+      S.lasso = { active: false, points: [] };
+      S.selPaths.clear();
+      S.selJoint = null;
+      renderJointList();
+      renderAll();
+    }
+    if (e.key === 'Enter' && S.tool === 'lasso' && S.lasso.points.length >= 3) {
+      finishLasso();
+    }
+  }
+});
+
+// ─── PERSISTENCE (localStorage) ───
+const SAVE_KEY = 'rigger-state';
+
+function saveState() {
+  try {
+    const data = {
+      paths: S.paths.map(p => {
+        const base = { d: p.d, fill: p.fill, tx: p.tx, ty: p.ty, jointId: p.jointId, isStatic: !!p.isStatic };
+        if (p.subPaths) base.subPaths = p.subPaths.map(sp => ({ d: sp.d, fill: sp.fill, tx: sp.tx, ty: sp.ty }));
+        return base;
+      }),
+      joints: S.joints,
+      eyes: S.eyes,
+      svgW: S.svgW, svgH: S.svgH,
+      imgData: S.imgData,
+      jointIdCounter: S.jointIdCounter,
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+  } catch (e) { /* quota exceeded or private mode - ignore */ }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (!data.paths || !data.paths.length) return false;
+
+    S.paths = data.paths.map((p, i) => ({ ...p, index: i, centroid: calcCentroid(p) }));
+    S.joints = data.joints || [];
+    S.eyes = data.eyes || [];
+    S.svgW = data.svgW || 1024;
+    S.svgH = data.svgH || 1024;
+    S.imgData = data.imgData || null;
+    S.jointIdCounter = data.jointIdCounter || S.joints.length;
+
+    if (S.imgData) {
+      $('img-preview').src = S.imgData;
+      $('img-preview').classList.remove('hidden');
+      $('drop-zone').innerHTML = '<span class="icon">&#10003;</span><p>Image loaded (restored). Adjust and re-convert, or go to Rig.</p>';
+    }
+    $('edit-tools').classList.remove('hidden');
+    unlockTab('rig');
+    if (S.joints.length) unlockTab('animate');
+    return true;
+  } catch (e) { return false; }
+}
+
+// Auto-save on meaningful changes (debounced)
+let saveTimer = null;
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 500);
+}
+
+// Patch renderAll to auto-save
+const _origRenderAll = renderAll;
+// Can't reassign const, so override via wrapper
+const origRenderJointList = renderJointList;
+
+// Hook into state changes to trigger saves
+const _origSetTool = setTool;
+const _patchObserver = new MutationObserver(() => scheduleSave());
+_patchObserver.observe(svg, { childList: true, subtree: true });
+
+// Save whenever joints or paths change
+const _saveProxy = () => scheduleSave();
+window.addEventListener('mouseup', _saveProxy);
+
+// ─── STATIC FLAGS ───
+$('btn-static-sel').addEventListener('click', () => {
+  if (!S.selPaths.size) return;
+  pushUndo();
+  S.selPaths.forEach(i => {
+    S.paths[i].isStatic = !S.paths[i].isStatic;
+  });
+  const staticCount = [...S.selPaths].filter(i => S.paths[i].isStatic).length;
+  stInfo.textContent = staticCount ? `Marked ${staticCount} paths as static` : 'Cleared static flag';
+  S.selPaths.clear();
+  renderAll();
+});
+
+$('btn-clear-flags').addEventListener('click', () => {
+  if (!S.selPaths.size) return;
+  pushUndo();
+  S.selPaths.forEach(i => { S.paths[i].isStatic = false; });
+  stInfo.textContent = `Cleared flags on ${S.selPaths.size} paths`;
+  S.selPaths.clear();
+  renderAll();
+});
+
+// ─── BLINK / SQUASH SLIDERS ───
+bindSlider('s-blink-rate', 'v-blink-rate', () => { S.anim.blinkRate = parseFloat($('s-blink-rate').value); });
+bindSlider('s-blink-dur', 'v-blink-dur', () => { S.anim.blinkDur = parseFloat($('s-blink-dur').value); });
+bindSlider('s-squash', 'v-squash', () => { S.anim.squashAmt = parseFloat($('s-squash').value); renderAnimated(); });
+
+// ─── RESET ───
+$('btn-reset-all').addEventListener('click', () => {
+  if (!confirm('Reset everything? This will clear all joints, assignments, and the loaded image.')) return;
+  localStorage.removeItem(SAVE_KEY);
+  S.paths = [];
+  S.joints = [];
+  S.eyes = [];
+  S.selPaths.clear();
+  S.selJoint = null;
+  S.imgData = null;
+  S.jointIdCounter = 0;
+  S.lasso = { active: false, points: [] };
+  $('img-preview').classList.add('hidden');
+  $('drop-zone').innerHTML = '<span class="icon">+</span><p>Drop image or click to browse</p>';
+  $('convert-status').textContent = '';
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.dataset.tab !== 'upload') t.classList.add('locked');
+  });
+  document.querySelector('.tab[data-tab="upload"]').click();
+  renderJointList();
+  renderAll();
+});
+
+// ─── INIT ───
+const restored = loadState();
+renderJointList();
+renderEyeList();
+updateStatus();
+setTool('select');
+if (restored) {
+  // Init undo history from restored state
+  history.stack = [snapshot()];
+  history.idx = 0;
+  updateUndoButtons();
+  renderAll();
+  stInfo.textContent = 'Session restored from auto-save';
+}
+</script>
+</body>
+</html>

@@ -1,21 +1,5 @@
-import { createAvatar } from '@dicebear/core';
-import type { Style } from '@dicebear/core';
-import * as adventurer from '@dicebear/adventurer';
-import * as avataaars from '@dicebear/avataaars';
-import * as lorelei from '@dicebear/lorelei';
-import * as thumbs from '@dicebear/thumbs';
 import type { FakeUser } from '@/data/engagement-types';
 import { hashSeed } from '@/lib/league-simulator';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyStyle = Style<any>;
-
-const STYLES: { key: string; style: AnyStyle }[] = [
-  { key: 'adventurer', style: adventurer as AnyStyle },
-  { key: 'avataaars', style: avataaars as AnyStyle },
-  { key: 'lorelei', style: lorelei as AnyStyle },
-  { key: 'thumbs', style: thumbs as AnyStyle },
-];
 
 // Palette for initials-only avatars (Tailwind 500 values)
 const INITIALS_COLORS = [
@@ -27,20 +11,25 @@ const INITIALS_COLORS = [
   '#0ea5e9', // sky
   '#8b5cf6', // violet
   '#f43f5e', // rose
+  '#06b6d4', // cyan
+  '#ec4899', // pink
+  '#84cc16', // lime
+  '#14b8a6', // teal
 ];
 
 /**
- * Get the DiceBear SVG data URL for a fake user, or null if they have no avatar.
+ * Get a random (non-face) photo URL for a fake user using picsum.photos.
+ * Returns abstract/nature/architecture photos — no people.
+ * Each user gets a deterministic photo based on their ID hash.
+ * Returns null for users who don't have an avatar (initials only).
  */
 export function getFakeAvatarUrl(user: FakeUser): string | null {
   if (user.avatarType === 'none') return null;
 
-  const styleEntry = STYLES.find((s) => s.key === user.avatarStyle) ?? STYLES[0];
-  const avatar = createAvatar(styleEntry.style, {
-    seed: user.avatarSeed,
-    size: 64,
-  });
-  return avatar.toDataUri();
+  // picsum.photos uses numeric IDs (0-1084) for deterministic photos
+  // Hash the user seed to get a consistent photo ID
+  const photoId = hashSeed(user.avatarSeed) % 1000;
+  return `https://picsum.photos/id/${photoId}/128/128`;
 }
 
 /**

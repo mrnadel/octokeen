@@ -8,7 +8,7 @@ export const heatTransferQuestions: Question[] = [
     topic: 'heat-transfer',
     subtopic: 'Conduction',
     difficulty: 'intermediate',
-    question: 'Rank these heat transfer mechanisms by importance in cooling a laptop computer (most important first):',
+    question: 'Rank heat transfer mechanisms by importance in laptop cooling (most important first):',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ht001-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
@@ -70,16 +70,16 @@ export const heatTransferQuestions: Question[] = [
       <rect x="30" y="35" width="340" height="18" rx="2" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,3"/>
     </svg>`,
     items: [
-      { id: 'a', text: 'Forced convection from the internal fan blowing air over heat sinks' },
-      { id: 'b', text: 'Conduction from the CPU die through thermal paste to the heat spreader' },
-      { id: 'c', text: 'Radiation from the laptop chassis to the surroundings' },
-      { id: 'd', text: 'Natural convection from the bottom of the laptop to ambient air' },
+      { id: 'a', text: 'Forced convection (fan over heat sinks)' },
+      { id: 'b', text: 'Conduction (CPU die through paste to spreader)' },
+      { id: 'c', text: 'Radiation (chassis to surroundings)' },
+      { id: 'd', text: 'Natural convection (bottom of laptop to air)' },
     ],
     correctOrder: ['b', 'a', 'd', 'c'],
-    explanation: 'The thermal bottleneck in a laptop is ALWAYS conduction — getting heat from the tiny CPU die to the heat spreader and then to the heat sink fins. If this path has high resistance (bad thermal paste, poor contact), no amount of fan airflow helps. After conduction establishes the path, forced convection from the fan carries the heat away. Natural convection contributes modestly through the chassis. Radiation is minimal because surface temperatures are low (~50-80°C) and surface areas are small.',
-    interviewInsight: 'This tests whether you understand thermal resistance networks and can identify the bottleneck. Electronics cooling interviews always focus on the weakest link in the thermal path.',
-    realWorldConnection: 'This is why thermal paste application matters so much — a tiny air gap at the die interface can be the dominant thermal resistance. It is also why heat pipes are used: they provide very low thermal resistance over the distance from CPU to the fan.',
-    commonMistake: 'Putting the fan first. The fan matters, but if the conduction path to the heat sink is poor, the fan is just blowing air over a cold heat sink while the CPU overheats.',
+    explanation: 'Conduction is always the bottleneck — getting heat from the tiny CPU die to the heat sink. Bad thermal paste = no amount of fan helps. Radiation is minimal at laptop temperatures.',
+    interviewInsight: 'Tests thermal resistance network understanding and bottleneck identification.',
+    realWorldConnection: 'Why thermal paste matters — a tiny air gap can dominate the thermal resistance.',
+    commonMistake: 'Putting the fan first. Poor conduction path means the fan blows over a cold heat sink while the CPU overheats.',
     tags: ['laptop', 'thermal-management', 'conduction', 'convection', 'electronics-cooling'],
   },
 
@@ -158,10 +158,10 @@ export const heatTransferQuestions: Question[] = [
       { id: 'd', text: 'Blowing increases the soup\'s emissivity, enhancing radiation' },
     ],
     correctAnswer: 'b',
-    explanation: 'Hot soup creates a stagnant boundary layer of warm, humid air above its surface. This layer acts as an insulating blanket, limiting both convective heat transfer and evaporative cooling. Blowing strips this boundary layer away, replacing it with fresh, cooler, drier air. This increases the temperature gradient (driving convection) and the humidity gradient (driving evaporation). Evaporation is actually the dominant cooling mechanism for hot liquids.',
-    interviewInsight: 'This tests understanding of boundary layers and their role in convection. It also shows whether you recognize evaporation as a heat transfer mechanism in everyday situations.',
-    realWorldConnection: 'The same principle drives cooling tower design, where water is sprayed into an air stream to maximize evaporative cooling. It is also why fan-assisted heat sinks work — disrupting the boundary layer.',
-    commonMistake: 'Saying it is just because your breath is cold. Room-temperature breath would still cool the soup because the boundary layer removal is the dominant effect.',
+    explanation: 'Blowing strips the stagnant warm, humid boundary layer, replacing it with cooler, drier air. This increases both temperature and humidity gradients. Evaporation is the dominant cooling mechanism.',
+    interviewInsight: 'Tests boundary layer understanding and recognition of evaporation as a cooling mechanism.',
+    realWorldConnection: 'Same principle drives cooling towers and fan-assisted heat sinks.',
+    commonMistake: 'Saying it is just because your breath is cold. Boundary layer removal is the dominant effect.',
     tags: ['convection', 'boundary-layer', 'evaporation', 'everyday-physics', 'cooling'],
   },
 
@@ -172,7 +172,7 @@ export const heatTransferQuestions: Question[] = [
     topic: 'heat-transfer',
     subtopic: 'Heat Exchangers',
     difficulty: 'advanced',
-    question: 'You need to design a heat exchanger to cool engine oil from 120°C to 80°C using 20°C water. Which configuration do you choose?',
+    question: 'Design a heat exchanger to cool engine oil (120°C to 80°C) using 20°C water. Which configuration?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ht003-arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
@@ -216,7 +216,7 @@ export const heatTransferQuestions: Question[] = [
       <text x="200" y="271" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">&#x2022; Water flows easily in tubes (low viscosity)</text>
       <text x="200" y="284" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9">&#x2022; Tube bundle removable for shell-side cleaning</text>
     </svg>`,
-    context: 'Space is limited (under a car hood). Oil flow rate is 2 L/min. Water is available from the engine coolant circuit at 20°C inlet. Oil is viscous and prone to fouling.',
+    context: 'Under-hood installation. Oil 2 L/min, viscous, prone to fouling. Water at 20°C from coolant circuit.',
     designOptions: [
       {
         id: 'a',
@@ -241,9 +241,9 @@ export const heatTransferQuestions: Question[] = [
     ],
     bestOption: 'c',
     evaluationCriteria: ['Ability to handle viscous oil', 'Fouling resistance and cleanability', 'Compact size for under-hood installation', 'Heat transfer effectiveness with low oil-side Reynolds number'],
-    explanation: 'Viscous oil on the shell side with baffles is the classic solution. The baffles create cross-flow turbulence that compensates for the oil\'s high viscosity and low Reynolds number. Tube-side water flows easily due to low viscosity. The shell side can be cleaned by removing the tube bundle. Plate exchangers would be ideal for size but risk clogging with viscous, potentially degraded oil.',
-    interviewInsight: 'Heat exchanger selection is a very common design interview question. The interviewer wants to see that you consider the fluid properties (viscosity, fouling), not just the thermal duty.',
-    commonMistake: 'Choosing a plate heat exchanger purely for compactness without considering that viscous oil will clog narrow plate channels.',
+    explanation: 'Oil on shell side with baffles creates turbulence compensating for high viscosity. Water flows easily in tubes. Shell side cleanable by removing tube bundle.',
+    interviewInsight: 'Must consider fluid properties (viscosity, fouling), not just thermal duty.',
+    commonMistake: 'Choosing plate HX for compactness without considering viscous oil will clog narrow channels.',
     tags: ['heat-exchanger', 'oil-cooler', 'shell-and-tube', 'viscosity', 'fouling', 'design'],
   },
 
@@ -254,7 +254,7 @@ export const heatTransferQuestions: Question[] = [
     topic: 'heat-transfer',
     subtopic: 'Conduction',
     difficulty: 'intermediate',
-    question: 'A composite wall has three layers: brick (k=0.7 W/mK, 20 cm), insulation (k=0.04 W/mK, 5 cm), and plaster (k=0.5 W/mK, 2 cm). Which layer dominates the total thermal resistance?',
+    question: 'Composite wall: brick (k=0.7, 20 cm), insulation (k=0.04, 5 cm), plaster (k=0.5, 2 cm). Which layer dominates thermal resistance?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ht004-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f472b6"/></marker>
@@ -321,21 +321,28 @@ export const heatTransferQuestions: Question[] = [
       { id: 'd', text: 'All three contribute roughly equally' },
     ],
     correctAnswer: 'b',
-    explanation: 'Thermal resistance R = L/(kA). Per unit area: R_brick = 0.20/0.7 = 0.286 K/W per m². R_insulation = 0.05/0.04 = 1.25 K/W per m². R_plaster = 0.02/0.5 = 0.04 K/W per m². The insulation layer has 80% of the total resistance despite being the thinnest layer. This is entirely because of its very low thermal conductivity.',
-    interviewInsight: 'This is a fundamental thermal design question. It tests whether you can quickly identify the dominant resistance in a thermal circuit — a critical skill for any thermal design engineer.',
-    realWorldConnection: 'Building insulation codes are written around this principle. Adding 5 cm of insulation to a brick wall reduces heat loss more than doubling the brick thickness.',
-    commonMistake: 'Assuming the thickest layer has the highest resistance. Thickness matters, but conductivity matters more — a thin layer of insulation dominates a thick brick wall.',
+    explanation: 'R = L/(kA). R_insulation = 1.25 (80% of total) despite being thinnest. Low thermal conductivity dominates over thickness.',
+    interviewInsight: 'Tests ability to quickly identify the dominant resistance in a thermal circuit.',
+    realWorldConnection: '5 cm of insulation reduces heat loss more than doubling brick thickness.',
+    commonMistake: 'Assuming thickest layer has highest resistance. Conductivity matters more than thickness.',
     tags: ['conduction', 'thermal-resistance', 'insulation', 'composite-wall', 'building'],
   },
 
   // HT-005 — Scenario
   {
     id: 'ht-005',
-    type: 'scenario',
+    type: 'multiple-choice',
     topic: 'heat-transfer',
     subtopic: 'Radiation',
     difficulty: 'advanced',
-    question: 'A satellite in space needs to reject 500W of waste heat from its electronics. Design the thermal control approach.',
+    question: 'A satellite must reject 500 W of waste heat in the vacuum of space. What is the primary heat rejection mechanism available?',
+    options: [
+      { id: 'a', text: 'Forced convection using onboard fans' },
+      { id: 'b', text: 'Thermal radiation from surface-mounted radiator panels' },
+      { id: 'c', text: 'Conduction through the antenna boom to space' },
+      { id: 'd', text: 'Phase-change evaporative cooling' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ht005-arr-sun" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#fb923c"/></marker>
@@ -389,23 +396,7 @@ export const heatTransferQuestions: Question[] = [
       <text x="200" y="236" text-anchor="middle" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Q = &#x3B5;&#x3C3;AT&#x2074; = 0.85 &#xD7; 5.67e-8 &#xD7; 1.3 &#xD7; 300&#x2074; &#x2248; 507W</text>
       <text x="200" y="252" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Only radiation works in vacuum — no convection possible</text>
     </svg>`,
-    context: 'The satellite orbits Earth and alternates between sunlight and shadow. Electronics must stay between 0°C and 50°C. There is no air for convection. Available surfaces: 2 m² total external area.',
-    steps: [
-      {
-        prompt: 'What heat transfer mechanism is available in space?',
-        idealResponse: 'Only radiation. There is no atmosphere for convection, and conduction only moves heat within the spacecraft structure. All heat must ultimately be radiated to space (background temperature ~3K) from external radiator surfaces.',
-      },
-      {
-        prompt: 'Estimate the required radiator area and temperature.',
-        idealResponse: 'Using Stefan-Boltzmann: Q = εσAT⁴. For 500W with ε ≈ 0.85 (white paint), σ = 5.67×10⁻⁸, solve for A at T = 300K (27°C): A = 500/(0.85 × 5.67e-8 × 300⁴) = 500/390 ≈ 1.28 m². So about 1.3 m² of radiator at 27°C average. This is feasible within the 2 m² available.',
-      },
-      {
-        prompt: 'How do you handle the sun-shadow thermal cycling?',
-        idealResponse: 'Use multi-layer insulation (MLI) blankets on sun-facing surfaces to minimize solar heat absorption. Radiators should face away from the sun and Earth. Use heat pipes to spread thermal loads evenly. Consider louvers or variable-conductance heat pipes that close in shadow to prevent over-cooling, and open in sunlight to maximize rejection.',
-      },
-    ],
-    keyTakeaway: 'Space thermal design relies entirely on radiation. The fourth-power dependence of radiation on temperature means radiator area is very sensitive to operating temperature.',
-    explanation: 'Spacecraft thermal control is a pure radiation problem. The key challenge is managing the cyclic solar input while maintaining steady electronics temperatures. This requires both passive (MLI, coatings) and active (heat pipes, louvers) thermal control.',
+    explanation: 'In the vacuum of space there is no air for convection. Heat must be rejected via thermal radiation from radiator panels, governed by the Stefan-Boltzmann law (Q = εσAT⁴). Multi-layer insulation (MLI) protects cold surfaces while radiators face deep space.',
     interviewInsight: 'This scenario is common in aerospace interviews. It tests radiation fundamentals and the ability to design a complete thermal system, not just calculate a single mode of heat transfer.',
     commonMistake: 'Forgetting that radiation scales with T⁴, so a small temperature increase gives a large increase in rejection capability. Also, neglecting solar input on the radiator surface.',
     tags: ['radiation', 'satellite', 'space', 'thermal-control', 'stefan-boltzmann', 'MLI'],

@@ -57,8 +57,6 @@ const TYPE_OPTIONS = [
   'multi-select',
   'ranking',
   'scenario',
-  'free-text',
-  'explanation',
   'spot-the-flaw',
   'estimation',
   'confidence-rated',

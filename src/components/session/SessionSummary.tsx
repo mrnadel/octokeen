@@ -1,35 +1,60 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import type { SessionSummary as SessionSummaryType } from '@/store/useStore';
-import { Home, RotateCcw } from 'lucide-react';
-import { cn, formatDuration } from '@/lib/utils';
 import { useSessionActions, useStore } from '@/store/useStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
-import { achievements } from '@/data/achievements';
-import { ContinuationHooks } from '@/components/engagement/ContinuationHooks';
 import { useEngagementActions } from '@/store/useEngagementStore';
 import { analytics } from '@/lib/mixpanel';
+import { achievements } from '@/data/achievements';
 
 interface Props {
   summary: SessionSummaryType;
 }
 
+const PRACTICE_THEME = {
+  color: '#6366F1',
+  dark: '#4338CA',
+};
+
 function getGrade(accuracy: number) {
-  if (accuracy >= 90) return { label: 'Outstanding', color: 'text-emerald-600', bg: 'bg-emerald-50' };
-  if (accuracy >= 75) return { label: 'Strong', color: 'text-blue-600', bg: 'bg-blue-50' };
-  if (accuracy >= 60) return { label: 'Good Progress', color: 'text-amber-600', bg: 'bg-amber-50' };
-  return { label: 'Keep Practicing', color: 'text-orange-600', bg: 'bg-orange-50' };
+  if (accuracy >= 90) return { label: 'Outstanding!', icon: '👑', color: '#10B981', dark: '#059669' };
+  if (accuracy >= 75) return { label: 'Great Work!', icon: '🏆', color: '#6366F1', dark: '#4338CA' };
+  if (accuracy >= 60) return { label: 'Good Progress!', icon: '💪', color: '#F59E0B', dark: '#B45309' };
+  return { label: 'Keep Practicing!', icon: '📚', color: '#8B5E5E', dark: '#5C3D3D' };
 }
 
 export default function SessionSummary({ summary }: Props) {
   const { startSession, abandonSession } = useSessionActions();
   const { updateQuestProgress, updateLeagueXp } = useEngagementActions();
+  const router = useRouter();
   const tracked = useRef(false);
 
-  // Mobile back button dismisses summary and returns to practice page
-  useBackHandler(true, abandonSession);
+  const handleBack = useCallback(() => {
+    abandonSession();
+    router.push('/');
+  }, [abandonSession, router]);
+
+  useBackHandler(true, handleBack);
+
+  // Keyboard: Enter/Space to continue
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleBack();
+      }
+    };
+    const timer = setTimeout(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleBack]);
 
   // Track engagement metrics (fires once)
   useEffect(() => {
@@ -47,7 +72,6 @@ export default function SessionSummary({ summary }: Props) {
     const currentStreak = useStore.getState().progress.currentStreak;
     if (currentStreak > 0) updateQuestProgress('streak_days', currentStreak);
 
-    // Mixpanel tracking
     const grade = getGrade(summary.accuracy);
     analytics.session({
       status: 'completed',
@@ -59,8 +83,8 @@ export default function SessionSummary({ summary }: Props) {
       durationSeconds: summary.duration,
       grade: grade.label,
     });
-    summary.newAchievements.forEach(id => {
-      const achievement = achievements.find(a => a.id === id);
+    summary.newAchievements.forEach((id) => {
+      const achievement = achievements.find((a) => a.id === id);
       analytics.milestone({ type: 'achievement', name: achievement?.name ?? id });
     });
     if (summary.newLevel) {
@@ -69,88 +93,287 @@ export default function SessionSummary({ summary }: Props) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const grade = getGrade(summary.accuracy);
+  const bgColor = grade.color;
+  const darkColor = grade.dark;
+  const isFlawless = summary.accuracy === 100 && summary.questionsAttempted >= 3;
 
   return (
-    <div className="max-w-2xl mx-auto animate-scale-in">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className={cn('inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4', grade.bg)}>
-          <span className="text-4xl">🏆</span>
-        </div>
-        <h1 className="text-2xl font-bold text-surface-900 mb-1">Session Complete!</h1>
-        <p className={cn('text-lg font-semibold', grade.color)}>{grade.label}</p>
-      </div>
+    <AnimatePresence>
+      <motion.div
+        key="session-summary"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed inset-0 z-50 flex items-center justify-center"
+        style={{
+          background: bgColor,
+          paddingTop: 'env(safe-area-inset-top, 0px)',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        }}
+      >
+        <div className="w-full h-full max-w-3xl flex flex-col lg:shadow-lg">
+          {/* Flawless sparkles */}
+          {isFlawless && (
+            <>
+              {[...Array(10)].map((_, i) => (
+                <motion.div
+                  key={`flawless-${i}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0.8, 0],
+                    scale: [0, 1.2, 0.9, 0],
+                    y: [0, -20 - Math.random() * 40, -40 - Math.random() * 30, -70],
+                  }}
+                  transition={{
+                    duration: 2.5 + Math.random() * 1.5,
+                    delay: 0.2 + Math.random() * 0.6,
+                    repeat: Infinity,
+                    repeatDelay: 0.8 + Math.random() * 1.5,
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: `${15 + Math.random() * 50}%`,
+                    left: `${5 + Math.random() * 90}%`,
+                    width: 5 + Math.random() * 5,
+                    height: 5 + Math.random() * 5,
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }}
+                >
+                  <svg viewBox="0 0 10 10" width="100%" height="100%">
+                    <path
+                      d="M5 0L6 4L10 5L6 6L5 10L4 6L0 5L4 4Z"
+                      fill={['#C4B5FD', '#A78BFA', '#818CF8', '#E9D5FF'][i % 4]}
+                      opacity={0.9}
+                    />
+                  </svg>
+                </motion.div>
+              ))}
+            </>
+          )}
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div className="stat-card items-center text-center">
-          <span className="text-xl mb-1">🎯</span>
-          <span className="stat-value">{summary.accuracy}%</span>
-          <span className="stat-label">Accuracy</span>
-        </div>
-        <div className="stat-card items-center text-center">
-          <span className="text-xl mb-1">✅</span>
-          <span className="stat-value">{summary.questionsCorrect}/{summary.questionsAttempted}</span>
-          <span className="stat-label">Correct</span>
-        </div>
-        <div className="stat-card items-center text-center">
-          <span className="text-xl mb-1">⭐</span>
-          <span className="stat-value">+{summary.xpEarned}</span>
-          <span className="stat-label">XP Earned</span>
-        </div>
-        <div className="stat-card items-center text-center">
-          <span className="text-xl mb-1">⏱️</span>
-          <span className="stat-value">{formatDuration(summary.duration)}</span>
-          <span className="stat-label">Duration</span>
-        </div>
-      </div>
+          {/* Main content — centered vertically */}
+          <div className="flex-1 flex flex-col items-center justify-center" style={{ padding: '0 32px', position: 'relative', zIndex: 2 }}>
+            {/* Icon */}
+            <motion.div
+              className="flex items-center justify-center"
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 28,
+                background: 'rgba(255,255,255,0.25)',
+                fontSize: 40,
+                marginBottom: 20,
+              }}
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.15 }}
+            >
+              <motion.span style={{ display: 'inline-block' }}>
+                {isFlawless ? '💎' : grade.icon}
+              </motion.span>
+            </motion.div>
 
-      {/* New Achievements */}
-      {summary.newAchievements.length > 0 && (
-        <div className="card p-5 mb-6 border-amber-200 bg-amber-50">
-          <h3 className="font-semibold text-amber-800 mb-2 flex items-center gap-2">
-            <span>🏆</span> {summary.newAchievements.length > 1 ? 'New Achievements!' : 'New Achievement!'}
-          </h3>
-          <div className="space-y-2">
-            {summary.newAchievements.map(id => {
-              const achievement = achievements.find(a => a.id === id);
-              return (
-                <div key={id} className="flex items-center gap-2 text-sm text-amber-700">
-                  <span className="text-lg">{achievement?.icon ?? '⭐'}</span>
-                  <span className="font-medium">{achievement?.name ?? id}</span>
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              style={{
+                fontSize: 28,
+                fontWeight: 800,
+                color: '#FFFFFF',
+                margin: '0 0 10px',
+                textAlign: 'center',
+              }}
+            >
+              {isFlawless ? 'Flawless!' : grade.label}
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35 }}
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: 'rgba(255,255,255,0.7)',
+                marginBottom: 24,
+                textAlign: 'center',
+              }}
+            >
+              Practice Session Complete
+            </motion.div>
+
+            {/* Stats card */}
+            <motion.div
+              className="flex items-stretch"
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                borderRadius: 20,
+                width: '100%',
+                maxWidth: 320,
+                overflow: 'hidden',
+              }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              {/* Accuracy */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center"
+                style={{ padding: '16px 12px' }}
+              >
+                <div style={{ fontSize: 28, fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}>
+                  {summary.accuracy}%
                 </div>
-              );
-            })}
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: 0.8, marginTop: 4 }}>
+                  Accuracy
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div style={{ width: 1.5, background: 'rgba(255,255,255,0.15)', margin: '12px 0' }} />
+
+              {/* XP */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center"
+                style={{ padding: '16px 12px' }}
+              >
+                <motion.div
+                  style={{ fontSize: 28, fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 250, damping: 15, delay: 0.7 }}
+                >
+                  +{summary.xpEarned}
+                </motion.div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: 0.8, marginTop: 4 }}>
+                  XP
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div style={{ width: 1.5, background: 'rgba(255,255,255,0.15)', margin: '12px 0' }} />
+
+              {/* Correct */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center"
+                style={{ padding: '16px 12px' }}
+              >
+                <div style={{ fontSize: 28, fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}>
+                  {summary.questionsCorrect}/{summary.questionsAttempted}
+                </div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: 0.8, marginTop: 4 }}>
+                  Correct
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Flawless bonus */}
+            {isFlawless && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                style={{ marginTop: 16, fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}
+              >
+                💎 Flawless! Perfect score
+              </motion.div>
+            )}
+
+            {/* New achievements */}
+            {summary.newAchievements.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.85 }}
+                style={{ marginTop: 16, textAlign: 'center' }}
+              >
+                {summary.newAchievements.map((id) => {
+                  const achievement = achievements.find((a) => a.id === id);
+                  return (
+                    <div
+                      key={id}
+                      style={{ fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.9)', marginBottom: 4 }}
+                    >
+                      {achievement?.icon ?? '⭐'} {achievement?.name ?? id}
+                    </div>
+                  );
+                })}
+              </motion.div>
+            )}
+
+            {/* Level up */}
+            {summary.newLevel && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                style={{ marginTop: 16, fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}
+              >
+                ⚡ Level Up!
+              </motion.div>
+            )}
           </div>
+
+          {/* Bottom buttons */}
+          <motion.div
+            style={{
+              padding: '16px 24px',
+              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 24px)',
+              position: 'relative',
+              zIndex: 2,
+              display: 'flex',
+              gap: 12,
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+          >
+            <button
+              onClick={handleBack}
+              className="flex-1 transition-transform active:scale-[0.98]"
+              style={{
+                padding: '16px 0',
+                borderRadius: 16,
+                fontSize: 15,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                background: '#FFFFFF',
+                color: darkColor,
+                boxShadow: `0 4px 0 ${darkColor}40`,
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              Continue
+            </button>
+            <button
+              onClick={() => startSession(summary.type)}
+              className="flex-1 transition-transform active:scale-[0.98]"
+              style={{
+                padding: '16px 0',
+                borderRadius: 16,
+                fontSize: 15,
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                background: 'rgba(255,255,255,0.25)',
+                color: '#FFFFFF',
+                boxShadow: `0 4px 0 ${darkColor}30`,
+                border: '2px solid rgba(255,255,255,0.3)',
+                cursor: 'pointer',
+              }}
+            >
+              Again
+            </button>
+          </motion.div>
         </div>
-      )}
-
-      {/* Level Up */}
-      {summary.newLevel && (
-        <div className="card p-5 mb-6 border-primary-200 bg-primary-50 text-center animate-pulse-once">
-          <span className="text-3xl block mx-auto mb-2">⚡</span>
-          <h3 className="font-bold text-primary-800 text-lg">Level Up!</h3>
-          <p className="text-sm text-primary-600">You&apos;re making real progress.</p>
-        </div>
-      )}
-
-      {/* Actions */}
-      <div className="flex gap-3">
-        <Link href="/" className="btn-secondary flex-1">
-          <Home className="w-4 h-4" /> Dashboard
-        </Link>
-        <button
-          onClick={() => startSession(summary.type)}
-          className="btn-primary flex-1"
-        >
-          <RotateCcw className="w-4 h-4" /> Practice Again
-        </button>
-      </div>
-
-      {/* Continuation hooks */}
-      <div className="mt-4">
-        <ContinuationHooks />
-      </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

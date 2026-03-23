@@ -1,151 +1,329 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import {
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
+import { motion } from 'framer-motion';
 import type { Question } from '@/data/types';
-import { cn, getDifficultyColor, getDifficultyLabel, getQuestionTypeLabel, getQuestionTypeIcon } from '@/lib/utils';
-import MultipleChoiceInput from './MultipleChoiceInput';
-import TwoChoiceInput from './TwoChoiceInput';
-import MultiSelectInput from './MultiSelectInput';
-import RankingInput from './RankingInput';
-import FreeTextInput from './FreeTextInput';
-import EstimationInput from './EstimationInput';
-import SpotTheFlawInput from './SpotTheFlawInput';
-import ScenarioInput from './ScenarioInput';
-import WhatFailsFirstInput from './WhatFailsFirstInput';
-import DesignDecisionInput from './DesignDecisionInput';
-import MaterialSelectionInput from './MaterialSelectionInput';
-import ConfidenceRating from './ConfidenceRating';
-import FeedbackPanel from '../feedback/FeedbackPanel';
 import QuestionDiagram from './QuestionDiagram';
-import { topics } from '@/data/topics';
 
-interface QuestionCardProps {
+/* ── Public imperative handle (matches lesson QuestionCard) ── */
+
+export interface QuestionCardHandle {
+  check: () => void;
+  hasSelection: boolean;
+  selectOption: (index: number) => void;
+  selectBool: (value: boolean) => void;
+  selectWord: (index: number) => void;
+  questionType: string;
+  availableWordCount: number;
+}
+
+interface Props {
   question: Question;
-  questionNumber: number;
-  totalQuestions: number;
-  onAnswer: (correct: boolean, confidence?: number, timeSpent?: number) => void;
-  onNext: () => void;
-  showConfidence?: boolean;
+  onAnswer: (correct: boolean) => void;
+  onSelectionChange: (hasSelection: boolean) => void;
+  answered: boolean;
+  unitColor: string;
 }
 
-export default function QuestionCard({
-  question,
-  questionNumber,
-  totalQuestions,
-  onAnswer,
-  onNext,
-  showConfidence = true,
-}: QuestionCardProps) {
-  const [answered, setAnswered] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [confidence, setConfidence] = useState<number | undefined>(undefined);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [startTime] = useState(Date.now());
+/* ── Normalize any question type to simple options ── */
 
-  const topic = topics.find(t => t.id === question.topic);
+interface SimpleOption {
+  id: string;
+  text: string;
+}
 
-  const handleSubmit = useCallback((correct: boolean) => {
-    const timeSpent = Math.round((Date.now() - startTime) / 1000);
-    setIsCorrect(correct);
-    setAnswered(true);
-    setShowFeedback(true);
-    onAnswer(correct, confidence, timeSpent);
-  }, [confidence, startTime, onAnswer]);
-
-  const handleNext = useCallback(() => {
-    setAnswered(false);
-    setIsCorrect(false);
-    setConfidence(undefined);
-    setShowFeedback(false);
-    onNext();
-  }, [onNext]);
-
-  const renderQuestionInput = () => {
-    const commonProps = { disabled: answered, onSubmit: handleSubmit };
-
-    switch (question.type) {
-      case 'multiple-choice':
-        return <MultipleChoiceInput question={question} {...commonProps} />;
-      case 'two-choice-tradeoff':
-        return <TwoChoiceInput question={question} {...commonProps} />;
-      case 'multi-select':
-        return <MultiSelectInput question={question} {...commonProps} />;
-      case 'ranking':
-        return <RankingInput question={question} {...commonProps} />;
-      case 'free-text':
-      case 'explanation':
-        return <FreeTextInput question={question} {...commonProps} />;
-      case 'estimation':
-        return <EstimationInput question={question} {...commonProps} />;
-      case 'spot-the-flaw':
-        return <SpotTheFlawInput question={question} {...commonProps} />;
-      case 'scenario':
-        return <ScenarioInput question={question} {...commonProps} />;
-      case 'what-fails-first':
-        return <WhatFailsFirstInput question={question} {...commonProps} />;
-      case 'design-decision':
-        return <DesignDecisionInput question={question} {...commonProps} />;
-      case 'material-selection':
-        return <MaterialSelectionInput question={question} {...commonProps} />;
-      case 'confidence-rated':
-        return <MultipleChoiceInput question={question as import('@/data/types').ConfidenceRatedQuestion} {...commonProps} />;
-      default:
-        return <div className="text-surface-500">This question type is not yet supported. Please skip to the next question.</div>;
+function extractOptions(q: Question): { options: SimpleOption[]; correctIds: Set<string> } {
+  switch (q.type) {
+    case 'multiple-choice':
+    case 'confidence-rated':
+      return { options: q.options, correctIds: new Set([q.correctAnswer]) };
+    case 'multi-select':
+      // Show as single-select — accept any correct answer
+      return { options: q.options, correctIds: new Set(q.correctAnswers.slice(0, 1)) };
+    case 'two-choice-tradeoff':
+      return {
+        options: q.choices.map((c) => ({ id: c.id, text: c.text })),
+        correctIds: new Set([q.preferredAnswer]),
+      };
+    case 'what-fails-first':
+      return { options: q.components, correctIds: new Set([q.correctAnswer]) };
+    case 'design-decision':
+      return {
+        options: q.designOptions.map((d) => ({ id: d.id, text: d.text })),
+        correctIds: new Set([q.bestOption]),
+      };
+    case 'material-selection':
+      return {
+        options: q.candidates.map((c) => ({ id: c.id, text: c.name })),
+        correctIds: new Set([q.bestChoice]),
+      };
+    case 'ranking':
+      // "Which is most important?" — correct = first in order
+      return { options: q.items, correctIds: new Set([q.correctOrder[0]]) };
+    case 'spot-the-flaw': {
+      // True/False style — "Is this statement correct?"
+      return {
+        options: [
+          { id: 'true', text: 'This statement is correct' },
+          { id: 'false', text: 'This statement has a flaw' },
+        ],
+        correctIds: new Set(['false']),
+      };
     }
-  };
-
-  return (
-    <div className="animate-fade-in">
-      {/* Question Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-surface-400">
-            {questionNumber} / {totalQuestions}
-          </span>
-          <span className={cn('badge border', getDifficultyColor(question.difficulty))}>
-            {getDifficultyLabel(question.difficulty)}
-          </span>
-          <span className="badge bg-surface-100 text-surface-600">
-            {getQuestionTypeIcon(question.type)} {getQuestionTypeLabel(question.type)}
-          </span>
-        </div>
-        {topic && (
-          <span className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ backgroundColor: `${topic.color}15`, color: topic.color }}>
-            {topic.icon} {topic.name}
-          </span>
-        )}
-      </div>
-
-      {/* Question Text */}
-      <div className="card p-6 mb-4">
-        <h2 className="text-lg font-semibold text-surface-900 leading-relaxed mb-6">
-          {question.question}
-        </h2>
-
-        {/* Question Diagram */}
-        {question.diagram && <QuestionDiagram svg={question.diagram} />}
-
-        {/* Question-specific input */}
-        {renderQuestionInput()}
-
-        {/* Confidence Rating (before answer) */}
-        {showConfidence && !answered && (question.type === 'confidence-rated' || confidence === undefined) && (
-          <ConfidenceRating
-            value={confidence}
-            onChange={setConfidence}
-            className="mt-6"
-          />
-        )}
-      </div>
-
-      {/* Feedback Panel */}
-      {showFeedback && (
-        <FeedbackPanel
-          question={question}
-          isCorrect={isCorrect}
-          onNext={handleNext}
-        />
-      )}
-    </div>
-  );
+    case 'estimation': {
+      // Convert to MC with range buckets
+      const best = q.acceptableRange.bestEstimate;
+      const unit = q.acceptableRange.unit;
+      const low = best * 0.3;
+      const mid = best * 0.7;
+      const high = best * 1.5;
+      const vhigh = best * 3;
+      return {
+        options: [
+          { id: 'a', text: `~${fmtNum(low)} ${unit}` },
+          { id: 'b', text: `~${fmtNum(mid)} ${unit}` },
+          { id: 'c', text: `~${fmtNum(best)} ${unit}` },
+          { id: 'd', text: `~${fmtNum(high)} ${unit}` },
+          { id: 'e', text: `~${fmtNum(vhigh)} ${unit}` },
+        ],
+        correctIds: new Set(['c']),
+      };
+    }
+    case 'scenario': {
+      // Show first step as a question with key takeaway
+      const opts = [
+        { id: 'a', text: q.keyTakeaway },
+        { id: 'b', text: q.steps[0]?.idealResponse ?? 'Investigate further' },
+      ];
+      // Shuffle will handle order, correct is 'a'
+      return { options: opts, correctIds: new Set(['a']) };
+    }
+    default:
+      return { options: [], correctIds: new Set() };
+  }
 }
+
+function fmtNum(n: number): string {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+  if (n >= 1_000) return (n / 1_000).toFixed(1) + 'k';
+  if (n >= 100) return Math.round(n).toString();
+  if (n >= 1) return n.toFixed(1);
+  return n.toPrecision(2);
+}
+
+function getQuestionText(q: Question): string {
+  if (q.type === 'ranking') return q.question.replace(/rank|order|arrange/i, (m) => `Which is most important? (${m})`);
+  if (q.type === 'spot-the-flaw') return q.statement;
+  if (q.type === 'scenario') return `${q.context}\n\n${q.steps[0]?.prompt ?? q.question}`;
+  return q.question;
+}
+
+/* ── Component ── */
+
+const QuestionCard = forwardRef<QuestionCardHandle, Props>(
+  function QuestionCard({ question, onAnswer, onSelectionChange, answered, unitColor }, ref) {
+    const { options, correctIds } = useMemo(() => extractOptions(question), [question]);
+
+    // Shuffle option display order
+    const shuffledIndices = useMemo(() => {
+      const indices = options.map((_, i) => i);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      return indices;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [question.id]);
+
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
+
+    useEffect(() => {
+      setSelectedIndex(null);
+      setLocalCorrect(null);
+    }, [question.id]);
+
+    const hasSelection = selectedIndex !== null;
+
+    useEffect(() => {
+      onSelectionChange(hasSelection);
+    }, [hasSelection, onSelectionChange]);
+
+    const handleCheck = useCallback(() => {
+      if (answered || !hasSelection || selectedIndex === null) return;
+      const pickedOption = options[shuffledIndices[selectedIndex]];
+      const correct = correctIds.has(pickedOption.id);
+      setLocalCorrect(correct);
+      onAnswer(correct);
+    }, [answered, hasSelection, selectedIndex, options, shuffledIndices, correctIds, onAnswer]);
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        check: handleCheck,
+        hasSelection,
+        selectOption: (index: number) => {
+          if (!answered && index < options.length) setSelectedIndex(index);
+        },
+        selectBool: () => {},
+        selectWord: () => {},
+        questionType: 'multiple-choice',
+        availableWordCount: 0,
+      }),
+      [handleCheck, hasSelection, answered, options.length]
+    );
+
+    const displayText = getQuestionText(question);
+
+    return (
+      <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
+        {/* Question content */}
+        <div className="flex flex-col" style={{ gap: 12 }}>
+          {/* Diagram */}
+          {question.diagram && (
+            <div
+              className="diagram-svg w-full flex items-center justify-center overflow-hidden"
+              style={{
+                borderRadius: 14,
+                background: '#0F172A',
+                border: '2px solid #1E293B',
+                padding: 10,
+                maxWidth: 400,
+                margin: '0 auto',
+              }}
+              dangerouslySetInnerHTML={{ __html: question.diagram }}
+            />
+          )}
+
+          {/* Question text */}
+          <h2
+            style={{
+              fontSize: 17,
+              fontWeight: 800,
+              color: '#3C3C3C',
+              lineHeight: 1.35,
+              margin: 0,
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {displayText}
+          </h2>
+
+          {/* Hint for special types */}
+          {question.type === 'spot-the-flaw' && !answered && (
+            <div
+              style={{
+                padding: '8px 12px',
+                borderRadius: 10,
+                background: '#FFF9E8',
+                border: '1.5px solid #FFE4B8',
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#B56E00',
+                lineHeight: 1.4,
+              }}
+            >
+              Is this statement correct, or does it contain a flaw?
+            </div>
+          )}
+        </div>
+
+        {/* Options — pushed to bottom for thumb reach */}
+        <div style={{ marginTop: 'auto', paddingTop: 20 }}>
+          <div className="flex flex-col" style={{ gap: 8 }}>
+            {shuffledIndices.map((originalIndex, displayIndex) => {
+              const option = options[originalIndex];
+              const isSelected = selectedIndex === displayIndex;
+              const isCorrectOption = correctIds.has(option.id);
+
+              let bg = 'rgba(255,255,255,0.65)';
+              let border = '2px solid transparent';
+              let textColor = '#3C3C3C';
+              let badgeBg = '#F0F0F0';
+              let badgeColor = '#AFAFAF';
+
+              if (answered && localCorrect !== null) {
+                if (isCorrectOption) {
+                  bg = '#D7FFB8';
+                  border = '2px solid #58CC02';
+                  textColor = '#58A700';
+                  badgeBg = '#58CC02';
+                  badgeColor = 'white';
+                } else if (isSelected && !isCorrectOption) {
+                  bg = '#FFDFE0';
+                  border = '2px solid #FF4B4B';
+                  textColor = '#EA2B2B';
+                  badgeBg = '#FF4B4B';
+                  badgeColor = 'white';
+                } else {
+                  bg = '#F5F5F5';
+                  textColor = '#CFCFCF';
+                  badgeBg = '#E5E5E5';
+                  badgeColor = '#CFCFCF';
+                }
+              } else if (isSelected) {
+                bg = 'white';
+                border = `2.5px solid ${unitColor}`;
+                badgeBg = unitColor;
+                badgeColor = 'white';
+              }
+
+              return (
+                <motion.button
+                  key={originalIndex}
+                  onClick={() => !answered && setSelectedIndex(displayIndex)}
+                  disabled={answered}
+                  whileTap={!answered ? { scale: 0.98 } : undefined}
+                  className="w-full text-left flex items-center"
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: 14,
+                    background: bg,
+                    border,
+                    gap: 12,
+                    cursor: answered ? 'default' : 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <span
+                    className="flex-shrink-0 flex items-center justify-center"
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
+                      background: badgeBg,
+                      color: badgeColor,
+                      fontSize: 12,
+                      fontWeight: 800,
+                    }}
+                  >
+                    {String.fromCharCode(65 + displayIndex)}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: textColor,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {option.text}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
+
+export default QuestionCard;

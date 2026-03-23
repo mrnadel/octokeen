@@ -436,7 +436,7 @@ export const useStore = create<AppState>()(
       questions: allQuestions as Question[],
       session: null,
       sessionSummary: null,
-      sidebarOpen: true,
+      sidebarOpen: false,
       showAchievementToast: null,
 
       setQuestions: (questions: Question[]) => set({ questions }),

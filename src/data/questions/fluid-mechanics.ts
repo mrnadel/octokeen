@@ -8,7 +8,7 @@ export const fluidMechanicsQuestions: Question[] = [
     topic: 'fluid-mechanics',
     subtopic: 'Fluid Dynamics',
     difficulty: 'beginner',
-    question: 'An airplane wing generates lift. According to the most physically accurate explanation, this is primarily because:',
+    question: 'What is the most accurate explanation for how a wing generates lift?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Airfoil shape -->
       <path d="M80,150 Q120,110 200,105 Q300,100 330,130 Q300,140 200,148 Q120,155 80,150 Z" fill="#334155" stroke="#60a5fa" stroke-width="2"/>
@@ -60,10 +60,10 @@ export const fluidMechanicsQuestions: Question[] = [
       { id: 'd', text: 'The shape of the wing creates a vacuum above it that sucks the wing upward' },
     ],
     correctAnswer: 'c',
-    explanation: 'The "equal transit time" theory (option a) is a myth — there is no physical law requiring air split at the leading edge to meet at the trailing edge. In reality, air DOES move faster over the top, but because of circulation induced by the airfoil shape and angle of attack, not equal transit time. The pressure difference (Bernoulli) and the downwash (Newton) are two valid perspectives on the same phenomenon. Option (c) captures the Bernoulli mechanism with the correct causal reasoning.',
-    interviewInsight: 'This is a classic trap question. The "equal transit time" explanation is wrong and widely taught. Interviewers use it to separate candidates who have genuinely thought about fluid mechanics from those who memorized a textbook diagram.',
-    realWorldConnection: 'Understanding lift generation is fundamental for aerospace engineering, wind turbine blade design, and even Formula 1 aerodynamics (inverted wings for downforce).',
-    commonMistake: 'Choosing option (a) — the equal transit time fallacy. It is the most commonly taught incorrect explanation of lift.',
+    explanation: '"Equal transit time" (option a) is a myth. Air moves faster over the top due to circulation from airfoil shape and angle of attack, not equal transit time. Bernoulli pressure difference and Newton downwash are both valid perspectives.',
+    interviewInsight: 'Classic trap. "Equal transit time" is wrong and widely taught. Separates real understanding from memorization.',
+    realWorldConnection: 'Fundamental for aerospace, wind turbines, and F1 aerodynamics.',
+    commonMistake: 'Choosing the equal transit time fallacy (option a).',
     tags: ['lift', 'bernoulli', 'aerodynamics', 'circulation', 'angle-of-attack'],
   },
 
@@ -74,7 +74,7 @@ export const fluidMechanicsQuestions: Question[] = [
     topic: 'fluid-mechanics',
     subtopic: 'Pipe Flow & Losses',
     difficulty: 'intermediate',
-    question: 'Estimate the pressure drop in a 100-meter horizontal run of 2-inch Schedule 40 steel pipe carrying water at 2 m/s.',
+    question: 'Estimate pressure drop: 100 m of 2-inch Sch 40 steel pipe, water at 2 m/s.',
     diagram: `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
       <!-- Pipe walls -->
       <rect x="40" y="80" width="320" height="8" rx="2" fill="#94a3b8"/>
@@ -132,9 +132,9 @@ export const fluidMechanicsQuestions: Question[] = [
       'ΔP = 0.020 × 1923 × 2000 = 76,920 Pa ≈ 77 kPa',
       'This is about 11 psi — a reasonable pressure drop for a 100m pipe run',
     ],
-    explanation: 'Pipe pressure drop calculations are among the most common practical fluid mechanics problems. The key is getting the Reynolds number right to determine the flow regime, then using the Moody chart (or Colebrook equation) for the friction factor.',
-    interviewInsight: 'This tests your ability to execute a standard pipe flow calculation from memory. Interviewers want to see that you know the Darcy-Weisbach equation, can estimate Reynolds number, and can navigate the Moody chart.',
-    commonMistake: 'Forgetting the factor of 2 in the velocity head term, or using the wrong pipe diameter (OD instead of ID). Also, confusing Darcy and Fanning friction factors (factor of 4 difference).',
+    explanation: 'Standard pipe flow problem. Get Re to determine flow regime, then use Moody chart for friction factor in Darcy-Weisbach equation.',
+    interviewInsight: 'Tests ability to execute pipe flow calculations from memory: Darcy-Weisbach, Re, Moody chart.',
+    commonMistake: 'Using OD instead of ID, or confusing Darcy and Fanning friction factors (4x difference).',
     tags: ['pipe-flow', 'pressure-drop', 'darcy-weisbach', 'moody-chart', 'reynolds-number'],
   },
 
@@ -145,7 +145,7 @@ export const fluidMechanicsQuestions: Question[] = [
     topic: 'fluid-mechanics',
     subtopic: 'Pumps & Turbomachinery',
     difficulty: 'intermediate',
-    question: 'You need to pump a viscous slurry (water with 30% solids) over a 50-meter height. Centrifugal pump or positive displacement pump?',
+    question: 'Pump viscous slurry (30% solids) over 50 m height: centrifugal or positive displacement?',
     diagram: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
       <!-- Left side: Centrifugal pump -->
       <text x="60" y="20" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Centrifugal</text>
@@ -230,9 +230,9 @@ export const fluidMechanicsQuestions: Question[] = [
     preferredAnswer: 'b',
     acceptableAnswer: 'b',
     justification: 'For viscous slurry with solids, a positive displacement pump (specifically a progressive cavity pump) is the clear choice. Centrifugal pumps lose efficiency rapidly as viscosity increases and are degraded by abrasive solids. PD pumps provide consistent flow regardless of viscosity and can generate the pressure needed for 50m of head.',
-    explanation: 'The key principle is that centrifugal pumps rely on kinetic energy transfer to the fluid, which is impaired by viscosity. PD pumps physically displace a fixed volume per revolution, making them insensitive to viscosity. This is one of the most important pump selection rules.',
-    interviewInsight: 'Pump selection is asked in almost every process/mechanical design interview. The viscosity boundary between centrifugal and PD pumps (roughly 100-500 cP) is a critical design heuristic.',
-    commonMistake: 'Defaulting to a centrifugal pump because it is more common. Centrifugal pumps are great for water but terrible for viscous slurries.',
+    explanation: 'Centrifugal pumps rely on kinetic energy transfer, impaired by viscosity. PD pumps displace fixed volume per revolution, insensitive to viscosity.',
+    interviewInsight: 'The viscosity boundary (~100-500 cP) between centrifugal and PD pumps is a critical heuristic.',
+    commonMistake: 'Defaulting to centrifugal. Great for water, terrible for viscous slurries.',
     tags: ['pump-selection', 'centrifugal', 'positive-displacement', 'slurry', 'viscosity'],
   },
 
@@ -243,7 +243,7 @@ export const fluidMechanicsQuestions: Question[] = [
     topic: 'fluid-mechanics',
     subtopic: 'Fluid Statics',
     difficulty: 'beginner',
-    question: 'A submarine is resting on the ocean floor at 300m depth. What is the approximate pressure on its hull?',
+    question: 'Approximate pressure on a submarine hull at 300 m depth?',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Water surface -->
       <path d="M0,40 Q20,35 40,40 Q60,45 80,40 Q100,35 120,40 Q140,45 160,40 Q180,35 200,40 Q220,45 240,40 Q260,35 280,40 Q300,45 320,40 Q340,35 360,40 Q380,45 400,40" fill="none" stroke="#60a5fa" stroke-width="2"/>
@@ -305,21 +305,28 @@ export const fluidMechanicsQuestions: Question[] = [
       { id: 'd', text: 'About 300 atm (30 MPa)' },
     ],
     correctAnswer: 'c',
-    explanation: 'Hydrostatic pressure: P = ρgh + P_atm. At 300m: P = 1025 × 9.81 × 300 + 101,325 ≈ 3,018,000 Pa + 101,325 ≈ 3.12 MPa ≈ 30.7 atm. The quick rule: every 10 meters of seawater adds about 1 atmosphere of pressure.',
-    interviewInsight: 'This tests basic hydrostatic intuition. The "10 meters per atmosphere" rule of thumb is essential for any fluid mechanics discussion.',
-    realWorldConnection: 'Submarine pressure hulls are engineered to withstand these extreme forces. The Titan submersible tragedy in 2023 highlighted what happens when pressure vessel integrity is compromised at depth.',
-    commonMistake: 'Forgetting the density of seawater (~1025 kg/m³, not 1000) or confusing gauge pressure with absolute pressure.',
+    explanation: 'P = ρgh + P_atm ≈ 3.1 MPa ≈ 31 atm. Rule of thumb: every 10 m of seawater adds ~1 atm.',
+    interviewInsight: 'Tests basic hydrostatic intuition. The 10 m/atm rule is essential.',
+    realWorldConnection: 'Submarine hull design must withstand these extreme pressures.',
+    commonMistake: 'Using freshwater density (1000) instead of seawater (1025), or confusing gauge vs. absolute pressure.',
     tags: ['hydrostatics', 'pressure', 'submarine', 'depth', 'ocean'],
   },
 
   // FM-005 — Free Text
   {
     id: 'fm-005',
-    type: 'free-text',
+    type: 'multiple-choice',
     topic: 'fluid-mechanics',
     subtopic: 'Pumps & Turbomachinery',
     difficulty: 'intermediate',
-    question: 'A centrifugal pump is making a rattling noise and the flow rate is fluctuating. What is likely happening and how would you fix it?',
+    question: 'Centrifugal pump rattling with fluctuating flow. Most likely cause?',
+    options: [
+      { id: 'a', text: 'Bearing failure due to misalignment of the pump shaft' },
+      { id: 'b', text: 'Cavitation — NPSH available is less than NPSH required, causing vapor bubble formation and collapse' },
+      { id: 'c', text: 'Impeller imbalance from manufacturing defects causing resonance' },
+      { id: 'd', text: 'Water hammer from sudden valve closure downstream of the pump' },
+    ],
+    correctAnswer: 'b',
     diagram: `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <!-- Pump casing -->
       <circle cx="200" cy="130" r="60" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
@@ -374,7 +381,6 @@ export const fluidMechanicsQuestions: Question[] = [
       <text x="40" y="105" fill="#f472b6" font-family="system-ui, sans-serif" font-size="11">rattle!</text>
       <text x="330" y="155" fill="#f472b6" font-family="system-ui, sans-serif" font-size="16">\u266A</text>
     </svg>`,
-    sampleAnswer: 'The symptoms strongly suggest cavitation. When the local pressure at the pump inlet drops below the vapor pressure of the fluid, small vapor bubbles form. These bubbles are carried into higher-pressure regions of the impeller where they collapse violently, producing the characteristic rattling noise and causing flow instability.\n\nTo confirm: check the NPSH available vs. NPSH required. The available NPSH depends on the inlet piping — suction lift, pipe losses, fluid temperature, and atmospheric pressure.\n\nTo fix: (1) Reduce the suction lift — lower the pump or raise the supply tank. (2) Increase the suction pipe diameter to reduce friction losses. (3) Reduce fluid temperature if possible (lower vapor pressure). (4) Install a booster pump or inducer upstream. (5) Ensure the suction strainer is not clogged.',
     keyPoints: [
       'Cavitation is the most likely diagnosis for rattling noise + flow fluctuation',
       'Caused by NPSH_available < NPSH_required',

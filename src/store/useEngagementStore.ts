@@ -49,6 +49,8 @@ function getDefaultGems(): GemsState {
       activeTitles: [],
       activeFrames: [],
     },
+    selectedTitle: null,
+    selectedFrame: null,
   };
 }
 
@@ -121,6 +123,8 @@ interface EngagementActions {
   activateDoubleXp: (duration: number) => void;
   addGems: (amount: number, source: string) => void;
   completeComebackQuest: () => void;
+  equipTitle: (itemId: string | null) => void;
+  equipFrame: (itemId: string | null) => void;
   debugSetFromCourse: (data: { gems: number; leagueXp: number }) => void;
   debugSetLeagueTier: (tier: number) => void;
 }
@@ -310,7 +314,6 @@ export const useEngagementStore = create<EngagementStore>()(
               return true;
             }
             case 'title': {
-              // Don't allow buying duplicates
               if (state.gems.inventory.activeTitles.includes(itemId)) return false;
               set((s) => ({
                 gems: {
@@ -324,12 +327,12 @@ export const useEngagementStore = create<EngagementStore>()(
                     ...s.gems.inventory,
                     activeTitles: [...s.gems.inventory.activeTitles, itemId],
                   },
+                  selectedTitle: itemId, // auto-equip on purchase
                 },
               }));
               return true;
             }
             case 'frame': {
-              // Don't allow buying duplicates
               if (state.gems.inventory.activeFrames.includes(itemId)) return false;
               set((s) => ({
                 gems: {
@@ -343,6 +346,7 @@ export const useEngagementStore = create<EngagementStore>()(
                     ...s.gems.inventory,
                     activeFrames: [...s.gems.inventory.activeFrames, itemId],
                   },
+                  selectedFrame: itemId, // auto-equip on purchase
                 },
               }));
               return true;
@@ -466,9 +470,33 @@ export const useEngagementStore = create<EngagementStore>()(
               },
             });
 
-            // Award promotion gems
+            // Award promotion gems + league frame
             if (result.promoted) {
               get().addGems(LEAGUE_GEM_REWARD_PROMOTION, 'league_promotion');
+
+              // Grant league frame for the new tier
+              const leagueFrameMap: Record<number, string> = {
+                2: 'reward-frame-league-silver',
+                3: 'reward-frame-league-gold',
+                4: 'reward-frame-league-platinum',
+                5: 'reward-frame-league-masters',
+              };
+              const frameId = leagueFrameMap[result.newTier];
+              if (frameId) {
+                set((s) => {
+                  const frames = s.gems.inventory.activeFrames;
+                  if (frames.includes(frameId)) return {};
+                  return {
+                    gems: {
+                      ...s.gems,
+                      inventory: {
+                        ...s.gems.inventory,
+                        activeFrames: [...frames, frameId],
+                      },
+                    },
+                  };
+                });
+              }
             }
           } else {
             // Same week - re-simulate competitor XP
@@ -556,7 +584,8 @@ export const useEngagementStore = create<EngagementStore>()(
               gems: {
                 ...state.gems,
                 balance: state.gems.balance + amount,
-                totalEarned: state.gems.totalEarned + amount,
+                // Only count positive amounts toward lifetime earned total
+                totalEarned: state.gems.totalEarned + Math.max(0, amount),
                 transactions: updatedTransactions,
               },
             };
@@ -578,7 +607,27 @@ export const useEngagementStore = create<EngagementStore>()(
           });
         },
 
-        // === Action 17: debugSetFromCourse ===
+        // === Action 17: equipTitle ===
+        equipTitle: (itemId) => {
+          set((state) => ({
+            gems: {
+              ...state.gems,
+              selectedTitle: itemId && state.gems.inventory.activeTitles.includes(itemId) ? itemId : null,
+            },
+          }));
+        },
+
+        // === Action 18: equipFrame ===
+        equipFrame: (itemId) => {
+          set((state) => ({
+            gems: {
+              ...state.gems,
+              selectedFrame: itemId && state.gems.inventory.activeFrames.includes(itemId) ? itemId : null,
+            },
+          }));
+        },
+
+        // === Action 19: debugSetFromCourse ===
         debugSetFromCourse: (data) => {
           set((state) => ({
             gems: {
@@ -627,8 +676,10 @@ export const useEngagementStore = create<EngagementStore>()(
             activateDoubleXp: _14,
             addGems: _15,
             completeComebackQuest: _16,
-            debugSetFromCourse: _17,
-            debugSetLeagueTier: _18,
+            equipTitle: _17,
+            equipFrame: _18,
+            debugSetFromCourse: _19,
+            debugSetLeagueTier: _20,
             ...stateOnly
           } = state;
           return stateOnly;
@@ -713,5 +764,7 @@ export const useEngagementActions = () =>
       activateDoubleXp: s.activateDoubleXp,
       addGems: s.addGems,
       completeComebackQuest: s.completeComebackQuest,
+      equipTitle: s.equipTitle,
+      equipFrame: s.equipFrame,
     })),
   );

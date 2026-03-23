@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getXpToNextLevel } from '@/data/levels';
@@ -12,17 +12,12 @@ import {
   Edit3,
   Check,
   X,
-  Lock,
-  LogOut,
-  Trophy,
   ChevronRight,
-  Shield,
   Crown,
   Camera,
   Trash2,
   Loader2,
-  AlertTriangle,
-  RotateCcw,
+  Settings,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -30,6 +25,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { computeAllMastery } from '@/data/mastery';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useGems, useEngagementStore } from '@/store/useEngagementStore';
+import { shopItems, findFrameById, findTitleById } from '@/data/gem-shop';
+import { AvatarFrame } from '@/components/ui/AvatarFrame';
+import type { FrameStyleId } from '@/components/ui/AvatarFrame';
 
 // ─── Image compression ──────────────────────────────────────
 const MAX_UPLOAD_MB = 5;
@@ -288,34 +287,21 @@ export default function ProfilePage() {
   const progress = useStore((s) => s.progress);
   const courseProgress = useCourseStore((s) => s.progress);
   const { isProUser, hasFetched: subFetched } = useSubscription();
+  const gems = useGems();
 
-  const [hasPassword, setHasPassword] = useState<boolean | null>(null);
+  // Resolve equipped cosmetics
+  const equippedTitle = gems.selectedTitle ? findTitleById(gems.selectedTitle) : undefined;
+  const equippedFrameMeta = gems.selectedFrame ? findFrameById(gems.selectedFrame) : null;
+  const equippedFrameStyle = equippedFrameMeta?.frameStyle;
+
+
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState('');
   const [nameLoading, setNameLoading] = useState(false);
 
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordSuccess, setPasswordSuccess] = useState('');
-  const [passwordLoading, setPasswordLoading] = useState(false);
-
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [avatarError, setAvatarError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Reset progress state — 3-step confirmation
-  const [resetStep, setResetStep] = useState(0); // 0=hidden, 1=warning, 2=type confirm, 3=processing
-  const [resetConfirmText, setResetConfirmText] = useState('');
-  const [resetError, setResetError] = useState('');
-
-  useEffect(() => {
-    fetch('/api/user/profile')
-      .then((res) => res.json())
-      .then((data) => setHasPassword(data.hasPassword ?? false))
-      .catch(() => setHasPassword(false));
-  }, []);
 
   // ─── Derived data ──────────────────────────────────────
   const displayName = session?.user?.name || progress.displayName || 'Engineer';
@@ -386,31 +372,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleChangePassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setPasswordError('');
-    setPasswordSuccess('');
-    if (newPassword.length < 8) { setPasswordError('New password must be at least 8 characters'); return; }
-    setPasswordLoading(true);
-    try {
-      const res = await fetch('/api/auth/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ currentPassword, newPassword }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setPasswordError(data.error || 'Failed to change password'); }
-      else {
-        setPasswordSuccess('Password changed successfully!');
-        setCurrentPassword('');
-        setNewPassword('');
-        setTimeout(() => { setShowPasswordForm(false); setPasswordSuccess(''); }, 2000);
-      }
-    } catch { setPasswordError('Something went wrong'); } finally {
-      setPasswordLoading(false);
-    }
-  };
-
   const handleAvatarUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -439,34 +400,6 @@ export default function ProfilePage() {
     }
   }, [updateSession]);
 
-  const handleResetProgress = useCallback(async () => {
-    if (resetConfirmText !== 'RESET MY PROGRESS') return;
-    setResetStep(3);
-    setResetError('');
-    try {
-      const res = await fetch('/api/user/reset-progress', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirmation: 'RESET MY PROGRESS' }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to reset');
-      }
-      // Clear local stores
-      useStore.getState().resetProgress();
-      useCourseStore.setState({ progress: { displayName: displayName, totalXp: 0, currentStreak: 0, longestStreak: 0, lastActiveDate: '', completedLessons: {} } });
-      useMasteryStore.getState().clearEvents();
-      setResetStep(0);
-      setResetConfirmText('');
-      // Reload page to reflect clean state
-      window.location.reload();
-    } catch (err: any) {
-      setResetError(err.message || 'Something went wrong');
-      setResetStep(2);
-    }
-  }, [resetConfirmText, displayName]);
-
   const handleRemoveAvatar = useCallback(async () => {
     setAvatarUploading(true);
     setAvatarError('');
@@ -494,6 +427,9 @@ export default function ProfilePage() {
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </button>
           <h1 className="text-lg font-extrabold text-gray-900 ml-2">Profile</h1>
+          <Link href="/settings" className="ml-auto p-2 -mr-2 rounded-full hover:bg-gray-100 transition-colors">
+            <Settings className="w-5 h-5 text-gray-500" />
+          </Link>
         </div>
       </div>
 
@@ -523,51 +459,53 @@ export default function ProfilePage() {
         <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-amber-500/10 blur-3xl" />
 
         <div className="relative px-4 pt-8 pb-10">
-          {/* Avatar with XP Ring + Upload */}
+          {/* Avatar with Frame + Upload */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1, type: 'spring' }}
-            className="relative w-28 h-28 mx-auto mb-4"
+            className="relative mx-auto mb-4"
+            style={{ width: 120, height: 120 }}
           >
-            <XpRing progress={levelInfo.progress} size={112} />
-            <div className="absolute inset-2">
+            <AvatarFrame frameStyle={equippedFrameStyle as FrameStyleId} size={120}>
               {image ? (
-                <img src={image} alt={displayName} className="w-full h-full rounded-full object-cover border-3 border-white/20" />
+                <img src={image} alt={displayName} className="w-full h-full object-cover" />
               ) : (
                 <div
-                  className="w-full h-full rounded-full flex items-center justify-center text-white text-3xl font-extrabold border-3 border-white/20"
+                  className="w-full h-full flex items-center justify-center text-white text-3xl font-extrabold"
                   style={{ background: bgColor }}
                 >
                   {initial}
                 </div>
               )}
-              {/* Upload overlay */}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                className="hidden"
-                onChange={handleAvatarUpload}
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={avatarUploading}
-                className="absolute inset-0 rounded-full bg-black/0 hover:bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-all cursor-pointer group"
-              >
-                {avatarUploading ? (
-                  <Loader2 className="w-6 h-6 text-white animate-spin" />
-                ) : (
-                  <Camera className="w-6 h-6 text-white drop-shadow-lg" />
-                )}
-              </button>
-            </div>
+            </AvatarFrame>
+            {/* Upload overlay */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={handleAvatarUpload}
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={avatarUploading}
+              className="absolute rounded-full bg-black/0 hover:bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-all cursor-pointer"
+              style={{ top: 6, left: 6, width: 108, height: 108, zIndex: 10 }}
+            >
+              {avatarUploading ? (
+                <Loader2 className="w-6 h-6 text-white animate-spin" />
+              ) : (
+                <Camera className="w-6 h-6 text-white drop-shadow-lg" />
+              )}
+            </button>
             {/* Level badge */}
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.6, type: 'spring', stiffness: 300 }}
               className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-900 text-xs font-extrabold px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1"
+              style={{ zIndex: 20 }}
             >
               <span>{levelInfo.current.icon}</span>
               <span>Lv. {levelInfo.current.level}</span>
@@ -578,7 +516,8 @@ export default function ProfilePage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 onClick={handleRemoveAvatar}
-                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 hover:bg-red-400 text-white rounded-full flex items-center justify-center shadow-lg transition-colors z-10"
+                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 hover:bg-red-400 text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
+                style={{ zIndex: 20 }}
                 title="Remove photo"
               >
                 <Trash2 className="w-3 h-3" />
@@ -639,6 +578,9 @@ export default function ProfilePage() {
             </AnimatePresence>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+              {equippedTitle && (
+                <p className="text-xs font-bold text-amber-300/90 mt-1.5 tracking-wide uppercase">{equippedTitle}</p>
+              )}
               <p className="text-sm text-white/40 mt-1 truncate max-w-[280px] sm:max-w-sm mx-auto">{email}</p>
               <div className="flex items-center justify-center gap-3 mt-2 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-300/80 bg-amber-400/10 px-2.5 py-1 rounded-full">
@@ -696,6 +638,132 @@ export default function ProfilePage() {
       </div>
 
       <div className="px-3 sm:px-4 mt-6 space-y-6">
+        {/* ─── My Collection ─────────────────────────────── */}
+        {(gems.inventory.activeTitles.length > 0 || gems.inventory.activeFrames.length > 0) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-extrabold text-gray-900">My Collection</h3>
+              <Link href="/shop" className="text-xs font-bold text-primary-500 hover:text-primary-600 flex items-center gap-0.5 transition-colors">
+                Shop <ChevronRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            {/* Frame Selector — visual avatar previews */}
+            {gems.inventory.activeFrames.length > 0 && (
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-3">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Avatar Frame</p>
+                <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
+                  {/* No frame option */}
+                  <button
+                    onClick={() => {
+                      useEngagementStore.getState().equipFrame(null);
+                    }}
+                    className="flex flex-col items-center gap-1.5 shrink-0"
+                  >
+                    <div
+                      className="rounded-2xl p-2 transition-all"
+                      style={{
+                        border: !gems.selectedFrame ? '2px solid #58CC02' : '2px solid transparent',
+                        background: !gems.selectedFrame ? '#F0FDF4' : '#F9FAFB',
+                      }}
+                    >
+                      <AvatarFrame frameStyle={null} size={56}>
+                        <div className="w-full h-full flex items-center justify-center text-lg font-extrabold text-white" style={{ background: bgColor }}>
+                          {initial}
+                        </div>
+                      </AvatarFrame>
+                    </div>
+                    <span className="text-[10px] font-bold text-gray-400">None</span>
+                  </button>
+
+                  {gems.inventory.activeFrames.map((frameId) => {
+                    const frameMeta = findFrameById(frameId);
+                    if (!frameMeta) return null;
+                    const isEquipped = gems.selectedFrame === frameId;
+                    const fStyle = frameMeta.frameStyle as FrameStyleId;
+                    const borderColor = frameMeta.borderColor;
+                    return (
+                      <button
+                        key={frameId}
+                        onClick={() => {
+                          useEngagementStore.getState().equipFrame(isEquipped ? null : frameId);
+                        }}
+                        className="flex flex-col items-center gap-1.5 shrink-0"
+                      >
+                        <div
+                          className="rounded-2xl p-2 transition-all"
+                          style={{
+                            border: isEquipped ? `2px solid ${borderColor}` : '2px solid transparent',
+                            background: isEquipped ? `${borderColor}15` : '#F9FAFB',
+                          }}
+                        >
+                          <AvatarFrame frameStyle={fStyle} size={56}>
+                            <div className="w-full h-full flex items-center justify-center text-lg font-extrabold text-white" style={{ background: bgColor }}>
+                              {initial}
+                            </div>
+                          </AvatarFrame>
+                        </div>
+                        <span className={`text-[10px] font-bold ${isEquipped ? 'text-gray-900' : 'text-gray-400'}`}>
+                          {frameMeta.name.split(' ')[0]}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Title Selector — pill buttons */}
+            {gems.inventory.activeTitles.length > 0 && (
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Title</p>
+                <div className="flex flex-wrap gap-2">
+                  {/* No title option */}
+                  <button
+                    onClick={() => useEngagementStore.getState().equipTitle(null)}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all"
+                    style={{
+                      background: !gems.selectedTitle ? '#F0FDF4' : '#F9FAFB',
+                      border: !gems.selectedTitle ? '2px solid #58CC02' : '2px solid #E5E7EB',
+                      color: !gems.selectedTitle ? '#16A34A' : '#6B7280',
+                    }}
+                  >
+                    None
+                  </button>
+                  {gems.inventory.activeTitles.map((titleId) => {
+                    const titleText = findTitleById(titleId);
+                    if (!titleText) return null;
+                    const isEquipped = gems.selectedTitle === titleId;
+                    // Find icon from shop or reward
+                    const shopItem = shopItems.find((i) => i.id === titleId);
+                    const icon = shopItem?.icon || '🏅';
+                    return (
+                      <button
+                        key={titleId}
+                        onClick={() => useEngagementStore.getState().equipTitle(isEquipped ? null : titleId)}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all"
+                        style={{
+                          background: isEquipped ? '#FFFBEB' : '#F9FAFB',
+                          border: isEquipped ? '2px solid #F59E0B' : '2px solid #E5E7EB',
+                          color: isEquipped ? '#B45309' : '#6B7280',
+                        }}
+                      >
+                        <span>{icon}</span>
+                        <span>{titleText}</span>
+                        {isEquipped && <span className="text-amber-500">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+
         {/* ─── Topic Mastery ────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -757,190 +825,6 @@ export default function ProfilePage() {
           </motion.div>
         )}
 
-        {/* ─── Account Section ─────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-          className="space-y-3"
-        >
-          <h3 className="text-base font-extrabold text-gray-900">Account</h3>
-
-          {/* Change Password */}
-          {hasPassword && (
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <button
-                onClick={() => setShowPasswordForm(!showPasswordForm)}
-                className="flex items-center gap-3 w-full px-4 py-3.5 hover:bg-gray-50 transition-colors"
-              >
-                <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                  <Lock className="w-4 h-4 text-slate-500" />
-                </div>
-                <span className="text-sm font-bold text-gray-700">Change Password</span>
-                <ChevronRight className={`w-4 h-4 text-gray-300 ml-auto transition-transform ${showPasswordForm ? 'rotate-90' : ''}`} />
-              </button>
-
-              <AnimatePresence>
-                {showPasswordForm && (
-                  <motion.form
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    onSubmit={handleChangePassword}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-4 pb-4 space-y-3 border-t border-gray-50 pt-3">
-                      {passwordError && <p className="text-red-500 text-xs font-semibold">{passwordError}</p>}
-                      {passwordSuccess && <p className="text-emerald-500 text-xs font-semibold">{passwordSuccess}</p>}
-                      <input
-                        type="password" placeholder="Current password" value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)} required
-                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all"
-                      />
-                      <input
-                        type="password" placeholder="New password (8+ characters)" value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)} required minLength={8}
-                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all"
-                      />
-                      <button
-                        type="submit" disabled={passwordLoading}
-                        className="w-full py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white font-bold rounded-xl text-sm transition-colors"
-                      >
-                        {passwordLoading ? 'Updating...' : 'Update Password'}
-                      </button>
-                    </div>
-                  </motion.form>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-
-          {/* Logout */}
-          <button
-            onClick={() => signOut({ callbackUrl: '/login' })}
-            className="w-full flex items-center gap-3 px-4 py-3.5 bg-white hover:bg-red-50 rounded-2xl border border-gray-100 shadow-sm transition-colors group"
-          >
-            <div className="w-8 h-8 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center transition-colors">
-              <LogOut className="w-4 h-4 text-red-400 group-hover:text-red-500 transition-colors" />
-            </div>
-            <span className="text-sm font-bold text-red-400 group-hover:text-red-500 transition-colors">Log Out</span>
-          </button>
-        </motion.div>
-
-        {/* ─── Danger Zone ───────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.1 }}
-        >
-          <h3 className="text-base font-extrabold text-gray-900 mb-3">Danger Zone</h3>
-          <div className="bg-white rounded-2xl border border-red-100 shadow-sm overflow-hidden">
-            <button
-              onClick={() => { setResetStep(resetStep === 0 ? 1 : 0); setResetConfirmText(''); setResetError(''); }}
-              className="flex items-center gap-3 w-full px-4 py-3.5 hover:bg-red-50/50 transition-colors"
-            >
-              <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
-                <RotateCcw className="w-4 h-4 text-red-400" />
-              </div>
-              <div className="text-left">
-                <span className="text-sm font-bold text-gray-700 block">Reset All Progress</span>
-                <span className="text-[11px] text-gray-400">Erase XP, streaks, lessons, achievements — everything</span>
-              </div>
-              <ChevronRight className={`w-4 h-4 text-gray-300 ml-auto transition-transform ${resetStep > 0 ? 'rotate-90' : ''}`} />
-            </button>
-
-            <AnimatePresence>
-              {resetStep >= 1 && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-4 pb-4 border-t border-red-50 pt-4 space-y-3">
-                    {/* Step 1: Warning */}
-                    {resetStep === 1 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        <div className="flex gap-3 p-3 bg-red-50 rounded-xl">
-                          <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                          <div className="text-xs text-red-700 space-y-1">
-                            <p className="font-bold">This action is permanent and cannot be undone.</p>
-                            <p>All your progress will be permanently deleted:</p>
-                            <ul className="list-disc pl-4 space-y-0.5 text-red-600">
-                              <li>All XP and level progress</li>
-                              <li>Streak history</li>
-                              <li>All completed lessons and courses</li>
-                              <li>Topic mastery data</li>
-                              <li>Achievements</li>
-                              <li>Session history</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => setResetStep(2)}
-                            className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-sm transition-colors"
-                          >
-                            I understand, continue
-                          </button>
-                          <button
-                            onClick={() => { setResetStep(0); setResetConfirmText(''); }}
-                            className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl text-sm transition-colors"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 2: Type confirmation */}
-                    {resetStep === 2 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        {resetError && <p className="text-red-500 text-xs font-semibold">{resetError}</p>}
-                        <p className="text-xs text-gray-500">
-                          Type <span className="font-mono font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded">RESET MY PROGRESS</span> to confirm:
-                        </p>
-                        <input
-                          type="text"
-                          value={resetConfirmText}
-                          onChange={(e) => setResetConfirmText(e.target.value)}
-                          placeholder="Type here..."
-                          autoFocus
-                          className="w-full px-3 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-mono focus:outline-none focus:border-red-400 transition-all"
-                        />
-                        <div className="flex gap-2">
-                          <button
-                            onClick={handleResetProgress}
-                            disabled={resetConfirmText !== 'RESET MY PROGRESS'}
-                            className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold rounded-xl text-sm transition-colors"
-                          >
-                            Permanently Reset Everything
-                          </button>
-                          <button
-                            onClick={() => { setResetStep(0); setResetConfirmText(''); setResetError(''); }}
-                            className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl text-sm transition-colors"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 3: Processing */}
-                    {resetStep === 3 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center gap-2 py-4">
-                        <Loader2 className="w-5 h-5 text-red-400 animate-spin" />
-                        <span className="text-sm font-bold text-gray-500">Resetting all progress...</span>
-                      </motion.div>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
       </div>
     </div>
   );

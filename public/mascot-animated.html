@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mascot Animation Test</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a2e;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    gap: 24px;
+  }
+  h1 { font-size: 1.2rem; opacity: 0.6; font-weight: 400; letter-spacing: 0.05em; }
+  .stage {
+    width: 420px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stage svg {
+    width: 100%;
+    height: 100%;
+  }
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+  }
+  button:hover { background: rgba(255,255,255,0.12); }
+  button.active { background: rgba(253,213,52,0.25); border-color: #FDD534; color: #FDD534; }
+
+  /* === ANIMATIONS === */
+
+  /* Idle float - whole robot bobs gently */
+  @keyframes idle-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Shadow scales with bob */
+  @keyframes shadow-pulse {
+    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 1; }
+    50% { transform: scaleX(0.92) scaleY(0.9); opacity: 0.7; }
+  }
+
+  /* Eye blink */
+  @keyframes blink {
+    0%, 42%, 48%, 100% { transform: scaleY(1); }
+    45% { transform: scaleY(0.05); }
+  }
+
+  /* Double blink variation */
+  @keyframes double-blink {
+    0%, 30%, 36%, 40%, 46%, 100% { transform: scaleY(1); }
+    33% { transform: scaleY(0.05); }
+    43% { transform: scaleY(0.05); }
+  }
+
+  /* Mustache wiggle */
+  @keyframes mustache-wiggle {
+    0%, 100% { transform: rotate(0deg) scaleX(1); }
+    15% { transform: rotate(2deg) scaleX(1.02); }
+    30% { transform: rotate(-1.5deg) scaleX(0.98); }
+    45% { transform: rotate(1deg) scaleX(1.01); }
+    60% { transform: rotate(-0.5deg); }
+    75% { transform: rotate(0.3deg); }
+  }
+
+  /* Arm wave - lower arm sways */
+  @keyframes lower-arm-sway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-2deg); }
+  }
+
+  /* Upper arm counter-sway */
+  @keyframes upper-arm-sway {
+    0%, 100% { transform: rotate(0deg); }
+    30% { transform: rotate(-4deg); }
+    70% { transform: rotate(2deg); }
+  }
+
+  /* Head nod */
+  @keyframes head-nod {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(3deg); }
+    60% { transform: rotate(-2deg); }
+  }
+
+  /* Wave greeting */
+  @keyframes wave-arm {
+    0%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(-12deg); }
+    20% { transform: rotate(8deg); }
+    30% { transform: rotate(-10deg); }
+    40% { transform: rotate(6deg); }
+    50% { transform: rotate(-4deg); }
+    60% { transform: rotate(2deg); }
+    70% { transform: rotate(0deg); }
+  }
+
+  /* === ANIMATION STATES (toggled via classes on svg) === */
+
+  /* IDLE */
+  svg.anim-idle { animation: idle-bob 3s ease-in-out infinite; }
+  svg.anim-idle #shadow { transform-origin: 512px 750px; animation: shadow-pulse 3s ease-in-out infinite; }
+  svg.anim-idle #eye-left { animation: blink 4s ease-in-out infinite; }
+  svg.anim-idle #eye-right { animation: blink 4s ease-in-out infinite 0.08s; }
+
+  /* BLINK */
+  svg.anim-blink #eye-left { animation: double-blink 2.5s ease-in-out infinite; }
+  svg.anim-blink #eye-right { animation: double-blink 2.5s ease-in-out infinite 0.06s; }
+
+  /* MUSTACHE */
+  svg.anim-mustache #mustache { animation: mustache-wiggle 1.8s ease-in-out infinite; }
+
+  /* BODY SWAY */
+  svg.anim-body #lower-arm { animation: lower-arm-sway 2.5s ease-in-out infinite; }
+  svg.anim-body #upper-arm { animation: upper-arm-sway 2.8s ease-in-out infinite; }
+  svg.anim-body #head { animation: head-nod 3s ease-in-out infinite; }
+
+  /* WAVE */
+  svg.anim-wave #upper-arm { animation: wave-arm 2s ease-in-out infinite; }
+  svg.anim-wave #head { animation: head-nod 2s ease-in-out infinite; }
+  svg.anim-wave #eye-left { animation: blink 3s ease-in-out infinite; }
+  svg.anim-wave #eye-right { animation: blink 3s ease-in-out infinite 0.08s; }
+  svg.anim-wave #mustache { animation: mustache-wiggle 2s ease-in-out infinite; }
+
+  /* ALL */
+  svg.anim-all { animation: idle-bob 3s ease-in-out infinite; }
+  svg.anim-all #shadow { transform-origin: 512px 750px; animation: shadow-pulse 3s ease-in-out infinite; }
+  svg.anim-all #eye-left { animation: double-blink 3.5s ease-in-out infinite; }
+  svg.anim-all #eye-right { animation: double-blink 3.5s ease-in-out infinite 0.08s; }
+  svg.anim-all #mustache { animation: mustache-wiggle 2s ease-in-out infinite; }
+  svg.anim-all #lower-arm { animation: lower-arm-sway 2.5s ease-in-out infinite; }
+  svg.anim-all #upper-arm { animation: upper-arm-sway 2.8s ease-in-out infinite; }
+  svg.anim-all #head { animation: head-nod 3s ease-in-out infinite; }
+</style>
+</head>
+<body>
+  <h1>MASCOT ANIMATION TEST</h1>
+  <div class="stage" id="stage"></div>
+  <div class="controls">
+    <button data-anim="idle" class="active">Idle</button>
+    <button data-anim="blink">Blink</button>
+    <button data-anim="mustache">Mustache</button>
+    <button data-anim="body">Body</button>
+    <button data-anim="wave">Wave</button>
+    <button data-anim="all">All</button>
+    <button data-anim="">Stop</button>
+  </div>
+  <script>
+    // Load SVG inline so CSS can target internal groups
+    fetch('mascot.svg')
+      .then(r => r.text())
+      .then(svg => {
+        document.getElementById('stage').innerHTML = svg;
+        const svgEl = document.querySelector('.stage svg');
+        svgEl.classList.add('anim-idle');
+      });
+
+    document.querySelector('.controls').addEventListener('click', e => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const anim = e.target.dataset.anim;
+      const svgEl = document.querySelector('.stage svg');
+      if (!svgEl) return;
+
+      // Remove all animation classes
+      svgEl.className.baseVal = '';
+
+      // Force reflow to restart animations
+      void svgEl.offsetWidth;
+
+      if (anim) svgEl.classList.add('anim-' + anim);
+
+      // Update active button
+      document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  </script>
+</body>
+</html>

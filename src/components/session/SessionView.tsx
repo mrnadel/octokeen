@@ -1,57 +1,50 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useSession, useSessionActions } from '@/store/useStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import QuestionCard from '../question/QuestionCard';
+import type { QuestionCardHandle } from '../question/QuestionCard';
 import SessionSummary from './SessionSummary';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import LessonProgressBar from '../lesson/LessonProgressBar';
+import FlagButton from '@/components/feedback/FlagButton';
 
 const PRACTICE_THEME = {
-  color: '#7B68EE',
-  dark: '#5C49CE',
-  bg: '#EDEAFF',
+  color: '#6366F1',
+  dark: '#4338CA',
+  bg: '#EEF2FF',
 };
 
 export default function SessionView() {
   const { session, sessionSummary } = useSession();
   const { answerQuestion, nextQuestion, completeSession, abandonSession } = useSessionActions();
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
+  const router = useRouter();
 
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [xpGain, setXpGain] = useState(0);
+  const [hasSelection, setHasSelection] = useState(false);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
+  const questionRef = useRef<QuestionCardHandle>(null);
+
+  const handleExit = useCallback(() => {
+    abandonSession();
+    router.push('/');
+  }, [abandonSession, router]);
 
   const handleExitClick = useCallback(() => {
     if (!session) return;
     if (Object.keys(session.answers).length === 0) {
-      abandonSession();
+      handleExit();
       return;
     }
     setShowExitConfirm(true);
-  }, [session, abandonSession]);
+  }, [session, handleExit]);
 
-  // Mobile back button
   useBackHandler(!!session && !sessionSummary, handleExitClick);
-
-  const [elapsed, setElapsed] = useState(0);
-  const startTime = session?.startTime;
-
-  useEffect(() => {
-    if (!startTime) return;
-    const interval = setInterval(() => {
-      setElapsed(Math.round((Date.now() - startTime) / 1000));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [startTime]);
-
-  // Auto-complete on timeout
-  const timeLimit = session?.timeLimit;
-  const isTimedOut = timeLimit != null && elapsed >= timeLimit;
-  useEffect(() => {
-    if (isTimedOut) completeSession();
-  }, [isTimedOut, completeSession]);
 
   // Sync mastery events to server when session completes
   const syncMastery = useMasteryStore((s) => s.syncToServer);
@@ -59,37 +52,133 @@ export default function SessionView() {
     if (sessionSummary) syncMastery();
   }, [sessionSummary, syncMastery]);
 
-  if (sessionSummary) {
-    return <SessionSummary summary={sessionSummary} />;
-  }
+  // Derive current state
+  const currentQuestion = session ? session.questions[session.currentIndex] : null;
+  const answeredCount = session ? Object.keys(session.answers).length : 0;
+  const totalQuestions = session ? session.questions.length : 0;
+  const isLastQuestion = session ? session.currentIndex >= totalQuestions - 1 : false;
+  const isCurrentAnswered = useMemo(() => {
+    if (!session || !currentQuestion) return false;
+    return currentQuestion.id in session.answers;
+  }, [session, currentQuestion]);
 
-  if (!session) return null;
+  const getCorrectAnswerDisplay = useCallback((): string => {
+    if (!currentQuestion) return '';
+    switch (currentQuestion.type) {
+      case 'multiple-choice':
+      case 'confidence-rated':
+        return currentQuestion.options.find((o) => o.id === currentQuestion.correctAnswer)?.text ?? '';
+      case 'two-choice-tradeoff':
+        return currentQuestion.choices.find((c) => c.id === currentQuestion.preferredAnswer)?.text ?? '';
+      case 'what-fails-first':
+        return currentQuestion.components.find((c) => c.id === currentQuestion.correctAnswer)?.text ?? '';
+      case 'design-decision':
+        return currentQuestion.designOptions.find((d) => d.id === currentQuestion.bestOption)?.text ?? '';
+      case 'material-selection':
+        return currentQuestion.candidates.find((c) => c.id === currentQuestion.bestChoice)?.name ?? '';
+      default:
+        return '';
+    }
+  }, [currentQuestion]);
 
-  const currentQuestion = session.questions[session.currentIndex];
-  const answeredCount = Object.keys(session.answers).length;
-  const totalQuestions = session.questions.length;
-  const isLastQuestion = session.currentIndex >= totalQuestions - 1;
+  const handleAnswer = useCallback(
+    (correct: boolean) => {
+      if (!currentQuestion) return;
+      answerQuestion(currentQuestion.id, correct);
+      setLastAnswerCorrect(correct);
+      if (correct) setXpGain((prev) => prev + 10);
+      addMasteryEvent({
+        questionId: currentQuestion.id,
+        topicId: currentQuestion.topic,
+        subtopic: currentQuestion.subtopic,
+        difficulty: currentQuestion.difficulty,
+        correct,
+        source: 'practice',
+      });
+    },
+    [currentQuestion, answerQuestion, addMasteryEvent]
+  );
 
-  const handleAnswer = (correct: boolean, confidence?: number, timeSpent?: number) => {
-    answerQuestion(currentQuestion.id, correct, confidence, timeSpent);
-    if (correct) setXpGain((prev) => prev + 10);
-    addMasteryEvent({
-      questionId: currentQuestion.id,
-      topicId: currentQuestion.topic,
-      subtopic: currentQuestion.subtopic,
-      difficulty: currentQuestion.difficulty,
-      correct,
-      source: 'practice',
-    });
-  };
+  const handleSelectionChange = useCallback((value: boolean) => {
+    setHasSelection(value);
+  }, []);
 
-  const handleNext = () => {
+  const handleCheck = useCallback(() => {
+    questionRef.current?.check();
+  }, []);
+
+  const handleContinue = useCallback(() => {
+    setLastAnswerCorrect(null);
+    setHasSelection(false);
     if (isLastQuestion) {
       completeSession();
     } else {
       nextQuestion();
     }
-  };
+  }, [isLastQuestion, completeSession, nextQuestion]);
+
+  // Hotkey hint
+  const [showHotkeyHint, setShowHotkeyHint] = useState(false);
+  useEffect(() => {
+    const hasPointer = window.matchMedia('(pointer: fine)').matches;
+    if (hasPointer) setShowHotkeyHint(true);
+  }, []);
+  useEffect(() => {
+    if (showHotkeyHint) {
+      const timer = setTimeout(() => setShowHotkeyHint(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showHotkeyHint]);
+
+  // Global keyboard handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (showExitConfirm) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          setShowExitConfirm(false);
+        }
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        handleExitClick();
+        return;
+      }
+
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (isCurrentAnswered) {
+          handleContinue();
+        } else if (hasSelection) {
+          handleCheck();
+        }
+        return;
+      }
+
+      if (!isCurrentAnswered) {
+        const key = e.key.toLowerCase();
+        if (/^[1-9]$/.test(key)) {
+          questionRef.current?.selectOption(parseInt(key) - 1);
+        } else if (['a', 'b', 'c', 'd', 'e'].includes(key)) {
+          questionRef.current?.selectOption(key.charCodeAt(0) - 97);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showExitConfirm, isCurrentAnswered, hasSelection, handleCheck, handleContinue, handleExitClick]);
+
+  if (sessionSummary) {
+    return <SessionSummary summary={sessionSummary} />;
+  }
+
+  if (!session || !currentQuestion) return null;
 
   return (
     <AnimatePresence>
@@ -191,24 +280,159 @@ export default function SessionView() {
             className="flex-1 overflow-y-auto"
             style={{ padding: '16px 20px 20px' }}
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentQuestion.id}
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-              >
-                <QuestionCard
-                  question={currentQuestion}
-                  questionNumber={session.currentIndex + 1}
-                  totalQuestions={totalQuestions}
-                  onAnswer={handleAnswer}
-                  onNext={handleNext}
-                />
-              </motion.div>
-            </AnimatePresence>
+            <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+              <AnimatePresence>
+                {showHotkeyHint && !isCurrentAnswered && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: '#CFCFCF',
+                      textAlign: 'center',
+                      marginBottom: 10,
+                      letterSpacing: 0.3,
+                      flexShrink: 0,
+                    }}
+                  >
+                    A–E select · Enter check · Esc exit
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentQuestion.id}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                  style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+                >
+                  <QuestionCard
+                    ref={questionRef}
+                    question={currentQuestion}
+                    onAnswer={handleAnswer}
+                    onSelectionChange={handleSelectionChange}
+                    answered={isCurrentAnswered}
+                    unitColor={PRACTICE_THEME.color}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
+
+          {/* Bottom bar — Check or Feedback+Continue (matches LessonView) */}
+          {!isCurrentAnswered ? (
+            <div
+              style={{
+                padding: '12px 20px',
+                paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+                borderTop: '2px solid #E5E5E5',
+                background: 'white',
+              }}
+            >
+              <button
+                onClick={handleCheck}
+                disabled={!hasSelection}
+                className="w-full transition-transform active:scale-[0.98]"
+                style={{
+                  padding: '14px 0',
+                  borderRadius: 16,
+                  fontSize: 15,
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.8,
+                  background: hasSelection ? PRACTICE_THEME.color : '#E5E5E5',
+                  color: hasSelection ? '#FFFFFF' : '#AFAFAF',
+                  boxShadow: hasSelection
+                    ? `0 4px 0 ${PRACTICE_THEME.dark}`
+                    : '0 4px 0 #CCCCCC',
+                  border: 'none',
+                  cursor: hasSelection ? 'pointer' : 'default',
+                }}
+              >
+                Check
+              </button>
+            </div>
+          ) : (
+            <motion.div
+              key="feedback"
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              style={{
+                padding: '14px 20px',
+                paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
+                background: lastAnswerCorrect ? '#D7FFB8' : '#FFDFE0',
+                borderTop: `2px solid ${lastAnswerCorrect ? '#58CC02' : '#FF4B4B'}`,
+              }}
+            >
+              <div style={{ marginBottom: 12 }}>
+                <p
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 800,
+                    color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                    margin: 0,
+                  }}
+                >
+                  {lastAnswerCorrect ? 'Correct!' : 'Incorrect'}
+                </p>
+                {!lastAnswerCorrect && (
+                  <p
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: '#EA2B2B',
+                      margin: '2px 0 0',
+                    }}
+                  >
+                    Answer: {getCorrectAnswerDisplay()}
+                  </p>
+                )}
+                {currentQuestion.explanation && (
+                  <p
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                      opacity: 0.75,
+                      margin: '4px 0 0',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {currentQuestion.explanation}
+                  </p>
+                )}
+                <FlagButton contentType="question" contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />
+              </div>
+
+              <button
+                onClick={handleContinue}
+                className="w-full transition-transform active:scale-[0.98]"
+                style={{
+                  padding: '14px 0',
+                  borderRadius: 16,
+                  fontSize: 15,
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.8,
+                  background: lastAnswerCorrect ? '#58CC02' : '#FF4B4B',
+                  color: '#FFFFFF',
+                  boxShadow: lastAnswerCorrect
+                    ? '0 4px 0 #46A302'
+                    : '0 4px 0 #CC2D2D',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {isLastQuestion ? 'Finish' : 'Continue'}
+              </button>
+            </motion.div>
+          )}
         </div>
 
         {/* Exit confirmation modal — matches LessonView */}
@@ -275,7 +499,7 @@ export default function SessionView() {
                   <button
                     onClick={() => {
                       setShowExitConfirm(false);
-                      abandonSession();
+                      handleExit();
                     }}
                     className="flex-1 transition-transform active:scale-[0.98]"
                     style={{
