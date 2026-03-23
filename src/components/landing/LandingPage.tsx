@@ -88,7 +88,7 @@ export function LandingPage() {
       {/* ── NAV ── */}
       <nav aria-label="Main navigation" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        background: '#FAFAFA', borderBottom: '1px solid #E2E8F0',
+        background: '#FAFAFA',
       }}>
         <div style={{
           maxWidth: 960, margin: '0 auto', padding: '0 24px',
