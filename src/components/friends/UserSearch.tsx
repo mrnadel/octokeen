@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Search, Loader2, X } from 'lucide-react';
 
@@ -99,7 +100,7 @@ export default function UserSearch() {
                     style={{ width: 36, height: 36, background: '#E0E7FF' }}
                   >
                     {user.image ? (
-                      <img src={user.image} alt="" className="w-full h-full object-cover" />
+                      <Image src={user.image} alt={user.displayName} width={36} height={36} className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-primary-700 font-bold text-xs">{initials}</span>
                     )}
