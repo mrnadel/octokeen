@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useCourseStore } from '@/store/useCourseStore';
-import { courseMeta } from '@/data/course/course-meta';
 import { Sparkles } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useGems } from '@/store/useEngagementStore';
 import { shopItems } from '@/data/gem-shop';
+import { getXpToNextLevel } from '@/data/levels';
+import { getLevelReward } from '@/data/level-rewards';
 
 type PopoverType = 'streak' | 'xp' | 'gems' | null;
 
@@ -44,11 +45,6 @@ export function CourseHeader() {
   const xpBtnRef = useRef<HTMLButtonElement>(null);
   const gemsBtnRef = useRef<HTMLButtonElement>(null);
   const [popoverPos, setPopoverPos] = useState<{ top: number; left: number; width: number; arrowLeft: number } | null>(null);
-
-  const completedCount = Object.keys(progress.completedLessons).length;
-  const totalLessons = courseMeta.reduce((s, u) => s + u.lessons.length, 0);
-  const completedPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
-  const lessonsToNext = Math.max(1, 3 - (completedCount % 3));
 
   const weekDays = useMemo(() => getWeekDays(), []);
 
@@ -370,96 +366,236 @@ export function CourseHeader() {
                 ) : popover === 'gems' ? (
                   <GemsPopoverContent gems={gems} onGoToShop={closePopover} />
                 ) : (
-                  <div>
-                    {/* Header */}
-                    <div className="flex items-center" style={{ gap: 10, marginBottom: 16 }}>
-                      <div
-                        style={{
-                          width: 44,
-                          height: 44,
-                          borderRadius: 12,
-                          background: 'linear-gradient(135deg, #A855F7 0%, #7C3AED 100%)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: 24,
-                          boxShadow: '0 4px 12px rgba(168,85,247,0.3)',
-                        }}
-                      >
-                        ⭐
-                      </div>
-                      <div>
-                        <h3 style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
-                          Experience Points
-                        </h3>
-                        <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginTop: 1 }}>
-                          Keep earning XP!
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Total XP card */}
-                    <div
-                      style={{
-                        background: 'linear-gradient(135deg, #F5EAFF 0%, #EDE0FF 100%)',
-                        borderRadius: 14,
-                        padding: '18px 16px',
-                        textAlign: 'center',
-                        marginBottom: 16,
-                        border: '1.5px solid #E4D0FA',
-                      }}
-                    >
-                      <p style={{ fontSize: 34, fontWeight: 800, color: '#7B2FBE', lineHeight: 1 }}>
-                        {progress.totalXp.toLocaleString()}
-                      </p>
-                      <p style={{ fontSize: 12, color: '#9E5DD0', fontWeight: 700, marginTop: 4 }}>
-                        Total XP earned
-                      </p>
-                    </div>
-
-                    {/* Course progress */}
-                    <div
-                      style={{
-                        background: '#FAFAFA',
-                        borderRadius: 12,
-                        padding: 14,
-                        marginBottom: 14,
-                        border: '1px solid #F0F0F0',
-                      }}
-                    >
-                      <div className="flex justify-between items-center" style={{ marginBottom: 8 }}>
-                        <span style={{ fontSize: 12, color: '#777', fontWeight: 700 }}>Course progress</span>
-                        <span style={{ fontSize: 13, color: '#7B2FBE', fontWeight: 800 }}>
-                          {completedCount}/{totalLessons}
-                        </span>
-                      </div>
-                      <div style={{ height: 10, background: '#EADCF5', borderRadius: 5, overflow: 'hidden' }}>
-                        <motion.div
-                          style={{
-                            height: '100%',
-                            background: 'linear-gradient(90deg, #CE82FF 0%, #A855F7 100%)',
-                            borderRadius: 5,
-                          }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${completedPercent}%` }}
-                          transition={{ duration: 0.6, ease: 'easeOut' }}
-                        />
-                      </div>
-                      <p style={{ fontSize: 11, color: '#AFAFAF', fontWeight: 600, marginTop: 6 }}>
-                        {completedPercent}% complete
-                      </p>
-                    </div>
-
-                    <p style={{ fontSize: 12, color: '#AFAFAF', fontWeight: 600, textAlign: 'center' }}>
-                      Earn XP by completing lessons. 3 stars = 3x XP!
-                    </p>
-                  </div>
+                  <XpLevelPopover totalXp={progress.totalXp} />
                 )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function XpLevelPopover({ totalXp }: { totalXp: number }) {
+  const { current, next, xpNeeded, progress: levelProgress } = getXpToNextLevel(totalXp);
+  const isMaxLevel = !next;
+  const progressPercent = Math.round(levelProgress * 100);
+  const nextReward = next ? getLevelReward(next.level) : null;
+
+  return (
+    <div>
+      {/* Level badge + title */}
+      <div className="flex items-center" style={{ gap: 12, marginBottom: 18 }}>
+        <div
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: 14,
+            background: 'linear-gradient(135deg, #A855F7 0%, #7C3AED 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 28,
+            boxShadow: '0 4px 16px rgba(168,85,247,0.35)',
+            position: 'relative',
+          }}
+        >
+          {current.icon}
+          {/* Level number badge */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: -4,
+              right: -4,
+              width: 22,
+              height: 22,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 10,
+              fontWeight: 900,
+              color: 'white',
+              border: '2px solid white',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+            }}
+          >
+            {current.level}
+          </div>
+        </div>
+        <div style={{ flex: 1 }}>
+          <h3 style={{ fontSize: 17, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+            {current.title}
+          </h3>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#A855F7', marginTop: 2 }}>
+            Level {current.level}{isMaxLevel ? ' — MAX' : ''}
+          </p>
+        </div>
+      </div>
+
+      {/* XP progress bar to next level */}
+      {!isMaxLevel && next ? (
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%)',
+            borderRadius: 14,
+            padding: '14px 14px 16px',
+            marginBottom: 14,
+            border: '1.5px solid #E9D5FF',
+          }}
+        >
+          {/* Next level label */}
+          <div className="flex justify-between items-center" style={{ marginBottom: 10 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#9333EA', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Next: Level {next.level}
+            </span>
+            <span style={{ fontSize: 11, fontWeight: 800, color: '#7C3AED' }}>
+              {xpNeeded.toLocaleString()} XP to go
+            </span>
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ position: 'relative', height: 14, background: '#E9D5FF', borderRadius: 7, overflow: 'hidden' }}>
+            <motion.div
+              style={{
+                height: '100%',
+                background: 'linear-gradient(90deg, #C084FC 0%, #A855F7 40%, #7C3AED 100%)',
+                borderRadius: 7,
+                position: 'relative',
+              }}
+              initial={{ width: 0 }}
+              animate={{ width: `${progressPercent}%` }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {/* Shimmer effect */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '50%',
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+                  borderRadius: '7px 7px 0 0',
+                }}
+                animate={{ x: ['-100%', '200%'] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
+              />
+            </motion.div>
+          </div>
+
+          {/* Percentage + XP counts */}
+          <div className="flex justify-between items-center" style={{ marginTop: 6 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#A78BFA' }}>
+              {progressPercent}%
+            </span>
+            <span style={{ fontSize: 10, fontWeight: 600, color: '#C4B5FD' }}>
+              {(totalXp - current.xpRequired).toLocaleString()} / {(next.xpRequired - current.xpRequired).toLocaleString()} XP
+            </span>
+          </div>
+        </div>
+      ) : (
+        /* Max level reached */
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
+            borderRadius: 14,
+            padding: '16px 14px',
+            marginBottom: 14,
+            border: '1.5px solid #FCD34D',
+            textAlign: 'center',
+          }}
+        >
+          <p style={{ fontSize: 22, marginBottom: 4 }}>👑</p>
+          <p style={{ fontSize: 13, fontWeight: 800, color: '#92400E' }}>
+            Maximum level reached!
+          </p>
+          <p style={{ fontSize: 11, fontWeight: 600, color: '#B45309', marginTop: 2 }}>
+            You&apos;ve mastered it all.
+          </p>
+        </div>
+      )}
+
+      {/* Total XP stat */}
+      <div
+        style={{
+          background: '#FAFAFA',
+          borderRadius: 12,
+          padding: '12px 14px',
+          marginBottom: 14,
+          border: '1px solid #F0F0F0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#777' }}>
+          Total XP
+        </span>
+        <span style={{ fontSize: 18, fontWeight: 800, color: '#7B2FBE' }}>
+          {totalXp.toLocaleString()}
+        </span>
+      </div>
+
+      {/* Next level reward preview */}
+      {nextReward && next && (
+        <div
+          style={{
+            background: nextReward.isMilestone
+              ? 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)'
+              : '#F9FAFB',
+            borderRadius: 12,
+            padding: '10px 12px',
+            marginBottom: 14,
+            border: nextReward.isMilestone ? '1.5px solid #FDE68A' : '1px solid #F0F0F0',
+          }}
+        >
+          <p style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: nextReward.isMilestone ? '#92400E' : '#9CA3AF',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: 6,
+          }}>
+            {nextReward.isMilestone ? '⭐ Milestone Reward' : 'Next Reward'}
+          </p>
+          <div className="flex items-center" style={{ gap: 8 }}>
+            <span style={{ fontSize: 18 }}>{next.icon}</span>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>
+                {next.title}
+              </p>
+              <div className="flex items-center" style={{ gap: 6, marginTop: 2 }}>
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#7C3AED' }}>
+                  +{nextReward.gems} 💎
+                </span>
+                {nextReward.title && (
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#D97706' }}>
+                    + &quot;{nextReward.title}&quot; title
+                  </span>
+                )}
+                {nextReward.frame && (
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#059669' }}>
+                    + Frame
+                  </span>
+                )}
+                {nextReward.streakFreeze && (
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#2563EB' }}>
+                    + Streak Freeze
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <p style={{ fontSize: 11, color: '#AFAFAF', fontWeight: 600, textAlign: 'center' }}>
+        Earn XP by completing lessons. 3 stars = 3× XP!
+      </p>
+    </div>
   );
 }
 
