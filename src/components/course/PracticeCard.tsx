@@ -34,8 +34,11 @@ export function PracticeCard() {
         style={{
           borderRadius: 24,
           overflow: 'hidden',
-          backgroundColor: THEME.bg,
+          background: `linear-gradient(180deg, #F5F7FF 0%, ${THEME.bg} 100%)`,
           textDecoration: 'none',
+          boxShadow: `0 4px 0 0 #C7D0F4, 0 6px 16px -2px rgba(99,102,241,0.15)`,
+          border: '2px solid rgba(199,208,244,0.6)',
+          borderBottom: '2px solid transparent',
         }}
       >
         {/* Header row — matches UnitHeader layout */}
@@ -88,6 +91,9 @@ export function PracticeCard() {
               width: 80,
               height: 80,
               marginLeft: 12,
+              borderRadius: 20,
+              background: 'rgba(255,255,255,0.7)',
+              boxShadow: 'inset 0 -2px 4px rgba(99,102,241,0.08), 0 2px 8px rgba(99,102,241,0.1)',
             }}
           >
             <span style={{ fontSize: 42 }}>🧠</span>

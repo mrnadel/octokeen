@@ -482,7 +482,10 @@ export const useStore = create<AppState>()(
           ensureCourseDataLoaded().then(() => {
             // Now data is loaded — build session synchronously
             const questions = selectQuestionsForSession(type, options);
-            if (questions.length === 0) return;
+            if (questions.length === 0) {
+              console.warn('[startSession] No questions found after loading course data for', type);
+              return;
+            }
             set({
               session: {
                 type,
@@ -496,6 +499,8 @@ export const useStore = create<AppState>()(
               },
               sessionSummary: null,
             });
+          }).catch((err) => {
+            console.error('[startSession] Failed to load course data:', err);
           });
           return;
         }

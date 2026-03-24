@@ -61,12 +61,12 @@ export default function FriendCard({
           <p className="text-xs text-surface-400 font-semibold">{subtitle}</p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <div className="flex items-center gap-1">
             <Flame className="w-4 h-4 text-orange-500" />
             <span className="text-sm font-bold text-surface-700">{currentStreak}</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="hidden sm:flex items-center gap-1">
             <Zap className="w-4 h-4 text-primary-500" />
             <span className="text-sm font-bold text-surface-700">{totalXp.toLocaleString()}</span>
           </div>

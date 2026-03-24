@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, Suspense } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useStore, useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
@@ -27,6 +27,7 @@ function SmartPracticeInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const started = useRef(false);
+  const [timedOut, setTimedOut] = useState(false);
 
   const topicFilter = searchParams.get('topic') as TopicId | null;
 
@@ -42,23 +43,53 @@ function SmartPracticeInner() {
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Fallback: if session never starts after async course data load, redirect home
+  // Fallback: if session never starts after async course data load, show retry
   useEffect(() => {
     if (started.current && !session && !sessionSummary) {
       const timer = setTimeout(() => {
         if (!useStore.getState().session && !useStore.getState().sessionSummary) {
-          router.replace('/');
+          setTimedOut(true);
         }
-      }, 5000); // Allow time for async course data loading
+      }, 15000); // Allow time for async course data loading
       return () => clearTimeout(timer);
     }
-  }, [session, sessionSummary, router]);
+  }, [session, sessionSummary]);
 
   if (session || sessionSummary) {
     return <SessionView />;
   }
 
-  // Show loading indicator while session initializes
+  // Show loading indicator while session initializes, or retry on timeout
+  if (timedOut) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
+        <div className="text-center">
+          <p className="text-sm font-semibold text-surface-700 mb-2">Failed to load questions</p>
+          <p className="text-xs text-surface-400 mb-4">Course data may still be loading</p>
+          <div className="flex gap-3 justify-center">
+            <button
+              className="btn-primary text-sm py-2 px-4"
+              onClick={() => {
+                setTimedOut(false);
+                started.current = false;
+                startSession('smart-practice', { topicId: topicFilter ?? undefined });
+                started.current = true;
+              }}
+            >
+              Retry
+            </button>
+            <button
+              className="btn-secondary text-sm py-2 px-4"
+              onClick={() => router.replace('/')}
+            >
+              Go Home
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
       <div className="text-center">
