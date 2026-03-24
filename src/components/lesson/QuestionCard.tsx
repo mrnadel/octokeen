@@ -467,7 +467,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
             </div>
             {process.env.NODE_ENV === 'development' && (
               <div style={{ fontSize: 10, color: 'red', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                wordBank: {JSON.stringify(question.wordBank)} | shuffled: {shuffledWordBank.length} | available: {availableWords.length}
+                wordBank: {JSON.stringify(question.wordBank)} | blanks: {JSON.stringify(question.blanks)} | keys: {Object.keys(question).join(',')}
               </div>
             )}
             <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center' }}>
