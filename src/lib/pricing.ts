@@ -23,6 +23,7 @@ export const FEATURES = {
   STREAK_FREEZE: 'streak_freeze',
   INTERVIEW_READINESS: 'interview_readiness',
   DETAILED_EXPLANATIONS: 'detailed_explanations',
+  UNLIMITED_HEARTS: 'unlimited_hearts',
 } as const;
 
 export type Feature = (typeof FEATURES)[keyof typeof FEATURES];
@@ -73,7 +74,7 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
   free: {
     id: 'free',
     name: 'Free',
-    tagline: 'Start your prep journey',
+    tagline: 'Start your prep with 5 hearts',
     priceMonthly: 0,
     priceYearly: 0,
     minSeats: 1,
@@ -95,6 +96,7 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
       FEATURES.STREAK_FREEZE,
       FEATURES.INTERVIEW_READINESS,
       FEATURES.DETAILED_EXPLANATIONS,
+      FEATURES.UNLIMITED_HEARTS,
     ],
     highlighted: true,
   },

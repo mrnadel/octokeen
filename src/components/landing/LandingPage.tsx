@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { PROFESSIONS } from '@/data/professions';
 
 /* ── Animated XP bar fill ── */
 function useAnimatedFill(target: number, delay: number) {
@@ -180,7 +181,7 @@ export function LandingPage() {
               fontWeight: 900, lineHeight: 1.1, color: '#3D4654',
               marginBottom: 20, letterSpacing: -1,
             }}>
-              Study for interviews<br />without it <span style={{ color: '#E5A800' }}>feeling like studying</span>
+              Learn anything.<br /><span style={{ color: '#E5A800' }}>Master everything.</span>
             </h1>
           </AnimateIn>
 
@@ -189,7 +190,7 @@ export function LandingPage() {
               fontWeight: 600, color: '#64748B', lineHeight: 1.6,
               maxWidth: 540, margin: '0 auto 36px',
             }}>
-              MechReady turns mechanical engineering interview prep into a game. Earn XP, keep your streak, unlock achievements &mdash; and actually remember what you learn.
+              MechReady turns learning into a game. Pick your profession, earn XP, keep your streak, unlock achievements &mdash; and actually remember what you learn.
             </p>
           </AnimateIn>
 
@@ -729,3 +730,4 @@ function CompareCard({
     </div>
   );
 }
+       

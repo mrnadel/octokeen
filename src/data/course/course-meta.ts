@@ -16,8 +16,9 @@
  */
 
 import type { Unit } from './types';
+import { financeCourseMeta } from './professions/personal-finance/meta';
 
-export const courseMeta: Unit[] = [
+const meCourseMeta: Unit[] = [
   {
     id: 'u1-statics',
     title: 'Statics & Equilibrium',
@@ -192,15 +193,32 @@ export const courseMeta: Unit[] = [
   },
 ];
 
-export function getTotalLessonsMeta(): number {
-  return courseMeta.reduce((sum, unit) => sum + unit.lessons.length, 0);
+/** Backward-compatible alias — always points to ME course data */
+export const courseMeta: Unit[] = meCourseMeta;
+
+/**
+ * Return course metadata for a given profession.
+ * Lightweight (no question content), safe to import anywhere.
+ */
+export function getCourseMetaForProfession(professionId: string): Unit[] {
+  switch (professionId) {
+    case 'personal-finance': return financeCourseMeta;
+    case 'mechanical-engineering':
+    default: return meCourseMeta;
+  }
 }
 
-export function getLessonByIdMeta(lessonId: string): { unit: Unit; lesson: Unit['lessons'][number]; unitIndex: number; lessonIndex: number } | null {
-  for (let ui = 0; ui < courseMeta.length; ui++) {
-    for (let li = 0; li < courseMeta[ui].lessons.length; li++) {
-      if (courseMeta[ui].lessons[li].id === lessonId) {
-        return { unit: courseMeta[ui], lesson: courseMeta[ui].lessons[li], unitIndex: ui, lessonIndex: li };
+export function getTotalLessonsMeta(professionId?: string): number {
+  const meta = professionId ? getCourseMetaForProfession(professionId) : meCourseMeta;
+  return meta.reduce((sum, unit) => sum + unit.lessons.length, 0);
+}
+
+export function getLessonByIdMeta(lessonId: string, professionId?: string): { unit: Unit; lesson: Unit['lessons'][number]; unitIndex: number; lessonIndex: number } | null {
+  const meta = professionId ? getCourseMetaForProfession(professionId) : meCourseMeta;
+  for (let ui = 0; ui < meta.length; ui++) {
+    for (let li = 0; li < meta[ui].lessons.length; li++) {
+      if (meta[ui].lessons[li].id === lessonId) {
+        return { unit: meta[ui], lesson: meta[ui].lessons[li], unitIndex: ui, lessonIndex: li };
       }
     }
   }
@@ -212,7 +230,12 @@ export function getLessonByIdMeta(lessonId: string): { unit: Unit; lesson: Unit[
  * Returns the full Unit object including all question content.
  * Each unit file is loaded as a separate chunk (~60-600 KB each).
  */
-export async function loadUnitData(unitIndex: number): Promise<Unit> {
+export async function loadUnitData(unitIndex: number, professionId?: string): Promise<Unit> {
+  if (professionId === 'personal-finance') {
+    return loadFinanceUnit(unitIndex);
+  }
+
+  // Default: mechanical-engineering
   const loaders: (() => Promise<{ default?: Unit; [key: string]: any }>)[] = [
     () => import('./units/unit-1-statics').then(m => ({ ...m, default: m.unit1 })),
     () => import('./units/unit-2-dynamics').then(m => ({ ...m, default: m.unit2 })),
@@ -233,4 +256,16 @@ export async function loadUnitData(unitIndex: number): Promise<Unit> {
 
   const mod = await loaders[unitIndex]();
   return mod.default!;
+}
+
+async function loadFinanceUnit(unitIndex: number): Promise<Unit> {
+  const loaders: (() => Promise<Unit>)[] = [
+    () => import('./professions/personal-finance/units/unit-0').then(m => m.unit0),
+  ];
+
+  if (unitIndex < 0 || unitIndex >= loaders.length) {
+    throw new Error(`Invalid finance unit index: ${unitIndex}`);
+  }
+
+  return loaders[unitIndex]();
 }

@@ -144,6 +144,7 @@ function getTierFeatures(tier: SubscriptionTier): Feature[] {
       FEATURES.STREAK_FREEZE,
       FEATURES.INTERVIEW_READINESS,
       FEATURES.DETAILED_EXPLANATIONS,
+      FEATURES.UNLIMITED_HEARTS,
     ];
   }
   // free — basic topic practice only; advanced modes require Pro

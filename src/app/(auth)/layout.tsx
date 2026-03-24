@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { APP_NAME, APP_TAGLINE } from '@/lib/constants';
 
 export const metadata: Metadata = {
   robots: { index: true, follow: true },
@@ -23,9 +24,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         {/* Logo */}
         <div className="flex flex-col items-center mt-8 sm:mt-12 mb-8 lg:mt-6 lg:mb-8">
-          <span className="text-xl sm:text-2xl font-black text-surface-900 tracking-tight">MechReady</span>
+          <span className="text-xl sm:text-2xl font-black text-surface-900 tracking-tight">{APP_NAME}</span>
           <p className="hidden lg:block text-sm text-surface-400 font-semibold mt-2">
-            Mechanical engineering interview prep
+            {APP_TAGLINE}
           </p>
         </div>
 

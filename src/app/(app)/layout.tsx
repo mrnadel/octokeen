@@ -5,6 +5,7 @@ import { useDbSync } from '@/hooks/useDbSync';
 import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 import { DebugQuestionViewer } from '@/components/dev/DebugQuestionViewer';
 import { useEngagementInit } from '@/lib/engagement-init';
+import { APP_NAME } from '@/lib/constants';
 import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
 import DesktopSideNav from '@/components/layout/DesktopSideNav';
@@ -15,7 +16,7 @@ function LoadingSkeleton() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
       <div className="text-center">
-        <p className="text-lg font-black text-surface-800 mb-3">MechReady</p>
+        <p className="text-lg font-black text-surface-800 mb-3">{APP_NAME}</p>
         <div className="flex justify-center gap-1">
           <div className="w-2 h-2 bg-surface-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
           <div className="w-2 h-2 bg-surface-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />

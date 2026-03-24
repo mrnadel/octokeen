@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, BookOpen, Trophy, Users, User, Swords } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { APP_NAME } from '@/lib/constants';
 import FriendsBadge from '@/components/friends/FriendsBadge';
 
 const tabs = [
@@ -24,7 +25,7 @@ export default function DesktopSideNav() {
       aria-label="Desktop navigation"
     >
       <div className="px-5 py-5">
-        <p className="text-lg font-black text-surface-800">MechReady</p>
+        <p className="text-lg font-black text-surface-800">{APP_NAME}</p>
       </div>
 
       <div className="flex flex-col gap-1 px-3 mt-2">

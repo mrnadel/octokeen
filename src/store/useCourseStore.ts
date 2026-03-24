@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
-import { courseMeta, loadUnitData } from '@/data/course/course-meta';
+import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
 import { topics } from '@/data/topics';
 import { shuffleArray, toLocalDateString, getYesterdayString } from '@/lib/utils';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
@@ -23,6 +23,7 @@ interface ChapterCompletion {
 interface CourseState {
   progress: CourseProgress;
   courseData: Unit[];
+  activeProfession: string;
   activeLesson: ActiveLesson | null;
   lessonResult: LessonResult | null;
   chapterJustCompleted: ChapterCompletion | null;
@@ -30,6 +31,7 @@ interface CourseState {
 
   // Actions — Content
   setCourseData: (data: Unit[]) => void;
+  setActiveProfession: (id: string) => void;
 
   // Actions
   startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => void;
@@ -102,13 +104,19 @@ export const useCourseStore = create<CourseState>()(
   persist(
     (set, get) => ({
       progress: getDefaultProgress(),
-      courseData: courseMeta as Unit[],
+      courseData: getCourseMetaForProfession('mechanical-engineering') as Unit[],
+      activeProfession: 'mechanical-engineering',
       activeLesson: null,
       lessonResult: null,
       chapterJustCompleted: null,
       courseJustCompleted: false,
 
       setCourseData: (data: Unit[]) => set({ courseData: data }),
+
+      setActiveProfession: (id: string) => {
+        const meta = getCourseMetaForProfession(id);
+        set({ activeProfession: id, courseData: meta as Unit[] });
+      },
 
       startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => {
         // ── Client-side unit access check ──
@@ -129,7 +137,7 @@ export const useCourseStore = create<CourseState>()(
         // If questions are not loaded yet (lightweight metadata), load the
         // full unit data dynamically and then retry.
         if (lesson.questions.length === 0) {
-          loadUnitData(unitIndex).then((fullUnit) => {
+          loadUnitData(unitIndex, get().activeProfession).then((fullUnit) => {
             // Patch courseData with the loaded unit
             const updated = [...get().courseData];
             updated[unitIndex] = fullUnit;
@@ -487,7 +495,7 @@ export const useCourseStore = create<CourseState>()(
         const courseData = get().courseData;
         const needsLoad = courseData.some(u => u.lessons.some(l => l.questions.length === 0));
         if (needsLoad) {
-          Promise.all(courseData.map((_, i) => loadUnitData(i))).then((fullUnits) => {
+          Promise.all(courseData.map((_, i) => loadUnitData(i, get().activeProfession))).then((fullUnits) => {
             set({ courseData: fullUnits });
             // Retry with full data
             get().debugSetProgress(lessonCount, goldenCount);
@@ -650,9 +658,9 @@ export const useCourseStore = create<CourseState>()(
     {
       name: 'mechready-course',
       version: 1,
-      partialize: (state) => ({ progress: state.progress }),
+      partialize: (state) => ({ progress: state.progress, activeProfession: state.activeProfession }),
       merge: (persistedState, currentState) => {
-        const persisted = persistedState as Partial<Pick<CourseState, 'progress'>> | undefined;
+        const persisted = persistedState as Partial<Pick<CourseState, 'progress' | 'activeProfession'>> | undefined;
         if (!persisted?.progress) return currentState;
 
         const defaults = getDefaultProgress();
@@ -669,8 +677,12 @@ export const useCourseStore = create<CourseState>()(
           };
         }
 
+        const restoredProfession = persisted.activeProfession ?? 'mechanical-engineering';
+
         return {
           ...currentState,
+          activeProfession: restoredProfession,
+          courseData: getCourseMetaForProfession(restoredProfession) as Unit[],
           progress: {
             displayName: persisted.progress.displayName ?? defaults.displayName,
             totalXp: persisted.progress.totalXp ?? defaults.totalXp,

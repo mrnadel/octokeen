@@ -3,6 +3,7 @@ import { Nunito, JetBrains_Mono } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/providers/SessionProvider';
 import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
+import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR } from '@/lib/constants';
 import './globals.css';
 
 const nunito = Nunito({
@@ -22,16 +23,16 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#4F46E5',
+  themeColor: APP_THEME_COLOR,
 };
 
 export const metadata: Metadata = {
   title: {
-    default: 'MechReady — Mechanical Engineering Interview Prep',
-    template: '%s | MechReady',
+    default: `${APP_NAME} — ${APP_TAGLINE}`,
+    template: `%s | ${APP_NAME}`,
   },
-  description: 'Sharpen your mechanical engineering skills with gamified, interview-focused practice. Adaptive questions, real-world mechanisms, and smart feedback.',
-  metadataBase: new URL('https://mechready.com'),
+  description: APP_DESCRIPTION,
+  metadataBase: new URL(APP_URL),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '48x48' },
@@ -42,13 +43,13 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   keywords: ['mechanical engineering', 'interview prep', 'ME interview', 'engineering practice', 'thermodynamics', 'fluid mechanics', 'materials science', 'machine design'],
-  authors: [{ name: 'MechReady' }],
-  creator: 'MechReady',
+  authors: [{ name: APP_NAME }],
+  creator: APP_NAME,
   openGraph: {
-    title: 'MechReady — Mechanical Engineering Interview Prep',
+    title: `${APP_NAME} — ${APP_TAGLINE}`,
     description: 'Gamified mechanical engineering interview prep. Adaptive practice across 10 core ME topics with smart feedback.',
-    url: 'https://mechready.com',
-    siteName: 'MechReady',
+    url: APP_URL,
+    siteName: APP_NAME,
     type: 'website',
     locale: 'en_US',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
@@ -56,11 +57,11 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     images: ['/og-image.png'],
-    title: 'MechReady — ME Interview Prep',
+    title: `${APP_NAME} — ${APP_TAGLINE}`,
     description: 'Gamified mechanical engineering interview prep. Adaptive practice, real-world questions, and smart feedback.',
   },
   alternates: {
-    canonical: 'https://mechready.com',
+    canonical: APP_URL,
   },
   other: {},
 };
@@ -70,8 +71,8 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebApplication',
-      name: 'MechReady',
-      url: 'https://mechready.com',
+      name: APP_NAME,
+      url: APP_URL,
       description: 'Gamified mechanical engineering interview prep platform with adaptive practice across 10 core ME topics.',
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'Web',
@@ -94,9 +95,9 @@ const jsonLd = {
     },
     {
       '@type': 'Organization',
-      name: 'MechReady',
-      url: 'https://mechready.com',
-      logo: 'https://mechready.com/favicon.svg',
+      name: APP_NAME,
+      url: APP_URL,
+      logo: `${APP_URL}/favicon.svg`,
     },
     {
       '@type': 'FAQPage',
@@ -122,7 +123,7 @@ const jsonLd = {
           name: 'What topics are covered?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'MechReady covers thermodynamics, fluid mechanics, materials science, statics & dynamics, machine design, manufacturing, heat transfer, and more.',
+            text: `${APP_NAME} covers thermodynamics, fluid mechanics, materials science, statics & dynamics, machine design, manufacturing, heat transfer, and more.`,
           },
         },
       ],

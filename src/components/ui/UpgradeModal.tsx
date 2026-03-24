@@ -123,6 +123,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
                 {[
                   'All 10 course units unlocked',
                   'Unlimited daily practice',
+                  'Unlimited hearts — no waiting',
                   'Detailed explanations for every question',
                   'Full analytics & progress tracking',
                   'Interview readiness score',

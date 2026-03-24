@@ -31,6 +31,7 @@ export const TOPIC_IDS = [
   'design-tolerancing',
   'vibrations',
   'real-world-mechanisms',
+  'personal-finance',
 ] as const;
 
 export type TopicId = (typeof TOPIC_IDS)[number];

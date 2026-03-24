@@ -139,7 +139,7 @@ async function ensureCourseDataLoaded(): Promise<void> {
   if (!needsLoad) return;
 
   const fullUnits = await Promise.all(
-    store.courseData.map((_, i) => loadUnitData(i))
+    store.courseData.map((_, i) => loadUnitData(i, store.activeProfession))
   );
   useCourseStore.setState({ courseData: fullUnits });
 }

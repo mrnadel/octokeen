@@ -12,6 +12,9 @@ import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useDoubleXpActive } from '@/store/useEngagementStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
+import { HeartDisplay } from '@/components/ui/HeartDisplay';
+import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
 import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
@@ -61,10 +64,13 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const [xpGain, setXpGain] = useState(0);
+  const [showOutOfHearts, setShowOutOfHearts] = useState(false);
   const questionRef = useRef<QuestionCardHandle>(null);
   const isDoubleXp = useDoubleXpActive();
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
   const syncMastery = useMasteryStore((s) => s.syncToServer);
+  const loseHeart = useHeartsStore((s) => s.loseHeart);
+  const hasHearts = useHeartsStore((s) => s.hasHearts);
 
   // Sync mastery when lesson completes (lesson mode only; practice handles its own)
   useEffect(() => {
@@ -164,9 +170,14 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         }
       }
       setLastAnswerCorrect(correct);
-      if (correct) setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
+      if (correct) {
+        setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
+      } else {
+        // Lose a heart on wrong answer
+        loseHeart();
+      }
     },
-    [adapter, currentQuestion, _submitAnswer, lessonData, addMasteryEvent, isDoubleXp]
+    [adapter, currentQuestion, _submitAnswer, lessonData, addMasteryEvent, isDoubleXp, loseHeart]
   );
 
   const handleSelectionChange = useCallback((value: boolean) => {
@@ -183,9 +194,14 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     if (isLastQuestion) {
       adapter ? adapter.complete() : _completeLesson();
     } else {
+      // Check if user has hearts before showing next question
+      if (!hasHearts()) {
+        setShowOutOfHearts(true);
+        return;
+      }
       adapter ? adapter.nextQuestion() : _nextQuestion();
     }
-  }, [adapter, isLastQuestion, _completeLesson, _nextQuestion]);
+  }, [adapter, isLastQuestion, _completeLesson, _nextQuestion, hasHearts]);
 
   const handleExitClick = useCallback(() => {
     if (adapter) {
@@ -494,7 +510,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             )
           )}
 
-          <div className="flex-shrink-0 flex items-center gap-1">
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <HeartDisplay />
             {isDoubleXp && (
               <div
                 className="flex items-center"
@@ -751,6 +768,12 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             />
           )}
         </AnimatePresence>
+
+        {/* Out of hearts modal */}
+        <OutOfHeartsModal
+          isOpen={showOutOfHearts}
+          onClose={() => setShowOutOfHearts(false)}
+        />
 
         {/* Exit confirmation modal */}
         <AnimatePresence>

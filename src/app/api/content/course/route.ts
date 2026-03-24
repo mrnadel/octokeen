@@ -5,9 +5,11 @@ import { courseUnits, courseLessons, courseQuestions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { canAccessUnit } from '@/lib/access-control';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
-import { courseMeta } from '@/data/course/course-meta';
+import { getCourseMetaForProfession } from '@/data/course/course-meta';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const profession = searchParams.get('profession') || 'mechanical-engineering';
   const units = await db
     .select()
     .from(courseUnits)
@@ -60,7 +62,8 @@ export async function GET() {
   }
 
   // Build topicId lookup from static courseMeta (DB doesn't store topicId)
-  const topicIdByUnitId = new Map(courseMeta.map(u => [u.id, u.topicId]));
+  const professionMeta = getCourseMetaForProfession(profession);
+  const topicIdByUnitId = new Map(professionMeta.map(u => [u.id, u.topicId]));
 
   // Assemble the Unit[] structure
   // For locked units: return metadata (title, icon, etc.) but strip question content
