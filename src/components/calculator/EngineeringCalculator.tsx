@@ -401,6 +401,14 @@ export default function EngineeringCalculator({ isOpen, onClose, accentColor = '
         tabIndex={0}
         role="complementary"
         aria-label="Engineering calculator"
+        drag="y"
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.6 }}
+        onDragEnd={(_e, info) => {
+          if (info.offset.y > 80 || info.velocity.y > 300) {
+            onClose();
+          }
+        }}
         initial={{ y: '100%' }}
         animate={{ y: 0, transition: { type: 'spring', stiffness: 300, damping: 28 } }}
         exit={{ y: '100%', transition: { duration: 0.15, ease: 'easeIn' } }}
@@ -418,10 +426,11 @@ export default function EngineeringCalculator({ isOpen, onClose, accentColor = '
           maxHeight: '55vh',
           overflowY: 'auto',
           outline: 'none',
+          touchAction: 'none',
         }}
       >
         {/* Drag handle */}
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0 4px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0 4px', cursor: 'grab' }}>
           <div style={{ width: 36, height: 4, borderRadius: 2, background: '#E5E5E5' }} />
         </div>
 
