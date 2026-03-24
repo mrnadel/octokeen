@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useDbSync } from '@/hooks/useDbSync';
 import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
+import { DebugQuestionViewer } from '@/components/dev/DebugQuestionViewer';
 import { useEngagementInit } from '@/lib/engagement-init';
 import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
@@ -65,6 +66,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <MobileBottomNav />
 
       <DebugTierToggle />
+      <DebugQuestionViewer />
     </div>
   );
 }

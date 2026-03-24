@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Hide Next.js dev tools badge in development */
+[data-next-badge-root] { display: none !important; }
+
 @theme {
   --color-primary-50: #EEF2FF;
   --color-primary-100: #E0E7FF;

@@ -503,6 +503,7 @@ export default function ResultScreen() {
               }}
             >
               {passed ? 'Continue' : 'Try Again'}
+              <span style={{ fontSize: 11, fontWeight: 700, opacity: 0.6, marginLeft: 8 }}>Enter ↵</span>
             </button>
           </motion.div>
         </div>

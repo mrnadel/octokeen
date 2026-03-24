@@ -395,6 +395,8 @@ export const courseQuestions = pgTable(
     correctIndex: integer('correct_index'),
     correctAnswer: text('correct_answer'),
     acceptedAnswers: jsonb('accepted_answers').$type<string[]>(),
+    blanks: jsonb('blanks').$type<string[]>(),
+    wordBank: jsonb('word_bank').$type<string[]>(),
     explanation: text('explanation').notNull(),
     hint: text('hint'),
     diagram: text('diagram'),

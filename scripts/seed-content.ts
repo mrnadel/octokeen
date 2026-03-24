@@ -71,6 +71,8 @@ async function seedCourseContent() {
             correctIndex: q.correctIndex ?? null,
             correctAnswer: correctAnswer ?? null,
             acceptedAnswers: q.acceptedAnswers ?? null,
+            blanks: q.blanks ?? null,
+            wordBank: q.wordBank ?? null,
             explanation: q.explanation,
             hint: q.hint ?? null,
             diagram: q.diagram ?? null,

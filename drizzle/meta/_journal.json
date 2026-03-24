@@ -8,6 +8,13 @@
       "when": 1774194322083,
       "tag": "0000_futuristic_nick_fury",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1774350953448,
+      "tag": "0001_calm_psylocke",
+      "breakpoints": true
     }
   ]
 }

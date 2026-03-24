@@ -86,6 +86,8 @@ export async function GET() {
               ...(q.acceptedAnswers != null
                 ? { acceptedAnswers: q.acceptedAnswers }
                 : {}),
+              ...(q.blanks != null ? { blanks: q.blanks } : {}),
+              ...(q.wordBank != null ? { wordBank: q.wordBank } : {}),
               explanation: q.explanation,
               ...(q.hint != null ? { hint: q.hint } : {}),
               ...(q.diagram != null ? { diagram: q.diagram } : {}),

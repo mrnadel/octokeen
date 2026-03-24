@@ -7,9 +7,32 @@ import {
   useEffect,
   useImperativeHandle,
   forwardRef,
+  memo,
 } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
+
+/** Memoised diagram so SVG animations don't reset on answer selection re-renders */
+const DiagramDisplay = memo(function DiagramDisplay({ html }: { html: string }) {
+  const sanitised = html
+    .replace(/(<svg[^>]*)\sheight="auto"/gi, '$1')
+    .replace(/(<svg[^>]*)\swidth="auto"/gi, '$1');
+
+  return (
+    <div
+      className="w-full flex items-center justify-center overflow-hidden"
+      style={{
+        borderRadius: 14,
+        background: 'white',
+        border: '2px solid #E5E5E5',
+        padding: 10,
+        maxWidth: 400,
+        margin: '0 auto',
+      }}
+      dangerouslySetInnerHTML={{ __html: sanitised }}
+    />
+  );
+});
 
 export interface QuestionCardHandle {
   check: () => void;
@@ -205,28 +228,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         {/* Question content - top area */}
         <div className="flex flex-col" style={{ gap: 12 }}>
           {/* Diagram */}
-          {question.diagram && (
-            <div
-              className="w-full flex items-center justify-center overflow-hidden"
-              style={{
-                borderRadius: 14,
-                background: 'white',
-                border: '2px solid #E5E5E5',
-                padding: 10,
-                maxWidth: 400,
-                margin: '0 auto',
-              }}
-              dangerouslySetInnerHTML={{
-                __html: question.diagram.replace(
-                  /(<svg[^>]*)\sheight="auto"/gi,
-                  '$1'
-                ).replace(
-                  /(<svg[^>]*)\swidth="auto"/gi,
-                  '$1'
-                ),
-              }}
-            />
-          )}
+          {question.diagram && <DiagramDisplay html={question.diagram} />}
 
           {/* Question text - for fill-blank, render inline blanks */}
           {question.type === 'fill-blank' && question.blanks ? (

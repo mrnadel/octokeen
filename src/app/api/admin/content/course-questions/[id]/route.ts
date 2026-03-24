@@ -25,6 +25,8 @@ export async function PUT(
   if (body.correctIndex !== undefined) allowedFields.correctIndex = body.correctIndex;
   if (body.correctAnswer !== undefined) allowedFields.correctAnswer = body.correctAnswer;
   if (body.acceptedAnswers !== undefined) allowedFields.acceptedAnswers = body.acceptedAnswers;
+  if (body.blanks !== undefined) allowedFields.blanks = body.blanks;
+  if (body.wordBank !== undefined) allowedFields.wordBank = body.wordBank;
   if (body.explanation !== undefined) allowedFields.explanation = body.explanation;
   if (body.hint !== undefined) allowedFields.hint = body.hint;
   if (body.diagram !== undefined) allowedFields.diagram = body.diagram;
