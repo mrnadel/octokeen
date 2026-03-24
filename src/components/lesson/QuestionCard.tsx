@@ -192,6 +192,18 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       [handleCheck, hasSelection, answered, question, availableWords, handleWordTap]
     );
 
+    // Debug: log fill-blank question data to help diagnose missing options
+    if (process.env.NODE_ENV === 'development' && question.type === 'fill-blank') {
+      console.log('[QuestionCard] fill-blank question:', question.id, {
+        type: question.type,
+        hasBlanks: 'blanks' in question,
+        blanks: (question as any).blanks,
+        hasWordBank: 'wordBank' in question,
+        wordBank: (question as any).wordBank,
+        keys: Object.keys(question),
+      });
+    }
+
     return (
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
         {/* Question content - top area */}
