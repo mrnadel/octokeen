@@ -45,17 +45,25 @@ function LeagueDebug() {
 export function DebugTierToggle() {
   const [isOpen, setIsOpen] = useState(false);
   const { debugTierOverride, setDebugTierOverride } = useSubscriptionStore();
-  const completedCount = useCourseStore((s) => Object.keys(s.progress.completedLessons).length);
+  const completedLessons = useCourseStore((s) => s.progress.completedLessons);
   const debugSetProgress = useCourseStore((s) => s.debugSetProgress);
   const totalLessons = getTotalLessonsMeta();
-  const [sliderValue, setSliderValue] = useState<number | null>(null);
+  const completedCount = Object.keys(completedLessons).length;
+  const goldenCount = Object.values(completedLessons).filter((l) => l.golden).length;
+  const normalCount = completedCount - goldenCount;
+
+  const [normalInput, setNormalInput] = useState<string>('');
+  const [goldenInput, setGoldenInput] = useState<string>('');
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const commitProgress = useCallback((value: number) => {
+
+  const commitProgress = useCallback((normal: number, golden: number) => {
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      debugSetProgress(value);
-      setSliderValue(null);
-    }, 150);
+      const total = normal + golden;
+      debugSetProgress(total, golden);
+      setNormalInput('');
+      setGoldenInput('');
+    }, 300);
   }, [debugSetProgress]);
 
   // Dragging state
@@ -162,23 +170,39 @@ export function DebugTierToggle() {
 
           <div className="border-t border-gray-200 mt-3 pt-3">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
-              Lesson Progress
+              Lesson Progress <span className="text-gray-300 font-normal">({completedCount}/{totalLessons})</span>
             </p>
-            <input
-              type="range"
-              min={0}
-              max={totalLessons}
-              value={sliderValue ?? completedCount}
-              onChange={(e) => {
-                const v = Number(e.target.value);
-                setSliderValue(v);
-                commitProgress(v);
-              }}
-              className="w-full accent-indigo-600"
-            />
-            <div className="flex justify-between text-[11px] text-gray-500 mt-1">
-              <span>{sliderValue ?? completedCount} / {totalLessons}</span>
-              <span>{totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0}%</span>
+            <div className="flex gap-2 items-center mb-1.5">
+              <label className="text-[11px] text-gray-500 w-14 flex-shrink-0">Normal</label>
+              <input
+                type="number"
+                min={0}
+                max={totalLessons}
+                value={normalInput !== '' ? normalInput : normalCount}
+                onChange={(e) => {
+                  setNormalInput(e.target.value);
+                  const n = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                  const g = goldenInput !== '' ? Number(goldenInput) || 0 : goldenCount;
+                  commitProgress(n, g);
+                }}
+                className="w-full px-2 py-1 text-sm border border-gray-200 rounded-md text-center focus:outline-none focus:ring-1 focus:ring-indigo-400"
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <label className="text-[11px] text-amber-600 w-14 flex-shrink-0 font-semibold">Golden</label>
+              <input
+                type="number"
+                min={0}
+                max={totalLessons}
+                value={goldenInput !== '' ? goldenInput : goldenCount}
+                onChange={(e) => {
+                  setGoldenInput(e.target.value);
+                  const g = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                  const n = normalInput !== '' ? Number(normalInput) || 0 : normalCount;
+                  commitProgress(n, g);
+                }}
+                className="w-full px-2 py-1 text-sm border border-amber-200 rounded-md text-center bg-amber-50 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              />
             </div>
           </div>
         </div>

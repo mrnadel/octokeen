@@ -40,23 +40,16 @@ function SmartPracticeInner() {
     startSession('smart-practice', {
       topicId: topicFilter ?? undefined,
     });
-
-    // Check if session was actually created (startSession is sync — store updates immediately)
-    const storeSession = useStore.getState().session;
-    if (!storeSession) {
-      // No questions available or session failed to start — go home
-      router.replace('/');
-    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Fallback: if we've started but still have no session after mount, redirect
+  // Fallback: if session never starts after async course data load, redirect home
   useEffect(() => {
     if (started.current && !session && !sessionSummary) {
       const timer = setTimeout(() => {
         if (!useStore.getState().session && !useStore.getState().sessionSummary) {
           router.replace('/');
         }
-      }, 500);
+      }, 5000); // Allow time for async course data loading
       return () => clearTimeout(timer);
     }
   }, [session, sessionSummary, router]);

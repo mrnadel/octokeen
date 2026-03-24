@@ -473,12 +473,29 @@ export const useStore = create<AppState>()(
           if (tier !== 'pro' && !isTrialing && !isPastDue) return;
         }
 
-        // If course data is not fully loaded yet, load it first then retry
+        // If course data is not fully loaded yet, load it first then create session
         const courseStore = useCourseStore.getState();
         const needsLoad = courseStore.courseData.some(u => u.lessons.some(l => l.questions.length === 0));
         if (needsLoad && !options?.resolvedQuestions) {
+          // Set a loading flag so UI knows we're working
+          set({ session: null });
           ensureCourseDataLoaded().then(() => {
-            get().startSession(type, options);
+            // Now data is loaded — build session synchronously
+            const questions = selectQuestionsForSession(type, options);
+            if (questions.length === 0) return;
+            set({
+              session: {
+                type,
+                topicId: options?.topicId,
+                difficulty: options?.difficulty,
+                questions,
+                currentIndex: 0,
+                answers: {},
+                startTime: Date.now(),
+                isTimed: type === 'interview-sim',
+              },
+              sessionSummary: null,
+            });
           });
           return;
         }

@@ -44,7 +44,7 @@ interface CourseState {
   creditPracticeAnswer: (questionId: string, correct: boolean) => void;
 
   // Debug
-  debugSetProgress: (lessonCount: number) => void;
+  debugSetProgress: (lessonCount: number, goldenCount?: number) => void;
 
   // Helpers
   isLessonUnlocked: (unitIndex: number, lessonIndex: number) => boolean;
@@ -446,7 +446,7 @@ export const useCourseStore = create<CourseState>()(
         });
       },
 
-      debugSetProgress: (lessonCount: number) => {
+      debugSetProgress: (lessonCount: number, goldenCount?: number) => {
         // Load all unit data before running debug — units may still be lightweight metadata
         const courseData = get().courseData;
         const needsLoad = courseData.some(u => u.lessons.some(l => l.questions.length === 0));
@@ -454,7 +454,7 @@ export const useCourseStore = create<CourseState>()(
           Promise.all(courseData.map((_, i) => loadUnitData(i))).then((fullUnits) => {
             set({ courseData: fullUnits });
             // Retry with full data
-            get().debugSetProgress(lessonCount);
+            get().debugSetProgress(lessonCount, goldenCount);
           });
           return;
         }
@@ -468,12 +468,14 @@ export const useCourseStore = create<CourseState>()(
         const topicCounts: Record<string, { attempted: number; correct: number }> = {};
         const masteryEvents: AnswerEvent[] = [];
 
+        // Golden count: if explicitly provided, use it; otherwise auto-derive
+        const effectiveGolden = goldenCount !== undefined ? goldenCount : Math.max(0, lessonCount - 6);
+
         for (const unit of courseData) {
           for (const lesson of unit.lessons) {
             if (count >= lessonCount) break;
 
-            const GOLDEN_OFFSET = 6;
-            const isGolden = count + GOLDEN_OFFSET < lessonCount;
+            const isGolden = count < effectiveGolden;
             completedLessons[lesson.id] = {
               stars: isGolden ? 3 : Math.min(count + 1, 3),
               bestAccuracy: 95,
