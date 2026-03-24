@@ -170,6 +170,7 @@ export default function RegisterPage() {
           minLength={2}
           maxLength={50}
           autoComplete="name"
+          suppressHydrationWarning
           className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
@@ -182,6 +183,7 @@ export default function RegisterPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
           autoComplete="email"
+          suppressHydrationWarning
           className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
@@ -196,6 +198,7 @@ export default function RegisterPage() {
             required
             minLength={8}
             autoComplete="new-password"
+            suppressHydrationWarning
             className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
           />
           <PasswordStrength password={password} />
