@@ -47,7 +47,7 @@ export const LIMITS = {
   pro: {
     dailyQuestions: -1,               // unlimited
     streakFreezesPerWeek: 1,
-    unlockedUnits: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as number[],
+    unlockedUnits: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number[],
   },
 } as const;
 
