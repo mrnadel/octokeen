@@ -491,6 +491,7 @@ async function doConvert() {
 
 function showEditUI() {
   $('bg-section').classList.remove('hidden');
+  $('grad-section').classList.remove('hidden');
   $('edit-section').classList.remove('hidden');
   $('parts-section').classList.remove('hidden');
   $('export-section').classList.remove('hidden');
@@ -934,16 +935,42 @@ $('btn-export-chunk').addEventListener('click', () => {
 // ─── GENERATE SVG ───
 function generateSVG(pathsOverride) {
   const paths = pathsOverride || S.paths;
+  const useGrad = S.gradient !== 'none';
   let out = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S.svgW} ${S.svgH}">\n`;
-  paths.forEach(p => {
-    out += `  <path d="${p.d}" fill="${p.fill}" transform="translate(${p.tx},${p.ty})"/>\n`;
+  if (useGrad) {
+    out += '  <defs>\n';
+    paths.forEach((p, i) => {
+      const id = `g${i}`;
+      const fill = p.fill;
+      const pct = S.gradIntensity / 100;
+      if (S.gradient === 'subtle') {
+        out += `    <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${lighten(fill, 0.15*pct)}"/><stop offset="100%" stop-color="${darken(fill, 0.1*pct)}"/></linearGradient>\n`;
+      } else if (S.gradient === 'strong') {
+        out += `    <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${lighten(fill, 0.3*pct)}"/><stop offset="100%" stop-color="${darken(fill, 0.25*pct)}"/></linearGradient>\n`;
+      } else if (S.gradient === 'radial') {
+        out += `    <radialGradient id="${id}" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="${lighten(fill, 0.25*pct)}"/><stop offset="100%" stop-color="${darken(fill, 0.15*pct)}"/></radialGradient>\n`;
+      } else if (S.gradient === 'toplight') {
+        out += `    <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${lighten(fill, 0.35*pct)}"/><stop offset="40%" stop-color="${fill}"/><stop offset="100%" stop-color="${fill}"/></linearGradient>\n`;
+      } else if (S.gradient === 'duotone') {
+        out += `    <linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${shiftHue(fill, 0.3*pct)}"/><stop offset="100%" stop-color="${darken(fill, 0.15*pct)}"/></linearGradient>\n`;
+      }
+    });
+    out += '  </defs>\n';
+  }
+  paths.forEach((p, i) => {
+    const fill = useGrad ? `url(#g${i})` : p.fill;
+    out += `  <path d="${p.d}" fill="${fill}" transform="translate(${p.tx},${p.ty})"/>\n`;
   });
   out += '</svg>';
   return out;
 }
 
 function generatePathsOnly() {
-  return S.paths.map(p => `<path d="${p.d}" fill="${p.fill}" transform="translate(${p.tx},${p.ty})"/>`).join('\n');
+  const useGrad = S.gradient !== 'none';
+  return S.paths.map((p, i) => {
+    const fill = useGrad ? `url(#g${i})` : p.fill;
+    return `<path d="${p.d}" fill="${fill}" transform="translate(${p.tx},${p.ty})"/>`;
+  }).join('\n');
 }
 
 // ─── EXPORT ───
