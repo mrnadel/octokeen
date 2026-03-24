@@ -543,13 +543,9 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
           style={{
             width: 52,
             height: 52,
-            borderRadius: 14,
-            background: 'linear-gradient(135deg, #A855F7 0%, #7C3AED 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 28,
-            boxShadow: '0 4px 16px rgba(168,85,247,0.35)',
             position: 'relative',
             flexShrink: 0,
           }}
@@ -557,7 +553,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
           animate={{ rotate: 0, scale: 1 }}
           transition={{ type: 'spring', damping: 12, stiffness: 200 }}
         >
-          <LevelBadge level={current} size={36} />
+          <LevelBadge level={current} size={52} />
           {/* Level number badge */}
           <div
             style={{

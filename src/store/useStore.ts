@@ -79,6 +79,7 @@ interface AppState {
     totalXp: number;
     streak: number;
   }) => void;
+  debugSetXp: (xp: number) => void;
 
   // Actions — UI
   toggleSidebar: () => void;
@@ -739,6 +740,16 @@ export const useStore = create<AppState>()(
         }
 
         set({ progress: newProgress });
+      },
+
+      debugSetXp: (xp) => {
+        set((state) => ({
+          progress: {
+            ...state.progress,
+            totalXp: xp,
+            currentLevel: updateLevel(xp),
+          },
+        }));
       },
 
       toggleSidebar: () => {

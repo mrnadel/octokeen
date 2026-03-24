@@ -4,8 +4,11 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
+import { useStore } from '@/store/useStore';
 import { getTotalLessonsMeta } from '@/data/course/course-meta';
 import { leagueTiers } from '@/data/league';
+import { levels, getLevelForXp } from '@/data/levels';
+import { LevelBadge } from '@/components/engagement/LevelBadge';
 import type { SubscriptionTier } from '@/lib/subscription';
 
 const TIERS: { value: SubscriptionTier | null; label: string }[] = [
@@ -13,6 +16,47 @@ const TIERS: { value: SubscriptionTier | null; label: string }[] = [
   { value: 'free', label: 'Free' },
   { value: 'pro', label: 'Pro' },
 ];
+
+function LevelDebug() {
+  const totalXp = useStore((s) => s.progress.totalXp);
+  const debugSetXp = useStore((s) => s.debugSetXp);
+  const current = getLevelForXp(totalXp);
+  const currentIdx = levels.findIndex((l) => l.level === current.level);
+
+  const goDown = () => {
+    if (currentIdx <= 0) return;
+    // Set XP to exactly the previous level's requirement
+    debugSetXp(levels[currentIdx - 1].xpRequired);
+  };
+  const goUp = () => {
+    if (currentIdx >= levels.length - 1) return;
+    // Set XP to exactly the next level's requirement
+    debugSetXp(levels[currentIdx + 1].xpRequired);
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={goDown}
+        disabled={currentIdx <= 0}
+        className="px-2 py-1 rounded-md text-sm font-bold bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        ▼
+      </button>
+      <span className="flex-1 flex items-center justify-center gap-1.5 text-sm font-bold">
+        <LevelBadge level={current} size={22} />
+        <span>Lv.{current.level}</span>
+      </span>
+      <button
+        onClick={goUp}
+        disabled={currentIdx >= levels.length - 1}
+        className="px-2 py-1 rounded-md text-sm font-bold bg-green-50 text-green-600 hover:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        ▲
+      </button>
+    </div>
+  );
+}
 
 function LeagueDebug() {
   const currentTier = useEngagementStore((s) => s.league.currentTier);
@@ -158,6 +202,13 @@ export function DebugTierToggle() {
               )}
             </button>
           ))}
+
+          <div className="border-t border-gray-200 mt-3 pt-3">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+              Level
+            </p>
+            <LevelDebug />
+          </div>
 
           <div className="border-t border-gray-200 mt-3 pt-3">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
