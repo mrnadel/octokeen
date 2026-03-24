@@ -78,7 +78,7 @@ function DoubleXpCountdown() {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)' }}
+      style={{ position: 'absolute', right: 12, top: 0, bottom: 0, display: 'flex', alignItems: 'center' }}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       onTouchStart={() => setShowTooltip((v) => !v)}
