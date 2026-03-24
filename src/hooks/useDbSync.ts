@@ -61,6 +61,24 @@ export function useDbSync() {
 
         // Practice questions removed — all questions come from course data now
         // contentQuestionsRes is unused
+
+        // Merge guest trial XP earned before registration
+        try {
+          const guestData = sessionStorage.getItem('mechready-guest-xp');
+          if (guestData) {
+            const { xp } = JSON.parse(guestData);
+            if (xp > 0) {
+              const current = useStore.getState().progress;
+              useStore.setState({
+                progress: {
+                  ...current,
+                  totalXp: current.totalXp + xp,
+                },
+              });
+            }
+            sessionStorage.removeItem('mechready-guest-xp');
+          }
+        } catch {}
       } catch (error) {
         console.error('Failed to hydrate from DB:', error);
       } finally {

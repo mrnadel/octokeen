@@ -75,7 +75,37 @@ const SAMPLE_QUESTIONS = [
     correctAnswer: 'b',
     explanation: 'Hot soup creates a stagnant boundary layer of warm, humid air. Blowing strips it away, replacing it with fresh, cooler, drier air — boosting both convection and evaporation.',
   },
+  {
+    topic: 'machine-design',
+    topicIcon: '⚙️',
+    question: 'A shaft transmitting torque fails in a spiral pattern at 45° to its axis. This indicates:',
+    options: [
+      { id: 'a', text: 'The material is brittle and failed under principal tensile stress' },
+      { id: 'b', text: 'The shaft was overloaded in pure bending' },
+      { id: 'c', text: 'Fatigue failure from reversed bending cycles' },
+      { id: 'd', text: 'The keyway created a stress concentration leading to shear failure' },
+    ],
+    correctAnswer: 'a',
+    explanation: 'In pure torsion, maximum tensile stress acts at 45° to the shaft axis. Brittle materials (like cast iron) fracture along this 45° helix. Ductile materials would shear on the transverse plane instead.',
+  },
+  {
+    topic: 'dynamics',
+    topicIcon: '🎯',
+    question: 'A spinning figure skater pulls in their arms and spins faster. This is because:',
+    options: [
+      { id: 'a', text: 'They push off the ice to gain speed' },
+      { id: 'b', text: 'Angular momentum is conserved — smaller moment of inertia means higher angular velocity' },
+      { id: 'c', text: 'Air resistance decreases when arms are tucked in' },
+      { id: 'd', text: 'Their weight shifts closer to center, creating a gravitational torque' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'Angular momentum L = Iω is conserved (no external torque). Pulling arms in reduces moment of inertia I, so angular velocity ω must increase. This is why skaters spin so fast with arms tucked!',
+  },
 ];
+
+const TRIAL_COUNT = 3;
+const XP_CORRECT = 25;
+const XP_WRONG = 5;
 
 const FEATURES = [
   { icon: BookOpen, label: 'Bite-sized lessons', color: 'text-primary-500' },
@@ -175,12 +205,17 @@ export default function GetStartedPage() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  // Sample question
-  const [sampleAnswer, setSampleAnswer] = useState<string | null>(null);
-  const [sampleRevealed, setSampleRevealed] = useState(false);
-  const [sampleQuestion] = useState(() =>
-    SAMPLE_QUESTIONS[Math.floor(Math.random() * SAMPLE_QUESTIONS.length)]
-  );
+  // Trial questions (3 random from pool)
+  const [trialQuestions] = useState(() => {
+    const shuffled = [...SAMPLE_QUESTIONS].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, TRIAL_COUNT);
+  });
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [trialAnswer, setTrialAnswer] = useState<string | null>(null);
+  const [trialRevealed, setTrialRevealed] = useState(false);
+  const [trialXp, setTrialXp] = useState(0);
+  const [trialCorrect, setTrialCorrect] = useState(0);
+  const [trialDone, setTrialDone] = useState(false);
 
   // Navigation loading
   const [navigating, setNavigating] = useState(false);
@@ -203,10 +238,30 @@ export default function GetStartedPage() {
     setStep((s) => Math.max(s - 1, 0));
   }, []);
 
-  const handleSampleAnswer = (optionId: string) => {
-    if (sampleRevealed) return;
-    setSampleAnswer(optionId);
-    setSampleRevealed(true);
+  const handleTrialAnswer = (optionId: string) => {
+    if (trialRevealed) return;
+    setTrialAnswer(optionId);
+    setTrialRevealed(true);
+    const isCorrect = optionId === trialQuestions[questionIndex].correctAnswer;
+    setTrialXp((prev) => prev + (isCorrect ? XP_CORRECT : XP_WRONG));
+    if (isCorrect) setTrialCorrect((prev) => prev + 1);
+  };
+
+  const handleNextTrialQuestion = () => {
+    if (questionIndex + 1 >= TRIAL_COUNT) {
+      setTrialDone(true);
+    } else {
+      setQuestionIndex((prev) => prev + 1);
+      setTrialAnswer(null);
+      setTrialRevealed(false);
+    }
+  };
+
+  const handleTrialContinue = () => {
+    try {
+      sessionStorage.setItem('mechready-guest-xp', JSON.stringify({ xp: trialXp }));
+    } catch {}
+    nextStep();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -254,6 +309,10 @@ export default function GetStartedPage() {
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
+    // Guest trial XP already saved by handleTrialContinue, but save again in case
+    if (trialXp > 0) {
+      try { sessionStorage.setItem('mechready-guest-xp', JSON.stringify({ xp: trialXp })); } catch {}
+    }
     signIn('google', { callbackUrl: '/' });
   };
 
@@ -432,10 +491,10 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 1: Sample Question ═══ */}
+          {/* ═══ Step 1: Trial Questions ═══ */}
           {step === 1 && (
             <motion.div
-              key="sample"
+              key="trial"
               custom={direction}
               variants={slideVariants}
               initial="enter"
@@ -444,119 +503,208 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-lg mx-auto w-full"
             >
-              {/* Mascot speech bubble */}
-              <div className="flex items-start gap-3 mb-5">
-                <motion.div
-                  className="shrink-0"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                >
-                  <Mascot size="sm" className="drop-shadow-md" />
-                </motion.div>
-                <motion.div
-                  className="relative bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 flex-1"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-lg">{sampleQuestion.topicIcon}</span>
-                    <span className="text-xs font-black text-brand-400 uppercase tracking-wider">
-                      Try a question
+              {!trialDone ? (
+                <>
+                  {/* Progress header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-black text-gray-400 uppercase tracking-wider">
+                      Question {questionIndex + 1} / {TRIAL_COUNT}
                     </span>
+                    {trialXp > 0 && (
+                      <motion.span
+                        key={trialXp}
+                        initial={{ scale: 1.4 }}
+                        animate={{ scale: 1 }}
+                        className="text-xs font-black text-brand-400 flex items-center gap-1"
+                      >
+                        <Zap className="w-3.5 h-3.5" />
+                        {trialXp} XP
+                      </motion.span>
+                    )}
                   </div>
-                  <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
-                    {sampleQuestion.question}
-                  </h2>
-                </motion.div>
-              </div>
 
-              <div className="space-y-2.5 mb-5">
-                {sampleQuestion.options.map((opt, idx) => {
-                  const isCorrect = opt.id === sampleQuestion.correctAnswer;
-                  const isSelected = sampleAnswer === opt.id;
-                  let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
-                  if (sampleRevealed) {
-                    if (isCorrect) {
-                      optionStyle = 'border-brand-400 bg-brand-400/5';
-                    } else if (isSelected && !isCorrect) {
-                      optionStyle = 'border-red-400 bg-red-50';
-                    } else {
-                      optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
-                    }
-                  } else if (isSelected) {
-                    optionStyle = 'border-primary-400 bg-primary-50';
-                  }
-
-                  return (
-                    <motion.button
-                      key={opt.id}
-                      onClick={() => handleSampleAnswer(opt.id)}
-                      disabled={sampleRevealed}
-                      initial={{ opacity: 0, x: -20 }}
+                  {/* Question card — keyed for transition */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={questionIndex}
+                      initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + idx * 0.06 }}
-                      className={cn(
-                        'w-full flex items-start gap-3 p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
-                        optionStyle
-                      )}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <span className={cn(
-                        'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
-                        sampleRevealed && isCorrect
-                          ? 'bg-brand-400 text-white'
-                          : sampleRevealed && isSelected && !isCorrect
-                            ? 'bg-red-400 text-white'
-                            : 'bg-gray-100 text-gray-500'
-                      )}>
-                        {sampleRevealed && isCorrect ? '✓' : sampleRevealed && isSelected && !isCorrect ? '✗' : opt.id.toUpperCase()}
-                      </span>
-                      <span className="text-sm font-semibold text-gray-700 leading-snug">
-                        {opt.text}
-                      </span>
-                    </motion.button>
-                  );
-                })}
-              </div>
+                      {/* Mascot + question */}
+                      <div className="flex items-start gap-3 mb-5">
+                        <div className="shrink-0">
+                          <Mascot size="sm" className="drop-shadow-md" />
+                        </div>
+                        <div className="relative bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-lg">{trialQuestions[questionIndex].topicIcon}</span>
+                            <span className="text-xs font-black text-brand-400 uppercase tracking-wider">
+                              {trialQuestions[questionIndex].topic.replace(/-/g, ' ')}
+                            </span>
+                          </div>
+                          <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
+                            {trialQuestions[questionIndex].question}
+                          </h2>
+                        </div>
+                      </div>
 
-              {/* Explanation */}
-              <AnimatePresence>
-                {sampleRevealed && (
+                      {/* Options */}
+                      <div className="space-y-2.5 mb-5">
+                        {trialQuestions[questionIndex].options.map((opt, idx) => {
+                          const isCorrect = opt.id === trialQuestions[questionIndex].correctAnswer;
+                          const isSelected = trialAnswer === opt.id;
+                          let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
+                          if (trialRevealed) {
+                            if (isCorrect) {
+                              optionStyle = 'border-brand-400 bg-brand-400/5';
+                            } else if (isSelected && !isCorrect) {
+                              optionStyle = 'border-red-400 bg-red-50';
+                            } else {
+                              optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
+                            }
+                          } else if (isSelected) {
+                            optionStyle = 'border-primary-400 bg-primary-50';
+                          }
+
+                          return (
+                            <motion.button
+                              key={opt.id}
+                              onClick={() => handleTrialAnswer(opt.id)}
+                              disabled={trialRevealed}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.05 + idx * 0.04 }}
+                              className={cn(
+                                'w-full flex items-start gap-3 p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
+                                optionStyle
+                              )}
+                            >
+                              <span className={cn(
+                                'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
+                                trialRevealed && isCorrect
+                                  ? 'bg-brand-400 text-white'
+                                  : trialRevealed && isSelected && !isCorrect
+                                    ? 'bg-red-400 text-white'
+                                    : 'bg-gray-100 text-gray-500'
+                              )}>
+                                {trialRevealed && isCorrect ? '✓' : trialRevealed && isSelected && !isCorrect ? '✗' : opt.id.toUpperCase()}
+                              </span>
+                              <span className="text-sm font-semibold text-gray-700 leading-snug">
+                                {opt.text}
+                              </span>
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Explanation + Next */}
+                      <AnimatePresence>
+                        {trialRevealed && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className={cn(
+                              'p-4 rounded-xl mb-5',
+                              trialAnswer === trialQuestions[questionIndex].correctAnswer
+                                ? 'bg-brand-400/10 border border-brand-400/20'
+                                : 'bg-primary-50 border border-primary-200'
+                            )}>
+                              <p className={cn(
+                                'font-black text-sm mb-1',
+                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-brand-400' : 'text-primary-600'
+                              )}>
+                                {trialAnswer === trialQuestions[questionIndex].correctAnswer
+                                  ? `🎉 Correct! +${XP_CORRECT} XP`
+                                  : `💡 Good try! +${XP_WRONG} XP`}
+                              </p>
+                              <p className="text-sm text-gray-600 leading-relaxed">
+                                {trialQuestions[questionIndex].explanation}
+                              </p>
+                            </div>
+
+                            <button
+                              onClick={handleNextTrialQuestion}
+                              className="w-full py-3.5 rounded-2xl bg-brand-400 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+                              style={{ boxShadow: '0 5px 0 #C49200' }}
+                            >
+                              {questionIndex + 1 >= TRIAL_COUNT ? 'SEE YOUR RESULTS' : 'NEXT QUESTION'}
+                            </button>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  </AnimatePresence>
+                </>
+              ) : (
+                /* ─── Trial Results ─── */
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center"
+                >
                   <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
+                    initial={{ scale: 0.5, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+                    className="mb-4"
                   >
-                    <div className={cn(
-                      'p-4 rounded-xl mb-5',
-                      sampleAnswer === sampleQuestion.correctAnswer
-                        ? 'bg-brand-400/10 border border-brand-400/20'
-                        : 'bg-primary-50 border border-primary-200'
-                    )}>
-                      <p className={cn(
-                        'font-black text-sm mb-1',
-                        sampleAnswer === sampleQuestion.correctAnswer ? 'text-brand-400' : 'text-primary-600'
-                      )}>
-                        {sampleAnswer === sampleQuestion.correctAnswer ? '🎉 Correct!' : '💡 Good try!'}
-                      </p>
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {sampleQuestion.explanation}
-                      </p>
-                    </div>
+                    <Mascot size="lg" className="mx-auto drop-shadow-xl" />
+                  </motion.div>
 
+                  <motion.h2
+                    className="text-2xl sm:text-3xl font-black text-gray-900 mb-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    Nice work!
+                  </motion.h2>
+
+                  <motion.p
+                    className="text-gray-400 text-sm font-semibold mb-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    {trialCorrect}/{TRIAL_COUNT} correct
+                  </motion.p>
+
+                  <motion.div
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand-400/10 mb-8"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
+                  >
+                    <Zap className="w-5 h-5 text-brand-400" />
+                    <span className="text-2xl font-black text-brand-400">{trialXp} XP</span>
+                    <span className="text-sm font-bold text-brand-400/70">earned</span>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.45 }}
+                  >
                     <button
-                      onClick={nextStep}
+                      onClick={handleTrialContinue}
                       className="w-full py-3.5 rounded-2xl bg-brand-400 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
                       style={{ boxShadow: '0 5px 0 #C49200' }}
                     >
-                      CONTINUE
+                      SAVE MY PROGRESS
                     </button>
+                    <p className="text-gray-400 text-xs font-semibold mt-3">
+                      Create a free account to keep your XP
+                    </p>
                   </motion.div>
-                )}
-              </AnimatePresence>
+                </motion.div>
+              )}
             </motion.div>
           )}
 
