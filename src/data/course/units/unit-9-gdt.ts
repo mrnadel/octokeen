@@ -301,10 +301,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'The fit is H7/p6 (light interference) at 20°C. What happens to the fit at operating temperature, and how do you address it?',
           options: [
-            'Nothing — the fit does not change with temperature since both parts are steel',
-            'The shaft expands more than the housing due to the higher temperature,',
-            'The fit loosens',
-            'Temperature effects are negligible for interference fits'
+            'Nothing changes — fit is unaffected since both parts are steel',
+            'The shaft expands more than the housing, tightening the fit',
+            'The fit loosens as both parts expand equally in all directions',
+            'Temperature effects are negligible for all interference fits'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4.5" fill="#334155" text-anchor="middle" font-weight="bold">Thermal Expansion</text><circle cx="26" cy="40" r="14" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1.5"/><circle cx="26" cy="40" r="8" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><text x="26" y="42" font-size="3" fill="#334155" text-anchor="middle">20C</text><circle cx="58" cy="40" r="14" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1.5"/><circle cx="58" cy="40" r="10" fill="#EC4899" opacity="0.08" stroke="#EC4899" stroke-width="1.5" stroke-dasharray="2,2"><animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/></circle><text x="58" y="42" font-size="3" fill="#EC4899" text-anchor="middle">Hot</text><text x="26" y="62" font-size="3.5" fill="#6B7280" text-anchor="middle">Fit OK</text><text x="58" y="62" font-size="3.5" fill="#EC4899" text-anchor="middle">Tighter!</text><text x="42" y="42" font-size="6" fill="#334155">&#x2192;</text></svg>',
@@ -380,8 +380,8 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'A general tolerance block on a drawing states "ISO 2768-mK." What does this mean?',
           options: [
-            'The material is specified as grade mK steel, which would only hold true if',
-            '"m" specifies the general dimensional tolerance class (medium) and "K"',
+            'The material is specified as grade mK steel for this component',
+            '"m" specifies dimensional tolerance class (medium), "K" geometric class',
             'The measurement unit is millimeters with Kelvin for temperature',
             'The drawing scale is medium (m) and the projection angle is K'
           ],
@@ -395,10 +395,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'The pin must be easy to push in by hand but have negligible clearance. Which fit is most appropriate?',
           options: [
-            'H7/s6 — heavy press fit for maximum holding force, without considering',
-            'H7/h6 — sliding fit with very small clearance allowing hand insertion',
-            'H11/c11 — extra-loose running fit for easy assembly',
-            'H7/p6 — light press fit requiring an arbor press — rarely the controlling'
+            'H7/s6 — heavy press fit requiring significant force for assembly',
+            'H7/h6 — sliding fit with very small clearance, hand-insertable',
+            'H11/c11 — extra-loose running fit with significant play',
+            'H7/p6 — light press fit requiring an arbor press for insertion'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4.5" fill="#334155" text-anchor="middle" font-weight="bold">H7/h6 Sliding Fit</text><circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1.5"/><circle cx="40" cy="40" r="14" fill="#3B8700" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><line x1="54" y1="26" x2="62" y2="18" stroke="#A5E86C" stroke-width="0.8" opacity="0.5"/><text x="64" y="20" font-size="3.5" fill="#6B7280">tiny gap</text><g><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="1.5s" repeatCount="indefinite"/><circle cx="40" cy="40" r="14" fill="none" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/></g><text x="40" y="62" font-size="3.5" fill="#6B7280" text-anchor="middle">Hand-insertable, minimal play</text></svg>',
@@ -474,10 +474,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'Parts are passing CMM inspection for position tolerance but consistently failing during assembly. What are the most likely causes?',
           options: [
-            'The parts are defective — CMM results must be wrong, provided all secondary',
-            'The CMM datum setup does not replicate the actual assembly datum contacts',
-            'Position tolerance is not relevant to assembly — only size matters, provided',
-            'The CMM is measuring in metric but the assembly is designed in imperial units,'
+            'The parts are defective — the CMM results must be incorrect somehow',
+            'The CMM datum setup does not replicate actual assembly datum contacts',
+            'Position tolerance is not relevant to assembly — only size matters',
+            'The CMM is measuring in metric but assembly is designed in imperial'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4" fill="#334155" text-anchor="middle" font-weight="bold">CMM vs Assembly Datums</text><rect x="6" y="18" width="30" height="24" rx="2" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1"/><text x="21" y="26" font-size="3.5" fill="#58CC02" text-anchor="middle" font-weight="bold">CMM</text><text x="21" y="34" font-size="3" fill="#334155" text-anchor="middle">datum setup</text><rect x="44" y="18" width="30" height="24" rx="2" fill="#3B8700" opacity="0.06" stroke="#3B8700" stroke-width="1"/><text x="59" y="26" font-size="3.5" fill="#3B8700" text-anchor="middle" font-weight="bold">Assembly</text><text x="59" y="34" font-size="3" fill="#334155" text-anchor="middle">datum contact</text><text x="40" y="32" font-size="5" fill="#EC4899" text-anchor="middle">&#x2260;</text><text x="40" y="56" font-size="3.5" fill="#EC4899" text-anchor="middle">Mismatch causes failures!</text><text x="40" y="66" font-size="3.5" fill="#6B7280" text-anchor="middle">CMM must replicate assembly</text></svg>',
@@ -622,10 +622,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is the key difference between concentricity and position (at RFS) for controlling coaxiality of two diameters?',
           options: [
-            'They produce identical results and are interchangeable, provided all secondary',
-            'Concentricity controls the median points (derived median line) of the feature',
-            'Position is less accurate than concentricity, provided all secondary effects',
-            'Concentricity can use material condition modifiers but position cannot,'
+            'They produce identical results and are fully interchangeable in practice',
+            'Concentricity controls the derived median line; position controls the axis',
+            'Position is inherently less accurate than concentricity for coaxiality',
+            'Concentricity can use material condition modifiers but position cannot'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" font-size="4" fill="#334155" text-anchor="middle" font-weight="bold">Concentricity vs Position</text><rect x="4" y="14" width="34" height="46" rx="2" fill="#58CC02" opacity="0.04" stroke="#58CC02" stroke-width="1"/><text x="21" y="22" font-size="3.5" fill="#58CC02" text-anchor="middle" font-weight="bold">Concentricity</text><text x="21" y="32" font-size="3" fill="#334155" text-anchor="middle">Derived median</text><text x="21" y="38" font-size="3" fill="#334155" text-anchor="middle">line analysis</text><text x="21" y="50" font-size="3" fill="#EC4899" text-anchor="middle">Expensive!</text><rect x="42" y="14" width="34" height="46" rx="2" fill="#3B8700" opacity="0.04" stroke="#3B8700" stroke-width="1"/><text x="59" y="22" font-size="3.5" fill="#3B8700" text-anchor="middle" font-weight="bold">Position RFS</text><text x="59" y="32" font-size="3" fill="#334155" text-anchor="middle">Axis-based</text><text x="59" y="38" font-size="3" fill="#334155" text-anchor="middle">measurement</text><text x="59" y="50" font-size="3" fill="#58CC02" text-anchor="middle">Preferred</text><text x="40" y="72" font-size="3.5" fill="#6B7280" text-anchor="middle">Position preferred for coaxiality</text></svg>',
@@ -1022,9 +1022,9 @@ export const unit9: Unit = {
           question: 'A part has two coaxial bores that together serve as a single datum axis. How is this indicated on the drawing?',
           options: [
             'Assign different datum letters to each bore (A and B) and reference both',
-            'Assign the same datum letter to both bores (e.g., A-A or A on both),',
-            'Only use one bore as the datum and ignore the other',
-            'Use a datum target on each bore'
+            'Assign the same datum letter to both bores (A-A) for a shared axis',
+            'Only use one bore as the datum and ignore the other completely',
+            'Use a datum target on each bore to establish independent references'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4" fill="#334155" text-anchor="middle" font-weight="bold">Common Datum (A-A)</text><rect x="10" y="20" width="60" height="40" rx="2" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1.5"/><circle cx="28" cy="40" r="8" fill="white" stroke="#3B8700" stroke-width="1.5"/><circle cx="52" cy="40" r="8" fill="white" stroke="#3B8700" stroke-width="1.5"/><line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/><polygon points="28,48 26,53 30,53" fill="#3B8700" opacity="0.4"/><text x="28" y="58" font-size="3.5" fill="#3B8700" text-anchor="middle">A</text><polygon points="52,48 50,53 54,53" fill="#3B8700" opacity="0.4"/><text x="52" y="58" font-size="3.5" fill="#3B8700" text-anchor="middle">A</text><text x="40" y="72" font-size="3.5" fill="#6B7280" text-anchor="middle">Same letter = shared axis datum</text></svg>',

@@ -831,10 +831,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the fluid mechanics explanation?',
           options: [
-            'Corrosion',
-            'The water supply pressure has decreased over 30 years due to aging pumps at',
-            'Galvanized steel naturally shrinks over time due to thermal cycling',
-            'Biofilm growth on the pipe walls has made the fluid more viscous, increasing'
+            'Corrosion and deposits increased wall roughness over time',
+            'Water supply pressure decreased due to aging pumps',
+            'Galvanized steel naturally shrinks from thermal cycling',
+            'Biofilm growth on pipe walls increased fluid viscosity'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -846,8 +846,8 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What happens to friction head loss if you halve the pipe diameter while keeping the same flow rate?',
           options: [
-            'Head loss ~32× — velocity up 4× since A ∝ D²',
-            'Head loss doubles due to diameter reduction',
+            'Head loss increases ~32× since V scales as 1/D²',
+            'Head loss doubles due to the diameter reduction',
             'Head loss increases by 4× from diameter change',
             'Head loss increases by 16× from velocity change'
           ],
@@ -871,9 +871,9 @@ export const unit6: Unit = {
           question: 'When is this assumption dangerously wrong?',
           options: [
             'Short, fitting-dense systems where minor losses dominate',
-            'Minor losses are always truly minor — the name is accurate',
+            'Minor losses are always truly minor as the name implies',
             'Only in laminar flow where the friction factor is lower',
-            'Only when the pipe diameter exceeds 300 mm overall'
+            'Only when the pipe diameter exceeds 300 mm in practice'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -885,10 +885,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'For parallel pipe branches, what fundamental constraint determines how flow splits between the branches?',
           options: [
-            'In parallel branches, the head loss must be EQUAL across all branches',
-            'In parallel branches, the flow rate is equal in each branch',
-            'In parallel branches, the velocity must be equal in all branches to satisfy',
-            'There is no constraint — flow distributes randomly in parallel branches'
+            'Head loss must be equal across all parallel branches',
+            'Flow rate is equal in each parallel branch path',
+            'Velocity must be equal in all parallel branches',
+            'No constraint — flow distributes randomly in parallel'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -910,9 +910,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the Reynolds number, and what do the critical values Re = 2300 and Re = 4000 signify for pipe flow?',
           options: [
-            'Re = ρVD/μ = VD/ν is the ratio of inertial to viscous forces. Re < 2300 =',
-            'Re is the ratio of pressure forces to gravity forces. Re < 2300 means the',
-            'Re = V²/ is the ratio of kinetic to potential energy. The critical values',
+            'Re = ρVD/μ: ratio of inertial to viscous forces',
+            'Re is the ratio of pressure forces to gravity forces',
+            'Re = V²/gL: ratio of kinetic to potential energy',
             'Re has no physical meaning in fluid mechanics'
           ],
           correctIndex: 0,

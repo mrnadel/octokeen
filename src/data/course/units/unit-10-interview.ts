@@ -293,9 +293,9 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'Estimate the cooling time for a solid aluminum cylinder (50 mm diameter) quenched in water from 500°C." Which characteristic?',
           options: [
-            'The conduction time scale: t ~ rho*cp*R^2/k',
-            'The radiation time scale based on Stefan-Boltzmann law, verified against',
-            'The cylinder will cool instantly because aluminum has high conductivity',
+            'The conduction/convection time scale: t ~ rho*cp*R^2/k',
+            'The radiation time scale based on the Stefan-Boltzmann law',
+            'The cylinder cools instantly because aluminum has high conductivity',
             'Cooling time equals the mass divided by the heat transfer coefficient'
           ],
           correctIndex: 0,
