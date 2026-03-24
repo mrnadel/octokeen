@@ -369,7 +369,6 @@ export const useCourseStore = create<CourseState>()(
         }
 
         set({
-          activeLesson: null,
           lessonResult: result,
           chapterJustCompleted,
           courseJustCompleted: courseJustCompleted || state.courseJustCompleted,
@@ -389,7 +388,7 @@ export const useCourseStore = create<CourseState>()(
       },
 
       dismissResult: () => {
-        set({ lessonResult: null });
+        set({ lessonResult: null, activeLesson: null });
       },
 
       dismissChapterCompletion: () => {

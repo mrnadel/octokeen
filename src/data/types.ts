@@ -298,10 +298,10 @@ export interface UserProgress {
 // --------------- Content Feedback ---------------
 
 export type ContentFeedbackType = 'question' | 'lesson-question';
-export type FeedbackReason = 'confusing' | 'incorrect' | 'too-easy' | 'too-hard' | 'bad-graphic';
+export type FeedbackReason = 'confusing' | 'incorrect' | 'too-easy' | 'too-hard' | 'bad-graphic' | 'other';
 
 export const VALID_CONTENT_TYPES: ContentFeedbackType[] = ['question', 'lesson-question'];
-export const VALID_REASONS: FeedbackReason[] = ['confusing', 'incorrect', 'too-easy', 'too-hard', 'bad-graphic'];
+export const VALID_REASONS: FeedbackReason[] = ['confusing', 'incorrect', 'too-easy', 'too-hard', 'bad-graphic', 'other'];
 
 export interface UserFlagItem {
   contentType: ContentFeedbackType;

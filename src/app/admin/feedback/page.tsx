@@ -21,6 +21,7 @@ const REASON_LABELS: Record<FeedbackReason, string> = {
   'too-easy': 'Too Easy',
   'too-hard': 'Too Hard',
   'bad-graphic': 'Bad Graphic',
+  other: 'Other',
 };
 
 export default function AdminFeedbackPage() {

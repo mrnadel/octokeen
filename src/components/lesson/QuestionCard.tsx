@@ -35,6 +35,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
     const [selectedBool, setSelectedBool] = useState<boolean | null>(null);
     const [filledBlanks, setFilledBlanks] = useState<(string | null)[]>([]);
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
+    const [activeBlankIdx, setActiveBlankIdx] = useState(0);
 
     // Shuffle MC option display order so correct answer isn't always A
     const shuffledIndices = useMemo(() => {
@@ -76,6 +77,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       setSelectedBool(null);
       setFilledBlanks(new Array(question.blanks?.length ?? 1).fill(null));
       setLocalCorrect(null);
+      setActiveBlankIdx(0);
     }, [question.id, question.blanks?.length]);
 
     const hasSelection = (() => {
@@ -124,16 +126,21 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       if (answered) return;
       setFilledBlanks((prev) => {
         const next = [...prev];
+        // Prefer first empty blank; if all filled, replace active blank
         const emptyIdx = next.findIndex((b) => b === null);
-        if (emptyIdx !== -1) {
-          next[emptyIdx] = word;
-        }
+        const targetIdx = emptyIdx !== -1 ? emptyIdx : activeBlankIdx;
+        next[targetIdx] = word;
+        // Advance active to next blank (wrapping)
+        const nextActive = (targetIdx + 1) % next.length;
+        // Defer state update to avoid nested setState
+        setTimeout(() => setActiveBlankIdx(nextActive), 0);
         return next;
       });
-    }, [answered]);
+    }, [answered, activeBlankIdx]);
 
     const handleBlankTap = useCallback((blankIdx: number) => {
       if (answered) return;
+      setActiveBlankIdx(blankIdx);
       setFilledBlanks((prev) => {
         const next = [...prev];
         next[blankIdx] = null;
@@ -181,7 +188,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         selectWord: (index: number) => {
           if (!answered && question.type === 'fill-blank') {
             const item = availableWords[index];
-            if (item && item.available) {
+            if (item) {
+              // Allow selecting even if word is "used" — it will replace the active blank
               handleWordTap(item.word);
             }
           }
@@ -258,8 +266,11 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                             ? { background: '#D7FFB8', border: '2px solid #58CC02', color: '#58A700' }
                             : { background: '#FFDFE0', border: '2px solid #FF4B4B', color: '#EA2B2B' }
                           : filledBlanks[i]
-                            ? { background: 'white', border: `2.5px solid ${unitColor}`, color: '#3C3C3C' }
-                            : { background: '#F0F0F0', border: '2px dashed #CFCFCF', color: '#CFCFCF' }
+                            ? { background: 'white', border: `2.5px solid ${unitColor}`, color: '#3C3C3C',
+                                ...(i === activeBlankIdx && blankCount > 1 ? { boxShadow: `0 0 0 2px ${unitColor}33` } : {}) }
+                            : { background: i === activeBlankIdx ? '#E8E8FF' : '#F0F0F0',
+                                border: i === activeBlankIdx ? `2px dashed ${unitColor}` : '2px dashed #CFCFCF',
+                                color: '#CFCFCF' }
                         ),
                       }}
                     >
