@@ -192,18 +192,6 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       [handleCheck, hasSelection, answered, question, availableWords, handleWordTap]
     );
 
-    // Debug: log fill-blank question data to help diagnose missing options
-    if (process.env.NODE_ENV === 'development' && question.type === 'fill-blank') {
-      console.log('[QuestionCard] fill-blank question:', question.id, {
-        type: question.type,
-        hasBlanks: 'blanks' in question,
-        blanks: (question as any).blanks,
-        hasWordBank: 'wordBank' in question,
-        wordBank: (question as any).wordBank,
-        keys: Object.keys(question),
-      });
-    }
-
     return (
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
         {/* Question content - top area */}
@@ -460,23 +448,17 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         )}
 
         {/* Fill in the Blank - Word Bank */}
-        {question.type === 'fill-blank' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center' }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#AFAFAF', letterSpacing: 0.5, textTransform: 'uppercase' }}>
-              Tap a word to fill the blank
-            </div>
-            {process.env.NODE_ENV === 'development' && (
-              <div style={{ fontSize: 10, color: 'red', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                wordBank: {JSON.stringify(question.wordBank)} | blanks: {JSON.stringify(question.blanks)} | keys: {Object.keys(question).join(',')}
-              </div>
-            )}
-            <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center' }}>
+        {question.type === 'fill-blank' && question.wordBank && (
+          <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center' }}>
+            <AnimatePresence>
               {availableWords.map(({ word, available }, i) => (
                 <motion.button
                   key={`${word}-${i}`}
                   onClick={() => available && handleWordTap(word)}
                   disabled={answered || !available}
                   whileTap={!answered && available ? { scale: 0.93 } : undefined}
+                  layout
+                  initial={{ opacity: 1, scale: 1 }}
                   animate={{
                     opacity: available ? 1 : 0.35,
                     scale: available ? 1 : 0.95,
@@ -498,7 +480,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                   {word}
                 </motion.button>
               ))}
-            </div>
+            </AnimatePresence>
           </div>
         )}
 
