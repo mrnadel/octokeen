@@ -50,6 +50,12 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, x: 60, scale: 0.9 }}
       transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.6}
+      onDragEnd={(_e, info) => {
+        if (Math.abs(info.offset.x) > 80) onDismiss();
+      }}
       onClick={onDismiss}
       role="status"
       aria-live="polite"
