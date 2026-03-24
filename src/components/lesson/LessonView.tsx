@@ -12,16 +12,48 @@ import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
+import type { CourseQuestion } from '@/data/course/types';
+import type { ContentFeedbackType } from '@/data/types';
+
+/**
+ * Adapter for driving LessonView from an external data source (e.g. practice sessions).
+ * When provided, LessonView uses these values instead of its internal useCourseStore hooks.
+ */
+export interface SessionAdapter {
+  currentQuestion: CourseQuestion;
+  answeredCount: number;
+  totalQuestions: number;
+  isCurrentAnswered: boolean;
+  isLastQuestion: boolean;
+  unitColor: string;
+  theme: { color: string; dark: string; bg: string };
+  isGolden: boolean;
+  /** Handle answer submission + mastery logging for this mode. */
+  submitAnswer: (questionId: string, correct: boolean) => void;
+  nextQuestion: () => void;
+  complete: () => void;
+  /** Direct exit (bypasses confirmation). */
+  exit: () => void;
+  /** Whether any answers exist — determines if exit confirmation shows. */
+  hasAnswers: boolean;
+  flagContentType: ContentFeedbackType;
+  exitLabel: string;
+  exitConfirmTitle: string;
+  exitConfirmMessage: string;
+}
 
 export { LessonView };
-export default function LessonView() {
+export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {}) {
+  // === LESSON-MODE HOOKS (always called — rules of hooks) ===
   const activeLesson = useCourseStore((s) => s.activeLesson);
   const lessonResult = useCourseStore((s) => s.lessonResult);
-  const submitAnswer = useCourseStore((s) => s.submitAnswer);
-  const nextQuestion = useCourseStore((s) => s.nextQuestion);
-  const completeLesson = useCourseStore((s) => s.completeLesson);
-  const exitLesson = useCourseStore((s) => s.exitLesson);
+  const _submitAnswer = useCourseStore((s) => s.submitAnswer);
+  const _nextQuestion = useCourseStore((s) => s.nextQuestion);
+  const _completeLesson = useCourseStore((s) => s.completeLesson);
+  const _exitLesson = useCourseStore((s) => s.exitLesson);
+  const courseData = useCourseStore((s) => s.courseData);
 
+  // === SHARED LOCAL STATE ===
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [showDebugMenu, setShowDebugMenu] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
@@ -31,61 +63,72 @@ export default function LessonView() {
   const questionRef = useRef<QuestionCardHandle>(null);
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
   const syncMastery = useMasteryStore((s) => s.syncToServer);
-  useEffect(() => {
-    if (lessonResult) {
-      syncMastery();
-    }
-  }, [lessonResult, syncMastery]);
 
-  // Lock body scroll while lesson is open so the main page scrollbar doesn't show through
+  // Sync mastery when lesson completes (lesson mode only; practice handles its own)
+  useEffect(() => {
+    if (!adapter && lessonResult) syncMastery();
+  }, [adapter, lessonResult, syncMastery]);
+
+  // Lock body scroll while view is open
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prev; };
   }, []);
 
-  const courseData = useCourseStore((s) => s.courseData);
-
+  // === LESSON-MODE DERIVED DATA ===
   const lessonData = useMemo(() => {
-    if (!activeLesson) return null;
+    if (adapter || !activeLesson) return null;
     const unit = courseData[activeLesson.unitIndex];
     if (!unit) return null;
     const lesson = unit.lessons[activeLesson.lessonIndex];
     if (!lesson) return null;
     return { unit, lesson };
-  }, [activeLesson, courseData]);
+  }, [adapter, activeLesson, courseData]);
 
-  const theme = useMemo(() => {
-    if (!activeLesson) return getUnitTheme(0);
+  const lessonTheme = useMemo(() => {
+    if (adapter || !activeLesson) return getUnitTheme(0);
     return getUnitTheme(activeLesson.unitIndex);
-  }, [activeLesson]);
+  }, [adapter, activeLesson]);
 
-  const sessionQuestions = useMemo(() => {
-    if (!activeLesson || !lessonData) return [];
+  const lessonSessionQuestions = useMemo(() => {
+    if (adapter || !activeLesson || !lessonData) return [];
     const questionMap = new Map(lessonData.lesson.questions.map((q) => [q.id, q]));
     return activeLesson.sessionQuestionIds
       .map((id) => questionMap.get(id))
       .filter(Boolean) as typeof lessonData.lesson.questions;
-  }, [activeLesson, lessonData]);
+  }, [adapter, activeLesson, lessonData]);
 
-  const currentQuestion = useMemo(() => {
-    if (!activeLesson) return null;
-    return sessionQuestions[activeLesson.currentQuestionIndex] ?? null;
-  }, [activeLesson, sessionQuestions]);
+  const lessonCurrentQuestion = useMemo(() => {
+    if (adapter || !activeLesson) return null;
+    return lessonSessionQuestions[activeLesson.currentQuestionIndex] ?? null;
+  }, [adapter, activeLesson, lessonSessionQuestions]);
 
-  const isCurrentAnswered = useMemo(() => {
-    if (!activeLesson || !currentQuestion) return false;
-    return activeLesson.answers.some((a) => a.questionId === currentQuestion.id);
-  }, [activeLesson, currentQuestion]);
+  const lessonIsCurrentAnswered = useMemo(() => {
+    if (adapter || !activeLesson || !lessonCurrentQuestion) return false;
+    return activeLesson.answers.some((a) => a.questionId === lessonCurrentQuestion.id);
+  }, [adapter, activeLesson, lessonCurrentQuestion]);
 
-  const isLastQuestion = useMemo(() => {
-    if (!activeLesson) return false;
-    return activeLesson.currentQuestionIndex >= sessionQuestions.length - 1;
-  }, [activeLesson, sessionQuestions]);
+  const lessonIsLastQuestion = useMemo(() => {
+    if (adapter || !activeLesson) return false;
+    return activeLesson.currentQuestionIndex >= lessonSessionQuestions.length - 1;
+  }, [adapter, activeLesson, lessonSessionQuestions]);
 
-  const answeredCount = activeLesson?.answers.length ?? 0;
-  const totalQuestions = sessionQuestions.length;
+  // === RESOLVED STATE — adapter wins, else lesson-mode ===
+  const currentQuestion = adapter ? adapter.currentQuestion : lessonCurrentQuestion;
+  const answeredCount = adapter ? adapter.answeredCount : (activeLesson?.answers.length ?? 0);
+  const totalQuestions = adapter ? adapter.totalQuestions : lessonSessionQuestions.length;
+  const isCurrentAnswered = adapter ? adapter.isCurrentAnswered : lessonIsCurrentAnswered;
+  const isLastQuestion = adapter ? adapter.isLastQuestion : lessonIsLastQuestion;
+  const unitColor = adapter ? adapter.unitColor : lessonTheme.color;
+  const theme = adapter ? adapter.theme : lessonTheme;
+  const isGolden = adapter ? adapter.isGolden : (activeLesson?.isGolden ?? false);
+  const flagContentType = adapter ? adapter.flagContentType : 'lesson-question';
+  const exitLabel = adapter ? adapter.exitLabel : 'Close lesson';
+  const exitConfirmTitle = adapter ? adapter.exitConfirmTitle : 'Quit lesson?';
+  const exitConfirmMessage = adapter ? adapter.exitConfirmMessage : 'Your progress on this lesson will be lost.';
 
+  // === CALLBACKS ===
   const getCorrectAnswerDisplay = useCallback((): string => {
     if (!currentQuestion) return '';
     switch (currentQuestion.type) {
@@ -103,24 +146,25 @@ export default function LessonView() {
   const handleAnswer = useCallback(
     (correct: boolean) => {
       if (!currentQuestion) return;
-      submitAnswer(currentQuestion.id, correct);
+      if (adapter) {
+        adapter.submitAnswer(currentQuestion.id, correct);
+      } else {
+        _submitAnswer(currentQuestion.id, correct);
+        const topicId = lessonData?.unit.topicId;
+        if (topicId) {
+          addMasteryEvent({
+            questionId: currentQuestion.id,
+            topicId,
+            difficulty: 'intermediate',
+            correct,
+            source: 'course',
+          });
+        }
+      }
       setLastAnswerCorrect(correct);
-      if (correct) {
-        setXpGain(prev => prev + 10);
-      }
-      // Log mastery event if the unit has a topicId
-      const topicId = lessonData?.unit.topicId;
-      if (topicId) {
-        addMasteryEvent({
-          questionId: currentQuestion.id,
-          topicId,
-          difficulty: 'intermediate',
-          correct,
-          source: 'course',
-        });
-      }
+      if (correct) setXpGain((prev) => prev + 10);
     },
-    [currentQuestion, submitAnswer, lessonData, addMasteryEvent]
+    [adapter, currentQuestion, _submitAnswer, lessonData, addMasteryEvent]
   );
 
   const handleSelectionChange = useCallback((value: boolean) => {
@@ -135,34 +179,36 @@ export default function LessonView() {
     setLastAnswerCorrect(null);
     setHasSelection(false);
     if (isLastQuestion) {
-      completeLesson();
+      adapter ? adapter.complete() : _completeLesson();
     } else {
-      nextQuestion();
+      adapter ? adapter.nextQuestion() : _nextQuestion();
     }
-  }, [isLastQuestion, completeLesson, nextQuestion]);
+  }, [adapter, isLastQuestion, _completeLesson, _nextQuestion]);
 
   const handleExitClick = useCallback(() => {
-    if (!activeLesson) return;
-    if (activeLesson.answers.length === 0) {
-      exitLesson();
-      return;
+    if (adapter) {
+      if (!adapter.hasAnswers) { adapter.exit(); return; }
+    } else {
+      if (!activeLesson) return;
+      if (activeLesson.answers.length === 0) { _exitLesson(); return; }
     }
     setShowExitConfirm(true);
-  }, [activeLesson, exitLesson]);
-
-  // Mobile back button triggers same exit flow (with confirmation if answers exist)
-  useBackHandler(!!activeLesson && !lessonResult, handleExitClick);
+  }, [adapter, activeLesson, _exitLesson]);
 
   const handleConfirmExit = useCallback(() => {
     setShowExitConfirm(false);
-    exitLesson();
-  }, [exitLesson]);
+    adapter ? adapter.exit() : _exitLesson();
+  }, [adapter, _exitLesson]);
 
   const handleCancelExit = useCallback(() => {
     setShowExitConfirm(false);
   }, []);
 
-  // Hotkey hint — only show on devices with a physical keyboard (non-touch)
+  // Mobile back button
+  const isActive = adapter ? !!currentQuestion : (!!activeLesson && !lessonResult);
+  useBackHandler(isActive, handleExitClick);
+
+  // Hotkey hint — only on devices with a physical keyboard
   const [showHotkeyHint, setShowHotkeyHint] = useState(false);
   useEffect(() => {
     const hasPointer = window.matchMedia('(pointer: fine)').matches;
@@ -236,7 +282,7 @@ export default function LessonView() {
           } else {
             questionRef.current?.selectOption(idx);
           }
-        } else if (['a', 'b', 'c', 'd'].includes(key)) {
+        } else if (['a', 'b', 'c', 'd', 'e'].includes(key)) {
           questionRef.current?.selectOption(key.charCodeAt(0) - 97);
         } else if (key === 't') {
           questionRef.current?.selectBool(true);
@@ -259,11 +305,9 @@ export default function LessonView() {
     isCalcOpen,
   ]);
 
-  if (lessonResult) return <ResultScreen />;
-
-  if (!activeLesson || !lessonData || !currentQuestion) return null;
-
-  const unitColor = theme.color;
+  // === EARLY RETURNS ===
+  if (!adapter && lessonResult) return <ResultScreen />;
+  if (!currentQuestion) return null;
 
   return (
     <AnimatePresence>
@@ -275,7 +319,7 @@ export default function LessonView() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed inset-0 z-50 flex items-center justify-center"
         role="main"
-        aria-label="Lesson view"
+        aria-label={adapter ? 'Practice view' : 'Lesson view'}
         style={{
           backgroundColor: '#FAFAFA',
           paddingTop: 'env(safe-area-inset-top, 0px)',
@@ -303,14 +347,14 @@ export default function LessonView() {
               border: 'none',
               cursor: 'pointer',
             }}
-            aria-label="Close lesson"
+            aria-label={exitLabel}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M4 4l8 8M12 4l-8 8" stroke="#AFAFAF" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
           </button>
 
-          {activeLesson.isGolden && (
+          {isGolden && (
             <div
               className="flex-shrink-0 flex items-center golden-badge-shimmer"
               style={{
@@ -342,15 +386,15 @@ export default function LessonView() {
           <LessonProgressBar
             current={answeredCount}
             total={totalQuestions}
-            color={activeLesson.isGolden ? '#FFB800' : unitColor}
+            color={isGolden ? '#FFB800' : unitColor}
           />
 
           {/* Debug: skip to end */}
           {process.env.NODE_ENV === 'development' && (
-            <div style={{ position: 'relative' }}>
+            adapter ? (
               <button
-                onClick={() => setShowDebugMenu((v) => !v)}
-                title="Debug: skip lesson"
+                onClick={adapter.complete}
+                title="Debug: skip session"
                 className="flex-shrink-0 transition-transform active:scale-90"
                 style={{
                   width: 28,
@@ -368,63 +412,84 @@ export default function LessonView() {
               >
                 ⏭
               </button>
-              {showDebugMenu && (
-                <div
+            ) : (
+              <div style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setShowDebugMenu((v) => !v)}
+                  title="Debug: skip lesson"
+                  className="flex-shrink-0 transition-transform active:scale-90"
                   style={{
-                    position: 'absolute',
-                    top: 34,
-                    right: 0,
-                    background: '#FFFFFF',
-                    borderRadius: 12,
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                    border: '1px solid #E5E7EB',
-                    padding: 4,
-                    zIndex: 100,
-                    minWidth: 150,
+                    width: 28,
+                    height: 28,
+                    borderRadius: 8,
+                    background: '#FEE2E2',
+                    border: '1px solid #FECACA',
+                    cursor: 'pointer',
+                    fontSize: 12,
+                    lineHeight: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  {[
-                    { label: '✅ Pass (90%)', correct: 9 },
-                    { label: '⚠️ Pass (70%)', correct: 7 },
-                    { label: '❌ Fail (40%)', correct: 4 },
-                    { label: '💎 Flawless', correct: 10 },
-                  ].map(({ label, correct }) => (
-                    <button
-                      key={label}
-                      onClick={() => {
-                        if (!activeLesson) return;
-                        const ids = activeLesson.sessionQuestionIds;
-                        const total = ids.length;
-                        const correctCount = Math.min(correct, total);
-                        // Fill remaining answers to hit target
-                        const alreadyAnswered = activeLesson.answers.length;
-                        for (let i = alreadyAnswered; i < total; i++) {
-                          submitAnswer(ids[i], i < correctCount);
-                        }
-                        setShowDebugMenu(false);
-                        setTimeout(completeLesson, 10);
-                      }}
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        padding: '8px 12px',
-                        fontSize: 13,
-                        fontWeight: 600,
-                        textAlign: 'left',
-                        background: 'transparent',
-                        border: 'none',
-                        borderRadius: 8,
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = '#F3F4F6')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+                  ⏭
+                </button>
+                {showDebugMenu && activeLesson && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 34,
+                      right: 0,
+                      background: '#FFFFFF',
+                      borderRadius: 12,
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                      border: '1px solid #E5E7EB',
+                      padding: 4,
+                      zIndex: 100,
+                      minWidth: 150,
+                    }}
+                  >
+                    {[
+                      { label: '✅ Pass (90%)', correct: 9 },
+                      { label: '⚠️ Pass (70%)', correct: 7 },
+                      { label: '❌ Fail (40%)', correct: 4 },
+                      { label: '💎 Flawless', correct: 10 },
+                    ].map(({ label, correct }) => (
+                      <button
+                        key={label}
+                        onClick={() => {
+                          const ids = activeLesson.sessionQuestionIds;
+                          const total = ids.length;
+                          const correctCount = Math.min(correct, total);
+                          const alreadyAnswered = activeLesson.answers.length;
+                          for (let i = alreadyAnswered; i < total; i++) {
+                            _submitAnswer(ids[i], i < correctCount);
+                          }
+                          setShowDebugMenu(false);
+                          setTimeout(_completeLesson, 10);
+                        }}
+                        style={{
+                          display: 'block',
+                          width: '100%',
+                          padding: '8px 12px',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          textAlign: 'left',
+                          background: 'transparent',
+                          border: 'none',
+                          borderRadius: 8,
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = '#F3F4F6')}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
           )}
 
           <motion.div
@@ -475,7 +540,7 @@ export default function LessonView() {
                   {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
                   {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
                   {currentQuestion?.type === 'fill-blank' && '1\u20139 select word \u00b7 '}
-                  Enter check \u00b7 Esc exit
+                  Enter check · Esc exit
                 </motion.div>
               )}
             </AnimatePresence>
@@ -624,7 +689,7 @@ export default function LessonView() {
                   {currentQuestion.explanation}
                 </p>
               )}
-              <FlagButton contentType="lesson-question" contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />
+              <FlagButton contentType={flagContentType} contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />
             </div>
 
             <button
@@ -701,7 +766,7 @@ export default function LessonView() {
                     marginBottom: 4,
                   }}
                 >
-                  Quit lesson?
+                  {exitConfirmTitle}
                 </p>
                 <p
                   style={{
@@ -711,7 +776,7 @@ export default function LessonView() {
                     marginBottom: 20,
                   }}
                 >
-                  Your progress on this lesson will be lost.
+                  {exitConfirmMessage}
                 </p>
                 <div className="flex" style={{ gap: 12 }}>
                   <button
