@@ -109,7 +109,7 @@ export default function FriendsPage() {
                   <Loader2 className="w-6 h-6 animate-spin text-primary-400" />
                 </div>
               ) : friendsError ? (
-                <div className="card p-8 text-center" style={{ background: '#FEF2F2', borderColor: '#FECACA' }}>
+                <div className="card p-6 sm:p-8 text-center" style={{ background: '#FEF2F2', borderColor: '#FECACA' }}>
                   <div className="flex justify-center mb-3">
                     <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
                       <AlertCircle className="w-6 h-6 text-red-500" />
@@ -128,7 +128,7 @@ export default function FriendsPage() {
                   </button>
                 </div>
               ) : friends.length === 0 ? (
-                <div className="card p-8 text-center" style={{ background: '#EEF2FF', borderColor: '#C7D2FE' }}>
+                <div className="card p-6 sm:p-8 text-center" style={{ background: '#EEF2FF', borderColor: '#C7D2FE' }}>
                   <div className="flex justify-center mb-3">
                     <div className="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center">
                       <Users className="w-8 h-8 text-primary-500" />
@@ -179,7 +179,7 @@ export default function FriendsPage() {
                   </button>
                 </div>
               ) : incoming.length === 0 && outgoing.length === 0 ? (
-                <div className="card p-8 text-center" style={{ background: '#F0FDF4', borderColor: '#BBF7D0' }}>
+                <div className="card p-6 sm:p-8 text-center" style={{ background: '#F0FDF4', borderColor: '#BBF7D0' }}>
                   <div className="flex justify-center mb-3">
                     <span className="text-3xl">✅</span>
                   </div>

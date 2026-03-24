@@ -43,7 +43,7 @@ export function CourseHeader() {
   const streakBtnRef = useRef<HTMLButtonElement>(null);
   const xpBtnRef = useRef<HTMLButtonElement>(null);
   const gemsBtnRef = useRef<HTMLButtonElement>(null);
-  const [popoverPos, setPopoverPos] = useState<{ top: number; arrowRight: number; right: number; width: number } | null>(null);
+  const [popoverPos, setPopoverPos] = useState<{ top: number; left: number; width: number; arrowLeft: number } | null>(null);
 
   const completedCount = Object.keys(progress.completedLessons).length;
   const totalLessons = courseMeta.reduce((s, u) => s + u.lessons.length, 0);
@@ -58,26 +58,28 @@ export function CourseHeader() {
       setPopoverPos(null);
       return;
     }
-    const ref = type === 'streak' ? streakBtnRef : type === 'xp' ? xpBtnRef : type === 'gems' ? gemsBtnRef : null;
+    const ref = type === 'streak' ? streakBtnRef : type === 'xp' ? xpBtnRef : gemsBtnRef;
     const headerEl = headerRef.current;
-    if (headerEl) {
-      const headerRect = headerEl.getBoundingClientRect();
-      const vw = window.innerWidth;
-      const headerRight = vw - headerRect.right + 16;
-      const popoverWidth = Math.min(300, headerRect.width - 32);
-      if (ref?.current) {
-        const btnRect = ref.current.getBoundingClientRect();
-        const btnCenterX = btnRect.left + btnRect.width / 2;
-        const popoverRightEdge = headerRect.right - 16;
-        const arrowRight = popoverRightEdge - btnCenterX - 7;
-        setPopoverPos({
-          top: headerRect.bottom + 10,
-          right: headerRight,
-          width: popoverWidth,
-          arrowRight: Math.max(24, Math.min(arrowRight, popoverWidth - 24)),
-        });
-      }
-    }
+    if (!headerEl || !ref?.current) return;
+
+    const headerRect = headerEl.getBoundingClientRect();
+    const btnRect = ref.current.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const popoverWidth = vw >= 640 ? Math.min(340, vw - 32) : Math.min(300, vw - 32);
+
+    // Center popover under the clicked button, clamped to viewport edges
+    let left = btnCenterX - popoverWidth / 2;
+    left = Math.max(16, Math.min(left, vw - popoverWidth - 16));
+
+    const arrowLeft = btnCenterX - left - 7;
+
+    setPopoverPos({
+      top: headerRect.bottom + 10,
+      left,
+      width: popoverWidth,
+      arrowLeft: Math.max(24, Math.min(arrowLeft, popoverWidth - 24)),
+    });
     setPopover(type);
   };
 
@@ -91,9 +93,9 @@ export function CourseHeader() {
       {/* Header */}
       <header
         ref={headerRef}
-        className="sticky top-0 z-30 bg-[#FAFAFA] px-4 sm:px-5 py-1.5"
+        className="sticky top-0 z-50 bg-[#FAFAFA] px-4 sm:px-5 py-1.5"
       >
-        <div className="flex items-center justify-center" style={{ gap: 4 }}>
+        <div className="flex items-center justify-center gap-1 sm:gap-3">
             <button
               ref={streakBtnRef}
               className="flex items-center transition-all active:scale-95"
@@ -191,9 +193,9 @@ export function CourseHeader() {
       </header>
 
 
-      {/* Popover overlay */}
+      {/* Backdrop — z-40, behind the z-50 header so buttons remain clickable */}
       <AnimatePresence>
-        {popover && popoverPos && (
+        {popover && (
           <motion.div
             key="popover-backdrop"
             className="fixed inset-0 z-40"
@@ -204,43 +206,50 @@ export function CourseHeader() {
             onClick={closePopover}
           >
             <div className="absolute inset-0 bg-black/15" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            <motion.div
-              className="fixed"
+      {/* Popover panel — z-50, sibling of header so it floats above backdrop */}
+      <AnimatePresence>
+        {popover && popoverPos && (
+          <motion.div
+            key="popover-panel"
+            className="fixed z-50"
+            style={{
+              top: popoverPos.top,
+              left: popoverPos.left,
+              width: popoverPos.width,
+              maxWidth: 340,
+              borderRadius: 16,
+              background: 'white',
+              border: '2px solid #E5E5E5',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+              overflow: 'visible',
+            }}
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 400 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Arrow */}
+            <div
               style={{
-                top: popoverPos.top,
-                right: popoverPos.right,
-                width: popoverPos.width,
-                maxWidth: 300,
-                borderRadius: 16,
+                position: 'absolute',
+                top: -8,
+                left: popoverPos.arrowLeft,
+                width: 14,
+                height: 14,
                 background: 'white',
-                border: '2px solid #E5E5E5',
-                boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
-                overflow: 'visible',
+                borderTop: '2px solid #E5E5E5',
+                borderLeft: '2px solid #E5E5E5',
+                transform: 'rotate(45deg)',
               }}
-              initial={{ opacity: 0, y: -8, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.96 }}
-              transition={{ type: 'spring', damping: 26, stiffness: 400 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Arrow */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: -8,
-                  right: popoverPos.arrowRight,
-                  width: 14,
-                  height: 14,
-                  background: 'white',
-                  borderTop: '2px solid #E5E5E5',
-                  borderLeft: '2px solid #E5E5E5',
-                  transform: 'rotate(45deg)',
-                }}
-              />
+            />
 
-              {/* Content */}
-              <div style={{ padding: 20, position: 'relative' }}>
+            {/* Content */}
+            <div style={{ padding: 20, position: 'relative' }}>
                 {popover === 'streak' ? (
                   <div>
                     {/* Header */}
@@ -446,8 +455,7 @@ export function CourseHeader() {
                     </p>
                   </div>
                 )}
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
