@@ -293,6 +293,8 @@ export default function ProfilePage() {
 
   // Resolve equipped cosmetics
   const equippedTitle = gems.selectedTitle ? findTitleById(gems.selectedTitle) : undefined;
+  const equippedTitleItem = gems.selectedTitle ? shopItems.find((i) => i.id === gems.selectedTitle) : null;
+  const equippedTitleGradient = (equippedTitleItem?.metadata?.gradient as string) || null;
   const equippedFrameMeta = gems.selectedFrame ? findFrameById(gems.selectedFrame) : null;
   const equippedFrameStyle = equippedFrameMeta?.frameStyle;
 
@@ -581,7 +583,25 @@ export default function ProfilePage() {
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
               {equippedTitle && (
-                <p className="text-xs font-bold text-amber-300/90 mt-1.5 tracking-wide uppercase">{equippedTitle}</p>
+                <div className="mt-2 flex justify-center">
+                  <span
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-widest"
+                    style={equippedTitleGradient ? {
+                      background: equippedTitleGradient,
+                      color: '#FFFFFF',
+                      textShadow: '0 1px 2px rgba(0,0,0,0.25)',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2)',
+                    } : {
+                      background: 'linear-gradient(135deg, rgba(251,191,36,0.25), rgba(245,158,11,0.3))',
+                      border: '1px solid rgba(251,191,36,0.4)',
+                      color: '#FCD34D',
+                      textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    {equippedTitleItem?.icon && <span className="text-xs">{equippedTitleItem.icon}</span>}
+                    {equippedTitle}
+                  </span>
+                </div>
               )}
               <p className="text-sm text-white/40 mt-1 truncate max-w-[280px] sm:max-w-sm mx-auto">{email}</p>
               <div className="flex items-center justify-center gap-3 mt-2 flex-wrap">
@@ -719,18 +739,18 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Title Selector — pill buttons */}
+            {/* Title Selector */}
             {gems.inventory.activeTitles.length > 0 && (
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Title</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Title</p>
                 <div className="flex flex-wrap gap-2">
                   {/* No title option */}
                   <button
                     onClick={() => useEngagementStore.getState().equipTitle(null)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all"
+                    className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all"
                     style={{
                       background: !gems.selectedTitle ? '#F0FDF4' : '#F9FAFB',
-                      border: !gems.selectedTitle ? '2px solid #F5B800' : '2px solid #E5E7EB',
+                      border: !gems.selectedTitle ? '2px solid #16A34A' : '2px solid #E5E7EB',
                       color: !gems.selectedTitle ? '#16A34A' : '#6B7280',
                     }}
                   >
@@ -740,23 +760,32 @@ export default function ProfilePage() {
                     const titleText = findTitleById(titleId);
                     if (!titleText) return null;
                     const isEquipped = gems.selectedTitle === titleId;
-                    // Find icon from shop or reward
-                    const shopItem = shopItems.find((i) => i.id === titleId);
-                    const icon = shopItem?.icon || '🏅';
+                    const sItem = shopItems.find((i) => i.id === titleId);
+                    const icon = sItem?.icon || '🏅';
+                    const titleGradient = (sItem?.metadata?.gradient as string) || null;
+                    const titleAccent = (sItem?.metadata?.accentColor as string) || '#F59E0B';
                     return (
                       <button
                         key={titleId}
                         onClick={() => useEngagementStore.getState().equipTitle(isEquipped ? null : titleId)}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all"
-                        style={{
-                          background: isEquipped ? '#FFFBEB' : '#F9FAFB',
-                          border: isEquipped ? '2px solid #F59E0B' : '2px solid #E5E7EB',
-                          color: isEquipped ? '#B45309' : '#6B7280',
+                        className="relative flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all overflow-hidden"
+                        style={isEquipped && titleGradient ? {
+                          background: titleGradient,
+                          border: '2px solid transparent',
+                          color: '#FFFFFF',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                          boxShadow: `0 2px 8px ${titleAccent}40`,
+                        } : {
+                          background: titleGradient
+                            ? `linear-gradient(white, white) padding-box, ${titleGradient} border-box`
+                            : '#F9FAFB',
+                          border: titleGradient ? '2px solid transparent' : '2px solid #E5E7EB',
+                          color: titleAccent || '#6B7280',
                         }}
                       >
                         <span>{icon}</span>
                         <span>{titleText}</span>
-                        {isEquipped && <span className="text-amber-500">✓</span>}
+                        {isEquipped && <span className="ml-0.5">✓</span>}
                       </button>
                     );
                   })}
