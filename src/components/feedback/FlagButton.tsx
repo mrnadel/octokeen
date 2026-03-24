@@ -134,7 +134,7 @@ export default function FlagButton({ contentType, contentId, hasGraphic }: Props
   const isFlagged = !!existingReason;
 
   return (
-    <div ref={menuRef} style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+    <div ref={menuRef} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
       <AnimatePresence mode="wait">
         {showConfirm && (
           <motion.span
