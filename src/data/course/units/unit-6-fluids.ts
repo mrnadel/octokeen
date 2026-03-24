@@ -508,10 +508,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'If the pressure difference between inlet and throat is 40 kPa, what is the theoretical flow rate of water?',
           options: [
-            'Apply continuity and Bernoulli to get Q = A₂ × √²))) ≈ 0.027 m³/s',
-            'Q = A₂ × √ ≈ 0.070 m³/s — the area ratio correction is unnecessary for a venturi',
-            'Q = A₁ × √(2ΔP/ρ) ≈ 0.281 m³/s — use inlet area since that is where flow enters',
-            'Q cannot be determined without knowing the pipe length and friction factor'
+            'Apply continuity + Bernoulli: Q ≈ 0.027 m³/s',
+            'Q = A₂√(2ΔP/ρ) ≈ 0.070 m³/s, no area ratio needed',
+            'Q = A₁√(2ΔP/ρ) ≈ 0.281 m³/s, use the inlet area',
+            'Cannot determine Q without pipe length and friction'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Tube fill --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23 L78,57 L62,57 Q50,57 40,48 Q30,57 18,57 L2,57 Z" fill="#58CC02" opacity="0.05"/> <!-- Tube walls — more pronounced throat --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <path d="M2,57 L18,57 Q30,57 40,48 Q50,57 62,57 L78,57" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <!-- Streamlines (converge at throat) --> <path d="M2,30 L18,30 Q30,30 40,36 Q50,30 62,30 L78,30" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,40 L78,40" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,50 L18,50 Q30,50 40,44 Q50,50 62,50 L78,50" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <!-- Flow particles — accelerate through throat via keyPoints --> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.5s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.45"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.3s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.8s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.8s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="2.3s"/> </circle> <!-- Manometer — wide section (x=15): high pressure, tall column --> <line x1="15" y1="23" x2="15" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="12.5" y="7" width="5" height="16" rx="2.5" fill="#58CC02" opacity="0.28"> <animate attributeName="height" values="16;14;16" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — throat (x=40): low pressure, short column --> <line x1="40" y1="32" x2="40" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="9" rx="2.5" fill="#58CC02" opacity="0.13"> <animate attributeName="height" values="9;7;9" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — recovery section (x=65): partial pressure recovery --> <line x1="65" y1="23" x2="65" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="62.5" y="9" width="5" height="14" rx="2.5" fill="#58CC02" opacity="0.22"> <animate attributeName="height" values="14;12;14" dur="3s" repeatCount="indefinite"/> </rect> <!-- Velocity indicator arrows --> <path d="M7,40 L11,40 L11,38.5 L14,40 L11,41.5 L11,40" fill="#3B8700" opacity="0.15"/> <path d="M36,40 L43,40 L43,37.5 L47,40 L43,42.5 L43,40" fill="#3B8700" opacity="0.2"/> <!-- Labels --> <text x="40" y="66" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3">throat</text> <text x="15" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₁</text> <text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₂</text> <text x="65" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₃</text> </svg>',
@@ -523,10 +523,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Why does a venturi meter have a higher discharge coefficient (C_d ≈ 0.98) than an orifice plate (C_d ≈ 0.61)?',
           options: [
-            'The venturi\'s gradual convergence and divergence minimize flow separation',
-            'The venturi meter is always larger than the orifice plate, giving more room',
-            'Orifice plates have higher surface roughness than venturi meters',
-            'Venturi meters use a different pressure measurement technique that is'
+            'The venturi\'s gradual geometry minimizes flow separation',
+            'The venturi meter is larger, giving more room for flow',
+            'Orifice plates have higher surface roughness than venturis',
+            'Venturi meters use a different pressure tap technique'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe walls --> <line x1="4" y1="24" x2="76" y2="24" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="56" x2="76" y2="56" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Orifice plate --> <line x1="40" y1="24" x2="40" y2="34" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/> <line x1="40" y1="46" x2="40" y2="56" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/> <!-- Orifice opening --> <line x1="40" y1="34" x2="40" y2="46" stroke="#3B8700" stroke-width="1" stroke-dasharray="1,2" opacity="0.2"/> <!-- Vena contracta (narrowing flow after orifice) --> <path d="M4,30 L36,30 Q40,34 44,32 Q50,30 56,31 L76,32" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.2"/> <path d="M4,50 L36,50 Q40,46 44,48 Q50,50 56,49 L76,48" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.2"/> <!-- Flow particles (accelerate through orifice) --> <circle r="2.2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,34 L36,34 Q40,37 44,35 L76,34" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear" begin="0.6s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,46 L36,46 Q40,43 44,45 L76,46" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear" begin="1.2s"/> </circle> <!-- Pressure taps --> <line x1="32" y1="24" x2="32" y2="14" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="29.5" y="10" width="5" height="8" rx="2.5" fill="#58CC02" opacity="0.25"/> <line x1="50" y1="24" x2="50" y2="14" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="47.5" y="14" width="5" height="6" rx="2.5" fill="#58CC02" opacity="0.15"/> <!-- ΔP label --> <text x="41" y="10" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">ΔP</text> <!-- Flow arrow --> <polygon points="16,39 20,40 16,41" fill="#3B8700" opacity="0.15"/> </svg>',
@@ -547,10 +547,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'A large open tank drains through a small hole at the bottom, 3 m below the water surface.',
           options: [
-            'V = √ = √ ≈ 7.67 m/s',
+            'V = √(2gh) = √(2 × 9.81 × 3) ≈ 7.67 m/s',
             'V = √(gh) = √(9.81 × 3) ≈ 5.42 m/s',
             'V = 2gh = 2 × 9.81 × 3 = 58.86 m/s',
-            'V = √ — velocity depends on fluid density using standard thermodynamic relations'
+            'V = √(2gh/ρ) — velocity depends on fluid density'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
@@ -562,10 +562,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the continuity equation for steady flow, and how does it relate to the Bernoulli equation?',
           options: [
-            'ρ₁A₁V₁ = ρ₂A₂V₂; incompressible: A₁V₁ = A₂V₂',
-            'P₁A₁ = P₂A₂ — pressure × area is constant',
-            'ρ₁V₁ = ρ₂V₂ — density × velocity is constant',
-            'The continuity equation conserves momentum'
+            'ρ₁A₁V₁ = ρ₂A₂V₂; if incompressible: A₁V₁ = A₂V₂',
+            'P₁A₁ = P₂A₂ — pressure times area is constant',
+            'ρ₁V₁ = ρ₂V₂ — density times velocity is constant',
+            'The continuity equation is a momentum conservation law'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
@@ -601,10 +601,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'If the flow rate is 10 L/s, what is the pressure difference between the hose and the nozzle exit (neglecting losses)?',
           options: [
-            'About 794 kPa — the velocity increases dramatically from 3.01 m/s to 31.8 m/s',
-            'About 50 kPa — a modest pressure drop since water is nearly incompressible',
-            'About 5,000 kPa — the extreme area ratio creates enormous pressure differences',
-            'Zero — by Bernoulli, pressure is constant if the hose is horizontal'
+            'About 794 kPa — large velocity increase through the nozzle',
+            'About 50 kPa — modest drop since water is incompressible',
+            'About 5,000 kPa — extreme area ratio creates huge ΔP',
+            'Zero — by Bernoulli, pressure is constant horizontally'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Nozzle walls (converging-diverging) --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,38 46,32 Q54,22 64,22 L76,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,42 46,48 Q54,58 64,58 L76,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Fill --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58 Z" fill="#58CC02" opacity="0.04"/> <path d="M42,32 Q42,38 42,40 Q42,42 42,48 Q54,58 64,58 L76,58 L76,22 L64,22 Q54,22 42,32 Z" fill="#58CC02" opacity="0.03"/> <!-- Throat marker --> <line x1="42" y1="32" x2="42" y2="48" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="42" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">throat</text> <!-- Flow particles (accelerate through converging, supersonic in diverging) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,34 L20,34 Q30,34 38,37 Q42,39 46,37 Q54,34 64,34 L76,34" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="0.5s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,46 L20,46 Q30,46 38,43 Q42,41 46,43 Q54,46 64,46 L76,46" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="1s"/> </circle> <!-- Mach labels --> <text x="16" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&lt;1</text> <text x="42" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M=1</text> <text x="66" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&gt;1</text> </svg>',
@@ -616,9 +616,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between the EGL and HGL at any point in a pipe system?',
           options: [
-            'Difference equals velocity head V²/(2g) — EGL has KE',
-            'Difference equals the friction head loss at that point',
-            'The difference equals the elevation head z value',
+            'Difference equals the velocity head V²/(2g)',
+            'Difference equals friction head loss at that point',
+            'Difference equals the elevation head z at that point',
             'They are the same line in constant-diameter pipes'
           ],
           correctIndex: 0,
@@ -2045,4 +2045,4 @@ export const unit6: Unit = {
     }
   ]
 };
-                                                  
+           

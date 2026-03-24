@@ -333,10 +333,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'An interviewer gives you a Fermi problem: "How much does the Eiffel Tower weigh?" How should you approach this estimate?',
           options: [
-            'Estimate the volume of steel structure (approximate as a tapered lattice, ~25%',
-            'Look up the answer — Fermi problems are really memory tests',
-            'Multiply the height by the base area and the density of steel',
-            'Estimate based on the number of rivets used in construction'
+            'Approximate as a tapered lattice, estimate steel volume fraction (~2-5%)',
+            'Look up the answer — Fermi problems are really just memory tests',
+            'Multiply the height by the base area and the full density of steel',
+            'Estimate based on the number of rivets used in the construction'
 
           ],
           correctIndex: 0,
@@ -349,10 +349,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'Estimate whether a standard forklift (rated 2 tonnes) can lift a 1.5 m x 1.5 m x 1.5 m cube of solid oak wood. Can it?',
           options: [
-            'Yes — wood is light, so the cube weighs well under 2 tonnes',
-            'Yes — any cube that fits on the forks weighs less than 2 tonnes',
-            'It depends on the moisture content and nothing else',
-            'No — the cube weighs roughly 2.3 tonnes, exceeding the forklift capacity'
+            'Yes — wood is light, so the cube weighs well under 2 tonnes easily',
+            'Yes — any cube that fits on the forks will weigh less than 2 tonnes',
+            'Depends entirely on the moisture content and species subspecies',
+            'No — the cube weighs roughly 2.3 tonnes, exceeding the 2-tonne limit'
 
           ],
           correctIndex: 3,
@@ -400,10 +400,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'If I double the rotational speed of a centrifugal pump, what happens to the flow rate, head, and power?" What scaling laws apply?',
           options: [
-            'All three double, without considering time-dependent effects',
-            'Flow doubles, head quadruples',
-            'Flow doubles, head stays the same, power doubles',
-            'All three quadruple because of the V^2 term in the energy equation'
+            'All three double proportionally with the speed increase',
+            'Flow doubles, head quadruples, power increases eightfold',
+            'Flow doubles, head stays the same, power doubles linearly',
+            'All three quadruple due to the V^2 term in energy equation'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
@@ -439,10 +439,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'A rotating shaft fracture surface shows a smooth, flat region with beach marks covering 80% of the cross-section, and a rough,?',
           options: [
-            'Fatigue failure under relatively low stress',
-            'Sudden overload failure under high stress — the part was undersized for the load',
-            'Hydrogen embrittlement — the smooth region is the embrittled zone, though',
-            'Stress corrosion cracking — the beach marks indicate cyclic environmental'
+            'Fatigue failure under relatively low stress with gradual crack growth',
+            'Sudden overload failure — the part was undersized for the applied load',
+            'Hydrogen embrittlement — the smooth region is the embrittled zone',
+            'Stress corrosion cracking — beach marks indicate cyclic environment'
 
           ],
           correctIndex: 0,
@@ -455,10 +455,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'What is the most likely failure mechanism?',
           options: [
-            'General corrosion — switch to a thicker pipe wall',
+            'General corrosion — switch to a thicker pipe wall for longer life',
             'Fatigue cracking from pressure cycles — reduce operating pressure',
-            'Stress corrosion cracking (SCC) — three required factors are present:',
-            'Erosion-corrosion from high flow velocity — reduce flow rate'
+            'Stress corrosion cracking — susceptible material, stress, and environment',
+            'Erosion-corrosion from high flow velocity — reduce the flow rate'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="32" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="10" y="24" width="60" height="32" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M30,24 L30,56" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/> <path d="M50,24 Q42,40 50,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="d" values="M50,24 Q48,40 50,56;M50,24 Q42,40 50,56;M50,24 Q48,40 50,56" dur="3s" repeatCount="indefinite"/> </path> <g opacity="0.3"> <line x1="50" y1="40" x2="56" y2="36" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="56" y2="44" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="44" y2="36" stroke="#A5E86C" stroke-width="1"/> <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/> </g> <line x1="4" y1="40" x2="10" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="5,38.5 2,40 5,41.5" fill="#3B8700" opacity="0.3"/> <line x1="70" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="75,38.5 78,40 75,41.5" fill="#3B8700" opacity="0.3"/> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">crack propagation</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure analysis</text> </svg>',
