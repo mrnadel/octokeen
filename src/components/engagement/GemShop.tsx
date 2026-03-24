@@ -144,6 +144,143 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
   );
 });
 
+// ─── Title Card — visually rich card for title cosmetics ───
+const TitleCard = memo(function TitleCard({ item, canAfford, isDisabled, disabledReason, isOwned, isEquipped, onBuy, onToggleEquip }: ShopCardProps) {
+  const meta = item.metadata || {};
+  const gradient = (meta.gradient as string) || 'linear-gradient(135deg, #7C3AED, #A855F7)';
+  const accentColor = (meta.accentColor as string) || '#A855F7';
+  const glowColor = (meta.glowColor as string) || 'rgba(168,85,247,0.35)';
+  const bgPattern = (meta.bgPattern as string) || '';
+  const titleText = (meta.titleText as string) || item.name;
+
+  return (
+    <div
+      className="relative rounded-2xl border overflow-hidden flex flex-col"
+      style={{
+        borderColor: isEquipped ? accentColor : '#E5E7EB',
+        boxShadow: isEquipped
+          ? `0 0 0 1px ${accentColor}33, 0 4px 20px ${glowColor}`
+          : '0 1px 3px rgba(0,0,0,0.06)',
+      }}
+    >
+      {/* Top section — gradient banner with title preview */}
+      <div
+        className="relative px-4 pt-5 pb-6 flex flex-col items-center justify-center overflow-hidden"
+        style={{ background: bgPattern ? `${bgPattern}, ${gradient}` : gradient }}
+      >
+        {/* Shimmer overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 55%, transparent 60%)',
+            backgroundSize: '200% 100%',
+            animation: 'titleShimmer 3s ease-in-out infinite',
+          }}
+        />
+
+        {/* Icon floating above */}
+        <span className="text-3xl mb-2 drop-shadow-lg relative z-10">{item.icon}</span>
+
+        {/* Title badge preview */}
+        <div className="relative z-10">
+          <div
+            className="px-5 py-1.5 rounded-full text-sm font-extrabold tracking-wide"
+            style={{
+              background: 'rgba(255,255,255,0.2)',
+              backdropFilter: 'blur(8px)',
+              color: '#FFFFFF',
+              border: '1px solid rgba(255,255,255,0.3)',
+              textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {titleText}
+          </div>
+        </div>
+
+        {/* Equipped indicator */}
+        {isEquipped && (
+          <div
+            className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider"
+            style={{
+              background: 'rgba(255,255,255,0.25)',
+              backdropFilter: 'blur(8px)',
+              color: '#FFFFFF',
+              border: '1px solid rgba(255,255,255,0.3)',
+            }}
+          >
+            Active
+          </div>
+        )}
+      </div>
+
+      {/* Bottom section — info + actions */}
+      <div className="bg-white px-4 py-3 flex flex-col gap-2">
+        <div>
+          <h3 className="text-sm font-bold text-gray-800">{item.name}</h3>
+          <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">{item.description}</p>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <span className="text-base">💎</span>
+            <span className="text-sm font-extrabold text-violet-700">{item.cost}</span>
+          </div>
+
+          <div className="relative group">
+            {isOwned ? (
+              <button
+                onClick={() => onToggleEquip(item.id)}
+                className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]"
+                style={{
+                  background: isEquipped ? `${accentColor}18` : '#F0FDF4',
+                  color: isEquipped ? accentColor : '#16A34A',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {isEquipped ? 'Unequip' : 'Equip'}
+              </button>
+            ) : (
+              <button
+                onClick={() => !isDisabled && onBuy(item.id)}
+                disabled={isDisabled}
+                className="px-4 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]"
+                style={{
+                  background: isDisabled ? '#F3F4F6' : accentColor,
+                  color: isDisabled ? '#9CA3AF' : '#FFFFFF',
+                  border: 'none',
+                  cursor: isDisabled ? 'not-allowed' : 'pointer',
+                  boxShadow: isDisabled ? 'none' : `0 2px 0 ${accentColor}CC`,
+                }}
+              >
+                Buy
+              </button>
+            )}
+
+            {isDisabled && disabledReason && !isOwned && (
+              <div
+                className="absolute bottom-full right-0 mb-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10"
+                style={{ background: '#1F2937' }}
+              >
+                {disabledReason}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Keyframe animation for shimmer */}
+      <style>{`
+        @keyframes titleShimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}</style>
+    </div>
+  );
+});
+
 export function GemShop() {
   const gems = useGems();
   const streak = useStreakEnhancements();
@@ -282,7 +419,24 @@ export function GemShop() {
       {/* Titles */}
       <div>
         <h3 className="text-sm font-extrabold text-gray-500 uppercase tracking-wider mb-3">Titles</h3>
-        {renderGrid(titles)}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {titles.map((item) => {
+            const { isOwned, isEquipped, isDisabled, disabledReason, canAfford } = getItemState(item);
+            return (
+              <TitleCard
+                key={item.id}
+                item={item}
+                isOwned={isOwned}
+                isEquipped={isEquipped}
+                isDisabled={isDisabled}
+                disabledReason={disabledReason}
+                canAfford={canAfford}
+                onBuy={handleBuy}
+                onToggleEquip={handleToggleEquip}
+              />
+            );
+          })}
+        </div>
       </div>
 
       {/* Success toasts */}

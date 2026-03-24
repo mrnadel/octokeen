@@ -1874,10 +1874,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'In which engineering applications is matching the Weber number important?',
           options: [
-            'Spray atomization, fuel injection, ink-jet printing, droplet formation',
-            'Only in microfluidics — Weber number is irrelevant for macro-scale engineering',
-            'Pipe flow design — surface tension affects friction factor in all pipes',
-            'Heat exchanger design — surface tension determines the heat transfer coefficient'
+            'Spray atomization, fuel injection, and droplet formation',
+            'Only microfluidics — Weber is irrelevant at macro scale',
+            'Pipe flow — surface tension affects friction in all pipes',
+            'Heat exchangers — surface tension sets the heat transfer'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Vortex streamlines (concentric spirals) --> <circle cx="40" cy="40" r="28" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="3,4" fill="none" opacity="0.12"/> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="2.5,3.5" fill="none" opacity="0.15"/> <circle cx="40" cy="40" r="12" stroke="#58CC02" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.18"/> <circle cx="40" cy="40" r="5" stroke="#3B8700" stroke-width="0.8" fill="none" opacity="0.2"/> <!-- Vortex core --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- Rotating flow particles (faster near center) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="1s" repeatCount="indefinite" path="M45,40 Q45,35 40,35 Q35,35 35,40 Q35,45 40,45 Q45,45 45,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M52,40 Q52,28 40,28 Q28,28 28,40 Q28,52 40,52 Q52,52 52,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.25"> <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s" path="M60,40 Q60,20 40,20 Q20,20 20,40 Q20,60 40,60 Q60,60 60,40"/> </circle> <circle r="1.3" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" begin="1s" path="M68,40 Q68,12 40,12 Q12,12 12,40 Q12,68 40,68 Q68,68 68,40"/> </circle> <!-- Velocity arrows (tangential, faster near center) --> <polygon points="45,34 48,35 45,36" fill="#3B8700" opacity="0.2"/> <polygon points="53,26 56,28 52,29" fill="#58CC02" opacity="0.15"/> <!-- Circulation label --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">Γ = ∮v·ds</text> </svg>',
@@ -1898,10 +1898,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'When performing dimensional analysis, why is it important that the dependent variable is NOT chosen as a repeating?',
           options: [
-            'Dependent variable as repeating appears in every Pi',
-            'Dependent variable must be excluded from the analysis',
-            'Repeating variables must all be dimensionless values',
-            'There is no such rule — the dependent variable can be a repeating variable'
+            'It would appear in every Pi group, hiding the result',
+            'The dependent variable must be fully excluded from analysis',
+            'Repeating variables must always be dimensionless values',
+            'No such rule exists — any variable can be repeating'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -1913,10 +1913,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between a prototype and a model in the context of similitude and dimensional analysis?',
           options: [
-            'The prototype is the full-scale real system. The model is a scaled version',
+            'Prototype is the full-scale system; model is scaled',
             'The prototype is always smaller than the model',
-            'There is no distinction — prototype and model are interchangeable terms',
-            'The prototype is a computer simulation; the model is the physical test article'
+            'No distinction — prototype and model are the same',
+            'Prototype is a simulation; model is the physical test'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
@@ -1937,10 +1937,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'How many Pi groups result from this analysis?',
           options: [
-            '7 variables − 3 dimensions = 4 Pi groups: ΔP/, L/D, Re = ρVD/μ',
-            '7 − 3 = 4, but one group is trivial, leaving 3 effective groups',
-            '7 − 4 = 3 Pi groups, based on standard thermodynamic reasoning',
-            '2 Pi groups, because many variables are redundant'
+            '7 − 3 = 4 Pi groups including Re, L/D, and ε/D',
+            '7 − 3 = 4, but one is trivial leaving 3 groups',
+            '7 − 4 = 3 Pi groups from thermodynamic reasoning',
+            '2 Pi groups, since many variables are redundant'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -1952,10 +1952,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'In open channel flow, what is the physical significance of Froude number Fr = 1?',
           options: [
-            'Fr = 1 is the critical condition',
-            'Fr = 1 means the flow is transitioning from laminar to turbulent',
-            'Fr = 1 means gravitational and viscous forces are exactly balanced',
-            'Fr = 1 indicates that the flow has reached maximum possible velocity in the'
+            'Fr = 1 is the critical flow condition (V = wave speed)',
+            'Fr = 1 means transition from laminar to turbulent flow',
+            'Fr = 1 means gravity and viscous forces are balanced',
+            'Fr = 1 means the flow has reached maximum velocity'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M5,45 Q20,35 40,45 Q60,55 75,45" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.5"/><rect x="10" y="55" width="60" height="15" fill="#A5E86C" opacity="0.06"/><line x1="10" y1="55" x2="70" y2="55" stroke="#3B8700" stroke-width="1.5"/><line x1="40" y1="30" x2="40" y2="55" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3"/><text x="44" y="43" font-size="3.5" fill="#3B8700" opacity="0.5">y</text><line x1="20" y1="45" x2="35" y2="45" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="33,43.5 37,45 33,46.5" fill="#58CC02" opacity="0.4"/><text x="25" y="42" font-size="3" fill="#58CC02" opacity="0.5">V</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">Fr = V/sqrt(gy)</text></svg>',
@@ -1978,8 +1978,8 @@ export const unit6: Unit = {
           question: 'A chemical engineer wants to scale up a stirred tank reactor from a 0.5 m diameter laboratory model to a 2.',
           options: [
             'Impeller Re, power number, and flow number are key',
-            'Only the Reynolds number matters — all other groups are derived from it',
-            'Froude number is the only important parameter here',
+            'Only Re matters — all other groups derive from it',
+            'Froude number is the only important parameter',
             'No dimensional analysis is needed for stirred tanks'
           ],
           correctIndex: 0,
@@ -1992,10 +1992,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between "repeating the Buckingham Pi method" and "inspecting" to find dimensionless groups?',
           options: [
-            'Buckingham method systematically forms Pi groups',
-            'Formal method gives more groups than inspection',
+            'Buckingham is systematic; inspection uses experience',
+            'The formal method gives more groups than inspection',
             'Inspection only works for simple 2-3 variable cases',
-            'The formal method is always wrong in practice'
+            'The formal Buckingham method is always wrong in use'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -2016,10 +2016,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Why is this sometimes necessary?',
           options: [
-            'Same horizontal and vertical scale causes issues',
-            'Distorted models are cheaper to build overall',
-            'Distortion is needed for proper flow modeling',
-            'Distorted models are never used in real practice'
+            'Same H and V scale makes depth too shallow to measure',
+            'Distorted models are cheaper to build in practice',
+            'Distortion is required for proper flow modeling only',
+            'Distorted models are never used in real engineering'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
@@ -2031,10 +2031,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What causes this "drag crisis," and how does it relate to dimensional analysis?',
           options: [
-            'The boundary layer transitions from laminar to turbulent at this Re',
-            'The sphere begins to deform at high velocity, becoming more streamlined',
-            'Compressibility effects cause the drag to drop at this specific Reynolds number',
-            'The drag crisis is an artifact of measurement errors and does not actually occur'
+            'Boundary layer transitions from laminar to turbulent at this Re',
+            'The sphere deforms at high velocity, becoming more streamlined',
+            'Compressibility effects cause drag to drop at this Reynolds number',
+            'The drag crisis is a measurement artifact that does not really occur'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -2045,4 +2045,3 @@ export const unit6: Unit = {
     }
   ]
 };
-                           

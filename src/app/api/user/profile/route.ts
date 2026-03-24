@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { users, accounts } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
 // ─── Limits ──────────────────────────────────────────────────
@@ -20,8 +20,16 @@ export async function GET() {
     .where(eq(users.id, userId))
     .limit(1);
 
+  // Check if user has a credentials (email/password) account vs OAuth-only
+  const oauthAccounts = await db
+    .select({ provider: accounts.provider })
+    .from(accounts)
+    .where(eq(accounts.userId, userId));
+
+  const isOAuthOnly = oauthAccounts.length > 0 && !user?.passwordHash;
+
   return NextResponse.json({
-    hasPassword: !!user?.passwordHash,
+    hasPassword: !isOAuthOnly && !!user?.passwordHash,
   });
 }
 

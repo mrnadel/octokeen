@@ -41,7 +41,13 @@ export const shopItems: ShopItem[] = [
     cost: 20,
     category: 'cosmetic',
     type: 'title',
-    metadata: { titleText: 'Thermal King' },
+    metadata: {
+      titleText: 'Thermal King',
+      gradient: 'linear-gradient(135deg, #FF6B35, #F7931E, #FFD700)',
+      accentColor: '#F7931E',
+      glowColor: 'rgba(247,147,30,0.35)',
+      bgPattern: 'radial-gradient(circle at 80% 20%, rgba(255,215,0,0.15) 0%, transparent 50%)',
+    },
   },
   {
     id: 'shop-title-stress-master',
@@ -51,7 +57,13 @@ export const shopItems: ShopItem[] = [
     cost: 20,
     category: 'cosmetic',
     type: 'title',
-    metadata: { titleText: 'Stress Master' },
+    metadata: {
+      titleText: 'Stress Master',
+      gradient: 'linear-gradient(135deg, #7C3AED, #A855F7, #C084FC)',
+      accentColor: '#A855F7',
+      glowColor: 'rgba(168,85,247,0.35)',
+      bgPattern: 'radial-gradient(circle at 20% 80%, rgba(168,85,247,0.12) 0%, transparent 50%)',
+    },
   },
   {
     id: 'shop-title-flow-guru',
@@ -61,7 +73,13 @@ export const shopItems: ShopItem[] = [
     cost: 20,
     category: 'cosmetic',
     type: 'title',
-    metadata: { titleText: 'Flow Guru' },
+    metadata: {
+      titleText: 'Flow Guru',
+      gradient: 'linear-gradient(135deg, #0EA5E9, #06B6D4, #2DD4BF)',
+      accentColor: '#06B6D4',
+      glowColor: 'rgba(6,182,212,0.35)',
+      bgPattern: 'radial-gradient(circle at 70% 30%, rgba(6,182,212,0.12) 0%, transparent 50%)',
+    },
   },
 
   // --------------- Frames — Common ---------------
