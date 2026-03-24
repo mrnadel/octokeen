@@ -775,9 +775,9 @@ export const lesson4: Lesson = {
       question: 'You are using a spirit level inside an elevator that is accelerating upward. How does the accelerating reference frame affect the level\'s reading?',
       options: [
         'The bubble becomes unstable and oscillates randomly in the vial',
-        'The level reads correctly — vertical acceleration does not affect lateral equilibrium',
-        'The bubble moves to one end of the vial, giving a false tilt reading',
-        'The bubble shrinks due to increased effective pressure and becomes unreadable',
+        'The level reads correctly — vertical acceleration doesn\'t affect it',
+        'The bubble shifts to one end, giving a false tilt reading',
+        'The bubble shrinks under increased effective pressure in the vial',
       ],
       correctIndex: 1,
       explanation: 'Uniform upward acceleration effectively increases the apparent gravitational acceleration (g_eff = g + a), but does not change what "horizontal" means. The bubble still seeks the highest point, and a level surface remains level. However, if the elevator accelerates laterally (e.g., turning in a vehicle), the apparent gravity vector tilts, and the level gives a false reading. This distinction between translational and directional acceleration is crucial in inertial navigation and accelerometer design.',
@@ -785,4 +785,3 @@ export const lesson4: Lesson = {
     },
   ],
 };
-                      

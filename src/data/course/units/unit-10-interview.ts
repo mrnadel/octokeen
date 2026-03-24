@@ -479,9 +479,9 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'Walk me through how you would approach debugging a product that fails intermittently in the field but works fine in the lab.',
           options: [
-            'Replicate field conditions in the lab (temperature, humidity, vibration, duty',
+            'Replicate field conditions in the lab: temperature, humidity, vibration, duty',
             'The field failures are user error — provide better training documentation',
-            'Increase the safety factor by 50% and ship the updated design',
+            'Increase the safety factor by 50% and ship an updated design immediately',
             'Add more sensors to the product and wait for more field data before acting'
 
           ],
@@ -520,10 +520,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'The fracture surface shows intergranular cracking with voids along grain boundaries. What failure mechanism is this?',
           options: [
-            'Fatigue failure from cyclic thermal loading, independent of strain rate',
-            'Creep rupture — time-dependent deformation at elevated temperature under',
-            'Brittle fracture from a manufacturing defect — a secondary effect only',
-            'Hydrogen embrittlement from the high-temperature environment'
+            'Fatigue failure from cyclic thermal loading over extended service life',
+            'Creep rupture — time-dependent deformation at elevated temperature',
+            'Brittle fracture from an initial manufacturing defect in the casting',
+            'Hydrogen embrittlement from exposure to the high-temperature environment'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="6" y="36" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <!-- Creep curve: instantaneous → primary → secondary (steady) → tertiary → rupture --> <path d="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"> <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Region separators (dashed verticals) --> <line x1="18" y1="36" x2="18" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.1;0.15;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <line x1="50" y1="26" x2="50" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.38;0.42;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Region labels --> <text x="12" y="72" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.06;0.1;0.82;1" dur="6s" repeatCount="indefinite"/>I</text> <text x="32" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.18;0.22;0.82;1" dur="6s" repeatCount="indefinite"/>II (steady)</text> <text x="58" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.42;0.46;0.82;1" dur="6s" repeatCount="indefinite"/>III</text> <!-- Rupture X --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.5;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="63" y1="9" x2="69" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="69" y1="9" x2="63" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> </g> <!-- Tracing dot --> <circle r="3" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> </svg>',
@@ -535,10 +535,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'There are no beach marks. What type of failure is this?',
           options: [
-            'Brittle overload fracture — the chevron pattern indicates fast fracture from',
-            'Fatigue failure with a very short crack propagation phase',
-            'Wear-induced failure from insufficient lubrication, within the elastic regime',
-            'Thermal shock cracking from rapid temperature change — a plausible'
+            'Brittle overload fracture — chevron pattern indicates fast fracture',
+            'Fatigue failure with a very short crack propagation phase only',
+            'Wear-induced failure from insufficient lubrication at the surface',
+            'Thermal shock cracking from rapid temperature change in service'
 
           ],
           correctIndex: 0,
@@ -560,10 +560,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'Cracks initiated at the weld toe. What combination of factors most likely caused this failure?',
           options: [
-            'Pure mechanical overload from wind loading exceeding the design limit —',
-            'Creep failure from sustained loading at ambient temperature',
-            'Manufacturing defect in the base metal that was present from day one',
-            'Corrosion fatigue: cyclic loading (wind, waves, thermal) combined with'
+            'Pure mechanical overload from wind loading exceeding design limit',
+            'Creep failure from sustained loading at ambient temperature only',
+            'Manufacturing defect in the base metal present since fabrication',
+            'Corrosion fatigue: cyclic loading combined with saltwater environment'
 
           ],
           correctIndex: 3,
@@ -576,10 +576,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'The component was in contact with a cleaning solvent. What mechanism does this suggest?',
           options: [
-            'UV degradation from sunlight exposure',
-            'Thermal degradation from overheating during molding, valid only for isotropic',
-            'Environmental stress cracking (ESC) — the solvent weakened the polymer under',
-            'Normal fatigue failure unrelated to the solvent — valid for textbook problems'
+            'UV degradation from prolonged sunlight exposure over time',
+            'Thermal degradation from overheating during the molding process',
+            'Environmental stress cracking — solvent weakened the stressed polymer',
+            'Normal fatigue failure completely unrelated to solvent exposure'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Support anvil --> <rect x="24" y="48" width="32" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Support spans --> <rect x="26" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <rect x="50" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <!-- Specimen (notched bar) --> <rect x="28" y="40" width="24" height="4" rx="0.3" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- V-notch --> <path d="M39,40 L40,42 L41,40" stroke-width="0.5" stroke="#A5E86C"/> <!-- Pendulum arm --> <g> <line x1="40" y1="10" x2="40" y2="40" stroke-width="0.8" stroke="#58CC02"/> <!-- Hammer head --> <rect x="36" y="36" width="8" height="5" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="-60,40,10;0,40,10;40,40,10;0,40,10;-60,40,10" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1"/> </g> <!-- Pivot point --> <circle cx="40" cy="10" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <!-- Angle scale arc --> <path d="M20,10 A20,20 0 0,1 60,10" stroke-width="0.3" stroke="#3B8700" opacity="0.2" fill="none"/> <!-- Angle markings --> <g stroke="#3B8700" stroke-width="0.2" opacity="0.2"> <line x1="20" y1="10" x2="22" y2="12"/><line x1="28" y1="4" x2="29" y2="7"/> <line x1="40" y1="2" x2="40" y2="5"/><line x1="52" y1="4" x2="51" y2="7"/> <line x1="60" y1="10" x2="58" y2="12"/> </g> <!-- Height labels --> <text x="14" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₁</text> <text x="62" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₂</text> <!-- Energy formula --> <text x="40" y="62" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">E = mg(h₁−h₂)</text> <!-- Ground --> <line x1="10" y1="54" x2="70" y2="54" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">impact toughness</text> </svg>',
@@ -591,10 +591,10 @@ export const unit10: Unit = {
           type: 'multiple-choice',
           question: 'Which feature on the fracture surface best distinguishes the two?',
           options: [
-            'Overload shows significant necking and cup-cone shape (ductile) or chevrons',
-            'The color of the fracture surface — fatigue is always dark, overload is bright',
-            'Fatigue fractures always occur at the head, overload always at the threads',
-            'There is no way to distinguish them without chemical analysis'
+            'Overload shows necking, cup-cone (ductile), or chevrons (brittle)',
+            'The color of the fracture surface distinguishes them definitively',
+            'Fatigue always occurs at the head, overload always at the threads',
+            'There is no way to distinguish them without full chemical analysis'
 
           ],
           correctIndex: 0,
@@ -618,8 +618,8 @@ export const unit10: Unit = {
           question: 'Metallographic examination shows graphitization in the affected zone. What caused this?',
           options: [
             'Excessive pressure caused the pipe to split along its length',
-            'External corrosion thinned the wall until it could no longer hold pressure,',
-            'Poor welding technique introduced a longitudinal defect during fabrication,',
+            'External corrosion thinned the wall until it could not hold pressure',
+            'Poor welding technique introduced a longitudinal defect at fabrication',
             'Long-term high-temperature exposure caused microstructural degradation'
 
           ],

@@ -967,10 +967,10 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What is a datum simulator, and why is it important?',
           options: [
-            'A computer program that calculates datums from CMM data',
-            'The physical equipment (surface plate, gauge pin, chuck, fixture)',
-            'A software tool for designing datum reference frames',
-            'An alternate name for the datum feature itself, provided all secondary effects'
+            'A computer program that calculates datums from CMM point cloud data',
+            'Physical equipment (surface plate, gauge pin, chuck) that embodies datums',
+            'A software tool used for designing datum reference frames in CAD',
+            'An alternate name for the datum feature itself on the actual part'
           ],
           correctIndex: 1,
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4" fill="#334155" text-anchor="middle" font-weight="bold">Datum Simulator</text><rect x="10" y="50" width="60" height="8" rx="1" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1.5"/><text x="40" y="56" font-size="3.5" fill="#3B8700" text-anchor="middle">Surface Plate</text><rect x="20" y="30" width="40" height="20" rx="2" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1"/><text x="40" y="42" font-size="3.5" fill="#334155" text-anchor="middle">Part</text><circle cx="28" cy="50" r="1" fill="#58CC02"/><circle cx="40" cy="50" r="1" fill="#58CC02"/><circle cx="52" cy="50" r="1" fill="#58CC02"/><text x="40" y="68" font-size="3.5" fill="#6B7280" text-anchor="middle">Physical equipment simulates</text><text x="40" y="76" font-size="3.5" fill="#6B7280" text-anchor="middle">theoretical datum planes</text></svg>',
@@ -997,8 +997,8 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'What are datum targets, and when are they preferred over full-surface datum features?',
           options: [
-            'Datum targets are tight tolerances applied to datum surfaces',
-            'Datum targets are specific points, lines, or areas on a datum feature used',
+            'Datum targets are tight tolerances applied to datum surfaces directly',
+            'Datum targets are specific points, lines, or areas for datum contact',
             'Datum targets are used only for secondary and tertiary datums',
             'Datum targets are the tolerance values assigned to datum features'
           ],
