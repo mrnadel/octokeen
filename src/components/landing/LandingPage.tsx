@@ -230,9 +230,9 @@ export function LandingPage() {
               gap: 32, marginTop: 40, flexWrap: 'wrap',
             }}>
               {[
-                { num: '11', label: 'Units' },
-                { num: '1,500+', label: 'Questions' },
-                { num: '11', label: 'Question Types' },
+                { num: `${PROFESSIONS.length}`, label: 'Professions' },
+                { num: `${PROFESSIONS.reduce((sum, p) => sum + p.questionCount, 0).toLocaleString()}+`, label: 'Questions' },
+                { num: 'Free', label: 'To Start' },
               ].map((s) => (
                 <div key={s.label} style={{ textAlign: 'center' }}>
                   <div className="landing-stat-num" style={{ fontWeight: 900, color: '#3D4654' }}>{s.num}</div>
@@ -369,7 +369,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── TOPICS SECTION ── */}
+      {/* ── PROFESSIONS SECTION ── */}
       <section className="landing-topics-section" style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <AnimateIn>
@@ -377,7 +377,7 @@ export function LandingPage() {
               textAlign: 'center', fontSize: 13, fontWeight: 800,
               textTransform: 'uppercase', letterSpacing: 1.5, color: '#C49200', marginBottom: 16,
             }}>
-              11 units covering everything
+              Multiple professions
             </div>
           </AnimateIn>
           <AnimateIn delay={0.1}>
@@ -385,42 +385,78 @@ export function LandingPage() {
               textAlign: 'center', fontWeight: 900,
               color: '#3D4654', marginBottom: 40, letterSpacing: -0.5,
             }}>
-              What you&apos;ll master
+              Pick your path
             </div>
           </AnimateIn>
 
           <AnimateIn delay={0.2}>
-            <div style={{
-              display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
-              gap: 12, marginBottom: 40,
+            <div className="landing-professions-grid" style={{
+              display: 'grid', gap: 16, marginBottom: 40,
             }}>
-              {[
-                { name: 'Statics', color: '#EF4444', count: '20+' },
-                { name: 'Dynamics', color: '#F97316', count: '20+' },
-                { name: 'Strength of Materials', color: '#EAB308', count: '25+' },
-                { name: 'Thermodynamics', color: '#22C55E', count: '25+' },
-                { name: 'Heat Transfer', color: '#14B8A6', count: '20+' },
-                { name: 'Fluid Mechanics', color: '#3B82F6', count: '20+' },
-                { name: 'Materials Science', color: '#6366F1', count: '20+' },
-                { name: 'Machine Elements', color: '#8B5CF6', count: '20+' },
-                { name: 'GD&T', color: '#EC4899', count: '15+' },
-                { name: 'How Things Work', color: '#F59E0B', count: '15+' },
-                { name: 'Interview Prep', color: '#0F172A', count: '20+' },
-              ].map((topic) => (
+              {PROFESSIONS.map((prof) => (
                 <div
-                  key={topic.name}
-                  className="landing-topic-pill"
+                  key={prof.id}
+                  className="landing-profession-card"
                   style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 8,
-                    background: '#fff', border: '1px solid #E2E8F0', borderRadius: 100,
-                    padding: '10px 20px', fontSize: 14, fontWeight: 700, color: '#0F172A',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                    background: '#fff',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: 16,
+                    padding: '24px',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                     transition: 'border-color 0.2s, box-shadow 0.2s',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: topic.color, flexShrink: 0 }} />
-                  {topic.name}
-                  <span style={{ fontSize: 12, fontWeight: 800, color: '#94A3B8' }}>{topic.count}</span>
+                  {prof.isComingSoon && (
+                    <div style={{
+                      position: 'absolute', top: 12, right: 12,
+                      background: '#FFF8E1', color: '#C49200',
+                      fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5,
+                      padding: '3px 10px', borderRadius: 100,
+                    }}>
+                      Coming soon
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+                    <div style={{
+                      width: 52, height: 52, borderRadius: 14,
+                      background: `${prof.color}15`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 26, flexShrink: 0,
+                    }}>
+                      {prof.icon}
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{
+                        fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 4,
+                      }}>
+                        {prof.name}
+                      </div>
+                      <div style={{
+                        fontSize: 14, fontWeight: 600, color: '#64748B', lineHeight: 1.5, marginBottom: 12,
+                      }}>
+                        {prof.description}
+                      </div>
+                      <div style={{ display: 'flex', gap: 16 }}>
+                        <div style={{
+                          display: 'flex', alignItems: 'center', gap: 6,
+                          fontSize: 13, fontWeight: 700, color: '#94A3B8',
+                        }}>
+                          <span style={{
+                            width: 8, height: 8, borderRadius: '50%',
+                            background: prof.color, flexShrink: 0,
+                          }} />
+                          {prof.unitCount} {prof.unitCount === 1 ? 'unit' : 'units'}
+                        </div>
+                        <div style={{
+                          fontSize: 13, fontWeight: 700, color: '#94A3B8',
+                        }}>
+                          {prof.questionCount.toLocaleString()}+ questions
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -459,7 +495,7 @@ export function LandingPage() {
             </Link>
           </p>
           <p style={{ marginTop: 12, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>
-            Mechanical engineering interview prep that actually sticks.
+            Gamified learning that actually sticks.
           </p>
           <p style={{ marginTop: 8, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>
             <Link href="/get-started" style={{ color: '#F5B800', fontWeight: 700, textDecoration: 'none' }}>Sign up</Link>
@@ -483,7 +519,8 @@ export function LandingPage() {
         .landing-btn-primary:hover { filter: brightness(1.05); }
         .landing-btn-primary:active { transform: translateY(2px); box-shadow: 0 3px 0 #C49200 !important; }
         .landing-btn-secondary:hover { background: #F0F9FF; }
-        .landing-topic-pill:hover { border-color: #6366F1 !important; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1) !important; }
+        .landing-profession-card:hover { border-color: #F5B800 !important; box-shadow: 0 4px 16px rgba(245, 184, 0, 0.12) !important; }
+        .landing-professions-grid { grid-template-columns: 1fr; }
 
         @keyframes demoFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes demoPopIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
@@ -529,7 +566,7 @@ export function LandingPage() {
           .landing-stats-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
           .landing-stat-number { font-size: 16px !important; }
           .landing-stat-box { padding: 10px 4px !important; }
-          .landing-topic-pill { padding: 8px 14px !important; font-size: 13px !important; }
+          .landing-profession-card { padding: 20px !important; }
           nav > div { padding: 0 16px !important; }
           .landing-hero-section { padding-top: 100px !important; padding-bottom: 48px !important; }
           .landing-compare-section, .landing-topics-section { padding-top: 48px !important; padding-bottom: 48px !important; }
@@ -542,7 +579,7 @@ export function LandingPage() {
           .landing-hero-p { font-size: 14px !important; }
           .landing-section-heading { font-size: 20px !important; }
           .landing-player-card { padding: 16px !important; }
-          .landing-topic-pill { padding: 6px 12px !important; font-size: 12px !important; }
+          .landing-profession-card { padding: 16px !important; }
         }
       `}</style>
     </div>
@@ -588,7 +625,7 @@ function InteractiveDemo() {
             <div key={s.label} style={{ textAlign: 'center' }}><div style={{ fontSize: 28, fontWeight: 900, color: '#0F172A' }}>{s.val}</div><div style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: 0.5, marginTop: 4 }}>{s.label}</div></div>
           ))}
         </div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#94A3B8', marginBottom: 24 }}>1,500+ more questions across 11 engineering topics</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#94A3B8', marginBottom: 24 }}>{PROFESSIONS.reduce((sum, p) => sum + p.questionCount, 0).toLocaleString()}+ questions across {PROFESSIONS.length} professions</div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/get-started" className="landing-btn-primary" style={{ display: 'inline-block', background: '#F5B800', color: '#fff', fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8, padding: '14px 32px', border: 'none', borderRadius: 16, boxShadow: '0 5px 0 #C49200', textDecoration: 'none' }}>Keep playing</Link>
           <button onClick={restart} className="demo-restart-btn" style={{ background: 'none', border: '2px solid #E2E8F0', borderRadius: 16, padding: '12px 24px', fontSize: 14, fontWeight: 700, color: '#64748B', cursor: 'pointer' }}>Try again</button>
@@ -730,4 +767,3 @@ function CompareCard({
     </div>
   );
 }
-       

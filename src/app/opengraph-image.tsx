@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og';
+import { APP_NAME, APP_TAGLINE } from '@/lib/constants';
 
 export const runtime = 'edge';
-export const alt = 'MechReady — Mechanical Engineering Interview Prep';
+export const alt = `${APP_NAME} — ${APP_TAGLINE}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -20,7 +21,7 @@ export default function OGImage() {
           fontFamily: 'system-ui, sans-serif',
         }}
       >
-        {/* Gear icon */}
+        {/* Graduation cap icon */}
         <div
           style={{
             display: 'flex',
@@ -31,21 +32,10 @@ export default function OGImage() {
             borderRadius: 24,
             background: 'rgba(255,255,255,0.15)',
             marginBottom: 32,
+            fontSize: 48,
           }}
         >
-          <svg
-            width="56"
-            height="56"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-          </svg>
+          🎓
         </div>
 
         {/* Title */}
@@ -58,7 +48,7 @@ export default function OGImage() {
             marginBottom: 16,
           }}
         >
-          MechReady
+          {APP_NAME}
         </div>
 
         {/* Subtitle */}
@@ -72,7 +62,7 @@ export default function OGImage() {
             lineHeight: 1.4,
           }}
         >
-          Mechanical Engineering Interview Prep
+          {APP_TAGLINE}
         </div>
 
         {/* Stats bar */}
@@ -87,7 +77,7 @@ export default function OGImage() {
           }}
         >
           {[
-            { num: '10', label: 'Topics' },
+            { num: '2', label: 'Professions' },
             { num: '1,700+', label: 'Questions' },
             { num: 'Free', label: 'To Start' },
           ].map((stat) => (
