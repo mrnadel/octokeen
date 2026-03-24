@@ -15,10 +15,10 @@ export const lesson7: Lesson = {
       question:
         'A copper water pipe bursts during a winter freeze. What is the primary mechanical cause of the failure?',
       options: [
-        'Water expands ~9 % when it freezes, generating hoop stress that exceeds the pipe\'s yield strength',
-        'Ice contracts and pulls the pipe apart in tension',
-        'Copper becomes brittle at low temperatures and shatters',
-        'Thermal contraction of the pipe wall crushes the ice and rebounds',
+        'Water expands ~9% when freezing, generating hoop stress exceeding yield',
+        'Ice contracts as it forms and pulls the pipe apart in tension',
+        'Copper becomes brittle at low temperatures and shatters on contact',
+        'Thermal contraction of the pipe wall crushes the ice then rebounds',
       ],
       diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="8" fill="#58CC02" opacity="0.08"/><circle cx="40" cy="40" r="22" stroke="#3B8700" stroke-width="2.5"/><circle cx="40" cy="40" r="18" stroke="#3B8700" stroke-width="1.5" stroke-dasharray="3 2"/><circle cx="40" cy="40" r="12" fill="#A5E86C" opacity="0.3"><animate attributeName="r" values="10;16;10" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><text x="40" y="42" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">Ice</text><line x1="40" y1="14" x2="40" y2="8" stroke="#3B8700" stroke-width="1.5" marker-end="url(#ah)"/><line x1="40" y1="66" x2="40" y2="72" stroke="#3B8700" stroke-width="1.5" marker-end="url(#ah)"/><line x1="14" y1="40" x2="8" y2="40" stroke="#3B8700" stroke-width="1.5" marker-end="url(#ah)"/><line x1="66" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="1.5" marker-end="url(#ah)"/><defs><marker id="ah" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4" fill="#3B8700"/></marker></defs><path d="M58,22 Q60,20 62,22" stroke="#58CC02" stroke-width="1.5" opacity="0"><animate attributeName="opacity" values="0;1;1" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><path d="M58,22 L64,16" stroke="#58CC02" stroke-width="1.5" opacity="0"><animate attributeName="opacity" values="0;0.8;1" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><path d="M56,24 L62,18" stroke="#58CC02" stroke-width="1" opacity="0"><animate attributeName="opacity" values="0;0.6;1" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><text x="40" y="9" text-anchor="middle" font-size="4" fill="#6B7280">σ_h</text><text x="9" y="38" text-anchor="middle" font-size="4" fill="#6B7280">σ_h</text><text x="71" y="38" text-anchor="middle" font-size="4" fill="#6B7280">σ_h</text><text x="40" y="77" text-anchor="middle" font-size="4" fill="#6B7280">σ_h</text><text x="66" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0;1" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/>crack</text></svg>`,
       correctIndex: 0,
@@ -35,10 +35,10 @@ export const lesson7: Lesson = {
       question:
         'PEX tubing is far more resistant to freeze-burst damage than copper pipe. Which material property best explains this advantage?',
       options: [
-        'PEX has a higher elastic modulus than copper',
-        'PEX can undergo large elastic deformation (high elongation at break) so it stretches with the expanding ice rather than rupturing',
+        'PEX has a higher elastic modulus than copper, resisting deformation',
+        'PEX has high elongation at break, so it stretches with expanding ice',
         'PEX has higher thermal conductivity, keeping the water from freezing',
-        'PEX is galvanically inert and therefore immune to pressure',
+        'PEX is galvanically inert and therefore immune to internal pressure',
       ],
       correctIndex: 1,
       explanation:
@@ -52,10 +52,10 @@ export const lesson7: Lesson = {
       question:
         'A bolted joint on a vibrating machine keeps loosening despite being initially torqued to spec. What is the dominant loosening mechanism?',
       options: [
-        'Axial vibration stretches the bolt beyond yield',
-        'Transverse (shear) vibration causes relative slip between mating threads, walking the nut off — the Junker effect',
-        'The bolt head corrodes and loses friction',
-        'Resonant vibration melts the thread lubricant',
+        'Axial vibration repeatedly stretches the bolt beyond its yield strength',
+        'Transverse vibration causes thread slip, walking the nut off (Junker effect)',
+        'The bolt head corrodes under vibration, losing its friction grip surface',
+        'Resonant vibration generates enough heat to melt the thread lubricant',
       ],
       diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="8" fill="#58CC02" opacity="0.08"/><rect x="10" y="30" width="60" height="8" rx="1" fill="#A5E86C" opacity="0.18" stroke="#3B8700" stroke-width="1.5"><animateTransform attributeName="transform" type="translate" values="0,0;3,0;0,0;-3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></rect><rect x="10" y="42" width="60" height="8" rx="1" fill="#A5E86C" opacity="0.18" stroke="#3B8700" stroke-width="1.5"><animateTransform attributeName="transform" type="translate" values="0,0;-3,0;0,0;3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></rect><rect x="37" y="16" width="6" height="38" rx="1" fill="#334155" opacity="0.7"/><rect x="35" y="14" width="10" height="5" rx="1" fill="#334155" opacity="0.5"/><rect x="34" y="52" width="12" height="6" rx="1" fill="#3B8700" opacity="0.7"><animateTransform attributeName="transform" type="rotate" values="0 40 55;-8 40 55;0 40 55;8 40 55;0 40 55" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/><animate attributeName="y" values="52;53;54;55;56" dur="2s" repeatCount="indefinite"/></animateTransform></rect><line x1="5" y1="34" x2="12" y2="34" stroke="#58CC02" stroke-width="1.5" marker-end="url(#aj)"><animateTransform attributeName="transform" type="translate" values="0,0;3,0;0,0;-3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></line><line x1="75" y1="34" x2="68" y2="34" stroke="#58CC02" stroke-width="1.5" marker-end="url(#aj)"><animateTransform attributeName="transform" type="translate" values="0,0;3,0;0,0;-3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></line><line x1="5" y1="46" x2="12" y2="46" stroke="#58CC02" stroke-width="1.5" marker-end="url(#aj)"><animateTransform attributeName="transform" type="translate" values="0,0;-3,0;0,0;3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></line><line x1="75" y1="46" x2="68" y2="46" stroke="#58CC02" stroke-width="1.5" marker-end="url(#aj)"><animateTransform attributeName="transform" type="translate" values="0,0;-3,0;0,0;3,0;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1;0.3 0 0.7 1"/></line><defs><marker id="aj" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4" fill="#58CC02"/></marker></defs><text x="40" y="68" text-anchor="middle" font-size="4" fill="#6B7280">Nut walks off</text><text x="40" y="73" text-anchor="middle" font-size="4" fill="#6B7280" font-style="italic">Junker effect</text><text x="7" y="28" font-size="4" fill="#6B7280">Transverse</text><text x="57" y="28" font-size="4" fill="#6B7280">vibration</text></svg>`,
       correctIndex: 1,
@@ -72,10 +72,10 @@ export const lesson7: Lesson = {
       question:
         'An engineer applies Loctite threadlocker to a critical bolted joint. How does the adhesive primarily prevent loosening?',
       options: [
-        'It increases the bolt\'s tensile strength',
-        'It fills the gap between threads and cures to prevent the relative slip that causes self-loosening',
-        'It acts as a lubricant so the bolt can be torqued higher',
-        'It thermally insulates the bolt from vibration energy',
+        'It increases the bolt\'s tensile strength by reinforcing the threads',
+        'It fills the thread gap and cures to prevent the slip causing loosening',
+        'It acts as a lubricant so the bolt can be torqued to a higher value',
+        'It thermally insulates the bolt from vibration-induced energy input',
       ],
       correctIndex: 1,
       explanation:
@@ -89,10 +89,10 @@ export const lesson7: Lesson = {
       question:
         'A bicycle chain link fails after thousands of kilometers with no single overload event. The fracture surface shows beach marks. What failure mode does this indicate?',
       options: [
-        'Creep rupture from sustained high temperature',
-        'Brittle fracture from an impact load',
-        'Fatigue failure from cyclic loading, with crack initiation at a stress concentration',
-        'Stress-corrosion cracking from road salt exposure',
+        'Creep rupture from sustained high temperature during riding',
+        'Brittle fracture caused by a single sudden impact overload',
+        'Fatigue failure from cyclic loading, with cracks at stress risers',
+        'Stress-corrosion cracking from road salt and moisture exposure',
       ],
       diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="8" fill="#58CC02" opacity="0.08"/><path d="M15,30 Q15,20 25,20 L55,20 Q65,20 65,30 L65,50 Q65,60 55,60 L25,60 Q15,60 15,50 Z" stroke="#3B8700" stroke-width="2" fill="#A5E86C" opacity="0.15"/><circle cx="25" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="#A5E86C" opacity="0.1"/><circle cx="55" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="#A5E86C" opacity="0.1"/><line x1="31" y1="40" x2="38" y2="40" stroke="#58CC02" stroke-width="1.5" opacity="0"><animate attributeName="opacity" values="0;1;1" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/><animate attributeName="x2" values="31;38;38" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></line><path d="M33,38 Q34,40 33,42" stroke="#6B7280" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.7;0.8" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><path d="M35,37 Q36.5,40 35,43" stroke="#6B7280" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.5;0.8" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><path d="M37,36 Q39,40 37,44" stroke="#6B7280" stroke-width="0.8" opacity="0"><animate attributeName="opacity" values="0;0.3;0.7" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><path d="M39,35.5 Q41.5,40 39,44.5" stroke="#6B7280" stroke-width="0.7" opacity="0"><animate attributeName="opacity" values="0;0;0.5" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></path><text x="25" y="42" text-anchor="middle" font-size="4" fill="#334155">pin</text><text x="35" y="14" text-anchor="middle" font-size="4.5" fill="#6B7280">Beach marks</text><path d="M35,16 L35,34" stroke="#6B7280" stroke-width="0.5" stroke-dasharray="2 1"/><text x="40" y="73" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">Chain link fatigue</text><line x1="31" y1="40" x2="42" y2="40" stroke="#58CC02" stroke-width="2" opacity="0"><animate attributeName="opacity" values="0;0;0.9" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/><animate attributeName="x2" values="31;36;42" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></line></svg>`,
       correctIndex: 2,
@@ -109,10 +109,10 @@ export const lesson7: Lesson = {
       question:
         'On an S-N (Wöhler) curve for a steel bicycle chain link, what does the "endurance limit" represent?',
       options: [
-        'The maximum static load the link can carry',
-        'The stress amplitude below which the material can theoretically endure an infinite number of cycles without fatigue failure',
+        'The maximum static tensile load the link can carry before yielding',
+        'The stress amplitude below which the material can endure infinite cycles',
         'The number of cycles required to initiate a crack at any stress level',
-        'The temperature at which fatigue life doubles',
+        'The temperature at which the material\'s fatigue life doubles',
       ],
       correctIndex: 1,
       explanation:
@@ -127,10 +127,10 @@ export const lesson7: Lesson = {
       question:
         'Under-inflated tires are a leading cause of highway blowouts. What failure mechanism does under-inflation promote?',
       options: [
-        'Reduced tread depth from accelerated abrasion',
-        'Excessive sidewall flexing causes cyclical bending stress, leading to flexural fatigue and heat buildup',
+        'Reduced tread depth from accelerated abrasion against the road surface',
+        'Excessive sidewall flexing causes cyclic stress, fatigue, and heat buildup',
         'Lower pressure reduces the tire\'s moment of inertia, causing resonance',
-        'The bead unseats due to reduced centripetal force',
+        'The bead unseats from the rim due to reduced centripetal holding force',
       ],
       correctIndex: 1,
       explanation:
@@ -146,10 +146,10 @@ export const lesson7: Lesson = {
       question:
         'A tire rated at 35 psi (gauge) at 20 °C is driven on hot asphalt until the air inside reaches 60 °C. Assuming constant volume, the new gauge pressure is approximately:',
       options: [
-        '40 psi — pressure rises proportionally with absolute temperature',
-        '35 psi — rubber expands to keep pressure constant',
-        '70 psi — pressure doubles with temperature',
-        '30 psi — heat softens the rubber so pressure drops',
+        '40 psi — pressure rises proportionally with absolute temperature (Gay-Lussac)',
+        '35 psi — the rubber sidewall expands to keep pressure constant',
+        '70 psi — pressure doubles because the temperature doubled from 20 to 60',
+        '30 psi — heat softens the rubber compound, allowing pressure to drop',
       ],
       correctIndex: 0,
       explanation:
@@ -163,10 +163,10 @@ export const lesson7: Lesson = {
       question:
         'A steel bolt is used to fasten an aluminum bracket on a boat. Within months the aluminum shows severe pitting while the steel bolt is unaffected. What type of corrosion is occurring?',
       options: [
-        'Uniform oxidation of both metals at equal rates',
-        'Galvanic corrosion — aluminum is anodic relative to steel and preferentially corrodes',
+        'Uniform oxidation of both metals at equal rates in the seawater',
+        'Galvanic corrosion — aluminum is anodic to steel and corrodes first',
         'Crevice corrosion caused by stagnant seawater under the bolt head',
-        'Hydrogen embrittlement of the aluminum',
+        'Hydrogen embrittlement of the aluminum bracket from absorbed gas',
       ],
       diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="8" fill="#58CC02" opacity="0.08"/><rect x="5" y="28" width="30" height="14" rx="2" fill="#A5E86C" opacity="0.25" stroke="#3B8700" stroke-width="1.5"/><rect x="45" y="28" width="30" height="14" rx="2" fill="#334155" opacity="0.15" stroke="#334155" stroke-width="1.5"/><rect x="35" y="24" width="10" height="22" rx="1.5" fill="#6B7280" opacity="0.4" stroke="#3B8700" stroke-width="1.5"/><text x="20" y="37" text-anchor="middle" font-size="4.5" fill="#3B8700">Al</text><text x="60" y="37" text-anchor="middle" font-size="4.5" fill="#334155">Steel</text><text x="20" y="26" text-anchor="middle" font-size="3.5" fill="#6B7280">Anode</text><text x="60" y="26" text-anchor="middle" font-size="3.5" fill="#6B7280">Cathode</text><line x1="30" y1="50" x2="50" y2="50" stroke="#58CC02" stroke-width="1.5"/><line x1="30" y1="50" x2="30" y2="44" stroke="#58CC02" stroke-width="1"/><line x1="50" y1="50" x2="50" y2="44" stroke="#58CC02" stroke-width="1"/><text x="40" y="53" text-anchor="middle" font-size="3.5" fill="#6B7280" font-style="italic">e⁻ flow</text><line x1="33" y1="50" x2="47" y2="50" stroke="#58CC02" stroke-width="1.5" marker-end="url(#ag)"/><defs><marker id="ag" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4" fill="#58CC02"/></marker></defs><circle cx="12" cy="32" r="1.5" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><circle cx="18" cy="39" r="1" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0.6;0" dur="2s" repeatCount="indefinite" begin="0.3s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><circle cx="25" cy="30" r="1.2" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0.7;0" dur="2s" repeatCount="indefinite" begin="0.6s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><circle cx="15" cy="35" r="1.8" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0.5;0.9" dur="2s" repeatCount="indefinite" begin="0.9s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><circle cx="22" cy="33" r="1.3" fill="#58CC02" opacity="0"><animate attributeName="opacity" values="0;0.4;0.8" dur="2s" repeatCount="indefinite" begin="1.2s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/></circle><rect x="3" y="56" width="74" height="10" rx="2" fill="#334155" opacity="0.06"/><text x="40" y="63" text-anchor="middle" font-size="3.5" fill="#6B7280">~ seawater electrolyte ~</text><text x="40" y="75" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">Galvanic corrosion</text></svg>`,
       correctIndex: 1,
@@ -183,9 +183,9 @@ export const lesson7: Lesson = {
         'Galvanized steel is coated with zinc. If the coating is scratched and the underlying steel is exposed, what happens?',
       options: [
         'The steel rusts immediately because the protective barrier is gone',
-        'Zinc acts as a sacrificial anode — it corrodes preferentially and continues to protect the exposed steel cathodically',
-        'The scratch fills with zinc oxide, which is harder than the original coating',
-        'Nothing — zinc and steel have the same electrode potential',
+        'Zinc acts as a sacrificial anode, corroding to cathodically protect the steel',
+        'The scratch fills with zinc oxide, which is harder than the original coat',
+        'Nothing happens — zinc and steel have the same electrode potential',
       ],
       correctIndex: 1,
       explanation:
@@ -199,8 +199,8 @@ export const lesson7: Lesson = {
       question:
         'Pouring boiling water into a room-temperature glass cup can crack it, but a Pyrex measuring cup survives the same treatment. What material property gives Pyrex its advantage?',
       options: [
-        'Higher tensile strength than soda-lime glass',
-        'A much lower coefficient of thermal expansion (α), so thermal stress σ = EαΔT is smaller for the same temperature change',
+        'Higher tensile strength than ordinary soda-lime glass',
+        'A much lower thermal expansion coefficient (α), so σ = EαΔT is smaller',
         'Higher thermal conductivity, preventing any temperature gradient',
         'Pyrex is a polymer, not a glass, so it flexes instead of cracking',
       ],
@@ -219,10 +219,10 @@ export const lesson7: Lesson = {
       question:
         'A phone screen often cracks from a corner or edge impact rather than a center hit. Which fracture mechanics concept explains this?',
       options: [
-        'The center is reinforced by the phone\'s internal frame',
-        'Edge and corner flaws act as stress concentrators; by the Griffith criterion, cracks propagate when strain energy release exceeds the surface energy cost',
-        'The screen is thicker at the center due to the display stack',
-        'Corner impacts generate higher temperatures that melt the adhesive',
+        'The center is reinforced by the phone\'s internal structural frame',
+        'Edge flaws act as stress concentrators; cracks propagate per Griffith\'s criterion',
+        'The screen is thicker at the center due to the display layer stack',
+        'Corner impacts generate higher temperatures that melt the screen adhesive',
       ],
       correctIndex: 1,
       explanation:

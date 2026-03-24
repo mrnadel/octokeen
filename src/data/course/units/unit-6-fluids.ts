@@ -1112,9 +1112,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'In a pipe network, what method is commonly used to solve for flow rates and pressures throughout the network?',
           options: [
-            'The Hardy Cross method',
-            'Direct application of Bernoulli\'s equation between all pairs of nodes',
-            'Solving the Navier-Stokes equations analytically for each pipe segment',
+            'The Hardy Cross iterative balancing method',
+            'Direct Bernoulli application between all node pairs',
+            'Analytical Navier-Stokes solution for each segment',
             'Using the Hagen-Poiseuille equation for each pipe'
           ],
           correctIndex: 0,
@@ -1136,10 +1136,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Which valve type provides the best throttling characteristics?',
           options: [
-            'Globe valve — its plug-and-seat design provides a smooth',
-            'Gate valve',
-            'Ball valve — its spherical element provides linear flow control as it rotates',
-            'Butterfly valve — its disc provides the most precise flow control'
+            'Globe valve — plug-and-seat gives smooth throttling',
+            'Gate valve — sliding gate gives precise regulation',
+            'Ball valve — spherical element gives linear control',
+            'Butterfly valve — disc rotation gives fine control'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1161,10 +1161,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is water hammer, and what causes it in a pipe system?',
           options: [
-            'Pressure transient from sudden change in flow velocity',
+            'Pressure transient from sudden flow velocity change',
             'Noise created by turbulent flow in rough pipes',
             'Vibration of pipes caused by pump cycling events',
-            'Only occurs in steam systems with condensate buildup'
+            'Only occurs in steam systems with condensate issues'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1176,9 +1176,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'For a smooth pipe in turbulent flow, what is the Blasius correlation for the friction factor?',
           options: [
-            'f = 0.316/Re^0.25, smooth pipes, 4000 < Re < 10⁵',
-            'f = 64/Re for laminar flow in smooth pipes',
-            'f = 0.316/Re^0.25 per the Blasius formula',
+            'f = 0.316/Re^0.25, valid for smooth turbulent pipes',
+            'f = 64/Re, the laminar flow friction formula',
+            'f = 0.316/Re^0.5, a square-root correlation',
             'f = 0.02 constant for all smooth turbulent flows'
           ],
           correctIndex: 0,
@@ -1200,10 +1200,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Over a 20-year life, which is more economical considering pumping costs?',
           options: [
-            '6-inch is more economical — head loss scales as D⁻⁵',
-            'The 4-inch pipe is more economical for this flow',
+            '6-inch — head loss scales as D⁻⁵, saving pumping cost',
+            '4-inch — smaller pipe is more economical for this flow',
             'They are equivalent in total lifecycle cost terms',
-            'Comparison cannot be made without the flow rate'
+            'Comparison cannot be made without knowing the flow rate'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1240,9 +1240,9 @@ export const unit6: Unit = {
           question: 'Centrifugal vs. positive displacement pump for high-viscosity fluid: which is better suited?',
           options: [
             'PD pumps — flow is nearly independent of viscosity',
-            'Centrifugal pumps — impeller generates more shear',
-            'Either type works well — viscosity affects pipe only',
-            'Centrifugal pumps are preferred for all viscosities'
+            'Centrifugal — impeller generates more useful shear',
+            'Either type works — viscosity affects pipe losses only',
+            'Centrifugal pumps are preferred at all viscosities'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
@@ -1254,9 +1254,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Why does a pump cavitate more easily when handling hot water vs. cold?',
           options: [
-            'Hot water has higher vapor pressure (~70 vs ~2.3 kPa)',
+            'Hot water has higher vapor pressure (~70 kPa at 90°C)',
             'Hot water is less viscous and flows more easily',
-            'Hot water expands and becomes significantly less dense',
+            'Hot water expands and becomes much less dense overall',
             'Pump seals soften at high T, allowing air ingestion'
           ],
           correctIndex: 0,
@@ -1278,10 +1278,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'If a control valve downstream is partially closed, what happens to the operating point and why might this be a problem?',
           options: [
-            'The system curve shifts upward, moving the operating point to lower flow',
-            'The pump curve shifts downward',
-            'The operating point does not change',
-            'The system curve shifts downward, reducing the head the pump must produce'
+            'System curve shifts up, operating point moves to lower flow',
+            'The pump curve shifts downward with the valve change',
+            'The operating point does not change at all',
+            'System curve shifts down, reducing the required head'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
@@ -1294,9 +1294,9 @@ export const unit6: Unit = {
           question: 'Cavitation in a centrifugal pump most commonly damages which component first?',
           options: [
             'The volute casing near the discharge port',
-            'The impeller vane surfaces near the inlet (eye)',
-            'The mechanical seal faces of the pump',
-            'The pump shaft at the coupling flange'
+            'Impeller vane surfaces near the inlet (eye)',
+            'The mechanical seal faces on the shaft',
+            'The pump shaft at the coupling connection'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
@@ -1318,10 +1318,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What are the pump affinity laws, and why are they important for variable-speed pump operation?',
           options: [
-            'Q ∝ N, H ∝ N², P ∝ N³ — flow varies linearly with speed',
-            'Q ∝ N², H ∝ N, P ∝ N² — head varies linearly with speed',
+            'Q ∝ N, H ∝ N², P ∝ N³ for centrifugal pumps',
+            'Q ∝ N², H ∝ N, P ∝ N² for centrifugal pumps',
             'All three quantities vary linearly with speed N',
-            'The affinity laws only apply to positive displacement pumps, not centrifugal'
+            'Affinity laws apply to PD pumps, not centrifugal'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
@@ -1333,10 +1333,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is specific speed (Ns) in pump selection?',
           options: [
-            'Ns = N√Q/H^(3/4)',
-            'Ns is simply the pump rotational speed in RPM divided by the number of',
-            'Ns is the ratio of pump speed to fluid velocity, used to determine whether',
-            'Ns has no physical significance'
+            'Ns = N√Q/H^(3/4) — classifies impeller shape',
+            'Ns is RPM divided by the number of impeller stages',
+            'Ns is the ratio of pump speed to fluid velocity',
+            'Ns has no physical significance for pump selection'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Three pump types across --> <!-- Radial (low Ns) --> <g transform="translate(10,14)"> <circle cx="10" cy="14" r="10" stroke-width="0.6" stroke="#58CC02" fill="none"/> <path d="M10,14 Q6,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 Q14,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none" transform="rotate(120,10,14)"/> <path d="M10,14 Q14,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none" transform="rotate(240,10,14)"/> <circle cx="10" cy="14" r="2" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="5" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="3s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">radial</text> </g> <!-- Mixed flow (medium Ns) --> <g transform="translate(30,14)"> <ellipse cx="10" cy="14" rx="10" ry="8" stroke-width="0.6" stroke="#58CC02" fill="none"/> <path d="M10,14 L10,6" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 L16,10" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 L4,10" stroke-width="0.5" stroke="#58CC02" fill="none"/> <circle cx="10" cy="14" r="2" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="7" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="2.5s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">mixed</text> </g> <!-- Axial (high Ns) --> <g transform="translate(50,14)"> <circle cx="10" cy="14" r="10" stroke-width="0.6" stroke="#58CC02" fill="none"/> <line x1="4" y1="10" x2="16" y2="18" stroke-width="0.5" stroke="#58CC02"/> <line x1="4" y1="18" x2="16" y2="10" stroke-width="0.5" stroke="#58CC02"/> <circle cx="10" cy="14" r="3.5" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="5" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="2s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">axial</text> </g> <!-- Ns scale arrow --> <line x1="10" y1="52" x2="70" y2="52" stroke-width="0.5" stroke="#58CC02" opacity="0.3"/> <polygon points="70,50.5 70,53.5 73,52" fill="#58CC02" opacity="0.3"/> <text x="12" y="58" font-size="2.5" fill="#3B8700" opacity="0.35">low N_s</text> <text x="56" y="58" font-size="2.5" fill="#3B8700" opacity="0.35">high N_s</text> <!-- Head vs flow --> <text x="12" y="64" font-size="2" fill="#3B8700" opacity="0.3">high H</text> <text x="56" y="64" font-size="2" fill="#3B8700" opacity="0.3">high Q</text> <!-- Formula --> <text x="40" y="74" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">N_s = NQ^½/H^¾</text> </svg>',
@@ -1357,10 +1357,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'The pump curve shows BEP at 55 m head and 95 L/s with 82% efficiency. Is this pump a good selection?',
           options: [
-            'Yes — the duty point is within ±10% of BEP flow',
-            'No — the pump does not provide exactly 50 m at exactly 100 L/s',
-            'No — the pump provides too much head (55 m vs. 50 m required)',
-            'More information is needed'
+            'Yes — duty point is within ±10% of BEP flow',
+            'No — not exactly 50 m at exactly 100 L/s',
+            'No — too much head (55 m vs. 50 m needed)',
+            'More information is needed to decide'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
@@ -1372,10 +1372,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the system curve for a pipe system, and how is it constructed?',
           options: [
-            'H_system = H_static + K × Q²',
-            'The system curve is the pump manufacturer\'s performance curve showing head',
-            'The system curve is a straight line',
-            'The system curve shows how the pipe diameter changes along the system length'
+            'H_system = H_static + K × Q² (parabolic shape)',
+            'The system curve is the pump manufacturer\'s H-Q curve',
+            'The system curve is a straight line on an H-Q plot',
+            'The system curve shows how pipe diameter varies'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
@@ -1388,9 +1388,9 @@ export const unit6: Unit = {
           question: 'Why do positive displacement pumps require a pressure relief valve on the discharge side?',
           options: [
             'PD pumps deliver constant flow regardless of pressure',
-            'Relief valve prevents air entering the pump suction',
-            'PD pumps generate pulsating flow requiring damping',
-            'Relief valve is only needed during pump startup'
+            'Relief valve prevents air from entering pump suction',
+            'PD pumps generate pulsating flow that needs damping',
+            'Relief valve is only needed during the pump startup'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
@@ -1411,10 +1411,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Should they add a pump in parallel or in series?',
           options: [
-            'Parallel',
-            'Series — adding a pump in series doubles the flow rate through both pumps',
-            'Either option gives the same result — parallel and series are equivalent',
-            'Neither — the existing pump speed should be increased by 50% instead'
+            'Parallel — adds flow capacity at the same head',
+            'Series — doubles the flow rate through both pumps',
+            'Either option — parallel and series are equivalent',
+            'Neither — increase existing pump speed by 50%'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
