@@ -93,7 +93,7 @@ export const unit9: Unit = {
         {
           id: 'u9-L1-Q6',
           type: 'fill-blank',
-          question: 'The minimum intended difference in size between mating parts in a clearance fit is called the ___ _____.',
+          question: 'The minimum intended difference in size between mating parts in a clearance fit is called the _____.',
           blanks: ['allowance'],
           wordBank: ['allowance', 'tolerance', 'deviation', 'clearance', 'variance'],
           diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="20" width="28" height="40" rx="2" fill="#58CC02" opacity="0.08" stroke="#58CC02" stroke-width="1.5"/><rect x="44" y="20" width="28" height="40" rx="2" fill="#3B8700" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/><text x="22" y="42" font-size="4.5" fill="#58CC02" text-anchor="middle" font-weight="bold">Hole</text><text x="58" y="42" font-size="4.5" fill="#3B8700" text-anchor="middle" font-weight="bold">Shaft</text><line x1="36" y1="30" x2="44" y2="30" stroke="#A5E86C" stroke-width="1.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></line><line x1="36" y1="50" x2="44" y2="50" stroke="#A5E86C" stroke-width="1.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></line><text x="40" y="42" font-size="3.5" fill="#334155" text-anchor="middle" font-style="italic">min</text><text x="40" y="46" font-size="3.5" fill="#334155" text-anchor="middle" font-style="italic">gap</text><text x="40" y="10" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">Allowance</text><text x="40" y="72" font-size="3.5" fill="#6B7280" text-anchor="middle">Tightest fit condition</text></svg>',
@@ -502,7 +502,7 @@ export const unit9: Unit = {
         {
           id: 'u9-L2-Q6',
           type: 'fill-blank',
-          question: 'The condition where a feature of size contains the maximum amount of material is called ___ _____.',
+          question: 'The condition where a feature of size contains the maximum amount of material is called _____.',
           blanks: ['MMC'],
           wordBank: ['MMC', 'LMC', 'RFS', 'MMS', 'VCB'],
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">MMC Condition</text><rect x="8" y="18" width="28" height="40" rx="2" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1"/><text x="22" y="30" font-size="3.5" fill="#58CC02" text-anchor="middle" font-weight="bold">Hole</text><text x="22" y="38" font-size="3" fill="#334155" text-anchor="middle">MMC =</text><text x="22" y="44" font-size="3" fill="#334155" text-anchor="middle">smallest</text><circle cx="22" cy="52" r="4" fill="white" stroke="#3B8700" stroke-width="1"/><rect x="44" y="18" width="28" height="40" rx="2" fill="#3B8700" opacity="0.06" stroke="#3B8700" stroke-width="1"/><text x="58" y="30" font-size="3.5" fill="#3B8700" text-anchor="middle" font-weight="bold">Shaft</text><text x="58" y="38" font-size="3" fill="#334155" text-anchor="middle">MMC =</text><text x="58" y="44" font-size="3" fill="#334155" text-anchor="middle">largest</text><circle cx="58" cy="52" r="6" fill="#3B8700" opacity="0.15" stroke="#3B8700" stroke-width="1"/><text x="40" y="70" font-size="3.5" fill="#6B7280" text-anchor="middle">Most material everywhere</text></svg>',
@@ -916,7 +916,7 @@ export const unit9: Unit = {
         {
           id: 'u9-L3-Q6',
           type: 'fill-blank',
-          question: 'The system of three mutually perpendicular datum planes that fully constrains a part in 6 degrees of freedom is called the datum ___ frame _____.',
+          question: 'The system of three mutually perpendicular datum planes that fully constrains a part in 6 degrees of freedom is called the datum _____ frame.',
           blanks: ['reference'],
           wordBank: ['reference', 'coordinate', 'alignment', 'constraint', 'feature'],
                     diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4.5" fill="#334155" text-anchor="middle" font-weight="bold">Datum Reference Frame</text><line x1="20" y1="60" x2="70" y2="60" stroke="#58CC02" stroke-width="1.5"/><line x1="20" y1="60" x2="20" y2="20" stroke="#A5E86C" stroke-width="1.5"/><line x1="20" y1="60" x2="8" y2="70" stroke="#3B8700" stroke-width="1.5"/><text x="72" y="62" font-size="4" fill="#58CC02">X</text><text x="18" y="18" font-size="4" fill="#A5E86C">Y</text><text x="6" y="74" font-size="4" fill="#3B8700">Z</text><text x="22" y="58" font-size="3" fill="#334155">origin</text><text x="48" y="45" font-size="3.5" fill="#6B7280" text-anchor="middle">3 mutually perpendicular</text><text x="48" y="50" font-size="3.5" fill="#6B7280" text-anchor="middle">datum planes</text></svg>',

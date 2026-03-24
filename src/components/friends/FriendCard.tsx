@@ -43,7 +43,7 @@ export default function FriendCard({
     >
       <Link
         href={`/user/${id}`}
-        className="card-hover flex items-center gap-3 p-4"
+        className="card-hover flex items-center gap-3 p-3 sm:p-4"
       >
         <div
           className="rounded-full flex items-center justify-center overflow-hidden shrink-0"

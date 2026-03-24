@@ -63,23 +63,23 @@ export default function InviteShare() {
   }
 
   return (
-    <div className="rounded-2xl border border-primary-100 bg-gradient-to-br from-primary-50 to-white p-4 mb-5">
-      <p className="text-xs font-bold text-primary-700 uppercase tracking-wider mb-2">
+    <div className="rounded-2xl border border-primary-100 bg-gradient-to-br from-primary-50 to-white p-3 sm:p-4 mb-4 sm:mb-5">
+      <p className="text-xs font-bold text-primary-700 uppercase tracking-wider mb-1.5 sm:mb-2">
         Invite Friends
       </p>
-      <p className="text-xs text-surface-500 mb-3">
-        Share your link — they'll be added as your friend when they join.
+      <p className="text-xs text-surface-500 mb-2.5 sm:mb-3">
+        Share your link — they&apos;ll be added as your friend when they join.
       </p>
 
       <div className="flex gap-2">
         <div className="flex-1 flex items-center bg-white rounded-xl border border-surface-200 px-3 py-2 min-w-0">
-          <span className="text-xs font-mono text-surface-600 truncate">
+          <span className="text-[11px] sm:text-xs font-mono text-surface-600 truncate">
             {inviteUrl}
           </span>
         </div>
         <button
           onClick={handleCopy}
-          className="flex items-center justify-center w-11 h-11 rounded-xl bg-white border border-surface-200 hover:bg-surface-50 transition-colors shrink-0"
+          className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border border-surface-200 hover:bg-surface-50 transition-colors shrink-0"
           aria-label="Copy invite link"
         >
           {copied ? (
@@ -90,7 +90,7 @@ export default function InviteShare() {
         </button>
         <button
           onClick={handleShare}
-          className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-colors shrink-0"
+          className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-colors shrink-0"
           aria-label="Share invite link"
         >
           <Share2 className="w-4 h-4" />
@@ -100,7 +100,7 @@ export default function InviteShare() {
       <button
         onClick={handleRegenerate}
         disabled={regenerating}
-        className="mt-1 text-[11px] font-semibold text-surface-400 hover:text-surface-600 transition-colors flex items-center gap-1 disabled:opacity-50 min-h-[44px] py-2"
+        className="mt-0.5 text-[11px] font-semibold text-surface-400 hover:text-surface-600 transition-colors flex items-center gap-1 disabled:opacity-50 min-h-[40px] sm:min-h-[44px] py-2"
       >
         <RefreshCw className={`w-3 h-3 ${regenerating ? 'animate-spin' : ''}`} />
         Regenerate link

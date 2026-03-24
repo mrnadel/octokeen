@@ -62,10 +62,10 @@ export default function FriendsPage() {
         </div>
       </header>
 
-      <div className="px-4 sm:px-5 py-5 max-w-[600px] mx-auto">
+      <div className="px-3 sm:px-5 py-4 sm:py-5 max-w-[600px] mx-auto">
         <InviteShare />
 
-        <div className="flex gap-2 mb-5">
+        <div className="flex gap-2 mb-4 sm:mb-5">
           <button
             onClick={() => setTab('friends')}
             className={`flex-1 min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-colors ${
