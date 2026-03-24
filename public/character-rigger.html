@@ -165,6 +165,24 @@ button:hover{background:var(--s3)}
     <label><input type="checkbox" id="chk-remove-white" style="margin-right:6px"> Auto-remove near-white</label>
   </div>
 
+  <!-- GRADIENTS -->
+  <div class="panel-section hidden" id="grad-section">
+    <h3>Gradients</h3>
+    <div class="row">
+      <button class="btn-sm btn-active" id="grad-none" data-grad="none">None</button>
+      <button class="btn-sm" id="grad-subtle" data-grad="subtle">Subtle</button>
+      <button class="btn-sm" id="grad-strong" data-grad="strong">Strong</button>
+    </div>
+    <div class="row">
+      <button class="btn-sm" id="grad-radial" data-grad="radial">Radial</button>
+      <button class="btn-sm" id="grad-toplight" data-grad="toplight">Top Light</button>
+      <button class="btn-sm" id="grad-duotone" data-grad="duotone">Duo-tone</button>
+    </div>
+    <label style="margin-top:6px">Intensity <span class="v" id="v-grad-intensity">50</span>%</label>
+    <input type="range" id="s-grad-intensity" min="10" max="100" value="50">
+    <p class="help">Adds depth gradients to each path. Exported SVG includes the gradients.</p>
+  </div>
+
   <!-- EDIT / CHUNKS -->
   <div class="panel-section hidden" id="edit-section">
     <h3>Select &amp; Cut</h3>
@@ -232,6 +250,8 @@ const S = {
   lasso: { active: false, points: [] },
   livePreview: false,
   removedPaths: [], // stack for undo
+  gradient: 'none', // none | subtle | strong | radial | toplight | duotone
+  gradIntensity: 50,
 };
 
 const PRESETS = {
@@ -566,6 +586,83 @@ $('chk-remove-white').addEventListener('change', () => {
   }
 });
 
+// ─── GRADIENTS ───
+function hexToRgb(hex) {
+  const c = hex.replace('#', '');
+  if (c.length < 6) return { r: 136, g: 136, b: 136 };
+  return { r: parseInt(c.slice(0,2),16), g: parseInt(c.slice(2,4),16), b: parseInt(c.slice(4,6),16) };
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+}
+
+function lighten(hex, amount) {
+  const { r, g, b } = hexToRgb(hex);
+  return rgbToHex(r + (255 - r) * amount, g + (255 - g) * amount, b + (255 - b) * amount);
+}
+
+function darken(hex, amount) {
+  const { r, g, b } = hexToRgb(hex);
+  return rgbToHex(r * (1 - amount), g * (1 - amount), b * (1 - amount));
+}
+
+function shiftHue(hex, amount) {
+  const { r, g, b } = hexToRgb(hex);
+  // Simple warm shift for duotone
+  return rgbToHex(
+    r + (255 - r) * amount * 0.3,
+    g * (1 - amount * 0.1),
+    b * (1 - amount * 0.4)
+  );
+}
+
+function buildGradientDefs(paths, mode, intensity) {
+  if (mode === 'none') return '';
+  const pct = intensity / 100;
+  let defs = '';
+  paths.forEach((p, i) => {
+    const id = `g${i}`;
+    const fill = p.fill;
+    if (mode === 'subtle') {
+      const light = lighten(fill, 0.15 * pct);
+      const dark = darken(fill, 0.1 * pct);
+      defs += `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${light}"/><stop offset="100%" stop-color="${dark}"/></linearGradient>`;
+    } else if (mode === 'strong') {
+      const light = lighten(fill, 0.3 * pct);
+      const dark = darken(fill, 0.25 * pct);
+      defs += `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${light}"/><stop offset="100%" stop-color="${dark}"/></linearGradient>`;
+    } else if (mode === 'radial') {
+      const light = lighten(fill, 0.25 * pct);
+      const dark = darken(fill, 0.15 * pct);
+      defs += `<radialGradient id="${id}" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="${light}"/><stop offset="100%" stop-color="${dark}"/></radialGradient>`;
+    } else if (mode === 'toplight') {
+      const light = lighten(fill, 0.35 * pct);
+      defs += `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${light}"/><stop offset="40%" stop-color="${fill}"/><stop offset="100%" stop-color="${fill}"/></linearGradient>`;
+    } else if (mode === 'duotone') {
+      const warm = shiftHue(fill, 0.3 * pct);
+      const cool = darken(fill, 0.15 * pct);
+      defs += `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${warm}"/><stop offset="100%" stop-color="${cool}"/></linearGradient>`;
+    }
+  });
+  return defs ? `<defs>${defs}</defs>` : '';
+}
+
+// Wire up gradient buttons
+document.querySelectorAll('[data-grad]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    S.gradient = btn.dataset.grad;
+    document.querySelectorAll('[data-grad]').forEach(b => b.classList.remove('btn-active'));
+    btn.classList.add('btn-active');
+    renderAll();
+  });
+});
+
+bindSlider('s-grad-intensity', 'v-grad-intensity', () => {
+  S.gradIntensity = parseInt($('s-grad-intensity').value);
+  renderAll();
+});
+
 // ─── RENDERING ───
 function renderAll() {
   renderPaths();
@@ -574,10 +671,13 @@ function renderAll() {
 }
 
 function renderPaths() {
-  let html = '';
+  const useGrad = S.gradient !== 'none';
+  const gradDefs = useGrad ? buildGradientDefs(S.paths, S.gradient, S.gradIntensity) : '';
+  let html = gradDefs;
   S.paths.forEach((p, i) => {
     const cls = S.selPaths.has(i) ? 'hi' : '';
-    html += `<path d="${p.d}" fill="${p.fill}" transform="translate(${p.tx},${p.ty})" class="${cls}" data-idx="${i}"/>`;
+    const fill = useGrad ? `url(#g${i})` : p.fill;
+    html += `<path d="${p.d}" fill="${fill}" transform="translate(${p.tx},${p.ty})" class="${cls}" data-idx="${i}"/>`;
   });
   svg.setAttribute('viewBox', `0 0 ${S.svgW} ${S.svgH}`);
   svg.innerHTML = html;
