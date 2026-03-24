@@ -370,7 +370,7 @@ export default function GetStartedPage() {
                     transition={{ delay: 0.2 }}
                   >
                     Ace your{' '}
-                    <span className="text-primary-600">ME interview</span>
+                    <span className="text-brand-400">interview</span>
                   </motion.h1>
 
                   <motion.p
@@ -379,7 +379,7 @@ export default function GetStartedPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
                   >
-                    Master mechanical engineering concepts with bite-sized lessons and real interview questions.
+                    1,500+ bite-sized questions across 11 topics. Earn XP, keep your streak, and actually remember what you learn.
                   </motion.p>
 
                   {/* Feature pills */}

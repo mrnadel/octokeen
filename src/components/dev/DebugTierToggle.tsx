@@ -172,36 +172,70 @@ export function DebugTierToggle() {
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
               Lesson Progress <span className="text-gray-300 font-normal">({completedCount}/{totalLessons})</span>
             </p>
-            <div className="flex gap-2 items-center mb-1.5">
-              <label className="text-[11px] text-gray-500 w-14 flex-shrink-0">Normal</label>
+
+            {/* Normal slider */}
+            <div className="mb-2">
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] text-gray-500 font-medium">Normal</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={totalLessons}
+                  value={normalInput !== '' ? normalInput : normalCount}
+                  onChange={(e) => {
+                    setNormalInput(e.target.value);
+                    const n = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                    const g = goldenInput !== '' ? Number(goldenInput) || 0 : goldenCount;
+                    commitProgress(n, g);
+                  }}
+                  className="w-12 px-1 py-0.5 text-[11px] border border-gray-200 rounded text-center focus:outline-none focus:ring-1 focus:ring-indigo-400 tabular-nums"
+                />
+              </div>
               <input
-                type="number"
+                type="range"
                 min={0}
                 max={totalLessons}
-                value={normalInput !== '' ? normalInput : normalCount}
+                value={normalInput !== '' ? Number(normalInput) || 0 : normalCount}
                 onChange={(e) => {
-                  setNormalInput(e.target.value);
-                  const n = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                  const n = Number(e.target.value);
+                  setNormalInput(String(n));
                   const g = goldenInput !== '' ? Number(goldenInput) || 0 : goldenCount;
                   commitProgress(n, g);
                 }}
-                className="w-full px-2 py-1 text-sm border border-gray-200 rounded-md text-center focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-indigo-500 bg-gray-200"
               />
             </div>
-            <div className="flex gap-2 items-center">
-              <label className="text-[11px] text-amber-600 w-14 flex-shrink-0 font-semibold">Golden</label>
+
+            {/* Golden slider */}
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] text-amber-600 font-semibold">Golden</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={totalLessons}
+                  value={goldenInput !== '' ? goldenInput : goldenCount}
+                  onChange={(e) => {
+                    setGoldenInput(e.target.value);
+                    const g = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                    const n = normalInput !== '' ? Number(normalInput) || 0 : normalCount;
+                    commitProgress(n, g);
+                  }}
+                  className="w-12 px-1 py-0.5 text-[11px] border border-amber-200 rounded text-center bg-amber-50 focus:outline-none focus:ring-1 focus:ring-amber-400 tabular-nums"
+                />
+              </div>
               <input
-                type="number"
+                type="range"
                 min={0}
                 max={totalLessons}
-                value={goldenInput !== '' ? goldenInput : goldenCount}
+                value={goldenInput !== '' ? Number(goldenInput) || 0 : goldenCount}
                 onChange={(e) => {
-                  setGoldenInput(e.target.value);
-                  const g = Math.max(0, Math.min(totalLessons, Number(e.target.value) || 0));
+                  const g = Number(e.target.value);
+                  setGoldenInput(String(g));
                   const n = normalInput !== '' ? Number(normalInput) || 0 : normalCount;
                   commitProgress(n, g);
                 }}
-                className="w-full px-2 py-1 text-sm border border-amber-200 rounded-md text-center bg-amber-50 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-amber-500 bg-amber-100"
               />
             </div>
           </div>
