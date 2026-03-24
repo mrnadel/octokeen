@@ -772,6 +772,24 @@ export const useWeeklyQuests = () => useEngagementStore((s) => s.weeklyQuests);
 export const useLeague = () => useEngagementStore((s) => s.league);
 export const useStreakEnhancements = () => useEngagementStore((s) => s.streak);
 export const useComeback = () => useEngagementStore((s) => s.comeback);
+/** Returns whether double XP is currently active (validated against purchase history). */
+export const useDoubleXpActive = () =>
+  useEngagementStore((s) => {
+    if (!s.doubleXpExpiry) return false;
+    const expiry = new Date(s.doubleXpExpiry).getTime();
+    if (isNaN(expiry) || expiry <= Date.now()) return false;
+    // Anti-tamper: expiry must not exceed max duration from now
+    // (max possible = DOUBLE_XP_SHOP_DURATION_MS + small buffer for timing)
+    const maxAllowed = Date.now() + DOUBLE_XP_SHOP_DURATION_MS + 5000;
+    if (expiry > maxAllowed) return false;
+    // Must have a recent shop_purchase transaction (within last 35 min)
+    const recentCutoff = Date.now() - (DOUBLE_XP_SHOP_DURATION_MS + 5 * 60 * 1000);
+    const hasRecentPurchase = s.gems.transactions.some(
+      (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
+    );
+    return hasRecentPurchase;
+  });
+
 export const useEngagementActions = () =>
   useEngagementStore(
     useShallow((s) => ({

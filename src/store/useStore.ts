@@ -555,10 +555,23 @@ export const useStore = create<AppState>()(
 
         let xp = calculateXP(question, correct, timeSpent, confidence);
 
-        // Apply double XP boost if active
-        const doubleXpExpiry = useEngagementStore.getState().doubleXpExpiry;
-        if (doubleXpExpiry && new Date(doubleXpExpiry).getTime() > Date.now()) {
-          xp *= 2;
+        // Apply double XP boost if active (with tamper validation)
+        const engState = useEngagementStore.getState();
+        const doubleXpExpiry = engState.doubleXpExpiry;
+        if (doubleXpExpiry) {
+          const expiry = new Date(doubleXpExpiry).getTime();
+          const now = Date.now();
+          // Validate: expiry must be in the future, not exceed max allowed duration,
+          // and a recent shop_purchase transaction must exist
+          if (!isNaN(expiry) && expiry > now && expiry <= now + 30 * 60 * 1000 + 5000) {
+            const recentCutoff = now - (30 * 60 * 1000 + 5 * 60 * 1000);
+            const hasRecentPurchase = engState.gems.transactions.some(
+              (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
+            );
+            if (hasRecentPurchase) {
+              xp *= 2;
+            }
+          }
         }
 
         set(state => ({
