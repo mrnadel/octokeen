@@ -242,6 +242,7 @@ export interface Level {
   title: string;
   xpRequired: number;
   icon: string;
+  badge?: string; // path to badge image in /public, e.g. '/badges/level-1.png'
 }
 
 // --------------- Daily Challenge ---------------

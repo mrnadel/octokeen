@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getXpToNextLevel } from '@/data/levels';
+import { LevelBadge } from '@/components/engagement/LevelBadge';
 import { achievements } from '@/data/achievements';
 import { topics } from '@/data/topics';
 import {
@@ -508,7 +509,7 @@ export default function ProfilePage() {
               className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-900 text-xs font-extrabold px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1"
               style={{ zIndex: 20 }}
             >
-              <span>{levelInfo.current.icon}</span>
+              <LevelBadge level={levelInfo.current} size={18} />
               <span>Lv. {levelInfo.current.level}</span>
             </motion.div>
             {/* Remove photo button */}

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { achievements } from '@/data/achievements';
 import { getXpToNextLevel } from '@/data/levels';
+import { LevelBadge } from '@/components/engagement/LevelBadge';
 
 interface PublicProfile {
   id: string;
@@ -286,7 +287,7 @@ export default function PublicProfilePage() {
                 className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-900 text-xs font-extrabold px-2.5 py-0.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1"
                 style={{ zIndex: 20 }}
               >
-                <span>{levelInfo.current.icon}</span>
+                <LevelBadge level={levelInfo.current} size={18} />
                 <span>Lv. {levelInfo.current.level}</span>
               </motion.div>
             </motion.div>
@@ -336,7 +337,7 @@ export default function PublicProfilePage() {
                   />
                 </div>
                 <p className="text-[10px] text-white/25 mt-1 text-center">
-                  {levelInfo.xpNeeded.toLocaleString()} XP to {levelInfo.next.title} {levelInfo.next.icon}
+                  {levelInfo.xpNeeded.toLocaleString()} XP to {levelInfo.next.title} <LevelBadge level={levelInfo.next} size={12} className="inline-block align-middle" />
                 </p>
               </motion.div>
             )}

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LevelReward } from '@/data/level-rewards';
 import { levels } from '@/data/levels';
+import { LevelBadge } from '@/components/engagement/LevelBadge';
 
 interface Props {
   reward: LevelReward;
@@ -112,7 +113,7 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
                 animate={isMilestone ? { rotate: [0, -8, 8, -4, 4, 0] } : undefined}
                 transition={isMilestone ? { duration: 1, delay: 0.5 } : undefined}
               >
-                {levelDef?.icon ?? '⭐'}
+                {levelDef ? <LevelBadge level={levelDef} size={56} /> : '⭐'}
               </motion.span>
             </motion.div>
 

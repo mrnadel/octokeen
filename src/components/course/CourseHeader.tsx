@@ -13,6 +13,7 @@ import { shopItems } from '@/data/gem-shop';
 import { getXpToNextLevel, levels } from '@/data/levels';
 import { getLevelReward } from '@/data/level-rewards';
 import { getTodayString } from '@/lib/utils';
+import { LevelBadge } from '@/components/engagement/LevelBadge';
 
 type PopoverType = 'streak' | 'xp' | 'gems' | null;
 
@@ -556,7 +557,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
           animate={{ rotate: 0, scale: 1 }}
           transition={{ type: 'spring', damping: 12, stiffness: 200 }}
         >
-          {current.icon}
+          <LevelBadge level={current} size={36} />
           {/* Level number badge */}
           <div
             style={{
@@ -844,7 +845,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
               animate={{ scale: 1 }}
               transition={{ type: 'spring', damping: 10, stiffness: 200, delay: 0.35 }}
             >
-              {next.icon}
+              <LevelBadge level={next} size={28} />
             </motion.span>
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>
@@ -927,7 +928,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
                         boxShadow: isNext ? '0 2px 6px rgba(168,85,247,0.3)' : 'none',
                       }}
                     >
-                      {level.icon}
+                      <LevelBadge level={level} size={20} />
                     </div>
                   </div>
                   <div style={{ flex: 1 }}>
