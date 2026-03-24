@@ -925,9 +925,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the ratio of average velocity to maximum velocity?',
           options: [
-            'V_avg/V_max = 0.5',
-            'V_avg/V_max = 0.8',
-            'V_avg/V_max = 1.0 — the velocity is uniform across the pipe in laminar flow',
+            'V_avg/V_max = 0.5 — half the centerline velocity',
+            'V_avg/V_max = 0.8 — most of the centerline value',
+            'V_avg/V_max = 1.0 — velocity is uniform in laminar',
             'V_avg/V_max = 0.67 — two-thirds of the maximum'
           ],
           correctIndex: 0,
@@ -940,10 +940,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'How is it typically solved in practice?',
           options: [
-            'Iterative solution, the Moody chart, or explicit approximations such as the',
-            'It can always be solved analytically by rearranging the equation algebraically',
-            'By assuming f = 64/Re, which works for all flow regimes',
-            'By ignoring the Re-dependent term and using only the roughness-dependent term'
+            'Iterative solution, Moody chart, or explicit approximations',
+            'Direct analytical solution by rearranging the equation',
+            'Assuming f = 64/Re, which works for all flow regimes',
+            'Ignoring the Re term and using only the roughness term'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -979,10 +979,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the Borda-Carnot formula for this loss?',
           options: [
-            'H_loss = fLV²/(2gD)',
-            'H_loss = fLV²/(2gD) with V₁ only',
-            'H_loss = (V₁ − V₂)²/(2g) — the Borda-Carnot head loss for sudden expansion',
-            'H_loss = K × V₂²/'
+            'H_loss = fLV²/(2gD), the Darcy-Weisbach equation',
+            'H_loss = fLV₁²/(2gD), using upstream velocity',
+            'H_loss = (V₁ − V₂)²/(2g), the Borda-Carnot formula',
+            'H_loss = K × V₂²/(2g), using downstream velocity'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -994,10 +994,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the Reynolds number and flow regime?',
           options: [
-            'Re = VD/ν = 100,000 — fully turbulent flow',
+            'Re = 100,000 — fully turbulent flow',
             'Re = 1,000 — laminar flow regime',
             'Re = 5,000 — transitional flow regime',
-            'Re = 50,000 — transitional flow regime'
+            'Re = 50,000 — transitional regime'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
@@ -1018,10 +1018,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the equivalent length method for calculating minor losses, and when is it most useful?',
           options: [
-            'Each fitting is assigned an equivalent pipe length L_eq = KD/f that would',
-            'The equivalent length is the physical length of the fitting, measured along',
-            'It replaces the entire pipe with a single equivalent diameter that accounts',
-            'It only works for laminar flow where the K values are well defined'
+            'Each fitting gets an equivalent pipe length L_eq = KD/f',
+            'Equivalent length is the physical length of the fitting',
+            'It replaces the whole pipe with one equivalent diameter',
+            'It only works for laminar flow with well-defined K values'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1033,10 +1033,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Which has a significantly higher loss coefficient (K)?',
           options: [
-            'Globe K ≈ 6-10, much higher than gate K ≈ 0.1-0.2',
+            'Globe K ≈ 6-10 vs. gate K ≈ 0.1-0.2 when open',
             'Gate valve has higher K than globe valve overall',
-            'Both have similar K values when fully open position',
-            'Globe valve has lower K than gate valve overall'
+            'Both have similar K values when in fully open position',
+            'Globe valve has lower K than gate valve when open'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1058,10 +1058,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the difference between major losses and minor losses in pipe flow?',
           options: [
-            'Distributed friction losses along straight pipe sections',
+            'Distributed friction losses along straight pipe lengths',
             'Major losses are always larger than minor losses',
-            'Major losses occur only in turbulent flow regime',
-            'Major losses are caused by the pipe material only'
+            'Major losses occur only in the turbulent flow regime',
+            'Major losses are caused only by the pipe material'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1082,10 +1082,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the "three pipe problem types" classification in pipe flow analysis?',
           options: [
-            'Type 1: Given Q, L, D, find h_f. Type 2: Given h_f, L, D, find Q (requires',
-            'The three types refer to laminar, transitional, and turbulent flow calculations',
-            'The three types refer to series, parallel',
-            'The three types refer to smooth, rough'
+            'Type 1: find h_f. Type 2: find Q. Type 3: find D',
+            'The three types are laminar, transitional, turbulent',
+            'The three types are series, parallel, and branched',
+            'The three types are smooth, rough, and transitional'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
@@ -1097,10 +1097,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'Why does rounding the entrance reduce the loss coefficient so dramatically?',
           options: [
-            'A sharp edge causes flow separation',
-            'Rounding the entrance makes the pipe diameter effectively larger, reducing',
-            'The rounded entrance adds length to the pipe',
-            'Rounding reduces the pipe wall roughness at the entrance, lowering the'
+            'A sharp edge causes flow separation and a vena contracta',
+            'Rounding makes the pipe effectively larger in diameter',
+            'The rounded entrance adds equivalent pipe length',
+            'Rounding reduces the wall roughness at the entrance'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
