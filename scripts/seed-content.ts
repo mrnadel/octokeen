@@ -3,6 +3,7 @@ config({ path: '.env.local' });
 
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import { sql } from 'drizzle-orm';
 import * as schema from '../src/lib/db/schema';
 import { course } from '../src/data/course';
 
@@ -26,7 +27,7 @@ async function seedCourseContent() {
     for (let ui = 0; ui < course.length; ui++) {
       const unit = course[ui];
 
-      // Insert unit
+      // Upsert unit
       await tx.insert(schema.courseUnits).values({
         id: unit.id,
         title: unit.title,
@@ -34,6 +35,16 @@ async function seedCourseContent() {
         color: unit.color,
         icon: unit.icon,
         orderIndex: ui,
+      }).onConflictDoUpdate({
+        target: schema.courseUnits.id,
+        set: {
+          title: unit.title,
+          description: unit.description,
+          color: unit.color,
+          icon: unit.icon,
+          orderIndex: ui,
+          updatedAt: sql`now()`,
+        },
       });
       totalUnits++;
       console.log(`  Unit ${ui + 1}/${course.length}: ${unit.title}`);
@@ -41,7 +52,7 @@ async function seedCourseContent() {
       for (let li = 0; li < unit.lessons.length; li++) {
         const lesson = unit.lessons[li];
 
-        // Insert lesson
+        // Upsert lesson
         await tx.insert(schema.courseLessons).values({
           id: lesson.id,
           unitId: unit.id,
@@ -50,6 +61,17 @@ async function seedCourseContent() {
           icon: lesson.icon,
           xpReward: lesson.xpReward,
           orderIndex: li,
+        }).onConflictDoUpdate({
+          target: schema.courseLessons.id,
+          set: {
+            unitId: unit.id,
+            title: lesson.title,
+            description: lesson.description,
+            icon: lesson.icon,
+            xpReward: lesson.xpReward,
+            orderIndex: li,
+            updatedAt: sql`now()`,
+          },
         });
         totalLessons++;
 
@@ -77,13 +99,31 @@ async function seedCourseContent() {
             hint: q.hint ?? null,
             diagram: q.diagram ?? null,
             orderIndex: qi,
+          }).onConflictDoUpdate({
+            target: schema.courseQuestions.id,
+            set: {
+              lessonId: lesson.id,
+              type: q.type,
+              question: q.question,
+              options: q.options ?? null,
+              correctIndex: q.correctIndex ?? null,
+              correctAnswer: correctAnswer ?? null,
+              acceptedAnswers: q.acceptedAnswers ?? null,
+              blanks: q.blanks ?? null,
+              wordBank: q.wordBank ?? null,
+              explanation: q.explanation,
+              hint: q.hint ?? null,
+              diagram: q.diagram ?? null,
+              orderIndex: qi,
+              updatedAt: sql`now()`,
+            },
           });
           totalQuestions++;
         }
       }
     }
 
-    console.log(`  Inserted: ${totalUnits} units, ${totalLessons} lessons, ${totalQuestions} questions`);
+    console.log(`  Upserted: ${totalUnits} units, ${totalLessons} lessons, ${totalQuestions} questions`);
   });
 
   console.log('--- Course content seeded successfully ---\n');
