@@ -8,6 +8,7 @@ import { blueprints } from '@/data/blueprints';
 import { getUnitTheme } from '@/lib/unitThemes';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { useSubscription } from '@/hooks/useSubscription';
+import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 
 interface BlueprintCelebrationProps {
@@ -108,8 +109,8 @@ export function BlueprintCelebration({ unitIndex, isGolden, onDismiss }: Bluepri
   const progress = useCourseStore((s) => s.progress);
   const { isProUser } = useSubscription();
 
-  // Show upgrade prompt when completing last lesson of free chapter (unit 0)
-  const shouldShowUpgrade = unitIndex === 0 && !isProUser && !isGolden;
+  // Show upgrade prompt when completing a free-tier chapter
+  const shouldShowUpgrade = isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex) && !isProUser && !isGolden;
 
   const chapterStats = useMemo(() => {
     const unit = courseData[unitIndex];

@@ -42,14 +42,19 @@ export const LIMITS = {
   free: {
     dailyQuestions: 5,
     streakFreezesPerWeek: 0,
-    unlockedUnits: [0] as number[],   // unit 1 only (0-indexed)
+    unlockedUnits: [0] as number[] | 'all',   // unit 1 only (0-indexed)
   },
   pro: {
     dailyQuestions: -1,               // unlimited
     streakFreezesPerWeek: 1,
-    unlockedUnits: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number[],
+    unlockedUnits: 'all' as number[] | 'all', // all units
   },
 } as const;
+
+/** Check if a unit index is unlocked for a given set of unlocked units. */
+export function isUnitUnlocked(unlockedUnits: readonly number[] | 'all', unitIndex: number): boolean {
+  return unlockedUnits === 'all' || unlockedUnits.includes(unitIndex);
+}
 
 // --------------- Tier Definitions ---------------
 

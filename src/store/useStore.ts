@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
-import type { TopicId, Difficulty, UserProgress, SessionRecord, TopicProgress } from '@/data/types';
+import { TOTAL_TOPICS, type TopicId, type Difficulty, type UserProgress, type SessionRecord, type TopicProgress } from '@/data/types';
 import type { CourseQuestion } from '@/data/course/types';
 import { seedProgress } from '@/data/seed-progress';
 import { levels } from '@/data/levels';
@@ -331,7 +331,7 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 1).length >= 5;
         break;
       case 'ach-all-topics':
-        unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 1).length >= 11;
+        unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 1).length >= TOTAL_TOPICS;
         break;
       case 'ach-all-types':
         if (sessionCtx) {
@@ -365,7 +365,7 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         break;
       }
       case 'ach-interview-ready':
-        unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 5).length >= 11
+        unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 5).length >= TOTAL_TOPICS
           && (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 5).every(t => (t.questionsCorrect / t.questionsAttempted) >= 0.7);
         break;
 
@@ -681,16 +681,15 @@ export const useStore = create<AppState>()(
                 streak: { ...s.streak, milestonesReached: [...s.streak.milestonesReached, milestone.days] },
               }));
               engState.addGems(milestone.gems, `streak_milestone_${milestone.days}`);
-              if (milestone.hasTitle && milestone.titleText) {
-                const titleId = `reward-title-${milestone.titleText.toLowerCase().replace(/\s+/g, '-')}`;
+              if (milestone.hasTitle && milestone.titleId) {
+                const titleId = milestone.titleId;
                 useEngagementStore.setState((s) => {
                   if (s.gems.inventory.activeTitles.includes(titleId)) return {};
                   return { gems: { ...s.gems, inventory: { ...s.gems.inventory, activeTitles: [...s.gems.inventory.activeTitles, titleId] } } };
                 });
               }
-              if (milestone.hasFrame) {
-                const frameMap: Record<number, string> = { 30: 'reward-frame-streak-iron', 60: 'reward-frame-streak-diamond', 100: 'reward-frame-streak-centurion' };
-                const frameId = frameMap[milestone.days];
+              if (milestone.hasFrame && milestone.frameId) {
+                const frameId = milestone.frameId;
                 if (frameId) {
                   useEngagementStore.setState((s) => {
                     if (s.gems.inventory.activeFrames.includes(frameId)) return {};

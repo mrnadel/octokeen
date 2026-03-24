@@ -1,4 +1,4 @@
-import type { Difficulty, QuestionType } from '@/data/types';
+import { TOTAL_TOPICS, type Difficulty, type QuestionType } from '@/data/types';
 import { getTodayDate } from '@/lib/quest-engine';
 
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
@@ -148,7 +148,7 @@ export function getInterviewReadiness(topicProgress: Record<string, { accuracy: 
   if (topics.length === 0) return 0;
 
   const weights = { coverage: 0.3, accuracy: 0.4, depth: 0.3 };
-  const totalTopics = 11;
+  const totalTopics = TOTAL_TOPICS;
 
   const coverage = topics.filter(t => t.attempted >= 5).length / totalTopics;
   const avgAccuracy = topics.reduce((sum, t) => sum + (t.attempted > 0 ? t.accuracy : 0), 0) / Math.max(topics.length, 1);

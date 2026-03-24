@@ -5,7 +5,7 @@ import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { courseMeta, loadUnitData } from '@/data/course/course-meta';
 import { topics } from '@/data/topics';
 import { shuffleArray } from '@/lib/utils';
-import { LIMITS } from '@/lib/pricing';
+import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
@@ -51,13 +51,8 @@ function checkAndAwardMilestones(
         });
       }
       // Award frame
-      if (milestone.hasFrame) {
-        const frameMap: Record<number, string> = {
-          30: 'reward-frame-streak-iron',
-          60: 'reward-frame-streak-diamond',
-          100: 'reward-frame-streak-centurion',
-        };
-        const frameId = frameMap[milestone.days];
+      if (milestone.hasFrame && milestone.frameId) {
+        const frameId = milestone.frameId;
         if (frameId) {
           useEngagementStore.setState((s) => {
             if (s.gems.inventory.activeFrames.includes(frameId)) return {};
@@ -142,6 +137,7 @@ function getYesterdayString(): string {
 }
 
 const PASSING_ACCURACY = 70;
+const SESSION_SIZE = 10;
 
 function calculateStars(accuracy: number): number {
   if (accuracy >= 90) return 3;
@@ -190,7 +186,7 @@ export const useCourseStore = create<CourseState>()(
         const isTrialing = subStore.status === 'trialing';
         const isPastDue = subStore.status === 'past_due';
         const effectiveTier = (isTrialing || isPastDue) ? 'pro' : activeTier;
-        if (!LIMITS[effectiveTier].unlockedUnits.includes(unitIndex)) {
+        if (!isUnitUnlocked(LIMITS[effectiveTier].unlockedUnits, unitIndex)) {
           return; // Unit is locked for this tier
         }
 
@@ -216,7 +212,6 @@ export const useCourseStore = create<CourseState>()(
         const existing = get().progress.completedLessons[lesson.id];
 
         let sessionQuestionIds: string[];
-        const SESSION_SIZE = 10;
 
         if (isGolden) {
           // Golden session: pick questions the user hasn't seen before
@@ -592,10 +587,10 @@ export const useCourseStore = create<CourseState>()(
               golden: isGolden,
               answeredQuestionIds: isGolden
                 ? lesson.questions.map(q => q.id)
-                : lesson.questions.slice(0, 10).map(q => q.id),
+                : lesson.questions.slice(0, SESSION_SIZE).map(q => q.id),
               correctQuestionIds: isGolden
                 ? lesson.questions.map(q => q.id)
-                : lesson.questions.slice(0, 9).map(q => q.id),
+                : lesson.questions.slice(0, SESSION_SIZE - 1).map(q => q.id),
             };
             xp += lesson.xpReward * 3;
 

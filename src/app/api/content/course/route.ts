@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { courseUnits, courseLessons, courseQuestions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { canAccessUnit } from '@/lib/access-control';
-import { LIMITS } from '@/lib/pricing';
+import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { courseMeta } from '@/data/course/course-meta';
 
 export async function GET() {
@@ -37,7 +37,10 @@ export async function GET() {
     );
   } else {
     // Unauthenticated: only free-tier units
-    accessibleUnitIndices = new Set(LIMITS.free.unlockedUnits);
+    const freeUnits = LIMITS.free.unlockedUnits;
+    accessibleUnitIndices = freeUnits === 'all'
+      ? new Set(units.map((_, i) => i))
+      : new Set(freeUnits);
   }
 
   // Group questions by lessonId

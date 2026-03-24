@@ -15,6 +15,8 @@ vi.mock('@/lib/quest-engine', () => {
   });
 
   return {
+    DAILY_QUEST_COUNT: 3,
+    WEEKLY_QUEST_COUNT: 3,
     getTodayDate: () => '2026-03-23',
     getCurrentWeekMonday: () => '2026-03-17',
     selectDailyQuests: vi.fn(() => [

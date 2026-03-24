@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DAILY_QUEST_COUNT, WEEKLY_QUEST_COUNT } from '@/lib/quest-engine';
 import {
   useDailyQuests,
   useWeeklyQuests,
@@ -52,8 +53,8 @@ export function QuestBoard() {
     initWeeklyQuests();
   }, [initDailyQuests, initWeeklyQuests]);
 
-  const allDailyComplete = dailyQuests.length >= 3 && dailyQuests.every((q) => q.completed);
-  const allWeeklyComplete = weeklyQuests.length >= 3 && weeklyQuests.every((q) => q.completed);
+  const allDailyComplete = dailyQuests.length >= DAILY_QUEST_COUNT && dailyQuests.every((q) => q.completed);
+  const allWeeklyComplete = weeklyQuests.length >= WEEKLY_QUEST_COUNT && weeklyQuests.every((q) => q.completed);
 
   const handleDailyChest = useCallback(() => {
     if (!allDailyComplete || dailyChestClaimed) return;

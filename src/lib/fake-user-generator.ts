@@ -1,8 +1,12 @@
 import type { FakeUser, FakeUserPool, LeagueCompetitor } from '@/data/engagement-types';
+import { TOTAL_TOPICS } from '@/data/types';
 import { fakeNames } from '@/data/fake-names';
 import { competitorFlags } from '@/data/league';
 import { topics } from '@/data/topics';
 import { seededRandom, hashSeed, getTierConfig } from '@/lib/league-simulator';
+
+/** Number of simulated competitors per league bracket */
+export const LEAGUE_COMPETITOR_COUNT = 29;
 import { getCurrentWeekMonday } from '@/lib/quest-engine';
 
 // --------------- Constants ---------------
@@ -137,7 +141,7 @@ const TOPIC_COUNTS: Record<number, { min: number; max: number }> = {
   2: { min: 2, max: 5 },
   3: { min: 4, max: 8 },
   4: { min: 6, max: 10 },
-  5: { min: 8, max: 11 },
+  5: { min: 8, max: TOTAL_TOPICS },
 };
 
 // Achievement tiers: base achievements available at each tier (always in the eligible pool)
@@ -565,7 +569,7 @@ function progressSingleUser(user: FakeUser, rng: () => number): void {
   }
 
   // Maybe start a new topic
-  if (rng() < 0.05 && user.topicMastery.length < 11) {
+  if (rng() < 0.05 && user.topicMastery.length < TOTAL_TOPICS) {
     const existingTopics = new Set(user.topicMastery.map((t) => t.topicId));
     const available = topics.filter((t) => !existingTopics.has(t.id));
     if (available.length > 0) {
@@ -644,15 +648,15 @@ function drawFromPool(
   let candidates = pool.filter((u) => u.currentTier === tier);
 
   // Backfill from adjacent tier if insufficient
-  if (candidates.length < 29) {
+  if (candidates.length < LEAGUE_COMPETITOR_COUNT) {
     const adjacentTier = tier > 1 ? tier - 1 : tier + 1;
     const adjacent = pool.filter((u) => u.currentTier === adjacentTier);
     candidates = [...candidates, ...adjacent];
   }
 
-  // Shuffle and take 29
+  // Shuffle and take competitors
   const shuffled = shuffleArray(candidates, rng);
-  const selected = shuffled.slice(0, 29);
+  const selected = shuffled.slice(0, LEAGUE_COMPETITOR_COUNT);
 
   const { min: xpMin, max: xpMax } = tierConfig.xpRange;
   const midpointXp = (xpMin + xpMax) / 2;

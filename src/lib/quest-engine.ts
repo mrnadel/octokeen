@@ -146,10 +146,13 @@ export function needsWeeklyReset(storedMonday: string | null): boolean {
 
 // --------------- Convenience Selectors ---------------
 
+export const DAILY_QUEST_COUNT = 3;
+export const WEEKLY_QUEST_COUNT = 3;
+
 export function selectDailyQuests(lastIds: string[]): QuestDefinition[] {
-  return selectQuests(dailyQuestPool, 3, getTodayDate(), lastIds);
+  return selectQuests(dailyQuestPool, DAILY_QUEST_COUNT, getTodayDate(), lastIds);
 }
 
 export function selectWeeklyQuests(lastIds: string[]): QuestDefinition[] {
-  return selectQuests(weeklyQuestPool, 3, getCurrentWeekMonday(), lastIds);
+  return selectQuests(weeklyQuestPool, WEEKLY_QUEST_COUNT, getCurrentWeekMonday(), lastIds);
 }

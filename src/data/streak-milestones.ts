@@ -14,6 +14,7 @@ export const streakMilestones: StreakMilestoneDefinition[] = [
     badgeIcon: '⚡',
     hasTitle: true,
     titleText: 'Consistent',
+    titleId: 'reward-title-consistent',
   },
   {
     days: 30,
@@ -21,8 +22,10 @@ export const streakMilestones: StreakMilestoneDefinition[] = [
     badgeName: 'Iron Will',
     badgeIcon: '🏆',
     hasFrame: true,
+    frameId: 'reward-frame-streak-iron',
     hasTitle: true,
     titleText: 'Iron Will',
+    titleId: 'reward-title-iron-will',
   },
   {
     days: 60,
@@ -30,8 +33,10 @@ export const streakMilestones: StreakMilestoneDefinition[] = [
     badgeName: 'Diamond Dedication',
     badgeIcon: '💎',
     hasFrame: true,
+    frameId: 'reward-frame-streak-diamond',
     hasTitle: true,
     titleText: 'Diamond Mind',
+    titleId: 'reward-title-diamond-mind',
   },
   {
     days: 100,
@@ -39,7 +44,9 @@ export const streakMilestones: StreakMilestoneDefinition[] = [
     badgeName: 'Centurion',
     badgeIcon: '👑',
     hasFrame: true,
+    frameId: 'reward-frame-streak-centurion',
     hasTitle: true,
     titleText: 'Centurion',
+    titleId: 'reward-title-centurion',
   },
 ];

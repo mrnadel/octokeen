@@ -19,18 +19,23 @@ export type QuestionType =
 
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
-export type TopicId =
-  | 'engineering-mechanics'
-  | 'strength-of-materials'
-  | 'thermodynamics'
-  | 'heat-transfer'
-  | 'fluid-mechanics'
-  | 'materials-engineering'
-  | 'manufacturing'
-  | 'machine-elements'
-  | 'design-tolerancing'
-  | 'vibrations'
-  | 'real-world-mechanisms';
+export const TOPIC_IDS = [
+  'engineering-mechanics',
+  'strength-of-materials',
+  'thermodynamics',
+  'heat-transfer',
+  'fluid-mechanics',
+  'materials-engineering',
+  'manufacturing',
+  'machine-elements',
+  'design-tolerancing',
+  'vibrations',
+  'real-world-mechanisms',
+] as const;
+
+export type TopicId = (typeof TOPIC_IDS)[number];
+
+export const TOTAL_TOPICS = TOPIC_IDS.length;
 
 export type InterviewRelevance = 'critical' | 'high' | 'medium';
 

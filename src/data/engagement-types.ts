@@ -188,8 +188,10 @@ export interface StreakMilestoneDefinition {
   badgeName: string;
   badgeIcon: string;
   hasFrame?: boolean;
+  frameId?: string;
   hasTitle?: boolean;
   titleText?: string;
+  titleId?: string;
 }
 
 // --------------- Comeback ---------------

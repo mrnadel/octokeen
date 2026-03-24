@@ -29,6 +29,8 @@ import {
   createQuests,
   getTodayDate,
   getCurrentWeekMonday,
+  DAILY_QUEST_COUNT,
+  WEEKLY_QUEST_COUNT,
 } from '@/lib/quest-engine';
 import {
   simulateCompetitorXp,
@@ -274,8 +276,9 @@ export const useEngagementStore = create<EngagementStore>()(
 
           if (alreadyClaimed) return;
 
-          // Check all 3 quests are completed
-          const allCompleted = quests.length >= 3 && quests.every((q) => q.completed);
+          // Check all quests are completed
+          const expectedCount = type === 'daily' ? DAILY_QUEST_COUNT : WEEKLY_QUEST_COUNT;
+          const allCompleted = quests.length >= expectedCount && quests.every((q) => q.completed);
           if (!allCompleted) return;
 
           const reward = type === 'daily' ? dailyChestReward : weeklyChestReward;

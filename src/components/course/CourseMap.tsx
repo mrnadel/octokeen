@@ -8,6 +8,7 @@ import { Sparkles } from 'lucide-react';
 import { courseMeta } from '@/data/course/course-meta';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useSubscription } from '@/hooks/useSubscription';
+import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { getUnitTheme } from '@/lib/unitThemes';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { UnitHeader } from './UnitHeader';
@@ -31,7 +32,7 @@ export function CourseMap() {
   } | null>(null);
 
   const isFreeLocked = useCallback((unitIndex: number) =>
-    !isGuest && !isProUser && unitIndex > 0, [isGuest, isProUser]);
+    !isGuest && !isProUser && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex), [isGuest, isProUser]);
 
   const getLessonState = useCallback(
     (
@@ -41,7 +42,7 @@ export function CourseMap() {
       const lessonId = courseMeta[unitIndex]?.lessons[lessonIndex]?.id;
       if (!lessonId) return 'locked';
 
-      if (isGuest && unitIndex > 0) return 'locked';
+      if (isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex)) return 'locked';
       if (isFreeLocked(unitIndex)) return 'locked';
 
       if (progress.completedLessons[lessonId]?.passed) return 'completed';
@@ -166,7 +167,7 @@ export function CourseMap() {
           ).length;
           const isExpanded = expandedUnits.has(unitIndex);
           const isActive = unitIndex === activeUnitIndex;
-          const isGuestLocked = isGuest && unitIndex > 0;
+          const isGuestLocked = isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex);
           const isProLocked = isFreeLocked(unitIndex);
           const isUnitLocked = isGuestLocked || isProLocked;
           const isAllGolden = completedInUnit === unit.lessons.length &&
@@ -370,7 +371,7 @@ export function CourseMap() {
                     </div>
                   </div>
 
-                  {isGuest && jumpConfirm.unitIndex > 0 ? (
+                  {isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, jumpConfirm.unitIndex) ? (
                     <>
                       <p
                         style={{

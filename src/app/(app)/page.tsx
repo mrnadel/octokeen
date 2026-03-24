@@ -59,22 +59,11 @@ export default function HomePage() {
       addGems(unclaimedMilestone.gems, `streak_milestone_${unclaimedMilestone.days}`);
 
       // Grant milestone frame + title to inventory
-      const streakFrameMap: Record<number, string> = {
-        30: 'reward-frame-streak-iron',
-        60: 'reward-frame-streak-diamond',
-        100: 'reward-frame-streak-centurion',
-      };
-      const streakTitleMap: Record<number, string> = {
-        14: 'reward-title-consistent',
-        30: 'reward-title-iron-will',
-        60: 'reward-title-diamond-mind',
-        100: 'reward-title-centurion',
-      };
       useEngagementStore.setState((s) => {
         const frames = [...s.gems.inventory.activeFrames];
         const titles = [...s.gems.inventory.activeTitles];
-        const frameId = streakFrameMap[unclaimedMilestone.days];
-        const titleId = streakTitleMap[unclaimedMilestone.days];
+        const frameId = unclaimedMilestone.frameId;
+        const titleId = unclaimedMilestone.titleId;
         if (frameId && !frames.includes(frameId)) frames.push(frameId);
         if (titleId && !titles.includes(titleId)) titles.push(titleId);
         return {

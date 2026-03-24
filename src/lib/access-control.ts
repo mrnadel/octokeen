@@ -5,7 +5,7 @@
 import { eq, and, sql } from 'drizzle-orm';
 import { db } from './db';
 import { subscriptions, dailyUsage } from './db/schema';
-import { LIMITS, PRO_SESSION_TYPES } from './pricing';
+import { LIMITS, PRO_SESSION_TYPES, isUnitUnlocked } from './pricing';
 import type { SubscriptionTier } from './subscription';
 
 function getTodayString(): string {
@@ -50,7 +50,7 @@ export async function canAccessUnit(
   unitIndex: number,
 ): Promise<{ allowed: boolean; tier: SubscriptionTier }> {
   const tier = await getEffectiveTier(userId);
-  const allowed = LIMITS[tier].unlockedUnits.includes(unitIndex);
+  const allowed = isUnitUnlocked(LIMITS[tier].unlockedUnits, unitIndex);
   return { allowed, tier };
 }
 

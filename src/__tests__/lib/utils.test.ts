@@ -15,7 +15,7 @@ import {
   getStreakStatus,
   getInterviewReadiness,
 } from '@/lib/utils';
-import type { Question, Difficulty, QuestionType } from '@/data/types';
+import { TOTAL_TOPICS, type Question, type Difficulty, type QuestionType } from '@/data/types';
 
 // --------------- Helper to build a minimal Question ---------------
 
@@ -441,12 +441,12 @@ describe('getInterviewReadiness()', () => {
 
   it('computes readiness with full progress', () => {
     const progress: Record<string, { accuracy: number; attempted: number }> = {};
-    // All 11 topics with 20 attempts and 90% accuracy
-    for (let i = 0; i < 11; i++) {
+    // All topics with 20 attempts and 90% accuracy
+    for (let i = 0; i < TOTAL_TOPICS; i++) {
       progress[`topic-${i}`] = { accuracy: 0.9, attempted: 20 };
     }
     const result = getInterviewReadiness(progress);
-    // coverage = 11/11 = 1, avgAccuracy = 0.9, depth = 11/11 = 1
+    // coverage = all/all = 1, avgAccuracy = 0.9, depth = all/all = 1
     // (1 * 0.3 + 0.9 * 0.4 + 1 * 0.3) * 100 = 96
     expect(result).toBe(96);
   });
