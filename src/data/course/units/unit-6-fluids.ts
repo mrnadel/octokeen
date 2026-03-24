@@ -1726,10 +1726,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the Buckingham Pi theorem, and how do you determine the number of dimensionless groups?',
           options: [
-            'If a physical problem involves n variables',
-            'The number of Pi groups equals the number of variables n',
-            'The number of Pi groups equals the number of fundamental dimensions k',
-            'The theorem states that all physical equations must have the same dimensions'
+            'n variables with k dimensions yield (n-k) Pi groups',
+            'Number of Pi groups equals the variable count n',
+            'Number of Pi groups equals the dimension count k',
+            'All physical equations must have the same dimensions'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -1741,10 +1741,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What are repeating variables in the Buckingham Pi method, and what rules govern their selection?',
           options: [
-            'Repeating variables appear in every Pi group',
-            'Repeating variables are the variables that have the same dimensions',
+            'Repeating variables appear in every Pi group formed',
+            'Repeating variables share the same dimensions as each other',
             'Repeating variables are the dimensionless groups themselves',
-            'Any variables can be chosen as repeating variables — there are no rules'
+            'Any variables can be chosen — there are no selection rules'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
@@ -1765,10 +1765,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'The drag on a sphere in a flow depends on velocity V, diameter D, fluid density ρ, and viscosity μ. Using dimensional.',
           options: [
-            'N = 5 variables, k = 3 dimensions, giving 2 Pi groups: π₁ = F_D/',
-            '3 Pi groups: F_D/ρ, V/D, and μ/ρ — each variable becomes its own group',
-            '1 Pi group: all variables combine into a single universal constant',
-            '4 Pi groups'
+            '2 Pi groups: C_D = f(Re) from n=5, k=3',
+            '3 Pi groups: each variable forms its own group',
+            '1 Pi group: all variables form one constant',
+            '4 Pi groups: one for each non-repeating variable'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><circle cx="35" cy="40" r="14" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><line x1="8" y1="30" x2="20" y2="30" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,28.5 22,30 19,31.5" fill="#A5E86C" opacity="0.4"/><line x1="8" y1="40" x2="20" y2="40" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,38.5 22,40 19,41.5" fill="#A5E86C" opacity="0.4"/><line x1="8" y1="50" x2="20" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,48.5 22,50 19,51.5" fill="#A5E86C" opacity="0.4"/><line x1="55" y1="40" x2="68" y2="40" stroke="#3B8700" stroke-width="1.2" opacity="0.5"/><polygon points="66,38.5 70,40 66,41.5" fill="#3B8700" opacity="0.5"/><text x="62" y="36" font-size="3" fill="#3B8700" opacity="0.5">F_D</text><text x="12" y="26" font-size="3" fill="#A5E86C" opacity="0.5">V</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">C_D = f(Re)</text></svg>',
@@ -1795,9 +1795,9 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is the Mach number, and at what Mach number does compressibility become important?',
           options: [
-            'Ma = V/c, compressibility significant above Ma ≈ 0.3',
-            'Ma = V/c is the basic definition without context',
-            'Ma = V²/c², and the critical value is Ma = 1.0',
+            'Ma = V/c; compressibility matters above Ma ≈ 0.3',
+            'Ma = V/c but has no specific threshold value',
+            'Ma = V²/c² with a critical value at Ma = 1.0',
             'Ma is only relevant for supersonic flow conditions'
           ],
           correctIndex: 0,
@@ -1819,10 +1819,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'If the full-scale car travels at 100 km/h, what speed must the model be tested at?',
           options: [
-            '1000 km/h — from Re_model = Re_prototype',
-            '10 km/h — the model speed scales down with the size',
-            '100 km/h — same speed as the prototype since we use the same fluid',
-            '316 km/h — the square root of the scale ratio times the prototype speed'
+            '1000 km/h — from matching Re_model = Re_prototype',
+            '10 km/h — model speed scales down with model size',
+            '100 km/h — same speed since we use the same fluid',
+            '316 km/h — square root of scale ratio times V_proto'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
@@ -1834,10 +1834,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'What is geometric similarity, and is it sufficient for valid model testing?',
           options: [
-            'Geometric similarity means the model is a scaled replica in shape; it is necessary but not sufficient — dynamic similarity (matching Re, Fr, etc.) is also needed',
-            'Geometric similarity means matching all dimensionless numbers between model and prototype',
-            'Geometric similarity alone is sufficient for all model testing',
-            'Geometric similarity requires the model and prototype to be the same physical size'
+            'Scaled shape replica; necessary but not sufficient alone',
+            'Matching all dimensionless numbers between model and prototype',
+            'Geometric similarity alone is sufficient for model testing',
+            'Model and prototype must be the same physical size'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="35" width="25" height="18" rx="3" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><text x="17" y="47" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle">model</text><rect x="40" y="20" width="35" height="40" rx="5" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/><text x="57" y="43" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle">prototype</text><text x="40" y="76" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">similarity required</text></svg>',
@@ -1859,10 +1859,10 @@ export const unit6: Unit = {
           type: 'multiple-choice',
           question: 'If the prototype flow rate is 500 m³/s, what flow rate should be used in the model?',
           options: [
-            'Q_m = Q_p × λ^ = 500 ×^2.5 = 500/1789 ≈ 0.28 m³/s',
-            'Q_m = Q_p × λ = 500/20 = 25 m³/s',
-            'Q_m = Q_p × λ² = 500/400 = 1.25 m³/s — flow rate scales with area ratio',
-            'Q_m = Q_p = 500 m³/s — flow rate must be the same for valid testing'
+            'Q_m = Q_p × λ^2.5 ≈ 0.28 m³/s from Froude scaling',
+            'Q_m = Q_p × λ = 500/20 = 25 m³/s by length ratio',
+            'Q_m = Q_p × λ² = 1.25 m³/s by area ratio scaling',
+            'Q_m = Q_p = 500 m³/s — same flow for valid testing'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
@@ -2045,3 +2045,4 @@ export const unit6: Unit = {
     }
   ]
 };
+                           
