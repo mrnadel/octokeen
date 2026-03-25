@@ -9,16 +9,21 @@ import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
-import { useEngagementStore } from '@/store/useEngagementStore';
+import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
 import type { CourseProgress, ActiveLesson, LessonResult, Unit } from '@/data/course/types';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
+import { getLevelForXp } from '@/data/levels';
+import { getLevelReward, type LevelReward } from '@/data/level-rewards';
 
 interface ChapterCompletion {
   unitIndex: number;
   isGolden: boolean;
 }
+
+export type CelebrationEvent =
+  | { type: 'level-up'; reward: LevelReward };
 
 interface CourseState {
   progress: CourseProgress;
@@ -28,6 +33,7 @@ interface CourseState {
   lessonResult: LessonResult | null;
   chapterJustCompleted: ChapterCompletion | null;
   courseJustCompleted: boolean;
+  pendingCelebrations: CelebrationEvent[];
 
   // Actions — Content
   setCourseData: (data: Unit[]) => void;
@@ -42,6 +48,7 @@ interface CourseState {
   dismissResult: () => void;
   dismissChapterCompletion: () => void;
   dismissCourseCompletion: () => void;
+  dismissNextCelebration: () => void;
 
   // Practice bridging
   creditPracticeAnswer: (questionId: string, correct: boolean) => void;
@@ -109,6 +116,7 @@ export const useCourseStore = create<CourseState>()(
       lessonResult: null,
       chapterJustCompleted: null,
       courseJustCompleted: false,
+      pendingCelebrations: [],
 
       setCourseData: (data: Unit[]) => set({ courseData: data }),
 
@@ -339,6 +347,18 @@ export const useCourseStore = create<CourseState>()(
 
         const newTotalXp = state.progress.totalXp + xpEarned;
 
+        // Detect level-up from XP gain
+        const celebrations: CelebrationEvent[] = [];
+        const oldLevel = getLevelForXp(state.progress.totalXp);
+        const newLevel = getLevelForXp(newTotalXp);
+        if (newLevel.level > oldLevel.level) {
+          // Check every level crossed (handles multi-level jumps)
+          for (let lvl = oldLevel.level + 1; lvl <= newLevel.level; lvl++) {
+            const reward = getLevelReward(lvl);
+            if (reward) celebrations.push({ type: 'level-up', reward });
+          }
+        }
+
         const result: LessonResult = {
           lessonId: lesson.id,
           unitTitle: unit.title,
@@ -400,6 +420,7 @@ export const useCourseStore = create<CourseState>()(
         set({
           activeLesson: null,
           lessonResult: result,
+          pendingCelebrations: celebrations,
           chapterJustCompleted,
           courseJustCompleted: courseJustCompleted || state.courseJustCompleted,
           progress: {
@@ -446,6 +467,26 @@ export const useCourseStore = create<CourseState>()(
 
       dismissCourseCompletion: () => {
         set({ courseJustCompleted: false });
+      },
+
+      dismissNextCelebration: () => {
+        const celebrations = get().pendingCelebrations;
+        const current = celebrations[0];
+
+        // Award rewards for the celebration being dismissed
+        if (current?.type === 'level-up') {
+          const { reward } = current;
+          useEngagementStore.getState().addGems(reward.gems, `level_up_${reward.level}`);
+          if (reward.streakFreeze) {
+            useEngagementStore.setState((s) => ({
+              streak: { ...s.streak, freezesOwned: s.streak.freezesOwned + 1 },
+            }));
+          }
+          if (reward.titleId) grantTitle(reward.titleId);
+          if (reward.frameId) grantFrame(reward.frameId);
+        }
+
+        set({ pendingCelebrations: celebrations.slice(1) });
       },
 
       creditPracticeAnswer: (questionId: string, correct: boolean) => {

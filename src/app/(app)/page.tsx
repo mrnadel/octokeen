@@ -19,6 +19,7 @@ const WelcomeBack = lazy(() => import('@/components/engagement/WelcomeBack').the
 const LeaguePromotion = lazy(() => import('@/components/engagement/LeaguePromotion').then(m => ({ default: m.LeaguePromotion })));
 const StreakFreeze = lazy(() => import('@/components/engagement/StreakFreeze').then(m => ({ default: m.StreakFreeze })));
 const StreakMilestone = lazy(() => import('@/components/engagement/StreakMilestone').then(m => ({ default: m.StreakMilestone })));
+const LevelUpCelebration = lazy(() => import('@/components/engagement/LevelUpCelebration').then(m => ({ default: m.LevelUpCelebration })));
 const BlueprintCelebration = lazy(() => import('@/components/engagement/BlueprintCelebration').then(m => ({ default: m.BlueprintCelebration })));
 const CourseCompleteCelebration = lazy(() => import('@/components/engagement/CourseCompleteCelebration').then(m => ({ default: m.CourseCompleteCelebration })));
 
@@ -30,6 +31,8 @@ export default function HomePage() {
   const dismissChapterCompletion = useCourseStore((s) => s.dismissChapterCompletion);
   const courseJustCompleted = useCourseStore((s) => s.courseJustCompleted);
   const dismissCourseCompletion = useCourseStore((s) => s.dismissCourseCompletion);
+  const pendingCelebrations = useCourseStore((s) => s.pendingCelebrations);
+  const dismissNextCelebration = useCourseStore((s) => s.dismissNextCelebration);
   const currentStreak = useStore((s) => s.progress.currentStreak);
   const milestonesReached = useEngagementStore((s) => s.streak.milestonesReached);
   const addGems = useEngagementStore((s) => s.addGems);
@@ -129,14 +132,20 @@ export default function HomePage() {
       <Suspense fallback={null}>
         {activeLesson && <LessonView />}
         {lessonResult && <ResultScreen />}
-        {!lessonResult && chapterJustCompleted && (
+        {!lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'level-up' && (
+          <LevelUpCelebration
+            reward={pendingCelebrations[0].reward}
+            onClose={dismissNextCelebration}
+          />
+        )}
+        {!lessonResult && pendingCelebrations.length === 0 && chapterJustCompleted && (
           <BlueprintCelebration
             unitIndex={chapterJustCompleted.unitIndex}
             isGolden={chapterJustCompleted.isGolden}
             onDismiss={dismissChapterCompletion}
           />
         )}
-        {!lessonResult && !chapterJustCompleted && courseJustCompleted && (
+        {!lessonResult && pendingCelebrations.length === 0 && !chapterJustCompleted && courseJustCompleted && (
           <CourseCompleteCelebration onDismiss={dismissCourseCompletion} />
         )}
       </Suspense>
