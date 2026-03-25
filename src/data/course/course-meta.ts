@@ -261,6 +261,7 @@ export async function loadUnitData(unitIndex: number, professionId?: string): Pr
 async function loadFinanceUnit(unitIndex: number): Promise<Unit> {
   const loaders: (() => Promise<Unit>)[] = [
     () => import('./professions/personal-finance/units/unit-1').then(m => m.unit1),
+    () => import('./professions/personal-finance/units/unit-2').then(m => m.unit2),
   ];
 
   // Units beyond what has full content files fall back to lightweight metadata
