@@ -591,7 +591,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
         {/* Question area */}
         <div
-          className="flex-1 overflow-y-auto"
+          className="flex-1 overflow-y-auto overflow-x-hidden"
           style={{ padding: '16px 20px 20px' }}
         >
           <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -623,13 +623,13 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
               )}
             </AnimatePresence>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               <motion.div
                 key={displayQuestion.id}
-                initial={{ opacity: 0, x: 30 }}
+                initial={{ opacity: 0, x: 60 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+                exit={{ opacity: 0, x: -60 }}
+                transition={{ type: 'spring', stiffness: 340, damping: 30 }}
                 style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
               >
                 {displayQuestion.type === 'teaching' ? (

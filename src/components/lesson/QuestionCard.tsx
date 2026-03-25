@@ -341,8 +341,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
               const isSelected = selectedIndex === displayIndex;
               const isCorrectOption = originalIndex === question.correctIndex;
 
-              let bg = 'rgba(255,255,255,0.65)';
-              let border = '2px solid transparent';
+              let bg = 'white';
+              let border = '2px solid #E5E5E5';
               let textColor = '#3C3C3C';
               let badgeBg = '#F0F0F0';
               let badgeColor = '#AFAFAF';
@@ -355,7 +355,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                   textColor = '#58A700';
                   badgeBg = '#58CC02';
                   badgeColor = 'white';
-                  shadow = '0 0 12px rgba(88, 204, 2, 0.3)';
+                  shadow = '0 0 12px rgba(88, 204, 2, 0.25)';
                 } else if (isSelected && !isCorrectOption) {
                   bg = '#FFDFE0';
                   border = '2px solid #FF4B4B';
@@ -364,6 +364,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                   badgeColor = 'white';
                 } else {
                   bg = '#F5F5F5';
+                  border = '2px solid #EFEFEF';
                   textColor = '#CFCFCF';
                   badgeBg = '#E5E5E5';
                   badgeColor = '#CFCFCF';
@@ -452,8 +453,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
               const isSelected = selectedBool === value;
               const isCorrectOption = value === question.correctAnswer;
 
-              let bg = 'rgba(255,255,255,0.65)';
-              let border = '2px solid transparent';
+              let bg = 'white';
+              let border = '2px solid #E5E5E5';
               let textColor = '#3C3C3C';
               let shadow = 'none';
 
@@ -462,13 +463,14 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                   bg = '#D7FFB8';
                   border = '2px solid #58CC02';
                   textColor = '#58A700';
-                  shadow = '0 0 12px rgba(88, 204, 2, 0.3)';
+                  shadow = '0 0 12px rgba(88, 204, 2, 0.25)';
                 } else if (isSelected && !isCorrectOption) {
                   bg = '#FFDFE0';
                   border = '2px solid #FF4B4B';
                   textColor = '#EA2B2B';
                 } else {
                   bg = '#F5F5F5';
+                  border = '2px solid #EFEFEF';
                   textColor = '#CFCFCF';
                 }
               } else if (isSelected) {

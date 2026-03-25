@@ -234,11 +234,11 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                             fontWeight: 700,
                             textAlign: 'center',
                             cursor: answered ? 'default' : 'pointer',
-                            border: 'none',
+                            border: isCorrect === null ? '2px solid #E5E5E5'
+                              : isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B',
                             background: isCorrect === null ? 'white'
                               : isCorrect ? '#D7FFB8' : '#FFDFE0',
-                            boxShadow: isCorrect === null ? '0 1px 3px rgba(0,0,0,0.08)'
-                              : isCorrect ? '0 0 10px rgba(88, 204, 2, 0.25)' : 'none',
+                            boxShadow: isCorrect === true ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none',
                             color: isCorrect === null ? '#3C3C3C'
                               : isCorrect ? '#58A700' : '#EA2B2B',
                             transition: 'background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
