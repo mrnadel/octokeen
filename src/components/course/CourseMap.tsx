@@ -66,17 +66,16 @@ export function CourseMap() {
 
   const activeUnitIndex = useMemo(() => findActiveUnitIndex(), [findActiveUnitIndex]);
 
-  // Find the last completed lesson to scroll to
+  // Find the first "current" (next-to-do) lesson to scroll to
   const currentLessonId = useMemo(() => {
-    let lastCompletedId: string | null = null;
     for (let ui = 0; ui < courseData.length; ui++) {
       for (let li = 0; li < courseData[ui].lessons.length; li++) {
-        if (getLessonState(ui, li) === 'completed') {
-          lastCompletedId = courseData[ui].lessons[li].id;
+        if (getLessonState(ui, li) === 'current') {
+          return courseData[ui].lessons[li].id;
         }
       }
     }
-    return lastCompletedId;
+    return null;
   }, [getLessonState]);
 
 

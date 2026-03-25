@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { PROFESSIONS } from '@/data/professions';
 import { cn } from '@/lib/utils';
+import { CourseIcon } from '@/components/course/CourseIcon';
 
 interface ProfessionPickerProps {
   selectedId?: string;
@@ -69,11 +70,11 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false }: Prof
               <span
                 className={cn(
                   'flex items-center justify-center rounded-xl shrink-0',
-                  compact ? 'w-10 h-10 text-xl' : 'w-14 h-14 text-3xl'
+                  compact ? 'w-10 h-10' : 'w-14 h-14'
                 )}
                 style={{ backgroundColor: `${profession.color}15` }}
               >
-                {profession.icon}
+                <CourseIcon professionId={profession.id} color={profession.color} size={compact ? 22 : 30} />
               </span>
 
               {/* Text */}

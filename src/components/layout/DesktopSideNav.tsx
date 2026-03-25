@@ -8,6 +8,7 @@ import { APP_NAME } from '@/lib/constants';
 import FriendsBadge from '@/components/friends/FriendsBadge';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getProfession } from '@/data/professions';
+import { CourseIcon } from '@/components/course/CourseIcon';
 
 const tabs = [
   { href: '/', label: 'Home', icon: LayoutDashboard },
@@ -35,7 +36,7 @@ export default function DesktopSideNav() {
               href="/switch-course"
               className="flex items-center gap-1.5 mt-1 text-xs font-bold text-surface-400 hover:text-surface-600 transition-colors"
             >
-              <span>{profession.icon}</span>
+              <CourseIcon professionId={profession.id} color={profession.color} size={16} />
               <span>{profession.shortName}</span>
             </Link>
           )}
