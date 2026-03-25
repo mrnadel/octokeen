@@ -71,12 +71,11 @@ function getTodayString(): string {
   return toLocalDateString(new Date());
 }
 
-const PASSING_ACCURACY = 70;
 const SESSION_SIZE = 10;
 
 function calculateStars(accuracy: number): number {
   if (accuracy >= 90) return 3;
-  if (accuracy >= 70) return 2;
+  if (accuracy >= 50) return 2;
   return 1;
 }
 
@@ -246,7 +245,7 @@ export const useCourseStore = create<CourseState>()(
 
         // Check if this is a new best or first completion
         const existingProgress = state.progress.completedLessons[lesson.id];
-        const passed = accuracy >= PASSING_ACCURACY;
+        const passed = true; // Completing a lesson = passing (hearts gate progression)
         const wasPreviouslyPassed = existingProgress?.passed ?? false;
         const isFirstCompletion = !wasPreviouslyPassed && passed;
         const isNewBest = !existingProgress || accuracy > existingProgress.bestAccuracy;
@@ -260,9 +259,8 @@ export const useCourseStore = create<CourseState>()(
         const newCorrect = answers.filter((a) => a.correct).map((a) => a.questionId);
         const mergedCorrect = [...new Set([...previousCorrect, ...newCorrect])];
 
-        // Only increment attempts on passing attempts — stars = successful attempt count
         const prevAttempts = existingProgress?.attempts ?? 0;
-        const newAttempts = passed ? prevAttempts + 1 : prevAttempts;
+        const newAttempts = prevAttempts + 1;
         const stars = isGolden
           ? 3 // Golden always shows 3 stars
           : Math.min(newAttempts, 3);
@@ -363,7 +361,7 @@ export const useCourseStore = create<CourseState>()(
         };
 
         // Detect chapter (unit) completion:
-        // All lessons in this unit must be passed (>=70% accuracy)
+        // All lessons in this unit must be completed
         const allUnitLessonsCompleted = unit.lessons.every(
           (l) => newCompletedLessons[l.id]?.passed
         );

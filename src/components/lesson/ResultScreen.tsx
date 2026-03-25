@@ -12,7 +12,6 @@ export { ResultScreen };
 export default function ResultScreen() {
   const lessonResult = useCourseStore((s) => s.lessonResult);
   const dismissResult = useCourseStore((s) => s.dismissResult);
-  const startLesson = useCourseStore((s) => s.startLesson);
   const { updateQuestProgress, updateLeagueXp, addGems } = useEngagementActions();
   const engagementTracked = useRef(false);
 
@@ -23,16 +22,10 @@ export default function ResultScreen() {
 
   useEffect(() => {
     if (!lessonResult) return;
-    const info = lessonInfo;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (!lessonResult.passed && info) {
-          dismissResult();
-          startLesson(info.unitIndex, info.lessonIndex);
-        } else {
-          dismissResult();
-        }
+        dismissResult();
       }
     };
     const timer = setTimeout(() => {
@@ -42,7 +35,7 @@ export default function ResultScreen() {
       clearTimeout(timer);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [lessonResult, dismissResult, startLesson, lessonInfo]);
+  }, [lessonResult, dismissResult]);
 
   // Track engagement metrics when lesson result appears (only on passing attempts)
   useEffect(() => {
@@ -76,17 +69,14 @@ export default function ResultScreen() {
 
   const passed = lessonResult.passed;
   const isFlawless = lessonResult.isFlawless;
-  const requiredCorrect = Math.ceil(lessonResult.totalQuestions * 0.7);
 
   const getMessage = () => {
-    if (!passed) return 'Keep Practicing!';
     if (isFlawless && isGolden) return 'Flawless Mastery!';
     if (isFlawless) return 'Flawless!';
     if (isGolden) return 'Mastered!';
     if (attempts >= 3) return 'Golden Unlocked!';
     if (lessonResult.accuracy >= 90) return 'Perfect Score!';
-    if (lessonResult.accuracy >= 70) return 'Great Work!';
-    return 'Lesson Complete!';
+    return 'Great Work!';
   };
 
   // Theme-consistent accent colors (light bg, vibrant accents — matches app style)
@@ -411,24 +401,6 @@ export default function ResultScreen() {
               </div>
             </motion.div>
 
-            {/* Failure hint */}
-            {!passed && (
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                style={{
-                  marginTop: 16,
-                  fontSize: 14,
-                  fontWeight: 700,
-                  color: accentDark,
-                  textAlign: 'center',
-                }}
-              >
-                Need {requiredCorrect}/{lessonResult.totalQuestions} correct to pass
-              </motion.div>
-            )}
-
             {/* Flawless bonus hint */}
             {isFlawless && passed && (
               <motion.div
@@ -480,12 +452,7 @@ export default function ResultScreen() {
           >
             <button
               onClick={() => {
-                if (!passed && lessonInfo) {
-                  dismissResult();
-                  startLesson(lessonInfo.unitIndex, lessonInfo.lessonIndex);
-                } else {
-                  dismissResult();
-                }
+                dismissResult();
               }}
               className="w-full transition-transform active:scale-[0.98]"
               style={{

@@ -49,9 +49,9 @@ export interface Unit {
 interface LessonProgress {
   stars: number;       // 1-3 based on successful attempt count (not accuracy)
   bestAccuracy: number;
-  attempts: number;    // only incremented on passing attempts (>=70%)
+  attempts: number;    // incremented on every completion
   lastAttempted: string;
-  passed: boolean;                // true once user passes any attempt (>=70%)
+  passed: boolean;                // true once user completes the lesson
   golden: boolean;                // achieved golden mastery
   answeredQuestionIds: string[];  // questions seen across all attempts
   correctQuestionIds: string[];   // questions answered correctly at least once
@@ -86,7 +86,7 @@ export interface LessonResult {
   xpEarned: number;
   accuracy: number;
   stars: number;
-  passed: boolean;        // true if accuracy >= PASSING_ACCURACY
+  passed: boolean;        // always true (completing = passing)
   isFlawless: boolean;    // true if 100% accuracy with >= 3 questions
   isNewBest: boolean;
   isFirstCompletion: boolean;
