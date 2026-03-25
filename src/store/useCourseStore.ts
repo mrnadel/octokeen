@@ -232,8 +232,14 @@ export const useCourseStore = create<CourseState>()(
         const unit = get().courseData[unitIndex];
         const lesson = unit.lessons[lessonIndex];
 
-        const totalQuestions = sessionQuestionIds.length;
-        const correctAnswers = answers.filter((a) => a.correct).length;
+        // Exclude teaching cards from accuracy calculation
+        const questionMap = new Map(lesson.questions.map((q) => [q.id, q]));
+        const gradedAnswers = answers.filter((a) => {
+          const q = questionMap.get(a.questionId);
+          return q?.type !== 'teaching';
+        });
+        const totalQuestions = gradedAnswers.length;
+        const correctAnswers = gradedAnswers.filter((a) => a.correct).length;
         const accuracy = totalQuestions > 0
           ? Math.round((correctAnswers / totalQuestions) * 100)
           : 0;

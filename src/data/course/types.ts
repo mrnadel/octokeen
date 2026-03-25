@@ -1,6 +1,6 @@
 import type { TopicId } from '../types';
 
-export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank';
+export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank' | 'teaching';
 
 export interface CourseQuestion {
   id: string;

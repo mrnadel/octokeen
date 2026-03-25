@@ -8,6 +8,7 @@ import { useBackHandler } from '@/hooks/useBackHandler';
 import LessonProgressBar from './LessonProgressBar';
 import QuestionCard from './QuestionCard';
 import type { QuestionCardHandle } from './QuestionCard';
+import TeachingCard from './TeachingCard';
 import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
@@ -135,6 +136,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const exitLabel = adapter ? adapter.exitLabel : 'Close lesson';
   const exitConfirmTitle = adapter ? adapter.exitConfirmTitle : 'Quit lesson?';
   const exitConfirmMessage = adapter ? adapter.exitConfirmMessage : 'Your progress on this lesson will be lost.';
+  const isTeaching = currentQuestion?.type === 'teaching';
 
   // === CALLBACKS ===
   const getCorrectAnswerDisplay = useCallback((): string => {
@@ -146,6 +148,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         return currentQuestion.correctAnswer ? 'True' : 'False';
       case 'fill-blank':
         return currentQuestion.blanks?.join(', ') ?? currentQuestion.acceptedAnswers?.[0] ?? '';
+      case 'teaching':
+        return '';
       default:
         return '';
     }
@@ -239,6 +243,22 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     }
   }, [showHotkeyHint]);
 
+  const handleTeachingGotIt = useCallback(() => {
+    if (!currentQuestion) return;
+    // Auto-submit teaching card as correct (won't count toward accuracy)
+    if (adapter) {
+      adapter.submitAnswer(currentQuestion.id, true);
+    } else {
+      _submitAnswer(currentQuestion.id, true);
+    }
+    // Immediately advance
+    if (isLastQuestion) {
+      adapter ? adapter.complete() : _completeLesson();
+    } else {
+      adapter ? adapter.nextQuestion() : _nextQuestion();
+    }
+  }, [adapter, currentQuestion, isLastQuestion, _submitAnswer, _completeLesson, _nextQuestion]);
+
   // Global keyboard handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -278,7 +298,9 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (isCurrentAnswered) {
+        if (isTeaching) {
+          handleTeachingGotIt();
+        } else if (isCurrentAnswered) {
           handleContinue();
         } else if (hasSelection) {
           handleCheck();
@@ -315,9 +337,11 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   }, [
     showExitConfirm,
     isCurrentAnswered,
+    isTeaching,
     hasSelection,
     handleCheck,
     handleContinue,
+    handleTeachingGotIt,
     handleExitClick,
     handleCancelExit,
     isCalcOpen,
@@ -576,10 +600,14 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     flexShrink: 0,
                   }}
                 >
-                  {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
-                  {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
-                  {currentQuestion?.type === 'fill-blank' && '1\u20139 select word \u00b7 '}
-                  Enter check · Esc exit
+                  {isTeaching ? 'Enter continue · Esc exit' : (
+                    <>
+                      {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
+                      {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
+                      {currentQuestion?.type === 'fill-blank' && '1\u20139 select word \u00b7 '}
+                      Enter check · Esc exit
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -593,14 +621,22 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                 transition={{ type: 'spring', stiffness: 300, damping: 28 }}
                 style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
               >
-                <QuestionCard
-                  ref={questionRef}
-                  question={currentQuestion}
-                  onAnswer={handleAnswer}
-                  onSelectionChange={handleSelectionChange}
-                  answered={isCurrentAnswered}
-                  unitColor={unitColor}
-                />
+                {isTeaching ? (
+                  <TeachingCard
+                    question={currentQuestion}
+                    unitColor={unitColor}
+                    onGotIt={handleTeachingGotIt}
+                  />
+                ) : (
+                  <QuestionCard
+                    ref={questionRef}
+                    question={currentQuestion}
+                    onAnswer={handleAnswer}
+                    onSelectionChange={handleSelectionChange}
+                    answered={isCurrentAnswered}
+                    unitColor={unitColor}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
             {process.env.NODE_ENV === 'development' && (
@@ -614,8 +650,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        {!isCurrentAnswered ? (
+        {/* Bottom bar — hidden for teaching cards (they have their own button) */}
+        {isTeaching ? null : !isCurrentAnswered ? (
           <div
             style={{
               padding: '12px 20px',
@@ -756,6 +792,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         )}
 
         </div>{/* end centered wrapper */}
+
 
         {/* Calculator panel */}
         <AnimatePresence>
