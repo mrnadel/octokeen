@@ -47,9 +47,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   useEngagementInit();
 
   const isAuthenticated = status === 'authenticated';
+  const isLoading = status === 'loading';
 
-  // Only show loading skeleton for authenticated users hydrating their data
-  if (isAuthenticated && !isHydrated) {
+  // Show branded loader while session loads or authenticated user hydrates data
+  if (isLoading || (isAuthenticated && !isHydrated)) {
     return <LoadingSkeleton />;
   }
 
