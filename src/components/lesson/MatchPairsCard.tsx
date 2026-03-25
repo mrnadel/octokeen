@@ -110,12 +110,8 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
           {question.question}
         </h2>
 
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#AFAFAF', textAlign: 'center', marginBottom: 12 }}>
-          Tap left, then tap its match on right
-        </div>
-
-        {/* Two columns */}
-        <div className="grid grid-cols-2" style={{ gap: 10, flex: 1 }}>
+        {/* Two columns - pushed to bottom */}
+        <div className="grid grid-cols-2" style={{ gap: 10, marginTop: 'auto', paddingTop: 16 }}>
           {/* Left column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {leftItems.map((item, leftIdx) => {

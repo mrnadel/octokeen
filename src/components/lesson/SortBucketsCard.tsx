@@ -117,58 +117,8 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
           {question.question}
         </h2>
 
-        {/* Unsorted items pool */}
-        <div style={{ minHeight: 48, marginBottom: 14 }}>
-          {unsortedIndices.length > 0 && (
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#AFAFAF', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-              Drag each item to a category
-            </div>
-          )}
-          <div className="flex flex-wrap" style={{ gap: 8 }}>
-            <AnimatePresence>
-              {unsortedIndices.map((originalIdx) => (
-                <motion.div
-                  key={`item-${originalIdx}`}
-                  drag
-                  dragSnapToOrigin
-                  dragElastic={0.6}
-                  dragMomentum={false}
-                  onDrag={handleDrag}
-                  onDragEnd={(_, info) => handleDragEnd(originalIdx, info)}
-                  whileDrag={{ scale: 1.08, zIndex: 50, boxShadow: '0 8px 24px rgba(0,0,0,0.18)' }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  style={{
-                    padding: '10px 18px',
-                    borderRadius: 12,
-                    background: 'white',
-                    border: '2px solid #E5E5E5',
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: '#3C3C3C',
-                    cursor: 'grab',
-                    boxShadow: '0 2px 0 #E5E5E5',
-                    touchAction: 'none',
-                    userSelect: 'none',
-                    position: 'relative',
-                    zIndex: 10,
-                  }}
-                >
-                  {items[originalIdx]}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-          {unsortedIndices.length === 0 && !answered && (
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#AFAFAF', textAlign: 'center', padding: 8 }}>
-              All sorted! Hit Check.
-            </div>
-          )}
-        </div>
-
         {/* Two bucket drop zones */}
-        <div className="grid grid-cols-2" style={{ gap: 10, flex: 1 }}>
+        <div className="grid grid-cols-2" style={{ gap: 10 }}>
           {bucketLabels.map((label, bIdx) => {
             const bucketRef = bIdx === 0 ? bucket0Ref : bucket1Ref;
             const bucketItemIndices = shuffledOrder.filter((i) => assignments[i] === bIdx);
@@ -264,6 +214,56 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
         {/* Counter */}
         <div style={{ textAlign: 'center', marginTop: 8, fontSize: 12, fontWeight: 700, color: '#CFCFCF' }}>
           {items.length - unsortedIndices.length}/{items.length} sorted
+        </div>
+
+        {/* Unsorted items pool - at bottom */}
+        <div style={{ minHeight: 48, marginTop: 'auto', paddingTop: 14 }}>
+          {unsortedIndices.length > 0 && (
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#AFAFAF', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Drag each item to a category
+            </div>
+          )}
+          <div className="flex flex-wrap" style={{ gap: 8 }}>
+            <AnimatePresence>
+              {unsortedIndices.map((originalIdx) => (
+                <motion.div
+                  key={`item-${originalIdx}`}
+                  drag
+                  dragSnapToOrigin
+                  dragElastic={0.6}
+                  dragMomentum={false}
+                  onDrag={handleDrag}
+                  onDragEnd={(_, info) => handleDragEnd(originalIdx, info)}
+                  whileDrag={{ scale: 1.08, zIndex: 50, boxShadow: '0 8px 24px rgba(0,0,0,0.18)' }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  style={{
+                    padding: '10px 18px',
+                    borderRadius: 12,
+                    background: 'white',
+                    border: '2px solid #E5E5E5',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: '#3C3C3C',
+                    cursor: 'grab',
+                    boxShadow: '0 2px 0 #E5E5E5',
+                    touchAction: 'none',
+                    userSelect: 'none',
+                    position: 'relative',
+                    zIndex: 10,
+                  }}
+                >
+                  {items[originalIdx]}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+          {unsortedIndices.length === 0 && !answered && (
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#AFAFAF', textAlign: 'center', padding: 8 }}>
+              All sorted! Hit Check.
+            </div>
+          )}
         </div>
       </div>
     );

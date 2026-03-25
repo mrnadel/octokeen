@@ -315,8 +315,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           )}
         </div>
 
-        {/* Answer options - pushed to bottom for MC/TF, but inline for fill-blank */}
-        <div style={{ marginTop: question.type === 'fill-blank' ? 16 : 'auto', paddingTop: question.type === 'fill-blank' ? 0 : 20 }}>
+        {/* Answer options - pushed to bottom */}
+        <div style={{ marginTop: 'auto', paddingTop: 20 }}>
 
         {/* Multiple Choice */}
         {question.type === 'multiple-choice' && question.options && (
