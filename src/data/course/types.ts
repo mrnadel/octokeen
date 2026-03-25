@@ -1,6 +1,6 @@
 import type { TopicId } from '../types';
 
-export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank' | 'teaching';
+export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank' | 'teaching' | 'sort-buckets' | 'match-pairs';
 
 export interface CourseQuestion {
   id: string;
@@ -15,6 +15,12 @@ export interface CourseQuestion {
   blanks?: string[];       // correct answer for each _____ in order
   wordBank?: string[];     // all word choices (correct + distractors), shuffled at render
   acceptedAnswers?: string[]; // legacy fallback
+  // Sort-buckets
+  buckets?: string[];          // bucket labels (e.g. ["Need", "Want"])
+  correctBuckets?: number[];   // correct bucket index for each option
+  // Match-pairs
+  matchTargets?: string[];     // right column items
+  correctMatches?: number[];   // options[i] matches matchTargets[correctMatches[i]]
   // Common
   explanation: string;
   hint?: string;

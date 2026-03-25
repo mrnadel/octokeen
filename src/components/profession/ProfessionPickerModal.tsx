@@ -72,6 +72,7 @@ export function ProfessionPickerModal({ isOpen, onClose, selectedId, onSelect }:
               <ProfessionPicker
                 selectedId={selectedId}
                 onSelect={handleSelect}
+                compact
               />
             </div>
           </motion.div>
