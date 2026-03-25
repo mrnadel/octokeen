@@ -244,53 +244,6 @@ export default function ResultScreen() {
               {lessonResult.lessonTitle}
             </motion.div>
 
-            {/* Progress dots */}
-            <motion.div
-              className="flex items-center"
-              style={{ gap: 8, marginBottom: 32 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              {isGolden ? (
-                <motion.svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  initial={{ scale: 0, rotate: -30 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.55 }}
-                >
-                  <path
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
-                    fill={accentColor}
-                    strokeLinejoin="round"
-                  />
-                </motion.svg>
-              ) : (
-                [1, 2, 3].map((n) => (
-                  <motion.div
-                    key={n}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 15,
-                      delay: 0.5 + n * 0.12,
-                    }}
-                    style={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: '50%',
-                      background: n <= attempts ? accentColor : '#E5E5E5',
-                    }}
-                  />
-                ))
-              )}
-            </motion.div>
-
             {/* Stats card */}
             <motion.div
               className="flex items-stretch"

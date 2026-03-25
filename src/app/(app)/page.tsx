@@ -128,7 +128,7 @@ export default function HomePage() {
 
       <Suspense fallback={null}>
         {activeLesson && <LessonView />}
-        {!activeLesson && lessonResult && <ResultScreen />}
+        {lessonResult && <ResultScreen />}
         {!lessonResult && chapterJustCompleted && (
           <BlueprintCelebration
             unitIndex={chapterJustCompleted.unitIndex}
