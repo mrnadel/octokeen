@@ -34,31 +34,33 @@ function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => v
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.4 }}
     >
-      {/* Float wrapper — continuous bob animation */}
-      <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+      <motion.button
+        onClick={onClick}
+        className="relative select-none"
         style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          cursor: 'pointer',
+          WebkitTapHighlightColor: 'transparent',
+          width: BTN_W,
+          height: BTN_H,
           filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18)) drop-shadow(0 3px 6px rgba(0,0,0,0.1))',
         }}
+        initial="rest"
+        whileHover="hover"
+        whileTap="pressed"
+        variants={{
+          rest: { y: [0, -6, 0], filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18)) drop-shadow(0 3px 6px rgba(0,0,0,0.1))' },
+          hover: { y: [0, -6, 0], filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.22)) drop-shadow(0 4px 8px rgba(0,0,0,0.12))' },
+          pressed: { y: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))' },
+        }}
+        transition={{
+          y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' },
+          filter: { duration: 0.15 },
+        }}
+        aria-label="Take placement test to jump to this unit"
       >
-        <motion.button
-          onClick={onClick}
-          className="relative select-none"
-          style={{
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            WebkitTapHighlightColor: 'transparent',
-            width: BTN_W,
-            height: BTN_H,
-          }}
-          whileHover="hover"
-          whileTap="pressed"
-          initial="rest"
-          aria-label="Take placement test to jump to this unit"
-        >
           {/* Static 3D base — stays in place while face moves */}
           <svg
             width={BTN_W}
