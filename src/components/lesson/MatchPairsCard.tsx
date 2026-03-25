@@ -154,12 +154,11 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                   disabled={answered}
                   initial={{ opacity: 0, x: -16 }}
                   animate={revealAnimation}
-                  transition={{
-                    delay: answered ? 0 : leftIdx * 0.06,
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 25,
-                  }}
+                  transition={
+                    isCorrect !== null
+                      ? { duration: 0.35 }
+                      : { delay: leftIdx * 0.06, type: 'spring', stiffness: 400, damping: 25 }
+                  }
                   whileTap={!answered ? { scale: 0.94, transition: { duration: 0.1 } } : undefined}
                   whileHover={!answered ? { scale: 1.02 } : undefined}
                   style={{
@@ -223,12 +222,11 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                   disabled={answered || selectedLeft === null}
                   initial={{ opacity: 0, x: 16 }}
                   animate={revealAnimation}
-                  transition={{
-                    delay: answered ? 0 : displayIdx * 0.06 + 0.1,
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 25,
-                  }}
+                  transition={
+                    isCorrect !== null
+                      ? { duration: 0.35 }
+                      : { delay: displayIdx * 0.06 + 0.1, type: 'spring', stiffness: 400, damping: 25 }
+                  }
                   whileTap={!answered && selectedLeft !== null ? { scale: 0.94, transition: { duration: 0.1 } } : undefined}
                   whileHover={!answered && selectedLeft !== null ? { scale: 1.02 } : undefined}
                   style={{
