@@ -95,7 +95,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
             maxWidth: 440,
           }}
         >
-          {question.explanation}
+          <MoneyText text={question.explanation} />
         </motion.div>
 
         {/* Key points (reuse options array) */}
@@ -147,7 +147,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
                   {i + 1}
                 </span>
                 <span style={{ fontSize: 14, fontWeight: 600, color: '#4A4A4A', lineHeight: 1.4 }}>
-                  {point}
+                  <MoneyText text={point} />
                 </span>
               </motion.div>
             ))}
@@ -176,7 +176,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               </span>
             </div>
             <p style={{ fontSize: 13.5, fontWeight: 600, color: '#8B6914', lineHeight: 1.5, margin: 0 }}>
-              {question.hint}
+              <MoneyText text={question.hint} />
             </p>
           </motion.div>
         )}

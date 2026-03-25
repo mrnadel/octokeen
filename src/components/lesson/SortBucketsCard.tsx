@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
+import { MoneyText } from '@/components/ui/MoneyText';
 
 interface SortBucketsCardProps {
   question: CourseQuestion;
@@ -114,7 +115,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
         {/* Question */}
         <h2 style={{ fontSize: 17, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.35, margin: '0 0 12px' }}>
-          {question.question}
+          <MoneyText text={question.question} />
         </h2>
 
         {/* Two bucket drop zones */}
@@ -187,7 +188,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                               : isCorrect ? '#58A700' : '#EA2B2B',
                           }}
                         >
-                          {items[originalIdx]} {isCorrect === true ? '✓' : isCorrect === false ? '✗' : '×'}
+                          <MoneyText text={items[originalIdx]} /> {isCorrect === true ? '✓' : isCorrect === false ? '✗' : '×'}
                         </motion.button>
                       );
                     })}
@@ -254,7 +255,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                     zIndex: 10,
                   }}
                 >
-                  {items[originalIdx]}
+                  <MoneyText text={items[originalIdx]} />
                 </motion.div>
               ))}
             </AnimatePresence>

@@ -21,6 +21,7 @@ import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
 import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
+import { MoneyText } from '@/components/ui/MoneyText';
 
 /**
  * Adapter for driving LessonView from an external data source (e.g. practice sessions).
@@ -769,7 +770,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     margin: '2px 0 0',
                   }}
                 >
-                  Answer: {getCorrectAnswerDisplay()}
+                  Answer: <MoneyText text={getCorrectAnswerDisplay()} />
                 </p>
               )}
               {currentQuestion.explanation && (
@@ -783,7 +784,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     lineHeight: 1.4,
                   }}
                 >
-                  {currentQuestion.explanation}
+                  <MoneyText text={currentQuestion.explanation} />
                 </p>
               )}
               <FlagButton contentType={flagContentType} contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />

@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
+import { MoneyText } from '@/components/ui/MoneyText';
 
 interface MatchPairsCardProps {
   question: CourseQuestion;
@@ -107,7 +108,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
     return (
       <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
         <h2 style={{ fontSize: 17, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.35, margin: '0 0 16px' }}>
-          {question.question}
+          <MoneyText text={question.question} />
         </h2>
 
         {/* Two columns - pushed to bottom */}
@@ -155,7 +156,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                     textAlign: 'center',
                   }}
                 >
-                  {item}
+                  <MoneyText text={item} />
                 </motion.button>
               );
             })}
@@ -205,7 +206,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                     textAlign: 'center',
                   }}
                 >
-                  {item}
+                  <MoneyText text={item} />
                 </motion.button>
               );
             })}
