@@ -51,13 +51,19 @@ function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => v
         whileHover="hover"
         whileTap="pressed"
         variants={{
-          rest: { y: [0, -6, 0], filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18)) drop-shadow(0 3px 6px rgba(0,0,0,0.1))' },
-          hover: { y: [0, -6, 0], filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.22)) drop-shadow(0 4px 8px rgba(0,0,0,0.12))' },
-          pressed: { y: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))' },
-        }}
-        transition={{
-          y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' },
-          filter: { duration: 0.15 },
+          rest: {
+            y: [0, -6, 0],
+            transition: { y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } },
+          },
+          hover: {
+            y: [0, -6, 0],
+            transition: { y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } },
+          },
+          pressed: {
+            y: 0,
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))',
+            transition: { y: { type: 'spring', stiffness: 500, damping: 25 }, filter: { duration: 0.1 } },
+          },
         }}
         aria-label="Take placement test to jump to this unit"
       >
@@ -120,7 +126,6 @@ function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => v
             </svg>
           </motion.div>
         </motion.button>
-      </motion.div>
     </motion.div>
   );
 }
