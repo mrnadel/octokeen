@@ -352,9 +352,15 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     isCalcOpen,
   ]);
 
+  // Keep a frozen snapshot of the last question so the lesson view stays visible
+  // behind the result screen (instead of fading out immediately).
+  const lastQuestionRef = useRef<CourseQuestion | null>(null);
+  if (currentQuestion) lastQuestionRef.current = currentQuestion;
+  const displayQuestion = currentQuestion ?? lastQuestionRef.current;
+
   // === EARLY RETURNS ===
-  if (!adapter && lessonResult) return <ResultScreen />;
-  if (!currentQuestion) return null;
+  // Show result screen as overlay — lesson view stays underneath
+  if (!displayQuestion) return !adapter && lessonResult ? <ResultScreen /> : null;
 
   return (
     <AnimatePresence>
@@ -619,32 +625,32 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentQuestion.id}
+                key={displayQuestion.id}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 28 }}
                 style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
               >
-                {isTeaching ? (
+                {displayQuestion.type === 'teaching' ? (
                   <TeachingCard
-                    question={currentQuestion}
+                    question={displayQuestion}
                     unitColor={unitColor}
                     onGotIt={handleTeachingGotIt}
                   />
-                ) : currentQuestion.type === 'sort-buckets' ? (
+                ) : displayQuestion.type === 'sort-buckets' ? (
                   <SortBucketsCard
                     ref={questionRef}
-                    question={currentQuestion}
+                    question={displayQuestion}
                     onAnswer={handleAnswer}
                     onSelectionChange={handleSelectionChange}
                     answered={isCurrentAnswered}
                     unitColor={unitColor}
                   />
-                ) : currentQuestion.type === 'match-pairs' ? (
+                ) : displayQuestion.type === 'match-pairs' ? (
                   <MatchPairsCard
                     ref={questionRef}
-                    question={currentQuestion}
+                    question={displayQuestion}
                     onAnswer={handleAnswer}
                     onSelectionChange={handleSelectionChange}
                     answered={isCurrentAnswered}
@@ -653,7 +659,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                 ) : (
                   <QuestionCard
                     ref={questionRef}
-                    question={currentQuestion}
+                    question={displayQuestion}
                     onAnswer={handleAnswer}
                     onSelectionChange={handleSelectionChange}
                     answered={isCurrentAnswered}
@@ -667,7 +673,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                 className="text-[10px] text-gray-300 text-center py-1 select-all cursor-text font-mono"
                 title="Question ID (dev only)"
               >
-                {currentQuestion.id}
+                {displayQuestion.id}
               </div>
             )}
           </div>
@@ -773,7 +779,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                   Answer: <MoneyText text={getCorrectAnswerDisplay()} />
                 </p>
               )}
-              {currentQuestion.explanation && (
+              {displayQuestion.explanation && (
                 <p
                   style={{
                     fontSize: 13,
@@ -784,10 +790,10 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     lineHeight: 1.4,
                   }}
                 >
-                  <MoneyText text={currentQuestion.explanation} />
+                  <MoneyText text={displayQuestion.explanation} />
                 </p>
               )}
-              <FlagButton contentType={flagContentType} contentId={currentQuestion.id} hasGraphic={!!currentQuestion.diagram} />
+              <FlagButton contentType={flagContentType} contentId={displayQuestion.id} hasGraphic={!!displayQuestion.diagram} />
             </div>
 
             <button
@@ -923,6 +929,9 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Result screen overlay — lesson view stays visible underneath */}
+      {!adapter && lessonResult && <ResultScreen />}
     </AnimatePresence>
   );
 }

@@ -91,7 +91,8 @@ export function DebugTierToggle() {
   const { debugTierOverride, setDebugTierOverride } = useSubscriptionStore();
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
   const debugSetProgress = useCourseStore((s) => s.debugSetProgress);
-  const totalLessons = getTotalLessonsMeta();
+  const activeProfession = useCourseStore((s) => s.activeProfession);
+  const totalLessons = getTotalLessonsMeta(activeProfession);
   const completedCount = Object.keys(completedLessons).length;
   const goldenCount = Object.values(completedLessons).filter((l) => l.golden).length;
 
