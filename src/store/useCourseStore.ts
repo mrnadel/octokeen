@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
 import { topics } from '@/data/topics';
-import { shuffleArray, toLocalDateString, getYesterdayString } from '@/lib/utils';
+import { toLocalDateString, getYesterdayString } from '@/lib/utils';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
@@ -157,30 +157,9 @@ export const useCourseStore = create<CourseState>()(
 
         const allIds = lesson.questions.map((q) => q.id);
         const isGolden = golden === true;
-        const existing = get().progress.completedLessons[lesson.id];
 
-        let sessionQuestionIds: string[];
-
-        if (isGolden) {
-          // Golden session: pick questions the user hasn't seen before
-          const seen = new Set(existing?.answeredQuestionIds ?? []);
-          const unseen = allIds.filter((id) => !seen.has(id));
-          // If fewer than 5 unseen, use all questions as comprehensive review
-          const pool = unseen.length >= 5 ? unseen : allIds;
-          sessionQuestionIds = shuffleArray(pool).slice(0, Math.min(SESSION_SIZE, pool.length));
-        } else if (existing && existing.answeredQuestionIds.length > 0) {
-          // Retry session: focus on questions not yet answered correctly
-          const correctSet = new Set(existing.correctQuestionIds ?? []);
-          const incorrectPool = allIds.filter((id) => !correctSet.has(id));
-          // If enough incorrect questions, use those; otherwise pad with all
-          const pool = incorrectPool.length >= 5 ? incorrectPool : allIds;
-          const shuffled = shuffleArray(pool);
-          sessionQuestionIds = shuffled.slice(0, Math.min(SESSION_SIZE, shuffled.length));
-        } else {
-          // First attempt: 10 random questions
-          const shuffled = shuffleArray(allIds);
-          sessionQuestionIds = shuffled.slice(0, Math.min(SESSION_SIZE, shuffled.length));
-        }
+        // All questions in authored order — lessons are structured content
+        const sessionQuestionIds = allIds;
 
         set({
           activeLesson: {
