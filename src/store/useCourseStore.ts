@@ -68,6 +68,8 @@ interface CourseState {
 
   // Debug
   debugSetProgress: (lessonCount: number, goldenCount?: number) => void;
+  /** @internal — called by debugSetProgress after data is loaded */
+  _applyDebugProgress: (lessonCount: number, goldenCount?: number) => void;
   debugSkipToUnit: (targetUnitIndex: number) => void;
   debugSkipToLesson: (unitIndex: number, lessonIndex: number) => void;
 
@@ -705,18 +707,35 @@ export const useCourseStore = create<CourseState>()(
       },
 
       debugSetProgress: (lessonCount: number, goldenCount?: number) => {
-        // Load all unit data before running debug — units may still be lightweight metadata
+        // Load full unit data before running debug — units may still be lightweight metadata.
+        // Some professions have units without content files; those stay lightweight.
         const courseData = get().courseData;
-        const needsLoad = courseData.some(u => u.lessons.some(l => l.questions.length === 0));
-        if (needsLoad) {
-          Promise.all(courseData.map((_, i) => loadUnitData(i, get().activeProfession))).then((fullUnits) => {
+        const hasEmpty = courseData.some(u => u.lessons.some(l => l.questions.length === 0));
+
+        if (hasEmpty) {
+          Promise.all(
+            courseData.map((u, i) =>
+              u.lessons.some(l => l.questions.length === 0)
+                ? loadUnitData(i, get().activeProfession).catch(() => u)
+                : Promise.resolve(u)
+            )
+          ).then((fullUnits) => {
             set({ courseData: fullUnits });
-            // Retry with full data
-            get().debugSetProgress(lessonCount, goldenCount);
+            // Call the inner logic directly — never recurse to avoid infinite loops
+            // when some units genuinely have no content files
+            get()._applyDebugProgress(lessonCount, goldenCount);
+          }).catch(() => {
+            // Loading failed — apply progress with whatever data we have
+            get()._applyDebugProgress(lessonCount, goldenCount);
           });
           return;
         }
 
+        get()._applyDebugProgress(lessonCount, goldenCount);
+      },
+
+      _applyDebugProgress: (lessonCount: number, goldenCount?: number) => {
+        const courseData = get().courseData;
         const completedLessons: CourseProgress['completedLessons'] = {};
         let xp = 0;
         let count = 0;

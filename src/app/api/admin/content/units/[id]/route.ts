@@ -16,7 +16,12 @@ export async function PUT(
   }
 
   const { id } = await params;
-  const body = await req.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
 
   // Allowlist fields to prevent mass assignment
   const allowedFields: Record<string, unknown> = {};
