@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metro Map Layout</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FAFBFC;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 30px 20px 80px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1A1D26;
+    margin-bottom: 4px;
+  }
+  .page-subtitle {
+    font-size: 13px;
+    color: #7C8298;
+    margin-bottom: 36px;
+  }
+
+  /* Metro line key */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 30px;
+    padding: 12px 16px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #E8EAF0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #5A607A;
+  }
+  .legend-line {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  /* Metro track */
+  .metro {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  /* The running line */
+  .track {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    border-radius: 3px;
+  }
+  .track-segment {
+    width: 6px;
+    border-radius: 3px;
+  }
+
+  /* Station (lesson) */
+  .station {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 6px 0;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .station:hover { transform: translateX(4px); }
+  .station.locked { opacity: 0.4; cursor: default; }
+  .station.locked:hover { transform: none; }
+
+  /* Station dot on the line */
+  .station-dot {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--line-color);
+    flex-shrink: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .station.completed .station-dot {
+    background: var(--line-color);
+  }
+  .station.completed .station-dot::after {
+    content: '✓';
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .station.current .station-dot {
+    width: 32px; height: 32px;
+    margin: -2px;
+    border-width: 5px;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--line-color) 20%, transparent);
+    animation: station-pulse 2s ease-in-out infinite;
+  }
+  .station.locked .station-dot {
+    border-color: #D0D4E0;
+    background: #EAECF2;
+  }
+
+  @keyframes station-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--line-color) 20%, transparent); }
+    50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--line-color) 10%, transparent); }
+  }
+
+  /* Station card */
+  .station-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1.5px solid #E8EAF0;
+    transition: all 0.2s;
+  }
+  .station:hover .station-card {
+    border-color: var(--line-color);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--line-color) 12%, transparent);
+  }
+  .station.current .station-card {
+    border-color: var(--line-color);
+    background: color-mix(in srgb, var(--line-color) 4%, white);
+  }
+  .station.locked .station-card {
+    border-color: #E8EAF0;
+    background: #F6F7FA;
+  }
+
+  .station-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .station-icon {
+    font-size: 22px;
+  }
+  .station-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1A1D26;
+    flex: 1;
+  }
+  .station.locked .station-title { color: #9BA0B4; }
+
+  .station-desc {
+    font-size: 11.5px;
+    color: #7C8298;
+    line-height: 1.4;
+  }
+  .station.locked .station-desc { color: #B0B4C8; }
+
+  /* Stars */
+  .station-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 11px;
+  }
+
+  /* GO button */
+  .station-go {
+    display: inline-block;
+    background: var(--line-color);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 18px;
+    border-radius: 10px;
+    margin-top: 8px;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--line-color) 35%, transparent);
+  }
+
+  /* Transfer/junction marker */
+  .junction {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    margin: 4px 0 12px;
+  }
+  .junction-diamond {
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    border: 3px solid var(--line-color);
+    background: #fff;
+    z-index: 2;
+    margin-left: 4px;
+  }
+  .junction-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--line-color);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .junction-line {
+    flex: 1;
+    height: 2px;
+    background: var(--line-color);
+    opacity: 0.3;
+  }
+
+  /* Line colors */
+  .line-blue { --line-color: #3B82F6; }
+  .line-orange { --line-color: #F59E42; }
+  .line-violet { --line-color: #8B5CF6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-title">Course Lines</div>
+  <div class="page-subtitle">Follow the line through each topic</div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-line" style="background: #3B82F6;"></div>
+      Statics
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background: #F59E42;"></div>
+      Strength
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background: #8B5CF6;"></div>
+      Thermo
+    </div>
+  </div>
+
+  <div class="metro">
+    <!-- LINE 1: BLUE -->
+    <div class="line-blue">
+      <div class="junction">
+        <div class="junction-diamond"></div>
+        <div class="junction-label">Statics & Forces</div>
+        <div class="junction-line"></div>
+      </div>
+
+      <div class="station completed" style="--line-color: #3B82F6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">⚖️</span>
+            <span class="station-title">Free Body Diagrams</span>
+            <span class="station-stars">⭐⭐⭐</span>
+          </div>
+          <div class="station-desc">Draw & analyze force diagrams</div>
+        </div>
+      </div>
+
+      <div class="station completed" style="--line-color: #3B82F6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔗</span>
+            <span class="station-title">Equilibrium</span>
+            <span class="station-stars">⭐⭐</span>
+          </div>
+          <div class="station-desc">Balance forces & moments</div>
+        </div>
+      </div>
+
+      <div class="station current" style="--line-color: #3B82F6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">📐</span>
+            <span class="station-title">Moment of Force</span>
+          </div>
+          <div class="station-desc">Torque calculations around a point</div>
+          <div class="station-go">START LESSON →</div>
+        </div>
+      </div>
+
+      <div class="station completed" style="--line-color: #3B82F6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🧲</span>
+            <span class="station-title">Friction</span>
+            <span class="station-stars">⭐⭐⭐</span>
+          </div>
+          <div class="station-desc">Static & kinetic friction forces</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #3B82F6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Trusses</span>
+          </div>
+          <div class="station-desc">Method of joints & sections</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINE 2: ORANGE -->
+    <div class="line-orange">
+      <div class="junction" style="--line-color: #F59E42;">
+        <div class="junction-diamond"></div>
+        <div class="junction-label">Strength of Materials</div>
+        <div class="junction-line"></div>
+      </div>
+
+      <div class="station locked" style="--line-color: #F59E42;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Stress & Strain</span>
+          </div>
+          <div class="station-desc">Normal & shear stress basics</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #F59E42;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Axial Loading</span>
+          </div>
+          <div class="station-desc">Deformation under axial forces</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #F59E42;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Beam Bending</span>
+          </div>
+          <div class="station-desc">Shear & moment diagrams</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #F59E42;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Torsion</span>
+          </div>
+          <div class="station-desc">Circular shaft twisting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINE 3: VIOLET -->
+    <div class="line-violet">
+      <div class="junction" style="--line-color: #8B5CF6;">
+        <div class="junction-diamond"></div>
+        <div class="junction-label">Thermodynamics</div>
+        <div class="junction-line"></div>
+      </div>
+
+      <div class="station locked" style="--line-color: #8B5CF6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">First Law</span>
+          </div>
+          <div class="station-desc">Energy conservation</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #8B5CF6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Second Law</span>
+          </div>
+          <div class="station-desc">Entropy & irreversibility</div>
+        </div>
+      </div>
+
+      <div class="station locked" style="--line-color: #8B5CF6;">
+        <div class="station-dot"></div>
+        <div class="station-card">
+          <div class="station-top">
+            <span class="station-icon">🔒</span>
+            <span class="station-title">Carnot Cycle</span>
+          </div>
+          <div class="station-desc">Ideal heat engine efficiency</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiral Board Layout</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #14171F;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 30px 12px 80px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .page-subtitle {
+    font-size: 12px;
+    color: #6B7394;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* Board grid - 4 columns */
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 0 4px;
+  }
+
+  /* Each tile */
+  .tile {
+    aspect-ratio: 1;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    border: 2px solid transparent;
+    background: #1E2233;
+  }
+  .tile:hover { transform: scale(1.05); }
+
+  /* Completed */
+  .tile.completed {
+    background: var(--tile-color);
+    border-color: var(--tile-border);
+    box-shadow: 0 4px 0 0 var(--tile-shadow),
+                0 6px 16px -4px rgba(0,0,0,0.3);
+  }
+  .tile.completed:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 0 2px 0 0 var(--tile-shadow);
+  }
+
+  /* Current */
+  .tile.current {
+    background: #1E2233;
+    border-color: var(--tile-border);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tile-color) 30%, transparent),
+                0 4px 0 0 var(--tile-shadow);
+    animation: tile-breathe 2.5s ease-in-out infinite;
+  }
+
+  @keyframes tile-breathe {
+    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--tile-color) 30%, transparent), 0 4px 0 0 var(--tile-shadow); }
+    50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--tile-color) 15%, transparent), 0 4px 0 0 var(--tile-shadow), 0 0 24px color-mix(in srgb, var(--tile-color) 20%, transparent); }
+  }
+
+  /* Locked */
+  .tile.locked {
+    background: #191D2A;
+    border-color: #252A3A;
+    cursor: default;
+    opacity: 0.5;
+  }
+  .tile.locked:hover { transform: none; }
+
+  .tile-icon {
+    font-size: 30px;
+    line-height: 1;
+  }
+  .tile-name {
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 6px;
+    color: rgba(255,255,255,0.9);
+  }
+  .tile.locked .tile-name { color: #3E4560; }
+
+  /* Stars */
+  .tile-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 9px;
+    position: absolute;
+    bottom: 6px;
+  }
+
+  /* GO indicator */
+  .tile-go {
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    background: #10B981;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(16,185,129,0.4);
+    z-index: 2;
+  }
+
+  /* Lock overlay */
+  .tile-lock {
+    font-size: 20px;
+    opacity: 0.3;
+  }
+
+  /* Connector arrows between rows */
+  .row-connector {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: var(--arrow-side, flex-end);
+    padding: 0 20px;
+    height: 24px;
+    align-items: center;
+  }
+  .row-connector svg {
+    width: 30px;
+    height: 24px;
+  }
+
+  /* Unit label row */
+  .unit-label {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px 4px;
+    margin-top: 8px;
+  }
+  .unit-label:first-child { margin-top: 0; }
+  .unit-label-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--tile-color);
+  }
+  .unit-label-text {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #6B7394;
+  }
+  .unit-label-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tile-color);
+  }
+  .unit-label-line {
+    flex: 1;
+    height: 1px;
+    background: #252A3A;
+  }
+
+  /* Color vars for units */
+  .u1 {
+    --tile-color: #3B82F6;
+    --tile-border: #5B9BF7;
+    --tile-shadow: #1D4ED8;
+  }
+  .u2 {
+    --tile-color: #F59E42;
+    --tile-border: #F7B368;
+    --tile-shadow: #C47A20;
+  }
+  .u3 {
+    --tile-color: #A78BFA;
+    --tile-border: #BCA4FB;
+    --tile-shadow: #7C5CC8;
+  }
+
+  /* Snaking direction - rows alternate */
+  /* Row 1: left to right */
+  /* Row 2: right to left (reverse order visually) */
+  .snake-row {
+    display: contents;
+  }
+  .snake-row.reverse {
+    direction: rtl;
+  }
+  .snake-row.reverse .tile {
+    direction: ltr;
+  }
+
+  /* Overall progress */
+  .progress-footer {
+    margin-top: 28px;
+    text-align: center;
+  }
+  .progress-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px; height: 80px;
+  }
+  .progress-ring svg {
+    transform: rotate(-90deg);
+  }
+  .progress-ring-bg {
+    fill: none;
+    stroke: #252A3A;
+    stroke-width: 6;
+  }
+  .progress-ring-fill {
+    fill: none;
+    stroke: #3B82F6;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 207;
+    stroke-dashoffset: 145;
+    transition: stroke-dashoffset 0.6s ease;
+  }
+  .progress-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: #6B7394;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-title">Your Journey</div>
+  <div class="page-subtitle">Follow the path through each topic</div>
+
+  <div class="board">
+    <!-- UNIT 1 -->
+    <div class="unit-label u1">
+      <div class="unit-label-dot"></div>
+      <div>
+        <div class="unit-label-text">Unit 1</div>
+        <div class="unit-label-name">Statics & Forces</div>
+      </div>
+      <div class="unit-label-line"></div>
+    </div>
+
+    <!-- Row 1: left to right -->
+    <div class="snake-row">
+      <div class="tile completed u1">
+        <div class="tile-icon">⚖️</div>
+        <div class="tile-name">Free Body Diagrams</div>
+        <div class="tile-stars">⭐⭐⭐</div>
+      </div>
+      <div class="tile completed u1">
+        <div class="tile-icon">🔗</div>
+        <div class="tile-name">Equilibrium</div>
+        <div class="tile-stars">⭐⭐</div>
+      </div>
+      <div class="tile current u1">
+        <div class="tile-icon">📐</div>
+        <div class="tile-name">Moments</div>
+        <div class="tile-go">GO</div>
+      </div>
+      <div class="tile completed u1">
+        <div class="tile-icon">🧲</div>
+        <div class="tile-name">Friction</div>
+        <div class="tile-stars">⭐⭐⭐</div>
+      </div>
+    </div>
+
+    <!-- Connector arrow: right side curve -->
+    <div class="row-connector" style="--arrow-side: flex-end;">
+      <svg viewBox="0 0 30 24" fill="none">
+        <path d="M15 0 v8 a8 8 0 0 1 -8 8 H0" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <!-- Row 2: right to left -->
+    <div class="snake-row reverse">
+      <div class="tile locked u1">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Trusses</div>
+      </div>
+      <!-- Spacer tiles to fill grid -->
+      <div style="visibility:hidden;"></div>
+      <div style="visibility:hidden;"></div>
+      <div style="visibility:hidden;"></div>
+    </div>
+
+    <!-- UNIT 2 -->
+    <div class="unit-label u2">
+      <div class="unit-label-dot"></div>
+      <div>
+        <div class="unit-label-text">Unit 2</div>
+        <div class="unit-label-name">Strength of Materials</div>
+      </div>
+      <div class="unit-label-line"></div>
+    </div>
+
+    <div class="snake-row">
+      <div class="tile locked u2">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Stress & Strain</div>
+      </div>
+      <div class="tile locked u2">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Axial Loading</div>
+      </div>
+      <div class="tile locked u2">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Beam Bending</div>
+      </div>
+      <div class="tile locked u2">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Torsion</div>
+      </div>
+    </div>
+
+    <!-- UNIT 3 -->
+    <div class="unit-label u3">
+      <div class="unit-label-dot"></div>
+      <div>
+        <div class="unit-label-text">Unit 3</div>
+        <div class="unit-label-name">Thermodynamics</div>
+      </div>
+      <div class="unit-label-line"></div>
+    </div>
+
+    <div class="snake-row">
+      <div class="tile locked u3">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">First Law</div>
+      </div>
+      <div class="tile locked u3">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Second Law</div>
+      </div>
+      <div class="tile locked u3">
+        <div class="tile-lock">🔒</div>
+        <div class="tile-name">Carnot Cycle</div>
+      </div>
+      <div style="visibility:hidden;"></div>
+    </div>
+  </div>
+
+  <!-- Overall progress -->
+  <div class="progress-footer">
+    <div class="progress-ring">
+      <svg width="80" height="80" viewBox="0 0 80 80">
+        <circle class="progress-ring-bg" cx="40" cy="40" r="33"/>
+        <circle class="progress-ring-fill" cx="40" cy="40" r="33"/>
+      </svg>
+      <div class="progress-ring-text">25%</div>
+    </div>
+    <div class="progress-label">3 of 12 lessons completed</div>
+  </div>
+</div>
+</body>
+</html>
