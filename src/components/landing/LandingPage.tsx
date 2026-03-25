@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { PROFESSIONS } from '@/data/professions';
+import { CourseIcon } from '@/components/course/CourseIcon';
 
 /* ── Animated XP bar fill ── */
 function useAnimatedFill(target: number, delay: number) {
@@ -423,9 +424,9 @@ export function LandingPage() {
                       width: 52, height: 52, borderRadius: 14,
                       background: `${prof.color}15`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 26, flexShrink: 0,
+                      flexShrink: 0,
                     }}>
-                      {prof.icon}
+                      <CourseIcon professionId={prof.id} color={prof.color} size={30} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{
