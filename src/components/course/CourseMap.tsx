@@ -8,7 +8,7 @@ import { Sparkles } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
-import { getUnitTheme } from '@/lib/unitThemes';
+import { getUnitTheme, type UnitTheme } from '@/lib/unitThemes';
 import { PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { UnitHeader } from './UnitHeader';
@@ -19,6 +19,71 @@ type JumpModalType =
   | { kind: 'placement-test'; unitIndex: number }
   | { kind: 'guest-signup'; unitIndex: number }
   | { kind: 'free-upgrade'; unitIndex: number };
+
+/** 3D floating "Jump here" button rendered as an SVG with hover animation */
+function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => void }) {
+  return (
+    <motion.div
+      className="flex justify-center"
+      style={{ margin: '-4px 0 4px', position: 'relative', zIndex: 2 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3, duration: 0.4 }}
+    >
+      <motion.button
+        onClick={onClick}
+        className="relative select-none"
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          cursor: 'pointer',
+          WebkitTapHighlightColor: 'transparent',
+          filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.18)) drop-shadow(0 2px 4px rgba(0,0,0,0.12))',
+        }}
+        animate={{ y: [0, -6, 0] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95, y: 2 }}
+        aria-label="Take placement test to jump to this unit"
+      >
+        <svg width="160" height="52" viewBox="0 0 160 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* 3D bottom face */}
+          <rect x="4" y="10" width="152" height="42" rx="21" fill={theme.dark} />
+          {/* Main button face */}
+          <rect x="4" y="4" width="152" height="42" rx="21" fill={theme.color} />
+          {/* Top highlight for 3D curvature */}
+          <rect x="4" y="4" width="152" height="21" rx="21" fill="white" fillOpacity="0.18" />
+          {/* Inner glow line */}
+          <rect x="14" y="8" width="132" height="3" rx="1.5" fill="white" fillOpacity="0.25" />
+
+          {/* Rocket icon */}
+          <g transform="translate(28, 14)" fill="white">
+            <path d="M10 0C10 0 6.5 3.5 6.5 8.5C6.5 11.5 8 14 10 16C12 14 13.5 11.5 13.5 8.5C13.5 3.5 10 0 10 0Z" fillOpacity="0.95" />
+            <circle cx="10" cy="8.5" r="2.2" fill={theme.color} />
+            <path d="M6.5 12L4 15L6.5 14.2" fillOpacity="0.85" />
+            <path d="M13.5 12L16 15L13.5 14.2" fillOpacity="0.85" />
+            <path d="M8 16L7 20H9L10 17.5L11 20H13L12 16" fillOpacity="0.7" />
+          </g>
+
+          {/* "Jump here" text */}
+          <text
+            x="95"
+            y="28"
+            textAnchor="middle"
+            fill="white"
+            fontFamily="inherit"
+            fontWeight="800"
+            fontSize="15"
+            letterSpacing="0.3"
+          >
+            Jump here
+          </text>
+        </svg>
+      </motion.button>
+    </motion.div>
+  );
+}
 
 export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -40,6 +105,15 @@ export function CourseMap() {
 
   const isFreeLocked = useCallback((unitIndex: number) =>
     !isGuest && !isProUser && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex), [isGuest, isProUser]);
+
+  // Check if a unit is jumpable via placement test (locked, but not paywall/guest blocked)
+  const isUnitJumpable = useCallback((unitIndex: number) => {
+    const isGuestLocked = isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex);
+    if (isGuestLocked || isFreeLocked(unitIndex)) return false;
+    // All lessons must be locked (unit not yet reached)
+    const noAccessible = !courseData[unitIndex]?.lessons.some((_, li) => isLessonUnlocked(unitIndex, li));
+    return noAccessible;
+  }, [isGuest, isFreeLocked, courseData, isLessonUnlocked]);
 
   const getLessonState = useCallback(
     (
@@ -202,6 +276,16 @@ export function CourseMap() {
                 }
                 theme={theme}
               />
+
+              {/* Floating "Jump here" button for placement-test-eligible locked units */}
+              {isUnitJumpable(unitIndex) && (
+                <JumpHereButton
+                  theme={theme}
+                  onClick={() => {
+                    setJumpModal({ kind: 'placement-test', unitIndex });
+                  }}
+                />
+              )}
 
               {/* Lesson list — always visible */}
               <div
