@@ -22,11 +22,15 @@ const StreakMilestone = lazy(() => import('@/components/engagement/StreakMilesto
 const LevelUpCelebration = lazy(() => import('@/components/engagement/LevelUpCelebration').then(m => ({ default: m.LevelUpCelebration })));
 const BlueprintCelebration = lazy(() => import('@/components/engagement/BlueprintCelebration').then(m => ({ default: m.BlueprintCelebration })));
 const CourseCompleteCelebration = lazy(() => import('@/components/engagement/CourseCompleteCelebration').then(m => ({ default: m.CourseCompleteCelebration })));
+const PlacementTestView = lazy(() => import('@/components/course/PlacementTestView'));
+const PlacementTestResult = lazy(() => import('@/components/course/PlacementTestResult'));
 
 export default function HomePage() {
   const { status } = useSession();
   const activeLesson = useCourseStore((s) => s.activeLesson);
   const lessonResult = useCourseStore((s) => s.lessonResult);
+  const activePlacementTest = useCourseStore((s) => s.activePlacementTest);
+  const placementTestResult = useCourseStore((s) => s.placementTestResult);
   const chapterJustCompleted = useCourseStore((s) => s.chapterJustCompleted);
   const dismissChapterCompletion = useCourseStore((s) => s.dismissChapterCompletion);
   const courseJustCompleted = useCourseStore((s) => s.courseJustCompleted);
@@ -109,6 +113,8 @@ export default function HomePage() {
 
       <Suspense fallback={null}>
         {activeLesson && <LessonView />}
+        {activePlacementTest && <PlacementTestView />}
+        {placementTestResult && <PlacementTestResult />}
         {lessonResult && <ResultScreen />}
         {!lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'level-up' && (
           <LevelUpCelebration

@@ -10,7 +10,7 @@ import {
   leagueState,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
-import { incrementDailyUsage, canStartPracticeSession } from '@/lib/access-control';
+import { incrementDailyUsageBatch, canStartPracticeSession } from '@/lib/access-control';
 import { progressSyncSchema } from '@/lib/validation';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
@@ -20,35 +20,20 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // Fetch user info
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, userId))
-    .limit(1);
+  // Fetch all user data in parallel instead of sequentially
+  const [userRows, progressRows, topics, sessions] = await Promise.all([
+    db.select().from(users).where(eq(users.id, userId)).limit(1),
+    db.select().from(userProgress).where(eq(userProgress.userId, userId)).limit(1),
+    db.select().from(topicProgressTable).where(eq(topicProgressTable.userId, userId)),
+    db.select().from(sessionHistory).where(eq(sessionHistory.userId, userId)),
+  ]);
 
+  const user = userRows[0];
   if (!user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  // Fetch user progress
-  const [progress] = await db
-    .select()
-    .from(userProgress)
-    .where(eq(userProgress.userId, userId))
-    .limit(1);
-
-  // Fetch topic progress rows
-  const topics = await db
-    .select()
-    .from(topicProgressTable)
-    .where(eq(topicProgressTable.userId, userId));
-
-  // Fetch session history
-  const sessions = await db
-    .select()
-    .from(sessionHistory)
-    .where(eq(sessionHistory.userId, userId));
+  const progress = progressRows[0];
 
   // Assemble into UserProgress shape
   const topicProgressData: TopicProgress[] = topics.map((t) => ({
@@ -209,9 +194,9 @@ export async function POST(request: NextRequest) {
       }))
     );
 
-    // Track daily usage for each question answered today
-    for (let i = 0; i < todayQuestionsAttempted; i++) {
-      await incrementDailyUsage(userId);
+    // Track daily usage — single batch increment instead of per-question loop
+    if (todayQuestionsAttempted > 0) {
+      await incrementDailyUsageBatch(userId, todayQuestionsAttempted);
     }
   }
 

@@ -92,3 +92,27 @@ export interface LessonResult {
   isFirstCompletion: boolean;
   isGolden: boolean;
 }
+
+// ─── Placement Test ──────────────────────────────────────────────
+
+export interface PlacementTest {
+  targetUnitIndex: number;
+  fromUnitIndex: number;       // first skipped unit
+  questions: CourseQuestion[];
+  currentQuestionIndex: number;
+  answers: { questionId: string; correct: boolean }[];
+  mistakes: number;
+  maxMistakes: number;
+  startTime: number;
+}
+
+export interface PlacementTestResult {
+  passed: boolean;
+  targetUnitIndex: number;
+  targetUnitTitle: string;
+  totalQuestions: number;
+  correctAnswers: number;
+  mistakes: number;
+  maxMistakes: number;
+  unitsSkipped: number;
+}

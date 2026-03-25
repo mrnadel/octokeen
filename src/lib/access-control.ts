@@ -107,13 +107,22 @@ export async function getRemainingDailyQuestions(
  * Increment the daily question counter. Call after each question answered.
  */
 export async function incrementDailyUsage(userId: string): Promise<void> {
+  return incrementDailyUsageBatch(userId, 1);
+}
+
+/**
+ * Batch increment the daily question counter by a given count.
+ * Single DB round-trip instead of N sequential calls.
+ */
+export async function incrementDailyUsageBatch(userId: string, count: number): Promise<void> {
+  if (count <= 0) return;
   const today = getTodayString();
 
   // Try atomic increment first (handles the common case without a race condition)
   const result = await db
     .update(dailyUsage)
     .set({
-      questionsUsed: sql`${dailyUsage.questionsUsed} + 1`,
+      questionsUsed: sql`${dailyUsage.questionsUsed} + ${count}`,
       updatedAt: new Date(),
     })
     .where(and(eq(dailyUsage.userId, userId), eq(dailyUsage.date, today)));
@@ -125,7 +134,7 @@ export async function incrementDailyUsage(userId: string): Promise<void> {
     const insertResult = await db.insert(dailyUsage).values({
       userId,
       date: today,
-      questionsUsed: 1,
+      questionsUsed: count,
     }).onConflictDoNothing();
 
     const insertRowCount = (insertResult as unknown as { rowCount: number }).rowCount;
@@ -135,7 +144,7 @@ export async function incrementDailyUsage(userId: string): Promise<void> {
       await db
         .update(dailyUsage)
         .set({
-          questionsUsed: sql`${dailyUsage.questionsUsed} + 1`,
+          questionsUsed: sql`${dailyUsage.questionsUsed} + ${count}`,
           updatedAt: new Date(),
         })
         .where(and(eq(dailyUsage.userId, userId), eq(dailyUsage.date, today)));

@@ -9,9 +9,16 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { getUnitTheme } from '@/lib/unitThemes';
+import { PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { UnitHeader } from './UnitHeader';
 import { LessonNode } from './LessonNode';
+
+type JumpModalType =
+  | { kind: 'within-unit'; unitIndex: number }
+  | { kind: 'placement-test'; unitIndex: number }
+  | { kind: 'guest-signup'; unitIndex: number }
+  | { kind: 'free-upgrade'; unitIndex: number };
 
 export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -20,16 +27,14 @@ export function CourseMap() {
   const progress = useCourseStore((s) => s.progress);
   const courseData = useCourseStore((s) => s.courseData);
   const startLesson = useCourseStore((s) => s.startLesson);
+  const startPlacementTest = useCourseStore((s) => s.startPlacementTest);
   const isLessonUnlocked = useCourseStore((s) => s.isLessonUnlocked);
   const { status } = useSession();
   const router = useRouter();
   const isGuest = status !== 'authenticated';
   const { isProUser } = useSubscription();
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-  const [jumpConfirm, setJumpConfirm] = useState<{
-    unitIndex: number;
-    lessonIndex: number;
-  } | null>(null);
+  const [jumpModal, setJumpModal] = useState<JumpModalType | null>(null);
 
   const isFreeLocked = useCallback((unitIndex: number) =>
     !isGuest && !isProUser && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex), [isGuest, isProUser]);
@@ -79,13 +84,28 @@ export function CourseMap() {
   }, [getLessonState]);
 
 
-  // Stable callback for lesson clicks — avoids creating new function refs per lesson
+  // Stable callback for lesson clicks
   const handleLessonClick = useCallback(
     (unitIndex: number, lessonIndex: number, state: 'completed' | 'current' | 'locked', lessonProgress: { attempts?: number } | undefined) => {
       if (isFreeLocked(unitIndex)) {
-        setShowUpgradeModal(true);
+        // Free-tier paywall
+        setJumpModal({ kind: 'free-upgrade', unitIndex });
       } else if (state === 'locked') {
-        setJumpConfirm({ unitIndex, lessonIndex });
+        if (isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex)) {
+          setJumpModal({ kind: 'guest-signup', unitIndex });
+        } else {
+          // Check if the unit itself has any accessible lessons
+          const unitHasAccessible = courseData[unitIndex].lessons.some(
+            (_, li) => isLessonUnlocked(unitIndex, li),
+          );
+          if (unitHasAccessible) {
+            // Locked lesson inside the user's active unit → must progress sequentially
+            setJumpModal({ kind: 'within-unit', unitIndex });
+          } else {
+            // Unit not yet reached → offer placement test
+            setJumpModal({ kind: 'placement-test', unitIndex });
+          }
+        }
       } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) < 3) {
         startLesson(unitIndex, lessonIndex, false);
       } else if (state === 'completed' && lessonProgress && (lessonProgress.attempts ?? 0) >= 3) {
@@ -94,7 +114,7 @@ export function CourseMap() {
         startLesson(unitIndex, lessonIndex);
       }
     },
-    [isFreeLocked, startLesson]
+    [isFreeLocked, isGuest, courseData, isLessonUnlocked, startLesson]
   );
 
   // Auto-scroll to the current lesson after mount + animations settle
@@ -248,13 +268,12 @@ export function CourseMap() {
         </div>
       </div>
 
-      {/* Jump / sign-up modal */}
+      {/* Jump / placement-test / sign-up modal */}
       <AnimatePresence>
-        {jumpConfirm &&
+        {jumpModal &&
           (() => {
-            const unit = courseData[jumpConfirm.unitIndex];
-            const lesson = unit.lessons[jumpConfirm.lessonIndex];
-            const theme = getUnitTheme(jumpConfirm.unitIndex);
+            const unit = courseData[jumpModal.unitIndex];
+            const theme = getUnitTheme(jumpModal.unitIndex);
             return (
               <motion.div
                 key="jump-overlay"
@@ -262,14 +281,14 @@ export function CourseMap() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => setJumpConfirm(null)}
+                onClick={() => setJumpModal(null)}
               >
                 <div className="absolute inset-0 bg-black/40" />
                 <motion.div
                   className="relative w-full sm:w-auto bg-white sm:mx-4 overflow-y-auto"
                   role="dialog"
                   aria-modal="true"
-                  aria-label="Lesson action"
+                  aria-label="Unit action"
                   style={{
                     maxWidth: 480,
                     maxHeight: 'calc(100vh - 48px)',
@@ -279,17 +298,11 @@ export function CourseMap() {
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
-                  transition={{
-                    type: 'spring' as const,
-                    damping: 25,
-                    stiffness: 300,
-                  }}
+                  transition={{ type: 'spring' as const, damping: 25, stiffness: 300 }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div
-                    className="flex items-center"
-                    style={{ gap: 12, marginBottom: 12 }}
-                  >
+                  {/* Unit badge */}
+                  <div className="flex items-center" style={{ gap: 12, marginBottom: 12 }}>
                     <div
                       className="flex items-center justify-center"
                       style={{
@@ -301,96 +314,52 @@ export function CourseMap() {
                         fontSize: 20,
                       }}
                     >
-                      {lesson.icon}
+                      {unit.icon}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p
-                        className="truncate"
-                        style={{
-                          fontSize: 12,
-                          fontWeight: 700,
-                          color: '#AFAFAF',
-                        }}
-                      >
-                        {unit.title}
+                      <p className="truncate" style={{ fontSize: 12, fontWeight: 700, color: '#AFAFAF' }}>
+                        Unit {jumpModal.unitIndex + 1}
                       </p>
-                      <p
-                        className="truncate"
-                        style={{
-                          fontSize: 16,
-                          fontWeight: 800,
-                          color: '#3C3C3C',
-                        }}
-                      >
-                        {lesson.title}
+                      <p className="truncate" style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C' }}>
+                        {unit.title}
                       </p>
                     </div>
                   </div>
 
-                  {isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, jumpConfirm.unitIndex) ? (
+                  {/* ─── Within-unit lock ─── */}
+                  {jumpModal.kind === 'within-unit' && (
                     <>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: '#AFAFAF',
-                          fontWeight: 600,
-                          marginBottom: 20,
-                        }}
-                      >
-                        Create a free account to unlock all units and save your
-                        progress across devices!
+                      <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 600, marginBottom: 20 }}>
+                        Complete the previous lessons in this unit to unlock the next one.
                       </p>
-                      <div className="flex" style={{ gap: 12 }}>
-                        <button
-                          className="flex-1 active:scale-[0.98] transition-transform"
-                          style={{
-                            padding: '16px 0',
-                            borderRadius: 16,
-                            fontSize: 14,
-                            fontWeight: 800,
-                            color: '#AFAFAF',
-                            background: '#F5F5F5',
-                            border: 'none',
-                            cursor: 'pointer',
-                          }}
-                          onClick={() => setJumpConfirm(null)}
-                        >
-                          Maybe later
-                        </button>
-                        <button
-                          className="flex-1 active:scale-[0.98] transition-transform"
-                          style={{
-                            padding: '16px 0',
-                            borderRadius: 16,
-                            fontSize: 14,
-                            fontWeight: 800,
-                            color: '#FFFFFF',
-                            background: '#F5B800',
-                            boxShadow: '0 4px 0 #C49200',
-                            border: 'none',
-                            cursor: 'pointer',
-                          }}
-                          onClick={() => {
-                            setJumpConfirm(null);
-                            router.push('/register');
-                          }}
-                        >
-                          Sign Up Free
-                        </button>
-                      </div>
+                      <button
+                        className="w-full active:scale-[0.98] transition-transform"
+                        style={{
+                          padding: '16px 0',
+                          borderRadius: 16,
+                          fontSize: 14,
+                          fontWeight: 800,
+                          color: '#FFFFFF',
+                          background: theme.color,
+                          boxShadow: `0 4px 0 ${theme.dark}`,
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => setJumpModal(null)}
+                      >
+                        Got it
+                      </button>
                     </>
-                  ) : isFreeLocked(jumpConfirm.unitIndex) ? (
+                  )}
+
+                  {/* ─── Placement test offer ─── */}
+                  {jumpModal.kind === 'placement-test' && (
                     <>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: '#AFAFAF',
-                          fontWeight: 600,
-                          marginBottom: 20,
-                        }}
-                      >
-                        This unit requires a Pro subscription. Upgrade to unlock
-                        all 10 units and unlimited practice.
+                      <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 600, marginBottom: 6 }}>
+                        Take a placement test to jump to this unit. You&apos;ll answer questions from the units in between.
+                      </p>
+                      <p style={{ fontSize: 13, color: '#CFCFCF', fontWeight: 600, marginBottom: 20 }}>
+                        Pass with fewer than {PLACEMENT_TEST_CONFIG.maxMistakes} mistakes to unlock.
                       </p>
                       <div className="flex" style={{ gap: 12 }}>
                         <button
@@ -405,61 +374,7 @@ export function CourseMap() {
                             border: 'none',
                             cursor: 'pointer',
                           }}
-                          onClick={() => setJumpConfirm(null)}
-                        >
-                          Maybe later
-                        </button>
-                        <button
-                          className="flex-1 flex items-center justify-center active:scale-[0.98] transition-transform"
-                          style={{
-                            gap: 6,
-                            padding: '16px 0',
-                            borderRadius: 16,
-                            fontSize: 14,
-                            fontWeight: 800,
-                            color: '#FFFFFF',
-                            background: theme.color,
-                            boxShadow: `0 4px 0 ${theme.dark}`,
-                            border: 'none',
-                            cursor: 'pointer',
-                          }}
-                          onClick={() => {
-                            setJumpConfirm(null);
-                            setShowUpgradeModal(true);
-                          }}
-                        >
-                          <Sparkles style={{ width: 16, height: 16 }} />
-                          Upgrade to Pro
-                        </button>
-                      </div>
-                    </>
-                  ) : isProUser ? (
-                    <>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: '#AFAFAF',
-                          fontWeight: 600,
-                          marginBottom: 20,
-                        }}
-                      >
-                        Jump ahead to this lesson? You can always go back and
-                        complete earlier ones later.
-                      </p>
-                      <div className="flex" style={{ gap: 12 }}>
-                        <button
-                          className="flex-1 active:scale-[0.98] transition-transform"
-                          style={{
-                            padding: '16px 0',
-                            borderRadius: 16,
-                            fontSize: 14,
-                            fontWeight: 800,
-                            color: '#AFAFAF',
-                            background: '#F5F5F5',
-                            border: 'none',
-                            cursor: 'pointer',
-                          }}
-                          onClick={() => setJumpConfirm(null)}
+                          onClick={() => setJumpModal(null)}
                         >
                           Cancel
                         </button>
@@ -477,29 +392,21 @@ export function CourseMap() {
                             cursor: 'pointer',
                           }}
                           onClick={() => {
-                            startLesson(
-                              jumpConfirm.unitIndex,
-                              jumpConfirm.lessonIndex
-                            );
-                            setJumpConfirm(null);
+                            startPlacementTest(jumpModal.unitIndex);
+                            setJumpModal(null);
                           }}
                         >
-                          Jump to Lesson
+                          Start Test
                         </button>
                       </div>
                     </>
-                  ) : (
+                  )}
+
+                  {/* ─── Guest sign-up ─── */}
+                  {jumpModal.kind === 'guest-signup' && (
                     <>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: '#AFAFAF',
-                          fontWeight: 600,
-                          marginBottom: 20,
-                        }}
-                      >
-                        Complete lessons in order to progress, or upgrade to Pro
-                        to jump ahead to any lesson.
+                      <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 600, marginBottom: 20 }}>
+                        Create a free account to unlock all units and save your progress across devices!
                       </p>
                       <div className="flex" style={{ gap: 12 }}>
                         <button
@@ -514,9 +421,56 @@ export function CourseMap() {
                             border: 'none',
                             cursor: 'pointer',
                           }}
-                          onClick={() => setJumpConfirm(null)}
+                          onClick={() => setJumpModal(null)}
                         >
-                          OK
+                          Maybe later
+                        </button>
+                        <button
+                          className="flex-1 active:scale-[0.98] transition-transform"
+                          style={{
+                            padding: '16px 0',
+                            borderRadius: 16,
+                            fontSize: 14,
+                            fontWeight: 800,
+                            color: '#FFFFFF',
+                            background: '#F5B800',
+                            boxShadow: '0 4px 0 #C49200',
+                            border: 'none',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => {
+                            setJumpModal(null);
+                            router.push('/register');
+                          }}
+                        >
+                          Sign Up Free
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {/* ─── Free-tier upgrade ─── */}
+                  {jumpModal.kind === 'free-upgrade' && (
+                    <>
+                      <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 600, marginBottom: 20 }}>
+                        This unit requires a Pro subscription. Upgrade to unlock all 10 units and unlimited practice.
+                      </p>
+                      <div className="flex" style={{ gap: 12 }}>
+                        <button
+                          className="flex-1 active:scale-[0.98] transition-transform"
+                          style={{
+                            padding: '16px 0',
+                            borderRadius: 16,
+                            fontSize: 14,
+                            fontWeight: 800,
+                            color: '#AFAFAF',
+                            background: '#F5F5F5',
+                            border: 'none',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => setJumpModal(null)}
+                        >
+                          Maybe later
                         </button>
                         <button
                           className="flex-1 flex items-center justify-center active:scale-[0.98] transition-transform"
@@ -533,7 +487,7 @@ export function CourseMap() {
                             cursor: 'pointer',
                           }}
                           onClick={() => {
-                            setJumpConfirm(null);
+                            setJumpModal(null);
                             setShowUpgradeModal(true);
                           }}
                         >

@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { users, courseProgress } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { canAccessUnit } from '@/lib/access-control';
+import { LIMITS } from '@/lib/pricing';
 import { getLessonById } from '@/data/course';
 import { progressSyncSchema } from '@/lib/validation';
 import type { CourseProgress } from '@/data/course/types';
@@ -61,16 +62,19 @@ export async function POST(request: NextRequest) {
   const { progress } = parsed.data as { progress: CourseProgress };
 
   // ── Server-side unit access enforcement ──
-  // Strip out completedLessons for units the user cannot access
+  // Single subscription lookup instead of per-lesson DB queries
+  const { tier } = await canAccessUnit(userId, 0);
+  const unlockedUnits = LIMITS[tier].unlockedUnits;
+  const isUnitAccessible = (unitIndex: number) =>
+    unlockedUnits === 'all' || (unlockedUnits as number[]).includes(unitIndex);
+
   const filteredLessons: CourseProgress['completedLessons'] = {};
   for (const [lessonId, lessonData] of Object.entries(progress.completedLessons)) {
     const info = getLessonById(lessonId);
-    if (!info) continue; // Unknown lesson ID — skip
-    const access = await canAccessUnit(userId, info.unitIndex);
-    if (access.allowed) {
+    if (!info) continue;
+    if (isUnitAccessible(info.unitIndex)) {
       filteredLessons[lessonId] = lessonData;
     }
-    // Silently drop lessons from units the user has no access to
   }
 
   const existing = await db

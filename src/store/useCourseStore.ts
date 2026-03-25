@@ -10,7 +10,8 @@ import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
-import type { CourseProgress, ActiveLesson, LessonResult, Unit } from '@/data/course/types';
+import type { CourseProgress, ActiveLesson, LessonResult, PlacementTest, PlacementTestResult, Unit } from '@/data/course/types';
+import { generatePlacementQuestions, getFirstIncompleteUnitIndex, PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
@@ -35,6 +36,10 @@ interface CourseState {
   courseJustCompleted: boolean;
   pendingCelebrations: CelebrationEvent[];
 
+  // Placement test state
+  activePlacementTest: PlacementTest | null;
+  placementTestResult: PlacementTestResult | null;
+
   // Actions — Content
   setCourseData: (data: Unit[]) => void;
   setActiveProfession: (id: string) => void;
@@ -49,6 +54,14 @@ interface CourseState {
   dismissChapterCompletion: () => void;
   dismissCourseCompletion: () => void;
   dismissNextCelebration: () => void;
+
+  // Placement test actions
+  startPlacementTest: (targetUnitIndex: number) => void;
+  submitPlacementAnswer: (questionId: string, correct: boolean) => void;
+  nextPlacementQuestion: () => void;
+  completePlacementTest: () => void;
+  exitPlacementTest: () => void;
+  dismissPlacementResult: () => void;
 
   // Practice bridging
   creditPracticeAnswer: (questionId: string, correct: boolean) => void;
@@ -117,6 +130,8 @@ export const useCourseStore = create<CourseState>()(
       chapterJustCompleted: null,
       courseJustCompleted: false,
       pendingCelebrations: [],
+      activePlacementTest: null,
+      placementTestResult: null,
 
       setCourseData: (data: Unit[]) => set({ courseData: data }),
 
@@ -466,6 +481,179 @@ export const useCourseStore = create<CourseState>()(
         }
 
         set({ pendingCelebrations: celebrations.slice(1) });
+      },
+
+      // ── Placement Test Actions ────────────────────────────────────
+
+      startPlacementTest: (targetUnitIndex: number) => {
+        const { courseData, activeProfession, progress } = get();
+        const fromUnit = getFirstIncompleteUnitIndex(courseData, progress.completedLessons);
+
+        if (fromUnit >= targetUnitIndex) return; // nothing to skip
+
+        // Ensure all units in the test range have their questions loaded
+        const needsLoad: number[] = [];
+        for (let i = fromUnit; i < targetUnitIndex; i++) {
+          if (courseData[i]?.lessons.some((l) => l.questions.length === 0)) {
+            needsLoad.push(i);
+          }
+        }
+
+        if (needsLoad.length > 0) {
+          Promise.all(needsLoad.map((i) => loadUnitData(i, activeProfession))).then(
+            (loaded) => {
+              const updated = [...get().courseData];
+              needsLoad.forEach((unitIdx, j) => {
+                updated[unitIdx] = loaded[j];
+              });
+              set({ courseData: updated });
+              get().startPlacementTest(targetUnitIndex); // retry
+            },
+          );
+          return;
+        }
+
+        const questions = generatePlacementQuestions(
+          courseData,
+          progress.completedLessons,
+          targetUnitIndex,
+        );
+
+        // No questions available (content not written yet) → auto-pass
+        if (questions.length === 0) {
+          const today = getTodayString();
+          const newCompleted = { ...progress.completedLessons };
+          for (let ui = fromUnit; ui < targetUnitIndex; ui++) {
+            for (const lesson of courseData[ui].lessons) {
+              if (!newCompleted[lesson.id]?.passed) {
+                newCompleted[lesson.id] = {
+                  stars: 0,
+                  bestAccuracy: 0,
+                  attempts: 0,
+                  lastAttempted: today,
+                  passed: true,
+                  golden: false,
+                  answeredQuestionIds: [],
+                  correctQuestionIds: [],
+                };
+              }
+            }
+          }
+          set({
+            progress: { ...progress, completedLessons: newCompleted },
+            placementTestResult: {
+              passed: true,
+              targetUnitIndex,
+              targetUnitTitle: courseData[targetUnitIndex]?.title ?? '',
+              totalQuestions: 0,
+              correctAnswers: 0,
+              mistakes: 0,
+              maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+              unitsSkipped: targetUnitIndex - fromUnit,
+            },
+          });
+          return;
+        }
+
+        set({
+          activePlacementTest: {
+            targetUnitIndex,
+            fromUnitIndex: fromUnit,
+            questions,
+            currentQuestionIndex: 0,
+            answers: [],
+            mistakes: 0,
+            maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+            startTime: Date.now(),
+          },
+        });
+      },
+
+      submitPlacementAnswer: (questionId: string, correct: boolean) => {
+        set((state) => {
+          if (!state.activePlacementTest) return state;
+          return {
+            activePlacementTest: {
+              ...state.activePlacementTest,
+              answers: [
+                ...state.activePlacementTest.answers,
+                { questionId, correct },
+              ],
+              mistakes: state.activePlacementTest.mistakes + (correct ? 0 : 1),
+            },
+          };
+        });
+      },
+
+      nextPlacementQuestion: () => {
+        set((state) => {
+          if (!state.activePlacementTest) return state;
+          const next = state.activePlacementTest.currentQuestionIndex + 1;
+          if (next >= state.activePlacementTest.questions.length) return state;
+          return {
+            activePlacementTest: {
+              ...state.activePlacementTest,
+              currentQuestionIndex: next,
+            },
+          };
+        });
+      },
+
+      completePlacementTest: () => {
+        const state = get();
+        const test = state.activePlacementTest;
+        if (!test) return;
+
+        const correct = test.answers.filter((a) => a.correct).length;
+        const passed = test.mistakes < test.maxMistakes;
+
+        const { courseData, progress } = state;
+
+        // On pass: mark all skipped lessons as passed
+        let newCompleted = progress.completedLessons;
+        if (passed) {
+          const today = getTodayString();
+          newCompleted = { ...progress.completedLessons };
+          for (let ui = test.fromUnitIndex; ui < test.targetUnitIndex; ui++) {
+            for (const lesson of courseData[ui].lessons) {
+              if (!newCompleted[lesson.id]?.passed) {
+                newCompleted[lesson.id] = {
+                  stars: 0,
+                  bestAccuracy: 0,
+                  attempts: 0,
+                  lastAttempted: today,
+                  passed: true,
+                  golden: false,
+                  answeredQuestionIds: [],
+                  correctQuestionIds: [],
+                };
+              }
+            }
+          }
+        }
+
+        set({
+          activePlacementTest: null,
+          placementTestResult: {
+            passed,
+            targetUnitIndex: test.targetUnitIndex,
+            targetUnitTitle: courseData[test.targetUnitIndex]?.title ?? '',
+            totalQuestions: test.questions.length,
+            correctAnswers: correct,
+            mistakes: test.mistakes,
+            maxMistakes: test.maxMistakes,
+            unitsSkipped: test.targetUnitIndex - test.fromUnitIndex,
+          },
+          progress: passed ? { ...progress, completedLessons: newCompleted } : progress,
+        });
+      },
+
+      exitPlacementTest: () => {
+        set({ activePlacementTest: null });
+      },
+
+      dismissPlacementResult: () => {
+        set({ placementTestResult: null });
       },
 
       creditPracticeAnswer: (questionId: string, correct: boolean) => {
