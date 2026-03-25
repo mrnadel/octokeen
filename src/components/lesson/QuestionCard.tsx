@@ -11,6 +11,7 @@ import {
 } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
+import { MoneyText } from '@/components/ui/MoneyText';
 
 /** Memoised diagram so SVG animations don't reset on answer selection re-renders */
 const DiagramDisplay = memo(function DiagramDisplay({ html }: { html: string }) {
@@ -243,7 +244,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
             >
               {questionParts.map((part, i) => (
                 <span key={i}>
-                  {part}
+                  <MoneyText text={part} />
                   {i < blankCount && (
                     <motion.button
                       onClick={() => handleBlankTap(i)}
@@ -292,7 +293,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                 margin: 0,
               }}
             >
-              {question.question}
+              <MoneyText text={question.question} />
             </h2>
           )}
 
@@ -310,7 +311,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                 lineHeight: 1.4,
               }}
             >
-              {question.hint}
+              <MoneyText text={question.hint} />
             </div>
           )}
         </div>
@@ -397,7 +398,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                       lineHeight: 1.3,
                     }}
                   >
-                    {option}
+                    <MoneyText text={option} />
                   </span>
                 </motion.button>
               );

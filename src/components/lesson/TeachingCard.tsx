@@ -3,6 +3,7 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
+import { MoneyText } from '@/components/ui/MoneyText';
 
 const DiagramDisplay = memo(function DiagramDisplay({ html }: { html: string }) {
   const sanitised = html
