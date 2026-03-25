@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Sparkles } from 'lucide-react';
-import { courseMeta } from '@/data/course/course-meta';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
@@ -19,6 +18,7 @@ export function CourseMap() {
   const currentUnitRef = useRef<HTMLDivElement>(null);
   const currentLessonRef = useRef<HTMLDivElement>(null);
   const progress = useCourseStore((s) => s.progress);
+  const courseData = useCourseStore((s) => s.courseData);
   const startLesson = useCourseStore((s) => s.startLesson);
   const isLessonUnlocked = useCourseStore((s) => s.isLessonUnlocked);
   const { status } = useSession();
@@ -39,7 +39,7 @@ export function CourseMap() {
       unitIndex: number,
       lessonIndex: number
     ): 'completed' | 'current' | 'locked' => {
-      const lessonId = courseMeta[unitIndex]?.lessons[lessonIndex]?.id;
+      const lessonId = courseData[unitIndex]?.lessons[lessonIndex]?.id;
       if (!lessonId) return 'locked';
 
       if (isGuest && !isUnitUnlocked(LIMITS.free.unlockedUnits, unitIndex)) return 'locked';
@@ -54,8 +54,8 @@ export function CourseMap() {
 
   const findActiveUnitIndex = useCallback((): number => {
     let lastCompletedUnit = 0;
-    for (let ui = 0; ui < courseMeta.length; ui++) {
-      for (let li = 0; li < courseMeta[ui].lessons.length; li++) {
+    for (let ui = 0; ui < courseData.length; ui++) {
+      for (let li = 0; li < courseData[ui].lessons.length; li++) {
         if (getLessonState(ui, li) === 'completed') {
           lastCompletedUnit = ui;
         }
@@ -69,10 +69,10 @@ export function CourseMap() {
   // Find the last completed lesson to scroll to
   const currentLessonId = useMemo(() => {
     let lastCompletedId: string | null = null;
-    for (let ui = 0; ui < courseMeta.length; ui++) {
-      for (let li = 0; li < courseMeta[ui].lessons.length; li++) {
+    for (let ui = 0; ui < courseData.length; ui++) {
+      for (let li = 0; li < courseData[ui].lessons.length; li++) {
         if (getLessonState(ui, li) === 'completed') {
-          lastCompletedId = courseMeta[ui].lessons[li].id;
+          lastCompletedId = courseData[ui].lessons[li].id;
         }
       }
     }
@@ -139,7 +139,7 @@ export function CourseMap() {
         className="flex flex-col px-3 sm:px-4"
         style={{ paddingTop: 12, paddingBottom: 0, gap: 16 }}
       >
-        {courseMeta.map((unit, unitIndex) => {
+        {courseData.map((unit, unitIndex) => {
           const theme = getUnitTheme(unitIndex);
           const completedInUnit = unit.lessons.filter(
             (l) => progress.completedLessons[l.id]?.passed
@@ -253,7 +253,7 @@ export function CourseMap() {
       <AnimatePresence>
         {jumpConfirm &&
           (() => {
-            const unit = courseMeta[jumpConfirm.unitIndex];
+            const unit = courseData[jumpConfirm.unitIndex];
             const lesson = unit.lessons[jumpConfirm.lessonIndex];
             const theme = getUnitTheme(jumpConfirm.unitIndex);
             return (
