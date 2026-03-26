@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Map — Variant D (Retro Arcade)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #E86A20;
+    --orange-dark: #C45518;
+    --orange-rim: #8F3A0A;
+    --orange-glow: #FF8C42;
+    --violet: #8B5CF6;
+    --violet-dark: #7040D4;
+    --violet-rim: #4C1D95;
+    --violet-glow: #A78BFA;
+    --navy: #0F172A;
+    --navy-light: #1E293B;
+    --navy-card: #172033;
+    --gray-btn: #3B4559;
+    --gray-rim: #252E3F;
+    --gray-face: #4B5672;
+    --gold: #FFB800;
+    --xp-green: #34D399;
+    --white: #F8FAFC;
+    --btn-depth: 7px;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--navy);
+    min-height: 100vh;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== SCANLINE OVERLAY ===== */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,0.03) 3px,
+      rgba(0,0,0,0.03) 4px
+    );
+  }
+
+  /* ===== TOP BAR ===== */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0B1120;
+    border-bottom: 2px solid #1E293B;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .app-logo {
+    width: 32px;
+    height: 32px;
+    background: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 3px 0 var(--orange-rim);
+  }
+  .app-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .top-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--navy-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .stat-pill .icon { font-size: 14px; }
+  .stat-pill .val { color: var(--white); }
+  .stat-xp .val { color: var(--xp-green); }
+  .stat-streak .val { color: var(--gold); }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px 16px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* ===== UNIT HEADER CARD ===== */
+  .unit-header {
+    border-radius: 16px;
+    padding: 18px 20px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .unit-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(255,255,255,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(0,0,0,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .unit-header.orange { background: var(--orange); }
+  .unit-header.violet { background: var(--violet); }
+
+  .unit-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .unit-number {
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .unit-title {
+    font-size: 19px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .unit-xp-badge {
+    background: rgba(0,0,0,0.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .unit-xp-badge .xp-icon {
+    color: var(--gold);
+    font-size: 11px;
+  }
+
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .progress-track {
+    flex: 1;
+    height: 10px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.85);
+    position: relative;
+    transition: width 0.6s ease;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 99px;
+  }
+  .progress-text {
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.8);
+    flex-shrink: 0;
+  }
+
+  /* ===== LESSONS LIST ===== */
+  .lessons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 4px;
+  }
+
+  /* ===== 3D LESSON BUTTON ===== */
+  .lesson-btn {
+    position: relative;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lesson-btn:active .btn-face {
+    transform: translateY(4px);
+  }
+  .lesson-btn:active .btn-rim {
+    height: 3px;
+  }
+
+  .btn-rim {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--btn-depth);
+    border-radius: 16px;
+    transition: height 0.08s ease;
+  }
+  .btn-face {
+    position: relative;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.08s ease;
+    z-index: 1;
+  }
+
+  /* Level badge on left */
+  .level-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .level-num {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+  }
+  .level-label {
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 1px;
+  }
+
+  /* Lesson info */
+  .lesson-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .lesson-title {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .lesson-subtitle {
+    font-size: 11.5px;
+    font-weight: 700;
+    opacity: 0.65;
+  }
+
+  /* Stars + status on right */
+  .lesson-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .status-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .star-row {
+    display: flex;
+    gap: 2px;
+  }
+  .star {
+    font-size: 11px;
+    line-height: 1;
+  }
+  .star.on { opacity: 1; }
+  .star.off { opacity: 0.3; }
+
+  /* ===== COMPLETED STATE ===== */
+  .lesson-btn.completed .btn-rim { background: var(--orange-rim); }
+  .lesson-btn.completed .btn-face { background: var(--orange); }
+  .lesson-btn.completed .level-badge { background: rgba(0,0,0,0.2); }
+  .lesson-btn.completed .lesson-title { color: #fff; }
+  .lesson-btn.completed .lesson-subtitle { color: rgba(255,255,255,0.65); }
+  .lesson-btn.completed .status-icon {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+  .lesson-btn.completed .star.on { color: var(--gold); }
+  .lesson-btn.completed .star.off { color: rgba(255,255,255,0.25); }
+
+  /* ===== CURRENT / ACTIVE STATE ===== */
+  .lesson-btn.current .btn-rim { background: var(--orange-rim); }
+  .lesson-btn.current .btn-face { background: var(--orange-glow); }
+  .lesson-btn.current .level-badge { background: rgba(0,0,0,0.2); }
+  .lesson-btn.current .lesson-title { color: #fff; }
+  .lesson-btn.current .lesson-subtitle { color: rgba(255,255,255,0.7); }
+  .lesson-btn.current .status-icon {
+    background: #fff;
+    color: var(--orange);
+  }
+  .lesson-btn.current .star.on { color: var(--gold); }
+  .lesson-btn.current .star.off { color: rgba(255,255,255,0.25); }
+
+  /* Pulsing glow ring */
+  .lesson-btn.current::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 20px;
+    border: 3px solid var(--orange-glow);
+    animation: pulse-ring 2s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.01); }
+  }
+
+  /* Bounce animation on the face */
+  .lesson-btn.current .btn-face {
+    animation: bounce-face 3s ease-in-out infinite;
+  }
+  @keyframes bounce-face {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  /* Play icon arrow */
+  .play-arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 8px solid var(--orange);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    margin-left: 1px;
+  }
+
+  /* ===== LOCKED STATE ===== */
+  .lesson-btn.locked {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .lesson-btn.locked:active .btn-face { transform: none; }
+  .lesson-btn.locked:active .btn-rim { height: var(--btn-depth); }
+  .lesson-btn.locked .btn-rim { background: var(--gray-rim); }
+  .lesson-btn.locked .btn-face { background: var(--gray-btn); }
+  .lesson-btn.locked .level-badge { background: rgba(0,0,0,0.2); }
+  .lesson-btn.locked .lesson-title { color: rgba(255,255,255,0.7); }
+  .lesson-btn.locked .lesson-subtitle { color: rgba(255,255,255,0.35); }
+  .lesson-btn.locked .status-icon {
+    background: rgba(0,0,0,0.2);
+    color: rgba(255,255,255,0.5);
+  }
+  .lesson-btn.locked .star { color: rgba(255,255,255,0.15); }
+
+  /* ===== UNIT 2 LOCKED OVERRIDES ===== */
+  .lesson-btn.locked.u2 .btn-rim { background: var(--gray-rim); }
+  .lesson-btn.locked.u2 .btn-face { background: var(--gray-btn); }
+
+  /* ===== XP CHIP ON COMPLETED LESSONS ===== */
+  .xp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.8);
+    margin-left: 8px;
+  }
+  .xp-chip .bolt { color: var(--gold); font-size: 10px; }
+
+  /* ===== CONNECTOR LINES ===== */
+  .connector {
+    display: flex;
+    justify-content: center;
+    height: 18px;
+    position: relative;
+  }
+  .connector::before {
+    content: '';
+    width: 3px;
+    height: 100%;
+    border-radius: 2px;
+  }
+  .connector.active::before { background: var(--orange); opacity: 0.5; }
+  .connector.locked::before { background: var(--gray-btn); opacity: 0.3; }
+  .connector.violet-locked::before { background: var(--violet-rim); opacity: 0.25; }
+
+  /* ===== UNIT DIVIDER ===== */
+  .unit-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 4px;
+  }
+  .unit-divider::before,
+  .unit-divider::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #334155, transparent);
+    border-radius: 1px;
+  }
+  .divider-icon {
+    color: #475569;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .divider-icon span {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #475569;
+  }
+
+  /* ===== OVERALL PROGRESS FOOTER ===== */
+  .footer-stats {
+    background: var(--navy-light);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #2a3548;
+  }
+  .footer-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .footer-stat-val {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+  }
+  .footer-stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .footer-stat-val.green { color: var(--xp-green); }
+  .footer-stat-val.gold { color: var(--gold); }
+  .footer-stat-val.orange { color: var(--orange); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 380px) {
+    .unit-title { font-size: 17px; }
+    .lesson-title { font-size: 14px; }
+    .level-badge { width: 42px; height: 42px; }
+    .level-num { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <div class="app-logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#fff"/>
+        <path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <span class="app-name">MechReady</span>
+  </div>
+  <div class="top-stats">
+    <div class="stat-pill stat-streak">
+      <span class="icon">🔥</span>
+      <span class="val">7</span>
+    </div>
+    <div class="stat-pill stat-xp">
+      <span class="icon">⚡</span>
+      <span class="val">240</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== UNIT 1 HEADER ===== -->
+  <div class="unit-header orange">
+    <div class="unit-top-row">
+      <div>
+        <div class="unit-number">Unit 1</div>
+        <div class="unit-title">Statics & Free Body Diagrams</div>
+      </div>
+      <div class="unit-xp-badge">
+        <span class="xp-icon">⚡</span>
+        120 XP
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 50%"></div>
+      </div>
+      <div class="progress-text">2 / 4</div>
+    </div>
+  </div>
+
+  <!-- ===== UNIT 1 LESSONS ===== -->
+  <div class="lessons-list">
+
+    <!-- Lesson 1: Completed -->
+    <button class="lesson-btn completed" type="button">
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">1</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">
+            Forces & Equilibrium
+            <span class="xp-chip"><span class="bolt">⚡</span>60</span>
+          </div>
+          <div class="lesson-subtitle">10 questions · Mastered</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star on">★</span>
+            <span class="star on">★</span>
+            <span class="star on">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <div class="connector active"></div>
+
+    <!-- Lesson 2: Completed -->
+    <button class="lesson-btn completed" type="button">
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">2</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">
+            Moment of a Force
+            <span class="xp-chip"><span class="bolt">⚡</span>60</span>
+          </div>
+          <div class="lesson-subtitle">8 questions · Mastered</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star on">★</span>
+            <span class="star on">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <div class="connector active"></div>
+
+    <!-- Lesson 3: Current / Active -->
+    <button class="lesson-btn current" type="button">
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">3</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">Free Body Diagrams</div>
+          <div class="lesson-subtitle">12 questions · Start lesson</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <span class="play-arrow"></span>
+          </div>
+          <div class="star-row">
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <div class="connector locked"></div>
+
+    <!-- Lesson 4: Locked -->
+    <button class="lesson-btn locked" type="button" disabled>
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">4</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">Trusses & Frames</div>
+          <div class="lesson-subtitle">10 questions · Locked</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" fill="currentColor"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- ===== UNIT DIVIDER ===== -->
+  <div class="unit-divider">
+    <div class="divider-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      <span>Next Unit</span>
+    </div>
+  </div>
+
+  <!-- ===== UNIT 2 HEADER ===== -->
+  <div class="unit-header violet">
+    <div class="unit-top-row">
+      <div>
+        <div class="unit-number">Unit 2</div>
+        <div class="unit-title">Strength of Materials</div>
+      </div>
+      <div class="unit-xp-badge">
+        <span class="xp-icon">🔒</span>
+        0 / 180 XP
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 0%"></div>
+      </div>
+      <div class="progress-text">0 / 3</div>
+    </div>
+  </div>
+
+  <!-- ===== UNIT 2 LESSONS ===== -->
+  <div class="lessons-list">
+
+    <!-- Lesson 1: Locked -->
+    <button class="lesson-btn locked u2" type="button" disabled>
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">5</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">Stress & Strain</div>
+          <div class="lesson-subtitle">10 questions · Locked</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <div class="connector violet-locked"></div>
+
+    <!-- Lesson 2: Locked -->
+    <button class="lesson-btn locked u2" type="button" disabled>
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">6</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">Beam Bending</div>
+          <div class="lesson-subtitle">8 questions · Locked</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <div class="connector violet-locked"></div>
+
+    <!-- Lesson 3: Locked -->
+    <button class="lesson-btn locked u2" type="button" disabled>
+      <div class="btn-rim"></div>
+      <div class="btn-face">
+        <div class="level-badge">
+          <span class="level-num">7</span>
+          <span class="level-label">LVL</span>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-title">Mohr's Circle</div>
+          <div class="lesson-subtitle">12 questions · Locked</div>
+        </div>
+        <div class="lesson-right">
+          <div class="status-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="star-row">
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+            <span class="star off">★</span>
+          </div>
+        </div>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- ===== FOOTER STATS ===== -->
+  <div class="footer-stats">
+    <div class="footer-stat">
+      <div class="footer-stat-val green">240</div>
+      <div class="footer-stat-label">Total XP</div>
+    </div>
+    <div class="footer-stat">
+      <div class="footer-stat-val gold">2</div>
+      <div class="footer-stat-label">Mastered</div>
+    </div>
+    <div class="footer-stat">
+      <div class="footer-stat-val orange">29%</div>
+      <div class="footer-stat-label">Complete</div>
+    </div>
+    <div class="footer-stat">
+      <div class="footer-stat-val" style="color: var(--violet);">7</div>
+      <div class="footer-stat-label">Day Streak</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

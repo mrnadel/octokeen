@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Map — Variant C</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #FFFFFF;
+    --black: #1A1A1A;
+    --gray-50: #FAFAFA;
+    --gray-100: #F5F5F5;
+    --gray-200: #E5E5E5;
+    --gray-300: #D0D0D0;
+    --gray-400: #A0A0A0;
+    --gray-500: #6B6B6B;
+    --green: #00A878;
+    --green-dark: #008A62;
+    --green-shadow: #006B4C;
+    --green-glow: rgba(0, 168, 120, 0.3);
+    --indigo: #4F46E5;
+    --indigo-dark: #3E38B8;
+    --indigo-shadow: #302C8F;
+    --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Helvetica, Arial, sans-serif;
+    --rim: 5px;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--gray-50);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.4;
+  }
+
+  /* ── Layout Shell ── */
+  .shell {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+  }
+
+  /* ── Top Bar ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .topbar-brand {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+  .topbar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  /* ── Page Header ── */
+  .page-header {
+    padding: 36px 0 4px;
+  }
+  .page-header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    color: var(--black);
+    line-height: 1.1;
+  }
+  .page-header p {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Content Area ── */
+  .content {
+    flex: 1;
+    padding: 28px 0 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  /* ── Unit Block ── */
+  .unit {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Unit Header (flat card) ── */
+  .unit-header {
+    border-radius: 16px;
+    padding: 22px 24px 20px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .unit-header--green { background: var(--green); }
+  .unit-header--indigo { background: var(--indigo); }
+
+  .unit-number {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 5px;
+  }
+  .unit-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.25;
+  }
+  .unit-meta {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    gap: 14px;
+  }
+  .unit-stat {
+    font-family: var(--mono);
+    font-size: 11px;
+    opacity: 0.8;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  /* Progress bar */
+  .progress-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 2px;
+    flex: 1;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--white);
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ── Connector line between header and lessons ── */
+  .connector {
+    width: 2px;
+    height: 20px;
+    margin-left: 40px;
+  }
+  .connector--green { background: var(--green); opacity: 0.25; }
+  .connector--indigo { background: var(--indigo); opacity: 0.2; }
+
+  /* ── Lessons List ── */
+  .lessons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* ══════════════════════════════════════
+     LESSON BUTTON — 3D Push-Button Style
+
+     The face sits on top of a colored rim/base.
+     padding-bottom on .lesson reserves space for the rim to show.
+     The rim fills the entire .lesson area, the face floats above it.
+     ══════════════════════════════════════ */
+  .lesson {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: 6px; /* space for the rim to be visible */
+  }
+
+  /* Bottom rim / shadow layer — fills the entire lesson area */
+  .lesson-rim {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+  }
+
+  /* Top face layer — the main button surface, doesn't fill the bottom 6px */
+  .lesson-face {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 18px;
+    border-radius: 16px;
+    z-index: 1;
+    transition: transform 0.1s ease;
+  }
+
+  /* Press effect — face pushes down into the rim */
+  .lesson:active .lesson-face {
+    transform: translateY(5px);
+  }
+
+  /* ── Lesson Icon ── */
+  .lesson-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lesson-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ── Lesson Text ── */
+  .lesson-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .lesson-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .lesson-name {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.1px;
+  }
+
+  /* ── Lesson Status Icon ── */
+  .lesson-status {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lesson-status svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ═══════════════════════════════════
+     STATE: Completed
+     ═══════════════════════════════════ */
+  .lesson--completed .lesson-rim {
+    background: var(--green-shadow);
+  }
+  .lesson--completed .lesson-face {
+    background: var(--green);
+  }
+  .lesson--completed .lesson-icon {
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .lesson--completed .lesson-icon svg {
+    stroke: var(--white);
+    fill: none;
+  }
+  .lesson--completed .lesson-label { color: rgba(255, 255, 255, 0.6); }
+  .lesson--completed .lesson-name { color: var(--white); }
+  .lesson--completed .lesson-status {
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .lesson--completed .lesson-status svg {
+    fill: none;
+    stroke: var(--white);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ═══════════════════════════════════
+     STATE: Current / Active
+     ═══════════════════════════════════ */
+  .lesson--current .lesson-rim {
+    background: var(--green-dark);
+  }
+  .lesson--current .lesson-face {
+    background: var(--white);
+    outline: 2.5px solid var(--green);
+    outline-offset: -2.5px;
+    animation: pulse-glow 2.4s ease-in-out infinite;
+  }
+  .lesson--current .lesson-icon {
+    background: rgba(0, 168, 120, 0.1);
+  }
+  .lesson--current .lesson-icon svg {
+    stroke: var(--green);
+    fill: none;
+  }
+  .lesson--current .lesson-label { color: var(--green); font-weight: 600; }
+  .lesson--current .lesson-name { color: var(--black); }
+  .lesson--current .lesson-status {
+    background: var(--green);
+  }
+  .lesson--current .lesson-status svg {
+    fill: var(--white);
+    stroke: none;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0px var(--green-glow); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 168, 120, 0.12); }
+  }
+
+  /* ═══════════════════════════════════
+     STATE: Locked (green unit)
+     ═══════════════════════════════════ */
+  .lesson--locked {
+    cursor: default;
+    opacity: 0.48;
+  }
+  .lesson--locked:active .lesson-face { transform: none; }
+  .lesson--locked .lesson-rim {
+    background: var(--gray-300);
+  }
+  .lesson--locked .lesson-face {
+    background: var(--gray-100);
+  }
+  .lesson--locked .lesson-icon {
+    background: var(--gray-200);
+  }
+  .lesson--locked .lesson-icon svg {
+    stroke: var(--gray-400);
+    fill: none;
+  }
+  .lesson--locked .lesson-label { color: var(--gray-400); }
+  .lesson--locked .lesson-name { color: var(--gray-500); }
+  .lesson--locked .lesson-status {
+    background: transparent;
+  }
+  .lesson--locked .lesson-status svg {
+    fill: none;
+    stroke: var(--gray-400);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ═══════════════════════════════════
+     STATE: Locked (indigo unit)
+     ═══════════════════════════════════ */
+  .lesson--locked-indigo {
+    cursor: default;
+    opacity: 0.42;
+  }
+  .lesson--locked-indigo:active .lesson-face { transform: none; }
+  .lesson--locked-indigo .lesson-rim {
+    background: var(--gray-300);
+  }
+  .lesson--locked-indigo .lesson-face {
+    background: var(--gray-100);
+  }
+  .lesson--locked-indigo .lesson-icon {
+    background: rgba(79, 70, 229, 0.06);
+  }
+  .lesson--locked-indigo .lesson-icon svg {
+    stroke: var(--gray-400);
+    fill: none;
+  }
+  .lesson--locked-indigo .lesson-label { color: var(--gray-400); }
+  .lesson--locked-indigo .lesson-name { color: var(--gray-500); }
+  .lesson--locked-indigo .lesson-status {
+    background: transparent;
+  }
+  .lesson--locked-indigo .lesson-status svg {
+    fill: none;
+    stroke: var(--gray-400);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── Divider between units ── */
+  .unit-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 4px 0;
+  }
+
+  /* ── Bottom Nav (cosmetic) ── */
+  .bottom-nav {
+    position: sticky;
+    bottom: 0;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-item svg {
+    width: 22px;
+    height: 22px;
+  }
+  .nav-item span {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .nav-item--active svg { stroke: var(--green); fill: none; }
+  .nav-item--active span { color: var(--green); font-weight: 700; }
+  .nav-item--inactive svg { stroke: var(--gray-400); fill: none; }
+  .nav-item--inactive span { color: var(--gray-400); }
+
+  /* ── Entrance Animations ── */
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .unit { animation: slide-up 0.5s ease both; }
+  .unit:nth-child(1) { animation-delay: 0.05s; }
+  .unit:nth-child(3) { animation-delay: 0.25s; }
+  .lesson { animation: slide-up 0.4s ease both; }
+  .lesson:nth-child(1) { animation-delay: 0.12s; }
+  .lesson:nth-child(2) { animation-delay: 0.2s; }
+  .lesson:nth-child(3) { animation-delay: 0.28s; }
+  .lesson:nth-child(4) { animation-delay: 0.36s; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-brand">MechReady</div>
+    <div class="topbar-label">Course Map</div>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Your Path</h1>
+    <p>2 of 7 lessons completed</p>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ UNIT 1 ═══ -->
+    <div class="unit">
+      <div class="unit-header unit-header--green">
+        <div class="unit-number">Unit 01</div>
+        <div class="unit-title">Statics &amp; Free Body Diagrams</div>
+        <div class="unit-meta">
+          <div class="unit-stat">2 / 4</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 50%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector connector--green"></div>
+
+      <div class="lessons">
+
+        <!-- Lesson 1: Completed -->
+        <div class="lesson lesson--completed">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="16"/>
+                <polyline points="7 11 12 16 17 11"/>
+                <line x1="5" y1="21" x2="19" y2="21"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 1</div>
+              <div class="lesson-name">Forces &amp; Equilibrium</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 2: Completed -->
+        <div class="lesson lesson--completed">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3C7.03 3 3 7.03 3 12H0L4 16L8 12H5C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19C10.07 19 8.32 18.21 7.06 16.94"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 2</div>
+              <div class="lesson-name">Moment of a Force</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 3: Current / Active -->
+        <div class="lesson lesson--current">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="3" y1="12" x2="21" y2="12" stroke-width="1.5"/>
+                <line x1="12" y1="3" x2="12" y2="21" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 3</div>
+              <div class="lesson-name">Free Body Diagrams</div>
+            </div>
+            <div class="lesson-status">
+              <!-- Play arrow -->
+              <svg viewBox="0 0 24 24"><polygon points="9,6 18,12 9,18" fill="currentColor" stroke="none"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 4: Locked -->
+        <div class="lesson lesson--locked">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12,4 3,20 21,20"/>
+                <line x1="7.5" y1="12" x2="16.5" y2="12" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 4</div>
+              <div class="lesson-name">Trusses &amp; Frames</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="unit-divider"></div>
+
+    <!-- ═══ UNIT 2 ═══ -->
+    <div class="unit">
+      <div class="unit-header unit-header--indigo">
+        <div class="unit-number">Unit 02</div>
+        <div class="unit-title">Strength of Materials</div>
+        <div class="unit-meta">
+          <div class="unit-stat">0 / 3</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector connector--indigo"></div>
+
+      <div class="lessons">
+
+        <!-- Lesson 1: Locked -->
+        <div class="lesson lesson--locked-indigo">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12H8L10 6L14 18L16 12H20"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 1</div>
+              <div class="lesson-name">Stress &amp; Strain</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 2: Locked -->
+        <div class="lesson lesson--locked-indigo">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="10" width="20" height="4" rx="1"/>
+                <path d="M6 14L4 20M18 14L20 20"/>
+                <path d="M12 10L12 6M12 6L9 3M12 6L15 3" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 2</div>
+              <div class="lesson-name">Beam Bending</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 3: Locked -->
+        <div class="lesson lesson--locked-indigo">
+          <div class="lesson-rim"></div>
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8"/>
+                <line x1="4" y1="12" x2="20" y2="12" stroke-width="1.5"/>
+                <circle cx="8" cy="12" r="1.5" fill="currentColor" stroke="none" opacity="0.5"/>
+                <circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="lesson-text">
+              <div class="lesson-label">Lesson 3</div>
+              <div class="lesson-name">Mohr's Circle</div>
+            </div>
+            <div class="lesson-status">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <div class="nav-item nav-item--active">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M3 9L12 2L21 9V20C21 20.55 20.55 21 20 21H4C3.45 21 3 20.55 3 20V9Z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>Learn</span>
+    </div>
+    <div class="nav-item nav-item--inactive">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>Practice</span>
+    </div>
+    <div class="nav-item nav-item--inactive">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M17 21V19C17 16.79 15.21 15 13 15H5C2.79 15 1 16.79 1 19V21"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21V19C23 17.45 22.05 16.13 20.7 15.63"/>
+        <path d="M16 3.13C17.37 3.62 18.35 4.94 18.35 6.5C18.35 8.06 17.37 9.38 16 9.87"/>
+      </svg>
+      <span>League</span>
+    </div>
+    <div class="nav-item nav-item--inactive">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M20 21V19C20 16.79 18.21 15 16 15H8C5.79 15 4 16.79 4 19V21"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>Profile</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady — Course Map (Variant A)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #13132B;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Subtle grid background ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 24px 18px 60px;
+  }
+
+  /* ── Top bar ── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding: 0 2px;
+  }
+  .top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #1A9A8E, #14766D);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 0 #0D524A;
+    transform: rotate(-3deg);
+  }
+  .logo-mark svg { width: 20px; height: 20px; }
+  .app-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: -0.3px;
+  }
+  .app-title span { color: #1A9A8E; }
+  .streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 6px 12px 6px 8px;
+  }
+  .streak-flame {
+    width: 18px;
+    height: 18px;
+  }
+  .streak-num {
+    font-size: 14px;
+    font-weight: 800;
+    color: #FF9600;
+  }
+
+  /* ── Connecting path between units ── */
+  .path-connector {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+  }
+  .path-connector .dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .path-connector .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+
+  /* ── Unit card ── */
+  .unit-card {
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  /* Unit header */
+  .unit-header {
+    padding: 18px 20px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Geometric accent shape in header */
+  .unit-header::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 90px;
+    height: 90px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.06);
+    transform: rotate(25deg);
+  }
+  .unit-header::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    transform: rotate(40deg);
+  }
+
+  .unit-header.teal {
+    background: linear-gradient(135deg, #1A9A8E 0%, #178A80 100%);
+  }
+  .unit-header.purple {
+    background: linear-gradient(135deg, #6354CC 0%, #5647B8 100%);
+  }
+
+  .unit-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .unit-number {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.55);
+  }
+  .unit-progress-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+  .unit-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Progress bar */
+  .progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.85);
+    transition: width 0.6s ease;
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 1.5px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* Lessons container */
+  .lessons-list {
+    background: #1B1B35;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 0 0 20px 20px;
+    border: 1.5px solid rgba(255,255,255,0.04);
+    border-top: none;
+  }
+
+  /* ── Lesson button (3D style) ── */
+  .lesson-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    /* 3D layers done via padding + background on inner */
+    background: none;
+    padding: 0;
+    outline: none;
+  }
+
+  .lesson-3d-wrap {
+    width: 100%;
+    position: relative;
+    border-radius: 16px;
+  }
+
+  /* Bottom shadow/rim layer */
+  .lesson-3d-wrap::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: calc(100% - 0px);
+    border-radius: 16px;
+    z-index: 0;
+  }
+
+  /* Face layer */
+  .lesson-face {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    transition: transform 0.1s ease;
+    border: 1.5px solid transparent;
+  }
+  .lesson-btn:active .lesson-face {
+    transform: translateY(3px);
+  }
+
+  /* ── Completed state ── */
+  .lesson-btn.completed .lesson-3d-wrap::after {
+    background: var(--unit-shadow);
+  }
+  .lesson-btn.completed .lesson-face {
+    background: var(--unit-face);
+    border-color: var(--unit-border);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 0 var(--unit-shadow);
+  }
+  .lesson-btn.completed:active .lesson-face {
+    transform: translateY(0px);
+    box-shadow: 0 1px 0 var(--unit-shadow);
+  }
+
+  /* ── Current / active state ── */
+  .lesson-btn.current .lesson-3d-wrap::after {
+    background: var(--unit-shadow);
+  }
+  .lesson-btn.current .lesson-face {
+    background: var(--unit-face);
+    border-color: var(--unit-glow);
+    transform: translateY(-3px);
+    box-shadow:
+      0 4px 0 var(--unit-shadow),
+      0 0 20px var(--unit-glow-spread),
+      inset 0 0 0 1px rgba(255,255,255,0.1);
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+  .lesson-btn.current:active .lesson-face {
+    transform: translateY(0px);
+    box-shadow: 0 1px 0 var(--unit-shadow);
+    animation: none;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow:
+        0 4px 0 var(--unit-shadow),
+        0 0 16px var(--unit-glow-spread),
+        inset 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    50% {
+      box-shadow:
+        0 4px 0 var(--unit-shadow),
+        0 0 28px var(--unit-glow-spread),
+        0 0 50px var(--unit-glow-far),
+        inset 0 0 0 1px rgba(255,255,255,0.18);
+    }
+  }
+
+  /* ── Locked state ── */
+  .lesson-btn.locked {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+  .lesson-btn.locked .lesson-face {
+    background: #2A2A44;
+    border-color: rgba(255,255,255,0.04);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 0 #1E1E36;
+  }
+
+  /* ── Lesson icon ── */
+  .lesson-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .lesson-btn.completed .lesson-icon,
+  .lesson-btn.current .lesson-icon {
+    background: rgba(255,255,255,0.15);
+  }
+  .lesson-btn.locked .lesson-icon {
+    background: rgba(255,255,255,0.06);
+  }
+  .lesson-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* ── Lesson text ── */
+  .lesson-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .lesson-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.25;
+  }
+  .lesson-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .lesson-btn.completed .lesson-subtitle { color: rgba(255,255,255,0.55); }
+  .lesson-btn.current .lesson-subtitle { color: rgba(255,255,255,0.6); }
+  .lesson-btn.locked .lesson-subtitle { color: rgba(255,255,255,0.4); }
+  .lesson-btn.locked .lesson-title { color: rgba(255,255,255,0.7); }
+
+  /* ── Right-side badge ── */
+  .lesson-badge {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lesson-btn.completed .lesson-badge {
+    background: rgba(255,255,255,0.2);
+  }
+  .lesson-btn.current .lesson-badge {
+    background: rgba(255,255,255,0.2);
+  }
+  .lesson-btn.locked .lesson-badge {
+    background: rgba(255,255,255,0.06);
+  }
+  .lesson-badge svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── Current lesson "START" chip ── */
+  .start-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 5px;
+  }
+  .start-chip svg { width: 12px; height: 12px; }
+
+  /* ── Unit color tokens ── */
+  .unit-teal {
+    --unit-face: #1A9A8E;
+    --unit-border: #22B5A7;
+    --unit-shadow: #117068;
+    --unit-glow: rgba(26,154,142,0.6);
+    --unit-glow-spread: rgba(26,154,142,0.35);
+    --unit-glow-far: rgba(26,154,142,0.12);
+  }
+  .unit-purple {
+    --unit-face: #6354CC;
+    --unit-border: #7B6EDE;
+    --unit-shadow: #463CA0;
+    --unit-glow: rgba(99,84,204,0.6);
+    --unit-glow-spread: rgba(99,84,204,0.35);
+    --unit-glow-far: rgba(99,84,204,0.12);
+  }
+
+  /* ── Overall progress bar at top ── */
+  .overall-progress {
+    margin-bottom: 24px;
+    padding: 0 2px;
+  }
+  .overall-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .overall-label-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+  .overall-label-pct {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1A9A8E;
+  }
+  .overall-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .overall-fill {
+    width: 29%;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #1A9A8E, #22B5A7);
+  }
+
+  /* ── Floating decorations ── */
+  .deco-hex {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .deco-hex.top-left {
+    top: 60px;
+    left: -30px;
+    transform: rotate(15deg);
+  }
+  .deco-hex.bottom-right {
+    bottom: 80px;
+    right: -40px;
+    transform: rotate(-20deg);
+  }
+
+  /* ── Bottom nav mockup ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 520px;
+    background: #1B1B35;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 max(10px, env(safe-area-inset-bottom));
+    z-index: 10;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 12px;
+    font-family: inherit;
+  }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-item span {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+  .nav-item.active svg { color: #1A9A8E; }
+  .nav-item.active span { color: #1A9A8E; }
+  .nav-item:not(.active) svg { color: rgba(255,255,255,0.3); }
+
+  /* ── Hexagon shape for decorations ── */
+  .hex-shape {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<!-- Decorative hexagons -->
+<svg class="deco-hex top-left" viewBox="0 0 100 100"><polygon class="hex-shape" points="50,2 93,25 93,75 50,98 7,75 7,25"/></svg>
+<svg class="deco-hex bottom-right" viewBox="0 0 100 100"><polygon class="hex-shape" points="50,2 93,25 93,75 50,98 7,75 7,25"/></svg>
+
+<div class="container">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" opacity="0.9"/>
+          <path d="M2 17l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="app-title">Mech<span>Ready</span></div>
+    </div>
+    <div class="streak-badge">
+      <svg class="streak-flame" viewBox="0 0 24 24" fill="none">
+        <path d="M12 23c-4.97 0-8-3.58-8-7.5 0-3.07 2.17-5.88 3.5-7.3.38-.4 1.04-.1 1.02.44-.08 2.07.72 3.66 1.98 4.36.14-.92.6-2.06 1.5-3.5C13.5 6.5 13 3.5 12.5 2c0 0 4 1 6 5s2 5.5 1.5 8.5c-.34 2.04-1.44 4.12-3.5 5.58C15.18 22.08 13.66 23 12 23z" fill="#FF9600"/>
+        <path d="M12 23c-2.21 0-4-2.01-4-4.5 0-1.77.89-3.37 1.72-4.32.2-.23.56-.07.55.22-.03.86.24 1.72.73 2.3.06-.51.25-1.1.62-1.86.56-1.15.38-2.46.14-3.12 0 0 1.88.76 2.87 2.66.5.96.62 1.88.47 3 0 0 .56-.37.75-1.38.05-.26.42-.3.52-.06.28.68.63 1.82.63 2.56 0 2.49-1.79 4.5-4 4.5z" fill="#FFC800"/>
+      </svg>
+      <span class="streak-num">5</span>
+    </div>
+  </div>
+
+  <!-- Overall progress -->
+  <div class="overall-progress">
+    <div class="overall-label">
+      <span class="overall-label-text">Course Progress</span>
+      <span class="overall-label-pct">29%</span>
+    </div>
+    <div class="overall-track">
+      <div class="overall-fill"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ UNIT 1: Statics & Free Body Diagrams ═══════════ -->
+  <div class="unit-card unit-teal">
+    <div class="unit-header teal">
+      <div class="unit-top-row">
+        <span class="unit-number">Unit 1</span>
+        <span class="unit-progress-text">2 / 4</span>
+      </div>
+      <div class="unit-title">Statics & Free Body Diagrams</div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 50%"></div>
+      </div>
+    </div>
+    <div class="lessons-list">
+
+      <!-- Lesson 1 — Completed -->
+      <button class="lesson-btn completed">
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Forces icon: arrows pointing together -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16M16 8l4 4-4 4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 8L4 12l4 4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Forces & Equilibrium</div>
+              <div class="lesson-subtitle">Lesson 1 &middot; Complete</div>
+            </div>
+            <div class="lesson-badge">
+              <!-- Checkmark -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Lesson 2 — Completed -->
+      <button class="lesson-btn completed">
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Moment icon: curved arrow -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 20V4" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M5 9a7 7 0 0 1 14 0" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.7"/>
+                <path d="M16 6l3 3-3 3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Moment of a Force</div>
+              <div class="lesson-subtitle">Lesson 2 &middot; Complete</div>
+            </div>
+            <div class="lesson-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Lesson 3 — Current / Active -->
+      <button class="lesson-btn current">
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- FBD icon: box with arrows -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="7" y="8" width="10" height="8" rx="2" stroke="white" stroke-width="2" fill="rgba(255,255,255,0.1)"/>
+                <path d="M12 8V3M12 16v5M7 12H3M17 12h4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="3" r="1.2" fill="white" opacity="0.7"/>
+                <circle cx="12" cy="21" r="1.2" fill="white" opacity="0.7"/>
+                <circle cx="3" cy="12" r="1.2" fill="white" opacity="0.7"/>
+                <circle cx="21" cy="12" r="1.2" fill="white" opacity="0.7"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Free Body Diagrams</div>
+              <div class="lesson-subtitle">Lesson 3 &middot; Up Next</div>
+              <div class="start-chip">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M8 5v14l11-7L8 5z" fill="white"/>
+                </svg>
+                Start
+              </div>
+            </div>
+            <div class="lesson-badge">
+              <!-- Play arrow -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8 5v14l11-7L8 5z" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Lesson 4 — Locked -->
+      <button class="lesson-btn locked" disabled>
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Truss icon: triangle structure -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 19h18L12 5 3 19z" stroke="white" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                <path d="M7.5 19L12 10l4.5 9" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Trusses & Frames</div>
+              <div class="lesson-subtitle">Lesson 4 &middot; Locked</div>
+            </div>
+            <div class="lesson-badge">
+              <!-- Lock icon -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="11" width="14" height="10" rx="2.5" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="12" cy="16" r="1.5" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Path connector -->
+  <div class="path-connector">
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ UNIT 2: Strength of Materials ═══════════ -->
+  <div class="unit-card unit-purple">
+    <div class="unit-header purple">
+      <div class="unit-top-row">
+        <span class="unit-number">Unit 2</span>
+        <span class="unit-progress-text">0 / 3</span>
+      </div>
+      <div class="unit-title">Strength of Materials</div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="lessons-list">
+
+      <!-- Lesson 1 — Locked -->
+      <button class="lesson-btn locked" disabled>
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Stress/strain icon: stretched bar -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="9" width="16" height="6" rx="1.5" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M2 12h2M20 12h2" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M1 10l1 2-1 2M23 10l-1 2 1 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Stress & Strain</div>
+              <div class="lesson-subtitle">Lesson 1 &middot; Locked</div>
+            </div>
+            <div class="lesson-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="11" width="14" height="10" rx="2.5" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="12" cy="16" r="1.5" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Lesson 2 — Locked -->
+      <button class="lesson-btn locked" disabled>
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Beam bending icon -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 8h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M3 8c0 0 4 8 9 8s9-8 9-8" stroke="white" stroke-width="1.5" stroke-dasharray="3 2" fill="none" opacity="0.6"/>
+                <path d="M12 16v4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 20h6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 6v4M21 6v4" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Beam Bending</div>
+              <div class="lesson-subtitle">Lesson 2 &middot; Locked</div>
+            </div>
+            <div class="lesson-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="11" width="14" height="10" rx="2.5" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="12" cy="16" r="1.5" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Lesson 3 — Locked -->
+      <button class="lesson-btn locked" disabled>
+        <div class="lesson-3d-wrap">
+          <div class="lesson-face">
+            <div class="lesson-icon">
+              <!-- Mohr's circle icon -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8" stroke="white" stroke-width="2" fill="none"/>
+                <line x1="4" y1="12" x2="20" y2="12" stroke="white" stroke-width="1.5" opacity="0.4"/>
+                <line x1="12" y1="4" x2="12" y2="20" stroke="white" stroke-width="1.5" opacity="0.4"/>
+                <circle cx="8" cy="9" r="2" fill="white" opacity="0.7"/>
+                <circle cx="16" cy="15" r="2" fill="white" opacity="0.7"/>
+                <line x1="8" y1="9" x2="16" y2="15" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+              </svg>
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Mohr's Circle</div>
+              <div class="lesson-subtitle">Lesson 3 &middot; Locked</div>
+            </div>
+            <div class="lesson-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="5" y="11" width="14" height="10" rx="2.5" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="12" cy="16" r="1.5" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Spacer for bottom nav -->
+  <div style="height: 60px"></div>
+
+</div>
+
+<!-- Bottom navigation -->
+<nav class="bottom-nav">
+  <button class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M4 15V9a8 8 0 0 1 16 0v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="6" y="15" width="12" height="5" rx="2" fill="currentColor"/>
+    </svg>
+    <span>Learn</span>
+  </button>
+  <button class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span>Practice</span>
+  </button>
+  <button class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <span>Stats</span>
+  </button>
+  <button class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+      <path d="M4 21v-1a6 6 0 0 1 16 0v1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span>Profile</span>
+  </button>
+</nav>
+
+</body>
+</html>

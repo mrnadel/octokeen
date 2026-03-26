@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady - Course Map (Blueprint Variant)</title>
+<style>
+  /* ── Reset & Base ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0A1628;
+    --bg-grid: #0F1E35;
+    --grid-line: rgba(58, 112, 160, 0.12);
+    --grid-line-major: rgba(58, 112, 160, 0.22);
+    --orange: #D4600A;
+    --orange-light: #E8782A;
+    --orange-dark: #A84D08;
+    --orange-glow: rgba(212, 96, 10, 0.25);
+    --blue: #3B6FA0;
+    --blue-light: #4E87BC;
+    --blue-dark: #2D5680;
+    --blue-glow: rgba(59, 111, 160, 0.25);
+    --text: #E8EDF4;
+    --text-dim: #6B8199;
+    --text-muted: #3A5068;
+    --surface: #0E1D32;
+    --surface-raised: #132640;
+    --lock-face: #1A2A42;
+    --lock-rim: #0F1B2D;
+    --lock-text: #3A5068;
+    --crosshair: rgba(58, 112, 160, 0.30);
+    --annotation: rgba(58, 112, 160, 0.45);
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Blueprint Grid Background ────────────────────────── */
+  .blueprint-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      /* minor grid */
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+      /* major grid */
+      linear-gradient(var(--grid-line-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line-major) 1px, transparent 1px),
+      var(--bg);
+    background-size:
+      20px 20px,
+      20px 20px,
+      100px 100px,
+      100px 100px;
+  }
+
+  /* Subtle vignette */
+  .blueprint-bg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 10, 20, 0.55) 100%);
+  }
+
+  /* ── Container ────────────────────────────────────────── */
+  .app-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* ── Top Bar ──────────────────────────────────────────── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 20px;
+    border-bottom: 1px solid var(--grid-line-major);
+    margin-bottom: 8px;
+  }
+
+  .top-bar__brand {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .top-bar__brand span { color: var(--orange); }
+
+  .top-bar__meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: right;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Drawing Title Block (engineering-style) ──────────── */
+  .title-block {
+    border: 1px solid var(--grid-line-major);
+    margin: 16px 0 28px;
+    padding: 14px 16px 12px;
+    position: relative;
+  }
+
+  .title-block::before {
+    content: 'DWG NO. MR-MAP-001';
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background: var(--bg);
+    padding: 0 6px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+  }
+
+  .title-block__heading {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .title-block__sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  /* Corner crosshair decorations */
+  .title-block::after {
+    content: '';
+    position: absolute;
+    top: -1px; right: -1px;
+    width: 14px; height: 14px;
+    border-top: 2px solid var(--crosshair);
+    border-right: 2px solid var(--crosshair);
+  }
+
+  /* ── Connector Line (vertical) between units ──────────── */
+  .connector {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+    position: relative;
+  }
+
+  .connector__line {
+    width: 2px;
+    height: 32px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--text-muted) 0px,
+      var(--text-muted) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    position: relative;
+  }
+
+  /* Dimension-line arrow at bottom */
+  .connector__line::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-muted);
+  }
+
+  /* ── Unit Card (flat colored header) ──────────────────── */
+  .unit-card {
+    border-radius: 12px;
+    padding: 18px 18px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .unit-card--orange {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+    box-shadow: 0 2px 20px var(--orange-glow);
+  }
+
+  .unit-card--blue {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+    box-shadow: 0 2px 20px var(--blue-glow);
+  }
+
+  /* Blueprint hatch overlay on unit cards */
+  .unit-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 6px,
+        rgba(255,255,255,0.5) 6px,
+        rgba(255,255,255,0.5) 7px
+      );
+    pointer-events: none;
+  }
+
+  .unit-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .unit-card__badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 4px;
+  }
+
+  .unit-card__title {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  /* Crosshair decoration on unit card */
+  .unit-card__crosshair {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .unit-card__crosshair::before,
+  .unit-card__crosshair::after {
+    content: '';
+    position: absolute;
+  }
+  .unit-card__crosshair::before {
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.35);
+  }
+  .unit-card__crosshair::after {
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.35);
+  }
+
+  .unit-card__crosshair-circle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 12px; height: 12px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Progress bar */
+  .unit-card__progress {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.85);
+    transition: width 0.6s ease;
+  }
+
+  .progress-bar__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  /* ── Technical Annotation Callout ─────────────────────── */
+  .annotation {
+    position: relative;
+    margin: -2px 0 6px 18px;
+    padding-left: 16px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--annotation);
+    line-height: 1.4;
+  }
+
+  .annotation::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 8px;
+    height: 8px;
+    border-left: 1px solid var(--annotation);
+    border-bottom: 1px solid var(--annotation);
+  }
+
+  .annotation--right {
+    margin-left: auto;
+    margin-right: 18px;
+    padding-left: 0;
+    padding-right: 16px;
+    text-align: right;
+  }
+
+  .annotation--right::before {
+    left: auto;
+    right: 0;
+    border-left: none;
+    border-right: 1px solid var(--annotation);
+  }
+
+  /* ── Lesson List ──────────────────────────────────────── */
+  .lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 0 6px;
+  }
+
+  /* ── Lesson Button (3D style) ─────────────────────────── */
+  .lesson-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+    padding: 0;
+    font-family: inherit;
+    outline: none;
+    /* 3D push effect */
+    transform: translateY(0);
+    transition: transform 0.1s ease;
+  }
+
+  .lesson-btn:active:not(.lesson-btn--locked) {
+    transform: translateY(3px);
+  }
+
+  .lesson-btn:active:not(.lesson-btn--locked) .lesson-btn__rim {
+    height: 1px;
+  }
+
+  /* Rim (bottom shadow layer) */
+  .lesson-btn__rim {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0;
+    height: 5px;
+    border-radius: 12px;
+    z-index: 0;
+    transition: height 0.1s ease;
+  }
+
+  /* Face (top layer) */
+  .lesson-btn__face {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+  }
+
+  /* Icon circle */
+  .lesson-btn__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    position: relative;
+  }
+
+  .lesson-btn__text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lesson-btn__number {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: block;
+  }
+
+  .lesson-btn__name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    display: block;
+  }
+
+  .lesson-btn__status {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Completed State ──────────────────────────────────── */
+  .lesson-btn--completed-orange .lesson-btn__rim {
+    background: #8F3E05;
+  }
+  .lesson-btn--completed-orange .lesson-btn__face {
+    background: linear-gradient(135deg, #C2570A 0%, #A84D08 100%);
+  }
+  .lesson-btn--completed-orange .lesson-btn__icon {
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+  }
+  .lesson-btn--completed-orange .lesson-btn__number {
+    color: rgba(255,255,255,0.55);
+  }
+  .lesson-btn--completed-orange .lesson-btn__name {
+    color: #fff;
+  }
+  .lesson-btn--completed-orange .lesson-btn__status {
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── Current/Active State ─────────────────────────────── */
+  .lesson-btn--current-orange .lesson-btn__rim {
+    background: #8F3E05;
+  }
+  .lesson-btn--current-orange .lesson-btn__face {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    box-shadow:
+      0 0 20px var(--orange-glow),
+      0 0 40px rgba(212, 96, 10, 0.12);
+  }
+  .lesson-btn--current-orange .lesson-btn__icon {
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+  }
+  .lesson-btn--current-orange .lesson-btn__number {
+    color: rgba(255,255,255,0.6);
+  }
+  .lesson-btn--current-orange .lesson-btn__name {
+    color: #fff;
+  }
+  .lesson-btn--current-orange .lesson-btn__status {
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* Pulse ring animation for current lesson */
+  .pulse-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--orange-light);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.15); }
+  }
+
+  /* Scanning line animation on current lesson */
+  .lesson-btn--current-orange .lesson-btn__face::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.06) 45%,
+      rgba(255,255,255,0.06) 55%,
+      transparent 100%
+    );
+    animation: scan 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ── Locked State ─────────────────────────────────────── */
+  .lesson-btn--locked {
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .lesson-btn--locked .lesson-btn__rim {
+    background: var(--lock-rim);
+  }
+  .lesson-btn--locked .lesson-btn__face {
+    background: var(--lock-face);
+    border: 1px solid rgba(58, 112, 160, 0.1);
+  }
+  .lesson-btn--locked .lesson-btn__icon {
+    background: rgba(0,0,0,0.2);
+    color: var(--lock-text);
+  }
+  .lesson-btn--locked .lesson-btn__number {
+    color: var(--lock-text);
+  }
+  .lesson-btn--locked .lesson-btn__name {
+    color: var(--text-dim);
+  }
+  .lesson-btn--locked .lesson-btn__status {
+    color: var(--lock-text);
+  }
+
+  /* ── SVG Icons ────────────────────────────────────────── */
+  .icon-svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-svg--check { stroke-width: 2.5; }
+
+  /* ── Dimension Lines (decorative) ─────────────────────── */
+  .dim-line {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 8px 0;
+    color: var(--text-muted);
+  }
+
+  .dim-line__segment {
+    flex: 1;
+    height: 1px;
+    background: var(--text-muted);
+    opacity: 0.4;
+  }
+
+  .dim-line__tick {
+    width: 1px;
+    height: 8px;
+    background: var(--text-muted);
+    opacity: 0.4;
+  }
+
+  .dim-line__label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 0 8px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* ── Section Markers ──────────────────────────────────── */
+  .section-marker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0 4px;
+  }
+
+  .section-marker__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1.5px solid var(--crosshair);
+  }
+
+  .section-marker__line {
+    flex: 1;
+    height: 1px;
+    background: var(--crosshair);
+  }
+
+  .section-marker__label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Datum Reference (engineering) ────────────────────── */
+  .datum-ref {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--annotation);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--annotation);
+    margin-right: 6px;
+    position: relative;
+  }
+
+  /* Triangle datum frame */
+  .datum-ref::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--annotation);
+  }
+
+  /* ── Floating Corner Marks ────────────────────────────── */
+  .corner-mark {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .corner-mark--tl { top: 10px; left: 10px; }
+  .corner-mark--tr { top: 10px; right: 10px; }
+  .corner-mark--bl { bottom: 10px; left: 10px; }
+  .corner-mark--br { bottom: 10px; right: 10px; }
+
+  .corner-mark svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--crosshair);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* ── Revision Table ───────────────────────────────────── */
+  .rev-table {
+    margin-top: 24px;
+    border: 1px solid rgba(58, 112, 160, 0.15);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    width: 100%;
+    border-collapse: collapse;
+    letter-spacing: 0.5px;
+  }
+
+  .rev-table th, .rev-table td {
+    padding: 6px 10px;
+    border: 1px solid rgba(58, 112, 160, 0.1);
+    text-align: left;
+  }
+
+  .rev-table th {
+    background: rgba(58, 112, 160, 0.06);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  /* ── Coordinate Marks on Sides ────────────────────────── */
+  .coord-marks {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .coord-marks--left {
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: rgba(58, 112, 160, 0.2);
+    letter-spacing: 4px;
+  }
+
+  .coord-marks--right {
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: rgba(58, 112, 160, 0.2);
+    letter-spacing: 4px;
+  }
+
+  /* ── GD&T Style Feature Control Frame ─────────────────── */
+  .gdt-frame {
+    display: inline-flex;
+    border: 1.5px solid var(--annotation);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--annotation);
+    letter-spacing: 0.5px;
+    margin: 4px 0;
+  }
+
+  .gdt-frame__cell {
+    padding: 3px 8px;
+    border-right: 1.5px solid var(--annotation);
+  }
+
+  .gdt-frame__cell:last-child {
+    border-right: none;
+  }
+
+  /* ── Responsive ───────────────────────────────────────── */
+  @media (max-width: 360px) {
+    .unit-card { padding: 14px 14px 12px; }
+    .lesson-btn__face { padding: 12px 12px; gap: 10px; }
+    .lesson-btn__icon { width: 36px; height: 36px; }
+    .lesson-btn__name { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Blueprint grid background -->
+<div class="blueprint-bg"></div>
+
+<!-- Corner registration marks -->
+<div class="corner-mark corner-mark--tl">
+  <svg viewBox="0 0 20 20"><line x1="0" y1="10" x2="20" y2="10"/><line x1="10" y1="0" x2="10" y2="20"/></svg>
+</div>
+<div class="corner-mark corner-mark--tr">
+  <svg viewBox="0 0 20 20"><line x1="0" y1="10" x2="20" y2="10"/><line x1="10" y1="0" x2="10" y2="20"/></svg>
+</div>
+<div class="corner-mark corner-mark--bl">
+  <svg viewBox="0 0 20 20"><line x1="0" y1="10" x2="20" y2="10"/><line x1="10" y1="0" x2="10" y2="20"/></svg>
+</div>
+<div class="corner-mark corner-mark--br">
+  <svg viewBox="0 0 20 20"><line x1="0" y1="10" x2="20" y2="10"/><line x1="10" y1="0" x2="10" y2="20"/></svg>
+</div>
+
+<!-- Side coordinate marks -->
+<div class="coord-marks coord-marks--left">Y &mdash; 0.000</div>
+<div class="coord-marks coord-marks--right">X &mdash; 0.000</div>
+
+<!-- ═══════════════ APP SHELL ═══════════════ -->
+<div class="app-shell">
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="top-bar__brand">Mech<span>Ready</span></div>
+    <div class="top-bar__meta">
+      REV. F &bull; SCALE 1:1<br>
+      COURSE MAP
+    </div>
+  </header>
+
+  <!-- Drawing Title Block -->
+  <div class="title-block">
+    <div class="title-block__heading">Learning Path</div>
+    <div class="title-block__sub">Mechanical Engineering Interview Preparation &mdash; 7 lessons across 2 units</div>
+    <div style="margin-top:8px;">
+      <div class="gdt-frame">
+        <div class="gdt-frame__cell" style="font-weight:700;">&#9678;</div>
+        <div class="gdt-frame__cell">2/7</div>
+        <div class="gdt-frame__cell">28.6%</div>
+        <div class="gdt-frame__cell">A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── SECTION A: UNIT 1 ───── -->
+  <div class="section-marker">
+    <div class="section-marker__dot" style="border-color: var(--orange);"></div>
+    <div class="section-marker__line" style="background: var(--orange); opacity: 0.3;"></div>
+    <div class="section-marker__label" style="color: var(--orange); opacity: 0.6;">Section A</div>
+  </div>
+
+  <!-- Unit 1 Header -->
+  <div class="unit-card unit-card--orange">
+    <div class="unit-card__top">
+      <div>
+        <div class="unit-card__badge">Unit 01</div>
+        <div class="unit-card__title">Statics & Free Body Diagrams</div>
+      </div>
+      <div class="unit-card__crosshair">
+        <div class="unit-card__crosshair-circle"></div>
+      </div>
+    </div>
+    <div class="unit-card__progress">
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width: 50%;"></div>
+      </div>
+      <div class="progress-bar__label">2 / 4</div>
+    </div>
+  </div>
+
+  <!-- Annotation -->
+  <div class="annotation" style="margin-top: 8px;">
+    DETAIL A &mdash; FUNDAMENTALS OF STATIC ANALYSIS<br>
+    TOLERANCE: &pm;0.5 UNITS
+  </div>
+
+  <!-- Unit 1 Lessons -->
+  <div class="lesson-list">
+
+    <!-- Lesson 1.1 — Completed -->
+    <button class="lesson-btn lesson-btn--completed-orange">
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <svg class="icon-svg icon-svg--check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 01</span>
+          <span class="lesson-btn__name">Forces & Equilibrium</span>
+        </div>
+        <div class="lesson-btn__status">&#10003; DONE</div>
+      </div>
+    </button>
+
+    <!-- Lesson 1.2 — Completed -->
+    <button class="lesson-btn lesson-btn--completed-orange">
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <svg class="icon-svg icon-svg--check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 02</span>
+          <span class="lesson-btn__name">Moment of a Force</span>
+        </div>
+        <div class="lesson-btn__status">&#10003; DONE</div>
+      </div>
+    </button>
+
+    <!-- Dimension Line Separator -->
+    <div class="dim-line">
+      <div class="dim-line__tick"></div>
+      <div class="dim-line__segment"></div>
+      <div class="dim-line__label">&#9654; CURRENT POSITION</div>
+      <div class="dim-line__segment"></div>
+      <div class="dim-line__tick"></div>
+    </div>
+
+    <!-- Lesson 1.3 — Current/Active -->
+    <button class="lesson-btn lesson-btn--current-orange">
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <div class="pulse-ring"></div>
+          <!-- Play icon -->
+          <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 03</span>
+          <span class="lesson-btn__name">Free Body Diagrams</span>
+        </div>
+        <div class="lesson-btn__status">START &rarr;</div>
+      </div>
+    </button>
+
+    <!-- Lesson 1.4 — Locked -->
+    <button class="lesson-btn lesson-btn--locked" disabled>
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <!-- Lock icon -->
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 04</span>
+          <span class="lesson-btn__name">Trusses & Frames</span>
+        </div>
+        <div class="lesson-btn__status">
+          <!-- Small lock -->
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-1px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- Connector between units -->
+  <div class="connector">
+    <div class="connector__line"></div>
+  </div>
+
+  <!-- ───── SECTION B: UNIT 2 ───── -->
+  <div class="section-marker">
+    <div class="section-marker__dot" style="border-color: var(--blue);"></div>
+    <div class="section-marker__line" style="background: var(--blue); opacity: 0.3;"></div>
+    <div class="section-marker__label" style="color: var(--blue); opacity: 0.6;">Section B</div>
+  </div>
+
+  <!-- Unit 2 Header -->
+  <div class="unit-card unit-card--blue">
+    <div class="unit-card__top">
+      <div>
+        <div class="unit-card__badge">Unit 02</div>
+        <div class="unit-card__title">Strength of Materials</div>
+      </div>
+      <div class="unit-card__crosshair">
+        <div class="unit-card__crosshair-circle"></div>
+      </div>
+    </div>
+    <div class="unit-card__progress">
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width: 0%;"></div>
+      </div>
+      <div class="progress-bar__label">0 / 3</div>
+    </div>
+  </div>
+
+  <!-- Annotation -->
+  <div class="annotation annotation--right" style="margin-top: 8px;">
+    DETAIL B &mdash; MATERIAL RESPONSE UNDER LOAD<br>
+    REFERENCE: DIN EN 1993
+  </div>
+
+  <!-- Unit 2 Lessons -->
+  <div class="lesson-list">
+
+    <!-- Lesson 2.1 — Locked -->
+    <button class="lesson-btn lesson-btn--locked" disabled>
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 01</span>
+          <span class="lesson-btn__name">Stress & Strain</span>
+        </div>
+        <div class="lesson-btn__status">
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-1px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+      </div>
+    </button>
+
+    <!-- Lesson 2.2 — Locked -->
+    <button class="lesson-btn lesson-btn--locked" disabled>
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 02</span>
+          <span class="lesson-btn__name">Beam Bending</span>
+        </div>
+        <div class="lesson-btn__status">
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-1px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+      </div>
+    </button>
+
+    <!-- Lesson 2.3 — Locked -->
+    <button class="lesson-btn lesson-btn--locked" disabled>
+      <div class="lesson-btn__rim"></div>
+      <div class="lesson-btn__face">
+        <div class="lesson-btn__icon">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="lesson-btn__text">
+          <span class="lesson-btn__number">Lesson 03</span>
+          <span class="lesson-btn__name">Mohr's Circle</span>
+        </div>
+        <div class="lesson-btn__status">
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-1px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- Dimension line at bottom -->
+  <div class="dim-line" style="margin-top: 20px;">
+    <div class="dim-line__tick"></div>
+    <div class="dim-line__segment"></div>
+    <div class="dim-line__label">END OF DRAWING</div>
+    <div class="dim-line__segment"></div>
+    <div class="dim-line__tick"></div>
+  </div>
+
+  <!-- Revision Table -->
+  <table class="rev-table">
+    <thead>
+      <tr>
+        <th>Rev</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>F</td>
+        <td>Blueprint course map variant</td>
+        <td>2026-03-26</td>
+      </tr>
+      <tr>
+        <td>E</td>
+        <td>Added Unit 02: Strength of Materials</td>
+        <td>2026-03-20</td>
+      </tr>
+      <tr>
+        <td>A</td>
+        <td>Initial release &mdash; Statics fundamentals</td>
+        <td>2026-03-01</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<!-- end .app-shell -->
+</body>
+</html>
