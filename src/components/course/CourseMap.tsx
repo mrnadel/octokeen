@@ -444,24 +444,21 @@ export function CourseMap() {
                 )}
               </div>
 
-              {/* Lesson path — zigzag layout like Duolingo */}
+              {/* Lesson list — vertical wide buttons */}
               <div
-                className="flex flex-col items-center"
-                style={{ paddingTop: 20, gap: 8 }}
+                className="flex flex-col"
+                style={{ paddingTop: 16, gap: 6 }}
               >
                 {unit.lessons.map((lesson, lessonIndex) => {
                   const state = getLessonState(unitIndex, lessonIndex);
                   const lessonProgress =
                     progress.completedLessons[lesson.id];
-                  // Strict left-right alternating zigzag
-                  const offsetX = (lessonIndex % 2 === 0 ? -1 : 1) * 55;
 
                   return (
                     <div
                       key={lesson.id}
                       ref={lesson.id === currentLessonId ? currentLessonRef : undefined}
                       {...(lesson.id === currentLessonId ? { 'data-current-lesson': '' } : {})}
-                      style={{ transform: `translateX(${offsetX}px)` }}
                     >
                       <LessonNode
                         lesson={lesson}
