@@ -443,21 +443,24 @@ export function CourseMap() {
                 )}
               </div>
 
-              {/* Lesson list — below the unit card */}
+              {/* Lesson path — zigzag layout like Duolingo */}
               <div
-                className="flex flex-wrap justify-center px-1 sm:px-2"
-                style={{ paddingTop: 14, gap: 12 }}
+                className="flex flex-col items-center"
+                style={{ paddingTop: 20, gap: 8 }}
               >
                 {unit.lessons.map((lesson, lessonIndex) => {
                   const state = getLessonState(unitIndex, lessonIndex);
                   const lessonProgress =
                     progress.completedLessons[lesson.id];
+                  // S-curve zigzag: sways left and right
+                  const offsetX = Math.sin(lessonIndex * (Math.PI / 2.5)) * 48;
 
                   return (
                     <div
                       key={lesson.id}
                       ref={lesson.id === currentLessonId ? currentLessonRef : undefined}
                       {...(lesson.id === currentLessonId ? { 'data-current-lesson': '' } : {})}
+                      style={{ transform: `translateX(${offsetX}px)` }}
                     >
                       <LessonNode
                         lesson={lesson}

@@ -340,12 +340,22 @@
 
 /* GO button pulse animation */
 @keyframes goPulse {
-  0%, 100% { box-shadow: 0 5px 0 var(--go-shadow-color), 0 0 0 0 transparent; }
-  50% { box-shadow: 0 5px 0 var(--go-shadow-color), 0 0 0 8px var(--go-glow-color); }
+  0%, 100% { box-shadow: 0 4px 0 var(--go-shadow-color), 0 0 0 0 transparent; }
+  50% { box-shadow: 0 4px 0 var(--go-shadow-color), 0 0 0 6px var(--go-glow-color); }
 }
 
 .go-btn-pulse {
   animation: goPulse 2.5s ease-in-out infinite;
+}
+
+/* Lesson icon pulse — filter-based glow for background-less icons */
+@keyframes iconPulse {
+  0%, 100% { filter: drop-shadow(0 4px 0 var(--icon-shadow)); }
+  50% { filter: drop-shadow(0 4px 0 var(--icon-shadow)) drop-shadow(0 0 10px var(--icon-glow)); }
+}
+
+.lesson-icon-pulse {
+  animation: iconPulse 2.5s ease-in-out infinite;
 }
 
 /* Lesson overlay — full-screen view for active lessons */
