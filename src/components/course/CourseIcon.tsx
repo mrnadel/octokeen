@@ -8,20 +8,22 @@ export function CourseIcon({ professionId, color, size = 22 }: CourseIconProps) 
   if (professionId === 'mechanical-engineering') {
     return (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Gear body */}
         <path
-          d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d="M12 1.5l2.1 2.4h3l.9 2.9 2.6 1.5-.3 3 1.7 2.5-1.7 2.5.3 3-2.6 1.5-.9 2.9h-3L12 22.5l-2.1-2.3h-3l-.9-2.9-2.6-1.5.3-3L2 10.3l1.7-2.5-.3-3L6 3.3l.9-2.9h3L12 1.5Z"
+          fill="#4F46E5"
         />
-        <path
-          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        {/* Gear inner ring */}
+        <circle cx="12" cy="12" r="6.5" fill="#6366F1" />
+        {/* Gear highlight ring */}
+        <circle cx="12" cy="12" r="5" fill="#818CF8" />
+        {/* Center hub */}
+        <circle cx="12" cy="12" r="2.8" fill="#4F46E5" />
+        {/* Center dot */}
+        <circle cx="12" cy="12" r="1.3" fill="#C7D2FE" />
+        {/* Wrench accent */}
+        <rect x="16.5" y="3" width="2.2" height="7" rx="1.1" transform="rotate(40 17.6 6.5)" fill="#A5B4FC" opacity="0.7" />
+        <circle cx="19" cy="4" r="1.8" fill="#A5B4FC" opacity="0.5" />
       </svg>
     );
   }
