@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import type { Lesson } from '@/data/course/types';
+import type { Lesson, LessonType } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
 
 interface LessonRowProps {
@@ -18,6 +18,63 @@ interface LessonRowProps {
 
 const GOLD = '#FFB800';
 const GOLD_DARK = '#C8960B';
+
+/** SVG icon per lesson type — Duolingo-inspired flat bold style */
+function LessonTypeIcon({ type, color, size = 20 }: { type: LessonType; color: string; size?: number }) {
+  switch (type) {
+    case 'conversation':
+      // Chat bubbles
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="3" width="14" height="11" rx="3" fill={color} />
+          <path d="M6 14v3l3-3H6Z" fill={color} />
+          <rect x="10" y="9" width="12" height="9" rx="3" fill={color} opacity="0.5" />
+          <path d="M18 18v2.5l2.5-2.5H18Z" fill={color} opacity="0.5" />
+          <rect x="5" y="7" width="6" height="1.5" rx="0.75" fill="#FFF" />
+          <rect x="5" y="10" width="4" height="1.5" rx="0.75" fill="#FFF" opacity="0.7" />
+        </svg>
+      );
+    case 'speed-round':
+      // Lightning bolt / stopwatch
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="13" r="9" fill={color} opacity="0.2" />
+          <circle cx="12" cy="13" r="7" fill={color} opacity="0.4" />
+          <path d="M13.5 4L8 14h4.5l-1 7L18 11h-4.5l1-7Z" fill={color} />
+          <path d="M13.5 4L8 14h4.5l-1 7L18 11h-4.5l1-7Z" fill="#FFF" opacity="0.3" />
+        </svg>
+      );
+    case 'timeline':
+      // Branching path / story book
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+          <path d="M7 4v16" stroke={color} strokeWidth="2.5" strokeLinecap="round" opacity="0.3" />
+          <circle cx="7" cy="6" r="2.5" fill={color} />
+          <circle cx="7" cy="12" r="2.5" fill={color} />
+          <circle cx="7" cy="18" r="2.5" fill={color} />
+          <rect x="12" y="4" width="8" height="4" rx="2" fill={color} opacity="0.6" />
+          <rect x="12" y="10" width="10" height="4" rx="2" fill={color} />
+          <rect x="12" y="16" width="6" height="4" rx="2" fill={color} opacity="0.6" />
+        </svg>
+      );
+    case 'case-study':
+      // Document with magnifying glass
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="2" width="13" height="18" rx="2.5" fill={color} opacity="0.2" />
+          <rect x="3" y="2" width="13" height="18" rx="2.5" stroke={color} strokeWidth="2" />
+          <rect x="6" y="6" width="7" height="1.5" rx="0.75" fill={color} />
+          <rect x="6" y="9" width="5" height="1.5" rx="0.75" fill={color} opacity="0.5" />
+          <rect x="6" y="12" width="4" height="1.5" rx="0.75" fill={color} opacity="0.5" />
+          <circle cx="17.5" cy="16.5" r="3.5" fill={color} />
+          <circle cx="17.5" cy="16.5" r="2" fill="#FFF" opacity="0.4" />
+          <path d="M20 19.5L22 21.5" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
 
 function CompletionBadge({ stars, color, darkColor, isGolden }: { stars: number; color: string; darkColor: string; isGolden?: boolean }) {
   const starColor = isGolden ? '#FFFFFF' : color;
@@ -136,6 +193,10 @@ export const LessonNode = memo(function LessonNode({
               strokeLinejoin="round"
             />
           </svg>
+        ) : lesson.type && lesson.type !== 'standard' ? (
+          <div style={{ opacity: state === 'locked' ? 0.5 : 1 }}>
+            <LessonTypeIcon type={lesson.type} color={state === 'locked' ? '#AFAFAF' : theme.color} />
+          </div>
         ) : (
           <span style={{ opacity: state === 'locked' ? 0.5 : 1 }}>{lesson.icon}</span>
         )}
