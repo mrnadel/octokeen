@@ -130,18 +130,12 @@ function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => v
   );
 }
 
-/** Floating arrow button that scrolls to the current lesson when it's off-screen */
-function ScrollToCurrentButton({
-  targetRef,
-}: {
-  scrollRef: React.RefObject<HTMLDivElement | null>;
-  targetRef: React.RefObject<HTMLDivElement | null>;
-}) {
+/** Hook: returns 'up' | 'down' | null based on whether targetRef is above/below viewport */
+function useScrollDirection(targetRef: React.RefObject<HTMLDivElement | null>) {
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
   useEffect(() => {
-    const target = targetRef.current;
-    if (!target) return;
+    if (!targetRef.current) return;
 
     function check() {
       const el = targetRef.current;
@@ -162,14 +156,24 @@ function ScrollToCurrentButton({
     };
   }, [targetRef]);
 
-  if (!direction) return null;
+  return direction;
+}
 
+/** Floating arrow button — rendered only when direction is non-null via AnimatePresence */
+function ScrollToCurrentButton({
+  direction,
+  targetRef,
+}: {
+  direction: 'up' | 'down';
+  targetRef: React.RefObject<HTMLDivElement | null>;
+}) {
   return (
     <motion.button
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.2 }}
+      key="scroll-to-current"
+      initial={{ opacity: 0, y: 20, scale: 0.85 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 20, scale: 0.85 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       style={{
         position: 'fixed',
         bottom: 84,
@@ -221,6 +225,7 @@ export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentUnitRef = useRef<HTMLDivElement>(null);
   const currentLessonRef = useRef<HTMLDivElement>(null);
+  const scrollDirection = useScrollDirection(currentLessonRef);
   const progress = useCourseStore((s) => s.progress);
   const courseData = useCourseStore((s) => s.courseData);
   const startLesson = useCourseStore((s) => s.startLesson);
@@ -776,8 +781,8 @@ export function CourseMap() {
 
       {/* Fixed scroll-to-current button — bottom-right, above mobile nav */}
       <AnimatePresence>
-        {currentLessonId && (
-          <ScrollToCurrentButton scrollRef={scrollRef} targetRef={currentLessonRef} />
+        {scrollDirection && (
+          <ScrollToCurrentButton direction={scrollDirection} targetRef={currentLessonRef} />
         )}
       </AnimatePresence>
     </div>
