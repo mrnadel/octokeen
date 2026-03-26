@@ -14,6 +14,7 @@ export const unit4: Unit = {
       description: 'Intensive/extensive properties, phase diagrams, quality, ideal gas law, and specific heats.',
       icon: '🌡️',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u4-L1-Q1',
@@ -419,6 +420,7 @@ export const unit4: Unit = {
       description: 'Closed and open systems, enthalpy, steady flow energy equation, and polytropic processes.',
       icon: '⚖️',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u4-L2-Q1',
@@ -818,6 +820,7 @@ export const unit4: Unit = {
       description: 'Clausius and Kelvin-Planck statements, Carnot cycle, entropy generation, and irreversibility.',
       icon: '🔀',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u4-L3-Q1',
@@ -1222,6 +1225,7 @@ export const unit4: Unit = {
       description: 'Rankine, Brayton, Otto, Diesel cycles, reheat, regeneration, and efficiency calculations.',
       icon: '♻️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u4-L4-Q1',
@@ -1625,6 +1629,7 @@ export const unit4: Unit = {
       description: 'Vapor compression, COP, refrigerants, absorption cycle, and heat pump vs. air conditioner.',
       icon: '❄️',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u4-L5-Q1',

@@ -14,6 +14,7 @@ export const unit9: Unit = {
       description: 'Tolerance/allowance, clearance/interference/transition fits, ISO/ANSI tolerance grades, bilateral/unilateral.',
       icon: '📐',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u9-L1-Q1',
@@ -423,6 +424,7 @@ export const unit9: Unit = {
       description: 'Form (flatness, cylindricity, circularity, straightness), orientation (perpendicularity, angularity, parallelism), MMC/LMC, bonus tolerance.',
       icon: '🔷',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u9-L2-Q1',
@@ -837,6 +839,7 @@ export const unit9: Unit = {
       description: 'Datum features, datum reference frame, primary/secondary/tertiary datums, datum targets, fixturing.',
       icon: '📌',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u9-L3-Q1',
@@ -1246,6 +1249,7 @@ export const unit9: Unit = {
       description: 'Worst-case analysis, RSS (statistical), 1D chain analysis, gap analysis, tolerance allocation.',
       icon: '📊',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u9-L4-Q1',
@@ -1655,6 +1659,7 @@ export const unit9: Unit = {
       description: 'Ra/Rz/Rq, surface lay symbols, CMM basics, profilometry, measurement uncertainty.',
       icon: '🔬',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u9-L5-Q1',

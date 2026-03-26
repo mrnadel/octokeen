@@ -6,6 +6,7 @@ export const lesson5: Lesson = {
   description: 'Gear ratios on a bike, sweet spots on a racket, energy on a roller coaster — real sports equipment decoded through engineering.',
   icon: '⚽',
   xpReward: 25,
+  levels: 4,
   questions: [
     // ── BICYCLE ──
     {
@@ -269,6 +270,7 @@ export const lesson6: Lesson = {
   description: 'Elevators, bridges, cranes, and dams — the engineering principles hidden in the structures all around us.',
   icon: '🏗️',
   xpReward: 25,
+  levels: 4,
   questions: [
     // ── ELEVATOR ──
     {

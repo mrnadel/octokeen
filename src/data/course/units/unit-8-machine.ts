@@ -14,6 +14,7 @@ export const unit8: Unit = {
       description: 'Shaft design for bending+torsion, keyway stress concentration, ASME shaft code, critical speed, whirling.',
       icon: '🔑',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u8-L1-Q1',
@@ -422,6 +423,7 @@ export const unit8: Unit = {
       description: 'Ball/roller/plain bearings, L10 life calculation, bearing selection, viscosity, lubrication regimes.',
       icon: '🛞',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u8-L2-Q1',
@@ -826,6 +828,7 @@ export const unit8: Unit = {
       description: 'Spur/helical/bevel/worm gears, Lewis equation, gear ratios, tooth contact stress, gear trains, efficiency.',
       icon: '⚙️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u8-L3-Q1',
@@ -1241,6 +1244,7 @@ export const unit8: Unit = {
       description: 'Bolt preload, bolt stiffness, gasket factors, welded joints (fillet/butt), adhesive bonding, joint design.',
       icon: '🔩',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u8-L4-Q1',
@@ -1655,6 +1659,7 @@ export const unit8: Unit = {
       description: 'Helical spring design, Wahl factor, spring rate, O-ring/lip seal/mechanical seal selection, PV limits.',
       icon: '🌀',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u8-L5-Q1',

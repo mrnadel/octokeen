@@ -14,6 +14,7 @@ export const unit7: Unit = {
       description: 'Tensile test, hardness tests (Rockwell/Brinell/Vickers), impact testing, creep, fatigue properties.',
       icon: '🧪',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u7-L1-Q1',
@@ -419,6 +420,7 @@ export const unit7: Unit = {
       description: 'Iron-carbon diagram, TTT/CCT diagrams, annealing/normalizing/quenching/tempering, martensite/austenite/pearlite.',
       icon: '📊',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u7-L2-Q1',
@@ -834,6 +836,7 @@ export const unit7: Unit = {
       description: 'Sand/investment/die casting, forging, rolling, extrusion, drawing, defects, shrinkage allowance.',
       icon: '🔨',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u7-L3-Q1',
@@ -1279,6 +1282,7 @@ export const unit7: Unit = {
       description: 'Turning/milling/drilling, cutting speed/feed/depth, tool wear, surface finish, CNC programming basics, G-code.',
       icon: '⚙️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u7-L4-Q1',
@@ -1696,6 +1700,7 @@ export const unit7: Unit = {
       description: 'SLA/SLS/FDM/DMLS, design for additive, injection molding, sheet metal, DFM principles.',
       icon: '🖨️',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u7-L5-Q1',
@@ -2149,6 +2154,7 @@ export const unit7: Unit = {
       description: 'Welding processes (MIG/MAG, TIG, stick, laser), HAZ metallurgy, weld defects, joint design, fillet weld sizing, weldability, residual stresses and distortion control.',
       icon: '⚡',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u7-L6-Q1',

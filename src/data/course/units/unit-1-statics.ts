@@ -14,6 +14,7 @@ export const unit1: Unit = {
       description: 'Resultant forces, vector addition, components, concurrent and non-concurrent forces.',
       icon: '🔢',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u1-L1-Q1',
@@ -423,6 +424,7 @@ export const unit1: Unit = {
       description: 'Drawing FBDs, reaction forces, constraints, and distributed loads.',
       icon: '📐',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u1-L2-Q1',
@@ -825,6 +827,7 @@ export const unit1: Unit = {
       description: 'Method of joints, method of sections, zero-force members, and statical determinacy.',
       icon: '🌉',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u1-L3-Q1',
@@ -1225,6 +1228,7 @@ export const unit1: Unit = {
       description: 'Static and kinetic friction, friction coefficient, self-locking, and wedge analysis.',
       icon: '🔩',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u1-L4-Q1',
@@ -1626,6 +1630,7 @@ export const unit1: Unit = {
       description: 'Centroid calculation, parallel axis theorem, composite shapes, and radius of gyration.',
       icon: '🎯',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u1-L5-Q1',

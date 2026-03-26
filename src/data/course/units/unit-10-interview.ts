@@ -13,6 +13,7 @@ export const unit10: Unit = {
       description: 'Back-of-envelope calculations, order-of-magnitude estimation, Fermi problems, quick sanity checks.',
       icon: '🧮',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u10-L1-Q1',
@@ -433,6 +434,7 @@ export const unit10: Unit = {
       description: 'Root cause analysis, failure modes (fatigue, corrosion, overload, creep), fractography basics, 8D/fishbone.',
       icon: '🔍',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u10-L2-Q1',
@@ -845,6 +847,7 @@ export const unit10: Unit = {
       description: 'Material selection (Ashby charts), cost vs performance, weight optimization, DFM vs DFA, Pugh matrix.',
       icon: '⚖️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u10-L3-Q1',
@@ -1258,6 +1261,7 @@ export const unit10: Unit = {
       description: 'Mesh quality, boundary conditions, convergence, element types, interpreting stress results, singularities.',
       icon: '💻',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u10-L4-Q1',
@@ -1671,6 +1675,7 @@ export const unit10: Unit = {
       description: 'Real-world engineering problems, troubleshooting scenarios, design review situations, cross-disciplinary thinking.',
       icon: '📋',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u10-L5-Q1',
@@ -2087,6 +2092,7 @@ export const unit10: Unit = {
       description: 'ISO/ASME standards, quality management systems, engineering change management, risk assessment, and project management for engineers.',
       icon: '📜',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u10-L6-Q1',

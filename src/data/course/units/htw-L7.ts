@@ -7,6 +7,7 @@ export const lesson7: Lesson = {
     'Why pipes burst, bolts loosen, chains break, and tires blow out — real-world failure analysis through everyday objects.',
   icon: '💥',
   xpReward: 25,
+  levels: 4,
   questions: [
     // ── MC 1 – Frozen Pipe Burst ──────────────────────────────────────
     {

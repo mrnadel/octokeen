@@ -6,6 +6,7 @@ export const lesson1: Lesson = {
   description: 'How pressure cookers, refrigerators, faucets, and kitchen knives use core engineering principles.',
   icon: '🍳',
   xpReward: 25,
+  levels: 4,
   questions: [
     // --- PRESSURE COOKER (Q1-Q4) ---
     {
@@ -263,6 +264,7 @@ export const lesson2: Lesson = {
   description: 'How engines, brakes, suspension, tires, and transmissions apply thermodynamics, dynamics, and solid mechanics.',
   icon: '🚗',
   xpReward: 25,
+  levels: 4,
   questions: [
     // --- ENGINE (Q1-Q4) ---
     {

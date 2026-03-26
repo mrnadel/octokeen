@@ -6,6 +6,7 @@ export const lesson3: Lesson = {
   description: 'Discover the mechanical engineering principles hiding in everyday household items — from door hinges to AC units.',
   icon: '🏠',
   xpReward: 25,
+  levels: 4,
   questions: [
     // --- DOOR HINGE / DOOR CLOSER ---
     {
@@ -424,6 +425,7 @@ export const lesson4: Lesson = {
   description: 'Analyze the engineering mechanics behind common hand tools and workshop equipment — torque, leverage, hydraulics, and more.',
   icon: '🔧',
   xpReward: 25,
+  levels: 4,
   questions: [
     // --- WRENCH / SPANNER ---
     {

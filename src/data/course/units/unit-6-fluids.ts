@@ -14,6 +14,7 @@ export const unit6: Unit = {
       description: 'Viscosity, density, surface tension, Pascal\'s law, manometers, and hydrostatic forces on surfaces.',
       icon: '💧',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u6-L1-Q1',
@@ -423,6 +424,7 @@ export const unit6: Unit = {
       description: 'Bernoulli equation, venturi meter, pitot tube, energy line/HGL, assumptions and limitations.',
       icon: '🎢',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u6-L2-Q1',
@@ -825,6 +827,7 @@ export const unit6: Unit = {
       description: 'Reynolds number, laminar vs turbulent, Moody chart, major/minor losses, Darcy-Weisbach, pipe networks.',
       icon: '🔧',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u6-L3-Q1',
@@ -1233,6 +1236,7 @@ export const unit6: Unit = {
       description: 'Pump curves, system curves, NPSH, cavitation, specific speed, affinity laws, pump selection.',
       icon: '⚙️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u6-L4-Q1',
@@ -1641,6 +1645,7 @@ export const unit6: Unit = {
       description: 'Buckingham Pi theorem, dimensional homogeneity, similitude, Reynolds/Froude/Mach numbers, model testing.',
       icon: '📐',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u6-L5-Q1',

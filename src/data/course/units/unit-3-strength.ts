@@ -14,6 +14,7 @@ export const unit3: Unit = {
       description: 'Normal and shear stress, engineering and true strain, stress-strain diagrams, elastic modulus, and Poisson\'s ratio.',
       icon: '📊',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u3-L1-Q1',
@@ -420,6 +421,7 @@ export const unit3: Unit = {
       description: 'Bending stress formula, neutral axis, section modulus, and deflection formulas.',
       icon: '📏',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u3-L2-Q1',
@@ -831,6 +833,7 @@ export const unit3: Unit = {
       description: 'SFD/BMD construction, distributed loads, concentrated loads, and maximum bending moment location.',
       icon: '📈',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u3-L3-Q1',
@@ -1240,6 +1243,7 @@ export const unit3: Unit = {
       description: 'Torsion formula, polar moment, angle of twist, and power transmission.',
       icon: '🔧',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u3-L4-Q1',
@@ -1647,6 +1651,7 @@ export const unit3: Unit = {
       description: 'Principal stresses, maximum shear, plane stress transformation, and combined loading analysis.',
       icon: '⭕',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u3-L5-Q1',
@@ -2058,6 +2063,7 @@ export const unit3: Unit = {
       description: 'Von Mises, Tresca, Maximum Normal Stress, fatigue, S-N curves, endurance limit, and safety factors.',
       icon: '⚠️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u3-L6-Q1',
@@ -2470,6 +2476,7 @@ export const unit3: Unit = {
       description: 'Euler\'s critical load, effective length factors, slenderness ratio, Johnson\'s formula, and thin/thick-wall pressure vessel stress analysis.',
       icon: '🏗️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u3-L7-Q1',

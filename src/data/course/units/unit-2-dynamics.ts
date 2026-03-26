@@ -14,6 +14,7 @@ export const unit2: Unit = {
       description: 'Position, velocity, acceleration, relative motion, curvilinear motion, and projectile motion.',
       icon: '📍',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u2-L1-Q1',
@@ -422,6 +423,7 @@ export const unit2: Unit = {
       description: 'F=ma applications, normal/tangential coordinates, pulleys, and inclined planes.',
       icon: '🍎',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u2-L2-Q1',
@@ -829,6 +831,7 @@ export const unit2: Unit = {
       description: 'Work-energy theorem, conservation of energy, potential energy, and power calculations.',
       icon: '⚡',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u2-L3-Q1',
@@ -1236,6 +1239,7 @@ export const unit2: Unit = {
       description: 'Linear and angular momentum, collisions, and coefficient of restitution.',
       icon: '💥',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u2-L4-Q1',
@@ -1643,6 +1647,7 @@ export const unit2: Unit = {
       description: 'Mass moment of inertia, angular momentum, gyroscopic effects, and rolling without slipping.',
       icon: '🔄',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u2-L5-Q1',
@@ -2049,6 +2054,7 @@ export const unit2: Unit = {
       description: 'Natural frequency, damping, resonance, transmissibility, and vibration isolation for SDOF systems.',
       icon: '〰️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u2-L6-Q1',

@@ -14,6 +14,7 @@ export const unit5: Unit = {
       description: 'Fourier\'s law, thermal resistance, composite walls, contact resistance, and critical radius of insulation.',
       icon: '🧱',
       xpReward: 20,
+  levels: 4,
       questions: [
         {
           id: 'u5-L1-Q1',
@@ -415,6 +416,7 @@ export const unit5: Unit = {
       description: 'Newton\'s cooling law, dimensionless numbers, forced vs. natural convection, and correlations.',
       icon: '💨',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u5-L2-Q1',
@@ -818,6 +820,7 @@ export const unit5: Unit = {
       description: 'Stefan-Boltzmann law, emissivity, view factors, blackbody and graybody, and radiation shields.',
       icon: '☀️',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u5-L3-Q1',
@@ -1217,6 +1220,7 @@ export const unit5: Unit = {
       description: 'LMTD method, NTU-effectiveness, parallel/counter/cross flow, fouling, and overall U.',
       icon: '🔄',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u5-L4-Q1',
@@ -1615,6 +1619,7 @@ export const unit5: Unit = {
       description: 'Fin efficiency, fin effectiveness, heat dissipation, fin types, and thermal design considerations.',
       icon: '🪭',
       xpReward: 25,
+  levels: 4,
       questions: [
         {
           id: 'u5-L5-Q1',
@@ -2016,6 +2021,7 @@ export const unit5: Unit = {
       description: 'Biot number, lumped capacitance method, time constant, semi-infinite solids, Heisler charts, and practical transient thermal problems.',
       icon: '⏱️',
       xpReward: 30,
+  levels: 4,
       questions: [
         {
           id: 'u5-L6-Q1',
