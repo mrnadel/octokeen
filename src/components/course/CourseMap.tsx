@@ -173,6 +173,7 @@ function ScrollToCurrentButton({
       initial={{ opacity: 0, y: 20, scale: 0.85 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.85 }}
+      whileTap={{ y: 3, boxShadow: '0 1px 0 #D0D0D0' }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       style={{
         position: 'fixed',
@@ -182,13 +183,13 @@ function ScrollToCurrentButton({
         width: 48,
         height: 48,
         borderRadius: 14,
-        border: '2px solid #E8E8E8',
+        border: 'none',
         cursor: 'pointer',
         background: '#FFFFFF',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+        boxShadow: '0 4px 0 #D0D0D0',
         WebkitTapHighlightColor: 'transparent',
       }}
       aria-label={`Scroll ${direction} to current lesson`}
