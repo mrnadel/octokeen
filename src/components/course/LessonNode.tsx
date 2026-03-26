@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, Fragment } from 'react';
 import { motion } from 'framer-motion';
 import type { Lesson, LessonType } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
@@ -19,19 +19,17 @@ interface LessonRowProps {
 const GOLD = '#FFB800';
 const GOLD_DARK = '#B38600';
 
-// Isometric transform from reference SVG
 const ISO = '0.822752 0.5684 -0.822752 0.5684';
 const SQ = 149.543;
 const RX = 31;
 const TX = 123.037;
-
 const VW = 247;
 const VH = 170;
 
-// Rendered sizes — large
 const BTN_W = 140;
-const BTN_H = Math.round(BTN_W * VH / VW); // ~96px
-const PRESS = 6;
+const BTN_H = Math.round(BTN_W * VH / VW);
+const PRESS = 5;
+const STACK_STEP = 5; // 3px colored band + 2px dark band per stack
 const ICON_SIZE = 34;
 
 function LessonIcon({ type, size = ICON_SIZE }: { type: LessonType; size?: number }) {
@@ -126,6 +124,20 @@ function IsoShape({ fill, clipId, withShine }: { fill: string; clipId?: string; 
   return inner;
 }
 
+/** Renders a single diamond SVG layer at a given y-offset */
+function DiamondLayer({ y, fill, w, h }: { y: number; fill: string; w: number; h: number }) {
+  return (
+    <svg
+      width={w} height={h}
+      viewBox={`0 0 ${VW} ${VH}`}
+      fill="none"
+      style={{ position: 'absolute', top: y, left: 0, pointerEvents: 'none' }}
+    >
+      <IsoShape fill={fill} />
+    </svg>
+  );
+}
+
 export const LessonNode = memo(function LessonNode({
   lesson,
   state,
@@ -152,31 +164,37 @@ export const LessonNode = memo(function LessonNode({
 
   const clipId = `lc-${lesson.id}`;
 
+  // Stack count: stars (1-3) + golden fills 4th
+  const stackCount = state === 'completed'
+    ? (golden ? 4 : Math.min(stars ?? 0, 4))
+    : 0;
+
+  const totalH = BTN_H + PRESS + stackCount * STACK_STEP;
+
   return (
     <div className="flex flex-col items-center" style={{ gap: 6 }}>
-      {/* Isometric tile container */}
-      <div style={{
-        position: 'relative',
-        width: BTN_W,
-        height: BTN_H + PRESS,
-      }}>
-        {/* Shadow layer */}
-        <svg
-          width={BTN_W} height={BTN_H}
-          viewBox={`0 0 ${VW} ${VH}`}
-          fill="none"
-          style={{
-            position: 'absolute',
-            top: PRESS,
-            left: 0,
-            pointerEvents: 'none',
-            opacity: state === 'locked' ? 0.4 : 1,
-          }}
-        >
-          <IsoShape fill={rim} />
-        </svg>
+      {/* Tile + stacks container */}
+      <div style={{ position: 'relative', width: BTN_W, height: totalH }}>
 
-        {/* Face layer */}
+        {/* Stack layers — rendered bottom to top */}
+        {Array.from({ length: stackCount }).map((_, i) => {
+          // s: 0 = top-most stack, stackCount-1 = bottom-most
+          // Render bottom-most first (lower in DOM = lower z)
+          const s = stackCount - 1 - i;
+          const faceY = PRESS + 3 + s * STACK_STEP;
+          const rimY = PRESS + (s + 1) * STACK_STEP;
+          return (
+            <Fragment key={`stack-${s}`}>
+              <DiamondLayer y={rimY} fill={rim} w={BTN_W} h={BTN_H} />
+              <DiamondLayer y={faceY} fill={bg} w={BTN_W} h={BTN_H} />
+            </Fragment>
+          );
+        })}
+
+        {/* Main rim */}
+        <DiamondLayer y={PRESS} fill={rim} w={BTN_W} h={BTN_H} />
+
+        {/* Main face — interactive button */}
         <motion.button
           className={state === 'current' ? 'lesson-btn-pulse' : ''}
           style={{
@@ -224,28 +242,8 @@ export const LessonNode = memo(function LessonNode({
             style={{ display: 'block' }}
           >
             <IsoShape fill={bg} clipId={clipId} withShine />
-
-            {/* Progress outline — 4 segments tracing diamond edges */}
-            {state === 'completed' && stars !== undefined && stars > 0 &&
-              [0, 1, 2, 3].map(i => {
-                const segsFilled = golden ? 4 : stars;
-                return (
-                  <rect key={i}
-                    width={SQ} height={SQ} rx={RX}
-                    transform={`matrix(${ISO} ${TX} 0)`}
-                    fill="none"
-                    stroke={i < segsFilled ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.12)'}
-                    strokeWidth={8}
-                    pathLength={4}
-                    strokeDasharray="0.9 3.1"
-                    strokeDashoffset={-(i + 0.05)}
-                  />
-                );
-              })
-            }
           </svg>
 
-          {/* Icon centered on diamond */}
           <div style={{
             position: 'absolute',
             top: '50%',
