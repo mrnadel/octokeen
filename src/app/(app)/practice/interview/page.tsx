@@ -2,9 +2,6 @@
 
 import { useSession, useSessionActions } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
-import { DailyLimitBanner } from '@/components/ui/DailyLimitBanner';
-import { UpgradeGate } from '@/components/ui/UpgradeGate';
-import { FEATURES } from '@/lib/pricing';
 import { Timer, AlertCircle, Target, Clock, Shuffle } from 'lucide-react';
 
 export default function InterviewSimPage() {
@@ -49,17 +46,13 @@ export default function InterviewSimPage() {
         </div>
       </div>
 
-      <UpgradeGate feature={FEATURES.INTERVIEW_READINESS} reason="Interview simulation with readiness scoring is a Pro feature.">
-        <DailyLimitBanner />
-
-        <button
-          onClick={() => startSession('interview-sim')}
-          className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-purple-600 hover:bg-purple-700"
-        >
-          Begin Interview Simulation
-        </button>
-        <p className="text-xs text-surface-400 mt-3">The timer starts immediately</p>
-      </UpgradeGate>
+      <button
+        onClick={() => startSession('interview-sim')}
+        className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-purple-600 hover:bg-purple-700"
+      >
+        Begin Interview Simulation
+      </button>
+      <p className="text-xs text-surface-400 mt-3">The timer starts immediately</p>
     </div>
   );
 }

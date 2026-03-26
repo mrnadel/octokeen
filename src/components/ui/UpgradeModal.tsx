@@ -112,7 +112,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
               </div>
               <h3 id="upgrade-modal-title" className="text-xl font-bold">MechReady Pro</h3>
               <p className="text-sm text-primary-100 mt-1">
-                Unlock all units, unlimited practice, and full analytics
+                Unlimited hearts &amp; premium perks
               </p>
             </div>
 
@@ -121,13 +121,12 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
               {/* Benefits */}
               <ul className="space-y-2.5 mb-5">
                 {[
-                  'All 10 course units unlocked',
-                  'Unlimited daily practice',
-                  'Unlimited hearts — no waiting',
-                  'Detailed explanations for every question',
-                  'Full analytics & progress tracking',
-                  'Interview readiness score',
+                  'Unlimited hearts — never wait',
                   'Weekly streak freeze',
+                  'Full analytics dashboard',
+                  '2x XP on weekends',
+                  'Detailed explanations',
+                  'Premium league rewards',
                 ].map((benefit) => (
                   <li key={benefit} className="flex items-center gap-2.5 text-sm text-gray-700">
                     <Check className="w-4 h-4 text-green-500 shrink-0" />

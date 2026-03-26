@@ -155,16 +155,14 @@ export function useSubscription() {
 function getTierFeatures(tier: SubscriptionTier): Feature[] {
   if (tier === 'pro') {
     return [
-      FEATURES.UNIT_ACCESS_ALL,
-      FEATURES.UNLIMITED_PRACTICE,
-      FEATURES.ALL_PRACTICE_MODES,
-      FEATURES.FULL_ANALYTICS,
-      FEATURES.STREAK_FREEZE,
-      FEATURES.INTERVIEW_READINESS,
-      FEATURES.DETAILED_EXPLANATIONS,
       FEATURES.UNLIMITED_HEARTS,
+      FEATURES.STREAK_FREEZE,
+      FEATURES.FULL_ANALYTICS,
+      FEATURES.DOUBLE_XP_WEEKENDS,
+      FEATURES.DETAILED_EXPLANATIONS,
+      FEATURES.PREMIUM_LEAGUE_REWARDS,
     ];
   }
-  // free — basic topic practice only; advanced modes require Pro
+  // free — all content accessible; Pro gates convenience (hearts, streak freeze, etc.)
   return [];
 }

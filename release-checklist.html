@@ -739,11 +739,25 @@
 </div>
 
 <script>
-  const STORAGE_KEY = 'mechready-release-checklist-v2';
+  const STORAGE_KEY = 'mechready-release-checklist-v3';
+
+  // Items completed by code changes on 2026-03-26
+  const AUTO_COMPLETED = {
+    'biz-1': true,  // All units free
+    'biz-2': true,  // Daily limit removed
+    'biz-3': true,  // All practice modes free
+    'biz-4': true,  // Pricing updated to $7.99/$49.99
+    'biz-5': true,  // Pricing page rewritten
+    'biz-6': true,  // Landing page copy (pricing page + upgrade modal updated)
+  };
 
   function loadState() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-    catch { return {}; }
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      // Merge auto-completed items (don't override manual unchecks)
+      return { ...AUTO_COMPLETED, ...saved };
+    }
+    catch { return { ...AUTO_COMPLETED }; }
   }
 
   function saveState(state) {

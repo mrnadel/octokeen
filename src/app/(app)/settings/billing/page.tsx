@@ -12,14 +12,12 @@ import { getPaddle } from '@/lib/paddle-client';
 import { analytics } from '@/lib/mixpanel';
 
 const FEATURE_LABELS: Record<Feature, string> = {
-  [FEATURES.UNIT_ACCESS_ALL]: 'All course units',
-  [FEATURES.UNLIMITED_PRACTICE]: 'Unlimited daily practice',
-  [FEATURES.ALL_PRACTICE_MODES]: 'All practice modes',
-  [FEATURES.FULL_ANALYTICS]: 'Full analytics dashboard',
-  [FEATURES.STREAK_FREEZE]: 'Weekly streak freeze',
-  [FEATURES.INTERVIEW_READINESS]: 'Interview readiness score',
-  [FEATURES.DETAILED_EXPLANATIONS]: 'Detailed explanations',
   [FEATURES.UNLIMITED_HEARTS]: 'Unlimited hearts',
+  [FEATURES.STREAK_FREEZE]: 'Weekly streak freeze',
+  [FEATURES.FULL_ANALYTICS]: 'Full analytics dashboard',
+  [FEATURES.DOUBLE_XP_WEEKENDS]: '2x XP on weekends',
+  [FEATURES.DETAILED_EXPLANATIONS]: 'Detailed explanations',
+  [FEATURES.PREMIUM_LEAGUE_REWARDS]: 'Premium league rewards',
 };
 
 export default function BillingSettingsPage() {

@@ -16,34 +16,27 @@ export const PADDLE_PRICES = {
 // --------------- Features ---------------
 
 export const FEATURES = {
-  UNIT_ACCESS_ALL: 'unit_access_all',
-  UNLIMITED_PRACTICE: 'unlimited_practice',
-  ALL_PRACTICE_MODES: 'all_practice_modes',
-  FULL_ANALYTICS: 'full_analytics',
-  STREAK_FREEZE: 'streak_freeze',
-  INTERVIEW_READINESS: 'interview_readiness',
-  DETAILED_EXPLANATIONS: 'detailed_explanations',
   UNLIMITED_HEARTS: 'unlimited_hearts',
+  STREAK_FREEZE: 'streak_freeze',
+  FULL_ANALYTICS: 'full_analytics',
+  DOUBLE_XP_WEEKENDS: 'double_xp_weekends',
+  DETAILED_EXPLANATIONS: 'detailed_explanations',
+  PREMIUM_LEAGUE_REWARDS: 'premium_league_rewards',
 } as const;
 
 export type Feature = (typeof FEATURES)[keyof typeof FEATURES];
 
 // --------------- Pro-Only Practice Modes ---------------
-// Session types that require ALL_PRACTICE_MODES (Pro tier).
-// Keep in sync with SessionType from store/useStore.ts.
-export const PRO_SESSION_TYPES: ReadonlySet<string> = new Set([
-  'adaptive',
-  'interview-sim',
-  'weak-areas',
-]);
+// All practice modes are now free. Hearts are the sole friction lever.
+export const PRO_SESSION_TYPES: ReadonlySet<string> = new Set([]);
 
 // --------------- Daily / Usage Limits ---------------
 
 export const LIMITS = {
   free: {
-    dailyQuestions: 5,
+    dailyQuestions: -1,               // unlimited — hearts are the rate limiter now
     streakFreezesPerWeek: 0,
-    unlockedUnits: [0] as number[] | 'all',   // unit 1 only (0-indexed)
+    unlockedUnits: 'all' as number[] | 'all', // all units free
   },
   pro: {
     dailyQuestions: -1,               // unlimited
@@ -74,29 +67,27 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
   free: {
     id: 'free',
     name: 'Free',
-    tagline: 'Start your prep with 5 hearts',
+    tagline: 'All content, 5 hearts per session',
     priceMonthly: 0,
     priceYearly: 0,
     minSeats: 1,
-    features: [],   // basic topic practice only; advanced modes require Pro
+    features: [],   // all content free; Pro gates convenience (hearts, streak freeze, etc.)
     highlighted: false,
   },
   pro: {
     id: 'pro',
     name: 'Pro',
-    tagline: 'Unlock your full potential',
-    priceMonthly: 900,           // $9/month
-    priceYearly: 7900,           // $79/year (~$6.58/month)
+    tagline: 'Unlimited hearts & premium perks',
+    priceMonthly: 799,           // $7.99/month
+    priceYearly: 4999,           // $49.99/year (~$4.17/month)
     minSeats: 1,
     features: [
-      FEATURES.UNIT_ACCESS_ALL,
-      FEATURES.UNLIMITED_PRACTICE,
-      FEATURES.ALL_PRACTICE_MODES,
-      FEATURES.FULL_ANALYTICS,
-      FEATURES.STREAK_FREEZE,
-      FEATURES.INTERVIEW_READINESS,
-      FEATURES.DETAILED_EXPLANATIONS,
       FEATURES.UNLIMITED_HEARTS,
+      FEATURES.STREAK_FREEZE,
+      FEATURES.FULL_ANALYTICS,
+      FEATURES.DOUBLE_XP_WEEKENDS,
+      FEATURES.DETAILED_EXPLANATIONS,
+      FEATURES.PREMIUM_LEAGUE_REWARDS,
     ],
     highlighted: true,
   },

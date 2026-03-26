@@ -29,23 +29,13 @@ import Link from 'next/link';
 const PRO_FEATURES = [
   {
     icon: InfinityIcon,
-    label: 'Unlimited daily practice',
-    sublabel: 'No more 5-question cap',
+    label: 'Unlimited hearts',
+    sublabel: 'Never wait to keep practicing',
   },
   {
-    icon: BookOpen,
-    label: 'All 10 course units',
-    sublabel: 'Thermo, fluids, materials & more',
-  },
-  {
-    icon: BrainCircuit,
-    label: 'Adaptive learning',
-    sublabel: 'Focuses on your weak areas',
-  },
-  {
-    icon: GraduationCap,
-    label: 'Interview readiness score',
-    sublabel: 'Know when you\'re prepared',
+    icon: Shield,
+    label: 'Weekly streak freeze',
+    sublabel: 'Protect your streak on busy days',
   },
   {
     icon: BarChart3,
@@ -53,24 +43,40 @@ const PRO_FEATURES = [
     sublabel: 'Track your progress in detail',
   },
   {
-    icon: Shield,
-    label: 'Weekly streak freeze',
-    sublabel: 'Protect your streak on busy days',
+    icon: Zap,
+    label: '2x XP on weekends',
+    sublabel: 'Level up faster on Sat & Sun',
+  },
+  {
+    icon: BookOpen,
+    label: 'Detailed explanations',
+    sublabel: 'Deep-dive breakdowns for every question',
+  },
+  {
+    icon: GraduationCap,
+    label: 'Premium league rewards',
+    sublabel: 'Earn bonus gems from league promotions',
   },
 ];
 
+const FREE_INCLUDES = [
+  'All 10 course units',
+  'All practice modes',
+  'XP, streaks & leagues',
+  'Friends & leaderboards',
+  'Shop & achievements',
+];
+
 const FREE_LIMITS = [
-  '5 questions per day',
-  'Unit 1 only',
-  'Basic practice modes only',
+  '5 hearts (recharge over time)',
   'No streak protection',
-  'Limited analytics',
+  'Basic analytics only',
 ];
 
 const FAQ_ITEMS = [
   {
     q: 'What do I get for free?',
-    a: 'Full access to Unit 1 with up to 5 practice questions per day using Topic Deep Dive, Daily Challenge, and Real-World Systems modes. Basic progress stats included. Upgrade to Pro for adaptive learning, interview simulation, full analytics, and more.',
+    a: 'Everything! All 10 units, all practice modes, all engagement features. Free users get 5 hearts — each wrong answer costs one, and they recharge over time. Pro gives you unlimited hearts plus premium perks.',
   },
   {
     q: 'Can I cancel anytime?',
@@ -186,10 +192,10 @@ export default function PricingPage() {
             </motion.div>
 
             <h2 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
-              Unlock your full potential
+              Never run out of hearts
             </h2>
             <p className="text-primary-100 text-sm leading-relaxed max-w-xs mx-auto">
-              Unlimited practice, all topics, and smart tools to ace your mechanical engineering interviews.
+              All content is free. Pro removes limits so you can practice without interruptions.
             </p>
 
             {/* Price display */}
@@ -281,15 +287,26 @@ export default function PricingPage() {
           </div>
         </motion.div>
 
-        {/* Free limits reminder */}
+        {/* Free plan — what's included + limits */}
         <motion.div
           className="mb-8 bg-surface-50 rounded-2xl border border-dashed border-surface-200 p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.55 }}
         >
+          <p className="text-xs font-bold text-accent-500 uppercase tracking-widest mb-3">
+            Free plan includes
+          </p>
+          <div className="space-y-2 mb-4">
+            {FREE_INCLUDES.map((item) => (
+              <div key={item} className="flex items-center gap-2.5">
+                <Check className="w-3.5 h-3.5 text-accent-500" />
+                <span className="text-sm text-surface-600">{item}</span>
+              </div>
+            ))}
+          </div>
           <p className="text-xs font-bold text-surface-400 uppercase tracking-widest mb-3">
-            Free plan limits
+            Limitations
           </p>
           <div className="space-y-2">
             {FREE_LIMITS.map((limit) => (
