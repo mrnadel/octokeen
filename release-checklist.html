@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechReady — Release Checklist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #d1d5db;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08));
+    border: 1px solid rgba(99,102,241,0.15);
+    border-radius: 20px;
+  }
+
+  header .badge {
+    display: inline-block;
+    background: rgba(99,102,241,0.15);
+    color: #818cf8;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #818CF8, #A78BFA, #C084FC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  header p { color: #6b7280; font-size: 0.95rem; max-width: 640px; margin: 0 auto; }
+
+  /* ── Progress Bar ── */
+  .progress-container {
+    background: #111118;
+    border: 1px solid #1f2937;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .progress-stat .num {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .progress-stat .lbl {
+    font-size: 0.65rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .progress-bar-outer {
+    width: 100%;
+    height: 12px;
+    background: #1e293b;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    transition: width 0.5s ease;
+  }
+
+  .progress-pct {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #a78bfa;
+  }
+
+  /* ── Sections ── */
+  section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(99,102,241,0.2);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .section-header:hover { border-bottom-color: rgba(99,102,241,0.4); }
+
+  .section-header h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-count {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #1e293b;
+    color: #9ca3af;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .section-count.done { background: rgba(34,197,94,0.15); color: #4ade80; }
+
+  .section-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Priority Badges ── */
+  .priority {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .p-critical { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .p-high { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .p-medium { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.25); }
+  .p-low { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.25); }
+
+  /* ── Effort Badges ── */
+  .effort {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  .e-small { background: rgba(34,197,94,0.1); color: #4ade80; }
+  .e-medium { background: rgba(234,179,8,0.1); color: #facc15; }
+  .e-large { background: rgba(239,68,68,0.1); color: #f87171; }
+
+  /* ── Checklist Items ── */
+  .checklist { list-style: none; padding: 0; }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: #111118;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .checklist-item:hover {
+    border-color: rgba(99,102,241,0.3);
+    transform: translateX(2px);
+  }
+
+  .checklist-item.checked {
+    opacity: 0.5;
+    border-color: rgba(34,197,94,0.2);
+  }
+
+  .checklist-item.checked .item-title {
+    text-decoration: line-through;
+    color: #6b7280;
+  }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #374151;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+
+  .checklist-item.checked .check-box {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    border-color: #22c55e;
+  }
+
+  .check-box svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .checklist-item.checked .check-box svg { opacity: 1; }
+
+  .item-content { flex: 1; min-width: 0; }
+
+  .item-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e5e7eb;
+    margin-bottom: 0.2rem;
+  }
+
+  .item-desc {
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .item-files {
+    font-size: 0.7rem;
+    color: #4b5563;
+    margin-top: 0.3rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Subsection ── */
+  .subsection {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .subsection-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  /* ── Insight Box ── */
+  .insight {
+    background: rgba(99,102,241,0.06);
+    border-left: 3px solid #818cf8;
+    border-radius: 0 10px 10px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #a5b4fc;
+    margin: 0.75rem 0;
+  }
+
+  .insight strong { color: #c4b5fd; }
+
+  .warning {
+    background: rgba(239,68,68,0.04);
+    border-left: 3px solid #f87171;
+    border-radius: 0 10px 10px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #fca5a5;
+    margin: 0.75rem 0;
+  }
+
+  .success-box {
+    background: rgba(34,197,94,0.04);
+    border-left: 3px solid #4ade80;
+    border-radius: 0 10px 10px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #86efac;
+    margin: 0.75rem 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid #1f2937;
+    color: #4b5563;
+    font-size: 0.75rem;
+  }
+
+  /* ── Toggle ── */
+  .toggle-arrow {
+    font-size: 0.75rem;
+    color: #6b7280;
+    transition: transform 0.2s;
+  }
+
+  .section-body.collapsed { display: none; }
+  .section-header.collapsed .toggle-arrow { transform: rotate(-90deg); }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.6rem; }
+    .progress-stats { gap: 1rem; }
+    .checklist-item { padding: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge">Release Checklist &mdash; March 2026</div>
+    <h1>What's Left Before Launch</h1>
+    <p>Based on the market research report and a full codebase audit. Check items off as you complete them &mdash; progress saves to your browser.</p>
+  </header>
+
+  <!-- ── Progress ── -->
+  <div class="progress-container">
+    <div class="progress-stats">
+      <div class="progress-stat">
+        <div class="num" style="color: #4ade80;" id="done-count">0</div>
+        <div class="lbl">Done</div>
+      </div>
+      <div class="progress-stat">
+        <div class="num" style="color: #fbbf24;" id="remaining-count">0</div>
+        <div class="lbl">Remaining</div>
+      </div>
+      <div class="progress-stat">
+        <div class="num" style="color: #818cf8;" id="total-count">0</div>
+        <div class="lbl">Total</div>
+      </div>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+    <div class="progress-pct" id="progress-pct">0% complete</div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 1: BUSINESS MODEL PIVOT (from market research)    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(99,102,241,0.15));">&#9829;</span>
+        Business Model Pivot
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="biz">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="insight">
+        <strong>From the research:</strong> Duolingo gates <em>convenience</em>, not <em>content</em>. All content should be free. You monetize by removing friction (hearts, ads, streak freeze). This is the #1 strategic change.
+      </div>
+
+      <ul class="checklist" data-section="biz">
+        <li class="checklist-item" data-id="biz-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Build Hearts / Lives System <span class="priority p-critical">Critical</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Free users get 5 hearts. Each wrong answer costs 1 heart. At 0 hearts: wait to recharge (1 heart / 4-5 hours) OR practice old lessons to earn hearts back. Pro users get unlimited hearts. This is Duolingo's #1 conversion driver.</div>
+            <div class="item-files">New: useHeartsStore or extend useEngagementStore &bull; UI: HeartsDisplay component &bull; Touch: QuestionCard, SessionView, access-control.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Remove Content Gating &mdash; Make ALL Units Free <span class="priority p-critical">Critical</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Currently Free tier locks units 2-10. Change so all units and all lessons are accessible to everyone. Remove "Unit 1 only" restriction from pricing.ts, access-control.ts, and all UpgradeGate/UpgradeModal references gating content.</div>
+            <div class="item-files">pricing.ts (FREE_TIER.maxUnits) &bull; access-control.ts (canAccessUnit) &bull; UpgradeGate.tsx &bull; UpgradeModal.tsx &bull; useCourseStore.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Remove Daily Question Limit <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Replace the "5 questions/day" free-tier limit with the hearts system. The hearts mechanic is the new rate limiter. Remove daily_usage counting logic and DailyLimitBanner.</div>
+            <div class="item-files">pricing.ts &bull; access-control.ts (canStartPracticeSession, getRemainingDailyQuestions) &bull; DailyLimitBanner.tsx &bull; daily_usage table queries</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Remove Practice Mode Gating <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Adaptive, interview-sim, and weak-areas modes are currently Pro-only. Make all practice modes free. The hearts system is the only friction lever now.</div>
+            <div class="item-files">pricing.ts (FEATURES) &bull; access-control.ts (canAccessPracticeMode) &bull; practice mode selectors</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Update Pro Perks to Convenience-Based <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Pro should offer: unlimited hearts, no ads (future), 1 free streak freeze/day, 2x XP on weekends, premium league rewards, detailed progress insights. Update pricing.ts FEATURES, pricing page, and all gating logic.</div>
+            <div class="item-files">pricing.ts &bull; pricing/page.tsx &bull; UpgradeModal.tsx &bull; shop items &bull; engagement store</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-6">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Update Pricing: $7.99/mo &middot; $49.99/yr <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Change from $9/mo &amp; $79/yr to $7.99/mo &amp; $49.99/yr. Update Paddle price IDs, pricing page copy, and all checkout references. Lower price point + convenience-gating = higher conversion.</div>
+            <div class="item-files">pricing.ts &bull; pricing/page.tsx &bull; Paddle dashboard &bull; .env price ID vars</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="biz-7">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Update Pricing Page &amp; Upgrade Modals <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Rewrite pricing page to show the new Free vs Pro comparison: all content free on both tiers, Pro = unlimited hearts + no ads + streak freeze + 2x XP + premium stats. Update all UpgradeModal/UpgradeGate messaging.</div>
+            <div class="item-files">pricing/page.tsx &bull; UpgradeModal.tsx &bull; UpgradeGate.tsx &bull; checkout flow</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 2: ONBOARDING & CONVERSION                        -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(16,185,129,0.15));">&#9889;</span>
+        Onboarding &amp; Conversion
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="onboard">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="insight">
+        <strong>80-90% of Duolingo's conversions happen on Day 0.</strong> The onboarding flow IS the conversion funnel. Get them to feel progress immediately, hit their first streak, then show the hearts limit.
+      </div>
+
+      <ul class="checklist" data-section="onboard">
+        <li class="checklist-item" data-id="onboard-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Tighten Onboarding &rarr; First Lesson Pipeline <span class="priority p-critical">Critical</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">After signup, user should immediately start their first lesson (not land on an empty dashboard). Pattern: Sign up &rarr; pick a starting unit &rarr; first lesson auto-starts &rarr; earn XP &rarr; see celebration &rarr; streak begins. Minimize clicks to first "win."</div>
+            <div class="item-files">onboarding/page.tsx &bull; (app)/page.tsx &bull; useCourseStore.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="onboard-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Pro Trial Prompt After First Lesson <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">After the user completes their first lesson and feels the dopamine hit, show a non-intrusive "Try Pro free for 7 days" modal. Highlight unlimited hearts. This is when conversion intent peaks.</div>
+            <div class="item-files">New: TrialPromptModal.tsx &bull; LessonView completion handler &bull; Paddle trial config</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="onboard-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Landing Page &rarr; Auth Flow Polish <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Ensure /get-started redirects authenticated users to dashboard. Ensure unauthenticated users hitting /app routes get redirected to /get-started (not /login). Landing page should sell the experience first.</div>
+            <div class="item-files">middleware.ts &bull; get-started/page.tsx &bull; (app)/layout.tsx</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="onboard-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Push Notification Opt-in Timing <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Don't ask for push permissions on first visit. Wait until user has completed 2-3 lessons and has a streak to protect. Then prompt: "Want us to remind you to keep your streak?" Permission grant rate will be much higher.</div>
+            <div class="item-files">settings/page.tsx (notification logic) &bull; New: streak-based trigger</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 3: AUTH & SECURITY                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15));">&#128274;</span>
+        Auth &amp; Security
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="auth">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="auth">
+        <li class="checklist-item" data-id="auth-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Verify middleware.ts Exists &amp; Protects Routes <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Audit showed middleware may be missing or incomplete. Confirm it uses NextAuth's auth() wrapper, protects all /app/* routes, and redirects unauthenticated users to /login or /get-started. Also confirm API routes check session.</div>
+            <div class="item-files">src/middleware.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="auth-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Validate Paddle Webhook Signatures <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Ensure /api/paddle/webhook verifies the Paddle-Signature header using PADDLE_WEBHOOK_SECRET. Without this, anyone can fake subscription events.</div>
+            <div class="item-files">api/paddle/webhook/route.ts &bull; PADDLE_WEBHOOK_SECRET env var</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="auth-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Add Rate Limiting to Auth &amp; Payment APIs <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Current rate limiting is in-memory (per-process) for login only. Add rate limiting to: /api/auth/register, /api/paddle/checkout, /api/friends/request, /api/invite/*. Consider Upstash rate limit for distributed enforcement.</div>
+            <div class="item-files">lib/rate-limit.ts &bull; API route handlers</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="auth-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Secure Admin Routes <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify all /api/admin/* and /admin/* routes check ADMIN_EMAILS against the session email. No admin route should be accessible to non-admins.</div>
+            <div class="item-files">api/admin/* &bull; admin/layout.tsx or middleware</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="auth-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">CSP: Remove unsafe-inline / unsafe-eval <span class="priority p-medium">Medium</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Current CSP uses 'unsafe-inline' and 'unsafe-eval'. For production, switch to nonce-based CSP or strict-dynamic. Test with Paddle, Mixpanel, and Google Auth to ensure nothing breaks.</div>
+            <div class="item-files">next.config.ts (headers)</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="auth-6">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Create .env.example with All Required Vars <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Document every required environment variable with descriptions. Prevents deployment failures and helps if you onboard contributors.</div>
+            <div class="item-files">New: .env.example</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 4: PAYMENTS & SUBSCRIPTION                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.15));">&#128179;</span>
+        Payments &amp; Subscription
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="pay">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="pay">
+        <li class="checklist-item" data-id="pay-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">End-to-End Payment Flow Test <span class="priority p-critical">Critical</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Test full cycle in Paddle sandbox: Checkout &rarr; webhook fires &rarr; subscription stored in DB &rarr; client subscription store updates &rarr; Pro features unlock &rarr; hearts become unlimited. Then test: cancellation, failed payment, reactivation.</div>
+            <div class="item-files">api/paddle/* &bull; useSubscription.ts &bull; subscriptions table</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="pay-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Switch Paddle to Production Mode <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Create production Paddle products/prices matching new $7.99/mo &amp; $49.99/yr tiers. Update NEXT_PUBLIC_PADDLE_ENV, client token, API key, webhook secret, and price IDs in production env vars.</div>
+            <div class="item-files">.env.production &bull; Paddle dashboard &bull; Vercel env vars</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="pay-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Handle Subscription Edge Cases <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Verify handling for: past_due (grace period, already done), payment_failed, subscription_cancelled (access until period end), subscription_paused. Ensure hearts revert to 5 when Pro lapses.</div>
+            <div class="item-files">api/paddle/webhook/route.ts &bull; useSubscription.ts &bull; hearts logic</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="pay-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Billing Settings: Manage/Cancel/Receipt <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify the Paddle customer portal link works for: viewing invoices, updating payment method, cancelling subscription. Already have /api/paddle/portal &mdash; just confirm it works.</div>
+            <div class="item-files">settings/billing/page.tsx &bull; api/paddle/portal/route.ts</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 5: LEGAL & COMPLIANCE                              -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(234,179,8,0.15), rgba(217,119,6,0.15));">&#9878;</span>
+        Legal &amp; Compliance
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="legal">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="warning">
+        <strong>Required for any SaaS taking payments.</strong> Missing legal pages can lead to payment processor disputes and potential Paddle account suspension.
+      </div>
+
+      <ul class="checklist" data-section="legal">
+        <li class="checklist-item" data-id="legal-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Privacy Policy Page <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Page exists at /privacy. Verify it covers: data collected (email, Google profile, usage data, payment info via Paddle), cookies (Mixpanel, auth), data retention, user rights (deletion), third parties (Paddle, Mixpanel, Google). Update for new app name if renaming.</div>
+            <div class="item-files">(app)/privacy/page.tsx</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="legal-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Terms of Service Page <span class="priority p-critical">Critical</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">May be missing. Create /terms page covering: acceptable use, subscription terms, auto-renewal disclosure, refund policy, content ownership, limitation of liability. Link from footer and registration flow.</div>
+            <div class="item-files">New: (app)/terms/page.tsx &bull; Footer.tsx &bull; register/page.tsx</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="legal-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Refund Policy <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Paddle requires a clear refund policy. Can be a section within Terms or a standalone page. Specify: refund window, how to request, pro-rata vs full refund.</div>
+            <div class="item-files">Within terms/page.tsx or new refund/page.tsx</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="legal-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Cookie Consent Compliance <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">CookieConsent component exists. Verify: Mixpanel only fires after consent, consent state persists, GDPR-compliant banner text, links to privacy policy.</div>
+            <div class="item-files">components/ui/CookieConsent.tsx &bull; MixpanelProvider</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="legal-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Link Legal Pages from Footer &amp; Registration <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Footer should link: Privacy, Terms, Contact. Registration page should show "By signing up you agree to our Terms and Privacy Policy" with links. Checkout should reference refund policy.</div>
+            <div class="item-files">Footer.tsx &bull; register/page.tsx &bull; pricing/page.tsx</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 6: CONTENT & DATA                                  -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15));">&#128218;</span>
+        Content &amp; Data Quality
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="content">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="success-box">
+        <strong>Good news:</strong> ~25,000 lines of course content with SVG diagrams across 10 units + HTW supplemental. Content appears substantially complete.
+      </div>
+
+      <ul class="checklist" data-section="content">
+        <li class="checklist-item" data-id="content-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Audit All Questions for Correctness <span class="priority p-critical">Critical</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Go through every unit and verify: correct answers are actually correct, explanations make sense, no duplicate questions, difficulty ratings are accurate. Wrong answers in an education app destroy trust instantly.</div>
+            <div class="item-files">src/data/course/units/*.ts &bull; Also check DB-seeded practice questions</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="content-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Verify DB Content Matches Static Files <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Project has dual content systems: static TS files AND DB tables (course_units, course_lessons, course_questions). Run seed script and verify DB content matches static files. The DB is the source of truth for the API.</div>
+            <div class="item-files">scripts/seed-content.ts &bull; src/data/course/ &bull; DB tables</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="content-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Verify SVG Diagrams Render Correctly <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Questions contain inline SVG diagrams. Check they render on: Chrome, Firefox, Safari, mobile browsers. SVGs with viewBox issues or font dependencies will break silently.</div>
+            <div class="item-files">Questions with diagram fields in unit files</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="content-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Test Fill-in-the-Blank Questions <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">fill-blank questions use wordBank arrays. Verify: all blanks have correct matching words, word banks aren't too easy (only 1 obvious answer) or too hard (ambiguous options).</div>
+            <div class="item-files">Unit files &bull; QuestionCard fill-blank renderer</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 7: UX & POLISH                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(219,39,119,0.15));">&#9733;</span>
+        UX &amp; Polish
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="ux">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="ux">
+        <li class="checklist-item" data-id="ux-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Mobile Responsiveness Pass <span class="priority p-critical">Critical</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Test every page on mobile (375px, 414px). Key pages: course map, lesson view, question cards (especially with SVG diagrams), pricing page, settings, league board, friends list. Fix any overflow, tiny tap targets, or broken layouts.</div>
+            <div class="item-files">All page and component files</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="ux-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Loading States for All Data-Fetching Pages <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Every page that fetches data should show a loading skeleton, not a blank screen. Key: course map (lazy-loaded units), league board (competitors), friends list, progress dashboard, settings (subscription status).</div>
+            <div class="item-files">Pages using SWR or fetch &bull; loading.tsx files</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="ux-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Empty States <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">What does a new user see? Check: empty friends list ("Invite friends to compete!"), empty achievements gallery, empty session history, empty league (before first week). Each needs helpful messaging and a CTA.</div>
+            <div class="item-files">friends/page.tsx &bull; achievements/page.tsx &bull; progress/page.tsx &bull; league/page.tsx</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="ux-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Error States &amp; Offline Handling <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">What happens when API calls fail? Network goes down mid-lesson? Verify error.tsx catches component crashes. Verify API failures show user-friendly toasts, not blank screens. Verify progress isn't lost on network errors (localStorage is the buffer).</div>
+            <div class="item-files">error.tsx &bull; global-error.tsx &bull; useDbSync.ts error handling</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="ux-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Celebration Animations Work <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Framer Motion celebrations fire on: lesson completion, achievement unlock, streak milestone, league promotion, quest completion. Test they all play correctly and don't block UI interaction.</div>
+            <div class="item-files">components/engagement/ &bull; Framer Motion animations</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="ux-6">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Back Button / Navigation Doesn't Break Lessons <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">useBackHandler exists. Verify: pressing back mid-lesson shows "Are you sure?" confirmation, doesn't lose progress, doesn't count as an incomplete session that wastes hearts.</div>
+            <div class="item-files">hooks/useBackHandler.ts &bull; LessonView.tsx</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 8: SEO & MARKETING                                 -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(2,132,199,0.15));">&#127760;</span>
+        SEO &amp; Discoverability
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="seo">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="seo">
+        <li class="checklist-item" data-id="seo-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">OG Image &amp; Social Cards <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify OG image renders correctly when shared on Twitter/LinkedIn/Discord. Test with: https://www.opengraph.xyz/. Check root layout metadata: title, description, og:image dimensions (1200x630).</div>
+            <div class="item-files">layout.tsx (metadata) &bull; public/og-image or api/og route</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="seo-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">sitemap.xml &amp; robots.txt <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify sitemap includes: landing page, pricing, privacy, terms, contact. Verify robots.txt allows crawling of public pages, disallows /api/*, /admin/*, /app/*. Check these are auto-generated by Next.js or manually created.</div>
+            <div class="item-files">app/sitemap.ts &bull; app/robots.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="seo-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">JSON-LD Structured Data <span class="priority p-low">Low</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Root layout already has JSON-LD. Verify it's valid with Google's Rich Results Test. Should describe: SoftwareApplication or WebApplication type, offers (Free + Pro pricing), aggregateRating if you have reviews.</div>
+            <div class="item-files">layout.tsx (JSON-LD script tag)</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="seo-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Landing Page Copy Matches New Model <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">If /get-started still says "Unit 1 free, upgrade for more" &mdash; rewrite it. New messaging: "Learn mechanical engineering for free. All lessons, all topics. Pro removes limits." Emphasize the free-everything angle.</div>
+            <div class="item-files">get-started/page.tsx &bull; components/landing/</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 9: MONITORING & OBSERVABILITY                      -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(234,88,12,0.15));">&#128200;</span>
+        Monitoring &amp; Observability
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="monitor">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="monitor">
+        <li class="checklist-item" data-id="monitor-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Add Error Tracking (Sentry) <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">No error tracking found. Production errors will be invisible. Add Sentry (free tier handles 5K events/mo). Covers: unhandled exceptions, API errors, client-side crashes. Essential for finding bugs post-launch.</div>
+            <div class="item-files">New: sentry.client.config.ts, sentry.server.config.ts &bull; next.config.ts (withSentryConfig)</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="monitor-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Mixpanel Key Events Tracking <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Verify Mixpanel tracks: signup_completed, first_lesson_completed, hearts_depleted, upgrade_clicked, subscription_started, subscription_cancelled, streak_broken, invite_sent. These are your conversion funnel metrics.</div>
+            <div class="item-files">lib/mixpanel.ts &bull; All event trigger points</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="monitor-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Uptime Monitoring <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Set up free uptime monitoring (BetterStack, UptimeRobot, or similar). Monitor: homepage, /api/auth/session, /api/content/course. Get alerted if the site goes down.</div>
+            <div class="item-files">External service &mdash; no code changes</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="monitor-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Database Connection Monitoring <span class="priority p-medium">Medium</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Supabase dashboard shows connection count and query performance. Set up alerts for: connection pool exhaustion, slow queries (&gt;1s), database errors. Check Drizzle doesn't leak connections.</div>
+            <div class="item-files">lib/db/index.ts (pool config) &bull; Supabase dashboard</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 10: TESTING                                        -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(139,92,246,0.15));">&#9745;</span>
+        Testing
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="test">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="test">
+        <li class="checklist-item" data-id="test-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">All Existing Tests Pass <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Run `npm test` and fix any failures. ~25 test files across critical paths: achievements, gems, leagues, lessons, streaks, XP. These must all pass before launch.</div>
+            <div class="item-files">src/__tests__/**</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="test-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Add Tests for Hearts System <span class="priority p-high">High</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">After building the hearts system, add tests for: heart deduction on wrong answer, recharge timing, refill via practice, unlimited for Pro, revert on Pro lapse, interaction with streak freeze.</div>
+            <div class="item-files">New: __tests__/critical/hearts.test.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="test-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Manual Smoke Test: Full User Journey <span class="priority p-critical">Critical</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Walk through as a new user: Landing &rarr; Register &rarr; First lesson &rarr; Earn XP &rarr; Streak starts &rarr; Lose hearts &rarr; Wait or upgrade &rarr; Complete quests &rarr; League placement &rarr; Visit shop &rarr; Invite friend. Every step should feel smooth.</div>
+            <div class="item-files">Manual testing &mdash; all pages</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="test-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Cross-Browser Test <span class="priority p-medium">Medium</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Test on: Chrome (desktop + mobile), Safari (iOS), Firefox. Key checks: SVG diagrams render, Framer Motion animations play, localStorage persistence works, Paddle checkout opens, push notifications register.</div>
+            <div class="item-files">Manual testing across browsers</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 11: DEPLOYMENT & INFRA                             -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(34,211,238,0.15), rgba(6,182,212,0.15));">&#9729;</span>
+        Deployment &amp; Infrastructure
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="deploy">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <ul class="checklist" data-section="deploy">
+        <li class="checklist-item" data-id="deploy-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Production Build Succeeds <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Run `npm run build` locally and fix any TypeScript errors or build warnings. Verify no console warnings about deprecated APIs or missing dependencies.</div>
+            <div class="item-files">next.config.ts &bull; All source files</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="deploy-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">All Production Env Vars Set on Vercel <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify in Vercel dashboard: AUTH_SECRET, AUTH_GOOGLE_ID/SECRET (with production redirect URI), POSTGRES_URL, all PADDLE_* vars (production, not sandbox), NEXT_PUBLIC_MIXPANEL_TOKEN, ADMIN_EMAILS. Missing any = broken feature in prod.</div>
+            <div class="item-files">Vercel dashboard &bull; .env.example reference</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="deploy-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Google OAuth Production Redirect URI <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">In Google Cloud Console, add your production domain as an authorized redirect URI: https://mechready.com/api/auth/callback/google. Without this, Google login fails in production.</div>
+            <div class="item-files">Google Cloud Console &bull; AUTH_GOOGLE_ID/SECRET</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="deploy-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Database Indexes for Production Queries <span class="priority p-high">High</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify indexes exist on: users.email, subscriptions.userId, daily_usage(userId+date), session_history.userId, friendships(user_id, friend_id), friend_requests.toUserId. Missing indexes = slow queries at scale.</div>
+            <div class="item-files">lib/db/schema.ts &bull; drizzle.config.ts</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="deploy-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Domain &amp; SSL Configured <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Verify mechready.com (or new domain) is connected to Vercel with SSL. Both www and non-www should work (redirect one to the other). Test HSTS preload is active.</div>
+            <div class="item-files">Vercel domains settings</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="deploy-6">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Seed Production Database <span class="priority p-critical">Critical</span> <span class="effort e-small">Small</span></div>
+            <div class="item-desc">Run seed-content.ts against the production database. Verify all course_units, course_lessons, and course_questions are populated. Without this, the API returns empty content.</div>
+            <div class="item-files">scripts/seed-content.ts &bull; Production POSTGRES_URL</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 12: POST-LAUNCH / OPTIONAL                         -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section>
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>
+        <span class="section-icon" style="background: linear-gradient(135deg, rgba(107,114,128,0.15), rgba(75,85,99,0.15));">&#128640;</span>
+        Post-Launch &amp; Future (Not Blocking)
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="section-count" data-section="future">0 / 0</span>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="insight">
+        These items are <strong>not required for launch</strong> but should be on the roadmap for the first few months post-launch.
+      </div>
+
+      <ul class="checklist" data-section="future">
+        <li class="checklist-item" data-id="future-1">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Ads Integration (When 10K+ DAU) <span class="priority p-low">Low</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Interstitial ads between lessons for free users. Not worth building until scale. Serves dual purpose: revenue ($0.02-0.05/DAU/day) + conversion lever (annoying enough to drive upgrades). Only 7% of Duolingo revenue comes from ads.</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="future-2">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Rename: MechReady &rarr; Multi-Topic Brand <span class="priority p-low">Low</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Per market research: when expanding to Personal Finance (Phase 1 expansion), rename to a topic-agnostic brand (Knowara, Thinkdex, etc.). ~195 occurrences across ~55 files. High-risk: localStorage key migration needed. Can launch as MechReady first.</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="future-3">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Multi-Topic Architecture (Course Picker) <span class="priority p-low">Low</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Add a topic/profession picker like Duolingo's language picker. Each topic has its own course map, units, and questions. The gamification engine (XP, streaks, leagues) is shared. First expansion topic: Personal Finance.</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="future-4">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Email Verification Flow <span class="priority p-low">Low</span> <span class="effort e-medium">Medium</span></div>
+            <div class="item-desc">Currently no email verification after registration. Not blocking for launch (most users will use Google OAuth), but add verification for email/password accounts to reduce spam signups.</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="future-5">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">E2E Tests (Playwright) <span class="priority p-low">Low</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">No E2E tests currently. Add Playwright tests for critical paths: signup, first lesson, purchase flow, streak tracking. Prevents regressions as the codebase grows.</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="future-6">
+          <div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Multi-Device Sync <span class="priority p-low">Low</span> <span class="effort e-large">Large</span></div>
+            <div class="item-desc">Currently client-first with server sync. Two devices can diverge. Need conflict resolution strategy: last-write-wins or merge. Important when mobile app ships, not critical for web-only launch.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <footer>
+    Release Checklist &middot; Generated March 2026 &middot; Based on market research report + full codebase audit &middot; Progress saves to localStorage
+  </footer>
+
+</div>
+
+<script>
+  const STORAGE_KEY = 'mechready-release-checklist';
+
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch { return {}; }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.checklist-item');
+    const checked = document.querySelectorAll('.checklist-item.checked');
+    const total = all.length;
+    const done = checked.length;
+    const remaining = total - done;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    document.getElementById('done-count').textContent = done;
+    document.getElementById('remaining-count').textContent = remaining;
+    document.getElementById('total-count').textContent = total;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '% complete';
+
+    // Update section counts
+    document.querySelectorAll('.section-count').forEach(el => {
+      const section = el.dataset.section;
+      if (!section) return;
+      const sectionItems = document.querySelectorAll(`.checklist[data-section="${section}"] .checklist-item`);
+      const sectionDone = document.querySelectorAll(`.checklist[data-section="${section}"] .checklist-item.checked`);
+      el.textContent = sectionDone.length + ' / ' + sectionItems.length;
+      if (sectionDone.length === sectionItems.length && sectionItems.length > 0) {
+        el.classList.add('done');
+      } else {
+        el.classList.remove('done');
+      }
+    });
+  }
+
+  function init() {
+    const state = loadState();
+    const items = document.querySelectorAll('.checklist-item');
+
+    items.forEach(item => {
+      const id = item.dataset.id;
+      if (state[id]) {
+        item.classList.add('checked');
+      }
+
+      item.addEventListener('click', () => {
+        item.classList.toggle('checked');
+        const currentState = loadState();
+        if (item.classList.contains('checked')) {
+          currentState[id] = true;
+        } else {
+          delete currentState[id];
+        }
+        saveState(currentState);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+  }
+
+  function toggleSection(header) {
+    const body = header.nextElementSibling;
+    body.classList.toggle('collapsed');
+    header.classList.toggle('collapsed');
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

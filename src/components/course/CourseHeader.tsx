@@ -233,29 +233,29 @@ export function CourseHeader() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-[#FAFAFA] px-4 sm:px-5 py-1.5 relative"
       >
-        <div className="flex items-center gap-1 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-2">
             {profession && (
               <Link
                 href="/switch-course"
-                className="flex items-center justify-center w-9 h-9 rounded-xl hover:bg-surface-100 transition-colors active:scale-95 mr-auto"
+                className="flex items-center justify-center w-10 h-10 rounded-xl hover:bg-surface-100 transition-colors active:scale-95 mr-auto"
                 aria-label={`Switch course — ${profession.name}`}
               >
-                <CourseIcon professionId={profession.id} color={profession.color} />
+                <CourseIcon professionId={profession.id} color={profession.color} size={26} />
               </Link>
             )}
             <button
               ref={streakBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 3,
+                gap: 4,
                 fontWeight: 800,
-                fontSize: 13,
+                fontSize: 14,
                 color: popover === 'streak'
                   ? '#D97706'
                   : streakStatus === 'at-risk'
                     ? '#DC2626'
                     : '#3C3C3C',
-                padding: '5px 8px',
+                padding: '4px 8px',
                 borderRadius: 10,
                 background: popover === 'streak'
                   ? '#FFFBEB'
@@ -270,7 +270,7 @@ export function CourseHeader() {
               aria-label={`${progress.currentStreak} day streak`}
               aria-expanded={popover === 'streak'}
             >
-              <span style={{ fontSize: 15 }} aria-hidden="true">⚡</span>
+              <span style={{ fontSize: 18 }} aria-hidden="true">⚡</span>
               <AnimatedCounter value={progress.currentStreak} showDelta deltaColor="#D97706" />
             </button>
 
@@ -278,11 +278,11 @@ export function CourseHeader() {
               ref={xpBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 3,
+                gap: 4,
                 fontWeight: 800,
-                fontSize: 13,
+                fontSize: 14,
                 color: popover === 'xp' ? '#7B2FBE' : '#3C3C3C',
-                padding: '5px 8px',
+                padding: '4px 8px',
                 borderRadius: 10,
                 background: popover === 'xp' ? '#F3E6FF' : 'transparent',
                 minWidth: 44,
@@ -293,7 +293,7 @@ export function CourseHeader() {
               aria-label={`${progress.totalXp.toLocaleString()} experience points`}
               aria-expanded={popover === 'xp'}
             >
-              <span style={{ fontSize: 15 }} aria-hidden="true">⭐</span>
+              <span style={{ fontSize: 18 }} aria-hidden="true">⭐</span>
               <AnimatedCounter value={progress.totalXp} showDelta deltaColor="#7B2FBE" />
             </button>
 
@@ -301,11 +301,11 @@ export function CourseHeader() {
               ref={gemsBtnRef}
               className="flex items-center transition-all active:scale-95"
               style={{
-                gap: 3,
+                gap: 4,
                 fontWeight: 800,
-                fontSize: 13,
+                fontSize: 14,
                 color: popover === 'gems' ? '#7C3AED' : '#3C3C3C',
-                padding: '5px 8px',
+                padding: '4px 8px',
                 borderRadius: 10,
                 background: popover === 'gems' ? '#F3E8FF' : 'transparent',
                 minWidth: 44,
@@ -316,7 +316,7 @@ export function CourseHeader() {
               aria-label={`${gems.balance} gems`}
               aria-expanded={popover === 'gems'}
             >
-              <span style={{ fontSize: 15 }} aria-hidden="true">💎</span>
+              <span style={{ fontSize: 18 }} aria-hidden="true">💎</span>
               <AnimatedCounter value={gems.balance} showDelta deltaColor="#7C3AED" />
             </button>
 
