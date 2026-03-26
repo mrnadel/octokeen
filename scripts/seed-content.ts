@@ -7,6 +7,8 @@ import { sql } from 'drizzle-orm';
 import * as schema from '../src/lib/db/schema';
 import { course } from '../src/data/course';
 import type { Unit } from '../src/data/course/types';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const connectionString = process.env.POSTGRES_URL;
 if (!connectionString) {
@@ -156,46 +158,85 @@ async function seedUnits(tx: Parameters<Parameters<typeof db.transaction>[0]>[0]
   console.log(`  [${label}] Upserted: ${totalUnits} units, ${totalLessons} lessons, ${totalQuestions} questions`);
 }
 
-async function loadFinanceUnits(): Promise<Unit[]> {
-  const mods = await Promise.all([
-    import('../src/data/course/professions/personal-finance/units/unit-1'),
-    import('../src/data/course/professions/personal-finance/units/unit-2'),
-    import('../src/data/course/professions/personal-finance/units/unit-3'),
-    import('../src/data/course/professions/personal-finance/units/unit-4'),
-    import('../src/data/course/professions/personal-finance/units/unit-5'),
-    import('../src/data/course/professions/personal-finance/units/unit-6'),
-    import('../src/data/course/professions/personal-finance/units/unit-7'),
-    import('../src/data/course/professions/personal-finance/units/unit-8'),
-    import('../src/data/course/professions/personal-finance/units/unit-9'),
-    import('../src/data/course/professions/personal-finance/units/unit-10'),
-    import('../src/data/course/professions/personal-finance/units/unit-11'),
-    import('../src/data/course/professions/personal-finance/units/unit-12'),
-  ]);
-  return [
-    mods[0].unit1, mods[1].unit2, mods[2].unit3, mods[3].unit4,
-    mods[4].unit5, mods[5].unit6, mods[6].unit7, mods[7].unit8,
-    mods[8].unit9, mods[9].unit10, mods[10].unit11, mods[11].unit12,
-  ];
+/** Check if a value looks like a Unit object */
+function isUnit(val: unknown): val is Unit {
+  return (
+    typeof val === 'object' &&
+    val !== null &&
+    'id' in val &&
+    'title' in val &&
+    'lessons' in val &&
+    Array.isArray((val as Unit).lessons)
+  );
+}
+
+/** Dynamically discover and load units from a profession's units/ directory */
+async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
+  const unitsDir = path.join(professionDir, 'units');
+  if (!fs.existsSync(unitsDir)) return [];
+
+  const unitFiles = fs.readdirSync(unitsDir)
+    .filter(f => f.startsWith('unit-') && f.endsWith('.ts'))
+    .sort((a, b) => {
+      // Sort by numeric suffix: unit-1.ts, unit-2.ts, ..., unit-10.ts
+      const numA = parseInt(a.match(/unit-(\d+)/)?.[1] ?? '0');
+      const numB = parseInt(b.match(/unit-(\d+)/)?.[1] ?? '0');
+      return numA - numB;
+    });
+
+  const units: Unit[] = [];
+  for (const file of unitFiles) {
+    const filePath = path.join(unitsDir, file);
+    const mod = await import(filePath);
+    // Find the Unit export (could be any name)
+    for (const key of Object.keys(mod)) {
+      if (isUnit(mod[key])) {
+        units.push(mod[key]);
+        break;
+      }
+    }
+  }
+  return units;
+}
+
+/** Discover all profession directories under src/data/course/professions/ */
+function discoverProfessions(): { name: string; dir: string }[] {
+  const professionsDir = path.resolve(__dirname, '../src/data/course/professions');
+  if (!fs.existsSync(professionsDir)) return [];
+
+  return fs.readdirSync(professionsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => ({
+      name: d.name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+      dir: path.join(professionsDir, d.name),
+    }));
 }
 
 async function main() {
   console.log('=== Starting content seed ===\n');
 
   try {
-    // Seed ME course
+    // 1. Seed ME course (main course from src/data/course/index.ts)
     console.log('--- Seeding ME course content ---');
     await db.transaction(async (tx) => {
       await seedUnits(tx, course, 'ME');
     });
     console.log('--- ME course seeded successfully ---\n');
 
-    // Seed Finance course
-    console.log('--- Seeding Finance course content ---');
-    const financeUnits = await loadFinanceUnits();
-    await db.transaction(async (tx) => {
-      await seedUnits(tx, financeUnits, 'Finance');
-    });
-    console.log('--- Finance course seeded successfully ---\n');
+    // 2. Dynamically discover and seed all profession courses
+    const professions = discoverProfessions();
+    for (const prof of professions) {
+      console.log(`--- Seeding ${prof.name} course content ---`);
+      const units = await loadProfessionUnits(prof.dir);
+      if (units.length === 0) {
+        console.log(`  [${prof.name}] No unit files found, skipping.\n`);
+        continue;
+      }
+      await db.transaction(async (tx) => {
+        await seedUnits(tx, units, prof.name);
+      });
+      console.log(`--- ${prof.name} course seeded successfully ---\n`);
+    }
 
     console.log('=== All content seeded successfully ===');
   } catch (error) {
