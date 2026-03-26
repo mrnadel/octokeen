@@ -112,7 +112,7 @@ export default function HomePage() {
       <CourseMap />
 
       <Suspense fallback={null}>
-        {(activeLesson || lessonResult) && <LessonView />}
+        {activeLesson && <LessonView />}
         {activePlacementTest && <PlacementTestView />}
         {placementTestResult && <PlacementTestResult />}
         {lessonResult && <ResultScreen />}

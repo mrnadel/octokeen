@@ -456,7 +456,6 @@ export const useCourseStore = create<CourseState>()(
         }
 
         set({
-          activeLesson: null,
           lessonResult: result,
           pendingCelebrations: celebrations,
           chapterJustCompleted,
