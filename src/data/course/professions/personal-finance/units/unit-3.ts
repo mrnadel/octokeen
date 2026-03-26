@@ -1340,5 +1340,264 @@ export const unit3: Unit = {
         },
       ],
     },
+    // ===== LESSON 11: The Debt Payoff Journey (Timeline) =====
+    {
+      id: "pf-u3-L11",
+      title: "The Debt Payoff Journey",
+      description: "Follow a $28K debt payoff over years — snowball vs avalanche.",
+      icon: "🔀",
+      xpReward: 20,
+      type: "timeline",
+      questions: [],
+      timelineStartStageId: "pf-u3-L11-TS1",
+      timelineStages: [
+        {
+          id: "pf-u3-L11-TS1",
+          narrative: "You're 26 with $28,000 in debt: $8K credit card (22% APR), $5K personal loan (12%), $15K student loans (5.5%). You have $600/month for debt payments beyond minimums. Which strategy?",
+          emoji: "📊",
+          choices: [
+            {
+              text: "Debt snowball — pay smallest balance first ($5K loan)",
+              nextStageId: "pf-u3-L11-TS2",
+              impact: "Quick wins! You'll eliminate the personal loan fastest, building momentum and motivation.",
+              optimal: false,
+            },
+            {
+              text: "Debt avalanche — pay highest interest first ($8K credit card)",
+              nextStageId: "pf-u3-L11-TS2",
+              impact: "Mathematically optimal! The credit card at 22% costs you the most — killing it first saves thousands in interest.",
+              optimal: true,
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L11-TS2",
+          narrative: "Month 6 — You've made solid progress. A coworker tells you about a 0% balance transfer card. Transfer the remaining credit card balance?",
+          emoji: "💳",
+          choices: [
+            {
+              text: "Transfer it — 0% interest for 18 months is free money",
+              nextStageId: "pf-u3-L11-TS3",
+              impact: "Smart move if you can pay it off within the promo period. Just watch for the 3-5% transfer fee.",
+              optimal: true,
+            },
+            {
+              text: "Skip it — too complicated and there might be hidden fees",
+              nextStageId: "pf-u3-L11-TS3",
+              impact: "Playing it safe costs you. At 22% APR, every month without the transfer burns money.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L11-TS3",
+          narrative: "Month 14 — Tax refund of $1,500 arrives. What do you do with it?",
+          emoji: "💰",
+          choices: [
+            {
+              text: "Throw it all at your highest-interest remaining debt",
+              nextStageId: "pf-u3-L11-TS4",
+              impact: "Windfalls are debt-destruction weapons. This could save you months of payments.",
+              optimal: true,
+            },
+            {
+              text: "Split it: half to debt, half to treat yourself",
+              nextStageId: "pf-u3-L11-TS4",
+              impact: "Understandable, but every dollar not applied to high-interest debt costs you in compound interest.",
+              optimal: false,
+            },
+            {
+              text: "Save it for emergencies — you don't have a safety net",
+              nextStageId: "pf-u3-L11-TS4",
+              impact: "Valid concern, but at 22% interest, your debt IS the emergency. A small $500 buffer is enough for now.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L11-TS4",
+          narrative: "Month 20 — Credit card is paid off! Now just the student loans remain. A friend says 'student loan interest is tax-deductible, so pay it slow.' Agree?",
+          emoji: "🎓",
+          choices: [
+            {
+              text: "No — the deduction saves pennies compared to the interest cost. Keep paying aggressively.",
+              nextStageId: "pf-u3-L11-TS5",
+              impact: "Correct! The tax deduction on student loan interest is capped at $2,500 and reduces your tax bill by a fraction of what you pay in interest.",
+              optimal: true,
+            },
+            {
+              text: "Yes — slow down and invest the extra money instead",
+              nextStageId: "pf-u3-L11-TS5",
+              impact: "Investing while carrying debt can work if investment returns exceed the loan rate, but it's risky and adds complexity.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L11-TS5",
+          narrative: "Month 30 — Almost there! $3,000 left on student loans. You get a $4,000 bonus at work. Final decision:",
+          emoji: "🏁",
+          choices: [
+            {
+              text: "Pay off the remaining $3K, save $500, celebrate with $500",
+              nextStageId: "pf-u3-L11-TS6",
+              impact: "You did it! Debt-free AND you rewarded yourself. The $500 savings starts your next chapter.",
+              optimal: true,
+            },
+            {
+              text: "Pay off the $3K and invest the rest immediately",
+              nextStageId: "pf-u3-L11-TS6",
+              impact: "Debt-free! But skipping the celebration can make the grind feel thankless. Reward milestones to build positive money habits.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L11-TS6",
+          narrative: "Journey complete! Let's see how you did.",
+          emoji: "🎉",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Debt Destroyer",
+          description: "You made optimal choices at every turn. You saved thousands in interest and are debt-free in under 3 years!",
+          score: "great",
+        },
+        "3-5": {
+          title: "Steady Progress",
+          description: "You made solid decisions overall. A few different choices could have saved you more, but you're debt-free!",
+          score: "good",
+        },
+        "1-5": {
+          title: "Lesson Learned",
+          description: "The debt is gone, but it took longer and cost more than it needed to. Now you know the optimal strategies for next time.",
+          score: "poor",
+        },
+      },
+    },
+    // ===== LESSON 12: Calling the Credit Card Company (Conversation) =====
+    {
+      id: "pf-u3-L12",
+      title: "Calling the Credit Card Company",
+      description: "Practice negotiating a lower APR with your credit card company.",
+      icon: "💬",
+      xpReward: 20,
+      type: "conversation",
+      questions: [],
+      conversationStartNodeId: "pf-u3-L12-C1",
+      conversationNodes: [
+        {
+          id: "pf-u3-L12-C1",
+          speaker: "Narrator",
+          message: "You have a credit card with a $4,200 balance at 24.99% APR. You've been a customer for 3 years and always paid on time. You're calling to negotiate a lower rate. The phone rings...",
+          nextNodeId: "pf-u3-L12-C2",
+        },
+        {
+          id: "pf-u3-L12-C2",
+          speaker: "Rep",
+          message: "Thank you for calling National Credit. My name is Sarah. How can I help you today?",
+          options: [
+            {
+              text: "Hi Sarah. I've been a loyal customer for 3 years with a perfect payment history. I'm calling to discuss getting a lower APR on my card.",
+              nextNodeId: "pf-u3-L12-C3",
+              quality: "great",
+              feedback: "Opening with your track record gives you leverage. You're showing value, not begging.",
+            },
+            {
+              text: "I want a lower interest rate.",
+              nextNodeId: "pf-u3-L12-C3",
+              quality: "okay",
+              feedback: "Direct, but you missed the chance to establish your value as a customer first.",
+            },
+            {
+              text: "I'm going to cancel my card if you don't lower my rate.",
+              nextNodeId: "pf-u3-L12-C3",
+              quality: "poor",
+              feedback: "Starting with threats puts the rep on the defensive and often backfires. They hear this all day.",
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L12-C3",
+          speaker: "Rep",
+          message: "I appreciate you being a valued customer. Let me pull up your account... I see your current rate is 24.99%. Unfortunately, that rate is standard for your card type.",
+          nextNodeId: "pf-u3-L12-C4",
+        },
+        {
+          id: "pf-u3-L12-C4",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "I understand it's standard, but I've received offers from other cards at 16-18% APR. I'd rather stay with you, but I need a competitive rate.",
+              nextNodeId: "pf-u3-L12-C5",
+              quality: "great",
+              feedback: "Mentioning competitor offers is powerful. You're showing you have options without being aggressive.",
+            },
+            {
+              text: "But I always pay on time! Don't I deserve a better rate?",
+              nextNodeId: "pf-u3-L12-C5",
+              quality: "okay",
+              feedback: "Emotional appeals are weaker than factual leverage. The rep needs a business reason to make changes.",
+            },
+            {
+              text: "That's ridiculous. I want to speak to a manager.",
+              nextNodeId: "pf-u3-L12-C5",
+              quality: "poor",
+              feedback: "Escalating too early burns goodwill. The first rep often has authority to make changes if you give them a reason.",
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L12-C5",
+          speaker: "Rep",
+          message: "Let me see what I can do... I can offer you a reduction to 19.99% APR. Would that work for you?",
+          nextNodeId: "pf-u3-L12-C6",
+        },
+        {
+          id: "pf-u3-L12-C6",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "I appreciate that offer. Is there any way to get closer to 16-17%? I'm looking at a balance transfer card at 0% for 18 months, so anything you can do to keep me here would be great.",
+              nextNodeId: "pf-u3-L12-C7",
+              quality: "great",
+              feedback: "Counter-offering is key! The first offer is rarely the best. Mentioning specific alternatives gives them room to improve.",
+            },
+            {
+              text: "Sure, that works. Thanks!",
+              nextNodeId: "pf-u3-L12-C7",
+              quality: "okay",
+              feedback: "You saved 5% — not bad! But the first offer is rarely the best. A polite counter often gets you 2-3% more off.",
+            },
+            {
+              text: "That's still too high. I'm canceling.",
+              nextNodeId: "pf-u3-L12-C7",
+              quality: "poor",
+              feedback: "Walking away without countering leaves money on the table. Negotiation is a conversation, not an ultimatum.",
+            },
+          ],
+        },
+        {
+          id: "pf-u3-L12-C7",
+          speaker: "Rep",
+          message: "I can do 17.49% APR, and I'll waive your annual fee for this year. That's the best I can offer today.",
+          nextNodeId: "pf-u3-L12-C8",
+        },
+        {
+          id: "pf-u3-L12-C8",
+          speaker: "You",
+          message: "That sounds great. I really appreciate your help, Sarah. Thank you!",
+          nextNodeId: "pf-u3-L12-C9",
+        },
+        {
+          id: "pf-u3-L12-C9",
+          speaker: "Narrator",
+          message: "You successfully negotiated your APR from 24.99% down to 17.49% — that's a 7.5% reduction! On your $4,200 balance, this saves you about $315 per year in interest. The whole call took 8 minutes. Not bad for a day's work!",
+        },
+      ],
+    },
   ],
 };

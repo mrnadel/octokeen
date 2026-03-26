@@ -747,5 +747,209 @@ export const unit1: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 7: Coffee Shop Budget Chat (Conversation) =====
+    {
+      id: "pf-u1-L7",
+      title: "Coffee Shop Budget Chat",
+      description: "Advise a friend on budgeting in this interactive conversation.",
+      icon: "💬",
+      type: "conversation",
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: "pf-u1-L7-C1",
+      conversationNodes: [
+        {
+          id: "pf-u1-L7-C1",
+          speaker: "Jamie",
+          message: "Hey, I need your help. I keep running out of money before payday. I don't know where it all goes.",
+          nextNodeId: "pf-u1-L7-C2",
+        },
+        {
+          id: "pf-u1-L7-C2",
+          speaker: "Jamie",
+          message: "What do you think I should do first?",
+          options: [
+            {
+              text: "Let's look at your last month's spending together — you might be surprised where it goes.",
+              nextNodeId: "pf-u1-L7-C3",
+              quality: "great",
+              feedback: "Starting with data is the smartest move. You can't fix what you don't measure.",
+            },
+            {
+              text: "Have you tried just spending less on going out?",
+              nextNodeId: "pf-u1-L7-C3",
+              quality: "okay",
+              feedback: "That's a common suggestion, but without knowing the full picture, you're guessing at the problem.",
+            },
+            {
+              text: "You probably just need to earn more money.",
+              nextNodeId: "pf-u1-L7-C3",
+              quality: "poor",
+              feedback: "Earning more helps, but if you don't know where money goes, more income just means more spending.",
+            },
+          ],
+        },
+        {
+          id: "pf-u1-L7-C3",
+          speaker: "Jamie",
+          message: "Okay, I pulled up my bank statement. Wow... I'm spending $200/month on takeout and I found $150 in subscriptions I totally forgot about. I didn't even know I was still paying for half of these!",
+          nextNodeId: "pf-u1-L7-C4",
+        },
+        {
+          id: "pf-u1-L7-C4",
+          speaker: "Jamie",
+          message: "So where should I focus first?",
+          options: [
+            {
+              text: "Those forgotten subscriptions are free money — let's cancel what you don't use.",
+              nextNodeId: "pf-u1-L7-C5",
+              quality: "great",
+              feedback: "Cutting subscriptions you forgot about is the easiest win. It's money you won't even miss.",
+            },
+            {
+              text: "You should cut the takeout in half.",
+              nextNodeId: "pf-u1-L7-C5",
+              quality: "okay",
+              feedback: "Reducing takeout helps, but it requires willpower every day. Subscriptions are a one-time action with ongoing savings.",
+            },
+            {
+              text: "You need to stop eating out completely.",
+              nextNodeId: "pf-u1-L7-C5",
+              quality: "poor",
+              feedback: "Going cold turkey rarely works. Small, sustainable changes beat extreme ones.",
+            },
+          ],
+        },
+        {
+          id: "pf-u1-L7-C5",
+          speaker: "Narrator",
+          message: "Jamie goes through the subscriptions and cancels 3 services they hadn't used in months — saving $80/month instantly.",
+          nextNodeId: "pf-u1-L7-C6",
+        },
+        {
+          id: "pf-u1-L7-C6",
+          speaker: "Jamie",
+          message: "That was easy! Now I need an actual plan so this doesn't happen again. What budgeting method should I try?",
+          options: [
+            {
+              text: "Try the 50/30/20 rule — 50% needs, 30% wants, 20% savings. It's simple and flexible.",
+              nextNodeId: "pf-u1-L7-C7",
+              quality: "great",
+              feedback: "The 50/30/20 rule is the gold standard starter budget — simple enough to actually stick with.",
+            },
+            {
+              text: "Just track every single purchase in a spreadsheet.",
+              nextNodeId: "pf-u1-L7-C7",
+              quality: "okay",
+              feedback: "Tracking helps awareness, but without a framework, it's just data without a plan.",
+            },
+            {
+              text: "Just don't buy anything you don't absolutely need for a month.",
+              nextNodeId: "pf-u1-L7-C7",
+              quality: "poor",
+              feedback: "Deprivation budgets fail almost every time. A good budget includes fun money.",
+            },
+          ],
+        },
+        {
+          id: "pf-u1-L7-C7",
+          speaker: "Jamie",
+          message: "You know what, I actually feel hopeful for the first time. I always thought budgeting meant suffering, but this doesn't sound bad at all.",
+          nextNodeId: "pf-u1-L7-C8",
+        },
+        {
+          id: "pf-u1-L7-C8",
+          speaker: "Narrator",
+          message: "You helped Jamie find $80 in forgotten subscriptions and set up a 50/30/20 budget. Small wins lead to big changes!",
+        },
+      ],
+    },
+
+    // ===== LESSON 8: Paycheck & Budget Blitz (Speed Round) =====
+    {
+      id: "pf-u1-L8",
+      title: "Paycheck & Budget Blitz",
+      description: "Race the clock on gross/net pay, 50/30/20, and needs vs wants.",
+      icon: "⚡",
+      type: "speed-round",
+      xpReward: 20,
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        {
+          id: "pf-u1-L8-SQ1",
+          question: "Gross pay is your salary _____ deductions.",
+          options: ["before", "after", "without", "including"],
+          correctIndex: 0,
+        },
+        {
+          id: "pf-u1-L8-SQ2",
+          question: "What is net pay?",
+          options: ["Full salary", "Take-home pay", "Bonus pay", "Overtime pay"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u1-L8-SQ3",
+          question: "In the 50/30/20 rule, 50% goes to:",
+          options: ["Wants", "Savings", "Needs", "Investments"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u1-L8-SQ4",
+          question: "Which is a NEED?",
+          options: ["Netflix subscription", "Gym membership", "Rent", "Concert tickets"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u1-L8-SQ5",
+          question: "Which is a WANT?",
+          options: ["Electricity bill", "Groceries", "Health insurance", "Streaming service"],
+          correctIndex: 3,
+        },
+        {
+          id: "pf-u1-L8-SQ6",
+          question: "The 20% in 50/30/20 is for:",
+          options: ["Rent", "Eating out", "Saving & debt payoff", "Taxes"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u1-L8-SQ7",
+          question: "Your paycheck shows $3,000 gross. Net is $2,400. Deductions were:",
+          options: ["$400", "$500", "$600", "$700"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u1-L8-SQ8",
+          question: "The 'latte factor' refers to:",
+          options: ["Coffee addiction", "Small daily expenses adding up", "Credit card interest", "Inflation"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u1-L8-SQ9",
+          question: "'Pay yourself first' means:",
+          options: ["Buy what you want", "Save before spending", "Pay bills early", "Invest in stocks"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u1-L8-SQ10",
+          question: "Which comes OUT of your gross pay?",
+          options: ["Rent", "Groceries", "Taxes", "Gas"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u1-L8-SQ11",
+          question: "$5/day on coffee = how much per year?",
+          options: ["$365", "$1,200", "$1,500", "$1,825"],
+          correctIndex: 3,
+        },
+        {
+          id: "pf-u1-L8-SQ12",
+          question: "A budget helps you:",
+          options: ["Earn more", "Track & control spending", "Avoid all taxes", "Eliminate all wants"],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 };

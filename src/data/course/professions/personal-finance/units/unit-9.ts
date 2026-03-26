@@ -1494,5 +1494,297 @@ export const unit9: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 13: First-Time Homebuyer (Timeline) =====
+    {
+      id: "pf-u9-L13",
+      title: "First-Time Homebuyer",
+      description: "Navigate the journey from renter to homeowner in this interactive timeline.",
+      icon: "🔀",
+      type: "timeline",
+      xpReward: 20,
+      questions: [],
+      timelineStartStageId: "pf-u9-L13-TS1",
+      timelineStages: [
+        {
+          id: "pf-u9-L13-TS1",
+          narrative: "Month 0 — You're 28, renting at $1,500/month, earning $75K/year. You have $20,000 saved. You dream of owning a home. Where do you start?",
+          emoji: "🏠",
+          choices: [
+            {
+              text: "Get pre-approved for a mortgage first — know your budget before you look",
+              nextStageId: "pf-u9-L13-TS2",
+              impact: "The smart first step! Pre-approval tells you exactly what you can afford and shows sellers you're serious. Without it, you're window shopping.",
+              optimal: true,
+            },
+            {
+              text: "Start browsing Zillow and go to open houses",
+              nextStageId: "pf-u9-L13-TS2",
+              impact: "Browsing without pre-approval wastes time and sets you up for heartbreak when you find a house you can't afford.",
+              optimal: false,
+            },
+            {
+              text: "Save more first — $20K probably isn't enough",
+              nextStageId: "pf-u9-L13-TS2",
+              impact: "$20K could be enough depending on your market and loan type. FHA loans require just 3.5% down. Getting pre-approved tells you the answer for free.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS2",
+          narrative: "Month 3 — You're pre-approved for $320,000. Your agent finds a home listed at $310,000. It's perfect — but 5 other buyers are interested. What's your offer strategy?",
+          emoji: "📝",
+          choices: [
+            {
+              text: "Offer $315K with a personal letter to the seller and a flexible closing date",
+              nextStageId: "pf-u9-L13-TS3",
+              impact: "Going slightly above asking with personal touches shows seriousness. Flexible closing dates appeal to sellers who haven't found their next home yet.",
+              optimal: true,
+            },
+            {
+              text: "Offer exactly $310K — never pay more than asking",
+              nextStageId: "pf-u9-L13-TS3",
+              impact: "In a competitive market, asking-price offers rarely win. You'll likely lose to higher offers and waste more time (and money) searching.",
+              optimal: false,
+            },
+            {
+              text: "Offer $330K — blow everyone away!",
+              nextStageId: "pf-u9-L13-TS3",
+              impact: "Overpaying by $20K wastes money. If the appraisal comes in low, you'll have to pay the difference in cash or the deal falls apart.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS3",
+          narrative: "Month 5 — Your offer is accepted! The inspection reveals the roof needs replacement in 2-3 years (~$12,000). What do you do?",
+          emoji: "🔍",
+          choices: [
+            {
+              text: "Ask the seller for a $8,000 credit at closing to offset future roof costs",
+              nextStageId: "pf-u9-L13-TS4",
+              impact: "Negotiating a credit is the savvy move. You probably won't get the full $12K, but splitting the cost is reasonable and keeps the deal alive.",
+              optimal: true,
+            },
+            {
+              text: "Walk away — this is a money pit",
+              nextStageId: "pf-u9-L13-TS4",
+              impact: "Overreacting to a common inspection issue. Nearly every home has something. Walking away means starting over and paying more rent in the meantime.",
+              optimal: false,
+            },
+            {
+              text: "Ignore it — you love the house and don't want to lose it",
+              nextStageId: "pf-u9-L13-TS4",
+              impact: "Never skip negotiation on known issues. That's $12K you'll owe in 2-3 years. Sellers expect buyers to negotiate after inspections.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS4",
+          narrative: "Month 6 — Closing day approaches. Your lender offers two mortgage options: 30-year fixed at 6.8% or 15-year fixed at 6.1%. Monthly payments: $2,050 vs $2,700. Which do you choose?",
+          emoji: "🏦",
+          choices: [
+            {
+              text: "30-year fixed — lower payments give you breathing room and flexibility",
+              nextStageId: "pf-u9-L13-TS5",
+              impact: "Smart for a first-time buyer. Lower payments protect you during emergencies. You can always make extra payments later to pay it off faster without being locked into the higher amount.",
+              optimal: true,
+            },
+            {
+              text: "15-year fixed — pay it off faster and save on interest",
+              nextStageId: "pf-u9-L13-TS5",
+              impact: "Saves ~$120K in interest over the life of the loan, but the higher payment leaves less room for emergencies, repairs, and investing.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS5",
+          narrative: "Month 8 — You've moved in! A month later, the furnace dies. Repair cost: $4,500. Your emergency fund has $5,000 left after closing costs.",
+          emoji: "❄️",
+          choices: [
+            {
+              text: "Pay from emergency fund — this is what it's for. Then prioritize rebuilding it.",
+              nextStageId: "pf-u9-L13-TS6",
+              impact: "Exactly right. This is homeownership reality. Major repairs happen. Having an emergency fund saved you from credit card debt at 24% APR.",
+              optimal: true,
+            },
+            {
+              text: "Put it on a credit card and pay it off over time",
+              nextStageId: "pf-u9-L13-TS6",
+              impact: "A $4,500 balance at 24% APR costs ~$1,000+ in interest if you take a year to pay it off. Your emergency fund exists for exactly this.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS6",
+          narrative: "Month 12 — One year as a homeowner. Your neighbor mentions they're renting out their basement on Airbnb for $800/month. You have a spare room. Consider it?",
+          emoji: "💡",
+          choices: [
+            {
+              text: "Research local laws first, then consider renting the spare room to help with mortgage payments",
+              nextStageId: "pf-u9-L13-TS7",
+              impact: "House hacking is a proven wealth builder, but compliance matters. HOA rules, zoning laws, and landlord responsibilities need research first.",
+              optimal: true,
+            },
+            {
+              text: "Start listing it immediately — that's $800/month!",
+              nextStageId: "pf-u9-L13-TS7",
+              impact: "Enthusiasm is good, but skipping legal research can mean fines, eviction liability, or insurance problems. Always check local regulations first.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L13-TS7",
+          narrative: "Two years in — your home has appreciated 8% and you've built equity with every payment. How's the journey looking?",
+          emoji: "🎉",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Savvy Homeowner",
+          description: "You made smart decisions at every turn — from getting pre-approved first to negotiating repairs and maintaining your emergency fund. This is how real estate builds wealth.",
+          score: "great",
+        },
+        "3-5": {
+          title: "Learning Homeowner",
+          description: "You got into a great home with some solid decisions. A few different choices could have saved you money, but you're building equity!",
+          score: "good",
+        },
+        "1-5": {
+          title: "Expensive Lessons",
+          description: "Homeownership is teaching you the hard way. The good news: these lessons apply for the next 30 years of mortgage payments and beyond.",
+          score: "poor",
+        },
+      },
+    },
+
+    // ===== LESSON 14: Negotiating the Home Price (Conversation) =====
+    {
+      id: "pf-u9-L14",
+      title: "Negotiating the Home Price",
+      description: "Navigate a real estate negotiation with your agent in this interactive conversation.",
+      icon: "💬",
+      type: "conversation",
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: "pf-u9-L14-C1",
+      conversationNodes: [
+        {
+          id: "pf-u9-L14-C1",
+          speaker: "Narrator",
+          message: "You found a house listed at $340,000. It's been on the market for 45 days — longer than average for this area. The inspection found minor issues: outdated electrical panel ($3,000) and a cracked driveway ($2,000). Your agent is coaching you through the counter-offer.",
+          nextNodeId: "pf-u9-L14-C2",
+        },
+        {
+          id: "pf-u9-L14-C2",
+          speaker: "Agent",
+          message: "The house has been sitting for 45 days. That gives us leverage. The seller is probably getting nervous. What's your opening offer strategy?",
+          options: [
+            {
+              text: "Let's offer $320,000 — about 6% below asking — citing the inspection issues and days on market as justification.",
+              nextNodeId: "pf-u9-L14-C3",
+              quality: "great",
+              feedback: "Smart strategy! A 6% reduction on a stale listing is reasonable, and tying it to specific inspection findings makes it logical, not insulting.",
+            },
+            {
+              text: "Let's offer $330,000 — 3% below asking. I don't want to offend them.",
+              nextNodeId: "pf-u9-L14-C3",
+              quality: "okay",
+              feedback: "A safe play, but you left negotiating room on the table. After 45 days, the seller expects lower offers. Being too gentle costs you money.",
+            },
+            {
+              text: "Offer $280,000 — lowball them and see what happens.",
+              nextNodeId: "pf-u9-L14-C3",
+              quality: "poor",
+              feedback: "A 17% lowball on a fairly priced home insults the seller and may kill negotiations entirely. They might not even counter-offer.",
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L14-C3",
+          speaker: "Agent",
+          message: "Good thinking. I'll present the offer with the inspection report. Let's give them 48 hours to respond.",
+          nextNodeId: "pf-u9-L14-C4",
+        },
+        {
+          id: "pf-u9-L14-C4",
+          speaker: "Seller's Agent",
+          message: "My clients appreciate the offer but counter at $335,000. They're willing to credit $1,500 for the electrical panel but won't budge on the driveway.",
+          options: [
+            {
+              text: "Counter at $325,000 with the full $3,000 electrical credit. Meet in the middle on price but hold firm on the safety issue.",
+              nextNodeId: "pf-u9-L14-C5",
+              quality: "great",
+              feedback: "Excellent! You're splitting the difference on price while using the electrical panel as a safety concern — which is harder for the seller to dismiss. This shows you're serious but fair.",
+            },
+            {
+              text: "Accept the $335,000 with the $1,500 credit.",
+              nextNodeId: "pf-u9-L14-C5",
+              quality: "okay",
+              feedback: "You just left $10,000-15,000 on the table. After 45 days on market, there's almost always more room to negotiate. The first counter is rarely the seller's best price.",
+            },
+            {
+              text: "Stick at $320,000 — take it or leave it.",
+              nextNodeId: "pf-u9-L14-C5",
+              quality: "poor",
+              feedback: "Ultimatums kill deals. Negotiation is a conversation. Being inflexible when the seller is showing willingness to negotiate is a missed opportunity.",
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L14-C5",
+          speaker: "Seller's Agent",
+          message: "We'll meet you at $328,000 with a $2,500 credit for the electrical work. That's our best offer.",
+          nextNodeId: "pf-u9-L14-C6",
+        },
+        {
+          id: "pf-u9-L14-C6",
+          speaker: "Agent",
+          message: "That's a solid deal — $12,000 below asking plus a $2,500 credit. That's $14,500 in total savings. But we can try one more thing.",
+          options: [
+            {
+              text: "Accept the price, but ask the seller to cover closing costs up to $5,000. It's a common request that many sellers agree to.",
+              nextNodeId: "pf-u9-L14-C7",
+              quality: "great",
+              feedback: "Brilliant final move! Asking for closing cost assistance is standard practice. It keeps the sale price where the seller wants it while saving you cash at the closing table.",
+            },
+            {
+              text: "Accept as-is. This is a great deal and I don't want to push too far.",
+              nextNodeId: "pf-u9-L14-C7",
+              quality: "okay",
+              feedback: "It IS a great deal! But asking for closing cost help is standard — most sellers expect it. You could have saved another $3,000-5,000 simply by asking.",
+            },
+            {
+              text: "Push for $325,000 — squeeze them harder.",
+              nextNodeId: "pf-u9-L14-C7",
+              quality: "poor",
+              feedback: "You're pushing past the seller's stated best offer on price. This risks blowing up the deal entirely. The smart play now is to negotiate on terms, not price.",
+            },
+          ],
+        },
+        {
+          id: "pf-u9-L14-C7",
+          speaker: "Seller's Agent",
+          message: "The sellers will contribute $3,000 toward closing costs. We have a deal at $328,000 with $2,500 electrical credit and $3,000 closing cost assistance.",
+          nextNodeId: "pf-u9-L14-C8",
+        },
+        {
+          id: "pf-u9-L14-C8",
+          speaker: "Agent",
+          message: "Congratulations! Let's break down what you just achieved.",
+          nextNodeId: "pf-u9-L14-C9",
+        },
+        {
+          id: "pf-u9-L14-C9",
+          speaker: "Narrator",
+          message: "Your Negotiation Results:\n\n- Listed price: $340,000\n- Your purchase price: $328,000 (saved $12,000)\n- Electrical credit: $2,500\n- Closing cost assistance: $3,000\n- Total savings: $17,500\n\nKey lessons:\n1. Days on market = leverage. Stale listings mean motivated sellers.\n2. Inspection findings are negotiation tools, not deal-breakers.\n3. Counter-offers are conversations — stay calm, stay flexible.\n4. Ask for closing cost help — it's standard and often granted.\n5. The best negotiations leave both sides feeling fair.",
+        },
+      ],
+    },
   ],
 };

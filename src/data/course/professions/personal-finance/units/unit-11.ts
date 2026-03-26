@@ -1275,5 +1275,221 @@ export const unit11: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 11: Shopping for Health Insurance (Conversation) =====
+    {
+      id: "pf-u11-L11",
+      title: "Shopping for Health Insurance",
+      description: "Navigate open enrollment with your HR rep in this interactive conversation.",
+      icon: "💬",
+      type: "conversation",
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: "pf-u11-L11-C1",
+      conversationNodes: [
+        {
+          id: "pf-u11-L11-C1",
+          speaker: "Narrator",
+          message: "It's open enrollment season at your new job. Your HR representative, Dana, is walking you through the health insurance options. You have 3 plans to choose from and 2 weeks to decide. Let's make this count.",
+          nextNodeId: "pf-u11-L11-C2",
+        },
+        {
+          id: "pf-u11-L11-C2",
+          speaker: "Dana",
+          message: "We offer three plans: Plan A is an HMO at $150/month with a $500 deductible but you must use in-network doctors and need referrals for specialists. Plan B is a PPO at $280/month with a $1,000 deductible — you can see any doctor. Plan C is an HDHP at $90/month with a $3,000 deductible but comes with an HSA. Which interests you?",
+          options: [
+            {
+              text: "Before I choose, can you tell me: do my current doctors accept these plans? And what's the out-of-pocket maximum for each?",
+              nextNodeId: "pf-u11-L11-C3",
+              quality: "great",
+              feedback: "Perfect first questions! Doctor network and out-of-pocket maximum are the two things that matter most — way more than the monthly premium alone.",
+            },
+            {
+              text: "Plan B — I want the freedom to see any doctor.",
+              nextNodeId: "pf-u11-L11-C3",
+              quality: "okay",
+              feedback: "PPO flexibility is nice, but at $280/month ($3,360/year), you're paying a big premium for that freedom. Make sure you actually need it.",
+            },
+            {
+              text: "Plan C — it's the cheapest monthly cost.",
+              nextNodeId: "pf-u11-L11-C3",
+              quality: "poor",
+              feedback: "The cheapest premium often costs MORE in total. A $3,000 deductible means you pay $3,000 before insurance covers anything. Monthly premium is just one piece of the puzzle.",
+            },
+          ],
+        },
+        {
+          id: "pf-u11-L11-C3",
+          speaker: "Dana",
+          message: "Great question! Here are the details:\n\nPlan A (HMO): Out-of-pocket max $4,000. Large network but requires referrals.\nPlan B (PPO): Out-of-pocket max $6,000. See any doctor.\nPlan C (HDHP): Out-of-pocket max $5,000. HSA eligible — you and the company contribute pre-tax dollars.",
+          nextNodeId: "pf-u11-L11-C4",
+        },
+        {
+          id: "pf-u11-L11-C4",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "Tell me more about the HSA with Plan C. The money rolls over year to year and I can invest it, right? What does the company contribute?",
+              nextNodeId: "pf-u11-L11-C5",
+              quality: "great",
+              feedback: "You understand the HSA's secret power: it's a triple tax-advantaged account. Tax-free contributions, tax-free growth, and tax-free withdrawals for medical expenses. It's the most tax-efficient account in the US.",
+            },
+            {
+              text: "What's an HSA exactly? Is it like a regular savings account?",
+              nextNodeId: "pf-u11-L11-C5",
+              quality: "okay",
+              feedback: "Good that you asked! An HSA is much better than a regular savings account — contributions are pre-tax, growth is tax-free, and withdrawals for medical expenses are tax-free.",
+            },
+            {
+              text: "I don't want to deal with an HSA — too complicated.",
+              nextNodeId: "pf-u11-L11-C5",
+              quality: "poor",
+              feedback: "HSAs aren't complicated — they're a savings account with a debit card. But they offer triple tax advantages that no other account type in the US can match.",
+            },
+          ],
+        },
+        {
+          id: "pf-u11-L11-C5",
+          speaker: "Dana",
+          message: "The company contributes $750/year to your HSA with Plan C. You can add up to $3,350 more. The money is yours forever — it rolls over every year and you can invest it once the balance hits $1,000. After age 65, you can withdraw for anything penalty-free.",
+          nextNodeId: "pf-u11-L11-C6",
+        },
+        {
+          id: "pf-u11-L11-C6",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "Let me do the math. Plan C total cost: $90 × 12 = $1,080 premium, minus $750 company HSA = effectively $330/year. Even if I hit the deductible, my total max cost is $1,080 + $3,000 - $750 = $3,330. Plan B would cost $3,360 in premiums alone. Plan C is the better deal if I'm generally healthy.",
+              nextNodeId: "pf-u11-L11-C7",
+              quality: "great",
+              feedback: "This is exactly the analysis to do! Comparing total cost (premium + potential deductible - employer HSA contribution) gives the true picture. For healthy people, HDHPs with HSAs almost always win.",
+            },
+            {
+              text: "Plan C sounds good since I'm young and healthy. I'll go with that.",
+              nextNodeId: "pf-u11-L11-C7",
+              quality: "okay",
+              feedback: "Right instinct! Young, healthy people generally benefit most from HDHPs. But make sure you have savings to cover the $3,000 deductible in case of emergency.",
+            },
+            {
+              text: "Plan A is safest — I just want to be covered no matter what.",
+              nextNodeId: "pf-u11-L11-C7",
+              quality: "poor",
+              feedback: "Plan A is the 'safest' premium-wise, but at $1,800/year plus the $500 deductible, you're paying more for peace of mind you may not need. If you rarely see doctors, you're overpaying.",
+            },
+          ],
+        },
+        {
+          id: "pf-u11-L11-C7",
+          speaker: "Dana",
+          message: "Great choice! One more thing — since you chose the HDHP, I'd recommend contributing enough to your HSA to at least cover the deductible. And don't forget: you can use HSA funds for dental, vision, prescriptions, and even some over-the-counter items.",
+          nextNodeId: "pf-u11-L11-C8",
+        },
+        {
+          id: "pf-u11-L11-C8",
+          speaker: "You",
+          message: "Can I also use the HSA for my spouse or dependents?",
+          nextNodeId: "pf-u11-L11-C9",
+        },
+        {
+          id: "pf-u11-L11-C9",
+          speaker: "Narrator",
+          message: "Key takeaways from your insurance shopping:\n\n1. Never choose based on premium alone — compare total cost (premium + deductible + out-of-pocket max)\n2. Check if your doctors are in-network before choosing\n3. HSAs are the most tax-advantaged account in the US (triple tax benefit)\n4. Healthy, young people usually benefit from HDHPs + HSAs\n5. Your employer's HSA contribution is free money — always factor it in\n6. HSA funds roll over forever and can be invested for retirement\n\nThe right plan depends on YOUR health, doctors, and financial situation — not which one 'looks' cheapest.",
+        },
+      ],
+    },
+
+    // ===== LESSON 12: Insurance Terms Speed Drill (Speed Round) =====
+    {
+      id: "pf-u11-L12",
+      title: "Insurance Terms Speed Drill",
+      description: "Race the clock on insurance terminology and coverage types.",
+      icon: "⚡",
+      type: "speed-round",
+      xpReward: 20,
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        {
+          id: "pf-u11-L12-SQ1",
+          question: "A premium is:",
+          options: ["What you pay before insurance kicks in", "Your monthly insurance payment", "The max you'll ever pay", "A copay at the doctor"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ2",
+          question: "A deductible is:",
+          options: ["Your monthly payment", "What you pay before insurance covers costs", "The doctor's fee", "Your prescription cost"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ3",
+          question: "A copay is a:",
+          options: ["Monthly premium", "Fixed amount you pay per visit", "Annual deductible", "Penalty fee"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ4",
+          question: "Out-of-pocket maximum means:",
+          options: ["The most you'll pay for premiums", "The most you'll spend before insurance covers 100%", "Your deductible limit", "The max the insurer pays"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ5",
+          question: "HMO plans require:",
+          options: ["No network restrictions", "Referrals to see specialists", "Higher premiums", "No deductibles"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ6",
+          question: "PPO plans offer:",
+          options: ["Lowest premiums", "More flexibility to see any doctor", "No copays", "Free prescriptions"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ7",
+          question: "HSA stands for:",
+          options: ["Health Savings Account", "Health Security Administration", "Hospital Service Agreement", "High Standard Allowance"],
+          correctIndex: 0,
+        },
+        {
+          id: "pf-u11-L12-SQ8",
+          question: "Term life insurance covers you for:",
+          options: ["Your whole life", "A specific number of years", "Only accidents", "Only work-related injuries"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ9",
+          question: "Which insurance is required by law in most states?",
+          options: ["Life insurance", "Health insurance", "Auto insurance", "Renter's insurance"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u11-L12-SQ10",
+          question: "Liability insurance covers:",
+          options: ["Your own injuries", "Damage you cause to others", "Your car repairs", "Your lost wages"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ11",
+          question: "A 'rider' in insurance is:",
+          options: ["A penalty clause", "An add-on for extra coverage", "A cancellation notice", "A premium increase"],
+          correctIndex: 1,
+        },
+        {
+          id: "pf-u11-L12-SQ12",
+          question: "Renter's insurance typically costs:",
+          options: ["$500-1,000/month", "$100-300/month", "$15-30/month", "$1-5/month"],
+          correctIndex: 2,
+        },
+        {
+          id: "pf-u11-L12-SQ13",
+          question: "Comprehensive auto insurance covers:",
+          options: ["Only collisions", "Theft, weather, and non-collision damage", "Only liability", "Medical payments only"],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 };

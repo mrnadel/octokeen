@@ -1408,5 +1408,297 @@ export const unit6: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 13: Meeting Your Financial Advisor (Conversation) =====
+    {
+      id: "pf-u6-L13",
+      title: "Meeting Your Financial Advisor",
+      description: "Navigate a first meeting with a financial advisor — and spot the red flags.",
+      icon: "💬",
+      type: "conversation",
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: "pf-u6-L13-C1",
+      conversationNodes: [
+        {
+          id: "pf-u6-L13-C1",
+          speaker: "Narrator",
+          message: "You've saved $15,000 and decided to meet with a financial advisor for the first time. You found one through a friend's recommendation. You're sitting in their office...",
+          nextNodeId: "pf-u6-L13-C2",
+        },
+        {
+          id: "pf-u6-L13-C2",
+          speaker: "Advisor",
+          message: "Welcome! I'm glad you're taking this step. Before we start, tell me about your financial goals.",
+          options: [
+            {
+              text: "I want to start investing for long-term growth. I have $15K saved, a stable job, and no high-interest debt. I'm comfortable with moderate risk.",
+              nextNodeId: "pf-u6-L13-C3",
+              quality: "great",
+              feedback: "Excellent! Being specific about your situation, goals, and risk tolerance helps the advisor give you real advice, not generic pitches.",
+            },
+            {
+              text: "I just want to make more money with my savings.",
+              nextNodeId: "pf-u6-L13-C3",
+              quality: "okay",
+              feedback: "A natural goal, but vague. The more specific you are about timeline and risk, the better advice you'll get.",
+            },
+            {
+              text: "I don't know, you're the expert — just tell me what to do.",
+              nextNodeId: "pf-u6-L13-C3",
+              quality: "poor",
+              feedback: "Abdicating decisions to an advisor is dangerous. They should educate and guide, not control. You need to understand what you're investing in.",
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L13-C3",
+          speaker: "Advisor",
+          message: "Great. I think we should put your money into our Premium Growth Fund. It's our most popular product with great historical returns of 12% annually.",
+          nextNodeId: "pf-u6-L13-C4",
+        },
+        {
+          id: "pf-u6-L13-C4",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "What are the fees on that fund? And is that 12% before or after fees?",
+              nextNodeId: "pf-u6-L13-C5",
+              quality: "great",
+              feedback: "Perfect question! High fees destroy returns over time. A fund returning 12% with 2% fees actually nets you 10% — and that difference compounds to tens of thousands over decades.",
+            },
+            {
+              text: "12% sounds great! How do I sign up?",
+              nextNodeId: "pf-u6-L13-C5",
+              quality: "okay",
+              feedback: "Past performance doesn't guarantee future results. And you didn't ask about fees — the #1 thing that determines your actual returns.",
+            },
+            {
+              text: "Can we aim for something with 20%+ returns? I want aggressive growth.",
+              nextNodeId: "pf-u6-L13-C5",
+              quality: "poor",
+              feedback: "Chasing unrealistic returns is how people lose money. Any advisor promising 20%+ should be a red flag.",
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L13-C5",
+          speaker: "Advisor",
+          message: "The management fee is 1.8% annually, plus a 5% front-end load — that means 5% of your investment goes to fees upfront. But our performance more than makes up for it.",
+          nextNodeId: "pf-u6-L13-C6",
+        },
+        {
+          id: "pf-u6-L13-C6",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "A 5% front load means $750 of my $15K goes to fees on day one. And 1.8% annually is very high. Can you show me comparable index funds with lower fees?",
+              nextNodeId: "pf-u6-L13-C7",
+              quality: "great",
+              feedback: "Exactly right! That's $750 gone immediately. An S&P 500 index fund charges 0.03-0.10% with no load. Over 30 years, the fee difference could cost you $100,000+.",
+            },
+            {
+              text: "That seems like a lot of fees. Are there cheaper options?",
+              nextNodeId: "pf-u6-L13-C7",
+              quality: "okay",
+              feedback: "Good instinct to push back! You recognized the fees are high. Always compare to index fund benchmarks.",
+            },
+            {
+              text: "OK, if the returns are good, the fees are worth it.",
+              nextNodeId: "pf-u6-L13-C7",
+              quality: "poor",
+              feedback: "This is how the investment industry makes billions. Over 80% of actively managed funds underperform cheap index funds after fees.",
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L13-C7",
+          speaker: "Advisor",
+          message: "Well... I do have access to some lower-cost index fund options. A total market index fund at 0.05% annual fee with no load. But I'd recommend our active fund for better results.",
+          nextNodeId: "pf-u6-L13-C8",
+        },
+        {
+          id: "pf-u6-L13-C8",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "Let's go with the index fund. I'd also like to know — are you a fiduciary? Are you legally required to act in my best interest?",
+              nextNodeId: "pf-u6-L13-C9",
+              quality: "great",
+              feedback: "The fiduciary question is the MOST important question you can ask. Fiduciary advisors must put your interest first. Non-fiduciary advisors can legally recommend products that pay them higher commissions.",
+            },
+            {
+              text: "The index fund sounds better. Let's go with that.",
+              nextNodeId: "pf-u6-L13-C9",
+              quality: "okay",
+              feedback: "Great choice on the fund! But you missed asking about fiduciary duty — whether this advisor is legally required to act in YOUR best interest or can prioritize their commissions.",
+            },
+            {
+              text: "Actually, let's do half in each — the active fund and the index fund.",
+              nextNodeId: "pf-u6-L13-C9",
+              quality: "poor",
+              feedback: "Splitting the difference isn't compromise — it's paying high fees on half your money for likely worse performance. Data shows index funds win long-term.",
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L13-C9",
+          speaker: "Narrator",
+          message: "Key takeaways from your advisor meeting:\n\n1. Always ask about fees FIRST — they matter more than past performance\n2. Compare any recommendation to a simple index fund benchmark\n3. Ask if your advisor is a fiduciary (legally bound to your interests)\n4. Be specific about your goals, timeline, and risk tolerance\n5. Never invest in something you don't understand\n\nA good advisor educates you. A bad one just sells you products.",
+        },
+      ],
+    },
+
+    // ===== LESSON 14: Your First Year of Investing (Timeline) =====
+    {
+      id: "pf-u6-L14",
+      title: "Your First Year of Investing",
+      description: "Navigate a full year of investing decisions in this interactive timeline.",
+      icon: "🔀",
+      type: "timeline",
+      xpReward: 20,
+      questions: [],
+      timelineStartStageId: "pf-u6-L14-TS1",
+      timelineStages: [
+        {
+          id: "pf-u6-L14-TS1",
+          narrative: "January — You've decided to invest $5,000. You open a brokerage account and are staring at the 'Buy' button. How do you invest?",
+          emoji: "🎬",
+          choices: [
+            {
+              text: "Put all $5K into a total market index fund right now",
+              nextStageId: "pf-u6-L14-TS2",
+              impact: "Lump sum investing beats dollar-cost averaging about 67% of the time. Statistically sound, but emotionally tough if the market dips tomorrow.",
+              optimal: false,
+            },
+            {
+              text: "Split it into $1,000/month over 5 months (dollar-cost average)",
+              nextStageId: "pf-u6-L14-TS2",
+              impact: "DCA reduces the risk of bad timing and builds the investing habit. You'll buy some shares cheap and some expensive — averaging out the cost.",
+              optimal: true,
+            },
+            {
+              text: "Wait for a market dip to get a better price",
+              nextStageId: "pf-u6-L14-TS2",
+              impact: "Timing the market is nearly impossible. Studies show that 'time in the market' beats 'timing the market' almost every time. While you wait, you earn nothing.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L14-TS2",
+          narrative: "March — The market drops 8% in one week. Your $2,000 invested is now worth $1,840. Your stomach sinks. What do you do?",
+          emoji: "📉",
+          choices: [
+            {
+              text: "Stay the course — keep investing your $1,000/month as planned",
+              nextStageId: "pf-u6-L14-TS3",
+              impact: "This is exactly right! Market dips mean you're buying shares ON SALE. Your $1,000 this month buys more shares than last month. This is DCA working for you.",
+              optimal: true,
+            },
+            {
+              text: "Pause investing until things stabilize",
+              nextStageId: "pf-u6-L14-TS3",
+              impact: "Natural instinct, but harmful. You're missing the chance to buy low. The market has recovered from every downturn in history.",
+              optimal: false,
+            },
+            {
+              text: "Sell everything — cut your losses!",
+              nextStageId: "pf-u6-L14-TS3",
+              impact: "Selling low is the #1 way investors destroy wealth. You just locked in a $160 loss that would have recovered in weeks.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L14-TS3",
+          narrative: "May — A coworker brags about making 40% on a hot tech stock. They say you should go all-in. What do you do?",
+          emoji: "🔥",
+          choices: [
+            {
+              text: "Stick with your diversified index fund plan",
+              nextStageId: "pf-u6-L14-TS4",
+              impact: "Smart! Individual stock tips are gambling, not investing. For every person who made 40%, many more lost 40% on the same kind of 'sure thing.'",
+              optimal: true,
+            },
+            {
+              text: "Put $500 in the hot stock — just a small bet",
+              nextStageId: "pf-u6-L14-TS4",
+              impact: "FOMO investing is a slippery slope. Even 'just a little' conditions you to chase trends instead of following a plan.",
+              optimal: false,
+            },
+            {
+              text: "Move everything to that stock — YOLO!",
+              nextStageId: "pf-u6-L14-TS4",
+              impact: "Concentrating all your money in one stock is speculation, not investing. If that stock drops 50%, your whole portfolio drops 50%.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L14-TS4",
+          narrative: "August — The market has recovered and your portfolio is up 11% from your average cost. You read an article saying a recession is coming. What do you do?",
+          emoji: "📰",
+          choices: [
+            {
+              text: "Ignore the noise and keep your monthly investment going",
+              nextStageId: "pf-u6-L14-TS5",
+              impact: "Perfect! Market predictions are wrong more often than right. The financial media makes money from fear. Your long-term plan doesn't change based on headlines.",
+              optimal: true,
+            },
+            {
+              text: "Move to bonds until the recession is over",
+              nextStageId: "pf-u6-L14-TS5",
+              impact: "If the recession doesn't materialize (they often don't), you'll miss the gains. And you'll likely be slow to get back in, missing the recovery too.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L14-TS5",
+          narrative: "November — Your portfolio is now worth $5,800 (you've invested $5,000 total). A friend asks you to invest in their startup instead. $2,000 minimum.",
+          emoji: "🚀",
+          choices: [
+            {
+              text: "Politely decline — you're sticking to your index fund strategy",
+              nextStageId: "pf-u6-L14-TS6",
+              impact: "Smart boundaries! Startup investments are extremely risky (90% fail) and illiquid. Your friendship is worth more than a risky bet.",
+              optimal: true,
+            },
+            {
+              text: "Invest $2,000 — gotta support friends and maybe get rich!",
+              nextStageId: "pf-u6-L14-TS6",
+              impact: "Mixing friendship and money is risky. Startup investing should only be money you can 100% afford to lose. Don't derail your core strategy for a long shot.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u6-L14-TS6",
+          narrative: "December — Year in review time!",
+          emoji: "🎉",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Disciplined Investor",
+          description: "You stayed the course through dips, ignored hot tips, and let compound interest work. This is how real wealth is built.",
+          score: "great",
+        },
+        "3-5": {
+          title: "Learning Investor",
+          description: "You made some emotional moves, but mostly stayed on track. Recognizing those moments is how you improve.",
+          score: "good",
+        },
+        "1-5": {
+          title: "Emotion-Driven Investor",
+          description: "Fear and FOMO drove most of your decisions. The good news: recognizing these patterns now saves you decades of mistakes.",
+          score: "poor",
+        },
+      },
+    },
   ],
 };

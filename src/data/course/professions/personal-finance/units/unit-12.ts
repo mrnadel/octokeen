@@ -1414,5 +1414,229 @@ export const unit12: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 12: The 10-Year Wealth Builder (Timeline) =====
+    {
+      id: "pf-u12-L12",
+      title: "The 10-Year Wealth Builder",
+      description: "Navigate a decade of wealth-building decisions in this interactive timeline.",
+      icon: "🔀",
+      type: "timeline",
+      xpReward: 20,
+      questions: [],
+      timelineStartStageId: "pf-u12-L12-TS1",
+      timelineStages: [
+        {
+          id: "pf-u12-L12-TS1",
+          narrative: "Year 1 — You're 25, earning $55K. After expenses, you have $800/month to allocate. No debt. How do you start building wealth?",
+          emoji: "🌱",
+          choices: [
+            {
+              text: "Split: $400 to index fund investing, $200 to emergency fund, $200 to skill development",
+              nextStageId: "pf-u12-L12-TS2",
+              impact: "Diversified approach! You're building financial security, growing wealth, AND investing in yourself. Skill development increases your earning power.",
+              optimal: true,
+            },
+            {
+              text: "Put all $800 into index funds — maximize compound growth",
+              nextStageId: "pf-u12-L12-TS2",
+              impact: "Growth-focused, but no emergency fund means one surprise expense could force you to sell investments at a loss.",
+              optimal: false,
+            },
+            {
+              text: "Save all $800 in a high-yield savings account — play it safe",
+              nextStageId: "pf-u12-L12-TS2",
+              impact: "Safe, but inflation erodes cash savings over time. At 3% inflation, $800 today is worth $725 in 10 years. You need your money working harder.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u12-L12-TS2",
+          narrative: "Year 3 — Your skill investment paid off: you get a $15K raise (now $70K). Lifestyle inflation is tempting. New apartment? New car?",
+          emoji: "📈",
+          choices: [
+            {
+              text: "Keep your current lifestyle and invest the entire raise — that's $900 more per month",
+              nextStageId: "pf-u12-L12-TS3",
+              impact: "This is the wealth-building cheat code! By avoiding lifestyle inflation, you just nearly doubled your monthly investing. Most people upgrade their lifestyle with every raise and never build wealth.",
+              optimal: true,
+            },
+            {
+              text: "Upgrade your apartment (+$400/month) and invest the remaining $500",
+              nextStageId: "pf-u12-L12-TS3",
+              impact: "A partial upgrade is common, but that $400/month invested instead would be worth ~$80K in 10 years. Comfort has a massive hidden price tag.",
+              optimal: false,
+            },
+            {
+              text: "You deserve to enjoy the raise — upgrade everything!",
+              nextStageId: "pf-u12-L12-TS3",
+              impact: "Lifestyle inflation is the #1 wealth killer. People who earn $200K can be just as broke as people earning $40K if they spend every raise.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u12-L12-TS3",
+          narrative: "Year 5 — Halfway point. You have $95K invested, a solid emergency fund, and a side project idea. A friend offers to partner on a small online business. Startup cost: $5,000 each.",
+          emoji: "💡",
+          choices: [
+            {
+              text: "Invest $5K from savings (NOT your emergency fund or investment accounts) into the business",
+              nextStageId: "pf-u12-L12-TS4",
+              impact: "Smart boundaries! Using disposable savings keeps your financial foundation intact while giving you exposure to potentially higher returns. Multiple income streams = faster wealth building.",
+              optimal: true,
+            },
+            {
+              text: "Pass — too risky. Just keep investing in index funds",
+              nextStageId: "pf-u12-L12-TS4",
+              impact: "Conservative and safe, but you missed a chance to build an additional income stream. The wealthiest people almost always have multiple sources of income.",
+              optimal: false,
+            },
+            {
+              text: "Go all-in — pull $20K from investments for a bigger stake",
+              nextStageId: "pf-u12-L12-TS4",
+              impact: "Pulling from investments disrupts compound growth AND concentrates risk. Never bet your financial foundation on any single venture.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u12-L12-TS4",
+          narrative: "Year 7 — Your side business now generates $2,000/month. Your investments have grown to $180K. You have a decision: scale the business or stay the course?",
+          emoji: "🚀",
+          choices: [
+            {
+              text: "Reinvest half of business profits back into the business, invest the other half",
+              nextStageId: "pf-u12-L12-TS5",
+              impact: "Balanced growth! You're fueling the business while also building your investment portfolio. Two wealth engines running simultaneously.",
+              optimal: true,
+            },
+            {
+              text: "Pour everything into the business — it's growing faster than the stock market",
+              nextStageId: "pf-u12-L12-TS5",
+              impact: "Concentration risk! If the business hits trouble, you've neglected your safety net. Diversification protects wealth.",
+              optimal: false,
+            },
+            {
+              text: "Shut down the business and focus purely on investing — it's simpler",
+              nextStageId: "pf-u12-L12-TS5",
+              impact: "Giving up $2,000/month in business income to simplify is a $24K/year decision. The hassle of running the business IS the wealth-building.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u12-L12-TS5",
+          narrative: "Year 9 — Market crash! Your investments drop 30% (from $280K to $196K). Meanwhile, your business revenue drops 20%. How do you react?",
+          emoji: "📉",
+          choices: [
+            {
+              text: "Stay the course on investments (buy MORE if possible), tighten business costs, and maintain your cash reserve",
+              nextStageId: "pf-u12-L12-TS6",
+              impact: "This is how wealthy people behave in downturns — they buy assets at a discount while others panic sell. Your business cost-cutting preserves cash flow. This is antifragility.",
+              optimal: true,
+            },
+            {
+              text: "Sell investments to protect what's left and focus on the business",
+              nextStageId: "pf-u12-L12-TS6",
+              impact: "Selling during a crash locks in losses. Every major crash in history has recovered — usually within 1-3 years. You just turned a temporary paper loss into a permanent real loss.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u12-L12-TS6",
+          narrative: "Year 10 — Decade review time!",
+          emoji: "🎉",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Wealth Builder Elite",
+          description: "You avoided lifestyle inflation, built multiple income streams, and stayed disciplined through a crash. Your net worth has grown far beyond what a single paycheck could achieve.",
+          score: "great",
+        },
+        "3-5": {
+          title: "Solid Foundation",
+          description: "You made mostly smart decisions and have real wealth to show for it. A few tweaks to your strategy could accelerate growth significantly.",
+          score: "good",
+        },
+        "1-5": {
+          title: "Missed Opportunities",
+          description: "Lifestyle inflation and emotional decisions held you back. The good news: you have the knowledge now to make the next decade dramatically different.",
+          score: "poor",
+        },
+      },
+    },
+
+    // ===== LESSON 13: The Salary Negotiation Breakdown (Case Study) =====
+    {
+      id: "pf-u12-L13",
+      title: "The Salary Negotiation Breakdown",
+      description: "Analyze a real salary negotiation and learn what makes it work.",
+      icon: "📋",
+      type: "case-study",
+      xpReward: 20,
+      questions: [],
+      caseStudyTitle: "The Salary Negotiation Breakdown",
+      caseStudySections: [
+        {
+          id: "pf-u12-L13-CS1",
+          content: "Meet Priya — a 28-year-old marketing manager at a mid-size tech company. She's been there 2 years, consistently exceeds targets, and just received an offer from a competitor: $95,000 + 15% bonus. Her current salary: $78,000 + 10% bonus.\n\nPriya likes her current company but feels underpaid. She decides to negotiate rather than just accept the outside offer or quietly leave.\n\nHer research shows the market range for her role is $85,000–$105,000 in her city.",
+          checkpoint: {
+            id: "pf-u12-L13-CP1",
+            type: "slider-estimate",
+            question: "How far below the market midpoint ($95K) is Priya's current salary?",
+            sliderMin: 0,
+            sliderMax: 30,
+            correctValue: 18,
+            tolerance: 15,
+            unit: "%",
+            explanation: "($95,000 - $78,000) / $95,000 = 17.9%. Priya is nearly 18% below the midpoint — a significant gap that justifies negotiation.",
+          },
+        },
+        {
+          id: "pf-u12-L13-CS2",
+          content: "**Priya's Preparation**\n\nBefore the meeting, Priya builds her case:\n\n**Quantified achievements:**\n- Led a campaign that generated $1.2M in new revenue\n- Reduced customer acquisition cost by 23%\n- Managed a team of 4 with zero turnover\n- Completed a major certification (Google Analytics Advanced)\n\n**Market data:**\n- Glassdoor, LinkedIn, and Levels.fyi all show $85K-$105K range\n- She has a written offer for $95K + 15% bonus\n- Industry is competitive — her company has been struggling to hire\n\n**Her target:** $98,000 base + 15% bonus + a title bump to Senior Manager\n**Her walk-away number:** $90,000 base + 12% bonus (if below this, she takes the outside offer)",
+          checkpoint: {
+            id: "pf-u12-L13-CP2",
+            type: "multiple-choice",
+            question: "Why is it important to set a 'walk-away number' before negotiating?",
+            options: ["To bluff the employer into paying more", "To prevent emotions from making you accept a bad deal", "Because HR always asks for one", "To make the negotiation go faster"],
+            correctIndex: 1,
+            explanation: "A walk-away number is your predetermined minimum. Without it, you'll rationalize accepting less in the heat of the moment. It removes emotion from the decision.",
+          },
+        },
+        {
+          id: "pf-u12-L13-CS3",
+          content: "**The Negotiation**\n\nPriya schedules a meeting with her manager, Lee.\n\n**Priya:** 'I love working here and want to continue growing with the team. I'd like to discuss my compensation. Based on my contributions and market research, I believe an adjustment is warranted.'\n\n**Lee:** 'We value you too, Priya. What did you have in mind?'\n\n**Priya:** 'Based on the market range of $85K-$105K for this role, and given that I've driven $1.2M in revenue and reduced CAC by 23%, I'd like to discuss moving to $98K base with a 15% bonus structure and a Senior Manager title.'\n\n**Lee:** 'That's a significant jump. Budget is tight this quarter. The best I could probably do is $85K with your current bonus structure.'\n\n**Priya** (not panicking): 'I appreciate that budgets are tight. I should be transparent — I do have an external offer at $95K plus 15% bonus. I'd prefer to stay, but I need the compensation to reflect my market value and contributions.'",
+          checkpoint: {
+            id: "pf-u12-L13-CP3",
+            type: "true-false",
+            question: "Priya should have led with the external offer as her opening argument.",
+            correctAnswer: false,
+            explanation: "Leading with 'I have another offer, pay me more' comes across as a threat. Priya correctly led with her VALUE (achievements, market data) and only mentioned the offer as supporting evidence when the initial response was low.",
+          },
+        },
+        {
+          id: "pf-u12-L13-CS4",
+          content: "**The Counter-Offer Dance**\n\n**Lee** (after checking with leadership): 'We can offer $92K base, 12% bonus, and the Senior Manager title. We'll also add $5K in RSUs and a professional development budget.'\n\n**Priya's internal calculation:**\n- Base: $92K (vs. $78K current, $95K competitor)\n- Bonus: 12% = $11,040 (vs. $7,800 current, $14,250 competitor)\n- Total cash: $103,040 (vs. $85,800 current, $109,250 competitor)\n- Plus: RSUs, title bump, PD budget, known team, no transition risk\n\n**The decision framework:**\n- The offer is above her walk-away ($90K)\n- Total comp difference vs competitor: ~$6,200/year\n- But: she avoids transition risk, keeps her team, gets a title bump\n- Non-monetary value of staying: relationships, flexibility, growth path\n\n**Priya:** 'I'd like to accept at $93K base with the 12% bonus, title, and RSUs. That $1K bridges the gap and shows mutual investment.'\n\n**Lee:** 'Done. Welcome, Senior Manager.'",
+          checkpoint: {
+            id: "pf-u12-L13-CP4",
+            type: "scenario",
+            question: "Priya's final offer from her company ($93K + 12% bonus) is lower in total cash than the competitor ($95K + 15% bonus). Was staying the right call?",
+            scenario: "Current company: $93K + 12% ($104,160 total) + RSUs + title + known culture. Competitor: $95K + 15% ($109,250 total) + unknown culture + transition risk.",
+            options: ["No — always take the highest paying offer", "Yes — the $5K gap is offset by reduced risk, title, RSUs, and known culture", "No — she should have pushed harder or walked away", "Yes — but only because her manager was nice about it"],
+            correctIndex: 1,
+            explanation: "A ~$5K annual difference is easily offset by job stability, title progression, RSUs, and avoiding the risk of joining an unknown team. Total compensation includes non-monetary factors. Plus, the title bump positions her for a bigger jump next time.",
+          },
+        },
+        {
+          id: "pf-u12-L13-CS5",
+          content: "**Priya's Negotiation Scorecard**\n\n| Factor | Before | After | Change |\n|--------|--------|-------|--------|\n| Base salary | $78,000 | $93,000 | +$15,000 (19%) |\n| Bonus | 10% ($7,800) | 12% ($11,160) | +$3,360 |\n| Title | Marketing Manager | Senior Manager | Promotion |\n| RSUs | $0 | $5,000 | New benefit |\n| Total comp change | — | — | +$23,360/year |\n\n**What made this work:**\n\n1. **Preparation over improvisation.** Priya had data, achievements, and a number before the meeting.\n2. **Led with value, not threats.** She sold her contributions before mentioning the competing offer.\n3. **Named a specific number.** '$98K' anchors the negotiation higher than 'I want a raise.'\n4. **Had a walk-away number.** This prevented her from accepting the first lowball ($85K).\n5. **Negotiated the final dollar.** That last $1K counter showed confidence and yielded results.\n6. **Considered total compensation.** Title, RSUs, culture, and growth path matter as much as base salary.\n\n**Lifetime impact:** That $15K raise, compounded with future raises built on this higher base, is worth **$500K+** over her career.",
+        },
+      ],
+    },
   ],
 };

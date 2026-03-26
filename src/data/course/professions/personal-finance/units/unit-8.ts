@@ -1515,5 +1515,295 @@ export const unit8: Unit = {
         },
       ],
     },
+    // ===== LESSON 13: Conversation — Your Cousin's Crypto Pitch =====
+    {
+      id: "pf-u8-L13",
+      title: "Your Cousin's Crypto Pitch",
+      description: "Navigate a Thanksgiving conversation about crypto hype without losing your money — or your cool.",
+      icon: "💬",
+      type: "conversation",
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: "pf-u8-L13-C1",
+      conversationNodes: [
+        {
+          id: "pf-u8-L13-C1",
+          speaker: "Narrator",
+          message: "Thanksgiving dinner. Your cousin Marcus pulls you aside, phone in hand, eyes wide with excitement. 'I need to tell you about something that's going to be HUGE.' You know that look.",
+          nextNodeId: "pf-u8-L13-C2",
+        },
+        {
+          id: "pf-u8-L13-C2",
+          speaker: "Marcus",
+          message: "Dude, have you heard of MoonCoin? It's up 500% this month. My buddy put in $2,000 and already has $12,000. The whitepaper says it's going to revolutionize decentralized social media. I'm putting in $10K tonight.",
+          options: [
+            {
+              text: "500% in a month is a huge red flag. Can you explain what the technology actually does?",
+              nextNodeId: "pf-u8-L13-C3",
+              quality: "great",
+              feedback: "Asking for fundamentals is the best defense against hype. Most meme coins can't explain their technology because there isn't much there.",
+            },
+            {
+              text: "Interesting. I'll look into it later.",
+              nextNodeId: "pf-u8-L13-C3",
+              quality: "okay",
+              feedback: "Non-committal is better than jumping in, but you missed the chance to practice critical thinking in real-time.",
+            },
+            {
+              text: "500%?! How do I buy it?!",
+              nextNodeId: "pf-u8-L13-C3",
+              quality: "poor",
+              feedback: "FOMO is the #1 way people lose money in crypto. If something has already gone up 500%, you're likely buying near the top.",
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L13-C3",
+          speaker: "Marcus",
+          message: "The tech is... look, I don't understand all the details, but the community is MASSIVE. They have 200,000 followers on Twitter. The founder was on a podcast and says they're partnering with major companies soon. 'Partnerships pending.'",
+          nextNodeId: "pf-u8-L13-C4",
+        },
+        {
+          id: "pf-u8-L13-C4",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "Social media followers can be bought. 'Partnerships pending' means nothing — which companies specifically? And the founder being anonymous is a huge risk.",
+              nextNodeId: "pf-u8-L13-C5",
+              quality: "great",
+              feedback: "You just identified the three biggest crypto red flags: vanity metrics, vague partnership claims, and anonymous teams. Most rug pulls share these exact traits.",
+            },
+            {
+              text: "I'd want to see the actual whitepaper and team before investing anything.",
+              nextNodeId: "pf-u8-L13-C5",
+              quality: "okay",
+              feedback: "Due diligence is good! But many people say this and never actually do the research. Make it a hard rule.",
+            },
+            {
+              text: "200,000 followers! That many people can't be wrong.",
+              nextNodeId: "pf-u8-L13-C5",
+              quality: "poor",
+              feedback: "The crowd is often wrong — especially in crypto. Many followers are bots, and even real ones can be caught in mass delusion. FTX had millions of users.",
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L13-C5",
+          speaker: "Marcus",
+          message: "OK fine, but even if you don't buy MoonCoin — you should at LEAST put some money in Bitcoin. It's digital gold. It's going to $500K!",
+          nextNodeId: "pf-u8-L13-C6",
+        },
+        {
+          id: "pf-u8-L13-C6",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "Bitcoin is a more serious asset, but calling it 'digital gold' is still debatable. If I invest in crypto, it would be a small allocation — maybe 5% of my portfolio — that I can afford to lose completely.",
+              nextNodeId: "pf-u8-L13-C7",
+              quality: "great",
+              feedback: "This is the mature approach. Bitcoin has survived 15+ years and has real institutional adoption, but it's still volatile. The 5% rule prevents crypto from destroying your portfolio.",
+            },
+            {
+              text: "Maybe a little Bitcoin, but I'm not going all-in on anything.",
+              nextNodeId: "pf-u8-L13-C7",
+              quality: "okay",
+              feedback: "Cautious, which is good! Just make sure 'a little' is an amount you've actually calculated, not an impulse buy.",
+            },
+            {
+              text: "Yeah, I've been meaning to go all-in on Bitcoin. Let's set up my wallet tonight!",
+              nextNodeId: "pf-u8-L13-C7",
+              quality: "poor",
+              feedback: "Going 'all-in' on any single asset is speculation. Bitcoin has had multiple 50-80% crashes. If your entire portfolio drops 80%, will you be OK?",
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L13-C7",
+          speaker: "Marcus",
+          message: "You're overthinking this. My buddy's cousin made $2 million on Dogecoin. You just gotta get in early.",
+          nextNodeId: "pf-u8-L13-C8",
+        },
+        {
+          id: "pf-u8-L13-C8",
+          speaker: "You",
+          message: "",
+          options: [
+            {
+              text: "For every person who made millions, thousands lost everything. That's survivorship bias. I'd rather build wealth slowly and reliably than gamble on the next meme coin.",
+              nextNodeId: "pf-u8-L13-C9",
+              quality: "great",
+              feedback: "Survivorship bias is the most important concept in crypto investing. You never hear about the 99% who lost money — only the 1% who got rich. Social media amplifies winners and hides losers.",
+            },
+            {
+              text: "I hear you, but I'm going to do my own research first.",
+              nextNodeId: "pf-u8-L13-C9",
+              quality: "okay",
+              feedback: "Standing firm is good. Just make sure 'doing research' means reading actual financial analysis, not scrolling crypto Twitter.",
+            },
+            {
+              text: "You know what, you're right. Send me the link to buy MoonCoin.",
+              nextNodeId: "pf-u8-L13-C9",
+              quality: "poor",
+              feedback: "Social pressure is one of the strongest forces in bad financial decisions. Remember: Marcus isn't risking YOUR financial security — you are.",
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L13-C9",
+          speaker: "Narrator",
+          message: "Crypto Red Flag Checklist:\n\n- 'Up 500% this month' = You're probably buying the top\n- 'Partnerships pending' = No actual partnerships exist\n- Anonymous team = No accountability if they disappear\n- 'My buddy made $X' = Survivorship bias\n- 'You just gotta get in early' = That's what every pyramid scheme says\n- Huge social media following = Can be fake, means nothing about value\n\nCrypto CAN be part of a portfolio — but only with research, small allocations, and money you can afford to lose.",
+        },
+      ],
+    },
+    // ===== LESSON 14: Timeline — The Crypto Rollercoaster =====
+    {
+      id: "pf-u8-L14",
+      title: "The Crypto Rollercoaster",
+      description: "Navigate a year of Bitcoin investing — buying, crashing, scam temptations, and profit-taking.",
+      icon: "🔀",
+      type: "timeline",
+      xpReward: 20,
+      questions: [],
+      timelineStartStageId: "pf-u8-L14-TS1",
+      timelineStages: [
+        {
+          id: "pf-u8-L14-TS1",
+          narrative: "January — You decide to invest $3,000 in Bitcoin at $42,000 per BTC. Bitcoin is in the news everywhere. How do you buy?",
+          emoji: "🪙",
+          choices: [
+            {
+              text: "Buy on a major regulated exchange (Coinbase, Kraken) and keep it there for now",
+              nextStageId: "pf-u8-L14-TS2",
+              impact: "Regulated exchanges offer protection and insurance. Good starting point for beginners. You can move to self-custody later.",
+              optimal: true,
+            },
+            {
+              text: "Buy on a smaller exchange with lower fees",
+              nextStageId: "pf-u8-L14-TS2",
+              impact: "Lower fees are nice, but smaller exchanges carry higher risk of hacks or bankruptcy. Remember FTX? Security over savings.",
+              optimal: false,
+            },
+            {
+              text: "Buy through a friend who can get you a 'better deal'",
+              nextStageId: "pf-u8-L14-TS2",
+              impact: "Never buy crypto through third parties. This is how scams work. Always use regulated, reputable exchanges.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L14-TS2",
+          narrative: "March — Bitcoin crashes 35% to $27,000. Your $3,000 is now worth $1,928. Crypto Twitter is panicking. What do you do?",
+          emoji: "📉",
+          choices: [
+            {
+              text: "Hold. This is normal Bitcoin volatility — it's crashed 50%+ five times before and recovered every time",
+              nextStageId: "pf-u8-L14-TS3",
+              impact: "Correct! Bitcoin has had multiple 50-80% drawdowns. If you believe in the long-term thesis, dips are expected. Selling during panic locks in your loss.",
+              optimal: true,
+            },
+            {
+              text: "Sell half to 'protect' some gains",
+              nextStageId: "pf-u8-L14-TS3",
+              impact: "You don't have gains — you're down 35%. Selling now means you lock in a $500+ loss on the half you sold. Emotional selling in crypto is extremely costly.",
+              optimal: false,
+            },
+            {
+              text: "Buy more — 'buy the dip!'",
+              nextStageId: "pf-u8-L14-TS3",
+              impact: "Only if it was already in your plan and budget. Catching falling knives without a plan often means averaging down into a deeper crash.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L14-TS3",
+          narrative: "June — Bitcoin recovers to $55,000. Your $3,000 investment is now worth $3,928. A new 'DeFi protocol' promises 200% APY on Bitcoin deposits. Deposit your BTC?",
+          emoji: "🚀",
+          choices: [
+            {
+              text: "No way — if it sounds too good to be true, it is. Keep BTC on the regulated exchange.",
+              nextStageId: "pf-u8-L14-TS4",
+              impact: "Smart! '200% APY' is almost always unsustainable. Many DeFi protocols offering extreme yields have been hacks, rug pulls, or Ponzi schemes. Terra/Luna promised 20% and collapsed to zero.",
+              optimal: true,
+            },
+            {
+              text: "Deposit a small amount to test it — maybe $500 worth",
+              nextStageId: "pf-u8-L14-TS4",
+              impact: "The 'just a little' approach still exposes you to smart contract risk. If the protocol is exploited, even your 'test' amount is gone forever.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L14-TS4",
+          narrative: "September — The government announces new crypto regulations. Bitcoin drops 15%. You also hear about a new 'Bitcoin ETF' launching.",
+          emoji: "📋",
+          choices: [
+            {
+              text: "Regulation is actually good long-term — it brings institutional money and legitimacy. Hold steady.",
+              nextStageId: "pf-u8-L14-TS5",
+              impact: "Correct! Every time crypto regulation is announced, prices dip on fear. But clear rules attract banks, pension funds, and corporations — which drives long-term demand.",
+              optimal: true,
+            },
+            {
+              text: "Sell before more regulations kill crypto",
+              nextStageId: "pf-u8-L14-TS5",
+              impact: "Regulatory FUD (fear, uncertainty, doubt) is one of Bitcoin's most common dip causes — and one of its most common recovery catalysts. Selling on regulation news is usually wrong.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L14-TS5",
+          narrative: "November — Bitcoin hits $68,000. Your original $3,000 is now worth $4,857. You're up 62%. A friend asks if you should take profits.",
+          emoji: "💰",
+          choices: [
+            {
+              text: "Sell 20-30% to lock in some gains, keep the rest invested",
+              nextStageId: "pf-u8-L14-TS6",
+              impact: "Taking partial profits is a disciplined strategy. You've locked in real returns while keeping exposure to further upside. This is how professionals manage volatile assets.",
+              optimal: true,
+            },
+            {
+              text: "HODL everything — diamond hands!",
+              nextStageId: "pf-u8-L14-TS6",
+              impact: "Holding through everything works until it doesn't. Bitcoin has dropped 80%+ multiple times after peaks. Taking some profit isn't weakness — it's strategy.",
+              optimal: false,
+            },
+            {
+              text: "Sell everything — 62% return is amazing",
+              nextStageId: "pf-u8-L14-TS6",
+              impact: "Great return! But if Bitcoin continues climbing, you'll have zero exposure. Taking partial profits is usually better than all-or-nothing.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u8-L14-TS6",
+          narrative: "December — Year in review!",
+          emoji: "🎉",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Crypto Realist",
+          description: "You navigated the volatility with discipline — avoiding scams, ignoring panic, and taking strategic profits. This is how crypto investing should work.",
+          score: "great",
+        },
+        "3-5": {
+          title: "Learning HODLer",
+          description: "You made some emotional moves but mostly stayed rational. Crypto tests your psychology like nothing else.",
+          score: "good",
+        },
+        "1-5": {
+          title: "Taken for a Ride",
+          description: "Panic selling, chasing yield, and emotional decisions cost you. But now you've seen the patterns — next cycle you'll be prepared.",
+          score: "poor",
+        },
+      },
+    },
   ],
 };

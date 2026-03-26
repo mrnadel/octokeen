@@ -1195,5 +1195,223 @@ export const unit2: Unit = {
         },
       ],
     },
+
+    // ===== LESSON 11: The $5,000 Emergency (Timeline) =====
+    {
+      id: "pf-u2-L11",
+      title: "The $5,000 Emergency",
+      description: "Navigate 18 months of saving decisions in this interactive timeline.",
+      icon: "🔀",
+      type: "timeline",
+      xpReward: 20,
+      questions: [],
+      timelineStartStageId: "pf-u2-L11-TS1",
+      timelineStages: [
+        {
+          id: "pf-u2-L11-TS1",
+          narrative: "Month 1 — You just got your first real job. After rent and bills, you have $400 left over. What do you do?",
+          emoji: "🎉",
+          choices: [
+            {
+              text: "Put $200 in a savings account",
+              nextStageId: "pf-u2-L11-TS2",
+              impact: "Smart start! You're building a safety net from day one.",
+              optimal: true,
+            },
+            {
+              text: "Treat yourself — you earned it!",
+              nextStageId: "pf-u2-L11-TS2",
+              impact: "You deserve fun, but starting savings early makes a huge difference thanks to habit formation.",
+              optimal: false,
+            },
+            {
+              text: "Put all $400 in savings",
+              nextStageId: "pf-u2-L11-TS2",
+              impact: "Aggressive! But leaving zero for fun often leads to burnout and quitting the saving habit.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u2-L11-TS2",
+          narrative: "Month 4 — You've saved $600. Your car needs a $400 repair. What now?",
+          emoji: "🚗",
+          choices: [
+            {
+              text: "Pay from savings — that's what it's for",
+              nextStageId: "pf-u2-L11-TS3",
+              impact: "This is exactly why emergency funds exist. You avoided debt and stress.",
+              optimal: true,
+            },
+            {
+              text: "Put it on a credit card to keep savings intact",
+              nextStageId: "pf-u2-L11-TS3",
+              impact: "Paying interest on a credit card costs more than the temporary comfort of a full savings account.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u2-L11-TS3",
+          narrative: "Month 8 — A friend invites you on a $1,200 vacation. You have $1,400 saved. Go?",
+          emoji: "✈️",
+          choices: [
+            {
+              text: "Skip it — you're not there yet",
+              nextStageId: "pf-u2-L11-TS4",
+              impact: "Tough call but smart. Your emergency fund needs to be funded before big splurges.",
+              optimal: true,
+            },
+            {
+              text: "Go! You only live once",
+              nextStageId: "pf-u2-L11-TS4",
+              impact: "Fun trip, but you just wiped out months of saving progress. Starting over is demoralizing.",
+              optimal: false,
+            },
+            {
+              text: "Go but set a strict $600 budget for the trip",
+              nextStageId: "pf-u2-L11-TS4",
+              impact: "A reasonable compromise, but your emergency fund is still dangerously low.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u2-L11-TS4",
+          narrative: "Month 12 — You get a $2,000 tax refund. How do you use it?",
+          emoji: "💰",
+          choices: [
+            {
+              text: "Put 80% in savings, 20% fun money",
+              nextStageId: "pf-u2-L11-TS5",
+              impact: "The balanced approach! You reward yourself AND make major progress on your goal.",
+              optimal: true,
+            },
+            {
+              text: "Save it all — every penny",
+              nextStageId: "pf-u2-L11-TS5",
+              impact: "Great for the numbers, but allowing zero reward makes it harder to stay motivated long-term.",
+              optimal: false,
+            },
+            {
+              text: "New wardrobe time!",
+              nextStageId: "pf-u2-L11-TS5",
+              impact: "Windfalls are the biggest opportunity to leap forward. Spending them keeps you stuck.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u2-L11-TS5",
+          narrative: "Month 15 — Your rent goes up by $150/month. Savings are getting harder.",
+          emoji: "📈",
+          choices: [
+            {
+              text: "Find a way to cut $150 elsewhere in your budget",
+              nextStageId: "pf-u2-L11-TS6",
+              impact: "Adapting your budget to new realities is what financially resilient people do.",
+              optimal: true,
+            },
+            {
+              text: "Just save less each month",
+              nextStageId: "pf-u2-L11-TS6",
+              impact: "Reducing your savings rate means your goal keeps getting further away.",
+              optimal: false,
+            },
+          ],
+        },
+        {
+          id: "pf-u2-L11-TS6",
+          narrative: "Month 18 — Final check-in. How did your journey go?",
+          emoji: "🏁",
+        },
+      ],
+      timelineOutcomes: {
+        "5-5": {
+          title: "Emergency Fund Hero",
+          description: "You hit $5,000 and built an unshakable savings habit. You're financially resilient!",
+          score: "great",
+        },
+        "3-5": {
+          title: "Solid Saver",
+          description: "You made some great calls and have a decent safety net. A few tweaks and you'll be unstoppable.",
+          score: "good",
+        },
+        "1-5": {
+          title: "Learning the Hard Way",
+          description: "Your savings took some hits, but every mistake is a lesson. The important thing is you started.",
+          score: "poor",
+        },
+      },
+    },
+
+    // ===== LESSON 12: The Ramirez Family Savings Overhaul (Case Study) =====
+    {
+      id: "pf-u2-L12",
+      title: "The Ramirez Family Savings Overhaul",
+      description: "Analyze a real family's budget and help them save smarter.",
+      icon: "📋",
+      type: "case-study",
+      xpReward: 20,
+      questions: [],
+      caseStudyTitle: "The Ramirez Family Savings Overhaul",
+      caseStudySections: [
+        {
+          id: "pf-u2-L12-CS1",
+          content: "Meet the Ramirez family: Carlos (34) and Maria (31) with two kids. Combined income: $6,200/month after taxes. They feel like they're living paycheck to paycheck, but they've never actually tracked where the money goes.\n\nHere's their monthly breakdown:\n- Rent: $1,800\n- Car payments: $650\n- Groceries: $800\n- Dining out: $400\n- Subscriptions: $180\n- Kids' activities: $300\n- Utilities: $250\n- Insurance: $350\n- Miscellaneous: $500\n- Savings: $0\n\nTotal: $5,230 — that leaves $970 unaccounted for.",
+          checkpoint: {
+            id: "pf-u2-L12-CP1",
+            type: "slider-estimate",
+            question: "Based on the Ramirez budget, what percentage of their income goes to housing (rent)?",
+            sliderMin: 10,
+            sliderMax: 50,
+            correctValue: 29,
+            tolerance: 10,
+            unit: "%",
+            explanation: "$1,800 rent ÷ $6,200 income = 29%. Financial experts recommend keeping housing under 30%, so they're right at the limit.",
+          },
+        },
+        {
+          id: "pf-u2-L12-CS2",
+          content: "The $970 mystery — Carlos and Maria are shocked. They earn $6,200 but can only account for $5,230. Where does $970 go every month?\n\nAfter tracking for two weeks, they discovered:\n- Impulse Amazon purchases: ~$300/month\n- ATM fees and convenience store stops: ~$120/month\n- Forgotten app purchases and in-app spending: ~$80/month\n- Cash withdrawals they couldn't trace: ~$470/month\n\nThis invisible spending is called 'phantom spending' — money that disappears without you noticing because it's never part of a conscious decision.",
+          checkpoint: {
+            id: "pf-u2-L12-CP2",
+            type: "multiple-choice",
+            question: "What is 'phantom spending'?",
+            options: ["Money stolen from your account", "Spending you don't consciously track or notice", "Automatic bill payments", "Government tax deductions"],
+            correctIndex: 1,
+            explanation: "Phantom spending is money that leaves your account through small, unconscious purchases — it adds up fast because you never made a deliberate choice to spend it.",
+          },
+        },
+        {
+          id: "pf-u2-L12-CS3",
+          content: "The Ramirez Plan — Maria suggests a 3-step approach:\n\n**Step 1: Cancel and cut.** They audit subscriptions and find 4 they don't use ($85/month saved). They switch to a meal-planning app and reduce dining out to twice a month ($250/month saved).\n\n**Step 2: Automate savings.** Before they can spend it, $500 automatically transfers to a high-yield savings account on payday. This is the 'pay yourself first' strategy.\n\n**Step 3: Cash envelope system for problem areas.** They withdraw $200/month cash for 'fun money' — when it's gone, it's gone. This eliminates phantom spending on impulse purchases.",
+          checkpoint: {
+            id: "pf-u2-L12-CP3",
+            type: "true-false",
+            question: "Automating savings transfers on payday is an example of the 'pay yourself first' strategy.",
+            correctAnswer: true,
+            explanation: "Exactly! By saving before you have a chance to spend, you remove willpower from the equation. The money is gone before you miss it.",
+          },
+        },
+        {
+          id: "pf-u2-L12-CS4",
+          content: "Six months later — The results:\n\n- Monthly savings: $500 (automated) + ~$335 (from cuts) = $835/month\n- Emergency fund: $5,010 (from zero!)\n- Phantom spending: Down from $970 to ~$200/month\n- Dining out budget: $150/month (down from $400)\n- Subscriptions: $95/month (down from $180)\n\nCarlos says the biggest surprise was how little they missed the things they cut. 'We didn't feel deprived at all. We just stopped wasting money on things we didn't even enjoy.'",
+          checkpoint: {
+            id: "pf-u2-L12-CP4",
+            type: "scenario",
+            question: "The Ramirez family now has $5,010 in emergency savings. Their car's transmission fails — repair cost is $3,200. What should they do?",
+            scenario: "They have $5,010 in their emergency fund. The repair is $3,200. They also have a credit card with 22% APR.",
+            options: ["Pay from emergency fund — this is what it's for", "Put it on the credit card to keep savings intact", "Take out a personal loan at 8% interest", "Buy a new car instead"],
+            correctIndex: 0,
+            explanation: "This is EXACTLY what an emergency fund is for. Paying $3,200 from savings avoids interest charges entirely. They'll still have $1,810 left and can rebuild quickly with their $835/month savings habit.",
+          },
+        },
+        {
+          id: "pf-u2-L12-CS5",
+          content: "Key Takeaways\n\n1. **Track everything first.** You can't fix what you can't see. The Ramirez family found $970/month in phantom spending just by looking.\n\n2. **Automate the hard part.** Willpower is limited. Automatic transfers make saving effortless.\n\n3. **Cut painless things first.** Unused subscriptions and forgotten purchases are free money — you won't miss them.\n\n4. **Use your emergency fund when emergencies happen.** That's its job. Then rebuild.\n\n5. **Small changes compound.** $835/month in savings = $10,020/year. In 5 years, that's over $50,000 — enough for a house down payment.",
+        },
+      ],
+    },
   ],
 };
