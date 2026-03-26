@@ -29,23 +29,23 @@ export function CourseIcon({ professionId, color, size = 22 }: CourseIconProps) 
   if (professionId === 'personal-finance') {
     return (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Bag body */}
-        <path d="M5 13c0-4 2.5-6 7-6s7 2 7 6c0 4.5-2.5 8-7 8s-7-3.5-7-8Z" fill="#D97706" stroke="#78350F" strokeWidth="1.3" strokeLinejoin="round" />
-        {/* Bag neck tie */}
-        <path d="M9 7c-1-2-.5-3.5.8-5h4.4c1.3 1.5 1.8 3 .8 5" fill="#EA580C" stroke="#78350F" strokeWidth="1.2" strokeLinejoin="round" />
-        {/* Gold band */}
-        <rect x="8.5" y="6.5" width="7" height="1.8" rx="0.9" fill="#FBBF24" stroke="#78350F" strokeWidth="0.7" />
-        {/* Dollar sign on bag */}
-        <text x="12" y="16.5" textAnchor="middle" fill="#FEF3C7" fontFamily="Arial,sans-serif" fontWeight="bold" fontSize="7">$</text>
-        {/* Plant stem */}
-        <line x1="12" y1="7" x2="12" y2="2.5" stroke="#16A34A" strokeWidth="1.5" strokeLinecap="round" />
-        {/* Left leaf */}
-        <ellipse cx="9.5" cy="4.5" rx="2.5" ry="1.3" transform="rotate(-35 9.5 4.5)" fill="#22C55E" stroke="#065F46" strokeWidth="0.8" />
-        {/* Right leaf */}
-        <ellipse cx="14.5" cy="3.2" rx="2.5" ry="1.3" transform="rotate(35 14.5 3.2)" fill="#16A34A" stroke="#065F46" strokeWidth="0.8" />
-        {/* Coin on top */}
-        <circle cx="12" cy="1.8" r="1.8" fill="#FBBF24" stroke="#78350F" strokeWidth="0.8" />
-        <text x="12" y="2.8" textAnchor="middle" fill="#78350F" fontFamily="Arial,sans-serif" fontWeight="bold" fontSize="2.4">$</text>
+        {/* Back bill */}
+        <rect x="1" y="6.5" width="16" height="11" rx="2" fill="#2D8C4E" />
+        <rect x="1.8" y="7.3" width="14.4" height="9.4" rx="1.2" fill="#3BA55D" />
+        <circle cx="9" cy="12" r="2.5" fill="#2D8C4E" opacity="0.5" />
+        {/* Front bill */}
+        <rect x="2.5" y="8.5" width="16" height="11" rx="2" fill="#34A853" />
+        <rect x="3.3" y="9.3" width="14.4" height="9.4" rx="1.2" fill="#43C46E" />
+        <circle cx="10.5" cy="14" r="2.5" fill="#34A853" opacity="0.5" />
+        {/* Bill decorative corners */}
+        <rect x="4.2" y="10.2" width="2" height="1.2" rx="0.6" fill="#34A853" opacity="0.6" />
+        <rect x="14.8" y="17.6" width="2" height="1.2" rx="0.6" fill="#34A853" opacity="0.6" />
+        {/* Gold coin */}
+        <circle cx="18" cy="15.5" r="5.5" fill="#E5A100" />
+        <circle cx="18" cy="15.5" r="4.3" fill="#FFC107" />
+        <circle cx="18" cy="15.5" r="3.6" fill="#FFD54F" />
+        {/* Dollar sign on coin */}
+        <text x="18" y="17.8" textAnchor="middle" fill="#E5A100" fontFamily="Arial,sans-serif" fontWeight="bold" fontSize="6">$</text>
       </svg>
     );
   }
