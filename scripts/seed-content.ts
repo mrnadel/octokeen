@@ -9,6 +9,7 @@ import { course } from '../src/data/course';
 import type { Unit } from '../src/data/course/types';
 import * as fs from 'fs';
 import * as path from 'path';
+import { pathToFileURL } from 'url';
 
 const connectionString = process.env.POSTGRES_URL;
 if (!connectionString) {
@@ -20,40 +21,26 @@ const client = postgres(connectionString, { prepare: false });
 const db = drizzle(client, { schema });
 
 async function seedUnits(tx: Parameters<Parameters<typeof db.transaction>[0]>[0], units: Unit[], label: string) {
-  let totalUnits = 0;
-  let totalLessons = 0;
-  let totalQuestions = 0;
+  // Collect all rows first, then bulk-upsert in 3 queries instead of one per row
+  const unitRows: (typeof schema.courseUnits.$inferInsert)[] = [];
+  const lessonRows: (typeof schema.courseLessons.$inferInsert)[] = [];
+  const questionRows: (typeof schema.courseQuestions.$inferInsert)[] = [];
 
   for (let ui = 0; ui < units.length; ui++) {
     const unit = units[ui];
-
-    // Upsert unit
-    await tx.insert(schema.courseUnits).values({
+    unitRows.push({
       id: unit.id,
       title: unit.title,
       description: unit.description,
       color: unit.color,
       icon: unit.icon,
       orderIndex: ui,
-    }).onConflictDoUpdate({
-      target: schema.courseUnits.id,
-      set: {
-        title: unit.title,
-        description: unit.description,
-        color: unit.color,
-        icon: unit.icon,
-        orderIndex: ui,
-        updatedAt: sql`now()`,
-      },
     });
-    totalUnits++;
     console.log(`  [${label}] Unit ${ui + 1}/${units.length}: ${unit.title}`);
 
     for (let li = 0; li < unit.lessons.length; li++) {
       const lesson = unit.lessons[li];
-
-      // Upsert lesson
-      await tx.insert(schema.courseLessons).values({
+      lessonRows.push({
         id: lesson.id,
         unitId: unit.id,
         title: lesson.title,
@@ -61,37 +48,18 @@ async function seedUnits(tx: Parameters<Parameters<typeof db.transaction>[0]>[0]
         icon: lesson.icon,
         xpReward: lesson.xpReward,
         orderIndex: li,
-      }).onConflictDoUpdate({
-        target: schema.courseLessons.id,
-        set: {
-          unitId: unit.id,
-          title: lesson.title,
-          description: lesson.description,
-          icon: lesson.icon,
-          xpReward: lesson.xpReward,
-          orderIndex: li,
-          updatedAt: sql`now()`,
-        },
       });
-      totalLessons++;
 
       for (let qi = 0; qi < lesson.questions.length; qi++) {
         const q = lesson.questions[qi];
-
-        // Convert boolean correctAnswer to string for the text column
-        let correctAnswer: string | undefined;
-        if (q.correctAnswer !== undefined) {
-          correctAnswer = String(q.correctAnswer);
-        }
-
-        await tx.insert(schema.courseQuestions).values({
+        questionRows.push({
           id: q.id,
           lessonId: lesson.id,
           type: q.type,
           question: q.question,
           options: q.options ?? null,
           correctIndex: q.correctIndex ?? null,
-          correctAnswer: correctAnswer ?? null,
+          correctAnswer: q.correctAnswer !== undefined ? String(q.correctAnswer) : null,
           acceptedAnswers: q.acceptedAnswers ?? null,
           blanks: q.blanks ?? null,
           wordBank: q.wordBank ?? null,
@@ -115,47 +83,84 @@ async function seedUnits(tx: Parameters<Parameters<typeof db.transaction>[0]>[0]
           hint: q.hint ?? null,
           diagram: q.diagram ?? null,
           orderIndex: qi,
-        }).onConflictDoUpdate({
-          target: schema.courseQuestions.id,
-          set: {
-            lessonId: lesson.id,
-            type: q.type,
-            question: q.question,
-            options: q.options ?? null,
-            correctIndex: q.correctIndex ?? null,
-            correctAnswer: correctAnswer ?? null,
-            acceptedAnswers: q.acceptedAnswers ?? null,
-            blanks: q.blanks ?? null,
-            wordBank: q.wordBank ?? null,
-            buckets: q.buckets ?? null,
-            correctBuckets: q.correctBuckets ?? null,
-            matchTargets: q.matchTargets ?? null,
-            correctMatches: q.correctMatches ?? null,
-            steps: q.steps ?? null,
-            correctOrder: q.correctOrder ?? null,
-            correctIndices: q.correctIndices ?? null,
-            sliderMin: q.sliderMin ?? null,
-            sliderMax: q.sliderMax ?? null,
-            correctValue: q.correctValue ?? null,
-            tolerance: q.tolerance ?? null,
-            unit: q.unit ?? null,
-            scenario: q.scenario ?? null,
-            rankCriteria: q.rankCriteria ?? null,
-            tapZones: q.tapZones ?? null,
-            correctZoneId: q.correctZoneId ?? null,
-            explanation: q.explanation,
-            hint: q.hint ?? null,
-            diagram: q.diagram ?? null,
-            orderIndex: qi,
-            updatedAt: sql`now()`,
-          },
         });
-        totalQuestions++;
       }
     }
   }
 
-  console.log(`  [${label}] Upserted: ${totalUnits} units, ${totalLessons} lessons, ${totalQuestions} questions`);
+  // Bulk upsert units (single query)
+  if (unitRows.length > 0) {
+    await tx.insert(schema.courseUnits).values(unitRows).onConflictDoUpdate({
+      target: schema.courseUnits.id,
+      set: {
+        title: sql.raw(`excluded."title"`),
+        description: sql.raw(`excluded."description"`),
+        color: sql.raw(`excluded."color"`),
+        icon: sql.raw(`excluded."icon"`),
+        orderIndex: sql.raw(`excluded."order_index"`),
+        updatedAt: sql`now()`,
+      },
+    });
+  }
+
+  // Bulk upsert lessons (single query)
+  if (lessonRows.length > 0) {
+    await tx.insert(schema.courseLessons).values(lessonRows).onConflictDoUpdate({
+      target: schema.courseLessons.id,
+      set: {
+        unitId: sql.raw(`excluded."unit_id"`),
+        title: sql.raw(`excluded."title"`),
+        description: sql.raw(`excluded."description"`),
+        icon: sql.raw(`excluded."icon"`),
+        xpReward: sql.raw(`excluded."xp_reward"`),
+        orderIndex: sql.raw(`excluded."order_index"`),
+        updatedAt: sql`now()`,
+      },
+    });
+  }
+
+  // Bulk upsert questions (chunk into batches of 500 to avoid query size limits)
+  const CHUNK_SIZE = 500;
+  for (let i = 0; i < questionRows.length; i += CHUNK_SIZE) {
+    const chunk = questionRows.slice(i, i + CHUNK_SIZE);
+    await tx.insert(schema.courseQuestions).values(chunk).onConflictDoUpdate({
+      target: schema.courseQuestions.id,
+      set: {
+        lessonId: sql.raw(`excluded."lesson_id"`),
+        type: sql.raw(`excluded."type"`),
+        question: sql.raw(`excluded."question"`),
+        options: sql.raw(`excluded."options"`),
+        correctIndex: sql.raw(`excluded."correct_index"`),
+        correctAnswer: sql.raw(`excluded."correct_answer"`),
+        acceptedAnswers: sql.raw(`excluded."accepted_answers"`),
+        blanks: sql.raw(`excluded."blanks"`),
+        wordBank: sql.raw(`excluded."word_bank"`),
+        buckets: sql.raw(`excluded."buckets"`),
+        correctBuckets: sql.raw(`excluded."correct_buckets"`),
+        matchTargets: sql.raw(`excluded."match_targets"`),
+        correctMatches: sql.raw(`excluded."correct_matches"`),
+        steps: sql.raw(`excluded."steps"`),
+        correctOrder: sql.raw(`excluded."correct_order"`),
+        correctIndices: sql.raw(`excluded."correct_indices"`),
+        sliderMin: sql.raw(`excluded."slider_min"`),
+        sliderMax: sql.raw(`excluded."slider_max"`),
+        correctValue: sql.raw(`excluded."correct_value"`),
+        tolerance: sql.raw(`excluded."tolerance"`),
+        unit: sql.raw(`excluded."unit"`),
+        scenario: sql.raw(`excluded."scenario"`),
+        rankCriteria: sql.raw(`excluded."rank_criteria"`),
+        tapZones: sql.raw(`excluded."tap_zones"`),
+        correctZoneId: sql.raw(`excluded."correct_zone_id"`),
+        explanation: sql.raw(`excluded."explanation"`),
+        hint: sql.raw(`excluded."hint"`),
+        diagram: sql.raw(`excluded."diagram"`),
+        orderIndex: sql.raw(`excluded."order_index"`),
+        updatedAt: sql`now()`,
+      },
+    });
+  }
+
+  console.log(`  [${label}] Upserted: ${unitRows.length} units, ${lessonRows.length} lessons, ${questionRows.length} questions`);
 }
 
 /** Check if a value looks like a Unit object */
@@ -187,7 +192,7 @@ async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
   const units: Unit[] = [];
   for (const file of unitFiles) {
     const filePath = path.join(unitsDir, file);
-    const mod = await import(filePath);
+    const mod = await import(pathToFileURL(filePath).href);
     // Find the Unit export (could be any name)
     for (const key of Object.keys(mod)) {
       if (isUnit(mod[key])) {
