@@ -77,7 +77,8 @@ function CrownIcon({ size = 28 }: { size?: number }) {
   );
 }
 
-const CIRCLE = 70;
+const BTN_W = 70;
+const BTN_H = 58;   // squashed height for 3D perspective
 const DEPTH = 8;
 
 export const LessonNode = memo(function LessonNode({
@@ -109,30 +110,30 @@ export const LessonNode = memo(function LessonNode({
       {/* Coin container */}
       <div style={{
         position: 'relative',
-        width: CIRCLE,
-        height: CIRCLE + DEPTH,
+        width: BTN_W,
+        height: BTN_H + DEPTH,
       }}>
         {/* 3D rim — squashed ellipse for perspective depth */}
         <div style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
-          width: CIRCLE,
-          height: Math.round(CIRCLE * 0.55),
+          width: BTN_W,
+          height: Math.round(BTN_H * 0.55),
           borderRadius: '50%',
           background: rim,
           opacity: state === 'locked' ? 0.5 : 1,
         }} />
 
-        {/* Circle face */}
+        {/* Button face — squashed oval */}
         <motion.button
           className={state === 'current' ? 'lesson-btn-pulse' : ''}
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
-            width: CIRCLE,
-            height: CIRCLE,
+            width: BTN_W,
+            height: BTN_H,
             borderRadius: '50%',
             background: bg,
             border: 'none',
