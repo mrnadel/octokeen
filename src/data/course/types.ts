@@ -2,6 +2,71 @@ import type { TopicId } from '../types';
 
 export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank' | 'teaching' | 'sort-buckets' | 'match-pairs' | 'order-steps' | 'multi-select' | 'slider-estimate' | 'scenario' | 'category-swipe' | 'rank-order' | 'pick-the-best' | 'image-tap';
 
+// ─── Lesson Types ──────────────────────────────────────────
+export type LessonType = 'standard' | 'conversation' | 'speed-round' | 'timeline' | 'case-study';
+
+// Conversation — branching chat dialogue
+export interface ConversationOption {
+  text: string;
+  nextNodeId: string;
+  quality: 'great' | 'okay' | 'poor';
+  feedback: string;
+}
+export interface ConversationNode {
+  id: string;
+  speaker: string;
+  message: string;
+  nextNodeId?: string;        // auto-advance for narration-only nodes
+  options?: ConversationOption[];
+}
+
+// Speed Round — timed rapid-fire questions
+export interface SpeedQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+}
+
+// Timeline — branching narrative with consequences
+export interface TimelineChoice {
+  text: string;
+  nextStageId: string;
+  impact: string;
+  optimal: boolean;
+}
+export interface TimelineStage {
+  id: string;
+  narrative: string;
+  emoji?: string;
+  choices?: TimelineChoice[];
+}
+export interface TimelineOutcome {
+  title: string;
+  description: string;
+  score: 'great' | 'good' | 'poor';
+}
+
+// Case Study — narrative with embedded question checkpoints
+export interface CaseStudySection {
+  id: string;
+  content: string;
+  checkpoint?: CourseQuestion;
+}
+
+// Props shared by all lesson type renderers
+export interface LessonTypeProps {
+  lesson: Lesson;
+  unitColor: string;
+  theme: { color: string; dark: string; bg: string };
+  isGolden: boolean;
+  isDoubleXp: boolean;
+  onAnswer: (questionId: string, correct: boolean) => void;
+  onProgress: (current: number, total: number) => void;
+  onComplete: () => void;
+  checkHearts: () => boolean;
+}
+
 export interface CourseQuestion {
   id: string;
   type: QuestionType;
@@ -53,7 +118,21 @@ export interface Lesson {
   description: string;
   icon: string;
   xpReward: number;
+  type?: LessonType;
   questions: CourseQuestion[];
+  // Conversation
+  conversationNodes?: ConversationNode[];
+  conversationStartNodeId?: string;
+  // Speed Round
+  speedQuestions?: SpeedQuestion[];
+  speedTimeLimit?: number;          // seconds, default 60
+  // Timeline
+  timelineStages?: TimelineStage[];
+  timelineStartStageId?: string;
+  timelineOutcomes?: Record<string, TimelineOutcome>;
+  // Case Study
+  caseStudySections?: CaseStudySection[];
+  caseStudyTitle?: string;
 }
 
 export interface Unit {

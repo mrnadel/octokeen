@@ -19,6 +19,10 @@ import CategorySwipeCard from './CategorySwipeCard';
 import RankOrderCard from './RankOrderCard';
 import PickTheBestCard from './PickTheBestCard';
 import ImageTapCard from './ImageTapCard';
+import ConversationView from './types/ConversationView';
+import SpeedRoundView from './types/SpeedRoundView';
+import TimelineView from './types/TimelineView';
+import CaseStudyView from './types/CaseStudyView';
 import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
@@ -148,6 +152,66 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const exitConfirmTitle = adapter ? adapter.exitConfirmTitle : 'Quit lesson?';
   const exitConfirmMessage = adapter ? adapter.exitConfirmMessage : 'Your progress on this lesson will be lost.';
   const isTeaching = currentQuestion?.type === 'teaching';
+
+  // === LESSON TYPE ===
+  const lessonType = useMemo(() => {
+    if (adapter) return 'standard' as const;
+    if (!lessonData) return 'standard' as const;
+    return lessonData.lesson.type ?? ('standard' as const);
+  }, [adapter, lessonData]);
+  const isNonStandard = lessonType !== 'standard';
+
+  // Progress state for non-standard types
+  const [typeAnsweredCount, setTypeAnsweredCount] = useState(0);
+  const [typeTotalCount, setTypeTotalCount] = useState(0);
+
+  // Override progress for non-standard types
+  if (isNonStandard) {
+    // These will be set by the type component via handleTypeProgress
+    // We reassign the resolved values below
+  }
+  const resolvedAnsweredCount = isNonStandard ? typeAnsweredCount : answeredCount;
+  const resolvedTotalQuestions = isNonStandard ? typeTotalCount : totalQuestions;
+
+  // Callbacks for non-standard lesson type components
+  const handleTypeAnswer = useCallback(
+    (questionId: string, correct: boolean) => {
+      _submitAnswer(questionId, correct);
+      const topicId = lessonData?.unit.topicId;
+      if (topicId) {
+        addMasteryEvent({
+          questionId,
+          topicId,
+          difficulty: 'intermediate',
+          correct,
+          source: 'course',
+        });
+      }
+      if (correct) {
+        setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
+      } else {
+        loseHeart();
+      }
+    },
+    [_submitAnswer, lessonData, addMasteryEvent, isDoubleXp, loseHeart],
+  );
+
+  const handleTypeProgress = useCallback((current: number, total: number) => {
+    setTypeAnsweredCount(current);
+    setTypeTotalCount(total);
+  }, []);
+
+  const handleTypeComplete = useCallback(() => {
+    _completeLesson();
+  }, [_completeLesson]);
+
+  const checkHeartsForType = useCallback((): boolean => {
+    if (!hasHearts()) {
+      setShowOutOfHearts(true);
+      return false;
+    }
+    return true;
+  }, [hasHearts]);
 
   // === CALLBACKS ===
   const getCorrectAnswerDisplay = useCallback((): string => {
@@ -379,7 +443,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   // === EARLY RETURNS ===
   // Show result screen as overlay — lesson view stays underneath
-  if (!displayQuestion) return !adapter && lessonResult ? <ResultScreen /> : null;
+  if (!displayQuestion && !isNonStandard) return !adapter && lessonResult ? <ResultScreen /> : null;
 
   return (
     <AnimatePresence>
@@ -456,8 +520,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           )}
 
           <LessonProgressBar
-            current={answeredCount}
-            total={totalQuestions}
+            current={resolvedAnsweredCount}
+            total={resolvedTotalQuestions}
             color={isGolden ? '#FFB800' : unitColor}
           />
 
@@ -608,7 +672,35 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
         </div>
 
-        {/* Question area */}
+        {/* Content area — type component or standard question flow */}
+        {isNonStandard && lessonData ? (
+          (() => {
+            const typeProps = {
+              lesson: lessonData.lesson,
+              unitColor,
+              theme,
+              isGolden,
+              isDoubleXp,
+              onAnswer: handleTypeAnswer,
+              onProgress: handleTypeProgress,
+              onComplete: handleTypeComplete,
+              checkHearts: checkHeartsForType,
+            };
+            switch (lessonType) {
+              case 'conversation':
+                return <ConversationView {...typeProps} />;
+              case 'speed-round':
+                return <SpeedRoundView {...typeProps} />;
+              case 'timeline':
+                return <TimelineView {...typeProps} />;
+              case 'case-study':
+                return <CaseStudyView {...typeProps} />;
+              default:
+                return null;
+            }
+          })()
+        ) : displayQuestion ? (
+        <>
         <div
           className="flex-1 overflow-y-auto overflow-x-hidden"
           style={{ padding: '16px 20px 20px' }}
@@ -910,6 +1002,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             </button>
           </motion.div>
         )}
+        </>
+        ) : null}
 
         </div>{/* end centered wrapper */}
 

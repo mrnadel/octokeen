@@ -10,13 +10,53 @@ import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
-import type { CourseProgress, ActiveLesson, LessonResult, PlacementTest, PlacementTestResult, Unit } from '@/data/course/types';
+import type { CourseProgress, ActiveLesson, LessonResult, PlacementTest, PlacementTestResult, Unit, Lesson } from '@/data/course/types';
 import { generatePlacementQuestions, getFirstIncompleteUnitIndex, PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
 import { getLevelForXp } from '@/data/levels';
 import { getLevelReward, type LevelReward } from '@/data/level-rewards';
+
+/** Check if a lesson's content is loaded (not just lightweight metadata). */
+function isLessonContentLoaded(lesson: Lesson): boolean {
+  const type = lesson.type ?? 'standard';
+  switch (type) {
+    case 'conversation':
+      return (lesson.conversationNodes?.length ?? 0) > 0;
+    case 'speed-round':
+      return (lesson.speedQuestions?.length ?? 0) > 0;
+    case 'timeline':
+      return (lesson.timelineStages?.length ?? 0) > 0;
+    case 'case-study':
+      return (lesson.caseStudySections?.length ?? 0) > 0;
+    default:
+      return lesson.questions.length > 0;
+  }
+}
+
+/** Get gradable item IDs for the session based on lesson type. */
+function getSessionIds(lesson: Lesson): string[] {
+  const type = lesson.type ?? 'standard';
+  switch (type) {
+    case 'conversation':
+      return (lesson.conversationNodes ?? [])
+        .filter((n) => n.options && n.options.length > 0)
+        .map((n) => n.id);
+    case 'speed-round':
+      return (lesson.speedQuestions ?? []).map((q) => q.id);
+    case 'timeline':
+      return (lesson.timelineStages ?? [])
+        .filter((s) => s.choices && s.choices.length > 0)
+        .map((s) => s.id);
+    case 'case-study':
+      return (lesson.caseStudySections ?? [])
+        .filter((s) => s.checkpoint)
+        .map((s) => s.checkpoint!.id);
+    default:
+      return lesson.questions.map((q) => q.id);
+  }
+}
 
 interface ChapterCompletion {
   unitIndex: number;
@@ -160,9 +200,9 @@ export const useCourseStore = create<CourseState>()(
         const unit = get().courseData[unitIndex];
         const lesson = unit.lessons[lessonIndex];
 
-        // If questions are not loaded yet (lightweight metadata), load the
+        // If content is not loaded yet (lightweight metadata), load the
         // full unit data dynamically and then retry.
-        if (lesson.questions.length === 0) {
+        if (!isLessonContentLoaded(lesson)) {
           loadUnitData(unitIndex, get().activeProfession).then((fullUnit) => {
             // Patch courseData with the loaded unit
             const updated = [...get().courseData];
@@ -174,11 +214,10 @@ export const useCourseStore = create<CourseState>()(
           return;
         }
 
-        const allIds = lesson.questions.map((q) => q.id);
         const isGolden = golden === true;
 
-        // All questions in authored order — lessons are structured content
-        const sessionQuestionIds = allIds;
+        // Generate session IDs based on lesson type
+        const sessionQuestionIds = getSessionIds(lesson);
 
         set({
           activeLesson: {
