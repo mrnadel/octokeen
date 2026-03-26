@@ -131,7 +131,10 @@ function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => v
 }
 
 /** Hook: returns 'up' | 'down' | null based on whether targetRef is above/below viewport */
-function useScrollDirection(targetRef: React.RefObject<HTMLDivElement | null>) {
+function useScrollDirection(
+  targetRef: React.RefObject<HTMLDivElement | null>,
+  scrollContainerRef?: React.RefObject<HTMLDivElement | null>,
+) {
   const [direction, setDirection] = useState<'up' | 'down' | null>(null);
 
   useEffect(() => {
@@ -148,13 +151,20 @@ function useScrollDirection(targetRef: React.RefObject<HTMLDivElement | null>) {
     }
 
     check();
+    const container = scrollContainerRef?.current;
+    if (container) {
+      container.addEventListener('scroll', check, { passive: true });
+    }
     window.addEventListener('scroll', check, { passive: true, capture: true });
     window.addEventListener('resize', check);
     return () => {
+      if (container) {
+        container.removeEventListener('scroll', check);
+      }
       window.removeEventListener('scroll', check, { capture: true });
       window.removeEventListener('resize', check);
     };
-  }, [targetRef]);
+  }, [targetRef, scrollContainerRef]);
 
   return direction;
 }
@@ -226,7 +236,7 @@ export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentUnitRef = useRef<HTMLDivElement>(null);
   const currentLessonRef = useRef<HTMLDivElement>(null);
-  const scrollDirection = useScrollDirection(currentLessonRef);
+  const scrollDirection = useScrollDirection(currentLessonRef, scrollRef);
   const progress = useCourseStore((s) => s.progress);
   const courseData = useCourseStore((s) => s.courseData);
   const startLesson = useCourseStore((s) => s.startLesson);
