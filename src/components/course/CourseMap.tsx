@@ -175,6 +175,10 @@ function ScrollToCurrentButton({
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.2 }}
       style={{
+        position: 'fixed',
+        bottom: 84,
+        right: 16,
+        zIndex: 50,
         width: 48,
         height: 48,
         borderRadius: 14,
