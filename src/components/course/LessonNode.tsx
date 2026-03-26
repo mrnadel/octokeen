@@ -112,13 +112,13 @@ export const LessonNode = memo(function LessonNode({
         width: CIRCLE,
         height: CIRCLE + DEPTH,
       }}>
-        {/* 3D rim — same-size circle offset down */}
+        {/* 3D rim — squashed ellipse for perspective depth */}
         <div style={{
           position: 'absolute',
-          top: DEPTH,
+          bottom: 0,
           left: 0,
           width: CIRCLE,
-          height: CIRCLE,
+          height: Math.round(CIRCLE * 0.55),
           borderRadius: '50%',
           background: rim,
           opacity: state === 'locked' ? 0.5 : 1,
