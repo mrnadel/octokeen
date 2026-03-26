@@ -442,8 +442,9 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const displayQuestion = currentQuestion ?? lastQuestionRef.current;
 
   // === EARLY RETURNS ===
-  // Show result screen as overlay — lesson view stays underneath
-  if (!displayQuestion && !isNonStandard) return !adapter && lessonResult ? <ResultScreen /> : null;
+  // Show result screen after lesson completion (course mode only)
+  if (!adapter && lessonResult) return <ResultScreen />;
+  if (!displayQuestion && !isNonStandard) return null;
 
   return (
     <AnimatePresence>
