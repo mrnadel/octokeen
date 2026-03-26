@@ -71,8 +71,17 @@ function LessonTypeIcon({ type, color, size = 20 }: { type: LessonType; color: s
           <path d="M20 19.5L22 21.5" stroke={color} strokeWidth="2" strokeLinecap="round" />
         </svg>
       );
+    case 'standard':
     default:
-      return null;
+      // Open book / quiz
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+          <path d="M12 6C10.5 4.5 7 3.5 4 4v14c3 0 6.5 1 8 2.5C13.5 19 17 18 20 18V4c-3-.5-6.5.5-8 2Z" fill={color} opacity="0.2" />
+          <path d="M12 6C10.5 4.5 7 3.5 4 4v14c3 0 6.5 1 8 2.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 6c1.5-1.5 5-2.5 8-2v14c-3 0-6.5 1-8 2.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 6v14.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
+        </svg>
+      );
   }
 }
 
@@ -193,12 +202,10 @@ export const LessonNode = memo(function LessonNode({
               strokeLinejoin="round"
             />
           </svg>
-        ) : lesson.type && lesson.type !== 'standard' ? (
-          <div style={{ opacity: state === 'locked' ? 0.5 : 1 }}>
-            <LessonTypeIcon type={lesson.type} color={state === 'locked' ? '#AFAFAF' : theme.color} />
-          </div>
         ) : (
-          <span style={{ opacity: state === 'locked' ? 0.5 : 1 }}>{lesson.icon}</span>
+          <div style={{ opacity: state === 'locked' ? 0.5 : 1 }}>
+            <LessonTypeIcon type={lesson.type ?? 'standard'} color={state === 'locked' ? '#AFAFAF' : theme.color} />
+          </div>
         )}
       </div>
 
