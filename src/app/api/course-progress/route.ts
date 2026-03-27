@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
-  const { progress, activeProfession } = parsed.data as {
+  const { progress, activeProfession } = parsed.data as unknown as {
     progress: CourseProgress;
     activeProfession?: string;
   };

@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
+import { useEngagementStore } from '@/store/useEngagementStore';
+import { streakMilestones } from '@/data/streak-milestones';
 
 export function useDbSync() {
   const { status } = useSession();
@@ -39,17 +41,37 @@ export function useDbSync() {
             // data changed while the fetch was in-flight
             const local = useStore.getState().progress;
             const db = data.progress;
+            const restoredStreak = Math.max(db.currentStreak ?? 0, local.currentStreak ?? 0);
             useStore.setState({
               progress: {
                 ...db,
                 totalXp: Math.max(db.totalXp ?? 0, local.totalXp ?? 0),
-                currentStreak: Math.max(db.currentStreak ?? 0, local.currentStreak ?? 0),
+                currentStreak: restoredStreak,
                 longestStreak: Math.max(db.longestStreak ?? 0, local.longestStreak ?? 0),
                 lastActiveDate: (db.lastActiveDate ?? '') > (local.lastActiveDate ?? '')
                   ? db.lastActiveDate : local.lastActiveDate,
                 activeDays: local.activeDays, // client-only field
               },
             });
+
+            // Backfill streak milestones so popups don't replay after cache clear.
+            // If the engagement store has fewer milestones than the restored streak
+            // warrants, mark all lower milestones as already reached.
+            const engStreak = useEngagementStore.getState().streak;
+            const reached = new Set(engStreak.milestonesReached);
+            const milestoneDays = streakMilestones.map((m) => m.days);
+            let changed = false;
+            for (const days of milestoneDays) {
+              if (days <= restoredStreak && !reached.has(days)) {
+                reached.add(days);
+                changed = true;
+              }
+            }
+            if (changed) {
+              useEngagementStore.setState((s) => ({
+                streak: { ...s.streak, milestonesReached: [...reached] },
+              }));
+            }
           }
         }
 
