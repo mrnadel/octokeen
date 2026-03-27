@@ -61,6 +61,8 @@ export interface SessionAdapter {
   exitLabel: string;
   exitConfirmTitle: string;
   exitConfirmMessage: string;
+  /** Skip heart deduction and out-of-hearts checks (e.g. placement tests). */
+  noHearts?: boolean;
 }
 
 export { LessonView };
@@ -266,8 +268,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       setLastAnswerCorrect(correct);
       if (correct) {
         setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
-      } else {
-        // Lose a heart on wrong answer
+      } else if (!adapter?.noHearts) {
         loseHeart();
       }
     },
@@ -289,7 +290,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       adapter ? adapter.complete() : _completeLesson();
     } else {
       // Check if user has hearts before showing next question
-      if (!hasHearts()) {
+      if (!adapter?.noHearts && !hasHearts()) {
         setShowOutOfHearts(true);
         return;
       }
