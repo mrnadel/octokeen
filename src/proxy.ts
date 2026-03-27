@@ -23,7 +23,12 @@ const premiumPrefixes = ['/analytics'];
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
-  const { pathname } = req.nextUrl;
+  const { pathname, hostname } = req.nextUrl;
+
+  // status.mechready.com → redirect to UptimeRobot status page
+  if (hostname === 'status.mechready.com') {
+    return NextResponse.redirect('https://stats.uptimerobot.com/UVcWdhzY7g', 301);
+  }
 
   const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === '/get-started';
 
