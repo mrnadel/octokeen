@@ -93,7 +93,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
 
             {/* Content — centered */}
             <div className="flex-1 flex flex-col items-center sm:flex-initial relative z-[1] px-6 pt-[15vh] sm:pt-10 text-white">
-              <MascotWithGlow pose="pro" size={160} flame glowColor="rgba(251,191,36,0.3)" className="mb-5" />
+              <MascotWithGlow pose="pro" size={160} className="mb-5" />
               <h3 id="upgrade-modal-title" className="text-[26px] font-extrabold mb-2">MechReady Pro</h3>
               <p className="text-sm text-white/50 mb-6">{reason || 'Unlock all premium features'}</p>
 

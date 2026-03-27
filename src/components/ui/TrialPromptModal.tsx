@@ -77,7 +77,7 @@ export function TrialPromptModal() {
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <MascotWithGlow pose="pro" size={160} flame glowColor="rgba(251,191,36,0.3)" />
+                <MascotWithGlow pose="pro" size={160} />
               </motion.div>
               <h3 id="trial-prompt-title" className="text-[26px] font-extrabold text-white text-center">
                 Try Pro Free
