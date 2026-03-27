@@ -585,7 +585,7 @@ export const unit8: Unit = {
  {
  id: "pf-u8-L6-T2",
  type: "teaching",
- question: "Hot Wallets vs ❄️ Cold Wallets",
+ question: "Hot Wallets vs Cold Wallets",
  explanation: "Hot wallets are connected to the internet, apps on your phone or browser extensions (MetaMask, Trust Wallet). They're convenient for quick trades and daily use, but hackable because they're online.",
  hint: "You wouldn't carry your life savings in your back pocket. Don't keep it all in a hot wallet either.",
  },
