@@ -591,16 +591,72 @@ export const useCourseStore = create<CourseState>()(
         }
 
         if (needsLoad.length > 0) {
-          Promise.all(needsLoad.map((i) => loadUnitData(i, activeProfession))).then(
-            (loaded) => {
-              const updated = [...get().courseData];
-              needsLoad.forEach((unitIdx, j) => {
+          Promise.all(
+            needsLoad.map((i) =>
+              loadUnitData(i, activeProfession).catch(() => null),
+            ),
+          ).then((loaded) => {
+            const updated = [...get().courseData];
+            needsLoad.forEach((unitIdx, j) => {
+              if (loaded[j]) {
                 updated[unitIdx] = loaded[j];
+              }
+            });
+            set({ courseData: updated });
+
+            // Proceed directly to question generation (no retry loop).
+            // If some units still lack content, generatePlacementQuestions
+            // will simply return fewer or zero questions, and the auto-pass
+            // path below handles the empty case.
+            const freshState = get();
+            const questions = generatePlacementQuestions(
+              freshState.courseData,
+              freshState.progress.completedLessons,
+              targetUnitIndex,
+            );
+
+            if (questions.length === 0) {
+              // No testable content: auto-pass
+              const today = getTodayString();
+              const newCompleted = { ...freshState.progress.completedLessons };
+              for (let ui = fromUnit; ui < targetUnitIndex; ui++) {
+                for (const lesson of freshState.courseData[ui].lessons) {
+                  if (!newCompleted[lesson.id]?.passed) {
+                    newCompleted[lesson.id] = {
+                      stars: 0, bestAccuracy: 0, attempts: 0,
+                      lastAttempted: today, passed: true, golden: false,
+                      answeredQuestionIds: [], correctQuestionIds: [],
+                    };
+                  }
+                }
+              }
+              set({
+                progress: { ...freshState.progress, completedLessons: newCompleted },
+                placementTestResult: {
+                  passed: true,
+                  targetUnitIndex,
+                  targetUnitTitle: freshState.courseData[targetUnitIndex]?.title ?? '',
+                  totalQuestions: 0, correctAnswers: 0, mistakes: 0,
+                  maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+                  unitsSkipped: targetUnitIndex - fromUnit,
+                },
               });
-              set({ courseData: updated });
-              get().startPlacementTest(targetUnitIndex); // retry
-            },
-          );
+              return;
+            }
+
+            set({
+              activePlacementTest: {
+                targetUnitIndex,
+                fromUnitIndex: fromUnit,
+                questions,
+                currentQuestionIndex: 0,
+                answers: [],
+                mistakes: 0,
+                maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+                startTime: Date.now(),
+              },
+            });
+          });
           return;
         }
 

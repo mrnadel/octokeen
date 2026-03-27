@@ -115,17 +115,28 @@ export default function HomePage() {
           <CourseIntroFlow
             onComplete={(data) => {
               completeCourseIntro(activeProfession, data);
-              // Route based on placement choice
-              if (data.placementChoice === 'test') {
-                // Find a mid-course unit for placement test
-                const targetUnit = Math.min(Math.floor(courseData.length / 2), courseData.length - 1);
-                startPlacementTest(targetUnit);
-              } else if (data.placementChoice === 'advanced') {
-                // Jump to unit 6 or whatever is roughly 60% through
-                const advancedUnit = Math.min(Math.floor(courseData.length * 0.6), courseData.length - 1);
-                startPlacementTest(advancedUnit);
+
+              if (data.placementChoice === 'test' || data.placementChoice === 'advanced') {
+                // Find the highest unit that actually has content (questions) to test with
+                const ratio = data.placementChoice === 'advanced' ? 0.6 : 0.5;
+                const idealTarget = Math.min(
+                  Math.max(1, Math.floor(courseData.length * ratio)),
+                  courseData.length - 1,
+                );
+                // Walk backwards to find a unit that has lessons with questions
+                let target = idealTarget;
+                while (target > 0) {
+                  const unit = courseData[target - 1]; // test questions come from units BEFORE target
+                  if (unit?.lessons.some(l => l.questions.length > 0)) break;
+                  target--;
+                }
+                if (target > 0) {
+                  startPlacementTest(target);
+                } else {
+                  // No testable content, just start from scratch
+                  startLesson(0, 0);
+                }
               } else {
-                // Start from scratch: begin first lesson
                 startLesson(0, 0);
               }
             }}
