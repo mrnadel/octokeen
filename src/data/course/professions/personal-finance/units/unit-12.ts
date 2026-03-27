@@ -147,7 +147,7 @@ export const unit12: Unit = {
           id: "pf-u12-L2-T2",
           type: "teaching",
           question: "The Negotiation Playbook",
-          explanation: "Here's the playbook that works everywhere. Step 1: Research. Know the market rate, competitor prices, or what others pay.",
+          explanation: "Here's the playbook that works everywhere: research the market rate, ask for more than you expect, listen to their counter, be willing to walk away, and get it in writing. The person with the most information and the least desperation always wins.",
           hint: "The person with the most information and the least desperation always wins the negotiation.",
         },
         {
@@ -846,14 +846,14 @@ export const unit12: Unit = {
           id: "pf-u12-L8-T1",
           type: "teaching",
           question: "Financial Independence: The Ultimate Goal",
-          explanation: "Financial independence (FI) means your passive income covers all your living expenses. You don't HAVE to work. You CHOOSE to.",
+          explanation: "Financial independence (FI) means your passive income covers all your living expenses, so you don't HAVE to work. The formula is simple: Annual Expenses x 25 = your FI number.",
           hint: "You don't have to fully retire to benefit from FI. Even getting to 50% FI (investments cover half your expenses) gives you massive freedom and negotiating power in your career.",
         },
         {
           id: "pf-u12-L8-T2",
           type: "teaching",
           question: "The Two Levers: Earn More or Spend Less",
-          explanation: "There are only two ways to reach FI faster: earn more or spend less. But here's the key insight. Spending less is DOUBLY powerful.",
+          explanation: "There are only two ways to reach FI faster: earn more or spend less. Spending less is DOUBLY powerful because it both saves more AND lowers your FI number.",
           hint: "This is why the FI community talks about savings rate so much. Someone saving 50% of their income can reach FI in ~17 years, regardless of salary.",
         },
         {
@@ -1192,7 +1192,7 @@ export const unit12: Unit = {
           id: "pf-u12-L11-T1",
           type: "teaching",
           question: "This Is Where It All Comes Together",
-          explanation: "Congratulations. You've learned more about money than most adults ever will. Budgeting, saving, debt management, credit, taxes, investing, retirement, insurance, and big money moves.",
+          explanation: "You've now learned more about money than most adults ever will. Your Lifetime Money Action Plan is a living document that evolves as your life changes.",
           hint: "The best financial plan is the one you actually follow. Simple beats complex every time.",
         },
         {

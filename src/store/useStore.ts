@@ -6,7 +6,8 @@ import { useShallow } from 'zustand/react/shallow';
 import { TOTAL_TOPICS, type TopicId, type Difficulty, type UserProgress, type SessionRecord, type TopicProgress } from '@/data/types';
 import type { CourseQuestion } from '@/data/course/types';
 import { seedProgress } from '@/data/seed-progress';
-import { levels } from '@/data/levels';
+import { levels, getLevelForXp } from '@/data/levels';
+import { getLevelReward } from '@/data/level-rewards';
 import { achievements as allAchievements } from '@/data/achievements';
 import { shuffleArray, getTodayString, getYesterdayString, calculateXP } from '@/lib/utils';
 import { PRO_SESSION_TYPES } from '@/lib/pricing';
@@ -797,6 +798,7 @@ export const useStore = create<AppState>()(
       },
 
       debugSetXp: (xp) => {
+        const oldXp = get().progress.totalXp;
         set((state) => ({
           progress: {
             ...state.progress,
@@ -808,6 +810,15 @@ export const useStore = create<AppState>()(
         useCourseStore.setState((state) => ({
           progress: { ...state.progress, totalXp: xp },
         }));
+        // Trigger level-up celebration if crossing a level boundary upward
+        const oldLevel = getLevelForXp(oldXp);
+        const newLevel = getLevelForXp(xp);
+        if (newLevel.level > oldLevel.level) {
+          const reward = getLevelReward(newLevel.level);
+          if (reward) {
+            useCourseStore.setState({ pendingCelebrations: [{ type: 'level-up', reward }] });
+          }
+        }
       },
 
       toggleSidebar: () => {

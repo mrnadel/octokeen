@@ -366,7 +366,7 @@ export const unit11: Unit = {
           id: "pf-u11-L4-T1",
           type: "teaching",
           question: "Auto Insurance: The Three Layers",
-          explanation: "Auto insurance isn't one thing. It's a stack of coverages. Liability: pays for damage YOU cause to others (their car, their medical bills).",
+          explanation: "Auto insurance isn't one thing; it's a stack of coverages. Liability pays for damage you cause to others, collision covers your car in a crash, and comprehensive covers non-accident damage like theft or weather.",
           hint: "If your car is old and paid off, you might skip collision/comprehensive. If it's new or financed, you need all three.",
         },
         {
@@ -476,7 +476,7 @@ export const unit11: Unit = {
           id: "pf-u11-L5-T1",
           type: "teaching",
           question: "Your Landlord's Insurance Doesn't Cover YOUR Stuff",
-          explanation: "Big misconception: your landlord has insurance on the building, but it covers the structure. Not your belongings inside it. If there's a fire, flood, or burglary, your laptop, clothes, furniture, and everything you own?",
+          explanation: "Big misconception: your landlord's insurance covers the building structure, not your belongings inside it. Renter's insurance covers your personal property, liability, and additional living expenses for around $15-25/month.",
           hint: "Walk through your apartment and add up what everything costs. Most people have $20,000-50,000 worth of stuff and don't even realize it.",
         },
         {
@@ -812,7 +812,7 @@ export const unit11: Unit = {
           id: "pf-u11-L8-T2",
           type: "teaching",
           question: "The Self-Insurance Rule",
-          explanation: "Here's the golden rule for deciding when to skip insurance: if you can comfortably absorb the loss, skip the insurance and pocket the premium savings. Insurance is for catastrophic risks you can't afford. Not for small, manageable losses.",
+          explanation: "Here's the golden rule: if you can comfortably absorb the loss, skip the insurance and pocket the premium savings. Insurance is for catastrophic risks you can't afford, not for small, manageable losses.",
           hint: "Insurance companies are profitable BECAUSE most claims cost less than the premiums collected. For small items, the math is always in their favor.",
         },
         {
@@ -913,14 +913,14 @@ export const unit11: Unit = {
           id: "pf-u11-L9-T1",
           type: "teaching",
           question: "Identity Theft Is a $10 Billion Industry",
-          explanation: "In 2023, Americans lost over $10 billion to fraud. Identity theft is the most common type. Someone uses your personal info to open credit cards, file tax returns, or drain bank accounts in your name.",
+          explanation: "In 2023, Americans lost over $10 billion to fraud, with identity theft being the most common type. Someone uses your personal info to open credit cards, file tax returns, or drain bank accounts in your name.",
           hint: "The best defense is prevention. Freezing your credit is free and blocks 90% of identity theft.",
         },
         {
           id: "pf-u11-L9-T2",
           type: "teaching",
           question: "The Credit Freeze: Your Best Weapon",
-          explanation: "A credit freeze is the single most effective thing you can do to prevent identity theft. It locks your credit reports at all three bureaus (Equifax, Experian, TransUnion) so nobody. Including you. Can open new accounts.",
+          explanation: "A credit freeze is the single most effective thing you can do to prevent identity theft. It locks your credit reports at all three bureaus so nobody (including you) can open new accounts until you temporarily unfreeze.",
           hint: "Do this today. Go to each bureau's website, create an account, and freeze your credit. It takes about 15 minutes total.",
         },
         {

@@ -686,7 +686,7 @@ export const unit9: Unit = {
           id: "pf-u9-L7-T1",
           type: "teaching",
           question: "Refinancing: Trading Your Old Mortgage for a New One",
-          explanation: "Refinancing means replacing your current mortgage with a brand-new loan. Ideally with better terms. Maybe rates dropped and you can save hundreds per month.",
+          explanation: "Refinancing means replacing your current mortgage with a brand-new loan, ideally with better terms. Maybe rates dropped and you can save hundreds per month.",
           hint: "The 1% rule of thumb: refinancing is usually worth considering if you can drop your rate by at least 0.75-1%.",
         },
         {
@@ -917,7 +917,7 @@ export const unit9: Unit = {
           id: "pf-u9-L9-T2",
           type: "teaching",
           question: "Cash Flow: What You Actually Keep",
-          explanation: "Cash flow is what's left after ALL expenses are paid. Gross rent minus: mortgage payment, property taxes, insurance, maintenance (budget 10% of rent), vacancy (budget 5-8% of rent), property management (8-10% if you hire someone), and capital expenditures (roof, HVAC, etc. Budget 5-10% of rent).",
+          explanation: "Cash flow is what's left after ALL expenses are paid: rent minus mortgage, taxes, insurance, maintenance (10%), vacancy (5-8%), management (8-10%), and capital expenditures (5-10%). A $2,000/month rental might only cash flow $200-$400/month after everything.",
           hint: "The 50% Rule: roughly 50% of your rental income goes to expenses (NOT including the mortgage). So if rent is $2,000, expect ~$1,000 in expenses before the mortgage payment.",
         },
         {
@@ -1241,14 +1241,14 @@ export const unit9: Unit = {
           id: "pf-u9-L12-T1",
           type: "teaching",
           question: "The Most Expensive Mistakes in Real Estate",
-          explanation: "Real estate mistakes don't cost hundreds. They cost tens of thousands. Overpaying by 5% on a $350,000 home?",
+          explanation: "Real estate mistakes don't cost hundreds; they cost tens of thousands. Every common mistake is avoidable with education and patience.",
           hint: "The most expensive three words in real estate: \"I love it!\" Emotions make you overpay and overlook problems.",
         },
         {
           id: "pf-u9-L12-T2",
           type: "teaching",
           question: "The Emotion Trap",
-          explanation: "Here's why smart people make dumb real estate decisions: emotions. You walk into a home with granite countertops, a beautiful backyard, and that perfect kitchen. And suddenly you NEED it.",
+          explanation: "Smart people make dumb real estate decisions because of emotions. Always run the numbers BEFORE you see the house, set a max price, and stick to it.",
           hint: "Bring a financially-minded friend to viewings. They'll see the cracked foundation while you're admiring the kitchen island.",
         },
         {

@@ -244,14 +244,14 @@ export const unit10: Unit = {
           id: "pf-u10-L3-T1",
           type: "teaching",
           question: "IRA: Your Personal Retirement Account",
-          explanation: "An IRA (Individual Retirement Account) is a retirement account you open yourself. No employer needed. There are two main types: Traditional IRA and Roth IRA.",
+          explanation: "An IRA (Individual Retirement Account) is a retirement account you open yourself, no employer needed. The two main types are Traditional (tax break now, pay later) and Roth (pay now, tax-free later).",
           hint: "Think of it like a tax timing decision. Traditional = pay later. Roth = pay now. The best choice depends on whether your tax rate will be higher or lower in retirement.",
         },
         {
           id: "pf-u10-L3-T2",
           type: "teaching",
           question: "Why the Roth IRA Is a Crowd Favorite",
-          explanation: "The Roth IRA is wildly popular. Especially for younger people. Why?",
+          explanation: "The Roth IRA is wildly popular, especially for younger people. You pay taxes on the money going in, and then everything comes out completely tax-free in retirement.",
           hint: "If you're in your 20s-30s earning a moderate income, a Roth IRA is almost always the smart move. You'll never pay a lower tax rate than you do right now.",
         },
         {
@@ -365,7 +365,7 @@ export const unit10: Unit = {
           id: "pf-u10-L4-T2",
           type: "teaching",
           question: "How Matching Actually Works",
-          explanation: "Let's break down the most common match formula: '50% match up to 6%.' If your salary is $60,000 and you contribute 6% ($3,600/year), your employer adds 50% of that. So $1,800. But if you only contribute 3% ($1,800), your employer only adds $900.",
+          explanation: "Let's break down the most common match formula: '50% match up to 6%.' If your salary is $60,000 and you contribute 6% ($3,600/year), your employer adds 50% of that, so $1,800.",
           hint: "Vesting means you might need to stay at the company for a few years before the matched money is truly 'yours.' But YOUR contributions are always 100% yours.",
         },
         {
@@ -585,7 +585,7 @@ export const unit10: Unit = {
           id: "pf-u10-L6-T2",
           type: "teaching",
           question: "When Can You Collect?",
-          explanation: "You can start collecting Social Security as early as age 62. But you'll get a reduced benefit (about 30% less). Full benefits kick in at your 'full retirement age' which is 67 for most people born after 1960.",
+          explanation: "You can start collecting Social Security as early as age 62, but you'll get a reduced benefit (about 30% less). Full benefits kick in at your 'full retirement age,' which is 67 for most people born after 1960.",
           hint: "If your full benefit at 67 is $2,000/month: at 62 you'd get ~$1,400, at 70 you'd get ~$2,480. Big difference over 20+ years of retirement.",
         },
         {
@@ -687,14 +687,14 @@ export const unit10: Unit = {
           id: "pf-u10-L7-T1",
           type: "teaching",
           question: "Late Start? Don't Panic. Strategize",
-          explanation: "Here's the truth: starting late is worse than starting early, but it's infinitely better than never starting at all. If you're 35, 40, or even 50 and have nothing saved. You're not doomed.",
+          explanation: "Starting late is worse than starting early, but it's infinitely better than never starting at all. If you're 35, 40, or even 50 and have nothing saved, you're not doomed.",
           hint: "A 40-year-old saving $500/month for 25 years at 8% returns will still accumulate about $475,000. That's real money.",
         },
         {
           id: "pf-u10-L7-T2",
           type: "teaching",
           question: "The Late-Starter Playbook",
-          explanation: "If you're starting at 40 with zero savings, here's the playbook: (1) Get the employer match immediately. That's an instant 50-100% return. (2) Save at least 20-25% of income (vs the usual 15%). (3) Consider a Roth IRA on top of your 401(k). (4) Cut major expenses aggressively. Downsize, eliminate car payments, slash subscriptions. (5) Plan to work 2-3 years longer than average. (6) At 50, use catch-up contributions to supercharge your savings. Every year matters more when you start late.",
+          explanation: "If you're starting at 40 with zero savings, here's the playbook: get the employer match, save 20-25% of income, add a Roth IRA, cut expenses aggressively, and plan to work 2-3 years longer. At 50, use catch-up contributions to supercharge your savings.",
           hint: "Working from 65 to 68 gives you 3 extra years of saving AND 3 fewer years of withdrawing. That double benefit can add $100K+ to your retirement.",
         },
         {
@@ -910,7 +910,7 @@ export const unit10: Unit = {
           id: "pf-u10-L9-T1",
           type: "teaching",
           question: "The 50+ Power-Up",
-          explanation: "Once you turn 50, the IRS gives you a bonus: you can contribute MORE to your retirement accounts than younger workers. For 401(k)s, you get an extra $7,500/year on top of the $23,000 limit. For a total of $30,500.",
+          explanation: "Once you turn 50, the IRS gives you a bonus: you can contribute MORE to your retirement accounts than younger workers. For 401(k)s, you get an extra $7,500/year on top of the $23,000 limit, for a total of $30,500.",
           hint: "If you max out both at 50 and do it for 15 years, that's $577,500 in contributions alone. Before any growth. Growth could push that past $1 million.",
         },
         {
