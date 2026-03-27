@@ -144,7 +144,20 @@ screens_html.append(screen("Demoted", "#CE3030",
     gen_hearts(8, ['#FF7878','#FFAADE','#FFB2B2']), BTN_IND,
     flow="Finish bottom 3 in league &#8594; Week resets &#8594; Home loads"))
 
-# 13. Chapter Complete
+# 13. Test Passed
+screens_html.append(screen("Test Passed", "#58A700",
+    '      <img src="public/mascot/laughing.png" width="140" height="140" style="margin-bottom:12px;" />\n      <div style="font-size:28px;font-weight:800;margin-bottom:4px;">Great Work!</div>\n      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px;">Stress &amp; Strain Basics</div>\n      <div style="display:flex;width:100%;max-width:280px;background:rgba(255,255,255,.1);border-radius:14px;overflow:hidden;">\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">87%</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">Accuracy</div></div>\n        <div style="width:1px;background:rgba(255,255,255,.1);margin:10px 0;"></div>\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">+45</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">XP</div></div>\n        <div style="width:1px;background:rgba(255,255,255,.1);margin:10px 0;"></div>\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">7/8</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">Correct</div></div>\n      </div>',
+    gen_confetti(25), BTN_GOLD,
+    flow="Complete a lesson with passing score &#8594; Result screen"))
+
+# 14. Test Failed
+screens_html.append(screen("Test Failed", "#CE3030",
+    '      <img src="public/mascot/sad.png" width="140" height="140" style="margin-bottom:12px;" />\n      <div style="font-size:28px;font-weight:800;margin-bottom:4px;">Not Quite!</div>\n      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px;">Stress &amp; Strain Basics</div>\n      <div style="display:flex;width:100%;max-width:280px;background:rgba(255,255,255,.1);border-radius:14px;overflow:hidden;">\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">42%</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">Accuracy</div></div>\n        <div style="width:1px;background:rgba(255,255,255,.1);margin:10px 0;"></div>\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">+12</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">XP</div></div>\n        <div style="width:1px;background:rgba(255,255,255,.1);margin:10px 0;"></div>\n        <div style="flex:1;padding:14px 0;text-align:center;"><div style="font-size:22px;font-weight:800;">3/8</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:2px;">Correct</div></div>\n      </div>',
+    gen_hearts(10, ['#FF4B4B','#FF7878','#FFB2B2']),
+    '<button class="btn b-red" style="background:#EF4444;box-shadow:0 4px 0 #B91C1C;">Try Again</button>',
+    flow="Complete a lesson with failing score &#8594; Result screen"))
+
+# 15. Chapter Complete
 screens_html.append(screen("Chapter Complete", "#58A700",
     '      <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px;">Chapter Complete</div>\n      <div style="font-size:28px;font-weight:900;margin-bottom:16px;">Thermodynamics</div>\n      <img src="public/mascot/laughing.png" width="140" height="140" style="margin-bottom:16px;" />\n      <div style="display:flex;gap:24px;"><div style="text-align:center;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px;">Lessons</div><div style="font-size:22px;font-weight:900;">8</div></div><div style="text-align:center;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px;">Accuracy</div><div style="font-size:22px;font-weight:900;">92%</div></div><div style="text-align:center;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px;">XP</div><div style="font-size:22px;font-weight:900;">340</div></div></div>',
     gen_confetti(25), BTN_GOLD,
@@ -221,7 +234,7 @@ with open("modal-gallery.html", "w", encoding="utf-8") as f:
 </head>
 <body>
 <h1>MechReady — Modal Gallery</h1>
-<p class="sub">16 screens &middot; Bold backgrounds &middot; Contextual FX &middot; Mascot &middot; 3D buttons pinned bottom</p>
+<p class="sub">18 screens &middot; Bold backgrounds &middot; Contextual FX &middot; Mascot &middot; 3D buttons pinned bottom</p>
 
 <div class="sec">Utility Modals</div>
 <div class="g">
@@ -238,13 +251,18 @@ with open("modal-gallery.html", "w", encoding="utf-8") as f:
 {chr(10).join(screens_html[9:12])}
 </div>
 
+<div class="sec">Lesson Results</div>
+<div class="g">
+{chr(10).join(screens_html[12:14])}
+</div>
+
 <div class="sec">Chapter &amp; Course</div>
 <div class="g">
-{chr(10).join(screens_html[12:])}
+{chr(10).join(screens_html[14:])}
 </div>
 
 <div style="text-align:center;margin-top:64px;padding:24px;border-top:1px solid #1a1a1a;">
-  <p style="font-size:11px;color:#444;">16 screens &middot; Hearts, Confetti, Stars, Sparkles, Fireworks, Snow, Bokeh, Bubbles</p>
+  <p style="font-size:11px;color:#444;">18 screens &middot; Hearts, Confetti, Stars, Sparkles, Fireworks, Snow, Bokeh, Bubbles</p>
 </div>
 </body>
 </html>''')

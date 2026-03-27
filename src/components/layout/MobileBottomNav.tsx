@@ -2,16 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, BookOpen, Trophy, Users, User, Swords } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Trophy, User, Swords } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import FriendsBadge from '@/components/friends/FriendsBadge';
 
 const tabs = [
   { href: '/', label: 'Home', icon: LayoutDashboard, activeColor: 'text-indigo-600', activeBg: 'bg-indigo-50', inactiveColor: 'text-slate-400' },
   { href: '/quests', label: 'Quests', icon: Swords, activeColor: 'text-orange-500', activeBg: 'bg-orange-50', inactiveColor: 'text-slate-400' },
   { href: '/practice/topics', label: 'Practice', icon: BookOpen, activeColor: 'text-emerald-600', activeBg: 'bg-emerald-50', inactiveColor: 'text-slate-400' },
   { href: '/league', label: 'League', icon: Trophy, activeColor: 'text-amber-500', activeBg: 'bg-amber-50', inactiveColor: 'text-slate-400' },
-  { href: '/friends', label: 'Friends', icon: Users, badge: true, activeColor: 'text-pink-500', activeBg: 'bg-pink-50', inactiveColor: 'text-slate-400' },
   { href: '/profile', label: 'Profile', icon: User, activeColor: 'text-sky-500', activeBg: 'bg-sky-50', inactiveColor: 'text-slate-400' },
 ];
 
@@ -45,7 +43,6 @@ export default function MobileBottomNav() {
                 )}
               >
                 <Icon className={cn('w-5 h-5 transition-transform duration-200', isActive && 'scale-110')} />
-                {tab.badge && <FriendsBadge />}
               </span>
               <span className={cn(
                 'text-[10px] transition-all duration-200',

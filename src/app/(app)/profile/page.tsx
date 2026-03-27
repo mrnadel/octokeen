@@ -31,6 +31,7 @@ import { useGems, useEngagementStore } from '@/store/useEngagementStore';
 import { shopItems, findFrameById, findTitleById } from '@/data/gem-shop';
 import { AvatarFrame } from '@/components/ui/AvatarFrame';
 import type { FrameStyleId } from '@/components/ui/AvatarFrame';
+import InviteShare from '@/components/friends/InviteShare';
 
 // ─── Image compression ──────────────────────────────────────
 const MAX_UPLOAD_MB = 5;
@@ -854,6 +855,9 @@ export default function ProfilePage() {
             </div>
           </motion.div>
         )}
+
+        {/* ─── Invite Friends ────────────────────────────── */}
+        <InviteShare />
 
       </div>
     </div>
