@@ -203,6 +203,8 @@ Before submitting content, verify:
 
 - [ ] First question is easy enough that a new learner can't get it wrong
 - [ ] Teaching cards have max 2-sentence explanations and NO `options` array
+- [ ] Teaching card `question` titles have no emojis (mascot replaces them visually)
+- [ ] No em dashes anywhere. Use periods, commas, or colons instead.
 - [ ] No preachy, condescending, or guilt-tripping language
 - [ ] All explanations are 1-2 sentences
 - [ ] Numbers are written as numerals
@@ -210,5 +212,6 @@ Before submitting content, verify:
 - [ ] Options are short and scannable (under 15 words each)
 - [ ] Correct option isn't noticeably longer than wrong ones
 - [ ] Hints are one sentence, practical, not philosophical
+- [ ] At least 1 teaching card per unit includes a "Try this now:" real-life action hint
 - [ ] Lesson has 8-12 questions with 2-3 teaching cards spaced between them
 - [ ] Re-run seed script after changes: `npx tsx scripts/seed-content.ts`

@@ -3,7 +3,7 @@ import type { Unit } from '../../../types';
 export const unit3: Unit = {
   id: "pf-u3-debt",
   title: "Debt Decoded",
-  description: "Understand how debt actually works — then use that knowledge to destroy it.",
+  description: "Understand how debt actually works, then use that knowledge to destroy it.",
   color: "#0D9F63",
   icon: "⛓️",
   lessons: [
@@ -11,32 +11,22 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L1",
       title: "Debt Is a Tool, Not a Monster",
-      description: "Not all debt is bad — learn the difference between smart borrowing and trap borrowing.",
+      description: "Not all debt is bad. Learn the difference between smart borrowing and trap borrowing.",
       icon: "🔧",
       xpReward: 15,
       questions: [
         {
           id: "pf-u3-L1-T1",
           type: "teaching",
-          question: "🔧 Debt Isn't Evil — It's a Tool",
-          explanation: "Here's something nobody tells you: debt itself isn't bad. A hammer can build a house or break a window — it depends on how you use it. Debt works the same way. A mortgage lets you own a home. A student loan lets you earn more. But a credit card maxed out on fast fashion? That's the hammer through the window.",
-          options: [
-            "Debt is a tool — it can build wealth or destroy it",
-            "Smart debt puts money in your pocket long-term",
-            "Trap debt takes money out of your pocket forever",
-          ],
-          hint: "The question isn't 'is debt bad?' — it's 'will this debt make me richer or poorer over time?'",
+          question: "Debt Isn't Evil. It's a Tool",
+          explanation: "Here's something nobody tells you: debt itself isn't bad. A hammer can build a house or break a window, it depends on how you use it.",
+          hint: "The question isn't 'is debt bad?', it's 'will this debt make me richer or poorer over time?'",
         },
         {
           id: "pf-u3-L1-T2",
           type: "teaching",
-          question: "✅ Good Debt vs ❌ Bad Debt",
-          explanation: "Good debt helps you build something valuable — a degree, a home, a business. It typically has low interest rates and increases your earning power or net worth. Bad debt funds things that lose value immediately — vacations on credit cards, clothes you'll forget about, meals that are long gone. The asset disappears but the payments don't.",
-          options: [
-            "Good debt: low interest, builds value (mortgage, education, business)",
-            "Bad debt: high interest, funds depreciating or disposable things",
-            "Key test: will this debt increase my net worth or decrease it?",
-          ],
+          question: "Good Debt vs Bad Debt",
+          explanation: "Good debt helps you build something valuable, a degree, a home, a business. It typically has low interest rates and increases your earning power or net worth.",
           hint: "A 200,000 mortgage on a home that appreciates = good debt. A 5,000 credit card balance on random shopping = bad debt.",
         },
         {
@@ -53,7 +43,7 @@ export const unit3: Unit = {
           type: "true-false",
           question: "All debt is bad and should be avoided completely.",
           correctAnswer: false,
-          explanation: "Not true. Strategic debt — like a mortgage or student loan for a high-earning degree — can actually build wealth. The key is whether the debt helps you earn more or own more than it costs you in interest.",
+          explanation: "Not true. Strategic debt, like a mortgage or student loan for a high-earning degree, can actually build wealth. The key is whether the debt helps you earn more or own more than it costs you in interest.",
         },
         {
           id: "pf-u3-L1-Q3",
@@ -66,7 +56,7 @@ export const unit3: Unit = {
             "Is the interest rate a round number?",
           ],
           correctIndex: 0,
-          explanation: "The right question is about long-term value. Just affording the payment doesn't mean it's smart — you could 'afford' a 500/month car payment while it drains your wealth. Focus on whether the debt builds something lasting.",
+          explanation: "The right question is about long-term value. Just affording the payment doesn't mean it's smart, you could 'afford' a 500/month car payment while it drains your wealth. Focus on whether the debt builds something lasting.",
         },
         {
           id: "pf-u3-L1-Q4",
@@ -75,7 +65,7 @@ export const unit3: Unit = {
           options: ["Mortgage", "Student loan", "Credit card", "Payday loan"],
           matchTargets: ["3-7%", "4-8%", "18-28%", "300-500%"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Notice the pattern: good debt has low rates (3-8%). Bad debt has sky-high rates (18%+). Payday loans are in a league of their own at 300-500% APR — they're financial quicksand.",
+          explanation: "Notice the pattern: good debt has low rates (3-8%). Bad debt has sky-high rates (18%+). Payday loans are in a league of their own at 300-500% APR, they're financial quicksand.",
         },
         {
           id: "pf-u3-L1-Q5",
@@ -93,7 +83,7 @@ export const unit3: Unit = {
           options: [
             "Federal student loan at 5% interest with income-driven repayment options",
             "Credit card cash advance at 25% interest",
-            "Payday loan — it's fast and easy",
+            "Payday loan, it's fast and easy",
             "Borrow from a friend with no written terms",
           ],
           correctIndex: 0,
@@ -105,7 +95,7 @@ export const unit3: Unit = {
           question: "_____ debt builds value over time, while _____ debt funds things that lose value immediately.",
           blanks: ["good", "bad"],
           wordBank: ["good", "bad", "all", "no", "small", "large"],
-          explanation: "Good debt is an investment in your future (home, education, business). Bad debt funds consumption — things you use up or that depreciate fast. The debt remains long after the thing is gone.",
+          explanation: "Good debt is an investment in your future (home, education, business). Bad debt funds consumption, things you use up or that depreciate fast. The debt remains long after the thing is gone.",
         },
         {
           id: "pf-u3-L1-Q8",
@@ -130,7 +120,7 @@ export const unit3: Unit = {
           correctValue: 24,
           tolerance: 15,
           unit: "%",
-          explanation: "The average US credit card interest rate is around 24%. Some cards go even higher — 28-30%. That's why carrying a balance on credit cards is one of the most expensive forms of debt.",
+          explanation: "The average US credit card interest rate is around 24%. Some cards go even higher ,  28-30%. That's why carrying a balance on credit cards is one of the most expensive forms of debt.",
         },
       ],
     },
@@ -146,25 +136,15 @@ export const unit3: Unit = {
         {
           id: "pf-u3-L2-T1",
           type: "teaching",
-          question: "🦈 Interest: The Silent Wealth Killer",
-          explanation: "When you borrow money, you don't just pay back what you borrowed. You pay extra — that's interest. It's the price of borrowing. A 1,000 purchase on a credit card at 24% interest, paying only minimums, can cost you over 2,000 by the time you're done. The bank makes more off your purchase than you did.",
-          options: [
-            "Interest = the cost of borrowing money",
-            "24% interest means you pay 240/year on every 1,000 you owe",
-            "Minimum payments stretch this out for YEARS",
-          ],
+          question: "Interest: The Silent Wealth Killer",
+          explanation: "When you borrow money, you don't just pay back what you borrowed. You pay extra, that's interest.",
           hint: "Interest is how banks make money. The longer you take to pay, the more they earn. Your slow repayment is their business model.",
         },
         {
           id: "pf-u3-L2-T2",
           type: "teaching",
-          question: "📈 Simple vs Compound Interest on Debt",
-          explanation: "Simple interest charges you only on the original amount. Compound interest charges you interest ON your interest. Most credit cards use compound interest — daily. So that 1,000 balance grows every single day, and tomorrow's interest is calculated on today's slightly bigger balance. It's a snowball rolling downhill... against you.",
-          options: [
-            "Simple interest: charged on original balance only",
-            "Compound interest: charged on balance + accumulated interest",
-            "Credit cards compound DAILY — your debt grows every 24 hours",
-          ],
+          question: "Simple vs Compound Interest on Debt",
+          explanation: "Simple interest charges you only on the original amount. Compound interest charges you interest ON your interest.",
           hint: "When you save, compound interest works FOR you. When you borrow, it works AGAINST you. Same math, opposite direction.",
         },
         {
@@ -178,14 +158,14 @@ export const unit3: Unit = {
             "About 1,000",
           ],
           correctIndex: 0,
-          explanation: "With daily compounding at 24% APR, the actual amount is about 270 — more than the simple 240 calculation because you're paying interest on interest. That's compound interest working against you.",
+          explanation: "With daily compounding at 24% APR, the actual amount is about 270, more than the simple 240 calculation because you're paying interest on interest. That's compound interest working against you.",
         },
         {
           id: "pf-u3-L2-Q2",
           type: "true-false",
           question: "If you borrow 5,000 at 20% interest and only make minimum payments, you could end up paying back over 10,000 total.",
           correctAnswer: true,
-          explanation: "Absolutely. Minimum payments (typically 1-2% of balance) stretch repayment over 20+ years on large balances. Interest alone can exceed the original amount you borrowed. A 5,000 debt can easily become 10,000+ in total payments.",
+          explanation: "Yes. Minimum payments (typically 1-2% of balance) stretch repayment over 20+ years on large balances. Interest alone can exceed the original amount you borrowed. A 5,000 debt can easily become 10,000+ in total payments.",
         },
         {
           id: "pf-u3-L2-Q3",
@@ -193,7 +173,7 @@ export const unit3: Unit = {
           question: "_____ interest charges you on the original amount only, while _____ interest charges you on both the balance and accumulated interest.",
           blanks: ["simple", "compound"],
           wordBank: ["simple", "compound", "fixed", "variable", "annual", "daily"],
-          explanation: "Simple interest is straightforward math. Compound interest is the snowball — it grows on itself. Credit cards, mortgages, and most loans use compound interest.",
+          explanation: "Simple interest is straightforward math. Compound interest is the snowball, it grows on itself. Credit cards, mortgages, and most loans use compound interest.",
         },
         {
           id: "pf-u3-L2-Q4",
@@ -204,7 +184,7 @@ export const unit3: Unit = {
           correctValue: 15,
           tolerance: 20,
           unit: "years",
-          explanation: "At minimum payments (typically 2% of balance), a 3,000 credit card balance at 22% takes about 14-16 years to pay off. You'd pay over 4,500 in interest alone — more than the original purchase.",
+          explanation: "At minimum payments (typically 2% of balance), a 3,000 credit card balance at 22% takes about 14-16 years to pay off. You'd pay over 4,500 in interest alone, more than the original purchase.",
         },
         {
           id: "pf-u3-L2-Q5",
@@ -233,12 +213,12 @@ export const unit3: Unit = {
           id: "pf-u3-L2-Q7",
           type: "scenario",
           question: "What should you do?",
-          scenario: "You have 2,000 in credit card debt at 24% interest. You just received a 2,000 tax refund. Your friend says 'treat yourself — you earned it.' Your debt costs you about 480/year in interest.",
+          scenario: "You have 2,000 in credit card debt at 24% interest. You just received a 2,000 tax refund. Your friend says 'treat yourself, you earned it.' Your debt costs you about 480/year in interest.",
           options: [
-            "Pay off the credit card — saving 480/year in interest is like getting a guaranteed 24% return",
+            "Pay off the credit card, saving 480/year in interest is like getting a guaranteed 24% return",
             "Split it 50/50 between the debt and fun stuff",
-            "Invest the refund — the stock market might beat 24%",
-            "Your friend is right — treat yourself",
+            "Invest the refund, the stock market might beat 24%",
+            "Your friend is right, treat yourself",
           ],
           correctIndex: 0,
           explanation: "Paying off 24% interest debt is a guaranteed 24% return on your money. No investment consistently beats that. Eliminating 480/year in interest is like giving yourself a permanent raise.",
@@ -265,32 +245,22 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L3",
       title: "Credit Cards: The Double-Edged Sword",
-      description: "How credit cards actually work — grace periods, minimum traps, and how to win the game.",
+      description: "How credit cards actually work, grace periods, minimum traps, and how to win the game.",
       icon: "💳",
       xpReward: 15,
       questions: [
         {
           id: "pf-u3-L3-T1",
           type: "teaching",
-          question: "💳 Credit Cards: Banks WANT You to Lose",
-          explanation: "Credit card companies make money two ways: merchant fees (every swipe) and interest from people who carry balances. They don't want you to pay in full — they want you paying minimums for decades. Every 'reward' and 'cashback' offer is funded by the people drowning in interest. To win the credit card game, you need to understand the rules.",
-          options: [
-            "Banks profit most from people who carry balances",
-            "Rewards are funded by people paying interest — be on the right side",
-            "The game is rigged, but you can still win if you know the rules",
-          ],
+          question: "Credit Cards: Banks WANT You to Lose",
+          explanation: "Credit card companies make money two ways: merchant fees (every swipe) and interest from people who carry balances. They don't want you to pay in full, they want you paying minimums for decades.",
           hint: "Credit card companies call people who pay in full each month 'deadbeats' internally. That's the compliment you want.",
         },
         {
           id: "pf-u3-L3-T2",
           type: "teaching",
-          question: "⏰ The Grace Period: Your Secret Weapon",
-          explanation: "Here's the cheat code: credit cards give you a 21-30 day grace period. If you pay your FULL statement balance by the due date, you pay ZERO interest. That means you can use a credit card for 3-4 weeks of purchases completely free, earn rewards, and build credit — all while paying nothing extra. But miss the full payment? Interest hits your entire balance retroactively.",
-          options: [
-            "Grace period: 21-30 days of interest-free borrowing",
-            "Only works if you pay the FULL statement balance",
-            "Pay in full = free money. Carry a balance = expensive trap.",
-          ],
+          question: "The Grace Period: Your Secret Weapon",
+          explanation: "Here's the cheat code: credit cards give you a 21-30 day grace period. If you pay your FULL statement balance by the due date, you pay ZERO interest.",
           hint: "The grace period is like a 30-day free trial. Cancel (pay in full) before it ends and it costs nothing. Forget? You pay full price.",
         },
         {
@@ -304,7 +274,7 @@ export const unit3: Unit = {
             "Selling your purchase data",
           ],
           correctIndex: 0,
-          explanation: "Interest is the cash cow. People carrying balances pay 18-28% interest on every dollar owed. That's why credit card companies love minimum payments — they keep you in debt longer, paying more interest.",
+          explanation: "Interest is the cash cow. People carrying balances pay 18-28% interest on every dollar owed. That's why credit card companies love minimum payments, they keep you in debt longer, paying more interest.",
         },
         {
           id: "pf-u3-L3-Q2",
@@ -325,7 +295,7 @@ export const unit3: Unit = {
             "Pay full balance = no interest. Pay less = interest charged.",
           ],
           correctOrder: [0, 1, 2, 3, 4],
-          explanation: "Spend, get the bill, have a grace period, then pay. The full cycle gives you about 25-55 days of free borrowing on each purchase — but only if you pay in full.",
+          explanation: "Spend, get the bill, have a grace period, then pay. The full cycle gives you about 25-55 days of free borrowing on each purchase, but only if you pay in full.",
         },
         {
           id: "pf-u3-L3-Q4",
@@ -333,7 +303,7 @@ export const unit3: Unit = {
           question: "The _____ period gives you 21-30 days to pay your full balance with zero interest.",
           blanks: ["grace"],
           wordBank: ["grace", "billing", "interest", "payment", "trial", "free"],
-          explanation: "The grace period is your window. Pay the full statement balance within it and you owe nothing extra. It's like borrowing money for free — but only if you pay it all back on time.",
+          explanation: "The grace period is your window. Pay the full statement balance within it and you owe nothing extra. It's like borrowing money for free, but only if you pay it all back on time.",
         },
         {
           id: "pf-u3-L3-Q5",
@@ -352,11 +322,11 @@ export const unit3: Unit = {
           options: [
             "Pay 300 (what you can after bills) and pay the rest next month",
             "Pay only the 35 minimum to keep more cash on hand",
-            "Pay the full 1,500 — you'll have 300 left which covers you until next paycheck",
+            "Pay the full 1,500, you'll have 300 left which covers you until next paycheck",
             "Transfer it to another card to avoid paying at all",
           ],
           correctIndex: 2,
-          explanation: "Paying in full saves you from 24% interest. You'll have 300 left — tight, but you won't owe interest. Paying only 35 means about 30/month in interest charges that compound. The math always favors paying in full when you can.",
+          explanation: "Paying in full saves you from 24% interest. You'll have 300 left, tight, but you won't owe interest. Paying only 35 means about 30/month in interest charges that compound. The math always favors paying in full when you can.",
         },
         {
           id: "pf-u3-L3-Q7",
@@ -411,25 +381,15 @@ export const unit3: Unit = {
         {
           id: "pf-u3-L4-T1",
           type: "teaching",
-          question: "🎓 Student Loans: The 1.7 Trillion Dollar Problem",
-          explanation: "Americans owe over 1.7 trillion in student loan debt. The average graduate carries about 30,000. But not all student loans are equal. Federal loans come with protections, flexible repayment, and forgiveness options. Private loans from banks? Almost none of that. Knowing which you have — and your options — can save you tens of thousands.",
-          options: [
-            "Average student loan debt: ~30,000 per graduate",
-            "Federal loans have protections and flexibility",
-            "Private loans are essentially bank loans with few safety nets",
-          ],
+          question: "Student Loans: The 1.7 Trillion Dollar Problem",
+          explanation: "Americans owe over 1.7 trillion in student loan debt.",
           hint: "If you have student loans, check whether they're federal or private FIRST. This determines all your options.",
         },
         {
           id: "pf-u3-L4-T2",
           type: "teaching",
-          question: "🏛️ Federal vs Private: Why It Matters",
-          explanation: "Federal student loans come from the government. They offer income-driven repayment (payments based on what you earn), deferment if you lose your job, and potential forgiveness after 10-25 years of payments. Private loans from banks offer none of this. Fixed terms, no forgiveness, limited hardship options. Always exhaust federal loans before touching private ones.",
-          options: [
-            "Federal: income-driven repayment, deferment, forgiveness possible",
-            "Private: fixed terms, no forgiveness, limited flexibility",
-            "Rule: always max out federal loans before borrowing private",
-          ],
+          question: "Federal vs Private: Why It Matters",
+          explanation: "Federal student loans come from the government. They offer income-driven repayment (payments based on what you earn), deferment if you lose your job, and potential forgiveness after 10-25 years of payments.",
           hint: "Think of federal loans as the 'nice' lender who works with you. Private loans are the strict bank that doesn't care about your situation.",
         },
         {
@@ -446,7 +406,7 @@ export const unit3: Unit = {
           type: "multiple-choice",
           question: "What does 'income-driven repayment' mean for federal student loans?",
           options: [
-            "Your monthly payment is based on your income — earn less, pay less",
+            "Your monthly payment is based on your income, earn less, pay less",
             "You only pay when your income is above 100,000",
             "Your employer pays your loans for you",
             "You pay a fixed amount regardless of income",
@@ -499,7 +459,7 @@ export const unit3: Unit = {
           options: [
             "Attend a state school for 25,000/year using federal loans only",
             "Attend a private school for 60,000/year using mostly private loans",
-            "Attend any school regardless of cost — the degree pays for itself",
+            "Attend any school regardless of cost, the degree pays for itself",
             "Attend the most prestigious school even if it means 200,000 in debt",
           ],
           correctIndex: 0,
@@ -514,7 +474,7 @@ export const unit3: Unit = {
           correctValue: 30000,
           tolerance: 15,
           unit: "$",
-          explanation: "The average is around 30,000 for a bachelor's degree. Graduate and professional degrees push it much higher — medical school graduates average 200,000+. Know the numbers before you borrow.",
+          explanation: "The average is around 30,000 for a bachelor's degree. Graduate and professional degrees push it much higher, medical school graduates average 200,000+. Know the numbers before you borrow.",
         },
         {
           id: "pf-u3-L4-Q9",
@@ -528,7 +488,7 @@ export const unit3: Unit = {
           ],
           correctOrder: [0, 1, 2, 3],
           rankCriteria: "Most beneficial → Least beneficial",
-          explanation: "PSLF with IDR can forgive remaining debt after 10 years. Standard repayment with extra payments saves on interest. Extended plans lower monthly costs but increase total interest. Forbearance is a last resort — interest balloons.",
+          explanation: "PSLF with IDR can forgive remaining debt after 10 years. Standard repayment with extra payments saves on interest. Extended plans lower monthly costs but increase total interest. Forbearance is a last resort, interest balloons.",
         },
       ],
     },
@@ -537,32 +497,22 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L5",
       title: "Car Loans: The Dealer's Game",
-      description: "How dealerships profit from financing — and how to avoid their traps.",
+      description: "How dealerships profit from financing, and how to avoid their traps.",
       icon: "🚗",
       xpReward: 15,
       questions: [
         {
           id: "pf-u3-L5-T1",
           type: "teaching",
-          question: "🚗 The Car Dealer Doesn't Care About You",
-          explanation: "Car dealerships make more money from financing than from selling the car itself. They mark up the interest rate (your rate might be 5% from the bank, but the dealer tells you 7% and pockets the difference). They stretch loans to 72 or 84 months to make payments look small. And they LOVE it when you focus on 'monthly payment' instead of total cost.",
-          options: [
-            "Dealers profit from marking up your interest rate",
-            "Longer loans (72-84 months) = more total interest paid",
-            "The 'monthly payment' trick hides the true cost",
-          ],
+          question: "The Car Dealer Doesn't Care About You",
+          explanation: "Car dealerships make more money from financing than from selling the car itself. They mark up the interest rate (your rate might be 5% from the bank, but the dealer tells you 7% and pockets the difference).",
           hint: "A dealer who asks 'what monthly payment can you afford?' is setting a trap. The right question is 'what's the total cost?'",
         },
         {
           id: "pf-u3-L5-T2",
           type: "teaching",
-          question: "📉 Cars Lose Value FAST",
-          explanation: "A brand new car loses about 20% of its value the moment you drive off the lot. After 5 years, it's worth roughly 40% of what you paid. So a 35,000 new car is worth about 14,000 after five years. If you still owe 20,000 on it, you're 'underwater' — owing more than the car is worth. Used cars avoid most of this loss.",
-          options: [
-            "New cars lose ~20% value the instant you drive away",
-            "After 5 years, worth ~40% of purchase price",
-            "Being 'underwater' = owing more than the car is worth",
-          ],
+          question: "Cars Lose Value FAST",
+          explanation: "A brand new car loses about 20% of its value the moment you drive off the lot. After 5 years, it's worth roughly 40% of what you paid.",
           hint: "A 2-3 year old used car has already taken the biggest depreciation hit. You get 80% of the car for 60% of the price.",
         },
         {
@@ -571,7 +521,7 @@ export const unit3: Unit = {
           question: "A new car costing 35,000 depreciates ~20% immediately. What's it worth after you drive it home?",
           options: [
             "About 28,000",
-            "About 35,000 — it's still new",
+            "About 35,000, it's still new",
             "About 15,000",
             "About 32,000",
           ],
@@ -583,7 +533,7 @@ export const unit3: Unit = {
           type: "true-false",
           question: "Dealerships often make more profit from financing the car than from selling it.",
           correctAnswer: true,
-          explanation: "True. Dealers mark up interest rates, sell add-ons (warranties, gap insurance, paint protection), and earn kickbacks from lenders. The finance office is often their biggest profit center — not the showroom.",
+          explanation: "True. Dealers mark up interest rates, sell add-ons (warranties, gap insurance, paint protection), and earn kickbacks from lenders. The finance office is often their biggest profit center, not the showroom.",
         },
         {
           id: "pf-u3-L5-Q3",
@@ -602,8 +552,8 @@ export const unit3: Unit = {
           options: [
             "Dealer B: 450 × 60 = 27,000 total",
             "Dealer A: lower monthly payment is always better",
-            "They cost the same — just different timelines",
-            "Dealer A: 350 × 84 = 29,400 total — cheaper!",
+            "They cost the same, just different timelines",
+            "Dealer A: 350 × 84 = 29,400 total, cheaper!",
           ],
           correctIndex: 0,
           explanation: "Dealer A: 350 × 84 = 29,400 total. Dealer B: 450 × 60 = 27,000 total. Dealer B saves you 2,400 despite the higher monthly payment. The lower monthly payment TRAP made Dealer A look better. Always calculate the total cost.",
@@ -614,7 +564,7 @@ export const unit3: Unit = {
           question: "A new car loses about _____% of its value the moment you drive off the lot.",
           blanks: ["20"],
           wordBank: ["20", "5", "50", "10", "40", "1"],
-          explanation: "A new car depreciates roughly 20% the second it becomes 'used.' That's why a 1-3 year old used car is often the smartest financial move — someone else already absorbed the steepest depreciation.",
+          explanation: "A new car depreciates roughly 20% the second it becomes 'used.' That's why a 1-3 year old used car is often the smartest financial move, someone else already absorbed the steepest depreciation.",
         },
         {
           id: "pf-u3-L5-Q6",
@@ -677,36 +627,26 @@ export const unit3: Unit = {
         {
           id: "pf-u3-L6-T1",
           type: "teaching",
-          question: "🪤 The Minimum Payment Is NOT Your Friend",
-          explanation: "Your credit card says 'minimum payment: 35.' Feels manageable, right? That's the trap. On a 3,000 balance at 22% interest, paying 35/month means you'll be in debt for over 15 YEARS and pay about 4,500 in interest alone. You'd pay 7,500 total for that original 3,000 in purchases. The minimum is designed to keep you paying as long as possible.",
-          options: [
-            "Minimum payment = designed to maximize bank profit",
-            "3,000 balance + minimums only = 15+ years to pay off",
-            "You'd pay ~4,500 in INTEREST — more than the original debt",
-          ],
+          question: "The Minimum Payment Is NOT Your Friend",
+          explanation: "Your credit card says 'minimum payment: 35.' Feels manageable, right?",
           hint: "The minimum payment is typically 1-2% of your balance. That barely covers interest, with almost nothing going toward the actual debt.",
         },
         {
           id: "pf-u3-L6-T2",
           type: "teaching",
-          question: "📊 Where Does Your Minimum Payment Go?",
-          explanation: "On a 3,000 balance at 22% interest, your minimum is about 60. Here's the brutal breakdown: roughly 55 goes to interest and only 5 goes toward your actual debt. So that 60 payment reduces your balance by just 5. At that rate, it would take 600 months (50 years!) except the minimum drops as your balance drops, extending it further.",
-          options: [
-            "Most of your minimum payment goes to INTEREST, not debt",
-            "On 3,000 at 22%: ~55 in interest, ~5 toward balance",
-            "This is why balances barely shrink with minimum payments",
-          ],
-          hint: "Check your credit card statement — by law, it shows how long it takes to pay off with minimums. The number is always terrifying.",
+          question: "Where Does Your Minimum Payment Go?",
+          explanation: "On a 3,000 balance at 22% interest, your minimum is about 60. Here's the brutal breakdown: roughly 55 goes to interest and only 5 goes toward your actual debt.",
+          hint: "Check your credit card statement, by law, it shows how long it takes to pay off with minimums. The number is always terrifying.",
         },
         {
           id: "pf-u3-L6-Q1",
           type: "multiple-choice",
           question: "You owe 5,000 on a credit card at 22% interest. The minimum payment is 100. Roughly how much of that 100 goes toward your actual debt?",
           options: [
-            "About 8 — the rest is interest",
-            "About 50 — half and half",
+            "About 8, the rest is interest",
+            "About 50, half and half",
             "All 100 goes to the debt",
-            "About 75 — most goes to debt",
+            "About 75, most goes to debt",
           ],
           correctIndex: 0,
           explanation: "5,000 × 22% ÷ 12 = about 92 in monthly interest. Out of your 100 minimum, only 8 actually reduces your debt. At that rate, it barely moves. This is exactly how banks want it.",
@@ -716,7 +656,7 @@ export const unit3: Unit = {
           type: "true-false",
           question: "Paying just the minimum on your credit card is a good long-term strategy as long as you're not missing payments.",
           correctAnswer: false,
-          explanation: "Not missing payments is better than missing them, but minimum payments keep you trapped in debt for decades. You end up paying 2-3x the original amount in interest. The minimum is the WORST payment strategy — it's the maximum profit for the bank.",
+          explanation: "Not missing payments is better than missing them, but minimum payments keep you trapped in debt for decades. You end up paying 2-3x the original amount in interest. The minimum is the WORST payment strategy, it's the maximum profit for the bank.",
         },
         {
           id: "pf-u3-L6-Q3",
@@ -727,7 +667,7 @@ export const unit3: Unit = {
           correctValue: 20,
           tolerance: 20,
           unit: "years",
-          explanation: "At minimum payments (typically 2% of balance), a 5,000 balance at 20% takes roughly 19-22 years to pay off. You'd pay about 8,000-9,000 in interest alone. That's nearly double the original debt — just in interest.",
+          explanation: "At minimum payments (typically 2% of balance), a 5,000 balance at 20% takes roughly 19-22 years to pay off. You'd pay about 8,000-9,000 in interest alone. That's nearly double the original debt, just in interest.",
         },
         {
           id: "pf-u3-L6-Q4",
@@ -772,7 +712,7 @@ export const unit3: Unit = {
           question: "The minimum payment is designed to maximize the _____ profit, not help you get out of _____.",
           blanks: ["bank's", "debt"],
           wordBank: ["bank's", "debt", "your", "credit", "interest", "savings"],
-          explanation: "Banks set minimum payments low on purpose. The longer you take to pay, the more interest they collect. It's their most profitable product — and your most expensive mistake if you fall for it.",
+          explanation: "Banks set minimum payments low on purpose. The longer you take to pay, the more interest they collect. It's their most profitable product, and your most expensive mistake if you fall for it.",
         },
         {
           id: "pf-u3-L6-Q8",
@@ -804,32 +744,22 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L7",
       title: "Snowball vs Avalanche: Pick Your Fighter",
-      description: "Two proven strategies to pay off multiple debts — choose the one that fits your brain.",
+      description: "Two proven strategies to pay off multiple debts, choose the one that fits your brain.",
       icon: "⚔️",
       xpReward: 15,
       questions: [
         {
           id: "pf-u3-L7-T1",
           type: "teaching",
-          question: "⚔️ Two Strategies, One Goal: Debt Freedom",
-          explanation: "When you have multiple debts, where do you start? There are two proven methods. The Debt Snowball: pay off the smallest balance first for quick wins. The Debt Avalanche: pay off the highest interest rate first to save the most money. Both work. The best one is the one you'll actually stick with.",
-          options: [
-            "Snowball: smallest balance first (quick motivation)",
-            "Avalanche: highest interest rate first (saves most money)",
-            "Both methods: pay minimums on all debts, throw extra at the target",
-          ],
+          question: "Two Strategies, One Goal: Debt Freedom",
+          explanation: "When you have multiple debts, where do you start? There are two proven methods.",
           hint: "Both strategies agree on one thing: pay minimums on everything, then focus ALL extra money on one debt at a time.",
         },
         {
           id: "pf-u3-L7-T2",
           type: "teaching",
-          question: "❄️ The Snowball Method: Quick Wins First",
-          explanation: "List all debts from smallest to largest balance. Pay minimums on everything. Throw every extra dollar at the smallest debt. When it's gone — that's a WIN. Take what you were paying on it and add it to the next smallest. Each payoff frees up more money for the next one. The momentum builds like a snowball rolling downhill.",
-          options: [
-            "Order debts: smallest balance → largest balance",
-            "Pay minimums on all, attack the smallest with extra",
-            "Each paid-off debt frees money for the next one",
-          ],
+          question: "The Snowball Method: Quick Wins First",
+          explanation: "List all debts from smallest to largest balance. Pay minimums on everything.",
           hint: "Dave Ramsey made this method famous. It's not the cheapest mathematically, but the psychological wins keep people going.",
         },
         {
@@ -860,11 +790,11 @@ export const unit3: Unit = {
             "List all debts from smallest balance to largest",
             "Pay minimum on every debt except the smallest",
             "Throw all extra money at the smallest debt",
-            "Smallest debt hits zero — celebrate!",
+            "Smallest debt hits zero, celebrate!",
             "Roll that payment into the next smallest debt",
           ],
           correctOrder: [0, 1, 2, 3, 4],
-          explanation: "List, minimums on everything else, attack the smallest, celebrate the win, roll the freed-up payment forward. The 'rolling' effect is why it's called a snowball — it gets bigger and faster with each debt eliminated.",
+          explanation: "List, minimums on everything else, attack the smallest, celebrate the win, roll the freed-up payment forward. The 'rolling' effect is why it's called a snowball, it gets bigger and faster with each debt eliminated.",
         },
         {
           id: "pf-u3-L7-Q4",
@@ -872,9 +802,9 @@ export const unit3: Unit = {
           question: "Using the AVALANCHE method, which debt do you attack first?",
           scenario: "You have three debts: Credit card: 2,500 at 24% interest. Car loan: 8,000 at 6% interest. Personal loan: 1,200 at 12% interest. You have 300/month extra after minimums on all three.",
           options: [
-            "Credit card (2,500 at 24%) — it has the highest interest rate",
-            "Personal loan (1,200) — it's the smallest balance",
-            "Car loan (8,000) — it's the largest debt",
+            "Credit card (2,500 at 24%), it has the highest interest rate",
+            "Personal loan (1,200), it's the smallest balance",
+            "Car loan (8,000), it's the largest debt",
             "Split the 300 equally among all three",
           ],
           correctIndex: 0,
@@ -887,7 +817,7 @@ export const unit3: Unit = {
           options: ["Attacks highest interest rate first", "Attacks smallest balance first", "Saves most money mathematically", "Provides fastest emotional wins", "Recommended by Dave Ramsey", "Preferred by math-focused people"],
           buckets: ["Avalanche method", "Snowball method"],
           correctBuckets: [0, 1, 0, 1, 1, 0],
-          explanation: "Avalanche: highest rate, saves most money, appeals to math people. Snowball: smallest balance, fastest wins, recommended by Dave Ramsey. Both work — pick the one that fits your brain.",
+          explanation: "Avalanche: highest rate, saves most money, appeals to math people. Snowball: smallest balance, fastest wins, recommended by Dave Ramsey. Both work, pick the one that fits your brain.",
         },
         {
           id: "pf-u3-L7-Q6",
@@ -904,20 +834,20 @@ export const unit3: Unit = {
           question: "The _____ method focuses on quick wins, while the _____ method focuses on saving the most money.",
           blanks: ["snowball", "avalanche"],
           wordBank: ["snowball", "avalanche", "minimum", "maximum", "budget", "credit"],
-          explanation: "Snowball = quick wins through smallest balances. Avalanche = maximum savings through highest rates. Both crush debt — they just take different paths to get there.",
+          explanation: "Snowball = quick wins through smallest balances. Avalanche = maximum savings through highest rates. Both crush debt, they just take different paths to get there.",
         },
         {
           id: "pf-u3-L7-Q8",
           type: "pick-the-best",
           question: "You've tried paying off debt before but always lost motivation halfway through. Which method should you try?",
           options: [
-            "Debt snowball — the quick wins will keep you motivated",
-            "Debt avalanche — saving money on interest matters most",
-            "Pay all debts equally — don't play favorites",
-            "Just pay minimums — there's no rush",
+            "Debt snowball, the quick wins will keep you motivated",
+            "Debt avalanche, saving money on interest matters most",
+            "Pay all debts equally, don't play favorites",
+            "Just pay minimums, there's no rush",
           ],
           correctIndex: 0,
-          explanation: "If motivation is your problem, the snowball is your answer. Eliminating that first small debt quickly creates a psychological win that fuels you forward. The math difference between snowball and avalanche is usually small — but the motivation difference is huge.",
+          explanation: "If motivation is your problem, the snowball is your answer. Eliminating that first small debt quickly creates a psychological win that fuels you forward. The math difference between snowball and avalanche is usually small, but the motivation difference is huge.",
         },
         {
           id: "pf-u3-L7-Q9",
@@ -931,7 +861,7 @@ export const unit3: Unit = {
             "When one debt is paid, you roll the payment to the next",
           ],
           correctIndices: [0, 1, 2, 4],
-          explanation: "Both methods: pay minimums everywhere, focus extra on one target, get you debt-free, and roll payments forward. The ONLY difference is which debt gets targeted first — smallest balance (snowball) or highest rate (avalanche).",
+          explanation: "Both methods: pay minimums everywhere, focus extra on one target, get you debt-free, and roll payments forward. The ONLY difference is which debt gets targeted first, smallest balance (snowball) or highest rate (avalanche).",
         },
       ],
     },
@@ -940,33 +870,23 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L8",
       title: "Consolidation & Refinancing",
-      description: "Combining debts and lowering rates — when it works and when it's a trap.",
+      description: "Combining debts and lowering rates, when it works and when it's a trap.",
       icon: "🔄",
       xpReward: 15,
       questions: [
         {
           id: "pf-u3-L8-T1",
           type: "teaching",
-          question: "🔄 One Payment Instead of Five",
-          explanation: "Debt consolidation means combining multiple debts into a single loan, ideally at a lower interest rate. Instead of juggling five credit cards at 22-28%, you get one loan at 10-12%. One payment, one rate, one due date. It can save you money AND simplify your life. But there are traps if you're not careful.",
-          options: [
-            "Consolidation = combine multiple debts into one loan",
-            "Goal: lower interest rate + simpler payments",
-            "Warning: only works if you stop adding new debt",
-          ],
+          question: "One Payment Instead of Five",
+          explanation: "Debt consolidation means combining multiple debts into a single loan, ideally at a lower interest rate. Instead of juggling five credit cards at 22-28%, you get one loan at 10-12%.",
           hint: "Consolidation is a tool, not a cure. If you consolidate 15,000 in credit card debt and then run up the cards again, you've doubled your problem.",
         },
         {
           id: "pf-u3-L8-T2",
           type: "teaching",
-          question: "📉 Refinancing: Same Debt, Better Terms",
-          explanation: "Refinancing means replacing your current loan with a new one that has better terms — usually a lower interest rate. Common examples: refinancing a mortgage from 7% to 5%, or refinancing student loans from 8% to 4.5%. The key question: will the interest savings outweigh any fees? And for student loans — never refinance federal loans to private if you might need forgiveness.",
-          options: [
-            "Refinancing = replacing a loan with a better one",
-            "Works best when rates have dropped since you borrowed",
-            "Always check: will savings exceed refinancing fees?",
-          ],
-          hint: "Refinancing a mortgage can save hundreds per month. But watch for closing costs — they can take years to break even.",
+          question: "Refinancing: Same Debt, Better Terms",
+          explanation: "Refinancing means replacing your current loan with a new one that has better terms, usually a lower interest rate. Common examples: refinancing a mortgage from 7% to 5%, or refinancing student loans from 8% to 4.",
+          hint: "Refinancing a mortgage can save hundreds per month. But watch for closing costs, they can take years to break even.",
         },
         {
           id: "pf-u3-L8-Q1",
@@ -1022,24 +942,24 @@ export const unit3: Unit = {
           options: [
             "Transfer and aggressively pay it off within 15 months (534/month = 0 interest)",
             "Transfer and make minimum payments for 15 months",
-            "Skip the transfer — the 3% fee isn't worth it",
+            "Skip the transfer, the 3% fee isn't worth it",
             "Transfer only half the balance to be safe",
           ],
           correctIndex: 0,
-          explanation: "The 240 fee saves you roughly 2,000 in interest IF you pay it off in 15 months. 8,240 ÷ 15 = 549/month. That's aggressive but saves massively. Making minimums means you still owe most of it when the 22% rate kicks in — defeating the purpose.",
+          explanation: "The 240 fee saves you roughly 2,000 in interest IF you pay it off in 15 months. 8,240 ÷ 15 = 549/month. That's aggressive but saves massively. Making minimums means you still owe most of it when the 22% rate kicks in, defeating the purpose.",
         },
         {
           id: "pf-u3-L8-Q7",
           type: "pick-the-best",
           question: "You have 30,000 in federal student loans at 5.5% interest. Which refinancing approach is best?",
           options: [
-            "Keep federal loans — you might need income-driven repayment or forgiveness options",
+            "Keep federal loans, you might need income-driven repayment or forgiveness options",
             "Refinance to a private loan at 4.5% to save 1% on interest",
             "Refinance to a private loan at 3% with a variable rate",
             "Consolidate into a home equity loan at 6%",
           ],
           correctIndex: 0,
-          explanation: "Saving 1% on interest sounds good, but refinancing federal loans to private means losing income-driven repayment, deferment, forbearance, and forgiveness options forever. The 1% savings rarely justifies losing those safety nets — especially if your income or job is uncertain.",
+          explanation: "Saving 1% on interest sounds good, but refinancing federal loans to private means losing income-driven repayment, deferment, forbearance, and forgiveness options forever. The 1% savings rarely justifies losing those safety nets, especially if your income or job is uncertain.",
         },
         {
           id: "pf-u3-L8-Q8",
@@ -1078,25 +998,15 @@ export const unit3: Unit = {
         {
           id: "pf-u3-L9-T1",
           type: "teaching",
-          question: "🧭 The Smart Borrowing Framework",
-          explanation: "Before taking on any debt, run it through five questions: 1) Will this increase my earning power or net worth? 2) Is the interest rate under 8%? 3) Can I comfortably make payments without stress? 4) Have I exhausted all alternatives (savings, waiting, cheaper options)? 5) Will the value of what I'm buying outlast the debt? If you can't answer yes to at least 3 of 5, don't borrow.",
-          options: [
-            "5 questions before any debt: earning power, rate, affordability, alternatives, lasting value",
-            "3+ 'yes' answers = probably smart to borrow",
-            "Fewer than 3 = find another way or wait",
-          ],
-          hint: "A mortgage passes all 5 easily. A vacation on a credit card fails all 5. Most decisions fall somewhere in between — that's where the framework helps.",
+          question: "The Smart Borrowing Framework",
+          explanation: "Before taking on any debt, run it through five questions: 1) Will this increase my earning power or net worth? 2) Is the interest rate under 8%?",
+          hint: "A mortgage passes all 5 easily. A vacation on a credit card fails all 5. Most decisions fall somewhere in between, that's where the framework helps.",
         },
         {
           id: "pf-u3-L9-T2",
           type: "teaching",
-          question: "💡 The ROI Test: Will This Debt Pay for Itself?",
-          explanation: "The ultimate debt question: will the thing you're borrowing for generate more value than the interest costs? A 10,000 certification that leads to a 15,000/year raise has a massive ROI — it pays for itself in under a year. A 10,000 vacation? Zero financial return. Same debt amount, completely different outcomes. Always calculate the return before borrowing.",
-          options: [
-            "Good debt pays for itself through increased income or asset growth",
-            "10,000 certification → 15,000/year raise = debt pays off in months",
-            "10,000 vacation → 0 return = pure consumption debt",
-          ],
+          question: "The ROI Test: Will This Debt Pay for Itself?",
+          explanation: "The ultimate debt question: will the thing you're borrowing for generate more value than the interest costs? A 10,000 certification that leads to a 15,000/year raise has a massive ROI, it pays for itself in under a year.",
           hint: "Ask yourself: 'In 5 years, will I still be benefiting from what I borrowed for?' If yes, it might be worth it.",
         },
         {
@@ -1127,13 +1037,13 @@ export const unit3: Unit = {
           question: "Should you borrow?",
           scenario: "You're a web developer earning 60,000/year. A 5,000 bootcamp certification in cloud computing could increase your salary to 85,000 within a year. You'd need to borrow the 5,000 at 8% interest over 2 years (about 226/month).",
           options: [
-            "Yes — the 25,000/year raise more than pays for the 5,400 total loan cost",
-            "No — you should never borrow for education",
-            "No — wait 5 years until you save the full 5,000",
-            "Yes — but only if you use a credit card at 24% for the rewards",
+            "Yes, the 25,000/year raise more than pays for the 5,400 total loan cost",
+            "No, you should never borrow for education",
+            "No, wait 5 years until you save the full 5,000",
+            "Yes, but only if you use a credit card at 24% for the rewards",
           ],
           correctIndex: 0,
-          explanation: "This passes the framework easily: builds earning power (+25K/year), rate is reasonable (8%), payments are comfortable (226/month), and the value (higher salary) far outlasts the debt. The ROI is massive — 5,400 invested to earn 25,000 more per year.",
+          explanation: "This passes the framework easily: builds earning power (+25K/year), rate is reasonable (8%), payments are comfortable (226/month), and the value (higher salary) far outlasts the debt. The ROI is massive ,  5,400 invested to earn 25,000 more per year.",
         },
         {
           id: "pf-u3-L9-Q4",
@@ -1155,14 +1065,14 @@ export const unit3: Unit = {
           ],
           correctOrder: [0, 1, 2, 3],
           rankCriteria: "Best ROI → Worst ROI",
-          explanation: "The certification pays for itself in 6 months. The mortgage builds equity over decades. The car enables income but depreciates. The credit card debt has zero return — pure cost.",
+          explanation: "The certification pays for itself in 6 months. The mortgage builds equity over decades. The car enables income but depreciates. The credit card debt has zero return, pure cost.",
         },
         {
           id: "pf-u3-L9-Q6",
           type: "true-false",
           question: "If you can answer 'yes' to all 5 framework questions, borrowing is probably a smart move.",
           correctAnswer: true,
-          explanation: "If the debt increases your earning power, has a low rate, you can afford payments comfortably, you've considered alternatives, and the value outlasts the debt — that's a strong case for borrowing. Not guaranteed to be perfect, but the odds are heavily in your favor.",
+          explanation: "If the debt increases your earning power, has a low rate, you can afford payments comfortably, you've considered alternatives, and the value outlasts the debt, that's a strong case for borrowing. Not guaranteed to be perfect, but the odds are heavily in your favor.",
         },
         {
           id: "pf-u3-L9-Q7",
@@ -1171,18 +1081,18 @@ export const unit3: Unit = {
           options: [
             "Buy a capable refurbished laptop for 800 cash from your sinking fund",
             "Finance a 2,500 top-of-the-line model at 22% for 24 months",
-            "Put a 3,500 MacBook Pro on your credit card — you deserve it",
+            "Put a 3,500 MacBook Pro on your credit card, you deserve it",
             "Take a payday loan for 1,500 to buy one today",
           ],
           correctIndex: 0,
-          explanation: "The refurbished laptop meets the need at the lowest cost with zero debt. You already saved for it (sinking fund), so no interest. The other options all add debt with high interest for features you probably don't need. Need vs want — the 800 machine does the job.",
+          explanation: "The refurbished laptop meets the need at the lowest cost with zero debt. You already saved for it (sinking fund), so no interest. The other options all add debt with high interest for features you probably don't need. Need vs want, the 800 machine does the job.",
         },
         {
           id: "pf-u3-L9-Q8",
           type: "match-pairs",
           question: "Match each situation to the best action:",
           options: ["Need a car for new job starting Monday", "Want to renovate kitchen for fun", "Opportunity to buy profitable rental property", "Want the latest gaming console"],
-          matchTargets: ["Borrow minimally for a reliable used car", "Save up in a sinking fund first", "Run the numbers — borrow if ROI is positive", "Wait for a sale and pay cash"],
+          matchTargets: ["Borrow minimally for a reliable used car", "Save up in a sinking fund first", "Run the numbers, borrow if ROI is positive", "Wait for a sale and pay cash"],
           correctMatches: [0, 1, 2, 3],
           explanation: "Urgent need + income-enabling = borrow minimally. Lifestyle upgrade = save first. Investment opportunity = do the math. Want/entertainment = pay cash only.",
         },
@@ -1207,20 +1117,15 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L10",
       title: "Debt-Free Victory Plan",
-      description: "Comprehensive review — prove you've mastered debt.",
+      description: "Comprehensive review, prove you've mastered debt.",
       icon: "🏆",
       xpReward: 20,
       questions: [
         {
           id: "pf-u3-L10-T1",
           type: "teaching",
-          question: "🏆 Final Boss: Your Debt-Free Victory Plan",
-          explanation: "You've learned how debt works, how interest eats your money, how credit cards and loans operate, and strategies to crush debt forever. This final lesson tests everything. Every concept from every lesson is fair game. Score high here and you genuinely understand debt better than most adults. Let's finish strong.",
-          options: [
-            "This lesson covers ALL unit concepts — no topic is off limits",
-            "Mix of every question type — stay sharp",
-            "Master this and you're armed for real-world debt decisions",
-          ],
+          question: "Final Boss: Your Debt-Free Victory Plan",
+          explanation: "You've learned how debt works, how interest eats your money, how credit cards and loans operate, and strategies to crush debt forever. This final lesson tests everything.",
         },
         {
           id: "pf-u3-L10-Q1",
@@ -1258,7 +1163,7 @@ export const unit3: Unit = {
           type: "true-false",
           question: "Consolidating credit card debt and then continuing to use the cards makes your debt situation worse.",
           correctAnswer: true,
-          explanation: "Absolutely. You now have the consolidation loan PLUS new credit card debt. This is the most common consolidation failure. Cut the cards or lock them away after consolidating.",
+          explanation: "Yes. You now have the consolidation loan PLUS new credit card debt. This is the most common consolidation failure. Cut the cards or lock them away after consolidating.",
         },
         {
           id: "pf-u3-L10-Q5",
@@ -1280,21 +1185,21 @@ export const unit3: Unit = {
             "Ignoring it and hoping the bank forgets",
           ],
           correctIndex: 0,
-          explanation: "Aggressive repayment (500/month) pays about 270 in interest total. Minimums cost 4,500 in interest. The 0% transfer helps IF you pay it off before the promo ends — but minimums on a transfer card is risky. Banks never forget.",
+          explanation: "Aggressive repayment (500/month) pays about 270 in interest total. Minimums cost 4,500 in interest. The 0% transfer helps IF you pay it off before the promo ends, but minimums on a transfer card is risky. Banks never forget.",
         },
         {
           id: "pf-u3-L10-Q7",
           type: "order-steps",
           question: "Put these debt-freedom milestones in order:",
           steps: [
-            "Stop adding new debt — freeze the bleeding",
+            "Stop adding new debt, freeze the bleeding",
             "List all debts with balances, rates, and minimums",
             "Choose snowball or avalanche and start attacking",
             "Consider consolidation if rates are very high",
             "Celebrate debt freedom and redirect payments to savings and investing",
           ],
           correctOrder: [0, 1, 2, 3, 4],
-          explanation: "First stop the bleeding (no new debt). Then know your numbers. Pick a strategy and execute. Consolidate if it helps. And when you're free — don't just spend the freed-up money. Redirect it to building wealth.",
+          explanation: "First stop the bleeding (no new debt). Then know your numbers. Pick a strategy and execute. Consolidate if it helps. And when you're free, don't just spend the freed-up money. Redirect it to building wealth.",
         },
         {
           id: "pf-u3-L10-Q8",
@@ -1330,13 +1235,13 @@ export const unit3: Unit = {
           type: "pick-the-best",
           question: "What's the single most important thing you learned in this unit?",
           options: [
-            "Debt is a tool — understanding how it works gives you the power to use it wisely or avoid its traps",
+            "Debt is a tool, understanding how it works gives you the power to use it wisely or avoid its traps",
             "You should never borrow money for any reason",
             "Minimum payments are a fine strategy if you're patient",
             "Interest rates don't really matter that much",
           ],
           correctIndex: 0,
-          explanation: "Debt isn't inherently good or bad — it's a tool. A mortgage builds wealth. A payday loan destroys it. Credit cards are free money if you pay in full, or a trap if you don't. Knowledge is the difference. You now have that knowledge. Use it.",
+          explanation: "Debt isn't inherently good or bad, it's a tool. A mortgage builds wealth. A payday loan destroys it. Credit cards are free money if you pay in full, or a trap if you don't. Knowledge is the difference. You now have that knowledge. Use it.",
         },
       ],
     },
@@ -1344,7 +1249,7 @@ export const unit3: Unit = {
     {
       id: "pf-u3-L11",
       title: "The Debt Payoff Journey",
-      description: "Follow a $28K debt payoff over years — snowball vs avalanche.",
+      description: "Follow a $28K debt payoff over years, snowball vs avalanche.",
       icon: "🔀",
       xpReward: 20,
       type: "timeline",
@@ -1357,32 +1262,32 @@ export const unit3: Unit = {
           emoji: "📊",
           choices: [
             {
-              text: "Debt snowball — pay smallest balance first ($5K loan)",
+              text: "Debt snowball, pay smallest balance first ($5K loan)",
               nextStageId: "pf-u3-L11-TS2",
               impact: "Quick wins! You'll eliminate the personal loan fastest, building momentum and motivation.",
               optimal: false,
             },
             {
-              text: "Debt avalanche — pay highest interest first ($8K credit card)",
+              text: "Debt avalanche, pay highest interest first ($8K credit card)",
               nextStageId: "pf-u3-L11-TS2",
-              impact: "Mathematically optimal! The credit card at 22% costs you the most — killing it first saves thousands in interest.",
+              impact: "Mathematically optimal! The credit card at 22% costs you the most, killing it first saves thousands in interest.",
               optimal: true,
             },
           ],
         },
         {
           id: "pf-u3-L11-TS2",
-          narrative: "Month 6 — You've made solid progress. A coworker tells you about a 0% balance transfer card. Transfer the remaining credit card balance?",
+          narrative: "Month 6: You've made solid progress. A coworker tells you about a 0% balance transfer card. Transfer the remaining credit card balance?",
           emoji: "💳",
           choices: [
             {
-              text: "Transfer it — 0% interest for 18 months is free money",
+              text: "Transfer it ,  0% interest for 18 months is free money",
               nextStageId: "pf-u3-L11-TS3",
               impact: "Smart move if you can pay it off within the promo period. Just watch for the 3-5% transfer fee.",
               optimal: true,
             },
             {
-              text: "Skip it — too complicated and there might be hidden fees",
+              text: "Skip it, too complicated and there might be hidden fees",
               nextStageId: "pf-u3-L11-TS3",
               impact: "Playing it safe costs you. At 22% APR, every month without the transfer burns money.",
               optimal: false,
@@ -1391,7 +1296,7 @@ export const unit3: Unit = {
         },
         {
           id: "pf-u3-L11-TS3",
-          narrative: "Month 14 — Tax refund of $1,500 arrives. What do you do with it?",
+          narrative: "Month 14: Tax refund of $1,500 arrives. What do you do with it?",
           emoji: "💰",
           choices: [
             {
@@ -1407,7 +1312,7 @@ export const unit3: Unit = {
               optimal: false,
             },
             {
-              text: "Save it for emergencies — you don't have a safety net",
+              text: "Save it for emergencies, you don't have a safety net",
               nextStageId: "pf-u3-L11-TS4",
               impact: "Valid concern, but at 22% interest, your debt IS the emergency. A small $500 buffer is enough for now.",
               optimal: false,
@@ -1416,17 +1321,17 @@ export const unit3: Unit = {
         },
         {
           id: "pf-u3-L11-TS4",
-          narrative: "Month 20 — Credit card is paid off! Now just the student loans remain. A friend says 'student loan interest is tax-deductible, so pay it slow.' Agree?",
+          narrative: "Month 20: Credit card is paid off! Now just the student loans remain. A friend says 'student loan interest is tax-deductible, so pay it slow.' Agree?",
           emoji: "🎓",
           choices: [
             {
-              text: "No — the deduction saves pennies compared to the interest cost. Keep paying aggressively.",
+              text: "No, the deduction saves pennies compared to the interest cost. Keep paying aggressively.",
               nextStageId: "pf-u3-L11-TS5",
               impact: "Correct! The tax deduction on student loan interest is capped at $2,500 and reduces your tax bill by a fraction of what you pay in interest.",
               optimal: true,
             },
             {
-              text: "Yes — slow down and invest the extra money instead",
+              text: "Yes, slow down and invest the extra money instead",
               nextStageId: "pf-u3-L11-TS5",
               impact: "Investing while carrying debt can work if investment returns exceed the loan rate, but it's risky and adds complexity.",
               optimal: false,
@@ -1435,7 +1340,7 @@ export const unit3: Unit = {
         },
         {
           id: "pf-u3-L11-TS5",
-          narrative: "Month 30 — Almost there! $3,000 left on student loans. You get a $4,000 bonus at work. Final decision:",
+          narrative: "Month 30: Almost there! $3,000 left on student loans. You get a $4,000 bonus at work. Final decision:",
           emoji: "🏁",
           choices: [
             {
@@ -1570,7 +1475,7 @@ export const unit3: Unit = {
               text: "Sure, that works. Thanks!",
               nextNodeId: "pf-u3-L12-C7",
               quality: "okay",
-              feedback: "You saved 5% — not bad! But the first offer is rarely the best. A polite counter often gets you 2-3% more off.",
+              feedback: "You saved 5%, not bad! But the first offer is rarely the best. A polite counter often gets you 2-3% more off.",
             },
             {
               text: "That's still too high. I'm canceling.",
@@ -1595,7 +1500,7 @@ export const unit3: Unit = {
         {
           id: "pf-u3-L12-C9",
           speaker: "Narrator",
-          message: "You successfully negotiated your APR from 24.99% down to 17.49% — that's a 7.5% reduction! On your $4,200 balance, this saves you about $315 per year in interest. The whole call took 8 minutes. Not bad for a day's work!",
+          message: "You successfully negotiated your APR from 24.99% down to 17.49%, that's a 7.5% reduction! On your $4,200 balance, this saves you about $315 per year in interest. The whole call took 8 minutes. Not bad for a day's work!",
         },
       ],
     },

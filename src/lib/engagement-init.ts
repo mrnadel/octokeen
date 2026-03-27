@@ -11,11 +11,11 @@ function getYesterday(): string {
   return d.toISOString().split('T')[0];
 }
 
-export function useEngagementInit() {
+export function useEngagementInit(isHydrated = true) {
   const initialized = useRef(false);
 
   useEffect(() => {
-    if (initialized.current) return;
+    if (initialized.current || !isHydrated) return;
     initialized.current = true;
 
     const progress = useStore.getState().progress;
@@ -77,5 +77,5 @@ export function useEngagementInit() {
     if (hasEngagementHistory) {
       useEngagementStore.getState().checkComebackFlow();
     }
-  }, []);
+  }, [isHydrated]);
 }

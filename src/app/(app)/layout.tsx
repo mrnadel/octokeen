@@ -44,7 +44,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isHydrated } = useDbSync();
 
   // Initialize engagement systems (streak freeze, quests, league, comeback)
-  useEngagementInit();
+  // Wait for DB hydration so init doesn't run with empty/stale state
+  useEngagementInit(isHydrated);
 
   const isAuthenticated = status === 'authenticated';
   const isLoading = status === 'loading';

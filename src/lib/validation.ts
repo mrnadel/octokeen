@@ -119,7 +119,9 @@ export const courseProgressSyncSchema = z.object({
       answeredQuestionIds: z.array(z.string()).max(500).optional(),
       correctQuestionIds: z.array(z.string()).max(500).optional(),
     })).optional(),
+    courseIntros: z.record(z.string(), z.unknown()).optional(),
   }),
+  activeProfession: z.string().max(50).optional(),
 });
 
 // Helper to extract the first validation error message

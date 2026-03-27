@@ -19,7 +19,7 @@ export const unit0: Unit = {
           id: "pf-u0-L1-T1",
           type: "teaching",
           question: "Welcome!",
-          explanation: "This course will teach you how money works. No math skills needed, no finance background required. Let's start with the absolute basics.",
+          explanation: "This course will teach you how money works. No experience needed, let's start with the basics.",
         },
         {
           id: "pf-u0-L1-Q1",
@@ -107,7 +107,8 @@ export const unit0: Unit = {
           id: "pf-u0-L2-T1",
           type: "teaching",
           question: "Where Does Your Money Live?",
-          explanation: "Most people keep their money in a bank account. When your employer pays you, the money goes into your bank account. When you buy something, money comes out.",
+          explanation: "Most people keep their money in a bank account. Money goes in when you get paid, and comes out when you spend.",
+          hint: "Try this now: open your bank app and check your balance.",
         },
         {
           id: "pf-u0-L2-Q1",
@@ -133,7 +134,7 @@ export const unit0: Unit = {
           id: "pf-u0-L2-T2",
           type: "teaching",
           question: "Two Types of Accounts",
-          explanation: "A checking account is for everyday spending. A savings account is for money you want to keep and not touch. Most people have both.",
+          explanation: "A checking account is for everyday spending. A savings account is for money you want to keep and not touch.",
         },
         {
           id: "pf-u0-L2-Q3",
@@ -214,7 +215,7 @@ export const unit0: Unit = {
           id: "pf-u0-L3-T2",
           type: "teaching",
           question: "Why Save?",
-          explanation: "Savings protect you when something unexpected happens: a car breaks down, you get sick, or you lose your job. Without savings, one surprise can put you into debt.",
+          explanation: "Savings protect you when something unexpected happens, like a car breaking down or losing your job. Without savings, one surprise can put you into debt.",
         },
         {
           id: "pf-u0-L3-Q3",

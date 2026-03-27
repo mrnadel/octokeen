@@ -3,7 +3,7 @@ import type { Unit } from '../../../types';
 export const unit12: Unit = {
   id: "pf-u12-big-moves",
   title: "Big Money Moves",
-  description: "Level up — build wealth, create income streams, and design your financial life.",
+  description: "Level up. Build wealth, create income streams, and design your financial life.",
   color: "#015E02",
   icon: "🚀",
   lessons: [
@@ -18,27 +18,15 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L1-T1",
           type: "teaching",
-          question: "🧠 Before You Swipe: The Big Purchase Framework",
-          explanation: "Here's the deal — anyone can buy stuff. The hard part is knowing when a big purchase is smart and when it's a trap. The Big Purchase Framework is a simple checklist that separates 'worth it' from 'regret it.' Whenever you're looking at anything over $500 — a laptop, couch, vacation, car repair — run it through this system before you commit.",
-          options: [
-            "Big purchases need a decision system, not impulse",
-            "The framework works for anything over $500",
-            "Smart buyers pause, check, then decide",
-          ],
+          question: "Before You Swipe: The Big Purchase Framework",
+          explanation: "Here's the deal: anyone can buy stuff. The hard part is knowing when a big purchase is smart and when it's a trap.",
           hint: "The most expensive mistakes happen when you skip the thinking step and go straight to 'add to cart.'",
         },
         {
           id: "pf-u12-L1-T2",
           type: "teaching",
-          question: "📋 The 5-Step Big Purchase Checklist",
-          explanation: "Step 1: Do I need it, or do I just want it right now? Step 2: Can I pay cash, or will I go into debt? Step 3: Have I researched alternatives and prices? Step 4: Can I wait 48 hours and still want it? Step 5: Does this fit my bigger financial goals? If you can honestly answer all five and still feel good, go for it. If not, walk away — the deal will come back.",
-          options: [
-            "1. Need vs want — be brutally honest",
-            "2. Cash or debt? Debt = red flag",
-            "3. Research first, buy second",
-            "4. The 48-hour cooling period",
-            "5. Does it align with your financial goals?",
-          ],
+          question: "The 5-Step Big Purchase Checklist",
+          explanation: "Step 1: Do I need it, or do I just want it right now? Step 2: Can I pay cash, or will I go into debt?",
           hint: "Most impulse purchases fail at Step 4. Time is the best antidote to buyer's remorse.",
         },
         {
@@ -58,16 +46,16 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L1-Q2",
           type: "scenario",
-          scenario: "Your friend texts you: 'Flash sale — 60% off this $1,200 laptop, only 3 hours left!' You've been thinking about a new laptop but haven't researched which one you actually want. Your current laptop still works but is slow.",
+          scenario: "Your friend texts you: 'Flash sale. 60% off this $1,200 laptop, only 3 hours left!' You've been thinking about a new laptop but haven't researched which one you actually want. Your current laptop still works but is slow.",
           question: "What's the smartest move?",
           options: [
-            "Buy it immediately — 60% off is too good to pass up",
+            "Buy it immediately. 60% off is too good to pass up",
             "Skip the sale and research what laptop you actually need first",
             "Put it on a credit card and figure it out later",
             "Buy it and return it if something better comes along",
           ],
           correctIndex: 1,
-          explanation: "A 'deal' on the wrong thing isn't a deal at all. If you haven't researched what you need, you might buy a $480 laptop that doesn't fit your needs — when a $400 model would've been perfect. Research first, buy second. Sales always come back.",
+          explanation: "A 'deal' on the wrong thing isn't a deal at all. If you haven't researched what you need, you might buy a $480 laptop that doesn't fit your needs. When a $400 model would've been perfect. Research first, buy second. Sales always come back.",
         },
         {
           id: "pf-u12-L1-Q3",
@@ -80,7 +68,7 @@ export const unit12: Unit = {
             "It's required by consumer protection law",
           ],
           correctIndex: 1,
-          explanation: "Retailers know you buy more when you're excited. The 48-hour rule lets that emotional spike calm down. If you still want it after 2 days of clear thinking, it's probably a solid purchase. If you forgot about it... you just saved yourself money.",
+          explanation: "Retailers know you buy more when you're excited. The 48-hour rule lets that emotional spike calm down. If you still want it after 2 days of clear thinking, it's probably a solid purchase. If you forgot about it. You just saved yourself money.",
         },
         {
           id: "pf-u12-L1-Q4",
@@ -103,7 +91,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "If a big purchase requires going into debt, it automatically fails the Big Purchase Framework.",
           correctAnswer: false,
-          explanation: "Not automatically. Some debt-funded purchases are smart — like a reliable car to get to work or a tool that generates income. The framework asks you to consider it carefully, not to ban all debt. Context matters.",
+          explanation: "Not automatically. Some debt-funded purchases are smart. Like a reliable car to get to work or a tool that generates income. The framework asks you to consider it carefully, not to ban all debt. Context matters.",
         },
         {
           id: "pf-u12-L1-Q6",
@@ -144,33 +132,22 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L2",
       title: "Negotiation: Ask and You Shall Receive",
-      description: "How to negotiate anything — salary, bills, prices, contracts.",
+      description: "How to negotiate anything. Salary, bills, prices, contracts.",
       icon: "🤝",
       xpReward: 15,
       questions: [
         {
           id: "pf-u12-L2-T1",
           type: "teaching",
-          question: "🤝 The Art of Asking for More",
-          explanation: "Most people leave thousands of dollars on the table every year because they never ask. Your rent? Negotiable. Your salary? Negotiable. Your credit card interest rate? Negotiable. Your cable bill? Definitely negotiable. The worst anyone can say is 'no,' and even then you're no worse off than before you asked. Negotiation isn't about being aggressive — it's about being prepared.",
-          options: [
-            "Almost everything in life is negotiable",
-            "The worst outcome of asking is 'no' — you lose nothing",
-            "Preparation beats aggression every time",
-          ],
+          question: "The Art of Asking for More",
+          explanation: "Most people leave thousands of dollars on the table every year because they never ask. Your rent?",
           hint: "People who negotiate their starting salary earn an average of $1 million more over their career than those who don't.",
         },
         {
           id: "pf-u12-L2-T2",
           type: "teaching",
-          question: "💰 The Negotiation Playbook",
-          explanation: "Here's the playbook that works everywhere. Step 1: Research — know the market rate, competitor prices, or what others pay. Step 2: Be friendly but firm — 'I love your service, but I found a better rate at...' Step 3: Ask for more than you expect — they'll counter, and you'll land closer to your goal. Step 4: Be willing to walk away — this is your ultimate power. Step 5: Get it in writing.",
-          options: [
-            "Research gives you leverage (know the numbers)",
-            "Friendly + firm beats aggressive every time",
-            "Ask high, settle in the middle",
-            "Willingness to walk away = ultimate power",
-          ],
+          question: "The Negotiation Playbook",
+          explanation: "Here's the playbook that works everywhere. Step 1: Research. Know the market rate, competitor prices, or what others pay.",
           hint: "The person with the most information and the least desperation always wins the negotiation.",
         },
         {
@@ -180,20 +157,20 @@ export const unit12: Unit = {
           options: ["Starting salary", "Sales tax rate", "Credit card APR", "Cable/internet bill", "Speeding ticket fine", "Medical bills"],
           buckets: ["Negotiable", "Usually fixed"],
           correctBuckets: [0, 1, 0, 0, 1, 0],
-          explanation: "Salaries, credit card rates, cable bills, and medical bills are all negotiable — most people just never try. Sales tax and speeding tickets are set by law and not negotiable (though you can contest a ticket in court).",
+          explanation: "Salaries, credit card rates, cable bills, and medical bills are all negotiable. Most people just never try. Sales tax and speeding tickets are set by law and not negotiable (though you can contest a ticket in court).",
         },
         {
           id: "pf-u12-L2-Q2",
           type: "multiple-choice",
           question: "You're offered a job at $55,000. You researched that the market rate is $60,000-$65,000. What's the best opening counter?",
           options: [
-            "Ask for exactly $60,000 — the low end of market rate",
-            "Ask for $67,000 — above market rate to land in the middle",
+            "Ask for exactly $60,000. The low end of market rate",
+            "Ask for $67,000. Above market rate to land in the middle",
             "Accept $55,000 and negotiate a raise later",
             "Demand $80,000 to show confidence",
           ],
           correctIndex: 1,
-          explanation: "Ask higher than your target. If you want $62,000, open at $67,000. They'll counter somewhere in the $60-63K range — exactly where you wanted to be. Accepting the first offer or asking for an unrealistic number both hurt you.",
+          explanation: "Ask higher than your target. If you want $62,000, open at $67,000. They'll counter somewhere in the $60-63K range. Exactly where you wanted to be. Accepting the first offer or asking for an unrealistic number both hurt you.",
         },
         {
           id: "pf-u12-L2-Q3",
@@ -215,13 +192,13 @@ export const unit12: Unit = {
           scenario: "You call your internet provider to negotiate your $120/month bill. The rep says 'That's the standard rate, there's nothing I can do.' You know a competitor offers the same speed for $80/month.",
           question: "What's your best next move?",
           options: [
-            "Accept it and move on — they said no",
+            "Accept it and move on. They said no",
             "Get angry and threaten to sue",
             "Say 'I understand, but Competitor X offers the same speed for $80. Can you match that or I'll need to switch?'",
             "Hang up and call back hoping for a different rep",
           ],
           correctIndex: 2,
-          explanation: "This is the magic formula: show you've done your research, name the competitor and price, and be willing to walk. Most retention departments have authority to offer discounts of 20-40% — but only if you ask and show you're serious about leaving.",
+          explanation: "This is the magic formula: show you've done your research, name the competitor and price, and be willing to walk. Most retention departments have authority to offer discounts of 20-40%. But only if you ask and show you're serious about leaving.",
         },
         {
           id: "pf-u12-L2-Q5",
@@ -241,14 +218,14 @@ export const unit12: Unit = {
           options: ["Salary negotiation", "Cable bill", "Medical bill", "Car purchase"],
           matchTargets: ["Competing job offer", "Competitor's lower price", "Offer to pay cash upfront", "Willingness to walk off the lot"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Each negotiation has its own power move. For salary, a competing offer is gold. For bills, competitor pricing works. Medical providers love upfront cash. And car dealers hate watching you leave — they'll often call you back with a better offer.",
+          explanation: "Each negotiation has its own power move. For salary, a competing offer is gold. For bills, competitor pricing works. Medical providers love upfront cash. And car dealers hate watching you leave. They'll often call you back with a better offer.",
         },
         {
           id: "pf-u12-L2-Q7",
           type: "true-false",
           question: "You should always accept the first offer in a negotiation to avoid seeming greedy.",
           correctAnswer: false,
-          explanation: "Never accept the first offer. The first offer is almost always a starting point, not the final number. Countering isn't greedy — it's expected. In fact, the other side often respects you more when you negotiate because it shows you know your value.",
+          explanation: "Never accept the first offer. The first offer is almost always a starting point, not the final number. Countering isn't greedy. It's expected. In fact, the other side often respects you more when you negotiate because it shows you know your value.",
         },
         {
           id: "pf-u12-L2-Q8",
@@ -262,7 +239,7 @@ export const unit12: Unit = {
             "Making personal attacks to throw them off",
           ],
           correctIndices: [0, 2, 3],
-          explanation: "Research, strategic silence, and a predetermined walkaway point are all power moves. Silence is especially underrated — after you state your number, shut up and let them respond. Aggression and personal attacks backfire and make people defensive.",
+          explanation: "Research, strategic silence, and a predetermined walkaway point are all power moves. Silence is especially underrated. After you state your number, shut up and let them respond. Aggression and personal attacks backfire and make people defensive.",
         },
       ],
     },
@@ -278,14 +255,9 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L3-T1",
           type: "teaching",
-          question: "💑 When Two Wallets Become One (Sort Of)",
-          explanation: "Money is the #1 thing couples fight about. Not because money is complicated, but because two people have two completely different money stories, habits, and fears. Before you merge finances with a partner, you need to have The Money Talk — not once, but regularly. It's not romantic, but couples who talk about money openly are significantly less likely to divorce.",
-          options: [
-            "Money = #1 cause of relationship conflict",
-            "Everyone brings different money habits to a relationship",
-            "Regular money talks = stronger relationships",
-          ],
-          hint: "The goal isn't to agree on everything — it's to understand each other's money values and find a system that works for both of you.",
+          question: "When Two Wallets Become One (Sort Of)",
+          explanation: "Money is the #1 thing couples fight about. Not because money is complicated, but because two people have two completely different money stories, habits, and fears.",
+          hint: "The goal isn't to agree on everything. It's to understand each other's money values and find a system that works for both of you.",
         },
         {
           id: "pf-u12-L3-Q1",
@@ -314,16 +286,16 @@ export const unit12: Unit = {
             "Disagreeing about how to spend money",
           ],
           correctIndex: 1,
-          explanation: "Financial infidelity is secretly hiding money-related information from your partner — secret credit cards, hidden debt, undisclosed purchases. It breaks trust just like other forms of dishonesty. Having separate accounts is fine; hiding them is not.",
+          explanation: "Financial infidelity is secretly hiding money-related information from your partner. Secret credit cards, hidden debt, undisclosed purchases. It breaks trust just like other forms of dishonesty. Having separate accounts is fine; hiding them is not.",
         },
         {
           id: "pf-u12-L3-Q3",
           type: "pick-the-best",
           question: "All of these are reasonable ways to manage money as a couple. Which approach works best for MOST couples?",
           options: [
-            "100% joint — all money goes into one shared account",
-            "100% separate — you split bills and keep everything else apart",
-            "Hybrid — joint account for shared expenses, separate accounts for personal spending",
+            "100% joint. All money goes into one shared account",
+            "100% separate. You split bills and keep everything else apart",
+            "Hybrid. Joint account for shared expenses, separate accounts for personal spending",
             "One person manages everything, the other doesn't worry about it",
           ],
           correctIndex: 2,
@@ -332,13 +304,13 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L3-Q4",
           type: "scenario",
-          scenario: "You and your partner earn different salaries — you make $70,000 and they make $40,000. Your monthly shared expenses (rent, utilities, groceries) total $3,000. How should you split it?",
+          scenario: "You and your partner earn different salaries. You make $70,000 and they make $40,000. Your monthly shared expenses (rent, utilities, groceries) total $3,000. How should you split it?",
           question: "What's the fairest approach?",
           options: [
-            "50/50 split — $1,500 each, regardless of income",
-            "Proportional split — you pay ~64% ($1,909) and they pay ~36% ($1,091)",
+            "50/50 split. $1,500 each, regardless of income",
+            "Proportional split. You pay ~64% ($1,909) and they pay ~36% ($1,091)",
             "The higher earner pays everything",
-            "Alternate months — you pay one month, they pay the next",
+            "Alternate months. You pay one month, they pay the next",
           ],
           correctIndex: 1,
           explanation: "A proportional split based on income is the fairest approach for most couples with different earnings. You earn 64% of the household income, so you cover 64% of shared costs. This way both partners feel the same financial 'squeeze' and neither feels taken advantage of.",
@@ -370,7 +342,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Having separate bank accounts in a marriage is a sign of distrust.",
           correctAnswer: false,
-          explanation: "Nope! Many happy, trusting couples maintain separate accounts alongside a joint one. It's about having personal autonomy and avoiding micromanaging each other's spending. Trust is about transparency, not having one single account.",
+          explanation: "Not quite. Many happy, trusting couples maintain separate accounts alongside a joint one. It's about having personal autonomy and avoiding micromanaging each other's spending. Trust is about transparency, not having one single account.",
         },
         {
           id: "pf-u12-L3-Q8",
@@ -386,7 +358,7 @@ export const unit12: Unit = {
           ],
           buckets: ["Before marriage", "Can wait until after"],
           correctBuckets: [0, 1, 0, 0, 0, 1],
-          explanation: "Debt, credit scores, prenup discussions, and wedding budget all need to happen before marriage — they directly impact your financial life together. Inheritance planning and long-term savings goals can evolve over time after you're married.",
+          explanation: "Debt, credit scores, prenup discussions, and wedding budget all need to happen before marriage. They directly impact your financial life together. Inheritance planning and long-term savings goals can evolve over time after you're married.",
         },
         {
           id: "pf-u12-L3-Q9",
@@ -413,14 +385,9 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L4-T1",
           type: "teaching",
-          question: "👧 Raising Money-Smart Kids",
-          explanation: "Here's a wild stat: most money habits are formed by age 7. Seven! That means by the time kids are in second grade, they've already absorbed how their parents feel about money — whether it's abundance, scarcity, stress, or confidence. The good news? You don't need to be a financial expert to teach kids about money. You just need to make it visible, practical, and age-appropriate.",
-          options: [
-            "Money habits form by age 7 — start early",
-            "Kids learn from watching you, not from lectures",
-            "Make money visible and practical, not abstract",
-          ],
-          hint: "The best money lessons happen naturally — at the grocery store, during allowance time, or when explaining why you're choosing the generic brand.",
+          question: "Raising Money-Smart Kids",
+          explanation: "Here's a wild stat: most money habits are formed by age 7. Seven!",
+          hint: "The best money lessons happen naturally. At the grocery store, during allowance time, or when explaining why you're choosing the generic brand.",
         },
         {
           id: "pf-u12-L4-Q1",
@@ -439,7 +406,7 @@ export const unit12: Unit = {
             "Give them money whenever they ask for it",
             "Tie it to specific chores so they learn work = money",
             "Give a base allowance plus optional bonus for extra chores",
-            "Don't give allowance — they'll learn money when they're older",
+            "Don't give allowance. They'll learn money when they're older",
           ],
           correctIndex: 2,
           explanation: "A base allowance teaches money management, while bonus chores teach the work-money connection. Paying only for chores risks kids refusing to help without pay. No allowance at all means no practice managing money during the years when habits form most.",
@@ -452,7 +419,7 @@ export const unit12: Unit = {
             "Three jars: Save, Spend, Give",
             "Buying everything they point at in the store",
             "Letting them make small purchase decisions with their own money",
-            "Never discussing family finances — 'that's adult stuff'",
+            "Never discussing family finances. 'that's adult stuff'",
             "Playing store or Monopoly together",
             "Giving $100 for every A on a report card",
           ],
@@ -465,7 +432,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Children who receive financial education at home are more likely to save money and avoid debt as adults.",
           correctAnswer: true,
-          explanation: "Multiple studies confirm this. Kids who have money conversations at home, practice saving, and see healthy financial behaviors are significantly more likely to be financially responsible adults. You're not just teaching a lesson — you're shaping decades of behavior.",
+          explanation: "Multiple studies confirm this. Kids who have money conversations at home, practice saving, and see healthy financial behaviors are significantly more likely to be financially responsible adults. You're not just teaching a lesson. You're shaping decades of behavior.",
         },
         {
           id: "pf-u12-L4-Q5",
@@ -487,8 +454,8 @@ export const unit12: Unit = {
           scenario: "Your 8-year-old wants a $30 toy. They have $12 saved from their allowance. They get $3/week in allowance.",
           question: "What's the best teaching moment here?",
           options: [
-            "Buy it for them — it's only $30",
-            "Say no and move on — they'll forget about it",
+            "Buy it for them. It's only $30",
+            "Say no and move on. They'll forget about it",
             "Help them make a saving plan: '$18 more ÷ $3/week = 6 weeks of saving'",
             "Tell them money doesn't grow on trees and leave it at that",
           ],
@@ -501,7 +468,7 @@ export const unit12: Unit = {
           question: "Research shows most money _____ are formed by age _____, making early financial education crucial.",
           blanks: ["habits", "7"],
           wordBank: ["habits", "skills", "fears", "7", "12", "18", "values"],
-          explanation: "Cambridge University research found that money habits are largely set by age 7. That's why starting early with simple, practical lessons — not lectures — gives kids the best financial foundation.",
+          explanation: "Cambridge University research found that money habits are largely set by age 7. That's why starting early with simple, practical lessons. Not lectures. Gives kids the best financial foundation.",
         },
         {
           id: "pf-u12-L4-Q8",
@@ -514,7 +481,7 @@ export const unit12: Unit = {
             "Explaining what your job does",
           ],
           correctIndex: 1,
-          explanation: "Letting kids fail with small amounts of their own money teaches decision-making, consequences, and self-correction — skills that last a lifetime. A kid who blows their $10 on candy and regrets it learns more than a kid who's told 'don't waste money' a hundred times.",
+          explanation: "Letting kids fail with small amounts of their own money teaches decision-making, consequences, and self-correction. Skills that last a lifetime. A kid who blows their $10 on candy and regrets it learns more than a kid who's told 'don't waste money' a hundred times.",
         },
       ],
     },
@@ -523,33 +490,23 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L5",
       title: "Side Hustles That Actually Work",
-      description: "Real ways to earn extra income — not get-rich-quick schemes.",
+      description: "Real ways to earn extra income. Not get-rich-quick schemes.",
       icon: "💼",
       xpReward: 15,
       questions: [
         {
           id: "pf-u12-L5-T1",
           type: "teaching",
-          question: "💼 Side Hustles: The Real Deal",
-          explanation: "A side hustle isn't a scam, MLM, or 'passive income while you sleep' scheme. It's using your skills, time, or assets to earn extra money outside your main job. The best side hustles either leverage skills you already have (freelancing, tutoring, consulting) or assets you already own (car, spare room, camera). The goal is to earn an extra $500-$2,000/month without burning out.",
-          options: [
-            "Use skills or assets you already have",
-            "Target $500-$2,000/month extra income",
-            "Avoid MLMs and 'passive income' scams",
-          ],
-          hint: "The best side hustle is one that you can start THIS WEEK with skills you already have. Don't spend 6 months 'preparing' — start small and iterate.",
+          question: "Side Hustles: The Real Deal",
+          explanation: "A side hustle isn't a scam, MLM, or 'passive income while you sleep' scheme. It's using your skills, time, or assets to earn extra money outside your main job.",
+          hint: "The best side hustle is one that you can start THIS WEEK with skills you already have. Don't spend 6 months 'preparing'. Start small and iterate.",
         },
         {
           id: "pf-u12-L5-T2",
           type: "teaching",
-          question: "🎯 Picking the Right Side Hustle",
-          explanation: "Here's the filter: Does it use a skill you have? Can you start in under a week? Does it have realistic income potential? Can you do it without sacrificing sleep or your main job performance? The sweet spot is something you're decent at that others will pay for. Writing, design, tutoring, delivery, pet-sitting, photography, coding — these all pass the test. Crypto trading and dropshipping? Usually not.",
-          options: [
-            "Filter: skill-based, quick start, realistic income",
-            "Don't sacrifice sleep or your main job",
-            "Freelancing your existing skills = fastest path to income",
-          ],
-          hint: "If a side hustle requires you to buy a $997 course first, it's not a side hustle — it's someone else's side hustle (selling you the course).",
+          question: "Picking the Right Side Hustle",
+          explanation: "Here's the filter: Does it use a skill you have? Can you start in under a week?",
+          hint: "If a side hustle requires you to buy a $997 course first, it's not a side hustle. It's someone else's side hustle (selling you the course).",
         },
         {
           id: "pf-u12-L5-Q1",
@@ -557,7 +514,7 @@ export const unit12: Unit = {
           question: "Legitimate side hustle or red flag?",
           options: [
             "Freelance writing for local businesses",
-            "Join my team — recruit 5 people to earn commissions",
+            "Join my team. Recruit 5 people to earn commissions",
             "Tutoring students in a subject you aced in college",
             "Buy my $2,000 course to learn dropshipping secrets",
             "Pet-sitting through a platform like Rover",
@@ -578,7 +535,7 @@ export const unit12: Unit = {
             "Buy and resell sneakers online",
           ],
           correctIndex: 1,
-          explanation: "Always leverage your highest-value skill. Your software skills are worth $75/hour freelance — that's 5x what delivery driving pays. An hour of freelance dev work equals 5 hours of DoorDash. Work smarter, not harder.",
+          explanation: "Always leverage your highest-value skill. Your software skills are worth $75/hour freelance. That's 5x what delivery driving pays. An hour of freelance dev work equals 5 hours of DoorDash. Work smarter, not harder.",
         },
         {
           id: "pf-u12-L5-Q3",
@@ -589,7 +546,7 @@ export const unit12: Unit = {
           correctValue: 40,
           tolerance: 25,
           unit: "%",
-          explanation: "Around 40% of Americans now have some form of side income. The gig economy, remote work, and online platforms have made it easier than ever to earn on the side. You're not being 'extra' — you're being normal and smart.",
+          explanation: "Around 40% of Americans now have some form of side income. The gig economy, remote work, and online platforms have made it easier than ever to earn on the side. You're not being 'extra'. You're being normal and smart.",
         },
         {
           id: "pf-u12-L5-Q4",
@@ -623,7 +580,7 @@ export const unit12: Unit = {
           options: [
             "About $1,850 (income tax only)",
             "About $3,100 (income tax + self-employment tax on net income)",
-            "Nothing — side hustle income under $10,000 isn't taxed",
+            "Nothing. Side hustle income under $10,000 isn't taxed",
             "About $600 (just self-employment tax)",
           ],
           correctIndex: 1,
@@ -638,7 +595,7 @@ export const unit12: Unit = {
             "Income comes primarily from recruiting new members",
             "They guarantee specific income amounts",
             "You set your own hours and rates",
-            "The product is unclear — it's all about 'the opportunity'",
+            "The product is unclear. It's all about 'the opportunity'",
           ],
           correctIndices: [0, 1, 2, 4],
           explanation: "Big upfront costs, recruitment-based income, guaranteed returns, and unclear products are all scam hallmarks. Setting your own hours and rates is actually a sign of a legitimate freelance opportunity. If it sounds too good to be true, it is.",
@@ -650,20 +607,15 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L6",
       title: "Multiple Income Streams",
-      description: "Why relying on one paycheck is risky — and how to diversify.",
+      description: "Why relying on one paycheck is risky. And how to diversify.",
       icon: "🌊",
       xpReward: 15,
       questions: [
         {
           id: "pf-u12-L6-T1",
           type: "teaching",
-          question: "🌊 Don't Put All Your Eggs in One Paycheck",
-          explanation: "If you have one job and that job disappears tomorrow, your income goes from something to zero instantly. That's terrifying. The average millionaire has 7 income streams. That doesn't mean they're working 7 jobs — it means their money comes from multiple places: salary, investments, rental income, side business, dividends, interest, royalties. The point isn't to hustle 24/7 — it's to build income that doesn't all depend on the same source.",
-          options: [
-            "One income source = maximum vulnerability",
-            "Average millionaire has 7 income streams",
-            "Not all streams require active work — some are passive",
-          ],
+          question: "Don't Put All Your Eggs in One Paycheck",
+          explanation: "If you have one job and that job disappears tomorrow, your income goes from something to zero instantly. That's terrifying.",
           hint: "You don't build 7 income streams overnight. Start with 2 (your job + one side income), then gradually add more as each one stabilizes.",
         },
         {
@@ -723,7 +675,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Passive income requires zero effort once it's set up.",
           correctAnswer: false,
-          explanation: "Nothing is truly 100% passive. Rental properties need maintenance decisions. Investment portfolios need rebalancing. Online businesses need updates. 'Passive' really means 'less active' — you invest effort upfront and maintain with minimal ongoing work. But zero effort? That's a myth.",
+          explanation: "Nothing is truly 100% passive. Rental properties need maintenance decisions. Investment portfolios need rebalancing. Online businesses need updates. 'Passive' really means 'less active'. You invest effort upfront and maintain with minimal ongoing work. But zero effort? That's a myth.",
         },
         {
           id: "pf-u12-L6-Q6",
@@ -734,7 +686,7 @@ export const unit12: Unit = {
           correctValue: 7,
           tolerance: 20,
           unit: "streams",
-          explanation: "The commonly cited figure is 7 income streams for the average millionaire. This typically includes: salary, business income, investments, real estate, dividends, interest, and some form of royalty or licensing income. Most aren't 'working' 7 jobs — their money is working in 7 places.",
+          explanation: "The commonly cited figure is 7 income streams for the average millionaire. This typically includes: salary, business income, investments, real estate, dividends, interest, and some form of royalty or licensing income. Most aren't 'working' 7 jobs. Their money is working in 7 places.",
         },
         {
           id: "pf-u12-L6-Q7",
@@ -742,7 +694,7 @@ export const unit12: Unit = {
           scenario: "You earn $5,000/month from your job. You also earn $400/month from freelancing and $200/month from stock dividends. Suddenly, you're laid off.",
           question: "What's your immediate income situation?",
           options: [
-            "You're completely broke — $0/month",
+            "You're completely broke. $0/month",
             "You have $600/month from freelancing and dividends",
             "You still have $5,000/month from unemployment benefits",
             "You have $400/month but dividends stop when you lose your job",
@@ -777,13 +729,8 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L7-T1",
           type: "teaching",
-          question: "📊 Forget Income — Net Worth Is Your Real Score",
-          explanation: "Someone earning $200,000/year with $300,000 in debt is poorer than someone earning $50,000/year with $100,000 saved. Income is what flows in. Net worth is what you actually HAVE. The formula is dead simple: Assets (everything you own) minus Liabilities (everything you owe) = Net Worth. This single number is the most honest measure of your financial health.",
-          options: [
-            "Net Worth = Assets − Liabilities",
-            "High income ≠ high wealth (spending matters)",
-            "Net worth is the truest measure of financial health",
-          ],
+          question: "Forget Income. Net Worth Is Your Real Score",
+          explanation: "Someone earning $200,000/year with $300,000 in debt is poorer than someone earning $50,000/year with $100,000 saved. Income is what flows in.",
           hint: "Check your net worth at least once a month. Watching it grow (or shrink) gives you instant feedback on whether your habits are working.",
         },
         {
@@ -816,8 +763,8 @@ export const unit12: Unit = {
           scenario: "Person A: Earns $150,000/year. Has $50,000 in savings, a $400,000 home with a $350,000 mortgage, $20,000 in investments, and $15,000 in credit card debt.\n\nPerson B: Earns $55,000/year. Has $30,000 in savings, rents an apartment, $80,000 in investments, and $0 in debt.",
           question: "Who has a higher net worth?",
           options: [
-            "Person A — they earn 3x more",
-            "Person B — their net worth is $110,000 vs Person A's $105,000",
+            "Person A. They earn 3x more",
+            "Person B. Their net worth is $110,000 vs Person A's $105,000",
             "They're about equal",
             "Impossible to determine without more info",
           ],
@@ -853,7 +800,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Your car is always an asset that increases your net worth.",
           correctAnswer: false,
-          explanation: "Your car is technically an asset (it has resale value), but it's a depreciating asset — it loses value every year. And if you owe more on the car loan than the car is worth, it's actually a NET negative on your balance sheet. A $30,000 car with a $35,000 loan hurts your net worth by $5,000.",
+          explanation: "Your car is technically an asset (it has resale value), but it's a depreciating asset. It loses value every year. And if you owe more on the car loan than the car is worth, it's actually a NET negative on your balance sheet. A $30,000 car with a $35,000 loan hurts your net worth by $5,000.",
         },
         {
           id: "pf-u12-L7-Q7",
@@ -882,7 +829,7 @@ export const unit12: Unit = {
             "Your car's current resale value",
           ],
           correctIndices: [0, 2, 4, 5],
-          explanation: "Assets are things you OWN that have value: retirement accounts, cash, home equity, car value. Your salary and rent are income and expenses — they affect your net worth over time but aren't assets themselves. Assets = what you could sell or cash out today.",
+          explanation: "Assets are things you OWN that have value: retirement accounts, cash, home equity, car value. Your salary and rent are income and expenses. They affect your net worth over time but aren't assets themselves. Assets = what you could sell or cash out today.",
         },
       ],
     },
@@ -891,32 +838,22 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L8",
       title: "The Financial Independence Formula",
-      description: "The math behind retiring early — or just having total freedom.",
+      description: "The math behind retiring early. Or just having total freedom.",
       icon: "🔥",
       xpReward: 15,
       questions: [
         {
           id: "pf-u12-L8-T1",
           type: "teaching",
-          question: "🔥 Financial Independence: The Ultimate Goal",
-          explanation: "Financial independence (FI) means your passive income covers all your living expenses. You don't HAVE to work — you CHOOSE to. The formula is surprisingly simple: Annual Expenses × 25 = Your FI Number. If you spend $40,000/year, you need $1,000,000 invested. This is based on the '4% rule' — you can safely withdraw 4% of your portfolio per year without running out of money. That's not a pipe dream — it's math.",
-          options: [
-            "FI = passive income ≥ your living expenses",
-            "FI Number = Annual Expenses × 25",
-            "Based on the 4% safe withdrawal rate",
-          ],
+          question: "Financial Independence: The Ultimate Goal",
+          explanation: "Financial independence (FI) means your passive income covers all your living expenses. You don't HAVE to work. You CHOOSE to.",
           hint: "You don't have to fully retire to benefit from FI. Even getting to 50% FI (investments cover half your expenses) gives you massive freedom and negotiating power in your career.",
         },
         {
           id: "pf-u12-L8-T2",
           type: "teaching",
-          question: "📐 The Two Levers: Earn More or Spend Less",
-          explanation: "There are only two ways to reach FI faster: earn more or spend less. But here's the key insight — spending less is DOUBLY powerful. If you cut $500/month from expenses, you (a) save $500/month more AND (b) lower your FI number by $150,000 ($6,000/year × 25). Someone spending $80,000/year needs $2M. Someone spending $40,000/year needs only $1M. Cutting expenses is literally a cheat code.",
-          options: [
-            "Two levers: increase income, decrease spending",
-            "Spending less has a DOUBLE effect on your FI timeline",
-            "Lower expenses = lower FI number + more money saved",
-          ],
+          question: "The Two Levers: Earn More or Spend Less",
+          explanation: "There are only two ways to reach FI faster: earn more or spend less. But here's the key insight. Spending less is DOUBLY powerful.",
           hint: "This is why the FI community talks about savings rate so much. Someone saving 50% of their income can reach FI in ~17 years, regardless of salary.",
         },
         {
@@ -957,9 +894,9 @@ export const unit12: Unit = {
           scenario: "Maria earns $80,000/year and spends $60,000. She saves and invests $20,000/year. She currently has $200,000 invested. Her FI number is $1,500,000. She's considering either: (A) getting a raise to $95,000 (keeping spending the same) or (B) cutting expenses to $45,000/year.",
           question: "Which option gets Maria to FI faster?",
           options: [
-            "Option A — earning $15,000 more per year",
-            "Option B — spending $15,000 less per year",
-            "They're identical — both add $15,000/year to savings",
+            "Option A. Earning $15,000 more per year",
+            "Option B. Spending $15,000 less per year",
+            "They're identical. Both add $15,000/year to savings",
             "Neither makes a meaningful difference",
           ],
           correctIndex: 1,
@@ -970,7 +907,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Financial independence means you must stop working entirely.",
           correctAnswer: false,
-          explanation: "FI means you have the OPTION to stop working. Many people who reach FI keep working — but on their own terms. They might switch to passion projects, part-time work, volunteering, or starting a business without income pressure. FI is about freedom, not retirement.",
+          explanation: "FI means you have the OPTION to stop working. Many people who reach FI keep working. But on their own terms. They might switch to passion projects, part-time work, volunteering, or starting a business without income pressure. FI is about freedom, not retirement.",
         },
         {
           id: "pf-u12-L8-Q6",
@@ -979,7 +916,7 @@ export const unit12: Unit = {
           steps: ["Saving 10% of income", "Saving 25% of income", "Saving 50% of income", "Saving 75% of income"],
           correctOrder: [0, 1, 2, 3],
           rankCriteria: "Time to FI: slowest to fastest",
-          explanation: "10% savings rate = about 51 years to FI. 25% = about 32 years. 50% = about 17 years. 75% = about 7 years. The relationship isn't linear — each increase in savings rate has an accelerating effect because you're saving more AND needing less.",
+          explanation: "10% savings rate = about 51 years to FI. 25% = about 32 years. 50% = about 17 years. 75% = about 7 years. The relationship isn't linear. Each increase in savings rate has an accelerating effect because you're saving more AND needing less.",
         },
         {
           id: "pf-u12-L8-Q7",
@@ -1010,20 +947,15 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L9",
       title: "Building Wealth on Any Salary",
-      description: "You don't need a huge income — you need the right habits.",
+      description: "You don't need a huge income. You need the right habits.",
       icon: "🧱",
       xpReward: 15,
       questions: [
         {
           id: "pf-u12-L9-T1",
           type: "teaching",
-          question: "🧱 Wealth Isn't About How Much You Earn",
-          explanation: "Here's a fact that shocks most people: about one-third of millionaires never earned a six-figure salary. They built wealth through consistent habits, not huge paychecks. The formula is boring but unbeatable: spend less than you earn, invest the difference, be patient. A teacher earning $45,000 who saves $500/month and invests it for 30 years at 10% average returns ends up with over $1,000,000. No lottery ticket required.",
-          options: [
-            "1/3 of millionaires never earned $100K+/year",
-            "The wealth formula: spend less, invest the rest, be patient",
-            "Consistency beats high income every time",
-          ],
+          question: "Wealth Isn't About How Much You Earn",
+          explanation: "Here's a fact that shocks most people: about one-third of millionaires never earned a six-figure salary. They built wealth through consistent habits, not huge paychecks.",
           hint: "The Millionaire Next Door research found that most millionaires drive used cars, live in average neighborhoods, and avoid luxury brands. Wealth is what you keep, not what you show.",
         },
         {
@@ -1031,8 +963,8 @@ export const unit12: Unit = {
           type: "multiple-choice",
           question: "A person invests $300/month starting at age 25. Another invests $600/month starting at age 35. Both earn 10% average annual returns and retire at 65. Who has more money?",
           options: [
-            "The person who started at 25 with $300/month — by a LOT",
-            "The person who started at 35 with $600/month — they invest double",
+            "The person who started at 25 with $300/month. By a LOT",
+            "The person who started at 35 with $600/month. They invest double",
             "They end up about the same",
             "Impossible to tell without knowing their salaries",
           ],
@@ -1053,7 +985,7 @@ export const unit12: Unit = {
           ],
           buckets: ["Wealth-building", "Wealth-destroying"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Wealth builders: auto-investing, living on last month's income (buffer), cooking at home. Wealth destroyers: constant car payments, lifestyle inflation, and credit card interest. It's not one big decision — it's thousands of small daily choices.",
+          explanation: "Wealth builders: auto-investing, living on last month's income (buffer), cooking at home. Wealth destroyers: constant car payments, lifestyle inflation, and credit card interest. It's not one big decision. It's thousands of small daily choices.",
         },
         {
           id: "pf-u12-L9-Q3",
@@ -1064,7 +996,7 @@ export const unit12: Unit = {
           correctValue: 1130000,
           tolerance: 20,
           unit: "$",
-          explanation: "$500/month for 30 years at 10% = approximately $1,130,000. You only contributed $180,000 of your own money. The other $950,000 came from compound growth. This is the power of patience + consistency. You don't need a big income — you need time and discipline.",
+          explanation: "$500/month for 30 years at 10% = approximately $1,130,000. You only contributed $180,000 of your own money. The other $950,000 came from compound growth. This is the power of patience + consistency. You don't need a big income. You need time and discipline.",
         },
         {
           id: "pf-u12-L9-Q4",
@@ -1093,7 +1025,7 @@ export const unit12: Unit = {
             "Spend less than you earn",
           ],
           correctOrder: [4, 1, 2, 3, 0],
-          explanation: "Step 1: Spend less than you earn (foundation of everything). Step 2: Kill high-interest debt (stops the bleeding). Step 3: Emergency fund (prevents backsliding). Step 4: Get the free 401(k) match money. Step 5: Individual stocks come last — index funds first for most people.",
+          explanation: "Step 1: Spend less than you earn (foundation of everything). Step 2: Kill high-interest debt (stops the bleeding). Step 3: Emergency fund (prevents backsliding). Step 4: Get the free 401(k) match money. Step 5: Individual stocks come last. Index funds first for most people.",
         },
         {
           id: "pf-u12-L9-Q7",
@@ -1101,10 +1033,10 @@ export const unit12: Unit = {
           scenario: "Jake earns $45,000/year and saves 20% ($9,000/year). His coworker Tyler earns $90,000/year but saves only 5% ($4,500/year). Both invest in index funds averaging 10% annual returns for 25 years.",
           question: "Who ends up wealthier?",
           options: [
-            "Tyler — he earns double Jake's salary",
-            "Jake — he'll have about $885,000 vs Tyler's $443,000",
+            "Tyler. He earns double Jake's salary",
+            "Jake. He'll have about $885,000 vs Tyler's $443,000",
             "They'll be about equal since Tyler has more money to spend",
-            "Neither — you can't build real wealth on either salary",
+            "Neither. You can't build real wealth on either salary",
           ],
           correctIndex: 1,
           explanation: "Jake: $9,000/year × 25 years at 10% = approximately $885,000. Tyler: $4,500/year × 25 years at 10% = approximately $443,000. Jake ends up with DOUBLE Tyler's wealth despite earning HALF the salary. Your savings rate matters infinitely more than your income.",
@@ -1137,13 +1069,8 @@ export const unit12: Unit = {
         {
           id: "pf-u12-L10-T1",
           type: "teaching",
-          question: "🧠 Your Money Mindset Is Running the Show",
-          explanation: "Here's the thing nobody talks about: your beliefs about money control your financial behavior more than any budget ever will. If you grew up hearing 'money is evil' or 'rich people are greedy,' your subconscious will sabotage every attempt to build wealth. If you believe 'I'll never be good with money,' you'll prove yourself right. The first step to building wealth is identifying — and upgrading — your money beliefs.",
-          options: [
-            "Your beliefs about money drive your financial behavior",
-            "Childhood money messages shape adult habits",
-            "Limiting beliefs can be identified and replaced",
-          ],
+          question: "Your Money Mindset Is Running the Show",
+          explanation: "Here's the thing nobody talks about: your beliefs about money control your financial behavior more than any budget ever will. If you grew up hearing 'money is evil' or 'rich people are greedy,' your subconscious will sabotage every attempt to build wealth.",
           hint: "Ask yourself: what did your parents say about money? What did you learn about wealthy people? Those early messages are still running in the background.",
         },
         {
@@ -1152,7 +1079,7 @@ export const unit12: Unit = {
           question: "Sort each belief: growth mindset or limiting belief?",
           options: [
             "I can learn to manage money well",
-            "Rich people got lucky — it's not for people like me",
+            "Rich people got lucky. It's not for people like me",
             "Every financial setback is a learning opportunity",
             "I'll never earn enough to invest",
             "My income potential is unlimited if I develop valuable skills",
@@ -1160,7 +1087,7 @@ export const unit12: Unit = {
           ],
           buckets: ["Growth mindset", "Limiting belief"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Growth mindsets: I can learn, setbacks teach me, my potential is unlimited. Limiting beliefs: it's not for me, I'll never earn enough, money is evil. Notice the pattern — growth mindset sees possibility, limiting beliefs see walls.",
+          explanation: "Growth mindsets: I can learn, setbacks teach me, my potential is unlimited. Limiting beliefs: it's not for me, I'll never earn enough, money is evil. Notice the pattern. Growth mindset sees possibility, limiting beliefs see walls.",
         },
         {
           id: "pf-u12-L10-Q2",
@@ -1168,12 +1095,12 @@ export const unit12: Unit = {
           question: "What does 'money is the root of all evil' actually say in its original form?",
           options: [
             "Money itself is evil and should be avoided",
-            "The LOVE of money is the root of all evil — meaning greed, not wealth",
+            "The LOVE of money is the root of all evil. Meaning greed, not wealth",
             "Rich people are inherently immoral",
             "You should give away all your money to be a good person",
           ],
           correctIndex: 1,
-          explanation: "The original quote (1 Timothy 6:10) is 'the LOVE of money is the root of all evil' — it's about greed and obsession, not about money itself. Money is a tool. A hammer can build a house or break a window. The tool isn't evil — how you use it matters.",
+          explanation: "The original quote (1 Timothy 6:10) is 'the LOVE of money is the root of all evil'. It's about greed and obsession, not about money itself. Money is a tool. A hammer can build a house or break a window. The tool isn't evil. How you use it matters.",
         },
         {
           id: "pf-u12-L10-Q3",
@@ -1186,7 +1113,7 @@ export const unit12: Unit = {
             "I'll deal with money later",
           ],
           matchTargets: [
-            "I haven't learned money skills yet — but I can",
+            "I haven't learned money skills yet. But I can",
             "I can start with $25/month and build from there",
             "You can invest with as little as $1 using apps",
             "Every year I wait costs me thousands in lost growth",
@@ -1199,7 +1126,7 @@ export const unit12: Unit = {
           type: "true-false",
           question: "Most wealthy people inherited their money rather than building it themselves.",
           correctAnswer: false,
-          explanation: "According to multiple studies (Fidelity, Ramsey Solutions), about 80% of millionaires are first-generation wealthy — meaning they built it themselves. The 'trust fund baby' stereotype is a myth for the vast majority of wealthy people. Most got there through consistent saving, investing, and smart career moves.",
+          explanation: "According to multiple studies (Fidelity, Ramsey Solutions), about 80% of millionaires are first-generation wealthy. Meaning they built it themselves. The 'trust fund baby' stereotype is a myth for the vast majority of wealthy people. Most got there through consistent saving, investing, and smart career moves.",
         },
         {
           id: "pf-u12-L10-Q5",
@@ -1207,13 +1134,13 @@ export const unit12: Unit = {
           scenario: "Your friend says: 'Why bother saving? The system is rigged against people like us. Only the already-rich get richer.' You have evidence that consistent investing works regardless of starting point.",
           question: "What's the most effective response?",
           options: [
-            "Agree with them — the system IS unfair, so why try",
+            "Agree with them. The system IS unfair, so why try",
             "Say 'That's a limiting belief' and walk away",
             "Share a specific example: '$200/month at 10% for 30 years = $452,000, regardless of background'",
             "Lecture them about personal responsibility for 20 minutes",
           ],
           correctIndex: 2,
-          explanation: "Concrete examples are more persuasive than abstract arguments. Showing real math proves that the system DOES work for regular people who invest consistently. You're not dismissing systemic issues — you're showing that personal action still produces results within any system.",
+          explanation: "Concrete examples are more persuasive than abstract arguments. Showing real math proves that the system DOES work for regular people who invest consistently. You're not dismissing systemic issues. You're showing that personal action still produces results within any system.",
         },
         {
           id: "pf-u12-L10-Q6",
@@ -1248,7 +1175,7 @@ export const unit12: Unit = {
           ],
           correctOrder: [3, 0, 1, 2],
           rankCriteria: "Mindset transformation: basic to most profound",
-          explanation: "Using an app is tactical. Tracking spending is practical. Believing you deserve wealth is personal. But seeing money as a freedom tool — not a stress source — is the deepest shift because it changes your entire emotional relationship with money. That shift makes all the tactical stuff feel effortless.",
+          explanation: "Using an app is tactical. Tracking spending is practical. Believing you deserve wealth is personal. But seeing money as a freedom tool. Not a stress source. Is the deepest shift because it changes your entire emotional relationship with money. That shift makes all the tactical stuff feel effortless.",
         },
       ],
     },
@@ -1257,33 +1184,22 @@ export const unit12: Unit = {
     {
       id: "pf-u12-L11",
       title: "Your Lifetime Money Action Plan",
-      description: "Everything comes together — build your personalized financial roadmap.",
+      description: "Everything comes together. Build your personalized financial roadmap.",
       icon: "🏆",
       xpReward: 20,
       questions: [
         {
           id: "pf-u12-L11-T1",
           type: "teaching",
-          question: "🏆 This Is Where It All Comes Together",
-          explanation: "Congratulations — you've learned more about money than most adults ever will. Budgeting, saving, debt management, credit, taxes, investing, retirement, insurance, and big money moves. Now it's time to put it all into one cohesive plan. Your Lifetime Money Action Plan is a living document — a roadmap that evolves as your life changes. It starts with where you are today and maps a clear path to financial freedom.",
-          options: [
-            "You now know more than most adults about money",
-            "The plan is a living document — revisit it regularly",
-            "Start where you are, not where you wish you were",
-          ],
+          question: "This Is Where It All Comes Together",
+          explanation: "Congratulations. You've learned more about money than most adults ever will. Budgeting, saving, debt management, credit, taxes, investing, retirement, insurance, and big money moves.",
           hint: "The best financial plan is the one you actually follow. Simple beats complex every time.",
         },
         {
           id: "pf-u12-L11-T2",
           type: "teaching",
-          question: "🗺️ The Financial Life Stages",
-          explanation: "Your money priorities shift as you move through life. In your 20s: build the foundation (emergency fund, start investing, avoid bad debt). In your 30s: accelerate (max out retirement, grow income, maybe buy property). In your 40s: optimize (catch up if needed, protect what you've built). In your 50s-60s: harvest (shift to preservation, plan retirement income). Every decade builds on the last — that's why starting right matters so much.",
-          options: [
-            "20s: Build the foundation — emergency fund, start investing",
-            "30s: Accelerate — max retirement, grow income",
-            "40s: Optimize — protect and grow what you have",
-            "50s+: Harvest — preserve wealth, plan retirement income",
-          ],
+          question: "The Financial Life Stages",
+          explanation: "Your money priorities shift as you move through life. In your 20s: build the foundation (emergency fund, start investing, avoid bad debt).",
           hint: "Wherever you are in this timeline, the best day to start was yesterday. The second best day is today.",
         },
         {
@@ -1327,7 +1243,7 @@ export const unit12: Unit = {
             "Define your Financial Independence number",
           ],
           correctIndices: [0, 2, 3, 5],
-          explanation: "Track net worth, auto-invest, annual reviews, and know your FI number — these are all essential plan components. Buying the most expensive home leads to being house-poor. Maxing credit cards destroys your credit and finances.",
+          explanation: "Track net worth, auto-invest, annual reviews, and know your FI number. These are all essential plan components. Buying the most expensive home leads to being house-poor. Maxing credit cards destroys your credit and finances.",
         },
         {
           id: "pf-u12-L11-Q4",
@@ -1341,14 +1257,14 @@ export const unit12: Unit = {
             "Start investing in individual stocks to grow your money fast",
           ],
           correctIndex: 1,
-          explanation: "Step 1: Budget (you can't manage what you don't measure). Step 2: Contribute at least 4% to get the full employer match (free money). Step 3: Throw everything extra at that 22% credit card debt. You're not behind — you're 28 with awareness and a plan. That's ahead of most people.",
+          explanation: "Step 1: Budget (you can't manage what you don't measure). Step 2: Contribute at least 4% to get the full employer match (free money). Step 3: Throw everything extra at that 22% credit card debt. You're not behind. You're 28 with awareness and a plan. That's ahead of most people.",
         },
         {
           id: "pf-u12-L11-Q5",
           type: "true-false",
           question: "A financial plan only needs to be created once and then followed forever without changes.",
           correctAnswer: false,
-          explanation: "Life changes constantly — new jobs, marriage, kids, health events, market shifts. Your financial plan needs to be a living document that you revisit at least once a year (and any time a major life event happens). The plan you make at 25 will look very different from the one you need at 40.",
+          explanation: "Life changes constantly. New jobs, marriage, kids, health events, market shifts. Your financial plan needs to be a living document that you revisit at least once a year (and any time a major life event happens). The plan you make at 25 will look very different from the one you need at 40.",
         },
         {
           id: "pf-u12-L11-Q6",
@@ -1372,7 +1288,7 @@ export const unit12: Unit = {
           question: "The most important financial habit is to _____ yourself first by automatically investing before you have a chance to _____ the money.",
           blanks: ["pay", "spend"],
           wordBank: ["pay", "treat", "reward", "spend", "lose", "save", "forget"],
-          explanation: "Pay yourself first = automate your investing so money goes to your future BEFORE you can spend it. This single habit — treating your savings like a non-negotiable bill — is what separates people who build wealth from people who always wonder where their money went.",
+          explanation: "Pay yourself first = automate your investing so money goes to your future BEFORE you can spend it. This single habit. Treating your savings like a non-negotiable bill. Is what separates people who build wealth from people who always wonder where their money went.",
         },
         {
           id: "pf-u12-L11-Q8",
@@ -1381,7 +1297,7 @@ export const unit12: Unit = {
           options: [
             "Read another book about personal finance",
             "Wait until you earn more money to start applying what you learned",
-            "Take one action today — open an account, automate a transfer, calculate your net worth",
+            "Take one action today. Open an account, automate a transfer, calculate your net worth",
             "Share what you learned on social media",
           ],
           correctIndex: 2,
@@ -1410,7 +1326,7 @@ export const unit12: Unit = {
           correctValue: 1400000,
           tolerance: 20,
           unit: "$",
-          explanation: "$200/month for 43 years at 10% = approximately $1,400,000. That's millionaire status from just $200/month — less than most people spend on eating out and streaming subscriptions combined. The total invested is only $103,200. Compound interest did the other $1,296,800. Start now. Time is your superpower.",
+          explanation: "$200/month for 43 years at 10% = approximately $1,400,000. That's millionaire status from just $200/month. Less than most people spend on eating out and streaming subscriptions combined. The total invested is only $103,200. Compound interest did the other $1,296,800. Start now. Time is your superpower.",
         },
       ],
     },
@@ -1428,7 +1344,7 @@ export const unit12: Unit = {
       timelineStages: [
         {
           id: "pf-u12-L12-TS1",
-          narrative: "Year 1 — You're 25, earning $55K. After expenses, you have $800/month to allocate. No debt. How do you start building wealth?",
+          narrative: "Year 1. You're 25, earning $55K. After expenses, you have $800/month to allocate. No debt. How do you start building wealth?",
           emoji: "🌱",
           choices: [
             {
@@ -1438,13 +1354,13 @@ export const unit12: Unit = {
               optimal: true,
             },
             {
-              text: "Put all $800 into index funds — maximize compound growth",
+              text: "Put all $800 into index funds. Maximize compound growth",
               nextStageId: "pf-u12-L12-TS2",
               impact: "Growth-focused, but no emergency fund means one surprise expense could force you to sell investments at a loss.",
               optimal: false,
             },
             {
-              text: "Save all $800 in a high-yield savings account — play it safe",
+              text: "Save all $800 in a high-yield savings account. Play it safe",
               nextStageId: "pf-u12-L12-TS2",
               impact: "Safe, but inflation erodes cash savings over time. At 3% inflation, $800 today is worth $725 in 10 years. You need your money working harder.",
               optimal: false,
@@ -1453,11 +1369,11 @@ export const unit12: Unit = {
         },
         {
           id: "pf-u12-L12-TS2",
-          narrative: "Year 3 — Your skill investment paid off: you get a $15K raise (now $70K). Lifestyle inflation is tempting. New apartment? New car?",
+          narrative: "Year 3. Your skill investment paid off: you get a $15K raise (now $70K). Lifestyle inflation is tempting. New apartment? New car?",
           emoji: "📈",
           choices: [
             {
-              text: "Keep your current lifestyle and invest the entire raise — that's $900 more per month",
+              text: "Keep your current lifestyle and invest the entire raise. That's $900 more per month",
               nextStageId: "pf-u12-L12-TS3",
               impact: "This is the wealth-building cheat code! By avoiding lifestyle inflation, you just nearly doubled your monthly investing. Most people upgrade their lifestyle with every raise and never build wealth.",
               optimal: true,
@@ -1469,7 +1385,7 @@ export const unit12: Unit = {
               optimal: false,
             },
             {
-              text: "You deserve to enjoy the raise — upgrade everything!",
+              text: "You deserve to enjoy the raise. Upgrade everything!",
               nextStageId: "pf-u12-L12-TS3",
               impact: "Lifestyle inflation is the #1 wealth killer. People who earn $200K can be just as broke as people earning $40K if they spend every raise.",
               optimal: false,
@@ -1478,7 +1394,7 @@ export const unit12: Unit = {
         },
         {
           id: "pf-u12-L12-TS3",
-          narrative: "Year 5 — Halfway point. You have $95K invested, a solid emergency fund, and a side project idea. A friend offers to partner on a small online business. Startup cost: $5,000 each.",
+          narrative: "Year 5. Halfway point. You have $95K invested, a solid emergency fund, and a side project idea. A friend offers to partner on a small online business. Startup cost: $5,000 each.",
           emoji: "💡",
           choices: [
             {
@@ -1488,13 +1404,13 @@ export const unit12: Unit = {
               optimal: true,
             },
             {
-              text: "Pass — too risky. Just keep investing in index funds",
+              text: "Pass. Too risky. Just keep investing in index funds",
               nextStageId: "pf-u12-L12-TS4",
               impact: "Conservative and safe, but you missed a chance to build an additional income stream. The wealthiest people almost always have multiple sources of income.",
               optimal: false,
             },
             {
-              text: "Go all-in — pull $20K from investments for a bigger stake",
+              text: "Go all-in. Pull $20K from investments for a bigger stake",
               nextStageId: "pf-u12-L12-TS4",
               impact: "Pulling from investments disrupts compound growth AND concentrates risk. Never bet your financial foundation on any single venture.",
               optimal: false,
@@ -1503,7 +1419,7 @@ export const unit12: Unit = {
         },
         {
           id: "pf-u12-L12-TS4",
-          narrative: "Year 7 — Your side business now generates $2,000/month. Your investments have grown to $180K. You have a decision: scale the business or stay the course?",
+          narrative: "Year 7. Your side business now generates $2,000/month. Your investments have grown to $180K. You have a decision: scale the business or stay the course?",
           emoji: "🚀",
           choices: [
             {
@@ -1513,13 +1429,13 @@ export const unit12: Unit = {
               optimal: true,
             },
             {
-              text: "Pour everything into the business — it's growing faster than the stock market",
+              text: "Pour everything into the business. It's growing faster than the stock market",
               nextStageId: "pf-u12-L12-TS5",
               impact: "Concentration risk! If the business hits trouble, you've neglected your safety net. Diversification protects wealth.",
               optimal: false,
             },
             {
-              text: "Shut down the business and focus purely on investing — it's simpler",
+              text: "Shut down the business and focus purely on investing. It's simpler",
               nextStageId: "pf-u12-L12-TS5",
               impact: "Giving up $2,000/month in business income to simplify is a $24K/year decision. The hassle of running the business IS the wealth-building.",
               optimal: false,
@@ -1528,26 +1444,26 @@ export const unit12: Unit = {
         },
         {
           id: "pf-u12-L12-TS5",
-          narrative: "Year 9 — Market crash! Your investments drop 30% (from $280K to $196K). Meanwhile, your business revenue drops 20%. How do you react?",
+          narrative: "Year 9. Market crash! Your investments drop 30% (from $280K to $196K). Meanwhile, your business revenue drops 20%. How do you react?",
           emoji: "📉",
           choices: [
             {
               text: "Stay the course on investments (buy MORE if possible), tighten business costs, and maintain your cash reserve",
               nextStageId: "pf-u12-L12-TS6",
-              impact: "This is how wealthy people behave in downturns — they buy assets at a discount while others panic sell. Your business cost-cutting preserves cash flow. This is antifragility.",
+              impact: "This is how wealthy people behave in downturns. They buy assets at a discount while others panic sell. Your business cost-cutting preserves cash flow. This is antifragility.",
               optimal: true,
             },
             {
               text: "Sell investments to protect what's left and focus on the business",
               nextStageId: "pf-u12-L12-TS6",
-              impact: "Selling during a crash locks in losses. Every major crash in history has recovered — usually within 1-3 years. You just turned a temporary paper loss into a permanent real loss.",
+              impact: "Selling during a crash locks in losses. Every major crash in history has recovered. Usually within 1-3 years. You just turned a temporary paper loss into a permanent real loss.",
               optimal: false,
             },
           ],
         },
         {
           id: "pf-u12-L12-TS6",
-          narrative: "Year 10 — Decade review time!",
+          narrative: "Year 10. Decade review time!",
           emoji: "🎉",
         },
       ],
@@ -1583,7 +1499,7 @@ export const unit12: Unit = {
       caseStudySections: [
         {
           id: "pf-u12-L13-CS1",
-          content: "Meet Priya — a 28-year-old marketing manager at a mid-size tech company. She's been there 2 years, consistently exceeds targets, and just received an offer from a competitor: $95,000 + 15% bonus. Her current salary: $78,000 + 10% bonus.\n\nPriya likes her current company but feels underpaid. She decides to negotiate rather than just accept the outside offer or quietly leave.\n\nHer research shows the market range for her role is $85,000–$105,000 in her city.",
+          content: "Meet Priya. A 28-year-old marketing manager at a mid-size tech company. She's been there 2 years, consistently exceeds targets, and just received an offer from a competitor: $95,000 + 15% bonus. Her current salary: $78,000 + 10% bonus.\n\nPriya likes her current company but feels underpaid. She decides to negotiate rather than just accept the outside offer or quietly leave.\n\nHer research shows the market range for her role is $85,000–$105,000 in her city.",
           checkpoint: {
             id: "pf-u12-L13-CP1",
             type: "slider-estimate",
@@ -1593,12 +1509,12 @@ export const unit12: Unit = {
             correctValue: 18,
             tolerance: 15,
             unit: "%",
-            explanation: "($95,000 - $78,000) / $95,000 = 17.9%. Priya is nearly 18% below the midpoint — a significant gap that justifies negotiation.",
+            explanation: "($95,000 - $78,000) / $95,000 = 17.9%. Priya is nearly 18% below the midpoint. A significant gap that justifies negotiation.",
           },
         },
         {
           id: "pf-u12-L13-CS2",
-          content: "**Priya's Preparation**\n\nBefore the meeting, Priya builds her case:\n\n**Quantified achievements:**\n- Led a campaign that generated $1.2M in new revenue\n- Reduced customer acquisition cost by 23%\n- Managed a team of 4 with zero turnover\n- Completed a major certification (Google Analytics Advanced)\n\n**Market data:**\n- Glassdoor, LinkedIn, and Levels.fyi all show $85K-$105K range\n- She has a written offer for $95K + 15% bonus\n- Industry is competitive — her company has been struggling to hire\n\n**Her target:** $98,000 base + 15% bonus + a title bump to Senior Manager\n**Her walk-away number:** $90,000 base + 12% bonus (if below this, she takes the outside offer)",
+          content: "**Priya's Preparation**\n\nBefore the meeting, Priya builds her case:\n\n**Quantified achievements:**\n- Led a campaign that generated $1.2M in new revenue\n- Reduced customer acquisition cost by 23%\n- Managed a team of 4 with zero turnover\n- Completed a major certification (Google Analytics Advanced)\n\n**Market data:**\n- Glassdoor, LinkedIn, and Levels.fyi all show $85K-$105K range\n- She has a written offer for $95K + 15% bonus\n- Industry is competitive. Her company has been struggling to hire\n\n**Her target:** $98,000 base + 15% bonus + a title bump to Senior Manager\n**Her walk-away number:** $90,000 base + 12% bonus (if below this, she takes the outside offer)",
           checkpoint: {
             id: "pf-u12-L13-CP2",
             type: "multiple-choice",
@@ -1610,7 +1526,7 @@ export const unit12: Unit = {
         },
         {
           id: "pf-u12-L13-CS3",
-          content: "**The Negotiation**\n\nPriya schedules a meeting with her manager, Lee.\n\n**Priya:** 'I love working here and want to continue growing with the team. I'd like to discuss my compensation. Based on my contributions and market research, I believe an adjustment is warranted.'\n\n**Lee:** 'We value you too, Priya. What did you have in mind?'\n\n**Priya:** 'Based on the market range of $85K-$105K for this role, and given that I've driven $1.2M in revenue and reduced CAC by 23%, I'd like to discuss moving to $98K base with a 15% bonus structure and a Senior Manager title.'\n\n**Lee:** 'That's a significant jump. Budget is tight this quarter. The best I could probably do is $85K with your current bonus structure.'\n\n**Priya** (not panicking): 'I appreciate that budgets are tight. I should be transparent — I do have an external offer at $95K plus 15% bonus. I'd prefer to stay, but I need the compensation to reflect my market value and contributions.'",
+          content: "**The Negotiation**\n\nPriya schedules a meeting with her manager, Lee.\n\n**Priya:** 'I love working here and want to continue growing with the team. I'd like to discuss my compensation. Based on my contributions and market research, I believe an adjustment is warranted.'\n\n**Lee:** 'We value you too, Priya. What did you have in mind?'\n\n**Priya:** 'Based on the market range of $85K-$105K for this role, and given that I've driven $1.2M in revenue and reduced CAC by 23%, I'd like to discuss moving to $98K base with a 15% bonus structure and a Senior Manager title.'\n\n**Lee:** 'That's a significant jump. Budget is tight this quarter. The best I could probably do is $85K with your current bonus structure.'\n\n**Priya** (not panicking): 'I appreciate that budgets are tight. I should be transparent. I do have an external offer at $95K plus 15% bonus. I'd prefer to stay, but I need the compensation to reflect my market value and contributions.'",
           checkpoint: {
             id: "pf-u12-L13-CP3",
             type: "true-false",
@@ -1627,14 +1543,14 @@ export const unit12: Unit = {
             type: "scenario",
             question: "Priya's final offer from her company ($93K + 12% bonus) is lower in total cash than the competitor ($95K + 15% bonus). Was staying the right call?",
             scenario: "Current company: $93K + 12% ($104,160 total) + RSUs + title + known culture. Competitor: $95K + 15% ($109,250 total) + unknown culture + transition risk.",
-            options: ["No — always take the highest paying offer", "Yes — the $5K gap is offset by reduced risk, title, RSUs, and known culture", "No — she should have pushed harder or walked away", "Yes — but only because her manager was nice about it"],
+            options: ["No. Always take the highest paying offer", "Yes. The $5K gap is offset by reduced risk, title, RSUs, and known culture", "No. She should have pushed harder or walked away", "Yes. But only because her manager was nice about it"],
             correctIndex: 1,
             explanation: "A ~$5K annual difference is easily offset by job stability, title progression, RSUs, and avoiding the risk of joining an unknown team. Total compensation includes non-monetary factors. Plus, the title bump positions her for a bigger jump next time.",
           },
         },
         {
           id: "pf-u12-L13-CS5",
-          content: "**Priya's Negotiation Scorecard**\n\n| Factor | Before | After | Change |\n|--------|--------|-------|--------|\n| Base salary | $78,000 | $93,000 | +$15,000 (19%) |\n| Bonus | 10% ($7,800) | 12% ($11,160) | +$3,360 |\n| Title | Marketing Manager | Senior Manager | Promotion |\n| RSUs | $0 | $5,000 | New benefit |\n| Total comp change | — | — | +$23,360/year |\n\n**What made this work:**\n\n1. **Preparation over improvisation.** Priya had data, achievements, and a number before the meeting.\n2. **Led with value, not threats.** She sold her contributions before mentioning the competing offer.\n3. **Named a specific number.** '$98K' anchors the negotiation higher than 'I want a raise.'\n4. **Had a walk-away number.** This prevented her from accepting the first lowball ($85K).\n5. **Negotiated the final dollar.** That last $1K counter showed confidence and yielded results.\n6. **Considered total compensation.** Title, RSUs, culture, and growth path matter as much as base salary.\n\n**Lifetime impact:** That $15K raise, compounded with future raises built on this higher base, is worth **$500K+** over her career.",
+          content: "**Priya's Negotiation Scorecard**\n\n| Factor | Before | After | Change |\n|--------|--------|-------|--------|\n| Base salary | $78,000 | $93,000 | +$15,000 (19%) |\n| Bonus | 10% ($7,800) | 12% ($11,160) | +$3,360 |\n| Title | Marketing Manager | Senior Manager | Promotion |\n| RSUs | $0 | $5,000 | New benefit |\n| Total comp change |. |. | +$23,360/year |\n\n**What made this work:**\n\n1. **Preparation over improvisation.** Priya had data, achievements, and a number before the meeting.\n2. **Led with value, not threats.** She sold her contributions before mentioning the competing offer.\n3. **Named a specific number.** '$98K' anchors the negotiation higher than 'I want a raise.'\n4. **Had a walk-away number.** This prevented her from accepting the first lowball ($85K).\n5. **Negotiated the final dollar.** That last $1K counter showed confidence and yielded results.\n6. **Considered total compensation.** Title, RSUs, culture, and growth path matter as much as base salary.\n\n**Lifetime impact:** That $15K raise, compounded with future raises built on this higher base, is worth **$500K+** over her career.",
         },
       ],
     },

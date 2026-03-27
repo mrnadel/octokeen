@@ -6,7 +6,7 @@ import { getAuthUserId } from '@/lib/auth-utils';
 import { canAccessUnit } from '@/lib/access-control';
 import { LIMITS } from '@/lib/pricing';
 import { getLessonById } from '@/data/course';
-import { progressSyncSchema } from '@/lib/validation';
+import { courseProgressSyncSchema } from '@/lib/validation';
 import type { CourseProgress } from '@/data/course/types';
 
 export async function GET() {
@@ -40,9 +40,14 @@ export async function GET() {
     activeDays: [],  // Client-only field — tracked in localStorage, not DB
     completedLessons:
       (progress?.completedLessons as CourseProgress['completedLessons']) ?? {},
+    courseIntros:
+      (progress?.courseIntros as CourseProgress['courseIntros']) ?? undefined,
   };
 
-  return NextResponse.json({ progress: assembled });
+  return NextResponse.json({
+    progress: assembled,
+    activeProfession: progress?.activeProfession ?? 'mechanical-engineering',
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -57,14 +62,17 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const parsed = progressSyncSchema.safeParse(body);
+  const parsed = courseProgressSyncSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: 'Invalid input', details: parsed.error.issues[0]?.message },
       { status: 400 }
     );
   }
-  const { progress } = parsed.data as { progress: CourseProgress };
+  const { progress, activeProfession } = parsed.data as {
+    progress: CourseProgress;
+    activeProfession?: string;
+  };
 
   // ── Server-side unit access enforcement ──
   // Single subscription lookup instead of per-lesson DB queries
@@ -95,6 +103,8 @@ export async function POST(request: NextRequest) {
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
     completedLessons: filteredLessons,
+    activeProfession: activeProfession ?? 'mechanical-engineering',
+    courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
     updatedAt: new Date(),
   };
 

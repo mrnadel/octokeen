@@ -60,9 +60,13 @@ export async function GET(request: Request) {
   const professionMeta = getCourseMetaForProfession(profession);
   const topicIdByUnitId = new Map(professionMeta.map(u => [u.id, u.topicId]));
 
+  // Filter to only units belonging to this profession (DB stores all professions together)
+  const validUnitIds = new Set(professionMeta.map(u => u.id));
+  const professionUnits = units.filter(u => validUnitIds.has(u.id));
+
   // Assemble the Unit[] structure
   // For locked units: return metadata (title, icon, etc.) but strip question content
-  const course = units.map((unit, unitIndex) => {
+  const course = professionUnits.map((unit, unitIndex) => {
     const isAccessible = accessibleUnitIndices.has(unitIndex);
 
     return {

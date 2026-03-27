@@ -3,7 +3,7 @@ import type { Unit } from '../../../types';
 export const unit9: Unit = {
   id: "pf-u9-real-estate",
   title: "Real Estate",
-  description: "The biggest purchase of your life — make sure you don't screw it up.",
+  description: "The biggest purchase of your life, so make sure you don't screw it up.",
   color: "#027B12",
   icon: "🏠",
   lessons: [
@@ -11,32 +11,22 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L1",
       title: "Renting vs Buying: The Real Math",
-      description: "The truth about homeownership — it's not always better than renting.",
+      description: "The truth about homeownership: it's not always better than renting.",
       icon: "🔢",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L1-T1",
           type: "teaching",
-          question: "🔢 \"Renting Is Throwing Money Away\" — Is It?",
-          explanation: "You've heard it a million times: \"Why rent when you could build equity?\" Here's the thing — that advice ignores a LOT of costs. When you buy a home, you also pay property taxes, insurance, maintenance, HOA fees, closing costs, and interest. A huge chunk of your mortgage payment goes to interest, not equity — especially in the first years. Renting isn't \"throwing money away\" any more than paying for a hotel on vacation is. You're paying for a place to live.",
-          options: [
-            "Buying has many hidden costs beyond the mortgage payment",
-            "Most of early mortgage payments go to interest, not equity",
-            "Renting gives flexibility and lower upfront costs",
-          ],
-          hint: "The real question isn't rent vs buy — it's which one costs less for YOUR situation over YOUR timeline.",
+          question: "\"Renting Is Throwing Money Away\": Is It?",
+          explanation: "You've heard it a million times: \"Why rent when you could build equity?\" Here's the thing: that advice ignores a LOT of costs. When you buy a home, you also pay property taxes, insurance, maintenance, HOA fees, closing costs, and interest.",
+          hint: "The real question isn't rent vs buy: it's which one costs less for YOUR situation over YOUR timeline.",
         },
         {
           id: "pf-u9-L1-T2",
           type: "teaching",
-          question: "📊 The Breakeven Timeline",
-          explanation: "Here's the key insight: buying only beats renting if you stay long enough. When you buy, you pay 2-5% in closing costs upfront and another 5-6% in agent fees when you sell. That means you need your home's value to appreciate enough just to break even. For most markets, that breakeven point is 5-7 years. If you might move before then, renting is often the smarter financial move.",
-          options: [
-            "Closing costs at purchase: 2-5% of home price",
-            "Selling costs (agent fees, etc.): 5-6% of sale price",
-            "Typical breakeven: 5-7 years of ownership",
-          ],
+          question: "The Breakeven Timeline",
+          explanation: "Here's the key insight: buying only beats renting if you stay long enough. When you buy, you pay 2-5% in closing costs upfront and another 5-6% in agent fees when you sell.",
           hint: "A $300,000 home has roughly $10,000-$15,000 in buying costs and $15,000-$18,000 in selling costs. That's $25,000-$33,000 you need to recoup before buying \"wins.\"",
         },
         {
@@ -44,7 +34,7 @@ export const unit9: Unit = {
           type: "true-false",
           question: "In the first years of a 30-year mortgage, most of your monthly payment goes toward building equity (paying down the principal).",
           correctAnswer: false,
-          explanation: "Nope — it's the opposite. In the early years, the vast majority goes to interest. On a $300,000 mortgage at 7%, about $1,750 of your ~$2,000 monthly payment goes to interest in year one. You're barely touching the principal.",
+          explanation: "Not quite. It's actually the opposite. In the early years, the vast majority goes to interest. On a $300,000 mortgage at 7%, about $1,750 of your ~$2,000 monthly payment goes to interest in year one. You're barely touching the principal.",
         },
         {
           id: "pf-u9-L1-Q2",
@@ -66,7 +56,7 @@ export const unit9: Unit = {
           options: ["Building equity over time", "No maintenance costs", "Freedom to move easily", "Potential tax deductions", "Lower upfront costs", "Home value appreciation"],
           buckets: ["Advantage of renting", "Advantage of buying"],
           correctBuckets: [1, 0, 0, 1, 0, 1],
-          explanation: "Renting wins on flexibility, low upfront costs, and zero maintenance headaches. Buying wins on equity building, tax benefits, and long-term appreciation. Neither is universally better — it depends on your timeline and situation.",
+          explanation: "Renting wins on flexibility, low upfront costs, and zero maintenance headaches. Buying wins on equity building, tax benefits, and long-term appreciation. Neither is universally better: it depends on your timeline and situation.",
         },
         {
           id: "pf-u9-L1-Q4",
@@ -85,13 +75,13 @@ export const unit9: Unit = {
           scenario: "Jake just got a job in a new city. He's not sure if he'll stay more than 2-3 years. Rent for a nice apartment is $1,800/month. A comparable house costs $350,000 with a monthly mortgage payment of $2,400 (before taxes/insurance).",
           question: "What's the smartest move for Jake?",
           options: [
-            "Rent — the 2-3 year timeline means buying would likely lose money after transaction costs",
-            "Buy — he should always build equity when possible",
+            "Rent: the 2-3 year timeline means buying would likely lose money after transaction costs",
+            "Buy: he should always build equity when possible",
             "Buy and plan to rent it out if he moves",
             "Buy a cheaper house to reduce risk",
           ],
           correctIndex: 0,
-          explanation: "With only a 2-3 year timeline, Jake would pay $10,000-$17,000 in closing costs to buy plus $18,000-$21,000 to sell — roughly $30,000+ in transaction costs. That likely wipes out any equity he'd build. Renting at $1,800/month saves him cash and keeps him flexible.",
+          explanation: "With only a 2-3 year timeline, Jake would pay $10,000-$17,000 in closing costs to buy plus $18,000-$21,000 to sell. Roughly $30,000+ in transaction costs. That likely wipes out any equity he'd build. Renting at $1,800/month saves him cash and keeps him flexible.",
         },
         {
           id: "pf-u9-L1-Q6",
@@ -130,39 +120,28 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L2",
       title: "Mortgage 101: What You're Signing",
-      description: "Fixed vs adjustable, 15 vs 30 year — what it all means for your wallet.",
+      description: "Fixed vs adjustable, 15 vs 30 year, and what it all means for your wallet.",
       icon: "📝",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L2-T1",
           type: "teaching",
-          question: "📝 A Mortgage Is Just a Giant Loan",
-          explanation: "A mortgage is a loan specifically for buying a home. The home itself is the collateral — meaning if you stop paying, the bank takes the house (foreclosure). Most people borrow for 15 or 30 years. Your monthly payment has four parts, often called PITI: Principal (actually paying down what you owe), Interest (the bank's profit), Taxes (property tax), and Insurance (homeowner's insurance). Only the P part builds equity.",
-          options: [
-            "P = Principal (builds equity)",
-            "I = Interest (bank's profit — doesn't build equity)",
-            "T = Property taxes (goes to local government)",
-            "I = Insurance (protects the home)",
-          ],
+          question: "A Mortgage Is Just a Giant Loan",
+          explanation: "A mortgage is a loan specifically for buying a home. The home itself is the collateral, meaning if you stop paying, the bank takes the house (foreclosure).",
           hint: "On a 30-year mortgage, you'll pay more in total interest than the actual price of the home. That's how banks make their money.",
         },
         {
           id: "pf-u9-L2-T2",
           type: "teaching",
-          question: "🔒 Fixed vs Adjustable Rate (ARM)",
-          explanation: "A fixed-rate mortgage locks in your interest rate for the entire loan. If you get 6.5%, you pay 6.5% for all 30 years — no surprises. An adjustable-rate mortgage (ARM) starts with a lower rate (maybe 5.5%) for a teaser period (5-7 years), then adjusts up or down based on market rates. ARMs are cheaper at first but risky later — your payment could jump hundreds of dollars when it adjusts.",
-          options: [
-            "Fixed rate: same payment for the entire loan — predictable",
-            "ARM: lower initial rate, but can increase after the teaser period",
-            "A 5/1 ARM means fixed for 5 years, then adjusts every 1 year",
-          ],
+          question: "Fixed vs Adjustable Rate (ARM)",
+          explanation: "A fixed-rate mortgage locks in your interest rate for the entire loan. If you get 6.5%, you pay 6.5% for all 30 years, with no surprises.",
           hint: "If you plan to sell or refinance within 5-7 years, an ARM's lower rate could save money. If you're staying long-term, fixed is safer.",
         },
         {
           id: "pf-u9-L2-Q1",
           type: "fill-blank",
-          question: "PITI stands for _____, _____, Taxes, and Insurance — the four parts of a mortgage payment.",
+          question: "PITI stands for _____, _____, Taxes, and Insurance, the four parts of a mortgage payment.",
           blanks: ["Principal", "Interest"],
           wordBank: ["Principal", "Interest", "Payment", "Income", "Investment", "Inflation"],
           explanation: "PITI = Principal, Interest, Taxes, Insurance. Only Principal actually pays down your loan balance and builds equity. The rest is the cost of borrowing and owning.",
@@ -194,7 +173,7 @@ export const unit9: Unit = {
           type: "true-false",
           question: "A 15-year mortgage has higher monthly payments than a 30-year, but you'll pay significantly less total interest.",
           correctAnswer: true,
-          explanation: "Absolutely true. A $300,000 loan at 6.5%: 30-year = ~$1,896/mo and ~$382K total interest. 15-year = ~$2,613/mo and ~$170K total interest. The 15-year costs $717 more per month but saves you over $212,000 in interest.",
+          explanation: "Correct. A $300,000 loan at 6.5%: 30-year = ~$1,896/mo and ~$382K total interest. 15-year = ~$2,613/mo and ~$170K total interest. The 15-year costs $717 more per month but saves you over $212,000 in interest.",
         },
         {
           id: "pf-u9-L2-Q5",
@@ -203,7 +182,7 @@ export const unit9: Unit = {
           options: ["Principal payment", "Interest payment", "Property tax escrow", "Homeowner's insurance", "PMI (mortgage insurance)", "Extra principal payments"],
           buckets: ["Builds equity", "Does NOT build equity"],
           correctBuckets: [0, 1, 1, 1, 1, 0],
-          explanation: "Only money going toward the principal (and extra principal payments) actually builds your equity. Everything else — interest, taxes, insurance, PMI — is a cost of owning. That's why so little equity builds in the early years.",
+          explanation: "Only money going toward the principal (and extra principal payments) actually builds your equity. Everything else (interest, taxes, insurance, PMI) is a cost of owning. That's why so little equity builds in the early years.",
         },
         {
           id: "pf-u9-L2-Q6",
@@ -211,9 +190,9 @@ export const unit9: Unit = {
           scenario: "Lisa is offered two mortgages for a $350,000 home: Option A is a 30-year fixed at 6.75%. Option B is a 5/1 ARM starting at 5.25% that adjusts after 5 years. She plans to live there for about 4 years before relocating for work.",
           question: "Which mortgage makes more sense for Lisa?",
           options: [
-            "The 5/1 ARM — she'll sell before the rate adjusts, saving on interest",
-            "The 30-year fixed — always go with the safe option",
-            "Neither — she should rent instead of buying for only 4 years",
+            "The 5/1 ARM: she'll sell before the rate adjusts, saving on interest",
+            "The 30-year fixed: always go with the safe option",
+            "Neither: she should rent instead of buying for only 4 years",
             "The 30-year fixed but make extra payments",
           ],
           correctIndex: 2,
@@ -246,34 +225,23 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L3",
       title: "Down Payments & Closing Costs",
-      description: "How much cash you actually need upfront — it's more than you think.",
+      description: "How much cash you actually need upfront: it's more than you think.",
       icon: "💵",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L3-T1",
           type: "teaching",
-          question: "💵 The Down Payment: Your Skin in the Game",
-          explanation: "The down payment is the cash you pay upfront when buying a home. The traditional advice is 20% — on a $300,000 home, that's $60,000. But here's the thing: most first-time buyers put down way less. FHA loans allow as little as 3.5% down ($10,500 on that same home). The catch? If you put down less than 20%, you'll pay PMI (Private Mortgage Insurance) — an extra $100-$300/month that protects the BANK, not you.",
-          options: [
-            "Traditional down payment: 20% (avoids PMI)",
-            "FHA minimum: 3.5% down (but you'll pay PMI)",
-            "Conventional minimum: 3-5% down (with PMI)",
-            "PMI costs $100-$300/month and protects the lender, not you",
-          ],
+          question: "The Down Payment: Your Skin in the Game",
+          explanation: "The down payment is the cash you pay upfront when buying a home. The traditional advice is 20%, and on a $300,000 home, that's $60,000.",
           hint: "PMI typically drops off automatically once you've built 20% equity. Until then, it's an extra cost baked into your payment.",
         },
         {
           id: "pf-u9-L3-T2",
           type: "teaching",
-          question: "📋 Closing Costs: The Bill Nobody Warned You About",
-          explanation: "On top of your down payment, you'll pay closing costs — typically 2-5% of the home price. On a $300,000 home, that's $6,000-$15,000 in EXTRA cash due at closing. This covers appraisal fees, title insurance, attorney fees, loan origination fees, home inspection, and more. So if you thought you just needed $60,000 for a 20% down payment? Add another $10,000+ for closing costs. Total cash needed: ~$70,000.",
-          options: [
-            "Closing costs: 2-5% of home price ($6K-$15K on a $300K home)",
-            "Includes: appraisal, title insurance, attorney, loan fees",
-            "Due at closing — you need this cash PLUS your down payment",
-          ],
-          hint: "Some sellers will cover part of closing costs as a negotiation tool. Always ask — the worst they can say is no.",
+          question: "Closing Costs: The Bill Nobody Warned You About",
+          explanation: "On top of your down payment, you'll pay closing costs, typically 2-5% of the home price. On a $300,000 home, that's $6,000-$15,000 in EXTRA cash due at closing.",
+          hint: "Some sellers will cover part of closing costs as a negotiation tool. Always ask: the worst they can say is no.",
         },
         {
           id: "pf-u9-L3-Q1",
@@ -297,14 +265,14 @@ export const unit9: Unit = {
             "$44,000",
           ],
           correctIndex: 0,
-          explanation: "Down payment: 10% of $400,000 = $40,000. Closing costs: 3% of $400,000 = $12,000. Total: $40,000 + $12,000 = $52,000. This is why saving for a home takes so long — it's not just the down payment.",
+          explanation: "Down payment: 10% of $400,000 = $40,000. Closing costs: 3% of $400,000 = $12,000. Total: $40,000 + $12,000 = $52,000. This is why saving for a home takes so long: it's not just the down payment.",
         },
         {
           id: "pf-u9-L3-Q3",
           type: "true-false",
           question: "PMI (Private Mortgage Insurance) protects the homebuyer if they can't make payments.",
           correctAnswer: false,
-          explanation: "PMI protects the LENDER, not you. If you default, PMI reimburses the bank — but you still lose the home. It's an insurance policy you pay for that only benefits the bank. That's why avoiding PMI by putting 20% down is such a big deal.",
+          explanation: "PMI protects the LENDER, not you. If you default, PMI reimburses the bank. But you still lose the home. It's an insurance policy you pay for that only benefits the bank. That's why avoiding PMI by putting 20% down is such a big deal.",
         },
         {
           id: "pf-u9-L3-Q4",
@@ -327,7 +295,7 @@ export const unit9: Unit = {
           options: ["Home appraisal fee", "PMI", "Title insurance", "Property taxes", "Loan origination fee", "Homeowner's insurance"],
           buckets: ["One-time closing cost", "Ongoing monthly cost"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Appraisal, title insurance, and loan origination are one-time closing costs. PMI, property taxes, and homeowner's insurance are ongoing — they get added to your monthly mortgage payment via escrow.",
+          explanation: "Appraisal, title insurance, and loan origination are one-time closing costs. PMI, property taxes, and homeowner's insurance are ongoing: they get added to your monthly mortgage payment via escrow.",
         },
         {
           id: "pf-u9-L3-Q6",
@@ -342,9 +310,9 @@ export const unit9: Unit = {
           type: "category-swipe",
           question: "Is this a legitimate way to reduce your upfront home-buying costs, or a risky move to avoid?",
           options: ["Down payment assistance programs", "Borrowing from your 401(k) for a down payment", "Negotiating seller-paid closing costs", "Using a gift from family for the down payment", "Taking a personal loan for the down payment", "Using an FHA loan with 3.5% down"],
-          buckets: ["Smart strategy", "Risky — think twice"],
+          buckets: ["Smart strategy", "Risky: think twice"],
           correctBuckets: [0, 1, 0, 0, 1, 0],
-          explanation: "Assistance programs, seller concessions, family gifts, and FHA loans are all legitimate strategies. Borrowing from your 401(k) hurts your retirement and may have penalties. Taking a personal loan for a down payment can disqualify you from the mortgage entirely — lenders check for new debt.",
+          explanation: "Assistance programs, seller concessions, family gifts, and FHA loans are all legitimate strategies. Borrowing from your 401(k) hurts your retirement and may have penalties. Taking a personal loan for a down payment can disqualify you from the mortgage entirely: lenders check for new debt.",
         },
         {
           id: "pf-u9-L3-Q8",
@@ -357,7 +325,7 @@ export const unit9: Unit = {
             "Having a family member gift you part of the down payment",
           ],
           correctIndex: 0,
-          explanation: "While all options get you into a home, saving 20% avoids PMI entirely — which saves $1,200-$3,600/year for potentially 5-10+ years. That's $6,000 to $36,000 in savings. The grant is free money (great!), but 20% down saves the most over the life of the loan.",
+          explanation: "While all options get you into a home, saving 20% avoids PMI entirely, which saves $1,200-$3,600/year for potentially 5-10+ years. That's $6,000 to $36,000 in savings. The grant is free money (great!), but 20% down saves the most over the life of the loan.",
         },
       ],
     },
@@ -366,32 +334,22 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L4",
       title: "How Much House Can You Afford?",
-      description: "The real number — not the inflated amount the bank approves you for.",
+      description: "The real number, not the inflated amount the bank approves you for.",
       icon: "🏷️",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L4-T1",
           type: "teaching",
-          question: "🏷️ The Bank Says You Can Afford More Than You Can",
-          explanation: "Here's something nobody tells you: the bank will approve you for WAY more than you should spend. They'll look at your income and say \"Sure, you can handle $2,800/month!\" But that calculation doesn't account for your daily latte habit, your Netflix subscriptions, your car payment, your dog's vet bills, or the fact that you want to eat food. The bank's max is your CEILING — not your target. Smart buyers spend well below their approval amount.",
-          options: [
-            "Bank approval = maximum you COULD pay, not what you SHOULD",
-            "The 28/36 rule: no more than 28% of gross income on housing, no more than 36% on all debt",
-            "Your actual comfort zone is usually 20-25% of gross income",
-          ],
+          question: "The Bank Says You Can Afford More Than You Can",
+          explanation: "Here's something nobody tells you: the bank will approve you for WAY more than you should spend. They'll look at your income and say \"Sure, you can handle $2,800/month!\" But that calculation doesn't account for your daily latte habit, your Netflix subscriptions, your car payment, your dog's vet bills, or the fact that you want to eat food.",
           hint: "If the bank approves you for $400,000, a comfortable purchase price is probably $300,000-$340,000.",
         },
         {
           id: "pf-u9-L4-T2",
           type: "teaching",
-          question: "📏 The 28/36 Rule: Your Guardrails",
+          question: "The 28/36 Rule: Your Guardrails",
           explanation: "The 28/36 rule is a widely-used guideline: spend no more than 28% of your gross monthly income on housing costs (PITI: principal, interest, taxes, insurance) and no more than 36% on ALL debt payments combined (housing + car + student loans + credit cards). Example: $6,000/month gross income means max housing = $1,680/month, max total debt = $2,160/month.",
-          options: [
-            "28% rule: housing costs shouldn't exceed 28% of gross income",
-            "36% rule: ALL debt payments shouldn't exceed 36% of gross income",
-            "If you have other debts, your housing budget shrinks",
-          ],
           hint: "Gross income = BEFORE taxes. So if you take home $4,500, your gross is probably around $6,000. Use the bigger number for the calculation.",
         },
         {
@@ -416,7 +374,7 @@ export const unit9: Unit = {
           correctValue: 28,
           tolerance: 10,
           unit: "%",
-          explanation: "28% is the housing ceiling in the 28/36 rule. Many financial experts recommend aiming for 25% or less for more breathing room. Going above 30% puts you in \"house poor\" territory — nice home, no life.",
+          explanation: "28% is the housing ceiling in the 28/36 rule. Many financial experts recommend aiming for 25% or less for more breathing room. Going above 30% puts you in \"house poor\" territory: nice home, no life.",
         },
         {
           id: "pf-u9-L4-Q3",
@@ -424,8 +382,8 @@ export const unit9: Unit = {
           scenario: "Maria earns $5,500/month gross. She has a $350/month car payment and $200/month in student loans. She's looking at a home with total monthly housing costs of $1,700.",
           question: "Does this home fit within the 28/36 rule?",
           options: [
-            "It fails the 28% rule — max housing is $1,540 but this home costs $1,700",
-            "It passes both rules — she can afford it",
+            "It fails the 28% rule: max housing is $1,540 but this home costs $1,700",
+            "It passes both rules: she can afford it",
             "It fails the 36% rule only",
             "It passes the 28% rule but fails the 36% rule",
           ],
@@ -437,7 +395,7 @@ export const unit9: Unit = {
           type: "true-false",
           question: "The amount a bank pre-approves you for is the ideal amount you should spend on a home.",
           correctAnswer: false,
-          explanation: "Absolutely not. Banks want to lend you as much as possible — that's how they make money. Pre-approval is your ceiling, not your target. Smart buyers spend 10-20% below their max approval to maintain financial flexibility.",
+          explanation: "Not quite. Banks want to lend you as much as possible: that's how they make money. Pre-approval is your ceiling, not your target. Smart buyers spend 10-20% below their max approval to maintain financial flexibility.",
         },
         {
           id: "pf-u9-L4-Q5",
@@ -460,7 +418,7 @@ export const unit9: Unit = {
             "Furniture and decor",
           ],
           correctIndices: [0, 1, 2, 4],
-          explanation: "PITI + PMI all count toward the 28% housing ratio. Utilities and furniture are separate expenses — they're real costs of homeownership but aren't included in the 28% calculation. Budget for them separately!",
+          explanation: "PITI + PMI all count toward the 28% housing ratio. Utilities and furniture are separate expenses. They're real costs of homeownership but aren't included in the 28% calculation. Budget for them separately!",
         },
         {
           id: "pf-u9-L4-Q7",
@@ -469,7 +427,7 @@ export const unit9: Unit = {
           steps: ["Spend 20% of gross income on housing", "Spend 28% of gross income on housing", "Spend 35% of gross income on housing", "Spend 40%+ of gross income on housing"],
           correctOrder: [0, 1, 2, 3],
           rankCriteria: "Aggressiveness: least to most",
-          explanation: "20% is conservative and leaves tons of breathing room. 28% is the standard guideline max. 35% is stretching it — you'll feel house poor. 40%+ is dangerous territory where one emergency can wreck you.",
+          explanation: "20% is conservative and leaves tons of breathing room. 28% is the standard guideline max. 35% is stretching it. You'll feel house poor. 40%+ is dangerous territory where one emergency can wreck you.",
         },
         {
           id: "pf-u9-L4-Q8",
@@ -487,32 +445,22 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L5",
       title: "The Home Buying Process Step by Step",
-      description: "From pre-approval to getting the keys — every stage explained.",
+      description: "From pre-approval to getting the keys, every stage explained.",
       icon: "🔑",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L5-T1",
           type: "teaching",
-          question: "🔑 The Homebuying Journey: 10 Steps to the Keys",
+          question: "The Homebuying Journey: 10 Steps to the Keys",
           explanation: "Buying a home involves about 10 major steps, and the whole process typically takes 2-6 months (sometimes longer in hot markets). Here's the roadmap: 1) Check your credit and finances. 2) Get pre-approved for a mortgage. 3) Find a real estate agent. 4) House hunt. 5) Make an offer. 6) Negotiate. 7) Get a home inspection. 8) Secure your mortgage (underwriting). 9) Do a final walkthrough. 10) Close and get your keys!",
-          options: [
-            "The full process takes 2-6 months on average",
-            "Pre-approval comes BEFORE house hunting (shows sellers you're serious)",
-            "A home inspection protects you from buying a money pit",
-          ],
           hint: "Getting pre-approved first is the biggest power move. Sellers take your offer seriously when they know you're already approved for financing.",
         },
         {
           id: "pf-u9-L5-T2",
           type: "teaching",
-          question: "🤝 Making an Offer & Negotiation",
-          explanation: "When you find \"the one,\" your agent helps you write an offer. It includes the price you want to pay, contingencies (conditions that must be met), and your timeline. Common contingencies: financing (if your loan falls through, you're out), inspection (if major issues are found, you can back out or renegotiate), and appraisal (if the home appraises below your offer, you can adjust). These contingencies protect you — don't waive them just to win a bidding war.",
-          options: [
-            "Financing contingency: protects you if your loan is denied",
-            "Inspection contingency: protects you from hidden defects",
-            "Appraisal contingency: protects you from overpaying",
-          ],
+          question: "Making an Offer & Negotiation",
+          explanation: "When you find \"the one,\" your agent helps you write an offer. It includes the price you want to pay, contingencies (conditions that must be met), and your timeline.",
           hint: "In a hot market, sellers get multiple offers. But waiving contingencies to \"win\" can cost you far more than losing the house.",
         },
         {
@@ -528,7 +476,7 @@ export const unit9: Unit = {
             "Check your credit score and finances",
           ],
           correctOrder: [5, 0, 4, 1, 2, 3],
-          explanation: "Check finances first, get pre-approved, then hunt. When you find a home: offer, inspect, close. Many buyers skip straight to house hunting without pre-approval — that's like car shopping without knowing your budget.",
+          explanation: "Check finances first, get pre-approved, then hunt. When you find a home: offer, inspect, close. Many buyers skip straight to house hunting without pre-approval: that's like car shopping without knowing your budget.",
         },
         {
           id: "pf-u9-L5-Q2",
@@ -557,7 +505,7 @@ export const unit9: Unit = {
           type: "true-false",
           question: "A home inspection is the same thing as a home appraisal.",
           correctAnswer: false,
-          explanation: "Very different! An inspection checks the home's CONDITION (roof, plumbing, foundation, electrical — is it falling apart?). An appraisal determines the home's VALUE (is it worth what you're paying?). You want both. The inspection protects you from hidden problems; the appraisal protects you from overpaying.",
+          explanation: "Very different! An inspection checks the home's CONDITION (roof, plumbing, foundation, electrical: is it falling apart?). An appraisal determines the home's VALUE (is it worth what you're paying?). You want both. The inspection protects you from hidden problems; the appraisal protects you from overpaying.",
         },
         {
           id: "pf-u9-L5-Q5",
@@ -573,13 +521,13 @@ export const unit9: Unit = {
           scenario: "You're in a bidding war. The seller has 5 offers. Your agent suggests waiving the inspection contingency to make your offer more competitive. The home is 40 years old.",
           question: "What should you do?",
           options: [
-            "Keep the inspection contingency — the risk of hidden problems in a 40-year-old home is too high",
-            "Waive it — you need to win the house",
+            "Keep the inspection contingency: the risk of hidden problems in a 40-year-old home is too high",
+            "Waive it: you need to win the house",
             "Waive it but schedule your own inspection informally",
             "Offer more money instead of waiving contingencies",
           ],
           correctIndex: 0,
-          explanation: "On a 40-year-old home, there could be $50,000+ in hidden issues (roof, foundation, plumbing, electrical). Waiving the inspection to save $10,000 on the purchase price is penny-wise and pound-foolish. Walk away from this bidding war if needed — another house will come along.",
+          explanation: "On a 40-year-old home, there could be $50,000+ in hidden issues (roof, foundation, plumbing, electrical). Waiving the inspection to save $10,000 on the purchase price is penny-wise and pound-foolish. Walk away from this bidding war if needed: another house will come along.",
         },
         {
           id: "pf-u9-L5-Q7",
@@ -603,7 +551,7 @@ export const unit9: Unit = {
             "Small closets",
           ],
           correctIndices: [0, 2, 4],
-          explanation: "Foundation cracks, active water damage, and outdated wiring are serious structural/safety issues that can cost $10,000-$50,000+ to fix. Paint color, carpet condition, and closet size are cosmetic — annoying but cheap to address.",
+          explanation: "Foundation cracks, active water damage, and outdated wiring are serious structural/safety issues that can cost $10,000-$50,000+ to fix. Paint color, carpet condition, and closet size are cosmetic: annoying but cheap to address.",
         },
       ],
     },
@@ -619,26 +567,15 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L6-T1",
           type: "teaching",
-          question: "🔍 The REAL Cost of Owning a Home",
-          explanation: "Your mortgage payment is just the beginning. Homeownership has a ton of hidden costs that renters never think about. Property taxes: $2,000-$10,000+/year depending on location. Homeowner's insurance: $1,000-$3,000/year. Maintenance and repairs: budget 1-2% of home value per year ($3,000-$6,000 on a $300K home). HOA fees: $200-$500/month if applicable. Utilities (often higher than renting). These can add $500-$1,500/month on top of your mortgage.",
-          options: [
-            "Property taxes: $2,000-$10,000+/year (varies wildly by state)",
-            "Maintenance rule: budget 1-2% of home value per year",
-            "HOA fees: $200-$500/month (condos, townhomes, some neighborhoods)",
-            "These costs can add $500-$1,500/month beyond your mortgage",
-          ],
+          question: "The REAL Cost of Owning a Home",
+          explanation: "Your mortgage payment is just the beginning. Homeownership has a ton of hidden costs that renters never think about.",
           hint: "A $300,000 home with a $1,800 mortgage might actually cost $2,500-$3,000/month when you factor in everything. That's a big difference.",
         },
         {
           id: "pf-u9-L6-T2",
           type: "teaching",
-          question: "🏛️ Property Taxes: Your Annual Rent to the Government",
-          explanation: "Property taxes fund local schools, roads, fire departments, and public services. They're calculated as a percentage of your home's assessed value — typically 0.5% to 2.5% depending on the state. New Jersey averages ~2.2% (ouch), while Hawaii averages ~0.3%. On a $400,000 home, that's anywhere from $1,200 to $8,800 per year. And here's the kicker: they can INCREASE over time as your home's value rises or if tax rates go up.",
-          options: [
-            "Property tax rates vary from ~0.3% to ~2.5% by state",
-            "They fund local schools, roads, police, and fire departments",
-            "Taxes can increase as your home value rises",
-          ],
+          question: "Property Taxes: Your Annual Rent to the Government",
+          explanation: "Property taxes fund local schools, roads, fire departments, and public services. They're calculated as a percentage of your home's assessed value, typically 0.5% to 2.5% depending on the state.",
           hint: "Always research property tax rates in the specific county BEFORE buying. Two homes 20 miles apart can have wildly different tax rates.",
         },
         {
@@ -659,7 +596,7 @@ export const unit9: Unit = {
           options: ["Property taxes", "Water heater replacement", "Homeowner's insurance", "Lawn care / landscaping", "PMI", "Termite treatment"],
           buckets: ["Included in mortgage (escrow)", "Separate bill / your responsibility"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Lenders collect property taxes, homeowner's insurance, and PMI through escrow (bundled into your monthly payment). Maintenance, repairs, and services like lawn care are entirely your responsibility — and your wallet.",
+          explanation: "Lenders collect property taxes, homeowner's insurance, and PMI through escrow (bundled into your monthly payment). Maintenance, repairs, and services like lawn care are entirely your responsibility, and your wallet.",
         },
         {
           id: "pf-u9-L6-Q3",
@@ -677,7 +614,7 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L6-Q4",
           type: "true-false",
-          question: "HOA fees are optional — you can choose not to pay them if you don't use the amenities.",
+          question: "HOA fees are optional: you can choose not to pay them if you don't use the amenities.",
           correctAnswer: false,
           explanation: "HOA fees are mandatory if your property is in an HOA community. You can't opt out, and failing to pay can result in liens on your home or even foreclosure. Before buying, always check if there's an HOA and what the fees cover. Some HOAs are $50/month; others are $800+.",
         },
@@ -688,7 +625,7 @@ export const unit9: Unit = {
           options: ["Property taxes", "Burst pipe repair", "Homeowner's insurance premium", "Roof replacement", "HOA dues", "Foundation crack repair"],
           buckets: ["Predictable / recurring", "Unpredictable / surprise"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Taxes, insurance, and HOA dues are predictable — you know they're coming. Burst pipes, roof failures, and foundation issues are surprises that can cost $5,000-$30,000+. That's why the maintenance budget (1-2% of home value/year) exists — it's your surprise fund.",
+          explanation: "Taxes, insurance, and HOA dues are predictable: you know they're coming. Burst pipes, roof failures, and foundation issues are surprises that can cost $5,000-$30,000+. That's why the maintenance budget (1-2% of home value/year) exists: it's your surprise fund.",
         },
         {
           id: "pf-u9-L6-Q6",
@@ -705,7 +642,7 @@ export const unit9: Unit = {
           question: "You should budget _____% to _____% of your home's value per year for maintenance and repairs.",
           blanks: ["1", "2"],
           wordBank: ["0.5", "1", "2", "3", "5", "10"],
-          explanation: "The 1-2% rule is a rule of thumb. A $300,000 home = $3,000-$6,000/year for maintenance. Older homes tend toward 2%+ while newer homes might get away with less. Either way, budget for it — expensive things WILL break.",
+          explanation: "The 1-2% rule is a rule of thumb. A $300,000 home = $3,000-$6,000/year for maintenance. Older homes tend toward 2%+ while newer homes might get away with less. Either way, budget for it: expensive things WILL break.",
         },
         {
           id: "pf-u9-L6-Q8",
@@ -713,8 +650,8 @@ export const unit9: Unit = {
           scenario: "You found two similar homes. Home A: $320,000, no HOA, 1.2% tax rate. Home B: $295,000, $350/month HOA, 1.8% tax rate. Both need about the same maintenance.",
           question: "Which home actually costs more per year in ownership expenses (taxes + HOA)?",
           options: [
-            "Home B — $5,310/year in taxes + $4,200/year in HOA = $9,510 total",
-            "Home A — $3,840/year in taxes, no HOA = $3,840 total",
+            "Home B. $5,310/year in taxes + $4,200/year in HOA = $9,510 total",
+            "Home A. $3,840/year in taxes, no HOA = $3,840 total",
             "They're about the same",
             "Can't tell without knowing mortgage rates",
           ],
@@ -741,33 +678,22 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L7",
       title: "Refinancing: When It Makes Sense",
-      description: "Replacing your mortgage with a better deal — the math that matters.",
+      description: "Replacing your mortgage with a better deal and the math that matters.",
       icon: "♻️",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L7-T1",
           type: "teaching",
-          question: "♻️ Refinancing: Trading Your Old Mortgage for a New One",
-          explanation: "Refinancing means replacing your current mortgage with a brand-new loan — ideally with better terms. Maybe rates dropped and you can save hundreds per month. Maybe you want to switch from a 30-year to a 15-year to pay off faster. Or maybe you want to pull out some equity (cash-out refinance) for renovations. The catch? Refinancing has closing costs, typically 2-5% of the loan amount. So you need to stay long enough to recoup those costs through lower payments.",
-          options: [
-            "Refinancing = replacing your mortgage with a new, better one",
-            "Common reasons: lower rate, shorter term, or cash-out",
-            "Closing costs: 2-5% of the new loan amount",
-            "You need to calculate the breakeven point",
-          ],
+          question: "Refinancing: Trading Your Old Mortgage for a New One",
+          explanation: "Refinancing means replacing your current mortgage with a brand-new loan. Ideally with better terms. Maybe rates dropped and you can save hundreds per month.",
           hint: "The 1% rule of thumb: refinancing is usually worth considering if you can drop your rate by at least 0.75-1%.",
         },
         {
           id: "pf-u9-L7-T2",
           type: "teaching",
-          question: "🧮 The Breakeven Calculation",
-          explanation: "Here's the math that matters: divide your closing costs by your monthly savings to find your breakeven point. Example: refinancing costs you $6,000 in closing costs and saves you $200/month. Breakeven: $6,000 / $200 = 30 months (2.5 years). If you'll stay in the home longer than 2.5 years, refinancing saves you money. If you might move sooner, it's a money loser.",
-          options: [
-            "Breakeven = closing costs / monthly savings",
-            "If you'll stay past the breakeven point, refinance",
-            "If you might move before breakeven, don't refinance",
-          ],
+          question: "The Breakeven Calculation",
+          explanation: "Here's the math that matters: divide your closing costs by your monthly savings to find your breakeven point. Example: refinancing costs you $6,000 in closing costs and saves you $200/month.",
           hint: "A good breakeven is under 3 years. If it takes 5+ years to break even, the savings might not be worth the hassle.",
         },
         {
@@ -788,7 +714,7 @@ export const unit9: Unit = {
           type: "true-false",
           question: "A cash-out refinance lets you borrow against your home equity to get cash, but it increases your loan balance.",
           correctAnswer: true,
-          explanation: "Correct. A cash-out refi replaces your mortgage with a larger one and gives you the difference in cash. If you owe $200,000 and your home is worth $350,000, you might refinance to $250,000 and pocket $50,000. But now you owe $50,000 more. Use it wisely (renovations that add value) — not for vacations or cars.",
+          explanation: "Correct. A cash-out refi replaces your mortgage with a larger one and gives you the difference in cash. If you owe $200,000 and your home is worth $350,000, you might refinance to $250,000 and pocket $50,000. But now you owe $50,000 more. Use it wisely (renovations that add value). Not for vacations or cars.",
         },
         {
           id: "pf-u9-L7-Q3",
@@ -813,9 +739,9 @@ export const unit9: Unit = {
           scenario: "You have a 30-year mortgage at 7.5% with $280,000 remaining and 25 years left. Current rates are 5.75%. Refinancing would cost $7,500 in closing costs and drop your payment by $320/month. You plan to stay at least 8 more years.",
           question: "Should you refinance?",
           options: [
-            "Yes — breakeven is ~23 months, and you'll save about $23,000 over the remaining 8 years",
-            "No — the closing costs are too high",
-            "No — the rate difference isn't big enough",
+            "Yes: breakeven is ~23 months, and you'll save about $23,000 over the remaining 8 years",
+            "No: the closing costs are too high",
+            "No: the rate difference isn't big enough",
             "Yes, but only if you switch to a 15-year term",
           ],
           correctIndex: 0,
@@ -843,7 +769,7 @@ export const unit9: Unit = {
             "Application fee",
           ],
           correctIndices: [0, 1, 3, 5],
-          explanation: "Appraisal, origination, title insurance, and application fees are standard refinance closing costs. Real estate agent commissions are only for buying/selling — not refinancing. Moving costs are irrelevant since you're staying in the same home.",
+          explanation: "Appraisal, origination, title insurance, and application fees are standard refinance closing costs. Real estate agent commissions are only for buying/selling. Not refinancing. Moving costs are irrelevant since you're staying in the same home.",
         },
         {
           id: "pf-u9-L7-Q8",
@@ -856,7 +782,7 @@ export const unit9: Unit = {
             "The total closing costs",
           ],
           correctIndex: 0,
-          explanation: "The breakeven timeline is the single most important factor. A great rate drop with low closing costs still loses money if you move before breakeven. All the other factors feed into the breakeven calculation — but the question is always: will I be here long enough for this to pay off?",
+          explanation: "The breakeven timeline is the single most important factor. A great rate drop with low closing costs still loses money if you move before breakeven. All the other factors feed into the breakeven calculation. But the question is always: will I be here long enough for this to pay off?",
         },
       ],
     },
@@ -872,27 +798,15 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L8-T1",
           type: "teaching",
-          question: "📈 Is Your Home an Investment?",
-          explanation: "People love saying \"my house is my best investment.\" But is it? Historically, home prices appreciate about 3-4% per year on average — roughly matching inflation. Compare that to the stock market's ~10% average annual return. After you subtract property taxes, insurance, maintenance, and interest paid, your home's real return is often close to 0-2%. A home is a savings vehicle (forced savings through equity), a place to live, and an inflation hedge — but it's NOT a high-return investment.",
-          options: [
-            "Average home appreciation: ~3-4% per year (roughly inflation)",
-            "Average stock market return: ~10% per year",
-            "After all ownership costs, home returns are often 0-2% real",
-            "A home is a forced savings plan, not a high-growth investment",
-          ],
-          hint: "Your home IS valuable — it provides shelter and builds equity. Just don't expect it to make you rich the way index funds can.",
+          question: "Is Your Home an Investment?",
+          explanation: "People love saying \"my house is my best investment.\" But is it? Historically, home prices appreciate about 3-4% per year on average. Roughly matching inflation.",
+          hint: "Your home IS valuable. It provides shelter and builds equity. Just don't expect it to make you rich the way index funds can.",
         },
         {
           id: "pf-u9-L8-T2",
           type: "teaching",
-          question: "🏗️ When Real Estate IS a Great Investment",
-          explanation: "Real estate becomes a powerful investment when you use leverage (borrowing) strategically. You put 20% down but control 100% of the asset. If a $300,000 home goes up 5%, you made $15,000 on a $60,000 investment — that's a 25% return on YOUR cash. This leverage works both ways (prices can drop too), but over long periods in good locations, leverage amplifies returns. Real estate also offers tax benefits: mortgage interest deductions, property tax deductions, and the massive $250,000/$500,000 capital gains exclusion when you sell your primary home.",
-          options: [
-            "Leverage amplifies returns — you control 100% with 20% down",
-            "Tax benefits: mortgage interest deduction, capital gains exclusion",
-            "When selling your home: $250K gain tax-free (single) / $500K (married)",
-            "Long-term hold in growing markets = real wealth building",
-          ],
+          question: "When Real Estate IS a Great Investment",
+          explanation: "Real estate becomes a powerful investment when you use leverage (borrowing) strategically. You put 20% down but control 100% of the asset.",
           hint: "The $250K/$500K capital gains exclusion is one of the best tax breaks in the entire tax code. You must live in the home for 2 of the last 5 years to qualify.",
         },
         {
@@ -911,13 +825,13 @@ export const unit9: Unit = {
           type: "multiple-choice",
           question: "You buy a $300,000 home with 20% down ($60,000). The home appreciates 5% in one year to $315,000. What's your return on the cash YOU invested?",
           options: [
-            "25% — you gained $15,000 on a $60,000 investment",
-            "5% — the home went up 5%",
-            "15% — $15,000 divided by $100,000",
-            "50% — leverage doubled your return",
+            "25%. You gained $15,000 on a $60,000 investment",
+            "5%. The home went up 5%",
+            "15%. $15,000 divided by $100,000",
+            "50%. Leverage doubled your return",
           ],
           correctIndex: 0,
-          explanation: "The home gained $15,000 in value (5% of $300,000). But YOU only put in $60,000. So your return on investment is $15,000 / $60,000 = 25%. That's the power of leverage — a 5% home gain becomes a 25% return on your cash. Of course, leverage works both ways if prices drop...",
+          explanation: "The home gained $15,000 in value (5% of $300,000). But YOU only put in $60,000. So your return on investment is $15,000 / $60,000 = 25%. That's the power of leverage. A 5% home gain becomes a 25% return on your cash. Of course, leverage works both ways if prices drop..",
         },
         {
           id: "pf-u9-L8-Q3",
@@ -947,16 +861,16 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L8-Q6",
           type: "scenario",
-          scenario: "Two friends each have $60,000 to invest over 10 years. Friend A buys a $300,000 home (20% down) that appreciates 3.5%/year. Friend B puts the $60,000 into an S&P 500 index fund averaging 10%/year. Both are simplified — no costs or fees included.",
+          scenario: "Two friends each have $60,000 to invest over 10 years. Friend A buys a $300,000 home (20% down) that appreciates 3.5%/year. Friend B puts the $60,000 into an S&P 500 index fund averaging 10%/year. Both are simplified. No costs or fees included.",
           question: "After 10 years, who has MORE total wealth from their investment?",
           options: [
-            "Friend A — the home is worth ~$423,000 (gains on the full $300K via leverage)",
-            "Friend B — the index fund is worth ~$155,000",
+            "Friend A. The home is worth ~$423,000 (gains on the full $300K via leverage)",
+            "Friend B. The index fund is worth ~$155,000",
             "They're about equal",
-            "Can't compare — they're different asset classes",
+            "Can't compare. They're different asset classes",
           ],
           correctIndex: 0,
-          explanation: "Friend A: $300,000 x 1.035^10 = ~$423,000. With ~$240,000 still owed on mortgage (simplified), equity is ~$183,000. But remember — they also paid ~$170,000+ in mortgage payments (mostly interest) and ~$50,000+ in taxes/insurance/maintenance. Friend B: $60,000 x 1.10^10 = ~$155,600, no extra costs. The real comparison is more nuanced than it appears!",
+          explanation: "Friend A: $300,000 x 1.035^10 = ~$423,000. With ~$240,000 still owed on mortgage (simplified), equity is ~$183,000. But remember. They also paid ~$170,000+ in mortgage payments (mostly interest) and ~$50,000+ in taxes/insurance/maintenance. Friend B: $60,000 x 1.10^10 = ~$155,600, no extra costs. The real comparison is more nuanced than it appears!",
         },
         {
           id: "pf-u9-L8-Q7",
@@ -988,34 +902,22 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L9",
       title: "Rental Properties: Landlord Math",
-      description: "The numbers behind owning rental property — cash flow, expenses, ROI.",
+      description: "The numbers behind owning rental property. Cash flow, expenses, ROI.",
       icon: "🧮",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L9-T1",
           type: "teaching",
-          question: "🧮 Landlord Math: The 1% Rule",
-          explanation: "Rental property investing is all about the numbers. The most popular quick-screen is the 1% Rule: monthly rent should be at least 1% of the purchase price. Buy a $200,000 property? It should rent for at least $2,000/month to be worth considering. This is a rough filter — most properties in expensive cities fail this test. It works best in affordable markets. Properties that pass the 1% rule tend to have positive cash flow after expenses.",
-          options: [
-            "The 1% Rule: monthly rent should be at least 1% of purchase price",
-            "Example: $200,000 property should rent for at least $2,000/month",
-            "It's a quick filter — not a guarantee of profitability",
-            "Works best in affordable markets (Midwest, South)",
-          ],
+          question: "Landlord Math: The 1% Rule",
+          explanation: "Rental property investing is all about the numbers. The most popular quick-screen is the 1% Rule: monthly rent should be at least 1% of the purchase price.",
           hint: "A $500,000 condo in San Francisco renting for $3,000/month fails miserably (0.6%). A $150,000 duplex in Ohio renting for $1,800/month passes (1.2%).",
         },
         {
           id: "pf-u9-L9-T2",
           type: "teaching",
-          question: "💰 Cash Flow: What You Actually Keep",
-          explanation: "Cash flow is what's left after ALL expenses are paid. Gross rent minus: mortgage payment, property taxes, insurance, maintenance (budget 10% of rent), vacancy (budget 5-8% of rent), property management (8-10% if you hire someone), and capital expenditures (roof, HVAC, etc. — budget 5-10% of rent). A $2,000/month rental might only cash flow $200-$400/month after everything. Many \"landlords\" actually LOSE money monthly because they didn't run the real numbers first.",
-          options: [
-            "Cash flow = rent - ALL expenses (not just the mortgage)",
-            "Budget 10% for maintenance, 5-8% for vacancy, 5-10% for CapEx",
-            "Property management: 8-10% of rent if you hire a manager",
-            "Many rentals have negative cash flow because owners skip the math",
-          ],
+          question: "Cash Flow: What You Actually Keep",
+          explanation: "Cash flow is what's left after ALL expenses are paid. Gross rent minus: mortgage payment, property taxes, insurance, maintenance (budget 10% of rent), vacancy (budget 5-8% of rent), property management (8-10% if you hire someone), and capital expenditures (roof, HVAC, etc. Budget 5-10% of rent).",
           hint: "The 50% Rule: roughly 50% of your rental income goes to expenses (NOT including the mortgage). So if rent is $2,000, expect ~$1,000 in expenses before the mortgage payment.",
         },
         {
@@ -1023,13 +925,13 @@ export const unit9: Unit = {
           type: "multiple-choice",
           question: "A property costs $180,000 and rents for $1,600/month. Does it pass the 1% rule?",
           options: [
-            "No — 1% of $180,000 is $1,800, and rent is only $1,600",
-            "Yes — $1,600 is close enough",
-            "Yes — 1% of $180,000 is $1,500",
+            "No. 1% of $180,000 is $1,800, and rent is only $1,600",
+            "Yes. $1,600 is close enough",
+            "Yes. 1% of $180,000 is $1,500",
             "Can't tell without knowing expenses",
           ],
           correctIndex: 0,
-          explanation: "1% of $180,000 = $1,800. The rent is $1,600, which falls short by $200/month. It doesn't pass the 1% rule. That doesn't mean it's a terrible investment, but it's a yellow flag — the numbers will be tighter.",
+          explanation: "1% of $180,000 = $1,800. The rent is $1,600, which falls short by $200/month. It doesn't pass the 1% rule. That doesn't mean it's a terrible investment, but it's a yellow flag. The numbers will be tighter.",
         },
         {
           id: "pf-u9-L9-Q2",
@@ -1037,7 +939,7 @@ export const unit9: Unit = {
           question: "The 1% rule says monthly rent should be at least _____% of the _____ price.",
           blanks: ["1", "purchase"],
           wordBank: ["1", "2", "5", "10", "purchase", "asking", "listing", "appraised"],
-          explanation: "Monthly rent should be at least 1% of the purchase price. It's a quick screening tool. If a property passes, dig deeper into the real numbers. If it fails badly, move on — the cash flow math probably won't work.",
+          explanation: "Monthly rent should be at least 1% of the purchase price. It's a quick screening tool. If a property passes, dig deeper into the real numbers. If it fails badly, move on. The cash flow math probably won't work.",
         },
         {
           id: "pf-u9-L9-Q3",
@@ -1046,7 +948,7 @@ export const unit9: Unit = {
           options: ["Roof replacement", "Monthly electric bill", "Plumbing repair", "Internet service", "Property taxes", "Lawn mowing (single-family)"],
           buckets: ["Landlord pays", "Tenant pays"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Landlords handle structural/mechanical repairs (roof, plumbing), property taxes, and insurance. Tenants typically pay their own utilities (electric, internet) and lawn care for single-family homes. The exact split depends on your lease — spell it out clearly!",
+          explanation: "Landlords handle structural/mechanical repairs (roof, plumbing), property taxes, and insurance. Tenants typically pay their own utilities (electric, internet) and lawn care for single-family homes. The exact split depends on your lease. Spell it out clearly!",
         },
         {
           id: "pf-u9-L9-Q4",
@@ -1057,10 +959,10 @@ export const unit9: Unit = {
             "$80/month positive cash flow",
             "$580/month positive cash flow",
             "$1,000/month positive cash flow",
-            "Negative — you'd lose money every month",
+            "Negative. You'd lose money every month",
           ],
           correctIndex: 0,
-          explanation: "Revenue: $2,200. Expenses: $1,200 + $350 + $220 + $130 + $220 = $2,120. Cash flow: $2,200 - $2,120 = $80/month. That's barely positive — one surprise repair could wipe out months of profit. This property passes the 1% rule ($2,200 / $220,000 = 1.0%) but the cash flow is thin.",
+          explanation: "Revenue: $2,200. Expenses: $1,200 + $350 + $220 + $130 + $220 = $2,120. Cash flow: $2,200 - $2,120 = $80/month. That's barely positive. One surprise repair could wipe out months of profit. This property passes the 1% rule ($2,200 / $220,000 = 1.0%) but the cash flow is thin.",
         },
         {
           id: "pf-u9-L9-Q5",
@@ -1071,14 +973,14 @@ export const unit9: Unit = {
           correctValue: 1200,
           tolerance: 10,
           unit: "$",
-          explanation: "The 50% Rule estimates that about half your rental income goes to operating expenses (taxes, insurance, maintenance, vacancy, management, CapEx) — BEFORE the mortgage payment. So $2,400 rent / 2 = $1,200 in expenses. What's left ($1,200) goes to cover the mortgage, and anything remaining is your cash flow.",
+          explanation: "The 50% Rule estimates that about half your rental income goes to operating expenses (taxes, insurance, maintenance, vacancy, management, CapEx). BEFORE the mortgage payment. So $2,400 rent / 2 = $1,200 in expenses. What's left ($1,200) goes to cover the mortgage, and anything remaining is your cash flow.",
         },
         {
           id: "pf-u9-L9-Q6",
           type: "true-false",
-          question: "Being a landlord is mostly passive income — you just collect rent checks every month.",
+          question: "Being a landlord is mostly passive income. You just collect rent checks every month.",
           correctAnswer: false,
-          explanation: "Ha! Ask any landlord. You'll deal with midnight plumbing emergencies, difficult tenants, vacancy periods, property damage, eviction proceedings, and constant maintenance. You can hire a property manager (8-10% of rent), but that cuts into your cash flow. Rental income is semi-passive at best.",
+          explanation: "Ask any landlord. You'll deal with midnight plumbing emergencies, difficult tenants, vacancy periods, property damage, eviction proceedings, and constant maintenance. You can hire a property manager (8-10% of rent), but that cuts into your cash flow. Rental income is semi-passive at best.",
         },
         {
           id: "pf-u9-L9-Q7",
@@ -1087,7 +989,7 @@ export const unit9: Unit = {
           options: ["Maintenance reserve", "Vacancy reserve", "Property management", "Capital expenditure reserve"],
           matchTargets: ["~10% of rent", "~5-8% of rent", "~8-10% of rent", "~5-10% of rent"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "These reserves add up fast: 10% + 7% + 9% + 7% = 33% of rent gone before mortgage, taxes, or insurance. That's why the 50% rule exists — expenses eat more than most new landlords expect.",
+          explanation: "These reserves add up fast: 10% + 7% + 9% + 7% = 33% of rent gone before mortgage, taxes, or insurance. That's why the 50% rule exists. Expenses eat more than most new landlords expect.",
         },
         {
           id: "pf-u9-L9-Q8",
@@ -1105,35 +1007,23 @@ export const unit9: Unit = {
     {
       id: "pf-u9-L10",
       title: "REITs: Real Estate Without the Headaches",
-      description: "Own real estate through the stock market — no tenants, no toilets.",
+      description: "Own real estate through the stock market. No tenants, no toilets.",
       icon: "🏢",
       xpReward: 15,
       questions: [
         {
           id: "pf-u9-L10-T1",
           type: "teaching",
-          question: "🏢 REITs: Real Estate in Your Stock Portfolio",
-          explanation: "A REIT (Real Estate Investment Trust) is a company that owns, operates, or finances income-producing real estate. You buy shares just like a stock, and the REIT must pay out at least 90% of its taxable income as dividends to shareholders. That means YOU get paid regularly just for owning shares. REITs own everything from apartment complexes and shopping malls to cell towers and data centers. You get real estate exposure without buying property, dealing with tenants, or fixing toilets.",
-          options: [
-            "REIT = company that owns real estate and pays you dividends",
-            "Must distribute at least 90% of taxable income as dividends",
-            "Buy/sell like stocks — no down payments, no closing costs",
-            "Types: residential, commercial, industrial, healthcare, specialty",
-          ],
-          hint: "If you've ever wished you could own a piece of a skyscraper or a hospital building — REITs let you do exactly that.",
+          question: "REITs: Real Estate in Your Stock Portfolio",
+          explanation: "A REIT (Real Estate Investment Trust) is a company that owns, operates, or finances income-producing real estate. You buy shares just like a stock, and the REIT must pay out at least 90% of its taxable income as dividends to shareholders.",
+          hint: "If you've ever wished you could own a piece of a skyscraper or a hospital building. REITs let you do exactly that.",
         },
         {
           id: "pf-u9-L10-T2",
           type: "teaching",
-          question: "📊 REITs vs Physical Real Estate",
-          explanation: "Here's the honest comparison. Physical property gives you: leverage (mortgage amplifies returns), control (you make decisions), tax benefits (depreciation, 1031 exchanges), and potentially higher returns IF you pick well and manage well. REITs give you: instant diversification (own hundreds of properties), liquidity (sell in seconds vs months), zero management headaches, professional management, and a low entry point ($50 vs $60,000+). Most people are better off with REITs unless they're willing to be active landlords.",
-          options: [
-            "Physical: more control, leverage, tax benefits — but more work",
-            "REITs: diversified, liquid, passive — lower effort and entry cost",
-            "REITs average ~8-12% total return historically (dividends + growth)",
-            "You can start with as little as $1 in REIT index funds",
-          ],
-          hint: "Many investors do both — own their primary home and hold REITs in their retirement accounts for additional real estate exposure.",
+          question: "REITs vs Physical Real Estate",
+          explanation: "Here's the honest comparison. Physical property gives you: leverage (mortgage amplifies returns), control (you make decisions), tax benefits (depreciation, 1031 exchanges), and potentially higher returns IF you pick well and manage well.",
+          hint: "Many investors do both. Own their primary home and hold REITs in their retirement accounts for additional real estate exposure.",
         },
         {
           id: "pf-u9-L10-Q1",
@@ -1162,7 +1052,7 @@ export const unit9: Unit = {
             "Public REIT",
           ],
           correctIndex: 0,
-          explanation: "Mortgage REITs (mREITs) don't own buildings — they own mortgages and mortgage-backed securities, earning money from interest payments. Equity REITs own actual properties (apartments, malls, warehouses). Mortgage REITs tend to have higher yields but more risk and volatility.",
+          explanation: "Mortgage REITs (mREITs) don't own buildings. They own mortgages and mortgage-backed securities, earning money from interest payments. Equity REITs own actual properties (apartments, malls, warehouses). Mortgage REITs tend to have higher yields but more risk and volatility.",
         },
         {
           id: "pf-u9-L10-Q4",
@@ -1196,10 +1086,10 @@ export const unit9: Unit = {
           scenario: "Tom has $30,000 to invest in real estate. Option A: use it as a down payment on a $150,000 rental property (expects $200/month cash flow but must manage the property). Option B: invest in a diversified REIT index fund (historical ~10% total return, completely passive).",
           question: "If Tom wants maximum simplicity and diversification, what's his best move?",
           options: [
-            "REIT index fund — passive, diversified, and liquid with no landlord duties",
-            "Rental property — the cash flow is guaranteed income",
+            "REIT index fund. Passive, diversified, and liquid with no landlord duties",
+            "Rental property. The cash flow is guaranteed income",
             "Split it 50/50 between both options",
-            "Neither — keep it in a savings account",
+            "Neither. Keep it in a savings account",
           ],
           correctIndex: 0,
           explanation: "Tom specifically wants simplicity and diversification. The REIT index fund provides both: zero management, hundreds of properties across many sectors, and he can sell anytime. The rental property might earn more with leverage, but it requires active work and concentrates risk in one property in one location.",
@@ -1231,28 +1121,16 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L11-T1",
           type: "teaching",
-          question: "🧠 House Hacking: The Cheat Code to Free Housing",
-          explanation: "House hacking means buying a property and having other people pay most (or all) of your mortgage. The most common version: buy a duplex, triplex, or fourplex. Live in one unit and rent out the others. Your tenants' rent covers your mortgage — and you might even profit. A single person in a 3-bedroom house can rent out 2 rooms. An FHA loan lets you buy a 2-4 unit property with just 3.5% down, as long as you live in one unit. This is how thousands of young investors got their start.",
-          options: [
-            "Buy multi-unit (duplex/triplex/fourplex), live in one, rent the rest",
-            "FHA loans allow 2-4 units with only 3.5% down",
-            "Tenants pay your mortgage — you live for free or cheap",
-            "Alternative: rent out rooms in a single-family home",
-          ],
+          question: "House Hacking: The Cheat Code to Free Housing",
+          explanation: "House hacking means buying a property and having other people pay most (or all) of your mortgage. The most common version: buy a duplex, triplex, or fourplex.",
           hint: "A 22-year-old buying a duplex with an FHA loan and renting out the other unit is one of the most powerful wealth-building moves available to young adults.",
         },
         {
           id: "pf-u9-L11-T2",
           type: "teaching",
-          question: "📐 The Math Behind Free Housing",
-          explanation: "Let's run the numbers. You buy a duplex for $300,000 with 3.5% down ($10,500). Your total monthly payment (PITI) is $2,200. You live in one unit and rent the other for $1,500/month. Your net housing cost: $2,200 - $1,500 = $700/month. Compare that to renting a similar apartment for $1,500. You're saving $800/month while building equity in an asset. After a year, you could move out, rent BOTH units, and repeat with another property.",
-          options: [
-            "Example: $2,200 mortgage - $1,500 rent from other unit = $700 net cost",
-            "You live cheaper than renting while building equity",
-            "After 1 year, move out and rent both units for full income",
-            "The BRRRR strategy: Buy, Rehab, Rent, Refinance, Repeat",
-          ],
-          hint: "Some house hackers get their housing cost down to $0 or even positive cash flow — meaning they literally get PAID to live there.",
+          question: "The Math Behind Free Housing",
+          explanation: "Let's run the numbers. You buy a duplex for $300,000 with 3.5% down ($10,500).",
+          hint: "Some house hackers get their housing cost down to $0 or even positive cash flow. Meaning they literally get PAID to live there.",
         },
         {
           id: "pf-u9-L11-Q1",
@@ -1281,7 +1159,7 @@ export const unit9: Unit = {
           options: ["Dramatically reduced housing costs", "Being a landlord to your neighbors", "Building equity while living cheaply", "Less privacy than a single-family home", "Learning property management hands-on", "Dealing with tenant turnover and repairs"],
           buckets: ["Pro of house hacking", "Con of house hacking"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Pros: cheaper living, equity building, and real-world landlord education. Cons: you live next to your tenants (awkward), reduced privacy, and you're responsible for repairs and turnover. It's a trade-off — saving thousands per year in exchange for some lifestyle compromises.",
+          explanation: "Pros: cheaper living, equity building, and real-world landlord education. Cons: you live next to your tenants (awkward), reduced privacy, and you're responsible for repairs and turnover. It's a trade-off. Saving thousands per year in exchange for some lifestyle compromises.",
         },
         {
           id: "pf-u9-L11-Q4",
@@ -1296,7 +1174,7 @@ export const unit9: Unit = {
             "Save for 3.5-5% down payment + closing costs",
           ],
           correctOrder: [5, 0, 1, 2, 3, 4],
-          explanation: "Save up first, get pre-approved, then search. Run the numbers BEFORE making an offer — never buy hoping the math works. Move in, prep the other units, then carefully screen tenants. Bad tenants can turn house hacking into a nightmare.",
+          explanation: "Save up first, get pre-approved, then search. Run the numbers BEFORE making an offer. Never buy hoping the math works. Move in, prep the other units, then carefully screen tenants. Bad tenants can turn house hacking into a nightmare.",
         },
         {
           id: "pf-u9-L11-Q5",
@@ -1312,13 +1190,13 @@ export const unit9: Unit = {
           scenario: "You're 25 and have $15,000 saved. You currently rent for $1,400/month. You find a duplex for $280,000. FHA loan with 3.5% down = $9,800. Closing costs = $5,000. Total monthly payment = $2,100. The other unit would rent for $1,350/month.",
           question: "Is this a good house hack opportunity?",
           options: [
-            "Yes — your net housing cost drops from $1,400 to $750/month while building equity",
-            "No — you can't afford the down payment plus closing costs",
-            "No — the rent from the other unit doesn't cover the full mortgage",
+            "Yes: your net housing cost drops from $1,400 to $750/month while building equity",
+            "No: you can't afford the down payment plus closing costs",
+            "No. The rent from the other unit doesn't cover the full mortgage",
             "Yes, but only if you can rent the other unit for $2,100+",
           ],
           correctIndex: 0,
-          explanation: "Down payment ($9,800) + closing costs ($5,000) = $14,800. You have $15,000 — barely enough! Net cost: $2,100 - $1,350 = $750/month. That's $650/month less than your current rent ($1,400). Over a year, you save $7,800 in housing costs while building equity. Just make sure to keep a small emergency fund too.",
+          explanation: "Down payment ($9,800) + closing costs ($5,000) = $14,800. You have $15,000. Barely enough! Net cost: $2,100 - $1,350 = $750/month. That's $650/month less than your current rent ($1,400). Over a year, you save $7,800 in housing costs while building equity. Just make sure to keep a small emergency fund too.",
         },
         {
           id: "pf-u9-L11-Q7",
@@ -1333,7 +1211,7 @@ export const unit9: Unit = {
             "Living in your friend's house and calling it house hacking",
           ],
           correctIndices: [0, 1, 2, 4],
-          explanation: "Duplex rental, room rental, garage storage, and Airbnb of a legal suite are all legitimate house-hacking strategies. Buying a mansion you can't afford is just financial recklessness. Living at a friend's house is... just living at a friend's house.",
+          explanation: "Duplex rental, room rental, garage storage, and Airbnb of a legal suite are all legitimate house-hacking strategies. Buying a mansion you can't afford is just financial recklessness. Living at a friend's house is. Just living at a friend's house.",
         },
         {
           id: "pf-u9-L11-Q8",
@@ -1362,27 +1240,15 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L12-T1",
           type: "teaching",
-          question: "🏆 The Most Expensive Mistakes in Real Estate",
-          explanation: "Real estate mistakes don't cost hundreds — they cost tens of thousands. Overpaying by 5% on a $350,000 home? That's $17,500. Skipping the inspection and finding a cracked foundation? $30,000+ repair. Buying at the top of your approval range and becoming house poor? Years of financial stress. The good news: every mistake on this list is avoidable if you know what to watch for. Let's make sure you don't learn these lessons the expensive way.",
-          options: [
-            "Overpaying: even 5% above market = $15,000-$20,000 lost",
-            "Skipping inspection: can lead to $10,000-$50,000+ surprise repairs",
-            "House poor: buying too much home kills your financial flexibility",
-            "Every common mistake is avoidable with education and patience",
-          ],
+          question: "The Most Expensive Mistakes in Real Estate",
+          explanation: "Real estate mistakes don't cost hundreds. They cost tens of thousands. Overpaying by 5% on a $350,000 home?",
           hint: "The most expensive three words in real estate: \"I love it!\" Emotions make you overpay and overlook problems.",
         },
         {
           id: "pf-u9-L12-T2",
           type: "teaching",
-          question: "🚨 The Emotion Trap",
-          explanation: "Here's why smart people make dumb real estate decisions: emotions. You walk into a home with granite countertops, a beautiful backyard, and that perfect kitchen — and suddenly you NEED it. You offer $20,000 over asking. You waive the inspection. You stretch your budget. Boom — you just made the three most expensive mistakes in one emotional decision. The antidote: always run the numbers BEFORE you see the house. Set a max price and STICK TO IT. Get the inspection no matter what. Your future self will thank you.",
-          options: [
-            "Emotional buyers overpay and skip protections",
-            "Set your max budget BEFORE house hunting",
-            "Never waive inspection to win a bidding war",
-            "Run the numbers first — fall in love with the deal, not the granite",
-          ],
+          question: "The Emotion Trap",
+          explanation: "Here's why smart people make dumb real estate decisions: emotions. You walk into a home with granite countertops, a beautiful backyard, and that perfect kitchen. And suddenly you NEED it.",
           hint: "Bring a financially-minded friend to viewings. They'll see the cracked foundation while you're admiring the kitchen island.",
         },
         {
@@ -1415,9 +1281,9 @@ export const unit9: Unit = {
           scenario: "You found your dream home listed at $380,000. You're pre-approved for $400,000 max. There are 3 other offers. Your agent recommends offering $395,000, waiving the inspection, and including an escalation clause up to $410,000. Your gut says go for it.",
           question: "What should you do?",
           options: [
-            "Walk away — you'd be stretching your budget, waiving protection, and paying over your pre-approval",
+            "Walk away. You'd be stretching your budget, waiving protection, and paying over your pre-approval",
             "Offer $395,000 but keep the inspection contingency and cap at $400,000",
-            "Follow the agent's advice — they know the market",
+            "Follow the agent's advice. They know the market",
             "Offer $410,000 to guarantee you win",
           ],
           correctIndex: 1,
@@ -1437,7 +1303,7 @@ export const unit9: Unit = {
           options: ["Getting pre-approved before house hunting", "Draining your entire savings for the down payment", "Getting a home inspection on every property", "Buying the biggest house the bank approves you for", "Researching property tax rates before choosing a neighborhood", "Making decisions based on how the home is staged/decorated"],
           buckets: ["Smart move", "Costly mistake"],
           correctBuckets: [0, 1, 0, 1, 0, 1],
-          explanation: "Smart: pre-approval, inspections, and tax research. Costly mistakes: draining savings (no emergency fund!), maxing out your budget (hello, house poor), and falling for staging (they take the furniture with them — you're buying the bones).",
+          explanation: "Smart: pre-approval, inspections, and tax research. Costly mistakes: draining savings (no emergency fund!), maxing out your budget (hello, house poor), and falling for staging (they take the furniture with them. You're buying the bones).",
         },
         {
           id: "pf-u9-L12-Q6",
@@ -1445,7 +1311,7 @@ export const unit9: Unit = {
           question: "You should get quotes from at least _____ to _____ mortgage lenders before choosing, because rate differences can cost _____ of dollars over the loan's life.",
           blanks: ["3", "5", "thousands"],
           wordBank: ["1", "2", "3", "5", "10", "hundreds", "thousands", "millions"],
-          explanation: "3-5 lender quotes is the minimum. Each might offer different rates, fees, and terms. A 0.25% rate difference seems tiny but costs thousands over 30 years. This is the easiest money you'll ever save — just send a few extra applications.",
+          explanation: "3-5 lender quotes is the minimum. Each might offer different rates, fees, and terms. A 0.25% rate difference seems tiny but costs thousands over 30 years. This is the easiest money you'll ever save. Just send a few extra applications.",
         },
         {
           id: "pf-u9-L12-Q7",
@@ -1484,7 +1350,7 @@ export const unit9: Unit = {
           type: "pick-the-best",
           question: "You just finished this entire Real Estate unit. Which single piece of advice would save the MOST first-time buyers from the MOST financial pain?",
           options: [
-            "Buy well below what the bank approves you for — leave room to breathe",
+            "Buy well below what the bank approves you for. Leave room to breathe",
             "Always get a home inspection, no exceptions",
             "Don't buy unless you'll stay at least 5-7 years",
             "Shop around for the best mortgage rate",
@@ -1508,11 +1374,11 @@ export const unit9: Unit = {
       timelineStages: [
         {
           id: "pf-u9-L13-TS1",
-          narrative: "Month 0 — You're 28, renting at $1,500/month, earning $75K/year. You have $20,000 saved. You dream of owning a home. Where do you start?",
+          narrative: "Month 0. You're 28, renting at $1,500/month, earning $75K/year. You have $20,000 saved. You dream of owning a home. Where do you start?",
           emoji: "🏠",
           choices: [
             {
-              text: "Get pre-approved for a mortgage first — know your budget before you look",
+              text: "Get pre-approved for a mortgage first. Know your budget before you look",
               nextStageId: "pf-u9-L13-TS2",
               impact: "The smart first step! Pre-approval tells you exactly what you can afford and shows sellers you're serious. Without it, you're window shopping.",
               optimal: true,
@@ -1524,7 +1390,7 @@ export const unit9: Unit = {
               optimal: false,
             },
             {
-              text: "Save more first — $20K probably isn't enough",
+              text: "Save more first. $20K probably isn't enough",
               nextStageId: "pf-u9-L13-TS2",
               impact: "$20K could be enough depending on your market and loan type. FHA loans require just 3.5% down. Getting pre-approved tells you the answer for free.",
               optimal: false,
@@ -1533,7 +1399,7 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS2",
-          narrative: "Month 3 — You're pre-approved for $320,000. Your agent finds a home listed at $310,000. It's perfect — but 5 other buyers are interested. What's your offer strategy?",
+          narrative: "Month 3. You're pre-approved for $320,000. Your agent finds a home listed at $310,000. It's perfect. But 5 other buyers are interested. What's your offer strategy?",
           emoji: "📝",
           choices: [
             {
@@ -1543,13 +1409,13 @@ export const unit9: Unit = {
               optimal: true,
             },
             {
-              text: "Offer exactly $310K — never pay more than asking",
+              text: "Offer exactly $310K. Never pay more than asking",
               nextStageId: "pf-u9-L13-TS3",
               impact: "In a competitive market, asking-price offers rarely win. You'll likely lose to higher offers and waste more time (and money) searching.",
               optimal: false,
             },
             {
-              text: "Offer $330K — blow everyone away!",
+              text: "Offer $330K. Blow everyone away!",
               nextStageId: "pf-u9-L13-TS3",
               impact: "Overpaying by $20K wastes money. If the appraisal comes in low, you'll have to pay the difference in cash or the deal falls apart.",
               optimal: false,
@@ -1558,7 +1424,7 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS3",
-          narrative: "Month 5 — Your offer is accepted! The inspection reveals the roof needs replacement in 2-3 years (~$12,000). What do you do?",
+          narrative: "Month 5. Your offer is accepted! The inspection reveals the roof needs replacement in 2-3 years (~$12,000). What do you do?",
           emoji: "🔍",
           choices: [
             {
@@ -1568,13 +1434,13 @@ export const unit9: Unit = {
               optimal: true,
             },
             {
-              text: "Walk away — this is a money pit",
+              text: "Walk away. This is a money pit",
               nextStageId: "pf-u9-L13-TS4",
               impact: "Overreacting to a common inspection issue. Nearly every home has something. Walking away means starting over and paying more rent in the meantime.",
               optimal: false,
             },
             {
-              text: "Ignore it — you love the house and don't want to lose it",
+              text: "Ignore it. You love the house and don't want to lose it",
               nextStageId: "pf-u9-L13-TS4",
               impact: "Never skip negotiation on known issues. That's $12K you'll owe in 2-3 years. Sellers expect buyers to negotiate after inspections.",
               optimal: false,
@@ -1583,17 +1449,17 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS4",
-          narrative: "Month 6 — Closing day approaches. Your lender offers two mortgage options: 30-year fixed at 6.8% or 15-year fixed at 6.1%. Monthly payments: $2,050 vs $2,700. Which do you choose?",
+          narrative: "Month 6. Closing day approaches. Your lender offers two mortgage options: 30-year fixed at 6.8% or 15-year fixed at 6.1%. Monthly payments: $2,050 vs $2,700. Which do you choose?",
           emoji: "🏦",
           choices: [
             {
-              text: "30-year fixed — lower payments give you breathing room and flexibility",
+              text: "30-year fixed. Lower payments give you breathing room and flexibility",
               nextStageId: "pf-u9-L13-TS5",
               impact: "Smart for a first-time buyer. Lower payments protect you during emergencies. You can always make extra payments later to pay it off faster without being locked into the higher amount.",
               optimal: true,
             },
             {
-              text: "15-year fixed — pay it off faster and save on interest",
+              text: "15-year fixed. Pay it off faster and save on interest",
               nextStageId: "pf-u9-L13-TS5",
               impact: "Saves ~$120K in interest over the life of the loan, but the higher payment leaves less room for emergencies, repairs, and investing.",
               optimal: false,
@@ -1602,11 +1468,11 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS5",
-          narrative: "Month 8 — You've moved in! A month later, the furnace dies. Repair cost: $4,500. Your emergency fund has $5,000 left after closing costs.",
+          narrative: "Month 8. You've moved in! A month later, the furnace dies. Repair cost: $4,500. Your emergency fund has $5,000 left after closing costs.",
           emoji: "❄️",
           choices: [
             {
-              text: "Pay from emergency fund — this is what it's for. Then prioritize rebuilding it.",
+              text: "Pay from emergency fund. This is what it's for. Then prioritize rebuilding it.",
               nextStageId: "pf-u9-L13-TS6",
               impact: "Exactly right. This is homeownership reality. Major repairs happen. Having an emergency fund saved you from credit card debt at 24% APR.",
               optimal: true,
@@ -1621,7 +1487,7 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS6",
-          narrative: "Month 12 — One year as a homeowner. Your neighbor mentions they're renting out their basement on Airbnb for $800/month. You have a spare room. Consider it?",
+          narrative: "Month 12. One year as a homeowner. Your neighbor mentions they're renting out their basement on Airbnb for $800/month. You have a spare room. Consider it?",
           emoji: "💡",
           choices: [
             {
@@ -1631,7 +1497,7 @@ export const unit9: Unit = {
               optimal: true,
             },
             {
-              text: "Start listing it immediately — that's $800/month!",
+              text: "Start listing it immediately. That's $800/month!",
               nextStageId: "pf-u9-L13-TS7",
               impact: "Enthusiasm is good, but skipping legal research can mean fines, eviction liability, or insurance problems. Always check local regulations first.",
               optimal: false,
@@ -1640,14 +1506,14 @@ export const unit9: Unit = {
         },
         {
           id: "pf-u9-L13-TS7",
-          narrative: "Two years in — your home has appreciated 8% and you've built equity with every payment. How's the journey looking?",
+          narrative: "Two years in. Your home has appreciated 8% and you've built equity with every payment. How's the journey looking?",
           emoji: "🎉",
         },
       ],
       timelineOutcomes: {
         "5-5": {
           title: "Savvy Homeowner",
-          description: "You made smart decisions at every turn — from getting pre-approved first to negotiating repairs and maintaining your emergency fund. This is how real estate builds wealth.",
+          description: "You made smart decisions at every turn. From getting pre-approved first to negotiating repairs and maintaining your emergency fund. This is how real estate builds wealth.",
           score: "great",
         },
         "3-5": {
@@ -1677,7 +1543,7 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L14-C1",
           speaker: "Narrator",
-          message: "You found a house listed at $340,000. It's been on the market for 45 days — longer than average for this area. The inspection found minor issues: outdated electrical panel ($3,000) and a cracked driveway ($2,000). Your agent is coaching you through the counter-offer.",
+          message: "You found a house listed at $340,000. It's been on the market for 45 days. Longer than average for this area. The inspection found minor issues: outdated electrical panel ($3,000) and a cracked driveway ($2,000). Your agent is coaching you through the counter-offer.",
           nextNodeId: "pf-u9-L14-C2",
         },
         {
@@ -1686,19 +1552,19 @@ export const unit9: Unit = {
           message: "The house has been sitting for 45 days. That gives us leverage. The seller is probably getting nervous. What's your opening offer strategy?",
           options: [
             {
-              text: "Let's offer $320,000 — about 6% below asking — citing the inspection issues and days on market as justification.",
+              text: "Let's offer $320,000. About 6% below asking. Citing the inspection issues and days on market as justification.",
               nextNodeId: "pf-u9-L14-C3",
               quality: "great",
               feedback: "Smart strategy! A 6% reduction on a stale listing is reasonable, and tying it to specific inspection findings makes it logical, not insulting.",
             },
             {
-              text: "Let's offer $330,000 — 3% below asking. I don't want to offend them.",
+              text: "Let's offer $330,000 to 3% below asking. I don't want to offend them.",
               nextNodeId: "pf-u9-L14-C3",
               quality: "okay",
               feedback: "A safe play, but you left negotiating room on the table. After 45 days, the seller expects lower offers. Being too gentle costs you money.",
             },
             {
-              text: "Offer $280,000 — lowball them and see what happens.",
+              text: "Offer $280,000. Lowball them and see what happens.",
               nextNodeId: "pf-u9-L14-C3",
               quality: "poor",
               feedback: "A 17% lowball on a fairly priced home insults the seller and may kill negotiations entirely. They might not even counter-offer.",
@@ -1720,7 +1586,7 @@ export const unit9: Unit = {
               text: "Counter at $325,000 with the full $3,000 electrical credit. Meet in the middle on price but hold firm on the safety issue.",
               nextNodeId: "pf-u9-L14-C5",
               quality: "great",
-              feedback: "Excellent! You're splitting the difference on price while using the electrical panel as a safety concern — which is harder for the seller to dismiss. This shows you're serious but fair.",
+              feedback: "Excellent! You're splitting the difference on price while using the electrical panel as a safety concern. Which is harder for the seller to dismiss. This shows you're serious but fair.",
             },
             {
               text: "Accept the $335,000 with the $1,500 credit.",
@@ -1729,7 +1595,7 @@ export const unit9: Unit = {
               feedback: "You just left $10,000-15,000 on the table. After 45 days on market, there's almost always more room to negotiate. The first counter is rarely the seller's best price.",
             },
             {
-              text: "Stick at $320,000 — take it or leave it.",
+              text: "Stick at $320,000. Take it or leave it.",
               nextNodeId: "pf-u9-L14-C5",
               quality: "poor",
               feedback: "Ultimatums kill deals. Negotiation is a conversation. Being inflexible when the seller is showing willingness to negotiate is a missed opportunity.",
@@ -1745,7 +1611,7 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L14-C6",
           speaker: "Agent",
-          message: "That's a solid deal — $12,000 below asking plus a $2,500 credit. That's $14,500 in total savings. But we can try one more thing.",
+          message: "That's a solid deal. $12,000 below asking plus a $2,500 credit. That's $14,500 in total savings. But we can try one more thing.",
           options: [
             {
               text: "Accept the price, but ask the seller to cover closing costs up to $5,000. It's a common request that many sellers agree to.",
@@ -1757,10 +1623,10 @@ export const unit9: Unit = {
               text: "Accept as-is. This is a great deal and I don't want to push too far.",
               nextNodeId: "pf-u9-L14-C7",
               quality: "okay",
-              feedback: "It IS a great deal! But asking for closing cost help is standard — most sellers expect it. You could have saved another $3,000-5,000 simply by asking.",
+              feedback: "It IS a great deal! But asking for closing cost help is standard. Most sellers expect it. You could have saved another $3,000-5,000 simply by asking.",
             },
             {
-              text: "Push for $325,000 — squeeze them harder.",
+              text: "Push for $325,000. Squeeze them harder.",
               nextNodeId: "pf-u9-L14-C7",
               quality: "poor",
               feedback: "You're pushing past the seller's stated best offer on price. This risks blowing up the deal entirely. The smart play now is to negotiate on terms, not price.",
@@ -1782,7 +1648,7 @@ export const unit9: Unit = {
         {
           id: "pf-u9-L14-C9",
           speaker: "Narrator",
-          message: "Your Negotiation Results:\n\n- Listed price: $340,000\n- Your purchase price: $328,000 (saved $12,000)\n- Electrical credit: $2,500\n- Closing cost assistance: $3,000\n- Total savings: $17,500\n\nKey lessons:\n1. Days on market = leverage. Stale listings mean motivated sellers.\n2. Inspection findings are negotiation tools, not deal-breakers.\n3. Counter-offers are conversations — stay calm, stay flexible.\n4. Ask for closing cost help — it's standard and often granted.\n5. The best negotiations leave both sides feeling fair.",
+          message: "Your Negotiation Results:\n\n- Listed price: $340,000\n- Your purchase price: $328,000 (saved $12,000)\n- Electrical credit: $2,500\n- Closing cost assistance: $3,000\n- Total savings: $17,500\n\nKey lessons:\n1. Days on market = leverage. Stale listings mean motivated sellers.\n2. Inspection findings are negotiation tools, not deal-breakers.\n3. Counter-offers are conversations. Stay calm, stay flexible.\n4. Ask for closing cost help. It's standard and often granted.\n5. The best negotiations leave both sides feeling fair.",
         },
       ],
     },

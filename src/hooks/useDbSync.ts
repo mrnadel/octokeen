@@ -59,6 +59,7 @@ export function useDbSync() {
             // Merge DB progress with local state instead of replacing,
             // so we don't overwrite lessons completed while the fetch was in-flight
             const local = useCourseStore.getState().progress;
+            const localProfession = useCourseStore.getState().activeProfession;
             const db = data.progress;
             const mergedLessons = { ...db.completedLessons };
             for (const [id, localLesson] of Object.entries(local.completedLessons)) {
@@ -68,7 +69,20 @@ export function useDbSync() {
                 mergedLessons[id] = localLesson;
               }
             }
+
+            // Merge courseIntros: DB wins for keys not in local
+            const mergedIntros = { ...(db.courseIntros ?? {}), ...(local.courseIntros ?? {}) };
+
+            // Restore activeProfession from DB if local is still the default
+            // (indicates localStorage was cleared)
+            const dbProfession = data.activeProfession;
+            const restoredProfession =
+              localProfession === 'mechanical-engineering' && dbProfession && dbProfession !== 'mechanical-engineering'
+                ? dbProfession
+                : localProfession;
+
             useCourseStore.setState({
+              activeProfession: restoredProfession,
               progress: {
                 ...db,
                 totalXp: Math.max(db.totalXp, local.totalXp),
@@ -78,6 +92,7 @@ export function useDbSync() {
                   ? db.lastActiveDate : local.lastActiveDate,
                 activeDays: local.activeDays, // client-only field, never from DB
                 completedLessons: mergedLessons,
+                courseIntros: Object.keys(mergedIntros).length > 0 ? mergedIntros : undefined,
               },
             });
           }
@@ -156,15 +171,15 @@ export function useDbSync() {
     );
 
     const unsubCourse = useCourseStore.subscribe(
-      (state) => state.progress,
+      (state) => ({ progress: state.progress, activeProfession: state.activeProfession }),
       () => {
         clearTimeout(courseTimer);
         courseTimer = setTimeout(() => {
-          const progress = useCourseStore.getState().progress;
+          const { progress, activeProfession } = useCourseStore.getState();
           fetch('/api/course-progress', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ progress }),
+            body: JSON.stringify({ progress, activeProfession }),
           }).catch(console.error);
         }, 800);
       }
