@@ -133,7 +133,7 @@ const effects = [
 
 // ── 1. Rising Bubbles ──
 {
-  name: 'Rising Bubbles',
+  name: 'bubbles', label: 'Rising Bubbles', category: 'ambient',
   bg: '#1a1a2e',
   gen(el) {
     for(let i=0;i<25;i++){
@@ -149,7 +149,7 @@ const effects = [
 
 // ── 2. Confetti Rain ──
 {
-  name: 'Confetti Rain',
+  name: 'confetti', label: 'Confetti Rain', category: 'celebration',
   bg: '#1a1a2e',
   gen(el) {
     const colors=['#FF4B4B','#FFC800','#58CC02','#1CB0F6','#CE82FF','#FF9600','#FFAADE'];
@@ -166,7 +166,7 @@ const effects = [
 
 // ── 3. Gold Star Burst ──
 {
-  name: 'Gold Star Burst',
+  name: 'stars', label: 'Gold Star Burst', category: 'celebration',
   bg: 'linear-gradient(180deg,#1a1a2e,#2d1b4e)',
   gen(el) {
     for(let i=0;i<18;i++){
@@ -183,7 +183,7 @@ const effects = [
 
 // ── 4. Floating Hearts ──
 {
-  name: 'Floating Hearts',
+  name: 'hearts', label: 'Floating Hearts', category: 'celebration',
   bg: 'linear-gradient(180deg,#2d1020,#1a1a2e)',
   gen(el) {
     for(let i=0;i<16;i++){
@@ -200,7 +200,7 @@ const effects = [
 
 // ── 5. Sparkle Dust ──
 {
-  name: 'Sparkle Dust',
+  name: 'sparkle-dust', label: 'Sparkle Dust', category: 'ambient',
   bg: '#1a1a2e',
   gen(el) {
     for(let i=0;i<35;i++){
@@ -216,7 +216,7 @@ const effects = [
 
 // ── 6. Firework Burst ──
 {
-  name: 'Firework Burst',
+  name: 'fireworks', label: 'Firework Burst', category: 'celebration',
   bg: '#0a0a1a',
   gen(el) {
     const colors=['#FF4B4B','#FFC800','#58CC02','#1CB0F6','#CE82FF','#FF9600'];
@@ -237,7 +237,7 @@ const effects = [
 
 // ── 7. Gentle Snow ──
 {
-  name: 'Gentle Snow',
+  name: 'snow', label: 'Gentle Snow', category: 'weather',
   bg: 'linear-gradient(180deg,#1a2a3a,#0a1520)',
   gen(el) {
     for(let i=0;i<35;i++){
@@ -253,7 +253,7 @@ const effects = [
 
 // ── 8. Lightning Flash ──
 {
-  name: 'Lightning Flash',
+  name: 'lightning', label: 'Lightning Flash', category: 'dramatic',
   bg: '#0a0a1a',
   gen(el) {
     for(let i=0;i<4;i++){
@@ -269,7 +269,7 @@ const effects = [
 
 // ── 9. Radial Pulse ──
 {
-  name: 'Radial Pulse',
+  name: 'radial-pulse', label: 'Radial Pulse', category: 'center-burst',
   bg: '#1a1a2e',
   gen(el) {
     const ringColors=['rgba(99,102,241,0.5)','rgba(168,85,247,0.4)','rgba(236,72,153,0.35)','rgba(6,182,212,0.4)','rgba(255,200,0,0.35)','rgba(88,204,2,0.3)'];
@@ -286,7 +286,7 @@ const effects = [
 
 // ── 10. Speed Streaks ──
 {
-  name: 'Speed Streaks',
+  name: 'speed-streaks', label: 'Speed Streaks', category: 'dramatic',
   bg: 'linear-gradient(180deg,#1a1040,#0a0a1a)',
   gen(el) {
     for(let i=0;i<16;i++){
@@ -302,7 +302,7 @@ const effects = [
 
 // ── 11. Swirl Orbs ──
 {
-  name: 'Swirl Orbs',
+  name: 'swirl-orbs', label: 'Swirl Orbs', category: 'ambient',
   bg: '#1a1a2e',
   gen(el) {
     const colors=['rgba(99,102,241,0.25)','rgba(206,130,255,0.2)','rgba(255,170,222,0.18)','rgba(28,176,246,0.2)','rgba(255,200,0,0.15)','rgba(88,204,2,0.18)'];
@@ -320,7 +320,7 @@ const effects = [
 
 // ── 12. Diagonal Rain ──
 {
-  name: 'Diagonal Rain',
+  name: 'rain', label: 'Diagonal Rain', category: 'weather',
   bg: 'linear-gradient(180deg,#102030,#0a1018)',
   gen(el) {
     for(let i=0;i<25;i++){
@@ -336,7 +336,7 @@ const effects = [
 
 // ── 13. Emoji Party ──
 {
-  name: 'Emoji Party',
+  name: 'emoji-party', label: 'Emoji Party', category: 'celebration',
   bg: '#1a1a2e',
   gen(el) {
     const emojis=['🎉','🎊','⭐','🔥','💪','🏆','💎','⚡','🚀','✨','🎯','🌟'];
@@ -354,7 +354,7 @@ const effects = [
 
 // ── 14. Glitch Lines ──
 {
-  name: 'Glitch Lines',
+  name: 'glitch', label: 'Glitch Lines', category: 'dramatic',
   bg: '#0a0a0a',
   gen(el) {
     for(let i=0;i<12;i++){
@@ -371,7 +371,7 @@ const effects = [
 
 // ── 15. Bokeh Lights ──
 {
-  name: 'Bokeh Lights',
+  name: 'bokeh', label: 'Bokeh Lights', category: 'ambient',
   bg: 'linear-gradient(135deg,#1a1030,#0a1520)',
   gen(el) {
     const colors=['rgba(255,200,0,0.12)','rgba(206,130,255,0.1)','rgba(28,176,246,0.1)','rgba(255,150,0,0.1)','rgba(88,204,2,0.08)','rgba(255,75,75,0.08)'];
@@ -389,7 +389,7 @@ const effects = [
 
 // ── 16. Comet Trails ──
 {
-  name: 'Comet Trails',
+  name: 'comets', label: 'Comet Trails', category: 'dramatic',
   bg: '#080818',
   gen(el) {
     for(let i=0;i<8;i++){
@@ -405,7 +405,7 @@ const effects = [
 
 // ── 17. Audio Wave Bars ──
 {
-  name: 'Audio Wave Bars',
+  name: 'wave-bars', label: 'Audio Wave Bars', category: 'dramatic',
   bg: 'linear-gradient(180deg,#1a1040,#0a0a1a)',
   gen(el) {
     for(let i=0;i<24;i++){
@@ -421,7 +421,7 @@ const effects = [
 
 // ── 18. Pixel Grid Pop ──
 {
-  name: 'Pixel Grid Pop',
+  name: 'pixel-grid', label: 'Pixel Grid Pop', category: 'celebration',
   bg: '#1a1a2e',
   gen(el) {
     const colors=['#58CC02','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600','#FFAADE','#84D8FF'];
@@ -438,7 +438,7 @@ const effects = [
 
 // ── 19. DNA Helix ──
 {
-  name: 'DNA Helix',
+  name: 'dna-helix', label: 'DNA Helix', category: 'ambient',
   bg: 'linear-gradient(180deg,#0a1520,#1a1a2e)',
   gen(el) {
     for(let i=0;i<20;i++){
@@ -457,7 +457,7 @@ const effects = [
 
 // ── 20. Smoke Wisps ──
 {
-  name: 'Smoke Wisps',
+  name: 'smoke', label: 'Smoke Wisps', category: 'ambient',
   bg: 'linear-gradient(180deg,#1a1020,#0a0a0a)',
   gen(el) {
     const colors=['rgba(206,130,255,0.1)','rgba(255,150,0,0.08)','rgba(28,176,246,0.08)','rgba(255,200,0,0.08)','rgba(255,170,222,0.07)'];
@@ -474,7 +474,7 @@ const effects = [
 
 // ── 21. Center Supernova (behind character) ──
 {
-  name: 'Center Supernova',
+  name: 'supernova', label: 'Center Supernova', category: 'center-burst',
   bg: '#0a0a1a',
   gen(el) {
     // Expanding rings from center
@@ -506,7 +506,7 @@ const effects = [
 
 // ── 22. Shockwave Blast ──
 {
-  name: 'Shockwave Blast',
+  name: 'shockwave', label: 'Shockwave Blast', category: 'center-burst',
   bg: '#0a0a1a',
   gen(el) {
     // Multiple shockwave rings from center, staggered
@@ -533,7 +533,7 @@ const effects = [
 
 // ── 23. Spiral Galaxy ──
 {
-  name: 'Spiral Galaxy',
+  name: 'spiral-galaxy', label: 'Spiral Galaxy', category: 'dramatic',
   bg: '#050510',
   gen(el) {
     for(let i=0;i<40;i++){
@@ -556,7 +556,7 @@ const effects = [
 
 // ── 24. Power Up Aura (behind character) ──
 {
-  name: 'Power Up Aura',
+  name: 'power-up', label: 'Power Up Aura', category: 'center-burst',
   bg: '#0a0a1a',
   gen(el) {
     // Vertical energy beams shooting up from center
@@ -589,7 +589,7 @@ const effects = [
 
 // ── 25. XP Explosion (behind character) ──
 {
-  name: 'XP Explosion',
+  name: 'xp-explosion', label: 'XP Explosion', category: 'center-burst',
   bg: '#1a1a2e',
   gen(el) {
     // Flying "+XP" text from center in all directions
@@ -617,7 +617,7 @@ const effects = [
 
 // ── 26. Tornado Vortex ──
 {
-  name: 'Tornado Vortex',
+  name: 'tornado', label: 'Tornado Vortex', category: 'dramatic',
   bg: '#0a0a1a',
   gen(el) {
     // Each particle gets a unique elliptical orbit at its own height
@@ -642,7 +642,7 @@ const effects = [
 
 // ── 27. Golden Rain + Coins ──
 {
-  name: 'Golden Rain + Coins',
+  name: 'golden-rain', label: 'Golden Rain + Coins', category: 'celebration',
   bg: 'linear-gradient(180deg,#1a1020,#0a0a0a)',
   gen(el) {
     // Gold dust rain — use px values not %
@@ -669,7 +669,7 @@ const effects = [
 
 // ── 28. Electric Field (behind character) ──
 {
-  name: 'Electric Field',
+  name: 'electric', label: 'Electric Field', category: 'dramatic',
   bg: '#0a0a1a',
   gen(el) {
     // Electric arcs — flash on/off at irregular intervals, each at a unique angle
@@ -703,7 +703,7 @@ const effects = [
 
 // ── 29. Portal Warp (behind character) ──
 {
-  name: 'Portal Warp',
+  name: 'portal', label: 'Portal Warp', category: 'center-burst',
   bg: '#050510',
   gen(el) {
     // Concentric spinning rings at center
@@ -730,7 +730,7 @@ const effects = [
 
 // ── 30. Level Up Rays (behind character) ──
 {
-  name: 'Level Up Rays',
+  name: 'level-up-rays', label: 'Level Up Rays', category: 'center-burst',
   bg: '#0a0a1a',
   gen(el) {
     // Create a wrapper that slowly rotates, put rays inside it
@@ -769,43 +769,72 @@ const effects = [
 
 ];
 
-// Render gallery
+// ═══ Render gallery from effects array (mirrors fx-registry.ts) ═══
 const gallery=document.getElementById('gallery');
 const fullscreen=document.getElementById('fullscreen');
 
+// Group by category
+const categories = {};
 effects.forEach((fx,idx)=>{
-  const wrap=document.createElement('div');
-  wrap.className='cw';
+  const cat = fx.category || 'other';
+  if(!categories[cat]) categories[cat]=[];
+  categories[cat].push({...fx, idx});
+});
 
-  const phone=document.createElement('div');
-  phone.className='ph';
-  phone.style.cursor='pointer';
-  phone.title='Click for fullscreen';
+const catOrder = ['celebration','ambient','center-burst','weather','dramatic'];
+const catLabels = { celebration:'Celebration', ambient:'Ambient / Background', 'center-burst':'Center Burst (behind character)', weather:'Weather', dramatic:'Dramatic' };
 
-  const fxEl=document.createElement('div');
-  fxEl.className='fx';
-  fxEl.style.background=fx.bg;
-  fx.gen(fxEl);
-  phone.appendChild(fxEl);
+catOrder.forEach(cat => {
+  if(!categories[cat]) return;
+  const sec = document.createElement('div');
+  sec.className='sec';
+  sec.textContent = catLabels[cat] || cat;
+  gallery.appendChild(sec);
 
-  phone.addEventListener('click',()=>{
-    fullscreen.style.display='block';
-    fullscreen.style.background=fx.bg;
-    // Clear old
-    while(fullscreen.childElementCount>1) fullscreen.removeChild(fullscreen.lastChild);
-    const fsEl=document.createElement('div');
-    fsEl.style.cssText='position:absolute;inset:0;overflow:hidden;';
-    fx.gen(fsEl);
-    fullscreen.appendChild(fsEl);
+  const grid = document.createElement('div');
+  grid.className='g';
+
+  categories[cat].forEach(fx => {
+    const wrap=document.createElement('div');
+    wrap.className='cw';
+
+    const phone=document.createElement('div');
+    phone.className='ph';
+    phone.style.cursor='pointer';
+    phone.title='Click for fullscreen — ' + fx.name;
+
+    const fxEl=document.createElement('div');
+    fxEl.className='fx';
+    fxEl.style.background=fx.bg;
+    fx.gen(fxEl);
+    phone.appendChild(fxEl);
+
+    // Code badge on the phone
+    const codeBadge = document.createElement('div');
+    codeBadge.style.cssText='position:absolute;bottom:8px;left:8px;right:8px;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:10;';
+    codeBadge.innerHTML=`<div style="font-size:9px;color:rgba(255,255,255,0.4);font-weight:600;">REACT USAGE</div><div style="font-size:10px;color:#58CC02;font-family:monospace;font-weight:700;margin-top:2px;">&lt;ScreenFX effect="${fx.name}" /&gt;</div>`;
+    phone.appendChild(codeBadge);
+
+    phone.addEventListener('click',()=>{
+      fullscreen.style.display='block';
+      fullscreen.style.background=fx.bg;
+      while(fullscreen.childElementCount>1) fullscreen.removeChild(fullscreen.lastChild);
+      const fsEl=document.createElement('div');
+      fsEl.style.cssText='position:absolute;inset:0;overflow:hidden;';
+      fx.gen(fsEl);
+      fullscreen.appendChild(fsEl);
+    });
+
+    const label=document.createElement('div');
+    label.className='cl';
+    label.innerHTML=`<strong>${fx.name}</strong><br>${fx.label}`;
+
+    wrap.appendChild(phone);
+    wrap.appendChild(label);
+    grid.appendChild(wrap);
   });
 
-  const label=document.createElement('div');
-  label.className='cl';
-  label.textContent=`${idx+1}. ${fx.name}`;
-
-  wrap.appendChild(phone);
-  wrap.appendChild(label);
-  gallery.appendChild(wrap);
+  gallery.appendChild(grid);
 });
 </script>
 </body>
