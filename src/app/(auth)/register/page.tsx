@@ -114,7 +114,7 @@ export default function RegisterPage() {
         setError('Account created but login failed. Try signing in.');
         setLoading(false);
       } else {
-        router.push('/');
+        router.push('/onboarding');
         router.refresh();
       }
     } catch {
@@ -127,7 +127,7 @@ export default function RegisterPage() {
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
-    signIn('google', { callbackUrl: '/' });
+    signIn('google', { callbackUrl: '/onboarding' });
   };
 
   return (
