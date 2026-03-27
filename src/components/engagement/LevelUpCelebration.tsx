@@ -25,9 +25,7 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
   const levelDef = levels.find((l) => l.level === reward.level);
   const isMilestone = reward.isMilestone;
 
-  const bgGradient = isMilestone
-    ? 'linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%)'
-    : 'linear-gradient(135deg, #1E293B 0%, #334155 100%)';
+  const bgColor = isMilestone ? '#5B4FCF' : '#3C4D6B';
 
   return (
     <AnimatePresence>
@@ -58,7 +56,7 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
           role="dialog"
           aria-modal="true"
           aria-labelledby="level-up-title"
-          style={{ background: bgGradient }}
+          style={{ background: bgColor }}
           initial={{ scale: 0.8, opacity: 0, y: 30 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.8, opacity: 0, y: 30 }}
