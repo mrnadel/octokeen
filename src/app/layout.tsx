@@ -82,14 +82,14 @@ const jsonLd = {
           price: '0',
           priceCurrency: 'USD',
           name: 'Free',
-          description: 'Unit 1 access with 5 daily practice questions',
+          description: 'All content free with 5 hearts — recharge over time',
         },
         {
           '@type': 'Offer',
-          price: '9',
+          price: '7.99',
           priceCurrency: 'USD',
           name: 'Pro Monthly',
-          description: 'Unlimited practice, all 10 units, adaptive learning',
+          description: 'Unlimited hearts, streak freeze, 2x XP weekends, full analytics',
         },
       ],
     },
@@ -107,7 +107,7 @@ const jsonLd = {
           name: 'What do I get for free?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Full access to Unit 1 with up to 5 practice questions per day. Basic progress stats included.',
+            text: 'All lessons and practice modes are free. You get 5 hearts — wrong answers cost one, and they recharge over time. Pro gives unlimited hearts plus premium perks.',
           },
         },
         {
