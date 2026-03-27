@@ -396,8 +396,8 @@
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- LEAGUE SHIELDS v5 — matching reference    -->
-<!-- Shield + stars + bars + laurels + pedestal -->
+<!-- LEAGUE SHIELDS v6 — chunky rounded badge  -->
+<!-- Wide, squat, rounded-square with soft chin -->
 <!-- ═══════════════════════════════════════════ -->
 
 <h2>league shields</h2>
@@ -405,199 +405,204 @@
 
 <!-- BRONZE -->
 <div class="item">
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 72 72" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 80 80" fill="none">
   <!-- Pedestal -->
-  <ellipse cx="36" cy="66" rx="18" ry="4" fill="#CC6B00"/>
-  <ellipse cx="36" cy="65" rx="18" ry="4" fill="#FF9600"/>
-  <!-- Laurel leaves (behind shield) -->
-  <ellipse cx="12" cy="46" rx="4" ry="7" fill="#A56644" transform="rotate(-30 12 46)"/>
-  <ellipse cx="10" cy="38" rx="3.5" ry="6" fill="#A56644" transform="rotate(-20 10 38)"/>
-  <ellipse cx="12" cy="30" rx="3" ry="5" fill="#A56644" transform="rotate(-10 12 30)"/>
-  <ellipse cx="60" cy="46" rx="4" ry="7" fill="#A56644" transform="rotate(30 60 46)"/>
-  <ellipse cx="62" cy="38" rx="3.5" ry="6" fill="#A56644" transform="rotate(20 62 38)"/>
-  <ellipse cx="60" cy="30" rx="3" ry="5" fill="#A56644" transform="rotate(10 60 30)"/>
-  <!-- Shield 3D depth (offset darker copy) -->
-  <path d="M36,62 C18,54 12,42 12,28 L12,14 C12,10 15,8 18,8 L54,8 C57,8 60,10 60,14 L60,28 C60,42 54,54 36,62Z" fill="#8B5722"/>
-  <!-- Shield main -->
-  <path d="M36,60 C18,52 12,40 12,26 L12,12 C12,8 15,6 18,6 L54,6 C57,6 60,8 60,12 L60,26 C60,40 54,52 36,60Z" fill="#CD7F32"/>
-  <!-- Shield face (lighter) -->
-  <path d="M36,56 C20,48 16,38 16,26 L16,16 C16,13 18,11 20,11 L52,11 C54,11 56,13 56,16 L56,26 C56,38 52,48 36,56Z" fill="#E5A259"/>
+  <ellipse cx="40" cy="74" rx="20" ry="4.5" fill="#8B5722"/>
+  <ellipse cx="40" cy="73" rx="20" ry="4.5" fill="#CD7900"/>
+  <!-- Laurel leaves behind -->
+  <ellipse cx="8" cy="48" rx="3.5" ry="8" fill="#8B5722" transform="rotate(-25 8 48)"/>
+  <ellipse cx="6" cy="39" rx="3" ry="7" fill="#A56644" transform="rotate(-15 6 39)"/>
+  <ellipse cx="8" cy="30" rx="2.5" ry="6" fill="#A56644" transform="rotate(-5 8 30)"/>
+  <ellipse cx="72" cy="48" rx="3.5" ry="8" fill="#8B5722" transform="rotate(25 72 48)"/>
+  <ellipse cx="74" cy="39" rx="3" ry="7" fill="#A56644" transform="rotate(15 74 39)"/>
+  <ellipse cx="72" cy="30" rx="2.5" ry="6" fill="#A56644" transform="rotate(5 72 30)"/>
+  <!-- Shield 3D edge (thick, offset down+back) -->
+  <rect x="12" y="14" width="56" height="48" rx="12" fill="#8B5722"/>
+  <!-- Shield chin point (3D) -->
+  <path d="M26,58 L40,70 L54,58" fill="#8B5722"/>
+  <!-- Shield main body -->
+  <rect x="12" y="12" width="56" height="48" rx="12" fill="#CD7F32"/>
+  <!-- Shield chin -->
+  <path d="M26,56 L40,68 L54,56" fill="#CD7F32"/>
+  <!-- Face (lighter inset) -->
+  <rect x="17" y="17" width="46" height="38" rx="9" fill="#E5A259"/>
+  <!-- Face chin -->
+  <path d="M28,52 L40,62 L52,52" fill="#E5A259"/>
   <!-- Diagonal shine -->
-  <path d="M18,6 L30,6 L12,30 L12,12 C12,8 15,6 18,6Z" fill="white" opacity="0.12"/>
-  <!-- 3 horizontal bars -->
-  <rect x="22" y="24" width="28" height="6" rx="3" fill="#CD7F32"/>
-  <rect x="24" y="33" width="24" height="6" rx="3" fill="#CD7F32"/>
-  <rect x="28" y="42" width="16" height="5" rx="2.5" fill="#CD7F32"/>
+  <rect x="12" y="12" width="56" height="48" rx="12" fill="white" opacity="0.08"/>
+  <path d="M12,24 L12,12 C12,6 18,6 18,6 L36,6 Z" fill="white" opacity="0.1"/>
+  <!-- 3 bars -->
+  <rect x="24" y="22" width="32" height="7" rx="3.5" fill="#CD7F32"/>
+  <rect x="26" y="33" width="28" height="7" rx="3.5" fill="#CD7F32"/>
+  <rect x="30" y="44" width="20" height="6" rx="3" fill="#CD7F32"/>
   <!-- 3 stars on top -->
-  <circle cx="26" cy="4" r="3.5" fill="#E5A259"/>
-  <circle cx="36" cy="2" r="4" fill="#FF9600"/>
-  <circle cx="46" cy="4" r="3.5" fill="#E5A259"/>
-  <!-- Star inner dots -->
-  <circle cx="26" cy="3.5" r="1.5" fill="#FFCE8E"/>
-  <circle cx="36" cy="1.5" r="1.8" fill="#FFCE8E"/>
-  <circle cx="46" cy="3.5" r="1.5" fill="#FFCE8E"/>
-  <!-- Highlight -->
-  <circle cx="24" cy="18" r="5" fill="white" opacity="0.1"/>
+  <circle cx="28" cy="8" r="4" fill="#E5A259"/>
+  <circle cx="40" cy="5" r="5" fill="#FF9600"/>
+  <circle cx="52" cy="8" r="4" fill="#E5A259"/>
+  <circle cx="28" cy="7.5" r="1.8" fill="#FFCE8E"/>
+  <circle cx="40" cy="4.5" r="2.2" fill="#FFCE8E"/>
+  <circle cx="52" cy="7.5" r="1.8" fill="#FFCE8E"/>
 </svg>
 <p>bronze</p>
 </div>
 
 <!-- SILVER -->
 <div class="item">
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 72 72" fill="none">
-  <!-- Pedestal -->
-  <ellipse cx="36" cy="66" rx="18" ry="4" fill="#1899D6"/>
-  <ellipse cx="36" cy="65" rx="18" ry="4" fill="#84D8FF"/>
-  <!-- Laurel leaves -->
-  <ellipse cx="12" cy="46" rx="4" ry="7" fill="#94A3B8" transform="rotate(-30 12 46)"/>
-  <ellipse cx="10" cy="38" rx="3.5" ry="6" fill="#94A3B8" transform="rotate(-20 10 38)"/>
-  <ellipse cx="12" cy="30" rx="3" ry="5" fill="#94A3B8" transform="rotate(-10 12 30)"/>
-  <ellipse cx="60" cy="46" rx="4" ry="7" fill="#94A3B8" transform="rotate(30 60 46)"/>
-  <ellipse cx="62" cy="38" rx="3.5" ry="6" fill="#94A3B8" transform="rotate(20 62 38)"/>
-  <ellipse cx="60" cy="30" rx="3" ry="5" fill="#94A3B8" transform="rotate(10 60 30)"/>
-  <!-- Shield depth -->
-  <path d="M36,62 C18,54 12,42 12,28 L12,14 C12,10 15,8 18,8 L54,8 C57,8 60,10 60,14 L60,28 C60,42 54,54 36,62Z" fill="#64748B"/>
-  <!-- Shield main -->
-  <path d="M36,60 C18,52 12,40 12,26 L12,12 C12,8 15,6 18,6 L54,6 C57,6 60,8 60,12 L60,26 C60,40 54,52 36,60Z" fill="#94A3B8"/>
-  <!-- Shield face -->
-  <path d="M36,56 C20,48 16,38 16,26 L16,16 C16,13 18,11 20,11 L52,11 C54,11 56,13 56,16 L56,26 C56,38 52,48 36,56Z" fill="#D2E4E8"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 80 80" fill="none">
+  <ellipse cx="40" cy="74" rx="20" ry="4.5" fill="#1899D6"/>
+  <ellipse cx="40" cy="73" rx="20" ry="4.5" fill="#84D8FF"/>
+  <!-- Laurels -->
+  <ellipse cx="8" cy="48" rx="3.5" ry="8" fill="#94A3B8" transform="rotate(-25 8 48)"/>
+  <ellipse cx="6" cy="39" rx="3" ry="7" fill="#94A3B8" transform="rotate(-15 6 39)"/>
+  <ellipse cx="8" cy="30" rx="2.5" ry="6" fill="#B0BEC5" transform="rotate(-5 8 30)"/>
+  <ellipse cx="72" cy="48" rx="3.5" ry="8" fill="#94A3B8" transform="rotate(25 72 48)"/>
+  <ellipse cx="74" cy="39" rx="3" ry="7" fill="#94A3B8" transform="rotate(15 74 39)"/>
+  <ellipse cx="72" cy="30" rx="2.5" ry="6" fill="#B0BEC5" transform="rotate(5 72 30)"/>
+  <!-- 3D edge -->
+  <rect x="12" y="14" width="56" height="48" rx="12" fill="#64748B"/>
+  <path d="M26,58 L40,70 L54,58" fill="#64748B"/>
+  <!-- Main -->
+  <rect x="12" y="12" width="56" height="48" rx="12" fill="#94A3B8"/>
+  <path d="M26,56 L40,68 L54,56" fill="#94A3B8"/>
+  <!-- Face -->
+  <rect x="17" y="17" width="46" height="38" rx="9" fill="#D2E4E8"/>
+  <path d="M28,52 L40,62 L52,52" fill="#D2E4E8"/>
   <!-- Shine -->
-  <path d="M18,6 L30,6 L12,30 L12,12 C12,8 15,6 18,6Z" fill="white" opacity="0.12"/>
+  <path d="M12,24 L12,12 C12,6 18,6 18,6 L36,6 Z" fill="white" opacity="0.1"/>
   <!-- Bars -->
-  <rect x="22" y="24" width="28" height="6" rx="3" fill="#94A3B8"/>
-  <rect x="24" y="33" width="24" height="6" rx="3" fill="#94A3B8"/>
-  <rect x="28" y="42" width="16" height="5" rx="2.5" fill="#94A3B8"/>
+  <rect x="24" y="22" width="32" height="7" rx="3.5" fill="#94A3B8"/>
+  <rect x="26" y="33" width="28" height="7" rx="3.5" fill="#94A3B8"/>
+  <rect x="30" y="44" width="20" height="6" rx="3" fill="#94A3B8"/>
   <!-- Stars -->
-  <circle cx="26" cy="4" r="3.5" fill="#D2E4E8"/>
-  <circle cx="36" cy="2" r="4" fill="#DDF4FF"/>
-  <circle cx="46" cy="4" r="3.5" fill="#D2E4E8"/>
-  <circle cx="26" cy="3.5" r="1.5" fill="#F7F7F7"/>
-  <circle cx="36" cy="1.5" r="1.8" fill="#F7F7F7"/>
-  <circle cx="46" cy="3.5" r="1.5" fill="#F7F7F7"/>
-  <!-- Highlight -->
-  <circle cx="24" cy="18" r="5" fill="white" opacity="0.1"/>
+  <circle cx="28" cy="8" r="4" fill="#D2E4E8"/>
+  <circle cx="40" cy="5" r="5" fill="#DDF4FF"/>
+  <circle cx="52" cy="8" r="4" fill="#D2E4E8"/>
+  <circle cx="28" cy="7.5" r="1.8" fill="#F7F7F7"/>
+  <circle cx="40" cy="4.5" r="2.2" fill="#F7F7F7"/>
+  <circle cx="52" cy="7.5" r="1.8" fill="#F7F7F7"/>
 </svg>
 <p>silver</p>
 </div>
 
 <!-- GOLD -->
 <div class="item">
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 72 72" fill="none">
-  <!-- Pedestal -->
-  <ellipse cx="36" cy="66" rx="18" ry="4" fill="#CD7900"/>
-  <ellipse cx="36" cy="65" rx="18" ry="4" fill="#FFC800"/>
-  <!-- Laurel leaves -->
-  <ellipse cx="12" cy="46" rx="4" ry="7" fill="#E7A601" transform="rotate(-30 12 46)"/>
-  <ellipse cx="10" cy="38" rx="3.5" ry="6" fill="#E7A601" transform="rotate(-20 10 38)"/>
-  <ellipse cx="12" cy="30" rx="3" ry="5" fill="#E7A601" transform="rotate(-10 12 30)"/>
-  <ellipse cx="60" cy="46" rx="4" ry="7" fill="#E7A601" transform="rotate(30 60 46)"/>
-  <ellipse cx="62" cy="38" rx="3.5" ry="6" fill="#E7A601" transform="rotate(20 62 38)"/>
-  <ellipse cx="60" cy="30" rx="3" ry="5" fill="#E7A601" transform="rotate(10 60 30)"/>
-  <!-- Shield depth -->
-  <path d="M36,62 C18,54 12,42 12,28 L12,14 C12,10 15,8 18,8 L54,8 C57,8 60,10 60,14 L60,28 C60,42 54,54 36,62Z" fill="#996E00"/>
-  <!-- Shield main -->
-  <path d="M36,60 C18,52 12,40 12,26 L12,12 C12,8 15,6 18,6 L54,6 C57,6 60,8 60,12 L60,26 C60,40 54,52 36,60Z" fill="#E7A601"/>
-  <!-- Shield face -->
-  <path d="M36,56 C20,48 16,38 16,26 L16,16 C16,13 18,11 20,11 L52,11 C54,11 56,13 56,16 L56,26 C56,38 52,48 36,56Z" fill="#FFC800"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 80 80" fill="none">
+  <ellipse cx="40" cy="74" rx="20" ry="4.5" fill="#996E00"/>
+  <ellipse cx="40" cy="73" rx="20" ry="4.5" fill="#FFC800"/>
+  <!-- Laurels -->
+  <ellipse cx="8" cy="48" rx="3.5" ry="8" fill="#CD7900" transform="rotate(-25 8 48)"/>
+  <ellipse cx="6" cy="39" rx="3" ry="7" fill="#E7A601" transform="rotate(-15 6 39)"/>
+  <ellipse cx="8" cy="30" rx="2.5" ry="6" fill="#E7A601" transform="rotate(-5 8 30)"/>
+  <ellipse cx="72" cy="48" rx="3.5" ry="8" fill="#CD7900" transform="rotate(25 72 48)"/>
+  <ellipse cx="74" cy="39" rx="3" ry="7" fill="#E7A601" transform="rotate(15 74 39)"/>
+  <ellipse cx="72" cy="30" rx="2.5" ry="6" fill="#E7A601" transform="rotate(5 72 30)"/>
+  <!-- 3D edge -->
+  <rect x="12" y="14" width="56" height="48" rx="12" fill="#996E00"/>
+  <path d="M26,58 L40,70 L54,58" fill="#996E00"/>
+  <!-- Main -->
+  <rect x="12" y="12" width="56" height="48" rx="12" fill="#E7A601"/>
+  <path d="M26,56 L40,68 L54,56" fill="#E7A601"/>
+  <!-- Face -->
+  <rect x="17" y="17" width="46" height="38" rx="9" fill="#FFC800"/>
+  <path d="M28,52 L40,62 L52,52" fill="#FFC800"/>
   <!-- Shine -->
-  <path d="M18,6 L30,6 L12,30 L12,12 C12,8 15,6 18,6Z" fill="white" opacity="0.15"/>
+  <path d="M12,24 L12,12 C12,6 18,6 18,6 L36,6 Z" fill="white" opacity="0.12"/>
   <!-- Bars -->
-  <rect x="22" y="24" width="28" height="6" rx="3" fill="#E7A601"/>
-  <rect x="24" y="33" width="24" height="6" rx="3" fill="#E7A601"/>
-  <rect x="28" y="42" width="16" height="5" rx="2.5" fill="#E7A601"/>
+  <rect x="24" y="22" width="32" height="7" rx="3.5" fill="#E7A601"/>
+  <rect x="26" y="33" width="28" height="7" rx="3.5" fill="#E7A601"/>
+  <rect x="30" y="44" width="20" height="6" rx="3" fill="#E7A601"/>
   <!-- Stars -->
-  <circle cx="26" cy="4" r="3.5" fill="#FFB100"/>
-  <circle cx="36" cy="2" r="4" fill="#FFC800"/>
-  <circle cx="46" cy="4" r="3.5" fill="#FFB100"/>
-  <circle cx="26" cy="3.5" r="1.5" fill="#FFF5D3"/>
-  <circle cx="36" cy="1.5" r="1.8" fill="#FFF5D3"/>
-  <circle cx="46" cy="3.5" r="1.5" fill="#FFF5D3"/>
-  <!-- Highlight -->
-  <circle cx="24" cy="18" r="5" fill="white" opacity="0.12"/>
+  <circle cx="28" cy="8" r="4" fill="#FFB100"/>
+  <circle cx="40" cy="5" r="5" fill="#FFC800"/>
+  <circle cx="52" cy="8" r="4" fill="#FFB100"/>
+  <circle cx="28" cy="7.5" r="1.8" fill="#FFF5D3"/>
+  <circle cx="40" cy="4.5" r="2.2" fill="#FFF5D3"/>
+  <circle cx="52" cy="7.5" r="1.8" fill="#FFF5D3"/>
 </svg>
 <p>gold</p>
 </div>
 
 <!-- PLATINUM -->
 <div class="item">
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 72 72" fill="none">
-  <!-- Pedestal -->
-  <ellipse cx="36" cy="66" rx="18" ry="4" fill="#1899D6"/>
-  <ellipse cx="36" cy="65" rx="18" ry="4" fill="#BBF2FF"/>
-  <!-- Laurel leaves -->
-  <ellipse cx="12" cy="46" rx="4" ry="7" fill="#84D8FF" transform="rotate(-30 12 46)"/>
-  <ellipse cx="10" cy="38" rx="3.5" ry="6" fill="#84D8FF" transform="rotate(-20 10 38)"/>
-  <ellipse cx="12" cy="30" rx="3" ry="5" fill="#84D8FF" transform="rotate(-10 12 30)"/>
-  <ellipse cx="60" cy="46" rx="4" ry="7" fill="#84D8FF" transform="rotate(30 60 46)"/>
-  <ellipse cx="62" cy="38" rx="3.5" ry="6" fill="#84D8FF" transform="rotate(20 62 38)"/>
-  <ellipse cx="60" cy="30" rx="3" ry="5" fill="#84D8FF" transform="rotate(10 60 30)"/>
-  <!-- Shield depth -->
-  <path d="M36,62 C18,54 12,42 12,28 L12,14 C12,10 15,8 18,8 L54,8 C57,8 60,10 60,14 L60,28 C60,42 54,54 36,62Z" fill="#1899D6"/>
-  <!-- Shield main -->
-  <path d="M36,60 C18,52 12,40 12,26 L12,12 C12,8 15,6 18,6 L54,6 C57,6 60,8 60,12 L60,26 C60,40 54,52 36,60Z" fill="#84D8FF"/>
-  <!-- Shield face -->
-  <path d="M36,56 C20,48 16,38 16,26 L16,16 C16,13 18,11 20,11 L52,11 C54,11 56,13 56,16 L56,26 C56,38 52,48 36,56Z" fill="#DDF4FF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 80 80" fill="none">
+  <ellipse cx="40" cy="74" rx="20" ry="4.5" fill="#0E7490"/>
+  <ellipse cx="40" cy="73" rx="20" ry="4.5" fill="#BBF2FF"/>
+  <!-- Laurels -->
+  <ellipse cx="8" cy="48" rx="3.5" ry="8" fill="#84D8FF" transform="rotate(-25 8 48)"/>
+  <ellipse cx="6" cy="39" rx="3" ry="7" fill="#84D8FF" transform="rotate(-15 6 39)"/>
+  <ellipse cx="8" cy="30" rx="2.5" ry="6" fill="#BBF2FF" transform="rotate(-5 8 30)"/>
+  <ellipse cx="72" cy="48" rx="3.5" ry="8" fill="#84D8FF" transform="rotate(25 72 48)"/>
+  <ellipse cx="74" cy="39" rx="3" ry="7" fill="#84D8FF" transform="rotate(15 74 39)"/>
+  <ellipse cx="72" cy="30" rx="2.5" ry="6" fill="#BBF2FF" transform="rotate(5 72 30)"/>
+  <!-- 3D edge -->
+  <rect x="12" y="14" width="56" height="48" rx="12" fill="#1899D6"/>
+  <path d="M26,58 L40,70 L54,58" fill="#1899D6"/>
+  <!-- Main -->
+  <rect x="12" y="12" width="56" height="48" rx="12" fill="#84D8FF"/>
+  <path d="M26,56 L40,68 L54,56" fill="#84D8FF"/>
+  <!-- Face -->
+  <rect x="17" y="17" width="46" height="38" rx="9" fill="#DDF4FF"/>
+  <path d="M28,52 L40,62 L52,52" fill="#DDF4FF"/>
   <!-- Shine -->
-  <path d="M18,6 L30,6 L12,30 L12,12 C12,8 15,6 18,6Z" fill="white" opacity="0.15"/>
+  <path d="M12,24 L12,12 C12,6 18,6 18,6 L36,6 Z" fill="white" opacity="0.12"/>
   <!-- Bars -->
-  <rect x="22" y="24" width="28" height="6" rx="3" fill="#BBF2FF"/>
-  <rect x="24" y="33" width="24" height="6" rx="3" fill="#BBF2FF"/>
-  <rect x="28" y="42" width="16" height="5" rx="2.5" fill="#BBF2FF"/>
+  <rect x="24" y="22" width="32" height="7" rx="3.5" fill="#BBF2FF"/>
+  <rect x="26" y="33" width="28" height="7" rx="3.5" fill="#BBF2FF"/>
+  <rect x="30" y="44" width="20" height="6" rx="3" fill="#BBF2FF"/>
   <!-- Stars -->
-  <circle cx="26" cy="4" r="3.5" fill="#84D8FF"/>
-  <circle cx="36" cy="2" r="4" fill="#BBF2FF"/>
-  <circle cx="46" cy="4" r="3.5" fill="#84D8FF"/>
-  <circle cx="26" cy="3.5" r="1.5" fill="#DDF4FF"/>
-  <circle cx="36" cy="1.5" r="1.8" fill="#F7F7F7"/>
-  <circle cx="46" cy="3.5" r="1.5" fill="#DDF4FF"/>
-  <!-- Highlight -->
-  <circle cx="24" cy="18" r="5" fill="white" opacity="0.12"/>
+  <circle cx="28" cy="8" r="4" fill="#84D8FF"/>
+  <circle cx="40" cy="5" r="5" fill="#BBF2FF"/>
+  <circle cx="52" cy="8" r="4" fill="#84D8FF"/>
+  <circle cx="28" cy="7.5" r="1.8" fill="#DDF4FF"/>
+  <circle cx="40" cy="4.5" r="2.2" fill="#F7F7F7"/>
+  <circle cx="52" cy="7.5" r="1.8" fill="#DDF4FF"/>
 </svg>
 <p>platinum</p>
 </div>
 
-<!-- MASTERS — bigger, with wings + crystals -->
+<!-- MASTERS — bigger with wings + crystals -->
 <div class="item">
-<svg xmlns="http://www.w3.org/2000/svg" width="280" height="260" viewBox="0 0 88 80" fill="none">
-  <!-- Pedestal (bigger, darker) -->
-  <ellipse cx="44" cy="76" rx="28" ry="5" fill="#3D2066"/>
-  <ellipse cx="44" cy="75" rx="28" ry="5" fill="#6F4EA1"/>
-  <!-- Wings (behind shield) — built from stacked ellipses -->
-  <ellipse cx="10" cy="42" rx="12" ry="6" fill="#9069CD" transform="rotate(-15 10 42)"/>
-  <ellipse cx="6" cy="36" rx="10" ry="5" fill="#9069CD" transform="rotate(-25 6 36)"/>
-  <ellipse cx="4" cy="28" rx="8" ry="4.5" fill="#CE82FF" transform="rotate(-35 4 28)"/>
-  <ellipse cx="78" cy="42" rx="12" ry="6" fill="#9069CD" transform="rotate(15 78 42)"/>
-  <ellipse cx="82" cy="36" rx="10" ry="5" fill="#9069CD" transform="rotate(25 82 36)"/>
-  <ellipse cx="84" cy="28" rx="8" ry="4.5" fill="#CE82FF" transform="rotate(35 84 28)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="280" viewBox="0 0 100 92" fill="none">
+  <!-- Pedestal -->
+  <ellipse cx="50" cy="88" rx="30" ry="5" fill="#2D1B4E"/>
+  <ellipse cx="50" cy="87" rx="30" ry="5" fill="#6F4EA1"/>
+  <!-- Wings — large feather ellipses fanning out -->
+  <ellipse cx="8" cy="48" rx="8" ry="18" fill="#9069CD" transform="rotate(-30 8 48)"/>
+  <ellipse cx="4" cy="38" rx="7" ry="15" fill="#9069CD" transform="rotate(-45 4 38)"/>
+  <ellipse cx="4" cy="28" rx="5" ry="12" fill="#CE82FF" transform="rotate(-55 4 28)"/>
+  <ellipse cx="92" cy="48" rx="8" ry="18" fill="#9069CD" transform="rotate(30 92 48)"/>
+  <ellipse cx="96" cy="38" rx="7" ry="15" fill="#9069CD" transform="rotate(45 96 38)"/>
+  <ellipse cx="96" cy="28" rx="5" ry="12" fill="#CE82FF" transform="rotate(55 96 28)"/>
   <!-- Crystal gems at base -->
-  <rect x="16" y="62" width="6" height="10" rx="2" fill="#CE82FF" transform="rotate(-15 19 67)"/>
-  <rect x="22" y="64" width="5" height="8" rx="2" fill="#FFAADE" transform="rotate(10 24.5 68)"/>
-  <rect x="60" y="64" width="5" height="8" rx="2" fill="#FFAADE" transform="rotate(-10 62.5 68)"/>
-  <rect x="66" y="62" width="6" height="10" rx="2" fill="#CE82FF" transform="rotate(15 69 67)"/>
-  <!-- Shield depth -->
-  <path d="M44,70 C22,60 16,46 16,30 L16,16 C16,11 20,8 24,8 L64,8 C68,8 72,11 72,16 L72,30 C72,46 66,60 44,70Z" fill="#3D2066"/>
-  <!-- Shield main -->
-  <path d="M44,68 C22,58 16,44 16,28 L16,14 C16,9 20,6 24,6 L64,6 C68,6 72,9 72,14 L72,28 C72,44 66,58 44,68Z" fill="#4B4B4B"/>
-  <!-- Shield face -->
-  <path d="M44,64 C24,54 20,42 20,28 L20,18 C20,14 23,12 26,12 L62,12 C65,12 68,14 68,18 L68,28 C68,42 64,54 44,64Z" fill="#6F4EA1"/>
+  <rect x="20" y="74" width="7" height="12" rx="3" fill="#CE82FF" transform="rotate(-20 23 80)"/>
+  <rect x="28" y="76" width="6" height="10" rx="3" fill="#FFAADE" transform="rotate(8 31 81)"/>
+  <rect x="66" y="76" width="6" height="10" rx="3" fill="#FFAADE" transform="rotate(-8 69 81)"/>
+  <rect x="73" y="74" width="7" height="12" rx="3" fill="#CE82FF" transform="rotate(20 77 80)"/>
+  <!-- 3D edge -->
+  <rect x="20" y="16" width="60" height="54" rx="14" fill="#2D1B4E"/>
+  <path d="M34,66 L50,80 L66,66" fill="#2D1B4E"/>
+  <!-- Main body -->
+  <rect x="20" y="14" width="60" height="54" rx="14" fill="#4B4B4B"/>
+  <path d="M34,64 L50,78 L66,64" fill="#4B4B4B"/>
+  <!-- Face -->
+  <rect x="26" y="20" width="48" height="42" rx="10" fill="#6F4EA1"/>
+  <path d="M36,58 L50,70 L64,58" fill="#6F4EA1"/>
   <!-- Shine -->
-  <path d="M24,6 L38,6 L16,32 L16,14 C16,9 20,6 24,6Z" fill="white" opacity="0.1"/>
-  <!-- Bars (purple/pink) -->
-  <rect x="28" y="26" width="32" height="7" rx="3.5" fill="#CE82FF"/>
-  <rect x="30" y="36" width="28" height="7" rx="3.5" fill="#CE82FF"/>
-  <rect x="34" y="46" width="20" height="6" rx="3" fill="#CE82FF"/>
+  <path d="M20,28 L20,14 C20,8 26,8 26,8 L44,8 Z" fill="white" opacity="0.08"/>
+  <!-- Bars -->
+  <rect x="32" y="26" width="36" height="8" rx="4" fill="#CE82FF"/>
+  <rect x="34" y="38" width="32" height="8" rx="4" fill="#CE82FF"/>
+  <rect x="38" y="50" width="24" height="7" rx="3.5" fill="#CE82FF"/>
   <!-- Stars -->
-  <circle cx="32" cy="4" r="4" fill="#CE82FF"/>
-  <circle cx="44" cy="2" r="5" fill="#FFAADE"/>
-  <circle cx="56" cy="4" r="4" fill="#CE82FF"/>
-  <circle cx="32" cy="3.5" r="1.8" fill="#FFAADE"/>
-  <circle cx="44" cy="1.5" r="2.2" fill="#F7F7F7"/>
-  <circle cx="56" cy="3.5" r="1.8" fill="#FFAADE"/>
-  <!-- Sparkle dots -->
-  <circle cx="26" cy="20" r="2" fill="#F7F7F7" opacity="0.3"/>
-  <circle cx="60" cy="16" r="1.5" fill="#F7F7F7" opacity="0.2"/>
-  <!-- Highlight -->
-  <circle cx="30" cy="18" r="6" fill="white" opacity="0.08"/>
+  <circle cx="36" cy="10" r="5" fill="#CE82FF"/>
+  <circle cx="50" cy="6" r="6" fill="#FFAADE"/>
+  <circle cx="64" cy="10" r="5" fill="#CE82FF"/>
+  <circle cx="36" cy="9.5" r="2.2" fill="#FFAADE"/>
+  <circle cx="50" cy="5.5" r="2.8" fill="#F7F7F7"/>
+  <circle cx="64" cy="9.5" r="2.2" fill="#FFAADE"/>
+  <!-- Sparkles -->
+  <circle cx="30" cy="24" r="2" fill="#F7F7F7" opacity="0.25"/>
+  <circle cx="66" cy="20" r="1.5" fill="#F7F7F7" opacity="0.18"/>
 </svg>
 <p>masters</p>
 </div>
