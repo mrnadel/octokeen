@@ -14,19 +14,16 @@ import { Mascot } from '@/components/ui/Mascot';
  */
 export function LeagueWinner() {
   const league = useLeague();
-  const [winnerSeen, setWinnerSeen] = useEngagementStore((s) => [
-    s.league.winnerSeen ?? true,
-    () => useEngagementStore.setState((st) => ({
-      league: { ...st.league, winnerSeen: true },
-    })),
-  ]);
+  const winnerSeen = useEngagementStore((s) => s.league.winnerSeen ?? true);
 
   const result = league.lastWeekResult;
   const shouldShow = result !== null && result.rank === 1 && !league.resultSeen && !winnerSeen;
 
   const handleContinue = useCallback(() => {
-    setWinnerSeen();
-  }, [setWinnerSeen]);
+    useEngagementStore.setState((st) => ({
+      league: { ...st.league, winnerSeen: true },
+    }));
+  }, []);
 
   if (!shouldShow || !result) return null;
 

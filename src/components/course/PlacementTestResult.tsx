@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
+import { GameButton } from '@/components/ui/GameButton';
+import { FloatingParticles } from '@/components/ui/FloatingParticles';
+import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 
 export default function PlacementTestResult() {
   const result = useCourseStore((s) => s.placementTestResult);
@@ -32,144 +35,111 @@ export default function PlacementTestResult() {
   const passed = result.passed;
 
   return (
-    <motion.div
-      key="placement-result"
-      className="fixed inset-0 z-[70] flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <div className="absolute inset-0 bg-black/50" />
+    <AnimatePresence>
       <motion.div
-        className="relative w-full mx-4 bg-white overflow-hidden"
-        style={{ maxWidth: 420, borderRadius: 28, padding: '32px 24px' }}
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        key="placement-result"
+        className="fixed inset-0 z-[70] flex items-center justify-center sm:p-4"
+        style={{ background: 'rgba(0,0,0,0.55)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
-        {/* Icon */}
-        <div className="flex justify-center" style={{ marginBottom: 16 }}>
-          <div
-            className="flex items-center justify-center"
-            style={{
-              width: 72,
-              height: 72,
-              borderRadius: 24,
-              background: passed ? '#D7FFB8' : '#FFE5E5',
-              fontSize: 36,
-            }}
-          >
-            {passed ? '🎉' : '📚'}
+        <motion.div
+          className="w-full h-full sm:h-auto sm:max-w-sm sm:rounded-2xl sm:shadow-2xl overflow-y-auto flex flex-col"
+          style={{ background: passed ? '#58A700' : '#CE3030' }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Placement test result"
+          initial={{ scale: 0.9, opacity: 0, y: 24 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.9, opacity: 0, y: 24 }}
+          transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+        >
+          <FloatingParticles
+            color="rgba(255,255,255,0.06)"
+            intensity={passed ? 'celebration' : 'subtle'}
+          />
+
+          {/* Content */}
+          <div className="flex-1 flex flex-col items-center justify-center sm:flex-initial relative z-[1] p-6 text-white">
+            {/* Mascot */}
+            <motion.div
+              className="mb-4"
+              initial={{ scale: 0.5, rotate: -10 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+            >
+              {passed ? (
+                <MascotWithGlow pose="celebrating" size={120} flame />
+              ) : (
+                <MascotWithGlow pose="thinking" size={120} />
+              )}
+            </motion.div>
+
+            {/* Title */}
+            <h2 className="text-2xl font-extrabold text-white text-center mb-1">
+              {passed ? 'Placement Test Passed!' : 'Not quite yet'}
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-sm text-white/60 text-center mb-6">
+              {passed
+                ? `You unlocked ${result.targetUnitTitle}`
+                : 'Work through the earlier units to build a stronger foundation.'}
+            </p>
+
+            {/* Stats */}
+            {result.totalQuestions > 0 && (
+              <div className="flex gap-6 mb-2">
+                <Stat
+                  label="Correct"
+                  value={`${result.correctAnswers}/${result.totalQuestions}`}
+                />
+                <Stat
+                  label="Mistakes"
+                  value={`${result.mistakes}`}
+                  highlight={result.mistakes >= result.maxMistakes}
+                />
+                {passed && (
+                  <Stat label="Skipped" value={`${result.unitsSkipped} units`} />
+                )}
+              </div>
+            )}
           </div>
-        </div>
 
-        {/* Title */}
-        <p
-          className="text-center"
-          style={{
-            fontSize: 22,
-            fontWeight: 800,
-            color: passed ? '#58A700' : '#EA2B2B',
-            marginBottom: 4,
-          }}
-        >
-          {passed ? 'Placement Test Passed!' : 'Not quite yet'}
-        </p>
-
-        {/* Subtitle */}
-        <p
-          className="text-center"
-          style={{
-            fontSize: 14,
-            fontWeight: 700,
-            color: '#AFAFAF',
-            marginBottom: 20,
-          }}
-        >
-          {passed
-            ? `You unlocked ${result.targetUnitTitle}`
-            : `You needed fewer than ${result.maxMistakes} mistakes`}
-        </p>
-
-        {/* Stats */}
-        {result.totalQuestions > 0 && (
-          <div
-            className="flex justify-center"
-            style={{ gap: 24, marginBottom: 24 }}
-          >
-            <Stat
-              label="Correct"
-              value={`${result.correctAnswers}/${result.totalQuestions}`}
-              color={passed ? '#58A700' : '#3C3C3C'}
-            />
-            <Stat
-              label="Mistakes"
-              value={`${result.mistakes}`}
-              color={result.mistakes >= result.maxMistakes ? '#EA2B2B' : '#3C3C3C'}
-            />
-            <Stat
-              label="Units"
-              value={`${result.unitsSkipped}`}
-              color="#3C3C3C"
-            />
+          {/* Footer */}
+          <div className="shrink-0 px-6 pb-8 sm:pb-5 relative z-[1]">
+            <GameButton
+              variant={passed ? 'gold' : 'red'}
+              onClick={dismiss}
+            >
+              {passed ? 'Continue' : 'Start from the beginning'}
+            </GameButton>
           </div>
-        )}
-
-        {/* Failure hint */}
-        {!passed && (
-          <p
-            className="text-center"
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: '#CFCFCF',
-              marginBottom: 20,
-              lineHeight: 1.5,
-            }}
-          >
-            Complete the units in order to strengthen your knowledge, then try
-            again.
-          </p>
-        )}
-
-        {/* Action button */}
-        <button
-          onClick={dismiss}
-          className="w-full transition-transform active:scale-[0.98]"
-          style={{
-            padding: '16px 0',
-            borderRadius: 16,
-            fontSize: 15,
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: 0.8,
-            color: '#FFFFFF',
-            background: passed ? '#58CC02' : '#FF4B4B',
-            boxShadow: passed ? '0 4px 0 #46A302' : '0 4px 0 #CC2D2D',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          {passed ? 'Continue' : 'Got it'}
-        </button>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   );
 }
 
 function Stat({
   label,
   value,
-  color,
+  highlight,
 }: {
   label: string;
   value: string;
-  color: string;
+  highlight?: boolean;
 }) {
   return (
     <div className="text-center">
-      <p style={{ fontSize: 22, fontWeight: 800, color }}>{value}</p>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#CFCFCF', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+      <p
+        className="text-xl font-extrabold"
+        style={{ color: highlight ? '#FFB3B3' : '#fff' }}
+      >
+        {value}
+      </p>
+      <p className="text-[10px] font-bold uppercase tracking-wide text-white/50">
         {label}
       </p>
     </div>
