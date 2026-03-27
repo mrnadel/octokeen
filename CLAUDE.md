@@ -17,6 +17,20 @@ Before making changes, read `docs/project-overview.md` for full project context 
 - **Read `docs/content-writing-guide.md` before writing or editing any course content.** It defines tone, structure, question formatting, and banned patterns.
 - After changing content, always re-run the seed: `npx tsx scripts/seed-content.ts`
 
+## UI Components
+- **Always check `src/components/ui/` for existing reusable components before writing inline UI.** Key components:
+  - `PageHeader` — sticky header with back button, title, subtitle, icon
+  - `UserAvatar` — avatar circle with image or initials fallback
+  - `LeaderboardRow` — rank + avatar + name + XP display
+  - `EmptyState` — centered icon + title + subtitle + optional CTA
+  - `ErrorRetry` — error card with retry button
+  - `LoadingSpinner` — centered spinner, with or without card wrapper
+  - `TabToggle` — two-or-more-button tab switcher with optional badge
+  - `ProgressBar` — animated fill bar with auto-coloring
+  - `AnimatedCounter`, `GameButton`, `HeartDisplay`, `UpgradeGate`, `CoinIcon`, `MoneyText`
+- **When building new UI, look for repeated patterns.** If you're about to copy-paste similar markup across files, extract it into a component in `src/components/ui/` instead.
+- CSS utility classes (`card`, `card-hover`, `btn-primary`, `btn-secondary`, `badge-*`, `stat-card`, `progress-bar`) are defined in `globals.css` — use them before writing one-off styles.
+
 ## Common Gotchas
 - Dual progress stores: `useStore` (practice) and `useCourseStore` (course) — update both when needed
 - Friendships table has CHECK constraint: `user_id < friend_id` — always use `sortFriendPair()`

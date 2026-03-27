@@ -11,7 +11,7 @@ export const unit1: Unit = {
     {
       id: "pf-u1-L1",
       title: "The Paycheck Reality",
-      description: "Why your bank deposit is smaller than your salary — and where the rest goes.",
+      description: "Why your bank deposit is smaller than your salary, and where the rest goes.",
       icon: "🧾",
       xpReward: 15,
       questions: [
@@ -19,7 +19,7 @@ export const unit1: Unit = {
           id: "pf-u1-L1-T1",
           type: "teaching",
           question: "💰 Let's Talk About Your Paycheck",
-          explanation: "When you work, your employer pays you. But here's the thing — the number on your bank statement is smaller than your actual salary. Some money gets taken out before it reaches you. Let's learn why.",
+          explanation: "When you work, your employer pays you. But here's the thing: the number on your bank statement is smaller than your actual salary. Some money gets taken out before it reaches you. Let's learn why.",
         },
         {
           id: "pf-u1-L1-Q1",

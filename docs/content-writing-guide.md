@@ -101,7 +101,7 @@ Bad: "Exactly right! You're a genius! Net pay is indeed always smaller than gros
 
 **After wrong answers:** Neutral correction + the right answer.
 ```
-Good: "Not quite. Net pay is what you take home — it's always less than gross."
+Good: "Not quite. Net pay is what you take home. It's always less than gross."
 Bad: "Nope! That's wrong. Obviously net pay is less because deductions are taken out first. Everyone knows that."
 ```
 
@@ -128,7 +128,7 @@ Bad: "Nope! That's wrong. Obviously net pay is less because deductions are taken
 ### Punctuation
 - Don't punctuate headlines or question titles, except with ! or ?
 - Use the Oxford comma: "food, shelter, and transportation"
-- Avoid semicolons — use two sentences instead.
+- Avoid semicolons. Use two sentences instead.
 - Never use em dashes (—). Use two sentences, a comma, or a colon instead. No exceptions.
 - Ellipses: use sparingly. No space before, space after if followed by a new sentence.
 
@@ -169,7 +169,7 @@ Bad: "Nope! That's wrong. Obviously net pay is less because deductions are taken
 ### `multiple-choice`
 - One clearly correct answer. Three plausible-but-wrong distractors.
 - Wrong options should be wrong for different reasons (don't make two say the same wrong thing).
-- Keep all options roughly the same length — the correct one shouldn't be noticeably longer.
+- Keep all options roughly the same length. The correct one shouldn't be noticeably longer.
 
 ### `fill-blank`
 - Blanks should be key vocabulary, not filler words.
