@@ -117,48 +117,65 @@
 </div>
 
 <script>
+// Helper: inject a unique per-element keyframe so nothing syncs
+let _uid = 0;
+function uid() { return 'fx' + (++_uid); }
+function injectKF(name, css) {
+  const s = document.createElement('style');
+  s.textContent = `@keyframes ${name}{${css}}`;
+  document.head.appendChild(s);
+  return name;
+}
+function R(min,max){ return min+Math.random()*(max-min); }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
 const effects = [
 
-// ── 1. Rising Bubbles (celebration) ──
+// ── 1. Rising Bubbles ──
 {
   name: 'Rising Bubbles',
   bg: '#1a1a2e',
   gen(el) {
     for(let i=0;i<25;i++){
       const b=document.createElement('div');
-      b.className='bubble';
-      const s=4+Math.random()*14;
-      Object.assign(b.style,{width:s+'px',height:s+'px',left:Math.random()*100+'%',bottom:'-20px','--d':(4+Math.random()*5)+'s','--dl':Math.random()*4+'s',background:`rgba(255,255,255,${0.08+Math.random()*0.15})`});
+      const s=R(4,18), x=R(0,100), drift=R(-30,30), dur=R(5,12), dl=R(0,10);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateY(0) translateX(0) scale(${R(.4,.7)})}12%{opacity:${R(.3,.7)}}50%{transform:translateY(-50%) translateX(${drift}px)}88%{opacity:${R(.1,.4)}}100%{opacity:0;transform:translateY(-110%) translateX(${drift*R(.5,2)}px) scale(${R(.8,1.3)})}`);
+      Object.assign(b.style,{position:'absolute',borderRadius:'50%',width:s+'px',height:s+'px',left:x+'%',bottom:R(-5,15)+'%',background:`rgba(255,255,255,${R(.06,.2)})`,animation:`${id} ${dur}s ${dl}s infinite ease-in-out`});
       el.appendChild(b);
     }
   }
 },
 
-// ── 2. Confetti Rain (victory) ──
+// ── 2. Confetti Rain ──
 {
   name: 'Confetti Rain',
   bg: '#1a1a2e',
   gen(el) {
     const colors=['#FF4B4B','#FFC800','#58CC02','#1CB0F6','#CE82FF','#FF9600','#FFAADE'];
-    for(let i=0;i<40;i++){
+    for(let i=0;i<45;i++){
       const c=document.createElement('div');
-      c.className='confetti';
-      const w=4+Math.random()*8,h=4+Math.random()*6;
-      Object.assign(c.style,{width:w+'px',height:h+'px',left:Math.random()*100+'%',top:'-10px',background:colors[i%7],'--d':(2+Math.random()*3)+'s','--dl':Math.random()*3+'s',borderRadius:Math.random()>0.5?'50%':'2px'});
+      const w=R(4,10),h=R(3,8),x=R(-5,105),dur=R(2,5.5),dl=R(0,6),drift=R(-40,40),spin=R(360,1440);
+      const id=uid();
+      injectKF(id,`0%{opacity:1;transform:translateY(-20px) translateX(0) rotate(0deg)}50%{transform:translateY(240px) translateX(${drift*.6}px) rotate(${spin*.5}deg)}100%{opacity:${R(.1,.4)};transform:translateY(500px) translateX(${drift}px) rotate(${spin}deg)}`);
+      Object.assign(c.style,{position:'absolute',width:w+'px',height:h+'px',left:x+'%',top:'-3%',background:pick(colors),borderRadius:Math.random()>.5?'50%':'2px',animation:`${id} ${dur}s ${dl}s infinite linear`});
       el.appendChild(c);
     }
   }
 },
 
-// ── 3. Gold Stars Burst ──
+// ── 3. Gold Star Burst ──
 {
   name: 'Gold Star Burst',
   bg: 'linear-gradient(180deg,#1a1a2e,#2d1b4e)',
   gen(el) {
-    for(let i=0;i<15;i++){
+    for(let i=0;i<18;i++){
       const s=document.createElement('div');
-      s.className='star';
-      Object.assign(s.style,{left:Math.random()*90+'%',top:10+Math.random()*80+'%','--d':(1.5+Math.random()*2)+'s','--dl':Math.random()*3+'s','--sz':(12+Math.random()*16)+'px','--c':['#FFC800','#FFB100','#FBE56D'][i%3]});
+      const x=R(5,90),y=R(5,85),sz=R(10,26),dur=R(1.5,4),dl=R(0,6),drift=R(-20,20);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:scale(0) rotate(0deg)}${R(15,25)}%{opacity:1;transform:scale(${R(1,1.4)}) rotate(${R(20,60)}deg)}${R(50,70)}%{opacity:${R(.5,.9)};transform:scale(${R(.7,1)}) rotate(${R(40,90)}deg) translateY(${drift}px)}100%{opacity:0;transform:scale(${R(.2,.5)}) rotate(${R(60,120)}deg) translateY(${drift*2}px)}`);
+      s.style.cssText=`position:absolute;left:${x}%;top:${y}%;animation:${id} ${dur}s ${dl}s infinite ease-out;`;
+      s.innerHTML=`<span style="font-size:${sz}px;color:${pick(['#FFC800','#FFB100','#FBE56D','#FF9600'])}">★</span>`;
       el.appendChild(s);
     }
   }
@@ -169,43 +186,49 @@ const effects = [
   name: 'Floating Hearts',
   bg: 'linear-gradient(180deg,#2d1020,#1a1a2e)',
   gen(el) {
-    for(let i=0;i<12;i++){
+    for(let i=0;i<16;i++){
       const h=document.createElement('div');
-      h.className='heart';
-      Object.assign(h.style,{left:5+Math.random()*90+'%',bottom:'10%','--d':(3+Math.random()*3)+'s','--dl':Math.random()*4+'s','--sz':(14+Math.random()*14)+'px','--c':['#FF4B4B','#FF7878','#FFAADE','#FFB2B2'][i%4],'--dx':(Math.random()*40-20)+'px'});
+      const x=R(0,95),sz=R(12,28),dur=R(3,8),dl=R(0,8),driftX=R(-50,50),riseY=R(200,400);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateY(0) translateX(0) scale(${R(.2,.5)}) rotate(${R(-20,20)}deg)}${R(10,20)}%{opacity:${R(.7,1)}}50%{transform:translateY(-${riseY*.5}px) translateX(${driftX*.7}px) scale(${R(.8,1.1)}) rotate(${R(-10,10)}deg)}100%{opacity:0;transform:translateY(-${riseY}px) translateX(${driftX}px) scale(${R(.3,.7)}) rotate(${R(-30,30)}deg)}`);
+      h.style.cssText=`position:absolute;left:${x}%;bottom:${R(-5,15)}%;animation:${id} ${dur}s ${dl}s infinite ease-in-out;font-size:${sz}px;color:${pick(['#FF4B4B','#FF7878','#FFAADE','#FFB2B2'])};`;
+      h.textContent='♥';
       el.appendChild(h);
     }
   }
 },
 
-// ── 5. Sparkle Dust (subtle) ──
+// ── 5. Sparkle Dust ──
 {
   name: 'Sparkle Dust',
   bg: '#1a1a2e',
   gen(el) {
-    for(let i=0;i<30;i++){
+    for(let i=0;i<35;i++){
       const s=document.createElement('div');
-      s.className='sparkle';
-      Object.assign(s.style,{left:Math.random()*100+'%',top:Math.random()*100+'%','--d':(1+Math.random()*2)+'s','--dl':Math.random()*3+'s','--sz':(2+Math.random()*5)+'px','--c':['white','#FFC800','#84D8FF','#FFAADE'][i%4],'--dx':(Math.random()*30-15)+'px','--dy':(Math.random()*-30)+'px'});
+      const sz=R(2,6),x=R(0,100),y=R(0,100),dur=R(1,3.5),dl=R(0,5),dx=R(-25,25),dy=R(-25,25);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:scale(0) translate(0,0)}${R(20,40)}%{opacity:${R(.6,1)};transform:scale(${R(.8,1.3)})}100%{opacity:0;transform:scale(0) translate(${dx}px,${dy}px)}`);
+      Object.assign(s.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:x+'%',top:y+'%',background:pick(['white','#FFC800','#84D8FF','#FFAADE','#58CC02']),animation:`${id} ${dur}s ${dl}s infinite ease-out`});
       el.appendChild(s);
     }
   }
 },
 
-// ── 6. Firework Burst (center) ──
+// ── 6. Firework Burst ──
 {
   name: 'Firework Burst',
   bg: '#0a0a1a',
   gen(el) {
     const colors=['#FF4B4B','#FFC800','#58CC02','#1CB0F6','#CE82FF','#FF9600'];
-    for(let burst=0;burst<3;burst++){
-      const cx=30+burst*20,cy=30+Math.random()*30;
-      for(let i=0;i<12;i++){
+    for(let burst=0;burst<4;burst++){
+      const cx=R(15,85),cy=R(15,75),burstDl=burst*R(1,2.5);
+      for(let i=0;i<14;i++){
         const d=document.createElement('div');
-        d.className='fw-dot';
-        const angle=(i/12)*Math.PI*2;
-        const dist=40+Math.random()*40;
-        Object.assign(d.style,{left:cx+'%',top:cy+'%',background:colors[(burst*4+i)%6],'--d':(1.5+Math.random())+'s','--dl':(burst*1.2+Math.random()*0.5)+'s','--fx':Math.cos(angle)*dist+'px','--fy':Math.sin(angle)*dist+'px',width:'5px',height:'5px'});
+        const angle=((i+R(-.3,.3))/14)*Math.PI*2;
+        const dist=R(30,80),dur=R(1.5,3),dotDl=burstDl+R(0,.3);
+        const id=uid();
+        injectKF(id,`0%{opacity:0;transform:translate(0,0) scale(0)}8%{opacity:1;transform:translate(0,0) scale(${R(.8,1.3)})}100%{opacity:0;transform:translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px) scale(${R(.1,.4)})}`);
+        Object.assign(d.style,{position:'absolute',width:R(3,6)+'px',height:R(3,6)+'px',borderRadius:'50%',left:cx+'%',top:cy+'%',background:pick(colors),animation:`${id} ${dur}s ${dotDl}s infinite ease-out`});
         el.appendChild(d);
       }
     }
@@ -217,11 +240,12 @@ const effects = [
   name: 'Gentle Snow',
   bg: 'linear-gradient(180deg,#1a2a3a,#0a1520)',
   gen(el) {
-    for(let i=0;i<30;i++){
+    for(let i=0;i<35;i++){
       const s=document.createElement('div');
-      s.className='snow';
-      const sz=2+Math.random()*4;
-      Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:'-5%','--d':(3+Math.random()*4)+'s','--dl':Math.random()*5+'s','--dx':(Math.random()*40-20)+'px'});
+      const sz=R(2,5),x=R(-5,105),dur=R(4,10),dl=R(0,10),driftX=R(-40,40),driftMid=R(-20,20);
+      const id=uid();
+      injectKF(id,`0%{opacity:${R(.5,.9)};transform:translateY(-10px) translateX(0)}33%{transform:translateY(33%) translateX(${driftMid}px)}66%{transform:translateY(66%) translateX(${driftX}px)}100%{opacity:0;transform:translateY(110%) translateX(${driftMid}px)}`);
+      Object.assign(s.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:x+'%',top:'-3%',background:'white',animation:`${id} ${dur}s ${dl}s infinite linear`});
       el.appendChild(s);
     }
   }
@@ -232,25 +256,29 @@ const effects = [
   name: 'Lightning Flash',
   bg: '#0a0a1a',
   gen(el) {
-    for(let i=0;i<3;i++){
+    for(let i=0;i<4;i++){
       const f=document.createElement('div');
-      f.className='flash';
-      Object.assign(f.style,{'--d':(3+i*2)+'s','--dl':i*1.3+'s'});
+      const dur=R(3,7),dl=R(0,5),t1=R(2,5),t2=t1+R(1,3),t3=t2+R(1,2);
+      const id=uid();
+      injectKF(id,`0%{opacity:0}${t1}%{opacity:${R(.4,.8)}}${t1+1}%{opacity:0}${t2}%{opacity:${R(.2,.5)}}${t2+0.8}%{opacity:0}${t3}%{opacity:${R(.1,.3)}}${t3+0.5}%{opacity:0}100%{opacity:0}`);
+      Object.assign(f.style,{position:'absolute',inset:'0',background:'white',animation:`${id} ${dur}s ${dl}s infinite ease-out`});
       el.appendChild(f);
     }
   }
 },
 
-// ── 9. Radial Pulse Rings ──
+// ── 9. Radial Pulse ──
 {
   name: 'Radial Pulse',
   bg: '#1a1a2e',
   gen(el) {
-    for(let i=0;i<5;i++){
+    const ringColors=['rgba(99,102,241,0.5)','rgba(168,85,247,0.4)','rgba(236,72,153,0.35)','rgba(6,182,212,0.4)','rgba(255,200,0,0.35)','rgba(88,204,2,0.3)'];
+    for(let i=0;i<8;i++){
       const r=document.createElement('div');
-      r.className='pulse-ring';
-      const sz=60+Math.random()*40;
-      Object.assign(r.style,{width:sz+'px',height:sz+'px',left:'calc(50% - '+sz/2+'px)',top:'calc(45% - '+sz/2+'px)','--d':(1.5+Math.random()*1.5)+'s','--dl':i*0.5+'s','--c':['rgba(99,102,241,0.4)','rgba(168,85,247,0.3)','rgba(236,72,153,0.3)','rgba(6,182,212,0.3)','rgba(255,200,0,0.3)'][i]});
+      const sz=R(40,80),dur=R(1.5,3.5),dl=R(0,4),cx=R(30,70),cy=R(30,60);
+      const id=uid();
+      injectKF(id,`0%{opacity:${R(.5,.9)};transform:scale(0)}100%{opacity:0;transform:scale(${R(2,4)})}`);
+      Object.assign(r.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:`calc(${cx}% - ${sz/2}px)`,top:`calc(${cy}% - ${sz/2}px)`,border:`${R(1.5,3)}px solid ${pick(ringColors)}`,animation:`${id} ${dur}s ${dl}s infinite ease-out`});
       el.appendChild(r);
     }
   }
@@ -261,27 +289,30 @@ const effects = [
   name: 'Speed Streaks',
   bg: 'linear-gradient(180deg,#1a1040,#0a0a1a)',
   gen(el) {
-    for(let i=0;i<12;i++){
+    for(let i=0;i<16;i++){
       const s=document.createElement('div');
-      s.className='streak';
-      const h=40+Math.random()*100;
-      Object.assign(s.style,{left:Math.random()*100+'%',top:'-20%',height:h+'px','--d':(0.6+Math.random()*0.8)+'s','--dl':Math.random()*2+'s','--c':['rgba(99,102,241,0.4)','rgba(168,85,247,0.4)','rgba(255,200,0,0.3)'][i%3]});
+      const h=R(30,140),x=R(-5,105),dur=R(.5,1.5),dl=R(0,5);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateY(-${h}px)}${R(30,50)}%{opacity:${R(.4,.9)}}100%{opacity:0;transform:translateY(${R(400,600)}px)}`);
+      Object.assign(s.style,{position:'absolute',width:R(1,3)+'px',height:h+'px',borderRadius:'2px',left:x+'%',top:'-10%',background:`linear-gradient(to bottom,transparent,${pick(['rgba(99,102,241,0.5)','rgba(168,85,247,0.5)','rgba(255,200,0,0.4)','rgba(28,176,246,0.4)'])},transparent)`,animation:`${id} ${dur}s ${dl}s infinite linear`});
       el.appendChild(s);
     }
   }
 },
 
-// ── 11. Swirl Orbs (ambient) ──
+// ── 11. Swirl Orbs ──
 {
   name: 'Swirl Orbs',
   bg: '#1a1a2e',
   gen(el) {
-    const colors=['rgba(99,102,241,0.3)','rgba(206,130,255,0.25)','rgba(255,170,222,0.2)','rgba(28,176,246,0.25)','rgba(255,200,0,0.2)'];
-    for(let i=0;i<8;i++){
+    const colors=['rgba(99,102,241,0.25)','rgba(206,130,255,0.2)','rgba(255,170,222,0.18)','rgba(28,176,246,0.2)','rgba(255,200,0,0.15)','rgba(88,204,2,0.18)'];
+    for(let i=0;i<10;i++){
       const o=document.createElement('div');
-      o.className='orb';
-      const sz=30+Math.random()*50;
-      Object.assign(o.style,{width:sz+'px',height:sz+'px',left:10+Math.random()*80+'%',top:10+Math.random()*80+'%',background:colors[i%5],'--d':(5+Math.random()*4)+'s','--dl':Math.random()*3+'s'});
+      const sz=R(25,70),x=R(5,90),y=R(5,90),dur=R(6,14),dl=R(0,6);
+      const p1x=R(-60,60),p1y=R(-80,0),p2x=R(-50,50),p2y=R(-60,40),p3x=R(-40,40),p3y=R(-30,30);
+      const id=uid();
+      injectKF(id,`0%{transform:translate(0,0) scale(${R(.7,1)});opacity:${R(.2,.5)}}25%{transform:translate(${p1x}px,${p1y}px) scale(${R(.8,1.2)});opacity:${R(.3,.7)}}50%{transform:translate(${p2x}px,${p2y}px) scale(${R(.6,1.1)});opacity:${R(.2,.5)}}75%{transform:translate(${p3x}px,${p3y}px) scale(${R(.8,1.1)});opacity:${R(.3,.6)}}100%{transform:translate(0,0) scale(${R(.7,1)});opacity:${R(.2,.5)}}`);
+      Object.assign(o.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:x+'%',top:y+'%',background:pick(colors),filter:`blur(${R(1,4)}px)`,animation:`${id} ${dur}s ${dl}s infinite ease-in-out`});
       el.appendChild(o);
     }
   }
@@ -292,10 +323,12 @@ const effects = [
   name: 'Diagonal Rain',
   bg: 'linear-gradient(180deg,#102030,#0a1018)',
   gen(el) {
-    for(let i=0;i<20;i++){
+    for(let i=0;i<25;i++){
       const d=document.createElement('div');
-      d.className='drain';
-      Object.assign(d.style,{left:Math.random()*120-10+'%',top:'-5%','--d':(1+Math.random()*1.5)+'s','--dl':Math.random()*3+'s','--c':'rgba(130,216,255,'+(0.2+Math.random()*0.2)+')'});
+      const x=R(-15,110),h=R(12,30),dur=R(.8,2.5),dl=R(0,5),angle=R(15,30);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:rotate(${angle}deg) translate(-40px,-30px)}${R(15,30)}%{opacity:${R(.3,.7)}}100%{opacity:0;transform:rotate(${angle}deg) translate(${R(60,120)}px,${R(400,600)}px)}`);
+      Object.assign(d.style,{position:'absolute',width:R(1,3)+'px',height:h+'px',borderRadius:'1px',left:x+'%',top:'-5%',background:`rgba(130,216,255,${R(.15,.4)})`,animation:`${id} ${dur}s ${dl}s infinite linear`});
       el.appendChild(d);
     }
   }
@@ -306,26 +339,31 @@ const effects = [
   name: 'Emoji Party',
   bg: '#1a1a2e',
   gen(el) {
-    const emojis=['🎉','🎊','⭐','🔥','💪','🏆','💎','⚡','🚀','✨'];
-    for(let i=0;i<14;i++){
+    const emojis=['🎉','🎊','⭐','🔥','💪','🏆','💎','⚡','🚀','✨','🎯','🌟'];
+    for(let i=0;i<18;i++){
       const e=document.createElement('div');
-      e.className='emo';
-      e.textContent=emojis[i%emojis.length];
-      Object.assign(e.style,{left:5+Math.random()*90+'%',bottom:'5%','--d':(3+Math.random()*3)+'s','--dl':Math.random()*4+'s','--sz':(16+Math.random()*14)+'px'});
+      const x=R(2,95),sz=R(14,30),dur=R(3.5,9),dl=R(0,10),driftX=R(-60,60),riseY=R(250,500),startY=R(-10,20);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateY(0) translateX(0) scale(${R(.3,.6)}) rotate(${R(-30,30)}deg)}${R(8,18)}%{opacity:1}50%{transform:translateY(-${riseY*.5}px) translateX(${driftX*.6}px) scale(${R(.8,1.1)}) rotate(${R(-15,15)}deg)}80%{opacity:${R(.4,.8)}}100%{opacity:0;transform:translateY(-${riseY}px) translateX(${driftX}px) scale(${R(.4,.8)}) rotate(${R(-40,40)}deg)}`);
+      e.style.cssText=`position:absolute;left:${x}%;bottom:${startY}%;font-size:${sz}px;animation:${id} ${dur}s ${dl}s infinite ease-in-out;`;
+      e.textContent=pick(emojis);
       el.appendChild(e);
     }
   }
 },
 
-// ── 14. Glitch Lines (error) ──
+// ── 14. Glitch Lines ──
 {
   name: 'Glitch Lines',
   bg: '#0a0a0a',
   gen(el) {
-    for(let i=0;i<8;i++){
+    for(let i=0;i<12;i++){
       const g=document.createElement('div');
-      g.className='glitch';
-      Object.assign(g.style,{top:Math.random()*100+'%',height:(1+Math.random()*3)+'px','--d':(2+Math.random()*3)+'s','--dl':Math.random()*4+'s',background:'rgba(255,75,75,'+(0.3+Math.random()*0.4)+')'});
+      const y=R(5,95),h=R(1,4),dur=R(2,6),dl=R(0,8);
+      const t1=R(3,8),t2=t1+R(2,5),t3=t2+R(2,5);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateX(0) scaleX(1)}${t1}%{opacity:${R(.4,.9)};transform:translateX(${R(-8,8)}px) scaleX(${R(.3,1)})}${t1+1.5}%{opacity:0}${t2}%{opacity:${R(.3,.7)};transform:translateX(${R(-5,5)}px) scaleX(${R(.5,1.2)})}${t2+1}%{opacity:0}${t3}%{opacity:${R(.2,.5)};transform:translateX(${R(-3,3)}px)}${t3+0.8}%{opacity:0}100%{opacity:0}`);
+      Object.assign(g.style,{position:'absolute',left:'0',right:'0',top:y+'%',height:h+'px',background:`rgba(255,75,75,${R(.3,.7)})`,animation:`${id} ${dur}s ${dl}s infinite steps(1)`});
       el.appendChild(g);
     }
   }
@@ -336,12 +374,14 @@ const effects = [
   name: 'Bokeh Lights',
   bg: 'linear-gradient(135deg,#1a1030,#0a1520)',
   gen(el) {
-    const colors=['rgba(255,200,0,0.12)','rgba(206,130,255,0.1)','rgba(28,176,246,0.1)','rgba(255,150,0,0.1)','rgba(88,204,2,0.1)'];
-    for(let i=0;i<10;i++){
+    const colors=['rgba(255,200,0,0.12)','rgba(206,130,255,0.1)','rgba(28,176,246,0.1)','rgba(255,150,0,0.1)','rgba(88,204,2,0.08)','rgba(255,75,75,0.08)'];
+    for(let i=0;i<12;i++){
       const b=document.createElement('div');
-      b.className='bokeh';
-      const sz=40+Math.random()*80;
-      Object.assign(b.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%','--c':colors[i%5],'--d':(6+Math.random()*6)+'s','--dl':Math.random()*5+'s','--dx':(Math.random()*50-25)+'px','--dy':(Math.random()*50-25)+'px',background:colors[i%5]});
+      const sz=R(30,100),x=R(-10,100),y=R(-10,100),dur=R(7,16),dl=R(0,8);
+      const dx1=R(-40,40),dy1=R(-40,40),dx2=R(-30,30),dy2=R(-30,30);
+      const id=uid();
+      injectKF(id,`0%{transform:translate(0,0);opacity:${R(.05,.2)}}33%{transform:translate(${dx1}px,${dy1}px);opacity:${R(.15,.35)}}66%{transform:translate(${dx2}px,${dy2}px);opacity:${R(.08,.2)}}100%{transform:translate(0,0);opacity:${R(.05,.2)}}`);
+      Object.assign(b.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:x+'%',top:y+'%',background:pick(colors),animation:`${id} ${dur}s ${dl}s infinite ease-in-out`});
       el.appendChild(b);
     }
   }
@@ -352,10 +392,12 @@ const effects = [
   name: 'Comet Trails',
   bg: '#080818',
   gen(el) {
-    for(let i=0;i<6;i++){
+    for(let i=0;i<8;i++){
       const c=document.createElement('div');
-      c.className='comet';
-      Object.assign(c.style,{left:'-5%',bottom:Math.random()*100+'%','--d':(2+Math.random()*2)+'s','--dl':i*0.8+'s',background:['#FFC800','white','#84D8FF'][i%3]});
+      const startY=R(10,90),dur=R(2,5),dl=R(0,8),endX=R(200,400),endY=R(-150,150),sz=R(2,5);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translate(0,0)}${R(15,30)}%{opacity:${R(.6,1)}}100%{opacity:0;transform:translate(${endX}px,${endY}px)}`);
+      Object.assign(c.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:'-3%',top:startY+'%',background:pick(['#FFC800','white','#84D8FF','#CE82FF']),boxShadow:`0 0 ${R(4,10)}px ${R(1,3)}px rgba(255,255,255,0.3)`,animation:`${id} ${dur}s ${dl}s infinite ease-in`});
       el.appendChild(c);
     }
   }
@@ -366,10 +408,12 @@ const effects = [
   name: 'Audio Wave Bars',
   bg: 'linear-gradient(180deg,#1a1040,#0a0a1a)',
   gen(el) {
-    for(let i=0;i<20;i++){
+    for(let i=0;i<24;i++){
       const w=document.createElement('div');
-      w.className='wbar';
-      Object.assign(w.style,{left:(5+i*4.5)+'%',bottom:'20%','--d':(0.8+Math.random()*1)+'s','--dl':i*0.08+'s','--h':(30+Math.random()*80)+'px','--c':['rgba(99,102,241,0.5)','rgba(168,85,247,0.4)','rgba(206,130,255,0.5)'][i%3]});
+      const maxH=R(20,100),dur=R(.6,1.8),dl=R(0,1);
+      const id=uid();
+      injectKF(id,`0%{height:${R(5,15)}px;opacity:${R(.2,.4)}}50%{height:${maxH}px;opacity:${R(.5,.8)}}100%{height:${R(5,15)}px;opacity:${R(.2,.4)}}`);
+      Object.assign(w.style,{position:'absolute',bottom:'20%',left:(2+i*4)+'%',width:R(3,5)+'px',borderRadius:'2px',background:pick(['rgba(99,102,241,0.5)','rgba(168,85,247,0.45)','rgba(206,130,255,0.5)','rgba(28,176,246,0.4)']),animation:`${id} ${dur}s ${dl}s infinite ease-in-out`});
       el.appendChild(w);
     }
   }
@@ -380,15 +424,14 @@ const effects = [
   name: 'Pixel Grid Pop',
   bg: '#1a1a2e',
   gen(el) {
-    const colors=['#58CC02','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600'];
-    for(let r=0;r<8;r++){
-      for(let c=0;c<6;c++){
-        if(Math.random()>0.5) continue;
-        const p=document.createElement('div');
-        p.className='pix';
-        Object.assign(p.style,{left:(10+c*15)+'%',top:(10+r*11)+'%','--d':(1.5+Math.random()*1.5)+'s','--dl':Math.random()*3+'s',background:colors[(r+c)%6]});
-        el.appendChild(p);
-      }
+    const colors=['#58CC02','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600','#FFAADE','#84D8FF'];
+    for(let i=0;i<30;i++){
+      const p=document.createElement('div');
+      const x=R(5,90),y=R(5,90),sz=R(4,8),dur=R(1.5,4),dl=R(0,6),driftY=R(-15,15);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:scale(0)}${R(15,30)}%{opacity:${R(.5,.9)};transform:scale(${R(.8,1.3)})}${R(50,70)}%{opacity:${R(.4,.7)};transform:scale(${R(.6,1)}) translateY(${driftY}px)}100%{opacity:0;transform:scale(${R(.1,.4)}) translateY(${driftY*2}px)}`);
+      Object.assign(p.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:R(1,2)+'px',left:x+'%',top:y+'%',background:pick(colors),animation:`${id} ${dur}s ${dl}s infinite ease-out`});
+      el.appendChild(p);
     }
   }
 },
@@ -398,11 +441,15 @@ const effects = [
   name: 'DNA Helix',
   bg: 'linear-gradient(180deg,#0a1520,#1a1a2e)',
   gen(el) {
-    for(let i=0;i<16;i++){
+    for(let i=0;i<20;i++){
       const d=document.createElement('div');
-      d.className='dna';
-      const isLeft=i%2===0;
-      Object.assign(d.style,{left:isLeft?'35%':'55%',bottom:'-5%',background:isLeft?'#1CB0F6':'#CE82FF','--d':(2.5+Math.random())+'s','--dl':i*0.3+'s'});
+      const phase=i*0.5, side=(i%2===0), sz=R(4,7);
+      const dur=R(3,6),dl=R(0,8);
+      const amp=R(15,35),cx=side?38:52;
+      const id=uid();
+      // Each dot takes a unique sinusoidal horizontal path while rising
+      injectKF(id,`0%{transform:translate(0,0);opacity:${R(.2,.5)}}25%{transform:translate(${side?amp:-amp}px,-110px);opacity:${R(.5,.9)}}50%{transform:translate(${side?-amp*0.8:amp*0.8}px,-220px);opacity:${R(.3,.6)}}75%{transform:translate(${side?amp*0.6:-amp*0.6}px,-330px);opacity:${R(.5,.8)}}100%{transform:translate(${side?-amp*0.4:amp*0.4}px,-440px);opacity:0}`);
+      Object.assign(d.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:cx+'%',bottom:R(-5,10)+'%',background:side?'#1CB0F6':'#CE82FF',animation:`${id} ${dur}s ${dl}s infinite linear`});
       el.appendChild(d);
     }
   }
@@ -413,11 +460,13 @@ const effects = [
   name: 'Smoke Wisps',
   bg: 'linear-gradient(180deg,#1a1020,#0a0a0a)',
   gen(el) {
-    for(let i=0;i<8;i++){
+    const colors=['rgba(206,130,255,0.1)','rgba(255,150,0,0.08)','rgba(28,176,246,0.08)','rgba(255,200,0,0.08)','rgba(255,170,222,0.07)'];
+    for(let i=0;i<10;i++){
       const s=document.createElement('div');
-      s.className='smoke';
-      const sz=40+Math.random()*60;
-      Object.assign(s.style,{width:sz+'px',height:sz+'px',left:10+Math.random()*80+'%',bottom:'10%','--d':(4+Math.random()*4)+'s','--dl':Math.random()*5+'s','--dx':(Math.random()*60-30)+'px','--c':['rgba(206,130,255,0.12)','rgba(255,150,0,0.1)','rgba(28,176,246,0.1)','rgba(255,200,0,0.1)'][i%4]});
+      const sz=R(30,80),x=R(5,90),dur=R(5,12),dl=R(0,8),driftX=R(-50,50);
+      const id=uid();
+      injectKF(id,`0%{opacity:0;transform:translateY(0) translateX(0) scale(${R(.4,.7)})}${R(15,25)}%{opacity:${R(.15,.4)}}50%{transform:translateY(-${R(100,200)}px) translateX(${driftX}px) scale(${R(1.2,2)});opacity:${R(.1,.25)}}100%{opacity:0;transform:translateY(-${R(200,400)}px) translateX(${driftX*R(1.5,2.5)}px) scale(${R(2,3.5)})}`);
+      Object.assign(s.style,{position:'absolute',width:sz+'px',height:sz+'px',borderRadius:'50%',left:x+'%',bottom:R(-5,15)+'%',background:`radial-gradient(circle,${pick(colors)},transparent)`,animation:`${id} ${dur}s ${dl}s infinite ease-out`});
       el.appendChild(s);
     }
   }
