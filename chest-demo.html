@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chest Open Animation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Nunito',sans-serif;background:#141428;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden;}
+
+  .screen{width:100%;max-width:420px;height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;user-select:none;}
+
+  /* Floating sparkle diamonds */
+  .sparkle{position:absolute;opacity:0;animation:sparkle-float 4s infinite ease-in-out;}
+  @keyframes sparkle-float{0%{opacity:0;transform:scale(.5)}20%{opacity:.6}50%{opacity:.8;transform:scale(1)}80%{opacity:.5}100%{opacity:0;transform:scale(.5) translateY(-20px)}}
+
+  /* ═══ CHEST SVG ═══ */
+  .chest-wrap{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .chest-wrap:active .chest-body{transform:scale(.96);}
+
+  .chest-body{transition:transform .15s;width:200px;height:200px;}
+
+  /* Lid animation */
+  .lid{transform-origin:50% 100%;transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
+  .chest-wrap.opened .lid{transform:rotate(-45deg) translateY(-10px);}
+  .chest-wrap.shaking{animation:chest-shake .5s ease-in-out;}
+  @keyframes chest-shake{0%{transform:rotate(0)}15%{transform:rotate(-4deg)}30%{transform:rotate(4deg)}45%{transform:rotate(-3deg)}60%{transform:rotate(3deg)}75%{transform:rotate(-1deg)}90%{transform:rotate(1deg)}100%{transform:rotate(0)}}
+
+  /* Glow behind chest */
+  .chest-glow{position:absolute;width:240px;height:240px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s;pointer-events:none;}
+  .chest-wrap.opened .chest-glow{transform:translate(-50%,-50%) scale(1.5);opacity:1;}
+
+  /* Label */
+  .rarity-label{font-size:28px;font-weight:900;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;opacity:.9;}
+
+  /* Tap hint */
+  .tap-hint{position:absolute;bottom:80px;font-size:18px;font-weight:800;opacity:.7;transition:opacity .3s;}
+  .screen.phase-open .tap-hint{opacity:0;}
+
+  /* Upgrade arrows */
+  .arrows{display:flex;gap:8px;margin-top:24px;opacity:.7;}
+  .arrows .arrow{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;}
+
+  /* Particles container */
+  .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+
+  /* Reward reveal */
+  .reward{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .6s cubic-bezier(.34,1.56,.64,1) .3s,opacity .3s .3s;font-size:80px;z-index:10;pointer-events:none;}
+  .screen.phase-open .reward{transform:translate(-50%,-60%) scale(1);opacity:1;}
+
+  /* Phase transitions */
+  .screen.phase-open .rarity-label{animation:label-glow .5s ease-out;}
+  @keyframes label-glow{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+
+  /* Reset button */
+  .reset-btn{position:absolute;bottom:20px;padding:10px 28px;border-radius:12px;border:none;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer;opacity:0;transition:opacity .3s .8s;}
+  .screen.phase-open .reset-btn{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="screen" id="screen">
+  <!-- Floating sparkle diamonds (ambient) -->
+  <div class="sparkle" style="left:12%;top:35%;animation-delay:0s;"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="#A08840" opacity=".7"/></svg></div>
+  <div class="sparkle" style="right:10%;top:42%;animation-delay:1.5s;"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="#C8A84E" opacity=".6"/></svg></div>
+  <div class="sparkle" style="left:8%;top:60%;animation-delay:2.8s;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="#8A7A30" opacity=".5"/></svg></div>
+  <div class="sparkle" style="right:15%;top:65%;animation-delay:0.8s;"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="#A08840" opacity=".6"/></svg></div>
+  <div class="sparkle" style="left:40%;top:28%;animation-delay:2s;"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="#C8A84E" opacity=".7"/></svg></div>
+
+  <!-- Rarity label -->
+  <div class="rarity-label" id="rarityLabel" style="color:#C8A84E;">COMMON</div>
+
+  <!-- Chest -->
+  <div class="chest-wrap" id="chest">
+    <!-- Glow behind chest -->
+    <div class="chest-glow" id="chestGlow" style="background:radial-gradient(circle,rgba(200,168,78,0.4),rgba(200,168,78,0.1),transparent);"></div>
+
+    <svg class="chest-body" viewBox="0 0 200 180" fill="none">
+      <!-- Shadow -->
+      <ellipse cx="100" cy="170" rx="70" ry="10" fill="#0a0a18" opacity=".4"/>
+
+      <!-- Base/body of chest -->
+      <g data-part="base">
+        <!-- Side panels (behind body) -->
+        <rect x="22" y="80" width="20" height="65" rx="6" fill="#DDBF7E"/>
+        <rect x="158" y="80" width="20" height="65" rx="6" fill="#DDBF7E"/>
+        <!-- Main body -->
+        <rect x="30" y="75" width="140" height="70" rx="10" fill="#D4A24E"/>
+        <!-- Body stripes -->
+        <rect x="30" y="82" width="140" height="8" rx="2" fill="#C08A30"/>
+        <rect x="30" y="97" width="140" height="8" rx="2" fill="#C08A30"/>
+        <rect x="30" y="112" width="140" height="8" rx="2" fill="#C08A30"/>
+        <rect x="30" y="127" width="140" height="8" rx="2" fill="#C08A30"/>
+        <!-- Front plate -->
+        <rect x="40" y="90" width="120" height="45" rx="8" fill="#E8C876"/>
+        <!-- Lock circle -->
+        <circle cx="100" cy="112" r="14" fill="#DDBF7E"/>
+        <circle cx="100" cy="112" r="9" fill="#F0DCA0"/>
+        <circle cx="100" cy="112" r="5" fill="#DDBF7E"/>
+        <!-- Bottom edge (3D depth) -->
+        <rect x="30" y="140" width="140" height="6" rx="3" fill="#A07820"/>
+      </g>
+
+      <!-- Lid (animated) -->
+      <g class="lid" data-part="lid">
+        <!-- Lid side panels -->
+        <rect x="22" y="40" width="20" height="45" rx="6" fill="#DDBF7E"/>
+        <rect x="158" y="40" width="20" height="45" rx="6" fill="#DDBF7E"/>
+        <!-- Lid main -->
+        <rect x="30" y="38" width="140" height="48" rx="10" fill="#E8C876"/>
+        <!-- Lid stripes -->
+        <rect x="30" y="45" width="140" height="8" rx="2" fill="#D4A24E"/>
+        <rect x="30" y="60" width="140" height="8" rx="2" fill="#D4A24E"/>
+        <!-- Lid top highlight -->
+        <rect x="40" y="42" width="80" height="6" rx="3" fill="#F5E8C0" opacity=".5"/>
+        <!-- Lid top edge -->
+        <rect x="30" y="38" width="140" height="6" rx="3" fill="#F0DCA0"/>
+      </g>
+
+      <!-- Lock clasp (on top of lid bottom edge) -->
+      <rect x="88" y="82" width="24" height="12" rx="4" fill="#DDBF7E"/>
+    </svg>
+  </div>
+
+  <!-- Upgrade arrows -->
+  <div class="arrows" id="arrows">
+    <div class="arrow" style="background:#C08A30;color:white;">↑</div>
+    <div class="arrow" style="background:rgba(192,138,48,0.4);color:rgba(255,255,255,.5);">↑</div>
+    <div class="arrow" style="background:rgba(192,138,48,0.2);color:rgba(255,255,255,.3);">↑</div>
+  </div>
+
+  <!-- Particles (injected on open) -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Reward (shown after open) -->
+  <div class="reward" id="reward">💎</div>
+
+  <!-- Tap hint -->
+  <div class="tap-hint">Tap for a chance to upgrade!</div>
+
+  <!-- Reset -->
+  <button class="reset-btn" id="resetBtn">tap to reset</button>
+</div>
+
+<script>
+const chest = document.getElementById('chest');
+const screen = document.getElementById('screen');
+const particles = document.getElementById('particles');
+const reward = document.getElementById('reward');
+const resetBtn = document.getElementById('resetBtn');
+const chestGlow = document.getElementById('chestGlow');
+const rarityLabel = document.getElementById('rarityLabel');
+const arrows = document.getElementById('arrows');
+
+const rarities = [
+  { name:'COMMON', color:'#C8A84E', glowColor:'rgba(200,168,78,0.4)', rewards:['⚙️','🔧','📋','🔩'] },
+  { name:'RARE', color:'#1CB0F6', glowColor:'rgba(28,176,246,0.4)', rewards:['💎','⭐','🛡️','📘'] },
+  { name:'EPIC', color:'#CE82FF', glowColor:'rgba(206,130,255,0.4)', rewards:['👑','🏆','💜','🔮'] },
+  { name:'LEGENDARY', color:'#FFC800', glowColor:'rgba(255,200,0,0.5)', rewards:['🌟','⚡','🔥','💫'] },
+];
+
+let isOpen = false;
+
+function R(min,max){ return min+Math.random()*(max-min); }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+function spawnParticles(rarity) {
+  particles.innerHTML = '';
+  const cx = window.innerWidth/2, cy = window.innerHeight * 0.46;
+  const colors = [rarity.color, '#FFC800', '#FFB100', '#FFFFFF', rarity.color];
+
+  // Burst particles from chest center
+  for(let i=0;i<40;i++){
+    const p = document.createElement('div');
+    const angle = R(0, Math.PI*2);
+    const dist = R(80, 300);
+    const sz = R(3, 8);
+    const dur = R(0.8, 2.5);
+    const dl = R(0, 0.3);
+    const endX = Math.cos(angle)*dist;
+    const endY = Math.sin(angle)*dist - R(20,80); // bias upward
+    const spin = R(0, 720);
+    const name = 'bp'+i+Date.now();
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes ${name}{
+      0%{opacity:0;transform:translate(0,0) scale(0) rotate(0deg)}
+      12%{opacity:1;transform:translate(0,0) scale(${R(1,1.6)}) rotate(${R(0,90)}deg)}
+      100%{opacity:0;transform:translate(${endX}px,${endY}px) scale(${R(.2,.5)}) rotate(${spin}deg)}
+    }`;
+    document.head.appendChild(style);
+
+    Object.assign(p.style, {
+      position:'absolute',
+      width: sz+'px',
+      height: sz+'px',
+      borderRadius: Math.random()>.4 ? '50%' : R(1,3)+'px',
+      left: '50%',
+      top: '46%',
+      background: pick(colors),
+      animation: `${name} ${dur}s ${dl}s ease-out forwards`,
+      zIndex: '5',
+    });
+    particles.appendChild(p);
+  }
+
+  // Star sparkles (4-point diamond shapes)
+  for(let i=0;i<12;i++){
+    const s = document.createElement('div');
+    const angle = R(0, Math.PI*2);
+    const dist = R(40, 200);
+    const dur = R(1, 3);
+    const dl = R(0.1, 0.5);
+    const sz = R(10, 22);
+    const endX = Math.cos(angle)*dist;
+    const endY = Math.sin(angle)*dist - R(30,60);
+    const name = 'sp'+i+Date.now();
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes ${name}{
+      0%{opacity:0;transform:translate(0,0) scale(0) rotate(0deg)}
+      15%{opacity:1;transform:scale(${R(1,1.3)}) rotate(${R(10,30)}deg)}
+      100%{opacity:0;transform:translate(${endX}px,${endY}px) scale(${R(.3,.6)}) rotate(${R(30,90)}deg)}
+    }`;
+    document.head.appendChild(style);
+
+    s.innerHTML = `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24"><path d="M12 0L14.5 9.5 24 12 14.5 14.5 12 24 9.5 14.5 0 12 9.5 9.5Z" fill="${pick(colors)}"/></svg>`;
+    Object.assign(s.style, {
+      position:'absolute',
+      left:'50%',
+      top:'46%',
+      animation: `${name} ${dur}s ${dl}s ease-out forwards`,
+      zIndex:'5',
+    });
+    particles.appendChild(s);
+  }
+
+  // Rising glowing orbs
+  for(let i=0;i<8;i++){
+    const o = document.createElement('div');
+    const sz = R(6,14);
+    const dur = R(2,4);
+    const dl = R(0.2,0.8);
+    const driftX = R(-60,60);
+    const name = 'orb'+i+Date.now();
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes ${name}{
+      0%{opacity:0;transform:translateY(0) translateX(0) scale(.5)}
+      20%{opacity:${R(.5,.8)}}
+      100%{opacity:0;transform:translateY(-${R(200,400)}px) translateX(${driftX}px) scale(${R(.3,.8)})}
+    }`;
+    document.head.appendChild(style);
+
+    Object.assign(o.style, {
+      position:'absolute',
+      width:sz+'px', height:sz+'px',
+      borderRadius:'50%',
+      left: (50+R(-15,15))+'%',
+      top: '46%',
+      background: rarity.color,
+      boxShadow: `0 0 ${R(8,16)}px ${R(2,6)}px ${rarity.glowColor}`,
+      animation: `${name} ${dur}s ${dl}s ease-out forwards`,
+      zIndex:'4',
+    });
+    particles.appendChild(o);
+  }
+}
+
+function openChest() {
+  if(isOpen) return;
+  isOpen = true;
+
+  // Shake first
+  chest.classList.add('shaking');
+
+  setTimeout(() => {
+    chest.classList.remove('shaking');
+    chest.classList.add('opened');
+    screen.classList.add('phase-open');
+
+    // Pick rarity (weighted: common 50%, rare 30%, epic 15%, legendary 5%)
+    const roll = Math.random();
+    const rarity = roll < 0.5 ? rarities[0] : roll < 0.8 ? rarities[1] : roll < 0.95 ? rarities[2] : rarities[3];
+
+    // Update UI colors
+    rarityLabel.textContent = rarity.name;
+    rarityLabel.style.color = rarity.color;
+    chestGlow.style.background = `radial-gradient(circle,${rarity.glowColor},${rarity.glowColor.replace('0.4','0.1')},transparent)`;
+    reward.textContent = pick(rarity.rewards);
+
+    // Spawn particles
+    spawnParticles(rarity);
+
+  }, 500);
+}
+
+function resetChest() {
+  isOpen = false;
+  chest.classList.remove('opened','shaking');
+  screen.classList.remove('phase-open');
+  particles.innerHTML = '';
+  rarityLabel.textContent = 'COMMON';
+  rarityLabel.style.color = '#C8A84E';
+  chestGlow.style.background = 'radial-gradient(circle,rgba(200,168,78,0.4),rgba(200,168,78,0.1),transparent)';
+}
+
+chest.addEventListener('click', openChest);
+resetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetChest(); });
+</script>
+</body>
+</html>
