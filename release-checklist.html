@@ -360,6 +360,10 @@
       <div class="done-item">Back button handler</div>
       <div class="done-item">Course content (~25K lines)</div>
       <div class="done-item">Subscription state (client+server)</div>
+      <div class="done-item">Trial prompt after 1st lesson</div>
+      <div class="done-item">Delayed push notification prompt</div>
+      <div class="done-item">hearts_depleted Mixpanel event</div>
+      <div class="done-item">Production build passes</div>
     </div>
   </div>
 
@@ -741,14 +745,19 @@
 <script>
   const STORAGE_KEY = 'mechready-release-checklist-v3';
 
-  // Items completed by code changes on 2026-03-26
+  // Items completed by code changes on 2026-03-27
   const AUTO_COMPLETED = {
     'biz-1': true,  // All units free
     'biz-2': true,  // Daily limit removed
     'biz-3': true,  // All practice modes free
     'biz-4': true,  // Pricing updated to $7.99/$49.99
     'biz-5': true,  // Pricing page rewritten
-    'biz-6': true,  // Landing page copy (pricing page + upgrade modal updated)
+    'biz-6': true,  // Landing page copy updated
+    'onboard-2': true, // Trial prompt modal built + integrated into ResultScreen
+    'onboard-3': true, // PushPrompt already delays until MIN_LESSONS_BEFORE_PROMPT
+    'monitor-2': true, // hearts_depleted + upgrade CTA tracking in OutOfHeartsModal
+    'deploy-5': true,  // Production build passes
+    'test-1': true,    // Tests pass (fixed useStore + middleware tests)
   };
 
   function loadState() {

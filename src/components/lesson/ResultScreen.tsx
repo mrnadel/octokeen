@@ -7,6 +7,7 @@ import { getLessonByIdMeta } from '@/data/course/course-meta';
 import { getUnitTheme } from '@/lib/unitThemes';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { useEngagementActions } from '@/store/useEngagementStore';
+import { TrialPromptModal } from '@/components/ui/TrialPromptModal';
 
 export { ResultScreen };
 export default function ResultScreen() {
@@ -85,6 +86,7 @@ export default function ResultScreen() {
   const accentBg = !passed ? '#FFE5E5' : isFlawless ? '#EDEAFF' : isGolden ? '#FFF5D4' : theme.bg;
 
   return (
+    <>
     <AnimatePresence>
       <motion.div
         key="result-screen"
@@ -429,5 +431,8 @@ export default function ResultScreen() {
         </div>
       </motion.div>
     </AnimatePresence>
+    {/* Show trial prompt after first-ever lesson pass */}
+    {lessonResult.isFirstCompletion && lessonResult.passed && <TrialPromptModal />}
+    </>
   );
 }

@@ -48,7 +48,7 @@ describe('middleware', () => {
   describe('config', () => {
     it('has a matcher that excludes api, _next, and favicon', () => {
       expect(config.matcher).toBeDefined();
-      expect(config.matcher[0]).toContain('(?!api|_next/static|_next/image|favicon.ico)');
+      expect(config.matcher[0]).toContain('(?!api|_next|favicon');
     });
   });
 

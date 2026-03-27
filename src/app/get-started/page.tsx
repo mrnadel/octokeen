@@ -936,7 +936,7 @@ export default function GetStartedPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Start with Unit 1 — it&apos;s completely free.
+                All lessons are free — start any unit.
                 <br />
                 Dive in and master {getProfession(selectedProfession)?.name ?? 'your course'}!
               </motion.p>

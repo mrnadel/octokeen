@@ -161,17 +161,18 @@ describe('useStore', () => {
     });
 
 
-    it('blocks Pro-only session types for free tier', () => {
-      // Switch mock to free tier
+    it('allows all session types for free tier (no mode gating)', () => {
+      // All practice modes are free — hearts are the only friction lever
       subscriptionMockState.tier = 'free';
 
-      useStore.getState().startSession('adaptive'); // Pro-only
-      expect(useStore.getState().session).toBeNull();
+      useStore.getState().startSession('adaptive');
+      expect(useStore.getState().session).not.toBeNull();
 
-      useStore.getState().startSession('interview-sim'); // Pro-only
-      expect(useStore.getState().session).toBeNull();
+      useStore.setState({ session: null, sessionSummary: null });
+      useStore.getState().startSession('interview-sim');
+      expect(useStore.getState().session).not.toBeNull();
 
-      // Non-pro type should work
+      useStore.setState({ session: null, sessionSummary: null });
       useStore.getState().startSession('daily-challenge');
       expect(useStore.getState().session).not.toBeNull();
     });

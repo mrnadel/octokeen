@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useHeartsStore } from '@/store/useHeartsStore';
+import { analytics } from '@/lib/mixpanel';
 
 interface OutOfHeartsModalProps {
   isOpen: boolean;
@@ -28,6 +29,13 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
   const rechargeHearts = useHeartsStore((s) => s.rechargeHearts);
   const current = useHeartsStore((s) => s.current);
   const [countdown, setCountdown] = useState('');
+
+  // Track hearts_depleted event when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      analytics.feature('hearts_depleted', {});
+    }
+  }, [isOpen]);
 
   // Live countdown timer
   useEffect(() => {
@@ -133,7 +141,7 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
               {/* Upgrade CTA */}
               <Link
                 href="/pricing"
-                onClick={handleClose}
+                onClick={() => { analytics.subscription({ action: 'checkout_initiated', plan: 'pro', interval: 'month', source: 'out_of_hearts' }); handleClose(); }}
                 className="w-full py-3 rounded-xl font-semibold text-sm transition-colors shadow-md shadow-primary-200 active:scale-[0.98] flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white"
               >
                 <Sparkles className="w-4 h-4" />

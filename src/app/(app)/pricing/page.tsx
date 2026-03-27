@@ -84,7 +84,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What happens to my progress if I upgrade?',
-    a: 'Your progress is always saved. When you upgrade to Pro, you keep everything you\'ve earned and unlock all additional units and features instantly.',
+    a: 'Your progress is always saved. When you upgrade to Pro, you keep everything you\'ve earned and get unlimited hearts instantly.',
   },
 ];
 
