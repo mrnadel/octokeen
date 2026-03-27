@@ -32,7 +32,7 @@ export function LeaguePromotion() {
       return {
         emoji: currentTier.icon,
         headline: `Promoted to ${currentTier.name}!`,
-        subtext: `You earned +${LEAGUE_GEM_REWARD_PROMOTION} 💎 gems for finishing in the top ranks.`,
+        subtext: `You earned +${LEAGUE_GEM_REWARD_PROMOTION} gems for finishing in the top ranks.`,
         bg: 'linear-gradient(to bottom, #22c55e, #16a34a)',
         accentColor: '#fff',
         textColor: 'text-white',
@@ -131,7 +131,7 @@ export function LeaguePromotion() {
                       <div className="w-px h-8 bg-white/20" />
                       <div className="text-center">
                         <p className="text-2xl font-extrabold text-white">
-                          +{LEAGUE_GEM_REWARD_PROMOTION} 💎
+                          +{LEAGUE_GEM_REWARD_PROMOTION}
                         </p>
                         <p className="text-xs text-white/50 font-semibold">Gems Earned</p>
                       </div>

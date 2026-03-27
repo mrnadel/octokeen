@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEngagementStore, useComeback, useStreakEnhancements } from '@/store/useEngagementStore';
 import { comebackQuests } from '@/data/quests';
+import { Gem, Hand } from 'lucide-react';
 import { GameButton } from '@/components/ui/GameButton';
 import { FloatingParticles } from '@/components/ui/FloatingParticles';
 
@@ -46,7 +47,7 @@ export function WelcomeBack() {
           {/* Content — centered */}
           <div className="flex-1 flex flex-col justify-center sm:flex-initial relative z-[1] p-6 text-white">
             <div className="text-center mb-5">
-              <div className="text-5xl mb-3" aria-hidden="true">👋</div>
+              <div className="mb-3" aria-hidden="true"><Hand className="w-12 h-12 text-white" /></div>
               <h2 id="welcome-back-title" className="text-2xl font-extrabold text-white mb-1">
                 Welcome back!
               </h2>
@@ -90,8 +91,8 @@ export function WelcomeBack() {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold text-white truncate">{quest.title}</p>
                     </div>
-                    <div className="flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-bold flex-shrink-0 bg-white/20 text-white">
-                      <span>💎</span>
+                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold flex-shrink-0 bg-white/20 text-white">
+                      <Gem className="w-3 h-3" />
                       <span>{quest.reward.gems}</span>
                     </div>
                   </div>
@@ -103,7 +104,7 @@ export function WelcomeBack() {
           {/* Footer — pinned bottom */}
           <div className="shrink-0 px-6 pb-8 sm:pb-5 relative z-[1]">
             <GameButton variant="gold" onClick={dismiss}>
-              Let&apos;s Go! 🚀
+              Let&apos;s Go!
             </GameButton>
           </div>
         </motion.div>

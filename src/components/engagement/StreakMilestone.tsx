@@ -1,10 +1,19 @@
 'use client';
 
+import { type ComponentType } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Flame, Gem, Tag, Image as ImageIcon } from 'lucide-react';
 import type { StreakMilestoneDefinition } from '@/data/engagement-types';
 import { streakMilestones } from '@/data/streak-milestones';
 import { GameButton } from '@/components/ui/GameButton';
 import { FloatingParticles } from '@/components/ui/FloatingParticles';
+import {
+  WeekWarriorIcon,
+  FortnightFocusIcon,
+  IronWillIcon,
+  DiamondDedicationIcon,
+  CenturionStreakIcon,
+} from '@/components/icons/StreakIcons';
 
 interface Props {
   milestone: StreakMilestoneDefinition;
@@ -18,6 +27,14 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   color: ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6'][i % 5],
 }));
 
+const streakBadgeIcons: Record<number, ComponentType<{ size?: number; className?: string }>> = {
+  7: WeekWarriorIcon,
+  14: FortnightFocusIcon,
+  30: IronWillIcon,
+  60: DiamondDedicationIcon,
+  100: CenturionStreakIcon,
+};
+
 function getNextMilestone(current: StreakMilestoneDefinition): StreakMilestoneDefinition | null {
   const idx = streakMilestones.findIndex((m) => m.days === current.days);
   if (idx === -1 || idx >= streakMilestones.length - 1) return null;
@@ -26,6 +43,7 @@ function getNextMilestone(current: StreakMilestoneDefinition): StreakMilestoneDe
 
 export function StreakMilestone({ milestone, onClose }: Props) {
   const next = getNextMilestone(milestone);
+  const BadgeIcon = streakBadgeIcons[milestone.days] ?? WeekWarriorIcon;
 
   return (
     <AnimatePresence>
@@ -50,7 +68,6 @@ export function StreakMilestone({ milestone, onClose }: Props) {
           ))}
         </div>
 
-        {/* Main card */}
         <motion.div
           className="relative bg-gradient-to-b from-amber-400 to-orange-500 w-full h-full sm:h-auto sm:max-w-sm sm:rounded-2xl sm:shadow-2xl overflow-y-auto flex flex-col"
           role="dialog"
@@ -63,20 +80,20 @@ export function StreakMilestone({ milestone, onClose }: Props) {
         >
           <FloatingParticles color="rgba(255,255,255,0.3)" intensity="celebration" />
 
-          {/* Content — centered */}
           <div className="flex-1 flex flex-col items-center justify-center sm:flex-initial relative z-[1] p-8 text-center text-white">
             <motion.div
-              className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-4 text-5xl"
+              className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-4"
               style={{ background: 'rgba(255,255,255,0.2)' }}
               initial={{ scale: 0.5, rotate: -10 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 18, delay: 0.1 }}
             >
-              {milestone.badgeIcon}
+              <BadgeIcon size={56} />
             </motion.div>
 
-            <div className="inline-block px-3 py-1 rounded-full text-sm font-extrabold mb-3 bg-white/20 text-white">
-              🔥 {milestone.days}-Day Streak!
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-extrabold mb-3 bg-white/20 text-white">
+              <Flame className="w-4 h-4" />
+              {milestone.days}-Day Streak!
             </div>
 
             <h2 id="streak-milestone-title" className="text-2xl font-extrabold text-white mb-2">
@@ -84,7 +101,7 @@ export function StreakMilestone({ milestone, onClose }: Props) {
             </h2>
 
             <div className="flex items-center justify-center gap-1.5">
-              <span className="text-base">💎</span>
+              <Gem className="w-4 h-4 text-white/80" />
               <span className="text-lg font-extrabold text-white">+{milestone.gems}</span>
               <span className="text-sm text-white/60 font-semibold">gems</span>
             </div>
@@ -93,10 +110,14 @@ export function StreakMilestone({ milestone, onClose }: Props) {
               <div className="flex flex-col gap-1 mt-4 px-4 py-3 rounded-xl w-full max-w-[280px] bg-white/15 backdrop-blur-sm">
                 <p className="text-xs font-bold text-white/70 uppercase tracking-wide">Unlocked</p>
                 {milestone.hasTitle && milestone.titleText && (
-                  <p className="text-sm font-semibold text-white">🏷️ Title: &quot;{milestone.titleText}&quot;</p>
+                  <p className="text-sm font-semibold text-white flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5" /> Title: &quot;{milestone.titleText}&quot;
+                  </p>
                 )}
                 {milestone.hasFrame && (
-                  <p className="text-sm font-semibold text-white">🖼️ Profile Frame</p>
+                  <p className="text-sm font-semibold text-white flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5" /> Profile Frame
+                  </p>
                 )}
               </div>
             )}
@@ -108,7 +129,6 @@ export function StreakMilestone({ milestone, onClose }: Props) {
             )}
           </div>
 
-          {/* Footer — pinned bottom */}
           <div className="shrink-0 px-6 pb-8 sm:pb-5 relative z-[1]">
             <GameButton variant="gold" onClick={onClose}>Continue</GameButton>
           </div>

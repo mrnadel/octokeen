@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, HeartCrack, Gem, Snowflake } from 'lucide-react';
 import {
   useEngagementStore,
   useStreakEnhancements,
@@ -41,7 +41,7 @@ export function StreakFreeze() {
         style={{ background: '#DBEAFE', border: '1px solid #93C5FD' }}
       >
         <span className="text-sm font-semibold" style={{ color: '#1D4ED8' }}>
-          🧊 Your streak freeze saved your streak yesterday!
+          <Snowflake className="w-4 h-4 inline mr-1" /> Your streak freeze saved your streak yesterday!
         </span>
         <button
           onClick={dismissFreezeBanner}
@@ -85,8 +85,8 @@ export function StreakFreeze() {
 
             {/* Content — centered */}
             <div className="flex-1 flex flex-col items-center justify-center sm:flex-initial relative z-[1] p-6 text-center text-white">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full text-4xl mb-4 bg-white/15">
-                💔
+              <div className="flex items-center justify-center w-16 h-16 rounded-full mb-4 bg-white/15">
+                <HeartCrack className="w-8 h-8 text-white" />
               </div>
 
               <h2 className="text-xl font-extrabold text-white mb-1">
@@ -100,7 +100,7 @@ export function StreakFreeze() {
               </p>
 
               <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/15 backdrop-blur-sm">
-                <span className="text-lg">💎</span>
+                <Gem className="w-5 h-5 text-white/80" />
                 <span className="text-xl font-extrabold text-white">{REPAIR_COST}</span>
                 <span className="text-sm font-semibold text-white/60">to repair</span>
               </div>
@@ -113,7 +113,7 @@ export function StreakFreeze() {
                 onClick={handleRepair}
                 disabled={!canAfford}
               >
-                {canAfford ? 'Repair Streak' : `Need ${gemsNeeded} more 💎`}
+                {canAfford ? 'Repair Streak' : `Need ${gemsNeeded} more gems`}
               </GameButton>
               <button
                 onClick={dismissRepairModal}

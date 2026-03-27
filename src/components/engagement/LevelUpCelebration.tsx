@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { LevelReward } from '@/data/level-rewards';
 import { levels } from '@/data/levels';
 import { LevelBadge } from '@/components/engagement/LevelBadge';
+import { Gem, Snowflake, Tag, Image as ImageIcon, Star } from 'lucide-react';
 import { GameButton } from '@/components/ui/GameButton';
 import { FloatingParticles } from '@/components/ui/FloatingParticles';
 
@@ -104,7 +105,7 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
                 animate={isMilestone ? { rotate: [0, -8, 8, -4, 4, 0] } : undefined}
                 transition={isMilestone ? { duration: 1, delay: 0.5 } : undefined}
               >
-                {levelDef ? <LevelBadge level={levelDef} size={56} /> : '⭐'}
+                {levelDef ? <LevelBadge level={levelDef} size={56} /> : <Star className="w-10 h-10 text-amber-400" />}
               </motion.span>
             </motion.div>
 
@@ -136,24 +137,24 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
               transition={{ delay: 0.5 }}
             >
               <div className="flex items-center gap-2">
-                <span className="text-lg">💎</span>
+                <Gem className="w-5 h-5" style={{ color: '#A78BFA' }} />
                 <span className="text-base font-extrabold" style={{ color: '#A78BFA' }}>+{reward.gems} gems</span>
               </div>
               {reward.streakFreeze && (
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🧊</span>
+                  <Snowflake className="w-5 h-5" style={{ color: '#67E8F9' }} />
                   <span className="text-base font-extrabold" style={{ color: '#67E8F9' }}>+1 Streak Freeze</span>
                 </div>
               )}
               {reward.title && (
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🏷️</span>
+                  <Tag className="w-5 h-5" style={{ color: '#FDE68A' }} />
                   <span className="text-base font-extrabold" style={{ color: '#FDE68A' }}>Title: &ldquo;{reward.title}&rdquo;</span>
                 </div>
               )}
               {reward.frame && (
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🖼️</span>
+                  <ImageIcon className="w-5 h-5" style={{ color: '#86EFAC' }} />
                   <span className="text-base font-extrabold" style={{ color: '#86EFAC' }}>Profile Frame</span>
                 </div>
               )}

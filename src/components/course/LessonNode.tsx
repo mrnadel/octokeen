@@ -17,7 +17,6 @@ interface LessonRowProps {
 }
 
 const GOLD = '#FFB800';
-const GOLD_DARK = '#C8960B';
 
 function LevelDots({ current, max, color, isGolden }: { current: number; max: number; color: string; isGolden?: boolean }) {
   if (max <= 1) return null;
@@ -53,168 +52,174 @@ export const LessonNode = memo(function LessonNode({
   const maxLevels = lesson.levels ?? 1;
   const questionCount = lesson.questions?.length || 0;
   const isGolden = state === 'completed' && golden;
+  const isLocked = state === 'locked';
+  const isCurrent = state === 'current';
+  const isCompleted = state === 'completed';
 
   return (
     <motion.button
-      className={`w-full flex items-center text-left ${isGolden ? 'golden-node' : ''}`}
+      className="w-full text-left select-none"
       style={{
-        padding: '12px 14px',
-        background:
-          state === 'locked' ? 'transparent'
-          : isGolden ? undefined  /* handled by .golden-node */
-          : 'rgba(255,255,255,0.85)',
-        borderRadius: 16,
-        gap: 12,
-        opacity: state === 'locked' ? 0.55 : 1,
-        cursor: state === 'locked' ? 'default' : 'pointer',
-        boxShadow:
-          state === 'locked'
-            ? 'none'
-            : isGolden ? undefined /* handled by .golden-node */
-            : `0 3px 0 ${theme.dark}22, 0 1px 3px rgba(0,0,0,0.06)`,
-        border:
-          state === 'locked'
-            ? 'none'
-            : isGolden ? undefined /* handled by .golden-node */
-            : '1.5px solid rgba(255,255,255,0.9)',
-        position: 'relative',
+        padding: 0,
+        background: 'none',
+        border: 'none',
+        cursor: isLocked ? 'default' : 'pointer',
         WebkitTapHighlightColor: 'transparent',
+        opacity: isLocked ? 0.5 : 1,
       }}
       onClick={onClick}
-      whileHover={state !== 'locked' ? { scale: 1.015, ...((isGolden) ? {} : { backgroundColor: 'rgba(255,255,255,0.95)' }) } : undefined}
-      whileTap={state !== 'locked' ? { scale: 0.97, y: 2, boxShadow: isGolden ? '0 1px 0 #996E00' : `0 1px 0 ${theme.dark}22, 0 0px 2px rgba(0,0,0,0.04)` } : undefined}
       initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: state === 'locked' ? 0.55 : 1, x: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.25, scale: { duration: 0.1 }, y: { duration: 0.1 }, boxShadow: { duration: 0.1 } }}
+      animate={{ opacity: isLocked ? 0.5 : 1, x: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.25 }}
       aria-label={
-        state === 'completed'
-          ? `Replay: ${lesson.title}`
-          : state === 'current'
-            ? `Start: ${lesson.title}`
-            : `Upcoming: ${lesson.title}`
+        isCompleted ? `Replay: ${lesson.title}`
+          : isCurrent ? `Start: ${lesson.title}`
+          : `Upcoming: ${lesson.title}`
       }
     >
-      {/* Icon with completion ring */}
+      {/* 3D button card — GameButton-style press effect */}
       <div
-        className={`flex items-center justify-center flex-shrink-0 ${isGolden ? 'golden-icon-box' : ''}`}
+        className={`
+          w-full flex items-center rounded-2xl transition-all duration-75
+          ${isLocked ? '' : 'active:translate-y-[3px] active:shadow-none'}
+          ${isGolden ? 'golden-node' : ''}
+        `}
         style={{
-          width: 42,
-          height: 42,
-          borderRadius: 13,
+          padding: '12px 14px',
+          gap: 12,
           background:
-            state === 'locked' ? 'rgba(0,0,0,0.04)'
-            : isGolden ? undefined /* handled by .golden-icon-box */
-            : state === 'completed' ? `${theme.color}15` : `${theme.color}20`,
-          fontSize: 18,
-          position: 'relative',
-          border: state === 'completed' && !isGolden
-            ? `2px solid ${theme.color}40`
-            : state === 'current'
-              ? `2px solid ${theme.color}30`
-              : 'none',
+            isLocked ? 'rgba(255,255,255,0.4)'
+            : isGolden ? undefined
+            : isCurrent ? 'white'
+            : 'rgba(255,255,255,0.85)',
+          boxShadow:
+            isLocked ? 'none'
+            : isGolden ? undefined
+            : isCurrent ? `0 4px 0 ${theme.dark}40, 0 1px 3px rgba(0,0,0,0.06)`
+            : `0 3px 0 ${theme.dark}22, 0 1px 3px rgba(0,0,0,0.06)`,
+          border:
+            isLocked ? '1.5px solid rgba(0,0,0,0.04)'
+            : isGolden ? undefined
+            : isCurrent ? `2px solid ${theme.color}30`
+            : '1.5px solid rgba(255,255,255,0.9)',
         }}
       >
-        {isGolden ? (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
-            <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
-            <circle cx="7.5" cy="16" r="1.2" fill="#FFF8E1" />
-            <circle cx="12" cy="16" r="1.2" fill="#FFF8E1" />
-            <circle cx="16.5" cy="16" r="1.2" fill="#FFF8E1" />
-          </svg>
-        ) : (
-          <span style={{ opacity: state === 'locked' ? 0.35 : 1 }}>{lesson.icon}</span>
-        )}
+        {/* Icon */}
+        <div
+          className={`flex items-center justify-center flex-shrink-0 ${isGolden ? 'golden-icon-box' : ''}`}
+          style={{
+            width: 42,
+            height: 42,
+            borderRadius: 13,
+            background:
+              isLocked ? 'rgba(0,0,0,0.04)'
+              : isGolden ? undefined
+              : `${theme.color}18`,
+            fontSize: 18,
+            position: 'relative',
+          }}
+        >
+          {isGolden ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
+              <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
+              <circle cx="7.5" cy="16" r="1.2" fill="#FFF8E1" />
+              <circle cx="12" cy="16" r="1.2" fill="#FFF8E1" />
+              <circle cx="16.5" cy="16" r="1.2" fill="#FFF8E1" />
+            </svg>
+          ) : (
+            <span style={{ opacity: isLocked ? 0.35 : 1 }}>{lesson.icon}</span>
+          )}
 
-        {/* Tiny checkmark overlay for completed (non-golden) */}
-        {state === 'completed' && !isGolden && (
+          {/* Checkmark badge for completed */}
+          {isCompleted && !isGolden && (
+            <div
+              style={{
+                position: 'absolute',
+                bottom: -3,
+                right: -3,
+                width: 16,
+                height: 16,
+                borderRadius: '50%',
+                background: theme.color,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '2px solid white',
+              }}
+            >
+              <svg width="8" height="8" viewBox="0 0 12 12" fill="none">
+                <path d="M2.5 6.5L5 9L9.5 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          )}
+        </div>
+
+        {/* Text content */}
+        <div className="flex-1 min-w-0">
           <div
             style={{
-              position: 'absolute',
-              bottom: -3,
-              right: -3,
-              width: 16,
-              height: 16,
-              borderRadius: '50%',
-              background: theme.color,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '2px solid white',
+              fontSize: 14.5,
+              fontWeight: 700,
+              color: isLocked ? '#B0B0B0' : isGolden ? '#7A6200' : '#3C3C3C',
+              lineHeight: 1.2,
             }}
           >
-            <svg width="8" height="8" viewBox="0 0 12 12" fill="none">
-              <path d="M2.5 6.5L5 9L9.5 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            {lesson.title}
           </div>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="flex-1 min-w-0">
-        <div
-          style={{
-            fontSize: 14.5,
-            fontWeight: 700,
-            color: state === 'locked' ? '#B0B0B0' : isGolden ? '#7A6200' : '#3C3C3C',
-            lineHeight: 1.2,
-          }}
-        >
-          {lesson.title}
-        </div>
-        {/* Subtitle: XP + question count */}
-        <div
-          style={{
-            fontSize: 12,
-            fontWeight: 600,
-            color: state === 'locked' ? '#C8C8C8'
-              : isGolden ? '#A08520'
-              : state === 'completed' ? '#999'
-              : theme.color,
-            marginTop: 3,
-            lineHeight: 1,
-          }}
-        >
-          {state === 'completed'
-            ? `+${lesson.xpReward} XP earned`
-            : `+${lesson.xpReward} XP · ${questionCount > 0 ? `${questionCount} Q` : 'Quick lesson'}`
-          }
-        </div>
-
-        {/* Level progress dots for completed lessons */}
-        {state === 'completed' && (
-          <LevelDots current={stars ?? 0} max={Math.min(maxLevels, 4)} color={theme.color} isGolden={isGolden} />
-        )}
-      </div>
-
-      {/* Right side: badge or GO button */}
-      <div className="flex-shrink-0">
-        {state === 'current' ? (
           <div
-            className="go-btn-pulse"
-            style={
-              {
-                background: theme.color,
-                color: '#FFFFFF',
-                fontSize: 13,
-                fontWeight: 800,
-                padding: '8px 20px',
-                borderRadius: 12,
-                textTransform: 'uppercase',
-                letterSpacing: 0.8,
-                boxShadow: `0 4px 0 ${theme.dark}`,
-                '--go-shadow-color': theme.dark,
-                '--go-glow-color': `${theme.color}25`,
-              } as React.CSSProperties
-            }
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: isLocked ? '#C8C8C8'
+                : isGolden ? '#A08520'
+                : isCompleted ? '#999'
+                : theme.color,
+              marginTop: 3,
+              lineHeight: 1,
+            }}
           >
-            Go
+            {isCompleted
+              ? `+${lesson.xpReward} XP earned`
+              : `+${lesson.xpReward} XP${questionCount > 0 ? ` · ${questionCount} Q` : ''}`
+            }
           </div>
-        ) : state === 'completed' ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.25 }}>
-            <path d="M9 6l6 6-6 6" stroke="#888" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        ) : null}
+
+          {/* Level progress dots */}
+          {isCompleted && (
+            <LevelDots current={stars ?? 0} max={Math.min(maxLevels, 4)} color={theme.color} isGolden={isGolden} />
+          )}
+        </div>
+
+        {/* Right side */}
+        <div className="flex-shrink-0">
+          {isCurrent ? (
+            <div
+              className="go-btn-pulse transition-all duration-75"
+              style={
+                {
+                  background: theme.color,
+                  color: '#FFFFFF',
+                  fontSize: 13,
+                  fontWeight: 800,
+                  padding: '8px 22px',
+                  borderRadius: 12,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.8,
+                  boxShadow: `0 4px 0 ${theme.dark}`,
+                  '--go-shadow-color': theme.dark,
+                  '--go-glow-color': `${theme.color}25`,
+                } as React.CSSProperties
+              }
+            >
+              Go
+            </div>
+          ) : isCompleted ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.25 }}>
+              <path d="M9 6l6 6-6 6" stroke="#888" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          ) : null}
+        </div>
       </div>
     </motion.button>
   );
