@@ -1,6 +1,6 @@
 # Multi-Profession Transformation Plan
 
-Transform MechReady from a single-profession ME app into a multi-profession learning platform with a hearts/lives system, while keeping the existing ME course intact and adding a Finance starter unit.
+Transform Octokeen from a single-profession ME app into a multi-profession learning platform with a hearts/lives system, while keeping the existing ME course intact and adding a Finance starter unit.
 
 ## Current State
 - 10 ME units with ~1,700 questions in TypeScript files

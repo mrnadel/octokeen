@@ -4,7 +4,7 @@ test.describe('Landing page (unauthenticated)', () => {
   test('renders hero section with brand name and CTA', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.getByText('MechReady')).toBeVisible();
+    await expect(page.getByText('Octokeen')).toBeVisible();
     await expect(page.getByRole('link', { name: /get started|sign up/i })).toBeVisible();
   });
 

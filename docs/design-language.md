@@ -1,13 +1,13 @@
-# MechReady Design Language
+# Octokeen Design Language
 
-> Comprehensive visual design system for MechReady — a Duolingo-inspired gamified mechanical engineering interview prep app.
+> Comprehensive visual design system for Octokeen — a Duolingo-inspired gamified mechanical engineering interview prep app.
 > This document is the single source of truth for Claude (or any AI) designing pages, screens, and components.
 
 ---
 
 ## 1. Philosophy
 
-MechReady adapts Duolingo's design philosophy for engineering education:
+Octokeen adapts Duolingo's design philosophy for engineering education:
 
 - **Playful, not childish** — Bright colors and friendly shapes, but the content is serious engineering. The UI makes hard material feel approachable.
 - **Simple over clever** — Every element earns its place. Fewer shapes, fewer colors, fewer words. If removing something doesn't break understanding, remove it.
@@ -153,7 +153,7 @@ Nunito is Duolingo's recommended substitute for their proprietary Feather Bold. 
 
 ### 3.3 Typography Rules
 
-- **Always lowercase for branding** — Duolingo uses lowercase for headlines. MechReady follows suit for playful elements (achievement names, quest titles)
+- **Always lowercase for branding** — Duolingo uses lowercase for headlines. Octokeen follows suit for playful elements (achievement names, quest titles)
 - **Sentence case for UI text** — buttons, labels, navigation
 - **Never use ALL CAPS** except single-word badges (e.g., "PRO")
 - **Font feature settings:** `cv02, cv03, cv04, cv11` (enables Nunito's stylistic alternates)
@@ -463,7 +463,7 @@ repeat: infinite
 
 ## 8. Golden / Premium Effects
 
-MechReady's premium (Pro) tier uses a distinctive golden visual language:
+Octokeen's premium (Pro) tier uses a distinctive golden visual language:
 
 ```
 Base gold: #FFB800

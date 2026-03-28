@@ -6,7 +6,7 @@
 
 ## Context
 
-MechReady is a Duolingo-style Mechanical Engineering interview prep app. It already has a league system with simulated competitors, user profiles (self-view only), XP, streaks, levels, achievements, and topic mastery tracking.
+Octokeen is a Duolingo-style Mechanical Engineering interview prep app. It already has a league system with simulated competitors, user profiles (self-view only), XP, streaks, levels, achievements, and topic mastery tracking.
 
 **Problem:** The app is entirely single-player. The league system simulates competitors but doesn't connect real users. There's no way to find other users, see their progress, or build a social graph. This limits retention — users who have friends on a platform stay longer.
 

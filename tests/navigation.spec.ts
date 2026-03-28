@@ -67,7 +67,7 @@ test.describe('Navigation (authenticated)', () => {
   test('terms page renders legal content', async ({ page }) => {
     await page.goto('/terms');
     await expect(page.getByText(/terms of service|terms of use/i).first()).toBeVisible({ timeout: 10000 });
-    await expect(page.getByText(/MechReady/i).first()).toBeVisible();
+    await expect(page.getByText(/Octokeen/i).first()).toBeVisible();
   });
 
   test('privacy page renders legal content', async ({ page }) => {

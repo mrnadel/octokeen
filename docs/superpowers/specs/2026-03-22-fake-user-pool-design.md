@@ -6,7 +6,7 @@
 
 ## Context
 
-MechReady's league system generates 29 fresh competitors every Monday using a seeded PRNG. They have names from a 60-name pool, country flag emojis, and single-letter initials as avatars. XP is simulated with activity buckets. The competitors are thin — just a name, flag, initial, and XP number. There's no profile depth, no persistent history, and no way to distinguish "regulars" from "strangers."
+Octokeen's league system generates 29 fresh competitors every Monday using a seeded PRNG. They have names from a 60-name pool, country flag emojis, and single-letter initials as avatars. XP is simulated with activity buckets. The competitors are thin — just a name, flag, initial, and XP number. There's no profile depth, no persistent history, and no way to distinguish "regulars" from "strangers."
 
 **Problem:** With only 2 real users, the league feels hollow. Competitors are obviously fake — identical gray circles with initials, no history, no personality. The app needs to feel populated and alive.
 
@@ -81,7 +81,7 @@ interface FakeUserPool {
 }
 ```
 
-- **Key:** `mechready-fake-users` (separate from `mechready-engagement`)
+- **Key:** `octokeen-fake-users` (separate from `octokeen-engagement`)
 - **Size:** ~250 users × ~600 bytes ≈ 150KB (Masters users with 27 achievements and 11 topics are ~1KB; Bronze users with 0-3 achievements are ~300 bytes; average ~600 bytes)
 - **Version field** enables future migration — bumping version regenerates the pool
 
@@ -203,9 +203,9 @@ Topics are drawn from the existing 11 topic IDs. The number of topics and their 
 
 ### 5.1 One-Time Initialization
 
-On first app launch (or when `mechready-fake-users` key doesn't exist in localStorage):
+On first app launch (or when `octokeen-fake-users` key doesn't exist in localStorage):
 
-1. Seed PRNG with `hashSeed("mechready-fake-pool-v1")`
+1. Seed PRNG with `hashSeed("octokeen-fake-pool-v1")`
 2. Generate 250 users distributed across tiers:
    - **Bronze: ~80** (most users start here)
    - **Silver: ~70**
@@ -412,7 +412,7 @@ This distinction is checked via the `fakeUserId` field on `LeagueCompetitor`.
 
 - Real user XP earning, streak, level, achievement systems — untouched
 - League promotion/demotion rules and thresholds — identical
-- Engagement store structure (`mechready-engagement`) — fake users are separate storage
+- Engagement store structure (`octokeen-engagement`) — fake users are separate storage
 - Friends system design spec — can layer on top later
 - The 30-competitor-per-league model — still 29 bots + 1 real user
 - Quest system, gems, shop — untouched

@@ -1,4 +1,4 @@
-# MechReady — Project Documentation Index
+# Octokeen — Project Documentation Index
 
 > **Generated:** 2026-03-24 | **Scan Level:** Deep | **Mode:** Initial Scan
 

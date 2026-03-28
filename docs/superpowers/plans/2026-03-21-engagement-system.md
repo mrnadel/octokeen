@@ -4,7 +4,7 @@
 
 **Goal:** Build a 7-subsystem engagement loop (quests, gems, leagues, continuation hooks, streak enhancements, comeback mechanics, nudge cards) that drives users to complete more lessons and return daily.
 
-**Architecture:** New `useEngagementStore` Zustand store (persisted to `mechready-engagement`) manages all engagement state. Three library modules (`quest-engine`, `league-simulator`, `nudge-engine`) contain pure logic. UI components live in `src/components/engagement/`. The store integrates with existing `useStore` (canonical XP/streak source) and `useCourseStore` (lesson position) via calls at lesson/session completion and dashboard load.
+**Architecture:** New `useEngagementStore` Zustand store (persisted to `octokeen-engagement`) manages all engagement state. Three library modules (`quest-engine`, `league-simulator`, `nudge-engine`) contain pure logic. UI components live in `src/components/engagement/`. The store integrates with existing `useStore` (canonical XP/streak source) and `useCourseStore` (lesson position) via calls at lesson/session completion and dashboard load.
 
 **Tech Stack:** Next.js 16, React 19, TypeScript, Zustand 5 with persist middleware, Framer Motion, Tailwind CSS 4, lucide-react icons, Drizzle ORM + PostgreSQL.
 
@@ -1394,7 +1394,7 @@ Create `src/store/useEngagementStore.ts` with the full store implementation. The
    - `activateDoubleXp(duration)` — set expiry timestamp; accepts duration param to support both free (10min) and shop (30min) durations
 
 4. Use persist middleware with:
-   - `name: 'mechready-engagement'`
+   - `name: 'octokeen-engagement'`
    - `version: 1`
    - `partialize` to exclude computed/transient state
    - `merge` with safe defaults

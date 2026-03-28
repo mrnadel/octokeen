@@ -33,13 +33,13 @@ test.describe('Engagement systems', () => {
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 
     await page.addInitScript((dateStr) => {
-      const stored = JSON.parse(localStorage.getItem('mechready-engagement') || '{}');
+      const stored = JSON.parse(localStorage.getItem('octokeen-engagement') || '{}');
       if (stored.state?.streak) {
         stored.state.streak.lastPracticeDate = dateStr;
         stored.state.streak.current = 5;
         stored.state.streak.freezesAvailable = 1;
       }
-      localStorage.setItem('mechready-engagement', JSON.stringify(stored));
+      localStorage.setItem('octokeen-engagement', JSON.stringify(stored));
     }, twoDaysAgo.toISOString().slice(0, 10));
 
     await page.goto('/');

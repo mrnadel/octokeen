@@ -6,7 +6,7 @@
 
 ## Context
 
-MechReady is a Duolingo-style Mechanical Engineering interview prep app built with Next.js 16, React 19, Zustand, and PostgreSQL. It already has: XP, 30 levels, 24 achievements, streaks, stars (1-3 per lesson), daily challenges, 6 practice modes, and a 10-unit structured course.
+Octokeen is a Duolingo-style Mechanical Engineering interview prep app built with Next.js 16, React 19, Zustand, and PostgreSQL. It already has: XP, 30 levels, 24 achievements, streaks, stars (1-3 per lesson), daily challenges, 6 practice modes, and a 10-unit structured course.
 
 **Problem:** Users finish a session and leave. Retention drops after initial excitement. Users avoid harder topics. There's no short-term goal system, no competitive element, no secondary economy, and no "one more lesson" hooks.
 
@@ -395,7 +395,7 @@ Surface personalized, actionable motivation on the dashboard so the user always 
 
 ## State Management
 
-All new state lives in a new Zustand store: `useEngagementStore`, persisted to localStorage under key `mechready-engagement`.
+All new state lives in a new Zustand store: `useEngagementStore`, persisted to localStorage under key `octokeen-engagement`.
 
 ```typescript
 interface EngagementState {
@@ -445,8 +445,8 @@ interface EngagementState {
 ### Resolving the Dual-Store Architecture
 
 The existing app has two independent stores that track XP and streaks:
-- `useStore` (`mechready-storage`) — used by practice sessions, tracks `totalXp`, `currentStreak`, `lastActiveDate`
-- `useCourseStore` (`mechready-course`) — used by course lessons, tracks its own `totalXp`, `currentStreak`, `lastActiveDate`
+- `useStore` (`octokeen-storage`) — used by practice sessions, tracks `totalXp`, `currentStreak`, `lastActiveDate`
+- `useCourseStore` (`octokeen-course`) — used by course lessons, tracks its own `totalXp`, `currentStreak`, `lastActiveDate`
 
 **Decision: `useStore` is the canonical source for XP, streaks, and level.**
 
@@ -532,7 +532,7 @@ export const leagueState = pgTable('league_state', {
 
 ### Migration Strategy for Existing Users
 
-When the engagement system is deployed, existing users will have localStorage data in `mechready-storage` and `mechready-course` but no `mechready-engagement` key. On first load of the new version:
+When the engagement system is deployed, existing users will have localStorage data in `octokeen-storage` and `octokeen-course` but no `octokeen-engagement` key. On first load of the new version:
 
 1. **Gems:** Initialize `balance: 0`, `totalEarned: 0`. No retroactive gem awards — gems start fresh.
 2. **Quests:** Generate fresh daily/weekly quests as if it's a new day.
@@ -541,7 +541,7 @@ When the engagement system is deployed, existing users will have localStorage da
 5. **Comeback:** Not triggered on first load of new version (even if user was away), since it would be confusing alongside new feature discovery.
 6. **Double XP:** Not active.
 
-This is handled by the Zustand `persist` middleware's default values — when the `mechready-engagement` key doesn't exist, the store initializes with defaults and runs `initDailyQuests()` / `initWeeklyQuests()` on first dashboard load.
+This is handled by the Zustand `persist` middleware's default values — when the `octokeen-engagement` key doesn't exist, the store initializes with defaults and runs `initDailyQuests()` / `initWeeklyQuests()` on first dashboard load.
 
 ### Insufficient Gems Handling
 

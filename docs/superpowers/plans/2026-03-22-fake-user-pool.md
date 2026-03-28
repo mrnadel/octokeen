@@ -4,7 +4,7 @@
 
 **Goal:** Replace disposable weekly league competitors with a persistent pool of ~250 fake users that have varied identities, DiceBear avatars, profile depth, and weekly progression.
 
-**Architecture:** A new `fake-user-generator.ts` module handles pool creation, weekly progression, and competitor drawing. The pool is stored in localStorage under `mechready-fake-users`, separate from the engagement store. The existing `simulateCompetitorXp()` function continues to handle intra-week XP simulation unchanged. A new `CompetitorPreview` bottom sheet shows fake user profiles when tapping leaderboard rows.
+**Architecture:** A new `fake-user-generator.ts` module handles pool creation, weekly progression, and competitor drawing. The pool is stored in localStorage under `octokeen-fake-users`, separate from the engagement store. The existing `simulateCompetitorXp()` function continues to handle intra-week XP simulation unchanged. A new `CompetitorPreview` bottom sheet shows fake user profiles when tapping leaderboard rows.
 
 **Tech Stack:** TypeScript, Zustand (existing store), DiceBear (client-side SVG avatars), Framer Motion (bottom sheet animation), localStorage persistence.
 
@@ -485,7 +485,7 @@ import { getLevelForXp } from '@/data/levels';
 // --------------- Constants ---------------
 
 const POOL_VERSION = 1;
-const POOL_STORAGE_KEY = 'mechready-fake-users';
+const POOL_STORAGE_KEY = 'octokeen-fake-users';
 const MAX_POOL_SIZE = 300;
 
 const TIER_POOL_SIZES: Record<number, number> = {
@@ -782,7 +782,7 @@ function generateFakeUser(
 }
 
 export function generateFakeUserPool(): FakeUserPool {
-  const rng = seededRandom(hashSeed('mechready-fake-pool-v1'));
+  const rng = seededRandom(hashSeed('octokeen-fake-pool-v1'));
   const pool: FakeUser[] = [];
   let index = 0;
 
@@ -1217,7 +1217,7 @@ useEngagementStore.getState().checkComebackFlow();
 Run: `npm run build`
 Expected: No errors. The old `generateCompetitors` function is no longer imported by the store (it still exists in `league-simulator.ts` but is now unused — leave it for now as a reference).
 
-**Migration note:** Existing users who already have `mechready-engagement` in localStorage will see old-style competitors (without `fakeUserId`) until the next Monday rollover, when `simulateLeagueWeek()` detects a new week and calls `drawCompetitorsFromPool()`. This is expected and harmless — the old competitors work fine for the remaining days of the current week.
+**Migration note:** Existing users who already have `octokeen-engagement` in localStorage will see old-style competitors (without `fakeUserId`) until the next Monday rollover, when `simulateLeagueWeek()` detects a new week and calls `drawCompetitorsFromPool()`. This is expected and harmless — the old competitors work fine for the remaining days of the current week.
 
 - [ ] **Step 5: Manual smoke test**
 
@@ -1225,7 +1225,7 @@ Run: `npm run dev`
 1. Open the app in the browser
 2. Navigate to the league page
 3. Verify 29 competitors appear with names from the fake pool
-4. Check browser localStorage for `mechready-fake-users` key — should contain ~250 users
+4. Check browser localStorage for `octokeen-fake-users` key — should contain ~250 users
 5. Check that competitor names include varied quality (gamertags, casual, professional)
 
 - [ ] **Step 6: Commit**
@@ -1689,12 +1689,12 @@ Checklist:
 5. Bottom sheet closes on backdrop tap, X button, and Escape key
 6. Dashboard's LeagueCard mini-leaderboard also shows varied avatars
 7. User's row remains indigo and is not clickable
-8. Check localStorage `mechready-fake-users` — should contain ~250 users with diverse tiers
+8. Check localStorage `octokeen-fake-users` — should contain ~250 users with diverse tiers
 9. Promotion zone and demotion zone indicators still display correctly
 
 - [ ] **Step 4: Check localStorage size**
 
-Open browser DevTools → Application → Local Storage → `mechready-fake-users`.
+Open browser DevTools → Application → Local Storage → `octokeen-fake-users`.
 Expected: ~100-200KB of data (acceptable).
 
 - [ ] **Step 5: Commit any final fixes**

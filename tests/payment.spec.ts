@@ -59,7 +59,7 @@ test.describe('Payment / upgrade flow', () => {
   test('out-of-hearts modal shows upgrade option', async ({ page }) => {
     // Seed hearts store with 0 hearts
     await page.addInitScript(() => {
-      localStorage.setItem('mechready-hearts', JSON.stringify({
+      localStorage.setItem('octokeen-hearts', JSON.stringify({
         state: { hearts: 0, maxHearts: 5, lastRegenTime: Date.now(), regenIntervalMs: 1800000 },
         version: 0,
       }));

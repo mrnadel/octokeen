@@ -59,8 +59,8 @@ export async function seedLocalStorage(page: Page, overrides: Record<string, unk
       version: 0,
     };
 
-    localStorage.setItem('mechready-course-store', JSON.stringify(courseStore));
-    localStorage.setItem('mechready-engagement', JSON.stringify(engagementStore));
+    localStorage.setItem('octokeen-course-store', JSON.stringify(courseStore));
+    localStorage.setItem('octokeen-engagement', JSON.stringify(engagementStore));
 
     // Apply any overrides
     for (const [key, value] of Object.entries(data)) {

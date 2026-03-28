@@ -466,7 +466,7 @@ export default function InviteClient({ inviterName, inviterImage, inviteCode, lo
           {inviterName} invited you!
         </h1>
         <p className="text-sm text-surface-500 mb-6">
-          Join MechReady and study mechanical engineering together.
+          Join Octokeen and study mechanical engineering together.
         </p>
 
         {result === 'success' && (
@@ -501,7 +501,7 @@ export default function InviteClient({ inviterName, inviterImage, inviteCode, lo
               href="/register"
               className="w-full py-3 rounded-xl bg-primary-600 text-white font-bold text-sm hover:bg-primary-700 transition-colors text-center"
             >
-              Join MechReady
+              Join Octokeen
             </Link>
             <Link
               href="/login"
@@ -621,7 +621,7 @@ export default function InviteShare() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Join me on MechReady!',
+          title: 'Join me on Octokeen!',
           text: 'Practice mechanical engineering interview questions together.',
           url: inviteUrl,
         });
@@ -1488,7 +1488,7 @@ Log in, go to `/friends`. Verify the InviteShare card appears with a generated l
 
 - [ ] **Step 3: Test invite landing page**
 
-Open the copied invite link in an incognito window. Verify it shows the inviter's name and "Join MechReady" CTA.
+Open the copied invite link in an incognito window. Verify it shows the inviter's name and "Join Octokeen" CTA.
 
 - [ ] **Step 4: Test league Friends tab**
 

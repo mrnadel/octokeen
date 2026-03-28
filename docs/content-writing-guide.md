@@ -1,4 +1,4 @@
-# MechReady Content Writing Guide
+# Octokeen Content Writing Guide
 
 > This is the style guide for writing course content (lessons, questions, explanations, hints, teaching cards). Follow these rules when creating or editing any content in `src/data/course/`.
 
@@ -7,15 +7,15 @@
 ## Principles
 
 ### Why
-We're here to make professional knowledge accessible to everyone. This once involved expensive degrees, dense textbooks, and years of trial and error. MechReady kicked open the door. Now all you need is a screen, a few minutes a day, and the motivation to grow. Knowledge belongs to everyone. With MechReady, so does learning.
+We're here to make professional knowledge accessible to everyone. This once involved expensive degrees, dense textbooks, and years of trial and error. Octokeen kicked open the door. Now all you need is a screen, a few minutes a day, and the motivation to grow. Knowledge belongs to everyone. With Octokeen, so does learning.
 
 ### What
-The junior engineer who aced their interview. The career switcher who finally understood financial basics. The student who made thermodynamics click in 5 minutes instead of 5 hours. MechReady makes all this happen. We're everyone's favorite way to master professional skills, and mastering skills makes anything possible.
+The junior engineer who aced their interview. The career switcher who finally understood financial basics. The student who made thermodynamics click in 5 minutes instead of 5 hours. Octokeen makes all this happen. We're everyone's favorite way to master professional skills, and mastering skills makes anything possible.
 
 ### How
-Learning should feel like play, not pain. We combine technology with bite-sized lessons based on learning science. MechReady is effective, but it's never a chore.
+Learning should feel like play, not pain. We combine technology with bite-sized lessons based on learning science. Octokeen is effective, but it's never a chore.
 
-**Everyone can MechReady.**
+**Everyone can Octokeen.**
 
 ---
 
@@ -149,7 +149,7 @@ Bad: "Nope! That's wrong. Obviously net pay is less because deductions are taken
 
 | Term | Usage |
 |------|-------|
-| Learners | People who use MechReady. Never "users." |
+| Learners | People who use Octokeen. Never "users." |
 | Lessons | A set of teaching cards and questions on one topic. |
 | Questions | The interactive exercises within a lesson (multiple-choice, true-false, etc.) |
 | Teaching cards | Explanation cards between questions (type: "teaching") |

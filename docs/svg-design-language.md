@@ -1,4 +1,4 @@
-# MechReady SVG Design Language
+# Octokeen SVG Design Language
 
 > Based on [Duolingo's illustration system](https://design.duolingo.com/illustration/shape-language).
 > Mechanical engineering icons that feel playful, approachable, and instantly recognizable.

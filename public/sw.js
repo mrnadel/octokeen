@@ -1,4 +1,4 @@
-// Service worker for MechReady PWA + Push Notifications
+// Service worker for Octokeen PWA + Push Notifications
 
 // ─── Push Notifications ────────────────────────────────────
 
@@ -10,14 +10,14 @@ self.addEventListener('push', (event) => {
     body: data.body || '',
     icon: data.icon || '/icon-192.png',
     badge: data.badge || '/icon-badge.png',
-    tag: data.tag || 'mechready',
+    tag: data.tag || 'octokeen',
     data: { url: data.url || '/' },
     vibrate: [100, 50, 100],
-    actions: [{ action: 'open', title: 'Open MechReady' }],
+    actions: [{ action: 'open', title: 'Open Octokeen' }],
   };
 
   event.waitUntil(
-    self.registration.showNotification(data.title || 'MechReady', options)
+    self.registration.showNotification(data.title || 'Octokeen', options)
   );
 });
 

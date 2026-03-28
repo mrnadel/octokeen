@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add mutual friend requests, public user profiles, friend search, and a friends list page to MechReady.
+**Goal:** Add mutual friend requests, public user profiles, friend search, and a friends list page to Octokeen.
 
 **Architecture:** Two new DB tables (`friendships`, `friendRequests`) with Drizzle ORM. Nine new API routes under `/api/friends/` and `/api/user/`. Two new pages (`/friends`, `/user/[id]`). SWR for client-side data fetching with polling for the nav badge. All new UI in `src/components/friends/`.
 
