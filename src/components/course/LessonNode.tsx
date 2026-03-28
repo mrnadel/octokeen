@@ -108,14 +108,14 @@ export const LessonNode = memo(function LessonNode({
               padding: '12px 14px',
               gap: 12,
               background:
-                isLocked ? 'rgba(255,255,255,0.4)'
+                isLocked ? 'rgba(0,0,0,0.03)'
                 : isGolden ? undefined
-                : 'rgba(255,255,255,0.9)',
+                : `${theme.color}12`,
               border:
                 isLocked ? '1.5px solid rgba(0,0,0,0.04)'
                 : isGolden ? undefined
-                : isCurrent ? `2px solid ${theme.color}25`
-                : '1.5px solid rgba(255,255,255,0.9)',
+                : isCurrent ? `2px solid ${theme.color}30`
+                : `1.5px solid ${theme.color}18`,
             } as React.CSSProperties}
           >
             {/* Icon */}
