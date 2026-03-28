@@ -72,7 +72,7 @@ vi.mock('@/store/useStore', () => ({
 }));
 
 import { useEngagementStore } from '@/store/useEngagementStore';
-import { MAX_STREAK_FREEZES, MAX_GEM_TRANSACTIONS_CLIENT } from '@/data/engagement-types';
+import { MAX_STREAK_FREEZES, MAX_GEM_TRANSACTIONS_CLIENT, type NudgeType } from '@/data/engagement-types';
 
 function getDefaultState() {
   return {
@@ -81,6 +81,8 @@ function getDefaultState() {
       totalEarned: 0,
       transactions: [],
       inventory: { activeTitles: [], activeFrames: [] },
+      selectedTitle: null,
+      selectedFrame: null,
     },
     dailyQuests: [],
     weeklyQuests: [],
@@ -110,8 +112,9 @@ function getDefaultState() {
       isInComebackFlow: false,
       comebackQuestsCompleted: 0,
       daysAway: 0,
+      lastDismissedDate: null,
     },
-    dismissedNudges: [] as string[],
+    dismissedNudges: [] as NudgeType[],
     doubleXpExpiry: null,
   };
 }
@@ -585,7 +588,7 @@ describe('useEngagementStore', () => {
   describe('completeComebackQuest', () => {
     it('increments comebackQuestsCompleted', () => {
       useEngagementStore.setState({
-        comeback: { isInComebackFlow: true, comebackQuestsCompleted: 0, daysAway: 5 },
+        comeback: { isInComebackFlow: true, comebackQuestsCompleted: 0, daysAway: 5, lastDismissedDate: null },
       });
 
       useEngagementStore.getState().completeComebackQuest();
@@ -594,7 +597,7 @@ describe('useEngagementStore', () => {
 
     it('ends comeback flow after 3 quests completed', () => {
       useEngagementStore.setState({
-        comeback: { isInComebackFlow: true, comebackQuestsCompleted: 2, daysAway: 5 },
+        comeback: { isInComebackFlow: true, comebackQuestsCompleted: 2, daysAway: 5, lastDismissedDate: null },
       });
 
       useEngagementStore.getState().completeComebackQuest();

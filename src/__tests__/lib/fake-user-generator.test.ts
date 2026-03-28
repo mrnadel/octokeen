@@ -313,7 +313,7 @@ describe('generateTopicMastery (via pool inspection)', () => {
   });
 
   it('all topic IDs reference real topics', () => {
-    const topicIds = new Set(topics.map((t) => t.id));
+    const topicIds = new Set<string>(topics.map((t) => t.id));
     for (const user of pool.pool) {
       for (const tm of user.topicMastery) {
         expect(topicIds.has(tm.topicId)).toBe(true);

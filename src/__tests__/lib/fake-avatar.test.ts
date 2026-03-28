@@ -17,11 +17,13 @@ function makeFakeUser(overrides: Partial<FakeUser> = {}): FakeUser {
     totalXp: 1000,
     currentStreak: 5,
     longestStreak: 10,
+    accuracy: 0.8,
     currentTier: 2,
     activityLevel: 0.7,
     consistency: 0.6,
     achievementsUnlocked: [],
     topicMastery: [],
+    lastProgressedWeek: '2025-01-01',
     ...overrides,
   };
 }

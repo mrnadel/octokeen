@@ -304,6 +304,7 @@ describe('comeback flow detection', () => {
         isInComebackFlow: true,
         comebackQuestsCompleted: 1,
         daysAway: 5,
+        lastDismissedDate: null,
       },
     });
     setLastActiveDate(getDaysAgo(10));

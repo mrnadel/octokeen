@@ -146,7 +146,7 @@ export interface Unit {
   lessons: Lesson[];
 }
 
-interface LessonProgress {
+export interface LessonProgress {
   stars: number;       // 1-3 based on successful attempt count (not accuracy)
   bestAccuracy: number;
   attempts: number;    // incremented on every completion

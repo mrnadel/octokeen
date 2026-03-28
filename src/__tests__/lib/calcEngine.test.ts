@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { evaluate } from '@/components/calculator/calcEngine';
 
 describe('calcEngine', () => {

@@ -1,3 +1,4 @@
+import { afterEach } from 'vitest'
 import '@testing-library/jest-dom/vitest'
 
 // Mock localStorage for Zustand persistence

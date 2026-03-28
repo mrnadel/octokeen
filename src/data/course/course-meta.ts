@@ -240,11 +240,11 @@ export async function loadUnitData(unitIndex: number, professionId?: string): Pr
   }
 
   if (professionId === 'psychology') {
-    return loadProfessionUnit(unitIndex, psychologyCourseMeta);
+    return loadPsychologyUnit(unitIndex);
   }
 
   if (professionId === 'space-astronomy') {
-    return loadProfessionUnit(unitIndex, spaceCourseMeta);
+    return loadSpaceUnit(unitIndex);
   }
 
   // Default: mechanical-engineering
@@ -304,9 +304,40 @@ async function loadFinanceUnit(unitIndex: number): Promise<Unit> {
  * Returns lightweight metadata (no questions). Once unit files are created,
  * add profession-specific loaders like loadFinanceUnit above.
  */
-async function loadProfessionUnit(unitIndex: number, meta: Unit[]): Promise<Unit> {
-  if (unitIndex < 0 || unitIndex >= meta.length) {
-    throw new Error(`Invalid unit index: ${unitIndex}`);
+async function loadPsychologyUnit(unitIndex: number): Promise<Unit> {
+  const loaders: (() => Promise<Unit>)[] = [
+    () => import('./professions/psychology/units/unit-1').then(m => m.unit1),
+    () => import('./professions/psychology/units/unit-2').then(m => m.unit2),
+    () => import('./professions/psychology/units/unit-3').then(m => m.unit3),
+    () => import('./professions/psychology/units/unit-4').then(m => m.unit4),
+    () => import('./professions/psychology/units/unit-5').then(m => m.unit5),
+    () => import('./professions/psychology/units/unit-6').then(m => m.unit6),
+    () => import('./professions/psychology/units/unit-7').then(m => m.unit7),
+    () => import('./professions/psychology/units/unit-8').then(m => m.unit8),
+    () => import('./professions/psychology/units/unit-9').then(m => m.unit9),
+    () => import('./professions/psychology/units/unit-10').then(m => m.unit10),
+  ];
+  if (unitIndex < 0 || unitIndex >= loaders.length) {
+    throw new Error(`Invalid psychology unit index: ${unitIndex}`);
   }
-  return meta[unitIndex];
+  return loaders[unitIndex]();
+}
+
+async function loadSpaceUnit(unitIndex: number): Promise<Unit> {
+  const loaders: (() => Promise<Unit>)[] = [
+    () => import('./professions/space-astronomy/units/unit-1').then(m => m.unit1),
+    () => import('./professions/space-astronomy/units/unit-2').then(m => m.unit2),
+    () => import('./professions/space-astronomy/units/unit-3').then(m => m.unit3),
+    () => import('./professions/space-astronomy/units/unit-4').then(m => m.unit4),
+    () => import('./professions/space-astronomy/units/unit-5').then(m => m.unit5),
+    () => import('./professions/space-astronomy/units/unit-6').then(m => m.unit6),
+    () => import('./professions/space-astronomy/units/unit-7').then(m => m.unit7),
+    () => import('./professions/space-astronomy/units/unit-8').then(m => m.unit8),
+    () => import('./professions/space-astronomy/units/unit-9').then(m => m.unit9),
+    () => import('./professions/space-astronomy/units/unit-10').then(m => m.unit10),
+  ];
+  if (unitIndex < 0 || unitIndex >= loaders.length) {
+    throw new Error(`Invalid space unit index: ${unitIndex}`);
+  }
+  return loaders[unitIndex]();
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { Quest, QuestDefinition } from '@/data/engagement-types';
+import type { Quest, QuestDefinition, NudgeType } from '@/data/engagement-types';
 
 // Mock the quest engine
 vi.mock('@/lib/quest-engine', () => {
@@ -117,8 +117,9 @@ function getDefaultState() {
       isInComebackFlow: false,
       comebackQuestsCompleted: 0,
       daysAway: 0,
+      lastDismissedDate: null,
     },
-    dismissedNudges: [] as string[],
+    dismissedNudges: [] as NudgeType[],
     doubleXpExpiry: null,
   };
 }

@@ -43,7 +43,7 @@ describe('useBackHandler', () => {
     renderHook(() => useBackHandler(false, onBack))
 
     const popstateCalls = addEventSpy.mock.calls.filter(
-      ([event]) => event === 'popstate'
+      ([event]: [string]) => event === 'popstate'
     )
     expect(popstateCalls).toHaveLength(0)
   })
@@ -65,7 +65,7 @@ describe('useBackHandler', () => {
     unmount()
 
     const removeCalls = removeEventSpy.mock.calls.filter(
-      ([event]) => event === 'popstate'
+      ([event]: [string]) => event === 'popstate'
     )
     expect(removeCalls).toHaveLength(1)
   })
