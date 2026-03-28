@@ -18,11 +18,22 @@ function pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length
 let _uid = 0;
 function uid() { return 'fx' + (++_uid); }
 
+// Batch keyframes into a single <style> per triggerFX call to avoid DOM bloat.
+let _pendingKF: string[] = [];
+let _activeStyles = new WeakMap<HTMLElement, HTMLStyleElement>();
+
 function injectKF(name: string, css: string) {
-  const s = document.createElement('style');
-  s.textContent = `@keyframes ${name}{${css}}`;
-  document.head.appendChild(s);
+  _pendingKF.push(`@keyframes ${name}{${css}}`);
   return name;
+}
+
+function flushKF(container: HTMLElement) {
+  if (_pendingKF.length === 0) return;
+  const s = document.createElement('style');
+  s.textContent = _pendingKF.join('\n');
+  document.head.appendChild(s);
+  _activeStyles.set(container, s);
+  _pendingKF = [];
 }
 
 function makeParticle(el: HTMLElement, style: Record<string, string>, animName: string, animDur: number, animDelay: number, fill = 'forwards') {
@@ -494,12 +505,16 @@ export function getFX(name: string): FXDefinition | undefined {
 export function triggerFX(container: HTMLElement, name: string) {
   const fx = getFX(name);
   if (!fx) { console.warn(`FX "${name}" not found`); return; }
-  container.innerHTML = '';
+  clearFX(container);
+  _pendingKF = [];
   fx.generate(container);
+  flushKF(container);
 }
 
 export function clearFX(container: HTMLElement) {
   container.innerHTML = '';
+  const s = _activeStyles.get(container);
+  if (s) { s.remove(); _activeStyles.delete(container); }
 }
 
 export const fxNames = fxRegistry.map(fx => fx.name);
