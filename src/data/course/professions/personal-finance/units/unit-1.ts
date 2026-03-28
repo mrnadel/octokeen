@@ -1,4 +1,5 @@
 import type { Unit } from '../../../types';
+import { coinGrowthStaircase, timelineArrow, coffeeYearlyCost, spendingPieChart, fixedVsVariable, paycheckBreakdown, taxFlowDiagram, needsVsWants, budget502020, budgetBarSplit, payYourselfFirst } from '../diagrams';
 
 export const unit1: Unit = {
   id: "pf-u1-your-money",
@@ -20,6 +21,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Every Dollar Tells a Story",
           explanation: "In Unit 0 you learned about income and expenses. Now let's look at something surprising: small amounts of money can make a huge difference over time.",
+          diagram: coinGrowthStaircase,
         },
         {
           id: "pf-u1-L0-Q1",
@@ -46,6 +48,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Daily to Monthly to Yearly",
           explanation: "Money works in time. 1/day = 30/month = 365/year. Small daily habits, whether spending or saving, become big numbers over time.",
+          diagram: timelineArrow,
         },
         {
           id: "pf-u1-L0-Q3",
@@ -114,6 +117,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "How Much Does Your Coffee Cost?",
           explanation: "A daily 5 coffee seems harmless. But what if you multiply that by every day of the year?",
+          diagram: coffeeYearlyCost,
         },
         {
           id: "pf-u1-L4-Q1",
@@ -218,6 +222,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Where Does Your Money Go?",
           explanation: "You just saw how daily spending adds up. Now the question is: where is YOUR money actually going? Most people can't explain 30-40% of their spending.",
+          diagram: spendingPieChart,
           hint: "Try this now: open your bank app and scroll through last month's transactions.",
         },
         {
@@ -232,6 +237,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Fixed vs Variable Expenses",
           explanation: "Fixed expenses stay the same every month: rent, insurance, subscriptions. Variable expenses change: groceries, gas, eating out.",
+          diagram: fixedVsVariable,
           hint: "Rent is always 1,200. Groceries could be 200 or 450. That's fixed vs variable.",
         },
         {
@@ -434,6 +440,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Let's Talk About Your Paycheck",
           explanation: "When you work, your employer pays you. But the number in your bank is smaller than your actual salary. Some money gets taken out before it reaches you.",
+          diagram: paycheckBreakdown,
         },
         {
           id: "pf-u1-L1-Q1",
@@ -447,6 +454,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "What Are Taxes?",
           explanation: "Taxes are money everyone pays to the government. It funds roads, hospitals, schools, and police. The government takes it from your paycheck automatically.",
+          diagram: taxFlowDiagram,
           hint: "Think of taxes like a membership fee for living in your country.",
         },
         {
@@ -524,6 +532,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "Need or Want?",
           explanation: "A need is something you can't function without: food, shelter, basic transportation. A want is everything else. Your brain is good at disguising wants as needs.",
+          diagram: needsVsWants,
           hint: "Ask: 'Would my health, safety, or work be at risk without this?' If no, it's a want.",
         },
         {
@@ -636,6 +645,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "The 50/30/20 Rule",
           explanation: "Split your net pay into three buckets. 50% for needs (rent, groceries, bills). 30% for wants (eating out, entertainment). 20% for savings and debt.",
+          diagram: budget502020,
           hint: "3,000/month net = 1,500 needs, 900 wants, 600 savings.",
         },
         {
@@ -649,6 +659,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L5-Q3",
           type: "multiple-choice",
+          diagram: budgetBarSplit,
           question: "Your net pay is 4,000/month. Under 50/30/20, how much goes to wants?",
           options: [
             "1,200",
@@ -810,6 +821,7 @@ export const unit1: Unit = {
           type: "teaching",
           question: "The Golden Rule of Money",
           explanation: "Most people spend first and save what's left. Problem: there's never anything left. Flip it. Save first, spend the rest.",
+          diagram: payYourselfFirst,
           hint: "Treat savings like your most important bill. It's due first.",
         },
         {
