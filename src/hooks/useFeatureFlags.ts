@@ -19,7 +19,10 @@ export const useFlagStore = create<FlagStore>((set) => ({
   load: async () => {
     try {
       const res = await fetch('/api/feature-flags');
-      if (!res.ok) return;
+      if (!res.ok) {
+        set({ loaded: true });
+        return;
+      }
       const { flags } = await res.json();
       set({ flags, loaded: true });
     } catch {

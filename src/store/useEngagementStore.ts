@@ -483,6 +483,8 @@ export const useEngagementStore = create<EngagementStore>()(
                   lastActiveDate: yesterdayStr,
                 },
               }));
+            }).catch((err) => {
+              console.error('[repairStreak] Failed to sync streak to course store:', err);
             });
           }
 

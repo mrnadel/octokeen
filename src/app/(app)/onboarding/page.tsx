@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, Zap, Heart, Trophy, Flame } from 'lucide-react';
@@ -45,18 +45,22 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
   const startLesson = useCourseStore((s) => s.startLesson);
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
+  const redirected = useRef(false);
 
   // If user already onboarded (returning user hitting this URL), redirect home
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || redirected.current) return;
     if (localStorage.getItem(ONBOARDED_KEY)) {
+      redirected.current = true;
       router.replace('/');
     }
   }, [router]);
 
   // If user already has completed lessons, skip onboarding
   useEffect(() => {
+    if (redirected.current) return;
     if (Object.keys(completedLessons).length > 0) {
+      redirected.current = true;
       localStorage.setItem(ONBOARDED_KEY, '1');
       router.replace('/');
     }

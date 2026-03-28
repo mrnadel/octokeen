@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -20,9 +20,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const { status } = useSession();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const checkedRef = useRef(false);
 
   useEffect(() => {
-    if (status !== 'authenticated') return;
+    if (status !== 'authenticated' || checkedRef.current) return;
+    checkedRef.current = true;
     // Quick admin check: try fetching any admin endpoint
     fetch('/api/admin/users', { method: 'HEAD' }).then((res) => {
       setIsAdmin(res.ok);

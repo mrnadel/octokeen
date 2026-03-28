@@ -214,8 +214,15 @@ export const useCourseStore = create<CourseState>()(
             const updated = [...get().courseData];
             updated[unitIndex] = fullUnit;
             set({ courseData: updated });
-            // Retry with full data now available
-            get().startLesson(unitIndex, lessonIndex, golden);
+            // Verify data actually loaded before retrying (prevents infinite recursion)
+            const loadedLesson = fullUnit.lessons[lessonIndex];
+            if (loadedLesson && isLessonContentLoaded(loadedLesson)) {
+              get().startLesson(unitIndex, lessonIndex, golden);
+            } else {
+              console.error('[startLesson] Unit data loaded but lesson content still empty:', unitIndex, lessonIndex);
+            }
+          }).catch((err) => {
+            console.error('[startLesson] Failed to load unit data:', err);
           });
           return;
         }

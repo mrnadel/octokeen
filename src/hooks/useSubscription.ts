@@ -55,9 +55,13 @@ export const useSubscriptionStore = create<SubscriptionState>()((set, get) => ({
           cancelAtPeriodEnd: subscription.cancelAtPeriodEnd,
           hasFetched: true,
         });
+      } else {
+        // Server returned error - mark as fetched to prevent infinite retries
+        set({ hasFetched: true });
       }
     } catch {
       // Silently fail — user stays on free tier
+      set({ hasFetched: true });
     } finally {
       set({ isLoading: false });
     }

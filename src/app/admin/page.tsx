@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function AdminIndexPage() {
   const router = useRouter();
+  const redirected = useRef(false);
 
   useEffect(() => {
+    if (redirected.current) return;
+    redirected.current = true;
     router.replace('/admin/feedback');
   }, [router]);
 

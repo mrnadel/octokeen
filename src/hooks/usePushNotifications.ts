@@ -36,8 +36,10 @@ export function usePushNotifications() {
     }
 
     // Check existing subscription
+    let cancelled = false;
     navigator.serviceWorker.ready.then((reg) => {
-      reg.pushManager.getSubscription().then((sub) => {
+      return reg.pushManager.getSubscription().then((sub) => {
+        if (cancelled) return;
         if (sub) {
           setSubscription(sub);
           setState('granted');
@@ -45,7 +47,11 @@ export function usePushNotifications() {
           setState(permission === 'granted' ? 'granted' : 'prompt');
         }
       });
+    }).catch(() => {
+      if (!cancelled) setState('unsupported');
     });
+
+    return () => { cancelled = true; };
   }, []);
 
   const subscribe = useCallback(async () => {
