@@ -425,6 +425,7 @@ export function CourseMap() {
                   }
                   theme={theme}
                   professionId={activeProfession}
+                  onClick={() => router.push('/units')}
                 />
 
                 {/* Floating "Jump here" button for placement-test-eligible locked units */}

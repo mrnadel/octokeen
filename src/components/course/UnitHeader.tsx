@@ -16,6 +16,8 @@ interface UnitHeaderProps {
   isAllGolden?: boolean;
   theme: UnitTheme;
   professionId?: string;
+  showProgress?: boolean;
+  onClick?: () => void;
 }
 
 const GOLD = '#FFB800';
@@ -31,21 +33,19 @@ export const UnitHeader = memo(function UnitHeader({
   isAllGolden,
   theme,
   professionId,
+  showProgress = false,
+  onClick,
 }: UnitHeaderProps) {
   const progressPercent =
     totalInUnit > 0 ? (completedInUnit / totalInUnit) * 100 : 0;
 
   const bg = isAllGolden ? GOLD : theme.color;
+  const shadowColor = isAllGolden ? GOLD_DARK : theme.dark;
+  const isClickable = !!onClick;
+  const shadowH = isClickable ? 5 : 0;
 
-  return (
-    <div
-      className="select-none"
-      style={{
-        borderRadius: 20,
-        backgroundColor: bg,
-        padding: '18px 20px 16px',
-      }}
-    >
+  const content = (
+    <>
       {/* Top row: text + illustration */}
       <div className="flex items-center" style={{ gap: 12 }}>
         <div className="flex-1 min-w-0">
@@ -128,46 +128,113 @@ export const UnitHeader = memo(function UnitHeader({
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div
-        className="flex items-center"
-        style={{ marginTop: 14, gap: 10 }}
-      >
+      {/* Progress bar (only when showProgress is true) */}
+      {showProgress && (
         <div
-          className="flex-1 overflow-hidden"
-          role="progressbar"
-          aria-valuenow={completedInUnit}
-          aria-valuemin={0}
-          aria-valuemax={totalInUnit}
-          aria-label={`Unit progress: ${completedInUnit} of ${totalInUnit} lessons`}
-          style={{
-            height: 10,
-            borderRadius: 5,
-            background: 'rgba(0,0,0,0.15)',
-          }}
+          className="flex items-center"
+          style={{ marginTop: 14, gap: 10 }}
         >
-          <motion.div
+          <div
+            className="flex-1 overflow-hidden"
+            role="progressbar"
+            aria-valuenow={completedInUnit}
+            aria-valuemin={0}
+            aria-valuemax={totalInUnit}
+            aria-label={`Unit progress: ${completedInUnit} of ${totalInUnit} lessons`}
             style={{
-              height: '100%',
+              height: 10,
               borderRadius: 5,
-              backgroundColor: '#FFFFFF',
+              background: 'rgba(0,0,0,0.15)',
             }}
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-          />
+          >
+            <motion.div
+              style={{
+                height: '100%',
+                borderRadius: 5,
+                backgroundColor: '#FFFFFF',
+              }}
+              initial={{ width: 0 }}
+              animate={{ width: `${progressPercent}%` }}
+              transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+            />
+          </div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 800,
+              color: 'rgba(255,255,255,0.75)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {completedInUnit}/{totalInUnit}
+          </div>
         </div>
+      )}
+
+      {/* Chevron hint for clickable headers */}
+      {isClickable && (
         <div
+          className="absolute"
           style={{
-            fontSize: 12,
-            fontWeight: 800,
-            color: 'rgba(255,255,255,0.75)',
-            whiteSpace: 'nowrap',
+            right: 16,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            opacity: 0.5,
           }}
         >
-          {completedInUnit}/{totalInUnit}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M9 6l6 6-6 6" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
+      )}
+    </>
+  );
+
+  if (isClickable) {
+    return (
+      <div className="relative select-none" style={{ paddingBottom: shadowH }}>
+        {/* 3D shadow layer */}
+        <div
+          className="absolute left-0 right-0 bottom-0"
+          style={{
+            height: `calc(100% - ${shadowH}px)`,
+            top: shadowH,
+            borderRadius: 20,
+            background: shadowColor,
+          }}
+        />
+
+        {/* Surface card */}
+        <button
+          className="relative w-full text-left select-none active:translate-y-[var(--sh)] transition-transform duration-75"
+          style={{
+            '--sh': `${shadowH}px`,
+            borderRadius: 20,
+            backgroundColor: bg,
+            padding: '18px 20px 16px',
+            border: 'none',
+            cursor: 'pointer',
+            WebkitTapHighlightColor: 'transparent',
+          } as React.CSSProperties}
+          onClick={onClick}
+          aria-label={`Browse Unit ${unitIndex + 1}: ${unit.title}`}
+        >
+          {content}
+        </button>
       </div>
+    );
+  }
+
+  return (
+    <div
+      className="select-none"
+      style={{
+        borderRadius: 20,
+        backgroundColor: bg,
+        padding: '18px 20px 16px',
+      }}
+    >
+      {content}
     </div>
   );
 });
