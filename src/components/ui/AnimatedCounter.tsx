@@ -31,7 +31,7 @@ export function AnimatedCounter({
   const [delta, setDelta] = useState<number | null>(null);
   const prevRef = useRef(value);
   const rafRef = useRef<number>(0);
-  const deltaTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const deltaTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const mountedRef = useRef(false);
 
   useEffect(() => {

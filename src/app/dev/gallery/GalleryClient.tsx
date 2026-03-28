@@ -38,7 +38,7 @@ const noop = () => {};
 
 // ─── Store Mock Helpers ──────────────────────────────
 
-function setLeagueMock(rank: number, promoted: boolean, demoted: boolean, tier: string) {
+function setLeagueMock(rank: number, promoted: boolean, demoted: boolean, tier: number) {
   useEngagementStore.setState((s) => ({
     league: {
       ...s.league,
@@ -104,7 +104,7 @@ const SCREENS: ScreenDef[] = [
     id: 'streak-freeze', label: 'StreakFreeze (Repair)', section: 'Celebrations',
     setup: () => useEngagementStore.setState((s) => ({
       streak: { ...s.streak, repairAvailable: true, repairCost: 50, currentStreak: 0, bestStreak: 12 },
-      gems: 100,
+      gems: { ...s.gems, balance: 100 },
     })),
     cleanup: () => useEngagementStore.setState((s) => ({
       streak: { ...s.streak, repairAvailable: false },
@@ -117,7 +117,7 @@ const SCREENS: ScreenDef[] = [
     id: 'league-winner', label: 'LeagueWinner', section: 'League',
     setup: () => {
       useEngagementStore.setState((s) => ({
-        league: { ...s.league, resultSeen: false, winnerSeen: false, lastWeekResult: { rank: 1, xp: 520, promoted: true, demoted: false, stayed: false, tier: 'gold', gemsEarned: 20 } },
+        league: { ...s.league, resultSeen: false, winnerSeen: false, lastWeekResult: { rank: 1, xp: 520, promoted: true, demoted: false, stayed: false, tier: 3, gemsEarned: 20 } },
       }));
     },
     cleanup: () => {
@@ -129,19 +129,19 @@ const SCREENS: ScreenDef[] = [
   },
   {
     id: 'league-promoted', label: 'LeaguePromotion (Promoted)', section: 'League',
-    setup: () => setLeagueMock(2, true, false, 'gold'),
+    setup: () => setLeagueMock(2, true, false, 3),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
   {
     id: 'league-stayed', label: 'LeaguePromotion (Stayed)', section: 'League',
-    setup: () => setLeagueMock(8, false, false, 'silver'),
+    setup: () => setLeagueMock(8, false, false, 2),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
   {
     id: 'league-demoted', label: 'LeaguePromotion (Demoted)', section: 'League',
-    setup: () => setLeagueMock(14, false, true, 'bronze'),
+    setup: () => setLeagueMock(14, false, true, 1),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
