@@ -15,7 +15,7 @@ export function useScrollLock(active: boolean) {
     lockCount++;
     document.body.style.overflow = 'hidden';
     return () => {
-      lockCount--;
+      lockCount = Math.max(0, lockCount - 1);
       if (lockCount === 0) {
         document.body.style.overflow = '';
       }

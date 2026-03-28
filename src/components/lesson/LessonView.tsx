@@ -99,12 +99,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     if (!adapter && lessonResult) syncMastery();
   }, [adapter, lessonResult, syncMastery]);
 
-  // Lock body scroll while view is open
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
-  }, []);
+  // Scroll lock handled by useScrollLock(true) above
 
   // === LESSON-MODE DERIVED DATA ===
   const lessonData = useMemo(() => {
