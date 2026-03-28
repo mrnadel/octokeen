@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -95,6 +95,10 @@ export default function PricingPage() {
   const [checkoutError, setCheckoutError] = useState('');
   const { isProUser } = useSubscription();
   const { data: session } = useSession();
+
+  useEffect(() => {
+    analytics.feature('pricing_page_viewed', { is_pro: isProUser });
+  }, [isProUser]);
 
   const yearlySavings = getYearlySavingsPercent('pro');
   const monthlyPrice = TIERS.pro.priceMonthly;
