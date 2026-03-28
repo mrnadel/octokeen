@@ -1,5 +1,5 @@
 import type { Unit } from '../../../types';
-import { coinGrowthStaircase, timelineArrow, coffeeYearlyCost, spendingPieChart, fixedVsVariable, paycheckBreakdown, taxFlowDiagram, needsVsWants, budget502020, budgetBarSplit, payYourselfFirst, iconCoin, iconCoinStack, iconCoffee, iconPiggy, iconPaycheck, iconShoppingBag, iconHouse, iconCalendar, iconScale, iconSubscription, iconCalculator, iconShield, iconAutomation } from '../diagrams';
+import { coinGrowthStaircase, timelineArrow, coffeeYearlyCost, spendingPieChart, fixedVsVariable, paycheckBreakdown, taxFlowDiagram, needsVsWants, budget502020, budgetBarSplit, payYourselfFirst, iconCoin, iconCoinStack, iconCoffee, iconPiggy, iconPaycheck, iconShoppingBag, iconHouse, iconCalendar, iconScale, iconSubscription, iconCalculator, iconShield, iconAutomation, iconSnack, iconPhone, iconDetective, iconTransport, iconWarning, iconTax } from '../diagrams';
 
 export const unit1: Unit = {
   id: "pf-u1-your-money",
@@ -54,6 +54,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L0-Q3",
           type: "multiple-choice",
+          diagram: iconSnack,
           question: "You spend 2 on a snack every workday. How much is that per month? (20 workdays)",
           options: [
             "40",
@@ -99,6 +100,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L0-Q7",
           type: "true-false",
+          diagram: iconCoinStack,
           question: "If a daily habit costs 10/day, that's over 300/month.",
           correctAnswer: true,
           explanation: "10 × 30 = 300/month. Now imagine what that looks like over a whole year...",
@@ -125,6 +127,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L4-Q1",
           type: "true-false",
+          diagram: iconCoffee,
           question: "A cup of coffee from a cafe costs about 5 dollars.",
           correctAnswer: true,
           explanation: "Yep, about 5 on average. Seems small, right? Keep going.",
@@ -171,6 +174,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L4-Q5",
           type: "true-false",
+          diagram: iconCoinStack,
           question: "A 3 daily habit costs over 1,000 per year.",
           correctAnswer: true,
           explanation: "3 × 365 = 1,095 per year. Even 'just 3 bucks' adds up to four figures.",
@@ -258,6 +262,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L2-Q3",
           type: "fill-blank",
+          diagram: fixedVsVariable,
           question: "A _____ expense stays the same each month, while a _____ expense changes.",
           blanks: ["fixed", "variable"],
           wordBank: ["fixed", "variable", "gross", "net", "monthly", "annual"],
@@ -303,6 +308,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L2-Q7",
           type: "multiple-choice",
+          diagram: iconDetective,
           question: "What's the single best way to find out where your money goes?",
           options: [
             "Track every expense for one full month",
@@ -467,6 +473,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L1-Q2",
           type: "multiple-choice",
+          diagram: iconTax,
           question: "What do taxes pay for?",
           options: [
             "Your employer's profit",
@@ -496,6 +503,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L1-Q4",
           type: "fill-blank",
+          diagram: iconPaycheck,
           question: "The money that actually arrives in your bank is called _____ pay.",
           blanks: ["net"],
           wordBank: ["net", "gross", "base", "full"],
@@ -555,6 +563,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L3-Q2",
           type: "true-false",
+          diagram: iconPhone,
           question: "A phone is a need, but the newest model is a want.",
           correctAnswer: true,
           explanation: "You need a phone for work and emergencies. But a 200 phone does the same job as a 1,200 one. The upgrade is the want.",
@@ -569,7 +578,8 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L3-Q3",
           type: "multiple-choice",
-          question: "You need to get to work. Which is the 'need' and which adds 'want' on top?",
+          diagram: iconTransport,
+          question: "You need to get to work. Which is the 'need' and which adds 'want' ontop?",
           options: [
             "A reliable used car is the need, a BMW is the want on top",
             "A BMW is the need because it's safer",
@@ -582,6 +592,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L3-Q4",
           type: "fill-blank",
+          diagram: iconScale,
           question: "A _____ is something essential for survival or work. A _____ makes life more enjoyable but isn't essential.",
           blanks: ["need", "want"],
           wordBank: ["need", "want", "expense", "income", "luxury", "cost"],
@@ -660,6 +671,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L5-Q2",
           type: "fill-blank",
+          diagram: budget502020,
           question: "The 50/30/20 rule puts 50% to _____, 30% to _____, and 20% to _____.",
           blanks: ["needs", "wants", "savings"],
           wordBank: ["needs", "wants", "savings", "taxes", "debt", "fun", "rent"],
@@ -719,6 +731,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L5-Q7",
           type: "multiple-choice",
+          diagram: iconWarning,
           question: "You earn 3,000/month net. You spend 1,800 on needs and 1,000 on wants. How much is left for savings?",
           options: [
             "200, less than the recommended 600",
@@ -865,6 +878,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L6-Q3",
           type: "fill-blank",
+          diagram: iconPiggy,
           question: "The 'pay yourself first' method means you _____ before you _____.",
           blanks: ["save", "spend"],
           wordBank: ["save", "spend", "earn", "budget", "borrow", "plan"],
@@ -903,6 +917,7 @@ export const unit1: Unit = {
         {
           id: "pf-u1-L6-Q6",
           type: "true-false",
+          diagram: iconAutomation,
           question: "Automating your savings on payday is more effective than manually transferring money each month.",
           correctAnswer: true,
           explanation: "Automation removes the temptation to skip saving. When it happens before you see the money, you adjust your spending naturally.",

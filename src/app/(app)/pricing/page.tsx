@@ -153,21 +153,40 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#6B3FA0] to-[#4A2D7A] overflow-hidden relative">
-      {/* Floating sparkles */}
+      {/* Comet trails */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full"
+            className="absolute comet"
             style={{
-              width: `${3 + (i % 3) * 2}px`,
-              height: `${3 + (i % 3) * 2}px`,
-              left: `${5 + i * 10}%`,
-              top: `${10 + (i % 5) * 18}%`,
-              background: ['rgba(255,200,0,.3)', 'rgba(255,255,255,.2)', 'rgba(132,216,255,.25)', 'rgba(255,170,222,.25)'][i % 4],
-              animation: `pricing-sparkle ${2 + (i % 4) * 0.5}s ${i * 0.3}s ease-in-out infinite`,
+              top: `${8 + i * 15}%`,
+              right: `${-10 - (i % 3) * 5}%`,
+              width: `${80 + (i % 3) * 40}px`,
+              height: '2px',
+              animationDelay: `${i * 1.8 + (i % 2) * 0.6}s`,
+              animationDuration: `${2.2 + (i % 3) * 0.5}s`,
+              opacity: 0,
+              background: [
+                'linear-gradient(to left, rgba(255,200,0,.7), rgba(255,200,0,.2) 40%, transparent)',
+                'linear-gradient(to left, rgba(255,255,255,.6), rgba(200,180,255,.2) 40%, transparent)',
+                'linear-gradient(to left, rgba(132,216,255,.65), rgba(132,216,255,.15) 40%, transparent)',
+                'linear-gradient(to left, rgba(255,170,222,.6), rgba(255,170,222,.15) 40%, transparent)',
+                'linear-gradient(to left, rgba(255,220,100,.6), rgba(255,200,0,.15) 40%, transparent)',
+                'linear-gradient(to left, rgba(180,160,255,.6), rgba(180,160,255,.15) 40%, transparent)',
+              ][i],
             }}
-          />
+          >
+            <div
+              className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                width: `${4 + (i % 2) * 2}px`,
+                height: `${4 + (i % 2) * 2}px`,
+                background: ['#FFD700', '#fff', '#84D8FF', '#FFAADD', '#FFE070', '#C0B0FF'][i],
+                boxShadow: `0 0 ${6 + (i % 2) * 3}px ${['rgba(255,200,0,.6)', 'rgba(255,255,255,.5)', 'rgba(132,216,255,.5)', 'rgba(255,170,222,.5)', 'rgba(255,220,100,.5)', 'rgba(180,160,255,.5)'][i]}`,
+              }}
+            />
+          </div>
         ))}
       </div>
 
@@ -427,10 +446,28 @@ export default function PricingPage() {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50% { opacity: 0.8; transform: scale(1.1); }
         }
-        @keyframes pricing-sparkle {
-          0%, 100% { opacity: 0; transform: scale(0); }
-          30% { opacity: 1; transform: scale(1); }
-          70% { opacity: 0.5; transform: scale(0.8); }
+        .comet {
+          animation-name: comet-streak;
+          animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          animation-iteration-count: infinite;
+          transform: rotate(-35deg);
+          border-radius: 2px;
+        }
+        @keyframes comet-streak {
+          0% {
+            opacity: 0;
+            transform: rotate(-35deg) translateX(0);
+          }
+          5% {
+            opacity: 0.9;
+          }
+          60% {
+            opacity: 0.6;
+          }
+          100% {
+            opacity: 0;
+            transform: rotate(-35deg) translateX(calc(-100vw - 100px));
+          }
         }
       `}</style>
     </div>

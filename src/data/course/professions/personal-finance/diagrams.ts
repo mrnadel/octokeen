@@ -170,6 +170,74 @@ export const iconAutomation = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.o
   <polygon points="48,100 48,108 54,104" fill="#FFC800"/>
 </svg>`;
 
+/** Snack bag */
+export const iconSnack = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="30" y="28" width="60" height="72" rx="8" fill="#FF9600"/>
+  <rect x="30" y="28" width="60" height="22" rx="8" fill="#CC6B00"/>
+  <rect x="42" y="18" width="36" height="14" rx="4" fill="#FF9600"/>
+  <circle cx="60" cy="70" r="14" fill="#FFC800"/>
+  <text x="60" y="76" text-anchor="middle" font-size="14" font-weight="900" fill="#CC6B00" font-family="system-ui">$2</text>
+  <rect x="38" y="34" width="44" height="4" rx="2" fill="#E7A601"/>
+</svg>`;
+
+/** Phone */
+export const iconPhone = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="32" y="14" width="56" height="92" rx="12" fill="#4B4B4B"/>
+  <rect x="36" y="24" width="48" height="68" rx="6" fill="#84D8FF"/>
+  <rect x="42" y="34" width="36" height="8" rx="4" fill="#1CB0F6"/>
+  <rect x="42" y="48" width="28" height="8" rx="4" fill="#1CB0F6" opacity="0.6"/>
+  <rect x="42" y="62" width="32" height="8" rx="4" fill="#1CB0F6" opacity="0.4"/>
+  <circle cx="60" cy="100" r="4" fill="#777"/>
+  <rect x="50" y="18" width="20" height="4" rx="2" fill="#777"/>
+</svg>`;
+
+/** Magnifying glass / detective */
+export const iconDetective = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="52" cy="52" r="30" fill="#DDF4FF"/>
+  <circle cx="52" cy="52" r="24" fill="#BBF2FF"/>
+  <circle cx="52" cy="52" r="18" fill="#DDF4FF"/>
+  <text x="52" y="58" text-anchor="middle" font-size="16" font-weight="900" fill="#1CB0F6" font-family="system-ui">$?</text>
+  <rect x="72" y="72" width="12" height="36" rx="6" fill="#A56644" transform="rotate(-45 78 90)"/>
+  <rect x="72" y="72" width="12" height="10" rx="6" fill="#CD7900" transform="rotate(-45 78 77)"/>
+</svg>`;
+
+/** Bus / transport */
+export const iconTransport = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="30" width="80" height="54" rx="14" fill="#1CB0F6"/>
+  <rect x="20" y="30" width="80" height="20" rx="14" fill="#0F85BD"/>
+  <rect x="28" y="54" width="24" height="18" rx="4" fill="#84D8FF"/>
+  <rect x="60" y="54" width="24" height="18" rx="4" fill="#84D8FF"/>
+  <rect x="88" y="54" width="8" height="18" rx="4" fill="#84D8FF"/>
+  <circle cx="38" cy="90" r="8" fill="#4B4B4B"/>
+  <circle cx="38" cy="90" r="4" fill="#777"/>
+  <circle cx="82" cy="90" r="8" fill="#4B4B4B"/>
+  <circle cx="82" cy="90" r="4" fill="#777"/>
+  <rect x="14" y="56" width="8" height="14" rx="4" fill="#FFC800"/>
+  <rect x="98" y="56" width="8" height="14" rx="4" fill="#FF4B4B"/>
+</svg>`;
+
+/** Warning / budget gap */
+export const iconWarning = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="60,16 104,96 16,96" fill="#FFC800"/>
+  <polygon points="60,28 94,90 26,90" fill="#FFE680"/>
+  <rect x="56" y="46" width="8" height="24" rx="4" fill="#CC6B00"/>
+  <circle cx="60" cy="78" r="5" fill="#CC6B00"/>
+</svg>`;
+
+/** Tax / government building */
+export const iconTax = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="80" width="80" height="12" rx="4" fill="#FF7878"/>
+  <rect x="16" y="72" width="88" height="12" rx="4" fill="#FF4B4B"/>
+  <polygon points="60,20 16,60 104,60" fill="#FF4B4B"/>
+  <polygon points="60,28 24,56 96,56" fill="#FF7878"/>
+  <rect x="30" y="56" width="10" height="20" rx="3" fill="#FFB2B2"/>
+  <rect x="46" y="56" width="10" height="20" rx="3" fill="#FFB2B2"/>
+  <rect x="62" y="56" width="10" height="20" rx="3" fill="#FFB2B2"/>
+  <rect x="78" y="56" width="10" height="20" rx="3" fill="#FFB2B2"/>
+  <circle cx="60" cy="40" r="6" fill="#FFDFE0"/>
+  <text x="60" y="44" text-anchor="middle" font-size="8" font-weight="900" fill="#FF4B4B" font-family="system-ui">$</text>
+</svg>`;
+
 // ── Lesson 0: Small Money, Big Difference ──
 
 export const coinGrowthStaircase = `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
