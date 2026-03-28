@@ -2,7 +2,8 @@
 
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
 import SessionView from '@/components/session/SessionView';
-import { Calendar, Star, Flame } from 'lucide-react';
+import { Calendar, Star } from 'lucide-react';
+import { StreakFlame } from '@/components/icons/StreakFlame';
 
 const DAY_THEMES = [
   { dayName: 'Sunday', theme: 'Sunday Systems Review', description: 'Wrap up the week with a cross-topic review — connect concepts across disciplines.' },
@@ -54,7 +55,7 @@ export default function DailyChallengePage() {
             <Star className="w-4 h-4" /> Bonus XP
           </span>
           <span className="flex items-center gap-1 text-orange-600">
-            <Flame className="w-4 h-4" /> Streak builder
+            <StreakFlame state="active" size={16} /> Streak builder
           </span>
         </div>
       </div>

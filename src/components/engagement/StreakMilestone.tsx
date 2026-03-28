@@ -2,7 +2,8 @@
 
 import { type ComponentType } from 'react';
 import { motion } from 'framer-motion';
-import { Flame, Gem, Tag, Image as ImageIcon } from 'lucide-react';
+import { Gem, Tag, Image as ImageIcon } from 'lucide-react';
+import { StreakFlame } from '@/components/icons/StreakFlame';
 import type { StreakMilestoneDefinition } from '@/data/engagement-types';
 import { streakMilestones } from '@/data/streak-milestones';
 import { GameButton } from '@/components/ui/GameButton';
@@ -42,7 +43,7 @@ export function StreakMilestone({ milestone, onClose }: Props) {
       </motion.div>
 
       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-extrabold mb-3 bg-white/20 text-white">
-        <Flame className="w-4 h-4" />{milestone.days}-Day Streak!
+        <StreakFlame state="active" size={16} />{milestone.days}-Day Streak!
       </div>
 
       <h2 id="streak-milestone-title" className="text-[26px] font-extrabold text-white mb-2">{milestone.badgeName}</h2>

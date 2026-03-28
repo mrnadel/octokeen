@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Flame, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import { StreakFlame } from '@/components/icons/StreakFlame';
 import { motion } from 'framer-motion';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 
@@ -53,7 +54,7 @@ export default function FriendCard({
 
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <div className="flex items-center gap-1">
-            <Flame className="w-4 h-4 text-orange-500" />
+            <StreakFlame state={currentStreak > 0 ? 'active' : 'none'} size={16} />
             <span className="text-sm font-bold text-surface-700">{currentStreak}</span>
           </div>
           <div className="hidden sm:flex items-center gap-1">

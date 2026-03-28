@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCourseStore } from '@/store/useCourseStore';
 import { Sparkles } from 'lucide-react';
+import { StreakFlame, type StreakState } from '@/components/icons/StreakFlame';
 import { getProfession, PROFESSIONS } from '@/data/professions';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useGems, useEngagementStore, useDoubleXpActive } from '@/store/useEngagementStore';
@@ -154,6 +155,13 @@ export function CourseHeader() {
   const { status } = useSession();
   const progress = useCourseStore((s) => s.progress);
   const streakStatus = getStreakStatus(progress.lastActiveDate);
+  const flameState: StreakState = progress.currentStreak === 0
+    ? 'none'
+    : streakStatus === 'active'
+      ? 'active'
+      : streakStatus === 'at-risk'
+        ? 'weak'
+        : 'lost';
   const [popover, setPopover] = useState<PopoverType>(null);
   const { tier, hasFetched } = useSubscription();
   const gems = useGems();
@@ -239,15 +247,14 @@ export function CourseHeader() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-[#FAFAFA] px-4 sm:px-5 py-1.5 relative"
       >
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center justify-between w-full">
             {profession && (
               <button
                 ref={courseBtnRef}
-                className="flex items-center gap-1.5 rounded-xl transition-all active:scale-95 mr-auto"
+                className="flex items-center justify-center transition-all active:scale-95"
                 style={{
-                  padding: '4px 10px 4px 6px',
-                  minWidth: 44,
-                  minHeight: 44,
+                  width: 44,
+                  height: 44,
                   background: popover === 'course' ? `${profession.color}12` : 'transparent',
                   borderRadius: 12,
                 }}
@@ -256,19 +263,6 @@ export function CourseHeader() {
                 aria-expanded={popover === 'course'}
               >
                 <CourseIcon professionId={profession.id} color={profession.color} size={32} />
-                <span style={{ fontSize: 17, fontWeight: 800, color: popover === 'course' ? profession.color : '#3C3C3C' }}>
-                  {profession.shortName}
-                </span>
-                <svg
-                  width="14" height="8" viewBox="0 0 10 6" fill="none"
-                  style={{
-                    marginLeft: 1,
-                    transition: 'transform 0.2s',
-                    transform: popover === 'course' ? 'rotate(180deg)' : 'rotate(0deg)',
-                  }}
-                >
-                  <path d="M1 1L5 5L9 1" stroke={popover === 'course' ? profession.color : '#AFAFAF'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
               </button>
             )}
             <button
@@ -298,7 +292,7 @@ export function CourseHeader() {
               aria-label={`${progress.currentStreak} day streak`}
               aria-expanded={popover === 'streak'}
             >
-              <span style={{ fontSize: 28 }} aria-hidden="true">⚡</span>
+              <StreakFlame state={flameState} size={28} />
               <AnimatedCounter value={progress.currentStreak} showDelta deltaColor="#D97706" />
             </button>
 
@@ -459,11 +453,10 @@ export function CourseHeader() {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: 24,
                           boxShadow: '0 4px 12px rgba(245,158,11,0.3)',
                         }}
                       >
-                        ⚡
+                        <StreakFlame state="active" size={26} />
                       </div>
                       <div>
                         <h3 style={{ fontSize: 16, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
