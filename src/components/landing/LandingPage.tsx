@@ -55,35 +55,6 @@ const DEMO_QUESTIONS = [
   },
 ];
 
-/* ── Demo section: smooth-scrolls into view on mobile when it enters the viewport ── */
-function DemoSection({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLElement>(null);
-  const scrolled = useRef(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || scrolled.current) return;
-    // Only auto-snap on mobile-ish widths
-    if (window.innerWidth > 768) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !scrolled.current) {
-          scrolled.current = true;
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <section ref={ref} className="landing-demo-section" style={{ padding: '0 24px 80px', scrollMarginTop: 16 }}>
-      {children}
-    </section>
-  );
-}
-
 /* ── Scroll-triggered fade-in ── */
 function AnimateIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -140,7 +111,7 @@ const PartialIcon = () => (
 /* ── Main Landing Page ── */
 export function LandingPage() {
   return (
-    <div style={{ fontFamily: "'Nunito', sans-serif", background: '#FAFAFA', color: '#0F172A', minHeight: '100vh' }}>
+    <div className="landing-page" style={{ fontFamily: "'Nunito', sans-serif", background: '#FAFAFA', color: '#0F172A', minHeight: '100vh' }}>
 
       {/* ── NAV ── */}
       <nav aria-label="Main navigation" style={{
@@ -255,7 +226,7 @@ export function LandingPage() {
 
 
       {/* ── INTERACTIVE DEMO SECTION ── */}
-      <DemoSection>
+      <section className="landing-demo-section" style={{ padding: '0 24px 80px' }}>
         <div style={{ maxWidth: 580, margin: '0 auto' }}>
           <AnimateIn>
             <div style={{
@@ -277,7 +248,7 @@ export function LandingPage() {
             <InteractiveDemo />
           </AnimateIn>
         </div>
-      </DemoSection>
+      </section>
 
       {/* ── COMPARISON SECTION ── */}
       <section className="landing-compare-section" style={{
@@ -511,6 +482,11 @@ export function LandingPage() {
 
       {/* ── Responsive CSS ── */}
       <style>{`
+        @media (max-width: 768px) {
+          html { scroll-snap-type: y proximity; scroll-padding-top: 16px; }
+          .landing-demo-section { scroll-snap-align: start; }
+        }
+
         .landing-hero-h1 { font-size: 48px; }
         .landing-hero-p { font-size: 19px; }
         .landing-stat-num { font-size: 28px; }

@@ -22,16 +22,24 @@ export function useDbSync() {
     }
 
     let cancelled = false;
+    let hydrateTimeout: ReturnType<typeof setTimeout>;
 
     async function hydrate() {
       try {
         const activeProfession = useCourseStore.getState().activeProfession;
+
+        // Add a timeout so hydration doesn't hang forever on slow/dead network
+        const controller = new AbortController();
+        hydrateTimeout = setTimeout(() => controller.abort(), 15000);
+
+        const fetchOpts = { signal: controller.signal };
         const [progressRes, courseRes, feedbackRes, contentCourseRes] = await Promise.all([
-          fetch('/api/progress'),
-          fetch('/api/course-progress'),
-          fetch('/api/content-feedback'),
-          fetch(`/api/content/course?profession=${encodeURIComponent(activeProfession)}`),
+          fetch('/api/progress', fetchOpts),
+          fetch('/api/course-progress', fetchOpts),
+          fetch('/api/content-feedback', fetchOpts),
+          fetch(`/api/content/course?profession=${encodeURIComponent(activeProfession)}`, fetchOpts),
         ]);
+        clearTimeout(hydrateTimeout);
 
         if (cancelled) return;
 
@@ -168,6 +176,7 @@ export function useDbSync() {
 
     return () => {
       cancelled = true;
+      clearTimeout(hydrateTimeout);
     };
   }, [isAuthenticated]);
 
