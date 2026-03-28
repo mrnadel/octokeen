@@ -56,7 +56,7 @@ export const LessonNode = memo(function LessonNode({
   const isCurrent = state === 'current';
   const isCompleted = state === 'completed';
 
-  const shadowH = isLocked ? 0 : isCurrent ? 4 : 3;
+  const shadowH = isLocked ? 0 : isCurrent ? 6 : 5;
   const shadowColor = isGolden ? '#C8960B' : `${theme.dark}35`;
 
   return (

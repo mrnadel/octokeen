@@ -6,10 +6,10 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCourseStore } from '@/store/useCourseStore';
-import { Sparkles } from 'lucide-react';
+
 import { StreakFlame, type StreakState } from '@/components/icons/StreakFlame';
 import { getProfession, PROFESSIONS } from '@/data/professions';
-import { useSubscription } from '@/hooks/useSubscription';
+
 import { useGems, useEngagementStore, useDoubleXpActive } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
 import { shopItems } from '@/data/gem-shop';
@@ -152,7 +152,7 @@ function DoubleXpCountdown() {
 }
 
 export function CourseHeader() {
-  const { status } = useSession();
+  useSession();
   const progress = useCourseStore((s) => s.progress);
   const streakStatus = getStreakStatus(progress.lastActiveDate);
   const flameState: StreakState = progress.currentStreak === 0
@@ -163,7 +163,6 @@ export function CourseHeader() {
         ? 'weak'
         : 'lost';
   const [popover, setPopover] = useState<PopoverType>(null);
-  const { tier, hasFetched } = useSubscription();
   const gems = useGems();
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
@@ -316,7 +315,7 @@ export function CourseHeader() {
               aria-label={`${progress.totalXp.toLocaleString()} experience points`}
               aria-expanded={popover === 'xp'}
             >
-              <LevelBadge level={currentLevel} size={28} />
+              <LevelBadge level={currentLevel} size={36} />
             </button>
 
             <button
@@ -342,30 +341,6 @@ export function CourseHeader() {
               <AnimatedCounter value={gems.balance} showDelta deltaColor="#7C3AED" />
             </button>
 
-            {/* Upgrade CTA for free registered users */}
-            {hasFetched && tier === 'free' && status === 'authenticated' && (
-              <Link
-                href="/pricing"
-                className="flex items-center transition-transform active:scale-95"
-                style={{
-                  gap: 4,
-                  padding: '4px 10px',
-                  borderRadius: 8,
-                  background: '#FFF0DB',
-                  color: '#B56E00',
-                  fontSize: 13,
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.5,
-                  minHeight: 44,
-                  minWidth: 44,
-                  justifyContent: 'center',
-                }}
-              >
-                <Sparkles style={{ width: 14, height: 14 }} />
-                <span>Pro</span>
-              </Link>
-            )}
         </div>
         <AnimatePresence>
           <DoubleXpCountdown />
