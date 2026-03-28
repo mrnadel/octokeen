@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: 'Start your learning journey. Try a sample question, create your free account, and begin mastering any subject.',
   alternates: { canonical: '/get-started' },
   openGraph: {
-    title: 'Get Started with MechReady',
+    title: 'Get Started with Octokeen',
     description: 'Gamified learning across professions. Try a sample question and create your account in minutes.',
   },
 };

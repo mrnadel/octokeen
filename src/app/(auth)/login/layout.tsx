@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Log In',
-  description: 'Sign in to your MechReady account to continue learning and practicing.',
+  description: 'Sign in to your Octokeen account to continue learning and practicing.',
   alternates: { canonical: '/login' },
 };
 

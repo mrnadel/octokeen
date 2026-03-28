@@ -67,11 +67,11 @@ const SCREENS: ScreenDef[] = [
     id: 'trial-prompt', label: 'TrialPromptModal', section: 'Utility Modals',
     setup: () => {
       // Clear the "already shown" flag so the modal will open
-      if (typeof window !== 'undefined') localStorage.removeItem('mechready-trial-prompt-shown');
+      if (typeof window !== 'undefined') localStorage.removeItem('octokeen-trial-prompt-shown');
     },
     cleanup: () => {
       // Re-set it so it doesn't pop up elsewhere
-      if (typeof window !== 'undefined') localStorage.setItem('mechready-trial-prompt-shown', '1');
+      if (typeof window !== 'undefined') localStorage.setItem('octokeen-trial-prompt-shown', '1');
     },
     render: () => <TrialPromptModal />,
   },
@@ -252,7 +252,7 @@ export default function GalleryClient() {
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#fff', fontFamily: "'Inter', -apple-system, sans-serif", padding: '40px 20px 80px' }}>
       <h1 style={{ textAlign: 'center', fontSize: 26, fontWeight: 900, letterSpacing: -0.5, marginBottom: 4 }}>
-        MechReady Screen Gallery
+        Octokeen Screen Gallery
       </h1>
       <p style={{ textAlign: 'center', fontSize: 12, color: '#555', marginBottom: 8 }}>
         {SCREENS.length} live screens. All render real components. Click any to view full-size.

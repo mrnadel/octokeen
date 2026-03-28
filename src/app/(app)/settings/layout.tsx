@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Settings',
-  description: 'Manage your MechReady account settings, notifications, and preferences.',
+  description: 'Manage your Octokeen account settings, notifications, and preferences.',
   robots: { index: false },
 };
 

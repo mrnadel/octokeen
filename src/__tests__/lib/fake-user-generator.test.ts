@@ -395,10 +395,10 @@ describe('generateTopicMastery (via pool inspection)', () => {
 
 describe('initFakeUserPool', () => {
   it('creates a pool in localStorage if missing', () => {
-    expect(localStorage.getItem('mechready-fake-users')).toBeNull();
+    expect(localStorage.getItem('octokeen-fake-users')).toBeNull();
     const pool = initFakeUserPool();
     expect(pool.pool).toHaveLength(250);
-    expect(localStorage.getItem('mechready-fake-users')).not.toBeNull();
+    expect(localStorage.getItem('octokeen-fake-users')).not.toBeNull();
   });
 
   it('returns existing pool from localStorage without regenerating', () => {
@@ -413,14 +413,14 @@ describe('initFakeUserPool', () => {
 
   it('regenerates pool when version does not match', () => {
     const badPool = { version: 999, pool: [], lastWeekProcessed: '2025-01-01' };
-    localStorage.setItem('mechready-fake-users', JSON.stringify(badPool));
+    localStorage.setItem('octokeen-fake-users', JSON.stringify(badPool));
     const pool = initFakeUserPool();
     expect(pool.pool).toHaveLength(250);
     expect(pool.version).toBe(4);
   });
 
   it('regenerates pool when localStorage contains invalid JSON', () => {
-    localStorage.setItem('mechready-fake-users', 'NOT_JSON!!!');
+    localStorage.setItem('octokeen-fake-users', 'NOT_JSON!!!');
     const pool = initFakeUserPool();
     expect(pool.pool).toHaveLength(250);
   });

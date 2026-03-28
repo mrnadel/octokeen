@@ -1,5 +1,5 @@
 // Personal Finance Course Syllabus — 50 Units, 1000 Lessons
-// Generated for MechReady Duolingo-style learning platform
+// Generated for Octokeen Duolingo-style learning platform
 
 export interface SyllabusUnit {
   unitIndex: number;

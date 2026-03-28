@@ -1,5 +1,5 @@
 // ============================================================
-// Server-Side Access Control — MechReady SaaS
+// Server-Side Access Control — Octokeen SaaS
 // ============================================================
 
 import { eq, and, sql } from 'drizzle-orm';

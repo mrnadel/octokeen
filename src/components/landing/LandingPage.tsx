@@ -191,7 +191,7 @@ export function LandingPage() {
               fontWeight: 600, color: '#64748B', lineHeight: 1.6,
               maxWidth: 540, margin: '0 auto 36px',
             }}>
-              MechReady turns learning into a game. Pick your profession, earn XP, keep your streak, unlock achievements &mdash; and actually remember what you learn.
+              Octokeen turns learning into a game. Pick your profession, earn XP, keep your streak, unlock achievements &mdash; and actually remember what you learn.
             </p>
           </AnimateIn>
 
@@ -284,7 +284,7 @@ export function LandingPage() {
               textAlign: 'center', fontSize: 13, fontWeight: 800,
               textTransform: 'uppercase', letterSpacing: 1.5, color: '#C49200', marginBottom: 16,
             }}>
-              Why MechReady?
+              Why Octokeen?
             </div>
           </AnimateIn>
           <AnimateIn delay={0.1}>
@@ -331,14 +331,14 @@ export function LandingPage() {
               />
             </AnimateIn>
 
-            {/* MechReady (featured) */}
+            {/* Octokeen (featured) */}
             <AnimateIn delay={0.2}>
               <CompareCard
                 featured
                 iconBg="#DCFCE7"
                 iconColor="#16A34A"
                 icon={<><line x1="6" y1="12" x2="18" y2="12" /><line x1="12" y1="6" x2="12" y2="18" /><rect x="2" y="6" width="20" height="12" rx="3" /></>}
-                title="MechReady"
+                title="Octokeen"
                 subtitle="Active + fun"
                 items={[
                   { text: '11 interactive question types', type: 'check' },

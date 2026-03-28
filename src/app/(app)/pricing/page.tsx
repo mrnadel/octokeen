@@ -239,7 +239,7 @@ export default function PricingPage() {
             </div>
           </div>
 
-          <h1 className="text-[28px] font-black text-white tracking-tight mb-1">MechReady Pro</h1>
+          <h1 className="text-[28px] font-black text-white tracking-tight mb-1">Octokeen Pro</h1>
           <p className="text-sm text-white/50">Unlock your full potential</p>
         </motion.div>
 

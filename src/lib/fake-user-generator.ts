@@ -12,7 +12,7 @@ import { getCurrentWeekMonday } from '@/lib/quest-engine';
 // --------------- Constants ---------------
 
 const POOL_VERSION = 4; // v4: ~20% avatars with random photos (picsum), 80% initials only
-const POOL_STORAGE_KEY = 'mechready-fake-users';
+const POOL_STORAGE_KEY = 'octokeen-fake-users';
 const MAX_POOL_SIZE = 300;
 
 const TIER_POOL_SIZES: Record<number, number> = {
@@ -382,7 +382,7 @@ function generateFakeUser(
 }
 
 export function generateFakeUserPool(): FakeUserPool {
-  const rng = seededRandom(hashSeed('mechready-fake-pool-v1'));
+  const rng = seededRandom(hashSeed('octokeen-fake-pool-v1'));
   const pool: FakeUser[] = [];
   let index = 0;
 

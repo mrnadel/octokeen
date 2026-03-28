@@ -20,7 +20,7 @@ export function getDailyXpTarget(dailyMinutes: number): number {
 }
 
 // ─── localStorage helper ──────────────────────────────────
-const STORAGE_KEY = 'mechready-daily-xp-start';
+const STORAGE_KEY = 'octokeen-daily-xp-start';
 
 interface DailyXpSnapshot {
   date: string;

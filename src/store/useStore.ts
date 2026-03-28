@@ -836,7 +836,7 @@ export const useStore = create<AppState>()(
       },
     }),
     {
-      name: 'mechready-storage',
+      name: 'octokeen-storage',
       version: 1,
       partialize: (state) => ({ progress: state.progress }),
       migrate: (persistedState: unknown) => {

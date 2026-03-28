@@ -193,7 +193,7 @@ function Mascot({ className, size = 'md' }: { className?: string; size?: 'sm' | 
   return (
     <img
       src="/mascot.svg"
-      alt="MechReady mascot"
+      alt="Octokeen mascot"
       width={sizes[size].width}
       height={sizes[size].height}
       className={cn('select-none pointer-events-none', className)}
@@ -266,7 +266,7 @@ export default function GetStartedPage() {
 
   const handleTrialContinue = () => {
     try {
-      sessionStorage.setItem('mechready-guest-xp', JSON.stringify({ xp: trialXp }));
+      sessionStorage.setItem('octokeen-guest-xp', JSON.stringify({ xp: trialXp }));
     } catch {}
     nextStep();
   };
@@ -318,7 +318,7 @@ export default function GetStartedPage() {
     analytics.auth({ action: 'signup', method: 'google' });
     // Guest trial XP already saved by handleTrialContinue, but save again in case
     if (trialXp > 0) {
-      try { sessionStorage.setItem('mechready-guest-xp', JSON.stringify({ xp: trialXp })); } catch {}
+      try { sessionStorage.setItem('octokeen-guest-xp', JSON.stringify({ xp: trialXp })); } catch {}
     }
     signIn('google', { callbackUrl: '/' });
   };

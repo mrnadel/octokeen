@@ -7,7 +7,7 @@ import { Sparkles, ArrowRight, Zap, Heart, Trophy, Flame } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { analytics } from '@/lib/mixpanel';
 
-const ONBOARDED_KEY = 'mechready-onboarded';
+const ONBOARDED_KEY = 'octokeen-onboarded';
 
 const STEPS = [
   {

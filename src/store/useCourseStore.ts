@@ -1124,7 +1124,7 @@ export const useCourseStore = create<CourseState>()(
       },
     }),
     {
-      name: 'mechready-course',
+      name: 'octokeen-course',
       version: 1,
       partialize: (state) => ({ progress: state.progress, activeProfession: state.activeProfession }),
       merge: (persistedState, currentState) => {

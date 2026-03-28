@@ -1,5 +1,5 @@
 // ============================================================
-// Paddle Server-Side Client — MechReady SaaS
+// Paddle Server-Side Client — Octokeen SaaS
 // ============================================================
 
 import { Environment, Paddle } from '@paddle/paddle-node-sdk';

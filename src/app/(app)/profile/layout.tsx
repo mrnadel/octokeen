@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Profile',
-  description: 'View and manage your MechReady profile, stats, and learning progress.',
+  description: 'View and manage your Octokeen profile, stats, and learning progress.',
   robots: { index: false },
 };
 

@@ -11,7 +11,7 @@ import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 
-const SHOWN_KEY = 'mechready-trial-prompt-shown';
+const SHOWN_KEY = 'octokeen-trial-prompt-shown';
 
 export function TrialPromptModal() {
   const [isOpen, setIsOpen] = useState(false);

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Learn how MechReady collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
+  description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -18,7 +18,7 @@ const sections = [
       },
       {
         subtitle: 'Learning Data',
-        text: 'As you use MechReady, we collect data about your learning progress, including questions answered, scores, streaks, achievements unlocked, skill levels, and session activity. This data is essential to providing personalized practice and tracking your interview readiness.',
+        text: 'As you use Octokeen, we collect data about your learning progress, including questions answered, scores, streaks, achievements unlocked, skill levels, and session activity. This data is essential to providing personalized practice and tracking your interview readiness.',
       },
       {
         subtitle: 'Payment Information',
@@ -71,7 +71,7 @@ const sections = [
     title: '4. Third-Party Services',
     content: [
       {
-        text: 'We share data with the following third-party services, only to the extent necessary to operate MechReady:',
+        text: 'We share data with the following third-party services, only to the extent necessary to operate Octokeen:',
       },
       {
         subtitle: 'Paddle (paddle.com)',
@@ -87,7 +87,7 @@ const sections = [
       },
       {
         subtitle: 'Vercel (vercel.com)',
-        text: 'Vercel hosts the MechReady application and may process standard HTTP request logs, including IP addresses, as part of normal infrastructure operations.',
+        text: 'Vercel hosts the Octokeen application and may process standard HTTP request logs, including IP addresses, as part of normal infrastructure operations.',
       },
     ],
   },
@@ -95,7 +95,7 @@ const sections = [
     title: '5. Cookies and Tracking',
     content: [
       {
-        text: 'MechReady uses only essential cookies required for authentication and session management. We do not use advertising cookies, tracking pixels, or any third-party analytics tools such as Google Analytics.',
+        text: 'Octokeen uses only essential cookies required for authentication and session management. We do not use advertising cookies, tracking pixels, or any third-party analytics tools such as Google Analytics.',
       },
       {
         text: 'The session cookie is a secure, httpOnly cookie that stores your encrypted authentication token. It is strictly necessary for the application to function and does not track you across other websites.',
@@ -106,7 +106,7 @@ const sections = [
     title: '6. Data Retention',
     content: [
       {
-        text: 'We retain your account data and learning progress for as long as your account is active. This allows you to return to MechReady at any time and continue where you left off.',
+        text: 'We retain your account data and learning progress for as long as your account is active. This allows you to return to Octokeen at any time and continue where you left off.',
       },
       {
         text: 'If you delete your account, we will permanently delete all of your personal data, including your profile information, learning progress, streaks, and achievements, within 30 days. Some anonymized, aggregate data (such as overall question difficulty statistics) may be retained indefinitely as it cannot be linked back to you.',
@@ -151,7 +151,7 @@ const sections = [
         text: 'If you are located in the European Economic Area (EEA), the United Kingdom, or Switzerland, you are entitled to additional rights under the General Data Protection Regulation (GDPR) and equivalent legislation.',
       },
       {
-        text: 'Our lawful bases for processing your data are: (a) contractual necessity — to provide the MechReady service you signed up for; (b) legitimate interest — to maintain platform security and improve the service; and (c) consent — for optional features such as marketing communications, which you may withdraw at any time.',
+        text: 'Our lawful bases for processing your data are: (a) contractual necessity — to provide the Octokeen service you signed up for; (b) legitimate interest — to maintain platform security and improve the service; and (c) consent — for optional features such as marketing communications, which you may withdraw at any time.',
       },
       {
         text: 'Data may be transferred outside the EEA to the United States, where our infrastructure providers (Vercel, Supabase) operate. These transfers are protected by Standard Contractual Clauses and the providers\' compliance with applicable data protection frameworks.',
@@ -165,7 +165,7 @@ const sections = [
     title: '9. Children\'s Privacy',
     content: [
       {
-        text: 'MechReady is not intended for use by individuals under the age of 16. We do not knowingly collect personal data from children. If we become aware that a child under 16 has provided us with personal data, we will take steps to delete that information promptly.',
+        text: 'Octokeen is not intended for use by individuals under the age of 16. We do not knowingly collect personal data from children. If we become aware that a child under 16 has provided us with personal data, we will take steps to delete that information promptly.',
       },
     ],
   },
@@ -176,7 +176,7 @@ const sections = [
         text: 'We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. If we make material changes, we will notify you by email or by posting a prominent notice within the application at least 14 days before the changes take effect.',
       },
       {
-        text: 'Your continued use of MechReady after the effective date of any changes constitutes your acceptance of the updated policy.',
+        text: 'Your continued use of Octokeen after the effective date of any changes constitutes your acceptance of the updated policy.',
       },
     ],
   },
@@ -187,7 +187,7 @@ const sections = [
         text: 'If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at:',
       },
       {
-        text: 'Email: support@mechready.com',
+        text: 'Email: support@octokeen.com',
       },
       {
         text: 'We aim to respond to all data-related inquiries within 30 days.',
@@ -221,14 +221,14 @@ export default function PrivacyPolicyPage() {
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-surface-900">MechReady Privacy Policy</h2>
+              <h2 className="text-xl font-bold text-surface-900">Octokeen Privacy Policy</h2>
               <p className="text-sm text-surface-500">Last updated: March 2025</p>
             </div>
           </div>
           <p className="text-surface-600 leading-relaxed">
-            At MechReady, we take your privacy seriously. This Privacy Policy explains what
+            At Octokeen, we take your privacy seriously. This Privacy Policy explains what
             personal data we collect, how we use it, who we share it with, and what rights you
-            have. By using MechReady, you agree to the collection and use of your information as
+            have. By using Octokeen, you agree to the collection and use of your information as
             described in this policy.
           </p>
         </div>
@@ -258,10 +258,10 @@ export default function PrivacyPolicyPage() {
           <p className="text-sm text-surface-400">
             If you have questions about this policy, contact us at{' '}
             <a
-              href="mailto:support@mechready.com"
+              href="mailto:support@octokeen.com"
               className="text-blue-600 hover:underline"
             >
-              support@mechready.com
+              support@octokeen.com
             </a>
           </p>
         </div>

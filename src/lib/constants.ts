@@ -2,8 +2,8 @@
 // Single source of truth for the app name, domain, and brand metadata.
 // Change these when rebranding — all SEO, UI, and legal pages reference them.
 
-export const APP_NAME = 'MechReady';
-export const APP_DOMAIN = 'mechready.com';
+export const APP_NAME = 'Octokeen';
+export const APP_DOMAIN = 'octokeen.com';
 export const APP_URL = `https://${APP_DOMAIN}`;
 export const APP_TAGLINE = 'Learn anything. Master everything.';
 export const APP_DESCRIPTION =

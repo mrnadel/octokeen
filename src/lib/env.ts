@@ -1,5 +1,5 @@
 // ============================================================
-// Environment Variable Validation — MechReady
+// Environment Variable Validation — Octokeen
 // ============================================================
 // Validates all required env vars at startup so missing config
 // produces a clear error instead of a cryptic runtime crash.

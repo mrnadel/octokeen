@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Cookie } from 'lucide-react';
 
-const STORAGE_KEY = 'mechready-cookie-consent';
+const STORAGE_KEY = 'octokeen-cookie-consent';
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);

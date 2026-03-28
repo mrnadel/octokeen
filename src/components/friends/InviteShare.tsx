@@ -28,7 +28,7 @@ export default function InviteShare() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Join me on MechReady!',
+          title: 'Join me on Octokeen!',
           text: 'Practice mechanical engineering interview questions together.',
           url: inviteUrl,
         });

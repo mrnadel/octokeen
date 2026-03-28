@@ -16,7 +16,7 @@ const FAQ_ITEMS = [
   {
     question: 'I forgot my password',
     answer:
-      'Use the "Forgot password" link on the login page to reset it. If you\'re still having trouble, reach out to support@mechready.com for help.',
+      'Use the "Forgot password" link on the login page to reset it. If you\'re still having trouble, reach out to support@octokeen.com for help.',
     tags: 'reset password login cant log in',
   },
   {
@@ -28,7 +28,7 @@ const FAQ_ITEMS = [
   {
     question: 'How do I delete my account?',
     answer:
-      'Please contact us at support@mechready.com and we\'ll process your account deletion request within 48 hours.',
+      'Please contact us at support@octokeen.com and we\'ll process your account deletion request within 48 hours.',
     tags: 'remove account close account gdpr',
   },
   {
@@ -42,7 +42,7 @@ const FAQ_ITEMS = [
   {
     question: 'How do I cancel my subscription?',
     answer:
-      'Go to Settings > Billing to manage or cancel your subscription. You can also contact us at support@mechready.com and we\'ll take care of it for you.',
+      'Go to Settings > Billing to manage or cancel your subscription. You can also contact us at support@octokeen.com and we\'ll take care of it for you.',
     tags: 'unsubscribe stop payment end plan',
   },
   {
@@ -60,7 +60,7 @@ const FAQ_ITEMS = [
   {
     question: 'Can I get a refund?',
     answer:
-      'If you\'re not satisfied within the first 7 days of your subscription, contact us at support@mechready.com and we\'ll issue a full refund.',
+      'If you\'re not satisfied within the first 7 days of your subscription, contact us at support@octokeen.com and we\'ll issue a full refund.',
     tags: 'money back refund policy return',
   },
   {
@@ -74,13 +74,13 @@ const FAQ_ITEMS = [
   {
     question: 'What topics are covered?',
     answer:
-      'MechReady covers core mechanical engineering topics including thermodynamics, fluid mechanics, materials science, statics & dynamics, machine design, manufacturing, heat transfer, and more.',
+      'Octokeen covers core mechanical engineering topics including thermodynamics, fluid mechanics, materials science, statics & dynamics, machine design, manufacturing, heat transfer, and more.',
     tags: 'subjects curriculum areas syllabus',
   },
   {
     question: 'I found incorrect content',
     answer:
-      'Use the flag button on any question to report it directly. You can also email support@mechready.com with details about the issue.',
+      'Use the flag button on any question to report it directly. You can also email support@octokeen.com with details about the issue.',
     tags: 'wrong answer error mistake report bug',
   },
   {
@@ -92,7 +92,7 @@ const FAQ_ITEMS = [
   {
     question: 'How is this different from just reading a textbook?',
     answer:
-      'MechReady uses active recall and spaced repetition — proven study techniques. Instead of passively reading, you\'re actively solving problems, which leads to much better retention.',
+      'Octokeen uses active recall and spaced repetition — proven study techniques. Instead of passively reading, you\'re actively solving problems, which leads to much better retention.',
     tags: 'why mechready better studying learn',
   },
   {
@@ -126,19 +126,19 @@ const FAQ_ITEMS = [
   {
     question: 'I\'m not receiving emails',
     answer:
-      'Check your spam or junk folder first. If emails still aren\'t arriving, contact support@mechready.com and we\'ll look into it.',
+      'Check your spam or junk folder first. If emails still aren\'t arriving, contact support@octokeen.com and we\'ll look into it.',
     tags: 'no email spam missing inbox',
   },
   {
-    question: 'Does MechReady work on mobile?',
+    question: 'Does Octokeen work on mobile?',
     answer:
-      'Yes! MechReady is fully mobile-optimized. Just open mechready.com in your phone\'s browser. You can also add it to your home screen for an app-like experience.',
+      'Yes! Octokeen is fully mobile-optimized. Just open octokeen.com in your phone\'s browser. You can also add it to your home screen for an app-like experience.',
     tags: 'phone app ios android tablet mobile pwa',
   },
   {
-    question: 'How do I add MechReady to my home screen?',
+    question: 'How do I add Octokeen to my home screen?',
     answer:
-      'On iPhone: open mechready.com in Safari, tap the share icon, then "Add to Home Screen." On Android: open in Chrome, tap the three-dot menu, then "Add to Home Screen."',
+      'On iPhone: open octokeen.com in Safari, tap the share icon, then "Add to Home Screen." On Android: open in Chrome, tap the three-dot menu, then "Add to Home Screen."',
     tags: 'install pwa home screen shortcut icon',
   },
   {
@@ -222,10 +222,10 @@ export default function ContactPage() {
             </div>
           </div>
           <a
-            href="mailto:support@mechready.com"
+            href="mailto:support@octokeen.com"
             className="block w-full py-2.5 rounded-xl bg-primary-50 hover:bg-primary-100 text-primary-700 font-semibold text-sm transition-colors text-center"
           >
-            support@mechready.com
+            support@octokeen.com
           </a>
           <div className="flex items-center gap-2 mt-3">
             <MessageCircle className="w-3.5 h-3.5 text-surface-400" />
@@ -268,7 +268,7 @@ export default function ContactPage() {
               <div className="py-6 text-center">
                 <p className="text-sm text-surface-500">No matching questions found.</p>
                 <a
-                  href="mailto:support@mechready.com"
+                  href="mailto:support@octokeen.com"
                   className="text-sm text-primary-600 font-medium hover:underline mt-1 inline-block"
                 >
                   Email us your question instead

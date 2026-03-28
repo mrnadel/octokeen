@@ -83,7 +83,7 @@ export const useHeartsStore = create<HeartsState>()(
       isUnlimited: () => getEffectiveTier() === 'pro',
     }),
     {
-      name: 'mechready-hearts',
+      name: 'octokeen-hearts',
       partialize: (state) => ({
         current: state.current,
         max: state.max,

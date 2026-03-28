@@ -1,5 +1,5 @@
 // ============================================================
-// Paddle Client-Side (browser) — MechReady SaaS
+// Paddle Client-Side (browser) — Octokeen SaaS
 // ============================================================
 
 import { initializePaddle, type Paddle } from '@paddle/paddle-js';

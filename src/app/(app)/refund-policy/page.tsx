@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
-  description: 'MechReady 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
+  description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
   alternates: { canonical: '/refund-policy' },
 };
 
@@ -23,10 +23,10 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          MechReady is operated by Yanay Nadel (&quot;we,&quot; &quot;us,&quot; or
+          Octokeen is operated by Yanay Nadel (&quot;we,&quot; &quot;us,&quot; or
           &quot;our&quot;). We offer paid subscription plans through our Merchant of Record,
           Paddle. This Refund Policy explains when and how you may request a refund for your
-          MechReady Pro subscription.
+          Octokeen Pro subscription.
         </p>
       </>
     ),
@@ -38,7 +38,7 @@ const sections: Section[] = [
       <>
         <p>
           We offer a <strong>14-day money-back guarantee</strong> on all Pro subscriptions. If
-          you are not satisfied with MechReady Pro for any reason, you may request a full
+          you are not satisfied with Octokeen Pro for any reason, you may request a full
           refund within 14 days of your purchase date. No questions asked.
         </p>
       </>
@@ -72,10 +72,10 @@ const sections: Section[] = [
         <p>
           <strong>Email:</strong>{' '}
           <a
-            href="mailto:support@mechready.com"
+            href="mailto:support@octokeen.com"
             className="text-primary-600 hover:text-primary-700 underline underline-offset-2"
           >
-            support@mechready.com
+            support@octokeen.com
           </a>
         </p>
         <p>Please include the following in your request:</p>
@@ -162,10 +162,10 @@ const sections: Section[] = [
         <p>
           <strong>Email:</strong>{' '}
           <a
-            href="mailto:support@mechready.com"
+            href="mailto:support@octokeen.com"
             className="text-primary-600 hover:text-primary-700 underline underline-offset-2"
           >
-            support@mechready.com
+            support@octokeen.com
           </a>
         </p>
         <p>
@@ -206,7 +206,7 @@ export default function RefundPolicyPage() {
         {/* Introduction */}
         <div className="bg-white rounded-2xl border border-gray-200 p-5 mb-6">
           <p className="text-sm text-gray-600 leading-relaxed">
-            We want you to be completely satisfied with MechReady. If you are not happy with
+            We want you to be completely satisfied with Octokeen. If you are not happy with
             your purchase, you can request a full refund within 14 days. No questions asked.
           </p>
         </div>
@@ -250,7 +250,7 @@ export default function RefundPolicyPage() {
 
         {/* Footer */}
         <div className="text-center mt-8 text-xs text-gray-400">
-          <p>&copy; {new Date().getFullYear()} MechReady. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Octokeen. All rights reserved.</p>
         </div>
       </div>
     </div>

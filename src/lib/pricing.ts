@@ -1,5 +1,5 @@
 // ============================================================
-// Pricing & Feature Gating — MechReady SaaS
+// Pricing & Feature Gating — Octokeen SaaS
 // ============================================================
 
 import type {

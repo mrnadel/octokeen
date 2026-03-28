@@ -142,7 +142,7 @@ export function useDbSync() {
 
         // Merge guest trial XP earned before registration
         try {
-          const guestData = sessionStorage.getItem('mechready-guest-xp');
+          const guestData = sessionStorage.getItem('octokeen-guest-xp');
           if (guestData) {
             const { xp } = JSON.parse(guestData);
             if (xp > 0) {
@@ -154,7 +154,7 @@ export function useDbSync() {
                 },
               });
             }
-            sessionStorage.removeItem('mechready-guest-xp');
+            sessionStorage.removeItem('octokeen-guest-xp');
           }
         } catch {}
       } catch (error) {

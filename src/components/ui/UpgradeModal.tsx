@@ -83,7 +83,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
         ★ Pro
       </div>
 
-      <h3 id="upgrade-modal-title" className="text-[28px] font-black mb-1">MechReady Pro</h3>
+      <h3 id="upgrade-modal-title" className="text-[28px] font-black mb-1">Octokeen Pro</h3>
       <p className="text-sm text-white/50 mb-5">{reason || 'Unlock your full potential'}</p>
 
       <ul className="w-full space-y-2">

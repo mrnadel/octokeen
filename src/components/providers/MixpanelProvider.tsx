@@ -6,7 +6,7 @@ import { initMixpanel, identifyUser, resetUser, setSuperProperties, analytics } 
 import { useStore } from '@/store/useStore';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 
-const CONSENT_KEY = 'mechready-cookie-consent';
+const CONSENT_KEY = 'octokeen-cookie-consent';
 
 export default function MixpanelProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();

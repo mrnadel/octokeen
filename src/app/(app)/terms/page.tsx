@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'MechReady terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
+  description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
   alternates: { canonical: '/terms' },
 };
 
@@ -23,7 +23,7 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          By accessing or using MechReady (&quot;the Service&quot;), operated by Yanay Nadel
+          By accessing or using Octokeen (&quot;the Service&quot;), operated by Yanay Nadel
           (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you agree to be bound by these Terms of
           Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not access
           or use the Service.
@@ -67,7 +67,7 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          MechReady offers the following subscription tiers:
+          Octokeen offers the following subscription tiers:
         </p>
         <ul>
           <li>
@@ -114,7 +114,7 @@ const sections: Section[] = [
       <>
         <p>
           The Free tier provides limited access to the Service and is intended to allow
-          users to evaluate MechReady before subscribing. Free-tier users have access to
+          users to evaluate Octokeen before subscribing. Free-tier users have access to
           Unit 1 content and are limited to 5 practice questions per day.
         </p>
         <p>
@@ -132,14 +132,14 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          All content on MechReady, including but not limited to questions, explanations,
+          All content on Octokeen, including but not limited to questions, explanations,
           illustrations, course materials, software, design, logos, and trademarks, is the
-          exclusive property of MechReady or its licensors and is protected by copyright,
+          exclusive property of Octokeen or its licensors and is protected by copyright,
           trademark, and other intellectual property laws.
         </p>
         <p>You may not:</p>
         <ul>
-          <li>Copy, reproduce, distribute, or publicly display any MechReady content without our prior written consent.</li>
+          <li>Copy, reproduce, distribute, or publicly display any Octokeen content without our prior written consent.</li>
           <li>Use our content to train machine learning models or AI systems.</li>
           <li>Scrape, crawl, or use automated tools to extract content from the Service.</li>
           <li>Create derivative works based on our content.</li>
@@ -158,19 +158,19 @@ const sections: Section[] = [
     title: '6. Acceptable Use Policy',
     content: (
       <>
-        <p>You agree to use MechReady only for lawful purposes and in accordance with these Terms. You agree not to:</p>
+        <p>You agree to use Octokeen only for lawful purposes and in accordance with these Terms. You agree not to:</p>
         <ul>
           <li>Use the Service for any unlawful or fraudulent purpose.</li>
           <li>Attempt to gain unauthorized access to any part of the Service, other users&apos; accounts, or our systems.</li>
           <li>Interfere with or disrupt the integrity, security, or performance of the Service.</li>
           <li>Upload or transmit malicious code, viruses, or other harmful material.</li>
           <li>Harass, abuse, or harm other users.</li>
-          <li>Use the Service to compete with MechReady or to develop a competing product.</li>
+          <li>Use the Service to compete with Octokeen or to develop a competing product.</li>
           <li>Share, resell, or redistribute your account access or subscription benefits.</li>
           <li>Use automated bots, scripts, or tools to interact with the Service unless expressly authorized.</li>
         </ul>
         <p>
-          User-generated content on MechReady is limited to profile information and
+          User-generated content on Octokeen is limited to profile information and
           content feedback (such as reporting issues). You are responsible for ensuring
           that any information you provide does not violate these Terms or applicable law.
         </p>
@@ -183,7 +183,7 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          MechReady may award virtual currency (&quot;Gems&quot;) to users for completing
+          Octokeen may award virtual currency (&quot;Gems&quot;) to users for completing
           activities, achieving milestones, or other engagement within the Service. Gems
           are a feature of the platform and are subject to the following terms:
         </p>
@@ -208,13 +208,13 @@ const sections: Section[] = [
       <>
         <p>
           <strong>
-            MechReady is an educational platform designed to help users prepare for
+            Octokeen is an educational platform designed to help users prepare for
             mechanical engineering interviews. The content provided is for educational and
             informational purposes only.
           </strong>
         </p>
         <p>
-          MechReady does not provide professional engineering advice, certification, or
+          Octokeen does not provide professional engineering advice, certification, or
           licensure preparation. The content should not be relied upon as a substitute
           for professional engineering judgment, consultation, or services.
         </p>
@@ -238,7 +238,7 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          To the maximum extent permitted by applicable law, MechReady and its officers,
+          To the maximum extent permitted by applicable law, Octokeen and its officers,
           directors, employees, agents, and affiliates shall not be liable for any
           indirect, incidental, special, consequential, or punitive damages, including but
           not limited to loss of profits, data, use, or goodwill, arising out of or
@@ -247,7 +247,7 @@ const sections: Section[] = [
         <p>
           In no event shall our total aggregate liability to you for all claims arising
           out of or related to the Service exceed the greater of (a) the amount you paid
-          to MechReady in the twelve (12) months preceding the event giving rise to
+          to Octokeen in the twelve (12) months preceding the event giving rise to
           liability, or (b) one hundred US dollars ($100).
         </p>
         <p>
@@ -340,10 +340,10 @@ const sections: Section[] = [
         <p>
           <strong>Email:</strong>{' '}
           <a
-            href="mailto:support@mechready.com"
+            href="mailto:support@octokeen.com"
             className="text-primary-600 hover:text-primary-700 underline underline-offset-2"
           >
-            support@mechready.com
+            support@octokeen.com
           </a>
         </p>
         <p>
@@ -384,8 +384,8 @@ export default function TermsPage() {
         {/* Introduction */}
         <div className="bg-white rounded-2xl border border-gray-200 p-5 mb-6">
           <p className="text-sm text-gray-600 leading-relaxed">
-            Welcome to MechReady. These Terms of Service govern your access to and use
-            of the MechReady platform, including our website, applications, and all
+            Welcome to Octokeen. These Terms of Service govern your access to and use
+            of the Octokeen platform, including our website, applications, and all
             related services. Please read these Terms carefully before using the Service.
           </p>
         </div>
@@ -429,7 +429,7 @@ export default function TermsPage() {
 
         {/* Footer */}
         <div className="text-center mt-8 text-xs text-gray-400">
-          <p>&copy; {new Date().getFullYear()} MechReady. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Octokeen. All rights reserved.</p>
         </div>
       </div>
     </div>

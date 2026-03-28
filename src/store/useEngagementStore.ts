@@ -735,7 +735,7 @@ export const useEngagementStore = create<EngagementStore>()(
         },
       }),
       {
-        name: 'mechready-engagement',
+        name: 'octokeen-engagement',
         version: 1,
         partialize: (state) => {
           // Persist all state fields, excluding action functions

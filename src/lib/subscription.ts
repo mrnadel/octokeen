@@ -1,5 +1,5 @@
 // ============================================================
-// Subscription Types — MechReady SaaS
+// Subscription Types — Octokeen SaaS
 // ============================================================
 
 export type SubscriptionTier = 'free' | 'pro';
