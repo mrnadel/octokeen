@@ -112,7 +112,7 @@ const XP_WRONG = 5;
 
 const FEATURES = [
   { icon: BookOpen, label: 'Bite-sized lessons', color: 'text-primary-500' },
-  { icon: Zap, label: 'Real interview Qs', color: 'text-brand-400' },
+  { icon: Zap, label: 'Real interview Qs', color: 'text-primary-500' },
   { icon: Trophy, label: 'Track progress', color: 'text-primary-400' },
 ];
 
@@ -152,7 +152,7 @@ function PasswordStrength({ password }: { password: string }) {
             className={cn(
               'h-1.5 sm:h-1 flex-1 rounded-full transition-colors',
               i <= score
-                ? score === 3 ? 'bg-brand-400' : score === 2 ? 'bg-primary-400' : 'bg-red-400'
+                ? score === 3 ? 'bg-primary-500' : score === 2 ? 'bg-primary-400' : 'bg-red-400'
                 : 'bg-gray-200'
             )}
           />
@@ -160,7 +160,7 @@ function PasswordStrength({ password }: { password: string }) {
       </div>
       <div className="flex flex-wrap gap-2 sm:gap-3">
         {checks.map((check) => (
-          <span key={check.label} className={cn('text-xs font-bold', check.met ? 'text-brand-400' : 'text-gray-300')}>
+          <span key={check.label} className={cn('text-xs font-bold', check.met ? 'text-primary-500' : 'text-gray-300')}>
             {check.met ? '✓' : '•'} {check.label}
           </span>
         ))}
@@ -361,7 +361,7 @@ export default function GetStartedPage() {
               <Mascot size="md" />
             </motion.div>
             <p className="text-lg font-black text-gray-900">Preparing your course...</p>
-            <Loader2 className="w-6 h-6 animate-spin text-brand-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-primary-500" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -375,9 +375,9 @@ export default function GetStartedPage() {
               className={cn(
                 'h-2 rounded-full flex-1 transition-all duration-500',
                 i < step
-                  ? 'bg-brand-400'
+                  ? 'bg-primary-500'
                   : i === step
-                    ? 'bg-brand-400/60'
+                    ? 'bg-primary-500/60'
                     : 'bg-gray-100'
               )}
             />
@@ -431,7 +431,7 @@ export default function GetStartedPage() {
                 {/* Text content */}
                 <div className="text-center md:text-left flex-1">
                   <motion.div
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-400/10 text-brand-400 text-xs font-black uppercase tracking-wider mb-4"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-500/10 text-primary-500 text-xs font-black uppercase tracking-wider mb-4"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
@@ -447,7 +447,7 @@ export default function GetStartedPage() {
                     transition={{ delay: 0.2 }}
                   >
                     Ace your{' '}
-                    <span className="text-brand-400">interview</span>
+                    <span className="text-primary-500">interview</span>
                   </motion.h1>
 
                   <motion.p
@@ -485,8 +485,8 @@ export default function GetStartedPage() {
                   >
                     <button
                       onClick={nextStep}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-400 text-white font-extrabold text-lg rounded-2xl transition-all active:translate-y-[2px]"
-                      style={{ boxShadow: '0 5px 0 #C49200' }}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-500 text-white font-extrabold text-lg rounded-2xl transition-all active:translate-y-[2px]"
+                      style={{ boxShadow: '0 5px 0 #0F766E' }}
                     >
                       GET STARTED
                       <ChevronRight className="w-5 h-5" />
@@ -552,11 +552,11 @@ export default function GetStartedPage() {
                   className={cn(
                     'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
                     selectedProfession
-                      ? 'bg-brand-400 text-white'
+                      ? 'bg-primary-500 text-white'
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   )}
                   style={{
-                    boxShadow: selectedProfession ? '0 5px 0 #C49200' : 'none',
+                    boxShadow: selectedProfession ? '0 5px 0 #0F766E' : 'none',
                   }}
                 >
                   CONTINUE
@@ -589,7 +589,7 @@ export default function GetStartedPage() {
                         key={trialXp}
                         initial={{ scale: 1.4 }}
                         animate={{ scale: 1 }}
-                        className="text-xs font-black text-brand-400 flex items-center gap-1"
+                        className="text-xs font-black text-primary-500 flex items-center gap-1"
                       >
                         <Zap className="w-3.5 h-3.5" />
                         {trialXp} XP
@@ -614,7 +614,7 @@ export default function GetStartedPage() {
                         <div className="relative bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-lg">{trialQuestions[questionIndex].topicIcon}</span>
-                            <span className="text-xs font-black text-brand-400 uppercase tracking-wider">
+                            <span className="text-xs font-black text-primary-500 uppercase tracking-wider">
                               {trialQuestions[questionIndex].topic.replace(/-/g, ' ')}
                             </span>
                           </div>
@@ -632,7 +632,7 @@ export default function GetStartedPage() {
                           let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
                           if (trialRevealed) {
                             if (isCorrect) {
-                              optionStyle = 'border-brand-400 bg-brand-400/5';
+                              optionStyle = 'border-primary-500 bg-primary-500/5';
                             } else if (isSelected && !isCorrect) {
                               optionStyle = 'border-red-400 bg-red-50';
                             } else {
@@ -658,7 +658,7 @@ export default function GetStartedPage() {
                               <span className={cn(
                                 'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
                                 trialRevealed && isCorrect
-                                  ? 'bg-brand-400 text-white'
+                                  ? 'bg-primary-500 text-white'
                                   : trialRevealed && isSelected && !isCorrect
                                     ? 'bg-red-400 text-white'
                                     : 'bg-gray-100 text-gray-500'
@@ -686,12 +686,12 @@ export default function GetStartedPage() {
                             <div className={cn(
                               'p-4 rounded-xl mb-5',
                               trialAnswer === trialQuestions[questionIndex].correctAnswer
-                                ? 'bg-brand-400/10 border border-brand-400/20'
+                                ? 'bg-primary-500/10 border border-primary-500/20'
                                 : 'bg-primary-50 border border-primary-200'
                             )}>
                               <p className={cn(
                                 'font-black text-sm mb-1',
-                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-brand-400' : 'text-primary-600'
+                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-primary-500' : 'text-primary-600'
                               )}>
                                 {trialAnswer === trialQuestions[questionIndex].correctAnswer
                                   ? `🎉 Correct! +${XP_CORRECT} XP`
@@ -704,8 +704,8 @@ export default function GetStartedPage() {
 
                             <button
                               onClick={handleNextTrialQuestion}
-                              className="w-full py-3.5 rounded-2xl bg-brand-400 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-                              style={{ boxShadow: '0 5px 0 #C49200' }}
+                              className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+                              style={{ boxShadow: '0 5px 0 #0F766E' }}
                             >
                               {questionIndex + 1 >= TRIAL_COUNT ? 'SEE YOUR RESULTS' : 'NEXT QUESTION'}
                             </button>
@@ -751,14 +751,14 @@ export default function GetStartedPage() {
                   </motion.p>
 
                   <motion.div
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand-400/10 mb-8"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary-500/10 mb-8"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
                   >
-                    <Zap className="w-5 h-5 text-brand-400" />
-                    <span className="text-2xl font-black text-brand-400">{trialXp} XP</span>
-                    <span className="text-sm font-bold text-brand-400/70">earned</span>
+                    <Zap className="w-5 h-5 text-primary-500" />
+                    <span className="text-2xl font-black text-primary-500">{trialXp} XP</span>
+                    <span className="text-sm font-bold text-primary-500/70">earned</span>
                   </motion.div>
 
                   <motion.div
@@ -768,8 +768,8 @@ export default function GetStartedPage() {
                   >
                     <button
                       onClick={handleTrialContinue}
-                      className="w-full py-3.5 rounded-2xl bg-brand-400 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-                      style={{ boxShadow: '0 5px 0 #C49200' }}
+                      className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+                      style={{ boxShadow: '0 5px 0 #0F766E' }}
                     >
                       SAVE MY PROGRESS
                     </button>
@@ -843,7 +843,7 @@ export default function GetStartedPage() {
                   required
                   minLength={2}
                   maxLength={50}
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-brand-400 focus:bg-white transition-colors"
+                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
                 />
 
                 <input
@@ -852,7 +852,7 @@ export default function GetStartedPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-brand-400 focus:bg-white transition-colors"
+                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
                 />
 
                 <div>
@@ -863,7 +863,7 @@ export default function GetStartedPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={8}
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-brand-400 focus:bg-white transition-colors"
+                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
                   />
                   <PasswordStrength password={password} />
                 </div>
@@ -875,10 +875,10 @@ export default function GetStartedPage() {
                     'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
                     loading || password.length < 8
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-brand-400 text-white'
+                      : 'bg-primary-500 text-white'
                   )}
                   style={{
-                    boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #C49200',
+                    boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #0F766E',
                   }}
                 >
                   {loading ? (
@@ -944,8 +944,8 @@ export default function GetStartedPage() {
               <motion.button
                 onClick={completeOnboarding}
                 disabled={navigating}
-                className="w-full py-4 rounded-2xl bg-brand-400 text-white font-extrabold text-lg transition-all active:translate-y-[2px] disabled:opacity-70 flex items-center justify-center gap-2"
-                style={{ boxShadow: navigating ? 'none' : '0 5px 0 #C49200' }}
+                className="w-full py-4 rounded-2xl bg-primary-500 text-white font-extrabold text-lg transition-all active:translate-y-[2px] disabled:opacity-70 flex items-center justify-center gap-2"
+                style={{ boxShadow: navigating ? 'none' : '0 5px 0 #0F766E' }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}

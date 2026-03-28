@@ -280,7 +280,7 @@ export default function FlagButton({ contentType, contentId, hasGraphic }: Props
                         padding: '6px 14px',
                         borderRadius: 8,
                         border: 'none',
-                        background: otherText.trim().length >= 3 ? '#F5B800' : '#E5E5E5',
+                        background: otherText.trim().length >= 3 ? '#0D9488' : '#E5E5E5',
                         color: otherText.trim().length >= 3 ? 'white' : '#CFCFCF',
                         cursor: otherText.trim().length >= 3 ? 'pointer' : 'default',
                       }}

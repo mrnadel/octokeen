@@ -148,10 +148,10 @@ export function LandingPage() {
             display: 'flex', alignItems: 'center', gap: 10,
           }}>
             <img src="/icon-48.png" alt="" width={34} height={34} style={{ borderRadius: 10, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }} />
-            <span style={{ color: '#F5B800', textShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>Octokeen</span>
+            <span style={{ color: '#0D9488', textShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>Octokeen</span>
           </Link>
           <Link href="/login" style={{
-            fontSize: 14, fontWeight: 800, color: '#F5B800',
+            fontSize: 14, fontWeight: 800, color: '#0D9488',
             textDecoration: 'none', textTransform: 'uppercase', letterSpacing: 0.8,
             padding: '10px 20px', border: '2px solid #E2E8F0', borderRadius: 12,
             minHeight: 44, display: 'inline-flex', alignItems: 'center',
@@ -166,7 +166,7 @@ export function LandingPage() {
         <div style={{ maxWidth: 700, margin: '0 auto', padding: '0 24px' }}>
           <AnimateIn>
             <div style={{
-              display: 'inline-block', background: '#FFF8E1', color: '#C49200',
+              display: 'inline-block', background: '#F0FDFA', color: '#0F766E',
               fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1,
               padding: '6px 16px', borderRadius: 100, marginBottom: 24,
             }}>
@@ -179,7 +179,7 @@ export function LandingPage() {
               fontWeight: 900, lineHeight: 1.1, color: '#3D4654',
               marginBottom: 20, letterSpacing: -1,
             }}>
-              Learn anything.<br /><span style={{ color: '#E5A800' }}>Master everything.</span>
+              Learn anything.<br /><span style={{ color: '#14B8A6' }}>Master everything.</span>
             </h1>
           </AnimateIn>
 
@@ -198,10 +198,10 @@ export function LandingPage() {
                 href="/get-started"
                 className="landing-btn-primary"
                 style={{
-                  display: 'inline-block', background: '#F5B800', color: '#fff',
+                  display: 'inline-block', background: '#0D9488', color: '#fff',
                   fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8,
                   padding: '14px 36px', border: 'none', borderRadius: 16,
-                  boxShadow: '0 5px 0 #C49200', textDecoration: 'none',
+                  boxShadow: '0 5px 0 #0F766E', textDecoration: 'none',
                   transition: 'transform 0.1s, box-shadow 0.1s, filter 0.1s',
                 }}
               >
@@ -251,7 +251,7 @@ export function LandingPage() {
           <AnimateIn>
             <div style={{
               textAlign: 'center', fontSize: 13, fontWeight: 800,
-              textTransform: 'uppercase', letterSpacing: 1.5, color: '#C49200', marginBottom: 16,
+              textTransform: 'uppercase', letterSpacing: 1.5, color: '#0F766E', marginBottom: 16,
             }}>
               Try it yourself
             </div>
@@ -279,7 +279,7 @@ export function LandingPage() {
           <AnimateIn>
             <div style={{
               textAlign: 'center', fontSize: 13, fontWeight: 800,
-              textTransform: 'uppercase', letterSpacing: 1.5, color: '#C49200', marginBottom: 16,
+              textTransform: 'uppercase', letterSpacing: 1.5, color: '#0F766E', marginBottom: 16,
             }}>
               Why Octokeen?
             </div>
@@ -353,10 +353,10 @@ export function LandingPage() {
                 href="/get-started"
                 className="landing-btn-primary"
                 style={{
-                  display: 'inline-block', background: '#F5B800', color: '#fff',
+                  display: 'inline-block', background: '#0D9488', color: '#fff',
                   fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8,
                   padding: '14px 36px', border: 'none', borderRadius: 16,
-                  boxShadow: '0 5px 0 #C49200', textDecoration: 'none',
+                  boxShadow: '0 5px 0 #0F766E', textDecoration: 'none',
                   transition: 'transform 0.1s, box-shadow 0.1s, filter 0.1s',
                 }}
               >
@@ -373,7 +373,7 @@ export function LandingPage() {
           <AnimateIn>
             <div style={{
               textAlign: 'center', fontSize: 13, fontWeight: 800,
-              textTransform: 'uppercase', letterSpacing: 1.5, color: '#C49200', marginBottom: 16,
+              textTransform: 'uppercase', letterSpacing: 1.5, color: '#0F766E', marginBottom: 16,
             }}>
               Multiple professions
             </div>
@@ -409,7 +409,7 @@ export function LandingPage() {
                   {prof.isComingSoon && (
                     <div style={{
                       position: 'absolute', top: 12, right: 12,
-                      background: '#FFF8E1', color: '#C49200',
+                      background: '#F0FDFA', color: '#0F766E',
                       fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5,
                       padding: '3px 10px', borderRadius: 100,
                     }}>
@@ -466,10 +466,10 @@ export function LandingPage() {
                 href="/get-started"
                 className="landing-btn-primary"
                 style={{
-                  display: 'inline-block', background: '#F5B800', color: '#fff',
+                  display: 'inline-block', background: '#0D9488', color: '#fff',
                   fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8,
                   padding: '14px 36px', border: 'none', borderRadius: 16,
-                  boxShadow: '0 5px 0 #C49200', textDecoration: 'none',
+                  boxShadow: '0 5px 0 #0F766E', textDecoration: 'none',
                   transition: 'transform 0.1s, box-shadow 0.1s, filter 0.1s',
                 }}
               >
@@ -486,16 +486,16 @@ export function LandingPage() {
           <p>
             <Link href="/" style={{ fontSize: 20, fontWeight: 900, letterSpacing: -0.5, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
               <img src="/icon-48.png" alt="" width={26} height={26} style={{ borderRadius: 8 }} />
-              <span style={{ color: '#F5B800' }}>Octokeen</span>
+              <span style={{ color: '#0D9488' }}>Octokeen</span>
             </Link>
           </p>
           <p style={{ marginTop: 12, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>
             Gamified learning that actually sticks.
           </p>
           <p style={{ marginTop: 8, fontSize: 14, fontWeight: 600, color: '#94A3B8' }}>
-            <Link href="/get-started" style={{ color: '#F5B800', fontWeight: 700, textDecoration: 'none' }}>Sign up</Link>
+            <Link href="/get-started" style={{ color: '#0D9488', fontWeight: 700, textDecoration: 'none' }}>Sign up</Link>
             {' '}&middot;{' '}
-            <Link href="/login" style={{ color: '#F5B800', fontWeight: 700, textDecoration: 'none' }}>Log in</Link>
+            <Link href="/login" style={{ color: '#0D9488', fontWeight: 700, textDecoration: 'none' }}>Log in</Link>
           </p>
         </div>
       </footer>
@@ -512,19 +512,19 @@ export function LandingPage() {
         .landing-compare-grid { grid-template-columns: repeat(3, 1fr); }
 
         .landing-btn-primary:hover { filter: brightness(1.05); }
-        .landing-btn-primary:active { transform: translateY(2px); box-shadow: 0 3px 0 #C49200 !important; }
+        .landing-btn-primary:active { transform: translateY(2px); box-shadow: 0 3px 0 #0F766E !important; }
         .landing-btn-secondary:hover { background: #F0F9FF; }
-        .landing-profession-card:hover { border-color: #F5B800 !important; box-shadow: 0 4px 16px rgba(245, 184, 0, 0.12) !important; }
+        .landing-profession-card:hover { border-color: #0D9488 !important; box-shadow: 0 4px 16px rgba(13, 148, 136, 0.12) !important; }
         .landing-professions-grid { grid-template-columns: 1fr; }
 
         @keyframes demoFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes demoPopIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         .demo-option { font-family: inherit; }
-        .demo-option:not(:disabled):hover { border-color: #F5B800 !important; background: #FFFBEB !important; transform: translateY(-1px); }
+        .demo-option:not(:disabled):hover { border-color: #0D9488 !important; background: #F0FDFA !important; transform: translateY(-1px); }
         .demo-option:not(:disabled):active { transform: translateY(1px); box-shadow: none !important; }
         .demo-next-btn { font-family: inherit; }
         .demo-next-btn:hover { filter: brightness(1.05); }
-        .demo-next-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #C49200 !important; }
+        .demo-next-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #0F766E !important; }
         .demo-restart-btn { font-family: inherit; }
         .demo-restart-btn:hover { background: #F8FAFC !important; border-color: #CBD5E1 !important; }
 
@@ -609,8 +609,8 @@ function InteractiveDemo() {
 
   if (done) {
     return (
-      <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #F5B800', padding: 32, textAlign: 'center', boxShadow: '0 4px 24px rgba(245, 184, 0, 0.12)' }}>
-        <div style={{ width: 72, height: 72, borderRadius: '50%', margin: '0 auto 20px', background: 'linear-gradient(135deg, #F5B800, #FFD54F)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #0D9488', padding: 32, textAlign: 'center', boxShadow: '0 4px 24px rgba(13, 148, 136, 0.12)' }}>
+        <div style={{ width: 72, height: 72, borderRadius: '50%', margin: '0 auto 20px', background: 'linear-gradient(135deg, #0D9488, #FFD54F)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <svg viewBox="0 0 24 24" fill="none" width="36" height="36"><path d="M20 6L9 17l-5-5" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </div>
         <div style={{ fontSize: 24, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>Nice work!</div>
@@ -622,7 +622,7 @@ function InteractiveDemo() {
         </div>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#94A3B8', marginBottom: 24 }}>{PROFESSIONS.reduce((sum, p) => sum + p.questionCount, 0).toLocaleString()}+ questions across {PROFESSIONS.length} professions</div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/get-started" className="landing-btn-primary" style={{ display: 'inline-block', background: '#F5B800', color: '#fff', fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8, padding: '14px 32px', border: 'none', borderRadius: 16, boxShadow: '0 5px 0 #C49200', textDecoration: 'none' }}>Keep playing</Link>
+          <Link href="/get-started" className="landing-btn-primary" style={{ display: 'inline-block', background: '#0D9488', color: '#fff', fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8, padding: '14px 32px', border: 'none', borderRadius: 16, boxShadow: '0 5px 0 #0F766E', textDecoration: 'none' }}>Keep playing</Link>
           <button onClick={restart} className="demo-restart-btn" style={{ background: 'none', border: '2px solid #E2E8F0', borderRadius: 16, padding: '12px 24px', fontSize: 14, fontWeight: 700, color: '#64748B', cursor: 'pointer' }}>Try again</button>
         </div>
       </div>
@@ -631,11 +631,11 @@ function InteractiveDemo() {
 
   return (
     <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #E2E8F0', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-      <div style={{ height: 4, background: '#F1F5F9' }}><div style={{ height: '100%', background: 'linear-gradient(90deg, #F5B800, #FFD54F)', width: `${(qIdx / DEMO_QUESTIONS.length) * 100}%`, transition: 'width 0.5s ease', borderRadius: '0 4px 4px 0' }} /></div>
+      <div style={{ height: 4, background: '#F1F5F9' }}><div style={{ height: '100%', background: 'linear-gradient(90deg, #0D9488, #FFD54F)', width: `${(qIdx / DEMO_QUESTIONS.length) * 100}%`, transition: 'width 0.5s ease', borderRadius: '0 4px 4px 0' }} /></div>
       <div className="demo-card-inner" style={{ padding: 32 }}>
         <div className="demo-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {DEMO_QUESTIONS.map((_, i) => (<div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < qIdx ? '#F5B800' : i === qIdx ? q.topicColor : '#E2E8F0', transition: 'background 0.3s' }} />))}
+            {DEMO_QUESTIONS.map((_, i) => (<div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < qIdx ? '#0D9488' : i === qIdx ? q.topicColor : '#E2E8F0', transition: 'background 0.3s' }} />))}
             <span style={{ fontSize: 13, fontWeight: 700, color: '#94A3B8', marginLeft: 4 }}>{qIdx + 1} / {DEMO_QUESTIONS.length}</span>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
@@ -669,7 +669,7 @@ function InteractiveDemo() {
               {isRight ? (<><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="10" fill="#58CC02" /><path d="M8 12.5l2.5 2.5 5.5-5.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 15, fontWeight: 800, color: '#166534' }}>Correct! +{q.xp} XP</span></>) : (<><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="10" fill="#F97316" /><path d="M15 9l-6 6M9 9l6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" /></svg><span style={{ fontSize: 15, fontWeight: 800, color: '#9A3412' }}>Not quite &mdash; +5 XP</span></>)}
             </div>
             <div style={{ fontSize: 14, fontWeight: 600, color: '#64748B', lineHeight: 1.5, marginBottom: 16 }}>{q.explanation}</div>
-            <button onClick={next} className="demo-next-btn" style={{ width: '100%', padding: '12px', borderRadius: 12, background: '#F5B800', color: '#fff', border: 'none', fontSize: 15, fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 0 #C49200', textTransform: 'uppercase', letterSpacing: 0.5 }}>{qIdx < DEMO_QUESTIONS.length - 1 ? 'Next Question' : 'See Results'}</button>
+            <button onClick={next} className="demo-next-btn" style={{ width: '100%', padding: '12px', borderRadius: 12, background: '#0D9488', color: '#fff', border: 'none', fontSize: 15, fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 0 #0F766E', textTransform: 'uppercase', letterSpacing: 0.5 }}>{qIdx < DEMO_QUESTIONS.length - 1 ? 'Next Question' : 'See Results'}</button>
           </div>
         )}
         <div className="demo-stats-bar" style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -680,13 +680,13 @@ function InteractiveDemo() {
           </div>
           <div style={{ flex: 1, maxWidth: 160, marginLeft: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}><span style={{ fontSize: 11, fontWeight: 800, color: '#94A3B8' }}>XP</span><span style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8' }}>{animXp}/{totalXp}</span></div>
-            <div style={{ height: 8, background: '#F1F5F9', borderRadius: 100, overflow: 'hidden' }}><div style={{ height: '100%', background: 'linear-gradient(90deg, #F5B800, #FFD54F)', width: `${Math.min((stats.xp / totalXp) * 100, 100)}%`, transition: 'width 0.8s ease', borderRadius: 100 }} /></div>
+            <div style={{ height: 8, background: '#F1F5F9', borderRadius: 100, overflow: 'hidden' }}><div style={{ height: '100%', background: 'linear-gradient(90deg, #0D9488, #FFD54F)', width: `${Math.min((stats.xp / totalXp) * 100, 100)}%`, transition: 'width 0.8s ease', borderRadius: 100 }} /></div>
           </div>
         </div>
         {achievement && (
-          <div style={{ marginTop: 12, padding: '10px 16px', borderRadius: 10, background: '#FFF8E1', border: '1px solid #FFE082', display: 'flex', alignItems: 'center', gap: 10, animation: 'demoPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)' }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#FFE082', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><svg viewBox="0 0 24 24" fill="none" stroke="#C49200" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg></div>
-            <div><div style={{ fontSize: 11, fontWeight: 800, color: '#C49200', textTransform: 'uppercase', letterSpacing: 0.5 }}>Achievement Unlocked!</div><div style={{ fontSize: 13, fontWeight: 700, color: '#A16207' }}>First Correct Answer</div></div>
+          <div style={{ marginTop: 12, padding: '10px 16px', borderRadius: 10, background: '#F0FDFA', border: '1px solid #FFE082', display: 'flex', alignItems: 'center', gap: 10, animation: 'demoPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)' }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#FFE082', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg></div>
+            <div><div style={{ fontSize: 11, fontWeight: 800, color: '#0F766E', textTransform: 'uppercase', letterSpacing: 0.5 }}>Achievement Unlocked!</div><div style={{ fontSize: 13, fontWeight: 700, color: '#A16207' }}>First Correct Answer</div></div>
           </div>
         )}
       </div>
@@ -717,7 +717,7 @@ function CompareCard({
       className={featured ? 'landing-compare-featured' : ''}
       style={{
         background: featured ? '#fff' : '#FAFAFA',
-        border: featured ? '2px solid #F5B800' : '1px solid #E2E8F0',
+        border: featured ? '2px solid #0D9488' : '1px solid #E2E8F0',
         borderRadius: 12,
         boxShadow: featured ? '0 4px 16px rgba(245, 184, 0, 0.15)' : '0 1px 2px rgba(0,0,0,0.05)',
         padding: '32px 24px',
@@ -730,7 +730,7 @@ function CompareCard({
       {featured && (
         <div style={{
           position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
-          background: '#F5B800', color: '#fff', fontSize: 11, fontWeight: 800,
+          background: '#0D9488', color: '#fff', fontSize: 11, fontWeight: 800,
           textTransform: 'uppercase', letterSpacing: 1, padding: '4px 16px',
           borderRadius: 100, whiteSpace: 'nowrap',
         }}>

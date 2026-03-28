@@ -689,7 +689,7 @@ export default function ProfilePage() {
                     <div
                       className="rounded-2xl p-2 transition-all"
                       style={{
-                        border: !gems.selectedFrame ? '2px solid #F5B800' : '2px solid transparent',
+                        border: !gems.selectedFrame ? '2px solid #0D9488' : '2px solid transparent',
                         background: !gems.selectedFrame ? '#F0FDF4' : '#F9FAFB',
                       }}
                     >

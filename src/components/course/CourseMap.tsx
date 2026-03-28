@@ -716,8 +716,8 @@ export function CourseMap() {
                             fontSize: 14,
                             fontWeight: 800,
                             color: '#FFFFFF',
-                            background: '#F5B800',
-                            boxShadow: '0 4px 0 #C49200',
+                            background: '#0D9488',
+                            boxShadow: '0 4px 0 #0F766E',
                             border: 'none',
                             cursor: 'pointer',
                           }}
