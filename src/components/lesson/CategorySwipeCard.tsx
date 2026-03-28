@@ -187,7 +187,7 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
         </div>
 
         {/* Swipe card area */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 120, position: 'relative' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 180, position: 'relative', flex: 1 }}>
           {!allSwiped && currentOriginalIdx !== -1 && !answered && (
             <AnimatePresence mode="popLayout">
               <motion.div
@@ -195,7 +195,7 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.8}
-                style={{ x, rotate, touchAction: 'none', cursor: 'grab', zIndex: 10 }}
+                style={{ x, rotate, touchAction: 'none', cursor: 'grab', zIndex: 10, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px 0' }}
                 onDragEnd={(_, info) => handleDragEnd(currentOriginalIdx, _, info)}
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -204,10 +204,10 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
                 whileDrag={{ scale: 1.05 }}
               >
                 <div style={{
-                  padding: '20px 28px', borderRadius: 16, background: 'white',
+                  padding: '28px 36px', borderRadius: 18, background: 'white',
                   border: '2.5px solid #E5E5E5', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                  fontSize: 17, fontWeight: 800, color: '#3C3C3C', textAlign: 'center',
-                  minWidth: 180, maxWidth: 260, userSelect: 'none',
+                  fontSize: 18, fontWeight: 800, color: '#3C3C3C', textAlign: 'center',
+                  width: '85%', maxWidth: 320, userSelect: 'none',
                 }}>
                   <MoneyText text={items[currentOriginalIdx]} />
                 </div>
