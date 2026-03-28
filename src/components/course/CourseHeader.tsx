@@ -168,6 +168,7 @@ export function CourseHeader() {
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
   const profession = getProfession(activeProfession);
+  const { current: currentLevel } = getXpToNextLevel(progress.totalXp);
   const router = useRouter();
 
   const headerRef = useRef<HTMLElement>(null);
@@ -315,8 +316,7 @@ export function CourseHeader() {
               aria-label={`${progress.totalXp.toLocaleString()} experience points`}
               aria-expanded={popover === 'xp'}
             >
-              <span style={{ fontSize: 28 }} aria-hidden="true">⭐</span>
-              <AnimatedCounter value={progress.totalXp} showDelta deltaColor="#7B2FBE" />
+              <LevelBadge level={currentLevel} size={28} />
             </button>
 
             <button
@@ -642,14 +642,14 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
                   width: 40,
                   height: 40,
                   borderRadius: 10,
-                  backgroundColor: `${p.color}15`,
+                  backgroundColor: p.color,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
                 }}
               >
-                <CourseIcon professionId={p.id} color={p.color} size={22} />
+                <CourseIcon professionId={p.id} color="#FFFFFF" size={22} />
               </span>
 
               {/* Text */}
