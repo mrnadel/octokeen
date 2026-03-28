@@ -55,6 +55,35 @@ const DEMO_QUESTIONS = [
   },
 ];
 
+/* ── Demo section: smooth-scrolls into view on mobile when it enters the viewport ── */
+function DemoSection({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLElement>(null);
+  const scrolled = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || scrolled.current) return;
+    // Only auto-snap on mobile-ish widths
+    if (window.innerWidth > 768) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !scrolled.current) {
+          scrolled.current = true;
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <section ref={ref} className="landing-demo-section" style={{ padding: '0 24px 80px', scrollMarginTop: 16 }}>
+      {children}
+    </section>
+  );
+}
+
 /* ── Scroll-triggered fade-in ── */
 function AnimateIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -226,7 +255,7 @@ export function LandingPage() {
 
 
       {/* ── INTERACTIVE DEMO SECTION ── */}
-      <section className="landing-demo-section" style={{ padding: '0 24px 80px' }}>
+      <DemoSection>
         <div style={{ maxWidth: 580, margin: '0 auto' }}>
           <AnimateIn>
             <div style={{
@@ -248,7 +277,7 @@ export function LandingPage() {
             <InteractiveDemo />
           </AnimateIn>
         </div>
-      </section>
+      </DemoSection>
 
       {/* ── COMPARISON SECTION ── */}
       <section className="landing-compare-section" style={{
