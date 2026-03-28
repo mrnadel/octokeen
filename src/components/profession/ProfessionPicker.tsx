@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Lock } from 'lucide-react';
 import { PROFESSIONS } from '@/data/professions';
 import { cn } from '@/lib/utils';
 import { CourseIcon } from '@/components/course/CourseIcon';
@@ -9,9 +10,11 @@ interface ProfessionPickerProps {
   selectedId?: string;
   onSelect: (professionId: string) => void;
   compact?: boolean;
+  /** IDs of gated courses the user has been granted access to. */
+  grantedCourses?: string[];
 }
 
-export function ProfessionPicker({ selectedId, onSelect, compact = false }: ProfessionPickerProps) {
+export function ProfessionPicker({ selectedId, onSelect, compact = false, grantedCourses }: ProfessionPickerProps) {
   return (
     <div
       className={cn(
@@ -21,7 +24,8 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false }: Prof
     >
       {PROFESSIONS.map((profession, index) => {
         const isActive = selectedId === profession.id;
-        const isDisabled = profession.isComingSoon === true;
+        const isGated = profession.requiresAccess && grantedCourses && !grantedCourses.includes(profession.id);
+        const isDisabled = profession.isComingSoon === true || isGated;
 
         return (
           <motion.button
@@ -57,10 +61,16 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false }: Prof
               />
             )}
 
-            {/* Coming Soon badge */}
-            {isDisabled && (
+            {/* Coming Soon / Access Required badge */}
+            {profession.isComingSoon && (
               <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-gray-100 text-gray-400 text-[10px] font-black uppercase tracking-wider">
                 Coming Soon
+              </span>
+            )}
+            {isGated && !profession.isComingSoon && (
+              <span className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-500 text-[10px] font-black uppercase tracking-wider">
+                <Lock className="w-2.5 h-2.5" />
+                Access Required
               </span>
             )}
 

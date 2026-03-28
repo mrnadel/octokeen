@@ -456,8 +456,8 @@ export const unit1: Unit = {
           options: [
             "Your employer's profit",
             "Roads, hospitals, schools",
-            "Your bank account only",
-            "Nothing useful",
+            "Your personal savings account",
+            "Your monthly rent and groceries",
           ],
           correctIndex: 1,
           explanation: "Tax money pays for public services: roads, hospitals, schools, and emergency services.",
@@ -491,10 +491,10 @@ export const unit1: Unit = {
           type: "multiple-choice",
           question: "You earn 4,000/month. Your bank shows 3,200. Where did the 800 go?",
           options: [
-            "Your employer kept it",
-            "It was lost in the transfer",
+            "Bank fees and service charges",
+            "Your employer held it as a deposit",
             "Taxes and deductions",
-            "You'll get it back next month",
+            "It went to your retirement account only",
           ],
           correctIndex: 2,
           explanation: "The 800 went to taxes and deductions like insurance or pension.",
@@ -760,9 +760,9 @@ export const unit1: Unit = {
         },
         {
           id: "pf-u1-L8-SQ7",
-          question: "Your paycheck shows $3,000 gross. Net is $2,400. Deductions were:",
-          options: ["$400", "$500", "$600", "$700"],
-          correctIndex: 2,
+          question: "A fixed expense stays the _____ every month.",
+          options: ["Same amount", "Different amount", "Higher", "Lower"],
+          correctIndex: 0,
         },
         {
           id: "pf-u1-L8-SQ8",
@@ -784,9 +784,9 @@ export const unit1: Unit = {
         },
         {
           id: "pf-u1-L8-SQ11",
-          question: "$5/day on coffee = how much per year?",
-          options: ["$365", "$1,200", "$1,500", "$1,825"],
-          correctIndex: 3,
+          question: "The 30% in 50/30/20 is for:",
+          options: ["Needs", "Wants", "Savings", "Taxes"],
+          correctIndex: 1,
         },
         {
           id: "pf-u1-L8-SQ12",
@@ -853,9 +853,9 @@ export const unit1: Unit = {
           question: "What is a good first emergency fund goal?",
           options: [
             "500",
-            "50,000",
-            "1 million",
-            "You don't need one",
+            "5,000",
+            "One month of income",
+            "Whatever is left after bills",
           ],
           correctIndex: 0,
           explanation: "500 is the perfect starter goal. Save 50/month for 10 months and you're there.",
