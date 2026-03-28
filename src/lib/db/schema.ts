@@ -526,3 +526,18 @@ export const friendRequests = pgTable(
     index('friend_requests_receiver_idx').on(table.receiverId),
   ]
 );
+
+// ─── Course Access (admin-granted per-course access) ───────────
+export const courseAccess = pgTable(
+  'course_access',
+  {
+    id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    professionId: text('profession_id').notNull(), // e.g. 'mechanical-engineering'
+    grantedAt: timestamp('granted_at', { mode: 'date' }).defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('course_access_user_profession_idx').on(table.userId, table.professionId),
+    index('course_access_user_idx').on(table.userId),
+  ]
+);

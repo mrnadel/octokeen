@@ -4,7 +4,7 @@
 
 import { eq, and, sql } from 'drizzle-orm';
 import { db } from './db';
-import { subscriptions, dailyUsage } from './db/schema';
+import { subscriptions, dailyUsage, courseAccess } from './db/schema';
 import { LIMITS, PRO_SESSION_TYPES, isUnitUnlocked } from './pricing';
 import type { SubscriptionTier } from './subscription';
 
@@ -165,6 +165,40 @@ export async function canAccessPracticeMode(
     return { allowed: true, tier };
   }
   return { allowed: tier === 'pro', tier };
+}
+
+/**
+ * Check if a user has been granted access to a gated course.
+ * Non-gated courses (requiresAccess !== true) always return true.
+ * Admin always has access.
+ */
+export async function canAccessCourse(
+  userId: string,
+  professionId: string,
+): Promise<boolean> {
+  // Admin always has access
+  const adminId = process.env.ADMIN_USER_ID;
+  if (adminId && userId === adminId) return true;
+
+  const [row] = await db
+    .select({ id: courseAccess.id })
+    .from(courseAccess)
+    .where(and(eq(courseAccess.userId, userId), eq(courseAccess.professionId, professionId)))
+    .limit(1);
+
+  return !!row;
+}
+
+/**
+ * Get all profession IDs a user has been granted access to.
+ */
+export async function getUserCourseAccess(userId: string): Promise<string[]> {
+  const rows = await db
+    .select({ professionId: courseAccess.professionId })
+    .from(courseAccess)
+    .where(eq(courseAccess.userId, userId));
+
+  return rows.map((r) => r.professionId);
 }
 
 // ─── Internal helpers ───────────────────────────────────────────

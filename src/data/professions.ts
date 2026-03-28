@@ -8,6 +8,8 @@ export interface Profession {
   unitCount: number;
   questionCount: number;
   isComingSoon?: boolean;
+  /** Requires admin-granted access to use this course. */
+  requiresAccess?: boolean;
 }
 
 export const PROFESSIONS: Profession[] = [
@@ -20,6 +22,7 @@ export const PROFESSIONS: Profession[] = [
     description: 'Thermodynamics, fluid mechanics, materials, and machine design',
     unitCount: 10,
     questionCount: 1700,
+    requiresAccess: true,
   },
   {
     id: 'personal-finance',
