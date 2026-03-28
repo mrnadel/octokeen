@@ -90,19 +90,13 @@
 
 /* Respect user preference for reduced motion — exempt FX particles */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *:not(.fx-particles *),
+  *:not(.fx-particles *)::before,
+  *:not(.fx-particles *)::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .fx-particles *,
-  .fx-particles *::before,
-  .fx-particles *::after {
-    animation-duration: revert !important;
-    animation-iteration-count: revert !important;
   }
 }
 

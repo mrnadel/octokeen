@@ -30,6 +30,7 @@ export async function initMixpanel() {
 
 export function trackEvent(event: string, properties?: Record<string, unknown>) {
   if (!initialized || !mixpanelLib) return;
+  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/dev/')) return;
   mixpanelLib.track(event, properties);
 }
 
