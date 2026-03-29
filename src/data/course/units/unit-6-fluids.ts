@@ -8,13 +8,16 @@ export const unit6: Unit = {
   icon: '🌊',
   topicId: 'fluid-mechanics',
   lessons: [
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 1a: Fluid Properties & Statics (Part 1)
+    // ═══════════════════════════════════════════════════════════════
     {
       id: 'u6-L1',
-      title: 'Fluid Properties & Statics',
-      description: 'Viscosity, density, surface tension, Pascal\'s law, manometers, and hydrostatic forces on surfaces.',
+      title: 'Fluid Properties & Statics (1/3)',
+      description: 'What makes a fluid, viscosity, density, and the hydrostatic pressure equation.',
       icon: '📝',
       xpReward: 20,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u6-L1-T1',
@@ -24,26 +27,27 @@ export const unit6: Unit = {
           hint: 'Water and air are both fluids, even though one is much denser.',
         },
         {
-          id: 'u6-L1-T2',
-          type: 'teaching',
-          question: 'Pressure increases with depth',
-          explanation: 'In a static fluid, pressure at any point equals P = P_atm + rho*g*h, where h is the depth below the surface. This depends only on depth, not on container shape. That\'s called the hydrostatic paradox.',
-          hint: 'A tall narrow tube and a wide tank at the same depth have the same pressure.',
+          id: 'u6-L1-Q0a',
+          type: 'true-false',
+          question: 'Water and air are both classified as fluids.',
+          correctAnswer: true,
+          explanation: 'Yes. Any substance that flows and deforms continuously under shear stress is a fluid, whether liquid or gas.',
+          hint: 'Fluids include both liquids and gases.',
         },
         {
           id: 'u6-L1-Q1',
           type: 'multiple-choice',
-          question: 'Pressure at a point in a static fluid depends on the shape of the container.?" Is this correct?',
+          question: 'Pressure at a point in a static fluid depends on the shape of the container. Is this correct?',
           options: [
-            'Incorrect — pressure depends only on depth, not shape',
-            'Correct — wider containers produce more fluid weight',
-            'Incorrect — pressure is constant throughout any static fluid',
-            'Correct — container shape affects the velocity profile'
+            'Incorrect, pressure depends only on depth, not shape',
+            'Correct, wider containers produce more fluid weight',
+            'Incorrect, pressure is constant throughout any static fluid',
+            'Correct, container shape affects the velocity profile'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- U-tube --> <path d="M24,14 L24,58 Q24,66 32,66 L48,66 Q56,66 56,58 L56,14" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Manometric fluid (heavy liquid in U-bend) --> <path d="M24.5,44 L24.5,58 Q24.5,65.5 32,65.5 L48,65.5 Q55.5,65.5 55.5,58 L55.5,36" fill="#A5E86C" opacity="0.15"/> <!-- Left fluid column top --> <line x1="22" y1="44" x2="26" y2="44" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <!-- Right fluid column top --> <line x1="54" y1="36" x2="58" y2="36" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="40;40;40" dur="4s" repeatCount="indefinite"/> </line> <!-- h measurement --> <line x1="62" y1="36" x2="62" y2="44" stroke-width="0.4" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="36" x2="64" y2="36" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="36;40;36" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="44" x2="64" y2="44" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text> <!-- Pressure connection (left) --> <line x1="10" y1="20" x2="24" y2="20" stroke-width="0.6" stroke="#58CC02"/> <text x="8" y="21.5" font-size="3" fill="#58CC02" text-anchor="end">P₁</text> <!-- Open/reference (right) --> <text x="58" y="12" font-size="3" fill="#3B8700" opacity="0.4">P_atm</text> <!-- Fluid labels --> <text x="40" y="62" font-size="2.5" fill="#A5E86C" opacity="0.35" text-anchor="middle">mercury</text> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">ΔP = ρgh</text> </svg>',
-          explanation: 'This is the "hydrostatic paradox. " Pressure at a point in a static fluid depends only on the vertical depth below the free surface: P = P_atm + ρgh.',
-          hint: 'The hydrostatic equation: does it include any term.'
+          explanation: 'This is the hydrostatic paradox. Pressure at a point depends only on depth below the surface: P = P_atm + rho*g*h.',
+          hint: 'The hydrostatic equation has no term for container shape.'
         },
         {
           id: 'u6-L1-Q2',
@@ -57,8 +61,8 @@ export const unit6: Unit = {
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'The centroid is where the total force would act if pressure were UNIFORM, but hydrostatic pressure increases linearly with depth (P = ρgh).',
-          hint: 'Pressure is not uniform — it increases with depth.'
+          explanation: 'Hydrostatic pressure increases with depth, so the resultant force acts below the centroid at the center of pressure.',
+          hint: 'Pressure is not uniform: it increases with depth.'
         },
         {
           id: 'u6-L1-Q3',
@@ -71,9 +75,30 @@ export const unit6: Unit = {
             'The distinction is purely academic with no real use'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'Newton\'s law of viscosity (τ = μ·du/dy) assumes a constant proportionality (viscosity μ) between shear stress and shear rate. Water, air, oils, and most simple fluids are Newtonian.',
-          hint: 'The relationship τ = μ × (du/dy).'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
+          explanation: 'Newton\'s law of viscosity says tau = mu * (du/dy). For Newtonian fluids, viscosity mu is constant regardless of shear rate.',
+          hint: 'The relationship tau = mu * (du/dy) is the key.'
+        },
+        {
+          id: 'u6-L1-T2',
+          type: 'teaching',
+          question: 'Pressure increases with depth',
+          explanation: 'In a static fluid, pressure at any point equals P = P_atm + rho*g*h, where h is the depth below the surface. This depends only on depth, not on container shape.',
+          hint: 'A tall narrow tube and a wide tank at the same depth have the same pressure.',
+        },
+        {
+          id: 'u6-L1-Q0b',
+          type: 'multiple-choice',
+          question: 'As you go deeper in a swimming pool, the water pressure:',
+          options: [
+            'Increases',
+            'Decreases',
+            'Stays the same',
+            'Depends on pool shape'
+          ],
+          correctIndex: 0,
+          explanation: 'Pressure increases linearly with depth: P = rho*g*h. The deeper you go, the more fluid weight above you.',
+          hint: 'Think about how your ears feel when diving deeper.',
         },
         {
           id: 'u6-L1-Q4',
@@ -82,12 +107,12 @@ export const unit6: Unit = {
           options: [
             'Force is multiplied but displacement is divided by the same ratio',
             'The energy difference is supplied by pressurized hydraulic fluid',
-            'The 100× force multiplication only works for static loading',
+            'The 100x force multiplication only works for static loading',
             'Conservation of energy does not apply to mechanical systems'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Passage fluid (always filled) --> <rect x="15" y="57" width="52" height="6" rx="2" fill="#A5E86C" opacity="0.15"/> <!-- Left cylinder fluid (drops when piston pushes) --> <rect x="17" y="38" width="10" height="19" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="38;48;38" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="19;9;19" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Right cylinder fluid (rises when pressure transmits) --> <rect x="49" y="28" width="16" height="29" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="28;24;28" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="29;33;29" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Bottom passage walls --> <rect x="14" y="56" width="54" height="8" rx="3" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Left (small) cylinder walls --> <line x1="16" y1="26" x2="16" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="28" y1="26" x2="28" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Right (large) cylinder walls --> <line x1="48" y1="18" x2="48" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="66" y1="18" x2="66" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Small piston (pushes down — input force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,10;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="17" y="32" width="10" height="6" rx="2" fill="#58CC02" opacity="0.45"/> <rect x="17" y="32" width="10" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="17.5" y1="35" x2="26.5" y2="35" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="19.5" y="22" width="5" height="12" rx="2.5" fill="#3B8700" opacity="0.35"/> <!-- Input force arrow --> <line x1="22" y1="12" x2="22" y2="19" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/> <polygon points="20,18 22,22 24,18" fill="#3B8700" opacity="0.4"/> </g> <!-- Large piston (pushes up — output force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="49" y="22" width="16" height="6" rx="2" fill="#58CC02" opacity="0.4"/> <rect x="49" y="22" width="16" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="49.5" y1="25" x2="64.5" y2="25" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="53" y="14" width="8" height="10" rx="3" fill="#3B8700" opacity="0.3"/> <!-- Load block --> <rect x="50" y="8" width="14" height="6" rx="2" fill="#58CC02" opacity="0.18"/> <rect x="50" y="8" width="14" height="6" rx="2" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Output force arrow --> <polygon points="55,6 57,2 59,6" fill="#3B8700" opacity="0.4"/> </g> <!-- Pressure arrows inside fluid --> <path d="M21,50 L21,47 L19.5,47 L22,44 L24.5,47 L23,47 L23,50 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.08;0.25;0.08" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M35,61 L38,61 L38,59.5 L41,60.5 L38,61.5 L38,60 L35,60 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.2;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M56,42 L56,39 L54.5,39 L57,36 L59.5,39 L58,39 L58,42 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.22;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Force labels --> <text x="22" y="9" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic">f</text> <text x="64" y="5" text-anchor="middle" font-size="8" fill="#3B8700" opacity="0.45" font-weight="bold" font-style="italic">F</text> <!-- Area labels --> <text x="22" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">a</text> <text x="57" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">A</text> </svg>',
-          explanation: 'Pascal\'s law gives force multiplication: F₂ = F₁ × (A₂/A₁). But since the fluid is incompressible, volume displaced must be equal: A₁ × d₁ = A₂ × d₂, so d₂ = d₁ × (A₁/A₂) = d₁/100.',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="15" y="57" width="52" height="6" rx="2" fill="#A5E86C" opacity="0.15"/> <rect x="17" y="38" width="10" height="19" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="38;48;38" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="19;9;19" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <rect x="49" y="28" width="16" height="29" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="28;24;28" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="29;33;29" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <rect x="14" y="56" width="54" height="8" rx="3" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="16" y1="26" x2="16" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="28" y1="26" x2="28" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="48" y1="18" x2="48" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="66" y1="18" x2="66" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,10;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <rect x="17" y="32" width="10" height="6" rx="2" fill="#58CC02" opacity="0.45"/> <rect x="17" y="32" width="10" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="19.5" y="22" width="5" height="12" rx="2.5" fill="#3B8700" opacity="0.35"/> <line x1="22" y1="12" x2="22" y2="19" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/> <polygon points="20,18 22,22 24,18" fill="#3B8700" opacity="0.4"/> </g> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <rect x="49" y="22" width="16" height="6" rx="2" fill="#58CC02" opacity="0.4"/> <rect x="49" y="22" width="16" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="53" y="14" width="8" height="10" rx="3" fill="#3B8700" opacity="0.3"/> <rect x="50" y="8" width="14" height="6" rx="2" fill="#58CC02" opacity="0.18"/> <rect x="50" y="8" width="14" height="6" rx="2" stroke="#3B8700" stroke-width="1.2" fill="none"/> <polygon points="55,6 57,2 59,6" fill="#3B8700" opacity="0.4"/> </g> <text x="22" y="9" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic">f</text> <text x="64" y="5" text-anchor="middle" font-size="8" fill="#3B8700" opacity="0.45" font-weight="bold" font-style="italic">F</text> <text x="22" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">a</text> <text x="57" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">A</text> </svg>',
+          explanation: 'Pascal\'s law gives force multiplication F2 = F1 * (A2/A1). But volume is conserved: A1*d1 = A2*d2, so displacement shrinks proportionally.',
           hint: 'What happens to the displacement when force is multiplied?'
         },
         {
@@ -97,59 +122,74 @@ export const unit6: Unit = {
           options: [
             'Surface tension increases with temperature for most liquids',
             'Capillary rise is inversely proportional to tube diameter',
-            'Surface tension has units of N/m², same as pressure',
+            'Surface tension has units of N/m2, same as pressure',
             'Surface tension effects vanish as length scale decreases'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="40" width="70" height="30" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1"/><rect x="7" y="42" width="66" height="26" fill="#A5E86C" opacity="0.12"/><rect x="35" y="10" width="10" height="60" rx="1" stroke="#3B8700" stroke-width="1.5" fill="none"/><rect x="36" y="25" width="8" height="45" fill="#A5E86C" opacity="0.15"/><path d="M36,25 Q40,20 44,25" stroke="#58CC02" stroke-width="1" fill="#A5E86C" opacity="0.2"/><line x1="48" y1="25" x2="48" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.4"/><text x="53" y="35" font-size="4" fill="#3B8700" opacity="0.5">h</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">capillary rise</text></svg>',
-          explanation: 'Capillary rise h = 4σcos(θ)/(ρgd), which shows it is inversely proportional to tube diameter d.',
-          hint: 'The capillary rise equation and how each variable.'
-        },
-        {
-          id: 'u6-L1-T3',
-          type: 'teaching',
-          question: 'Buoyancy and hydrostatic forces',
-          explanation: 'Archimedes\' principle says the buoyant force on a submerged object equals the weight of displaced fluid: F_b = rho_fluid * g * V_object. For forces on flat surfaces like gates and dams, use F = rho*g*y_c*A, where y_c is the depth to the centroid.',
-          hint: 'Buoyancy depends on the fluid\'s density and the object\'s volume, not its weight.',
+          explanation: 'Capillary rise h = 4*sigma*cos(theta)/(rho*g*d), inversely proportional to tube diameter d.',
+          hint: 'Look at the capillary rise equation and how diameter appears.'
         },
         {
           id: 'u6-L1-Q6',
           type: 'fill-blank',
-          question: 'The ratio of dynamic viscosity to density (μ/ρ) is called the _____ viscosity, with SI units of m²/s.',
+          question: 'The ratio of dynamic viscosity to density (mu/rho) is called the _____ viscosity, with SI units of m2/s.',
           blanks: ['kinematic'],
           wordBank: ['kinematic', 'dynamic', 'absolute', 'turbulent', 'specific'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'Kinematic viscosity ν = μ/ρ combines the fluid\'s resistance to deformation with its density.',
-          hint: 'This form of viscosity has units of m²/s and appears.'
+          explanation: 'Kinematic viscosity nu = mu/rho combines a fluid\'s resistance to deformation with its density.',
+          hint: 'This form of viscosity has units of m2/s and appears in the Reynolds number.'
         },
         {
           id: 'u6-L1-Q7',
-          type: 'multiple-choice',
-          question: 'The manometer fluid is mercury (SG = 13.6)?',
-          options: [
-            'P_A − P_B = ρ_mercury × g × Δh ≈ 20.0 kPa',
-            'P_A − P_B = (ρ_mercury − ρ_water) × g × Δh ≈ 18.5 kPa',
-            'P_A − P_B = ρ_water × g × Δh ≈ 1.47 kPa',
-            'P_A is lower than P_B, not higher'
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">U-Tube Manometer</text><path d="M22,14 L22,58 Q22,66 30,66 L50,66 Q58,66 58,58 L58,14" stroke="#3B8700" stroke-width="1.5" fill="none"/><path d="M22.5,50 L22.5,58 Q22.5,65.5 30,65.5 L50,65.5 Q57.5,65.5 57.5,58 L57.5,38" fill="#A5E86C" opacity="0.2"/><rect x="22" y="24" width="1" height="26" fill="#58CC02" opacity="0.1"/><rect x="57" y="24" width="1" height="14" fill="#58CC02" opacity="0.1"/><line x1="19" y1="50" x2="25" y2="50" stroke="#3B8700" stroke-width="0.6" opacity="0.4"/><line x1="55" y1="38" x2="61" y2="38" stroke="#3B8700" stroke-width="0.6" opacity="0.4"/><line x1="64" y1="38" x2="64" y2="50" stroke="#6B7280" stroke-width="0.5" opacity="0.4"/><line x1="62" y1="38" x2="66" y2="38" stroke="#6B7280" stroke-width="0.4" opacity="0.4"/><line x1="62" y1="50" x2="66" y2="50" stroke="#6B7280" stroke-width="0.4" opacity="0.4"/><text x="68" y="46" font-size="5" fill="#334155" font-weight="bold">&#x394;h</text><line x1="10" y1="20" x2="22" y2="20" stroke="#58CC02" stroke-width="0.8" opacity="0.4"/><text x="8" y="21" font-size="4" fill="#334155" text-anchor="end">P&#x2081;</text><line x1="58" y1="20" x2="70" y2="20" stroke="#58CC02" stroke-width="0.8" opacity="0.4"/><text x="72" y="21" font-size="4" fill="#334155">P&#x2082;</text><text x="40" y="62" text-anchor="middle" font-size="3" fill="#6B7280">manometer fluid</text><text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#334155" font-style="italic">P&#x2081;&#x2212;P&#x2082; = &#x3C1;m&#xB7;g&#xB7;&#x394;h</text><text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#6B7280">Higher P pushes fluid down</text></svg>',
-          explanation: 'A common misconception: the mercury is pushed DOWN on the high-pressure side and UP on the low-pressure side. If the mercury column is 150 mm HIGHER on side A, then P_B > P_A.',
-          hint: 'In a U-tube manometer.'
+          type: 'sort-buckets',
+          question: 'Sort these into Newtonian or non-Newtonian fluids.',
+          options: ['Water', 'Honey', 'Air', 'Ketchup', 'Motor oil', 'Toothpaste'],
+          buckets: ['Newtonian', 'Non-Newtonian'],
+          correctBuckets: [0, 0, 0, 1, 0, 1],
+          explanation: 'Water, honey, air, and motor oil all have constant viscosity at a given temperature (Newtonian). Ketchup and toothpaste change viscosity with shear rate.',
+          hint: 'Newtonian fluids have a constant viscosity regardless of how hard you stir them.',
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 1b: Fluid Properties & Statics (Part 2)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L1b',
+      title: 'Fluid Properties & Statics (2/3)',
+      description: 'Manometers, gauge vs absolute pressure, and buoyancy forces.',
+      icon: '📝',
+      xpReward: 20,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L1-T3',
+          type: 'teaching',
+          question: 'Buoyancy and hydrostatic forces',
+          explanation: 'Archimedes\' principle says the buoyant force on a submerged object equals the weight of displaced fluid: F_b = rho_fluid * g * V_object. For forces on flat surfaces like gates and dams, use F = rho*g*y_c*A.',
+          hint: 'Buoyancy depends on the fluid\'s density and the object\'s volume, not its weight.',
+        },
+        {
+          id: 'u6-L1b-Q0a',
+          type: 'true-false',
+          question: 'A steel ship floats because it displaces a volume of water that weighs more than the ship itself.',
+          correctAnswer: true,
+          explanation: 'Exactly. The hollow hull displaces enough water so the buoyant force equals the ship\'s weight.',
+          hint: 'Archimedes\' principle is about displaced fluid volume, not material density.',
         },
         {
           id: 'u6-L1-Q8',
           type: 'multiple-choice',
-          question: 'If the local atmospheric pressure is 95 kPa (at elevation), what is the absolute pressure?',
+          question: 'If the local atmospheric pressure is 95 kPa (at elevation), what is the absolute pressure at 350 kPa gauge?',
           options: [
             '445 kPa absolute',
             '350 kPa absolute',
             '255 kPa absolute',
-            '350 kPa — gauge and absolute are equivalent'
+            '350 kPa, gauge and absolute are equivalent'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gauge face --> <circle cx="40" cy="40" r="28" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="26" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.2"/> <!-- Scale markings --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.4"> <line x1="40" y1="14" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="66"/> <line x1="14" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="66" y2="40"/> <line x1="21.6" y1="21.6" x2="24.4" y2="24.4"/> <line x1="58.4" y1="21.6" x2="55.6" y2="24.4"/> <line x1="21.6" y1="58.4" x2="24.4" y2="55.6"/> <line x1="58.4" y1="58.4" x2="55.6" y2="55.6"/> </g> <!-- Scale numbers --> <text x="40" y="22" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">6</text> <text x="58" y="24" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">8</text> <text x="64" y="42" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">10</text> <text x="22" y="24" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">4</text> <text x="16" y="42" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">2</text> <text x="22" y="60" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">0</text> <!-- Needle --> <g> <line x1="40" y1="40" x2="24" y2="54" stroke-width="0.8" stroke="#58CC02"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;-120,40,40;0,40,40" dur="5s" repeatCount="indefinite"/> </g> <!-- Center pin --> <circle cx="40" cy="40" r="2.5" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <!-- Bourdon tube (C-shape, inside) --> <path d="M40,58 Q26,54 24,40 Q22,26 36,22" stroke-width="0.8" stroke="#A5E86C" fill="none" opacity="0.3"> <animate attributeName="d" values="M40,58 Q28,56 26,44 Q24,30 36,26;M40,58 Q22,50 20,36 Q18,22 32,18;M40,58 Q28,56 26,44 Q24,30 36,26" dur="5s" repeatCount="indefinite"/> </path> <!-- Pressure inlet --> <rect x="37" y="64" width="6" height="8" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none"/> <text x="40" y="77" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">pressure in</text> <!-- Unit label --> <text x="40" y="50" font-size="3" fill="#3B8700" opacity="0.3" text-anchor="middle">bar</text> </svg>',
-          explanation: 'P_absolute = P_gauge + P_atmospheric = 350 + 95 = 445 kPa. Gauge pressure is measured relative to atmospheric pressure, so it reads zero when open to the atmosphere.',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="26" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.2"/> <g stroke="#58CC02" stroke-width="0.4" opacity="0.4"> <line x1="40" y1="14" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="66"/> <line x1="14" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="66" y2="40"/> </g> <text x="40" y="22" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">6</text> <text x="64" y="42" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">10</text> <text x="16" y="42" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">2</text> <text x="22" y="60" font-size="3" fill="#58CC02" opacity="0.35" text-anchor="middle">0</text> <g> <line x1="40" y1="40" x2="24" y2="54" stroke-width="0.8" stroke="#58CC02"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;-120,40,40;0,40,40" dur="5s" repeatCount="indefinite"/> </g> <circle cx="40" cy="40" r="2.5" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <text x="40" y="50" font-size="3" fill="#3B8700" opacity="0.3" text-anchor="middle">bar</text> </svg>',
+          explanation: 'P_absolute = P_gauge + P_atmospheric = 350 + 95 = 445 kPa. Gauge pressure uses atmospheric as its zero.',
           hint: 'Gauge pressure uses atmospheric as its zero reference.'
         },
         {
@@ -157,54 +197,74 @@ export const unit6: Unit = {
           type: 'true-false',
           question: 'The buoyant force on a fully submerged object depends on the object\'s weight and density.',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Buoyancy Forces</text><rect x="4" y="18" width="72" height="52" rx="2" fill="#58CC02" opacity="0.06"/><line x1="4" y1="18" x2="76" y2="18" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/><text x="6" y="16" font-size="3.5" fill="#6B7280">water surface</text><rect x="26" y="30" width="28" height="22" rx="3" fill="#A5E86C" opacity="0.15" stroke="#3B8700" stroke-width="1.5"/><text x="40" y="44" text-anchor="middle" font-size="5" fill="#334155">Object</text><line x1="40" y1="30" x2="40" y2="16" stroke="#58CC02" stroke-width="1.5" opacity="0.5"/><polygon points="38.5,18 40,14 41.5,18" fill="#58CC02" opacity="0.5"/><text x="44" y="22" font-size="5" fill="#58CC02" font-weight="bold">F_b</text><line x1="40" y1="52" x2="40" y2="66" stroke="#3B8700" stroke-width="1.5" opacity="0.5"/><polygon points="38.5,64 40,68 41.5,64" fill="#3B8700" opacity="0.5"/><text x="44" y="64" font-size="5" fill="#3B8700" font-weight="bold">W</text><line x1="28" y1="26" x2="52" y2="26" stroke="#6B7280" stroke-width="0.5" opacity="0.25"/><polygon points="29,24.5 26,26 29,27.5" fill="#6B7280" opacity="0.25"/><polygon points="51,24.5 54,26 51,27.5" fill="#6B7280" opacity="0.25"/><text x="40" y="25" text-anchor="middle" font-size="3" fill="#6B7280">small P</text><line x1="28" y1="56" x2="52" y2="56" stroke="#3B8700" stroke-width="0.7" opacity="0.3"/><polygon points="29,54.5 26,56 29,57.5" fill="#3B8700" opacity="0.3"/><polygon points="51,54.5 54,56 51,57.5" fill="#3B8700" opacity="0.3"/><text x="40" y="60" text-anchor="middle" font-size="3" fill="#3B8700">large P</text><text x="40" y="75" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">F_b = &#x3C1;_fluid &#xD7; g &#xD7; V_obj</text></svg>',
-          explanation: 'Archimedes\' principle states that the buoyant force equals the weight of the displaced fluid: F_b = ρ_fluid × g × V_object.',
-          hint: 'Archimedes\' principle — what determines the buoyant force?'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Buoyancy Forces</text><rect x="4" y="18" width="72" height="52" rx="2" fill="#58CC02" opacity="0.06"/><line x1="4" y1="18" x2="76" y2="18" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/><rect x="26" y="30" width="28" height="22" rx="3" fill="#A5E86C" opacity="0.15" stroke="#3B8700" stroke-width="1.5"/><text x="40" y="44" text-anchor="middle" font-size="5" fill="#334155">Object</text><line x1="40" y1="30" x2="40" y2="16" stroke="#58CC02" stroke-width="1.5" opacity="0.5"/><polygon points="38.5,18 40,14 41.5,18" fill="#58CC02" opacity="0.5"/><text x="44" y="22" font-size="5" fill="#58CC02" font-weight="bold">F_b</text><line x1="40" y1="52" x2="40" y2="66" stroke="#3B8700" stroke-width="1.5" opacity="0.5"/><polygon points="38.5,64 40,68 41.5,64" fill="#3B8700" opacity="0.5"/><text x="44" y="64" font-size="5" fill="#3B8700" font-weight="bold">W</text><text x="40" y="75" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">F_b = rho_fluid * g * V_obj</text></svg>',
+          explanation: 'Buoyant force depends only on the fluid\'s density and the object\'s volume: F_b = rho_fluid * g * V_object.',
+          hint: 'Archimedes\' principle: what determines the buoyant force?'
         },
         {
           id: 'u6-L1-Q10',
           type: 'multiple-choice',
-          question: 'What is the resultant hydrostatic force on the gate? (ρ_water = 1000 kg/m³)',
+          question: 'What is the resultant hydrostatic force on the gate? (rho_water = 1000 kg/m3)',
           options: [
-            'F = ρg × ȳ_c × A = 1000 × 9.81 × 2 × 12 = 235.4 kN',
-            'F = ρg × h × A = 1000 × 9.81 × 4 × 12 = 470.9 kN',
-            'F = ½ × ρg × h² × w = ½ × 1000 × 9.81 × 16 × 3 = 235.4 kN',
-            'F = ρg × h × w = 1000 × 9.81 × 4 × 3 = 117.7 kN'
+            'F = rho*g * y_c * A = 1000 * 9.81 * 2 * 12 = 235.4 kN',
+            'F = rho*g * h * A = 1000 * 9.81 * 4 * 12 = 470.9 kN',
+            'F = 0.5 * rho*g * h2 * w = 235.4 kN',
+            'F = rho*g * h * w = 1000 * 9.81 * 4 * 3 = 117.7 kN'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="10" width="35" height="55" fill="#A5E86C" opacity="0.1"/><line x1="40" y1="10" x2="40" y2="65" stroke="#3B8700" stroke-width="2.5"/><circle cx="40" cy="65" r="2" fill="#3B8700" opacity="0.5"/><line x1="5" y1="65" x2="75" y2="65" stroke="#3B8700" stroke-width="2"/><line x1="15" y1="40" x2="38" y2="40" stroke="#58CC02" stroke-width="1.2" opacity="0.5"/><polygon points="37,38.5 40,40 37,41.5" fill="#58CC02" opacity="0.5"/><line x1="10" y1="50" x2="38" y2="50" stroke="#58CC02" stroke-width="1.5" opacity="0.6"/><polygon points="37,48.5 40,50 37,51.5" fill="#58CC02" opacity="0.6"/><circle cx="40" cy="37" r="1.5" fill="#3B8700" opacity="0.6"/><text x="44" y="36" font-size="3" fill="#3B8700" opacity="0.5">CG</text><circle cx="40" cy="44" r="1.5" fill="#58CC02" opacity="0.6"/><text x="44" y="43" font-size="3" fill="#58CC02" opacity="0.5">CP</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">CP below CG</text></svg>',
-          explanation: 'The resultant hydrostatic force on a plane surface is F = ρg × ȳ_c × A, where ȳ_c is the depth to the centroid of the surface and A is the area.',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="10" width="35" height="55" fill="#A5E86C" opacity="0.1"/><line x1="40" y1="10" x2="40" y2="65" stroke="#3B8700" stroke-width="2.5"/><circle cx="40" cy="65" r="2" fill="#3B8700" opacity="0.5"/><line x1="5" y1="65" x2="75" y2="65" stroke="#3B8700" stroke-width="2"/><circle cx="40" cy="37" r="1.5" fill="#3B8700" opacity="0.6"/><text x="44" y="36" font-size="3" fill="#3B8700" opacity="0.5">CG</text><circle cx="40" cy="44" r="1.5" fill="#58CC02" opacity="0.6"/><text x="44" y="43" font-size="3" fill="#58CC02" opacity="0.5">CP</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">CP below CG</text></svg>',
+          explanation: 'The resultant hydrostatic force on a plane surface is F = rho*g * y_c * A, where y_c is the depth to the centroid.',
           hint: 'The hydrostatic force uses the pressure at the centroid.'
+        },
+        {
+          id: 'u6-L1b-T2',
+          type: 'teaching',
+          question: 'Manometers measure pressure',
+          explanation: 'A manometer is a U-tube filled with a heavy fluid (usually mercury). The pressure difference between the two sides creates a measurable height difference: delta_P = rho_manometer * g * delta_h.',
+          hint: 'Try this now: look at a tire pressure gauge and note whether it reads gauge or absolute.',
+        },
+        {
+          id: 'u6-L1b-Q0b',
+          type: 'multiple-choice',
+          question: 'In a U-tube manometer, the heavier fluid column is pushed down on the:',
+          options: [
+            'High-pressure side',
+            'Low-pressure side',
+            'Both sides equally',
+            'It doesn\'t matter'
+          ],
+          correctIndex: 0,
+          explanation: 'Higher pressure pushes the manometer fluid down on that side, causing it to rise on the opposite side.',
+          hint: 'Think about pushing down on one side of a U-tube.',
         },
         {
           id: 'u6-L1-Q11',
           type: 'multiple-choice',
           question: 'What is the bulk modulus of a fluid, and why does it matter in hydraulic systems?',
           options: [
-            'Bulk modulus measures a fluid\'s resistance to uniform compression: K =',
-            'Bulk modulus measures the fluid\'s resistance to shear deformation, similar',
-            'Bulk modulus is the ratio of surface tension to viscosity, governing droplet',
+            'Bulk modulus measures a fluid\'s resistance to compression',
+            'Bulk modulus measures resistance to shear deformation',
+            'Bulk modulus is the ratio of surface tension to viscosity',
             'Bulk modulus only matters for gases'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="15" y="20" width="50" height="40" rx="3" fill="#58CC02" opacity="0.08" stroke="#58CC02" stroke-width="1.5"/> <text x="40" y="38" text-anchor="middle" font-size="5" fill="#3B8700" font-weight="bold" font-style="italic">V</text> <!-- Compression arrows --> <g opacity="0"> <animate attributeName="opacity" values="0;0.6;0.6" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.2;1"/> <line x1="8" y1="40" x2="15" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="13,38 17,40 13,42" fill="#3B8700"/> <line x1="72" y1="40" x2="65" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="67,42 63,40 67,38" fill="#3B8700"/> <line x1="40" y1="13" x2="40" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,18 40,22 42,18" fill="#3B8700"/> <line x1="40" y1="67" x2="40" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="42,62 40,58 38,62" fill="#3B8700"/> </g> <!-- Compressed volume (dashed inner) --> <rect x="20" y="25" width="40" height="30" rx="2" fill="none" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.4;0.4" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.3;0.5;1"/> </rect> <text x="40" y="50" text-anchor="middle" font-size="4" fill="#A5E86C" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.4;0.4" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.3;0.5;1"/> &#x394;V </text> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#334155" opacity="0.4" font-style="italic">K = &#x394;P/(&#x394;V/V)</text> </svg>',
-
-          explanation: 'Bulk modulus K = −V(dP/dV) = −ΔP/(ΔV/V) measures how much pressure is needed to compress a fluid by a given fraction. Water has K ≈ 2.2 GPa, while hydraulic oil is typically K ≈ 1.',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="15" y="20" width="50" height="40" rx="3" fill="#58CC02" opacity="0.08" stroke="#58CC02" stroke-width="1.5"/> <text x="40" y="38" text-anchor="middle" font-size="5" fill="#3B8700" font-weight="bold" font-style="italic">V</text> <g opacity="0"> <animate attributeName="opacity" values="0;0.6;0.6" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.2;1"/> <line x1="8" y1="40" x2="15" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="13,38 17,40 13,42" fill="#3B8700"/> <line x1="72" y1="40" x2="65" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="67,42 63,40 67,38" fill="#3B8700"/> </g> <rect x="20" y="25" width="40" height="30" rx="2" fill="none" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.4;0.4" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.3;0.5;1"/> </rect> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#334155" opacity="0.4" font-style="italic">K = delta_P/(delta_V/V)</text> </svg>',
+          explanation: 'Bulk modulus K measures how much pressure is needed to compress a fluid by a given fraction. Water has K of about 2.2 GPa.',
           hint: 'What happens when you try to compress a fluid?'
         },
         {
           id: 'u6-L1-Q12',
           type: 'true-false',
-          question: 'In a differential manometer, if both legs contain the same fluid and no manometer fluid is used, the manometer cannot.',
+          question: 'In a differential manometer, if both legs contain the same fluid and no manometer fluid is used, the manometer cannot measure a pressure difference.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M24,66 L24,22 Q24,14 32,14 L48,14 Q56,14 56,22 L56,66" stroke="#3B8700" stroke-width="1" fill="none"/><path d="M24.5,36 L24.5,22 Q24.5,14.5 32,14.5 L48,14.5 Q55.5,14.5 55.5,22 L55.5,44" fill="#A5E86C" opacity="0.1"/><rect x="26" y="36" width="8" height="30" fill="#58CC02" opacity="0.08"/><rect x="48" y="44" width="8" height="22" fill="#58CC02" opacity="0.08"/><line x1="62" y1="36" x2="62" y2="44" stroke="#3B8700" stroke-width="0.4" opacity="0.4"/><text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text><text x="40" y="10" font-size="3" fill="#A5E86C" opacity="0.35" text-anchor="middle">light fluid</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">inverted U-tube</text></svg>',
-          explanation: 'A differential manometer works by using a fluid of different density (usually mercury or another heavy fluid) to create a measurable height difference.',
-          hint: 'Write out the manometer equation with the same fluid.'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M24,66 L24,22 Q24,14 32,14 L48,14 Q56,14 56,22 L56,66" stroke="#3B8700" stroke-width="1" fill="none"/><path d="M24.5,36 L24.5,22 Q24.5,14.5 32,14.5 L48,14.5 Q55.5,14.5 55.5,22 L55.5,44" fill="#A5E86C" opacity="0.1"/><line x1="62" y1="36" x2="62" y2="44" stroke="#3B8700" stroke-width="0.4" opacity="0.4"/><text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text><text x="40" y="10" font-size="3" fill="#A5E86C" opacity="0.35" text-anchor="middle">light fluid</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">inverted U-tube</text></svg>',
+          explanation: 'A manometer needs a fluid of different density to create a measurable height difference. Same fluid on both sides means no height change.',
+          hint: 'Write out the manometer equation with the same fluid on both sides.'
         },
         {
           id: 'u6-L1-Q13',
           type: 'multiple-choice',
-          question: 'At 300 m below the ocean surface (seawater ρ = 1025 kg/m³), what is the gauge pressure on the hull?',
+          question: 'At 300 m below the ocean surface (seawater rho = 1025 kg/m3), what is the gauge pressure on the hull?',
           options: [
             'About 3.02 MPa (approximately 30 atmospheres)',
             'About 302 kPa (approximately 3 atmospheres)',
@@ -212,24 +272,46 @@ export const unit6: Unit = {
             'About 101.3 kPa (one atmosphere at any depth)'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'P_gauge = ρgh = 1025 × 9.81 × 300 = 3,016,575 Pa ≈ 3.02 MPa ≈ 30 atm. At 300 m depth, the hull must withstand roughly 30 times atmospheric pressure.',
-          hint: 'Use P = ρgh with consistent SI units.'
+          explanation: 'P_gauge = rho*g*h = 1025 * 9.81 * 300 = 3,016,575 Pa, which is about 3.02 MPa or 30 atm.',
+          hint: 'Use P = rho*g*h with consistent SI units.'
         },
         {
           id: 'u6-L1-Q14',
-          type: 'multiple-choice',
-          question: 'What happens to the viscosity of a gas versus a liquid as temperature increases?',
-          options: [
-            'Gas viscosity increases; liquid viscosity decreases',
-            'Both gas and liquid viscosities increase with temperature',
-            'Both gas and liquid viscosities decrease with temperature',
-            'Gas viscosity decreases; liquid viscosity increases'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'This is a fundamental difference rooted in molecular behavior.',
-          hint: 'The molecular mechanism of viscosity in gases vs.'
+          type: 'match-pairs',
+          question: 'Match each fluid property to its correct definition.',
+          options: ['Viscosity', 'Density', 'Surface tension', 'Bulk modulus'],
+          matchTargets: ['Resistance to flow', 'Mass per unit volume', 'Force per unit length at interface', 'Resistance to compression'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'These four properties are the building blocks for describing any fluid\'s mechanical behavior.',
+          hint: 'Think about what each property physically resists or measures.',
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 1c: Fluid Properties & Statics (Part 3)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L1c',
+      title: 'Fluid Properties & Statics (3/3)',
+      description: 'Floating stability, non-Newtonian fluids, vapor pressure, and advanced hydrostatics.',
+      icon: '📝',
+      xpReward: 20,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L1c-T1',
+          type: 'teaching',
+          question: 'Floating stability',
+          explanation: 'A floating object is stable when the metacenter (M) is above the center of gravity (G). The metacentric height GM = BM - BG determines how strongly a displaced object rights itself.',
+          hint: 'Ships are designed so M stays well above G, even when tilted.',
+        },
+        {
+          id: 'u6-L1c-Q0a',
+          type: 'true-false',
+          question: 'A floating boat is stable when its metacenter is above its center of gravity.',
+          correctAnswer: true,
+          explanation: 'Correct. When M is above G, any tilt creates a righting moment that pushes the boat back upright.',
+          hint: 'M above G = stable. G above M = capsizes.',
         },
         {
           id: 'u6-L1-Q15',
@@ -237,24 +319,23 @@ export const unit6: Unit = {
           question: 'The hydrostatic force on a curved submerged surface is analyzed by resolving it into _____ and vertical components.',
           blanks: ['horizontal'],
           wordBank: ['horizontal', 'tangential', 'normal', 'radial', 'axial'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Curved Surface Forces</text><rect x="4" y="12" width="72" height="56" rx="2" fill="#58CC02" opacity="0.04"/><line x1="4" y1="12" x2="76" y2="12" stroke="#3B8700" stroke-width="0.6" opacity="0.2"/><text x="6" y="11" font-size="3" fill="#6B7280">surface</text><path d="M20,18 Q20,50 50,62" stroke="#3B8700" stroke-width="2" fill="none"/><rect x="8" y="14" width="14" height="54" rx="0" fill="#6B7280" opacity="0.08"/><line x1="8" y1="14" x2="8" y2="68" stroke="#6B7280" stroke-width="1" opacity="0.3"/><line x1="5" y1="18" x2="8" y2="14" stroke="#6B7280" stroke-width="0.4" opacity="0.2"/><line x1="5" y1="26" x2="8" y2="22" stroke="#6B7280" stroke-width="0.4" opacity="0.2"/><line x1="5" y1="34" x2="8" y2="30" stroke="#6B7280" stroke-width="0.4" opacity="0.2"/><line x1="5" y1="42" x2="8" y2="38" stroke="#6B7280" stroke-width="0.4" opacity="0.2"/><line x1="24" y1="20" x2="30" y2="20" stroke="#3B8700" stroke-width="0.6" opacity="0.25"/><polygon points="29,18.5 32,20 29,21.5" fill="#3B8700" opacity="0.25"/><line x1="23" y1="28" x2="32" y2="28" stroke="#3B8700" stroke-width="0.7" opacity="0.3"/><polygon points="31,26.5 34,28 31,29.5" fill="#3B8700" opacity="0.3"/><line x1="22" y1="36" x2="34" y2="36" stroke="#3B8700" stroke-width="0.8" opacity="0.35"/><polygon points="33,34.5 36,36 33,37.5" fill="#3B8700" opacity="0.35"/><line x1="22" y1="44" x2="38" y2="42" stroke="#3B8700" stroke-width="0.9" opacity="0.4"/><polygon points="37,40 40,42 37,44" fill="#3B8700" opacity="0.4"/><line x1="26" y1="52" x2="42" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.45"/><polygon points="41,46 44,48 41,50" fill="#3B8700" opacity="0.45"/><line x1="34" y1="58" x2="48" y2="54" stroke="#3B8700" stroke-width="1.1" opacity="0.5"/><polygon points="47,52 50,54 47,56" fill="#3B8700" opacity="0.5"/><text x="58" y="24" font-size="3.5" fill="#6B7280">P grows</text><text x="58" y="29" font-size="3.5" fill="#6B7280">with depth</text><line x1="40" y1="62" x2="50" y2="62" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="49,60.5 52,62 49,63.5" fill="#58CC02" opacity="0.4"/><text x="54" y="64" font-size="3.5" fill="#58CC02">F_H</text><line x1="40" y1="62" x2="40" y2="72" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="38.5,70 40,74 41.5,70" fill="#58CC02" opacity="0.4"/><text x="44" y="72" font-size="3.5" fill="#58CC02">F_V</text><text x="40" y="79" text-anchor="middle" font-size="3.5" fill="#6B7280">Resolve into F_H and F_V components</text></svg>',
-          explanation: 'For curved surfaces, the hydrostatic force cannot be computed directly using F = ρgȳ_cA because the pressure acts in different directions at every point.',
-          hint: 'The analysis of forces on curved surfaces requires.'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Curved Surface Forces</text><rect x="4" y="12" width="72" height="56" rx="2" fill="#58CC02" opacity="0.04"/><path d="M20,18 Q20,50 50,62" stroke="#3B8700" stroke-width="2" fill="none"/><line x1="40" y1="62" x2="50" y2="62" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="49,60.5 52,62 49,63.5" fill="#58CC02" opacity="0.4"/><text x="54" y="64" font-size="3.5" fill="#58CC02">F_H</text><line x1="40" y1="62" x2="40" y2="72" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="38.5,70 40,74 41.5,70" fill="#58CC02" opacity="0.4"/><text x="44" y="72" font-size="3.5" fill="#58CC02">F_V</text><text x="40" y="79" text-anchor="middle" font-size="3.5" fill="#6B7280">Resolve into F_H and F_V</text></svg>',
+          explanation: 'For curved surfaces, pressure acts in different directions at every point, so you resolve the total force into horizontal and vertical components.',
+          hint: 'You can\'t use F = rho*g*y_c*A directly on a curve.'
         },
         {
           id: 'u6-L1-Q16',
           type: 'multiple-choice',
-          question: 'What is the primary advantage?',
+          question: 'What is the primary advantage of an inclined manometer over a vertical one?',
           options: [
             'It amplifies the reading for a given pressure difference',
-            'It allows measurement of higher pressures than vertical',
-            'It eliminates parallax error in the pressure reading',
-            'It removes the need for a different-density manometer fluid'
+            'It allows measurement of higher pressures',
+            'It eliminates parallax error in the reading',
+            'It removes the need for a different-density fluid'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- U-tube --> <path d="M24,14 L24,58 Q24,66 32,66 L48,66 Q56,66 56,58 L56,14" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Manometric fluid (heavy liquid in U-bend) --> <path d="M24.5,44 L24.5,58 Q24.5,65.5 32,65.5 L48,65.5 Q55.5,65.5 55.5,58 L55.5,36" fill="#A5E86C" opacity="0.15"/> <!-- Left fluid column top --> <line x1="22" y1="44" x2="26" y2="44" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <!-- Right fluid column top --> <line x1="54" y1="36" x2="58" y2="36" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="40;40;40" dur="4s" repeatCount="indefinite"/> </line> <!-- h measurement --> <line x1="62" y1="36" x2="62" y2="44" stroke-width="0.4" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="36" x2="64" y2="36" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="36;40;36" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="44" x2="64" y2="44" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text> <!-- Pressure connection (left) --> <line x1="10" y1="20" x2="24" y2="20" stroke-width="0.6" stroke="#58CC02"/> <text x="8" y="21.5" font-size="3" fill="#58CC02" text-anchor="end">P₁</text> <!-- Open/reference (right) --> <text x="58" y="12" font-size="3" fill="#3B8700" opacity="0.4">P_atm</text> <!-- Fluid labels --> <text x="40" y="62" font-size="2.5" fill="#A5E86C" opacity="0.35" text-anchor="middle">mercury</text> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">ΔP = ρgh</text> </svg>',
-          explanation: 'In an inclined manometer, if the tube is inclined at angle θ from horizontal, a vertical height change Δh corresponds to a tube length change ΔL = Δh/sin(θ).',
-          hint: 'The geometry — the same vertical height change produces.'
+          explanation: 'An inclined tube magnifies the fluid travel distance: delta_L = delta_h/sin(theta), making small pressure differences easier to read.',
+          hint: 'Same vertical height change produces a longer tube travel.'
         },
         {
           id: 'u6-L1-Q17',
@@ -263,91 +344,56 @@ export const unit6: Unit = {
           options: [
             'When the metacenter is above the center of gravity',
             'When the center of buoyancy is above the center of gravity',
-            'When the center of gravity (G) is located at the waterline',
-            'When the metacentric height is zero, giving neutral stability'
+            'When the center of gravity is located at the waterline',
+            'When the metacentric height is zero'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="35" width="70" height="35" fill="#A5E86C" opacity="0.08"/><line x1="5" y1="35" x2="75" y2="35" stroke="#58CC02" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/><rect x="25" y="25" width="30" height="30" rx="3" fill="#58CC02" opacity="0.12" stroke="#3B8700" stroke-width="1.5"/><circle cx="40" cy="45" r="1.5" fill="#3B8700" opacity="0.6"/><text x="44" y="47" font-size="3" fill="#3B8700" opacity="0.5">G</text><circle cx="40" cy="50" r="1.5" fill="#58CC02" opacity="0.6"/><text x="44" y="52" font-size="3" fill="#58CC02" opacity="0.5">B</text><circle cx="40" cy="38" r="1" fill="#A5E86C" opacity="0.6"/><text x="44" y="40" font-size="3" fill="#A5E86C" opacity="0.5">M</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">M above G = stable</text></svg>',
-          explanation: 'Floating stability depends on the metacentric height GM = BM − BG.',
-          hint: 'The metacentric height (GM) determines stability.'
+          explanation: 'Floating stability depends on the metacentric height GM = BM - BG. Positive GM means stable.',
+          hint: 'The metacentric height determines stability.'
+        },
+        {
+          id: 'u6-L1c-T2',
+          type: 'teaching',
+          question: 'Vapor pressure and cavitation',
+          explanation: 'Every liquid has a vapor pressure that increases with temperature. When local pressure in a flow drops below vapor pressure, bubbles form. Their violent collapse is called cavitation, and it damages pump impellers and propellers.',
+          hint: 'Try this now: boil water at room temperature by pulling a vacuum on a syringe.',
+        },
+        {
+          id: 'u6-L1c-Q0b',
+          type: 'multiple-choice',
+          question: 'Cavitation occurs when local pressure drops below the fluid\'s:',
+          options: [
+            'Vapor pressure',
+            'Atmospheric pressure',
+            'Gauge pressure',
+            'Bulk modulus'
+          ],
+          correctIndex: 0,
+          explanation: 'Cavitation starts when the local pressure falls below the fluid\'s vapor pressure at that temperature.',
+          hint: 'The fluid literally boils at low pressure.',
         },
         {
           id: 'u6-L1-Q18',
           type: 'true-false',
-          question: 'A Bingham plastic fluid behaves as a rigid body until a minimum yield stress is exceeded, after which it flows like.',
+          question: 'A Bingham plastic fluid behaves as a rigid body until a minimum yield stress is exceeded, after which it flows like a Newtonian fluid.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'A Bingham plastic has the constitutive equation τ = τ_y + μ_p(du/dy), where τ_y is the yield stress and μ_p is the plastic viscosity.',
-          hint: 'Toothpaste — it does not flow until you squeeze hard enough.'
+          explanation: 'Bingham plastics have the equation tau = tau_y + mu_p*(du/dy). Below the yield stress, no flow occurs.',
+          hint: 'Toothpaste doesn\'t flow until you squeeze hard enough.'
         },
         {
           id: 'u6-L1-Q19',
           type: 'multiple-choice',
-          question: 'What is the specific gravity (SG) of a fluid, and why is it preferred over density in many engineering calculations?',
+          question: 'What is the specific gravity (SG) of a fluid?',
           options: [
-            'SG is the ratio of fluid density to water density. It is dimensionless',
-            'SG is the ratio of dynamic viscosity to kinematic viscosity, providing a',
-            'SG is the ratio of fluid density to air density, used primarily for gas flow',
-            'SG is identical to density but expressed in g/cm³ instead of kg/m³, derived'
+            'SG is the ratio of fluid density to water density, dimensionless',
+            'SG is the ratio of dynamic viscosity to kinematic viscosity',
+            'SG is the ratio of fluid density to air density',
+            'SG is identical to density but in different units'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'Specific gravity SG = ρ_fluid/ρ_water. Being dimensionless, SG simplifies many calculations: the density in kg/m³ is simply 1000 × SG, and in g/cm³ it equals SG directly (since ρ_water = 1 g/cm³).',
-          hint: 'SG compares a fluid\'s density to a reference.'
-        },
-        {
-          id: 'u6-L1-Q20',
-          type: 'multiple-choice',
-          question: 'A gauge at the bottom (1.5 m below the oil-water interface, with 2 m of oil above) reads what gauge pressure?',
-          options: [
-            'P = ρ_oil × g × h_oil + ρ_water × g × h_water = 850 + 1000 = 16.68 + 14.72 =',
-            'P = ρ_water × g × (h_oil + h_water) = 1000(9.81)(3.5) = 34.3 kPa',
-            'P = ρ_oil × g × (h_oil + h_water) = 850(9.81)(3.5) = 29.2 kPa',
-            'P = (ρ_oil + ρ_water)/2 × g × (h_oil + h_water) = 925(9.81)(3.5) = 31.8 kPa'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- U-tube --> <path d="M24,14 L24,58 Q24,66 32,66 L48,66 Q56,66 56,58 L56,14" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Manometric fluid (heavy liquid in U-bend) --> <path d="M24.5,44 L24.5,58 Q24.5,65.5 32,65.5 L48,65.5 Q55.5,65.5 55.5,58 L55.5,36" fill="#A5E86C" opacity="0.15"/> <!-- Left fluid column top --> <line x1="22" y1="44" x2="26" y2="44" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <!-- Right fluid column top --> <line x1="54" y1="36" x2="58" y2="36" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="40;40;40" dur="4s" repeatCount="indefinite"/> </line> <!-- h measurement --> <line x1="62" y1="36" x2="62" y2="44" stroke-width="0.4" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="36" x2="64" y2="36" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="36;40;36" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="44" x2="64" y2="44" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text> <!-- Pressure connection (left) --> <line x1="10" y1="20" x2="24" y2="20" stroke-width="0.6" stroke="#58CC02"/> <text x="8" y="21.5" font-size="3" fill="#58CC02" text-anchor="end">P₁</text> <!-- Open/reference (right) --> <text x="58" y="12" font-size="3" fill="#3B8700" opacity="0.4">P_atm</text> <!-- Fluid labels --> <text x="40" y="62" font-size="2.5" fill="#A5E86C" opacity="0.35" text-anchor="middle">mercury</text> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">ΔP = ρgh</text> </svg>',
-          explanation: 'For layered immiscible fluids, the pressure at the bottom is the sum of the pressure contributions from each layer: P = Σ.',
-          hint: 'Calculate the pressure contribution from each fluid.'
-        },
-        {
-          id: 'u6-L1-Q21',
-          type: 'multiple-choice',
-          question: 'Why does a fluid at rest exert no shear stress?',
-          options: [
-            'A fluid deforms continuously under any shear stress',
-            'Fluids at rest have infinite viscosity preventing shear',
-            'Gravity cancels all internal shear stresses exactly',
-            'Shear stress exists in static fluid, balanced by P'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="10" y="15" width="60" height="50" rx="3" fill="#A5E86C" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/><line x1="10" y1="25" x2="70" y2="25" stroke="#58CC02" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.3"/><rect x="12" y="26" width="56" height="37" fill="#A5E86C" opacity="0.1"/><circle cx="30" cy="40" r="6" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1"/><text x="50" y="35" font-size="3" fill="#3B8700" opacity="0.4">tau = 0</text><text x="50" y="42" font-size="3" fill="#3B8700" opacity="0.4">du/dy = 0</text><text x="50" y="49" font-size="3" fill="#3B8700" opacity="0.4">v = 0</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">static fluid: no shear</text></svg>',
-          explanation: 'This is actually the fundamental definition that distinguishes fluids from solids. A fluid is defined as a substance that deforms continuously under any applied shear stress, no matter how small.',
-          hint: 'What is the defining characteristic of a fluid?'
-        },
-        {
-          id: 'u6-L1-Q22',
-          type: 'true-false',
-          question: 'A manometer using a fluid with specific gravity less than that of the working fluid gives an inverted column and.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M24,66 L24,22 Q24,14 32,14 L48,14 Q56,14 56,22 L56,66" stroke="#3B8700" stroke-width="1" fill="none"/><path d="M24.5,36 L24.5,22 Q24.5,14.5 32,14.5 L48,14.5 Q55.5,14.5 55.5,22 L55.5,44" fill="#A5E86C" opacity="0.1"/><rect x="26" y="36" width="8" height="30" fill="#58CC02" opacity="0.08"/><rect x="48" y="44" width="8" height="22" fill="#58CC02" opacity="0.08"/><line x1="62" y1="36" x2="62" y2="44" stroke="#3B8700" stroke-width="0.4" opacity="0.4"/><text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text><text x="40" y="10" font-size="3" fill="#A5E86C" opacity="0.35" text-anchor="middle">light fluid</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">inverted U-tube</text></svg>',
-          explanation: 'An inverted U-tube manometer uses a manometer fluid lighter than the working fluid (e. g., air or light oil over water).',
-          hint: 'What happens when the density difference?'
-        },
-        {
-          id: 'u6-L1-Q23',
-          type: 'multiple-choice',
-          question: 'What is the net vertical hydrostatic force (buoyancy) on the sphere?',
-          options: [
-            'F_b = ρ_water × g × V_sphere ≈ 41.1 kN upward',
-            'F_b = ρ_water × g × h_c × A_proj ≈ 154.0 kN upward',
-            'Zero — the sphere is filled with water',
-            'F_b depends on center depth and increases with it'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="20" width="70" height="50" fill="#A5E86C" opacity="0.08"/><line x1="5" y1="20" x2="75" y2="20" stroke="#58CC02" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/><circle cx="40" cy="45" r="12" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><line x1="40" y1="58" x2="40" y2="68" stroke="#3B8700" stroke-width="1.2" opacity="0.5"/><polygon points="38,66 40,70 42,66" fill="#3B8700" opacity="0.5"/><text x="44" y="68" font-size="3" fill="#3B8700" opacity="0.5">W</text><line x1="40" y1="33" x2="40" y2="23" stroke="#58CC02" stroke-width="1.2" opacity="0.5"/><polygon points="38,25 40,21 42,25" fill="#58CC02" opacity="0.5"/><text x="44" y="28" font-size="3" fill="#58CC02" opacity="0.5">Fb</text><text x="40" y="78" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">Fb = rho g V</text></svg>',
-          explanation: 'The buoyant force always equals the weight of displaced fluid: F_b = ρ_fluid × g × V_object = 1000 × 9.81 × (4/3)π(1)³ = 41,100 N ≈ 41.1 kN upward.',
-          hint: 'Archimedes\' principle gives the buoyant force based.'
+          explanation: 'Specific gravity SG = rho_fluid/rho_water. It\'s dimensionless and convenient: density in kg/m3 is simply 1000 * SG.',
+          hint: 'SG compares a fluid\'s density to water as a reference.'
         },
         {
           id: 'u6-L1-Q24',
@@ -360,212 +406,248 @@ export const unit6: Unit = {
             'Vapor pressure is relevant only for gas-phase systems'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with constriction --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30" stroke-width="0.8" stroke="#58CC02" fill="none"/> <path d="M4,50 L28,50 Q40,44 52,50 L76,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <!-- Flow region fill --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30 L76,50 L52,50 Q40,44 28,50 L4,50 Z" fill="#58CC02" opacity="0.03"/> <!-- Cavitation bubbles (forming at constriction, collapsing downstream) --> <circle cx="42" cy="38" r="1.5" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2;0" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="40;50;58" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.6;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="42" r="1" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cx" values="40;48;56" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> </circle> <circle cx="42" cy="40" r="1.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cx" values="41;52;60" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> </circle> <circle cx="42" cy="36" r="0.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.2;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="cx" values="42;50;57" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="opacity" values="0;0.4;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> </circle> <!-- Collapse burst markers --> <g opacity="0"> <line x1="56" y1="36" x2="60" y2="32" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="60" y2="40" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="52" y2="34" stroke-width="0.4" stroke="#A5E86C"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="1.1s"/> </g> <!-- Pressure profile --> <path d="M8,20 L28,20 Q40,26 52,12 L72,18" stroke-width="0.5" stroke="#3B8700" opacity="0.3" fill="none"/> <text x="8" y="18" font-size="2.5" fill="#3B8700" opacity="0.4">P</text> <!-- Vapor pressure line --> <line x1="8" y1="24" x2="72" y2="24" stroke-width="0.3" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="74" y="25" font-size="2" fill="#3B8700" opacity="0.3">P_v</text> <!-- Flow arrows --> <g opacity="0.3"> <line x1="10" y1="40" x2="16" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="16,38.5 16,41.5 19,40" fill="#58CC02"/> <line x1="62" y1="40" x2="68" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 71,40" fill="#58CC02"/> </g> <!-- Labels --> <text x="40" y="58" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">P &lt; P_vapor</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">bubble collapse</text> </svg>',
-          explanation: 'Every liquid has a vapor pressure that depends on temperature — it is the pressure at which liquid and vapor coexist in equilibrium. Water at 20°C has P_v ≈ 2.34 kPa; at 100°C, P_v = 101.',
-          hint: 'What happens when the local pressure in a flowing liquid?'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M4,30 L28,30 Q40,36 52,30 L76,30" stroke-width="0.8" stroke="#58CC02" fill="none"/> <path d="M4,50 L28,50 Q40,44 52,50 L76,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="38" r="1.5" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2;0" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="40;50;58" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.6;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="42" r="1" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cx" values="40;48;56" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> </circle> <text x="40" y="58" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">P &lt; P_vapor</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">bubble collapse</text> </svg>',
+          explanation: 'Vapor pressure is the pressure at which liquid and vapor coexist. If local pressure drops below this, the fluid boils and cavitation occurs.',
+          hint: 'What happens when the local pressure in a flowing liquid drops too low?'
         },
         {
           id: 'u6-L1-Q25',
           type: 'fill-blank',
-          question: 'The property of a liquid surface that causes it to behave like a stretched membrane, measured in N/m, is called _____.',
+          question: 'The property of a liquid surface that causes it to behave like a stretched membrane, measured in N/m, is called _____ tension.',
           blanks: ['surface'],
           wordBank: ['surface', 'shear', 'viscous', 'capillary', 'interfacial'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Water drop surface --> <path d="M25,40 Q40,20 55,40 Q55,55 40,58 Q25,55 25,40 Z" fill="#58CC02" opacity="0.08" stroke="#58CC02" stroke-width="1.5"/> <!-- Surface tension arrows along surface --> <g opacity="0"> <animate attributeName="opacity" values="0;0.5;0.5" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.2;1"/> <line x1="30" y1="33" x2="22" y2="38" stroke="#A5E86C" stroke-width="1.5" stroke-linecap="round"/> <polygon points="24,37 20,40 26,39" fill="#A5E86C"/> <line x1="50" y1="33" x2="58" y2="38" stroke="#A5E86C" stroke-width="1.5" stroke-linecap="round"/> <polygon points="56,37 60,40 54,39" fill="#A5E86C"/> </g> <!-- Stretched membrane analogy --> <path d="M18,48 Q40,42 62,48" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,1" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#334155" opacity="0.4" font-style="italic">Surface tension &#x3c3; [N/m]</text> </svg>',
-          explanation: 'Surface tension (σ) is a property of liquid surfaces that arises from the imbalance of intermolecular forces at the interface.',
+          explanation: 'Surface tension arises from the imbalance of intermolecular forces at a liquid\'s interface.',
           hint: 'This property causes water droplets to form spheres.'
         },
         {
-          id: 'u6-L1-Q26',
-          type: 'multiple-choice',
-          question: 'What is the contact angle, and how does it determine whether a liquid wets a surface?',
-          options: [
-            'The contact angle is the angle between the liquid surface',
-            'The contact angle is the angle of the container wall',
-            'The contact angle is always 0° for water and 180° for mercury',
-            'The contact angle is the angle of the manometer tube, used to correct'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><line x1="10" y1="50" x2="70" y2="50" stroke="#3B8700" stroke-width="2"/><path d="M30,50 Q30,30 50,35 Q60,38 60,50" fill="#A5E86C" opacity="0.15" stroke="#58CC02" stroke-width="1"/><line x1="30" y1="50" x2="30" y2="30" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3"/><path d="M30,45 Q33,42 34,45" stroke="#58CC02" stroke-width="0.8" fill="none" opacity="0.5"/><text x="37" y="43" font-size="3.5" fill="#58CC02" opacity="0.5">theta</text><text x="45" y="43" font-size="3" fill="#3B8700" opacity="0.4">droplet</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">contact angle wetting</text></svg>',
-          explanation: 'The contact angle quantifies the wettability of a solid surface by a liquid. When adhesive forces dominate over cohesive forces (liquid-liquid), the liquid spreads on the surface (θ < 90°, wetting).',
-          hint: 'The angle is measured at the point where the liquid.'
-        },
-        {
           id: 'u6-L1-Q27',
-          type: 'true-false',
-          question: 'Pascal\'s law states that a pressure change applied at any point in a confined fluid is transmitted undiminished.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Passage fluid (always filled) --> <rect x="15" y="57" width="52" height="6" rx="2" fill="#A5E86C" opacity="0.15"/> <!-- Left cylinder fluid (drops when piston pushes) --> <rect x="17" y="38" width="10" height="19" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="38;48;38" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="19;9;19" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Right cylinder fluid (rises when pressure transmits) --> <rect x="49" y="28" width="16" height="29" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="28;24;28" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="29;33;29" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Bottom passage walls --> <rect x="14" y="56" width="54" height="8" rx="3" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Left (small) cylinder walls --> <line x1="16" y1="26" x2="16" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="28" y1="26" x2="28" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Right (large) cylinder walls --> <line x1="48" y1="18" x2="48" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="66" y1="18" x2="66" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Small piston (pushes down — input force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,10;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="17" y="32" width="10" height="6" rx="2" fill="#58CC02" opacity="0.45"/> <rect x="17" y="32" width="10" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="17.5" y1="35" x2="26.5" y2="35" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="19.5" y="22" width="5" height="12" rx="2.5" fill="#3B8700" opacity="0.35"/> <!-- Input force arrow --> <line x1="22" y1="12" x2="22" y2="19" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/> <polygon points="20,18 22,22 24,18" fill="#3B8700" opacity="0.4"/> </g> <!-- Large piston (pushes up — output force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="49" y="22" width="16" height="6" rx="2" fill="#58CC02" opacity="0.4"/> <rect x="49" y="22" width="16" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="49.5" y1="25" x2="64.5" y2="25" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="53" y="14" width="8" height="10" rx="3" fill="#3B8700" opacity="0.3"/> <!-- Load block --> <rect x="50" y="8" width="14" height="6" rx="2" fill="#58CC02" opacity="0.18"/> <rect x="50" y="8" width="14" height="6" rx="2" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Output force arrow --> <polygon points="55,6 57,2 59,6" fill="#3B8700" opacity="0.4"/> </g> <!-- Pressure arrows inside fluid --> <path d="M21,50 L21,47 L19.5,47 L22,44 L24.5,47 L23,47 L23,50 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.08;0.25;0.08" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M35,61 L38,61 L38,59.5 L41,60.5 L38,61.5 L38,60 L35,60 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.2;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M56,42 L56,39 L54.5,39 L57,36 L59.5,39 L58,39 L58,42 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.22;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Force labels --> <text x="22" y="9" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic">f</text> <text x="64" y="5" text-anchor="middle" font-size="8" fill="#3B8700" opacity="0.45" font-weight="bold" font-style="italic">F</text> <!-- Area labels --> <text x="22" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">a</text> <text x="57" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">A</text> </svg>',
-          explanation: 'Pascal\'s law is a fundamental principle of fluid statics. When pressure is applied to a confined, incompressible fluid (e. g.',
-          hint: 'This is the principle that makes hydraulic jacks.'
-        },
-        {
-          id: 'u6-L1-Q28',
-          type: 'multiple-choice',
-          question: 'How does this differ from a rectangular window calculation?',
-          options: [
-            'The force magnitude uses the same formula',
-            'Circular windows experience no net hydrostatic force',
-            'The force on a circular window is always π/4 times the force on a square',
-            'Circular windows require integration'
+          type: 'order-steps',
+          question: 'Put these steps in order for reading a U-tube manometer.',
+          steps: [
+            'Identify the two connection points',
+            'Note the manometer fluid density',
+            'Measure the height difference delta_h',
+            'Calculate delta_P = rho_m * g * delta_h'
           ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'The hydrostatic force formula F = ρgȳ_cA works for ANY planar shape — the shape affects only the area A and the second moment of area I_xc used to find the center of pressure.',
-          hint: 'F = ρgȳ_cA applies to any planar shape.'
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'Reading a manometer is systematic: identify connections, know the fluid, measure the height, then compute the pressure.',
+          hint: 'You need to know the fluid properties before you can calculate pressure.',
         },
-        {
-          id: 'u6-L1-Q29',
-          type: 'multiple-choice',
-          question: 'Under what conditions is a piezometer NOT suitable for pressure measurement?',
-          options: [
-            'When the pressure is very high or the fluid is a gas',
-            'When the pipe diameter exceeds 100 mm overall',
-            'When the water temperature is above 50°C range',
-            'When the flow velocity exceeds 1 m/s in the pipe'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- U-tube --> <path d="M24,14 L24,58 Q24,66 32,66 L48,66 Q56,66 56,58 L56,14" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Manometric fluid (heavy liquid in U-bend) --> <path d="M24.5,44 L24.5,58 Q24.5,65.5 32,65.5 L48,65.5 Q55.5,65.5 55.5,58 L55.5,36" fill="#A5E86C" opacity="0.15"/> <!-- Left fluid column top --> <line x1="22" y1="44" x2="26" y2="44" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <!-- Right fluid column top --> <line x1="54" y1="36" x2="58" y2="36" stroke-width="0.5" stroke="#A5E86C" opacity="0.5"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="40;40;40" dur="4s" repeatCount="indefinite"/> </line> <!-- h measurement --> <line x1="62" y1="36" x2="62" y2="44" stroke-width="0.4" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="36" x2="64" y2="36" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="36;40;36" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="36;40;36" dur="4s" repeatCount="indefinite"/> </line> <line x1="60" y1="44" x2="64" y2="44" stroke-width="0.3" stroke="#3B8700" opacity="0.4"> <animate attributeName="y1" values="44;40;44" dur="4s" repeatCount="indefinite"/> <animate attributeName="y2" values="44;40;44" dur="4s" repeatCount="indefinite"/> </line> <text x="66" y="42" font-size="3.5" fill="#3B8700" opacity="0.5">h</text> <!-- Pressure connection (left) --> <line x1="10" y1="20" x2="24" y2="20" stroke-width="0.6" stroke="#58CC02"/> <text x="8" y="21.5" font-size="3" fill="#58CC02" text-anchor="end">P₁</text> <!-- Open/reference (right) --> <text x="58" y="12" font-size="3" fill="#3B8700" opacity="0.4">P_atm</text> <!-- Fluid labels --> <text x="40" y="62" font-size="2.5" fill="#A5E86C" opacity="0.35" text-anchor="middle">mercury</text> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">ΔP = ρgh</text> </svg>',
-          explanation: 'A piezometer is the simplest pressure-measuring device — just an open vertical tube inserted into the fluid. The fluid rises to a height h where P_gauge = ρgh.',
-          hint: 'The practical limitations of having an open tube filled.'
-        },
-        {
-          id: 'u6-L1-Q30',
-          type: 'true-false',
-          question: 'The center of pressure on a submerged plane surface always lies below the centroid, and the distance between them.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'The center of pressure is located below the centroid by a distance e = I_xc/(ȳ_cA), where I_xc is the second moment of area about the centroidal axis and ȳ_c is the depth to the centroid.',
-          hint: 'Look at the formula e = I_xc/(ȳ_cA).'
-        }
       ]
     },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 2a: Bernoulli & Energy Equation (Part 1)
+    // ═══════════════════════════════════════════════════════════════
     {
       id: 'u6-L2',
-      title: 'Bernoulli & Energy Equation',
-      description: 'Bernoulli equation, venturi meter, pitot tube, energy line/HGL, assumptions and limitations.',
+      title: 'Bernoulli & Energy Equation (1/3)',
+      description: 'Bernoulli\'s equation, key assumptions, and common pitfalls.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u6-L2-T1',
           type: 'teaching',
           question: 'Bernoulli\'s equation explained',
-          explanation: 'Along a streamline in steady, incompressible, inviscid flow: P + 0.5*rho*v^2 + rho*g*z = constant. This means pressure, velocity, and elevation trade off. Where velocity goes up, pressure goes down.',
+          explanation: 'Along a streamline in steady, incompressible, inviscid flow: P + 0.5*rho*v2 + rho*g*z = constant. Where velocity goes up, pressure goes down.',
           hint: 'Think of a garden hose nozzle: the narrow opening speeds up the water and drops the pressure.',
         },
         {
-          id: 'u6-L2-T2',
-          type: 'teaching',
-          question: 'Key assumptions of Bernoulli',
-          explanation: 'Bernoulli only works for steady, incompressible, inviscid (frictionless) flow along a single streamline. If there\'s significant friction, turbulence, or energy addition (pumps), you need the full energy equation instead.',
-          hint: 'When a textbook problem says "neglect losses," that\'s telling you to use Bernoulli.',
+          id: 'u6-L2-Q0a',
+          type: 'multiple-choice',
+          question: 'When water flows through a pipe that narrows, its velocity:',
+          options: [
+            'Increases',
+            'Decreases',
+            'Stays the same',
+            'Depends on pipe material'
+          ],
+          correctIndex: 0,
+          explanation: 'Continuity requires A1*V1 = A2*V2. Smaller area means higher velocity.',
+          hint: 'Think about putting your thumb over a garden hose.',
         },
         {
           id: 'u6-L2-Q1',
           type: 'multiple-choice',
-          question: 'What is the likely error in the analysis?',
+          question: 'An engineer used Bernoulli for a rough pipe and got wrong results. What is the likely error?',
           options: [
-            'Bernoulli assumes inviscid flow — fails in rough pipes',
+            'Bernoulli assumes inviscid flow, which fails in rough pipes',
             'Bernoulli only works for gases, not for liquid flow',
             'The pipe diameter was likely measured incorrectly',
             'Bernoulli does not apply to horizontal pipe systems'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Bernoulli - Venturi</text><path d="M4,24 L24,24 Q32,24 40,30 Q48,24 56,24 L76,24" stroke="#3B8700" stroke-width="1.5" fill="none"/><path d="M4,48 L24,48 Q32,48 40,42 Q48,48 56,48 L76,48" stroke="#3B8700" stroke-width="1.5" fill="none"/><path d="M4,24 L24,24 Q32,24 40,30 Q48,24 56,24 L76,24 L76,48 L56,48 Q48,48 40,42 Q32,48 24,48 L4,48 Z" fill="#58CC02" opacity="0.05"/><line x1="14" y1="28" x2="14" y2="44" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="1.5,1.5" opacity="0.3"/><line x1="40" y1="32" x2="40" y2="40" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="1.5,1.5" opacity="0.3"/><line x1="66" y1="28" x2="66" y2="44" stroke="#6B7280" stroke-width="0.4" stroke-dasharray="1.5,1.5" opacity="0.3"/><polygon points="10,36 7,34 7,38" fill="#3B8700" opacity="0.3"/><polygon points="16,36 13,34 13,38" fill="#3B8700" opacity="0.3"/><polygon points="39,36 36,34 36,38" fill="#3B8700" opacity="0.4"/><polygon points="43,36 40,34 40,38" fill="#3B8700" opacity="0.4"/><polygon points="46,36 43,34 43,38" fill="#3B8700" opacity="0.4"/><polygon points="64,36 61,34 61,38" fill="#3B8700" opacity="0.3"/><polygon points="70,36 67,34 67,38" fill="#3B8700" opacity="0.3"/><line x1="14" y1="18" x2="14" y2="14" stroke="#58CC02" stroke-width="0.8" opacity="0.4"/><polygon points="12.5,15 14,12 15.5,15" fill="#58CC02" opacity="0.4"/><line x1="14" y1="20" x2="14" y2="18" stroke="#58CC02" stroke-width="0.8" opacity="0.4"/><text x="18" y="16" font-size="3.5" fill="#58CC02">P&#x2081; high</text><text x="14" y="53" text-anchor="middle" font-size="3.5" fill="#3B8700">v&#x2081; low</text><line x1="40" y1="28" x2="40" y2="24" stroke="#58CC02" stroke-width="0.5" opacity="0.3"/><polygon points="38.5,25 40,22 41.5,25" fill="#58CC02" opacity="0.3"/><text x="44" y="23" font-size="3.5" fill="#58CC02">P&#x2082; low</text><text x="40" y="46" text-anchor="middle" font-size="3.5" fill="#3B8700">v&#x2082; high</text><text x="66" y="53" text-anchor="middle" font-size="3.5" fill="#3B8700">v&#x2083; low</text><text x="66" y="16" text-anchor="middle" font-size="3.5" fill="#58CC02">P&#x2083; high</text><text x="40" y="62" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">P+&#xBD;&#x3C1;v&#xB2;+&#x3C1;gz = const</text><text x="40" y="69" text-anchor="middle" font-size="3.5" fill="#6B7280">A&#x2081;v&#x2081; = A&#x2082;v&#x2082; (continuity)</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#6B7280">v&#x2191; &#x2192; P&#x2193; (Bernoulli effect)</text></svg>',
-          explanation: 'This is one of the most common mistakes in fluid mechanics. Bernoulli\'s equation assumes steady, incompressible, INVISCID flow along a streamline.',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="7" text-anchor="middle" font-size="5" fill="#334155" font-weight="bold">Bernoulli - Venturi</text><path d="M4,24 L24,24 Q32,24 40,30 Q48,24 56,24 L76,24" stroke="#3B8700" stroke-width="1.5" fill="none"/><path d="M4,48 L24,48 Q32,48 40,42 Q48,48 56,48 L76,48" stroke="#3B8700" stroke-width="1.5" fill="none"/><path d="M4,24 L24,24 Q32,24 40,30 Q48,24 56,24 L76,24 L76,48 L56,48 Q48,48 40,42 Q32,48 24,48 L4,48 Z" fill="#58CC02" opacity="0.05"/><text x="40" y="62" text-anchor="middle" font-size="4" fill="#334155" font-style="italic">P+0.5*rho*v2+rho*gz = const</text></svg>',
+          explanation: 'Bernoulli assumes steady, incompressible, inviscid flow. Rough pipes have significant friction losses that Bernoulli ignores.',
           hint: 'What are the assumptions of the Bernoulli equation?'
         },
         {
           id: 'u6-L2-Q2',
           type: 'true-false',
-          question: 'A pitot tube can accurately measure air velocity in a ventilation duct regardless of whether the flow is laminar.',
+          question: 'A pitot tube can accurately measure air velocity in a ventilation duct regardless of whether the flow is laminar or turbulent.',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Freestream flow arrows --> <g opacity="0.15"> <line x1="4" y1="20" x2="14" y2="20" stroke="#3B8700" stroke-width="1"/> <polygon points="13,18.5 16,20 13,21.5" fill="#3B8700"/> <line x1="4" y1="40" x2="14" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="13,38.5 16,40 13,41.5" fill="#3B8700"/> <line x1="4" y1="60" x2="14" y2="60" stroke="#3B8700" stroke-width="1"/> <polygon points="13,58.5 16,60 13,61.5" fill="#3B8700"/> </g> <!-- Pitot-static tube body --> <rect x="22" y="38" width="40" height="4" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="22" cy="40" r="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Stagnation point (total pressure hole) --> <circle cx="19" cy="40" r="1.5" fill="#3B8700" opacity="0.4"> <animate attributeName="r" values="1.5;2.2;1.5" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.4;0.2;0.4" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Static pressure holes (side) --> <circle cx="36" cy="38" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="42" cy="38" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="36" cy="42" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="42" cy="42" r="0.8" fill="#3B8700" opacity="0.25"/> <!-- Manometer / pressure gauge --> <line x1="50" y1="38" x2="50" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="56" y1="38" x2="56" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="47" y="10" width="6" height="10" rx="3" fill="#58CC02" opacity="0.25"> <animate attributeName="height" values="10;8;10" dur="2s" repeatCount="indefinite"/> </rect> <rect x="53" y="14" width="6" height="6" rx="3" fill="#A5E86C" opacity="0.15"> <animate attributeName="height" values="6;5;6" dur="2s" repeatCount="indefinite"/> </rect> <!-- ΔP label between manometer columns --> <text x="53" y="8" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">ΔP</text> <!-- Streamlines bending around tube --> <path d="M4,32 L18,32 Q22,34 22,37" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <path d="M4,48 L18,48 Q22,46 22,43" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <!-- Flow particles --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M4,30 L18,30 Q22,33 26,36"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.25"> <animateMotion dur="2s" repeatCount="indefinite" path="M4,50 L18,50 Q22,47 26,44" begin="0.5s"/> </circle> <!-- Velocity label --> <text x="10" y="74" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">v</text> <!-- Bernoulli equation --> <text x="50" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">v = √(2ΔP/ρ)</text> </svg>',
-          explanation: 'A pitot tube measures the velocity at a SINGLE POINT — it gives the local velocity where the probe tip is positioned.',
-          hint: 'What velocity (local vs?'
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g opacity="0.15"> <line x1="4" y1="20" x2="14" y2="20" stroke="#3B8700" stroke-width="1"/> <polygon points="13,18.5 16,20 13,21.5" fill="#3B8700"/> <line x1="4" y1="40" x2="14" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="13,38.5 16,40 13,41.5" fill="#3B8700"/> <line x1="4" y1="60" x2="14" y2="60" stroke="#3B8700" stroke-width="1"/> <polygon points="13,58.5 16,60 13,61.5" fill="#3B8700"/> </g> <rect x="22" y="38" width="40" height="4" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="22" cy="40" r="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="19" cy="40" r="1.5" fill="#3B8700" opacity="0.4"> <animate attributeName="r" values="1.5;2.2;1.5" dur="1.5s" repeatCount="indefinite"/> </circle> <text x="50" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">v = sqrt(2*deltaP/rho)</text> </svg>',
+          explanation: 'A pitot tube measures velocity at a single point. In turbulent flow, the velocity profile is flatter, but you still need to account for the profile shape to get average velocity.',
+          hint: 'What velocity does a pitot tube measure: local or average?'
+        },
+        {
+          id: 'u6-L2-T2',
+          type: 'teaching',
+          question: 'Key assumptions of Bernoulli',
+          explanation: 'Bernoulli only works for steady, incompressible, inviscid flow along a single streamline. If there\'s significant friction, turbulence, or energy addition (pumps), you need the full energy equation.',
+          hint: 'When a textbook problem says "neglect losses," that\'s telling you to use Bernoulli.',
+        },
+        {
+          id: 'u6-L2-Q0b',
+          type: 'true-false',
+          question: 'Bernoulli\'s equation can be used when there are significant friction losses in the pipe.',
+          correctAnswer: false,
+          explanation: 'No. Bernoulli assumes inviscid (frictionless) flow. For friction losses, use the full energy equation.',
+          hint: 'One of Bernoulli\'s key assumptions is about friction.',
         },
         {
           id: 'u6-L2-Q3',
           type: 'multiple-choice',
-          question: 'Pitot-static tube: P_stag = 101.8 kPa, P_static = 101.3 kPa, ρ = 1.2 kg/m³. Air velocity?',
+          question: 'Pitot-static tube: P_stag = 101.8 kPa, P_static = 101.3 kPa, rho = 1.2 kg/m3. Air velocity?',
           options: [
-            '20.4 m/s',
             '28.9 m/s',
+            '20.4 m/s',
             '40.8 m/s',
             '14.4 m/s'
           ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Freestream flow arrows --> <g opacity="0.15"> <line x1="4" y1="20" x2="14" y2="20" stroke="#3B8700" stroke-width="1"/> <polygon points="13,18.5 16,20 13,21.5" fill="#3B8700"/> <line x1="4" y1="40" x2="14" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="13,38.5 16,40 13,41.5" fill="#3B8700"/> <line x1="4" y1="60" x2="14" y2="60" stroke="#3B8700" stroke-width="1"/> <polygon points="13,58.5 16,60 13,61.5" fill="#3B8700"/> </g> <!-- Pitot-static tube body --> <rect x="22" y="38" width="40" height="4" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="22" cy="40" r="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Stagnation point (total pressure hole) --> <circle cx="19" cy="40" r="1.5" fill="#3B8700" opacity="0.4"> <animate attributeName="r" values="1.5;2.2;1.5" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.4;0.2;0.4" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Static pressure holes (side) --> <circle cx="36" cy="38" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="42" cy="38" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="36" cy="42" r="0.8" fill="#3B8700" opacity="0.25"/> <circle cx="42" cy="42" r="0.8" fill="#3B8700" opacity="0.25"/> <!-- Manometer / pressure gauge --> <line x1="50" y1="38" x2="50" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="56" y1="38" x2="56" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="47" y="10" width="6" height="10" rx="3" fill="#58CC02" opacity="0.25"> <animate attributeName="height" values="10;8;10" dur="2s" repeatCount="indefinite"/> </rect> <rect x="53" y="14" width="6" height="6" rx="3" fill="#A5E86C" opacity="0.15"> <animate attributeName="height" values="6;5;6" dur="2s" repeatCount="indefinite"/> </rect> <!-- ΔP label between manometer columns --> <text x="53" y="8" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">ΔP</text> <!-- Streamlines bending around tube --> <path d="M4,32 L18,32 Q22,34 22,37" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <path d="M4,48 L18,48 Q22,46 22,43" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <!-- Flow particles --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M4,30 L18,30 Q22,33 26,36"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.25"> <animateMotion dur="2s" repeatCount="indefinite" path="M4,50 L18,50 Q22,47 26,44" begin="0.5s"/> </circle> <!-- Velocity label --> <text x="10" y="74" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">v</text> <!-- Bernoulli equation --> <text x="50" y="74" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">v = √(2ΔP/ρ)</text> </svg>',
-          explanation: 'From Bernoulli: V = sqrt(2(P_stag - P_static)/ρ) = sqrt(2 × 500 / 1.) = sqrt(833.) ≈ 28. m/s. The pitot-static tube directly measures the dynamic pressure (P_stag - P_static = ½ρV²).',
-          hint: 'Dynamic pressure = stagnation - static = ½ρV².'
+          correctIndex: 0,
+          explanation: 'V = sqrt(2*(P_stag - P_static)/rho) = sqrt(2 * 500 / 1.2) = sqrt(833) = 28.9 m/s.',
+          hint: 'Dynamic pressure = stagnation - static = 0.5*rho*V2.'
         },
         {
           id: 'u6-L2-Q4',
           type: 'multiple-choice',
           question: 'The HGL drops below the pipe centerline at a high point. What does this indicate?',
           options: [
-            'Flow has reached sonic velocity at that point',
             'Static pressure at that point is below atmospheric',
+            'Flow has reached sonic velocity at that point',
             'The flow has become turbulent at that section',
             'Total energy of the flow has increased via a pump'
           ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The HGL represents the sum of pressure head and elevation head (P/ρg + z). When the HGL drops below the pipe, the pressure head is negative gauge (below atmospheric).',
-          hint: 'What the HGL physically represents in terms of pressure?'
+          correctIndex: 0,
+          explanation: 'The HGL represents P/(rho*g) + z. When HGL is below the pipe, pressure head is negative gauge (below atmospheric).',
+          hint: 'What the HGL physically represents in terms of pressure.'
         },
+        {
+          id: 'u6-L2-Q9',
+          type: 'sort-buckets',
+          question: 'Sort these: when can you use Bernoulli vs. when you need the full energy equation?',
+          options: ['Frictionless nozzle flow', 'Long rough pipe', 'Venturi meter (ideal)', 'Pipe with a pump', 'Short smooth converging section', 'System with significant valve losses'],
+          buckets: ['Bernoulli OK', 'Need energy equation'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Bernoulli works when friction, energy addition, and turbulence are negligible. Real pipes with pumps, valves, or significant length need the energy equation.',
+          hint: 'Bernoulli = no friction, no pumps, no major losses.',
+        },
+        {
+          id: 'u6-L2-Q11',
+          type: 'multiple-choice',
+          question: 'What is the continuity equation for steady flow?',
+          options: [
+            'rho1*A1*V1 = rho2*A2*V2; if incompressible: A1*V1 = A2*V2',
+            'P1*A1 = P2*A2, pressure times area is constant',
+            'rho1*V1 = rho2*V2, density times velocity is constant',
+            'The continuity equation is a momentum conservation law'
+          ],
+          correctIndex: 0,
+          explanation: 'Continuity (mass conservation) and Bernoulli (energy conservation) are complementary. You almost always use them together.',
+          hint: 'Mass conservation and energy conservation are two separate principles.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 2b: Bernoulli & Energy Equation (Part 2)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L2b',
+      title: 'Bernoulli & Energy Equation (2/3)',
+      description: 'Venturi meters, Torricelli\'s theorem, energy lines, and HGL.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
         {
           id: 'u6-L2-T3',
           type: 'teaching',
           question: 'Energy line and HGL',
-          explanation: 'The energy line (EL) shows total head: P/(rho*g) + v^2/(2g) + z. The hydraulic grade line (HGL) is the EL minus velocity head. When the HGL drops below a pipe, pressure there is below atmospheric, which can cause cavitation.',
+          explanation: 'The energy line (EL) shows total head: P/(rho*g) + v2/(2g) + z. The hydraulic grade line (HGL) is the EL minus velocity head. When the HGL drops below a pipe, pressure there is below atmospheric.',
           hint: 'Pitot tubes and venturi meters both use Bernoulli to convert pressure measurements into velocity.',
+        },
+        {
+          id: 'u6-L2b-Q0a',
+          type: 'multiple-choice',
+          question: 'The EGL is always _____ the HGL by exactly the velocity head.',
+          options: [
+            'Above',
+            'Below',
+            'Equal to',
+            'It varies'
+          ],
+          correctIndex: 0,
+          explanation: 'EGL = HGL + V2/(2g). The velocity head is always positive, so the EGL is always above the HGL.',
+          hint: 'EGL includes velocity head; HGL does not.',
         },
         {
           id: 'u6-L2-Q5',
           type: 'multiple-choice',
-          question: 'What is the fluid mechanics explanation for this problem?',
+          question: 'A siphon over a hill stops working. What is the fluid mechanics explanation?',
           options: [
             'The HGL drops below the pipe elevation at the hilltop',
-            'Water moves faster uphill due to gravity, reducing flow',
+            'Water moves faster uphill, reducing flow',
             'The pipe diameter is too large on the hill section',
-            'Thermal expansion at the sun-exposed hilltop reduces flow'
+            'Thermal expansion at the hilltop reduces flow'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Hydraulic Grade Line (HGL = P/ρg + z) represents the pressure head at each point. As the pipe rises over the hill, elevation z increases.',
-          hint: 'What happens to the pressure as the pipe elevation?'
+          explanation: 'As the pipe rises, elevation z increases. If the HGL drops below the pipe, local pressure goes below atmospheric, and the siphon breaks.',
+          hint: 'What happens to the pressure as the pipe elevation increases?'
         },
         {
           id: 'u6-L2-Q6',
           type: 'fill-blank',
-          question: 'The line representing total head in a pipe system is called the _____ Grade Line, and it sits above the Hydraulic _____.',
+          question: 'The line representing total head in a pipe system is called the _____ Grade Line, and it sits above the Hydraulic Grade Line by the _____ head.',
           blanks: ['Energy', 'velocity'],
           wordBank: ['Energy', 'velocity', 'Pressure', 'friction', 'elevation'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'The Energy Grade Line (EGL) represents the total mechanical energy at each point: P/ρg + V²/2g + z.',
-          hint: 'This line is always above the HGL by exactly.'
+          explanation: 'The Energy Grade Line (EGL) represents total mechanical energy at each point: P/(rho*g) + V2/(2g) + z.',
+          hint: 'This line is always above the HGL by exactly V2/(2g).'
         },
         {
           id: 'u6-L2-Q7',
           type: 'multiple-choice',
-          question: 'If the pressure difference between inlet and throat is 40 kPa, what is the theoretical flow rate of water?',
+          question: 'Venturi meter: pressure drop is 40 kPa between inlet and throat. What is the theoretical flow rate of water?',
           options: [
-            'Apply continuity + Bernoulli: Q ≈ 0.027 m³/s',
-            'Q = A₂√(2ΔP/ρ) ≈ 0.070 m³/s, no area ratio needed',
-            'Q = A₁√(2ΔP/ρ) ≈ 0.281 m³/s, use the inlet area',
+            'Apply continuity + Bernoulli: Q is about 0.027 m3/s',
+            'Q = A2*sqrt(2*deltaP/rho), about 0.070 m3/s, no area ratio needed',
+            'Q = A1*sqrt(2*deltaP/rho), about 0.281 m3/s, use inlet area',
             'Cannot determine Q without pipe length and friction'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Tube fill --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23 L78,57 L62,57 Q50,57 40,48 Q30,57 18,57 L2,57 Z" fill="#58CC02" opacity="0.05"/> <!-- Tube walls — more pronounced throat --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <path d="M2,57 L18,57 Q30,57 40,48 Q50,57 62,57 L78,57" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <!-- Streamlines (converge at throat) --> <path d="M2,30 L18,30 Q30,30 40,36 Q50,30 62,30 L78,30" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,40 L78,40" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,50 L18,50 Q30,50 40,44 Q50,50 62,50 L78,50" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <!-- Flow particles — accelerate through throat via keyPoints --> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.5s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.45"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.3s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.8s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.8s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="2.3s"/> </circle> <!-- Manometer — wide section (x=15): high pressure, tall column --> <line x1="15" y1="23" x2="15" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="12.5" y="7" width="5" height="16" rx="2.5" fill="#58CC02" opacity="0.28"> <animate attributeName="height" values="16;14;16" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — throat (x=40): low pressure, short column --> <line x1="40" y1="32" x2="40" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="9" rx="2.5" fill="#58CC02" opacity="0.13"> <animate attributeName="height" values="9;7;9" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — recovery section (x=65): partial pressure recovery --> <line x1="65" y1="23" x2="65" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="62.5" y="9" width="5" height="14" rx="2.5" fill="#58CC02" opacity="0.22"> <animate attributeName="height" values="14;12;14" dur="3s" repeatCount="indefinite"/> </rect> <!-- Velocity indicator arrows --> <path d="M7,40 L11,40 L11,38.5 L14,40 L11,41.5 L11,40" fill="#3B8700" opacity="0.15"/> <path d="M36,40 L43,40 L43,37.5 L47,40 L43,42.5 L43,40" fill="#3B8700" opacity="0.2"/> <!-- Labels --> <text x="40" y="66" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3">throat</text> <text x="15" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₁</text> <text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₂</text> <text x="65" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₃</text> </svg>',
-          explanation: 'Combining Bernoulli and continuity: V₂ = √(2ΔP / (ρ(1 − (d₂/d₁)⁴))). With d₂/d₁ = 100/200 = 0., so (d₂/d₁)⁴ = 0.625. V₂ = √(2 × 40000 / (1000 × (1 − 0.625))) = √(80000/937.) = √85.3 = 9.4 m/s.',
-          hint: 'Use both Bernoulli and continuity equations.'
+          explanation: 'Combining Bernoulli and continuity gives V2 = sqrt(2*deltaP / (rho*(1 - (d2/d1)4))). Then Q = A2*V2.',
+          hint: 'Use both Bernoulli and continuity equations together.'
+        },
+        {
+          id: 'u6-L2b-T2',
+          type: 'teaching',
+          question: 'Torricelli\'s theorem',
+          explanation: 'For a tank draining through a small hole, Bernoulli simplifies to V = sqrt(2*g*h), where h is the height of fluid above the hole. This is called Torricelli\'s theorem, and it\'s like a free-falling object velocity.',
+          hint: 'The exit velocity equals the speed an object would reach falling from height h.',
+        },
+        {
+          id: 'u6-L2b-Q0b',
+          type: 'true-false',
+          question: 'Torricelli\'s theorem gives the exit velocity of fluid draining from a tank as V = sqrt(2*g*h).',
+          correctAnswer: true,
+          explanation: 'Yes. This comes directly from Bernoulli between the free surface and the exit hole, assuming the tank is large.',
+          hint: 'It\'s a direct application of Bernoulli\'s equation.',
         },
         {
           id: 'u6-L2-Q8',
           type: 'multiple-choice',
-          question: 'Why does a venturi meter have a higher discharge coefficient (C_d ≈ 0.98) than an orifice plate (C_d ≈ 0.61)?',
+          question: 'Why does a venturi meter have a higher discharge coefficient (Cd of 0.98) than an orifice plate (Cd of 0.61)?',
           options: [
             'The venturi\'s gradual geometry minimizes flow separation',
             'The venturi meter is larger, giving more room for flow',
@@ -573,303 +655,188 @@ export const unit6: Unit = {
             'Venturi meters use a different pressure tap technique'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe walls --> <line x1="4" y1="24" x2="76" y2="24" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="56" x2="76" y2="56" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Orifice plate --> <line x1="40" y1="24" x2="40" y2="34" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/> <line x1="40" y1="46" x2="40" y2="56" stroke="#3B8700" stroke-width="3" stroke-linecap="round"/> <!-- Orifice opening --> <line x1="40" y1="34" x2="40" y2="46" stroke="#3B8700" stroke-width="1" stroke-dasharray="1,2" opacity="0.2"/> <!-- Vena contracta (narrowing flow after orifice) --> <path d="M4,30 L36,30 Q40,34 44,32 Q50,30 56,31 L76,32" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.2"/> <path d="M4,50 L36,50 Q40,46 44,48 Q50,50 56,49 L76,48" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.2"/> <!-- Flow particles (accelerate through orifice) --> <circle r="2.2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,34 L36,34 Q40,37 44,35 L76,34" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear" begin="0.6s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,46 L36,46 Q40,43 44,45 L76,46" keyPoints="0;0.4;0.6;1" keyTimes="0;0.4;0.5;1" calcMode="linear" begin="1.2s"/> </circle> <!-- Pressure taps --> <line x1="32" y1="24" x2="32" y2="14" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="29.5" y="10" width="5" height="8" rx="2.5" fill="#58CC02" opacity="0.25"/> <line x1="50" y1="24" x2="50" y2="14" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <rect x="47.5" y="14" width="5" height="6" rx="2.5" fill="#58CC02" opacity="0.15"/> <!-- ΔP label --> <text x="41" y="10" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">ΔP</text> <!-- Flow arrow --> <polygon points="16,39 20,40 16,41" fill="#3B8700" opacity="0.15"/> </svg>',
-          explanation: 'The discharge coefficient C_d represents how close the actual flow is to the theoretical (Bernoulli-predicted) flow.',
-          hint: 'Compare the flow path through each device — which one.'
-        },
-        {
-          id: 'u6-L2-Q9',
-          type: 'true-false',
-          question: 'Bernoulli\'s equation can be applied between any two points in a fluid flow.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'Bernoulli\'s equation in its standard form applies only along a single streamline. Different streamlines can have different total energy (Bernoulli constant) if the flow has vorticity (rotation).',
-          hint: 'What the standard Bernoulli derivation assumes about?'
+          explanation: 'The gradual convergence and divergence of a venturi keeps the flow attached, minimizing energy losses and flow separation.',
+          hint: 'Compare the flow path through each device.'
         },
         {
           id: 'u6-L2-Q10',
           type: 'multiple-choice',
-          question: 'A large open tank drains through a small hole at the bottom, 3 m below the water surface.',
+          question: 'A large open tank drains through a small hole 3 m below the water surface. Exit velocity?',
           options: [
-            'V = √(2gh) = √(2 × 9.81 × 3) ≈ 7.67 m/s',
-            'V = √(gh) = √(9.81 × 3) ≈ 5.42 m/s',
-            'V = 2gh = 2 × 9.81 × 3 = 58.86 m/s',
-            'V = √(2gh/ρ) — velocity depends on fluid density'
+            'V = sqrt(2*g*h) = sqrt(2 * 9.81 * 3) = 7.67 m/s',
+            'V = sqrt(g*h) = sqrt(9.81 * 3) = 5.42 m/s',
+            'V = 2*g*h = 58.86 m/s',
+            'V = sqrt(2*g*h/rho): velocity depends on fluid density'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'Torricelli\'s theorem is a direct application of Bernoulli\'s equation between the free surface and the exit hole. At the surface: P = P_atm, V ≈ 0 (large tank), z = h.',
+          explanation: 'Torricelli\'s theorem: V = sqrt(2*g*h). The exit velocity equals the speed of a freely falling object from height h.',
           hint: 'Apply Bernoulli between the free surface and the exit hole.'
         },
         {
-          id: 'u6-L2-Q11',
-          type: 'multiple-choice',
-          question: 'What is the continuity equation for steady flow, and how does it relate to the Bernoulli equation?',
-          options: [
-            'ρ₁A₁V₁ = ρ₂A₂V₂; if incompressible: A₁V₁ = A₂V₂',
-            'P₁A₁ = P₂A₂ — pressure times area is constant',
-            'ρ₁V₁ = ρ₂V₂ — density times velocity is constant',
-            'The continuity equation is a momentum conservation law'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'The continuity equation (mass conservation) and Bernoulli equation (energy conservation) are complementary — you almost always use them together.',
-          hint: 'Mass conservation and energy conservation are two.'
-        },
-        {
           id: 'u6-L2-Q12',
-          type: 'multiple-choice',
-          question: 'A common misconception is the "equal transit time" theory. Why is this explanation wrong?',
-          options: [
-            'Equal transit time wrongly claims faster top airflow',
-            'The equal transit time theory is actually correct',
-            'The theory is wrong due to measurement artifacts',
-            'The theory is wrong but irrelevant to real lift'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
-          explanation: 'The "equal transit time" fallacy assumes that air split at the leading edge must rejoin at the trailing edge.',
-          hint: 'Is there any physical law that requires air parcels?'
+          type: 'match-pairs',
+          question: 'Match each flow measurement device to its operating principle.',
+          options: ['Pitot tube', 'Venturi meter', 'Orifice plate', 'Rotameter'],
+          matchTargets: ['Stagnation pressure at a point', 'Gradual area change measures flow', 'Sharp restriction with low Cd', 'Float rises with flow rate'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each device uses a different physical principle to measure flow velocity or rate.',
+          hint: 'Think about how each device interacts with the flow.',
         },
         {
           id: 'u6-L2-Q13',
+          type: 'multiple-choice',
+          question: 'In the Bernoulli equation, what does the term 0.5*rho*v2 represent?',
+          options: [
+            'Dynamic pressure (kinetic energy per unit volume)',
+            'Static pressure (potential energy per unit volume)',
+            'Hydrostatic pressure due to elevation',
+            'Total pressure at that point'
+          ],
+          correctIndex: 0,
+          explanation: 'The term 0.5*rho*v2 is the dynamic pressure, representing the kinetic energy per unit volume of the flowing fluid.',
+          hint: 'Each term in Bernoulli corresponds to a form of energy.',
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 2c: Bernoulli & Energy Equation (Part 3)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L2c',
+      title: 'Bernoulli & Energy Equation (3/3)',
+      description: 'Modified Bernoulli, real flow corrections, and the full energy equation.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L2c-T1',
+          type: 'teaching',
+          question: 'The full energy equation',
+          explanation: 'When friction and pumps matter, use the energy equation: P1/(rho*g) + V12/(2g) + z1 + h_pump = P2/(rho*g) + V22/(2g) + z2 + h_loss. This extends Bernoulli to real systems.',
+          hint: 'h_pump adds energy. h_loss removes it. Bernoulli is the special case where both are zero.',
+        },
+        {
+          id: 'u6-L2c-Q0a',
           type: 'true-false',
-          question: 'The Bernoulli equation is a statement of conservation of energy per unit volume along a streamline for steady,.',
+          question: 'The full energy equation adds pump head and friction loss terms to Bernoulli\'s equation.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'Bernoulli\'s equation P + ½ρV² + ρgz = constant can be interpreted as energy per unit volume: static pressure energy + kinetic energy per unit volume + potential energy per unit volume = constant.',
-          hint: 'Each term in the Bernoulli equation represents a form.'
+          explanation: 'Correct. The energy equation is Bernoulli plus h_pump (energy added) minus h_loss (energy lost to friction).',
+          hint: 'Real systems always have some friction.',
         },
         {
           id: 'u6-L2-Q14',
           type: 'multiple-choice',
-          question: 'If the flow rate is 10 L/s, what is the pressure difference between the hose and the nozzle exit (neglecting losses)?',
+          question: 'What is the coefficient of velocity (Cv) for an orifice, and how does it differ from the discharge coefficient (Cd)?',
           options: [
-            'About 794 kPa — large velocity increase through the nozzle',
-            'About 50 kPa — modest drop since water is incompressible',
-            'About 5,000 kPa — extreme area ratio creates huge ΔP',
-            'Zero — by Bernoulli, pressure is constant horizontally'
+            'Cv corrects for velocity loss; Cd = Cv * Cc includes area contraction too',
+            'Cv and Cd are always equal for well-designed orifices',
+            'Cv applies to venturi meters while Cd applies to orifice plates',
+            'Cv is always 1.0 for sharp-edged orifices'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Nozzle walls (converging-diverging) --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,38 46,32 Q54,22 64,22 L76,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,42 46,48 Q54,58 64,58 L76,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Fill --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58 Z" fill="#58CC02" opacity="0.04"/> <path d="M42,32 Q42,38 42,40 Q42,42 42,48 Q54,58 64,58 L76,58 L76,22 L64,22 Q54,22 42,32 Z" fill="#58CC02" opacity="0.03"/> <!-- Throat marker --> <line x1="42" y1="32" x2="42" y2="48" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="42" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">throat</text> <!-- Flow particles (accelerate through converging, supersonic in diverging) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,34 L20,34 Q30,34 38,37 Q42,39 46,37 Q54,34 64,34 L76,34" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="0.5s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,46 L20,46 Q30,46 38,43 Q42,41 46,43 Q54,46 64,46 L76,46" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="1s"/> </circle> <!-- Mach labels --> <text x="16" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&lt;1</text> <text x="42" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M=1</text> <text x="66" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&gt;1</text> </svg>',
-          explanation: 'Q = 10 L/s = 0.1 m³/s. V₁ = Q/A₁ = 0.1/(π/4 × 0.65²) = 3.1 m/s. V₂ = Q/A₂ = 0.1/(π/4 × 0.2²) = 31.3 m/s.',
-          hint: 'Calculate both velocities from continuity.'
+          explanation: 'Cv accounts for velocity being less than ideal, while Cc accounts for the vena contracta (area contraction). Cd = Cv * Cc combines both effects.',
+          hint: 'Two separate corrections: one for velocity, one for area contraction.'
         },
         {
           id: 'u6-L2-Q15',
           type: 'multiple-choice',
-          question: 'What is the difference between the EGL and HGL at any point in a pipe system?',
+          question: 'The energy equation adds what two terms compared to basic Bernoulli?',
           options: [
-            'Difference equals the velocity head V²/(2g)',
-            'Difference equals friction head loss at that point',
-            'Difference equals the elevation head z at that point',
-            'They are the same line in constant-diameter pipes'
+            'Pump head (h_pump) and friction head loss (h_loss)',
+            'Temperature and viscosity terms',
+            'Turbulence intensity and roughness factors',
+            'Momentum flux and angular velocity terms'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'EGL = P/(ρg) + V²/(2g) + z and HGL = P/(ρg) + z. The difference is always V²/(2g), the velocity head. In a constant-diameter pipe, the EGL and HGL are parallel (same V, so same gap).',
-          hint: 'Compare the mathematical definitions of EGL and HGL —.'
+          explanation: 'The general energy equation adds h_pump (energy input from pumps) and h_loss (energy lost to friction, fittings, etc.).',
+          hint: 'What does a pump add? What does friction remove?'
+        },
+        {
+          id: 'u6-L2c-T2',
+          type: 'teaching',
+          question: 'Discharge coefficients in practice',
+          explanation: 'Real flow through orifices and nozzles never matches Bernoulli perfectly. The discharge coefficient Cd accounts for losses. A venturi has Cd of about 0.98, a nozzle about 0.96, and an orifice plate about 0.61.',
+          hint: 'Higher Cd means less energy wasted. Venturis are most efficient but also most expensive.',
+        },
+        {
+          id: 'u6-L2c-Q0b',
+          type: 'multiple-choice',
+          question: 'A discharge coefficient of 0.61 means the actual flow is about:',
+          options: [
+            '61% of the theoretical (ideal) flow',
+            '61% more than the theoretical flow',
+            '39% of the theoretical flow',
+            '100% of theoretical with 61% efficiency'
+          ],
+          correctIndex: 0,
+          explanation: 'Cd = Q_actual/Q_theoretical. A Cd of 0.61 means only 61% of the ideal Bernoulli flow actually passes through.',
+          hint: 'Cd is the ratio of actual to ideal flow.',
         },
         {
           id: 'u6-L2-Q16',
           type: 'fill-blank',
-          question: 'The theorem stating that the exit velocity of fluid through an orifice at the bottom of a tank equals √ is called _____.',
-          blanks: ['Torricelli\'s'],
-          wordBank: ['Torricelli\'s', 'Bernoulli\'s', 'Pascal\'s', 'Archimedes\'', 'Euler\'s'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Tank --> <rect x="20" y="10" width="30" height="45" rx="2" fill="#58CC02" opacity="0.06" stroke="#58CC02" stroke-width="1.5"/> <!-- Water level --> <rect x="20" y="15" width="30" height="40" rx="0" fill="#58CC02" opacity="0.08"/> <!-- Water surface --> <line x1="20" y1="15" x2="50" y2="15" stroke="#58CC02" stroke-width="1" opacity="0.4"/> <!-- Height h --> <line x1="55" y1="15" x2="55" y2="55" stroke="#334155" stroke-width="0.6" stroke-dasharray="2,1" opacity="0.3"/> <text x="58" y="37" font-size="4" fill="#334155" opacity="0.4" font-style="italic">h</text> <!-- Orifice at bottom --> <rect x="35" y="53" width="6" height="4" fill="white" stroke="#3B8700" stroke-width="1" opacity="0.4"/> <!-- Exit jet --> <g opacity="0"> <animate attributeName="opacity" values="0;0.6;0.6" dur="2.5s" repeatCount="indefinite" keyTimes="0;0.2;1"/> <line x1="38" y1="57" x2="38" y2="72" stroke="#58CC02" stroke-width="2.5" stroke-linecap="round"/> <polygon points="36,70 38,75 40,70" fill="#58CC02"/> <text x="46" y="68" font-size="4" fill="#58CC02" font-weight="bold" font-style="italic">v</text> </g> <!-- Formula --> <text x="40" y="79" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.4" font-style="italic">v = &#x221a;(2gh) Torricelli</text> </svg>',
-          explanation: 'Torricelli\'s theorem (1643) states that the speed of fluid flowing out through a sharp-edged orifice at the bottom of a tank is V = √(2gh), identical to the velocity of a body falling from height h.',
-          hint: 'This theorem is named after an Italian physicist.'
+          question: 'A venturi meter uses a gradually converging-diverging passage to measure flow rate. Its high _____ coefficient (about 0.98) means very little energy is wasted.',
+          blanks: ['discharge'],
+          wordBank: ['discharge', 'velocity', 'friction', 'pressure', 'drag'],
+          explanation: 'The gradual area changes in a venturi keep the flow attached, resulting in minimal losses and a high discharge coefficient.',
+          hint: 'This coefficient tells you how close actual flow is to ideal.',
         },
         {
           id: 'u6-L2-Q17',
           type: 'multiple-choice',
-          question: 'How does a pump appear in this equation?',
+          question: 'An engineer needs to account for a pump adding 25 m of head to a piping system. Which equation should they use?',
           options: [
-            'A pump adds h_pump to the energy equation\'s left side',
-            'A pump removes energy, so h_pump is subtracted',
-            'A pump does not appear in the energy equation at all',
-            'A pump is represented by reducing the friction factor f'
+            'Full energy equation with h_pump = 25 m added',
+            'Bernoulli with P increased by 25 m equivalent',
+            'Continuity equation with modified velocity',
+            'Darcy-Weisbach with pump friction factor'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
-          explanation: 'The extended energy equation accounts for energy added by pumps and removed by turbines: P₁/(ρg) + V₁²/(2g) + z₁ + h_pump = P₂/(ρg) + V₂²/(2g) + z₂ + h_turbine + h_f + Σh_minor.',
-          hint: 'Does a pump add or remove energy from the flowing fluid?'
+          explanation: 'The full energy equation is the correct tool when pumps add energy to the system.',
+          hint: 'Bernoulli has no term for pump energy.',
         },
         {
           id: 'u6-L2-Q18',
-          type: 'true-false',
-          question: 'A converging nozzle accelerates incompressible flow, and by Bernoulli\'s equation, the pressure must decrease.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Nozzle walls (converging-diverging) --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,38 46,32 Q54,22 64,22 L76,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,42 46,48 Q54,58 64,58 L76,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Fill --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58 Z" fill="#58CC02" opacity="0.04"/> <path d="M42,32 Q42,38 42,40 Q42,42 42,48 Q54,58 64,58 L76,58 L76,22 L64,22 Q54,22 42,32 Z" fill="#58CC02" opacity="0.03"/> <!-- Throat marker --> <line x1="42" y1="32" x2="42" y2="48" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="42" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">throat</text> <!-- Flow particles (accelerate through converging, supersonic in diverging) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,34 L20,34 Q30,34 38,37 Q42,39 46,37 Q54,34 64,34 L76,34" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="0.5s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,46 L20,46 Q30,46 38,43 Q42,41 46,43 Q54,46 64,46 L76,46" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="1s"/> </circle> <!-- Mach labels --> <text x="16" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&lt;1</text> <text x="42" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M=1</text> <text x="66" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&gt;1</text> </svg>',
-          explanation: 'From the continuity equation for incompressible flow, A₁V₁ = A₂V₂, so a decreasing area causes increasing velocity. From Bernoulli, increasing velocity requires decreasing pressure.',
-          hint: 'What does continuity say about velocity in a converging?'
+          type: 'order-steps',
+          question: 'Order the steps to solve a pipe flow problem with a pump.',
+          steps: [
+            'Draw the system and identify points 1 and 2',
+            'Write the energy equation between points 1 and 2',
+            'Calculate friction losses using Darcy-Weisbach',
+            'Solve for the unknown (pump head, velocity, or pressure)',
+            'Check if the answer makes physical sense'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'A systematic approach prevents mistakes: sketch first, write the equation, compute losses, solve, then sanity-check.',
+          hint: 'Always start by drawing the system and picking your reference points.',
         },
         {
           id: 'u6-L2-Q19',
           type: 'multiple-choice',
-          question: 'What determines the maximum height the siphon can raise water?',
+          question: 'Why does the "equal transit time" theory incorrectly explain airplane lift?',
           options: [
-            'The maximum height is limited by atmospheric pressure',
-            'There is no height limit for the siphon at all',
-            'The maximum height equals the depth of the pool',
-            'The maximum height is limited by the tube diameter'
+            'Air over the top actually moves faster, not at equal transit time',
+            'The equal transit time theory is correct',
+            'Lift has nothing to do with airflow patterns',
+            'Bernoulli doesn\'t apply to compressible air'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'A siphon works because atmospheric pressure pushes water into the tube on the inlet side, while gravity pulls it down on the outlet side.',
-          hint: 'Apply Bernoulli from the pool surface to the top.'
+          explanation: 'There\'s no physical reason air over the top must arrive at the trailing edge at the same time as air below. The real explanation involves circulation and pressure differences.',
+          hint: 'Ask yourself: why would the air parcels need to "meet up" at the trailing edge?'
         },
-        {
-          id: 'u6-L2-Q20',
-          type: 'multiple-choice',
-          question: 'What are the practical trade-offs in choosing between them?',
-          options: [
-            'Venturi: higher C_d, lower loss, but more expensive',
-            'Venturi is always better regardless of application',
-            'Orifice plate has a higher discharge coefficient',
-            'Choice depends only on pipe diameter, not application'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Tube fill --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23 L78,57 L62,57 Q50,57 40,48 Q30,57 18,57 L2,57 Z" fill="#58CC02" opacity="0.05"/> <!-- Tube walls — more pronounced throat --> <path d="M2,23 L18,23 Q30,23 40,32 Q50,23 62,23 L78,23" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <path d="M2,57 L18,57 Q30,57 40,48 Q50,57 62,57 L78,57" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <!-- Streamlines (converge at throat) --> <path d="M2,30 L18,30 Q30,30 40,36 Q50,30 62,30 L78,30" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,40 L78,40" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <path d="M2,50 L18,50 Q30,50 40,44 Q50,50 62,50 L78,50" stroke="#A5E86C" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.2" fill="none"/> <!-- Flow particles — accelerate through throat via keyPoints --> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,40 L78,40" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.5s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.45"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.3s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="0.8s"/> </circle> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,29 L18,29 Q30,29 40,36 Q50,29 62,29 L78,29" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="1.8s"/> </circle> <circle r="2" fill="#58CC02" opacity="0.35"> <animateMotion dur="3s" repeatCount="indefinite" path="M2,51 L18,51 Q30,51 40,44 Q50,51 62,51 L78,51" keyPoints="0;0.25;0.75;1" keyTimes="0;0.4;0.6;1" calcMode="linear" begin="2.3s"/> </circle> <!-- Manometer — wide section (x=15): high pressure, tall column --> <line x1="15" y1="23" x2="15" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="12.5" y="7" width="5" height="16" rx="2.5" fill="#58CC02" opacity="0.28"> <animate attributeName="height" values="16;14;16" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — throat (x=40): low pressure, short column --> <line x1="40" y1="32" x2="40" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="9" rx="2.5" fill="#58CC02" opacity="0.13"> <animate attributeName="height" values="9;7;9" dur="3s" repeatCount="indefinite"/> </rect> <!-- Manometer — recovery section (x=65): partial pressure recovery --> <line x1="65" y1="23" x2="65" y2="7" stroke="#3B8700" stroke-width="1.2" opacity="0.2"/> <rect x="62.5" y="9" width="5" height="14" rx="2.5" fill="#58CC02" opacity="0.22"> <animate attributeName="height" values="14;12;14" dur="3s" repeatCount="indefinite"/> </rect> <!-- Velocity indicator arrows --> <path d="M7,40 L11,40 L11,38.5 L14,40 L11,41.5 L11,40" fill="#3B8700" opacity="0.15"/> <path d="M36,40 L43,40 L43,37.5 L47,40 L43,42.5 L43,40" fill="#3B8700" opacity="0.2"/> <!-- Labels --> <text x="40" y="66" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3">throat</text> <text x="15" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₁</text> <text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₂</text> <text x="65" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">P₃</text> </svg>',
-          explanation: 'The choice between venturi and orifice is an engineering trade-off. Venturi advantages: high C_d (0.95-0.',
-          hint: 'Cost, size, accuracy, and energy loss when comparing.'
-        },
-        {
-          id: 'u6-L2-Q21',
-          type: 'multiple-choice',
-          question: 'What is the stagnation point in a flow field, and what happens to the velocity and pressure there?',
-          options: [
-            'A stagnation point is where velocity is zero and pressure peaks',
-            'A stagnation point is where the pressure drops to zero',
-            'A stagnation point only occurs in turbulent boundary layers',
-            'A stagnation point is where the fluid separates from a body'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Body (airfoil-like) --> <path d="M30,40 Q30,28 50,28 Q70,28 70,40 Q70,52 50,52 Q30,52 30,40" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines approaching --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M4,30 L22,30 Q28,32 28,36" fill="none"/> <path d="M4,36 L20,36 Q26,38 28,40" fill="none"/> <path d="M4,40 L28,40" fill="none"/> <path d="M4,44 L20,44 Q26,42 28,40" fill="none"/> <path d="M4,50 L22,50 Q28,48 28,44" fill="none"/> </g> <!-- Streamlines over body --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <path d="M28,36 Q40,24 60,26 Q74,28 76,34" fill="none"/> <path d="M28,44 Q40,56 60,54 Q74,52 76,46" fill="none"/> </g> <!-- Stagnation point (bright dot) --> <circle cx="30" cy="40" r="2.5" fill="#A5E86C" opacity="0.3"> <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="30" cy="40" r="1" fill="#58CC02"/> <text x="22" y="36" font-size="2.5" fill="#A5E86C" opacity="0.5">S</text> <!-- V=0 label --> <text x="20" y="48" font-size="2.5" fill="#58CC02" opacity="0.4">V=0</text> <!-- Pressure maximum --> <text x="20" y="54" font-size="2.5" fill="#58CC02" opacity="0.4">P=P_max</text> <!-- Free stream --> <g opacity="0.4"> <line x1="6" y1="16" x2="16" y2="16" stroke-width="0.5" stroke="#58CC02"/> <polygon points="16,14.5 16,17.5 19,16" fill="#58CC02"/> <text x="12" y="14" font-size="2.5" fill="#58CC02">V∞</text> </g> <!-- Approaching flow particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="4;20;28" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0.4;0" dur="2s" repeatCount="indefinite"/> </circle> <!-- Bernoulli --> <text x="54" y="66" font-size="2.8" fill="#58CC02" opacity="0.4" text-anchor="middle">P₀ = P + ½ρV²</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">total pressure</text> </svg>',
-          explanation: 'At a stagnation point, the fluid comes to rest (V = 0) and all kinetic energy converts to pressure energy. By Bernoulli: P_stag = P_static + ½ρV².',
-          hint: 'What happens to the kinetic energy when a fluid particle?'
-        },
-        {
-          id: 'u6-L2-Q22',
-          type: 'true-false',
-          question: 'In a horizontal constant-diameter pipe with friction, the EGL slopes downward in the direction of flow while the HGL.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Both the EGL and HGL slope downward in the direction of flow due to friction losses. In a constant-diameter pipe, the velocity is constant (by continuity), so the velocity head V²/(2g) is constant.',
-          hint: 'In a constant-diameter pipe with friction.'
-        },
-        {
-          id: 'u6-L2-Q23',
-          type: 'multiple-choice',
-          question: 'If V₁ = 4 m/s, what is the pressure rise in the expansion (ideal, no losses)?',
-          options: [
-            'By continuity V₂ = 1 m/s; ΔP = ½ρ(V₁² − V₂²) = 7.5 kPa',
-            'ΔP = ½ρV₁² = 8.0 kPa — all kinetic energy is recovered',
-            'Pressure decreases in an expansion as flow decelerates',
-            'ΔP = ρg(D₂ − D₁) = 490 Pa — depends on diameter diff'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'By continuity: V₂ = V₁(A₁/A₂) = 4 × (50/100)² = 4 × 0.5 = 1 m/s. By Bernoulli (horizontal, inviscid): P₁ + ½ρV₁² = P₂ + ½ρV₂², so P₂ − P₁ = ½ρ(V₁² − V₂²) = ½ × 1000 × (16 − 1) = 7,500 Pa = 7. kPa.',
-          hint: 'First find V₂ from continuity.'
-        },
-        {
-          id: 'u6-L2-Q24',
-          type: 'multiple-choice',
-          question: 'Which of the following is NOT a valid assumption for applying the standard Bernoulli equation?',
-          options: [
-            'The flow must be along a single streamline',
-            'The flow must be steady (not changing with time)',
-            'The fluid must be incompressible (constant density)',
-            'The flow must be turbulent (high Reynolds number)'
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'The standard Bernoulli equation requires: steady flow, incompressible fluid, inviscid flow, along a single streamline, and no shaft work.',
-          hint: 'List the five assumptions of Bernoulli\'s equation.'
-        },
-        {
-          id: 'u6-L2-Q25',
-          type: 'fill-blank',
-          question: 'The ½ρV² term in the Bernoulli equation is called the _____ pressure.',
-          blanks: ['dynamic'],
-          wordBank: ['dynamic', 'static', 'stagnation', 'gauge', 'hydrostatic'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'The term ½ρV² is the dynamic pressure (also called velocity pressure). It represents the kinetic energy per unit volume of the flowing fluid.',
-          hint: 'This pressure term is associated with the fluid\'s.'
-        },
-        {
-          id: 'u6-L2-Q26',
-          type: 'multiple-choice',
-          question: 'At what height above the hole does the jet strike the ground level (the bottom of the tank)?',
-          options: [
-            'Jet follows projectile path, landing at 2\u221A(h\u2081h\u2082)',
-            'The jet always lands directly below the hole point',
-            'The horizontal range equals h₂, the water head above',
-            'The jet travels infinitely far from the tank wall'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="12" width="34" height="48" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="10" y="12" width="34" height="48" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="13" y="24" width="28" height="34" rx="3" fill="#58CC02" opacity="0.12"/> <rect x="44" y="42" width="8" height="6" rx="3" fill="#3B8700" opacity="0.4"/> <path d="M52,45 Q62,45 67,52 Q71,58 73,66" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66"/> <animate attributeName="opacity" values="0.5;0.5;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="2" fill="#A5E86C" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0.4;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/> </circle> <circle r="2.2" fill="#58CC02" opacity="0"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M52,45 Q62,45 67,52 Q71,58 73,66" begin="0.9s"/> <animate attributeName="opacity" values="0.3;0.3;0" dur="1.5s" begin="0.9s" repeatCount="indefinite"/> </circle> <line x1="6" y1="24" x2="6" y2="46" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="4" y="37" font-size="7" fill="#3B8700" opacity="0.35" text-anchor="middle" font-style="italic">h</text> <rect x="4" y="66" width="72" height="4" rx="2" fill="#58CC02" opacity="0.06"/> </svg>',
-          explanation: 'Exit velocity (Torricelli): V = √(2g × h₂). The jet exits horizontally and falls h₁ to the ground. Time to fall: h₁ = ½gt², so t = √(2h₁/g).',
-          hint: 'Find the exit velocity from Torricelli.'
-        },
-        {
-          id: 'u6-L2-Q27',
-          type: 'true-false',
-          question: 'A converging-diverging (de Laval) nozzle can accelerate an incompressible fluid to supersonic velocities.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Nozzle walls (converging-diverging) --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,38 46,32 Q54,22 64,22 L76,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M42,40 Q42,42 46,48 Q54,58 64,58 L76,58" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Fill --> <path d="M4,22 L20,22 Q30,22 38,32 Q42,38 42,40 Q42,42 38,48 Q30,58 20,58 L4,58 Z" fill="#58CC02" opacity="0.04"/> <path d="M42,32 Q42,38 42,40 Q42,42 42,48 Q54,58 64,58 L76,58 L76,22 L64,22 Q54,22 42,32 Z" fill="#58CC02" opacity="0.03"/> <!-- Throat marker --> <line x1="42" y1="32" x2="42" y2="48" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="42" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">throat</text> <!-- Flow particles (accelerate through converging, supersonic in diverging) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,40 L76,40" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,34 L20,34 Q30,34 38,37 Q42,39 46,37 Q54,34 64,34 L76,34" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="0.5s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M6,46 L20,46 Q30,46 38,43 Q42,41 46,43 Q54,46 64,46 L76,46" keyPoints="0;0.45;0.55;1" keyTimes="0;0.45;0.5;1" calcMode="linear" begin="1s"/> </circle> <!-- Mach labels --> <text x="16" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&lt;1</text> <text x="42" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M=1</text> <text x="66" y="16" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">M&gt;1</text> </svg>',
-          explanation: 'A converging-diverging nozzle can only accelerate flow to supersonic speeds for compressible fluids (gases).',
-          hint: 'For incompressible flow.'
-        },
-        {
-          id: 'u6-L2-Q28',
-          type: 'multiple-choice',
-          question: 'In a flow measurement with a pitot-static tube, what error is introduced if the probe is not aligned with the flow?',
-          options: [
-            'The stagnation pressure reading decreases with yaw angle',
-            'Yaw angle has no effect on either pressure reading',
-            'Stagnation pressure increases with yaw, overestimating V',
-            'Yaw angle only affects static pressure, not stagnation'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flow field --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="2" y1="24" x2="20" y2="24"/><line x1="2" y1="32" x2="20" y2="32"/> <line x1="2" y1="40" x2="20" y2="40"/><line x1="2" y1="48" x2="20" y2="48"/> <line x1="2" y1="56" x2="20" y2="56"/> </g> <!-- Pitot tube (L-shaped) --> <path d="M24,40 L40,40 L40,10" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Static pressure port (parallel holes) --> <path d="M28,30 L28,10" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="28" cy="36" r="0.8" fill="#58CC02" opacity="0.3"/> <circle cx="28" cy="44" r="0.8" fill="#58CC02" opacity="0.3"/> <!-- Stagnation point at tip --> <circle cx="24" cy="40" r="1.5" fill="#A5E86C" opacity="0.3"> <animate attributeName="r" values="1;2;1" dur="2s" repeatCount="indefinite"/> </circle> <!-- Manometer (U-tube, connected) --> <path d="M28,10 L28,6 L50,6 L50,10 L40,10" stroke-width="0.5" stroke="#3B8700" opacity="0.4" fill="none"/> <!-- Differential manometer --> <rect x="46" y="6" width="8" height="20" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.5"/> <rect x="47" y="10" width="6" height="8" fill="#A5E86C" opacity="0.08"/> <rect x="47" y="18" width="6" height="6" fill="#A5E86C" opacity="0.12"/> <!-- Δh --> <line x1="56" y1="10" x2="56" y2="18" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="59" y="15" font-size="2.5" fill="#3B8700" opacity="0.4">Δh</text> <!-- Flow particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="4;18;22" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0.4;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="4;24;44" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="32;32;32" dur="2s" repeatCount="indefinite"/> </circle> <!-- Labels --> <text x="44" y="44" font-size="2.5" fill="#58CC02" opacity="0.4">total P</text> <text x="20" y="28" font-size="2.5" fill="#3B8700" opacity="0.35">static P</text> <!-- Velocity formula --> <text x="40" y="62" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">V = √(2Δp/ρ)</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">airspeed measurement</text> </svg>',
-          explanation: 'When a pitot tube is misaligned, the flow does not stagnate perfectly at the tip — some flow passes by at an angle, and the stagnation pressure reading drops?',
-          hint: 'If the flow hits the pitot tube opening at an angle.'
-        },
-        {
-          id: 'u6-L2-Q29',
-          type: 'multiple-choice',
-          question: 'If the nozzle exit velocity is 20 m/s and the jet diameter is 30 mm, what is the force on the plate?',
-          options: [
-            'F = ρAV² ≈ 283 N from the momentum equation',
-            'F = ½ρAV² ≈ 141 N using the dynamic pressure formula',
-            'F = ρgAh — depends on nozzle height above the plate',
-            'F = PA ≈ 141 N from a pressure-times-area approach'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="25" width="20" height="10" rx="2" fill="#A5E86C" opacity="0.1" stroke="#3B8700" stroke-width="1"/><line x1="25" y1="28" x2="55" y2="28" stroke="#58CC02" stroke-width="2" opacity="0.4"/><line x1="25" y1="32" x2="55" y2="32" stroke="#58CC02" stroke-width="2" opacity="0.4"/><rect x="58" y="15" width="4" height="50" rx="1" fill="#3B8700" opacity="0.3" stroke="#3B8700" stroke-width="1"/><line x1="65" y1="30" x2="72" y2="30" stroke="#3B8700" stroke-width="1" opacity="0.5"/><polygon points="70,28.5 74,30 70,31.5" fill="#3B8700" opacity="0.5"/><text x="68" y="26" font-size="3" fill="#3B8700" opacity="0.5">F</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">jet force on plate</text></svg>',
-          explanation: 'This is a direct application of the momentum equation (Newton\'s second law applied to a control volume).',
-          hint: 'Apply the momentum equation: force = rate of change.'
-        },
-        {
-          id: 'u6-L2-Q30',
-          type: 'true-false',
-          question: 'The Bernoulli equation and the steady-flow energy equation are fundamentally different equations that happen to look.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with elevation change --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M4,60 L24,60 Q34,60 40,48 Q46,36 56,36 L76,36" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Pipe fill --> <path d="M4,52 L24,52 Q34,52 40,40 Q46,28 56,28 L76,28 L76,36 L56,36 Q46,36 40,48 Q34,60 24,60 L4,60 Z" fill="#58CC02" opacity="0.05"/> <!-- Elevation reference --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="2,3" opacity="0.1"/> <!-- z₁ and z₂ height indicators --> <line x1="14" y1="56" x2="14" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="10" y="64" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₁</text> <line x1="66" y1="32" x2="66" y2="66" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="70" y="52" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">z₂</text> <!-- Flow particles (speed up at narrower/higher section) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.8s" path="M6,56 L24,56 Q34,56 40,44 Q46,32 56,32 L74,32" keyPoints="0;0.35;0.65;1" keyTimes="0;0.4;0.55;1" calcMode="linear"/> </circle> <!-- Pressure indicators (higher at low section, lower at high section) --> <line x1="14" y1="52" x2="14" y2="44" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="12.5,45 14,42 15.5,45" fill="#58CC02" opacity="0.2"/> <text x="18" y="46" font-size="3.5" fill="#58CC02" opacity="0.2">P₁</text> <line x1="66" y1="28" x2="66" y2="22" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <polygon points="64.5,23 66,20 67.5,23" fill="#A5E86C" opacity="0.2"/> <text x="70" y="24" font-size="3.5" fill="#A5E86C" opacity="0.2">P₂</text> <!-- Velocity labels --> <text x="14" y="50" font-size="3.5" fill="#3B8700" opacity="0.15">v₁</text> <text x="66" y="28" font-size="3.5" fill="#3B8700" opacity="0.15">v₂</text> <!-- Bernoulli equation --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.18" font-style="italic">P + ½ρv² + ρgz = const</text> </svg>',
-          explanation: 'Despite their similar appearance, these equations have different origins and scope.',
-          hint: 'The derivation origins: one comes from F = ma.'
-        }
       ]
     },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 3a: Pipe Flow & Losses (Part 1)
+    // ═══════════════════════════════════════════════════════════════
     {
       id: 'u6-L3',
-      title: 'Pipe Flow & Losses',
-      description: 'Reynolds number, laminar vs turbulent, Moody chart, major/minor losses, Darcy-Weisbach, pipe networks.',
+      title: 'Pipe Flow & Losses (1/3)',
+      description: 'Reynolds number, laminar vs turbulent flow, and the Darcy-Weisbach equation.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u6-L3-T1',
@@ -879,427 +846,366 @@ export const unit6: Unit = {
           hint: 'Turn on a faucet slowly for laminar, then open it fully for turbulent.',
         },
         {
-          id: 'u6-L3-T2',
-          type: 'teaching',
-          question: 'Friction losses in pipes',
-          explanation: 'The Darcy-Weisbach equation gives friction head loss: h_f = f*(L/D)*(v^2/(2g)). The friction factor f depends on Re and the pipe\'s relative roughness (epsilon/D). You find f from the Moody chart or the Colebrook equation.',
-          hint: 'Doubling pipe length doubles friction loss. Halving diameter increases it roughly 32x.',
+          id: 'u6-L3-Q0a',
+          type: 'multiple-choice',
+          question: 'Flow in a pipe with Reynolds number of 1500 is:',
+          options: [
+            'Laminar',
+            'Turbulent',
+            'Supersonic',
+            'Impossible to determine'
+          ],
+          correctIndex: 0,
+          explanation: 'Re < 2300 means laminar flow. The fluid moves in smooth, orderly layers.',
+          hint: 'The transition from laminar to turbulent happens around Re = 2300.',
         },
         {
           id: 'u6-L3-Q1',
           type: 'multiple-choice',
-          question: 'What is the fluid mechanics explanation?',
+          question: 'For fully developed laminar flow in a pipe, what is the friction factor?',
           options: [
-            'Corrosion and deposits increased wall roughness over time',
-            'Water supply pressure decreased due to aging pumps',
-            'Galvanized steel naturally shrinks from thermal cycling',
-            'Biofilm growth on pipe walls increased fluid viscosity'
+            'f = 64/Re',
+            'f = 0.316/Re^0.25 (Blasius)',
+            'f = 128*mu*L/(rho*g*D4*pi)',
+            'f is always 0.02 for smooth pipes'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'This is a classic aging infrastructure problem with clear fluid mechanics principles.',
-          hint: 'The Darcy-Weisbach equation and what changes as pipes.'
+          explanation: 'In laminar flow, the friction factor is exactly f = 64/Re, derived analytically from the Hagen-Poiseuille solution.',
+          hint: 'Laminar friction factor has a simple analytical formula.'
         },
         {
           id: 'u6-L3-Q2',
           type: 'multiple-choice',
-          question: 'What happens to friction head loss if you halve the pipe diameter while keeping the same flow rate?',
+          question: 'A pipe carries water at 2 m/s, D = 50 mm, nu = 1e-6 m2/s. What is the Reynolds number?',
           options: [
-            'Head loss increases ~32× since V scales as 1/D²',
-            'Head loss doubles due to the diameter reduction',
-            'Head loss increases by 4× from diameter change',
-            'Head loss increases by 16× from velocity change'
+            'Re = 100,000 (turbulent)',
+            'Re = 1000 (laminar)',
+            'Re = 10,000 (transitional)',
+            'Re = 1,000,000 (highly turbulent)'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'This is one of the most important practical relationships in pipe sizing. From Darcy-Weisbach: h_f = f(L/D)(V²/2g). At constant flow rate Q, velocity V = Q/A = 4Q/(πD²), so V ∝ 1/D².',
-          hint: 'Express velocity in terms of Q and D.'
+          explanation: 'Re = V*D/nu = 2 * 0.05 / 1e-6 = 100,000. This is well above 4000, so fully turbulent.',
+          hint: 'Re = V*D/nu. Don\'t forget to convert mm to m.'
+        },
+        {
+          id: 'u6-L3-T2',
+          type: 'teaching',
+          question: 'Friction losses in pipes',
+          explanation: 'The Darcy-Weisbach equation gives friction head loss: h_f = f*(L/D)*(v2/(2g)). The friction factor f depends on Re and the pipe\'s relative roughness (epsilon/D). You find f from the Moody chart or the Colebrook equation.',
+          hint: 'Doubling pipe length doubles friction loss. Halving diameter increases it roughly 32x.',
+        },
+        {
+          id: 'u6-L3-Q0b',
+          type: 'true-false',
+          question: 'Doubling the length of a pipe doubles the friction head loss.',
+          correctAnswer: true,
+          explanation: 'Yes. The Darcy-Weisbach equation has L in the numerator: h_f = f*(L/D)*(v2/(2g)). Double L means double h_f.',
+          hint: 'Look at how L appears in the Darcy-Weisbach equation.',
         },
         {
           id: 'u6-L3-Q3',
-          type: 'true-false',
-          question: 'On the Moody chart, at very high Reynolds numbers, the friction factor depends only on relative roughness ε/D and.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'In the fully rough turbulent zone, the viscous sublayer is so thin that roughness elements protrude through it, and skin friction is dominated by pressure drag on the roughness elements.',
-          hint: 'What happens when roughness elements are much larger?'
+          type: 'multiple-choice',
+          question: 'On the Moody chart, what happens to the friction factor as Reynolds number increases in fully rough turbulent flow?',
+          options: [
+            'Friction factor becomes independent of Re',
+            'Friction factor continues to decrease with Re',
+            'Friction factor increases linearly with Re',
+            'The Moody chart doesn\'t cover this regime'
+          ],
+          correctIndex: 0,
+          explanation: 'In the "fully rough" zone on the Moody chart, friction factor depends only on relative roughness (epsilon/D), not Re.',
+          hint: 'Look at the rightmost part of the Moody chart where the lines flatten out.'
         },
         {
           id: 'u6-L3-Q4',
           type: 'multiple-choice',
-          question: 'When is this assumption dangerously wrong?',
+          question: 'What happens to friction head loss if you halve the pipe diameter while keeping flow rate constant?',
           options: [
-            'Short, fitting-dense systems where minor losses dominate',
-            'Minor losses are always truly minor as the name implies',
-            'Only in laminar flow where the friction factor is lower',
-            'Only when the pipe diameter exceeds 300 mm in practice'
+            'Head loss increases by about 32 times',
+            'Head loss doubles',
+            'Head loss increases by 4 times',
+            'Head loss is cut in half'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The term "minor losses" is misleading — it refers to losses that are LOCAL rather than distributed along the pipe length. In reality, minor losses can dominate the total system loss.',
-          hint: 'Calculate the equivalent pipe length of the fittings.'
-        },
-        {
-          id: 'u6-L3-T3',
-          type: 'teaching',
-          question: 'Minor losses and pipe networks',
-          explanation: 'Fittings, valves, bends, and expansions cause "minor" losses: h_m = K*(v^2/(2g)). Despite the name, these can dominate in short systems with many fittings. In parallel pipes, the head loss across each branch must be equal.',
-          hint: 'A valve that\'s half-closed can cause more loss than 50 meters of straight pipe.',
+          explanation: 'Halving D quadruples velocity (Q = AV). Then h_f proportional to V2/D means (4V)2/(D/2) = 32 times more loss.',
+          hint: 'Both velocity and diameter change. Track both effects.'
         },
         {
           id: 'u6-L3-Q5',
-          type: 'multiple-choice',
-          question: 'For parallel pipe branches, what fundamental constraint determines how flow splits between the branches?',
-          options: [
-            'Head loss must be equal across all parallel branches',
-            'Flow rate is equal in each parallel branch path',
-            'Velocity must be equal in all parallel branches',
-            'No constraint — flow distributes randomly in parallel'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'This is directly analogous to electrical circuits. In parallel pipes, the "voltage" (pressure drop / head loss) is the same across all branches, while the "current" (flow rate) divides.',
-          hint: 'The pressure at the junction where branches split.'
+          type: 'sort-buckets',
+          question: 'Sort these flow characteristics into laminar or turbulent.',
+          options: ['Re = 500', 'Smooth orderly layers', 'Re = 50,000', 'Chaotic mixing', 'Parabolic velocity profile', 'Flat velocity profile'],
+          buckets: ['Laminar', 'Turbulent'],
+          correctBuckets: [0, 0, 1, 1, 0, 1],
+          explanation: 'Laminar flow is orderly with a parabolic profile and low Re. Turbulent flow has chaotic mixing, a flatter profile, and high Re.',
+          hint: 'Re < 2300 = laminar. Re > 4000 = turbulent.',
         },
         {
           id: 'u6-L3-Q6',
           type: 'fill-blank',
-          question: 'The head loss equation h_f = f is called the _____-Weisbach equation, and for laminar flow the friction factor equals _____.',
-          blanks: ['Darcy', '64'],
-          wordBank: ['Darcy', '64', 'Bernoulli', '32', 'Colebrook', '128'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Darcy-Weisbach equation h_f = f(L/D)(V²/2g) is the fundamental equation for calculating friction head loss in pipe flow.',
-          hint: 'This equation is named after Henry _____ and Julius.'
+          question: 'The Darcy-Weisbach equation for major (friction) head loss is h_f = f*(L/D)*(v2/(2g)), where f is called the _____ factor.',
+          blanks: ['friction'],
+          wordBank: ['friction', 'safety', 'correction', 'drag', 'loss'],
+          explanation: 'The friction factor f (also called the Darcy friction factor) depends on Reynolds number and relative roughness.',
+          hint: 'This dimensionless factor comes from the Moody chart.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 3b: Pipe Flow & Losses (Part 2)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L3b',
+      title: 'Pipe Flow & Losses (2/3)',
+      description: 'Minor losses, fittings, equivalent length, and pipe networks.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L3-T3',
+          type: 'teaching',
+          question: 'Minor losses and pipe networks',
+          explanation: 'Fittings, valves, bends, and expansions cause "minor" losses: h_m = K*(v2/(2g)). Despite the name, these can dominate in short systems with many fittings. In parallel pipes, head loss across each branch must be equal.',
+          hint: 'A valve that\'s half-closed can cause more loss than 50 meters of straight pipe.',
+        },
+        {
+          id: 'u6-L3b-Q0a',
+          type: 'true-false',
+          question: 'Minor losses from fittings and valves can sometimes exceed the major (friction) losses in a piping system.',
+          correctAnswer: true,
+          explanation: 'In short systems with many fittings, the "minor" losses often dominate. The name is misleading.',
+          hint: 'Think about a short pipe with 10 elbows and 3 valves.',
         },
         {
           id: 'u6-L3-Q7',
           type: 'multiple-choice',
-          question: 'What is the Reynolds number, and what do the critical values Re = 2300 and Re = 4000 signify for pipe flow?',
+          question: 'An abrupt expansion from a small pipe to a large pipe causes a head loss. How is it calculated?',
           options: [
-            'Re = ρVD/μ: ratio of inertial to viscous forces',
-            'Re is the ratio of pressure forces to gravity forces',
-            'Re = V²/gL: ratio of kinetic to potential energy',
-            'Re has no physical meaning in fluid mechanics'
+            'h_loss = (V1 - V2)2 / (2g), the Borda-Carnot equation',
+            'h_loss = K * V2/(2g) where K = 0.5 for all expansions',
+            'Expansion losses are zero because pressure recovers fully',
+            'h_loss = f*(L_eq/D)*(V2/(2g)) using equivalent length'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Reynolds number Re = ρVD/μ = VD/ν is arguably the most important dimensionless number in fluid mechanics.',
-          hint: 'What two types of forces does the Reynolds number compare?'
+          explanation: 'A sudden expansion creates turbulent eddies. The Borda-Carnot equation h_loss = (V1 - V2)2/(2g) quantifies this energy dissipation.',
+          hint: 'The sudden expansion loss depends on the velocity change.'
         },
         {
           id: 'u6-L3-Q8',
           type: 'multiple-choice',
-          question: 'What is the ratio of average velocity to maximum velocity?',
+          question: 'In a parallel pipe network, what is always true?',
           options: [
-            'V_avg/V_max = 0.5 — half the centerline velocity',
-            'V_avg/V_max = 0.8 — most of the centerline value',
-            'V_avg/V_max = 1.0 — velocity is uniform in laminar',
-            'V_avg/V_max = 0.67 — two-thirds of the maximum'
+            'Head loss across each parallel branch is equal',
+            'Flow rate through each branch is equal',
+            'Velocity in each branch is equal',
+            'Friction factor in each branch is equal'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'For laminar flow, the velocity profile is u(r) = V_max[1 − (r/R)²]. Integrating over the cross-section: V_avg = (1/A)∫u dA = V_max/2.',
-          hint: 'Integrate the parabolic velocity profile u = V_max[1 −²].'
+          explanation: 'In parallel pipes, each branch connects the same two nodes, so the head loss must be the same. Flow splits according to each branch\'s resistance.',
+          hint: 'Think of it like parallel resistors in an electrical circuit.'
         },
         {
           id: 'u6-L3-Q9',
+          type: 'true-false',
+          question: 'The equivalent length method converts minor losses into an equivalent length of straight pipe for simpler calculation.',
+          correctAnswer: true,
+          explanation: 'The equivalent length L_eq = K*D/f converts a minor loss coefficient K into meters of straight pipe that would cause the same loss.',
+          hint: 'This lets you add everything together as one big pipe length.'
+        },
+        {
+          id: 'u6-L3b-T2',
+          type: 'teaching',
+          question: 'Pipe network basics',
+          explanation: 'In series pipes, total head loss is the sum of all individual losses and flow rate is the same everywhere. In parallel pipes, head loss is equal across branches, and flow rates add up. These rules are like series and parallel resistors.',
+          hint: 'Try this now: look at the plumbing diagram in your building and identify series vs parallel runs.',
+        },
+        {
+          id: 'u6-L3b-Q0b',
           type: 'multiple-choice',
-          question: 'How is it typically solved in practice?',
+          question: 'In pipes connected in series, what stays constant?',
           options: [
-            'Iterative solution, Moody chart, or explicit approximations',
-            'Direct analytical solution by rearranging the equation',
-            'Assuming f = 64/Re, which works for all flow regimes',
-            'Ignoring the Re term and using only the roughness term'
+            'Flow rate',
+            'Head loss',
+            'Velocity',
+            'Pressure'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Colebrook equation 1/√f = −2log(ε/(3.7D) + 2.51/(Re√f)) is implicit because f appears inside and outside the logarithm.',
-          hint: 'Since f appears on both sides.'
+          explanation: 'In series pipes, the same fluid flows through each section, so Q is constant. Head losses add up, and velocity changes with diameter.',
+          hint: 'What comes in must go out at each junction.',
         },
         {
           id: 'u6-L3-Q10',
-          type: 'true-false',
-          question: 'The entrance length — the distance for flow to become fully developed — is much longer for laminar flow.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'The hydrodynamic entrance length for laminar flow is L_e ≈ 0.5 × Re × D. For turbulent flow, L_e ≈ 10-60 × D (roughly 10D for a common engineering estimate, or more precisely 4. × Re^(1/6) × D).',
-          hint: 'Compare the entrance length formulas: L_e.'
+          type: 'multiple-choice',
+          question: 'The Colebrook equation is implicit in f. What does this mean practically?',
+          options: [
+            'You must iterate or use the Moody chart to find f',
+            'f can be calculated directly in one step',
+            'The equation is only valid for laminar flow',
+            'You need experimental data for every specific pipe'
+          ],
+          correctIndex: 0,
+          explanation: 'The Colebrook equation has f on both sides, so you can\'t solve it directly. Engineers use iteration, the Moody chart, or explicit approximations like Swamee-Jain.',
+          hint: 'Implicit means the unknown appears on both sides of the equation.'
         },
         {
           id: 'u6-L3-Q11',
-          type: 'multiple-choice',
-          question: 'What is the Hagen-Poiseuille equation, and for what flow regime is it valid?',
-          options: [
-            'Q = πD⁴ΔP/(128μL)',
-            'Q = πD⁴ΔP/',
-            'Q = πD²V/4 — it is the continuity equation for pipe flow',
-            'Q = (1/n)R^(2/3)S^(1/2)A — it is Manning\'s equation for open channel flow'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'The Hagen-Poiseuille equation Q = πD⁴ΔP/(128μL) is an exact analytical solution for fully developed, steady, laminar flow in a circular pipe.',
-          hint: 'This famous equation gives an exact solution.'
+          type: 'match-pairs',
+          question: 'Match each pipe component to its typical loss coefficient K.',
+          options: ['90-degree elbow', 'Fully open gate valve', 'Sudden expansion', 'Pipe entrance (sharp)'],
+          matchTargets: ['K = 0.3 to 0.9', 'K = 0.03 to 0.2', 'K = (1 - A1/A2)2', 'K = 0.5'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each fitting type has a characteristic K value. Gate valves have very low K when fully open, while sharp entrances waste about half a velocity head.',
+          hint: 'Valves are designed for minimal loss when open. Elbows and entrances lose more.',
         },
         {
           id: 'u6-L3-Q12',
           type: 'multiple-choice',
-          question: 'What is the Borda-Carnot formula for this loss?',
+          question: 'What is the Hazen-Williams equation, and when is it used instead of Darcy-Weisbach?',
           options: [
-            'H_loss = fLV²/(2gD), the Darcy-Weisbach equation',
-            'H_loss = fLV₁²/(2gD), using upstream velocity',
-            'H_loss = (V₁ − V₂)²/(2g), the Borda-Carnot formula',
-            'H_loss = K × V₂²/(2g), using downstream velocity'
+            'An empirical formula for water pipe design; simpler but limited to water',
+            'A theoretical equation for all fluids that is more accurate than Darcy',
+            'An equation for gas pipeline design only',
+            'A replacement for the Moody chart in turbulent flow'
           ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Borda-Carnot equation h_loss = (V₁ − V₂)²/(2g) gives the head loss for a sudden (abrupt) expansion. It is derived from momentum and energy equations (not Bernoulli, which assumes no losses).',
-          hint: 'This formula is derived from momentum balance.'
+          correctIndex: 0,
+          explanation: 'Hazen-Williams is simpler to use (no Moody chart needed) but only works for water near room temperature in turbulent flow. Darcy-Weisbach works for any fluid.',
+          hint: 'Civil engineers love it for water mains. Mechanical engineers prefer Darcy-Weisbach.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 3c: Pipe Flow & Losses (Part 3)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L3c',
+      title: 'Pipe Flow & Losses (3/3)',
+      description: 'Advanced pipe problems, velocity profiles, entrance length, and water hammer.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L3c-T1',
+          type: 'teaching',
+          question: 'Velocity profiles in pipes',
+          explanation: 'In laminar flow, the velocity profile is parabolic with V_max = 2*V_avg at the centerline. In turbulent flow, the profile is much flatter, with V_max about 1.2*V_avg. The difference matters when converting point measurements to average flow.',
+          hint: 'A pitot tube at the center reads V_max, not V_avg.',
+        },
+        {
+          id: 'u6-L3c-Q0a',
+          type: 'multiple-choice',
+          question: 'In fully developed laminar pipe flow, the maximum velocity at the center is:',
+          options: [
+            'Twice the average velocity',
+            'Equal to the average velocity',
+            'Half the average velocity',
+            '1.2 times the average velocity'
+          ],
+          correctIndex: 0,
+          explanation: 'The parabolic profile in laminar flow has V_max = 2*V_avg. In turbulent flow, it\'s closer to 1.2*V_avg.',
+          hint: 'Laminar flow has a parabolic velocity profile.',
         },
         {
           id: 'u6-L3-Q13',
           type: 'multiple-choice',
-          question: 'What is the Reynolds number and flow regime?',
+          question: 'What is the entrance length for fully developed flow, and why does it matter?',
           options: [
-            'Re = 100,000 — fully turbulent flow',
-            'Re = 1,000 — laminar flow regime',
-            'Re = 5,000 — transitional flow regime',
-            'Re = 50,000 — transitional regime'
+            'The distance for the boundary layer to reach the center; flow isn\'t "standard" before this',
+            'The length of pipe needed for the flow to reach maximum velocity',
+            'The distance from the pump to the first fitting',
+            'Entrance length is only relevant for laminar flow'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'Re = VD/ν = (2)(0.5)/(1. × 10⁻⁶) = 100,000. This is well above the turbulent threshold of 4,000, so the flow is fully turbulent.',
-          hint: 'Re = VD/ν.'
+          explanation: 'Near a pipe entrance, the velocity profile is still developing. The entrance length is about 0.05*Re*D for laminar and 10-60D for turbulent.',
+          hint: 'The boundary layer grows from the wall until it fills the entire pipe.'
         },
         {
           id: 'u6-L3-Q14',
           type: 'true-false',
-          question: 'For laminar flow in a pipe, the friction factor is f = 64/Re, which means friction losses increase as the flow slows.',
+          question: 'Water hammer occurs when a valve is closed suddenly, causing a pressure wave to travel through the pipe.',
+          correctAnswer: true,
+          explanation: 'Sudden valve closure converts kinetic energy of the moving fluid into a pressure pulse that travels at the speed of sound in the fluid.',
+          hint: 'The loud "bang" when you shut a tap quickly is water hammer.'
+        },
+        {
+          id: 'u6-L3c-T2',
+          type: 'teaching',
+          question: 'Pipe sizing in practice',
+          explanation: 'Engineers pick pipe diameter by balancing capital cost (bigger pipe = more money) against operating cost (bigger pipe = less friction = less pump energy). The economic pipe diameter is where the total annual cost is minimized.',
+          hint: 'Try this now: look up the recommended velocity for water in commercial pipes (typically 1 to 3 m/s).',
+        },
+        {
+          id: 'u6-L3c-Q0b',
+          type: 'true-false',
+          question: 'Using a larger pipe diameter always saves money in the long run because it reduces pumping costs.',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Channel walls --> <line x1="4" y1="20" x2="76" y2="20" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="4" y1="60" x2="76" y2="60" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- No-slip labels at walls --> <text x="40" y="16" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">no-slip (v=0)</text> <!-- Velocity profile (parabolic) — static arrows showing velocity distribution --> <line x1="12" y1="24" x2="16" y2="24" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,22.5 18,24 15,25.5" fill="#58CC02" opacity="0.2"/> <line x1="12" y1="30" x2="24" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,28.5 26,30 23,31.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="36" x2="32" y2="36" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,34.5 34,36 31,37.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.4"/> <polygon points="35,38 38,40 35,42" fill="#3B8700" opacity="0.4"/> <line x1="12" y1="44" x2="32" y2="44" stroke="#58CC02" stroke-width="1.2" opacity="0.35"/> <polygon points="31,42.5 34,44 31,45.5" fill="#58CC02" opacity="0.35"/> <line x1="12" y1="50" x2="24" y2="50" stroke="#58CC02" stroke-width="1" opacity="0.3"/> <polygon points="23,48.5 26,50 23,51.5" fill="#58CC02" opacity="0.3"/> <line x1="12" y1="56" x2="16" y2="56" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <polygon points="15,54.5 18,56 15,57.5" fill="#58CC02" opacity="0.2"/> <!-- Parabolic envelope --> <path d="M12,20 Q38,40 12,60" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.15"/> <!-- Flow particles at different speeds --> <circle r="1.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M14,40 L66,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,30 L66,30" begin="0.3s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,50 L66,50" begin="0.6s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,24 L66,24" begin="0.2s"/> </circle> <circle r="1.2" fill="#A5E86C" opacity="0.2"> <animateMotion dur="4s" repeatCount="indefinite" path="M14,56 L66,56" begin="0.5s"/> </circle> <!-- v_max label --> <text x="42" y="39" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">v_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Poiseuille flow</text> </svg>',
-          explanation: 'While f = 64/Re increases as Re decrease, the actual head loss h_f = f = = 64ν/ × = 32νLV/ — head loss is proportional to V, not V².',
-          hint: 'Substitute f = 64/Re into the Darcy-Weisbach equation.'
+          explanation: 'Not always. Larger pipes cost more to buy and install. The economic optimum balances pipe cost vs. pumping cost.',
+          hint: 'Think about both the purchase cost and the operating cost.',
         },
         {
           id: 'u6-L3-Q15',
           type: 'multiple-choice',
-          question: 'What is the equivalent length method for calculating minor losses, and when is it most useful?',
+          question: 'What is the difference between absolute and relative pipe roughness?',
           options: [
-            'Each fitting gets an equivalent pipe length L_eq = KD/f',
-            'Equivalent length is the physical length of the fitting',
-            'It replaces the whole pipe with one equivalent diameter',
-            'It only works for laminar flow with well-defined K values'
+            'Absolute roughness (epsilon) is in mm; relative roughness is epsilon/D',
+            'They are identical but measured in different unit systems',
+            'Absolute roughness applies to new pipes; relative to corroded',
+            'Relative roughness is always larger than absolute roughness'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The equivalent length method converts a minor loss coefficient K into an equivalent pipe length: L_eq = KD/f. This means h_minor = KV²/(2g) = f(L_eq/D)(V²/(2g)).',
-          hint: 'If h_minor = KV²/ and h_major = f), what L makes them equal?'
+          explanation: 'Absolute roughness epsilon is a physical height of surface bumps. Relative roughness epsilon/D scales it to the pipe size, which is what the Moody chart uses.',
+          hint: 'The same roughness matters more in a small pipe than a big one.'
         },
         {
           id: 'u6-L3-Q16',
-          type: 'multiple-choice',
-          question: 'Which has a significantly higher loss coefficient (K)?',
-          options: [
-            'Globe K ≈ 6-10 vs. gate K ≈ 0.1-0.2 when open',
-            'Gate valve has higher K than globe valve overall',
-            'Both have similar K values when in fully open position',
-            'Globe valve has lower K than gate valve when open'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The loss coefficient is directly related to how much the fitting disturbs the flow path. A fully open gate valve has K ≈ 0.1-0.',
-          hint: 'The internal flow path geometry of each valve type when.'
+          type: 'fill-blank',
+          question: 'The dimensionless number that determines whether pipe flow is laminar or turbulent is the _____ number.',
+          blanks: ['Reynolds'],
+          wordBank: ['Reynolds', 'Froude', 'Mach', 'Euler', 'Weber'],
+          explanation: 'The Reynolds number Re = rho*V*D/mu compares inertia forces to viscous forces and determines the flow regime.',
+          hint: 'Named after Osborne Reynolds, who first demonstrated the transition in pipe flow.'
         },
         {
           id: 'u6-L3-Q17',
-          type: 'fill-blank',
-          question: 'The dimensionless chart that plots friction factor versus Reynolds number for various relative roughness values _____.',
-          blanks: ['Moody'],
-          wordBank: ['Moody', 'Stribeck', 'Fanno', 'Nikuradse', 'Colebrook'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'The Moody chart (also called the Moody diagram), developed by Lewis Moody in 1944, is one of the most widely used tools in fluid mechanics.',
-          hint: 'This chart is named after the American engineer who.'
+          type: 'order-steps',
+          question: 'Order the steps to find friction factor for turbulent pipe flow.',
+          steps: [
+            'Calculate Reynolds number Re = V*D/nu',
+            'Find relative roughness epsilon/D',
+            'Locate the intersection on the Moody chart',
+            'Read the friction factor f'
+          ],
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'The Moody chart requires both Re (x-axis) and epsilon/D (curve family) to determine f.',
+          hint: 'You need two parameters to find f on the Moody chart.',
         },
         {
           id: 'u6-L3-Q18',
           type: 'multiple-choice',
-          question: 'What is the difference between major losses and minor losses in pipe flow?',
+          question: 'For a galvanized steel pipe (epsilon = 0.15 mm, D = 100 mm), what is the relative roughness?',
           options: [
-            'Distributed friction losses along straight pipe lengths',
-            'Major losses are always larger than minor losses',
-            'Major losses occur only in the turbulent flow regime',
-            'Major losses are caused only by the pipe material'
+            '0.0015',
+            '0.015',
+            '0.15',
+            '15'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Major losses (also called friction losses or distributed losses) occur due to wall shear stress along the entire pipe length and are calculated using the Darcy-Weisbach equation.',
-          hint: 'The names "major" and "minor" describe where the losses.'
+          explanation: 'Relative roughness = epsilon/D = 0.15/100 = 0.0015. This is the value you use on the Moody chart.',
+          hint: 'Make sure both values use the same units before dividing.'
         },
-        {
-          id: 'u6-L3-Q19',
-          type: 'true-false',
-          question: 'In turbulent pipe flow, doubling the flow rate approximately quadruples the head loss.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'From Darcy-Weisbach: h_f = f(L/D)(V²/(2g)). Since V = Q/A, we have h_f = f(L/D)(Q/(A))²/(2g) = fL/(2gDA²) × Q². So h_f ∝ Q² (when f is roughly constant).',
-          hint: 'Substitute V = Q/A into the Darcy-Weisbach equation.'
-        },
-        {
-          id: 'u6-L3-Q20',
-          type: 'multiple-choice',
-          question: 'What is the "three pipe problem types" classification in pipe flow analysis?',
-          options: [
-            'Type 1: find h_f. Type 2: find Q. Type 3: find D',
-            'The three types are laminar, transitional, turbulent',
-            'The three types are series, parallel, and branched',
-            'The three types are smooth, rough, and transitional'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Type 1: Straightforward — calculate Re, find f from Moody chart, compute h_f from Darcy-Weisbach. Type 2: Iterative — you need f to find V (and Q), but f depends on Re which depends on V.',
-          hint: 'The difficulty arises because the friction factor f.'
-        },
-        {
-          id: 'u6-L3-Q21',
-          type: 'multiple-choice',
-          question: 'Why does rounding the entrance reduce the loss coefficient so dramatically?',
-          options: [
-            'A sharp edge causes flow separation and a vena contracta',
-            'Rounding makes the pipe effectively larger in diameter',
-            'The rounded entrance adds equivalent pipe length',
-            'Rounding reduces the wall roughness at the entrance'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'At a sharp-edged entrance, the flow cannot follow the abrupt 90° turn from the reservoir into the pipe.',
-          hint: 'What happens to the flow immediately after entering?'
-        },
-        {
-          id: 'u6-L3-Q22',
-          type: 'multiple-choice',
-          question: 'In a pipe network, what method is commonly used to solve for flow rates and pressures throughout the network?',
-          options: [
-            'The Hardy Cross iterative balancing method',
-            'Direct Bernoulli application between all node pairs',
-            'Analytical Navier-Stokes solution for each segment',
-            'Using the Hagen-Poiseuille equation for each pipe'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Hardy Cross method (1936) is a relaxation technique for pipe networks.',
-          hint: 'Pipe networks must satisfy two conditions.'
-        },
-        {
-          id: 'u6-L3-Q23',
-          type: 'true-false',
-          question: 'The friction factor for laminar flow can be derived analytically from the Navier-Stokes equations, while.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'This is a fundamental difference between laminar and turbulent flows.',
-          hint: 'Can the full Navier-Stokes equations be solved?'
-        },
-        {
-          id: 'u6-L3-Q24',
-          type: 'multiple-choice',
-          question: 'Which valve type provides the best throttling characteristics?',
-          options: [
-            'Globe valve — plug-and-seat gives smooth throttling',
-            'Gate valve — sliding gate gives precise regulation',
-            'Ball valve — spherical element gives linear control',
-            'Butterfly valve — disc rotation gives fine control'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Globe valves are the standard choice for flow regulation because: the plug/disc lifts perpendicularly away from the seat, providing smooth and predictable change in flow area, the flow.',
-          hint: 'Which valve type is specifically designed?'
-        },
-        {
-          id: 'u6-L3-Q25',
-          type: 'fill-blank',
-          question: 'The ratio of the pipe wall roughness height to the pipe diameter, ε/D, is called the _____ roughness.',
-          blanks: ['relative'],
-          wordBank: ['relative', 'absolute', 'surface', 'equivalent', 'nominal'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe cross-section --> <circle cx="40" cy="38" r="20" fill="#58CC02" opacity="0.05" stroke="#58CC02" stroke-width="2"/> <!-- Inner flow area --> <circle cx="40" cy="38" r="17" fill="#58CC02" opacity="0.08"/> <!-- Pipe wall with roughness bumps --> <path d="M21,34 L21.5,32 L22.5,35 L23.5,33 L24,35" stroke="#3B8700" stroke-width="0.8" opacity="0.4"/> <path d="M55,34 L55.5,32 L56.5,35 L57.5,33 L58,35" stroke="#3B8700" stroke-width="0.8" opacity="0.4"/> <!-- Roughness height epsilon --> <line x1="22" y1="30" x2="22" y2="25" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/> <line x1="20" y1="30" x2="24" y2="30" stroke="#A5E86C" stroke-width="0.5" opacity="0.3"/> <line x1="20" y1="25" x2="24" y2="25" stroke="#A5E86C" stroke-width="0.5" opacity="0.3"/> <text x="27" y="28" font-size="3.5" fill="#A5E86C" opacity="0.5" font-style="italic">&#x3b5;</text> <!-- Diameter D --> <line x1="20" y1="38" x2="60" y2="38" stroke="#334155" stroke-width="0.6" stroke-dasharray="2,1" opacity="0.2"/> <text x="40" y="42" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">D</text> <!-- Formula --> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#334155" opacity="0.4" font-style="italic">Relative roughness = &#x3b5;/D</text> </svg>',
-          explanation: 'Relative roughness ε/D is a dimensionless parameter that determines the turbulent friction factor on the Moody chart. It is the ratio of the absolute roughness ε to the pipe internal diameter D.',
-          hint: 'This dimensionless ratio compares the roughness height.'
-        },
-        {
-          id: 'u6-L3-Q26',
-          type: 'multiple-choice',
-          question: 'What is water hammer, and what causes it in a pipe system?',
-          options: [
-            'Pressure transient from sudden flow velocity change',
-            'Noise created by turbulent flow in rough pipes',
-            'Vibration of pipes caused by pump cycling events',
-            'Only occurs in steam systems with condensate issues'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'When a valve closes suddenly, the kinetic energy of the flowing water converts to a pressure pulse: ΔP = ρcΔV, where c is the speed of sound in the pipe?',
-          hint: 'What happens to the kinetic energy of a column of moving?'
-        },
-        {
-          id: 'u6-L3-Q27',
-          type: 'multiple-choice',
-          question: 'For a smooth pipe in turbulent flow, what is the Blasius correlation for the friction factor?',
-          options: [
-            'f = 0.316/Re^0.25, valid for smooth turbulent pipes',
-            'f = 64/Re, the laminar flow friction formula',
-            'f = 0.316/Re^0.5, a square-root correlation',
-            'f = 0.02 constant for all smooth turbulent flows'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The Blasius equation f = 0.316Re^(-1/4) (or equivalently 0.316/Re^0.25) is a simple power-law correlation for smooth-pipe turbulent friction factor, valid for Re from about 4000 to 100,000.',
-          hint: 'This simple power-law equation applies to smooth.'
-        },
-        {
-          id: 'u6-L3-Q28',
-          type: 'true-false',
-          question: 'A pipe system with two pipes in series has a total head loss equal to the sum of the individual pipe head losses.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'For pipes in series, the same flow rate passes through all pipes (continuity), and the total head loss is the sum of losses in each pipe: h_f,total = h_f,1 + h_f,2 +.',
-          hint: 'In series flow, the same flow passes through each pipe.'
-        },
-        {
-          id: 'u6-L3-Q29',
-          type: 'multiple-choice',
-          question: 'Over a 20-year life, which is more economical considering pumping costs?',
-          options: [
-            '6-inch — head loss scales as D⁻⁵, saving pumping cost',
-            '4-inch — smaller pipe is more economical for this flow',
-            'They are equivalent in total lifecycle cost terms',
-            'Comparison cannot be made without knowing the flow rate'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'The D⁻⁵ sensitivity of head loss makes pipe diameter selection primarily an energy cost decision for long-term projects.',
-          hint: 'Use the D⁻⁵ relationship to compare head losses.'
-        },
-        {
-          id: 'u6-L3-Q30',
-          type: 'multiple-choice',
-          question: 'What is the velocity profile for fully developed turbulent flow in a pipe, and how does it differ from laminar flow?',
-          options: [
-            'Turbulent flow has a much flatter velocity profile^)',
-            'Turbulent flow has a parabolic profile identical to laminar flow',
-            'Turbulent flow has a completely flat velocity profile with no boundary layer',
-            'Turbulent flow has a linear velocity profile from zero at the wall to'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'The turbulent velocity profile is much flatter than the laminar parabola due to turbulent mixing — eddies transport momentum from the high-velocity core toward the wall, evening out the profile.',
-          hint: 'Does turbulent mixing make the velocity profile more?'
-        }
       ]
     },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 4a: Pumps & Turbomachinery (Part 1)
+    // ═══════════════════════════════════════════════════════════════
     {
       id: 'u6-L4',
-      title: 'Pumps & Turbomachinery',
-      description: 'Pump curves, system curves, NPSH, cavitation, specific speed, affinity laws, pump selection.',
+      title: 'Pumps & Turbomachinery (1/3)',
+      description: 'Centrifugal vs positive displacement pumps, pump head, and cavitation basics.',
       icon: '📝',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u6-L4-T1',
@@ -1309,66 +1215,116 @@ export const unit6: Unit = {
           hint: 'Most water supply systems use centrifugal pumps. Hydraulic systems often use PD pumps.',
         },
         {
-          id: 'u6-L4-T2',
-          type: 'teaching',
-          question: 'Pump head, NPSH, and cavitation',
-          explanation: 'Pump "head" is the energy a pump adds, measured in meters of fluid. NPSH (net positive suction head) is the margin above the fluid\'s vapor pressure at the pump inlet. If NPSH is too low, bubbles form and collapse violently, which is called cavitation.',
-          hint: 'Hot liquids have higher vapor pressure, so they cavitate more easily.',
+          id: 'u6-L4-Q0a',
+          type: 'multiple-choice',
+          question: 'A water supply system that needs high flow at moderate pressure would typically use a:',
+          options: [
+            'Centrifugal pump',
+            'Positive displacement pump',
+            'Jet pump',
+            'Peristaltic pump'
+          ],
+          correctIndex: 0,
+          explanation: 'Centrifugal pumps excel at high flow, moderate pressure. They\'re the most common type in water supply.',
+          hint: 'Think about what type handles high flow rates well.',
         },
         {
           id: 'u6-L4-Q1',
           type: 'multiple-choice',
-          question: 'Centrifugal vs. positive displacement pump for high-viscosity fluid: which is better suited?',
+          question: 'Why would you choose a positive displacement pump over a centrifugal pump?',
           options: [
-            'PD pumps — flow is nearly independent of viscosity',
-            'Centrifugal — impeller generates more useful shear',
-            'Either type works — viscosity affects pipe losses only',
-            'Centrifugal pumps are preferred at all viscosities'
+            'For high-viscosity fluids or when precise flow control is needed',
+            'For high flow rates at low pressure',
+            'PD pumps are always more efficient than centrifugal',
+            'Centrifugal pumps cannot handle liquids, only gases'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
-          explanation: 'This is one of the most important pump selection criteria.',
-          hint: 'How each pump type generates pressure and how viscosity?'
+          explanation: 'PD pumps maintain flow rate regardless of viscosity and provide precise, repeatable volumes. Centrifugal pump performance degrades badly with viscous fluids.',
+          hint: 'Think about pumping honey vs. water.'
         },
         {
           id: 'u6-L4-Q2',
           type: 'multiple-choice',
-          question: 'Why does a pump cavitate more easily when handling hot water vs. cold?',
+          question: 'What is pump "head" and why is it measured in meters instead of pascals?',
           options: [
-            'Hot water has higher vapor pressure (~70 kPa at 90°C)',
-            'Hot water is less viscous and flows more easily',
-            'Hot water expands and becomes much less dense overall',
-            'Pump seals soften at high T, allowing air ingestion'
+            'Head is energy per unit weight of fluid, and meters work for any fluid density',
+            'Head is the maximum height a pump can physically reach',
+            'Head in meters is only used in Europe; US engineers use PSI',
+            'Pump head and pressure are identical concepts'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
-          explanation: 'Cavitation occurs when local pressure drops below the fluid\'s vapor pressure. NPSH_available = (P_atm - P_vapor)/(ρg) - z_s - h_losses. At 20°C, P_vapor ≈ 2.',
-          hint: 'Look at the NPSH_available equation and consider how.'
+          explanation: 'Head (H = P/(rho*g)) is energy per unit weight. Using meters makes pump curves valid for any fluid density.',
+          hint: 'A pump adding 10 m of head adds different pressure depending on the fluid density.'
+        },
+        {
+          id: 'u6-L4-T2',
+          type: 'teaching',
+          question: 'Pump head, NPSH, and cavitation',
+          explanation: 'NPSH (net positive suction head) is the margin above the fluid\'s vapor pressure at the pump inlet. If NPSH is too low, bubbles form and collapse violently, which is called cavitation. This damages impellers and reduces performance.',
+          hint: 'Hot liquids have higher vapor pressure, so they cavitate more easily.',
+        },
+        {
+          id: 'u6-L4-Q0b',
+          type: 'true-false',
+          question: 'Pumping hot water requires more NPSH margin than pumping cold water.',
+          correctAnswer: true,
+          explanation: 'Hot water has higher vapor pressure, so the available NPSH is reduced. You need more margin to prevent cavitation.',
+          hint: 'Temperature raises vapor pressure.',
         },
         {
           id: 'u6-L4-Q3',
           type: 'true-false',
-          question: 'When two identical centrifugal pumps are connected in series, the combined flow rate doubles while the head remains?',
+          question: 'Cavitation in a pump always occurs at the pump discharge (high-pressure side).',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Pumps in series add their heads at the same flow rate — they do NOT double the flow. The combined head is approximately 2H at any given Q. Pumps in parallel add flow rates at the same head.',
-          hint: 'What happens to the pressure as fluid passes through one?'
+          explanation: 'Cavitation occurs at the pump inlet (suction side) where pressure is lowest. That\'s where pressure can drop below vapor pressure.',
+          hint: 'Where is the pressure lowest in a pumping system?'
         },
         {
           id: 'u6-L4-Q4',
           type: 'multiple-choice',
-          question: 'If a control valve downstream is partially closed, what happens to the operating point and why might this be a problem?',
+          question: 'NPSH_available must be _____ NPSH_required to prevent cavitation.',
           options: [
-            'System curve shifts up, operating point moves to lower flow',
-            'The pump curve shifts downward with the valve change',
-            'The operating point does not change at all',
-            'System curve shifts down, reducing the required head'
+            'Greater than',
+            'Less than',
+            'Equal to',
+            'Unrelated to'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The system curve represents the total head the piping system requires at each flow rate: H_system = H_static + K_total × Q². Closing a valve increases K_total, making the parabola steeper.',
-          hint: 'Draw the pump curve and system curve.'
+          explanation: 'NPSH_available (determined by your system) must exceed NPSH_required (from the pump manufacturer) to prevent cavitation.',
+          hint: 'Think about margin: you need more available than required.'
         },
+        {
+          id: 'u6-L4-Q5',
+          type: 'sort-buckets',
+          question: 'Sort these into centrifugal pump applications or positive displacement pump applications.',
+          options: ['Municipal water supply', 'Hydraulic press (high pressure)', 'Cooling tower circulation', 'Metering chemical additives', 'HVAC chilled water', 'Pumping molasses'],
+          buckets: ['Centrifugal', 'Positive displacement'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Centrifugal pumps handle high-flow, low-viscosity applications. PD pumps handle high-viscosity fluids, precise metering, and high-pressure needs.',
+          hint: 'Centrifugal = high flow. PD = high viscosity, precision, or high pressure.',
+        },
+        {
+          id: 'u6-L4-Q6',
+          type: 'fill-blank',
+          question: 'The net positive suction head available (NPSH_a) must exceed the pump\'s _____ to prevent cavitation.',
+          blanks: ['NPSH_required'],
+          wordBank: ['NPSH_required', 'total_head', 'discharge_pressure', 'power_rating', 'efficiency'],
+          explanation: 'NPSH_required is specified by the pump manufacturer. The system must provide more than this to avoid vapor bubble formation.',
+          hint: 'The pump datasheet tells you this minimum suction requirement.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 4b: Pumps & Turbomachinery (Part 2)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L4b',
+      title: 'Pumps & Turbomachinery (2/3)',
+      description: 'Pump curves, system curves, operating points, and the affinity laws.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
         {
           id: 'u6-L4-T3',
           type: 'teaching',
@@ -1377,781 +1333,800 @@ export const unit6: Unit = {
           hint: 'Doubling pump speed quadruples the head but increases power 8x.',
         },
         {
-          id: 'u6-L4-Q5',
+          id: 'u6-L4b-Q0a',
           type: 'multiple-choice',
-          question: 'Cavitation in a centrifugal pump most commonly damages which component first?',
+          question: 'The operating point of a pump is where:',
           options: [
-            'The volute casing near the discharge port',
-            'Impeller vane surfaces near the inlet (eye)',
-            'The mechanical seal faces on the shaft',
-            'The pump shaft at the coupling connection'
+            'The pump curve crosses the system curve',
+            'The pump efficiency is at its maximum',
+            'The pump speed equals the motor speed',
+            'Flow rate equals zero (shut-off head)'
           ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="24" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Suction pipe (inlet — axial, from left) --> <rect x="2" y="34" width="18" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="2" y="34" width="18" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Discharge pipe (outlet — tangential, top) --> <rect x="34" y="6" width="12" height="18" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="34" y="6" width="12" height="18" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Flow direction arrows on pipes --> <polygon points="14,38 18,40 14,42" fill="#3B8700" opacity="0.15"/> <polygon points="38,12 40,8 42,12" fill="#3B8700" opacity="0.15"/> <!-- Impeller (rotating — 6 backward-curved vanes) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <!-- Curved vanes (backward-curved for centrifugal pump) --> <path d="M40,30 Q47,27 50,20" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M49,35 Q51,42 58,46" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M46,49 Q40,53 34,58" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M31,46 Q28,39 20,35" stroke="#3B8700" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.4"/> <path d="M34,31 Q32,25 26,22" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <path d="M50,50 Q54,54 58,56" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/> <!-- Impeller shroud ring --> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Vane tip markers --> <circle cx="50" cy="20" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="58" cy="46" r="1.5" fill="#58CC02" opacity="0.35"/> <circle cx="34" cy="58" r="1.5" fill="#58CC02" opacity="0.3"/> <circle cx="20" cy="35" r="1.5" fill="#58CC02" opacity="0.3"/> </g> <!-- Hub (static) --> <circle cx="40" cy="40" r="5" fill="#3B8700"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Circulating flow inside casing (particles spiral outward) --> <circle r="2" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.25"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="0.5s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.2"> <animateMotion dur="1.5s" repeatCount="indefinite" begin="1s" path="M28,40 Q28,28 40,28 Q52,28 52,40 Q52,52 40,52 Q28,52 28,40"/> </circle> <!-- Inlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M4,40 L18,40"/> </circle> <!-- Outlet flow particle --> <circle r="2" fill="#3B8700" opacity="0.35"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M40,26 L40,8"/> </circle> <!-- Pressure labels --> <text x="6" y="32" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_low</text> <text x="48" y="12" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">P_high</text> </svg>',
-          explanation: 'Cavitation damage occurs where vapor bubbles collapse — primarily on the low-pressure side of impeller vanes near the inlet (suction side/eye).',
-          hint: 'Where the pressure is lowest in the pump?'
-        },
-        {
-          id: 'u6-L4-Q6',
-          type: 'fill-blank',
-          question: 'To avoid cavitation, the system\'s NPSH_____ (available) must exceed the pump\'s NPSH_____ (from manufacturer).',
-          blanks: ['A', 'R'],
-          wordBank: ['A', 'R', 'S', 'T', 'C'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with constriction --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30" stroke-width="0.8" stroke="#58CC02" fill="none"/> <path d="M4,50 L28,50 Q40,44 52,50 L76,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <!-- Flow region fill --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30 L76,50 L52,50 Q40,44 28,50 L4,50 Z" fill="#58CC02" opacity="0.03"/> <!-- Cavitation bubbles (forming at constriction, collapsing downstream) --> <circle cx="42" cy="38" r="1.5" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2;0" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="40;50;58" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.6;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="42" r="1" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cx" values="40;48;56" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> </circle> <circle cx="42" cy="40" r="1.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cx" values="41;52;60" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> </circle> <circle cx="42" cy="36" r="0.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.2;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="cx" values="42;50;57" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="opacity" values="0;0.4;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> </circle> <!-- Collapse burst markers --> <g opacity="0"> <line x1="56" y1="36" x2="60" y2="32" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="60" y2="40" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="52" y2="34" stroke-width="0.4" stroke="#A5E86C"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="1.1s"/> </g> <!-- Pressure profile --> <path d="M8,20 L28,20 Q40,26 52,12 L72,18" stroke-width="0.5" stroke="#3B8700" opacity="0.3" fill="none"/> <text x="8" y="18" font-size="2.5" fill="#3B8700" opacity="0.4">P</text> <!-- Vapor pressure line --> <line x1="8" y1="24" x2="72" y2="24" stroke-width="0.3" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="74" y="25" font-size="2" fill="#3B8700" opacity="0.3">P_v</text> <!-- Flow arrows --> <g opacity="0.3"> <line x1="10" y1="40" x2="16" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="16,38.5 16,41.5 19,40" fill="#58CC02"/> <line x1="62" y1="40" x2="68" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 71,40" fill="#58CC02"/> </g> <!-- Labels --> <text x="40" y="58" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">P &lt; P_vapor</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">bubble collapse</text> </svg>',
-          explanation: 'NPSH_A is calculated from the system layout and must exceed NPSH_R.',
-          hint: 'There are two types of NPSH: one from the system and one.'
+          correctIndex: 0,
+          explanation: 'The operating point is the intersection of the pump curve (what the pump can deliver) and the system curve (what the system demands).',
+          hint: 'One curve shows pump capability, the other shows system demand.',
         },
         {
           id: 'u6-L4-Q7',
           type: 'multiple-choice',
-          question: 'What are the pump affinity laws, and why are they important for variable-speed pump operation?',
+          question: 'Using the affinity laws: if pump speed doubles, what happens to flow rate, head, and power?',
           options: [
-            'Q ∝ N, H ∝ N², P ∝ N³ for centrifugal pumps',
-            'Q ∝ N², H ∝ N, P ∝ N² for centrifugal pumps',
-            'All three quantities vary linearly with speed N',
-            'Affinity laws apply to PD pumps, not centrifugal'
+            'Flow doubles, head quadruples, power goes up 8x',
+            'All three double proportionally',
+            'Flow quadruples, head doubles, power goes up 8x',
+            'Only flow rate changes; head and power stay the same'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The pump affinity laws (also called similarity or fan laws) relate performance at two different speeds: Q₂/Q₁ = N₂/N₁, H₂/H₁ = (N₂/N₁)², P₂/P₁ = (N₂/N₁)³.',
-          hint: 'How do flow, head, and power scale with speed?'
+          explanation: 'Affinity laws: Q proportional to N, H proportional to N2, P proportional to N3. Double speed means 2x flow, 4x head, 8x power.',
+          hint: 'Q ~ N, H ~ N2, P ~ N3.'
         },
         {
           id: 'u6-L4-Q8',
           type: 'multiple-choice',
-          question: 'What is specific speed (Ns) in pump selection?',
+          question: 'Two identical pumps in parallel vs. in series. What changes?',
           options: [
-            'Ns = N√Q/H^(3/4) — classifies impeller shape',
-            'Ns is RPM divided by the number of impeller stages',
-            'Ns is the ratio of pump speed to fluid velocity',
-            'Ns has no physical significance for pump selection'
+            'Parallel: doubles flow at same head. Series: doubles head at same flow',
+            'Parallel: doubles head. Series: doubles flow',
+            'Both configurations double the total power output equally',
+            'There is no difference between parallel and series pumps'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Three pump types across --> <!-- Radial (low Ns) --> <g transform="translate(10,14)"> <circle cx="10" cy="14" r="10" stroke-width="0.6" stroke="#58CC02" fill="none"/> <path d="M10,14 Q6,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 Q14,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none" transform="rotate(120,10,14)"/> <path d="M10,14 Q14,10 10,6" stroke-width="0.5" stroke="#58CC02" fill="none" transform="rotate(240,10,14)"/> <circle cx="10" cy="14" r="2" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="5" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="3s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">radial</text> </g> <!-- Mixed flow (medium Ns) --> <g transform="translate(30,14)"> <ellipse cx="10" cy="14" rx="10" ry="8" stroke-width="0.6" stroke="#58CC02" fill="none"/> <path d="M10,14 L10,6" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 L16,10" stroke-width="0.5" stroke="#58CC02" fill="none"/> <path d="M10,14 L4,10" stroke-width="0.5" stroke="#58CC02" fill="none"/> <circle cx="10" cy="14" r="2" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="7" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="2.5s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">mixed</text> </g> <!-- Axial (high Ns) --> <g transform="translate(50,14)"> <circle cx="10" cy="14" r="10" stroke-width="0.6" stroke="#58CC02" fill="none"/> <line x1="4" y1="10" x2="16" y2="18" stroke-width="0.5" stroke="#58CC02"/> <line x1="4" y1="18" x2="16" y2="10" stroke-width="0.5" stroke="#58CC02"/> <circle cx="10" cy="14" r="3.5" stroke-width="0.3" stroke="#58CC02" fill="none" opacity="0.3"/> <g><circle cx="10" cy="5" r="0.6" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,10,14;360,10,14" dur="2s" repeatCount="indefinite"/></g> <text x="10" y="30" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">axial</text> </g> <!-- Ns scale arrow --> <line x1="10" y1="52" x2="70" y2="52" stroke-width="0.5" stroke="#58CC02" opacity="0.3"/> <polygon points="70,50.5 70,53.5 73,52" fill="#58CC02" opacity="0.3"/> <text x="12" y="58" font-size="2.5" fill="#3B8700" opacity="0.35">low N_s</text> <text x="56" y="58" font-size="2.5" fill="#3B8700" opacity="0.35">high N_s</text> <!-- Head vs flow --> <text x="12" y="64" font-size="2" fill="#3B8700" opacity="0.3">high H</text> <text x="56" y="64" font-size="2" fill="#3B8700" opacity="0.3">high Q</text> <!-- Formula --> <text x="40" y="74" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">N_s = NQ^½/H^¾</text> </svg>',
-          explanation: 'Specific speed Ns = N√Q/H^(3/4) (evaluated at the best efficiency point, BEP) characterizes the impeller shape required for optimal performance.',
-          hint: 'Ns groups the required head.'
+          explanation: 'Parallel pumps share the flow demand (double Q). Series pumps stack their heads (double H). The actual operating point shifts depend on the system curve.',
+          hint: 'Parallel = side by side sharing flow. Series = one after another stacking pressure.'
         },
         {
           id: 'u6-L4-Q9',
           type: 'true-false',
-          question: 'A centrifugal pump can run safely at zero flow indefinitely, as long as the motor does not overload.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Running a centrifugal pump at zero flow (dead-headed against a closed discharge valve) is extremely dangerous.',
-          hint: 'If no fluid flows through the pump.'
+          question: 'Specific speed is a dimensionless number that helps engineers select the right type of pump for an application.',
+          correctAnswer: true,
+          explanation: 'Specific speed Ns = N*sqrt(Q)/H^(3/4) characterizes pump geometry. Low Ns = radial/centrifugal, medium = mixed flow, high = axial.',
+          hint: 'Different pump types are optimized for different specific speed ranges.'
+        },
+        {
+          id: 'u6-L4b-T2',
+          type: 'teaching',
+          question: 'System curves and throttling',
+          explanation: 'The system curve shows head required vs. flow rate: H_system = H_static + K*Q2, where H_static is the elevation change and K*Q2 is friction. Throttling a valve steepens the system curve, moving the operating point to lower flow.',
+          hint: 'Throttling wastes energy. Variable-speed drives are more efficient for flow control.',
+        },
+        {
+          id: 'u6-L4b-Q0b',
+          type: 'multiple-choice',
+          question: 'Closing a valve partway in a piping system will:',
+          options: [
+            'Reduce flow rate by steepening the system curve',
+            'Increase flow rate by adding energy',
+            'Have no effect on pump operation',
+            'Reduce pump head'
+          ],
+          correctIndex: 0,
+          explanation: 'Throttling adds resistance, making the system curve steeper. The operating point shifts left on the pump curve (lower flow).',
+          hint: 'More resistance means the system demands more head at any given flow.',
         },
         {
           id: 'u6-L4-Q10',
           type: 'multiple-choice',
-          question: 'The pump curve shows BEP at 55 m head and 95 L/s with 82% efficiency. Is this pump a good selection?',
+          question: 'Why is a variable-speed drive (VFD) more efficient than throttle-valve flow control?',
           options: [
-            'Yes — duty point is within ±10% of BEP flow',
-            'No — not exactly 50 m at exactly 100 L/s',
-            'No — too much head (55 m vs. 50 m needed)',
-            'More information is needed to decide'
+            'A VFD reduces pump speed, cutting power cubically (affinity laws)',
+            'A VFD eliminates all friction losses in the system',
+            'Throttle valves increase pump efficiency at low flow',
+            'VFDs only save energy at high flow rates'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'This is a good pump selection. Key criteria: (1) The duty point (50 m at 100 L/s) is close to the BEP (55 m at 95 L/s) — within the recommended 80-110% of BEP flow range.',
-          hint: 'Should a pump operate at exactly its BEP?'
+          explanation: 'Power is proportional to speed cubed. Reducing speed by 20% cuts power by about 50%. Throttling wastes energy as heat across the valve.',
+          hint: 'The affinity laws say power goes as speed cubed.'
         },
         {
           id: 'u6-L4-Q11',
-          type: 'multiple-choice',
-          question: 'What is the system curve for a pipe system, and how is it constructed?',
-          options: [
-            'H_system = H_static + K × Q² (parabolic shape)',
-            'The system curve is the pump manufacturer\'s H-Q curve',
-            'The system curve is a straight line on an H-Q plot',
-            'The system curve shows how pipe diameter varies'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The system curve H_system = H_static + + ΣK/) × Q² has two components: Static head — the elevation difference between discharge and suction reservoirs plus any pressure difference.',
-          hint: 'What total head must the pump provide?'
+          type: 'match-pairs',
+          question: 'Match each pump term to its definition.',
+          options: ['Shut-off head', 'Best efficiency point (BEP)', 'System curve', 'Specific speed'],
+          matchTargets: ['Head at zero flow', 'Where pump runs most efficiently', 'Head required vs flow rate', 'Classifies pump geometry type'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'These four concepts are essential for pump selection and system design.',
+          hint: 'Each term describes a different aspect of pump performance.',
         },
         {
           id: 'u6-L4-Q12',
           type: 'multiple-choice',
-          question: 'Why do positive displacement pumps require a pressure relief valve on the discharge side?',
+          question: 'A pump operates far to the right of its BEP on the pump curve. What problems can occur?',
           options: [
-            'PD pumps deliver constant flow regardless of pressure',
-            'Relief valve prevents air from entering pump suction',
-            'PD pumps generate pulsating flow that needs damping',
-            'Relief valve is only needed during the pump startup'
+            'Cavitation, overheating, and premature bearing failure',
+            'The pump becomes more efficient at higher flow rates',
+            'The pump automatically adjusts to match the system',
+            'Operating right of BEP only affects noise levels'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'This is a fundamental safety difference between centrifugal and PD pumps. A centrifugal pump has a natural pressure limit — at zero flow, it generates a maximum shut-off head and the power drops.',
-          hint: 'What happens to a pump that delivers a fixed volume per?'
+          explanation: 'Operating far from BEP causes internal recirculation, cavitation risk, increased vibration, and higher bearing loads. Always size pumps to operate near BEP.',
+          hint: 'BEP is called "best efficiency" for a reason.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 4c: Pumps & Turbomachinery (Part 3)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L4c',
+      title: 'Pumps & Turbomachinery (3/3)',
+      description: 'Pump selection, turbines, hydraulic power, and real-world pump problems.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L4c-T1',
+          type: 'teaching',
+          question: 'Pump efficiency and hydraulic power',
+          explanation: 'Hydraulic power is P_hydraulic = rho*g*Q*H. Pump efficiency eta = P_hydraulic/P_shaft. Overall efficiency includes motor losses too. A typical centrifugal pump has 60 to 85% efficiency at BEP.',
+          hint: 'Power input always exceeds hydraulic power output because no pump is 100% efficient.',
+        },
+        {
+          id: 'u6-L4c-Q0a',
+          type: 'true-false',
+          question: 'Hydraulic power output equals rho*g*Q*H.',
+          correctAnswer: true,
+          explanation: 'Yes. P_hydraulic = rho*g*Q*H gives the useful power delivered to the fluid in watts.',
+          hint: 'This comes directly from the energy equation.',
         },
         {
           id: 'u6-L4-Q13',
-          type: 'true-false',
-          question: 'The affinity laws for pumps assume that the pump efficiency remains constant when the speed changes.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The affinity laws are derived from dimensional analysis assuming geometric and dynamic similarity, which implies that the efficiency at corresponding operating points remains the same.',
-          hint: 'The affinity laws come from dimensional analysis — what.'
+          type: 'multiple-choice',
+          question: 'A pump delivers 0.05 m3/s at 20 m head with 75% efficiency. What shaft power is needed?',
+          options: [
+            'P = rho*g*Q*H/eta = 1000*9.81*0.05*20/0.75 = 13.1 kW',
+            'P = rho*g*Q*H = 9.81 kW',
+            'P = Q*H = 1.0 kW',
+            'P = rho*g*Q*H*eta = 7.4 kW'
+          ],
+          correctIndex: 0,
+          explanation: 'Shaft power = hydraulic power / efficiency. P = rho*g*Q*H/eta = 1000*9.81*0.05*20/0.75 = 13.1 kW.',
+          hint: 'Efficiency means you need MORE shaft power than hydraulic power.'
         },
         {
           id: 'u6-L4-Q14',
-          type: 'multiple-choice',
-          question: 'Should they add a pump in parallel or in series?',
-          options: [
-            'Parallel — adds flow capacity at the same head',
-            'Series — doubles the flow rate through both pumps',
-            'Either option — parallel and series are equivalent',
-            'Neither — increase existing pump speed by 50%'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Parallel pumps add FLOW at a given head, while series pumps add HEAD at a given flow. For a 50% flow increase, parallel is the correct choice.',
-          hint: 'What do parallel pumps add — flow or head?'
+          type: 'true-false',
+          question: 'A turbine converts fluid energy into mechanical shaft work, which is the opposite of a pump.',
+          correctAnswer: true,
+          explanation: 'Pumps add energy to fluid; turbines extract energy from fluid. They\'re reverse operations.',
+          hint: 'Think about hydroelectric dams: water energy turns turbines.'
         },
         {
           id: 'u6-L4-Q15',
           type: 'multiple-choice',
-          question: 'What is pump cavitation, and what are the audible and mechanical symptoms?',
+          question: 'What causes pump surging in a centrifugal pump?',
           options: [
-            'Vapor bubble formation and collapse at low-pressure zones',
-            'Air bubble formation due to leaks in the suction piping',
-            'A bearing failure mode that produces a grinding noise',
-            'A phenomenon that only occurs in very high-speed pumps'
+            'Operating on the unstable left side of the pump curve',
+            'Running the pump above its maximum rated speed',
+            'Using a pipe diameter larger than the pump discharge',
+            'Pump surging only occurs in positive displacement pumps'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe with constriction --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30" stroke-width="0.8" stroke="#58CC02" fill="none"/> <path d="M4,50 L28,50 Q40,44 52,50 L76,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <!-- Flow region fill --> <path d="M4,30 L28,30 Q40,36 52,30 L76,30 L76,50 L52,50 Q40,44 28,50 L4,50 Z" fill="#58CC02" opacity="0.03"/> <!-- Cavitation bubbles (forming at constriction, collapsing downstream) --> <circle cx="42" cy="38" r="1.5" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2;0" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="40;50;58" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.6;0" dur="1.5s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="42" r="1" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cx" values="40;48;56" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.3s"/> </circle> <circle cx="42" cy="40" r="1.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;2.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cx" values="41;52;60" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="0.6s"/> </circle> <circle cx="42" cy="36" r="0.8" stroke-width="0.3" stroke="#A5E86C" fill="none"> <animate attributeName="r" values="0;1.2;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="cx" values="42;50;57" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> <animate attributeName="opacity" values="0;0.4;0" dur="1.2s" repeatCount="indefinite" begin="0.9s"/> </circle> <!-- Collapse burst markers --> <g opacity="0"> <line x1="56" y1="36" x2="60" y2="32" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="60" y2="40" stroke-width="0.4" stroke="#A5E86C"/> <line x1="56" y1="36" x2="52" y2="34" stroke-width="0.4" stroke="#A5E86C"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.5s" repeatCount="indefinite" begin="1.1s"/> </g> <!-- Pressure profile --> <path d="M8,20 L28,20 Q40,26 52,12 L72,18" stroke-width="0.5" stroke="#3B8700" opacity="0.3" fill="none"/> <text x="8" y="18" font-size="2.5" fill="#3B8700" opacity="0.4">P</text> <!-- Vapor pressure line --> <line x1="8" y1="24" x2="72" y2="24" stroke-width="0.3" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="74" y="25" font-size="2" fill="#3B8700" opacity="0.3">P_v</text> <!-- Flow arrows --> <g opacity="0.3"> <line x1="10" y1="40" x2="16" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="16,38.5 16,41.5 19,40" fill="#58CC02"/> <line x1="62" y1="40" x2="68" y2="40" stroke-width="0.5" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 71,40" fill="#58CC02"/> </g> <!-- Labels --> <text x="40" y="58" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">P &lt; P_vapor</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">bubble collapse</text> </svg>',
-          explanation: 'Cavitation occurs when the local pressure inside the pump (particularly at the impeller inlet/eye where velocity is highest and pressure lowest) drops below the vapor pressure of the liquid.',
-          hint: 'What happens when liquid pressure drops below vapor?'
+          explanation: 'If the pump curve has a dip on the left side, operating there creates an unstable condition where flow oscillates between two points.',
+          hint: 'Look at the shape of the pump curve near shut-off.'
+        },
+        {
+          id: 'u6-L4c-T2',
+          type: 'teaching',
+          question: 'Priming and common pump problems',
+          explanation: 'Centrifugal pumps can\'t pull a vacuum well, so they must be "primed" (filled with liquid before starting). Common field problems include air locks, cavitation noise, running dry, and operating far from BEP.',
+          hint: 'Try this now: check if the pumps in your building have foot valves or check valves to maintain prime.',
+        },
+        {
+          id: 'u6-L4c-Q0b',
+          type: 'multiple-choice',
+          question: 'A centrifugal pump must be "primed" before starting because:',
+          options: [
+            'It can\'t create enough vacuum to lift liquid on its own',
+            'The motor needs liquid cooling to operate',
+            'The impeller will spin backwards without liquid',
+            'Priming is only needed for PD pumps'
+          ],
+          correctIndex: 0,
+          explanation: 'Centrifugal pumps spin fluid that\'s already there. They can\'t pull a vacuum strong enough to lift liquid into an empty casing.',
+          hint: 'Air is too light for the impeller to push effectively.',
         },
         {
           id: 'u6-L4-Q16',
-          type: 'fill-blank',
-          question: 'The pump _____ laws state that flow is proportional to speed, head to speed squared, and power to speed cubed.',
-          blanks: ['affinity'],
-          wordBank: ['affinity', 'conservation', 'scaling', 'Newton\'s', 'Euler\'s'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The pump affinity laws (also called similarity laws or fan laws) are: Q₂/Q₁ = N₂/N₁ (flow ∝ speed), H₂/H₁ = (N₂/N₁)² (head ∝ speed²), P₂/P₁ = (N₂/N₁)³ (power ∝ speed³).',
-          hint: 'These laws relate pump performance at different speeds.'
+          type: 'multiple-choice',
+          question: 'How do you increase NPSH_available in a system?',
+          options: [
+            'Raise the reservoir level or shorten the suction pipe',
+            'Increase pump speed to pull harder on the suction side',
+            'Add a valve on the suction line for flow regulation',
+            'Use a larger impeller to increase suction'
+          ],
+          correctIndex: 0,
+          explanation: 'NPSH_a = P_atm/(rho*g) + z_s - h_f_suction - P_vapor/(rho*g). Raising the source or reducing suction losses increases NPSH_a.',
+          hint: 'Look at the NPSH equation: what variables can you change?'
         },
         {
           id: 'u6-L4-Q17',
-          type: 'multiple-choice',
-          question: 'How does specific speed determine which type is selected?',
-          options: [
-            'Pelton: low Ns. Francis: medium. Kaplan: high Ns',
-            'All three turbines work at any specific speed',
-            'Pelton for large rivers, Kaplan for mountain streams',
-            'Selection is based on cost, not specific speed'
+          type: 'order-steps',
+          question: 'Order the steps for selecting a centrifugal pump.',
+          steps: [
+            'Determine required flow rate and total head',
+            'Calculate system curve (static head + friction)',
+            'Select a pump whose curve passes through the operating point near BEP',
+            'Verify NPSH_available exceeds NPSH_required',
+            'Check motor power and efficiency'
           ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Spiral casing (volute) --> <path d="M40,8 Q68,8 68,40 Q68,68 40,68 Q16,68 12,48" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <path d="M40,14 Q62,14 62,40 Q62,62 40,62 Q22,62 18,46" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.15"/> <!-- Inlet --> <rect x="2" y="42" width="14" height="8" rx="4" stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.3"/> <!-- Guide vanes (static, radial) --> <line x1="28" y1="28" x2="34" y2="34" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="52" y1="28" x2="46" y2="34" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="52" y1="52" x2="46" y2="46" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="28" y1="52" x2="34" y2="46" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <!-- Runner (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Runner blades (curved) --> <path d="M40,28 Q44,34 40,36" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M52,36 Q48,40 50,44" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M44,52 Q40,48 36,50" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M28,42 Q32,38 30,34" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M46,28 Q50,32 52,30" stroke="#3B8700" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/> <path d="M52,46 Q50,50 52,52" stroke="#3B8700" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/> </g> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <circle cx="40" cy="40" r="1.5" fill="white" opacity="0.2"/> <!-- Flow particles (spiral inward) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M8,46 L16,46 Q20,46 28,42 Q34,40 40,40"/> </circle> <!-- Draft tube (outlet, downward) --> <rect x="36" y="62" width="8" height="12" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="38,72 40,76 42,72" fill="#3B8700" opacity="0.15"/> <text x="40" y="8" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">radial-axial flow</text> </svg>',
-          explanation: 'Turbine type selection follows the same specific speed logic as pumps (but in reverse — turbines extract energy). Pelton wheel (impulse turbine): Ns < 70 (US units).',
-          hint: 'The physical design requirements: high head needs.'
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Pump selection is systematic: know your requirements, build the system curve, pick a matching pump, then verify suction and power.',
+          hint: 'You must know what the system needs before you can pick the right pump.',
         },
         {
           id: 'u6-L4-Q18',
           type: 'multiple-choice',
-          question: 'What is the Best Efficiency Point (BEP) of a pump, and why is it critical for reliable long-term operation?',
+          question: 'In a Pelton wheel turbine, what form of energy drives the runner?',
           options: [
-            'BEP is the flow rate where pump efficiency is maximum',
-            'BEP is the maximum flow the pump can deliver overall',
-            'BEP is the shutoff head where pressure is maximum',
-            'BEP is a theoretical point with no real operating use'
+            'Kinetic energy of high-velocity water jets',
+            'Pressure energy acting on submerged blades',
+            'Both kinetic and pressure energy equally',
+            'Gravitational potential energy directly'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The BEP represents the design intent of the pump — the flow and head where the impeller geometry is optimally matched to the flow pattern.',
-          hint: 'What happens to the forces?'
+          explanation: 'Pelton wheels are impulse turbines. All the pressure energy is converted to kinetic energy in the nozzle before hitting the buckets.',
+          hint: 'Impulse turbines use jets; reaction turbines use pressure on submerged blades.'
         },
-        {
-          id: 'u6-L4-Q19',
-          type: 'true-false',
-          question: 'NPSH_Available must always be greater than NPSH_Required for a pump to operate without cavitation.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'This is the fundamental cavitation prevention criterion: NPSH_A > NPSH_R. NPSH_A is a property of the SYSTEM calculated by the engineer: NPSH_A = (P_surface − P_vapor)/(ρg) − z_s − h_f,suction.',
-          hint: 'What happens if the available suction head drops below?'
-        },
-        {
-          id: 'u6-L4-Q20',
-          type: 'multiple-choice',
-          question: 'If the speed is reduced to 1400 RPM using a VFD, what are the new flow, head, and power (as a percentage of original)?',
-          options: [
-            'Q₂ = 160 L/s, H₂ = 19.2 m, P₂ = 51.2% of original',
-            'Q₂ = 160 L/s, H₂ = 24 m, P₂ = 80% of original — all three scale linearly',
-            'Q₂ = 128 L/s (64%), H₂ = 19.2 m (64%), P₂ = 51.2% of original',
-            'Q₂ = 200 L/s, H₂ = 30 m, P₂ = 100% — flow does not change with speed'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Speed ratio N₂/N₁ = 1400/1750 = 0.. Applying affinity laws: Q₂ = Q₁ × (N₂/N₁) = 200 × 0. = 160 L/s. H₂ = H₁ × (N₂/N₁)² = 30 × 0.4 = 19. m. P₂ = P₁ × (N₂/N₁)³ = P₁ × 0.12.',
-          hint: 'Apply Q ∝ N, H ∝ N², P ∝ N³ with the speed ratio.'
-        },
-        {
-          id: 'u6-L4-Q21',
-          type: 'multiple-choice',
-          question: 'What is the function of a volute casing in a centrifugal pump?',
-          options: [
-            'Spiral casing that converts kinetic energy to pressure',
-            'Cylindrical housing that simply contains the impeller',
-            'A device that prevents cavitation at pump suction',
-            'Creates additional velocity by accelerating exit flow'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The centrifugal pump impeller throws fluid outward at high velocity and relatively low pressure.',
-          hint: 'As the cross-sectional area of the volute increases.'
-        },
-        {
-          id: 'u6-L4-Q22',
-          type: 'multiple-choice',
-          question: 'What is the difference between a single-stage and multi-stage centrifugal pump, and when is each used?',
-          options: [
-            'Single-stage has one impeller; multi-stage adds head',
-            'Multi-stage impellers are in parallel, adding flow',
-            'Single-stage is for liquids; multi-stage for gases',
-            'Stages refer to suction nozzle count, not impellers'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'In a multi-stage pump, the discharge of one impeller feeds directly into the suction of the next (in series). Each stage adds its head to the total: H_total = n × H_stage.',
-          hint: 'When very high pressure is needed?'
-        },
-        {
-          id: 'u6-L4-Q23',
-          type: 'true-false',
-          question: 'The power consumed by a centrifugal pump always decreases as the flow rate decreases, making it safe to throttle.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'For most centrifugal pumps, power does decrease somewhat with decreasing flow, but: decrease is not linear — some pump types actually have INCREASING power at low flow, creating overload risk.',
-          hint: 'What happens to the energy input when there is very?'
-        },
-        {
-          id: 'u6-L4-Q24',
-          type: 'multiple-choice',
-          question: 'What is the purpose of wear rings in a centrifugal pump?',
-          options: [
-            'Replaceable rings that minimize internal recirculation',
-            'Rings that protect the shaft from chemical corrosion',
-            'Rings that balance the axial thrust on the impeller',
-            'Rings that seal the pump from external leakage'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'There is always a pressure difference between the discharge side and suction side of the impeller.',
-          hint: 'What happens if fluid can leak from the high-pressure?'
-        },
-        {
-          id: 'u6-L4-Q25',
-          type: 'fill-blank',
-          question: 'The curve showing the relationship between head and flow rate for a pump at a given speed is called the pump _____.',
-          blanks: ['performance'],
-          wordBank: ['performance', 'efficiency', 'system', 'operating', 'power'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'The pump performance curve (also called the characteristic curve or H-Q curve) shows head vs. flow rate at a constant speed. It is generated by the manufacturer through testing.',
-          hint: 'This manufacturer-provided curve shows how head varies.'
-        },
-        {
-          id: 'u6-L4-Q26',
-          type: 'multiple-choice',
-          question: 'What happens to the pump performance curve when the impeller is trimmed (reduced in diameter)?',
-          options: [
-            'Trimming reduces both head and flow proportionally',
-            'Trimming only reduces head; flow remains unchanged',
-            'Trimming increases the pump\'s overall efficiency',
-            'Trimming has no effect — only changes physical size'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Impeller trimming follows the affinity laws for diameter changes (at constant speed): Q₂/Q₁ = D₂/D₁, H₂/H₁ = (D₂/D₁)². Trimming from 250 to 225 mm (10% reduction): Q drops 10%, H drops 19%.',
-          hint: 'Apply the affinity laws with D₂/D₁ instead of N₂/N₁.'
-        },
-        {
-          id: 'u6-L4-Q27',
-          type: 'multiple-choice',
-          question: 'What is pump priming, and why do centrifugal pumps require it while positive displacement pumps generally do not?',
-          options: [
-            'Priming fills the casing with liquid before startup',
-            'Priming aligns the pump shaft before first startup',
-            'Priming adds lubricant to pump bearings before use',
-            'All pump types require priming before operation'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Spiral casing (volute) --> <path d="M40,8 Q68,8 68,40 Q68,68 40,68 Q16,68 12,48" stroke="#3B8700" stroke-width="2.5" fill="none" stroke-linecap="round"/> <path d="M40,14 Q62,14 62,40 Q62,62 40,62 Q22,62 18,46" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.15"/> <!-- Inlet --> <rect x="2" y="42" width="14" height="8" rx="4" stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.3"/> <!-- Guide vanes (static, radial) --> <line x1="28" y1="28" x2="34" y2="34" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="52" y1="28" x2="46" y2="34" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="52" y1="52" x2="46" y2="46" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <line x1="28" y1="52" x2="34" y2="46" stroke="#A5E86C" stroke-width="1.2" opacity="0.2"/> <!-- Runner (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="1.5s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Runner blades (curved) --> <path d="M40,28 Q44,34 40,36" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M52,36 Q48,40 50,44" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M44,52 Q40,48 36,50" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M28,42 Q32,38 30,34" stroke="#3B8700" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35"/> <path d="M46,28 Q50,32 52,30" stroke="#3B8700" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/> <path d="M52,46 Q50,50 52,52" stroke="#3B8700" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/> </g> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <circle cx="40" cy="40" r="1.5" fill="white" opacity="0.2"/> <!-- Flow particles (spiral inward) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M8,46 L16,46 Q20,46 28,42 Q34,40 40,40"/> </circle> <!-- Draft tube (outlet, downward) --> <rect x="36" y="62" width="8" height="12" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="38,72 40,76 42,72" fill="#3B8700" opacity="0.15"/> <text x="40" y="8" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15">radial-axial flow</text> </svg>',
-          explanation: 'A centrifugal pump develops pressure by spinning fluid at high speed — the pressure rise is proportional to fluid density (ΔP = ρω²r²/2).',
-          hint: 'What happens when a centrifugal pump tries to spin air?'
-        },
-        {
-          id: 'u6-L4-Q28',
-          type: 'true-false',
-          question: 'The shutoff head of a centrifugal pump is the maximum head the pump can produce, and operating at shutoff.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><line x1="15" y1="10" x2="15" y2="65" stroke="#3B8700" stroke-width="1.5"/><line x1="15" y1="65" x2="75" y2="65" stroke="#3B8700" stroke-width="1.5"/><text x="8" y="40" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle" transform="rotate(-90,8,40)">Head</text><text x="45" y="74" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle">Flow Q</text><path d="M18,18 Q40,20 55,35 Q65,48 70,62" stroke="#58CC02" stroke-width="1.5" fill="none"/><path d="M18,60 Q35,55 50,45 Q60,38 70,20" stroke="#A5E86C" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/><circle cx="48" cy="38" r="2" fill="#3B8700" opacity="0.4"/><text x="52" y="37" font-size="3" fill="#3B8700" opacity="0.5">BEP</text></svg>',
-          explanation: 'While the shutoff head IS the maximum head the pump produces, operating at shutoff is extremely dangerous and should never be done intentionally.',
-          hint: 'What happens to the energy input when a pump runs?'
-        },
-        {
-          id: 'u6-L4-Q29',
-          type: 'multiple-choice',
-          question: 'What is the role of a suction-specific speed (Nss) in pump design?',
-          options: [
-            'Nss = N√Q/NPSH_R^(3/4)',
-            'Nss is the minimum speed at which the pump can operate without stalling',
-            'Nss is the speed at which cavitation begins, regardless of NPSH',
-            'Nss is only relevant for positive displacement pumps'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="30" y="30" width="25" height="20" rx="4" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><path d="M20,40 L30,40" stroke="#58CC02" stroke-width="1.5"/><path d="M55,40 L65,40" stroke="#58CC02" stroke-width="1.5"/><polygon points="63,38 67,40 63,42" fill="#58CC02" opacity="0.5"/><text x="42" y="43" font-size="4" fill="#3B8700" opacity="0.4" text-anchor="middle">pump</text><text x="42" y="20" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">NPSH_A &gt; NPSH_R</text><text x="42" y="72" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">suction specific speed</text></svg>',
-          explanation: 'Suction-specific speed Nss = N√Q_BEP/(NPSH_R)^(3/4) is analogous to specific speed but focused on the suction end of the pump. It indicates how aggressively the impeller inlet is designed.',
-          hint: 'This parameter trades off suction performance against.'
-        },
-        {
-          id: 'u6-L4-Q30',
-          type: 'multiple-choice',
-          question: 'Where do these losses occur in a centrifugal pump?',
-          options: [
-            'Hydraulic, volumetric, and mechanical loss categories',
-            'All 25% is lost as heat in the motor, not the pump',
-            'All 25% is lost as noise from the pump operation',
-            'Losses occur only at the discharge nozzle as \u0394P'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Volute casing --> <path d="M40,14 A26,26 0 1,1 66,40 Q68,50 60,56 L60,52" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="20" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Impeller (rotating vanes) --> <g> <path d="M40,40 Q34,30 40,22" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,34 56,40" stroke-width="1" stroke="#58CC02" fill="none" transform="rotate(0,40,40)"/> <path d="M40,40 Q46,50 40,58" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q30,46 24,40" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q34,50 30,56" stroke-width="1" stroke="#58CC02" fill="none"/> <path d="M40,40 Q50,30 56,24" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Inlet (eye) --> <rect x="2" y="36" width="18" height="8" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="11" y="42" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">inlet</text> <!-- Discharge --> <rect x="58" y="50" width="16" height="7" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <text x="66" y="55.5" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">outlet</text> <!-- Flow particles (inlet to impeller to discharge) --> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="0.7s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="0.7s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.7"> <animate attributeName="cx" values="4;20;40;60;74" dur="2s" repeatCount="indefinite" begin="1.4s"/> <animate attributeName="cy" values="40;40;40;53;53" dur="2s" repeatCount="indefinite" begin="1.4s"/> </circle> <!-- Rotation label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">radial flow machine</text> </svg>',
-          explanation: 'Pump efficiency η = η_hydraulic × η_volumetric × η_mechanical.',
-          hint: 'Pump losses can be classified by where in the pump they.'
-        }
       ]
     },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 5a: Dimensional Analysis (Part 1)
+    // ═══════════════════════════════════════════════════════════════
     {
       id: 'u6-L5',
-      title: 'Dimensional Analysis',
-      description: 'Buckingham Pi theorem, dimensional homogeneity, similitude, Reynolds/Froude/Mach numbers, model testing.',
+      title: 'Dimensional Analysis (1/3)',
+      description: 'Buckingham Pi theorem, dimensional homogeneity, and forming dimensionless groups.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u6-L5-T1',
           type: 'teaching',
           question: 'What is dimensional analysis?',
-          explanation: 'Dimensional analysis reduces the number of variables in a problem by grouping them into dimensionless ratios. The Buckingham Pi theorem says if you have n variables and k fundamental dimensions (like M, L, T), you can form n-k independent dimensionless groups.',
+          explanation: 'Dimensional analysis reduces the number of variables in a problem by grouping them into dimensionless ratios. The Buckingham Pi theorem says if you have n variables and k fundamental dimensions (M, L, T), you can form n-k independent dimensionless groups.',
           hint: 'Instead of testing 7 separate variables, you might only need 4 dimensionless groups.',
+        },
+        {
+          id: 'u6-L5-Q0a',
+          type: 'multiple-choice',
+          question: 'Dimensional analysis helps by:',
+          options: [
+            'Reducing the number of variables by forming dimensionless groups',
+            'Eliminating the need for experiments entirely',
+            'Converting all units to SI automatically',
+            'Making all equations linear'
+          ],
+          correctIndex: 0,
+          explanation: 'By grouping n variables into n-k dimensionless groups, you drastically reduce the experimental and analytical effort.',
+          hint: 'Fewer variables means fewer experiments needed.',
+        },
+        {
+          id: 'u6-L5-Q1',
+          type: 'multiple-choice',
+          question: 'If a problem has 7 variables and 3 fundamental dimensions (M, L, T), how many Pi groups form?',
+          options: [
+            '4 dimensionless groups',
+            '7 dimensionless groups',
+            '3 dimensionless groups',
+            '10 dimensionless groups'
+          ],
+          correctIndex: 0,
+          explanation: 'Buckingham Pi: number of Pi groups = n - k = 7 - 3 = 4.',
+          hint: 'n variables minus k dimensions equals number of Pi groups.'
+        },
+        {
+          id: 'u6-L5-Q2',
+          type: 'multiple-choice',
+          question: 'What does "dimensional homogeneity" mean for an equation?',
+          options: [
+            'Every term must have the same dimensions',
+            'All variables must use SI units',
+            'The equation must be dimensionless',
+            'Only applies to fluid mechanics equations'
+          ],
+          correctIndex: 0,
+          explanation: 'A physically valid equation must have matching dimensions on both sides. You can\'t add meters to seconds.',
+          hint: 'Can you add apples and oranges?'
         },
         {
           id: 'u6-L5-T2',
           type: 'teaching',
           question: 'Common dimensionless numbers',
-          explanation: 'Reynolds number (Re = rho*v*L/mu) compares inertia to viscous forces. Froude number (Fr = v/sqrt(g*L)) compares inertia to gravity. Mach number (Ma = v/c) compares flow speed to sound speed. Matching these between model and prototype is called similitude.',
+          explanation: 'Reynolds number (Re = rho*v*L/mu) compares inertia to viscous forces. Froude number (Fr = v/sqrt(g*L)) compares inertia to gravity. Mach number (Ma = v/c) compares flow speed to sound speed.',
           hint: 'For pipe flow, match Re. For ship waves, match Fr. For supersonic jets, match Ma.',
         },
         {
-          id: 'u6-L5-Q1',
+          id: 'u6-L5-Q0b',
           type: 'multiple-choice',
-          question: 'Why is dimensional analysis such a powerful tool in engineering,?',
+          question: 'The Reynolds number compares:',
           options: [
-            'It reduces variables by grouping them into Pi groups',
-            'It directly solves Navier-Stokes without numerics',
-            'It eliminates experimental testing by predicting exact',
-            'It only works for simple linear systems in practice'
+            'Inertia forces to viscous forces',
+            'Gravity forces to viscous forces',
+            'Flow speed to sound speed',
+            'Pressure forces to inertia forces'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'The Buckingham Pi theorem states that n variables involving k fundamental dimensions can be expressed as (n-k) independent dimensionless groups.',
-          hint: 'How many experiments you would need with vs?'
-        },
-        {
-          id: 'u6-L5-Q2',
-          type: 'multiple-choice',
-          question: 'Why is Froude similarity chosen over Reynolds similarity for ship testing, despite this mismatch?',
-          options: [
-            'Ship resistance is dominated by wave-making drag forces',
-            'Reynolds number does not apply to ship hull flows',
-            'Towing tank water has lower viscosity than seawater',
-            'Froude similarity is simpler to calculate in practice'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'Ships create waves that extract energy (wave-making drag), and wave patterns are governed by the Froude number Fr = V/sqrt(gL).',
-          hint: 'What would the model speed need to be for Reynolds?'
+          explanation: 'Re = rho*v*L/mu. Large Re means inertia dominates (turbulent). Small Re means viscosity dominates (laminar).',
+          hint: 'It\'s the most common dimensionless number in fluid mechanics.',
         },
         {
           id: 'u6-L5-Q3',
-          type: 'true-false',
-          question: 'It is generally impossible to achieve simultaneous Reynolds number and Froude number similarity in a scaled model.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Reynolds similarity requires V_m = V_p × (L_p/L_m) × (ν_m/ν_p), while Froude similarity requires V_m = V_p × √(L_m/L_p). For the same fluid (ν_m = ν_p), these give contradictory velocity requirements.',
-          hint: 'Write out the velocity requirements for both Re and Fr.'
+          type: 'multiple-choice',
+          question: 'The Froude number Fr = v/sqrt(g*L) is most important for:',
+          options: [
+            'Free-surface flows and wave phenomena',
+            'Pipe flow friction calculations',
+            'Compressible gas dynamics',
+            'Heat transfer in fluids'
+          ],
+          correctIndex: 0,
+          explanation: 'The Froude number compares inertia to gravity. It governs wave patterns, ship resistance, and open-channel flows.',
+          hint: 'Which dimensionless number involves gravity?'
         },
         {
           id: 'u6-L5-Q4',
-          type: 'multiple-choice',
-          question: 'How do advanced wind tunnels solve this problem without exceeding the speed of sound?',
-          options: [
-            'Pressurize the tunnel or cool the air to cryogenic T',
-            'Use a lighter gas like helium instead of normal air',
-            'Test at a larger scale to reduce the required speed',
-            'Accept the Reynolds number mismatch and correct later'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
-          explanation: 'To increase Re without increasing V, you decrease ν. Two approaches: (1) Pressurized tunnels: increasing air pressure increases ρ while μ is nearly independent of pressure, so ν = μ/ρ drops.',
-          hint: 'Re = VL/ν.'
-        },
-        {
-          id: 'u6-L5-T3',
-          type: 'teaching',
-          question: 'Similitude and model testing',
-          explanation: 'For a scale model to predict full-size behavior, you need similitude: geometric (same shape), kinematic (same velocity ratios), and dynamic (same force ratios). In practice, you usually can\'t match all dimensionless numbers at once, so you pick the most important one.',
-          hint: 'Ship models match Froude number because wave drag dominates. Wind tunnels match Reynolds number.',
+          type: 'match-pairs',
+          question: 'Match each dimensionless number to what it compares.',
+          options: ['Reynolds', 'Froude', 'Mach', 'Euler'],
+          matchTargets: ['Inertia vs viscous', 'Inertia vs gravity', 'Flow speed vs sound', 'Pressure vs inertia'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each number is a ratio of two types of forces or velocities, making it useful for specific flow regimes.',
+          hint: 'Think about what two quantities each number compares.',
         },
         {
           id: 'u6-L5-Q5',
-          type: 'multiple-choice',
-          question: 'Which pairing is correct and why?',
-          options: [
-            'Ship → Froude, wing → Reynolds, injector → Weber',
-            'Ship → Reynolds, wing → Mach, injector → Froude',
-            'Ship → Weber, wing → Froude, injector → Reynolds',
-            'All three applications use Reynolds number only'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
-          explanation: 'Choosing the correct dimensionless number requires identifying the dominant physics: Ships create waves on the free surface — wave-making drag depends on the gravity-inertia balance, governed.',
-          hint: 'For each application.'
+          type: 'true-false',
+          question: 'The Buckingham Pi theorem guarantees that the resulting dimensionless groups are unique.',
+          correctAnswer: false,
+          explanation: 'The choice of repeating variables affects which Pi groups you get. Different valid choices give different (but equivalent) sets of groups.',
+          hint: 'Can you form the groups in more than one way?'
         },
         {
           id: 'u6-L5-Q6',
           type: 'fill-blank',
-          question: 'The principle of _____ requires that model and prototype share the same _____ ratios for valid scaling.',
-          blanks: ['similitude', 'force'],
-          wordBank: ['similitude', 'force', 'equivalence', 'mass', 'dimensional', 'energy'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'Similitude encompasses three levels: geometric (same shape ratios), kinematic (same velocity/acceleration ratios), and dynamic (same force ratios).',
-          hint: 'This term describes the complete similarity.'
+          question: 'The Mach number Ma = v/c compares flow speed to the speed of _____ in the medium.',
+          blanks: ['sound'],
+          wordBank: ['sound', 'light', 'gravity', 'viscosity', 'heat'],
+          explanation: 'When Ma > 1, the flow is supersonic. When Ma < 1, it\'s subsonic. Ma = 1 is the sonic condition.',
+          hint: 'This number determines whether shock waves can form.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 5b: Dimensional Analysis (Part 2)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L5b',
+      title: 'Dimensional Analysis (2/3)',
+      description: 'Similitude, model testing, and applying dimensionless numbers in practice.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L5-T3',
+          type: 'teaching',
+          question: 'Similitude and model testing',
+          explanation: 'For a scale model to predict full-size behavior, you need similitude: geometric (same shape), kinematic (same velocity ratios), and dynamic (same force ratios). In practice, you usually can\'t match all dimensionless numbers at once.',
+          hint: 'Ship models match Froude number because wave drag dominates. Wind tunnels match Reynolds number.',
+        },
+        {
+          id: 'u6-L5b-Q0a',
+          type: 'multiple-choice',
+          question: 'For a 1:10 scale ship model, which dimensionless number should be matched first?',
+          options: [
+            'Froude number (wave drag dominates)',
+            'Reynolds number (viscous drag dominates)',
+            'Mach number (compressibility matters)',
+            'Euler number (pressure matters most)'
+          ],
+          correctIndex: 0,
+          explanation: 'Ship resistance is dominated by wave-making drag at cruising speeds, so Froude number similarity is the primary requirement.',
+          hint: 'Ship testing is about waves, not viscosity.',
         },
         {
           id: 'u6-L5-Q7',
           type: 'multiple-choice',
-          question: 'What is the Buckingham Pi theorem, and how do you determine the number of dimensionless groups?',
+          question: 'Why can\'t you typically match both Re and Fr simultaneously in a scale model?',
           options: [
-            'n variables with k dimensions yield (n-k) Pi groups',
-            'Number of Pi groups equals the variable count n',
-            'Number of Pi groups equals the dimension count k',
-            'All physical equations must have the same dimensions'
+            'Matching both requires changing fluid properties to impossible values',
+            'Re and Fr are always equal, so matching one matches both',
+            'It\'s actually easy to match both in practice',
+            'Re doesn\'t apply to free-surface flows'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'The Buckingham Pi theorem (1914) is the foundation of dimensional analysis.',
-          hint: 'Count the variables (n) and the fundamental dimensions (k).'
+          explanation: 'For a 1:10 model matching Fr, you\'d need a fluid with 1/31.6 the kinematic viscosity of water to also match Re. No such fluid exists practically.',
+          hint: 'Try the math: what fluid viscosity would you need?'
         },
         {
           id: 'u6-L5-Q8',
           type: 'multiple-choice',
-          question: 'What are repeating variables in the Buckingham Pi method, and what rules govern their selection?',
+          question: 'A wind tunnel tests a 1:5 scale car model. To match Re, the wind speed in the tunnel must be:',
           options: [
-            'Repeating variables appear in every Pi group formed',
-            'Repeating variables share the same dimensions as each other',
-            'Repeating variables are the dimensionless groups themselves',
-            'Any variables can be chosen — there are no selection rules'
+            '5 times the real car speed (if same fluid)',
+            '1/5 of the real car speed',
+            'The same as the real car speed',
+            '25 times the real car speed'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'The selection of repeating variables is the key step in the Buckingham Pi method.',
-          hint: 'How many repeating variables do you need?'
+          explanation: 'Re = V*L/nu. With L_model = L/5 and same fluid (same nu), you need V_model = 5*V_real to keep Re constant.',
+          hint: 'Re must be equal: V_model * L_model = V_real * L_real.'
+        },
+        {
+          id: 'u6-L5b-T2',
+          type: 'teaching',
+          question: 'Incomplete similitude',
+          explanation: 'When you can\'t match all dimensionless numbers, you match the most important one and apply corrections for the rest. For example, ship models match Fr for wave drag and add a calculated correction for viscous (Re-dependent) drag.',
+          hint: 'Real engineering uses judgment about which forces dominate at the conditions of interest.',
+        },
+        {
+          id: 'u6-L5b-Q0b',
+          type: 'true-false',
+          question: 'In practice, it\'s often impossible to achieve complete dynamic similitude with a scale model.',
+          correctAnswer: true,
+          explanation: 'Matching all dimensionless numbers simultaneously usually requires impossible fluid properties. Engineers match the dominant one and correct for the rest.',
+          hint: 'Complete similitude would require matching ALL force ratios.',
         },
         {
           id: 'u6-L5-Q9',
-          type: 'true-false',
-          question: 'Dimensional analysis can determine the exact functional relationship between dimensionless groups — for example, it.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'Dimensional analysis can only tell you WHICH dimensionless groups are involved and that a functional relationship exists (e. g., C_D = f(Re)).',
-          hint: 'Can dimensional analysis alone tell you the shape?'
+          type: 'multiple-choice',
+          question: 'Geometric similarity means the model and prototype have the same:',
+          options: [
+            'Shape (all length ratios are equal)',
+            'Size (1:1 scale)',
+            'Material',
+            'Surface roughness in absolute terms'
+          ],
+          correctIndex: 0,
+          explanation: 'Geometric similarity means every dimension is scaled by the same factor. The shape is identical; only the size differs.',
+          hint: 'Think of a perfectly scaled-down replica.'
         },
         {
           id: 'u6-L5-Q10',
-          type: 'multiple-choice',
-          question: 'The drag on a sphere in a flow depends on velocity V, diameter D, fluid density ρ, and viscosity μ. Using dimensional.',
-          options: [
-            '2 Pi groups: C_D = f(Re) from n=5, k=3',
-            '3 Pi groups: each variable forms its own group',
-            '1 Pi group: all variables form one constant',
-            '4 Pi groups: one for each non-repeating variable'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><circle cx="35" cy="40" r="14" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><line x1="8" y1="30" x2="20" y2="30" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,28.5 22,30 19,31.5" fill="#A5E86C" opacity="0.4"/><line x1="8" y1="40" x2="20" y2="40" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,38.5 22,40 19,41.5" fill="#A5E86C" opacity="0.4"/><line x1="8" y1="50" x2="20" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.4"/><polygon points="19,48.5 22,50 19,51.5" fill="#A5E86C" opacity="0.4"/><line x1="55" y1="40" x2="68" y2="40" stroke="#3B8700" stroke-width="1.2" opacity="0.5"/><polygon points="66,38.5 70,40 66,41.5" fill="#3B8700" opacity="0.5"/><text x="62" y="36" font-size="3" fill="#3B8700" opacity="0.5">F_D</text><text x="12" y="26" font-size="3" fill="#A5E86C" opacity="0.5">V</text><text x="40" y="76" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">C_D = f(Re)</text></svg>',
-          explanation: 'Step by step: (1) List variables: F_D [MLT⁻²], V [LT⁻¹], D [L], ρ [ML⁻³], μ [ML⁻¹T⁻¹]. n = 5. (2) Fundamental dimensions: M, L, T.',
-          hint: 'Count variables (n = 5) and dimensions (k = 3).'
+          type: 'sort-buckets',
+          question: 'Sort these: which dimensionless number should be matched for each scenario?',
+          options: ['Pipe flow model', 'Ship hull testing', 'Airplane at cruise', 'Dam spillway model', 'Submarine model (submerged)', 'Open channel weir'],
+          buckets: ['Match Reynolds', 'Match Froude'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Match Re when viscous/inertia forces dominate (pipes, submerged bodies, airplanes). Match Fr when gravity/waves dominate (ships, spillways, open channels).',
+          hint: 'Free-surface and wave problems need Fr. Internal and viscous problems need Re.',
         },
         {
           id: 'u6-L5-Q11',
           type: 'multiple-choice',
-          question: 'What is dimensional homogeneity, and how can it be used to check engineering equations?',
+          question: 'What is the Weber number, and when is it important?',
           options: [
-            'Every term in a valid equation must have same dimensions',
-            'Dimensional homogeneity means all must be in SI units',
-            'It means all terms must be dimensionless quantities',
-            'It means the equation must be linear in all variables'
+            'We = rho*V2*L/sigma; important when surface tension matters (droplets, thin films)',
+            'We = V/sqrt(g*L); important for ship wave resistance',
+            'We = V*L/nu; important for pipe flow transition',
+            'We = P/(0.5*rho*V2); important for pressure drag'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Dimensional homogeneity is a fundamental requirement: you cannot add meters to seconds or equate force to velocity. Every term in a valid equation must have identical dimensions.',
-          hint: 'What happens if you try to add a length to a time?'
+          explanation: 'The Weber number compares inertia to surface tension. It\'s critical for atomization, spray dynamics, and thin film flows.',
+          hint: 'Surface tension is the key force here.'
         },
         {
           id: 'u6-L5-Q12',
           type: 'multiple-choice',
-          question: 'What is the Mach number, and at what Mach number does compressibility become important?',
+          question: 'A 1:20 scale model of a river dam is tested in a lab. If the flow velocity in the model is 0.5 m/s, what is the predicted prototype velocity? (matching Fr)',
           options: [
-            'Ma = V/c; compressibility matters above Ma ≈ 0.3',
-            'Ma = V/c but has no specific threshold value',
-            'Ma = V²/c² with a critical value at Ma = 1.0',
-            'Ma is only relevant for supersonic flow conditions'
+            'V_proto = 0.5 * sqrt(20) = 2.24 m/s',
+            'V_proto = 0.5 * 20 = 10 m/s',
+            'V_proto = 0.5 / 20 = 0.025 m/s',
+            'V_proto = 0.5 m/s (same velocity)'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'The Mach number Ma = V/c compares flow velocity to the speed of sound c = √(γRT) for ideal gases. At Ma < 0.3, density changes are less than ~5% and the flow can be treated as incompressible.',
-          hint: 'At what velocity ratio do density changes become too.'
+          explanation: 'Froude similarity: V_proto/V_model = sqrt(L_proto/L_model) = sqrt(20) = 4.47. So V_proto = 0.5 * 4.47 = 2.24 m/s.',
+          hint: 'Froude number V/sqrt(g*L) must be equal. Scale the velocity accordingly.'
+        },
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // LESSON 5c: Dimensional Analysis (Part 3)
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L5c',
+      title: 'Dimensional Analysis (3/3)',
+      description: 'Drag coefficients, power correlations, and real-world applications of Pi groups.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u6-L5c-T1',
+          type: 'teaching',
+          question: 'Drag and lift coefficients',
+          explanation: 'Drag coefficient Cd = F_D/(0.5*rho*V2*A) and lift coefficient Cl = F_L/(0.5*rho*V2*A) are dimensionless. They depend on Re, shape, and surface roughness. Using Cd lets you predict drag at any speed or fluid, not just the one tested.',
+          hint: 'A sphere has Cd of about 0.47 in the drag crisis range, but it drops to 0.2 when the boundary layer transitions.',
+        },
+        {
+          id: 'u6-L5c-Q0a',
+          type: 'true-false',
+          question: 'The drag coefficient Cd is a dimensionless number.',
+          correctAnswer: true,
+          explanation: 'Yes. Cd = F_D/(0.5*rho*V2*A). Force divided by (pressure * area) is dimensionless.',
+          hint: 'Check the units: force divided by force.',
         },
         {
           id: 'u6-L5-Q13',
-          type: 'true-false',
-          question: 'The Euler number) and the pressure coefficient) differ only by a factor of 2 and both represent the ratio of pressure.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Both the Euler number and pressure coefficient are dimensionless pressure ratios. Eu = ΔP/(ρV²) and C_p = ΔP/(½ρV²) = 2 × Eu.',
-          hint: 'Compare the denominators of both definitions and see how.'
+          type: 'multiple-choice',
+          question: 'Why does a golf ball have dimples?',
+          options: [
+            'Dimples trigger turbulent boundary layer, reducing pressure drag',
+            'Dimples increase the ball\'s weight for better distance',
+            'Dimples reduce surface area, lowering friction drag',
+            'Dimples are purely aesthetic with no aerodynamic effect'
+          ],
+          correctIndex: 0,
+          explanation: 'The dimples trip the boundary layer to turbulent, which stays attached longer, reducing the wake and overall drag. This is the same physics as the drag crisis on a smooth sphere.',
+          hint: 'Think about boundary layer separation and wake size.'
         },
         {
           id: 'u6-L5-Q14',
           type: 'multiple-choice',
-          question: 'If the full-scale car travels at 100 km/h, what speed must the model be tested at?',
+          question: 'The power required to mix a fluid in a tank depends on impeller diameter D, speed N, fluid density rho, and viscosity mu. How many Pi groups?',
           options: [
-            '1000 km/h — from matching Re_model = Re_prototype',
-            '10 km/h — model speed scales down with model size',
-            '100 km/h — same speed since we use the same fluid',
-            '316 km/h — square root of scale ratio times V_proto'
+            '2 groups (5 variables, 3 dimensions)',
+            '3 groups',
+            '5 groups',
+            '1 group'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
-          explanation: 'For Reynolds similarity with the same fluid: Re_m = Re_p → V_m × L_m / ν = V_p × L_p / ν → V_m = V_p × (L_p/L_m) = 100 × 10 = 1000 km/h (278 m/s).',
-          hint: 'Set Re_model = Re_prototype and solve for V_model.'
+          explanation: 'n = 5 variables (P, D, N, rho, mu), k = 3 dimensions (M, L, T). Pi groups = 5 - 3 = 2. These are typically the power number and the impeller Reynolds number.',
+          hint: 'Count the variables and fundamental dimensions, then subtract.'
+        },
+        {
+          id: 'u6-L5c-T2',
+          type: 'teaching',
+          question: 'Applying Pi groups in practice',
+          explanation: 'Once you have dimensionless groups, you test the relationship experimentally (e.g., Cd vs Re for a sphere). The beauty is that one set of experiments covers ALL sizes, speeds, and fluids where those groups apply.',
+          hint: 'The Moody chart is a famous example: it plots f vs Re with epsilon/D as a parameter.',
+        },
+        {
+          id: 'u6-L5c-Q0b',
+          type: 'multiple-choice',
+          question: 'The Moody chart is an example of dimensional analysis because it plots:',
+          options: [
+            'Dimensionless friction factor vs Reynolds number and relative roughness',
+            'Pressure drop vs pipe length',
+            'Flow rate vs pipe diameter',
+            'Velocity vs Reynolds number'
+          ],
+          correctIndex: 0,
+          explanation: 'The Moody chart uses three dimensionless quantities (f, Re, epsilon/D), which is why it works for any fluid, any pipe size, and any speed.',
+          hint: 'All axes and parameters on the Moody chart are dimensionless.',
         },
         {
           id: 'u6-L5-Q15',
           type: 'multiple-choice',
-          question: 'What is geometric similarity, and is it sufficient for valid model testing?',
+          question: 'Dimensional analysis tells us that Cd for a sphere depends on Re. Can it predict the exact shape of the Cd vs Re curve?',
           options: [
-            'Scaled shape replica; necessary but not sufficient alone',
-            'Matching all dimensionless numbers between model and prototype',
-            'Geometric similarity alone is sufficient for model testing',
-            'Model and prototype must be the same physical size'
+            'No, you need experiments or CFD to find the actual relationship',
+            'Yes, the Buckingham Pi theorem gives the complete function',
+            'Only for laminar flow where theory gives exact solutions',
+            'The relationship is always linear'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="5" y="35" width="25" height="18" rx="3" fill="#58CC02" opacity="0.1" stroke="#3B8700" stroke-width="1.5"/><text x="17" y="47" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle">model</text><rect x="40" y="20" width="35" height="40" rx="5" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/><text x="57" y="43" font-size="3.5" fill="#3B8700" opacity="0.5" text-anchor="middle">prototype</text><text x="40" y="76" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">similarity required</text></svg>',
-          explanation: 'Geometric similarity requires every length on the model to be in the same ratio to the prototype: L_m/L_p = constant for ALL dimensions. This preserves shape but NOT flow behavior.',
-          hint: 'Is having the right shape enough to ensure the flow?'
+          explanation: 'Dimensional analysis identifies WHICH groups matter (Cd = f(Re)), but not the FORM of f. You still need experiments or computation for the actual curve.',
+          hint: 'Pi theorem tells you the groupings, not the function itself.'
         },
         {
           id: 'u6-L5-Q16',
-          type: 'fill-blank',
-          question: 'The dimensionless number Fr = V/√, which represents the ratio of inertial forces to gravitational forces, is called _____.',
-          blanks: ['Froude'],
-          wordBank: ['Froude', 'Reynolds', 'Weber', 'Mach', 'Euler'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M5,45 Q20,35 40,45 Q60,55 75,45" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.5"/><rect x="10" y="55" width="60" height="15" fill="#A5E86C" opacity="0.06"/><line x1="10" y1="55" x2="70" y2="55" stroke="#3B8700" stroke-width="1.5"/><line x1="40" y1="30" x2="40" y2="55" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3"/><text x="44" y="43" font-size="3.5" fill="#3B8700" opacity="0.5">y</text><line x1="20" y1="45" x2="35" y2="45" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="33,43.5 37,45 33,46.5" fill="#58CC02" opacity="0.4"/><text x="25" y="42" font-size="3" fill="#58CC02" opacity="0.5">V</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">Fr = V/sqrt(gy)</text></svg>',
-          explanation: 'The Froude number Fr = V/√ governs flows where gravity is the dominant restoring force: free-surface flows, wave propagation, and flows with density stratification.',
-          hint: 'This dimensionless number is critical for ship model.'
-        },
-        {
-          id: 'u6-L5-Q17',
-          type: 'multiple-choice',
-          question: 'If the prototype flow rate is 500 m³/s, what flow rate should be used in the model?',
-          options: [
-            'Q_m = Q_p × λ^2.5 ≈ 0.28 m³/s from Froude scaling',
-            'Q_m = Q_p × λ = 500/20 = 25 m³/s by length ratio',
-            'Q_m = Q_p × λ² = 1.25 m³/s by area ratio scaling',
-            'Q_m = Q_p = 500 m³/s — same flow for valid testing'
+          type: 'order-steps',
+          question: 'Order the steps of the Buckingham Pi method.',
+          steps: [
+            'List all relevant variables',
+            'Count fundamental dimensions (M, L, T)',
+            'Choose repeating variables (k variables)',
+            'Form each Pi group by combining repeating variables with one remaining variable',
+            'Verify each Pi group is dimensionless'
           ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Under Froude similarity: velocity scales as V_m/V_p = √(L_m/L_p) = √λ (where λ = 1/20). Area scales as A_m/A_p = λ². Flow rate Q = VA, so Q_m/Q_p = √λ × λ² = λ^(5/2).',
-          hint: 'Under Froude similarity.'
-        },
-        {
-          id: 'u6-L5-Q18',
-          type: 'multiple-choice',
-          question: 'In which engineering applications is matching the Weber number important?',
-          options: [
-            'Spray atomization, fuel injection, and droplet formation',
-            'Only microfluidics — Weber is irrelevant at macro scale',
-            'Pipe flow — surface tension affects friction in all pipes',
-            'Heat exchangers — surface tension sets the heat transfer'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Vortex streamlines (concentric spirals) --> <circle cx="40" cy="40" r="28" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="3,4" fill="none" opacity="0.12"/> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="2.5,3.5" fill="none" opacity="0.15"/> <circle cx="40" cy="40" r="12" stroke="#58CC02" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.18"/> <circle cx="40" cy="40" r="5" stroke="#3B8700" stroke-width="0.8" fill="none" opacity="0.2"/> <!-- Vortex core --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- Rotating flow particles (faster near center) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="1s" repeatCount="indefinite" path="M45,40 Q45,35 40,35 Q35,35 35,40 Q35,45 40,45 Q45,45 45,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M52,40 Q52,28 40,28 Q28,28 28,40 Q28,52 40,52 Q52,52 52,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.25"> <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s" path="M60,40 Q60,20 40,20 Q20,20 20,40 Q20,60 40,60 Q60,60 60,40"/> </circle> <circle r="1.3" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" begin="1s" path="M68,40 Q68,12 40,12 Q12,12 12,40 Q12,68 40,68 Q68,68 68,40"/> </circle> <!-- Velocity arrows (tangential, faster near center) --> <polygon points="45,34 48,35 45,36" fill="#3B8700" opacity="0.2"/> <polygon points="53,26 56,28 52,29" fill="#58CC02" opacity="0.15"/> <!-- Circulation label --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">Γ = ∮v·ds</text> </svg>',
-          explanation: 'The Weber number We = ρV²L/σ compares inertial forces to surface tension forces.',
-          hint: 'Surface tension resists breakup of liquid surfaces.'
-        },
-        {
-          id: 'u6-L5-Q19',
-          type: 'true-false',
-          question: 'The Strouhal number is important for predicting vortex-induced vibration in structures exposed to fluid flow.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'The Strouhal number St = fL/V relates the vortex shedding frequency f to the flow velocity V and body characteristic length L.',
-          hint: 'How periodic vortex shedding behind a bluff body can?'
-        },
-        {
-          id: 'u6-L5-Q20',
-          type: 'multiple-choice',
-          question: 'When performing dimensional analysis, why is it important that the dependent variable is NOT chosen as a repeating?',
-          options: [
-            'It would appear in every Pi group, hiding the result',
-            'The dependent variable must be fully excluded from analysis',
-            'Repeating variables must always be dimensionless values',
-            'No such rule exists — any variable can be repeating'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'The purpose of dimensional analysis is to express the dependent variable (what you want to predict, like drag force) as a function of independent variables (what you can control or measure).',
-          hint: 'If the output variable appears in every group.'
-        },
-        {
-          id: 'u6-L5-Q21',
-          type: 'multiple-choice',
-          question: 'What is the difference between a prototype and a model in the context of similitude and dimensional analysis?',
-          options: [
-            'Prototype is the full-scale system; model is scaled',
-            'The prototype is always smaller than the model',
-            'No distinction — prototype and model are the same',
-            'Prototype is a simulation; model is the physical test'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'In engineering similitude, the prototype is the actual full-scale system being designed (e. g., a 300 m cargo ship, a 50 m bridge, a full-scale aircraft).',
-          hint: 'Which one is the real thing you are trying to design?'
-        },
-        {
-          id: 'u6-L5-Q22',
-          type: 'true-false',
-          question: 'The Euler number is always required as a matching criterion for model testing because pressure forces are important.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'While pressure forces are indeed present in most flows, the Euler number is NOT an independent matching criterion — it is typically a dependent parameter rather than a controlling parameter.',
-          hint: 'Is the Euler number typically an input or an output?'
-        },
-        {
-          id: 'u6-L5-Q23',
-          type: 'multiple-choice',
-          question: 'How many Pi groups result from this analysis?',
-          options: [
-            '7 − 3 = 4 Pi groups including Re, L/D, and ε/D',
-            '7 − 3 = 4, but one is trivial leaving 3 groups',
-            '7 − 4 = 3 Pi groups from thermodynamic reasoning',
-            '2 Pi groups, since many variables are redundant'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Variables: ΔP [ML⁻¹T⁻²], L [L], D [L], V [LT⁻¹], ρ [ML⁻³], μ [ML⁻¹T⁻¹], ε [L]. That is n = 7. Fundamental dimensions: M, L, T → k = 3. Pi groups: 7 − 3 = 4.',
-          hint: 'Count all 7 variables.'
-        },
-        {
-          id: 'u6-L5-Q24',
-          type: 'multiple-choice',
-          question: 'In open channel flow, what is the physical significance of Froude number Fr = 1?',
-          options: [
-            'Fr = 1 is the critical flow condition (V = wave speed)',
-            'Fr = 1 means transition from laminar to turbulent flow',
-            'Fr = 1 means gravity and viscous forces are balanced',
-            'Fr = 1 means the flow has reached maximum velocity'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"><path d="M5,45 Q20,35 40,45 Q60,55 75,45" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.5"/><rect x="10" y="55" width="60" height="15" fill="#A5E86C" opacity="0.06"/><line x1="10" y1="55" x2="70" y2="55" stroke="#3B8700" stroke-width="1.5"/><line x1="40" y1="30" x2="40" y2="55" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3"/><text x="44" y="43" font-size="3.5" fill="#3B8700" opacity="0.5">y</text><line x1="20" y1="45" x2="35" y2="45" stroke="#58CC02" stroke-width="1" opacity="0.4"/><polygon points="33,43.5 37,45 33,46.5" fill="#58CC02" opacity="0.4"/><text x="25" y="42" font-size="3" fill="#58CC02" opacity="0.5">V</text><text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#58CC02" opacity="0.4">Fr = V/sqrt(gy)</text></svg>',
-          explanation: 'In open channel flow, the Froude number Fr = V/√(gy) compares flow velocity to the speed of surface gravity waves (√(gy), where y is flow depth).',
-          hint: 'Compare the roles of the Froude number in open channels.'
-        },
-        {
-          id: 'u6-L5-Q25',
-          type: 'fill-blank',
-          question: 'The dimensionless number Re = ρVL/μ, representing the ratio of inertial forces to viscous forces, is called the _____.',
-          blanks: ['Reynolds'],
-          wordBank: ['Reynolds', 'Froude', 'Nusselt', 'Prandtl', 'Strouhal'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Pipe (top half - laminar) --> <rect x="4" y="8" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="6" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Laminar (Re &lt; 2300)</text> <!-- Laminar flow lines (smooth, parallel) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <line x1="8" y1="14" x2="72" y2="14"/> <line x1="8" y1="18" x2="72" y2="18"/> <line x1="8" y1="20" x2="72" y2="20"/> <line x1="8" y1="24" x2="72" y2="24"/> <line x1="8" y1="28" x2="72" y2="28"/> </g> <!-- Laminar flow particles --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;72" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;20" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;65" dur="3s" repeatCount="indefinite" begin="0.5s"/> <animate attributeName="cy" values="15;15" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <!-- Pipe (bottom half - turbulent) --> <rect x="4" y="44" width="72" height="24" rx="2" stroke-width="0.7" stroke="#58CC02" fill="none"/> <text x="40" y="42" font-size="3" fill="#3B8700" opacity="0.5" text-anchor="middle">Turbulent (Re &gt; 4000)</text> <!-- Turbulent flow lines (wavy) --> <g stroke="#A5E86C" stroke-width="0.5" opacity="0.4"> <path d="M8,50 Q20,48 30,52 Q42,48 52,52 Q62,48 72,50" fill="none"/> <path d="M8,54 Q18,58 28,52 Q38,58 48,54 Q58,58 72,54" fill="none"/> <path d="M8,58 Q16,54 26,60 Q36,54 46,58 Q56,54 72,58" fill="none"/> <path d="M8,62 Q22,58 32,64 Q42,60 52,62 Q64,58 72,62" fill="none"/> </g> <!-- Turbulent flow particles (chaotic paths) --> <circle r="1" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="8;22;35;48;60;72" dur="2.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="56;52;60;50;58;54" dur="2.5s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="8;20;32;45;58;72" dur="2.8s" repeatCount="indefinite"/> <animate attributeName="cy" values="50;58;52;60;54;56" dur="2.8s" repeatCount="indefinite"/> </circle> <!-- Formula --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.4">Re = ρvD/μ</text> </svg>',
-          explanation: 'The Reynolds number, named after Osborne Reynolds (1842-1912), is the most widely used dimensionless number in fluid mechanics. It determines the flow regime (laminar vs.',
-          hint: 'This is the most famous dimensionless number in fluid.'
-        },
-        {
-          id: 'u6-L5-Q26',
-          type: 'multiple-choice',
-          question: 'A chemical engineer wants to scale up a stirred tank reactor from a 0.5 m diameter laboratory model to a 2.',
-          options: [
-            'Impeller Re, power number, and flow number are key',
-            'Only Re matters — all other groups derive from it',
-            'Froude number is the only important parameter',
-            'No dimensional analysis is needed for stirred tanks'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Vortex streamlines (concentric spirals) --> <circle cx="40" cy="40" r="28" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="3,4" fill="none" opacity="0.12"/> <circle cx="40" cy="40" r="20" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="2.5,3.5" fill="none" opacity="0.15"/> <circle cx="40" cy="40" r="12" stroke="#58CC02" stroke-width="0.8" stroke-dasharray="2,3" fill="none" opacity="0.18"/> <circle cx="40" cy="40" r="5" stroke="#3B8700" stroke-width="0.8" fill="none" opacity="0.2"/> <!-- Vortex core --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- Rotating flow particles (faster near center) --> <circle r="2" fill="#3B8700" opacity="0.4"> <animateMotion dur="1s" repeatCount="indefinite" path="M45,40 Q45,35 40,35 Q35,35 35,40 Q35,45 40,45 Q45,45 45,40"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" repeatCount="indefinite" path="M52,40 Q52,28 40,28 Q28,28 28,40 Q28,52 40,52 Q52,52 52,40"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.25"> <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s" path="M60,40 Q60,20 40,20 Q20,20 20,40 Q20,60 40,60 Q60,60 60,40"/> </circle> <circle r="1.3" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" begin="1s" path="M68,40 Q68,12 40,12 Q12,12 12,40 Q12,68 40,68 Q68,68 68,40"/> </circle> <!-- Velocity arrows (tangential, faster near center) --> <polygon points="45,34 48,35 45,36" fill="#3B8700" opacity="0.2"/> <polygon points="53,26 56,28 52,29" fill="#58CC02" opacity="0.15"/> <!-- Circulation label --> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">Γ = ∮v·ds</text> </svg>',
-          explanation: 'Stirred tank scaling is a classic dimensional analysis application. The relevant variables are: power P, impeller speed N, impeller diameter D, fluid density ρ, viscosity μ, and geometric ratios.',
-          hint: 'What are the relevant variables for mixing in a stirred?'
-        },
-        {
-          id: 'u6-L5-Q27',
-          type: 'multiple-choice',
-          question: 'What is the difference between "repeating the Buckingham Pi method" and "inspecting" to find dimensionless groups?',
-          options: [
-            'Buckingham is systematic; inspection uses experience',
-            'The formal method gives more groups than inspection',
-            'Inspection only works for simple 2-3 variable cases',
-            'The formal Buckingham method is always wrong in use'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'The formal Buckingham Pi method is systematic and always works: choose k repeating variables, then for each non-repeating variable, solve for exponents that make the product dimensionless.',
-          hint: 'One method is mechanical and systematic.'
-        },
-        {
-          id: 'u6-L5-Q28',
-          type: 'true-false',
-          question: 'If two flows have the same Reynolds number, they are guaranteed to have identical flow patterns.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Low-pressure zone above (subtle) --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 L76,20 L0,20 L0,42 Z" fill="#58CC02" opacity="0.03"/> <!-- Cambered airfoil — thicker top, flatter bottom --> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" fill="#58CC02" opacity="0.22"/> <path d="M10,42 Q20,42 32,30 Q48,24 62,32 Q72,37 76,42 Q72,44 62,46 Q48,50 32,47 Q20,44 10,42 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Chord line (angle of attack reference) --> <line x1="10" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.15"/> <!-- Upper streamlines — closer together = faster flow, lower pressure --> <path d="M0,18 Q35,15 55,17 Q72,19 80,19" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.2"/> <path d="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.22"/> <path d="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.25"/> <!-- Lower streamlines — more spread = slower flow, higher pressure --> <path d="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.18"/> <path d="M0,58 Q35,57 55,56 Q72,57 80,58" stroke="#A5E86C" stroke-width="0.6" fill="none" opacity="0.15"/> <path d="M0,64 Q40,63 80,64" stroke="#A5E86C" stroke-width="0.5" fill="none" opacity="0.12"/> <!-- Upper particles — FAST (Bernoulli: low pressure = high velocity) --> <circle r="1.8" fill="#3B8700" opacity="0.5"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34"/> </circle> <circle r="1.8" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M0,32 Q15,31 24,26 Q40,21 56,27 Q70,32 80,34" begin="0.6s"/> </circle> <circle r="1.6" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.4s" repeatCount="indefinite" path="M0,25 Q18,23 32,20 Q52,22 70,26 L80,27" begin="0.2s"/> </circle> <circle r="1.5" fill="#58CC02" opacity="0.3"> <animateMotion dur="1.6s" repeatCount="indefinite" path="M0,18 Q35,15 55,17 Q72,19 80,19" begin="0.4s"/> </circle> <!-- Lower particles — SLOW (higher pressure = lower velocity) --> <circle r="1.8" fill="#58CC02" opacity="0.3"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M0,52 Q18,52 32,49 Q52,47 70,49 L80,50" begin="0.3s"/> </circle> <circle r="1.6" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M0,58 Q35,57 55,56 Q72,57 80,58" begin="0.7s"/> </circle> <circle r="1.5" fill="#A5E86C" opacity="0.2"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M0,64 Q40,63 80,64" begin="0.5s"/> </circle> <!-- Stagnation point at leading edge --> <circle cx="10" cy="42" r="1.5" fill="#3B8700" opacity="0.35"> <animate attributeName="r" values="1.5;2.2;1.5" dur="2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.35;0.15;0.35" dur="2s" repeatCount="indefinite"/> </circle> <!-- Lift arrow (upward) --> <line x1="42" y1="30" x2="42" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.4" stroke-linecap="round"/> <polygon points="39,15 42,8 45,15" fill="#3B8700" opacity="0.45"/> <text x="48" y="12" font-size="6" fill="#3B8700" opacity="0.4" font-weight="bold">L</text> <!-- Drag arrow (rightward, smaller) --> <line x1="76" y1="42" x2="76" y2="42" stroke="#3B8700" stroke-width="0" opacity="0"/> <line x1="62" y1="55" x2="72" y2="55" stroke="#3B8700" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/> <polygon points="70,53 75,55 70,57" fill="#3B8700" opacity="0.3"/> <text x="72" y="62" font-size="5" fill="#3B8700" opacity="0.25" font-weight="bold">D</text> </svg>',
-          explanation: 'Matching Reynolds number alone does NOT guarantee identical flow patterns.',
-          hint: 'Is Re the only dimensionless number that can affect?'
-        },
-        {
-          id: 'u6-L5-Q29',
-          type: 'multiple-choice',
-          question: 'Why is this sometimes necessary?',
-          options: [
-            'Same H and V scale makes depth too shallow to measure',
-            'Distorted models are cheaper to build in practice',
-            'Distortion is required for proper flow modeling only',
-            'Distorted models are never used in real engineering'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Flat plate surface --> <line x1="4" y1="54" x2="76" y2="54" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <!-- Hatching below plate --> <line x1="10" y1="54" x2="7" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="20" y1="54" x2="17" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="30" y1="54" x2="27" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="40" y1="54" x2="37" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="50" y1="54" x2="47" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="60" y1="54" x2="57" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <line x1="70" y1="54" x2="67" y2="58" stroke="#3B8700" stroke-width="0.5" opacity="0.1"/> <!-- Freestream arrows (uniform, above BL) --> <line x1="2" y1="20" x2="10" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,18.5 12,20 9,21.5" fill="#3B8700" opacity="0.15"/> <line x1="2" y1="28" x2="10" y2="28" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <polygon points="9,26.5 12,28 9,29.5" fill="#3B8700" opacity="0.15"/> <text x="8" y="16" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">U∞</text> <!-- Boundary layer thickness curve (growing downstream) --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <!-- BL fill --> <path d="M4,54 Q20,52 36,48 Q52,42 72,34 L72,54 Z" fill="#58CC02" opacity="0.05"/> <!-- Velocity profiles at different x positions --> <!-- x=20 (thin BL) --> <line x1="20" y1="54" x2="24" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="52" x2="27" y2="52" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="20" y1="50" x2="28" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- x=50 (thicker BL) --> <line x1="50" y1="54" x2="53" y2="54" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="50" x2="57" y2="50" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="46" x2="60" y2="46" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <line x1="50" y1="42" x2="61" y2="42" stroke="#A5E86C" stroke-width="0.8" opacity="0.25"/> <!-- Flow particles (slow near wall, fast far away) --> <circle r="1.5" fill="#3B8700" opacity="0.3"> <animateMotion dur="1.8s" repeatCount="indefinite" path="M4,28 L76,28"/> </circle> <circle r="1.3" fill="#58CC02" opacity="0.25"> <animateMotion dur="2.5s" repeatCount="indefinite" path="M4,48 L76,48" begin="0.3s"/> </circle> <circle r="1" fill="#A5E86C" opacity="0.2"> <animateMotion dur="5s" repeatCount="indefinite" path="M4,53 L76,53" begin="0.5s"/> </circle> <!-- δ label --> <line x1="68" y1="36" x2="68" y2="54" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> <text x="72" y="46" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">δ(x)</text> <!-- Transition label --> <text x="26" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">laminar</text> <text x="56" y="64" font-size="3.5" fill="#3B8700" opacity="0.12">turbulent</text> <line x1="42" y1="48" x2="42" y2="54" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1,2" opacity="0.1"/> </svg>',
-          explanation: 'River and coastal models often cover huge horizontal extents (kilometers) but relatively shallow depths (meters).',
-          hint: 'What happens to the water depth in a river model?'
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'The Buckingham Pi method is systematic: list, count, choose repeaters, form groups, verify.',
+          hint: 'The repeating variables should include all fundamental dimensions.',
         },
         {
           id: 'u6-L5-Q30',
           type: 'multiple-choice',
-          question: 'What causes this "drag crisis," and how does it relate to dimensional analysis?',
+          question: 'What causes the "drag crisis" on a smooth sphere, and how does it relate to dimensional analysis?',
           options: [
-            'Boundary layer transitions from laminar to turbulent at this Re',
+            'Boundary layer transitions from laminar to turbulent at a critical Re',
             'The sphere deforms at high velocity, becoming more streamlined',
-            'Compressibility effects cause drag to drop at this Reynolds number',
-            'The drag crisis is a measurement artifact that does not really occur'
+            'Compressibility effects cause drag to drop',
+            'The drag crisis is a measurement artifact'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Sphere --> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Streamlines (approaching from right, diverting around sphere) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,34 L48,34 Q22,34 20,38" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,46 L48,46 Q22,46 20,42" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <!-- Wake region (turbulent, behind sphere) --> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> <path d="M46,34 Q54,38 48,40 Q54,42 46,46" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </path> </g> <!-- Flow direction particles --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;50;30;50;75" dur="3s" repeatCount="indefinite"/> <animate attributeName="cy" values="28;28;34;28;28" dur="3s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="75;42" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;40" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Free stream velocity arrow --> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V∞</text> </g> <!-- Drag force arrow --> <g opacity="0.5"> <line x1="30" y1="56" x2="42" y2="56" stroke-width="0.7" stroke="#A5E86C"/> <polygon points="42,54.5 42,57.5 45,56" fill="#A5E86C"/> <text x="38" y="62" font-size="3" fill="#58CC02" text-anchor="middle">F_D</text> </g> <!-- Separation point markers --> <circle cx="22" cy="32" r="1" fill="#3B8700" opacity="0.2"/> <circle cx="22" cy="48" r="1" fill="#3B8700" opacity="0.2"/> <!-- Formula --> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = ½C_DρAV²</text> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">pressure + friction drag</text> </svg>',
-          explanation: 'Dimensional analysis tells us C_D = f(Re) for a smooth sphere (no other relevant dimensionless groups), but it cannot predict the FORM of this function.',
-          hint: 'What changes about the boundary layer at this critical?'
-        }
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="30" cy="40" r="12" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <path d="M75,28 L50,28 Q20,28 18,34 Q16,38 18,40" fill="none"/> <path d="M75,40 L42,40" fill="none"/> <path d="M75,52 L50,52 Q20,52 18,46 Q16,42 18,40" fill="none"/> </g> <g stroke="#A5E86C" stroke-width="0.3" opacity="0.2"> <path d="M42,36 Q48,38 44,40 Q48,42 42,44" fill="none"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="1.5s" repeatCount="indefinite"/> </path> </g> <g opacity="0.5"> <line x1="72" y1="16" x2="58" y2="16" stroke-width="0.6" stroke="#58CC02"/> <polygon points="58,14.5 58,17.5 55,16" fill="#58CC02"/> <text x="65" y="14" font-size="3" fill="#58CC02">V</text> </g> <text x="40" y="72" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">F_D = 0.5*Cd*rho*A*V2</text> </svg>',
+          explanation: 'Dimensional analysis says Cd = f(Re) for a smooth sphere, but can\'t predict the function. The drag crisis is the boundary layer transitioning to turbulent, reducing wake drag.',
+          hint: 'What changes about the boundary layer at the critical Re?'
+        },
+        {
+          id: 'u6-L5-Q17',
+          type: 'multiple-choice',
+          question: 'The Strouhal number St = f*L/V governs:',
+          options: [
+            'Vortex shedding frequency behind bluff bodies',
+            'Friction factor in turbulent pipe flow',
+            'Wave speed in open channels',
+            'Heat transfer rate from a surface'
+          ],
+          correctIndex: 0,
+          explanation: 'The Strouhal number relates vortex shedding frequency to flow speed and body size. For a cylinder, St is about 0.2 over a wide range of Re.',
+          hint: 'Think about the "singing" of power lines in wind.'
+        },
       ]
-    }
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // CONVERSATION LESSON
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L-conv',
+      title: 'Sizing a Pump for a Building',
+      description: 'Help a senior engineer size a pump for a new office building\'s water supply system.',
+      icon: '💬',
+      xpReward: 30,
+      type: 'conversation',
+      levels: 1,
+      questions: [],
+      conversationStartNodeId: 'u6-L-conv-C1',
+      conversationNodes: [
+        {
+          id: 'u6-L-conv-C1',
+          speaker: 'Narrator',
+          message: 'You\'re a junior engineer at a consulting firm. Sarah, the lead mechanical engineer, calls you into a meeting about a new 8-story office building that needs a domestic water supply system.',
+          nextNodeId: 'u6-L-conv-C2',
+        },
+        {
+          id: 'u6-L-conv-C2',
+          speaker: 'Sarah',
+          message: 'We need to size the main booster pump. The city supply comes in at 250 kPa gauge at ground level, and we need 200 kPa at the top floor fixture, 28 meters up. Total pipe friction is about 15 m of head. What pump head do we need?',
+          options: [
+            {
+              text: 'Static head is 28 m, friction is 15 m, and we need 200 kPa (about 20.4 m) at the top minus the 250 kPa (25.5 m) supply. So total pump head is 28 + 15 + 20.4 - 25.5 = 37.9 m.',
+              nextNodeId: 'u6-L-conv-C3-great',
+              quality: 'great',
+              feedback: 'Excellent. You correctly accounted for static lift, friction losses, required outlet pressure, and available inlet pressure.',
+            },
+            {
+              text: 'We need 28 m of static head plus 15 m friction, so about 43 m total.',
+              nextNodeId: 'u6-L-conv-C3-okay',
+              quality: 'okay',
+              feedback: 'Close, but you forgot to subtract the available city supply pressure and add the required top-floor pressure. The actual number is about 38 m.',
+            },
+            {
+              text: 'Just use a pump rated for the building height of 28 m.',
+              nextNodeId: 'u6-L-conv-C3-poor',
+              quality: 'poor',
+              feedback: 'That ignores friction losses and the pressure requirements at the fixture. The pump would be way undersized.',
+            },
+          ],
+        },
+        {
+          id: 'u6-L-conv-C3-great',
+          speaker: 'Sarah',
+          message: 'Spot on. Now, peak demand is about 8 L/s. I found two pump options. Pump A runs at 85% efficiency near our operating point. Pump B is cheaper but operates at 65% efficiency at this flow. Which do you recommend and why?',
+          nextNodeId: 'u6-L-conv-D1',
+        },
+        {
+          id: 'u6-L-conv-C3-okay',
+          speaker: 'Sarah',
+          message: 'Almost. Remember to include the pressure credits and debits. Anyway, peak demand is 8 L/s. Pump A operates at 85% efficiency near our point. Pump B is cheaper but runs at 65%. Which do you pick?',
+          nextNodeId: 'u6-L-conv-D1',
+        },
+        {
+          id: 'u6-L-conv-C3-poor',
+          speaker: 'Sarah',
+          message: 'Not quite. You need to account for friction and pressure requirements too. Let\'s move on. Peak demand is 8 L/s. Pump A operates at 85% efficiency. Pump B is cheaper but at 65%. Which one?',
+          nextNodeId: 'u6-L-conv-D1',
+        },
+        {
+          id: 'u6-L-conv-D1',
+          speaker: 'You',
+          message: '',
+          options: [
+            {
+              text: 'Pump A. At 8 L/s and 38 m head, hydraulic power is about 3 kW. Pump A needs 3.5 kW shaft power; Pump B needs 4.6 kW. The energy savings from A will pay back the higher purchase price within a year or two.',
+              nextNodeId: 'u6-L-conv-C4-great',
+              quality: 'great',
+              feedback: 'Great analysis. You calculated the power difference and considered lifecycle cost, not just purchase price.',
+            },
+            {
+              text: 'Pump A because higher efficiency is always better.',
+              nextNodeId: 'u6-L-conv-C4-okay',
+              quality: 'okay',
+              feedback: 'Right choice, but you should back it up with numbers. How much energy and money would Pump B waste over its lifetime?',
+            },
+            {
+              text: 'Pump B because it\'s cheaper upfront, and the building owner cares about budget.',
+              nextNodeId: 'u6-L-conv-C4-poor',
+              quality: 'poor',
+              feedback: 'The 20% efficiency gap means significantly higher electricity bills. Engineers should present lifecycle cost, not just purchase price.',
+            },
+          ],
+        },
+        {
+          id: 'u6-L-conv-C4-great',
+          speaker: 'Sarah',
+          message: 'Great thinking. One more thing: the pump suction draws from a ground-floor tank. The pump inlet is 1 m above the tank water level, and suction pipe friction is 0.8 m. Water at 20 C has vapor pressure of about 2.34 kPa. Is there a cavitation risk?',
+          nextNodeId: 'u6-L-conv-D2',
+        },
+        {
+          id: 'u6-L-conv-C4-okay',
+          speaker: 'Sarah',
+          message: 'Right instinct, but always show the math. Last question: suction draws from a ground tank, 1 m below the pump. Suction friction is 0.8 m. Water at 20 C. Cavitation risk?',
+          nextNodeId: 'u6-L-conv-D2',
+        },
+        {
+          id: 'u6-L-conv-C4-poor',
+          speaker: 'Sarah',
+          message: 'We\'ll discuss lifecycle cost analysis another time. Last question: the pump draws from a ground tank, 1 m suction lift, 0.8 m suction friction. Any cavitation risk?',
+          nextNodeId: 'u6-L-conv-D2',
+        },
+        {
+          id: 'u6-L-conv-D2',
+          speaker: 'You',
+          message: '',
+          options: [
+            {
+              text: 'NPSH_available = P_atm/(rho*g) - z_s - h_f - P_v/(rho*g) = 10.33 - 1 - 0.8 - 0.24 = 8.29 m. If the pump needs less than about 8 m NPSH, we\'re fine.',
+              nextNodeId: 'u6-L-conv-END',
+              quality: 'great',
+              feedback: 'Perfect NPSH calculation. You correctly subtracted suction lift, friction, and vapor pressure head from atmospheric.',
+            },
+            {
+              text: 'NPSH should be fine because the tank is only 1 m below the pump.',
+              nextNodeId: 'u6-L-conv-END',
+              quality: 'okay',
+              feedback: 'Probably fine, but you should always calculate NPSH_available and compare to the manufacturer\'s NPSH_required. Don\'t guess.',
+            },
+            {
+              text: 'Cavitation only happens in very large pumps, so this small building pump should be fine.',
+              nextNodeId: 'u6-L-conv-END',
+              quality: 'poor',
+              feedback: 'Cavitation can happen in any pump regardless of size. Always calculate NPSH_available and verify it exceeds NPSH_required.',
+            },
+          ],
+        },
+        {
+          id: 'u6-L-conv-END',
+          speaker: 'Narrator',
+          message: 'Sarah nods approvingly. You\'ve just walked through the key steps of pump sizing: calculating total head, comparing pump efficiency and lifecycle cost, and checking NPSH for cavitation. These skills come up in almost every building services or process piping project.',
+        },
+      ],
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // SPEED ROUND LESSON
+    // ═══════════════════════════════════════════════════════════════
+    {
+      id: 'u6-L-speed',
+      title: 'Fluids Speed Round',
+      description: '15 rapid-fire fluid mechanics questions. You have 60 seconds.',
+      icon: '⚡',
+      xpReward: 25,
+      type: 'speed-round',
+      levels: 1,
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        { id: 'u6-L-speed-SQ1', question: 'Re < 2300 in a pipe means?', options: ['Laminar', 'Turbulent', 'Supersonic', 'Transitional'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ2', question: 'P = rho*g*h gives what type of pressure?', options: ['Hydrostatic', 'Dynamic', 'Stagnation', 'Gauge'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ3', question: 'Bernoulli assumes the flow is:', options: ['Inviscid', 'Turbulent', 'Compressible', 'Unsteady'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ4', question: 'Kinematic viscosity nu equals:', options: ['mu/rho', 'rho/mu', 'mu*rho', 'rho*g'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ5', question: 'Torricelli: V = ?', options: ['sqrt(2gh)', 'sqrt(gh)', '2gh', 'g*h/2'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ6', question: 'Archimedes: buoyant force depends on?', options: ['Displaced fluid', 'Object weight', 'Object density', 'Container shape'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ7', question: 'Darcy-Weisbach: h_f = f*(L/D)*?', options: ['V2/(2g)', 'V/g', 'V2*g', 'V*D'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ8', question: 'NPSH stands for:', options: ['Net positive suction head', 'Normal pump suction height', 'Net pressure system head', 'Nominal pump shaft head'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ9', question: 'Affinity law: Q is proportional to:', options: ['N (speed)', 'N2', 'N3', '1/N'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ10', question: 'Froude number compares:', options: ['Inertia vs gravity', 'Inertia vs viscous', 'Speed vs sound', 'Pressure vs inertia'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ11', question: 'Parallel pipes have equal:', options: ['Head loss', 'Flow rate', 'Velocity', 'Friction factor'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ12', question: 'Cavitation occurs when P drops below:', options: ['Vapor pressure', 'Atmospheric', 'Zero', 'Gauge pressure'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ13', question: 'Pi theorem: n vars, k dims gives:', options: ['n-k groups', 'n+k groups', 'n*k groups', 'n/k groups'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ14', question: 'Laminar pipe flow friction factor:', options: ['64/Re', '0.02', 'Re/64', '128/Re'], correctIndex: 0 },
+        { id: 'u6-L-speed-SQ15', question: 'Centrifugal pumps are best for:', options: ['High flow, moderate P', 'High P, low flow', 'High viscosity', 'Precise metering'], correctIndex: 0 },
+      ],
+    },
   ]
 };

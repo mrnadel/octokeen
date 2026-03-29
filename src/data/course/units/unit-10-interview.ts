@@ -5,22 +5,38 @@ export const unit10: Unit = {
   title: 'Interview Problem Solving',
   description: 'Estimation problems, failure analysis, design trade-offs, FEA interpretation, and real-world engineering case studies.',
   color: '#14B8A6',
-  icon: '🧠',
+  icon: '\u{1F9E0}',
   lessons: [
     {
       id: 'u10-L1',
-      title: 'Estimation Problems',
-      description: 'Back-of-envelope calculations, order-of-magnitude estimation, Fermi problems, quick sanity checks.',
+      title: 'Fermi Problems Basics',
+      description: 'What Fermi problems are, how to decompose big unknowns, and your first estimation attempts.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L1-T1',
+          id: 'u10-L1-NEW-T1',
           type: 'teaching',
-          question: 'What Are Fermi Estimates',
-          explanation: 'Fermi estimation is the art of making rough calculations with limited information. You break a big unknown question into smaller pieces you can estimate, then multiply them together. The goal isn\'t an exact answer; it\'s getting within the right order of magnitude (power of 10).',
-          hint: 'Interviewers care about your thought process, not precision.',
+          question: 'Breaking Down Big Questions',
+          explanation: 'Fermi problems test how you think, not what you memorize. Break a huge question into small pieces, estimate each piece, and multiply.',
+          hint: 'Try this now: estimate how many piano tuners are in your city.',
+        },
+        {
+          id: 'u10-L1-NEW-E1',
+          type: 'true-false',
+          question: 'In a Fermi estimation, getting within an order of magnitude (factor of 10) of the real answer is considered a good result.',
+          correctAnswer: true,
+          explanation: 'Fermi estimates aim for the right power of 10, not the exact number.',
+          hint: 'These estimates prioritize order of magnitude, not precision.',
+        },
+        {
+          id: 'u10-L1-NEW-E1',
+          type: 'true-false',
+          question: 'In a Fermi estimation, getting within an order of magnitude (factor of 10) of the real answer is considered a good result.',
+          correctAnswer: true,
+          explanation: 'Fermi estimates aim for the right power of 10, not the exact number.',
+          hint: 'These estimates prioritize order of magnitude, not precision.',
         },
         {
           id: 'u10-L1-Q1',
@@ -30,12 +46,53 @@ export const unit10: Unit = {
             'Look up the engine horsepower from the car\'s spec sheet and report that number',
             'Guess "about 100 kW" since that is a typical engine rating',
             'Break the problem into contributors (aerodynamic drag, rolling resistance',
-            'Calculate only aerodynamic drag since it dominates at highway speed —'
+            'Calculate only aerodynamic drag since it dominates at highway speed . '
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: 'Interviewers want to see structured decomposition, not a single formula.',
           hint: 'Focus on your problem-solving framework, not the exact answer.'
+        },
+        {
+          id: 'u10-L1-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each estimation technique to its description:',
+          options: [
+            'Fermi estimation',
+            'Dimensional analysis',
+            'Scaling law',
+            'Sanity check'
+          ],
+          matchTargets: [
+            'Break unknowns into estimable pieces',
+            'Use units to derive relationships',
+            'Predict how changes scale with size',
+            'Compare result to known values'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each technique serves a different purpose in engineering estimation.',
+          hint: 'Think about what each method does.',
+        },
+        {
+          id: 'u10-L1-NEW-T2',
+          type: 'teaching',
+          question: 'Decomposition Is the Key Skill',
+          explanation: 'Interviewers don\'t expect exact answers. They want to see you decompose a problem into parts you can estimate, state your assumptions clearly, and arrive at a reasonable number.',
+          hint: 'Try this now: estimate how many golf balls fit in a school bus.',
+        },
+        {
+          id: 'u10-L1-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does "order of magnitude" mean?',
+          options: [
+            'A factor of 10',
+            'A factor of 2',
+            'An exact answer',
+            'A factor of 100'
+          ],
+          correctIndex: 0,
+          explanation: 'An order of magnitude is a factor of 10. If the real answer is 5,000, being within an order of magnitude means your answer is between 500 and 50,000.',
+          hint: 'Think about powers of 10.',
         },
         {
           id: 'u10-L1-Q2',
@@ -51,15 +108,140 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ground --> <line x1="4" y1="66" x2="76" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <!-- Ground hatching at supports --> <line x1="9" y1="66" x2="6" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="14" y1="66" x2="11" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="19" y1="66" x2="16" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="61" y1="66" x2="58" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="66" y1="66" x2="63" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <line x1="71" y1="66" x2="68" y2="70" stroke="#3B8700" stroke-width="0.5" opacity="0.08"/> <!-- Pin support (left) --> <polygon points="14,52 10,62 18,62" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="14" cy="52" r="1.5" fill="#3B8700" opacity="0.25"/> <!-- Roller support (right) --> <polygon points="66,52 62,60 70,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <circle cx="64" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <circle cx="68" cy="62" r="1.5" fill="#3B8700" opacity="0.15"/> <line x1="62" y1="64" x2="70" y2="64" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <!-- Beam (deflects under load) --> <path fill="#58CC02" opacity="0.08"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z;M14,46 Q40,49 66,46 L66,52 Q40,55 14,52 Z;M14,46 Q40,46 66,46 L66,52 Q40,52 14,52 Z"/> </path> <path stroke="#58CC02" stroke-width="4" fill="none" stroke-linecap="round"> <animate attributeName="d" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1" values="M14,49 Q40,49 66,49;M14,49 Q40,52 66,49;M14,49 Q40,49 66,49"/> </path> <!-- Applied force F₁ (x=32, larger) --> <g> <line x1="32" y1="36" x2="32" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;22;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="30,43 32,47 34,43" fill="#3B8700" opacity="0.5"/> <text x="32" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;18;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₁ </text> </g> <!-- Applied force F₂ (x=52, smaller) --> <g> <line x1="52" y1="36" x2="52" y2="44" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.5"> <animate attributeName="y1" values="38;28;38" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> </line> <polygon points="50,43 52,47 54,43" fill="#3B8700" opacity="0.5"/> <text x="52" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic"> <animate attributeName="y" values="34;24;34" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> F₂ </text> </g> <!-- Reaction forces (appear when loaded) --> <!-- R₁ at pin support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="14" y1="65" x2="14" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="12.5,59 14,56 15.5,59" fill="#3B8700"/> <text x="14" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₁</text> </g> <!-- R₂ at roller support --> <g opacity="0"> <animate attributeName="opacity" values="0;0.35;0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" keyTimes="0;0.4;1"/> <line x1="66" y1="65" x2="66" y2="58" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="64.5,59 66,56 67.5,59" fill="#3B8700"/> <text x="66" y="72" text-anchor="middle" font-size="5" fill="#3B8700" font-style="italic">R₂</text> </g> </svg>',
           explanation: 'Deflection is inversely proportional to the moment of inertia I. For a rectangular beam, I = bh^3/12. Doubling h increases I by 2^3 = 8 times.',
           hint: 'Deflection is proportional to 1/I, and I is proportional.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L1b',
+      title: 'Anchor Values & Sanity Checks',
+      description: 'Key reference numbers every engineer should know, plus how to sanity-check your estimates.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L1b-NEW-T1',
+          type: 'teaching',
+          question: 'Memorize Key Reference Values',
+          explanation: 'You can\'t estimate without reference points. Keep these in your head: steel density 7,850 kg/m3, steel yield 250 MPa, E for steel 200 GPa, water density 1,000 kg/m3.',
+          hint: 'Try this now: estimate the weight of a 1m steel cube.',
+        },
+        {
+          id: 'u10-L1b-NEW-E1',
+          type: 'true-false',
+          question: 'The density of water is approximately 1,000 kg/m3.',
+          correctAnswer: true,
+          explanation: 'Water density at standard conditions is 1,000 kg/m3. This is one of the most important anchor values.',
+          hint: 'This is a fundamental reference value.',
+        },
+        {
+          id: 'u10-L1-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each estimation technique to its description:',
+          options: [
+            'Fermi estimation',
+            'Dimensional analysis',
+            'Scaling law',
+            'Sanity check'
+          ],
+          matchTargets: [
+            'Break unknowns into estimable pieces',
+            'Use units to derive relationships',
+            'Predict how changes scale with size',
+            'Compare result to known values'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each technique serves a different purpose in engineering estimation.',
+          hint: 'Think about what each method does.',
+        },
+        {
+          id: 'u10-L1-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does "order of magnitude" mean?',
+          options: [
+            'A factor of 10',
+            'A factor of 2',
+            'An exact answer',
+            'A factor of 100'
+          ],
+          correctIndex: 0,
+          explanation: 'An order of magnitude is a factor of 10. If the real answer is 5,000, being within an order of magnitude means your answer is between 500 and 50,000.',
+          hint: 'Think about powers of 10.',
+        },
+        {
+          id: 'u10-L1b-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these properties by typical value: high or low?',
+          options: [
+            'Steel E-modulus (200 GPa)',
+            'Copper conductivity (400 W/mK)',
+            'Rubber E-modulus (0.01 GPa)',
+            'Foam density (30 kg/m3)',
+            'Steel density (7,850 kg/m3)',
+            'Air density (1.2 kg/m3)'
+          ],
+          buckets: [
+            'High value',
+            'Low value'
+          ],
+          correctBuckets: [0, 0, 1, 1, 0, 1],
+          explanation: 'Knowing which properties are high or low helps you sanity-check estimates quickly.',
+          hint: 'Compare each to typical engineering materials.',
+        },
+        {
+          id: 'u10-L1b-NEW-T2',
+          type: 'teaching',
+          question: 'Always Sanity-Check Your Answer',
+          explanation: 'After calculating, compare your result to something you know. If your estimate says a car weighs 100 kg, something went wrong. A typical car weighs about 1,500 kg.',
+          hint: 'Try this now: check if your bathtub holds about 150 liters.',
+        },
+        {
+          id: 'u10-L1b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is the approximate yield strength of common structural steel?',
+          options: [
+            '250 MPa',
+            '25 MPa',
+            '2,500 MPa',
+            '25,000 MPa'
+          ],
+          correctIndex: 0,
+          explanation: 'A36/S275 structural steel yields at about 250 MPa (36 ksi). This is a critical anchor value.',
+          hint: 'Think about common steel properties.',
         },
         {
           id: 'u10-L1-Q3',
           type: 'true-false',
           question: 'For a quick sanity check: the yield strength of common structural steel (A36/S275) is approximately 250 MPa, mild steel\'s?',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve. animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker. appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker. appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker. appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot. follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
           explanation: 'These are essential "anchor values" every mechanical engineer should know: A36 steel yield ~ 250 MPa (36 ksi), E_steel ~ 200 GPa (29 Msi), gamma_water ~ 9.81 kN/m^3 ~ 10 kN/m^3.',
           hint: 'These are fundamental "anchor numbers" that every.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L1c',
+      title: 'Scaling Laws & Advanced Estimation',
+      description: 'Scaling laws, combined estimation problems, and real interview-level Fermi challenges.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L1c-NEW-T1',
+          type: 'teaching',
+          question: 'Power Laws Speed Up Estimation',
+          explanation: 'Many quantities follow simple power laws. If you double the diameter of a pipe, flow capacity goes up by 2^(5/2) = 5.66x. Knowing these exponents saves you from recalculating.',
+          hint: 'Try this now: if you double beam depth, how does deflection change?',
+        },
+        {
+          id: 'u10-L1c-NEW-E1',
+          type: 'true-false',
+          question: 'Pump power scales with the cube of speed: doubling RPM increases power by 8x.',
+          correctAnswer: true,
+          explanation: 'The pump affinity laws: Q scales with N, H with N^2, and P with N^3.',
+          hint: 'Think about the pump affinity laws.',
         },
         {
           id: 'u10-L1-Q4',
@@ -67,9 +249,9 @@ export const unit10: Unit = {
           question: 'Will this steel shelf bracket vibrate noticeably?',
           options: [
             'Compare the excitation frequency to the bracket\'s natural frequency',
-            'Only the weight of the load on the shelf matters — heavier loads always',
-            'Vibration only matters for rotating equipment — a shelf bracket cannot vibrate',
-            'Just make the bracket thicker — that always eliminates vibration regardless'
+            'Only the weight of the load on the shelf matters. heavier loads always',
+            'Vibration only matters for rotating equipment. a shelf bracket cannot vibrate',
+            'Just make the bracket thicker. that always eliminates vibration regardless'
 
           ],
           correctIndex: 0,
@@ -94,375 +276,88 @@ export const unit10: Unit = {
           hint: 'Spheres cannot fill 100% of space.'
         },
         {
-          id: 'u10-L1-T2',
+          id: 'u10-L1c-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these Fermi estimation steps in order:',
+          steps: [
+            'Define the quantity you need to estimate',
+            'Break it into smaller estimable pieces',
+            'Estimate each piece with assumptions',
+            'Multiply/combine the pieces',
+            'Sanity-check against a known value'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'A structured approach: define, decompose, estimate each piece, combine, then check.',
+          hint: 'Start with the big picture, end with a reality check.',
+        },
+        {
+          id: 'u10-L1c-NEW-T2',
           type: 'teaching',
-          question: 'Anchor Values You Should Know',
-          explanation: 'Keep key reference numbers in your head: steel density is about 7850 kg/m3, steel yield strength is roughly 250 MPa, E for steel is 200 GPa, water density is 1000 kg/m3, and 1 HP is about 750 W. These "anchors" let you sanity-check any estimate quickly.',
-          hint: 'If your answer says a steel part weighs 0.1 kg but it\'s a meter long, something\'s off.',
+          question: 'Combining Estimates for Complex Problems',
+          explanation: 'Real interview problems require chaining estimates. First estimate the volume, then use density for mass, then use material strength for load capacity. Each step builds on the last.',
+          hint: 'Try this now: estimate the weight of the Eiffel Tower step by step.',
+        },
+        {
+          id: 'u10-L1c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'If beam deflection scales as L^3, what happens when you triple the span?',
+          options: [
+            'Deflection increases 27x',
+            'Deflection increases 9x',
+            'Deflection increases 3x',
+            'Deflection stays the same'
+          ],
+          correctIndex: 0,
+          explanation: 'L^3 scaling: 3^3 = 27. Tripling the span increases deflection by 27 times.',
+          hint: 'Calculate 3 raised to the power of 3.',
         },
         {
           id: 'u10-L1-Q6',
           type: 'multiple-choice',
           question: 'The motor is about the size of a coffee can. Is this plausible?',
           options: [
-            'Yes — modern motors are very powerful for their size at any rating',
-            'No — a motor that size typically produces only 1-10 N*m continuously',
-            'It depends entirely on the voltage — higher voltage means any torque',
+            'Yes. modern motors are very powerful for their size at any rating',
+            'No. a motor that size typically produces only 1-10 N*m continuously',
+            'It depends entirely on the voltage. higher voltage means any torque',
             'Cannot be determined without knowing the exact motor model and brand'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: 'Engineering sanity-checking means having calibrated intuition for physical quantities. A coffee-can-sized motor (NEMA 34 / ~90 mm frame) typically produces 1-5 N*m continuously, maybe 10-15 N*m peak.',
           hint: 'Consider motors you have encountered.'
-        },
-        {
-          id: 'u10-L1-Q7',
-          type: 'multiple-choice',
-          question: 'You need to estimate the weight of a 1-meter-long solid steel shaft with a 50 mm diameter. Which answer is closest?',
-          options: [
-            'About 1.5 kg',
-            'About 5 kg',
-            'About 50 kg',
-            'About 15 kg'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <ellipse cx="40" cy="20" rx="20" ry="8" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="20" rx="20" ry="8" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="20" y1="20" x2="20" y2="60" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="60" y1="20" x2="60" y2="60" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <ellipse cx="40" cy="60" rx="20" ry="8" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="60" rx="20" ry="8" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2"/> <line x1="40" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <text x="50" y="38" font-size="4" fill="#3B8700" font-style="italic">r</text> </g> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">pressure vessel</text> </svg>',
-          explanation: 'Volume = pi/4 * d^2 * L = pi/4 * (0.05)^2 * 1 = 0.00196 m^3. Steel density ~ 7850 kg/m^3. Mass = 7850 * 0.00196 ~ 15.4 kg.',
-          hint: 'Use Volume = pi/4 * d^2 * L and steel density ~ 7850 kg/m^3.'
-        },
-        {
-          id: 'u10-L1-Q8',
-          type: 'true-false',
-          question: 'When estimating heat loss from a building, a useful rule of thumb is that a single-pane glass window loses roughly 10 times more?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="13" y="44" width="54" height="10" rx="5" fill="#58CC02" opacity="0.25"/> <rect x="13" y="44" width="54" height="10" rx="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="19" y="20" width="5" height="24" rx="2.5" fill="#58CC02" opacity="0.4"/> <rect x="28" y="20" width="5" height="24" rx="2.5" fill="#58CC02" opacity="0.4"/> <rect x="37" y="20" width="5" height="24" rx="2.5" fill="#58CC02" opacity="0.4"/> <rect x="46" y="20" width="5" height="24" rx="2.5" fill="#58CC02" opacity="0.4"/> <rect x="55" y="20" width="5" height="24" rx="2.5" fill="#58CC02" opacity="0.4"/> <path d="M21,18 Q23,11 21,5" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0"> <animate attributeName="opacity" values="0;0.5;0" dur="2.2s" repeatCount="indefinite"/> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2.2s" repeatCount="indefinite"/> </path> <path d="M30,18 Q32,11 30,5" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0"> <animate attributeName="opacity" values="0;0.5;0" dur="2.2s" begin="0.4s" repeatCount="indefinite"/> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2.2s" begin="0.4s" repeatCount="indefinite"/> </path> <path d="M39,18 Q41,11 39,5" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0"> <animate attributeName="opacity" values="0;0.5;0" dur="2.2s" begin="0.8s" repeatCount="indefinite"/> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2.2s" begin="0.8s" repeatCount="indefinite"/> </path> <path d="M48,18 Q50,11 48,5" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0"> <animate attributeName="opacity" values="0;0.5;0" dur="2.2s" begin="1.2s" repeatCount="indefinite"/> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2.2s" begin="1.2s" repeatCount="indefinite"/> </path> <path d="M57,18 Q59,11 57,5" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0"> <animate attributeName="opacity" values="0;0.5;0" dur="2.2s" begin="1.6s" repeatCount="indefinite"/> <animateTransform attributeName="transform" type="translate" values="0,0;0,-6" dur="2.2s" begin="1.6s" repeatCount="indefinite"/> </path> <rect x="24" y="58" width="32" height="8" rx="4" fill="#A5E86C" opacity="0.15"/> <text x="40" y="64" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.4" font-weight="bold">HOT</text> </svg>',
-          explanation: 'A well-insulated wall has an R-value of roughly 3-4 m^2*K/W (U ~ 0.3 W/m^2*K), while a single-pane window has U ~ 5-6 W/m^2*K.',
-          hint: 'Compare U-values: single-pane glass ~5 W/m^2*K.'
-        },
-        {
-          id: 'u10-L1-Q9',
-          type: 'multiple-choice',
-          question: 'Estimate the force required to shear a 10 mm diameter mild steel bolt. Which is the best approach?',
-          options: [
-            'Use the shear strength (~60% of UTS for steel): F = 0.6 * UTS * pi * d^2 / 4,',
-            'Use the tensile strength directly: F = UTS * pi * d^2 / 4 — a plausible',
-            'The force equals the torque divided by the bolt diameter — an approximation',
-            'Shear cannot occur in bolts'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Shear strength of ductile steel is approximately 0.577 * tensile yield (von Mises), commonly approximated as 60% of UTS. For a Grade 8.8 bolt with UTS ~830 MPa.',
-          hint: 'Shear strength ≈ 0.6 * UTS for ductile steel.'
-        },
-        {
-          id: 'u10-L1-Q10',
-          type: 'multiple-choice',
-          question: 'If you halve the span length while keeping everything else the same, by what factor does the fundamental natural frequency change?',
-          options: [
-            'It doubles (2x)',
-            'It stays the same because the material did not change',
-            'It increases by 8x',
-            'It quadruples (4x)'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <path d="M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.4"> <animate attributeName="d" values="M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40;M8,40 Q14,24 20,40 Q26,56 32,40 Q38,24 44,40 Q50,56 56,40 Q62,24 68,40;M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40" dur="1.5s" repeatCount="indefinite"/> </path> <circle r="3" fill="#3B8700" opacity="0.4"> <animate attributeName="cy" values="20;60;20" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="20;20;20" dur="1.5s" repeatCount="indefinite"/> </circle> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">vibration</text> </svg>',
-          explanation: 'For a simply supported beam, the fundamental natural frequency is proportional to 1/L^2. Specifically, f_n = (pi/2) * sqrt(EI / (rho*A*L^4)). Halving L increases f_n by a factor of (1/0.5)^2 = 4.',
-          hint: 'Natural frequency of a beam scales as 1/L^2.'
-        },
-        {
-          id: 'u10-L1-Q11',
-          type: 'fill-blank',
-          question: 'When performing estimation problems in interviews, the technique of breaking a large unknown into smaller, more estimable pieces _____?',
-          blanks: ['Fermi'],
-          wordBank: ['Fermi', 'Newton', 'Euler', 'Boltzmann', 'Gauss'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Fermi problems are named after Enrico Fermi, who was famous for making rapid order-of-magnitude estimates.',
-          hint: 'This Italian-American physicist was famous for his ability.'
-        },
-        {
-          id: 'u10-L1-Q12',
-          type: 'multiple-choice',
-          question: 'Which order of magnitude is correct?',
-          options: [
-            'About 1 bar (100 kPa)',
-            'About 0.1 bar (10 kPa)',
-            'About 10 bar (1 MPa)',
-            'About 100 bar (10 MPa)'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Reynolds number = V*D/nu = 2 * 0.05 / 1e-6 = 100,000 (turbulent). Darcy friction factor for smooth pipe at Re=100k is approximately 0.018.',
-          hint: 'Use Darcy-Weisbach: deltaP = f*(L/D)*(rho*V^2/2).'
-        },
-        {
-          id: 'u10-L1-Q13',
-          type: 'true-false',
-          question: 'The thermal conductivity of common metals spans roughly two orders of magnitude: from about 15 W/m*K to about 400 W/m*K (copper).',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Shell --> <rect x="8" y="20" width="64" height="40" rx="8" fill="#58CC02" opacity="0.06"/> <rect x="8" y="20" width="64" height="40" rx="8" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Inlet/outlet pipe stubs --> <rect x="2" y="28" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="70" y="28" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="70" y="46" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="2" y="46" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <!-- Hot tube (upper) --> <rect x="12" y="25" width="56" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="12" y="25" width="56" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Cold tube (lower) --> <rect x="12" y="43" width="56" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="12" y="43" width="56" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Heat transfer arrows (hot→cold, pulsing) --> <g> <line x1="26" y1="37.5" x2="26" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="24.5,41 26,43.5 27.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/> </g> <g> <line x1="40" y1="37.5" x2="40" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="38.5,41 40,43.5 41.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </g> <g> <line x1="54" y1="37.5" x2="54" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="52.5,41 54,43.5 55.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="1s"/> </g> <!-- Hot fluid particles (→) — opacity fades as heat is lost --> <circle r="3" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="0.55s"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="0.55s"/> </circle> <circle r="2.5" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="1.1s"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="1.1s"/> </circle> <!-- Cold fluid particles (←) — opacity grows as heat is gained --> <circle r="3" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="0.55s"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="0.55s"/> </circle> <circle r="2.5" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="1.1s"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="1.1s"/> </circle> <!-- Flow direction arrows on tubes --> <polygon points="42,29 45,31 42,33" fill="#3B8700" opacity="0.12"/> <polygon points="38,47 35,49 38,51" fill="#3B8700" opacity="0.12"/> <!-- Temperature labels --> <text x="5" y="24" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">T_H</text> <text x="68" y="44" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">T_C</text> <!-- Counterflow label --> <text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">counterflow</text> </svg>',
-          explanation: 'This is an important anchor for thermal estimation. Key values: copper ~400 W/m*K, aluminum ~237 W/m*K, carbon steel ~50 W/m*K, stainless steel ~15 W/m*K, titanium ~22 W/m*K.',
-          hint: 'Compare stainless steel (~15 W/m*K) to copper (~400.'
-        },
-        {
-          id: 'u10-L1-Q14',
-          type: 'multiple-choice',
-          question: 'Estimate how much energy it takes to heat a bathtub of water from 15°C to 40°C. What is the correct order of magnitude?',
-          options: [
-            'About 500 kJ (0.14 kWh)',
-            'About 15,000 kJ (4.2 kWh)',
-            'About 5,000 kJ (1.4 kWh)',
-            'About 150,000 kJ (42 kWh)'
-
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="18" width="48" height="32" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="16" y="18" width="48" height="32" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="19" y="30" width="42" height="18" rx="3" fill="#A5E86C" opacity="0.15"/> <circle cx="32" cy="40" r="3" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="44;26" dur="1.8s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.5;0" dur="1.8s" repeatCount="indefinite"/> </circle> <circle cx="42" cy="40" r="2.5" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="43;28" dur="1.5s" begin="0.4s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.4;0" dur="1.5s" begin="0.4s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="40" r="2.8" stroke="#58CC02" stroke-width="1" fill="none" opacity="0"> <animate attributeName="cy" values="42;24" dur="2s" begin="0.8s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0;0.4;0" dur="2s" begin="0.8s" repeatCount="indefinite"/> </circle> <rect x="16" y="50" width="3" height="16" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="61" y="50" width="3" height="16" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="10" y="64" width="60" height="4" rx="2" fill="#3B8700" opacity="0.2"/> <ellipse cx="34" cy="59" rx="6" ry="8" fill="#58CC02" opacity="0.4"> <animate attributeName="ry" values="8;10;6;9;8" dur="0.5s" repeatCount="indefinite"/> <animate attributeName="rx" values="6;4.5;7;5;6" dur="0.5s" repeatCount="indefinite"/> </ellipse> <ellipse cx="46" cy="59" rx="5" ry="7" fill="#A5E86C" opacity="0.3"> <animate attributeName="ry" values="7;9;5;7" dur="0.6s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="58" rx="4" ry="6" fill="#3B8700" opacity="0.35"> <animate attributeName="ry" values="6;8;4;6" dur="0.45s" repeatCount="indefinite"/> </ellipse> </svg>',
-          explanation: 'A bathtub holds roughly 150 liters = 150 kg of water. Energy = m*cp*deltaT = 150 * 4.18 * 25 = 15,675 kJ ~ 4.35 kWh. This is about 15,000 kJ or 4.2 kWh.',
-          hint: 'Water: cp = 4.18 kJ/kg*K.'
-        },
-        {
-          id: 'u10-L1-Q15',
-          type: 'multiple-choice',
-          question: 'Estimate whether a 5 mm fillet weld around the perimeter of a 50x50 mm square tube can support a 20 kN tensile load. Is this weld adequate?',
-          options: [
-            'No — fillet welds cannot carry tensile loads at all',
-            'No — square tubes require full-penetration butt welds only',
-            'Cannot determine without knowing the electrode classification',
-            'Yes — weld throat area times allowable stress well exceeds 20 kN'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Butt weld (top) --> <rect x="6" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Weld bead (butt) --> <ellipse cx="40" cy="15" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <path d="M34,10 Q40,6 46,10" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,20 Q40,24 46,20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="40" y="30" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">butt weld</text> <!-- Fillet weld (middle) --> <rect x="6" y="38" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="38" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="38" width="10" height="30" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="38" width="10" height="30" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Fillet weld triangle --> <path d="M34,48 L40,48 L40,38" fill="#58CC02" opacity="0.25"/> <path d="M34,48 Q38,42 40,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="22" y="58" font-size="4" fill="#3B8700" opacity="0.2">fillet weld</text> <!-- Weld symbol (standard notation) --> <line x1="56" y1="50" x2="72" y2="50" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="56" y1="50" x2="56" y2="42" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <path d="M56,50 L60,44 L64,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="64" y="46" font-size="3.5" fill="#3B8700" opacity="0.2">symbol</text> <!-- Welding animation (sparks at butt weld) --> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,14 L44,8"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,14 L36,6" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#3B8700" opacity="0"> <animateMotion dur="0.45s" repeatCount="indefinite" path="M40,14 L46,10" begin="0.2s"/> <animate attributeName="opacity" values="0.35;0" dur="0.45s" begin="0.2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Throat thickness = 0.707 * leg size = 0.707 * 5 = 3.54 mm. Perimeter of 50x50 tube = 200 mm. Weld throat area = 3.54 * 200 = 707 mm^2.',
-          hint: 'Throat = 0.707 * leg.'
-        },
-        {
-          id: 'u10-L1-Q16',
-          type: 'multiple-choice',
-          question: 'A solid circular shaft must transmit 10 kW at 1500 RPM. Estimate the minimum shaft diameter if the allowable shear stress is 40 MPa.',
-          options: [
-            'About 5 mm',
-            'About 15 mm',
-            'About 25 mm',
-            'About 50 mm'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Torque T = P / omega = 10,000 / (1500 * 2*pi/60) = 10,000 / 157 = 63.7 N*m. For a solid shaft, tau = 16T / (pi*d^3).',
-          hint: 'First find torque from T = P/omega, then use tau =.'
-        },
-        {
-          id: 'u10-L1-Q17',
-          type: 'true-false',
-          question: 'For estimation purposes, 1 horsepower is approximately equal to 750 watts, and 1 psi is approximately 7 kPa.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="26" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="26" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <circle cx="54" cy="40" r="18" fill="#A5E86C" opacity="0.06"/> <circle cx="54" cy="40" r="18" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <line x1="34" y1="40" x2="46" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="44,38.5 48,40 44,41.5" fill="#3B8700" opacity="0.3"/> <polygon points="36,38.5 32,40 36,41.5" fill="#3B8700" opacity="0.3"/> <text x="26" y="42" text-anchor="middle" font-size="6" fill="#334155" opacity="0.4" font-weight="bold">A</text> <text x="54" y="42" text-anchor="middle" font-size="6" fill="#334155" opacity="0.4" font-weight="bold">B</text> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">conversion</text> </svg>',
-          explanation: '1 HP = 745.7 W, commonly rounded to 750 W for estimation. 1 psi = 6.895 kPa, commonly rounded to 7 kPa.',
-          hint: 'Check: 1 HP = 745.7 W (≈750 W) and 1 psi = 6.895 kPa (≈7 kPa).'
-        },
-        {
-          id: 'u10-L1-Q18',
-          type: 'multiple-choice',
-          question: 'Estimate the buckling load of a 1-meter-long, 20 mm diameter steel rod with pinned ends. Which answer is closest?',
-          options: [
-            'About 300 N',
-            'About 3 kN',
-            'About 30 kN',
-            'About 300 kN'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="40" y1="12" x2="40" y2="68" stroke="#58CC02" stroke-width="3" opacity="0.3"/> <path d="M40,12 Q36,40 40,68" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.5"> <animate attributeName="d" values="M40,12 Q40,40 40,68;M40,12 Q34,40 40,68;M40,12 Q40,40 40,68" dur="2s" repeatCount="indefinite"/> </path> <line x1="34" y1="12" x2="46" y2="12" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <line x1="34" y1="68" x2="46" y2="68" stroke="#3B8700" stroke-width="2" opacity="0.3"/> <line x1="40" y1="6" x2="40" y2="12" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="38.5,7 40,4 41.5,7" fill="#3B8700" opacity="0.3"/> <text x="40" y="78" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">buckling</text> </svg>',
-          explanation: 'Euler buckling load: P_cr = pi^2 * E * I / L^2. For a 20 mm diameter rod: I = pi/64 * d^4 = pi/64 * (0.02)^4 = 7.85e-9 m^4. P_cr = 9.87 * 200e9 * 7.85e-9 / 1^2 = 15,500 N ~ 15.5 kN, closest to 30 kN among the choices.',
-          hint: 'P_cr = pi^2*EI/L^2.'
-        },
-        {
-          id: 'u10-L1-Q19',
-          type: 'multiple-choice',
-          question: 'You drop a 1 kg steel ball from 1 meter height onto a concrete floor. Estimate the peak impact force, assuming the contact?',
-          options: [
-            'About 10 N (roughly the weight)',
-            'About 100 N',
-            'About 10 kN',
-            'About 100 kN'
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="58" width="60" height="8" rx="1" fill="#3B8700" opacity="0.15"/> <rect x="10" y="58" width="60" height="8" rx="1" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="40" cy="36" r="10" fill="#58CC02" opacity="0.15" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"> <animate attributeName="cy" values="20;54;20" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 1 0.6;0 0.4 0.6 1"/> </circle> <circle cx="40" cy="36" r="3" fill="#3B8700" opacity="0.3"> <animate attributeName="cy" values="20;54;20" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 1 0.6;0 0.4 0.6 1"/> </circle> <line x1="40" y1="6" x2="40" y2="14" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="38.5,13 40,16 41.5,13" fill="#3B8700" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">impact</text> </svg>',
-          explanation: 'Using energy conservation: mgh = F*delta/2 (assuming linear elastic contact). F = 2mgh/delta = 2 * 1 * 9.81 * 1 / 0.0001 = 196,200 N ~ 200 kN.',
-          hint: 'Use energy balance: potential energy mgh = work done.'
-        },
-        {
-          id: 'u10-L1-T3',
-          type: 'teaching',
-          question: 'Scaling Laws Save Time',
-          explanation: 'Many engineering quantities follow simple power laws. Beam deflection scales as L^3, natural frequency as 1/L^2, and pump power as speed^3. Knowing these relationships lets you estimate the effect of design changes instantly without recalculating from scratch.',
-          hint: 'If someone asks "what happens when I double X," think about the scaling exponent.',
-        },
-        {
-          id: 'u10-L1-Q20',
-          type: 'fill-blank',
-          question: 'The dimensionless number that characterizes the ratio of _____ forces to viscous forces in fluid flow, determining whether flow _____?',
-          blanks: ['inertial', 'Reynolds'],
-          wordBank: ['inertial', 'Reynolds', 'pressure', 'Nusselt', 'gravitational', 'Mach'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The Reynolds number Re = rho*V*D/mu (or V*D/nu) is the most important dimensionless number in fluid mechanics, characterizing the ratio of inertial to viscous forces.',
-          hint: 'This number compares inertial to viscous forces.'
-        },
-        {
-          id: 'u10-L1-Q21',
-          type: 'multiple-choice',
-          question: 'Estimate the cooling time for a solid aluminum cylinder (50 mm diameter) quenched in water from 500°C." Which characteristic?',
-          options: [
-            'The conduction/convection time scale: t ~ rho*cp*R^2/k',
-            'The radiation time scale based on the Stefan-Boltzmann law',
-            'The cylinder cools instantly because aluminum has high conductivity',
-            'Cooling time equals the mass divided by the heat transfer coefficient'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <ellipse cx="40" cy="20" rx="20" ry="8" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="20" rx="20" ry="8" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="20" y1="20" x2="20" y2="60" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="60" y1="20" x2="60" y2="60" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <ellipse cx="40" cy="60" rx="20" ry="8" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="60" rx="20" ry="8" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2"/> <line x1="40" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <text x="50" y="38" font-size="4" fill="#3B8700" font-style="italic">r</text> </g> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">pressure vessel</text> </svg>',
-          explanation: 'First check the Biot number: Bi = h*R/k. For water quenching h ~ 5000 W/m^2*K, R = 0.025 m, k_Al = 237 W/m*K: Bi = 5000*0.025/237 = 0.53.',
-          hint: 'The characteristic thermal time scale for conduction.'
-        },
-        {
-          id: 'u10-L1-Q22',
-          type: 'multiple-choice',
-          question: 'Estimate the stress in a thin-walled cylindrical pressure vessel with 500 mm diameter, 5 mm wall thickness, at 10 bar internal pressure.',
-          options: [
-            'About 5 MPa',
-            'About 50 MPa',
-            'About 25 MPa',
-            'About 250 MPa'
-
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'Hoop stress (circumferential) for a thin-walled cylinder: sigma = P*D/(2*t) = 10e5 * 0.5 / (2 * 0.005) = 1e6 * 0.5 / 0.01 = 50 MPa. Axial stress is half that: 25 MPa.',
-          hint: 'Thin-wall hoop stress: sigma = P*D/(2*t).'
-        },
-        {
-          id: 'u10-L1-Q23',
-          type: 'true-false',
-          question: 'A useful estimation rule: the coefficient of thermal expansion for steel is ~ 12 x 10^-6 /°C, meaning a 1-meter steel bar heated?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Passage fluid (always filled) --> <rect x="15" y="57" width="52" height="6" rx="2" fill="#A5E86C" opacity="0.15"/> <!-- Left cylinder fluid (drops when piston pushes) --> <rect x="17" y="38" width="10" height="19" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="38;48;38" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="19;9;19" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Right cylinder fluid (rises when pressure transmits) --> <rect x="49" y="28" width="16" height="29" rx="1" fill="#A5E86C" opacity="0.13"> <animate attributeName="y" values="28;24;28" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="29;33;29" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Bottom passage walls --> <rect x="14" y="56" width="54" height="8" rx="3" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Left (small) cylinder walls --> <line x1="16" y1="26" x2="16" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="28" y1="26" x2="28" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Right (large) cylinder walls --> <line x1="48" y1="18" x2="48" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="66" y1="18" x2="66" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <!-- Small piston (pushes down — input force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,10;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="17" y="32" width="10" height="6" rx="2" fill="#58CC02" opacity="0.45"/> <rect x="17" y="32" width="10" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="17.5" y1="35" x2="26.5" y2="35" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="19.5" y="22" width="5" height="12" rx="2.5" fill="#3B8700" opacity="0.35"/> <!-- Input force arrow --> <line x1="22" y1="12" x2="22" y2="19" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/> <polygon points="20,18 22,22 24,18" fill="#3B8700" opacity="0.4"/> </g> <!-- Large piston (pushes up — output force) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="49" y="22" width="16" height="6" rx="2" fill="#58CC02" opacity="0.4"/> <rect x="49" y="22" width="16" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston ring --> <line x1="49.5" y1="25" x2="64.5" y2="25" stroke="white" stroke-width="0.6" opacity="0.4"/> <!-- Rod --> <rect x="53" y="14" width="8" height="10" rx="3" fill="#3B8700" opacity="0.3"/> <!-- Load block --> <rect x="50" y="8" width="14" height="6" rx="2" fill="#58CC02" opacity="0.18"/> <rect x="50" y="8" width="14" height="6" rx="2" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Output force arrow --> <polygon points="55,6 57,2 59,6" fill="#3B8700" opacity="0.4"/> </g> <!-- Pressure arrows inside fluid --> <path d="M21,50 L21,47 L19.5,47 L22,44 L24.5,47 L23,47 L23,50 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.08;0.25;0.08" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M35,61 L38,61 L38,59.5 L41,60.5 L38,61.5 L38,60 L35,60 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.2;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <path d="M56,42 L56,39 L54.5,39 L57,36 L59.5,39 L58,39 L58,42 Z" fill="#3B8700" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.22;0.05" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Force labels --> <text x="22" y="9" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-weight="bold" font-style="italic">f</text> <text x="64" y="5" text-anchor="middle" font-size="8" fill="#3B8700" opacity="0.45" font-weight="bold" font-style="italic">F</text> <!-- Area labels --> <text x="22" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">a</text> <text x="57" y="72" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">A</text> </svg>',
-          explanation: 'Steel CTE ~ 12e-6 /°C. Delta_L = alpha * L * Delta_T = 12e-6 * 1 * 100 = 1.2e-3 m = 1.2 mm. This is a critical estimation skill for thermal design.',
-          hint: 'Alpha_steel ~ 12e-6 /°C. Calculate: 12e-6 * 1m * 100°C = ?'
-        },
-        {
-          id: 'u10-L1-Q24',
-          type: 'multiple-choice',
-          question: 'An interviewer gives you a Fermi problem: "How much does the Eiffel Tower weigh?" How should you approach this estimate?',
-          options: [
-            'Approximate as a tapered lattice, estimate steel volume fraction (~2-5%)',
-            'Look up the answer — Fermi problems are really just memory tests',
-            'Multiply the height by the base area and the full density of steel',
-            'Estimate based on the number of rivets used in the construction'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="12" width="64" height="56" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="8" y="12" width="64" height="56" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <line x1="16" y1="60" x2="16" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <line x1="16" y1="60" x2="72" y2="60" stroke="#3B8700" stroke-width="1.2" opacity="0.3"/> <rect x="22" y="42" width="8" height="18" rx="1" fill="#58CC02" opacity="0.2"/> <rect x="22" y="42" width="8" height="18" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="34" y="30" width="8" height="30" rx="1" fill="#58CC02" opacity="0.25"/> <rect x="34" y="30" width="8" height="30" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="46" y="22" width="8" height="38" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="46" y="22" width="8" height="38" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.4"/> <rect x="58" y="36" width="8" height="24" rx="1" fill="#A5E86C" opacity="0.2"/> <rect x="58" y="36" width="8" height="24" rx="1" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.3"/> <circle cx="26" cy="42" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <circle cx="38" cy="30" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle cx="50" cy="22" r="2" fill="#3B8700" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Structured approach: The tower is roughly a tapered pyramid shape, 330 m tall, with a base ~ 125x125 m. Bounding volume ~ 1/3 * 125^2 * 330 ~ 1.72 million m^3.',
-          hint: 'Think of it as a lattice structure.'
-        },
-        {
-          id: 'u10-L1-Q25',
-          type: 'multiple-choice',
-          question: 'Estimate whether a standard forklift (rated 2 tonnes) can lift a 1.5 m x 1.5 m x 1.5 m cube of solid oak wood. Can it?',
-          options: [
-            'Yes — wood is light, so the cube weighs well under 2 tonnes easily',
-            'Yes — any cube that fits on the forks will weigh less than 2 tonnes',
-            'Depends entirely on the moisture content and species subspecies',
-            'No — the cube weighs roughly 2.3 tonnes, exceeding the 2-tonne limit'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
-          explanation: 'Oak density ~ 600-700 kg/m^3 (air-dried). Volume = 1.5^3 = 3.375 m^3. Mass = 650 * 3.375 = 2,194 kg ~ 2.2 tonnes.',
-          hint: 'Oak density ~ 600-700 kg/m^3.'
-        },
-        {
-          id: 'u10-L1-Q26',
-          type: 'fill-blank',
-          question: 'In estimation, when you want to check whether your answer is reasonable, you compare it against known reference values. This _____?',
-          blanks: ['sanity'],
-          wordBank: ['sanity', 'parity', 'quality', 'tolerance', 'baseline'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="4" y="22" width="72" height="36" rx="10" fill="#58CC02" opacity="0.06"/> <rect x="4" y="22" width="72" height="36" rx="10" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M5,40 Q40,24 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <path d="M5,40 Q40,56 75,40" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0.25" fill="none"/> <circle r="3" fill="#3B8700" opacity="0.6"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,33 L72,33"/> </circle> <circle r="2.5" fill="#58CC02" opacity="0.4"> <animateMotion dur="1.5s" repeatCount="indefinite" path="M8,47 L72,47"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.35"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,53 L72,53"/> </circle> <circle r="3" fill="#3B8700" opacity="0.4"> <animateMotion dur="1.2s" repeatCount="indefinite" path="M8,40 L72,40" begin="0.6s"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M8,27 L72,27" begin="1.1s"/> </circle> </svg>',
-          explanation: 'Sanity checking is the practice of comparing your calculated result against known physical quantities, published data, or personal experience to verify it is reasonable.',
-          hint: 'This type of check verifies your answer makes physical.'
-        },
-        {
-          id: 'u10-L1-Q27',
-          type: 'multiple-choice',
-          question: 'Estimate the drag force on a cyclist traveling at 30 km/h. Assume frontal area ~0.5 m^2 and Cd ~0.9 for an upright rider.',
-          options: [
-            'About 1.5 N',
-            'About 1500 N',
-            'About 150 N',
-            'About 15 N'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Shell --> <rect x="8" y="20" width="64" height="40" rx="8" fill="#58CC02" opacity="0.06"/> <rect x="8" y="20" width="64" height="40" rx="8" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Inlet/outlet pipe stubs --> <rect x="2" y="28" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="70" y="28" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="70" y="46" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <rect x="2" y="46" width="8" height="6" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.4"/> <!-- Hot tube (upper) --> <rect x="12" y="25" width="56" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="12" y="25" width="56" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Cold tube (lower) --> <rect x="12" y="43" width="56" height="12" rx="6" fill="#A5E86C" opacity="0.1"/> <rect x="12" y="43" width="56" height="12" rx="6" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Heat transfer arrows (hot→cold, pulsing) --> <g> <line x1="26" y1="37.5" x2="26" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="24.5,41 26,43.5 27.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/> </g> <g> <line x1="40" y1="37.5" x2="40" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="38.5,41 40,43.5 41.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="0.5s"/> </g> <g> <line x1="54" y1="37.5" x2="54" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="52.5,41 54,43.5 55.5,41" fill="#3B8700" opacity="0.2"/> <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" begin="1s"/> </g> <!-- Hot fluid particles (→) — opacity fades as heat is lost --> <circle r="3" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="0.55s"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="0.55s"/> </circle> <circle r="2.5" fill="#3B8700"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M14,31 L66,31" begin="1.1s"/> <animate attributeName="opacity" values="0.6;0.2" dur="2.2s" repeatCount="indefinite" begin="1.1s"/> </circle> <!-- Cold fluid particles (←) — opacity grows as heat is gained --> <circle r="3" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="0.55s"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="0.55s"/> </circle> <circle r="2.5" fill="#58CC02"> <animateMotion dur="2.2s" repeatCount="indefinite" path="M66,49 L14,49" begin="1.1s"/> <animate attributeName="opacity" values="0.15;0.5" dur="2.2s" repeatCount="indefinite" begin="1.1s"/> </circle> <!-- Flow direction arrows on tubes --> <polygon points="42,29 45,31 42,33" fill="#3B8700" opacity="0.12"/> <polygon points="38,47 35,49 38,51" fill="#3B8700" opacity="0.12"/> <!-- Temperature labels --> <text x="5" y="24" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">T_H</text> <text x="68" y="44" font-size="4" fill="#3B8700" opacity="0.25" font-style="italic">T_C</text> <!-- Counterflow label --> <text x="40" y="72" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2">counterflow</text> </svg>',
-          explanation: 'Drag = 0.5 * rho * Cd * A * V^2. V = 30 km/h = 8.33 m/s. F = 0.5 * 1.225 * 0.9 * 0.5 * 8.33^2 = 0.5 * 1.225 * 0.9 * 0.5 * 69.4 = 19.1 N.',
-          hint: 'F_drag = 0.5 * rho_air * Cd * A * V^2.'
-        },
-        {
-          id: 'u10-L1-Q28',
-          type: 'true-false',
-          question: 'For quick estimation: the speed of sound in steel is approximately 5000 m/s, which is roughly 15 times the speed of sound in air (343 m/s).',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylinder body --> <rect x="18" y="10" width="44" height="52" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="18" y="10" width="44" height="52" rx="4" stroke="#3B8700" stroke-width="2.5" fill="none"/> <!-- Wall thickness lines --> <line x1="21" y1="14" x2="21" y2="58" stroke="#A5E86C" stroke-width="0.5" opacity="0.2"/> <line x1="59" y1="14" x2="59" y2="58" stroke="#A5E86C" stroke-width="0.5" opacity="0.2"/> <!-- Gas — properly synced with piston movement --> <rect x="21" y="32" width="38" height="28" rx="2" fill="#A5E86C" opacity="0.15"> <animate attributeName="y" values="32;16;32" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="height" values="28;44;28" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <animate attributeName="opacity" values="0.18;0.07;0.18" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <!-- Piston assembly --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-16;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Piston head --> <rect x="22" y="23" width="36" height="9" rx="3" fill="#58CC02" opacity="0.5"/> <rect x="22" y="23" width="36" height="9" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Piston rings --> <line x1="23" y1="25.5" x2="57" y2="25.5" stroke="white" stroke-width="0.8" opacity="0.5"/> <line x1="23" y1="28.5" x2="57" y2="28.5" stroke="white" stroke-width="0.8" opacity="0.5"/> <!-- Wrist pin --> <circle cx="40" cy="27" r="1.8" fill="#3B8700" opacity="0.5"/> <!-- Connecting rod --> <rect x="37" y="11" width="6" height="12" rx="3" fill="#3B8700" opacity="0.4"/> <rect x="37" y="11" width="6" height="12" rx="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.4"/> <!-- Crosshead guide --> <rect x="33" y="5" width="14" height="7" rx="3" fill="#58CC02" opacity="0.3"/> <rect x="33" y="5" width="14" height="7" rx="3" stroke="#3B8700" stroke-width="1.2" fill="none"/> <circle cx="40" cy="8.5" r="2" fill="#3B8700" opacity="0.45"/> </g> <!-- Flames (path-based, flickering) --> <path d="M30,74 Q31,69 33,65 Q32,70 34,74 Z" fill="#58CC02" opacity="0.5"> <animate attributeName="d" values="M30,74 Q31,69 33,65 Q32,70 34,74 Z;M30,74 Q30,67 32,63 Q33,69 34,74 Z;M30,74 Q31,69 33,65 Q32,70 34,74 Z" dur="0.4s" repeatCount="indefinite"/> </path> <path d="M35,74 Q37,67 39,62 Q38,68 40,74 Z" fill="#3B8700" opacity="0.45"> <animate attributeName="d" values="M35,74 Q37,67 39,62 Q38,68 40,74 Z;M35,74 Q38,65 40,61 Q39,69 40,74 Z;M35,74 Q37,67 39,62 Q38,68 40,74 Z" dur="0.35s" repeatCount="indefinite"/> </path> <path d="M40,74 Q42,66 44,62 Q43,68 45,74 Z" fill="#58CC02" opacity="0.55"> <animate attributeName="d" values="M40,74 Q42,66 44,62 Q43,68 45,74 Z;M40,74 Q43,64 45,61 Q44,69 45,74 Z;M40,74 Q42,66 44,62 Q43,68 45,74 Z" dur="0.45s" repeatCount="indefinite"/> </path> <path d="M46,74 Q47,69 49,65 Q48,70 50,74 Z" fill="#A5E86C" opacity="0.4"> <animate attributeName="d" values="M46,74 Q47,69 49,65 Q48,70 50,74 Z;M46,74 Q48,67 50,64 Q49,71 50,74 Z;M46,74 Q47,69 49,65 Q48,70 50,74 Z" dur="0.3s" repeatCount="indefinite"/> </path> <!-- Heat arrows rising into cylinder --> <path d="M33,68 L33,65 L31,65 L34,62 L37,65 L35,65 L35,68 Z" fill="#3B8700" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="0.6s" repeatCount="indefinite"/> </path> <path d="M45,68 L45,65 L43,65 L46,62 L49,65 L47,65 L47,68 Z" fill="#3B8700" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="0.5s" repeatCount="indefinite"/> </path> </svg>',
-          explanation: 'Speed of sound in steel ~ 5100 m/s (longitudinal wave). In air ~ 343 m/s at 20°C. Ratio ~ 14.9, approximately 15x.',
-          hint: 'Speed of sound in steel ~ 5000 m/s, in air ~ 340 m/s.'
-        },
-        {
-          id: 'u10-L1-Q29',
-          type: 'multiple-choice',
-          question: 'If I double the rotational speed of a centrifugal pump, what happens to the flow rate, head, and power?" What scaling laws apply?',
-          options: [
-            'All three double proportionally with the speed increase',
-            'Flow doubles, head quadruples, power increases eightfold',
-            'Flow doubles, head stays the same, power doubles linearly',
-            'All three quadruple due to the V^2 term in energy equation'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The pump affinity (similarity) laws state: Q proportional to N, H proportional to N^2, P proportional to N^3 (where N is rotational speed).',
-          hint: 'The affinity laws relate Q, H, and P to speed N.'
-        },
-        {
-          id: 'u10-L1-Q30',
-          type: 'multiple-choice',
-          question: 'Estimate the clamping force produced by an M10 bolt tightened to the typical recommended torque of 50 N*m. Assume a standard?',
-          options: [
-            'About 2 kN',
-            'About 10 kN',
-            'About 33 kN',
-            'About 100 kN'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The torque-tension relationship is T = K * F * d, where K is the nut factor (~0.2 for standard dry conditions, ~0.15 for lubricated). For K = 0.15.',
-          hint: 'Use T = K*F*d where K ~ 0.2 for dry steel.'
         }
       ]
     },
     {
       id: 'u10-L2',
-      title: 'Failure Analysis',
-      description: 'Root cause analysis, failure modes (fatigue, corrosion, overload, creep), fractography basics, 8D/fishbone.',
+      title: 'Failure Modes & Fracture Surfaces',
+      description: 'The three main failure modes, reading fracture surfaces, and identifying fatigue vs overload.',
       icon: '📝',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L2-T1',
+          id: 'u10-L2-NEW-T1',
           type: 'teaching',
-          question: 'The Three Main Failure Modes',
-          explanation: 'Most mechanical failures fall into 3 categories: fatigue (repeated loading causes cracks to grow slowly), overload (single event exceeds material strength), and corrosion (environment degrades the material). Identifying which one happened is the first step in any failure analysis.',
-          hint: 'Look at the fracture surface first. Smooth with beach marks means fatigue; rough and jagged means overload.',
+          question: 'Reading Fracture Surfaces',
+          explanation: 'A fracture surface is like a crime scene. Beach marks mean fatigue. Chevrons mean brittle overload. Cup-and-cone means ductile overload. Learn to read these clues first.',
+          hint: 'Try this now: look at a broken item and identify the fracture origin.',
+        },
+        {
+          id: 'u10-L2-NEW-E1',
+          type: 'true-false',
+          question: 'Beach marks on a fracture surface indicate that the part failed by fatigue, not sudden overload.',
+          correctAnswer: true,
+          explanation: 'Beach marks are concentric arcs radiating from the crack origin, a hallmark of fatigue.',
+          hint: 'Beach marks show progressive crack growth over many cycles.',
+        },
+        {
+          id: 'u10-L2-NEW-E1',
+          type: 'true-false',
+          question: 'Beach marks on a fracture surface indicate that the part failed by fatigue, not sudden overload.',
+          correctAnswer: true,
+          explanation: 'Beach marks are concentric arcs radiating from the crack origin, a hallmark of fatigue.',
+          hint: 'Beach marks show progressive crack growth over many cycles.',
         },
         {
           id: 'u10-L2-Q1',
@@ -470,30 +365,166 @@ export const unit10: Unit = {
           question: 'A rotating shaft fracture surface shows a smooth, flat region with beach marks covering 80% of the cross-section, and a rough,?',
           options: [
             'Fatigue failure under relatively low stress with gradual crack growth',
-            'Sudden overload failure — the part was undersized for the applied load',
-            'Hydrogen embrittlement — the smooth region is the embrittled zone',
-            'Stress corrosion cracking — beach marks indicate cyclic environment'
+            'Sudden overload failure. the part was undersized for the applied load',
+            'Hydrogen embrittlement. the smooth region is the embrittled zone',
+            'Stress corrosion cracking. beach marks indicate cyclic environment'
 
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks — branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I — opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks. branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I. opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
           explanation: 'Beach marks (macroscopic concentric arcs radiating from the crack origin) are the hallmark of fatigue failure.',
           hint: 'Beach marks indicate progressive crack growth.'
+        },
+        {
+          id: 'u10-L2-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each fracture feature to its failure mode:',
+          options: [
+            'Beach marks',
+            'Chevron pattern',
+            'Cup-and-cone',
+            'Intergranular voids'
+          ],
+          matchTargets: [
+            'Fatigue',
+            'Brittle overload',
+            'Ductile overload',
+            'Creep'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each failure mode leaves a distinctive signature on the fracture surface.',
+          hint: 'Each feature is unique to one failure mode.',
+        },
+        {
+          id: 'u10-L2-NEW-T2',
+          type: 'teaching',
+          question: 'Start With the Three Big Failure Modes',
+          explanation: 'Before diving into exotic mechanisms, check the big three first: fatigue (cyclic loading), overload (single event), and corrosion (environment). Most failures fall into one of these.',
+          hint: 'Try this now: think of a product recall and identify which category caused it.',
+        },
+        {
+          id: 'u10-L2-NEW-E2',
+          type: 'multiple-choice',
+          question: 'Which failure mode is caused by repeated loading and unloading over many cycles?',
+          options: [
+            'Fatigue',
+            'Overload',
+            'Creep',
+            'Erosion'
+          ],
+          correctIndex: 0,
+          explanation: 'Fatigue is caused by cyclic loading. Cracks grow slowly until final fracture.',
+          hint: 'Think about what "repeated loading" means.',
         },
         {
           id: 'u10-L2-Q2',
           type: 'multiple-choice',
           question: 'What is the most likely failure mechanism?',
           options: [
-            'General corrosion — switch to a thicker pipe wall for longer life',
-            'Fatigue cracking from pressure cycles — reduce operating pressure',
-            'Stress corrosion cracking — susceptible material, stress, and environment',
-            'Erosion-corrosion from high flow velocity — reduce the flow rate'
+            'General corrosion. switch to a thicker pipe wall for longer life',
+            'Fatigue cracking from pressure cycles. reduce operating pressure',
+            'Stress corrosion cracking. susceptible material, stress, and environment',
+            'Erosion-corrosion from high flow velocity. reduce the flow rate'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="32" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="10" y="24" width="60" height="32" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M30,24 L30,56" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/> <path d="M50,24 Q42,40 50,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="d" values="M50,24 Q48,40 50,56;M50,24 Q42,40 50,56;M50,24 Q48,40 50,56" dur="3s" repeatCount="indefinite"/> </path> <g opacity="0.3"> <line x1="50" y1="40" x2="56" y2="36" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="56" y2="44" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="44" y2="36" stroke="#A5E86C" stroke-width="1"/> <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/> </g> <line x1="4" y1="40" x2="10" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="5,38.5 2,40 5,41.5" fill="#3B8700" opacity="0.3"/> <line x1="70" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="75,38.5 78,40 75,41.5" fill="#3B8700" opacity="0.3"/> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">crack propagation</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure analysis</text> </svg>',
           explanation: 'Stress corrosion cracking requires three simultaneous conditions.',
           hint: 'Three conditions are needed: susceptible material +.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L2b',
+      title: 'Root Cause Analysis Tools',
+      description: 'Fishbone diagrams, 5 Whys, FMEA, and systematic problem-solving approaches.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L2b-NEW-T1',
+          type: 'teaching',
+          question: 'Systematic Problem Solving',
+          explanation: 'Good failure analysis is systematic, not guesswork. Use structured tools like fishbone diagrams, 5 Whys, and FMEA to find the root cause instead of jumping to conclusions.',
+          hint: 'Try this now: pick a common problem and ask "why?" 5 times.',
+        },
+        {
+          id: 'u10-L2b-NEW-E1',
+          type: 'true-false',
+          question: 'The "5 Whys" technique involves asking "why?" repeatedly to dig past symptoms and find the root cause.',
+          correctAnswer: true,
+          explanation: 'Developed at Toyota, the 5 Whys peels back layers of symptoms until you reach the true root cause.',
+          hint: 'Each "why" digs one layer deeper.',
+        },
+        {
+          id: 'u10-L2-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each fracture feature to its failure mode:',
+          options: [
+            'Beach marks',
+            'Chevron pattern',
+            'Cup-and-cone',
+            'Intergranular voids'
+          ],
+          matchTargets: [
+            'Fatigue',
+            'Brittle overload',
+            'Ductile overload',
+            'Creep'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each failure mode leaves a distinctive signature on the fracture surface.',
+          hint: 'Each feature is unique to one failure mode.',
+        },
+        {
+          id: 'u10-L2-NEW-E2',
+          type: 'multiple-choice',
+          question: 'Which failure mode is caused by repeated loading and unloading over many cycles?',
+          options: [
+            'Fatigue',
+            'Overload',
+            'Creep',
+            'Erosion'
+          ],
+          correctIndex: 0,
+          explanation: 'Fatigue is caused by cyclic loading. Cracks grow slowly until final fracture.',
+          hint: 'Think about what "repeated loading" means.',
+        },
+        {
+          id: 'u10-L2b-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these 8D problem-solving steps in order:',
+          steps: [
+            'Form a cross-functional team',
+            'Define the problem clearly',
+            'Implement interim containment',
+            'Identify the root cause',
+            'Implement permanent corrective action'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'The 8D process is sequential: team, problem, containment, root cause, then permanent fix.',
+          hint: 'You need to contain the problem before you can fix it permanently.',
+        },
+        {
+          id: 'u10-L2b-NEW-T2',
+          type: 'teaching',
+          question: 'FMEA Prioritizes Risks',
+          explanation: 'FMEA rates each failure mode by Severity, Occurrence, and Detection. Multiply them together to get a Risk Priority Number (RPN). Fix the highest RPNs first.',
+          hint: 'Try this now: rate a common product failure by severity (1-10), occurrence (1-10), and detection (1-10).',
+        },
+        {
+          id: 'u10-L2b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'In a fishbone diagram, what do the "bones" represent?',
+          options: [
+            'Potential causes grouped by category',
+            'Steps in the manufacturing process',
+            'Different product versions',
+            'Customer complaints'
+          ],
+          correctIndex: 0,
+          explanation: 'Fishbone (Ishikawa) diagrams organize potential causes into categories like Man, Machine, Method, Material.',
+          hint: 'The diagram looks like a fish skeleton with cause categories.',
         },
         {
           id: 'u10-L2-Q3',
@@ -503,6 +534,31 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Specimen block --> <rect x="10" y="16" width="60" height="48" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Initial notch --> <path d="M10,40 L22,40" stroke-width="1" stroke="#58CC02"/> <!-- Growing crack --> <path d="M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40" stroke-width="0.8" stroke="#A5E86C" fill="none"> <animate attributeName="d" values="M22,40 L26,40.5 L28,39.5;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40 L48,40.5 L52,39.5 L56,40" dur="6s" repeatCount="indefinite"/> </path> <!-- Crack tip stress field (plastic zone) --> <circle cx="44" cy="40" r="4" fill="#A5E86C" opacity="0.1"> <animate attributeName="cx" values="28;44;56" dur="6s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;6" dur="6s" repeatCount="indefinite"/> </circle> <!-- Cyclic load arrows --> <g opacity="0.4"> <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,14 41.5,14 40,16" fill="#58CC02"/> <line x1="40" y1="76" x2="40" y2="66" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,66 41.5,66 40,64" fill="#58CC02"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <!-- Beach marks (striations) --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <path d="M26,36 Q26,40 26,44" fill="none"/> <path d="M30,35 Q30,40 30,45" fill="none"/> <path d="M34,34.5 Q34,40 34,45.5" fill="none"/> <path d="M38,34 Q38,40 38,46" fill="none"/> <path d="M42,33.5 Q42,40 42,46.5" fill="none"/> </g> <!-- Crack length label --> <line x1="22" y1="50" x2="44" y2="50" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="33" y="54" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">a</text> <!-- da/dN label --> <text x="40" y="12" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">da/dN = C(ΔK)ᵐ</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Paris law</text> </svg>',
           explanation: 'The 8D methodology follows a structured sequence: D1 (form a team), D2 (describe the problem), D3 (implement interim containment action .',
           hint: 'The 8D methodology starts with team formation and problem.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L2c',
+      title: 'Environment-Assisted Failures',
+      description: 'Corrosion types, hydrogen embrittlement, stress corrosion cracking, and environment-driven failures.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L2c-NEW-T1',
+          type: 'teaching',
+          question: 'Corrosion Is More Than Rust',
+          explanation: 'Corrosion comes in many forms: pitting, crevice, galvanic, stress corrosion cracking, and erosion-corrosion. Each has different causes and different prevention strategies.',
+          hint: 'Try this now: check if any metal items around you show signs of corrosion.',
+        },
+        {
+          id: 'u10-L2c-NEW-E1',
+          type: 'true-false',
+          question: 'Galvanic corrosion requires two dissimilar metals and an electrolyte (conductive liquid) to occur.',
+          correctAnswer: true,
+          explanation: 'Without an electrolyte to carry ions, galvanic corrosion can\'t happen even with dissimilar metals touching.',
+          hint: 'Think about the three requirements for galvanic corrosion.',
         },
         {
           id: 'u10-L2-Q4',
@@ -510,7 +566,7 @@ export const unit10: Unit = {
           question: 'Walk me through how you would approach debugging a product that fails intermittently in the field but works fine in the lab.',
           options: [
             'Replicate field conditions in the lab: temperature, humidity, vibration, duty',
-            'The field failures are user error — provide better training documentation',
+            'The field failures are user error. provide better training documentation',
             'Increase the safety factor by 50% and ship an updated design immediately',
             'Add more sensors to the product and wait for more field data before acting'
 
@@ -519,13 +575,6 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
           explanation: 'Intermittent field failures that cannot be reproduced in the lab almost always stem from environmental or usage differences. A structured approach: Gather field data .',
           hint: 'What differences exist between the lab environment.'
-        },
-        {
-          id: 'u10-L2-T2',
-          type: 'teaching',
-          question: 'Root Cause Analysis Tools',
-          explanation: 'Fishbone (Ishikawa) diagrams organize potential causes into categories (Man, Machine, Material, Method, Measurement, Environment). The "5 Whys" technique digs deeper by asking "why?" repeatedly until you reach the root cause, not just the symptom.',
-          hint: 'FMEA rates each failure mode by Severity, Occurrence, and Detection to prioritize risks.',
         },
         {
           id: 'u10-L2-Q5',
@@ -538,9 +587,50 @@ export const unit10: Unit = {
             'Marketing'
           ],
           correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks — branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I — opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks. branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I. opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
           explanation: 'The 6M categories in a fishbone diagram are.',
           hint: 'The 6Ms: Man, Machine, Method, Material, Measurement,.'
+        },
+        {
+          id: 'u10-L2c-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these failure mechanisms by their primary driver:',
+          options: [
+            'Stress corrosion cracking',
+            'Fatigue',
+            'Galvanic corrosion',
+            'Creep',
+            'Hydrogen embrittlement',
+            'Overload'
+          ],
+          buckets: [
+            'Environment-assisted',
+            'Mechanical loading'
+          ],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Environment-assisted failures need specific chemical or thermal conditions. Mechanical failures are driven by loads.',
+          hint: 'Which failures require a specific environment to occur?',
+        },
+        {
+          id: 'u10-L2c-NEW-T2',
+          type: 'teaching',
+          question: 'Hidden Environmental Damage',
+          explanation: 'Some failures happen below yield strength. Stress corrosion cracking, hydrogen embrittlement, and temper embrittlement can cause sudden failure in parts that look perfectly fine on the surface.',
+          hint: 'Always ask: what fluids, temperatures, and chemicals is the part exposed to?',
+        },
+        {
+          id: 'u10-L2c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'Stress corrosion cracking requires three simultaneous conditions. Which is NOT one of them?',
+          options: [
+            'High rotational speed',
+            'A susceptible material',
+            'Tensile stress',
+            'A corrosive environment'
+          ],
+          correctIndex: 0,
+          explanation: 'SCC needs: susceptible material + tensile stress + corrosive environment. Speed is not a factor.',
+          hint: 'Think about what "stress corrosion cracking" literally means.',
         },
         {
           id: 'u10-L2-Q6',
@@ -551,367 +641,95 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="6" y="36" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <!-- Creep curve: instantaneous → primary → secondary (steady) → tertiary → rupture --> <path d="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"> <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Region separators (dashed verticals) --> <line x1="18" y1="36" x2="18" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.1;0.15;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <line x1="50" y1="26" x2="50" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.38;0.42;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Region labels --> <text x="12" y="72" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.06;0.1;0.82;1" dur="6s" repeatCount="indefinite"/>I</text> <text x="32" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.18;0.22;0.82;1" dur="6s" repeatCount="indefinite"/>II (steady)</text> <text x="58" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.42;0.46;0.82;1" dur="6s" repeatCount="indefinite"/>III</text> <!-- Rupture X --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.5;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="63" y1="9" x2="69" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="69" y1="9" x2="63" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> </g> <!-- Tracing dot --> <circle r="3" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: 'The 5 Whys method (developed by Sakichi Toyoda, used at Toyota) involves asking "Why?" iteratively to peel back layers of symptoms and reach the true root cause. Example: Bearing failed -> Why?',
           hint: 'This Toyota-originated method uses repeated questioning.'
-        },
-        {
-          id: 'u10-L2-Q7',
-          type: 'multiple-choice',
-          question: 'The fracture surface shows intergranular cracking with voids along grain boundaries. What failure mechanism is this?',
-          options: [
-            'Fatigue failure from cyclic thermal loading over extended service life',
-            'Creep rupture — time-dependent deformation at elevated temperature',
-            'Brittle fracture from an initial manufacturing defect in the casting',
-            'Hydrogen embrittlement from exposure to the high-temperature environment'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="6" y="36" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <!-- Creep curve: instantaneous → primary → secondary (steady) → tertiary → rupture --> <path d="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"> <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Region separators (dashed verticals) --> <line x1="18" y1="36" x2="18" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.1;0.15;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <line x1="50" y1="26" x2="50" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.38;0.42;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Region labels --> <text x="12" y="72" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.06;0.1;0.82;1" dur="6s" repeatCount="indefinite"/>I</text> <text x="32" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.18;0.22;0.82;1" dur="6s" repeatCount="indefinite"/>II (steady)</text> <text x="58" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.42;0.46;0.82;1" dur="6s" repeatCount="indefinite"/>III</text> <!-- Rupture X --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.5;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="63" y1="9" x2="69" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="69" y1="9" x2="63" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> </g> <!-- Tracing dot --> <circle r="3" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Creep is the time-dependent plastic deformation of materials under sustained stress at elevated temperatures (typically above 0.4*T_melting in Kelvin). For steel, creep becomes significant above.',
-          hint: 'This time-dependent failure occurs at high temperature.'
-        },
-        {
-          id: 'u10-L2-Q8',
-          type: 'multiple-choice',
-          question: 'There are no beach marks. What type of failure is this?',
-          options: [
-            'Brittle overload fracture — chevron pattern indicates fast fracture',
-            'Fatigue failure with a very short crack propagation phase only',
-            'Wear-induced failure from insufficient lubrication at the surface',
-            'Thermal shock cracking from rapid temperature change in service'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Large Gear — 12 teeth, center (26,42), ro=18 --> <g> <animateTransform attributeName="transform" type="rotate" values="0,26,42;360,26,42" dur="4s" repeatCount="indefinite"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" fill="#58CC02" opacity="0.12"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="26" cy="42" r="9" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <!-- Spokes --> <line x1="26" y1="33" x2="26" y2="51" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> <line x1="17" y1="42" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> </g> <!-- Large gear hub (static) --> <circle cx="26" cy="42" r="4.5" fill="#58CC02" opacity="0.2"/> <circle cx="26" cy="42" r="3" fill="#3B8700"/> <circle cx="26" cy="42" r="1.2" fill="white" opacity="0.4"/> <!-- Small Gear — 8 teeth, center (56,42), ro=12, 3:2 ratio --> <g> <animateTransform attributeName="transform" type="rotate" values="0,56,42;-540,56,42" dur="4s" repeatCount="indefinite"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" fill="#58CC02" opacity="0.12"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="56" cy="42" r="5.5" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> </g> <!-- Small gear hub (static) --> <circle cx="56" cy="42" r="3.5" fill="#58CC02" opacity="0.2"/> <circle cx="56" cy="42" r="2.2" fill="#3B8700"/> <circle cx="56" cy="42" r="0.8" fill="white" opacity="0.4"/> </svg>',
-          explanation: 'Chevron (herringbone) patterns on a fracture surface indicate rapid brittle fracture. The chevrons point back toward the crack origin. The absence of beach marks rules out fatigue.',
-          hint: 'Chevron patterns on a flat, shiny fracture surface.'
-        },
-        {
-          id: 'u10-L2-Q9',
-          type: 'true-false',
-          question: 'Galvanic corrosion can only occur when two dissimilar metals are in direct physical contact with each other.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="32" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="10" y="24" width="60" height="32" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M30,24 L30,56" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/> <path d="M50,24 Q42,40 50,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="d" values="M50,24 Q48,40 50,56;M50,24 Q42,40 50,56;M50,24 Q48,40 50,56" dur="3s" repeatCount="indefinite"/> </path> <g opacity="0.3"> <line x1="50" y1="40" x2="56" y2="36" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="56" y2="44" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="44" y2="36" stroke="#A5E86C" stroke-width="1"/> <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/> </g> <line x1="4" y1="40" x2="10" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="5,38.5 2,40 5,41.5" fill="#3B8700" opacity="0.3"/> <line x1="70" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="75,38.5 78,40 75,41.5" fill="#3B8700" opacity="0.3"/> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">crack propagation</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure analysis</text> </svg>',
-          explanation: 'Galvanic corrosion requires three things: two dissimilar metals, an electrolyte (conductive liquid), and an electrical connection.',
-          hint: 'Consider the three requirements for galvanic corrosion.'
-        },
-        {
-          id: 'u10-L2-Q10',
-          type: 'multiple-choice',
-          question: 'Cracks initiated at the weld toe. What combination of factors most likely caused this failure?',
-          options: [
-            'Pure mechanical overload from wind loading exceeding design limit',
-            'Creep failure from sustained loading at ambient temperature only',
-            'Manufacturing defect in the base metal present since fabrication',
-            'Corrosion fatigue: cyclic loading combined with saltwater environment'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">log N</text> <text x="6" y="36" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">S</text> <!-- S-N curve (animated draw) --> <path d="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="90" stroke-dashoffset="90"> <animate attributeName="stroke-dashoffset" values="90;0;0;90" keyTimes="0;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </path> <!-- Endurance limit line (horizontal asymptote) --> <line x1="48" y1="48" x2="74" y2="48" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </line> <text x="72" y="44" font-size="4" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> S_e </text> <!-- Tracing dot --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.4"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="0.4;0.4;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <!-- Region labels --> <text x="24" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">LCF</text> <text x="56" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">HCF</text> </svg>',
-          explanation: 'Corrosion fatigue is the synergistic interaction between cyclic loading and a corrosive environment. The weld toe is a natural stress concentration point (Kt ~ 2-4 depending on profile).',
-          hint: 'Consider the combination of a stress concentration (weld.'
-        },
-        {
-          id: 'u10-L2-Q11',
-          type: 'multiple-choice',
-          question: 'The component was in contact with a cleaning solvent. What mechanism does this suggest?',
-          options: [
-            'UV degradation from prolonged sunlight exposure over time',
-            'Thermal degradation from overheating during the molding process',
-            'Environmental stress cracking — solvent weakened the stressed polymer',
-            'Normal fatigue failure completely unrelated to solvent exposure'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Support anvil --> <rect x="24" y="48" width="32" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Support spans --> <rect x="26" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <rect x="50" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <!-- Specimen (notched bar) --> <rect x="28" y="40" width="24" height="4" rx="0.3" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- V-notch --> <path d="M39,40 L40,42 L41,40" stroke-width="0.5" stroke="#A5E86C"/> <!-- Pendulum arm --> <g> <line x1="40" y1="10" x2="40" y2="40" stroke-width="0.8" stroke="#58CC02"/> <!-- Hammer head --> <rect x="36" y="36" width="8" height="5" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="-60,40,10;0,40,10;40,40,10;0,40,10;-60,40,10" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1"/> </g> <!-- Pivot point --> <circle cx="40" cy="10" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <!-- Angle scale arc --> <path d="M20,10 A20,20 0 0,1 60,10" stroke-width="0.3" stroke="#3B8700" opacity="0.2" fill="none"/> <!-- Angle markings --> <g stroke="#3B8700" stroke-width="0.2" opacity="0.2"> <line x1="20" y1="10" x2="22" y2="12"/><line x1="28" y1="4" x2="29" y2="7"/> <line x1="40" y1="2" x2="40" y2="5"/><line x1="52" y1="4" x2="51" y2="7"/> <line x1="60" y1="10" x2="58" y2="12"/> </g> <!-- Height labels --> <text x="14" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₁</text> <text x="62" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₂</text> <!-- Energy formula --> <text x="40" y="62" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">E = mg(h₁−h₂)</text> <!-- Ground --> <line x1="10" y1="54" x2="70" y2="54" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">impact toughness</text> </svg>',
-          explanation: 'Environmental stress cracking (ESC) is the most common cause of plastic component failure.',
-          hint: 'Crazing + solvent contact + stressed polymer =.'
-        },
-        {
-          id: 'u10-L2-Q12',
-          type: 'multiple-choice',
-          question: 'Which feature on the fracture surface best distinguishes the two?',
-          options: [
-            'Overload shows necking, cup-cone (ductile), or chevrons (brittle)',
-            'The color of the fracture surface distinguishes them definitively',
-            'Fatigue always occurs at the head, overload always at the threads',
-            'There is no way to distinguish them without full chemical analysis'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'Fracture surface features are diagnostic. Overload (ductile): necking (reduced cross-section), cup-and-cone fracture, dimpled rupture under SEM, 45° shear lips.',
-          hint: 'Compare the macroscopic features: beach marks.'
-        },
-        {
-          id: 'u10-L2-Q13',
-          type: 'fill-blank',
-          question: 'The type of corrosion that occurs in narrow gaps or under deposits where oxygen is depleted, creating a differential aeration _____?',
-          blanks: ['crevice'],
-          wordBank: ['crevice', 'pitting', 'galvanic', 'stress', 'intergranular'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="28" y="6" width="12" height="32" rx="6" fill="#58CC02" opacity="0.15" transform="rotate(-15,34,22)"/> <rect x="28" y="6" width="12" height="32" rx="6" stroke="#3B8700" stroke-width="2" fill="none" transform="rotate(-15,34,22)"/> <rect x="31" y="36" width="6" height="10" rx="3" fill="#3B8700" opacity="0.4" transform="rotate(-15,34,41)"/> <circle cx="34" cy="50" r="6" fill="#58CC02" opacity="0.2"> <animate attributeName="r" values="4;7;4" dur="0.3s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="0.3s" repeatCount="indefinite"/> </circle> <rect x="8" y="52" width="64" height="10" rx="5" fill="#58CC02" opacity="0.1"/> <rect x="8" y="52" width="64" height="10" rx="5" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="14" y1="57" x2="34" y2="57" stroke="#3B8700" stroke-width="3" opacity="0.3" stroke-linecap="round"/> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.6s" repeatCount="indefinite"/> <animateMotion dur="0.6s" repeatCount="indefinite" path="M34,50 L26,40"/> </circle> <circle r="1.2" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.5s" repeatCount="indefinite" begin="0.1s"/> <animateMotion dur="0.5s" repeatCount="indefinite" path="M34,50 L44,38" begin="0.1s"/> </circle> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.7s" repeatCount="indefinite" begin="0.2s"/> <animateMotion dur="0.7s" repeatCount="indefinite" path="M34,50 L22,36" begin="0.2s"/> </circle> <circle r="1" fill="#3B8700"> <animate attributeName="opacity" values="0.5;0" dur="0.45s" repeatCount="indefinite" begin="0.15s"/> <animateMotion dur="0.45s" repeatCount="indefinite" path="M34,50 L42,34" begin="0.15s"/> </circle> <circle r="1.3" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.55s" repeatCount="indefinite" begin="0.3s"/> <animateMotion dur="0.55s" repeatCount="indefinite" path="M34,50 L28,32" begin="0.3s"/> </circle> </svg>',
-          explanation: 'Crevice corrosion occurs in confined spaces (under gaskets, lap joints, bolt heads, biofilm deposits) where stagnant solution depletes dissolved oxygen.',
-          hint: 'This corrosion occurs in tight gaps where oxygen cannot.'
-        },
-        {
-          id: 'u10-L2-Q14',
-          type: 'multiple-choice',
-          question: 'Metallographic examination shows graphitization in the affected zone. What caused this?',
-          options: [
-            'Excessive pressure caused the pipe to split along its length',
-            'External corrosion thinned the wall until it could not hold pressure',
-            'Poor welding technique introduced a longitudinal defect at fabrication',
-            'Long-term high-temperature exposure caused microstructural degradation'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Target surface --> <path d="M8,50 Q20,48 30,50 Q40,46 50,50 Q60,48 72,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <rect x="8" y="50" width="64" height="18" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Erosion craters --> <path d="M24,50 Q26,52 28,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.4"/> <path d="M38,50 Q40,53 42,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.5"/> <path d="M54,50 Q56,51 58,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.3"/> <!-- Incoming particles (at angle) --> <circle r="1.5" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="20;26;20" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;48;20" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1.2s" repeatCount="indefinite"/> </circle> <circle r="1.2" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="38;40;38" dur="1s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cy" values="18;48;18" dur="1s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1s" repeatCount="indefinite" begin="0.3s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="56;56;56" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cy" values="16;48;16" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> </circle> <!-- Rebound particles --> <circle r="0.8" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="26;32" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cy" values="48;38" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> </circle> <!-- Impact angle --> <line x1="38" y1="30" x2="40" y2="48" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <line x1="32" y1="48" x2="48" y2="48" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <path d="M44,48 A6,6 0 0,0 41,44" stroke-width="0.3" stroke="#3B8700" opacity="0.3" fill="none"/> <text x="48" y="44" font-size="2.5" fill="#3B8700" opacity="0.35">α</text> <!-- Debris --> <g opacity="0.2"> <circle cx="30" cy="44" r="0.5" fill="#A5E86C"/> <circle cx="42" cy="42" r="0.4" fill="#A5E86C"/> <circle cx="56" cy="44" r="0.3" fill="#A5E86C"/> </g> <!-- Material removal --> <text x="40" y="14" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">W ∝ v²·f(α)</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">particle impact</text> </svg>',
-          explanation: 'Graphitization is a time-dependent degradation mechanism in carbon and carbon-molybdenum steels operating above ~425°C for extended periods. The iron carbide (Fe3C/cementite) decomposes into.',
-          hint: 'High temperature + carbon steel + long service =.'
-        },
-        {
-          id: 'u10-L2-Q15',
-          type: 'true-false',
-          question: 'Fretting fatigue occurs at contacting surfaces that experience small-amplitude oscillatory sliding motion, and it can reduce?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Fixed wall (left) --> <rect x="4" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="2" y1="26" x2="4" y2="28"/><line x1="2" y1="32" x2="4" y2="34"/> <line x1="2" y1="38" x2="4" y2="40"/><line x1="2" y1="44" x2="4" y2="46"/> <line x1="2" y1="50" x2="4" y2="52"/> </g> <!-- Fixed wall (right) --> <rect x="70" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="76" y1="28" x2="78" y2="26"/><line x1="76" y1="34" x2="78" y2="32"/> <line x1="76" y1="40" x2="78" y2="38"/><line x1="76" y1="46" x2="78" y2="44"/> <line x1="76" y1="52" x2="78" y2="50"/> </g> <!-- Bar (constrained) --> <rect x="10" y="34" width="60" height="12" rx="1.5" stroke-width="0.8" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.06"/> <!-- Temperature rise indication (color pulse) --> <rect x="11" y="35" width="58" height="10" rx="1" fill="#A5E86C" opacity="0.05"> <animate attributeName="opacity" values="0.03;0.15;0.03" dur="3s" repeatCount="indefinite"/> </rect> <!-- Attempted expansion arrows (blocked) --> <g opacity="0.35"> <line x1="14" y1="40" x2="10" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="10,38.5 10,41.5 8,40" fill="#3B8700"/> <line x1="66" y1="40" x2="70" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="70,38.5 70,41.5 72,40" fill="#3B8700"/> </g> <!-- Reaction compression arrows --> <g opacity="0.4"> <line x1="8" y1="40" x2="12" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="12,38.5 12,41.5 14,40" fill="#58CC02"/> <line x1="72" y1="40" x2="68" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 66,40" fill="#58CC02"/> </g> <!-- ΔT indicator --> <text x="40" y="30" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">ΔT ↑</text> <!-- Temperature wavy lines --> <g opacity="0.2"> <path d="M20,52 Q22,48 24,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/> </path> <path d="M38,52 Q40,48 42,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="0.5s"/> </path> <path d="M56,52 Q58,48 60,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="1s"/> </path> </g> <!-- Formula --> <text x="40" y="64" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">σ = EαΔT</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">constrained expansion</text> </svg>',
-          explanation: 'Fretting is small-amplitude (typically <100 microns) oscillatory relative motion between contacting surfaces. It produces wear debris (oxide particles), surface damage, and micro-cracks.',
-          hint: 'Fretting involves tiny oscillatory sliding at contact.'
-        },
-        {
-          id: 'u10-L2-Q16',
-          type: 'multiple-choice',
-          question: 'The rubber is hard, brittle, and has lost elasticity. What caused the seal failure?',
-          options: [
-            'Chemical attack from the hydraulic fluid dissolving the rubber',
-            'Mechanical wear from pressure cycles abrading the seal surface',
-            'Thermal aging/degradation — prolonged high temperature caused crosslink',
-            'Extrusion failure from excessive system pressure'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks — branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I — opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
-          explanation: 'Elastomer thermal aging is a time-temperature dependent process. At elevated temperatures, rubber undergoes chemical changes.',
-          hint: 'Rubber properties degrade with time at elevated.'
-        },
-        {
-          id: 'u10-L2-Q17',
-          type: 'multiple-choice',
-          question: 'In failure analysis, what is the primary purpose of performing a Scanning Electron Microscope (SEM) examination of the fracture surface?',
-          options: [
-            'To determine the chemical composition of the failed material — which',
-            'To measure the hardness of the fracture surface accurately',
-            'To identify microscopic fracture features (striations, dimples, cleavage,',
-            'To measure the exact crack length for stress intensity calculations'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'SEM fractography reveals microscopic features that identify the failure mechanism.',
-          hint: 'SEM reveals fine fracture features at high magnification.'
-        },
-        {
-          id: 'u10-L2-Q18',
-          type: 'true-false',
-          question: 'Temper embrittlement is a reversible degradation mechanism that occurs when certain steels are held in or slowly cooled through?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="32" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="10" y="24" width="60" height="32" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M30,24 L30,56" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/> <path d="M50,24 Q42,40 50,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="d" values="M50,24 Q48,40 50,56;M50,24 Q42,40 50,56;M50,24 Q48,40 50,56" dur="3s" repeatCount="indefinite"/> </path> <g opacity="0.3"> <line x1="50" y1="40" x2="56" y2="36" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="56" y2="44" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="44" y2="36" stroke="#A5E86C" stroke-width="1"/> <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/> </g> <line x1="4" y1="40" x2="10" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="5,38.5 2,40 5,41.5" fill="#3B8700" opacity="0.3"/> <line x1="70" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="75,38.5 78,40 75,41.5" fill="#3B8700" opacity="0.3"/> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">crack propagation</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure analysis</text> </svg>',
-          explanation: 'Temper embrittlement occurs when susceptible steels (especially Ni-Cr, Mn-Si steels) are exposed to the 350-550°C range.',
-          hint: 'This embrittlement involves impurity segregation to grain.'
-        },
-        {
-          id: 'u10-L2-Q19',
-          type: 'multiple-choice',
-          question: 'A pump shaft shows spiral 45-degree fracture lines on its surface. What type of loading caused this failure?',
-          options: [
-            'Pure bending — spiral lines indicate reversed bending, though corrosion',
-            'Combined bending and torsion — the spiral indicates multi-axial loading',
-            'Pure axial compression — the shaft buckled in a spiral pattern, without',
-            'Pure torsion — the 45-degree spiral follows the plane of maximum tensile'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Specimen block --> <rect x="10" y="16" width="60" height="48" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Initial notch --> <path d="M10,40 L22,40" stroke-width="1" stroke="#58CC02"/> <!-- Growing crack --> <path d="M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40" stroke-width="0.8" stroke="#A5E86C" fill="none"> <animate attributeName="d" values="M22,40 L26,40.5 L28,39.5;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40 L48,40.5 L52,39.5 L56,40" dur="6s" repeatCount="indefinite"/> </path> <!-- Crack tip stress field (plastic zone) --> <circle cx="44" cy="40" r="4" fill="#A5E86C" opacity="0.1"> <animate attributeName="cx" values="28;44;56" dur="6s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;6" dur="6s" repeatCount="indefinite"/> </circle> <!-- Cyclic load arrows --> <g opacity="0.4"> <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,14 41.5,14 40,16" fill="#58CC02"/> <line x1="40" y1="76" x2="40" y2="66" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,66 41.5,66 40,64" fill="#58CC02"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <!-- Beach marks (striations) --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <path d="M26,36 Q26,40 26,44" fill="none"/> <path d="M30,35 Q30,40 30,45" fill="none"/> <path d="M34,34.5 Q34,40 34,45.5" fill="none"/> <path d="M38,34 Q38,40 38,46" fill="none"/> <path d="M42,33.5 Q42,40 42,46.5" fill="none"/> </g> <!-- Crack length label --> <line x1="22" y1="50" x2="44" y2="50" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="33" y="54" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">a</text> <!-- da/dN label --> <text x="40" y="12" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">da/dN = C(ΔK)ᵐ</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Paris law</text> </svg>',
-          explanation: 'Under pure torsion, the maximum tensile stress occurs on a 45-degree helix. Brittle materials (or brittle failure modes) fracture along this plane, producing the characteristic spiral fracture.',
-          hint: 'Under torsion, maximum tensile stress acts at 45°.'
-        },
-        {
-          id: 'u10-L2-T3',
-          type: 'teaching',
-          question: 'Environment Causes Hidden Failures',
-          explanation: 'Corrosion isn\'t just rust. Stress corrosion cracking, hydrogen embrittlement, and galvanic corrosion can destroy parts that look fine on the surface. These environment-assisted failures are sneaky because they often happen below the yield strength of the material.',
-          hint: 'Always consider what fluids, temperatures, and chemicals the part is exposed to.',
-        },
-        {
-          id: 'u10-L2-Q20',
-          type: 'multiple-choice',
-          question: 'The alloy is a high-strength 7xxx series. What is the likely mechanism?',
-          options: [
-            'Fatigue cracking from flight cycle loads',
-            'Stress corrosion cracking (SCC) in the short-transverse direction of',
-            'Creep damage from sustained loading at altitude temperatures —',
-            'Manufacturing defect from the rolling process — an oversimplification of'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Electrolyte (water) --> <rect x="8" y="30" width="64" height="32" rx="2" fill="#A5E86C" opacity="0.06"/> <path d="M8,30 Q20,28 40,30 Q60,32 72,30" stroke-width="0.4" stroke="#A5E86C" opacity="0.3" fill="none"/> <!-- Anode (less noble metal — corroding) --> <rect x="14" y="22" width="20" height="36" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="24" y="42" font-size="3" fill="#58CC02" text-anchor="middle" opacity="0.5">Fe</text> <text x="24" y="18" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">anode</text> <!-- Cathode (noble metal — protected) --> <rect x="46" y="22" width="20" height="36" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="56" y="42" font-size="3" fill="#58CC02" text-anchor="middle" opacity="0.5">Cu</text> <text x="56" y="18" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">cathode</text> <!-- Corrosion pitting on anode surface --> <g opacity="0.3"> <circle cx="34" cy="36" r="1" fill="#A5E86C"> <animate attributeName="r" values="0.5;1.5;0.5" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="34" cy="44" r="0.8" fill="#A5E86C"> <animate attributeName="r" values="0.3;1.2;0.3" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <circle cx="34" cy="50" r="0.6" fill="#A5E86C"> <animate attributeName="r" values="0.2;1;0.2" dur="3s" repeatCount="indefinite" begin="1s"/> </circle> </g> <!-- Electron flow (through external circuit) --> <path d="M34,22 L34,14 L46,14 L46,22" stroke-width="0.5" stroke="#3B8700" opacity="0.4" fill="none"/> <polygon points="44,22 48,22 46,24" fill="#3B8700" opacity="0.4"/> <text x="40" y="12" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">e⁻ →</text> <!-- Ion flow (in electrolyte) --> <circle r="0.8" fill="#A5E86C" opacity="0.4"> <animate attributeName="cx" values="34;40;46" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;42;40" dur="2s" repeatCount="indefinite"/> </circle> <text x="40" y="52" font-size="2.5" fill="#A5E86C" opacity="0.3" text-anchor="middle">Fe²⁺</text> <!-- Galvanic series note --> <text x="40" y="66" font-size="2.5" fill="#58CC02" opacity="0.35" text-anchor="middle">ΔE_potential → current</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">dissimilar metals</text> </svg>',
-          explanation: '7xxx series aluminum alloys (Al-Zn-Mg-Cu) in peak-aged tempers (T6) are highly susceptible to SCC in the short-transverse (ST) direction.',
-          hint: 'High-strength 7xxx Al alloys are susceptible to a specific.'
-        },
-        {
-          id: 'u10-L2-Q21',
-          type: 'fill-blank',
-          question: 'The failure analysis tool that systematically evaluates each potential failure mode in a design by rating its _____, Occurrence, _____?',
-          blanks: ['Severity', 'Detection'],
-          wordBank: ['Severity', 'Detection', 'Frequency', 'Duration', 'Probability', 'Cost'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cross-section of part (rectangle) --> <rect x="20" y="16" width="40" height="48" rx="2" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Stress distribution (S-curve through thickness) --> <path d="M40,16 Q56,28 40,40 Q24,52 40,64" stroke-width="0.8" stroke="#A5E86C" fill="none"/> <!-- Zero stress line --> <line x1="40" y1="14" x2="40" y2="66" stroke-width="0.4" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,1"/> <!-- Tension zone (surface, arrows pointing right) --> <g opacity="0.35"> <line x1="40" y1="20" x2="50" y2="20" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50,18.8 50,21.2 52,20" fill="#A5E86C"/> <line x1="40" y1="26" x2="52" y2="26" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="52,24.8 52,27.2 54,26" fill="#A5E86C"/> </g> <!-- Compression zone (interior, arrows pointing left) --> <g opacity="0.35"> <line x1="40" y1="38" x2="30" y2="38" stroke-width="0.4" stroke="#58CC02"/> <polygon points="30,36.8 30,39.2 28,38" fill="#58CC02"/> <line x1="40" y1="44" x2="28" y2="44" stroke-width="0.4" stroke="#58CC02"/> <polygon points="28,42.8 28,45.2 26,44" fill="#58CC02"/> </g> <!-- Tension zone (bottom surface) --> <g opacity="0.35"> <line x1="40" y1="56" x2="50" y2="56" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50,54.8 50,57.2 52,56" fill="#A5E86C"/> <line x1="40" y1="60" x2="46" y2="60" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="46,58.8 46,61.2 48,60" fill="#A5E86C"/> </g> <!-- Labels --> <text x="56" y="22" font-size="2.5" fill="#A5E86C" opacity="0.4">tension</text> <text x="16" y="42" font-size="2.5" fill="#58CC02" opacity="0.4">comp.</text> <text x="56" y="58" font-size="2.5" fill="#A5E86C" opacity="0.4">tension</text> <!-- Pulsing to show locked-in stress --> <path d="M40,16 Q56,28 40,40 Q24,52 40,64" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.1"> <animate attributeName="opacity" values="0.05;0.25;0.05" dur="2s" repeatCount="indefinite"/> </path> <!-- Self-equilibrating label --> <text x="40" y="10" font-size="2.5" fill="#58CC02" opacity="0.4" text-anchor="middle">∫σ dA = 0</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">self-equilibrating</text> </svg>',
-          explanation: 'FMEA (Failure Mode and Effects Analysis) is a proactive risk assessment tool that identifies potential failure modes, assesses their impact (Severity), likelihood (Occurrence), and ability to be.',
-          hint: 'This structured risk assessment tool rates each failure.'
-        },
-        {
-          id: 'u10-L2-Q22',
-          type: 'multiple-choice',
-          question: 'The pits are deep relative to their width. What environmental factor most likely triggered the pitting?',
-          options: [
-            'Stagnant conditions with chloride-containing water that broke down the passive',
-            'High water velocity causing erosion-corrosion, particularly at elevated loads',
-            'Elevated pH (alkaline conditions) dissolving the chromium oxide layer',
-            'Galvanic coupling with the tube sheet material, across the full gauge length'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="6" y="36" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <!-- Creep curve: instantaneous → primary → secondary (steady) → tertiary → rupture --> <path d="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"> <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Region separators (dashed verticals) --> <line x1="18" y1="36" x2="18" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.1;0.15;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <line x1="50" y1="26" x2="50" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.38;0.42;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Region labels --> <text x="12" y="72" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.06;0.1;0.82;1" dur="6s" repeatCount="indefinite"/>I</text> <text x="32" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.18;0.22;0.82;1" dur="6s" repeatCount="indefinite"/>II (steady)</text> <text x="58" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.42;0.46;0.82;1" dur="6s" repeatCount="indefinite"/>III</text> <!-- Rupture X --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.5;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="63" y1="9" x2="69" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="69" y1="9" x2="63" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> </g> <!-- Tracing dot --> <circle r="3" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Pitting corrosion in stainless steel is initiated by chloride ions that locally break down the passive chromium oxide film.',
-          hint: 'Stainless steel passivity can be locally disrupted.'
-        },
-        {
-          id: 'u10-L2-Q23',
-          type: 'multiple-choice',
-          question: 'The fracture surface appears dark gray and granular. What can you conclude about the material and failure mode?',
-          options: [
-            'The component was ductile iron that failed by fatigue',
-            'The dark gray granular surface indicates a brittle fracture through graphite',
-            'The dark color indicates high-temperature oxidation damage',
-            'The granular texture indicates intergranular corrosion'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'Gray cast iron contains graphite in flake form, which acts as stress concentrators and crack propagation paths. The fracture surface appears gray because of the exposed graphite.',
-          hint: 'Gray cast iron gets its name from the fracture surface.'
-        },
-        {
-          id: 'u10-L2-Q24',
-          type: 'true-false',
-          question: 'Cavitation damage in a pump impeller appears as a rough, spongy, pitted surface, often described as looking like the surface of?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Butt weld (top) --> <rect x="6" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Weld bead (butt) --> <ellipse cx="40" cy="15" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <path d="M34,10 Q40,6 46,10" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,20 Q40,24 46,20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="40" y="30" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">butt weld</text> <!-- Fillet weld (middle) --> <rect x="6" y="38" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="38" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="38" width="10" height="30" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="38" width="10" height="30" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Fillet weld triangle --> <path d="M34,48 L40,48 L40,38" fill="#58CC02" opacity="0.25"/> <path d="M34,48 Q38,42 40,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="22" y="58" font-size="4" fill="#3B8700" opacity="0.2">fillet weld</text> <!-- Weld symbol (standard notation) --> <line x1="56" y1="50" x2="72" y2="50" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="56" y1="50" x2="56" y2="42" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <path d="M56,50 L60,44 L64,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="64" y="46" font-size="3.5" fill="#3B8700" opacity="0.2">symbol</text> <!-- Welding animation (sparks at butt weld) --> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,14 L44,8"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,14 L36,6" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#3B8700" opacity="0"> <animateMotion dur="0.45s" repeatCount="indefinite" path="M40,14 L46,10" begin="0.2s"/> <animate attributeName="opacity" values="0.35;0" dur="0.45s" begin="0.2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Cavitation occurs when local pressure drops below the vapor pressure, forming vapor bubbles that collapse violently when they enter a higher-pressure zone.',
-          hint: 'Vapor bubbles form and collapse, creating intense local.'
-        },
-        {
-          id: 'u10-L2-Q25',
-          type: 'multiple-choice',
-          question: 'It broke into two pieces. How do you determine whether it failed by fatigue or by overload (single event)?',
-          options: [
-            'If the spring was in service for more than a year, it must be fatigue',
-            'Examine the fracture surfaces for beach marks or a flat-to-rough transition',
-            'Measure the spring rate — if it is within spec, it was overload',
-            'Chemical analysis of the wire will reveal the failure mode'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Fracture surface examination is the primary diagnostic tool. Fatigue in springs.',
-          hint: 'The fracture surface tells the story.'
-        },
-        {
-          id: 'u10-L2-Q26',
-          type: 'multiple-choice',
-          question: 'A newly installed gearbox produces metallic particles in the oil during the first 100 hours of operation, then particle?',
-          options: [
-            'Yes — any metallic particles indicate destructive wear requiring immediate',
-            'No — metallic particles in oil are normal throughout the entire service life —',
-            'Yes — the gears are undersized and wearing out rapidly',
-            'No — this is likely normal break-in (running-in) wear where surface asperities'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="32" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="10" y="24" width="60" height="32" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M30,24 L30,56" stroke="#3B8700" stroke-width="1.5" opacity="0.4" stroke-dasharray="2,2"/> <path d="M50,24 Q42,40 50,56" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.5"> <animate attributeName="d" values="M50,24 Q48,40 50,56;M50,24 Q42,40 50,56;M50,24 Q48,40 50,56" dur="3s" repeatCount="indefinite"/> </path> <g opacity="0.3"> <line x1="50" y1="40" x2="56" y2="36" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="56" y2="44" stroke="#A5E86C" stroke-width="1"/> <line x1="50" y1="40" x2="44" y2="36" stroke="#A5E86C" stroke-width="1"/> <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/> </g> <line x1="4" y1="40" x2="10" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="5,38.5 2,40 5,41.5" fill="#3B8700" opacity="0.3"/> <line x1="70" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="75,38.5 78,40 75,41.5" fill="#3B8700" opacity="0.3"/> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">crack propagation</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure analysis</text> </svg>',
-          explanation: 'Running-in (break-in) wear is a normal phase where initial surface roughness peaks are plastically deformed and removed, establishing conforming contact surfaces.',
-          hint: 'New gear surfaces have asperities from machining.'
-        },
-        {
-          id: 'u10-L2-Q27',
-          type: 'true-false',
-          question: 'Hydrogen embrittlement is more dangerous in high-strength steels than in low-strength steels, because hydrogen diffuses more?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">log N</text> <text x="6" y="36" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">S</text> <!-- S-N curve (animated draw) --> <path d="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="90" stroke-dashoffset="90"> <animate attributeName="stroke-dashoffset" values="90;0;0;90" keyTimes="0;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </path> <!-- Endurance limit line (horizontal asymptote) --> <line x1="48" y1="48" x2="74" y2="48" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </line> <text x="72" y="44" font-size="4" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> S_e </text> <!-- Tracing dot --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.4"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="0.4;0.4;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <!-- Region labels --> <text x="24" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">LCF</text> <text x="56" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">HCF</text> </svg>',
-          explanation: 'High-strength steels (>1000 MPa / ~HRC 32+) are significantly more susceptible to hydrogen embrittlement (HE) than low-strength steels.',
-          hint: 'Higher strength steels have less ductility and higher.'
-        },
-        {
-          id: 'u10-L2-Q28',
-          type: 'multiple-choice',
-          question: 'No cracking is present. What is the degradation mechanism and how should it be managed?',
-          options: [
-            'Fatigue damage — replace the component immediately',
-            'General (uniform) corrosion — calculate the remaining wall thickness against',
-            'Erosion from wind loading — add aerodynamic fairings, which would only hold',
-            'Creep deformation — bridge steels do not experience this at ambient temperature'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Target surface --> <path d="M8,50 Q20,48 30,50 Q40,46 50,50 Q60,48 72,50" stroke-width="0.8" stroke="#58CC02" fill="none"/> <rect x="8" y="50" width="64" height="18" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Erosion craters --> <path d="M24,50 Q26,52 28,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.4"/> <path d="M38,50 Q40,53 42,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.5"/> <path d="M54,50 Q56,51 58,50" stroke-width="0.4" stroke="#A5E86C" fill="none" opacity="0.3"/> <!-- Incoming particles (at angle) --> <circle r="1.5" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="20;26;20" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;48;20" dur="1.2s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1.2s" repeatCount="indefinite"/> </circle> <circle r="1.2" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="38;40;38" dur="1s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="cy" values="18;48;18" dur="1s" repeatCount="indefinite" begin="0.3s"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1s" repeatCount="indefinite" begin="0.3s"/> </circle> <circle r="1.8" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="56;56;56" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cy" values="16;48;16" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0.5;0;0.5" dur="1.4s" repeatCount="indefinite" begin="0.6s"/> </circle> <!-- Rebound particles --> <circle r="0.8" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="26;32" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="cy" values="48;38" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> <animate attributeName="opacity" values="0.4;0" dur="0.6s" repeatCount="indefinite" begin="0.6s"/> </circle> <!-- Impact angle --> <line x1="38" y1="30" x2="40" y2="48" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <line x1="32" y1="48" x2="48" y2="48" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <path d="M44,48 A6,6 0 0,0 41,44" stroke-width="0.3" stroke="#3B8700" opacity="0.3" fill="none"/> <text x="48" y="44" font-size="2.5" fill="#3B8700" opacity="0.35">α</text> <!-- Debris --> <g opacity="0.2"> <circle cx="30" cy="44" r="0.5" fill="#A5E86C"/> <circle cx="42" cy="42" r="0.4" fill="#A5E86C"/> <circle cx="56" cy="44" r="0.3" fill="#A5E86C"/> </g> <!-- Material removal --> <text x="40" y="14" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">W ∝ v²·f(α)</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">particle impact</text> </svg>',
-          explanation: 'Uniform corrosion causes gradual, even wall thickness reduction. Management approach: Measure current thickness by UT (ultrasonic testing) at multiple locations.',
-          hint: 'Uniform thickness reduction over many years suggests.'
-        },
-        {
-          id: 'u10-L2-Q29',
-          type: 'multiple-choice',
-          question: 'When performing a failure analysis, which of the following steps should be done FIRST, before any destructive testing?',
-          options: [
-            'Cut the failed part to examine the cross-section microstructure',
-            'Perform hardness testing on the fracture surface to check material strength',
-            'Photograph and document everything, preserve the fracture surfaces',
-            'Clean the fracture surfaces with solvent to get a better view — a plausible'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Fixed wall (left) --> <rect x="4" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="2" y1="26" x2="4" y2="28"/><line x1="2" y1="32" x2="4" y2="34"/> <line x1="2" y1="38" x2="4" y2="40"/><line x1="2" y1="44" x2="4" y2="46"/> <line x1="2" y1="50" x2="4" y2="52"/> </g> <!-- Fixed wall (right) --> <rect x="70" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="76" y1="28" x2="78" y2="26"/><line x1="76" y1="34" x2="78" y2="32"/> <line x1="76" y1="40" x2="78" y2="38"/><line x1="76" y1="46" x2="78" y2="44"/> <line x1="76" y1="52" x2="78" y2="50"/> </g> <!-- Bar (constrained) --> <rect x="10" y="34" width="60" height="12" rx="1.5" stroke-width="0.8" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.06"/> <!-- Temperature rise indication (color pulse) --> <rect x="11" y="35" width="58" height="10" rx="1" fill="#A5E86C" opacity="0.05"> <animate attributeName="opacity" values="0.03;0.15;0.03" dur="3s" repeatCount="indefinite"/> </rect> <!-- Attempted expansion arrows (blocked) --> <g opacity="0.35"> <line x1="14" y1="40" x2="10" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="10,38.5 10,41.5 8,40" fill="#3B8700"/> <line x1="66" y1="40" x2="70" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="70,38.5 70,41.5 72,40" fill="#3B8700"/> </g> <!-- Reaction compression arrows --> <g opacity="0.4"> <line x1="8" y1="40" x2="12" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="12,38.5 12,41.5 14,40" fill="#58CC02"/> <line x1="72" y1="40" x2="68" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 66,40" fill="#58CC02"/> </g> <!-- ΔT indicator --> <text x="40" y="30" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">ΔT ↑</text> <!-- Temperature wavy lines --> <g opacity="0.2"> <path d="M20,52 Q22,48 24,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/> </path> <path d="M38,52 Q40,48 42,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="0.5s"/> </path> <path d="M56,52 Q58,48 60,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="1s"/> </path> </g> <!-- Formula --> <text x="40" y="64" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">σ = EαΔT</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">constrained expansion</text> </svg>',
-          explanation: 'Documentation and preservation must always come first. Once you cut, clean, or test destructively, evidence is permanently lost. Proper first steps: (1) Photograph the failed part in situ (as-found).',
-          hint: 'Evidence can be destroyed by handling.'
-        },
-        {
-          id: 'u10-L2-Q30',
-          type: 'fill-blank',
-          question: 'The corrosion mechanism where flowing fluid removes the protective oxide or passive layer faster than it can reform, exposing _____?',
-          blanks: ['erosion'],
-          wordBank: ['erosion', 'fatigue', 'cavitation', 'abrasion', 'fretting'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Support anvil --> <rect x="24" y="48" width="32" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Support spans --> <rect x="26" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <rect x="50" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <!-- Specimen (notched bar) --> <rect x="28" y="40" width="24" height="4" rx="0.3" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- V-notch --> <path d="M39,40 L40,42 L41,40" stroke-width="0.5" stroke="#A5E86C"/> <!-- Pendulum arm --> <g> <line x1="40" y1="10" x2="40" y2="40" stroke-width="0.8" stroke="#58CC02"/> <!-- Hammer head --> <rect x="36" y="36" width="8" height="5" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="-60,40,10;0,40,10;40,40,10;0,40,10;-60,40,10" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1"/> </g> <!-- Pivot point --> <circle cx="40" cy="10" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <!-- Angle scale arc --> <path d="M20,10 A20,20 0 0,1 60,10" stroke-width="0.3" stroke="#3B8700" opacity="0.2" fill="none"/> <!-- Angle markings --> <g stroke="#3B8700" stroke-width="0.2" opacity="0.2"> <line x1="20" y1="10" x2="22" y2="12"/><line x1="28" y1="4" x2="29" y2="7"/> <line x1="40" y1="2" x2="40" y2="5"/><line x1="52" y1="4" x2="51" y2="7"/> <line x1="60" y1="10" x2="58" y2="12"/> </g> <!-- Height labels --> <text x="14" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₁</text> <text x="62" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₂</text> <!-- Energy formula --> <text x="40" y="62" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">E = mg(h₁−h₂)</text> <!-- Ground --> <line x1="10" y1="54" x2="70" y2="54" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">impact toughness</text> </svg>',
-          explanation: 'Erosion-corrosion (also called flow-accelerated corrosion or FAC) occurs when fluid velocity is high enough to mechanically remove protective surface films.',
-          hint: 'This mechanism combines mechanical removal of protective.'
         }
       ]
     },
     {
       id: 'u10-L3',
-      title: 'Design Trade-offs',
-      description: 'Material selection (Ashby charts), cost vs performance, weight optimization, DFM vs DFA, Pugh matrix.',
+      title: 'Material Selection Basics',
+      description: 'Ashby charts, material indices, and how to pick the right material for the loading type.',
       icon: '📝',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L3-T1',
+          id: 'u10-L3-NEW-T1',
           type: 'teaching',
-          question: 'Every Design Is a Trade-off',
-          explanation: 'There\'s no perfect material or process. Stronger materials cost more, lighter designs are harder to manufacture, and tighter tolerances increase scrap rate. Good engineering means choosing the best compromise for your specific constraints: cost, weight, performance, and manufacturability.',
-          hint: 'When asked "which material is best," always ask back: best for what?',
+          question: 'Material Selection Is About Trade-offs',
+          explanation: 'There\'s no best material. There\'s only the best material for your specific constraints: cost, weight, strength, temperature, corrosion resistance, and manufacturability.',
+          hint: 'Try this now: pick an everyday object and think about why that specific material was chosen.',
+        },
+        {
+          id: 'u10-L3-NEW-E1',
+          type: 'true-false',
+          question: 'When an interviewer asks "which material is best?" the right first response is to ask what the constraints and priorities are.',
+          correctAnswer: true,
+          explanation: 'Material selection always depends on context. Asking about constraints shows engineering maturity.',
+          hint: 'There\'s no universal "best" material.',
+        },
+        {
+          id: 'u10-L3-NEW-E1',
+          type: 'true-false',
+          question: 'When an interviewer asks "which material is best?" the right first response is to ask what the constraints and priorities are.',
+          correctAnswer: true,
+          explanation: 'Material selection always depends on context. Asking about constraints shows engineering maturity.',
+          hint: 'There\'s no universal "best" material.',
         },
         {
           id: 'u10-L3-Q1',
           type: 'multiple-choice',
           question: 'Steel has E = 200 GPa and density 7850 kg/m^3. Which is better for a bending beam?',
           options: [
-            'Steel — it has 3x the stiffness of aluminum, so less material is needed',
-            'Aluminum — it is lighter and stiffness does not matter for beams',
+            'Steel. it has 3x the stiffness of aluminum, so less material is needed',
+            'Aluminum. it is lighter and stiffness does not matter for beams',
             'For a beam in bending, the material index is E^(1/2)/rho',
             'They are identical because E/rho is the same for both metals'
           ],
           correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve. animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker. appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker. appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker. appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot. follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
           explanation: 'For minimum-weight design, the correct material index depends on the loading mode. Tension/compression: E/rho (steel and aluminum are nearly equal at ~25.5).',
           hint: 'The material index changes with loading mode: E/rho.'
+        },
+        {
+          id: 'u10-L3-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each loading mode to its lightweight material index:',
+          options: [
+            'Tension (min weight)',
+            'Bending (min weight)',
+            'Buckling (min weight)',
+            'Thermal insulation'
+          ],
+          matchTargets: [
+            'sigma_y / rho',
+            'sigma_y^(2/3) / rho',
+            'E^(1/2) / rho',
+            '1 / k (thermal conductivity)'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Different loading modes require different property combinations for optimal lightweight design.',
+          hint: 'Each loading mode has a unique material index.',
+        },
+        {
+          id: 'u10-L3-NEW-T2',
+          type: 'teaching',
+          question: 'Ashby Charts Map Material Properties',
+          explanation: 'Ashby charts plot one property vs another (like strength vs density) so you can visually compare material families. Different loading modes need different material indices.',
+          hint: 'Try this now: think about whether you\'d optimize for strength/weight or stiffness/weight in a bike frame.',
+        },
+        {
+          id: 'u10-L3-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does a material index help you do?',
+          options: [
+            'Rank materials for a specific loading scenario',
+            'Calculate exact stress values',
+            'Determine the manufacturing process',
+            'Find the material\'s price'
+          ],
+          correctIndex: 0,
+          explanation: 'Material indices like E/rho or sigma_y/rho rank materials for specific loading modes (tension, bending, etc.).',
+          hint: 'Material indices combine properties relevant to your design goal.',
         },
         {
           id: 'u10-L3-Q2',
@@ -921,12 +739,112 @@ export const unit10: Unit = {
             'It provides exact numerical optimization of design parameters',
             'It enables systematic comparison of multiple design concepts against weighted',
             'It eliminates the need for engineering judgment in design selection',
-            'It automatically generates the optimal design solution — though this factor'
+            'It automatically generates the optimal design solution. though this factor'
           ],
           correctIndex: 1,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="44" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="8" y="44" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="44" width="28" height="28" rx="4" fill="#A5E86C" opacity="0.1"/> <rect x="44" y="44" width="28" height="28" rx="4" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="36" y1="22" x2="44" y2="22" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,20.5 46,22 43,23.5" fill="#3B8700" opacity="0.2"/> <line x1="22" y1="36" x2="22" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="20.5,43 22,46 23.5,43" fill="#3B8700" opacity="0.2"/> <line x1="58" y1="36" x2="58" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="56.5,43 58,46 59.5,43" fill="#3B8700" opacity="0.2"/> <line x1="36" y1="58" x2="44" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,56.5 46,58 43,59.5" fill="#3B8700" opacity="0.2"/> <text x="22" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">1</text> <text x="58" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">2</text> <text x="22" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">3</text> <text x="58" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">4</text> <circle cx="58" cy="58" r="6" fill="#58CC02" opacity="0.15"> <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: 'The Pugh matrix compares design concepts against a reference (datum) design using criteria scored as better (+), same (S), or worse (-).',
           hint: 'The Pugh matrix compares alternatives to a datum using.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L3b',
+      title: 'DFM, DFA & Cost Reduction',
+      description: 'Design for Manufacturing, Design for Assembly, and systematic cost reduction approaches.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L3b-NEW-T1',
+          type: 'teaching',
+          question: 'Fewer Parts Means Lower Cost',
+          explanation: 'Design for Assembly (DFA) reduces part count. For each part, ask: does it move relative to neighbors? Must it be a different material? Must it be separate for assembly? If all answers are no, combine it.',
+          hint: 'Try this now: pick a product and count how many parts could be combined.',
+        },
+        {
+          id: 'u10-L3b-NEW-E1',
+          type: 'true-false',
+          question: 'Design for Manufacturing (DFM) aims to make individual parts easier and cheaper to produce.',
+          correctAnswer: true,
+          explanation: 'DFM simplifies each part. DFA reduces the total number of parts. Both lower cost.',
+          hint: 'DFM focuses on individual part simplicity.',
+        },
+        {
+          id: 'u10-L3-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each loading mode to its lightweight material index:',
+          options: [
+            'Tension (min weight)',
+            'Bending (min weight)',
+            'Buckling (min weight)',
+            'Thermal insulation'
+          ],
+          matchTargets: [
+            'sigma_y / rho',
+            'sigma_y^(2/3) / rho',
+            'E^(1/2) / rho',
+            '1 / k (thermal conductivity)'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Different loading modes require different property combinations for optimal lightweight design.',
+          hint: 'Each loading mode has a unique material index.',
+        },
+        {
+          id: 'u10-L3-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does a material index help you do?',
+          options: [
+            'Rank materials for a specific loading scenario',
+            'Calculate exact stress values',
+            'Determine the manufacturing process',
+            'Find the material\'s price'
+          ],
+          correctIndex: 0,
+          explanation: 'Material indices like E/rho or sigma_y/rho rank materials for specific loading modes (tension, bending, etc.).',
+          hint: 'Material indices combine properties relevant to your design goal.',
+        },
+        {
+          id: 'u10-L3b-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these strategies into DFM or DFA:',
+          options: [
+            'Reduce part count',
+            'Add draft angles to castings',
+            'Use self-locating features',
+            'Avoid undercuts in molding',
+            'Design for top-down assembly',
+            'Use standard tooling sizes'
+          ],
+          buckets: [
+            'DFA (assembly)',
+            'DFM (manufacturing)'
+          ],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'DFA focuses on assembly simplicity (fewer parts, easier assembly). DFM focuses on making each part easier to produce.',
+          hint: 'Think about whether the strategy helps assembly or manufacturing.',
+        },
+        {
+          id: 'u10-L3b-NEW-T2',
+          type: 'teaching',
+          question: 'Tolerances Drive Cost',
+          explanation: 'Tighter tolerances cost more. A part machined to +/- 0.01 mm costs much more than one at +/- 0.1 mm. Only tighten tolerances where function actually requires it.',
+          hint: 'Try this now: think about which dimensions on a bracket actually need tight tolerances.',
+        },
+        {
+          id: 'u10-L3b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'Which approach typically reduces manufacturing cost the most?',
+          options: [
+            'Relaxing non-critical tolerances',
+            'Using exotic materials',
+            'Adding more inspection steps',
+            'Making parts thicker'
+          ],
+          correctIndex: 0,
+          explanation: 'Relaxing tolerances on non-critical features is often the single biggest cost saver.',
+          hint: 'Tight tolerances require more precise (expensive) processes.',
         },
         {
           id: 'u10-L3-Q3',
@@ -936,6 +854,31 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="3" fill="#58CC02" opacity="0.08"/> <rect x="8" y="22" width="28" height="36" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="22" cy="34" r="6" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <rect x="16" y="44" width="12" height="8" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="43,38.5 46,40 43,41.5" fill="#3B8700" opacity="0.3"/> <rect x="44" y="22" width="28" height="36" rx="3" fill="#A5E86C" opacity="0.08"/> <rect x="44" y="22" width="28" height="36" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="50" y="28" width="16" height="24" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="4" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">design</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">mfg</text> </svg>',
           explanation: 'DFA aims to minimize part count by asking three questions for each part: Does it move relative to adjacent parts? Does it need to be different material?',
           hint: 'DFA reduces the number of parts; DFM simplifies each.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L3c',
+      title: 'Decision Matrices & Optimization',
+      description: 'Pugh matrices, weighted decision tables, and multi-objective optimization in design.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L3c-NEW-T1',
+          type: 'teaching',
+          question: 'Structured Decision Making',
+          explanation: 'A Pugh matrix compares design concepts against a reference design. Rate each concept as better (+), same (S), or worse (-) on each criterion. The concept with the most plusses wins.',
+          hint: 'Try this now: compare two phone cases on 5 criteria using +/S/-.',
+        },
+        {
+          id: 'u10-L3c-NEW-E1',
+          type: 'true-false',
+          question: 'A Pugh matrix compares design alternatives against a reference (datum) design using simple better/same/worse ratings.',
+          correctAnswer: true,
+          explanation: 'The Pugh matrix is a quick concept screening tool that doesn\'t require numerical scores.',
+          hint: 'It uses +, S, and - ratings.',
         },
         {
           id: 'u10-L3-Q4',
@@ -943,9 +886,9 @@ export const unit10: Unit = {
           question: 'Walk me through your approach." Which response demonstrates the best engineering thinking?',
           options: [
             'Systematically analyze material cost, tolerance relaxation on non-critical',
-            'Reduce all tolerances by 30% to decrease machining time proportionally —',
-            'Use cheaper material — this is always the biggest cost driver',
-            'Switch to 3D printing — additive manufacturing is always cheaper than machining'
+            'Reduce all tolerances by 30% to decrease machining time proportionally . ',
+            'Use cheaper material. this is always the biggest cost driver',
+            'Switch to 3D printing. additive manufacturing is always cheaper than machining'
 
           ],
           correctIndex: 0,
@@ -954,27 +897,56 @@ export const unit10: Unit = {
           hint: 'Good engineering is systematic.'
         },
         {
-          id: 'u10-L3-T2',
-          type: 'teaching',
-          question: 'DFM and DFA Basics',
-          explanation: 'Design for Manufacturing (DFM) means designing parts that are easy and cheap to make. Design for Assembly (DFA) means minimizing part count and making assembly foolproof. Both should start early in design, not after you\'ve already finalized the geometry.',
-          hint: 'A common interview question: "How would you make this cheaper to produce?"',
-        },
-        {
           id: 'u10-L3-Q5',
           type: 'multiple-choice',
           question: 'How do you approach material and process selection among sheet metal, die casting, and injection-molded plastic?',
           options: [
             'Evaluate each option against functional requirements, then compare unit cost',
-            'Always choose the strongest material — die cast aluminum guarantees structural',
-            'Always choose the cheapest material — injection-molded plastic is the obvious',
-            'Pick whatever the previous product version used — changing materials is too'
+            'Always choose the strongest material. die cast aluminum guarantees structural',
+            'Always choose the cheapest material. injection-molded plastic is the obvious',
+            'Pick whatever the previous product version used. changing materials is too'
 
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
           explanation: 'Material and process selection is always context-dependent.',
           hint: 'The right process depends on volume, performance.'
+        },
+        {
+          id: 'u10-L3c-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these design decision steps in order:',
+          steps: [
+            'Define requirements and constraints',
+            'Generate multiple design concepts',
+            'Evaluate concepts against criteria',
+            'Select the best concept',
+            'Refine and detail the chosen design'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Good design follows a structured process: define, generate, evaluate, select, then refine.',
+          hint: 'You can\'t select a concept before you\'ve generated alternatives.',
+        },
+        {
+          id: 'u10-L3c-NEW-T2',
+          type: 'teaching',
+          question: 'Weight Your Criteria',
+          explanation: 'Not all criteria matter equally. A weighted decision matrix multiplies each score by the criterion\'s importance weight. Safety might get weight 10 while color gets weight 1.',
+          hint: 'Try this now: rank 5 criteria for buying a car by importance.',
+        },
+        {
+          id: 'u10-L3c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'In a weighted decision matrix, what happens if you give all criteria equal weight?',
+          options: [
+            'Unimportant factors influence the result as much as critical ones',
+            'The matrix becomes more accurate',
+            'Costs are automatically minimized',
+            'All designs score the same'
+          ],
+          correctIndex: 0,
+          explanation: 'Equal weighting treats color preference the same as structural integrity. Weight critical criteria higher.',
+          hint: 'Think about what "weight" means in decision-making.',
         },
         {
           id: 'u10-L3-Q6',
@@ -985,368 +957,95 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
           explanation: 'Ashby charts (developed by Prof. Mike Ashby at Cambridge University) plot material property pairs (such as strength vs. density, or modulus vs.',
           hint: 'Named after the Cambridge professor who developed.'
-        },
-        {
-          id: 'u10-L3-Q7',
-          type: 'multiple-choice',
-          question: 'Selecting between a bolted joint and a welded joint for a structural connection, which factor most favors bolting over welding?',
-          options: [
-            'Bolts are always stronger than welds of equivalent size, verified against',
-            'Bolted joints eliminate the need for stress analysis, though corrosion effects',
-            'Bolts are always cheaper than welding regardless of production volume',
-            'Bolted joints allow disassembly for maintenance, inspection'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylindrical vessel body --> <rect x="16" y="20" width="48" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="16" y="20" width="48" height="40" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Hemispherical end caps --> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" fill="#58CC02" opacity="0.05"/> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" fill="#58CC02" opacity="0.05"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Internal pressure arrows (radial, pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Hoop direction arrows (horizontal outward) --> <line x1="30" y1="40" x2="22" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="23,38.5 20,40 23,41.5" fill="#3B8700"/> <line x1="50" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <!-- Axial direction arrows (vertical outward) --> <line x1="40" y1="30" x2="40" y2="22" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,23 40,20 41.5,23" fill="#3B8700"/> <line x1="40" y1="50" x2="40" y2="58" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,57 40,60 41.5,57" fill="#3B8700"/> </g> <!-- Pressure label P --> <text x="40" y="43" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.25" font-weight="bold" font-style="italic">P</text> <!-- Wall thickness indicator --> <line x1="64" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <text x="72" y="36" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">t</text> <!-- Stress labels --> <text x="14" y="40" text-anchor="end" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_h</text> <text x="40" y="17" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_a</text> <!-- Formula --> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">σ_h = Pr/t</text> </svg>',
-          explanation: 'The primary advantage of bolted joints is disassembly: they can be taken apart for inspection, maintenance, repair, and replacement without destroying the connection.',
-          hint: 'What is the most significant operational advantage.'
-        },
-        {
-          id: 'u10-L3-Q8',
-          type: 'multiple-choice',
-          question: 'Why is CFRP not used for all structural applications?',
-          options: [
-            'CFRP actually has lower strength than steel in all loading modes — though this',
-            'Cost is much higher, properties are anisotropic, joints are challenging,',
-            'CFRP cannot be manufactured in large sizes',
-            'CFRP degrades within a few years regardless of environment'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Butt weld (top) --> <rect x="6" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Weld bead (butt) --> <ellipse cx="40" cy="15" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <path d="M34,10 Q40,6 46,10" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,20 Q40,24 46,20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="40" y="30" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">butt weld</text> <!-- Fillet weld (middle) --> <rect x="6" y="38" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="38" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="38" width="10" height="30" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="38" width="10" height="30" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Fillet weld triangle --> <path d="M34,48 L40,48 L40,38" fill="#58CC02" opacity="0.25"/> <path d="M34,48 Q38,42 40,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="22" y="58" font-size="4" fill="#3B8700" opacity="0.2">fillet weld</text> <!-- Weld symbol (standard notation) --> <line x1="56" y1="50" x2="72" y2="50" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="56" y1="50" x2="56" y2="42" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <path d="M56,50 L60,44 L64,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="64" y="46" font-size="3.5" fill="#3B8700" opacity="0.2">symbol</text> <!-- Welding animation (sparks at butt weld) --> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,14 L44,8"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,14 L36,6" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#3B8700" opacity="0"> <animateMotion dur="0.45s" repeatCount="indefinite" path="M40,14 L46,10" begin="0.2s"/> <animate attributeName="opacity" values="0.35;0" dur="0.45s" begin="0.2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'CFRP has excellent specific properties but significant trade-offs: (1) Cost is 10-50x steel per kg. (2) Properties are highly anisotropic — strong along fibers, weak transverse.',
-          hint: 'Think beyond mechanical properties.'
-        },
-        {
-          id: 'u10-L3-Q9',
-          type: 'true-false',
-          question: 'In a tolerance stack-up analysis, the statistical (RSS) method always gives a tighter tolerance band than the worst-case?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'The worst-case method assumes all parts are simultaneously at their tolerance limits, giving total tolerance = sum of individual tolerances.',
-          hint: 'Compare: worst-case sums tolerances linearly; RSS uses.'
-        },
-        {
-          id: 'u10-L3-Q10',
-          type: 'multiple-choice',
-          question: 'Design a gear and must choose between through-hardened steel and case-hardened (carburized) steel. What is the key trade-off?',
-          options: [
-            'Through-hardened is always superior',
-            'Through-hardened gears never require any heat treatment',
-            'Case-hardened steel is only used for decorative applications — an incomplete',
-            'Case-hardened provides a hard, wear-resistant surface with a tough,'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Large Gear — 12 teeth, center (26,42), ro=18 --> <g> <animateTransform attributeName="transform" type="rotate" values="0,26,42;360,26,42" dur="4s" repeatCount="indefinite"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" fill="#58CC02" opacity="0.12"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="26" cy="42" r="9" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <!-- Spokes --> <line x1="26" y1="33" x2="26" y2="51" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> <line x1="17" y1="42" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> </g> <!-- Large gear hub (static) --> <circle cx="26" cy="42" r="4.5" fill="#58CC02" opacity="0.2"/> <circle cx="26" cy="42" r="3" fill="#3B8700"/> <circle cx="26" cy="42" r="1.2" fill="white" opacity="0.4"/> <!-- Small Gear — 8 teeth, center (56,42), ro=12, 3:2 ratio --> <g> <animateTransform attributeName="transform" type="rotate" values="0,56,42;-540,56,42" dur="4s" repeatCount="indefinite"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" fill="#58CC02" opacity="0.12"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="56" cy="42" r="5.5" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> </g> <!-- Small gear hub (static) --> <circle cx="56" cy="42" r="3.5" fill="#58CC02" opacity="0.2"/> <circle cx="56" cy="42" r="2.2" fill="#3B8700"/> <circle cx="56" cy="42" r="0.8" fill="white" opacity="0.4"/> </svg>',
-          explanation: 'Gear design requires two conflicting properties: high surface hardness for wear and pitting resistance (>58 HRC for highly loaded gears), and core toughness for impact and bending fatigue resistance.',
-          hint: 'Gears need surface hardness for wear AND core toughness.'
-        },
-        {
-          id: 'u10-L3-Q11',
-          type: 'multiple-choice',
-          question: 'Should we use a casting or a machined-from-billet approach for this aluminum housing?" The production volume is 200 units/year.',
-          options: [
-            'At 200 units/year, machining from billet likely wins',
-            'Always machine from billet — it produces better quality',
-            'Always cast — it uses less material than machining from billet',
-            'The decision depends only on the part weight — lighter parts should be machined'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="3" fill="#58CC02" opacity="0.08"/> <rect x="8" y="22" width="28" height="36" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="22" cy="34" r="6" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <rect x="16" y="44" width="12" height="8" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="43,38.5 46,40 43,41.5" fill="#3B8700" opacity="0.3"/> <rect x="44" y="22" width="28" height="36" rx="3" fill="#A5E86C" opacity="0.08"/> <rect x="44" y="22" width="28" height="36" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="50" y="28" width="16" height="24" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="4" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">design</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">mfg</text> </svg>',
-          explanation: 'The casting vs. machining decision is volume-dependent. Casting has high fixed cost (tooling) but low variable cost (material, cycle time).',
-          hint: 'Consider fixed costs (tooling).'
-        },
-        {
-          id: 'u10-L3-Q12',
-          type: 'true-false',
-          question: 'Adding stiffening ribs to a sheet metal or plastic part increases its bending stiffness significantly while adding minimal?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="44" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="8" y="44" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="44" width="28" height="28" rx="4" fill="#A5E86C" opacity="0.1"/> <rect x="44" y="44" width="28" height="28" rx="4" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="36" y1="22" x2="44" y2="22" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,20.5 46,22 43,23.5" fill="#3B8700" opacity="0.2"/> <line x1="22" y1="36" x2="22" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="20.5,43 22,46 23.5,43" fill="#3B8700" opacity="0.2"/> <line x1="58" y1="36" x2="58" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="56.5,43 58,46 59.5,43" fill="#3B8700" opacity="0.2"/> <line x1="36" y1="58" x2="44" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,56.5 46,58 43,59.5" fill="#3B8700" opacity="0.2"/> <text x="22" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">1</text> <text x="58" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">2</text> <text x="22" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">3</text> <text x="58" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">4</text> <circle cx="58" cy="58" r="6" fill="#58CC02" opacity="0.15"> <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Ribs increase the effective moment of inertia without adding proportional mass. A 2 mm plastic wall with 3 mm tall ribs can be 5-10x stiffer than the plain wall while adding only 20-30% mass.',
-          hint: 'Stiffness scales with depth cubed (h^3).'
-        },
-        {
-          id: 'u10-L3-Q13',
-          type: 'multiple-choice',
-          question: 'In designing a heat exchanger, what is the primary trade-off when increasing the number of tubes or fins?',
-          options: [
-            'More tubes always improve performance with no downside, without considering',
-            'More surface area increases heat transfer but also increases pressure drop,',
-            'Adding fins reduces heat transfer',
-            'The number of tubes has no effect on heat transfer rate — an approximation'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'Heat exchanger design involves a fundamental trade-off.',
-          hint: 'More surface area helps heat transfer, but what.'
-        },
-        {
-          id: 'u10-L3-Q14',
-          type: 'multiple-choice',
-          question: 'You are selecting a bearing for a high-speed, lightly loaded spindle application. What type of bearing is most appropriate?',
-          options: [
-            'Tapered roller bearing — it can handle both radial and axial loads, valid only',
-            'Spherical roller bearing — it can accommodate misalignment',
-            'Angular contact ball bearing — it has low friction at high speed',
-            'Needle roller bearing — it has the smallest radial profile'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylinder body --> <rect x="8" y="30" width="45" height="20" rx="2" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Piston rod --> <rect x="53" y="37" width="20" height="6" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"> <animate attributeName="x" values="38;53;38" dur="3s" repeatCount="indefinite"/> </rect> <!-- Piston head inside cylinder --> <rect x="35" y="31.5" width="4" height="17" rx="0.5" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.15"> <animate attributeName="x" values="20;35;20" dur="3s" repeatCount="indefinite"/> </rect> <!-- Rod end fitting --> <circle cx="73" cy="40" r="3" stroke-width="0.7" stroke="#58CC02" fill="none"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="73" cy="40" r="1" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <!-- Hydraulic fluid (left chamber) --> <rect x="9" y="31" width="26" height="18" rx="1" fill="#A5E86C" opacity="0.12"> <animate attributeName="width" values="11;26;11" dur="3s" repeatCount="indefinite"/> </rect> <!-- Port connections --> <line x1="15" y1="30" x2="15" y2="22" stroke-width="0.8" stroke="#58CC02"/> <line x1="45" y1="30" x2="45" y2="22" stroke-width="0.8" stroke="#58CC02"/> <text x="15" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₁</text> <text x="45" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₂</text> <!-- Seals --> <line x1="8" y1="32" x2="8" y2="48" stroke-width="1.5" stroke="#3B8700" opacity="0.3"/> <!-- Force arrow --> <line x1="73" y1="55" x2="73" y2="55" stroke-width="0.8" stroke="#3B8700" opacity="0.4"> <animate attributeName="x1" values="58;73;58" dur="3s" repeatCount="indefinite"/> <animate attributeName="x2" values="58;73;58" dur="3s" repeatCount="indefinite"/> </line> <g opacity="0.5"> <line x1="66" y1="58" x2="73" y2="58" stroke-width="0.6" stroke="#3B8700"/> <polygon points="73,56.5 73,59.5 76,58" fill="#3B8700"/> <text x="70" y="63" font-size="3" fill="#3B8700" text-anchor="middle">F</text> </g> <!-- Base mount --> <rect x="4" y="34" width="4" height="12" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <!-- Hatching for fixed mount --> <line x1="2" y1="35" x2="4" y2="37" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="38" x2="4" y2="40" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="41" x2="4" y2="43" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="44" x2="4" y2="46" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">linear actuator</text> </svg>',
-          explanation: 'For high-speed spindle applications, angular contact ball bearings are the standard choice because: Ball contact has lower friction than roller contact at high speeds, generating less heat.',
-          hint: 'High-speed applications prioritize low friction.'
-        },
-        {
-          id: 'u10-L3-Q15',
-          type: 'fill-blank',
-          question: 'The manufacturing principle that states "the cost of finding and fixing a defect increases by roughly _____ at each stage of _____?',
-          blanks: ['10x', '10'],
-          wordBank: ['10x', '10', '2x', '100', '5x', '50'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Housing (cross-section) --> <rect x="10" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <rect x="46" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Gap between parts --> <rect x="34" y="10" width="12" height="60" fill="none"/> <!-- Groove --> <rect x="28" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <rect x="44" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- O-Ring (cross section - compressed ellipse) --> <ellipse cx="40" cy="40" rx="5" ry="6" stroke-width="1" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.2"> <animate attributeName="rx" values="5;6;5" dur="3s" repeatCount="indefinite"/> <animate attributeName="ry" values="6;5;6" dur="3s" repeatCount="indefinite"/> </ellipse> <!-- Contact points --> <g opacity="0.3"> <line x1="34" y1="37" x2="36" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="40" x2="35" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="43" x2="36" y2="43" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="37" x2="46" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="45" y1="40" x2="46" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="43" x2="46" y2="43" stroke-width="0.4" stroke="#3B8700"/> </g> <!-- Pressure arrow --> <g opacity="0.4"> <line x1="40" y1="14" x2="40" y2="28" stroke-width="0.6" stroke="#3B8700"/> <polygon points="38.5,28 41.5,28 40,31" fill="#3B8700"/> <text x="40" y="12" font-size="3" fill="#3B8700" text-anchor="middle">P</text> </g> <!-- Seal labels --> <text x="22" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">housing</text> <text x="58" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">shaft</text> <!-- Hatching on housing walls --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <line x1="12" y1="15" x2="16" y2="11"/><line x1="12" y1="22" x2="16" y2="18"/> <line x1="12" y1="29" x2="16" y2="25"/><line x1="12" y1="50" x2="16" y2="46"/> <line x1="12" y1="57" x2="16" y2="53"/><line x1="12" y1="64" x2="16" y2="60"/> <line x1="64" y1="15" x2="68" y2="11"/><line x1="64" y1="22" x2="68" y2="18"/> <line x1="64" y1="29" x2="68" y2="25"/><line x1="64" y1="50" x2="68" y2="46"/> <line x1="64" y1="57" x2="68" y2="53"/><line x1="64" y1="64" x2="68" y2="60"/> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">static seal</text> </svg>',
-          explanation: 'The Rule of 10 (or 1-10-100 rule) states that finding and fixing a problem costs 1x during design, 10x during manufacturing, 100x after assembly, and 1000x after delivery to the customer.',
-          hint: 'Each stage of production increases the cost of fixing.'
-        },
-        {
-          id: 'u10-L3-Q16',
-          type: 'multiple-choice',
-          question: 'When designing a snap-fit feature for a plastic enclosure, what is the critical design trade-off?',
-          options: [
-            'Snap-fits have no design trade-offs — they always replace screws',
-            'The deflection must be large enough for secure engagement but small enough',
-            'Snap-fits can only be used with flexible materials like rubber',
-            'The only consideration is the ejection angle for the injection mold'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Left shaft --> <rect x="2" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Right shaft --> <rect x="54" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Left flange (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,30,40;360,30,40" dur="2s" repeatCount="indefinite"/> <circle cx="30" cy="40" r="16" fill="#58CC02" opacity="0.08"/> <circle cx="30" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Bolt holes --> <circle cx="30" cy="27" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="43" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="30" cy="53" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="17" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> </g> <circle cx="30" cy="40" r="4" fill="#3B8700"/> <!-- Right flange (rotating together) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,50,40;360,50,40" dur="2s" repeatCount="indefinite"/> <circle cx="50" cy="40" r="16" fill="#58CC02" opacity="0.06"/> <circle cx="50" cy="40" r="16" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <!-- Bolt holes (matching) --> <circle cx="50" cy="27" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="63" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="50" cy="53" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="37" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> </g> <circle cx="50" cy="40" r="4" fill="#3B8700" opacity="0.6"/> <!-- Center connection line --> <line x1="38" y1="40" x2="42" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">flange coupling</text> </svg>',
-          explanation: 'Snap-fit design balances engagement force, retention force, and material strain. The cantilever snap-fit strain is approximately epsilon = 1.5*t*y/L^2 (where t is beam thickness, y is deflection,.',
-          hint: 'The strain during snap-fit engagement must stay below.'
-        },
-        {
-          id: 'u10-L3-Q17',
-          type: 'multiple-choice',
-          question: 'Both meet the pressure requirement. Which factors should drive the decision?',
-          options: [
-            'Evaluate total cost (material + fabrication + coating/maintenance), corrosion',
-            'Always choose carbon steel because it is cheaper per kilogram',
-            'Always choose the thinner option because it uses less material',
-            'Choose based solely on which material has higher yield strength'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Fixed wall (left) --> <rect x="4" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="2" y1="26" x2="4" y2="28"/><line x1="2" y1="32" x2="4" y2="34"/> <line x1="2" y1="38" x2="4" y2="40"/><line x1="2" y1="44" x2="4" y2="46"/> <line x1="2" y1="50" x2="4" y2="52"/> </g> <!-- Fixed wall (right) --> <rect x="70" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="76" y1="28" x2="78" y2="26"/><line x1="76" y1="34" x2="78" y2="32"/> <line x1="76" y1="40" x2="78" y2="38"/><line x1="76" y1="46" x2="78" y2="44"/> <line x1="76" y1="52" x2="78" y2="50"/> </g> <!-- Bar (constrained) --> <rect x="10" y="34" width="60" height="12" rx="1.5" stroke-width="0.8" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.06"/> <!-- Temperature rise indication (color pulse) --> <rect x="11" y="35" width="58" height="10" rx="1" fill="#A5E86C" opacity="0.05"> <animate attributeName="opacity" values="0.03;0.15;0.03" dur="3s" repeatCount="indefinite"/> </rect> <!-- Attempted expansion arrows (blocked) --> <g opacity="0.35"> <line x1="14" y1="40" x2="10" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="10,38.5 10,41.5 8,40" fill="#3B8700"/> <line x1="66" y1="40" x2="70" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="70,38.5 70,41.5 72,40" fill="#3B8700"/> </g> <!-- Reaction compression arrows --> <g opacity="0.4"> <line x1="8" y1="40" x2="12" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="12,38.5 12,41.5 14,40" fill="#58CC02"/> <line x1="72" y1="40" x2="68" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 66,40" fill="#58CC02"/> </g> <!-- ΔT indicator --> <text x="40" y="30" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">ΔT ↑</text> <!-- Temperature wavy lines --> <g opacity="0.2"> <path d="M20,52 Q22,48 24,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/> </path> <path d="M38,52 Q40,48 42,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="0.5s"/> </path> <path d="M56,52 Q58,48 60,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="1s"/> </path> </g> <!-- Formula --> <text x="40" y="64" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">σ = EαΔT</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">constrained expansion</text> </svg>',
-          explanation: 'The carbon steel vessel is cheaper in material but requires corrosion protection (internal lining or coating), has a corrosion allowance (thicker wall), and needs more frequent inspection.',
-          hint: 'Look beyond initial material cost.'
-        },
-        {
-          id: 'u10-L3-Q18',
-          type: 'true-false',
-          question: 'In injection molding design, uniform wall thickness is preferred because it promotes even cooling, reduces warpage, and?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="20" y1="20" x2="40" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="60" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="60" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="60" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="20" x2="20" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="20" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="20" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="40" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <circle cx="20" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="20" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.45s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;21;19;20" dur="0.35s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.4s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="20;19;21;20" dur="0.35s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.45s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.4"> <animate attributeName="cx" values="40;41;39;40" dur="0.38s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;39;41;40" dur="0.42s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="60;59;61;60" dur="0.42s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.48s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.38s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="60" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;61;59;60" dur="0.48s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.36s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.44s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Uniform wall thickness is a fundamental DFM rule for injection molding.',
-          hint: 'What happens during cooling if different sections have.'
-        },
-        {
-          id: 'u10-L3-Q19',
-          type: 'multiple-choice',
-          question: 'What is the primary trade-off?',
-          options: [
-            'Permanent mold casting gives better surface finish, tighter tolerances',
-            'Sand casting always costs less regardless of production volume',
-            'Permanent mold always produces better parts regardless of geometry',
-            'The two processes produce identical results and are fully interchangeable'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'Permanent mold (metal die) casting advantages.',
-          hint: 'Metal molds cool faster than sand molds.'
-        },
-        {
-          id: 'u10-L3-T3',
-          type: 'teaching',
-          question: 'Volume Drives Process Selection',
-          explanation: 'Low volume (under 100) usually means machining or 3D printing. Medium volume (100-10,000) favors sheet metal or casting. High volume (10,000+) justifies injection molding or die casting despite expensive tooling. The tooling cost gets divided across all parts.',
-          hint: 'Always ask about production volume before recommending a manufacturing process.',
-        },
-        {
-          id: 'u10-L3-Q20',
-          type: 'multiple-choice',
-          question: 'In topology optimization, what is the typical workflow and the key limitation that engineers must address before manufacturing the result?',
-          options: [
-            'Topology optimization produces manufacturing-ready designs that can be',
-            'It only works for 2D planar problems and cannot handle 3D geometries',
-            'Topology optimization is only used for aesthetic design',
-            'The software defines loads and constraints, then iteratively removes material'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="20" width="60" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="10" y="20" width="60" height="40" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <path d="M10,30 Q20,25 30,35 Q40,45 50,30 Q60,20 70,35 L70,55 Q60,50 50,55 Q40,60 30,50 Q20,45 10,55 Z" fill="#58CC02" opacity="0.15"> <animate attributeName="d" values="M10,30 Q20,25 30,35 Q40,45 50,30 Q60,20 70,35 L70,55 Q60,50 50,55 Q40,60 30,50 Q20,45 10,55 Z;M10,28 Q20,22 30,32 Q40,42 50,28 Q60,18 70,32 L70,52 Q60,48 50,52 Q40,58 30,48 Q20,42 10,52 Z;M10,30 Q20,25 30,35 Q40,45 50,30 Q60,20 70,35 L70,55 Q60,50 50,55 Q40,60 30,50 Q20,45 10,55 Z" dur="3s" repeatCount="indefinite"/> </path> <circle cx="14" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <circle cx="66" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">topology</text> </svg>',
-          explanation: 'Topology optimization starts with a design space, loads, and constraints, then removes material where stress is low, producing weight-optimized shapes.',
-          hint: 'Topology optimization creates organic shapes.'
-        },
-        {
-          id: 'u10-L3-Q21',
-          type: 'fill-blank',
-          question: 'The design methodology that minimizes the total number of _____ by combining functions into fewer components, reducing _____?',
-          blanks: ['parts', 'assembly'],
-          wordBank: ['parts', 'assembly', 'tools', 'inspection', 'features', 'testing'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="3" fill="#58CC02" opacity="0.08"/> <rect x="8" y="22" width="28" height="36" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="22" cy="34" r="6" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <rect x="16" y="44" width="12" height="8" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="43,38.5 46,40 43,41.5" fill="#3B8700" opacity="0.3"/> <rect x="44" y="22" width="28" height="36" rx="3" fill="#A5E86C" opacity="0.08"/> <rect x="44" y="22" width="28" height="36" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="50" y="28" width="16" height="24" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="4" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">design</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">mfg</text> </svg>',
-          explanation: 'Design for Assembly (DFA) is the systematic method of reducing part count and simplifying assembly operations.',
-          hint: 'This design methodology focuses on reducing part count.'
-        },
-        {
-          id: 'u10-L3-Q22',
-          type: 'multiple-choice',
-          question: 'When designing a shaft coupling, what is the primary trade-off between a rigid coupling and a flexible coupling?',
-          options: [
-            'Rigid couplings are always preferred because they transmit more torque',
-            'Flexible couplings are always preferred because they are easier to install',
-            'Rigid couplings transmit torque without loss but require precise alignment',
-            'There is no meaningful difference between rigid and flexible couplings'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Left shaft --> <rect x="2" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Right shaft --> <rect x="54" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Left flange (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,30,40;360,30,40" dur="2s" repeatCount="indefinite"/> <circle cx="30" cy="40" r="16" fill="#58CC02" opacity="0.08"/> <circle cx="30" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Bolt holes --> <circle cx="30" cy="27" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="43" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="30" cy="53" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="17" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> </g> <circle cx="30" cy="40" r="4" fill="#3B8700"/> <!-- Right flange (rotating together) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,50,40;360,50,40" dur="2s" repeatCount="indefinite"/> <circle cx="50" cy="40" r="16" fill="#58CC02" opacity="0.06"/> <circle cx="50" cy="40" r="16" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <!-- Bolt holes (matching) --> <circle cx="50" cy="27" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="63" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="50" cy="53" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="37" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> </g> <circle cx="50" cy="40" r="4" fill="#3B8700" opacity="0.6"/> <!-- Center connection line --> <line x1="38" y1="40" x2="42" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">flange coupling</text> </svg>',
-          explanation: 'Rigid couplings (flange, sleeve, clamp) provide zero backlash and full torque transmission but demand precise shaft alignment (typically <0.05 mm offset, <0.5° angular).',
-          hint: 'Rigid couplings need perfect alignment.'
-        },
-        {
-          id: 'u10-L3-Q23',
-          type: 'true-false',
-          question: 'For the same load capacity, a hollow shaft is lighter than a solid shaft because the material near the center of a solid shaft?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="44" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="8" y="44" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="44" width="28" height="28" rx="4" fill="#A5E86C" opacity="0.1"/> <rect x="44" y="44" width="28" height="28" rx="4" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="36" y1="22" x2="44" y2="22" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,20.5 46,22 43,23.5" fill="#3B8700" opacity="0.2"/> <line x1="22" y1="36" x2="22" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="20.5,43 22,46 23.5,43" fill="#3B8700" opacity="0.2"/> <line x1="58" y1="36" x2="58" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="56.5,43 58,46 59.5,43" fill="#3B8700" opacity="0.2"/> <line x1="36" y1="58" x2="44" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,56.5 46,58 43,59.5" fill="#3B8700" opacity="0.2"/> <text x="22" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">1</text> <text x="58" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">2</text> <text x="22" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">3</text> <text x="58" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">4</text> <circle cx="58" cy="58" r="6" fill="#58CC02" opacity="0.15"> <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'In torsion, shear stress is proportional to the radius (tau = T*r/J). The core material near the center carries very low stress and contributes little to torque capacity but adds full weight.',
-          hint: 'In torsion, stress is zero at the center and maximum.'
-        },
-        {
-          id: 'u10-L3-Q24',
-          type: 'multiple-choice',
-          question: 'Mechanical fasteners for joining sheet metal parts. What is the most complete analysis?',
-          options: [
-            'Adhesives are always weaker than mechanical fasteners and should only be used',
-            'Mechanical fasteners always produce superior joint quality',
-            'The only difference is cost — adhesives are always cheaper than fasteners',
-            'Adhesives distribute stress over a large area, add no weight, and seal'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Worm shaft (horizontal cylinder) --> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Worm thread (scrolling animation) --> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="64" y1="20" x2="70" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <!-- Worm wheel (below, slow rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="56" r="13" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Teeth --> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="52.7" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="52.7" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> <!-- Input/output arrows --> <polygon points="74,25 78,26 74,27" fill="#3B8700" opacity="0.2"/> <path d="M22,68 A14,14 0 0,0 26,72" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <polygon points="25,71 28,74 24,73" fill="#A5E86C" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">high ratio</text> </svg>',
-          explanation: 'Adhesive bonding advantages: uniform stress distribution (no stress concentration from holes), light weight, vibration damping, galvanic isolation between dissimilar metals, sealing capability,.',
-          hint: 'Consider stress distribution, environmental limits,.'
-        },
-        {
-          id: 'u10-L3-Q25',
-          type: 'multiple-choice',
-          question: 'When choosing between a gear drive and a belt drive for a power transmission application, what factors favor the belt drive?',
-          options: [
-            'Belt drives are more efficient than gear drives in all applications',
-            'Belt drives provide shock absorption, accommodate larger shaft distances, are',
-            'Belt drives can transmit higher torques than gear drives',
-            'Belt drives require no maintenance whatsoever'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'Belt drives offer several advantages.',
-          hint: 'Belt drives offer advantages in cost, noise, and shock.'
-        },
-        {
-          id: 'u10-L3-Q26',
-          type: 'multiple-choice',
-          question: 'In lightweight design, the concept of "buy-to-fly ratio" in aerospace manufacturing refers to what trade-off?',
-          options: [
-            'The ratio of purchased parts to custom-made parts in an aircraft',
-            'The ratio of raw material weight purchased to the weight of the finished part',
-            'The ratio of fuel cost to ticket revenue per flight',
-            'The ratio of design time to manufacturing time for each component'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="3" fill="#58CC02" opacity="0.08"/> <rect x="8" y="22" width="28" height="36" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="22" cy="34" r="6" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <rect x="16" y="44" width="12" height="8" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="43,38.5 46,40 43,41.5" fill="#3B8700" opacity="0.3"/> <rect x="44" y="22" width="28" height="36" rx="3" fill="#A5E86C" opacity="0.08"/> <rect x="44" y="22" width="28" height="36" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="50" y="28" width="16" height="24" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="4" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">design</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">mfg</text> </svg>',
-          explanation: 'Buy-to-fly ratio = weight of raw material / weight of finished part. In aerospace machining, this ratio can be 10:1 to 20:1, meaning 90-95% of the purchased material becomes chips (waste).',
-          hint: 'This ratio compares the raw material purchased.'
-        },
-        {
-          id: 'u10-L3-Q27',
-          type: 'true-false',
-          question: 'In DFM for CNC machining, internal sharp corners should be avoided because end mills leave a radius equal to their tool radius,?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Disc (rotating) --> <rect x="36" y="8" width="8" height="64" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Disc surface pattern --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="38" y1="10" x2="42" y2="10"/><line x1="38" y1="16" x2="42" y2="16"/> <line x1="38" y1="22" x2="42" y2="22"/><line x1="38" y1="28" x2="42" y2="28"/> <line x1="38" y1="34" x2="42" y2="34"/><line x1="38" y1="46" x2="42" y2="46"/> <line x1="38" y1="52" x2="42" y2="52"/><line x1="38" y1="58" x2="42" y2="58"/> <line x1="38" y1="64" x2="42" y2="64"/><line x1="38" y1="70" x2="42" y2="70"/> </g> <!-- Caliper body (C-shape) --> <path d="M18,24 L18,14 L62,14 L62,24" stroke-width="1.2" stroke="#58CC02" fill="none"/> <path d="M18,56 L18,66 L62,66 L62,56" stroke-width="1.2" stroke="#58CC02" fill="none"/> <!-- Inner pad (left) --> <rect x="26" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="x" values="26;32;26" dur="2s" repeatCount="indefinite"/> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Outer pad (right) --> <rect x="44" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Piston (left side) --> <rect x="20" y="32" width="6" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none"> <animate attributeName="x" values="20;26;20" dur="2s" repeatCount="indefinite"/> </rect> <!-- Hydraulic line --> <line x1="10" y1="40" x2="20" y2="40" stroke-width="0.6" stroke="#58CC02"/> <circle cx="8" cy="40" r="2" stroke-width="0.4" stroke="#58CC02" fill="none"/> <text x="8" y="41.5" font-size="2.5" fill="#58CC02" text-anchor="middle">P</text> <!-- Friction force arrows --> <g opacity="0.3"> <line x1="34" y1="38" x2="34" y2="32" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="32.8,32 35.2,32 34,30" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> <line x1="46" y1="42" x2="46" y2="48" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="44.8,48 47.2,48 46,50" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> </g> <!-- Labels --> <text x="40" y="10" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">caliper</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">friction braking</text> </svg>',
-          explanation: 'CNC end mills are cylindrical and always leave an internal radius equal to the tool radius.',
-          hint: 'End mills are round.'
-        },
-        {
-          id: 'u10-L3-Q28',
-          type: 'multiple-choice',
-          question: 'You are comparing aluminum 6061-T6 and aluminum 7075-T6 for a structural application. What is the key trade-off?',
-          options: [
-            '7075 is superior in every way and should always replace 6061',
-            '6061 and 7075 have identical properties — the choice does not matter',
-            '7075-T6 has higher strength (UTS 570 vs 310 MPa) but lower corrosion',
-            '6061 is stronger than 7075 but heavier'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Driven disc (right, starts stationary then spins) --> <g> <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="0,52,40;0,52,40;360,52,40" keyTimes="0;0.4;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.3 0 0.7 1"/> <circle cx="52" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="52" cy="40" r="18" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <line x1="52" y1="22" x2="52" y2="58" stroke="#A5E86C" stroke-width="1" opacity="0.15"/> <line x1="34" y1="40" x2="70" y2="40" stroke="#A5E86C" stroke-width="1" opacity="0.15"/> </g> <circle cx="52" cy="40" r="4" fill="#3B8700" opacity="0.2"/> <!-- Output shaft --> <rect x="66" y="37" width="12" height="6" rx="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Driving disc (left, always spinning) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="1.5s" repeatCount="indefinite"/> <circle cx="28" cy="40" r="18" fill="#58CC02" opacity="0.08"/> <circle cx="28" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <line x1="28" y1="22" x2="28" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="10" y1="40" x2="46" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <circle cx="28" cy="22" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700"/> <!-- Input shaft --> <rect x="2" y="37" width="12" height="6" rx="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Engagement indicator (discs approach) --> <g> <animate attributeName="opacity" values="0.15;0.35;0.35;0.15" dur="3s" repeatCount="indefinite" keyTimes="0;0.3;0.7;1"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="1.5" stroke-dasharray="2,2"/> </g> <!-- Labels --> <text x="16" y="72" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">input</text> <text x="56" y="72" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">output</text> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">friction clutch</text> </svg>',
-          explanation: '7075-T6 (Al-Zn-Mg-Cu) is nearly twice as strong as 6061-T6 (Al-Mg-Si) but with significant trade-offs.',
-          hint: 'Higher strength often comes with trade-offs in corrosion.'
-        },
-        {
-          id: 'u10-L3-Q29',
-          type: 'multiple-choice',
-          question: 'For a product for both performance and serviceability, which design principle should guide the location of wear parts?',
-          options: [
-            'Wear parts should be permanently attached to minimize assembly tolerance',
-            'Wear parts should be integrated into the main structure for maximum rigidity',
-            'Wear parts are unnecessary if the right material is selected initially',
-            'Wear parts should be separate, easily accessible replaceable components'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="8" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="44" y="8" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="8" y="44" width="28" height="28" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="28" height="28" rx="4" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="44" y="44" width="28" height="28" rx="4" fill="#A5E86C" opacity="0.1"/> <rect x="44" y="44" width="28" height="28" rx="4" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="36" y1="22" x2="44" y2="22" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,20.5 46,22 43,23.5" fill="#3B8700" opacity="0.2"/> <line x1="22" y1="36" x2="22" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="20.5,43 22,46 23.5,43" fill="#3B8700" opacity="0.2"/> <line x1="58" y1="36" x2="58" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="56.5,43 58,46 59.5,43" fill="#3B8700" opacity="0.2"/> <line x1="36" y1="58" x2="44" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <polygon points="43,56.5 46,58 43,59.5" fill="#3B8700" opacity="0.2"/> <text x="22" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">1</text> <text x="58" y="24" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">2</text> <text x="22" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">3</text> <text x="58" y="60" text-anchor="middle" font-size="5" fill="#334155" opacity="0.4" font-weight="bold">4</text> <circle cx="58" cy="58" r="6" fill="#58CC02" opacity="0.15"> <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Designing for serviceability means making wear items (bushings, seals, liners, filters, brake pads) easily replaceable. Design principles.',
-          hint: 'Which parts should be easy to replace: the expensive.'
-        },
-        {
-          id: 'u10-L3-Q30',
-          type: 'fill-blank',
-          question: 'The design methodology where a cross-functional team systematically reviews a process step-by-step to identify potential failure _____?',
-          blanks: ['FMEA'],
-          wordBank: ['FMEA', 'HAZOP', 'DFMA', 'APQP', 'PPAP'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Horizontal shaft --> <rect x="2" y="38" width="28" height="4" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Vertical shaft --> <rect x="38" y="2" width="4" height="28" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Horizontal bevel gear (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,38,40;360,38,40" dur="2s" repeatCount="indefinite"/> <ellipse cx="38" cy="40" rx="16" ry="6" fill="#58CC02" opacity="0.1"/> <ellipse cx="38" cy="40" rx="16" ry="6" stroke="#58CC02" stroke-width="2" fill="none"/> <ellipse cx="38" cy="40" rx="10" ry="3.5" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="22" cy="40" r="1.5" fill="#3B8700" opacity="0.25"/> <circle cx="38" cy="34" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="38" cy="46" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <!-- Vertical bevel gear (rotating, meshed at 90°) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,38;-360,40,38" dur="2s" repeatCount="indefinite"/> <ellipse cx="40" cy="38" rx="6" ry="16" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="38" rx="6" ry="16" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="38" rx="3.5" ry="10" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="40" cy="22" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="40" cy="54" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Mesh point --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- 90° angle indicator --> <rect x="30" y="30" width="4" height="4" stroke="#3B8700" stroke-width="0.6" fill="none" opacity="0.15"/> <text x="56" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">90° power transfer</text> </svg>',
-          explanation: 'Process FMEA (PFMEA) analyzes manufacturing and assembly processes to identify potential process failures, their effects on the product, and the process controls to detect or prevent them.',
-          hint: 'This process-focused risk analysis tool is.'
         }
       ]
     },
     {
       id: 'u10-L4',
-      title: 'FEA & Simulation',
-      description: 'Mesh quality, boundary conditions, convergence, element types, interpreting stress results, singularities.',
+      title: 'FEA Mesh & Elements',
+      description: 'Element types, mesh quality metrics, and how mesh density affects accuracy.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L4-T1',
+          id: 'u10-L4-NEW-T1',
           type: 'teaching',
-          question: 'What FEA Actually Does',
-          explanation: 'Finite Element Analysis breaks a complex shape into thousands of small, simple pieces (elements). It solves equilibrium equations at each element to approximate stresses, displacements, and temperatures. The finer the mesh, the more accurate the result, but the longer it takes to solve.',
-          hint: 'Think of it like pixelating an image: more pixels means more detail but more data.',
+          question: 'FEA Approximates Reality',
+          explanation: 'Finite Element Analysis divides a complex shape into simple elements, solves equations for each, and assembles the results. It\'s an approximation. Finer mesh means better accuracy but longer solve time.',
+          hint: 'Try this now: imagine dividing a bracket into tiny triangles.',
+        },
+        {
+          id: 'u10-L4-NEW-E1',
+          type: 'true-false',
+          question: 'In FEA, using a finer (denser) mesh generally improves accuracy but increases computation time.',
+          correctAnswer: true,
+          explanation: 'More elements means better approximation of the geometry and stress field, but solving takes longer.',
+          hint: 'Think about the trade-off between accuracy and speed.',
+        },
+        {
+          id: 'u10-L4-NEW-E1',
+          type: 'true-false',
+          question: 'In FEA, using a finer (denser) mesh generally improves accuracy but increases computation time.',
+          correctAnswer: true,
+          explanation: 'More elements means better approximation of the geometry and stress field, but solving takes longer.',
+          hint: 'Think about the trade-off between accuracy and speed.',
         },
         {
           id: 'u10-L4-Q1',
           type: 'multiple-choice',
           question: 'In an FEA stress analysis, you observe that the maximum stress at a sharp re-entrant corner keeps increasing as you refine the?',
           options: [
-            'The stress is extremely high and increasing — the part will definitely fail',
-            'The model has diverged and all results are invalid — start over with different',
+            'The stress is extremely high and increasing. the part will definitely fail',
+            'The model has diverged and all results are invalid. start over with different',
             'The sharp corner creates a stress singularity where theoretical elastic stress',
-            'Just use the stress from the coarsest mesh — that is the most conservative'
+            'Just use the stress from the coarsest mesh. that is the most conservative'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
           explanation: 'Sharp re-entrant corners create stress singularities where the theoretical elastic stress is mathematically infinite.',
           hint: 'What happens to the theoretical stress at a perfectly.'
+        },
+        {
+          id: 'u10-L4-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each FEA term to its meaning:',
+          options: [
+            'Node',
+            'Element',
+            'Boundary condition',
+            'Convergence'
+          ],
+          matchTargets: [
+            'A point in the mesh',
+            'A small piece of the geometry',
+            'A constraint or load applied to the model',
+            'Results stabilize as mesh is refined'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'These are the fundamental concepts of FEA that every engineer should know.',
+          hint: 'Each term describes a basic FEA building block.',
+        },
+        {
+          id: 'u10-L4-NEW-T2',
+          type: 'teaching',
+          question: 'Element Type Matters',
+          explanation: 'Linear elements (4-node tet, 8-node hex) are fast but less accurate for bending. Quadratic elements (10-node tet, 20-node hex) capture bending much better with fewer elements.',
+          hint: 'Try this now: think about which is cheaper: more simple elements or fewer complex ones?',
+        },
+        {
+          id: 'u10-L4-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is a "mesh" in FEA?',
+          options: [
+            'The network of elements that divide the geometry',
+            'The loading conditions applied to the model',
+            'The material property database',
+            'The solver algorithm'
+          ],
+          correctIndex: 0,
+          explanation: 'A mesh is the collection of nodes and elements that discretize the continuous geometry.',
+          hint: 'Think about dividing a shape into small pieces.',
         },
         {
           id: 'u10-L4-Q2',
@@ -1362,6 +1061,101 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
           explanation: 'Modeling individual bolt threads is computationally expensive and unnecessary for structural analysis.',
           hint: 'Consider the appropriate level of modeling detail.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L4b',
+      title: 'Boundary Conditions & Convergence',
+      description: 'Applying boundary conditions correctly, checking convergence, and common modeling mistakes.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L4b-NEW-T1',
+          type: 'teaching',
+          question: 'Boundary Conditions Make or Break FEA',
+          explanation: 'Wrong boundary conditions give wrong answers, no matter how fine your mesh. Always verify that your constraints match reality. Over-constraining makes the model too stiff.',
+          hint: 'Try this now: think about how you\'d constrain a simply-supported beam in FEA.',
+        },
+        {
+          id: 'u10-L4b-NEW-E1',
+          type: 'true-false',
+          question: 'Fixing all 6 degrees of freedom at a support creates a fully fixed (encastre) boundary condition.',
+          correctAnswer: true,
+          explanation: 'Fixing all translations and rotations at a node models a perfectly rigid wall mount.',
+          hint: 'Six DOF means 3 translations + 3 rotations.',
+        },
+        {
+          id: 'u10-L4-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each FEA term to its meaning:',
+          options: [
+            'Node',
+            'Element',
+            'Boundary condition',
+            'Convergence'
+          ],
+          matchTargets: [
+            'A point in the mesh',
+            'A small piece of the geometry',
+            'A constraint or load applied to the model',
+            'Results stabilize as mesh is refined'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'These are the fundamental concepts of FEA that every engineer should know.',
+          hint: 'Each term describes a basic FEA building block.',
+        },
+        {
+          id: 'u10-L4-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is a "mesh" in FEA?',
+          options: [
+            'The network of elements that divide the geometry',
+            'The loading conditions applied to the model',
+            'The material property database',
+            'The solver algorithm'
+          ],
+          correctIndex: 0,
+          explanation: 'A mesh is the collection of nodes and elements that discretize the continuous geometry.',
+          hint: 'Think about dividing a shape into small pieces.',
+        },
+        {
+          id: 'u10-L4b-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these FEA workflow steps in order:',
+          steps: [
+            'Import or create geometry',
+            'Assign material properties',
+            'Apply mesh to the geometry',
+            'Apply loads and boundary conditions',
+            'Run the solver and check convergence'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'The standard FEA workflow: geometry, materials, mesh, loads/BCs, then solve.',
+          hint: 'You need geometry before you can mesh it.',
+        },
+        {
+          id: 'u10-L4b-NEW-T2',
+          type: 'teaching',
+          question: 'Check Convergence Before Trusting Results',
+          explanation: 'Run your model with 2-3 different mesh densities. If the peak stress changes less than 5% between meshes, you\'ve converged. If it keeps changing, refine further.',
+          hint: 'Try this now: think about what would happen if you never checked convergence.',
+        },
+        {
+          id: 'u10-L4b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does "mesh convergence" mean in FEA?',
+          options: [
+            'Results stop changing significantly as you refine the mesh',
+            'The solver finishes running',
+            'All elements have the same size',
+            'The model matches the CAD geometry exactly'
+          ],
+          correctIndex: 0,
+          explanation: 'Convergence means your results are mesh-independent. Further refinement won\'t change the answer.',
+          hint: 'Think about what "converge" means mathematically.',
         },
         {
           id: 'u10-L4-Q3',
@@ -1371,6 +1165,31 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
           explanation: 'Mesh convergence ensures that results are independent of mesh density. The process: run the analysis with an initial mesh, refine (globally or locally), re-run, and compare key results.',
           hint: 'Convergence means further mesh refinement does.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L4c',
+      title: 'Interpreting FEA Results',
+      description: 'Reading stress plots, handling singularities, and validating FEA results against hand calcs.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L4c-NEW-T1',
+          type: 'teaching',
+          question: 'Stress Singularities Are Not Real',
+          explanation: 'Sharp corners in FEA produce infinite stress as you refine the mesh. This is a math artifact, not reality. Real parts have fillets, and real stresses are finite. Ignore singularity peaks.',
+          hint: 'Try this now: think about why a perfectly sharp corner can\'t exist in the real world.',
+        },
+        {
+          id: 'u10-L4c-NEW-E1',
+          type: 'true-false',
+          question: 'A stress singularity in FEA means the stress at a sharp corner approaches infinity as the mesh is refined.',
+          correctAnswer: true,
+          explanation: 'This is a mathematical artifact of the model, not a real physical stress. Real corners have small radii.',
+          hint: 'Perfect sharp corners don\'t exist in real parts.',
         },
         {
           id: 'u10-L4-Q4',
@@ -1378,29 +1197,22 @@ export const unit10: Unit = {
           question: 'They conclude the bracket will fail. Is their conclusion correct?',
           options: [
             'First check WHERE the 350 MPa occurs: if at a singularity the value is',
-            'Yes — stress exceeds yield, so the bracket will definitely break',
-            'No — von Mises stress is not relevant for aluminum, use maximum principal stress',
-            'Yes — any FEA stress above yield means immediate failure in all cases'
+            'Yes. stress exceeds yield, so the bracket will definitely break',
+            'No. von Mises stress is not relevant for aluminum, use maximum principal stress',
+            'Yes. any FEA stress above yield means immediate failure in all cases'
 
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <line x1="40" y1="72" x2="40" y2="8" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="72,38.5 72,41.5 74,40" fill="#3B8700" opacity="0.4"/> <polygon points="38.5,8 41.5,8 40,6" fill="#3B8700" opacity="0.4"/> <text x="74" y="38" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">σ</text> <text x="43" y="10" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">τ</text> <!-- Mohr\'s circle --> <circle cx="44" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="44" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Center point C --> <circle cx="44" cy="40" r="1.5" fill="#3B8700" opacity="0.4"/> <!-- Rotating diameter line (stress state) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,44,40;360,44,40" dur="4s" repeatCount="indefinite"/> <line x1="26" y1="40" x2="62" y2="40" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/> <!-- σ₁ point --> <circle cx="62" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <!-- σ₂ point --> <circle cx="26" cy="40" r="3" fill="#58CC02" opacity="0.3"/> </g> <!-- Principal stresses labels (static) --> <text x="63" y="52" font-size="4.5" fill="#3B8700" opacity="0.25">σ₁</text> <text x="22" y="52" font-size="4.5" fill="#3B8700" opacity="0.25">σ₂</text> <!-- Max shear label --> <text x="46" y="20" font-size="4" fill="#3B8700" opacity="0.2">τ_max</text> <line x1="44" y1="22" x2="44" y2="26" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> </svg>',
-          explanation: 'The correct response requires engineering judgment. Key checks: (1) Location — is the peak at a singularity? If so, the number is meaningless.',
+          explanation: 'The correct response requires engineering judgment. Key checks: (1) Location. is the peak at a singularity? If so, the number is meaningless.',
           hint: 'Before accepting a peak stress value, check where it.'
-        },
-        {
-          id: 'u10-L4-T2',
-          type: 'teaching',
-          question: 'Mesh Convergence and Singularities',
-          explanation: 'A mesh convergence study means refining the mesh until results stop changing significantly (typically within 5%). Sharp corners create stress singularities where stress goes to infinity as you refine, so you can\'t trust peak stress at those locations.',
-          hint: 'Always check if high stress is real or just a mesh artifact at a sharp corner.',
         },
         {
           id: 'u10-L4-Q5',
           type: 'multiple-choice',
           question: 'They sum to 450 N, but the total applied load is 500 N. What does this indicate?',
           options: [
-            'The analysis is correct — a 10% imbalance is normal and acceptable, when',
+            'The analysis is correct. a 10% imbalance is normal and acceptable, when',
             'This is expected due to stress stiffening effects in the material model',
             'The missing 50 N was absorbed by material damping in the analysis, without',
             'There is a force equilibrium error indicating a problem with the model such'
@@ -1412,6 +1224,47 @@ export const unit10: Unit = {
           hint: 'In static equilibrium, the sum of all forces equals zero.'
         },
         {
+          id: 'u10-L4c-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these FEA observations into real problems or normal artifacts:',
+          options: [
+            'Stress singularity at a sharp corner',
+            'Convergence study shows 5% change',
+            'Peak stress at a fillet root',
+            'Hourglass modes in reduced-integration elements',
+            'Stress concentration at a bolt hole',
+            'Rigid body motion in the model'
+          ],
+          buckets: [
+            'Normal/artifact',
+            'Real problem'
+          ],
+          correctBuckets: [0, 0, 0, 1, 0, 1],
+          explanation: 'Singularities and small convergence changes are expected. Hourglass modes and rigid body motion indicate errors.',
+          hint: 'Think about which observations indicate modeling mistakes.',
+        },
+        {
+          id: 'u10-L4c-NEW-T2',
+          type: 'teaching',
+          question: 'Always Validate Against Hand Calcs',
+          explanation: 'FEA results should agree with simple hand calculations within 10-20%. If your FEA says a beam deflects 1 mm but your hand calc says 10 mm, something is wrong with the model.',
+          hint: 'Try this now: estimate the deflection of a cantilever beam and compare to an FEA result.',
+        },
+        {
+          id: 'u10-L4c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What should you do if FEA stress results disagree significantly with a hand calculation?',
+          options: [
+            'Check the model for errors in BCs, loads, or material properties',
+            'Trust the FEA because computers are more accurate',
+            'Add more elements until FEA matches',
+            'Ignore the hand calculation'
+          ],
+          correctIndex: 0,
+          explanation: 'Disagreement between FEA and hand calcs usually means a modeling error. Always investigate.',
+          hint: 'Hand calcs are your sanity check.',
+        },
+        {
           id: 'u10-L4-Q6',
           type: 'fill-blank',
           question: 'The process of progressively refining the FEA mesh and verifying that results stabilize is called a mesh _____ study.',
@@ -1420,361 +1273,47 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
           explanation: 'A mesh convergence (or mesh independence/sensitivity) study is a mandatory part of any credible FEA analysis. It demonstrates that the numerical discretization is fine enough to capture.',
           hint: 'This study proves that making the mesh finer does.'
-        },
-        {
-          id: 'u10-L4-Q7',
-          type: 'multiple-choice',
-          question: 'When should you use second-order (quadratic) elements instead of first-order (linear) elements in an FEA model?',
-          options: [
-            'When the geometry has curvature, when bending is dominant',
-            'Always — second-order elements are superior in every situation',
-            'Never — first-order elements are always more accurate, which would only hold',
-            'Only when modeling fluids, not structural problems'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="40" y1="74" x2="40" y2="6" stroke-width="0.6" stroke="#58CC02"/> <line x1="6" y1="40" x2="74" y2="40" stroke-width="0.6" stroke="#58CC02"/> <text x="42" y="10" font-size="3" fill="#58CC02" opacity="0.5">σ₂</text> <text x="72" y="38" font-size="3" fill="#58CC02" opacity="0.5">σ₁</text> <!-- Tresca (hexagon) --> <polygon points="56,12 72,40 56,68 24,68 8,40 24,12" stroke-width="0.6" stroke="#3B8700" fill="none" opacity="0.4"/> <text x="10" y="18" font-size="2.5" fill="#3B8700" opacity="0.35">Tresca</text> <!-- Von Mises (ellipse) --> <ellipse cx="40" cy="40" rx="30" ry="22" stroke-width="0.7" stroke="#A5E86C" fill="none" opacity="0.5" transform="rotate(45,40,40)"/> <text x="62" y="16" font-size="2.5" fill="#A5E86C" opacity="0.45">von Mises</text> <!-- Yield stress markers --> <circle cx="56" cy="40" r="1.2" fill="#58CC02" opacity="0.3"/> <text x="58" y="44" font-size="2.5" fill="#3B8700" opacity="0.35">σ_y</text> <circle cx="40" cy="24" r="1.2" fill="#58CC02" opacity="0.3"/> <text x="44" y="24" font-size="2.5" fill="#3B8700" opacity="0.35">σ_y</text> <!-- Animated stress point --> <circle r="2" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="40;52;60;52;40;28;20;28;40" dur="6s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;24;40;56;60;56;40;24;20" dur="6s" repeatCount="indefinite"/> </circle> <!-- Safe region label --> <text x="40" y="52" font-size="2.5" fill="#58CC02" opacity="0.25" text-anchor="middle">safe</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure envelope</text> </svg>',
-          explanation: 'Second-order (quadratic) elements have mid-side nodes that allow the displacement field to vary quadratically within each element.',
-          hint: 'Consider how many elements you need to capture bending.'
-        },
-        {
-          id: 'u10-L4-Q8',
-          type: 'multiple-choice',
-          question: 'You are modeling a thin sheet metal part (1 mm thick, 300 mm wide). What element type is most appropriate?',
-          options: [
-            'Solid brick elements with at least 8 elements through the thickness',
-            'Point mass elements distributed across the surface',
-            'Beam elements since the part is thin',
-            'Shell elements, which represent the sheet as a 2D surface with assigned'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Shell elements are designed for structures where one dimension (thickness) is much smaller than the other two.',
-          hint: 'When one dimension (thickness) is much smaller.'
-        },
-        {
-          id: 'u10-L4-Q9',
-          type: 'true-false',
-          question: 'In FEA, applying a point load to a single node creates an artificial stress singularity at that location, similar to a geometric?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'A point load applies a finite force over zero area, creating theoretically infinite stress (stress = force/area, area → 0).',
-          hint: 'Finite force over zero area gives what theoretical stress?.'
-        },
-        {
-          id: 'u10-L4-Q10',
-          type: 'multiple-choice',
-          question: 'What is the practical significance of the aspect ratio of finite elements, and what is a typical acceptable limit?',
-          options: [
-            'High aspect ratio elements (long and thin, >10:1) cause poor accuracy',
-            'Aspect ratio has no effect on FEA accuracy and can be ignored',
-            'Aspect ratio only matters for thermal analysis, not structural',
-            'Elements must always be perfectly square (1:1 aspect ratio) for valid results'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Element aspect ratio is the ratio of the longest to shortest edge.',
-          hint: 'Long, thin elements have difficulty representing strain.'
-        },
-        {
-          id: 'u10-L4-Q11',
-          type: 'multiple-choice',
-          question: 'What is the most systematic troubleshooting approach?',
-          options: [
-            'Simply increase the maximum number of iterations to 1000',
-            'Reduce the mesh size by half to improve convergence, provided all secondary',
-            'Switch to a linear analysis — nonlinear is unnecessary',
-            'Check for sources of nonlinearity (contact, material plasticity, large'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="40" y1="74" x2="40" y2="6" stroke-width="0.6" stroke="#58CC02"/> <line x1="6" y1="40" x2="74" y2="40" stroke-width="0.6" stroke="#58CC02"/> <text x="42" y="10" font-size="3" fill="#58CC02" opacity="0.5">σ₂</text> <text x="72" y="38" font-size="3" fill="#58CC02" opacity="0.5">σ₁</text> <!-- Tresca (hexagon) --> <polygon points="56,12 72,40 56,68 24,68 8,40 24,12" stroke-width="0.6" stroke="#3B8700" fill="none" opacity="0.4"/> <text x="10" y="18" font-size="2.5" fill="#3B8700" opacity="0.35">Tresca</text> <!-- Von Mises (ellipse) --> <ellipse cx="40" cy="40" rx="30" ry="22" stroke-width="0.7" stroke="#A5E86C" fill="none" opacity="0.5" transform="rotate(45,40,40)"/> <text x="62" y="16" font-size="2.5" fill="#A5E86C" opacity="0.45">von Mises</text> <!-- Yield stress markers --> <circle cx="56" cy="40" r="1.2" fill="#58CC02" opacity="0.3"/> <text x="58" y="44" font-size="2.5" fill="#3B8700" opacity="0.35">σ_y</text> <circle cx="40" cy="24" r="1.2" fill="#58CC02" opacity="0.3"/> <text x="44" y="24" font-size="2.5" fill="#3B8700" opacity="0.35">σ_y</text> <!-- Animated stress point --> <circle r="2" fill="#A5E86C" opacity="0.6"> <animate attributeName="cx" values="40;52;60;52;40;28;20;28;40" dur="6s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;24;40;56;60;56;40;24;20" dur="6s" repeatCount="indefinite"/> </circle> <!-- Safe region label --> <text x="40" y="52" font-size="2.5" fill="#58CC02" opacity="0.25" text-anchor="middle">safe</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">failure envelope</text> </svg>',
-          explanation: 'Nonlinear convergence failure has several common causes: Too large a load step — the Newton-Raphson iteration cannot find equilibrium in one step; reduce step size.',
-          hint: 'Identify the source of nonlinearity first.'
-        },
-        {
-          id: 'u10-L4-Q12',
-          type: 'true-false',
-          question: 'Saint-Venant\'s principle states that the stress distribution far from the point of load application is independent of the exact?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <line x1="40" y1="72" x2="40" y2="8" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="72,38.5 72,41.5 74,40" fill="#3B8700" opacity="0.4"/> <polygon points="38.5,8 41.5,8 40,6" fill="#3B8700" opacity="0.4"/> <text x="74" y="38" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">σ</text> <text x="43" y="10" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">τ</text> <!-- Mohr\'s circle --> <circle cx="44" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="44" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Center point C --> <circle cx="44" cy="40" r="1.5" fill="#3B8700" opacity="0.4"/> <!-- Rotating diameter line (stress state) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,44,40;360,44,40" dur="4s" repeatCount="indefinite"/> <line x1="26" y1="40" x2="62" y2="40" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/> <!-- σ₁ point --> <circle cx="62" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <!-- σ₂ point --> <circle cx="26" cy="40" r="3" fill="#58CC02" opacity="0.3"/> </g> <!-- Principal stresses labels (static) --> <text x="63" y="52" font-size="4.5" fill="#3B8700" opacity="0.25">σ₁</text> <text x="22" y="52" font-size="4.5" fill="#3B8700" opacity="0.25">σ₂</text> <!-- Max shear label --> <text x="46" y="20" font-size="4" fill="#3B8700" opacity="0.2">τ_max</text> <line x1="44" y1="22" x2="44" y2="26" stroke="#3B8700" stroke-width="0.6" stroke-dasharray="1.5,2" opacity="0.15"/> </svg>',
-          explanation: 'Saint-Venant\'s principle is fundamental to FEA boundary condition modeling. It means that the exact way a load is applied matters only locally (within about one characteristic dimension of.',
-          hint: 'This principle explains why simplified load distributions.'
-        },
-        {
-          id: 'u10-L4-Q13',
-          type: 'multiple-choice',
-          question: 'The vessel is large and the nozzle is small. What modeling approach balances accuracy and computational cost?',
-          options: [
-            'Model the entire vessel with a uniformly fine mesh',
-            'Model only the nozzle and ignore the vessel entirely',
-            'Use a global-local (submodeling) approach: analyze the full vessel with',
-            'Use a 1D beam model for the entire vessel and nozzle assembly'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Submodeling (global-local analysis) is the standard approach for multi-scale problems. Step 1: Create a coarse global model of the entire vessel to capture overall load distribution and deformation.',
-          hint: 'How can you get detailed stress results at the nozzle.'
-        },
-        {
-          id: 'u10-L4-Q14',
-          type: 'multiple-choice',
-          question: 'What is "hourglass" or zero-energy mode, and why is it a concern in FEA with reduced integration elements?',
-          options: [
-            'It is a type of mesh error that only occurs in structured meshes',
-            'It refers to element deformation patterns that produce zero strain energy due',
-            'It is a post-processing visualization artifact with no effect on results',
-            'It only occurs in dynamic (transient) analyses, never in static problems'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'Reduced integration elements use fewer Gauss points than full integration, saving computation time.',
-          hint: 'Reduced integration uses fewer sampling points.'
-        },
-        {
-          id: 'u10-L4-Q15',
-          type: 'fill-blank',
-          question: 'The FEA technique of using a refined detailed model of a local region, with boundary conditions interpolated from a coarser _____?',
-          blanks: ['submodeling'],
-          wordBank: ['submodeling', 'superposition', 'homogenization', 'partitioning', 'condensation'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Submodeling (also called global-local analysis or the cut-boundary technique) is a two-step analysis approach. The global model captures overall structural behavior with a coarse mesh.',
-          hint: 'This technique uses a coarse global model to drive.'
-        },
-        {
-          id: 'u10-L4-Q16',
-          type: 'multiple-choice',
-          question: 'Why is it important to check element quality metrics (Jacobian ratio, warpage, skewness) before running an FEA analysis?',
-          options: [
-            'Poor quality elements (highly distorted, warped, or skewed) produce inaccurate',
-            'Element quality only affects the visual appearance of results, not accuracy',
-            'Element quality metrics are only relevant for dynamic analyses',
-            'Modern solvers automatically correct poor element quality'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Element quality directly affects result accuracy. The Jacobian maps between the ideal element shape and the actual distorted shape.',
-          hint: 'What happens when an element is so distorted.'
-        },
-        {
-          id: 'u10-L4-Q17',
-          type: 'multiple-choice',
-          question: 'An interviewer asks: "How do you validate an FEA model?" What are the key steps?',
-          options: [
-            'If the software does not report errors, the model is validated — though this',
-            'Run the model with two different software packages — if they agree, it',
-            'Check that the mesh looks visually appealing and symmetric',
-            'Compare results to a published benchmark, verify with hand calculations where'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'FEA validation is a multi-step process: Verification — compare simple cases to analytical solutions (beam bending, pressure vessels) to confirm the modeling approach is correct.',
-          hint: 'Validation requires comparing model results to known.'
-        },
-        {
-          id: 'u10-L4-Q18',
-          type: 'true-false',
-          question: 'In a linear static FEA analysis, the principle of superposition applies, meaning you can add the results from individual load?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Superposition is valid only when the system response is linear (proportional to load). In linear static analysis: linear elastic material, small deformations, and no contact changes.',
-          hint: 'Superposition requires linearity.'
-        },
-        {
-          id: 'u10-L4-Q19',
-          type: 'multiple-choice',
-          question: 'When modeling contact between two parts in FEA, what is the difference between "bonded" and "frictional" contact?',
-          options: [
-            'There is no practical difference — both give the same results, provided all',
-            'Bonded contact welds the surfaces together (no relative motion)',
-            'Bonded contact is only for adhesive joints',
-            'Frictional contact is always more accurate and should be used exclusively'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Bonded contact permanently connects the surfaces .',
-          hint: 'Bonded = permanently attached.'
-        },
-        {
-          id: 'u10-L4-T3',
-          type: 'teaching',
-          question: 'Validating FEA Results',
-          explanation: 'FEA is only as good as your inputs. Always validate by checking boundary conditions, reaction forces (do they match applied loads?), and comparing results against hand calculations or test data. A beautiful color plot can still be completely wrong.',
-          hint: 'If reaction forces don\'t balance applied loads, something is wrong with your model.',
-        },
-        {
-          id: 'u10-L4-Q20',
-          type: 'multiple-choice',
-          question: 'In a thermal-structural coupled FEA analysis, what is the typical analysis workflow?',
-          options: [
-            'Run structural analysis first, then thermal — structure affects temperature',
-            'Run both analyses simultaneously in a single coupled solver always',
-            'Run thermal analysis first to obtain the temperature distribution, then map',
-            'Thermal and structural effects are independent and cannot be analyzed together'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'For most thermal-structural problems, a sequential (weakly coupled) approach is appropriate: Solve the thermal problem (conduction, convection, radiation) to get the temperature field.',
-          hint: 'Does the structural deformation significantly change.'
-        },
-        {
-          id: 'u10-L4-Q21',
-          type: 'fill-blank',
-          question: 'The von Mises stress criterion used in FEA post-processing is based on the _____ energy theory of failure, which predicts?',
-          blanks: ['distortion'],
-          wordBank: ['distortion', 'strain', 'potential', 'kinetic', 'fracture'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'The von Mises (distortion energy) criterion states that yielding occurs when the distortional strain energy per unit volume equals that at yielding in a simple tensile test.',
-          hint: 'Von Mises stress is based on the energy associated.'
-        },
-        {
-          id: 'u10-L4-Q22',
-          type: 'multiple-choice',
-          question: 'What boundary conditions should you apply to model a symmetry plane in an FEA model?',
-          options: [
-            'Fix all six degrees of freedom at the symmetry plane',
-            'Apply no boundary conditions at the symmetry plane',
-            'Constrain the displacement perpendicular to the symmetry plane (and rotation',
-            'Apply a pressure load equal to the internal stress at the symmetry plane'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Symmetry boundary conditions enforce zero displacement normal to the symmetry plane and zero rotation about axes lying in the plane. Nodes on the symmetry plane can move freely within the plane.',
-          hint: 'On a symmetry plane, what motion is prevented.'
-        },
-        {
-          id: 'u10-L4-Q23',
-          type: 'true-false',
-          question: 'Tetrahedral (tet) elements are generally preferred over hexahedral (hex) elements for FEA because they are easier to generate automatically.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Tetrahedral elements are easier to generate (automatic tet meshing works for any geometry), but hexahedral (brick) elements are generally preferred when possible.',
-          hint: 'Ease of meshing is an advantage of tets, but consider.'
-        },
-        {
-          id: 'u10-L4-Q24',
-          type: 'multiple-choice',
-          question: 'In a modal (natural frequency) analysis, what do the mode shapes tell you that the natural frequencies alone do not?',
-          options: [
-            'Mode shapes provide no additional useful information beyond the frequencies',
-            'Mode shapes indicate the damping ratio at each frequency',
-            'Mode shapes only show the static deformation under gravity',
-            'Mode shapes reveal WHERE and HOW the structure deforms at each natural'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Mode shapes show the deformation pattern at each natural frequency. Critical information from mode shapes: (1) Location of maximum displacement — where vibration damage is likely.',
-          hint: 'Knowing that a frequency of 60 Hz exists is useful,.'
-        },
-        {
-          id: 'u10-L4-Q25',
-          type: 'multiple-choice',
-          question: 'Your applied load is the actual service load. Is the structure safe against buckling?',
-          options: [
-            'Yes — a load factor above 1.0 means it will not buckle under the applied load,',
-            'The linear buckling load factor of 3.2 is an upper bound',
-            'No — any load factor below 10.0 indicates buckling is imminent, provided all',
-            'The load factor is irrelevant — only yield stress determines structural safety'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Linear (eigenvalue) buckling analysis gives the theoretical bifurcation load for a geometrically perfect structure.',
-          hint: 'Linear buckling assumes perfect geometry.'
-        },
-        {
-          id: 'u10-L4-Q26',
-          type: 'true-false',
-          question: 'In FEA, the displacements are the primary unknowns solved for, and stresses are derived quantities calculated from displacement?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'In displacement-based FEA (the standard formulation), the governing equations are solved for nodal displacements.',
-          hint: 'Stress is derived from displacement gradients.'
-        },
-        {
-          id: 'u10-L4-Q27',
-          type: 'multiple-choice',
-          question: 'When performing fatigue analysis using FEA, why is it important to consider mean stress and not just alternating stress?',
-          options: [
-            'Mean stress has no effect on fatigue life',
-            'Tensile mean stress reduces fatigue life by keeping the crack tip open, while',
-            'Mean stress only matters for brittle materials, not ductile metals',
-            'Mean stress affects only the first cycle, not long-term fatigue behavior'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Mean stress significantly affects fatigue life. Tensile mean stress superimposed on cyclic stress keeps crack tips open, accelerating crack growth and reducing the endurance limit.',
-          hint: 'A component cycled between 0-200 MPa.'
-        },
-        {
-          id: 'u10-L4-Q28',
-          type: 'multiple-choice',
-          question: 'What is the purpose of a "rigid body motion check" before applying loads in an FEA model?',
-          options: [
-            'It verifies the model is properly constrained by solving for natural',
-            'It checks if the material is rigid or flexible, provided all secondary effects',
-            'It tests the mesh quality by measuring element stiffness, provided all',
-            'It is only needed for dynamic analyses, not static ones, provided all'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'A rigid body motion check solves the free-free modal analysis (no constraints). A properly unconstrained 3D body has exactly six rigid body modes at zero frequency (three translations, three.',
-          hint: 'An unconstrained 3D body has six rigid body modes.'
-        },
-        {
-          id: 'u10-L4-Q29',
-          type: 'fill-blank',
-          question: 'The FEA modeling technique that connects a finely-meshed region to a coarsely-meshed region, allowing mesh density transitions, _____?',
-          blanks: ['tie'],
-          wordBank: ['tie', 'rigid', 'spring', 'contact', 'beam'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Tie (coupling) constraints connect dissimilar meshes by enforcing displacement compatibility between the fine and coarse mesh surfaces.',
-          hint: 'These constraints enforce displacement compatibility.'
-        },
-        {
-          id: 'u10-L4-Q30',
-          type: 'multiple-choice',
-          question: 'What are the key assumptions of a linear static FEA analysis, and when do they break down? What is the best answer?',
-          options: [
-            'Linear static has no assumptions — it works for all problems, provided all',
-            'The only assumption is small deformation — everything else is exact',
-            'Three key assumptions: linear elastic material (stress proportional',
-            'Linear static assumes the structure will not fail, so it cannot predict failure'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="12" y="12" width="56" height="56" rx="2" fill="#58CC02" opacity="0.04"/> <g stroke="#58CC02" stroke-width="0.5" opacity="0.2"> <line x1="12" y1="26" x2="68" y2="26"/> <line x1="12" y1="40" x2="68" y2="40"/> <line x1="12" y1="54" x2="68" y2="54"/> <line x1="26" y1="12" x2="26" y2="68"/> <line x1="40" y1="12" x2="40" y2="68"/> <line x1="54" y1="12" x2="54" y2="68"/> </g> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="12" y1="12" x2="26" y2="26"/> <line x1="26" y1="12" x2="40" y2="26"/> <line x1="40" y1="12" x2="54" y2="26"/> <line x1="54" y1="12" x2="68" y2="26"/> <line x1="12" y1="26" x2="26" y2="40"/> <line x1="26" y1="26" x2="40" y2="40"/> <line x1="40" y1="26" x2="54" y2="40"/> <line x1="54" y1="26" x2="68" y2="40"/> <line x1="12" y1="40" x2="26" y2="54"/> <line x1="26" y1="40" x2="40" y2="54"/> <line x1="40" y1="40" x2="54" y2="54"/> <line x1="54" y1="40" x2="68" y2="54"/> <line x1="12" y1="54" x2="26" y2="68"/> <line x1="26" y1="54" x2="40" y2="68"/> <line x1="40" y1="54" x2="54" y2="68"/> <line x1="54" y1="54" x2="68" y2="68"/> </g> <rect x="12" y="12" width="56" height="56" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <ellipse cx="54" cy="26" rx="8" ry="8" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </ellipse> <text x="54" y="28" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.4" font-style="italic">stress</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">FEA mesh</text> </svg>',
-          explanation: 'Linear static FEA makes three fundamental assumptions: (1) Material linearity — stress-strain relationship is linear elastic (Hooke\'s law).',
-          hint: 'Linear static has three main assumptions.'
         }
       ]
     },
     {
       id: 'u10-L5',
-      title: 'Case Studies & Scenarios',
-      description: 'Real-world engineering problems, troubleshooting scenarios, design review situations, cross-disciplinary thinking.',
+      title: 'Engineering Case Studies',
+      description: 'Real-world engineering failures, troubleshooting frameworks, and systematic investigation.',
       icon: '📋',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L5-T1',
+          id: 'u10-L5-NEW-T1',
           type: 'teaching',
-          question: 'Structured Problem Solving',
-          explanation: 'Engineering case studies test how you think, not just what you know. The best approach is always: define the problem, gather data, form hypotheses, test them, then recommend a solution. Interviewers want to see your process, not just your answer.',
-          hint: 'Start every scenario by asking what information you\'d need before jumping to solutions.',
+          question: 'Case Studies Show Your Engineering Judgment',
+          explanation: 'Interviewers use case studies to test how you approach open-ended problems. There\'s rarely one right answer. They want to see structured thinking, clear communication, and sound judgment.',
+          hint: 'Try this now: think about a product failure you\'ve heard of and what you\'d investigate first.',
+        },
+        {
+          id: 'u10-L5-NEW-E1',
+          type: 'true-false',
+          question: 'In a case study interview, demonstrating a structured approach is more important than getting the exact right answer.',
+          correctAnswer: true,
+          explanation: 'Interviewers evaluate your thought process and communication, not just the final answer.',
+          hint: 'Process matters more than the specific conclusion.',
+        },
+        {
+          id: 'u10-L5-NEW-E1',
+          type: 'true-false',
+          question: 'In a case study interview, demonstrating a structured approach is more important than getting the exact right answer.',
+          correctAnswer: true,
+          explanation: 'Interviewers evaluate your thought process and communication, not just the final answer.',
+          hint: 'Process matters more than the specific conclusion.',
         },
         {
           id: 'u10-L5-Q1',
           type: 'multiple-choice',
           question: 'The leak occurs at the O-ring seal interface. What should be your first investigation step?',
           options: [
-            'Redesign the O-ring groove to a different standard size — an approximation',
-            'Switch to a more expensive seal material for better compression — not',
+            'Redesign the O-ring groove to a different standard size. an approximation',
+            'Switch to a more expensive seal material for better compression. not',
             'Measure the O-ring groove dimensions and surface finish on failed vs.',
             'Increase the clamping force on all assemblies by 50% across the board'
           ],
@@ -1784,12 +1323,48 @@ export const unit10: Unit = {
           hint: 'In quality problems, always gather data first.'
         },
         {
+          id: 'u10-L5-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these troubleshooting steps in order:',
+          steps: [
+            'Gather symptoms and operating conditions',
+            'Form hypotheses about root cause',
+            'Design tests to confirm or eliminate hypotheses',
+            'Implement the fix',
+            'Verify the fix resolved the issue'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Systematic troubleshooting: gather data, hypothesize, test, fix, then verify.',
+          hint: 'You need symptoms before you can form hypotheses.',
+        },
+        {
+          id: 'u10-L5-NEW-T2',
+          type: 'teaching',
+          question: 'Define Before You Solve',
+          explanation: 'Before jumping into a solution, clearly define the problem, list your assumptions, identify what data you need, and outline your approach. This shows organized thinking.',
+          hint: 'Try this now: pick any engineering problem and write down 3 assumptions you\'d make.',
+        },
+        {
+          id: 'u10-L5-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What should you do first when given a case study problem in an interview?',
+          options: [
+            'Clarify the problem and state your assumptions',
+            'Start calculating immediately',
+            'Ask for the correct answer',
+            'Look up the solution online'
+          ],
+          correctIndex: 0,
+          explanation: 'Always start by understanding and framing the problem. Then state assumptions before diving into analysis.',
+          hint: 'Good engineers define the problem before solving it.',
+        },
+        {
           id: 'u10-L5-Q2',
           type: 'multiple-choice',
           question: 'The part is for a consumer product with dynamic loads. What is your recommendation?',
           options: [
-            'Approve it — a safety factor above 1.0 means it will not yield under load',
-            'Reject it — a safety factor of 1.1 is dangerously low for a dynamically loaded',
+            'Approve it. a safety factor above 1.0 means it will not yield under load',
+            'Reject it. a safety factor of 1.1 is dangerously low for a dynamically loaded',
             'Approve it but add a warning label for the end user',
             'Reject it and recommend switching to steel regardless of weight impact, valid'
           ],
@@ -1797,6 +1372,101 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Specimen block --> <rect x="10" y="16" width="60" height="48" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Initial notch --> <path d="M10,40 L22,40" stroke-width="1" stroke="#58CC02"/> <!-- Growing crack --> <path d="M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40" stroke-width="0.8" stroke="#A5E86C" fill="none"> <animate attributeName="d" values="M22,40 L26,40.5 L28,39.5;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40;M22,40 L28,41 L32,39 L36,40.5 L40,39.5 L44,40 L48,40.5 L52,39.5 L56,40" dur="6s" repeatCount="indefinite"/> </path> <!-- Crack tip stress field (plastic zone) --> <circle cx="44" cy="40" r="4" fill="#A5E86C" opacity="0.1"> <animate attributeName="cx" values="28;44;56" dur="6s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;6" dur="6s" repeatCount="indefinite"/> </circle> <!-- Cyclic load arrows --> <g opacity="0.4"> <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,14 41.5,14 40,16" fill="#58CC02"/> <line x1="40" y1="76" x2="40" y2="66" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,66 41.5,66 40,64" fill="#58CC02"/> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </g> <!-- Beach marks (striations) --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <path d="M26,36 Q26,40 26,44" fill="none"/> <path d="M30,35 Q30,40 30,45" fill="none"/> <path d="M34,34.5 Q34,40 34,45.5" fill="none"/> <path d="M38,34 Q38,40 38,46" fill="none"/> <path d="M42,33.5 Q42,40 42,46.5" fill="none"/> </g> <!-- Crack length label --> <line x1="22" y1="50" x2="44" y2="50" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="33" y="54" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">a</text> <!-- da/dN label --> <text x="40" y="12" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">da/dN = C(ΔK)ᵐ</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">Paris law</text> </svg>',
           explanation: 'A safety factor of 1.1 against yield under dynamic loading is unacceptable for a consumer product.',
           hint: 'Consider all the uncertainties: load estimation, material.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L5b',
+      title: 'Troubleshooting Scenarios',
+      description: 'Debugging field failures, interpreting test data, and making recommendations under uncertainty.',
+      icon: '📋',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L5b-NEW-T1',
+          type: 'teaching',
+          question: 'Field Failures Are Different From Lab Failures',
+          explanation: 'Parts that work perfectly in the lab can fail in the field due to environmental conditions, user behavior, or maintenance practices that differ from your test setup.',
+          hint: 'Try this now: think of 3 ways a lab test might not match real-world conditions.',
+        },
+        {
+          id: 'u10-L5b-NEW-E1',
+          type: 'true-false',
+          question: 'A product that passes all lab tests is guaranteed to never fail in the field.',
+          correctAnswer: false,
+          explanation: 'Lab tests can\'t replicate every field condition. Temperature, humidity, vibration, and user behavior all vary.',
+          hint: 'Think about what conditions might differ between lab and field.',
+        },
+        {
+          id: 'u10-L5-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these troubleshooting steps in order:',
+          steps: [
+            'Gather symptoms and operating conditions',
+            'Form hypotheses about root cause',
+            'Design tests to confirm or eliminate hypotheses',
+            'Implement the fix',
+            'Verify the fix resolved the issue'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Systematic troubleshooting: gather data, hypothesize, test, fix, then verify.',
+          hint: 'You need symptoms before you can form hypotheses.',
+        },
+        {
+          id: 'u10-L5-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What should you do first when given a case study problem in an interview?',
+          options: [
+            'Clarify the problem and state your assumptions',
+            'Start calculating immediately',
+            'Ask for the correct answer',
+            'Look up the solution online'
+          ],
+          correctIndex: 0,
+          explanation: 'Always start by understanding and framing the problem. Then state assumptions before diving into analysis.',
+          hint: 'Good engineers define the problem before solving it.',
+        },
+        {
+          id: 'u10-L5b-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each investigation technique to what it reveals:',
+          options: [
+            'Fractography (SEM)',
+            'Chemical analysis (EDS)',
+            'Hardness testing',
+            'Dimensional inspection'
+          ],
+          matchTargets: [
+            'Microscopic fracture features',
+            'Material composition',
+            'Heat treatment condition',
+            'Manufacturing accuracy'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Different analysis techniques answer different questions about a failure.',
+          hint: 'Each technique reveals different information about the part.',
+        },
+        {
+          id: 'u10-L5b-NEW-T2',
+          type: 'teaching',
+          question: 'Data-Driven Decisions',
+          explanation: 'Don\'t guess. Collect data from field returns, warranty claims, and inspection reports. Look for patterns: does the failure happen in a specific climate? After a specific maintenance event?',
+          hint: 'Try this now: think about what data you\'d collect from a returned failed product.',
+        },
+        {
+          id: 'u10-L5b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'An intermittent field failure that can\'t be reproduced in the lab most likely relates to:',
+          options: [
+            'Environmental or usage differences between lab and field',
+            'A software bug in the test equipment',
+            'The lab technician making errors',
+            'The part being too strong for lab loads'
+          ],
+          correctIndex: 0,
+          explanation: 'Unreproducible failures usually stem from conditions present in the field but absent in the lab.',
+          hint: 'What\'s different between the lab environment and the field?',
         },
         {
           id: 'u10-L5-Q3',
@@ -1806,6 +1476,31 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="8" y1="40" x2="72" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <path d="M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40" stroke="#58CC02" stroke-width="2.5" fill="none" opacity="0.4"> <animate attributeName="d" values="M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40;M8,40 Q14,24 20,40 Q26,56 32,40 Q38,24 44,40 Q50,56 56,40 Q62,24 68,40;M8,40 Q14,20 20,40 Q26,60 32,40 Q38,20 44,40 Q50,60 56,40 Q62,20 68,40" dur="1.5s" repeatCount="indefinite"/> </path> <circle r="3" fill="#3B8700" opacity="0.4"> <animate attributeName="cy" values="20;60;20" dur="1.5s" repeatCount="indefinite"/> <animate attributeName="cx" values="20;20;20" dur="1.5s" repeatCount="indefinite"/> </circle> <text x="40" y="68" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">vibration</text> </svg>',
           explanation: 'Increasing stiffness changes the natural frequency, which could move it closer to or further from the excitation frequency. If the operating speed is below the current natural frequency,.',
           hint: 'What happens when you change the natural frequency.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L5c',
+      title: 'Cross-Disciplinary Design',
+      description: 'Cross-disciplinary thinking, systems engineering, and holistic design problem-solving.',
+      icon: '📋',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L5c-NEW-T1',
+          type: 'teaching',
+          question: 'Think Across Disciplines',
+          explanation: 'Real engineering problems don\'t respect subject boundaries. A vibration problem might be caused by a fluid dynamics issue. A corrosion problem might stem from a thermal design choice.',
+          hint: 'Try this now: think of a problem where multiple engineering disciplines interact.',
+        },
+        {
+          id: 'u10-L5c-NEW-E1',
+          type: 'true-false',
+          question: 'A good engineer only needs to understand their own discipline to solve real-world problems.',
+          correctAnswer: false,
+          explanation: 'Real problems cross disciplines. Thermal, structural, fluid, and electrical effects often interact.',
+          hint: 'Think about whether real problems stay neatly in one subject area.',
         },
         {
           id: 'u10-L5-Q4',
@@ -1813,7 +1508,7 @@ export const unit10: Unit = {
           question: 'No leak is visible. What is the most likely diagnosis?',
           options: [
             'Progressive impeller erosion/corrosion reduced performance until the pump',
-            'The motor has reversed direction due to a wiring fault — check phase rotation',
+            'The motor has reversed direction due to a wiring fault. check phase rotation',
             'Air in the suction line from day one has gradually accumulated',
             'The discharge valve was closed during startup and never opened'
 
@@ -1822,13 +1517,6 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="32" r="20" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="32" r="20" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <line x1="40" y1="14" x2="40" y2="24" stroke="#3B8700" stroke-width="2" opacity="0.4"/> <circle cx="40" cy="12" r="2" fill="#3B8700" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,32;360,40,32" dur="3s" repeatCount="indefinite"/> <line x1="40" y1="32" x2="40" y2="18" stroke="#3B8700" stroke-width="1.5" opacity="0.5"/> <circle cx="40" cy="18" r="1.5" fill="#3B8700" opacity="0.4"/> </g> <line x1="40" y1="32" x2="56" y2="32" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <text x="40" y="56" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">diagnostics</text> <circle cx="20" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="40" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="60" cy="66" r="6" fill="#A5E86C" opacity="0.1" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <line x1="26" y1="66" x2="34" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="33,64.5 36,66 33,67.5" fill="#3B8700" opacity="0.2"/> <line x1="46" y1="66" x2="54" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="53,64.5 56,66 53,67.5" fill="#3B8700" opacity="0.2"/> </svg>',
           explanation: 'The gradual degradation over months followed by complete failure is characteristic of progressive impeller damage.',
           hint: 'The gradual decline rules out sudden events.'
-        },
-        {
-          id: 'u10-L5-T2',
-          type: 'teaching',
-          question: 'Lab vs Field Failures',
-          explanation: 'Products often pass lab tests but fail in the field. That\'s because lab tests can\'t capture every real-world condition: temperature swings, humidity, vibration, user misuse, and combined loads. Always ask what the test didn\'t simulate.',
-          hint: 'Think about environmental factors and usage patterns that differ between lab and reality.',
         },
         {
           id: 'u10-L5-Q5',
@@ -1847,6 +1535,47 @@ export const unit10: Unit = {
           hint: 'Engineering decisions require balancing multiple factors.'
         },
         {
+          id: 'u10-L5c-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these engineering considerations into design phase or validation phase:',
+          options: [
+            'Material selection',
+            'Prototype testing',
+            'Tolerance analysis',
+            'Accelerated life testing',
+            'FEA stress analysis',
+            'Field trial monitoring'
+          ],
+          buckets: [
+            'Design phase',
+            'Validation phase'
+          ],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Design-phase activities happen before building. Validation activities confirm the design works.',
+          hint: 'Think about whether you do this before or after building a prototype.',
+        },
+        {
+          id: 'u10-L5c-NEW-T2',
+          type: 'teaching',
+          question: 'Systems Thinking in Design',
+          explanation: 'Every component exists in a system. Changing one part affects others. Before proposing a fix, consider the ripple effects on weight, cost, assembly, maintenance, and other subsystems.',
+          hint: 'Try this now: think about how making a bracket thicker affects the whole system.',
+        },
+        {
+          id: 'u10-L5c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'When proposing a design change, what should you always consider?',
+          options: [
+            'How the change affects other parts of the system',
+            'Only the stress in the changed part',
+            'Whether the change looks better aesthetically',
+            'Only the manufacturing cost'
+          ],
+          correctIndex: 0,
+          explanation: 'Systems thinking means considering ripple effects: weight, cost, assembly, thermal, maintenance impacts.',
+          hint: 'Changes in one area often affect other areas.',
+        },
+        {
           id: 'u10-L5-Q6',
           type: 'fill-blank',
           question: 'The engineering practice of evaluating a design to ensure it can be economically manufactured with available processes is called _____?',
@@ -1855,396 +1584,215 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="22" width="28" height="36" rx="3" fill="#58CC02" opacity="0.08"/> <rect x="8" y="22" width="28" height="36" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <circle cx="22" cy="34" r="6" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <rect x="16" y="44" width="12" height="8" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <line x1="36" y1="40" x2="44" y2="40" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="43,38.5 46,40 43,41.5" fill="#3B8700" opacity="0.3"/> <rect x="44" y="22" width="28" height="36" rx="3" fill="#A5E86C" opacity="0.08"/> <rect x="44" y="22" width="28" height="36" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="50" y="28" width="16" height="24" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="4" fill="#58CC02" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <text x="22" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">design</text> <text x="58" y="68" text-anchor="middle" font-size="3.5" fill="#334155" opacity="0.3">mfg</text> </svg>',
           explanation: 'Design for Manufacturing (DFM) ensures that part designs are compatible with the intended manufacturing processes at acceptable cost and quality.',
           hint: 'This DFM practice ensures designs can be produced.'
-        },
-        {
-          id: 'u10-L5-Q7',
-          type: 'multiple-choice',
-          question: 'A CNC part suddenly measures 0.15 mm oversize after weeks of good production. Best first step?',
-          options: [
-            'Replace the cutting tool immediately — it must be worn out',
-            'Recalibrate the machine — any dimensional error requires full recalibration',
-            'Check the most recent change first (new tool, new material batch, ambient',
-            'Adjust the CNC program offset by -0.15 mm to compensate'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="32" r="20" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="32" r="20" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <line x1="40" y1="14" x2="40" y2="24" stroke="#3B8700" stroke-width="2" opacity="0.4"/> <circle cx="40" cy="12" r="2" fill="#3B8700" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,32;360,40,32" dur="3s" repeatCount="indefinite"/> <line x1="40" y1="32" x2="40" y2="18" stroke="#3B8700" stroke-width="1.5" opacity="0.5"/> <circle cx="40" cy="18" r="1.5" fill="#3B8700" opacity="0.4"/> </g> <line x1="40" y1="32" x2="56" y2="32" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <text x="40" y="56" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">diagnostics</text> <circle cx="20" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="40" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="60" cy="66" r="6" fill="#A5E86C" opacity="0.1" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <line x1="26" y1="66" x2="34" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="33,64.5 36,66 33,67.5" fill="#3B8700" opacity="0.2"/> <line x1="46" y1="66" x2="54" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="53,64.5 56,66 53,67.5" fill="#3B8700" opacity="0.2"/> </svg>',
-          explanation: 'A sudden dimensional shift (not gradual drift) suggests a discrete event, not progressive wear. Systematic approach: (1) What changed recently?',
-          hint: 'A sudden shift in a previously stable process points.'
-        },
-        {
-          id: 'u10-L5-Q8',
-          type: 'multiple-choice',
-          question: 'The motor was recently replaced with an identical model. What should you investigate?',
-          options: [
-            'The new motor is defective — send it back to the manufacturer immediately',
-            'Remove the thermal protection so the motor can run continuously without tripping',
-            'Install a larger motor to handle the extra load without overheating',
-            'Check conveyor alignment, belt tension, bearing condition, and actual load vs.'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="28" y="6" width="12" height="32" rx="6" fill="#58CC02" opacity="0.15" transform="rotate(-15,34,22)"/> <rect x="28" y="6" width="12" height="32" rx="6" stroke="#3B8700" stroke-width="2" fill="none" transform="rotate(-15,34,22)"/> <rect x="31" y="36" width="6" height="10" rx="3" fill="#3B8700" opacity="0.4" transform="rotate(-15,34,41)"/> <circle cx="34" cy="50" r="6" fill="#58CC02" opacity="0.2"> <animate attributeName="r" values="4;7;4" dur="0.3s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="0.3s" repeatCount="indefinite"/> </circle> <rect x="8" y="52" width="64" height="10" rx="5" fill="#58CC02" opacity="0.1"/> <rect x="8" y="52" width="64" height="10" rx="5" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="14" y1="57" x2="34" y2="57" stroke="#3B8700" stroke-width="3" opacity="0.3" stroke-linecap="round"/> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.6s" repeatCount="indefinite"/> <animateMotion dur="0.6s" repeatCount="indefinite" path="M34,50 L26,40"/> </circle> <circle r="1.2" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.5s" repeatCount="indefinite" begin="0.1s"/> <animateMotion dur="0.5s" repeatCount="indefinite" path="M34,50 L44,38" begin="0.1s"/> </circle> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.7s" repeatCount="indefinite" begin="0.2s"/> <animateMotion dur="0.7s" repeatCount="indefinite" path="M34,50 L22,36" begin="0.2s"/> </circle> <circle r="1" fill="#3B8700"> <animate attributeName="opacity" values="0.5;0" dur="0.45s" repeatCount="indefinite" begin="0.15s"/> <animateMotion dur="0.45s" repeatCount="indefinite" path="M34,50 L42,34" begin="0.15s"/> </circle> <circle r="1.3" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.55s" repeatCount="indefinite" begin="0.3s"/> <animateMotion dur="0.55s" repeatCount="indefinite" path="M34,50 L28,32" begin="0.3s"/> </circle> </svg>',
-          explanation: 'Since the identical motor was working before, the issue is likely mechanical, not motor-related. Systematic investigation: (1) Measure actual current draw vs. motor nameplate — confirms overload.',
-          hint: 'The same model worked before.'
-        },
-        {
-          id: 'u10-L5-Q9',
-          type: 'true-false',
-          question: 'In a design review, it is acceptable to question a senior engineer\'s design decision if you have technical evidence that it may?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Material plate --> <rect x="6" y="20" width="68" height="40" rx="6" fill="#58CC02" opacity="0.06"/> <rect x="6" y="20" width="68" height="40" rx="6" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Initial edge notch (V-shape stress riser) --> <path d="M6,37 L13,40 L6,43" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Crack opening displacement wedge (widens behind tip) --> <path fill="#3B8700" opacity="0"> <animate attributeName="d" values="M6,40 L6,40 L6,40 L6,40 Z;M6,38 L55,39.7 L55,40.3 L6,42 Z;M6,40 L6,40 L6,40 L6,40 Z" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.12;0" dur="4s" repeatCount="indefinite"/> </path> <!-- Main crack line (propagates from notch) --> <line y1="40" x1="12" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round"> <animate attributeName="x2" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> </line> <!-- Crack tip plastic zone (stress intensity) --> <circle cy="40" r="4" fill="#58CC02" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.2;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="3;7;3" dur="4s" repeatCount="indefinite"/> </circle> <!-- Inner yield zone (smaller, darker) --> <circle cy="40" r="2" fill="#3B8700" opacity="0"> <animate attributeName="cx" values="12;55;12" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1;0.2 0 0.8 1"/> <animate attributeName="opacity" values="0;0.15;0" dur="4s" repeatCount="indefinite"/> <animate attributeName="r" values="2;4;2" dur="4s" repeatCount="indefinite"/> </circle> <!-- Microcracks — branch up and down as main crack passes --> <line x1="24" y1="40" x2="27" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.3;0.8;1"/> </line> <line x1="24" y1="40" x2="21" y2="46" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.27;0.32;0.8;1"/> </line> <line x1="37" y1="40" x2="40" y2="34" stroke="#58CC02" stroke-width="1" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.42;0.47;0.8;1"/> </line> <line x1="37" y1="40" x2="34" y2="47" stroke="#A5E86C" stroke-width="0.8" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.44;0.49;0.8;1"/> </line> <line x1="48" y1="40" x2="51" y2="35" stroke="#A5E86C" stroke-width="0.7" stroke-linecap="round" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.58;0.63;0.8;1"/> </line> <!-- Tensile stress arrows (Mode I — opening) --> <!-- Top arrows (2) pulling up --> <line x1="28" y1="16" x2="28" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,16 28,13 29.5,16" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="16" x2="52" y2="20" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,16 52,13 53.5,16" fill="#3B8700" opacity="0.2"/> <!-- Bottom arrows (2) pulling down --> <line x1="28" y1="60" x2="28" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="26.5,64 28,67 29.5,64" fill="#3B8700" opacity="0.2"/> <line x1="52" y1="60" x2="52" y2="64" stroke="#3B8700" stroke-width="1.2" opacity="0.2" stroke-linecap="round"/> <polygon points="50.5,64 52,67 53.5,64" fill="#3B8700" opacity="0.2"/> <!-- Stress label --> <text x="40" y="11" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> <text x="40" y="73" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.2" font-style="italic">σ</text> </svg>',
-          explanation: 'Professional engineering ethics require engineers to prioritize public safety above all other considerations, including workplace hierarchy.',
-          hint: 'Professional engineering codes prioritize public safety.'
-        },
-        {
-          id: 'u10-L5-Q10',
-          type: 'multiple-choice',
-          question: 'Your team used 304 stainless steel. What is the most likely cause and fix?',
-          options: [
-            'Contamination from carbon steel tooling during manufacturing (grinding,',
-            'The material is not actually stainless steel — run a chemical analysis to verify',
-            'Stainless steel always rusts — it is a fundamental limitation of the material',
-            'The customer must be using the wrong cleaning products, which would only hold'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Iron contamination from carbon steel tools is the most common cause of rust spots on stainless steel. During cutting, grinding, or handling, iron particles embed in the stainless surface.',
-          hint: 'If 304 SS itself does not rust, what external.'
-        },
-        {
-          id: 'u10-L5-Q11',
-          type: 'multiple-choice',
-          question: 'Design a robotic arm joint that must repeatedly position within ±0.02 mm. What thermal effect must you account for?',
-          options: [
-            'Thermal effects are negligible for all metallic structures in factory',
-            'Thermal expansion of the arm structure: a 500 mm aluminum arm expands by ~0.12',
-            'Only the motor temperature matters — the structure does not expand —',
-            'Thermal expansion only matters for plastic parts, not metals'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Fixed wall (left) --> <rect x="4" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="2" y1="26" x2="4" y2="28"/><line x1="2" y1="32" x2="4" y2="34"/> <line x1="2" y1="38" x2="4" y2="40"/><line x1="2" y1="44" x2="4" y2="46"/> <line x1="2" y1="50" x2="4" y2="52"/> </g> <!-- Fixed wall (right) --> <rect x="70" y="24" width="6" height="32" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <g stroke="#58CC02" stroke-width="0.3" opacity="0.2"> <line x1="76" y1="28" x2="78" y2="26"/><line x1="76" y1="34" x2="78" y2="32"/> <line x1="76" y1="40" x2="78" y2="38"/><line x1="76" y1="46" x2="78" y2="44"/> <line x1="76" y1="52" x2="78" y2="50"/> </g> <!-- Bar (constrained) --> <rect x="10" y="34" width="60" height="12" rx="1.5" stroke-width="0.8" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.06"/> <!-- Temperature rise indication (color pulse) --> <rect x="11" y="35" width="58" height="10" rx="1" fill="#A5E86C" opacity="0.05"> <animate attributeName="opacity" values="0.03;0.15;0.03" dur="3s" repeatCount="indefinite"/> </rect> <!-- Attempted expansion arrows (blocked) --> <g opacity="0.35"> <line x1="14" y1="40" x2="10" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="10,38.5 10,41.5 8,40" fill="#3B8700"/> <line x1="66" y1="40" x2="70" y2="40" stroke-width="0.5" stroke="#3B8700"/> <polygon points="70,38.5 70,41.5 72,40" fill="#3B8700"/> </g> <!-- Reaction compression arrows --> <g opacity="0.4"> <line x1="8" y1="40" x2="12" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="12,38.5 12,41.5 14,40" fill="#58CC02"/> <line x1="72" y1="40" x2="68" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="68,38.5 68,41.5 66,40" fill="#58CC02"/> </g> <!-- ΔT indicator --> <text x="40" y="30" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">ΔT ↑</text> <!-- Temperature wavy lines --> <g opacity="0.2"> <path d="M20,52 Q22,48 24,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/> </path> <path d="M38,52 Q40,48 42,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="0.5s"/> </path> <path d="M56,52 Q58,48 60,52" stroke-width="0.4" stroke="#A5E86C" fill="none"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite" begin="1s"/> </path> </g> <!-- Formula --> <text x="40" y="64" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">σ = EαΔT</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">constrained expansion</text> </svg>',
-          explanation: 'Thermal expansion: delta_L = alpha * L * delta_T. For aluminum (alpha = 23e-6/°C): delta_L = 23e-6 * 500 * 10 = 0.115 mm. This is nearly 6x the required accuracy of ±0.02 mm.',
-          hint: 'Calculate: alpha_Al * L * delta_T and compare.'
-        },
-        {
-          id: 'u10-L5-Q12',
-          type: 'multiple-choice',
-          question: 'No cracks appear during static testing at either temperature. What is the most likely cause?',
-          options: [
-            'Differential thermal expansion between the metal screw and plastic boss',
-            'The plastic simply is not strong enough for this temperature range',
-            'Thermal cycling has no effect on plastic components',
-            'The cracks are caused by UV degradation from the test chamber lighting'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'CTE mismatch between metal screw (~12e-6/°C for steel) and plastic boss (~60-80e-6/°C for ABS/PC) creates cyclic thermal stress.',
-          hint: 'Metal and plastic have very different CTEs.'
-        },
-        {
-          id: 'u10-L5-Q13',
-          type: 'fill-blank',
-          question: 'The pressure at which a centrifugal pump risks forming vapor bubbles and losing performance due to insufficient _____ pressure _____?',
-          blanks: ['suction', 'Net Positive Suction Head'],
-          wordBank: ['suction', 'Net Positive Suction Head', 'discharge', 'Net Hydraulic Power Rating', 'inlet'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylinder body --> <rect x="8" y="30" width="45" height="20" rx="2" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Piston rod --> <rect x="53" y="37" width="20" height="6" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"> <animate attributeName="x" values="38;53;38" dur="3s" repeatCount="indefinite"/> </rect> <!-- Piston head inside cylinder --> <rect x="35" y="31.5" width="4" height="17" rx="0.5" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.15"> <animate attributeName="x" values="20;35;20" dur="3s" repeatCount="indefinite"/> </rect> <!-- Rod end fitting --> <circle cx="73" cy="40" r="3" stroke-width="0.7" stroke="#58CC02" fill="none"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="73" cy="40" r="1" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <!-- Hydraulic fluid (left chamber) --> <rect x="9" y="31" width="26" height="18" rx="1" fill="#A5E86C" opacity="0.12"> <animate attributeName="width" values="11;26;11" dur="3s" repeatCount="indefinite"/> </rect> <!-- Port connections --> <line x1="15" y1="30" x2="15" y2="22" stroke-width="0.8" stroke="#58CC02"/> <line x1="45" y1="30" x2="45" y2="22" stroke-width="0.8" stroke="#58CC02"/> <text x="15" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₁</text> <text x="45" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₂</text> <!-- Seals --> <line x1="8" y1="32" x2="8" y2="48" stroke-width="1.5" stroke="#3B8700" opacity="0.3"/> <!-- Force arrow --> <line x1="73" y1="55" x2="73" y2="55" stroke-width="0.8" stroke="#3B8700" opacity="0.4"> <animate attributeName="x1" values="58;73;58" dur="3s" repeatCount="indefinite"/> <animate attributeName="x2" values="58;73;58" dur="3s" repeatCount="indefinite"/> </line> <g opacity="0.5"> <line x1="66" y1="58" x2="73" y2="58" stroke-width="0.6" stroke="#3B8700"/> <polygon points="73,56.5 73,59.5 76,58" fill="#3B8700"/> <text x="70" y="63" font-size="3" fill="#3B8700" text-anchor="middle">F</text> </g> <!-- Base mount --> <rect x="4" y="34" width="4" height="12" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <!-- Hatching for fixed mount --> <line x1="2" y1="35" x2="4" y2="37" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="38" x2="4" y2="40" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="41" x2="4" y2="43" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="44" x2="4" y2="46" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">linear actuator</text> </svg>',
-          explanation: 'Net Positive Suction Head (NPSH) is the difference between the absolute pressure at the pump suction and the vapor pressure of the fluid.',
-          hint: 'This pump specification ensures enough suction pressure.'
-        },
-        {
-          id: 'u10-L5-Q14',
-          type: 'multiple-choice',
-          question: 'Bearing and gear analysis show adequate static and fatigue safety factors. What factors might the analysis have missed?',
-          options: [
-            'Transient loads from wind gusts, grid faults, and emergency stops create load',
-            'The gearbox design is fundamentally correct — 18 months is acceptable life',
-            'The gearbox oil needs to be changed more frequently — lubrication is the only',
-            'Wind turbine gearboxes cannot use standard gear design principles'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Large Gear — 12 teeth, center (26,42), ro=18 --> <g> <animateTransform attributeName="transform" type="rotate" values="0,26,42;360,26,42" dur="4s" repeatCount="indefinite"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" fill="#58CC02" opacity="0.12"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="26" cy="42" r="9" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <!-- Spokes --> <line x1="26" y1="33" x2="26" y2="51" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> <line x1="17" y1="42" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> </g> <!-- Large gear hub (static) --> <circle cx="26" cy="42" r="4.5" fill="#58CC02" opacity="0.2"/> <circle cx="26" cy="42" r="3" fill="#3B8700"/> <circle cx="26" cy="42" r="1.2" fill="white" opacity="0.4"/> <!-- Small Gear — 8 teeth, center (56,42), ro=12, 3:2 ratio --> <g> <animateTransform attributeName="transform" type="rotate" values="0,56,42;-540,56,42" dur="4s" repeatCount="indefinite"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" fill="#58CC02" opacity="0.12"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="56" cy="42" r="5.5" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> </g> <!-- Small gear hub (static) --> <circle cx="56" cy="42" r="3.5" fill="#58CC02" opacity="0.2"/> <circle cx="56" cy="42" r="2.2" fill="#3B8700"/> <circle cx="56" cy="42" r="0.8" fill="white" opacity="0.4"/> </svg>',
-          explanation: 'Wind turbine gearbox failures are a well-known industry challenge.',
-          hint: 'What loading conditions exist in real wind turbine.'
-        },
-        {
-          id: 'u10-L5-Q15',
-          type: 'true-false',
-          question: 'When a prototype passes all laboratory tests but fails in the field, the most common root cause is that the laboratory test?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="32" r="20" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="32" r="20" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <line x1="40" y1="14" x2="40" y2="24" stroke="#3B8700" stroke-width="2" opacity="0.4"/> <circle cx="40" cy="12" r="2" fill="#3B8700" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,32;360,40,32" dur="3s" repeatCount="indefinite"/> <line x1="40" y1="32" x2="40" y2="18" stroke="#3B8700" stroke-width="1.5" opacity="0.5"/> <circle cx="40" cy="18" r="1.5" fill="#3B8700" opacity="0.4"/> </g> <line x1="40" y1="32" x2="56" y2="32" stroke="#A5E86C" stroke-width="1" opacity="0.3"/> <text x="40" y="56" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">diagnostics</text> <circle cx="20" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="40" cy="66" r="6" fill="#58CC02" opacity="0.1" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <circle cx="60" cy="66" r="6" fill="#A5E86C" opacity="0.1" stroke="#A5E86C" stroke-width="1" opacity="0.2"/> <line x1="26" y1="66" x2="34" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="33,64.5 36,66 33,67.5" fill="#3B8700" opacity="0.2"/> <line x1="46" y1="66" x2="54" y2="66" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="53,64.5 56,66 53,67.5" fill="#3B8700" opacity="0.2"/> </svg>',
-          explanation: 'Laboratory testing inevitably simplifies real-world conditions. Common gaps: (1) Temperature cycling — labs may test at extreme temperatures but miss the effect of thermal cycling between them.',
-          hint: 'Lab tests simplify reality.'
-        },
-        {
-          id: 'u10-L5-Q16',
-          type: 'multiple-choice',
-          question: 'You inherit a legacy product design with no documentation. What is the correct approach before modifying the design?',
-          options: [
-            'Make the change immediately — the field failure is urgent and there is no time',
-            'Copy a competitor\'s design since it appears to work better',
-            'Redesign the entire product from scratch — it is the only way to ensure',
-            'Reverse-engineer the existing design (measure critical dimensions'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylindrical vessel body --> <rect x="16" y="20" width="48" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="16" y="20" width="48" height="40" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Hemispherical end caps --> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" fill="#58CC02" opacity="0.05"/> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" fill="#58CC02" opacity="0.05"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Internal pressure arrows (radial, pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Hoop direction arrows (horizontal outward) --> <line x1="30" y1="40" x2="22" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="23,38.5 20,40 23,41.5" fill="#3B8700"/> <line x1="50" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <!-- Axial direction arrows (vertical outward) --> <line x1="40" y1="30" x2="40" y2="22" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,23 40,20 41.5,23" fill="#3B8700"/> <line x1="40" y1="50" x2="40" y2="58" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,57 40,60 41.5,57" fill="#3B8700"/> </g> <!-- Pressure label P --> <text x="40" y="43" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.25" font-weight="bold" font-style="italic">P</text> <!-- Wall thickness indicator --> <line x1="64" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <text x="72" y="36" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">t</text> <!-- Stress labels --> <text x="14" y="40" text-anchor="end" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_h</text> <text x="40" y="17" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_a</text> <!-- Formula --> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">σ_h = Pr/t</text> </svg>',
-          explanation: 'Modifying an undocumented design without understanding it risks introducing new problems while fixing the old one.',
-          hint: 'You need to understand the current design before changing.'
-        },
-        {
-          id: 'u10-L5-Q17',
-          type: 'multiple-choice',
-          question: 'What design considerations are specific to this long service life?',
-          options: [
-            'Standard carbon steel with paint is sufficient for any environment',
-            'Use stainless steel for all components — it requires no corrosion protection',
-            'Simply triple the safety factor to account for degradation over time, provided',
-            'Account for corrosion allowance on wall thickness, specify appropriate'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">log N</text> <text x="6" y="36" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">S</text> <!-- S-N curve (animated draw) --> <path d="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="90" stroke-dashoffset="90"> <animate attributeName="stroke-dashoffset" values="90;0;0;90" keyTimes="0;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </path> <!-- Endurance limit line (horizontal asymptote) --> <line x1="48" y1="48" x2="74" y2="48" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </line> <text x="72" y="44" font-size="4" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> S_e </text> <!-- Tracing dot --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.4"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="0.4;0.4;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <!-- Region labels --> <text x="24" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">LCF</text> <text x="56" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">HCF</text> </svg>',
-          explanation: 'Designing for a 50-year coastal life requires addressing time-dependent degradation: Corrosion allowance — add sacrificial wall thickness (e.g., 3 mm for C5 corrosion category per ISO 12944).',
-          hint: 'A 50-year life in a coastal environment requires.'
-        },
-        {
-          id: 'u10-L5-Q18',
-          type: 'true-false',
-          question: 'When specifying a spring for a safety-critical application, using the calculated spring constant alone (F = kx) is sufficient?',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Electrolyte (water) --> <rect x="8" y="30" width="64" height="32" rx="2" fill="#A5E86C" opacity="0.06"/> <path d="M8,30 Q20,28 40,30 Q60,32 72,30" stroke-width="0.4" stroke="#A5E86C" opacity="0.3" fill="none"/> <!-- Anode (less noble metal — corroding) --> <rect x="14" y="22" width="20" height="36" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="24" y="42" font-size="3" fill="#58CC02" text-anchor="middle" opacity="0.5">Fe</text> <text x="24" y="18" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">anode</text> <!-- Cathode (noble metal — protected) --> <rect x="46" y="22" width="20" height="36" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="56" y="42" font-size="3" fill="#58CC02" text-anchor="middle" opacity="0.5">Cu</text> <text x="56" y="18" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">cathode</text> <!-- Corrosion pitting on anode surface --> <g opacity="0.3"> <circle cx="34" cy="36" r="1" fill="#A5E86C"> <animate attributeName="r" values="0.5;1.5;0.5" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="34" cy="44" r="0.8" fill="#A5E86C"> <animate attributeName="r" values="0.3;1.2;0.3" dur="3s" repeatCount="indefinite" begin="0.5s"/> </circle> <circle cx="34" cy="50" r="0.6" fill="#A5E86C"> <animate attributeName="r" values="0.2;1;0.2" dur="3s" repeatCount="indefinite" begin="1s"/> </circle> </g> <!-- Electron flow (through external circuit) --> <path d="M34,22 L34,14 L46,14 L46,22" stroke-width="0.5" stroke="#3B8700" opacity="0.4" fill="none"/> <polygon points="44,22 48,22 46,24" fill="#3B8700" opacity="0.4"/> <text x="40" y="12" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">e⁻ →</text> <!-- Ion flow (in electrolyte) --> <circle r="0.8" fill="#A5E86C" opacity="0.4"> <animate attributeName="cx" values="34;40;46" dur="2s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;42;40" dur="2s" repeatCount="indefinite"/> </circle> <text x="40" y="52" font-size="2.5" fill="#A5E86C" opacity="0.3" text-anchor="middle">Fe²⁺</text> <!-- Galvanic series note --> <text x="40" y="66" font-size="2.5" fill="#58CC02" opacity="0.35" text-anchor="middle">ΔE_potential → current</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">dissimilar metals</text> </svg>',
-          explanation: 'Safety-critical springs require far more than just spring constant calculation: Material certification — verify the wire meets specification (tensile strength, chemical composition, surface quality).',
-          hint: 'Safety-critical components require more than just design.'
-        },
-        {
-          id: 'u10-L5-Q19',
-          type: 'multiple-choice',
-          question: 'Reduce the noise of a gearbox from 85 dB(A) to below 75 dB(A). What systematic approach should you take?',
-          options: [
-            'Add sound insulation around the gearbox — this is the only effective method,',
-            'Identify the dominant noise source (gear mesh, bearings, or structural',
-            'Slow down the gears to reduce noise — speed reduction always works, provided',
-            'Replace all gears with belt drives regardless of power requirements, provided'
-
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'A 10 dB reduction (which is perceived as roughly half as loud) requires systematic source identification: Frequency analysis .',
-          hint: 'Noise control follows the source-path-receiver hierarchy.'
-        },
-        {
-          id: 'u10-L5-T3',
-          type: 'teaching',
-          question: 'Cross-Functional Decision Making',
-          explanation: 'Real engineering decisions involve trade-offs between manufacturing, quality, cost, and schedule. In interviews, show that you consider all stakeholders. The best answer isn\'t always the most technically elegant one; it\'s the one that balances all constraints.',
-          hint: 'When asked "how would you decide," always mention who else you\'d consult.',
-        },
-        {
-          id: 'u10-L5-Q20',
-          type: 'multiple-choice',
-          question: 'A factory installs a new high-speed packaging machine. Who might be right, and what is the likely issue?',
-          options: [
-            'The vendor is always right — vibration within spec means no problem, provided',
-            'The floor is the problem — all factory floors are inadequate for precision',
-            'Both may be right individually — the machine vibration within spec may excite',
-            'Vibration during commissioning is always normal and will disappear after'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">time</text> <text x="6" y="36" text-anchor="middle" font-size="5" fill="#3B8700" opacity="0.3" font-style="italic">ε</text> <!-- Creep curve: instantaneous → primary → secondary (steady) → tertiary → rupture --> <path d="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"> <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Region separators (dashed verticals) --> <line x1="18" y1="36" x2="18" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.1;0.15;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <line x1="50" y1="26" x2="50" y2="65" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="1.5,2.5" opacity="0"> <animate attributeName="opacity" values="0;0;0.15;0.15;0" keyTimes="0;0.38;0.42;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Region labels --> <text x="12" y="72" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.06;0.1;0.82;1" dur="6s" repeatCount="indefinite"/>I</text> <text x="32" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.18;0.22;0.82;1" dur="6s" repeatCount="indefinite"/>II (steady)</text> <text x="58" y="72" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.42;0.46;0.82;1" dur="6s" repeatCount="indefinite"/>III</text> <!-- Rupture X --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.5;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="63" y1="9" x2="69" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="69" y1="9" x2="63" y2="15" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> </g> <!-- Tracing dot --> <circle r="3" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,58 L14,42 Q18,36 24,34 L46,28 Q56,24 62,18 L66,12" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Vibration problems at installation often stem from machine-foundation interaction.',
-          hint: 'The machine and the floor/foundation form a coupled.'
-        },
-        {
-          id: 'u10-L5-Q21',
-          type: 'fill-blank',
-          question: 'The concept of building prototypes to test and iterate quickly, accepting that early prototypes will be imperfect, is central to _____?',
-          blanks: ['rapid'],
-          wordBank: ['rapid', 'virtual', 'functional', 'precision', 'sequential'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Butt weld (top) --> <rect x="6" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="10" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="10" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Weld bead (butt) --> <ellipse cx="40" cy="15" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <path d="M34,10 Q40,6 46,10" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,20 Q40,24 46,20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="40" y="30" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">butt weld</text> <!-- Fillet weld (middle) --> <rect x="6" y="38" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="38" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="38" width="10" height="30" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="38" width="10" height="30" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Fillet weld triangle --> <path d="M34,48 L40,48 L40,38" fill="#58CC02" opacity="0.25"/> <path d="M34,48 Q38,42 40,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <text x="22" y="58" font-size="4" fill="#3B8700" opacity="0.2">fillet weld</text> <!-- Weld symbol (standard notation) --> <line x1="56" y1="50" x2="72" y2="50" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="56" y1="50" x2="56" y2="42" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <path d="M56,50 L60,44 L64,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="64" y="46" font-size="3.5" fill="#3B8700" opacity="0.2">symbol</text> <!-- Welding animation (sparks at butt weld) --> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,14 L44,8"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,14 L36,6" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#3B8700" opacity="0"> <animateMotion dur="0.45s" repeatCount="indefinite" path="M40,14 L46,10" begin="0.2s"/> <animate attributeName="opacity" values="0.35;0" dur="0.45s" begin="0.2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Rapid prototyping (enabled by 3D printing, CNC machining, and laser cutting) allows engineers to quickly build physical models to test form, fit, and function.',
-          hint: 'This prototyping philosophy emphasizes speed and iteration.'
-        },
-        {
-          id: 'u10-L5-Q22',
-          type: 'multiple-choice',
-          question: 'Their current process produces Cpk = 1.10. What does this mean and what are their options?',
-          options: [
-            'Cpk 1.10 means the process is capable but with only 3.7 sigma coverage',
-            'Cpk of 1.10 is excellent and exceeds all industry requirements',
-            'Cpk is only a statistical metric with no practical significance',
-            'They must redesign the part with wider tolerances — no process improvement can'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'Cpk (Process Capability Index) measures how well a process fits within specification limits, accounting for process centering.',
-          hint: 'Cpk measures process capability.'
-        },
-        {
-          id: 'u10-L5-Q23',
-          type: 'multiple-choice',
-          question: 'You are leading a cross-functional design review for a new medical device. How do you approach this conflict?',
-          options: [
-            'Marketing requirements always take priority — make it as small as they want',
-            'Thermal requirements always take priority — use whatever size the thermal',
-            'Facilitate a trade study: quantify the thermal margin vs.',
-            'Delay the project until new lower-power electronics become available, which'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Housing (cross-section) --> <rect x="10" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <rect x="46" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Gap between parts --> <rect x="34" y="10" width="12" height="60" fill="none"/> <!-- Groove --> <rect x="28" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <rect x="44" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- O-Ring (cross section - compressed ellipse) --> <ellipse cx="40" cy="40" rx="5" ry="6" stroke-width="1" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.2"> <animate attributeName="rx" values="5;6;5" dur="3s" repeatCount="indefinite"/> <animate attributeName="ry" values="6;5;6" dur="3s" repeatCount="indefinite"/> </ellipse> <!-- Contact points --> <g opacity="0.3"> <line x1="34" y1="37" x2="36" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="40" x2="35" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="43" x2="36" y2="43" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="37" x2="46" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="45" y1="40" x2="46" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="43" x2="46" y2="43" stroke-width="0.4" stroke="#3B8700"/> </g> <!-- Pressure arrow --> <g opacity="0.4"> <line x1="40" y1="14" x2="40" y2="28" stroke-width="0.6" stroke="#3B8700"/> <polygon points="38.5,28 41.5,28 40,31" fill="#3B8700"/> <text x="40" y="12" font-size="3" fill="#3B8700" text-anchor="middle">P</text> </g> <!-- Seal labels --> <text x="22" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">housing</text> <text x="58" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">shaft</text> <!-- Hatching on housing walls --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <line x1="12" y1="15" x2="16" y2="11"/><line x1="12" y1="22" x2="16" y2="18"/> <line x1="12" y1="29" x2="16" y2="25"/><line x1="12" y1="50" x2="16" y2="46"/> <line x1="12" y1="57" x2="16" y2="53"/><line x1="12" y1="64" x2="16" y2="60"/> <line x1="64" y1="15" x2="68" y2="11"/><line x1="64" y1="22" x2="68" y2="18"/> <line x1="64" y1="29" x2="68" y2="25"/><line x1="64" y1="50" x2="68" y2="46"/> <line x1="64" y1="57" x2="68" y2="53"/><line x1="64" y1="64" x2="68" y2="60"/> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">static seal</text> </svg>',
-          explanation: 'Cross-functional conflicts require engineering trade studies, not winner-take-all decisions.',
-          hint: 'Conflicting requirements require quantified trade-off.'
-        },
-        {
-          id: 'u10-L5-Q24',
-          type: 'true-false',
-          question: 'In a hydraulic system, water hammer (pressure surge) can produce transient pressures 5-10 times higher than normal operating?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/> <circle r="2.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <rect x="28" y="50" width="24" height="10" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="28" y="50" width="24" height="10" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <text x="40" y="57" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">valve</text> </svg>',
-          explanation: 'Water hammer occurs when fluid flow is suddenly stopped (fast valve closure, pump trip), converting kinetic energy to pressure energy.',
-          hint: 'The Joukowsky equation shows that suddenly stopping a 3.'
-        },
-        {
-          id: 'u10-L5-Q25',
-          type: 'multiple-choice',
-          question: 'Both are within spec. Should anything be done?',
-          options: [
-            'Both machines are within spec — no action needed regardless of the distributions',
-            'Alternate between machines to average out the deviation',
-            'Shut down both machines until the root cause is found, which would only hold',
-            'Yes — investigate why each machine is biased to one side of nominal'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Support anvil --> <rect x="24" y="48" width="32" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Support spans --> <rect x="26" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <rect x="50" y="44" width="4" height="4" rx="0.5" stroke-width="0.5" stroke="#58CC02" fill="none"/> <!-- Specimen (notched bar) --> <rect x="28" y="40" width="24" height="4" rx="0.3" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- V-notch --> <path d="M39,40 L40,42 L41,40" stroke-width="0.5" stroke="#A5E86C"/> <!-- Pendulum arm --> <g> <line x1="40" y1="10" x2="40" y2="40" stroke-width="0.8" stroke="#58CC02"/> <!-- Hammer head --> <rect x="36" y="36" width="8" height="5" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.08"/> <animateTransform attributeName="transform" type="rotate" values="-60,40,10;0,40,10;40,40,10;0,40,10;-60,40,10" dur="4s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1"/> </g> <!-- Pivot point --> <circle cx="40" cy="10" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <!-- Angle scale arc --> <path d="M20,10 A20,20 0 0,1 60,10" stroke-width="0.3" stroke="#3B8700" opacity="0.2" fill="none"/> <!-- Angle markings --> <g stroke="#3B8700" stroke-width="0.2" opacity="0.2"> <line x1="20" y1="10" x2="22" y2="12"/><line x1="28" y1="4" x2="29" y2="7"/> <line x1="40" y1="2" x2="40" y2="5"/><line x1="52" y1="4" x2="51" y2="7"/> <line x1="60" y1="10" x2="58" y2="12"/> </g> <!-- Height labels --> <text x="14" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₁</text> <text x="62" y="28" font-size="3" fill="#3B8700" opacity="0.4">h₂</text> <!-- Energy formula --> <text x="40" y="62" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">E = mg(h₁−h₂)</text> <!-- Ground --> <line x1="10" y1="54" x2="70" y2="54" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">impact toughness</text> </svg>',
-          explanation: 'While both machines produce conforming parts individually, the combined output has a bimodal distribution (peaks at both extremes) rather than a normal distribution centered on nominal.',
-          hint: 'Parts within spec does not mean the process is optimal.'
-        },
-        {
-          id: 'u10-L5-Q26',
-          type: 'multiple-choice',
-          question: 'Tell me about a time when you had to make a design decision with incomplete information." What type of answer demonstrates?',
-          options: [
-            'Engineers should never make decisions with incomplete information — always',
-            'Describe identifying what information was critical vs.',
-            'Just trust your instinct — experience always gives the right answer without',
-            'Describe deferring the decision to your manager to avoid responsibility,'
-
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Left shaft --> <rect x="2" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Right shaft --> <rect x="54" y="36" width="24" height="8" rx="4" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.25"/> <!-- Left flange (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,30,40;360,30,40" dur="2s" repeatCount="indefinite"/> <circle cx="30" cy="40" r="16" fill="#58CC02" opacity="0.08"/> <circle cx="30" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Bolt holes --> <circle cx="30" cy="27" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="43" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="30" cy="53" r="2.5" fill="#3B8700" opacity="0.25"/> <circle cx="17" cy="40" r="2.5" fill="#3B8700" opacity="0.25"/> </g> <circle cx="30" cy="40" r="4" fill="#3B8700"/> <!-- Right flange (rotating together) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,50,40;360,50,40" dur="2s" repeatCount="indefinite"/> <circle cx="50" cy="40" r="16" fill="#58CC02" opacity="0.06"/> <circle cx="50" cy="40" r="16" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <!-- Bolt holes (matching) --> <circle cx="50" cy="27" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="63" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="50" cy="53" r="2.5" fill="#58CC02" opacity="0.2"/> <circle cx="37" cy="40" r="2.5" fill="#58CC02" opacity="0.2"/> </g> <circle cx="50" cy="40" r="4" fill="#3B8700" opacity="0.6"/> <!-- Center connection line --> <line x1="38" y1="40" x2="42" y2="40" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.3"/> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">flange coupling</text> </svg>',
-          explanation: 'Engineering always involves decisions under uncertainty. A mature response demonstrates: (1) Risk assessment — what could go wrong if the assumption is wrong, and how bad would it be?',
-          hint: 'How do you make responsible engineering decisions when you.'
-        },
-        {
-          id: 'u10-L5-Q27',
-          type: 'true-false',
-          question: 'For piping systems, the flexibility to accommodate thermal expansion is more critical in long straight runs than in systems with?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <path d="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/> <circle r="2.5" fill="#3B8700" opacity="0.4"> <animateMotion dur="2s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <circle r="2" fill="#58CC02" opacity="0.3"> <animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <circle r="2" fill="#A5E86C" opacity="0.25"> <animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M10,40 L30,40 L30,20 L50,20 L50,40 L70,40"/> </circle> <rect x="28" y="50" width="24" height="10" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="28" y="50" width="24" height="10" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <text x="40" y="57" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.3" font-style="italic">valve</text> </svg>',
-          explanation: 'Straight pipe runs expand freely along their axis but cannot accommodate expansion without creating stress at anchored ends. The thermal expansion force F = A * E * alpha * delta_T can be.',
-          hint: 'Straight pipes have no flexibility to absorb thermal.'
-        },
-        {
-          id: 'u10-L5-Q28',
-          type: 'multiple-choice',
-          question: 'The failure rate is 0.5%. As the lead engineer, what is your priority framework?',
-          options: [
-            'Focus on the cost analysis first — determine the most economical recall approach',
-            'Focus on engineering analysis first — understand the root cause before taking',
-            'Wait for more field data before deciding whether a recall is necessary',
-            'Prioritize: (1) Customer safety — immediate risk assessment and communication,'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
-          explanation: 'Product safety recalls follow a strict priority sequence: Safety assessment .',
-          hint: 'Customer safety always comes first.'
-        },
-        {
-          id: 'u10-L5-Q29',
-          type: 'multiple-choice',
-          question: 'A chain drive with a VFD. What is the best engineering analysis?',
-          options: [
-            'Direct gear drives are always superior',
-            'Chain drives are always superior',
-            'Gear drive offers precise speed control via VFD, lower maintenance, and higher',
-            'Neither is suitable — use a belt drive for all conveyor applications, provided'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'Gear drive + VFD advantages: smooth, precise speed control, high efficiency (97-99%), low maintenance (sealed gearbox, no chain replacement), quiet operation, compact design.',
-          hint: 'Compare initial cost, maintenance cost, speed accuracy.'
-        },
-        {
-          id: 'u10-L5-Q30',
-          type: 'fill-blank',
-          question: 'The engineering methodology of identifying the minimum set of tests needed to cover all performance requirements while _____?',
-          blanks: ['Experiments'],
-          wordBank: ['Experiments', 'Excellence', 'Elements', 'Evaluations', 'Environments'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Driven disc (right, starts stationary then spins) --> <g> <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="0,52,40;0,52,40;360,52,40" keyTimes="0;0.4;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.3 0 0.7 1"/> <circle cx="52" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="52" cy="40" r="18" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.3"/> <line x1="52" y1="22" x2="52" y2="58" stroke="#A5E86C" stroke-width="1" opacity="0.15"/> <line x1="34" y1="40" x2="70" y2="40" stroke="#A5E86C" stroke-width="1" opacity="0.15"/> </g> <circle cx="52" cy="40" r="4" fill="#3B8700" opacity="0.2"/> <!-- Output shaft --> <rect x="66" y="37" width="12" height="6" rx="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Driving disc (left, always spinning) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="1.5s" repeatCount="indefinite"/> <circle cx="28" cy="40" r="18" fill="#58CC02" opacity="0.08"/> <circle cx="28" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <line x1="28" y1="22" x2="28" y2="58" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="10" y1="40" x2="46" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <circle cx="28" cy="22" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700"/> <!-- Input shaft --> <rect x="2" y="37" width="12" height="6" rx="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Engagement indicator (discs approach) --> <g> <animate attributeName="opacity" values="0.15;0.35;0.35;0.15" dur="3s" repeatCount="indefinite" keyTimes="0;0.3;0.7;1"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="1.5" stroke-dasharray="2,2"/> </g> <!-- Labels --> <text x="16" y="72" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">input</text> <text x="56" y="72" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">output</text> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">friction clutch</text> </svg>',
-          explanation: 'Design of Experiments (DOE) is a statistical methodology for planning experiments that efficiently identifies the effects of multiple factors on a response variable.',
-          hint: 'This statistical methodology uses structured test matrices.'
         }
       ]
     },
     {
       id: 'u10-L6',
-      title: 'Standards & Professional Practice',
-      description: 'ISO/ASME standards, quality management systems, engineering change management, risk assessment, and project management for engineers.',
+      title: 'Standards & Quality Systems',
+      description: 'ISO standards, ASME codes, and quality management systems every engineer should know.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
-          id: 'u10-L6-T1',
+          id: 'u10-L6-NEW-T1',
           type: 'teaching',
-          question: 'Why Standards Exist',
-          explanation: 'Engineering standards (ASME, ISO, ASTM) define minimum safety and quality requirements so every engineer doesn\'t have to reinvent the wheel. They\'re the agreed-upon rules that keep bridges standing and pressure vessels from exploding.',
-          hint: 'In interviews, knowing which standard applies shows real-world awareness.',
+          question: 'Standards Exist for Good Reason',
+          explanation: 'ISO, ASME, and other standards codify best practices so engineers don\'t repeat past mistakes. Knowing which standards apply to your work is a basic professional requirement.',
+          hint: 'Try this now: find out which ISO standard covers quality management systems.',
+        },
+        {
+          id: 'u10-L6-NEW-E1',
+          type: 'true-false',
+          question: 'ISO 9001 is the international standard for quality management systems.',
+          correctAnswer: true,
+          explanation: 'ISO 9001 defines requirements for a quality management system. It\'s the most widely used standard worldwide.',
+          hint: 'This is the most recognized quality standard globally.',
+        },
+        {
+          id: 'u10-L6-NEW-E1',
+          type: 'true-false',
+          question: 'ISO 9001 is the international standard for quality management systems.',
+          correctAnswer: true,
+          explanation: 'ISO 9001 defines requirements for a quality management system. It\'s the most widely used standard worldwide.',
+          hint: 'This is the most recognized quality standard globally.',
         },
         {
           id: 'u10-L6-Q1',
           type: 'multiple-choice',
           question: 'Which standard should they certify to?',
           options: [
-            'AS9100 — Quality Management Systems for Aviation, Space, and Defense',
-            'ISO 14001 — Environmental Management Systems, in all loading orientations',
-            'ISO 45001 — Occupational Health and Safety Management',
-            'IATF 16949 — Automotive Quality Management Systems'
+            'AS9100. Quality Management Systems for Aviation, Space, and Defense',
+            'ISO 14001. Environmental Management Systems, in all loading orientations',
+            'ISO 45001. Occupational Health and Safety Management',
+            'IATF 16949. Automotive Quality Management Systems'
 
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center. gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward. surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward. opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward. larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
           explanation: 'AS9100 (current revision AS9100D, based on ISO 9001:2015) adds aerospace-specific requirements including.',
           hint: 'This standard is the aerospace/defense extension of ISO.'
+        },
+        {
+          id: 'u10-L6-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each standard to its primary focus:',
+          options: [
+            'ISO 9001',
+            'ASME BPVC',
+            'ISO 14001',
+            'ASME Y14.5'
+          ],
+          matchTargets: [
+            'Quality management',
+            'Pressure vessel safety',
+            'Environmental management',
+            'GD&T dimensioning'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each standard covers a specific domain. Knowing which is which is professional literacy.',
+          hint: 'Match based on the keywords in each standard\'s name.',
+        },
+        {
+          id: 'u10-L6-NEW-T2',
+          type: 'teaching',
+          question: 'Standards vs Codes vs Specifications',
+          explanation: 'Standards define general requirements (ISO 9001). Codes are legally enforceable rules (ASME BPVC). Specifications detail exact requirements for a specific product or process.',
+          hint: 'Try this now: think about whether a building code is a standard, code, or specification.',
+        },
+        {
+          id: 'u10-L6-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is the ASME Boiler and Pressure Vessel Code (BPVC) primarily used for?',
+          options: [
+            'Safe design and construction of pressure equipment',
+            'Electrical wiring standards',
+            'Software quality assurance',
+            'Environmental regulations'
+          ],
+          correctIndex: 0,
+          explanation: 'ASME BPVC is the primary standard for pressure vessel and boiler design safety in the US.',
+          hint: 'Think about what "boiler and pressure vessel" tells you.',
         },
         {
           id: 'u10-L6-Q2',
           type: 'multiple-choice',
           question: 'Which ASME code section governs unfired pressure vessels?',
           options: [
-            'ASME BPVC Section VIII — using design by rule (Division 1) or design',
-            'ASME B31.1 — power piping code with wall thickness formulas, based',
-            'ASME BPVC Section III — nuclear component design rules, valid only',
-            'ASME Y14.5 — dimensioning and tolerancing standard, based on simplified'
+            'ASME BPVC Section VIII. using design by rule (Division 1) or design',
+            'ASME B31.1. power piping code with wall thickness formulas, based',
+            'ASME BPVC Section III. nuclear component design rules, valid only',
+            'ASME Y14.5. dimensioning and tolerancing standard, based on simplified'
           ],
           correctIndex: 0,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
           explanation: 'ASME BPVC Section VIII covers unfired pressure vessels. Division 1 uses "design by rule" with established formulas (e.g., t = PR/(SE - 0.6P) for cylindrical shells).',
           hint: 'BPVC stands for Boiler and Pressure Vessel Code.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L6b',
+      title: 'Risk Assessment & Change Control',
+      description: 'FMEA risk assessment, engineering change orders, and configuration management.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L6b-NEW-T1',
+          type: 'teaching',
+          question: 'Risk Assessment Prevents Failures',
+          explanation: 'FMEA, fault tree analysis, and HAZOP are proactive tools that identify risks before they become failures. They\'re standard practice in automotive, aerospace, and process industries.',
+          hint: 'Try this now: think of 3 things that could go wrong with a product you use daily.',
+        },
+        {
+          id: 'u10-L6b-NEW-E1',
+          type: 'true-false',
+          question: 'FMEA stands for Failure Mode and Effects Analysis.',
+          correctAnswer: true,
+          explanation: 'FMEA systematically identifies potential failure modes, their effects, and their causes to prioritize risks.',
+          hint: 'Each letter stands for a word in the full name.',
+        },
+        {
+          id: 'u10-L6-NEW-MP1',
+          type: 'match-pairs',
+          question: 'Match each standard to its primary focus:',
+          options: [
+            'ISO 9001',
+            'ASME BPVC',
+            'ISO 14001',
+            'ASME Y14.5'
+          ],
+          matchTargets: [
+            'Quality management',
+            'Pressure vessel safety',
+            'Environmental management',
+            'GD&T dimensioning'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each standard covers a specific domain. Knowing which is which is professional literacy.',
+          hint: 'Match based on the keywords in each standard\'s name.',
+        },
+        {
+          id: 'u10-L6-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is the ASME Boiler and Pressure Vessel Code (BPVC) primarily used for?',
+          options: [
+            'Safe design and construction of pressure equipment',
+            'Electrical wiring standards',
+            'Software quality assurance',
+            'Environmental regulations'
+          ],
+          correctIndex: 0,
+          explanation: 'ASME BPVC is the primary standard for pressure vessel and boiler design safety in the US.',
+          hint: 'Think about what "boiler and pressure vessel" tells you.',
+        },
+        {
+          id: 'u10-L6b-NEW-OS1',
+          type: 'order-steps',
+          question: 'Put these engineering change management steps in order:',
+          steps: [
+            'Identify the need for a change',
+            'Document the proposed change on an ECO',
+            'Review and approve with cross-functional team',
+            'Implement the change in production',
+            'Verify the change works correctly'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Change management follows a formal process: identify, document, review, implement, verify.',
+          hint: 'You need approval before implementing any change.',
+        },
+        {
+          id: 'u10-L6b-NEW-T2',
+          type: 'teaching',
+          question: 'Change Control Prevents Chaos',
+          explanation: 'Engineering Change Orders (ECOs) document and control modifications to released designs. Without formal change control, one team\'s "fix" becomes another team\'s unexpected problem.',
+          hint: 'Try this now: think about what could go wrong if someone changed a part without telling manufacturing.',
+        },
+        {
+          id: 'u10-L6b-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What is the purpose of an Engineering Change Order (ECO)?',
+          options: [
+            'To formally document and control design modifications',
+            'To order new engineering tools',
+            'To schedule employee training',
+            'To calculate project budgets'
+          ],
+          correctIndex: 0,
+          explanation: 'ECOs ensure that design changes are reviewed, approved, and communicated to all affected teams.',
+          hint: 'Think about what "change order" implies.',
         },
         {
           id: 'u10-L6-Q3',
           type: 'multiple-choice',
           question: 'An American colleague reviews it. What is the key difference they must be aware of?',
           options: [
-            'There is no difference — ISO and ASME use identical projection methods',
+            'There is no difference. ISO and ASME use identical projection methods',
             'First-angle projection only shows two views while third-angle always shows three',
-            'ISO uses metric units and ASME uses imperial — the projection method',
+            'ISO uses metric units and ASME uses imperial. the projection method',
             'In first-angle projection (ISO default), views are placed on the opposite side'
 
           ],
@@ -2252,32 +1800,50 @@ export const unit10: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylindrical vessel body --> <rect x="16" y="20" width="48" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="16" y="20" width="48" height="40" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Hemispherical end caps --> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" fill="#58CC02" opacity="0.05"/> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" fill="#58CC02" opacity="0.05"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Internal pressure arrows (radial, pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Hoop direction arrows (horizontal outward) --> <line x1="30" y1="40" x2="22" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="23,38.5 20,40 23,41.5" fill="#3B8700"/> <line x1="50" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <!-- Axial direction arrows (vertical outward) --> <line x1="40" y1="30" x2="40" y2="22" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,23 40,20 41.5,23" fill="#3B8700"/> <line x1="40" y1="50" x2="40" y2="58" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,57 40,60 41.5,57" fill="#3B8700"/> </g> <!-- Pressure label P --> <text x="40" y="43" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.25" font-weight="bold" font-style="italic">P</text> <!-- Wall thickness indicator --> <line x1="64" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <text x="72" y="36" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">t</text> <!-- Stress labels --> <text x="14" y="40" text-anchor="end" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_h</text> <text x="40" y="17" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_a</text> <!-- Formula --> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">σ_h = Pr/t</text> </svg>',
           explanation: 'In first-angle projection (Europe/Asia per ISO 128), the right side view appears to the LEFT of the front view. In third-angle projection (US/Canada per ASME Y14.3), the right side view appears.',
           hint: 'The projection symbol in the title block tells you.'
+        }
+      ]
+    },
+    {
+      id: 'u10-L6c',
+      title: 'Project Management for Engineers',
+      description: 'Project scheduling, resource planning, and professional communication for engineers.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u10-L6c-NEW-T1',
+          type: 'teaching',
+          question: 'Engineers Need Project Management Skills',
+          explanation: 'Technical skills alone aren\'t enough. You need to plan schedules, manage resources, track milestones, and communicate status. A Gantt chart and a risk register are your basic tools.',
+          hint: 'Try this now: think about the last time a project was late and what caused the delay.',
+        },
+        {
+          id: 'u10-L6c-NEW-E1',
+          type: 'true-false',
+          question: 'A Gantt chart is a visual tool that shows project tasks plotted against time.',
+          correctAnswer: true,
+          explanation: 'Gantt charts show task durations, dependencies, and milestones on a timeline.',
+          hint: 'Think of a horizontal bar chart showing when tasks start and end.',
         },
         {
           id: 'u10-L6-Q4',
           type: 'true-false',
           question: 'In the engineering change process, an ECR must be approved and converted into an ECO before any design changes are implemented?',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center. gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward. surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward. opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward. larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
           explanation: 'The ECR/ECO process is required by most quality standards (ISO 9001, AS9100). An ECR documents the proposed change, justification, and impact assessment.',
           hint: 'Consider the two-stage gate: first propose and assess.'
-        },
-        {
-          id: 'u10-L6-T2',
-          type: 'teaching',
-          question: 'Quality Systems and Risk Tools',
-          explanation: 'ISO 9001 is the foundation of quality management. FMEA rates risks by Severity, Occurrence, and Detection. Engineering change processes (ECR/ECO) keep designs controlled. These systems prevent chaos when multiple engineers work on the same product.',
-          hint: 'Interviewers love asking how you\'d manage changes to an existing product.',
         },
         {
           id: 'u10-L6-Q5',
           type: 'multiple-choice',
           question: 'Another says the high Severity demands action. Who is right?',
           options: [
-            'The first engineer — low Occurrence means acceptable risk regardless of Severity',
-            'Neither — just calculate RPN (9x2x8=144) and only act if it exceeds 200',
-            'The second engineer — modern FMEA practice (AIAG-VDA) prioritizes Severity',
-            'Both are wrong — only Detection rating matters since it is what the company'
+            'The first engineer. low Occurrence means acceptable risk regardless of Severity',
+            'Neither. just calculate RPN (9x2x8=144) and only act if it exceeds 200',
+            'The second engineer. modern FMEA practice (AIAG-VDA) prioritizes Severity',
+            'Both are wrong. only Detection rating matters since it is what the company'
           ],
           correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="18" y="8" width="54" height="54" rx="2" fill="#58CC02" opacity="0.04"/> <line x1="18" y1="26" x2="72" y2="26" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="18" y1="44" x2="72" y2="44" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="36" y1="8" x2="36" y2="62" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="54" y1="8" x2="54" y2="62" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <rect x="18" y="8" width="54" height="54" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="54" y="8" width="18" height="18" rx="1" fill="#3B8700" opacity="0.12"/> <rect x="36" y="8" width="18" height="18" rx="1" fill="#A5E86C" opacity="0.12"/> <rect x="54" y="26" width="18" height="18" rx="1" fill="#A5E86C" opacity="0.12"/> <rect x="18" y="8" width="18" height="18" rx="1" fill="#58CC02" opacity="0.08"/> <line x1="18" y1="62" x2="18" y2="8" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <line x1="18" y1="62" x2="72" y2="62" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <text x="45" y="72" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">severity</text> <text x="10" y="38" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">prob</text> <circle cx="63" cy="17" r="3" fill="#3B8700" opacity="0.3"> <animate attributeName="r" values="2.5;4;2.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
@@ -2285,339 +1851,200 @@ export const unit10: Unit = {
           hint: 'Consider which is worse: a frequent cosmetic defect.'
         },
         {
+          id: 'u10-L6c-NEW-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into technical skills or professional skills:',
+          options: [
+            'FEA modeling',
+            'Writing technical reports',
+            'Material selection',
+            'Presenting to stakeholders',
+            'Tolerance analysis',
+            'Managing project schedules'
+          ],
+          buckets: [
+            'Technical skill',
+            'Professional skill'
+          ],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Both technical and professional skills are essential for engineering careers.',
+          hint: 'Think about whether each skill involves analysis or communication/management.',
+        },
+        {
+          id: 'u10-L6c-NEW-T2',
+          type: 'teaching',
+          question: 'Communication Is Engineering Too',
+          explanation: 'Writing clear reports, presenting data effectively, and explaining technical decisions to non-engineers are core engineering skills, not optional extras.',
+          hint: 'Try this now: practice explaining a technical concept to someone without using jargon.',
+        },
+        {
+          id: 'u10-L6c-NEW-E2',
+          type: 'multiple-choice',
+          question: 'What does the "critical path" in project management represent?',
+          options: [
+            'The longest sequence of dependent tasks that determines project duration',
+            'The most expensive tasks in the project',
+            'Tasks that require the most engineers',
+            'The path with the most safety risks'
+          ],
+          correctIndex: 0,
+          explanation: 'The critical path determines the minimum project duration. Delays on any critical-path task delay the whole project.',
+          hint: 'Think about which tasks can\'t be delayed without delaying the project.',
+        },
+        {
           id: 'u10-L6-Q6',
           type: 'fill-blank',
           question: 'In project scheduling, the longest sequence of _____ tasks that determines the minimum project duration is called the _____ path.',
           blanks: ['dependent', 'critical'],
           wordBank: ['dependent', 'critical', 'parallel', 'baseline', 'optional', 'sequential'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
+          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve. animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker. appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker. appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker. appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot. follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
           explanation: 'The critical path is the longest chain of dependent activities; any delay on a critical-path task directly delays the project. Tasks not on the critical path have float (slack).',
           hint: 'This scheduling concept identifies which chain of tasks.'
-        },
-        {
-          id: 'u10-L6-Q7',
-          type: 'multiple-choice',
-          question: 'What is the difference between ISO 9001 and ISO 9004, and when would each be used?',
-          options: [
-            'ISO 9001 specifies requirements for certification and compliance',
-            'They are identical standards with different edition numbers',
-            'ISO 9001 is for manufacturing and ISO 9004 is for services only',
-            'ISO 9004 has replaced ISO 9001 and is the only valid standard'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'ISO 9001 specifies the minimum requirements for a quality management system — organizations are audited and certified against it.',
-          hint: 'One standard sets minimum requirements for certification;.'
-        },
-        {
-          id: 'u10-L6-Q8',
-          type: 'multiple-choice',
-          question: 'ASME Y14.5 defines GD&T. What is the fundamental advantage of GD&T over traditional coordinate (plus/minus) tolerancing?',
-          options: [
-            'GD&T is simpler to learn and implement than plus/minus tolerancing',
-            'GD&T defines tolerance zones relative to functional datum features, providing',
-            'GD&T eliminates the need for inspection and measurement',
-            'GD&T and plus/minus tolerancing produce identical results in all cases'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'GD&T advantages: Circular/cylindrical tolerance zones provide 57% more area than square zones from ±tolerancing, accepting more parts without compromising function.',
-          hint: 'Compare the tolerance zone shapes: ± tolerancing creates.'
-        },
-        {
-          id: 'u10-L6-Q9',
-          type: 'true-false',
-          question: 'ISO 14001 is an environmental management system standard that requires organizations to identify their environmental aspects and?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'ISO 14001 provides a framework for environmental management.',
-          hint: 'This standard focuses on managing an organization\'s.'
-        },
-        {
-          id: 'u10-L6-Q10',
-          type: 'multiple-choice',
-          question: 'What is the correct professional action?',
-          options: [
-            'Do nothing — if it works, there is no problem, provided all secondary effects',
-            'Quietly fix the production process and do not report the past nonconformance',
-            'Document the nonconformance, initiate a formal NCR (Non-Conformance Report),',
-            'Change the drawing to match what is being produced — this is easier than'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'Professional ethics and quality system requirements demand formal documentation and disposition. Steps: Document the nonconformance in an NCR with full details.',
-          hint: 'Quality systems require formal documentation.'
-        },
-        {
-          id: 'u10-L6-Q11',
-          type: 'multiple-choice',
-          question: 'What is the purpose of a First Article Inspection (FAI) in manufacturing, and when is it required?',
-          options: [
-            'FAI is only needed for prototype parts, never for production',
-            'FAI is identical to incoming material inspection from the supplier',
-            'FAI only checks visual appearance, not dimensions',
-            'FAI is a complete dimensional and material verification of the first'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'First Article Inspection (per AS9102 in aerospace, or equivalent in other industries) verifies that the production process can produce parts conforming to all design requirements.',
-          hint: 'This comprehensive inspection verifies that the production.'
-        },
-        {
-          id: 'u10-L6-Q12',
-          type: 'true-false',
-          question: 'ASME B31.3 (Process Piping) and ASME B31.1 (Power Piping) are interchangeable codes — a piping system designed to one code?',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'ASME B31.1 (Power Piping) and B31.3 (Process Piping) serve different industries with different philosophies.',
-          hint: 'These two piping codes serve different industries.'
-        },
-        {
-          id: 'u10-L6-Q13',
-          type: 'multiple-choice',
-          question: 'What does the CE marking on a product sold in the European Union indicate?',
-          options: [
-            'It means the product was manufactured in Europe',
-            'It is a quality certification equivalent to ISO 9001',
-            'It declares conformity to applicable EU health and safety directives via',
-            'It indicates the product has been independently tested by a European'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylindrical vessel body --> <rect x="16" y="20" width="48" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="16" y="20" width="48" height="40" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Hemispherical end caps --> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" fill="#58CC02" opacity="0.05"/> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" fill="#58CC02" opacity="0.05"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Internal pressure arrows (radial, pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Hoop direction arrows (horizontal outward) --> <line x1="30" y1="40" x2="22" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="23,38.5 20,40 23,41.5" fill="#3B8700"/> <line x1="50" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <!-- Axial direction arrows (vertical outward) --> <line x1="40" y1="30" x2="40" y2="22" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,23 40,20 41.5,23" fill="#3B8700"/> <line x1="40" y1="50" x2="40" y2="58" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,57 40,60 41.5,57" fill="#3B8700"/> </g> <!-- Pressure label P --> <text x="40" y="43" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.25" font-weight="bold" font-style="italic">P</text> <!-- Wall thickness indicator --> <line x1="64" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <text x="72" y="36" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">t</text> <!-- Stress labels --> <text x="14" y="40" text-anchor="end" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_h</text> <text x="40" y="17" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_a</text> <!-- Formula --> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">σ_h = Pr/t</text> </svg>',
-          explanation: 'CE (Conformité Européenne) marking is a legal requirement for products sold in the EU/EEA.',
-          hint: 'This marking is a mandatory self-declaration for products.'
-        },
-        {
-          id: 'u10-L6-Q14',
-          type: 'multiple-choice',
-          question: 'In a risk assessment matrix, what is the proper engineering response to a risk rated as "High"?',
-          options: [
-            'Implement risk reduction measures to either reduce the likelihood (preventive',
-            'Accept the risk and document it — all engineering involves some risk',
-            'Cancel the project — high risk means the design is fundamentally flawed',
-            'Transfer the risk to the customer through disclaimers in the user manual'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="18" y="8" width="54" height="54" rx="2" fill="#58CC02" opacity="0.04"/> <line x1="18" y1="26" x2="72" y2="26" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="18" y1="44" x2="72" y2="44" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="36" y1="8" x2="36" y2="62" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <line x1="54" y1="8" x2="54" y2="62" stroke="#3B8700" stroke-width="0.5" opacity="0.15"/> <rect x="18" y="8" width="54" height="54" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.3"/> <rect x="54" y="8" width="18" height="18" rx="1" fill="#3B8700" opacity="0.12"/> <rect x="36" y="8" width="18" height="18" rx="1" fill="#A5E86C" opacity="0.12"/> <rect x="54" y="26" width="18" height="18" rx="1" fill="#A5E86C" opacity="0.12"/> <rect x="18" y="8" width="18" height="18" rx="1" fill="#58CC02" opacity="0.08"/> <line x1="18" y1="62" x2="18" y2="8" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <line x1="18" y1="62" x2="72" y2="62" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <text x="45" y="72" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">severity</text> <text x="10" y="38" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">prob</text> <circle cx="63" cy="17" r="3" fill="#3B8700" opacity="0.3"> <animate attributeName="r" values="2.5;4;2.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The risk hierarchy for "High" rated risks: Eliminate — redesign to remove the hazard entirely (most effective). Substitute — use a less hazardous alternative (different material, lower energy).',
-          hint: 'The risk hierarchy goes: eliminate, substitute, engineer.'
-        },
-        {
-          id: 'u10-L6-Q15',
-          type: 'fill-blank',
-          question: 'The ASME standard that defines the rules for dimensioning and tolerancing on engineering drawings, including geometric controls, _____?',
-          blanks: ['5'],
-          wordBank: ['5', '1', '8', '34', '100'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'ASME Y14.5 (current edition 2018) is the US standard for GD&T.',
-          hint: 'This Y14 sub-standard defines geometric dimensioning.'
-        },
-        {
-          id: 'u10-L6-Q16',
-          type: 'multiple-choice',
-          question: 'What is the purpose of a Management of Change (MOC) process in an engineering facility, and when should it be triggered?',
-          options: [
-            'MOC ensures that any change to equipment, processes, materials, or procedures',
-            'MOC is only needed for personnel changes, not technical changes',
-            'MOC is required only for changes that cost more than $10,000',
-            'MOC replaces the engineering change process entirely'
-
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Stress bar chart --> <!-- Applied stress bar --> <rect x="16" y="28" width="18" height="36" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"> <animate attributeName="height" values="30;40;30" dur="3s" repeatCount="indefinite"/> <animate attributeName="y" values="34;24;34" dur="3s" repeatCount="indefinite"/> </rect> <text x="25" y="48" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_app</text> <!-- Ultimate/yield stress bar --> <rect x="46" y="14" width="18" height="50" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="55" y="42" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_y</text> <!-- Safety margin bracket --> <line x1="38" y1="34" x2="38" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3"> <animate attributeName="y2" values="34;24;34" dur="3s" repeatCount="indefinite"/> </line> <text x="40" y="22" font-size="3" fill="#A5E86C" opacity="0.45">margin</text> <!-- Reference line (failure) --> <line x1="10" y1="14" x2="70" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="72" y="14" font-size="2" fill="#3B8700" opacity="0.3">fail</text> <!-- Base line --> <line x1="10" y1="64" x2="70" y2="64" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <!-- FoS gauge (right side) --> <g transform="translate(66,30)"> <rect x="0" y="0" width="8" height="30" rx="1" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <rect x="1" y="10" width="6" height="20" rx="0.5" fill="#A5E86C" opacity="0.12"> <animate attributeName="y" values="12;8;12" dur="3s" repeatCount="indefinite"/> <animate attributeName="height" values="18;22;18" dur="3s" repeatCount="indefinite"/> </rect> <text x="4" y="-2" font-size="2" fill="#3B8700" opacity="0.35" text-anchor="middle">FoS</text> <line x1="0" y1="15" x2="8" y2="15" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <text x="10" y="8" font-size="2" fill="#3B8700" opacity="0.3">3</text> <text x="10" y="18" font-size="2" fill="#3B8700" opacity="0.3">2</text> <text x="10" y="28" font-size="2" fill="#3B8700" opacity="0.3">1</text> </g> <!-- Formula --> <text x="36" y="72" font-size="3.5" fill="#58CC02" opacity="0.45" text-anchor="middle">FoS = σ_y / σ_app</text> <text x="36" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">design margin</text> </svg>',
-          explanation: 'Management of Change (MOC) is a critical safety management process (required by OSHA PSM 29 CFR 1910.119 for chemical processes, and used broadly in engineering).',
-          hint: 'This process ensures that changes are evaluated.'
-        },
-        {
-          id: 'u10-L6-Q17',
-          type: 'true-false',
-          question: 'In ISO 9001:2015, the concept of "risk-based thinking" replaced the previous requirement for a standalone "preventive action"?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'ISO 9001:2015 introduced risk-based thinking as a fundamental principle, replacing the explicit "preventive action" requirement from ISO 9001:2008.',
-          hint: 'ISO 9001:2015 changed how preventive action is handled.'
-        },
-        {
-          id: 'u10-L6-Q18',
-          type: 'multiple-choice',
-          question: 'An engineer is asked to sign off on a design that meets the letter of the code but they believe has an inadequate safety margin?',
-          options: [
-            'Sign off — meeting the code is the only legal requirement, provided all',
-            'Refuse to sign and quit the company to avoid liability, provided all secondary',
-            'Document their concern, communicate it to management with technical',
-            'Sign off but add a disclaimer stating their personal opinion'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'Codes and standards provide minimum requirements for general cases, but the engineer of record is responsible for ensuring the design is adequate for the specific application.',
-          hint: 'Codes set minimum requirements.'
-        },
-        {
-          id: 'u10-L6-Q19',
-          type: 'multiple-choice',
-          question: 'What is the difference between calibration and verification of measuring instruments?',
-          options: [
-            'They are the same thing — both terms mean checking the instrument accuracy',
-            'Verification is more rigorous than calibration and always requires',
-            'Calibration is for mechanical instruments only',
-            'Calibration determines the actual measurement error and adjusts or documents it'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="68" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="77" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3b5;</text> <text x="7" y="38" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.4" font-style="italic">&#x3c3;</text> <!-- Yield stress reference line --> <line x1="12" y1="32" x2="20" y2="32" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- UTS reference line --> <line x1="12" y1="16" x2="50" y2="16" stroke="#A5E86C" stroke-width="0.7" stroke-dasharray="1.5,2" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <!-- Stress-Strain curve — animated progressive draw --> <path d="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110"> <animate attributeName="stroke-dashoffset" values="110;0;0;110" keyTimes="0;0.55;0.82;1" dur="6s" repeatCount="indefinite"/> </path> <!-- Yield point marker — appears as curve passes through --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.08;0.12;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="18" cy="32" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="6" y="30" font-size="4.5" fill="#3B8700" opacity="0.7">σ_y</text> </g> <!-- UTS marker — appears at peak --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.35;0.4;0.82;1" dur="6s" repeatCount="indefinite"/> <circle cx="48" cy="16" r="3" stroke="#3B8700" stroke-width="1.2" stroke-dasharray="2,2" fill="none"/> <text x="50" y="12" font-size="4.5" fill="#3B8700" opacity="0.7">UTS</text> </g> <!-- Fracture X marker — appears at end --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0.6;0.6;0" keyTimes="0;0.52;0.56;0.82;1" dur="6s" repeatCount="indefinite"/> <line x1="61" y1="27" x2="67" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <line x1="67" y1="27" x2="61" y2="33" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <text x="67" y="25" font-size="4" fill="#3B8700" opacity="0.6">F</text> </g> <!-- Tracing dot — follows the curve drawing --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.5"> <animateMotion dur="6s" repeatCount="indefinite" path="M12,68 L18,32 Q22,28 28,24 Q38,18 48,16 Q54,16 58,22 L64,30" keyPoints="0;1;1;0" keyTimes="0;0.55;0.82;1" calcMode="linear"/> <animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.55;0.56;1" dur="6s" repeatCount="indefinite"/> </circle> <!-- Elastic modulus slope indicator (E) --> <line x1="22" y1="68" x2="28" y2="32" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="3,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.2;0.2;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> </line> <text x="30" y="46" font-size="4.5" fill="#3B8700" font-style="italic" opacity="0"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.12;0.16;0.82;1" dur="6s" repeatCount="indefinite"/> E </text> </svg>',
-          explanation: 'Calibration (per ISO/IEC 17025) involves comparing the instrument to a traceable reference standard, determining the measurement error at multiple points across the range, and either adjusting.',
-          hint: 'One determines and documents the actual error; the other.'
-        },
-        {
-          id: 'u10-L6-T3',
-          type: 'teaching',
-          question: 'Professional Ethics and Licensing',
-          explanation: 'A PE (Professional Engineer) license means legal authority to sign off on public safety designs. Engineers have an ethical obligation to refuse signing off on work they believe is unsafe, even if it technically meets code. Public safety always comes first.',
-          hint: 'When in doubt, the answer in interviews is always: protect the public.',
-        },
-        {
-          id: 'u10-L6-Q20',
-          type: 'fill-blank',
-          question: 'The _____ed procedure that establishes how, when, and by whom engineering drawings and specifications are controlled,?',
-          blanks: ['document'],
-          wordBank: ['document', 'process', 'quality', 'version', 'release'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'Document control (ISO 9001 Clause 7.5) ensures that: (1) Only current, approved documents are available at points of use. (2) Obsolete documents are removed to prevent unintended use.',
-          hint: 'This quality system process ensures only current, approved.'
-        },
-        {
-          id: 'u10-L6-Q21',
-          type: 'multiple-choice',
-          question: 'What is the Machinery Directive (2006/42/EC)?',
-          options: [
-            'It only applies to heavy industrial machinery over 1000 kg',
-            'It requires all machinery sold in the EU to meet essential health and safety',
-            'It is a voluntary guideline with no legal enforcement',
-            'It only addresses electrical safety, not mechanical hazards'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'The Machinery Directive is a mandatory EU regulation covering all machinery (with some exclusions). Key requirements.',
-          hint: 'This EU directive sets mandatory safety requirements.'
-        },
-        {
-          id: 'u10-L6-Q22',
-          type: 'true-false',
-          question: 'In project management for engineering, the "iron triangle" constraint states that scope, schedule, and cost are interdependent —?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Stress bar chart --> <!-- Applied stress bar --> <rect x="16" y="28" width="18" height="36" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"> <animate attributeName="height" values="30;40;30" dur="3s" repeatCount="indefinite"/> <animate attributeName="y" values="34;24;34" dur="3s" repeatCount="indefinite"/> </rect> <text x="25" y="48" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_app</text> <!-- Ultimate/yield stress bar --> <rect x="46" y="14" width="18" height="50" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="55" y="42" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_y</text> <!-- Safety margin bracket --> <line x1="38" y1="34" x2="38" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3"> <animate attributeName="y2" values="34;24;34" dur="3s" repeatCount="indefinite"/> </line> <text x="40" y="22" font-size="3" fill="#A5E86C" opacity="0.45">margin</text> <!-- Reference line (failure) --> <line x1="10" y1="14" x2="70" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="72" y="14" font-size="2" fill="#3B8700" opacity="0.3">fail</text> <!-- Base line --> <line x1="10" y1="64" x2="70" y2="64" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <!-- FoS gauge (right side) --> <g transform="translate(66,30)"> <rect x="0" y="0" width="8" height="30" rx="1" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <rect x="1" y="10" width="6" height="20" rx="0.5" fill="#A5E86C" opacity="0.12"> <animate attributeName="y" values="12;8;12" dur="3s" repeatCount="indefinite"/> <animate attributeName="height" values="18;22;18" dur="3s" repeatCount="indefinite"/> </rect> <text x="4" y="-2" font-size="2" fill="#3B8700" opacity="0.35" text-anchor="middle">FoS</text> <line x1="0" y1="15" x2="8" y2="15" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <text x="10" y="8" font-size="2" fill="#3B8700" opacity="0.3">3</text> <text x="10" y="18" font-size="2" fill="#3B8700" opacity="0.3">2</text> <text x="10" y="28" font-size="2" fill="#3B8700" opacity="0.3">1</text> </g> <!-- Formula --> <text x="36" y="72" font-size="3.5" fill="#58CC02" opacity="0.45" text-anchor="middle">FoS = σ_y / σ_app</text> <text x="36" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">design margin</text> </svg>',
-          explanation: 'The project management triple constraint (iron triangle) shows that scope, schedule, and cost are linked. Increasing scope (adding features/requirements) requires either more time, more resources.',
-          hint: 'If you add scope, what must change: schedule, cost, or both?'
-        },
-        {
-          id: 'u10-L6-Q23',
-          type: 'multiple-choice',
-          question: 'What is the purpose of PPAP (Production Part Approval Process) in the automotive industry?',
-          options: [
-            'PPAP is a maintenance scheduling tool for production equipment',
-            'PPAP is the process by which suppliers demonstrate that their production',
-            'PPAP only applies to prototype parts, not production parts',
-            'PPAP is identical to ISO 9001 certification and replaces it'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'PPAP (per AIAG) is a standardized process requiring automotive suppliers to submit documented evidence that they can consistently produce parts meeting all specifications.',
-          hint: 'This automotive process requires suppliers to prove their.'
-        },
-        {
-          id: 'u10-L6-Q24',
-          type: 'multiple-choice',
-          question: 'What is the correct professional response?',
-          options: [
-            'Ignore it — personal relationships are private and do not affect professional',
-            'Immediately disclose the potential conflict to their supervisor and',
-            'Only disclose if someone asks directly about conflicts of interest',
-            'Resign from the project immediately without explaining why'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'Professional engineering codes of ethics (NSPE, ASME) require disclosure of all potential conflicts of interest.',
-          hint: 'Professional ethics require proactive disclosure.'
-        },
-        {
-          id: 'u10-L6-Q25',
-          type: 'fill-blank',
-          question: 'The standard that specifies requirements for welding procedure qualification, including WPS, PQR, and welder performance _____?',
-          blanks: ['1'],
-          wordBank: ['1', '2', '5', '6', '8'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylindrical vessel body --> <rect x="16" y="20" width="48" height="40" rx="2" fill="#58CC02" opacity="0.06"/> <rect x="16" y="20" width="48" height="40" rx="2" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Hemispherical end caps --> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" fill="#58CC02" opacity="0.05"/> <path d="M16,20 Q16,10 40,10 Q64,10 64,20" stroke="#3B8700" stroke-width="2" fill="none"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" fill="#58CC02" opacity="0.05"/> <path d="M16,60 Q16,70 40,70 Q64,70 64,60" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Internal pressure arrows (radial, pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Hoop direction arrows (horizontal outward) --> <line x1="30" y1="40" x2="22" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="23,38.5 20,40 23,41.5" fill="#3B8700"/> <line x1="50" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <!-- Axial direction arrows (vertical outward) --> <line x1="40" y1="30" x2="40" y2="22" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,23 40,20 41.5,23" fill="#3B8700"/> <line x1="40" y1="50" x2="40" y2="58" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,57 40,60 41.5,57" fill="#3B8700"/> </g> <!-- Pressure label P --> <text x="40" y="43" text-anchor="middle" font-size="7" fill="#3B8700" opacity="0.25" font-weight="bold" font-style="italic">P</text> <!-- Wall thickness indicator --> <line x1="64" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.6" opacity="0.15"/> <text x="72" y="36" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">t</text> <!-- Stress labels --> <text x="14" y="40" text-anchor="end" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_h</text> <text x="40" y="17" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">σ_a</text> <!-- Formula --> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.12" font-style="italic">σ_h = Pr/t</text> </svg>',
-          explanation: 'AWS D1.1 (Structural Welding Code — Steel) is the primary US standard for welded steel structures.',
-          hint: 'This AWS standard for structural steel welding is D1.'
-        },
-        {
-          id: 'u10-L6-Q26',
-          type: 'multiple-choice',
-          question: 'What is the relationship between IATF 16949 and ISO 9001 for automotive suppliers?',
-          options: [
-            'IATF 16949 is completely independent from ISO 9001 with its own structure,',
-            'IATF 16949 only covers tier-1 suppliers, not tier-2 or below',
-            'ISO 9001 is more stringent than IATF 16949 for automotive applications',
-            'IATF 16949 incorporates all ISO 9001 requirements and adds automotive-specific'
-
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="16" y="8" width="48" height="64" rx="4" fill="#58CC02" opacity="0.06"/> <rect x="16" y="8" width="48" height="64" rx="4" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="24" y1="22" x2="56" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.3"/> <line x1="24" y1="30" x2="56" y2="30" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="36" x2="56" y2="36" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="42" x2="56" y2="42" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="48" x2="48" y2="48" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="54" x2="52" y2="54" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <line x1="24" y1="60" x2="44" y2="60" stroke="#58CC02" stroke-width="1" opacity="0.2"/> <rect x="22" y="14" width="16" height="4" rx="1" fill="#3B8700" opacity="0.15"/> <circle cx="56" cy="62" r="6" fill="#A5E86C" opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> </circle> <path d="M53,62 L55.5,64.5 L59,60" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> </svg>',
-          explanation: 'IATF 16949 (replacing the earlier ISO/TS 16949) is built on the ISO 9001 foundation with additional automotive-specific requirements.',
-          hint: 'IATF 16949 builds on ISO 9001.'
-        },
-        {
-          id: 'u10-L6-Q27',
-          type: 'true-false',
-          question: 'Traceability in manufacturing means that every production part can be traced back to its raw material heat/lot number,?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'Material and process traceability is a key quality system requirement.',
-          hint: 'Can you trace a finished part back through every step.'
-        },
-        {
-          id: 'u10-L6-Q28',
-          type: 'multiple-choice',
-          question: 'What is the purpose of ISO 31000, and how does it differ from industry-specific risk standards?',
-          options: [
-            'ISO 31000 is a product safety testing standard with specific pass/fail criteria',
-            'ISO 31000 provides a universal framework and principles for risk management',
-            'ISO 31000 only applies to financial risks in banking institutions, provided',
-            'ISO 31000 replaces all industry-specific risk standards and is the only valid'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Stress bar chart --> <!-- Applied stress bar --> <rect x="16" y="28" width="18" height="36" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"> <animate attributeName="height" values="30;40;30" dur="3s" repeatCount="indefinite"/> <animate attributeName="y" values="34;24;34" dur="3s" repeatCount="indefinite"/> </rect> <text x="25" y="48" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_app</text> <!-- Ultimate/yield stress bar --> <rect x="46" y="14" width="18" height="50" rx="1.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <text x="55" y="42" font-size="2.8" fill="#58CC02" text-anchor="middle" opacity="0.5">σ_y</text> <!-- Safety margin bracket --> <line x1="38" y1="34" x2="38" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3"> <animate attributeName="y2" values="34;24;34" dur="3s" repeatCount="indefinite"/> </line> <text x="40" y="22" font-size="3" fill="#A5E86C" opacity="0.45">margin</text> <!-- Reference line (failure) --> <line x1="10" y1="14" x2="70" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.2" stroke-dasharray="2,2"/> <text x="72" y="14" font-size="2" fill="#3B8700" opacity="0.3">fail</text> <!-- Base line --> <line x1="10" y1="64" x2="70" y2="64" stroke-width="0.4" stroke="#58CC02" opacity="0.2"/> <!-- FoS gauge (right side) --> <g transform="translate(66,30)"> <rect x="0" y="0" width="8" height="30" rx="1" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <rect x="1" y="10" width="6" height="20" rx="0.5" fill="#A5E86C" opacity="0.12"> <animate attributeName="y" values="12;8;12" dur="3s" repeatCount="indefinite"/> <animate attributeName="height" values="18;22;18" dur="3s" repeatCount="indefinite"/> </rect> <text x="4" y="-2" font-size="2" fill="#3B8700" opacity="0.35" text-anchor="middle">FoS</text> <line x1="0" y1="15" x2="8" y2="15" stroke-width="0.3" stroke="#3B8700" opacity="0.2"/> <text x="10" y="8" font-size="2" fill="#3B8700" opacity="0.3">3</text> <text x="10" y="18" font-size="2" fill="#3B8700" opacity="0.3">2</text> <text x="10" y="28" font-size="2" fill="#3B8700" opacity="0.3">1</text> </g> <!-- Formula --> <text x="36" y="72" font-size="3.5" fill="#58CC02" opacity="0.45" text-anchor="middle">FoS = σ_y / σ_app</text> <text x="36" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">design margin</text> </svg>',
-          explanation: 'ISO 31000 (Risk Management — Principles, Framework, and Process) provides a generic, high-level framework that any organization can adapt.',
-          hint: 'This standard provides a universal risk management.'
-        },
-        {
-          id: 'u10-L6-Q29',
-          type: 'multiple-choice',
-          question: 'When an engineering project falls behind schedule, what is the difference between "crashing" and "fast-tracking" as schedule?',
-          options: [
-            'They are the same technique with different names, which would only hold true',
-            'Crashing adds resources (overtime, additional staff) to critical path tasks',
-            'Crashing reduces scope while fast-tracking reduces quality, provided all',
-            'Crashing is only used in construction and fast-tracking is only for software'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="24" y="6" width="32" height="12" rx="3" fill="#58CC02" opacity="0.1"/> <rect x="24" y="6" width="32" height="12" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="40" y1="18" x2="40" y2="26" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <polygon points="38.5,25 40,28 41.5,25" fill="#3B8700" opacity="0.3"/> <rect x="20" y="28" width="40" height="12" rx="3" fill="#58CC02" opacity="0.1"/> <rect x="20" y="28" width="40" height="12" rx="3" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="40" y1="40" x2="40" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <polygon points="38.5,47 40,50 41.5,47" fill="#3B8700" opacity="0.3"/> <rect x="24" y="50" width="32" height="12" rx="3" fill="#A5E86C" opacity="0.1"/> <rect x="24" y="50" width="32" height="12" rx="3" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"/> <line x1="40" y1="62" x2="40" y2="70" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <polygon points="38.5,69 40,72 41.5,69" fill="#3B8700" opacity="0.3"/> <circle cx="40" cy="76" r="3" fill="#3B8700" opacity="0.2"/> </svg>',
-          explanation: 'Crashing: add resources to shorten critical path tasks. Example: assign two engineers instead of one, authorize overtime, hire subcontractors.',
-          hint: 'One technique adds resources to compress task durations;.'
-        },
-        {
-          id: 'u10-L6-Q30',
-          type: 'fill-blank',
-          question: 'The standard methodology for systematically identifying potential hazards in a chemical or process plant by examining deviations _____?',
-          blanks: ['HAZOP'],
-          wordBank: ['HAZOP', 'FMEA', 'LOPA', 'HACCP', 'SWIFT'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Coordinate axes (reference frame) --> <line x1="6" y1="74" x2="17" y2="74" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="16,72.5 19,74 16,75.5" fill="#3B8700" opacity="0.2"/> <text x="20" y="73" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">x</text> <line x1="6" y1="74" x2="6" y2="63" stroke="#3B8700" stroke-width="0.8" opacity="0.2"/> <polygon points="4.5,64 6,61 7.5,64" fill="#3B8700" opacity="0.2"/> <text x="4" y="61" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">y</text> <!-- Isolated body --> <circle cx="40" cy="40" r="13" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="13" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Center of mass dot --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <text x="40" y="44" text-anchor="middle" font-size="9" fill="#3B8700" font-weight="bold" font-style="italic">m</text> <!-- Weight W (downward from center — gravity) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="53" x2="40" y2="69" stroke="#3B8700" stroke-width="2" stroke-linecap="round"/> <polygon points="38,67 40,72 42,67" fill="#3B8700"/> <text x="46" y="67" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">W</text> </g> <!-- Normal N (upward — surface reaction) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.4s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="40" y1="27" x2="40" y2="11" stroke="#58CC02" stroke-width="2" stroke-linecap="round"/> <polygon points="38,13 40,8 42,13" fill="#58CC02"/> <text x="46" y="15" font-size="7" fill="#58CC02" font-weight="bold" font-style="italic">N</text> </g> <!-- Friction f (leftward — opposing motion) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="27" y1="40" x2="14" y2="40" stroke="#A5E86C" stroke-width="1.8" stroke-linecap="round"/> <polygon points="16,38 11,40 16,42" fill="#A5E86C"/> <text x="11" y="36" font-size="7" fill="#A5E86C" font-weight="bold" font-style="italic">f</text> </g> <!-- Applied force F (rightward — larger magnitude) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;1;1" dur="4s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> <line x1="53" y1="40" x2="71" y2="40" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <polygon points="69,37 75,40 69,43" fill="#3B8700"/> <text x="69" y="35" font-size="7" fill="#3B8700" font-weight="bold" font-style="italic">F</text> </g> <!-- Equilibrium equation (appears after all forces) --> <text x="40" y="78" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.3;0.3" dur="4s" begin="1.8s" repeatCount="indefinite" keyTimes="0;0.1;0.18;1"/> &#x3a3;F = 0 </text> </svg>',
-          explanation: 'HAZOP (Hazard and Operability) study is a structured technique for identifying hazards and operability problems in process plants.',
-          hint: 'This structured hazard identification technique uses guide.'
         }
       ]
-    }
+    },
+    {
+      id: 'u10-L-conv',
+      title: 'Mock Technical Interview',
+      description: 'Practice a realistic technical interview scenario with an engineering manager.',
+      icon: '\u{1F4AC}',
+      type: 'conversation',
+      xpReward: 20,
+      questions: [],
+      conversationStartNodeId: 'u10-L-conv-C1',
+      conversationNodes: [
+        {
+          id: 'u10-L-conv-C1',
+          speaker: 'Hiring Manager',
+          message: 'Thanks for coming in. I\'m going to walk you through a design scenario. A customer reports that our stainless steel pump shaft is cracking after 6 months of service in a chemical plant. How would you start investigating?',
+          nextNodeId: 'u10-L-conv-C2',
+        },
+        {
+          id: 'u10-L-conv-C2',
+          speaker: 'Hiring Manager',
+          message: 'Walk me through your approach.',
+          options: [
+            {
+              text: 'First, I\'d preserve the failed shaft for fractography. Then I\'d gather operating conditions: fluid chemistry, temperature, pressure cycles, and maintenance history. The fracture surface will tell us whether it\'s fatigue, SCC, or overload.',
+              nextNodeId: 'u10-L-conv-C3',
+              quality: 'great',
+              feedback: 'Excellent. You prioritized evidence preservation and systematic data gathering before jumping to conclusions.',
+            },
+            {
+              text: 'I\'d replace the shaft with a stronger material right away so the customer isn\'t down.',
+              nextNodeId: 'u10-L-conv-C3',
+              quality: 'poor',
+              feedback: 'Jumping to a fix without understanding the root cause often leads to repeat failures. You also lose valuable evidence.',
+            },
+            {
+              text: 'I\'d check the material certificate to see if it meets spec, then look at the fracture surface.',
+              nextNodeId: 'u10-L-conv-C3',
+              quality: 'okay',
+              feedback: 'Material verification is good, but you should also gather operating conditions and preserve evidence first.',
+            },
+          ],
+        },
+        {
+          id: 'u10-L-conv-C3',
+          speaker: 'Hiring Manager',
+          message: 'Good. The fractography shows branching cracks that follow grain boundaries. The fluid is warm chloride solution. What\'s your diagnosis?',
+          nextNodeId: 'u10-L-conv-C4',
+        },
+        {
+          id: 'u10-L-conv-C4',
+          speaker: 'Hiring Manager',
+          message: 'What failure mechanism are we looking at?',
+          options: [
+            {
+              text: 'Chloride stress corrosion cracking. Austenitic stainless steels are susceptible in warm chloride environments under tensile stress. I\'d recommend switching to a duplex stainless or a nickel alloy.',
+              nextNodeId: 'u10-L-conv-C5',
+              quality: 'great',
+              feedback: 'Spot on. Branching intergranular cracks plus chlorides plus austenitic stainless is the classic SCC triad. Your material suggestion is practical too.',
+            },
+            {
+              text: 'It\'s probably fatigue from pressure cycling.',
+              nextNodeId: 'u10-L-conv-C5',
+              quality: 'poor',
+              feedback: 'Fatigue shows beach marks and striations, not branching intergranular cracks. The chloride environment is a key clue you shouldn\'t ignore.',
+            },
+            {
+              text: 'Could be some kind of corrosion issue given the chlorides. I\'d need to run more tests.',
+              nextNodeId: 'u10-L-conv-C5',
+              quality: 'okay',
+              feedback: 'You\'re on the right track with corrosion, but the branching intergranular pattern is specific enough to diagnose SCC directly.',
+            },
+          ],
+        },
+        {
+          id: 'u10-L-conv-C5',
+          speaker: 'Hiring Manager',
+          message: 'Last question. The customer asks: can we just add a coating instead of changing materials? It\'s cheaper. How do you handle this?',
+          nextNodeId: 'u10-L-conv-C6',
+        },
+        {
+          id: 'u10-L-conv-C6',
+          speaker: 'Hiring Manager',
+          message: 'What do you tell the customer?',
+          options: [
+            {
+              text: 'Coatings can help but they\'re not foolproof. Any scratch or holiday in the coating exposes the base metal to the same SCC risk. For a rotating shaft with wear, I\'d recommend the material change for long-term reliability, but we could coat a trial unit to compare.',
+              nextNodeId: 'u10-L-conv-C7',
+              quality: 'great',
+              feedback: 'Great balance of technical honesty and customer diplomacy. You explained the risk without dismissing their concern, and offered a data-driven path forward.',
+            },
+            {
+              text: 'No, coatings won\'t work. We have to change the material. Period.',
+              nextNodeId: 'u10-L-conv-C7',
+              quality: 'okay',
+              feedback: 'Technically cautious, but dismissing the customer\'s idea without explanation damages the relationship. Explain why.',
+            },
+            {
+              text: 'Sure, let\'s try the coating. If the customer wants cheaper, we should do cheaper.',
+              nextNodeId: 'u10-L-conv-C7',
+              quality: 'poor',
+              feedback: 'Agreeing to a risky approach just to save cost is poor engineering judgment. If the coating fails, you have the same cracking problem again.',
+            },
+          ],
+        },
+        {
+          id: 'u10-L-conv-C7',
+          speaker: 'Hiring Manager',
+          message: 'I like your structured approach. You preserved evidence, identified the mechanism correctly, and handled the customer question professionally. That\'s what we look for.',
+          nextNodeId: 'u10-L-conv-C8',
+        },
+        {
+          id: 'u10-L-conv-C8',
+          speaker: 'Narrator',
+          message: 'You walked through a realistic failure analysis interview: evidence preservation, root cause diagnosis, material recommendation, and customer communication. These are the skills that get you hired.',
+        },
+      ],
+    },
+    {
+      id: 'u10-L-speed',
+      title: 'Interview Rapid Fire',
+      description: 'Race the clock on estimation, failure analysis, design, FEA, and standards questions.',
+      icon: '\u{26A1}',
+      type: 'speed-round',
+      xpReward: 20,
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        { id: 'u10-L-speed-SQ1', question: 'Steel density is approximately:', options: ['7,850 kg/m3', '2,700 kg/m3', '1,000 kg/m3', '11,300 kg/m3'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ2', question: 'Beach marks on a fracture surface indicate:', options: ['Fatigue', 'Overload', 'Creep', 'Corrosion'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ3', question: 'DFA primarily aims to:', options: ['Reduce part count', 'Increase strength', 'Improve surface finish', 'Lower temperature'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ4', question: '1 horsepower is approximately:', options: ['750 W', '1,000 W', '500 W', '100 W'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ5', question: 'Hoop stress in a thin-walled cylinder:', options: ['PD/2t', 'PD/4t', 'Pt/2D', 'PD/t'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ6', question: 'The 5 Whys technique finds:', options: ['Root cause', 'Material properties', 'Optimal design', 'Failure load'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ7', question: 'Euler buckling load depends on:', options: ['EI/L^2', 'Yield strength', 'Density', 'Hardness'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ8', question: 'Stress singularity in FEA occurs at:', options: ['Sharp corners', 'Round holes', 'Flat surfaces', 'Uniform sections'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ9', question: 'Pump flow rate scales with speed as:', options: ['N^1', 'N^2', 'N^3', 'N^0.5'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ10', question: 'SCC requires all EXCEPT:', options: ['High RPM', 'Tensile stress', 'Corrosive environment', 'Susceptible material'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ11', question: 'Pugh matrix compares designs against a:', options: ['Datum', 'Cost target', 'Weight limit', 'Stress limit'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ12', question: 'ISO 9001 covers:', options: ['Quality management', 'Pressure vessels', 'Electrical safety', 'Food safety'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ13', question: 'A36 steel yield strength is about:', options: ['250 MPa', '500 MPa', '100 MPa', '1,000 MPa'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ14', question: 'FMEA rates risk using:', options: ['Severity x Occurrence x Detection', 'Cost x Weight', 'Stress x Strain', 'Temperature x Time'], correctIndex: 0 },
+        { id: 'u10-L-speed-SQ15', question: 'Reynolds number compares:', options: ['Inertial to viscous forces', 'Pressure to gravity', 'Thermal to kinetic', 'Elastic to plastic'], correctIndex: 0 },
+      ],
+    },
   ]
 };

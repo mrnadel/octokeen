@@ -10,11 +10,11 @@ export const unit7: Unit = {
   lessons: [
     {
       id: 'u7-L1',
-      title: 'Material Properties & Testing',
-      description: 'Tensile test, hardness tests (Rockwell/Brinell/Vickers), impact testing, creep, fatigue properties.',
+      title: 'Tensile Test Basics',
+      description: 'Stress-strain curves, yield strength, UTS, ductility measures.',
       icon: '📝',
       xpReward: 20,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L1-T1',
@@ -22,6 +22,14 @@ export const unit7: Unit = {
           question: 'The Tensile Test',
           explanation: 'A tensile test pulls a specimen until it breaks, producing a stress-strain curve. The key values are yield strength (where permanent deformation starts), ultimate tensile strength (the peak), and elongation at fracture (a measure of ductility).',
           hint: 'The slope of the initial straight-line region is the elastic modulus (stiffness).',
+        },
+        {
+          id: 'u7-L1-EZ1',
+          type: 'true-false',
+          question: 'A tensile test pulls a specimen apart until it breaks.',
+          correctAnswer: true,
+          explanation: 'Yes. A tensile test applies a pulling force that increases until the specimen fractures.',
+          hint: 'Think about what "tensile" means.',
         },
         {
           id: 'u7-L1-Q1',
@@ -93,6 +101,13 @@ export const unit7: Unit = {
           hint: 'The endurance limit is the horizontal asymptote on the.'
                 },
         {
+          id: 'u7-L1-T1b',
+          type: 'teaching',
+          question: 'Engineering vs True Stress',
+          explanation: 'Engineering stress uses the original cross-section area. True stress uses the actual (instantaneous) area, which shrinks during necking. That\'s why engineering stress appears to drop after UTS, even though the material keeps getting stronger.',
+          hint: 'Try this now: sketch a stress-strain curve and mark where engineering and true stress diverge.',
+        },
+        {
           id: 'u7-L1-Q6',
           type: 'fill-blank',
           question: 'A shaft broke unexpectedly in service. The fracture surface shows smooth, curved "beach marks" radiating from an origin point, with a small rough area of final fracture. This pattern is characteristic of _____ failure.',
@@ -153,6 +168,50 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Left half — grip + shoulder + gauge end --> <path fill="#58CC02" opacity="0.12"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M10,32 L18,32 Q24,32 26,35 L26,45 Q24,48 18,48 L10,48 Z;M6,32 L14,32 Q20,32 22,36 L22,44 Q20,48 14,48 L6,48 Z;M2,32 L10,32 Q16,32 18,38 L18,42 Q16,48 10,48 L2,48 Z;M0,32 L8,32 Q14,32 16,39 L16,41 Q14,48 8,48 L0,48 Z;M0,32 L8,32 Q14,32 16,39 L16,41 Q14,48 8,48 L0,48 Z;M10,32 L18,32 Q24,32 26,35 L26,45 Q24,48 18,48 L10,48 Z"/> </path> <path stroke="#3B8700" stroke-width="2" fill="none"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M10,32 L18,32 Q24,32 26,35 L26,45 Q24,48 18,48 L10,48 Z;M6,32 L14,32 Q20,32 22,36 L22,44 Q20,48 14,48 L6,48 Z;M2,32 L10,32 Q16,32 18,38 L18,42 Q16,48 10,48 L2,48 Z;M0,32 L8,32 Q14,32 16,39 L16,41 Q14,48 8,48 L0,48 Z;M0,32 L8,32 Q14,32 16,39 L16,41 Q14,48 8,48 L0,48 Z;M10,32 L18,32 Q24,32 26,35 L26,45 Q24,48 18,48 L10,48 Z"/> </path> <!-- Right half (mirror) --> <path fill="#58CC02" opacity="0.12"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M70,32 L62,32 Q56,32 54,35 L54,45 Q56,48 62,48 L70,48 Z;M74,32 L66,32 Q60,32 58,36 L58,44 Q60,48 66,48 L74,48 Z;M78,32 L70,32 Q64,32 62,38 L62,42 Q64,48 70,48 L78,48 Z;M80,32 L72,32 Q66,32 64,39 L64,41 Q66,48 72,48 L80,48 Z;M80,32 L72,32 Q66,32 64,39 L64,41 Q66,48 72,48 L80,48 Z;M70,32 L62,32 Q56,32 54,35 L54,45 Q56,48 62,48 L70,48 Z"/> </path> <path stroke="#3B8700" stroke-width="2" fill="none"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M70,32 L62,32 Q56,32 54,35 L54,45 Q56,48 62,48 L70,48 Z;M74,32 L66,32 Q60,32 58,36 L58,44 Q60,48 66,48 L74,48 Z;M78,32 L70,32 Q64,32 62,38 L62,42 Q64,48 70,48 L78,48 Z;M80,32 L72,32 Q66,32 64,39 L64,41 Q66,48 72,48 L80,48 Z;M80,32 L72,32 Q66,32 64,39 L64,41 Q66,48 72,48 L80,48 Z;M70,32 L62,32 Q56,32 54,35 L54,45 Q56,48 62,48 L70,48 Z"/> </path> <!-- Gauge section (necks then fractures) --> <path fill="#58CC02" opacity="0.1"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M26,35 Q40,35 54,35 L54,45 Q40,45 26,45 Z;M22,36 Q40,36 58,36 L58,44 Q40,44 22,44 Z;M18,38 Q40,40 62,38 L62,42 Q40,40 18,42 Z;M16,39 Q28,40 40,40 L40,40 Q52,40 64,39 Z;M16,39 Q28,40 40,40 L40,40 Q52,40 64,39 Z;M26,35 Q40,35 54,35 L54,45 Q40,45 26,45 Z"/> </path> <path stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.5"> <animate attributeName="d" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1" values="M26,35 Q40,35 54,35 L54,45 Q40,45 26,45 Z;M22,36 Q40,36 58,36 L58,44 Q40,44 22,44 Z;M18,38 Q40,40 62,38 L62,42 Q40,40 18,42 Z;M16,39 Q28,40 40,40 L40,40 Q52,40 64,39 Z;M16,39 Q28,40 40,40 L40,40 Q52,40 64,39 Z;M26,35 Q40,35 54,35 L54,45 Q40,45 26,45 Z"/> <animate attributeName="opacity" values="0.5;0.5;0.5;0;0;0.5" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </path> <!-- Necking stress concentration zone --> <ellipse cx="40" cy="40" rx="8" ry="5" fill="#3B8700" opacity="0"> <animate attributeName="opacity" values="0;0;0.1;0.18;0;0" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> <animate attributeName="ry" values="5;5;3;1;1;5" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </ellipse> <!-- Gauge length marks (spread apart during test) --> <line y1="30" y2="33" stroke="#3B8700" stroke-width="0.8" opacity="0.25"> <animate attributeName="x1" values="32;28;22;20;20;32" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> <animate attributeName="x2" values="32;28;22;20;20;32" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </line> <line y1="30" y2="33" stroke="#3B8700" stroke-width="0.8" opacity="0.25"> <animate attributeName="x1" values="48;52;58;60;60;48" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> <animate attributeName="x2" values="48;52;58;60;60;48" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </line> <!-- Gauge length bracket --> <line y1="30" y2="30" stroke="#3B8700" stroke-width="0.5" opacity="0.15"> <animate attributeName="x1" values="32;28;22;20;20;32" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> <animate attributeName="x2" values="48;52;58;60;60;48" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </line> <text x="40" y="28" text-anchor="middle" font-size="4.5" fill="#3B8700" opacity="0.2" font-style="italic">L₀</text> <!-- Fracture flash (X mark) --> <g opacity="0"> <animate attributeName="opacity" values="0;0;0;0.7;0;0" dur="5s" repeatCount="indefinite" keyTimes="0;0.68;0.71;0.73;0.8;1"/> <line x1="37" y1="36" x2="43" y2="44" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> <line x1="43" y1="36" x2="37" y2="44" stroke="#3B8700" stroke-width="2.5" stroke-linecap="round"/> </g> <!-- Force arrows (pull apart) --> <polygon fill="#3B8700" opacity="0.4"> <animate attributeName="points" values="14,40 9,37 9,43;8,40 3,37 3,43;2,40 -3,37 -3,43;0,40 -5,37 -5,43;0,40 -5,37 -5,43;14,40 9,37 9,43" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </polygon> <polygon fill="#3B8700" opacity="0.4"> <animate attributeName="points" values="66,40 71,37 71,43;72,40 77,37 77,43;78,40 83,37 83,43;80,40 85,37 85,43;80,40 85,37 85,43;66,40 71,37 71,43" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> </polygon> <!-- F labels near arrows --> <text y="57" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.3" font-weight="bold" font-style="italic"> <animate attributeName="x" values="10;5;0;0;0;10" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> F </text> <text y="57" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.3" font-weight="bold" font-style="italic"> <animate attributeName="x" values="70;75;80;80;80;70" dur="5s" repeatCount="indefinite" keyTimes="0;0.25;0.6;0.72;0.82;1"/> F </text> </svg>',
           explanation: "Approximate elastic moduli: Steel ~200 GPa, Copper ~120 GPa, Titanium ~110 GPa, Aluminum ~70 GPa. The elastic modulus is determined by atomic bonding strength and is essentially insensitive to heat treatment, cold work, or alloying.",
           hint: "Elastic modulus depends on atomic bonding."
+        },
+        {
+          id: 'u7-L1-MP1',
+          type: 'match-pairs',
+          question: 'Match each mechanical test to what it measures',
+          options: ['Tensile test', 'Charpy test', 'Rockwell test', 'Creep test'],
+          matchTargets: ['Stress-strain curve', 'Impact toughness', 'Indentation hardness', 'Time-dependent deformation'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Tensile tests produce stress-strain curves. Charpy tests measure impact energy. Rockwell measures hardness by indentation depth. Creep tests measure deformation under sustained load at high temperature.',
+          hint: 'Think about what each test physically does to the specimen.',
+        },
+        {
+          id: 'u7-L1-OS1',
+          type: 'order-steps',
+          question: 'Order the regions of a tensile stress-strain curve from start to finish',
+          steps: ['Linear elastic region', 'Yielding begins', 'Strain hardening to UTS', 'Necking to fracture'],
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'The curve starts with a linear elastic region (slope = E), then yielding, then strain hardening up to UTS, and finally necking and fracture.',
+          hint: 'Start with the straight-line portion of the curve.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L1b',
+      title: 'Hardness, Creep, and Fatigue',
+      description: 'Hardness tests, creep at high temperature, fatigue S-N curves.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L1-T3',
+          type: 'teaching',
+          question: 'Fracture Toughness and K_IC',
+          explanation: 'Fracture toughness (K_IC) measures how well a material resists crack growth. Higher K_IC means cracks need more energy to spread. It\'s the single most important property for parts with existing flaws or stress concentrations.',
+          hint: 'K_IC is tested using pre-cracked specimens loaded until the crack propagates.',
+        },
+        {
+          id: 'u7-L1b-EZ1',
+          type: 'true-false',
+          question: 'Fatigue failure can happen even when the stress is below the yield strength.',
+          correctAnswer: true,
+          explanation: 'Correct. Fatigue cracks grow under repeated cyclic loading, even at stresses well below yield.',
+          hint: 'Repeated loading is the key here.',
         },
         {
           id: 'u7-L1-Q10',
@@ -219,6 +278,13 @@ export const unit7: Unit = {
 
           explanation: "Shot peening introduces compressive residual stresses in a thin surface layer. Since fatigue cracks initiate and grow under tensile stress, the compressive layer suppresses crack initiation at surface defects.",
           hint: "Fatigue cracks start at the surface under tension."
+        },
+        {
+          id: 'u7-L1b-T1',
+          type: 'teaching',
+          question: 'Surface Finish and Fatigue Life',
+          explanation: 'Rough surfaces act like tiny stress concentrators that nucleate fatigue cracks. Shot peening introduces compressive residual stress, which fights back by closing surface cracks before they grow.',
+          hint: 'A polished lab specimen always has a higher endurance limit than a real machined part.',
         },
         {
           id: 'u7-L1-Q15',
@@ -290,11 +356,54 @@ export const unit7: Unit = {
           hint: "how the specimen is held — one is a beam.",
         },
         {
-          id: 'u7-L1-T3',
-          type: 'teaching',
-          question: 'Fracture Toughness and K_IC',
-          explanation: 'Fracture toughness (K_IC) measures how well a material resists crack growth. Higher K_IC means cracks need more energy to spread. It\'s the single most important property for parts with existing flaws or stress concentrations.',
-          hint: 'K_IC is tested using pre-cracked specimens loaded until the crack propagates.',
+          id: 'u7-L1b-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into the correct failure mechanism category',
+          options: [
+            'Beach marks on fracture surface',
+            'Permanent bulging at 550 degrees C',
+            'Sudden snap at -40 degrees C',
+            'Crack growth under cyclic load',
+            'Slow elongation over 10 years',
+            'V-notch specimen shatters on impact'
+          ],
+          buckets: ['Fatigue', 'Creep / Brittle fracture'],
+          correctBuckets: [0, 1, 1, 0, 1, 1],
+          explanation: 'Beach marks and crack growth under cyclic load are fatigue indicators. Permanent bulging at high temperature and slow elongation are creep. Sudden snap at low temperature and V-notch shattering are brittle fracture.',
+          hint: 'Fatigue involves repeated loading cycles. Creep involves high temperature and time.',
+        },
+        {
+          id: 'u7-L1b-MP1',
+          type: 'match-pairs',
+          question: 'Match each surface treatment to its primary benefit',
+          options: ['Shot peening', 'Carburizing', 'Chrome plating', 'Nitriding'],
+          matchTargets: [
+            'Compressive residual stress',
+            'Hard carbon-rich case',
+            'Corrosion resistance',
+            'Hard nitrogen-rich surface'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Shot peening introduces compressive stress for fatigue resistance. Carburizing adds carbon for a hard case. Chrome plating resists corrosion. Nitriding diffuses nitrogen for surface hardness.',
+          hint: 'Each treatment changes the surface in a different way.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L1c',
+      title: 'Fracture and Toughness',
+      description: 'Fracture toughness K_IC, impact testing, material selection.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L1c-EZ1',
+          type: 'true-false',
+          question: 'Higher fracture toughness (K_IC) means a material is better at resisting crack growth.',
+          correctAnswer: true,
+          explanation: 'Yes. K_IC measures resistance to crack propagation. Higher is better.',
+          hint: 'Toughness and crack resistance go together.',
         },
         {
           id: 'u7-L1-Q20',
@@ -370,6 +479,13 @@ export const unit7: Unit = {
           hint: "If a material conserves volume perfectly when stretched."
         },
         {
+          id: 'u7-L1c-T1',
+          type: 'teaching',
+          question: 'Choosing Materials by Temperature',
+          explanation: 'BCC metals (carbon steel) become brittle below their DBTT. FCC metals (stainless steel, aluminum) stay ductile even at cryogenic temperatures. For high-temperature service, creep rupture data governs the design, not room-temperature strength.',
+          hint: 'Try this now: think about which crystal structure you would pick for a liquid nitrogen tank.',
+        },
+        {
           id: 'u7-L1-Q26',
           type: 'multiple-choice',
           question: "A leaf spring made of 5160 steel snapped in service. Fractographic examination shows ratchet marks at multiple initiation sites on the tension surface. What do multiple initiation sites indicate?",
@@ -432,16 +548,35 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"><rect x="15" y="20" width="50" height="40" rx="2" fill="#58CC02" opacity="0.08" stroke="#3B8700" stroke-width="1.5"/><line x1="15" y1="40" x2="30" y2="40" stroke="#3B8700" stroke-width="2"/><path d="M30,40 L35,36 L33,40 L35,44 Z" fill="#3B8700" opacity="0.4"/><text x="22" y="38" font-size="3" fill="#3B8700" opacity="0.5">a</text><line x1="40" y1="12" x2="40" y2="20" stroke="#3B8700" stroke-width="1" opacity="0.5"/><polygon points="38,14 40,10 42,14" fill="#3B8700" opacity="0.5"/><line x1="40" y1="60" x2="40" y2="68" stroke="#3B8700" stroke-width="1" opacity="0.5"/><polygon points="38,66 40,70 42,66" fill="#3B8700" opacity="0.5"/><text x="44" y="14" font-size="3" fill="#3B8700" opacity="0.5">sigma</text><text x="40" y="78" text-anchor="middle" font-size="3" fill="#58CC02" opacity="0.4">K_IC = sigma sqrt(pi a)</text></svg>',
           explanation: "K_IC is a material property defining the critical stress intensity factor for unstable crack propagation under Mode I (opening) loading in plane strain. It is measured per ASTM E399.7 MPa√m.",
           hint: "The subscript combines the loading mode (I = opening)."
-        }
+        },
+        {
+          id: 'u7-L1c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these materials by crystal structure',
+          options: ['Carbon steel', 'Aluminum', 'Ferritic stainless', 'Austenitic stainless', 'Copper', 'Chromium'],
+          buckets: ['BCC', 'FCC'],
+          correctBuckets: [0, 1, 0, 1, 1, 0],
+          explanation: 'Carbon steel, ferritic stainless, and chromium are BCC. Aluminum, austenitic stainless, and copper are FCC. BCC metals show a ductile-to-brittle transition. FCC metals do not.',
+          hint: 'Think about which metals stay ductile at low temperatures.',
+        },
+        {
+          id: 'u7-L1c-OS1',
+          type: 'order-steps',
+          question: 'Order these materials by elastic modulus, highest to lowest',
+          steps: ['Steel (~200 GPa)', 'Copper (~120 GPa)', 'Titanium (~110 GPa)', 'Aluminum (~70 GPa)'],
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'Steel has the highest E at ~200 GPa, followed by copper ~120, titanium ~110, and aluminum ~70 GPa. Elastic modulus depends on atomic bonding, not heat treatment.',
+          hint: 'Steel is the stiffest common engineering metal.',
+        },
       ]
     },
     {
       id: 'u7-L2',
-      title: 'Phase Diagrams & Heat Treatment',
-      description: 'Iron-carbon diagram, TTT/CCT diagrams, annealing/normalizing/quenching/tempering, martensite/austenite/pearlite.',
+      title: 'Iron-Carbon Diagram',
+      description: 'Phases, eutectoid reaction, carbon solubility limits.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L2-T1',
@@ -449,6 +584,14 @@ export const unit7: Unit = {
           question: 'The Iron-Carbon Phase Diagram',
           explanation: 'The iron-carbon diagram is the roadmap for steel heat treatment. It shows which phases (ferrite, austenite, cementite) exist at each temperature and carbon content. The key point is the eutectoid at 0.8% C and 727 degrees C, where austenite transforms into pearlite (a layered mix of ferrite and cementite).',
           hint: 'Steels below 0.8% C are hypoeutectoid. Above 0.8% C are hypereutectoid.',
+        },
+        {
+          id: 'u7-L2-EZ1',
+          type: 'true-false',
+          question: 'The iron-carbon phase diagram shows which phases exist at different temperatures and carbon contents.',
+          correctAnswer: true,
+          explanation: 'Exactly. The phase diagram is the roadmap for understanding steel microstructures.',
+          hint: 'Phase diagrams map temperature vs composition.',
         },
         {
           id: 'u7-L2-Q1',
@@ -520,6 +663,13 @@ export const unit7: Unit = {
           hint: 'You need a process that both refines grain structure.'
                 },
         {
+          id: 'u7-L2-T1b',
+          type: 'teaching',
+          question: 'Steels vs Cast Irons',
+          explanation: 'Steels have less than 2.14% carbon. Cast irons have more. That boundary matters because above 2.14% C, a eutectic reaction forms at 1147 degrees C, lowering the melting point and making the alloy easy to cast.',
+          hint: 'Cast irons are cheap to cast but brittle in tension due to graphite flakes (gray) or nodules (ductile).',
+        },
+        {
           id: 'u7-L2-Q6',
           type: 'fill-blank',
           question: 'When tempering a quenched steel at progressively higher temperatures, toughness increases but hardness decreases. However, there is a range around 250-350°C that should be avoided for certain alloy steels because it causes a phenomenon called temper _____.',
@@ -576,6 +726,48 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="20" y1="20" x2="40" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="60" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="60" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="60" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="20" x2="20" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="20" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="20" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="40" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <circle cx="20" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="20" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.45s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;21;19;20" dur="0.35s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.4s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="20;19;21;20" dur="0.35s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.45s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.4"> <animate attributeName="cx" values="40;41;39;40" dur="0.38s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;39;41;40" dur="0.42s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="60;59;61;60" dur="0.42s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.48s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.38s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="60" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;61;59;60" dur="0.48s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.36s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.44s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: "Martensite is a NON-EQUILIBRIUM phase. It forms by a diffusionless, shear transformation when austenite is cooled too rapidly for carbon to diffuse out.",
           hint: "The Fe-C phase diagram shows equilibrium phases only."
+        },
+        {
+          id: 'u7-L2-MP1',
+          type: 'match-pairs',
+          question: 'Match each phase to its description',
+          options: ['Ferrite', 'Austenite', 'Cementite', 'Pearlite'],
+          matchTargets: [
+            'BCC iron, soft and ductile',
+            'FCC iron, high carbon solubility',
+            'Fe3C, hard and brittle',
+            'Lamellar ferrite + cementite'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Ferrite is BCC and soft. Austenite is FCC and dissolves more carbon. Cementite (Fe3C) is the hard carbide. Pearlite is the lamellar mix of ferrite and cementite.',
+          hint: 'The eutectoid reaction produces pearlite from austenite.',
+        },
+        {
+          id: 'u7-L2-OS1',
+          type: 'order-steps',
+          question: 'Order the cooling transformation products from softest to hardest',
+          steps: ['Spheroidite', 'Coarse pearlite', 'Fine pearlite', 'Bainite', 'Martensite'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Spheroidite is the softest (globular carbides). Coarse pearlite is next, then fine pearlite, then bainite, and martensite is the hardest.',
+          hint: 'Faster cooling generally produces harder microstructures.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L2b',
+      title: 'Heat Treatment Processes',
+      description: 'Quenching, tempering, annealing, normalizing, hardenability.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L2b-EZ1',
+          type: 'true-false',
+          question: 'Quenching makes steel harder by forming martensite.',
+          correctAnswer: true,
+          explanation: 'Right. Rapid cooling traps carbon in the lattice, forming the hard martensite phase.',
+          hint: 'Fast cooling = hard.',
         },
         {
           id: 'u7-L2-Q10',
@@ -663,6 +855,13 @@ export const unit7: Unit = {
           hint: "The critical difference is whether you heat above or."
         },
         {
+          id: 'u7-L2b-T1',
+          type: 'teaching',
+          question: 'The Jominy End-Quench Test',
+          explanation: 'The Jominy test quenches one end of a standard bar and measures hardness along its length. A steep drop means poor hardenability (only the surface gets hard). A flat curve means great hardenability (even thick sections harden through).',
+          hint: 'Alloying elements like Cr, Mo, and Ni shift the TTT nose right, improving hardenability.',
+        },
+        {
           id: 'u7-L2-Q16',
           type: 'true-false',
           question: "Spheroidizing is a heat treatment that produces the softest and most ductile form of a given steel, making it easier to machine or cold-form.",
@@ -728,11 +927,54 @@ export const unit7: Unit = {
           hint: "The hardening mechanism in nitriding is compound formation."
         },
         {
+          id: 'u7-L2b-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these heat treatments by their primary purpose',
+          options: ['Quenching', 'Tempering', 'Annealing', 'Normalizing', 'Case carburizing', 'Spheroidizing'],
+          buckets: ['Increase hardness', 'Increase ductility/toughness'],
+          correctBuckets: [0, 1, 1, 1, 0, 1],
+          explanation: 'Quenching and case carburizing increase hardness. Tempering, annealing, normalizing, and spheroidizing all improve ductility or toughness.',
+          hint: 'Most heat treatments aim to soften steel, not harden it.',
+        },
+        {
+          id: 'u7-L2b-MP1',
+          type: 'match-pairs',
+          question: 'Match the alloy element to its primary role in steel',
+          options: ['Chromium', 'Molybdenum', 'Nickel', 'Vanadium'],
+          matchTargets: [
+            'Corrosion resistance',
+            'Hardenability, temper resistance',
+            'Toughness at low temperature',
+            'Grain refinement'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Cr gives corrosion resistance (stainless). Mo improves hardenability and temper resistance. Ni improves low-temp toughness. V refines grain size.',
+          hint: 'Stainless steel needs at least 10.5% chromium.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L2c',
+      title: 'Advanced Heat Treatment',
+      description: 'Case hardening, CCT vs TTT, precipitation hardening.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
           id: 'u7-L2-T3',
           type: 'teaching',
           question: 'Surface Hardening Methods',
           explanation: 'Sometimes you want a hard surface and a tough core. Carburizing adds carbon to a low-carbon steel surface at high temperature, then quenches to form martensite on the outside only. Nitriding diffuses nitrogen into the surface without quenching. Induction hardening heats just the surface with electromagnetic fields.',
           hint: 'Each method targets a different balance of cost, depth, and distortion.',
+        },
+        {
+          id: 'u7-L2c-EZ1',
+          type: 'true-false',
+          question: 'Martensite appears on the equilibrium Fe-C phase diagram.',
+          correctAnswer: false,
+          explanation: 'No. Martensite is a non-equilibrium phase. It only forms with rapid cooling, not slow equilibrium cooling.',
+          hint: 'The phase diagram shows equilibrium conditions only.',
         },
         {
           id: 'u7-L2-Q21',
@@ -805,6 +1047,13 @@ export const unit7: Unit = {
           hint: "Induction heating concentrates energy in a thin surface."
         },
         {
+          id: 'u7-L2c-T1',
+          type: 'teaching',
+          question: 'Precipitation Hardening',
+          explanation: 'Some alloys (like 17-4 PH stainless and aluminum 2024) can be strengthened by dissolving atoms at high temperature, then aging at a lower temperature to form tiny precipitates that block dislocations.',
+          hint: 'Try this now: compare solution-treated vs aged properties of an aluminum 6061 alloy.',
+        },
+        {
           id: 'u7-L2-Q26',
           type: 'multiple-choice',
           question: "Upper bainite vs lower bainite: microstructure and properties?",
@@ -869,16 +1118,41 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="10" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <line x1="10" y1="68" x2="10" y2="8" stroke="#3B8700" stroke-width="1" opacity="0.3"/> <text x="6" y="38" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">T</text> <text x="42" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.25" font-style="italic">wt% C</text> <path d="M12,12 L30,12 L48,34 L70,34" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M12,24 L30,24 L48,34" stroke="#A5E86C" stroke-width="1.2" fill="none" opacity="0.3"/> <line x1="10" y1="34" x2="70" y2="34" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.25"/> <circle cx="48" cy="34" r="2.5" fill="#58CC02" opacity="0.3" stroke="#3B8700" stroke-width="1"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2s" repeatCount="indefinite"/> </circle> <text x="48" y="44" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.3" font-style="italic">4.3%C</text> <text x="74" y="32" font-size="3" fill="#3B8700" opacity="0.2" font-style="italic">1147°C</text> <text x="40" y="56" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2" font-style="italic">eutectic → ledeburite</text> </svg>',
           explanation: "Ledeburite is the eutectic mixture of austenite and cementite formed at 4.3% C and 1147°C. The eutectic reaction transforms liquid into two solid phases simultaneously.",
           hint: "This eutectic mixture is named after the German city."
-        }
+        },
+        {
+          id: 'u7-L2c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into equilibrium vs non-equilibrium phases',
+          options: ['Ferrite', 'Martensite', 'Austenite', 'Bainite', 'Cementite', 'Retained austenite'],
+          buckets: ['Equilibrium (on phase diagram)', 'Non-equilibrium'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Ferrite, austenite, and cementite appear on the equilibrium Fe-C diagram. Martensite, bainite, and retained austenite are non-equilibrium phases that require specific cooling conditions.',
+          hint: 'The phase diagram only shows what forms given infinite time.',
+        },
+        {
+          id: 'u7-L2c-OS1',
+          type: 'order-steps',
+          question: 'Order the steps of a quench-and-temper heat treatment',
+          steps: [
+            'Austenitize above A3',
+            'Rapid quench in oil or water',
+            'Confirm martensite formed',
+            'Temper at moderate temperature',
+            'Air cool to room temperature'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'First austenitize, then quench to form martensite, verify hardness, then temper to restore toughness, and finally air cool.',
+          hint: 'Tempering always comes after quenching.',
+        },
       ]
     },
     {
       id: 'u7-L3',
-      title: 'Casting & Forming',
-      description: 'Sand/investment/die casting, forging, rolling, extrusion, drawing, defects, shrinkage allowance.',
+      title: 'Casting Processes',
+      description: 'Sand, investment, and die casting, defects, shrinkage.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L3-T1',
@@ -886,6 +1160,14 @@ export const unit7: Unit = {
           question: 'Casting Basics',
           explanation: 'Casting pours molten metal into a mold cavity shaped like the final part. Sand casting is cheap and handles large parts but has rough surfaces. Investment casting (lost-wax) gives tight tolerances and smooth finishes for complex shapes. Die casting injects metal under pressure for high-volume, precise parts.',
           hint: 'Choose the casting process based on volume, part size, tolerance, and complexity.',
+        },
+        {
+          id: 'u7-L3-EZ1',
+          type: 'true-false',
+          question: 'In casting, molten metal is poured into a mold shaped like the final part.',
+          correctAnswer: true,
+          explanation: 'Yes. Casting fills a mold cavity with liquid metal that solidifies into the desired shape.',
+          hint: 'Casting is one of the oldest manufacturing processes.',
         },
         {
           id: 'u7-L3-Q1',
@@ -963,6 +1245,13 @@ export const unit7: Unit = {
           hint: 'Each process\'s capabilities against the three key.'
                 },
         {
+          id: 'u7-L3-T1b',
+          type: 'teaching',
+          question: 'Casting Shrinkage',
+          explanation: 'Metals shrink when they solidify and again when they cool. Designers add shrinkage allowance to patterns (typically 1-2% for steel, less for aluminum). Risers feed liquid metal into the casting to compensate for solidification shrinkage.',
+          hint: 'The last region to solidify should be in the riser, not in the part.',
+        },
+        {
           id: 'u7-L3-Q6',
           type: 'fill-blank',
           question: 'Vertical surfaces on the pattern must have a slight taper (typically 1-3°) to allow the pattern to be withdrawn from the sand mold without damaging the cavity. This taper is called the _____ angle.',
@@ -1023,6 +1312,61 @@ export const unit7: Unit = {
 
           explanation: "Hot tears form in the final stages of solidification when a thin film of liquid remains between dendrites. The casting is contracting thermally but is restrained by the mold, cores, or previously solidified sections.",
           hint: "During solidification, the casting wants to shrink but."
+        },
+        {
+          id: 'u7-L3-MP1',
+          type: 'match-pairs',
+          question: 'Match each casting process to its best use case',
+          options: ['Sand casting', 'Die casting', 'Investment casting', 'Centrifugal casting'],
+          matchTargets: [
+            'Large, low-volume parts',
+            'High-volume aluminum parts',
+            'Complex aerospace parts',
+            'Pipes and tubes'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Sand casting handles large parts cheaply. Die casting is fast for high-volume production. Investment casting gives precision for complex shapes. Centrifugal casting makes hollow cylindrical parts.',
+          hint: 'Think about volume, complexity, and part shape.',
+        },
+        {
+          id: 'u7-L3-OS1',
+          type: 'order-steps',
+          question: 'Order the sand casting process steps',
+          steps: [
+            'Make pattern and core',
+            'Pack sand around pattern',
+            'Remove pattern, close mold',
+            'Pour molten metal',
+            'Cool, shake out, and clean'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Sand casting starts with pattern making, then molding, then closing, pouring, and finally shakeout and cleaning.',
+          hint: 'The pattern creates the cavity shape.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L3b',
+      title: 'Forming Processes',
+      description: 'Forging, rolling, extrusion, drawing, formability.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L3-T3',
+          type: 'teaching',
+          question: 'Metal Forming Processes',
+          explanation: 'Forming reshapes solid metal without removing material. Forging presses or hammers hot/cold metal into shape, producing superior grain structure. Rolling squeezes metal between rotating rolls to make sheets or bars. Extrusion pushes metal through a die to create long profiles (like squeezing toothpaste).',
+          hint: 'Formed parts are generally stronger than cast parts because the grain flow follows the shape.',
+        },
+        {
+          id: 'u7-L3b-EZ1',
+          type: 'true-false',
+          question: 'Hot working happens above the recrystallization temperature.',
+          correctAnswer: true,
+          explanation: 'Correct. Above recrystallization temperature, the metal can be deformed extensively without strain hardening.',
+          hint: 'The metal stays soft because new grains form continuously.',
         },
         {
           id: 'u7-L3-Q10',
@@ -1103,6 +1447,13 @@ export const unit7: Unit = {
           hint: "One is caused by gas bubbles (round)."
         },
         {
+          id: 'u7-L3b-T1',
+          type: 'teaching',
+          question: 'Hot vs Cold Working',
+          explanation: 'Hot working (above the recrystallization temperature) allows large deformations without cracking, and the metal recrystallizes into fine grains. Cold working (below recrystallization) strain-hardens the metal, increasing strength but reducing ductility.',
+          hint: 'Cold-rolled steel is stronger than hot-rolled steel of the same grade.',
+        },
+        {
           id: 'u7-L3-Q15',
           type: 'multiple-choice',
           question: "In investment casting (lost-wax process), what is the sequence of major steps?",
@@ -1129,13 +1480,6 @@ export const unit7: Unit = {
 
           explanation: "During deep drawing, thickness changes do occur. The blank thins at the punch nose radius and thickens at the flange. Excessive thinning at the punch radius leads to tearing.",
           hint: "To the material at different locations: the punch nose.",
-        },
-        {
-          id: 'u7-L3-T3',
-          type: 'teaching',
-          question: 'Metal Forming Processes',
-          explanation: 'Forming reshapes solid metal without removing material. Forging presses or hammers hot/cold metal into shape, producing superior grain structure. Rolling squeezes metal between rotating rolls to make sheets or bars. Extrusion pushes metal through a die to create long profiles (like squeezing toothpaste).',
-          hint: 'Formed parts are generally stronger than cast parts because the grain flow follows the shape.',
         },
         {
           id: 'u7-L3-Q17',
@@ -1183,6 +1527,56 @@ export const unit7: Unit = {
 
           explanation: "Extrusion ratio R = A_billet/A_extrudate. For aluminum alloys, ratios of 10:1 to 100:1 are common (some reach 400:1 for soft alloys). Higher ratios require greater force and generate more heat.",
           hint: "The extrusion ratio measures how much the cross-section."
+        },
+        {
+          id: 'u7-L3b-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into hot working vs cold working processes',
+          options: [
+            'Hot rolling',
+            'Cold drawing',
+            'Forging at 1100 degrees C',
+            'Stamping sheet metal at room temp',
+            'Hot extrusion',
+            'Cold heading of bolts'
+          ],
+          buckets: ['Hot working', 'Cold working'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Hot working happens above the recrystallization temperature (metal stays soft). Cold working happens below it (metal strain-hardens).',
+          hint: 'Hot working allows large deformations without cracking.',
+        },
+        {
+          id: 'u7-L3b-MP1',
+          type: 'match-pairs',
+          question: 'Match each forming defect to its cause',
+          options: ['Orange peel', 'Springback', 'Wrinkling', 'Barreling'],
+          matchTargets: [
+            'Coarse grain structure',
+            'Elastic recovery after bending',
+            'Insufficient blank holder force',
+            'Friction in compression'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Orange peel comes from coarse grains. Springback is elastic recovery. Wrinkling happens when the blank holder is too loose. Barreling results from friction during compression.',
+          hint: 'Each defect has a distinct physical mechanism.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L3c',
+      title: 'Casting and Forming Defects',
+      description: 'Porosity, hot tears, grain flow, DFM for cast/formed parts.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L3c-EZ1',
+          type: 'true-false',
+          question: 'Forged parts generally have better fatigue life than cast parts of the same shape.',
+          correctAnswer: true,
+          explanation: 'Yes. Forging creates aligned grain flow and eliminates porosity, both of which improve fatigue resistance.',
+          hint: 'Think about internal defects and grain structure.',
         },
         {
           id: 'u7-L3-Q20',
@@ -1266,6 +1660,13 @@ export const unit7: Unit = {
           hint: "What drives the wire through the die."
         },
         {
+          id: 'u7-L3c-T1',
+          type: 'teaching',
+          question: 'Grain Flow in Forgings',
+          explanation: 'Forging aligns the grain structure along the part\'s shape, like wood grain in a baseball bat. This grain flow makes forgings stronger and more fatigue-resistant than castings or machined bar stock, especially in the direction of loading.',
+          hint: 'Try this now: think about why a forged crankshaft outlasts a cast one.',
+        },
+        {
           id: 'u7-L3-Q26',
           type: 'multiple-choice',
           question: "Why is aluminum harder to sand-cast than iron or bronze?",
@@ -1336,16 +1737,48 @@ export const unit7: Unit = {
 
           explanation: "Flash is the thin fin of excess metal forced out between the die halves in closed-die (impression-die) forging at the parting line. The flash land creates high resistance to flow, forcing metal to fill the die cavity completely before escaping.",
           hint: "This thin fin of excess material around the parting."
-        }
+        },
+        {
+          id: 'u7-L3c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these casting defects by root cause',
+          options: [
+            'Shrinkage cavity',
+            'Hot tear',
+            'Misrun',
+            'Cold shut',
+            'Porosity from dissolved gas',
+            'Metal penetration'
+          ],
+          buckets: ['Solidification/shrinkage', 'Filling/pouring'],
+          correctBuckets: [0, 0, 1, 1, 0, 1],
+          explanation: 'Shrinkage cavities, hot tears, and gas porosity relate to solidification. Misruns, cold shuts, and metal penetration relate to how the metal fills the mold.',
+          hint: 'Does the defect happen during filling or during solidification?',
+        },
+        {
+          id: 'u7-L3c-OS1',
+          type: 'order-steps',
+          question: 'Order the investment casting (lost-wax) steps',
+          steps: [
+            'Inject wax pattern',
+            'Assemble wax tree',
+            'Dip in ceramic slurry',
+            'Burn out wax',
+            'Pour molten metal'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Investment casting: make wax pattern, assemble tree, build ceramic shell, burn out wax, pour metal.',
+          hint: 'The wax melts out to leave the mold cavity.',
+        },
       ]
     },
     {
       id: 'u7-L4',
-      title: 'Machining & CNC',
-      description: 'Turning/milling/drilling, cutting speed/feed/depth, tool wear, surface finish, CNC programming basics, G-code.',
+      title: 'Turning, Milling, and Drilling',
+      description: 'Basic machining operations, cutting parameters.',
       icon: '📝',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L4-T1',
@@ -1353,6 +1786,14 @@ export const unit7: Unit = {
           question: 'Turning, Milling, and Drilling',
           explanation: 'In turning, the workpiece spins while a single-point tool removes material (lathes). In milling, a rotating multi-tooth cutter moves across a stationary workpiece. Drilling uses a rotating bit to make holes. The 3 key cutting parameters are speed (m/min), feed (mm/rev), and depth of cut (mm).',
           hint: 'Climb milling (cutter rotation matches feed direction) gives a better finish than conventional milling.',
+        },
+        {
+          id: 'u7-L4-EZ1',
+          type: 'true-false',
+          question: 'In turning, the workpiece rotates while the cutting tool stays mostly stationary.',
+          correctAnswer: true,
+          explanation: 'Yes. The lathe spins the workpiece. The tool moves linearly to shape it.',
+          hint: 'Turning happens on a lathe.',
         },
         {
           id: 'u7-L4-Q1',
@@ -1424,6 +1865,13 @@ export const unit7: Unit = {
           hint: 'The exponents: speed enters Taylor\'s equation with.'
                 },
         {
+          id: 'u7-L4-T1b',
+          type: 'teaching',
+          question: 'Cutting Speed, Feed, and Depth',
+          explanation: 'Cutting speed (m/min) is how fast the tool edge moves across the workpiece. Feed (mm/rev) is how far the tool advances per revolution. Depth of cut (mm) is how deep the tool bites. Speed affects tool life most, depth of cut affects force most.',
+          hint: 'Doubling cutting speed roughly halves tool life (Taylor equation).',
+        },
+        {
           id: 'u7-L4-Q6',
           type: 'fill-blank',
           question: 'Surface roughness in turning depends on feed rate (f) and tool _____ radius.',
@@ -1478,6 +1926,56 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bed (ways) --> <rect x="4" y="58" width="72" height="8" rx="3" fill="#58CC02" opacity="0.1"/> <rect x="4" y="58" width="72" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Way grooves on bed --> <line x1="6" y1="60.5" x2="74" y2="60.5" stroke="#3B8700" stroke-width="0.4" opacity="0.08"/> <line x1="6" y1="63.5" x2="74" y2="63.5" stroke="#3B8700" stroke-width="0.4" opacity="0.08"/> <!-- Headstock housing --> <rect x="4" y="28" width="18" height="30" rx="4" fill="#58CC02" opacity="0.1"/> <rect x="4" y="28" width="18" height="30" rx="4" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- 3-jaw chuck (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,44;360,22,44" dur="0.8s" repeatCount="indefinite"/> <circle cx="22" cy="44" r="12" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="44" r="12" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- 3 jaw marks at 120° intervals --> <line x1="22" y1="32.5" x2="22" y2="36" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <line x1="12.1" y1="49.8" x2="15.2" y2="48" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <line x1="31.9" y1="49.8" x2="28.8" y2="48" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <!-- Scroll ring --> <circle cx="22" cy="44" r="7" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> </g> <!-- Chuck center --> <circle cx="22" cy="44" r="3" fill="#3B8700" opacity="0.3"/> <!-- Workpiece (cylindrical bar stock) --> <rect x="22" y="37" width="38" height="14" rx="1" fill="#58CC02" opacity="0.16"/> <rect x="22" y="37" width="38" height="14" rx="1" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Cylindrical highlight (3D cylinder feel) --> <rect x="22" y="38" width="38" height="3" rx="1" fill="#A5E86C" opacity="0.12"/> <!-- Machined groove at tool contact --> <rect x="48" y="36" width="2" height="16" rx="1" fill="#3B8700" opacity="0.12"/> <!-- Tool post holder --> <rect x="46" y="24" width="8" height="13" rx="2" fill="#3B8700" opacity="0.25"/> <rect x="46" y="24" width="8" height="13" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.4"/> <!-- Cutting tool tip (triangular insert) --> <polygon points="49,37 51,34 49,31" fill="#3B8700" opacity="0.5"/> <!-- Chips (fan of particles flying from cut) --> <circle r="1.2" fill="#58CC02"> <animateMotion dur="0.5s" repeatCount="indefinite" path="M50,35 L56,22"/> <animate attributeName="opacity" values="0.6;0" dur="0.5s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#A5E86C"> <animateMotion dur="0.42s" repeatCount="indefinite" path="M50,35 L54,20" begin="0.08s"/> <animate attributeName="opacity" values="0.5;0" dur="0.42s" begin="0.08s" repeatCount="indefinite"/> </circle> <circle r="1.1" fill="#3B8700"> <animateMotion dur="0.55s" repeatCount="indefinite" path="M50,35 L60,26" begin="0.18s"/> <animate attributeName="opacity" values="0.45;0" dur="0.55s" begin="0.18s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#58CC02"> <animateMotion dur="0.48s" repeatCount="indefinite" path="M50,35 L62,30" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0" dur="0.48s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C"> <animateMotion dur="0.38s" repeatCount="indefinite" path="M50,35 L52,18" begin="0.22s"/> <animate attributeName="opacity" values="0.5;0" dur="0.38s" begin="0.22s" repeatCount="indefinite"/> </circle> <!-- Tailstock --> <rect x="60" y="32" width="14" height="26" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="60" y="32" width="14" height="26" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Tailstock live center (point into workpiece) --> <polygon points="60,44 56,42 56,46" fill="#3B8700" opacity="0.3"/> <line x1="60" y1="44" x2="56" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <!-- Rotation direction indicator --> <path d="M30,30 A9,9 0 0,1 34,34" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2"/> <polygon points="33,32.5 35.5,35 31.5,35" fill="#A5E86C" opacity="0.2"/> </svg>',
           explanation: "G00 (rapid traverse) moves the tool as fast as possible to a specified position. The machine moves each axis at maximum speed, so the path may not be a straight line.",
           hint: "G00 = fast positioning (no cutting)."
+        },
+        {
+          id: 'u7-L4-MP1',
+          type: 'match-pairs',
+          question: 'Match each machining operation to its setup',
+          options: ['Turning', 'Milling', 'Drilling', 'Grinding'],
+          matchTargets: [
+            'Workpiece spins, single-point tool',
+            'Rotating multi-tooth cutter',
+            'Rotating two-flute bit',
+            'Abrasive wheel, fine finish'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'In turning the work rotates. In milling the cutter rotates. Drilling uses a two-flute rotating bit. Grinding uses an abrasive wheel for precision.',
+          hint: 'Which part rotates: the tool or the workpiece?',
+        },
+        {
+          id: 'u7-L4-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into conventional vs climb milling',
+          options: [
+            'Cutter opposes feed direction',
+            'Better surface finish',
+            'Chip starts thin, exits thick',
+            'Cutter moves with feed direction',
+            'Chip starts thick, exits thin',
+            'Preferred on CNC machines'
+          ],
+          buckets: ['Conventional milling', 'Climb milling'],
+          correctBuckets: [0, 1, 0, 1, 1, 1],
+          explanation: 'Conventional milling: cutter opposes feed, chip goes thin-to-thick. Climb milling: cutter moves with feed, chip goes thick-to-thin, giving better finish.',
+          hint: 'Climb milling is preferred when the machine has no backlash.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L4b',
+      title: 'Tool Wear and Surface Finish',
+      description: 'Tool life, crater/flank wear, surface roughness.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L4b-EZ1',
+          type: 'true-false',
+          question: 'Tool wear increases as cutting speed increases.',
+          correctAnswer: true,
+          explanation: 'Correct. Higher speed means more heat at the tool tip, which accelerates wear.',
+          hint: 'Speed and heat are directly related.',
         },
         {
           id: 'u7-L4-Q10',
@@ -1569,6 +2067,13 @@ export const unit7: Unit = {
           hint: "Different objectives require different parameter strategies."
         },
         {
+          id: 'u7-L4b-T1',
+          type: 'teaching',
+          question: 'Tool Wear Mechanisms',
+          explanation: 'Flank wear is gradual abrasion on the clearance face. Crater wear is chemical erosion on the rake face from hot chips. Built-up edge (BUE) is work material welding to the tool tip at low speeds. Each mechanism has a different fix.',
+          hint: 'Increase speed to eliminate BUE. Use coated inserts to reduce crater wear.',
+        },
+        {
           id: 'u7-L4-Q16',
           type: 'true-false',
           question: "Ceramic tools are ideal for interrupted cuts due to high toughness.",
@@ -1636,11 +2141,48 @@ export const unit7: Unit = {
           hint: "The programmer programs the part shape."
         },
         {
+          id: 'u7-L4b-MP1',
+          type: 'match-pairs',
+          question: 'Match each wear type to where it occurs on the tool',
+          options: ['Flank wear', 'Crater wear', 'Built-up edge', 'Notch wear'],
+          matchTargets: ['Clearance face', 'Rake face', 'Tool tip', 'Depth-of-cut line'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Flank wear is on the clearance face. Crater wear forms on the rake face from hot chips. BUE welds to the tip. Notch wear occurs at the depth-of-cut boundary.',
+          hint: 'Each wear type has a specific location on the cutting tool.',
+        },
+        {
+          id: 'u7-L4b-OS1',
+          type: 'order-steps',
+          question: 'Order these surface finishes from roughest to smoothest',
+          steps: ['Rough turning', 'Finish turning', 'Cylindrical grinding', 'Lapping/polishing'],
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'Rough turning is coarsest, then finish turning, then grinding, and lapping/polishing gives the smoothest surface (mirror finish).',
+          hint: 'Each process removes less material and leaves a finer surface.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L4c',
+      title: 'CNC and Process Planning',
+      description: 'G-code basics, speeds and feeds, process selection.',
+      icon: '📝',
+      xpReward: 40,
+      levels: 4,
+      questions: [
+        {
           id: 'u7-L4-T3',
           type: 'teaching',
           question: 'CNC Programming Essentials',
           explanation: 'CNC machines follow G-code instructions. G00 is rapid positioning (non-cutting move), G01 is linear cutting at a set feed rate, and G02/G03 cut circular arcs. G96 activates constant surface speed mode, which automatically adjusts RPM as diameter changes during facing.',
           hint: 'Cutter compensation (G41/G42) lets you program the actual part shape instead of the tool center path.',
+        },
+        {
+          id: 'u7-L4c-EZ1',
+          type: 'true-false',
+          question: 'CNC machines follow programmed instructions to move the cutting tool.',
+          correctAnswer: true,
+          explanation: 'Yes. CNC (computer numerical control) reads G-code and M-code to automate tool motion.',
+          hint: 'CNC replaced manual machine operation.',
         },
         {
           id: 'u7-L4-Q21',
@@ -1711,6 +2253,13 @@ export const unit7: Unit = {
           hint: "The process requires an electrical circuit through the."
         },
         {
+          id: 'u7-L4c-T1',
+          type: 'teaching',
+          question: 'CNC Coordinate Systems',
+          explanation: 'CNC machines use G-codes for motion (G00 rapid, G01 linear feed, G02/G03 arcs) and M-codes for machine functions (M03 spindle on, M05 spindle off, M08 coolant on). Programs define tool paths in X, Y, Z coordinates.',
+          hint: 'Try this now: trace what G01 X50 Y25 F200 would do on a milling machine.',
+        },
+        {
           id: 'u7-L4-Q26',
           type: 'multiple-choice',
           question: "In CNC machining, what does a work coordinate system (WCS) such as G54 define?",
@@ -1775,16 +2324,36 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bed (ways) --> <rect x="4" y="58" width="72" height="8" rx="3" fill="#58CC02" opacity="0.1"/> <rect x="4" y="58" width="72" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Way grooves on bed --> <line x1="6" y1="60.5" x2="74" y2="60.5" stroke="#3B8700" stroke-width="0.4" opacity="0.08"/> <line x1="6" y1="63.5" x2="74" y2="63.5" stroke="#3B8700" stroke-width="0.4" opacity="0.08"/> <!-- Headstock housing --> <rect x="4" y="28" width="18" height="30" rx="4" fill="#58CC02" opacity="0.1"/> <rect x="4" y="28" width="18" height="30" rx="4" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- 3-jaw chuck (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,44;360,22,44" dur="0.8s" repeatCount="indefinite"/> <circle cx="22" cy="44" r="12" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="44" r="12" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- 3 jaw marks at 120° intervals --> <line x1="22" y1="32.5" x2="22" y2="36" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <line x1="12.1" y1="49.8" x2="15.2" y2="48" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <line x1="31.9" y1="49.8" x2="28.8" y2="48" stroke="#3B8700" stroke-width="3" stroke-linecap="round" opacity="0.25"/> <!-- Scroll ring --> <circle cx="22" cy="44" r="7" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> </g> <!-- Chuck center --> <circle cx="22" cy="44" r="3" fill="#3B8700" opacity="0.3"/> <!-- Workpiece (cylindrical bar stock) --> <rect x="22" y="37" width="38" height="14" rx="1" fill="#58CC02" opacity="0.16"/> <rect x="22" y="37" width="38" height="14" rx="1" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Cylindrical highlight (3D cylinder feel) --> <rect x="22" y="38" width="38" height="3" rx="1" fill="#A5E86C" opacity="0.12"/> <!-- Machined groove at tool contact --> <rect x="48" y="36" width="2" height="16" rx="1" fill="#3B8700" opacity="0.12"/> <!-- Tool post holder --> <rect x="46" y="24" width="8" height="13" rx="2" fill="#3B8700" opacity="0.25"/> <rect x="46" y="24" width="8" height="13" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.4"/> <!-- Cutting tool tip (triangular insert) --> <polygon points="49,37 51,34 49,31" fill="#3B8700" opacity="0.5"/> <!-- Chips (fan of particles flying from cut) --> <circle r="1.2" fill="#58CC02"> <animateMotion dur="0.5s" repeatCount="indefinite" path="M50,35 L56,22"/> <animate attributeName="opacity" values="0.6;0" dur="0.5s" repeatCount="indefinite"/> </circle> <circle r="0.9" fill="#A5E86C"> <animateMotion dur="0.42s" repeatCount="indefinite" path="M50,35 L54,20" begin="0.08s"/> <animate attributeName="opacity" values="0.5;0" dur="0.42s" begin="0.08s" repeatCount="indefinite"/> </circle> <circle r="1.1" fill="#3B8700"> <animateMotion dur="0.55s" repeatCount="indefinite" path="M50,35 L60,26" begin="0.18s"/> <animate attributeName="opacity" values="0.45;0" dur="0.55s" begin="0.18s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#58CC02"> <animateMotion dur="0.48s" repeatCount="indefinite" path="M50,35 L62,30" begin="0.3s"/> <animate attributeName="opacity" values="0.4;0" dur="0.48s" begin="0.3s" repeatCount="indefinite"/> </circle> <circle r="1" fill="#A5E86C"> <animateMotion dur="0.38s" repeatCount="indefinite" path="M50,35 L52,18" begin="0.22s"/> <animate attributeName="opacity" values="0.5;0" dur="0.38s" begin="0.22s" repeatCount="indefinite"/> </circle> <!-- Tailstock --> <rect x="60" y="32" width="14" height="26" rx="4" fill="#58CC02" opacity="0.08"/> <rect x="60" y="32" width="14" height="26" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Tailstock live center (point into workpiece) --> <polygon points="60,44 56,42 56,46" fill="#3B8700" opacity="0.3"/> <line x1="60" y1="44" x2="56" y2="44" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <!-- Rotation direction indicator --> <path d="M30,30 A9,9 0 0,1 34,34" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2"/> <polygon points="33,32.5 35.5,35 31.5,35" fill="#A5E86C" opacity="0.2"/> </svg>',
           explanation: "G96 S___ activates Constant Surface Speed (CSS) mode, where the controller continuously adjusts RPM to maintain the programmed surface speed (in m/min or ft/min) as the cutting diameter changes. Without CSS, the surface speed would drop toward center, causing poor finish and BUE.",
           hint: "V = πDN. To keep V constant while D changes."
-        }
+        },
+        {
+          id: 'u7-L4c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these G-codes by function',
+          options: ['G00', 'G01', 'G02', 'G28', 'G90', 'G41'],
+          buckets: ['Motion commands', 'Machine setup commands'],
+          correctBuckets: [0, 0, 0, 1, 1, 1],
+          explanation: 'G00 (rapid), G01 (linear feed), and G02 (circular arc) are motion commands. G28 (home), G90 (absolute mode), and G41 (cutter compensation) are setup commands.',
+          hint: 'Motion G-codes move the tool. Setup G-codes configure the machine.',
+        },
+        {
+          id: 'u7-L4c-MP1',
+          type: 'match-pairs',
+          question: 'Match the machining parameter to its primary effect',
+          options: ['Cutting speed', 'Feed rate', 'Depth of cut', 'Nose radius'],
+          matchTargets: ['Tool life (Taylor equation)', 'Surface roughness', 'Cutting force', 'Surface finish quality'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Cutting speed most affects tool life. Feed rate most affects surface roughness. Depth of cut most affects cutting force. Larger nose radius improves surface finish.',
+          hint: 'The Taylor equation relates cutting speed to tool life.',
+        },
       ]
     },
     {
       id: 'u7-L5',
-      title: 'Modern Manufacturing',
-      description: 'SLA/SLS/FDM/DMLS, design for additive, injection molding, sheet metal, DFM principles.',
+      title: 'Additive Manufacturing',
+      description: '3D printing processes: FDM, SLA, SLS, DMLS.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L5-T1',
@@ -1792,6 +2361,14 @@ export const unit7: Unit = {
           question: 'Additive Manufacturing (3D Printing)',
           explanation: 'Additive manufacturing builds parts layer by layer instead of cutting material away. FDM extrudes melted plastic filament. SLA cures liquid resin with UV light. SLS sinters powder with a laser. For metals, DMLS/SLM fuses metal powder with a high-power laser. AM excels at complex geometries and low-volume production but parts are often weaker in the build direction.',
           hint: 'Metal AM parts almost always need post-build heat treatment to relieve residual stresses.',
+        },
+        {
+          id: 'u7-L5-EZ1',
+          type: 'true-false',
+          question: 'Additive manufacturing builds parts by adding material layer by layer.',
+          correctAnswer: true,
+          explanation: 'Yes. Unlike machining (subtractive), AM adds material where needed.',
+          hint: 'The name says it: additive.',
         },
         {
           id: 'u7-L5-Q1',
@@ -1873,6 +2450,13 @@ export const unit7: Unit = {
           hint: 'The best approach combines technical inquiry (what.'
                 },
         {
+          id: 'u7-L5-T1b',
+          type: 'teaching',
+          question: 'Design for Additive Manufacturing',
+          explanation: 'AM lets you create internal channels, lattice structures, and topology-optimized shapes that are impossible to machine. But parts need support structures for overhangs, and build orientation affects strength (weaker between layers).',
+          hint: 'Orient the part so critical loads are in-plane with the layers, not perpendicular.',
+        },
+        {
           id: 'u7-L5-Q6',
           type: 'fill-blank',
           question: 'Uneven wall thickness causes one side to cool and shrink faster than the other, pulling the part surface inward and creating a cosmetic defect called a _____ mark.',
@@ -1933,6 +2517,56 @@ export const unit7: Unit = {
 
           explanation: "Thicker walls INCREASE cycle time because cooling time increases approximately with the square of wall thickness (t_cool ∝ s²). Doubling wall thickness roughly quadruples the cooling time, which is typically the longest phase of the injection cycle.5-3 mm for most polymers), (2) uniform walls to prevent differential cooling, and (3) coring out thick sections.",
           hint: "Cooling time is proportional to the square of wall."
+        },
+        {
+          id: 'u7-L5-MP1',
+          type: 'match-pairs',
+          question: 'Match each AM process to its material form',
+          options: ['FDM', 'SLA', 'SLS', 'DMLS'],
+          matchTargets: ['Plastic filament', 'Liquid resin', 'Polymer powder', 'Metal powder'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'FDM extrudes plastic filament. SLA cures liquid resin with UV. SLS sinters polymer powder with a laser. DMLS fuses metal powder with a laser.',
+          hint: 'Each AM process uses a different material form and energy source.',
+        },
+        {
+          id: 'u7-L5-OS1',
+          type: 'order-steps',
+          question: 'Order the metal AM (DMLS) workflow',
+          steps: [
+            'Prepare CAD model and supports',
+            'Spread thin powder layer',
+            'Laser fuses powder selectively',
+            'Repeat layers until complete',
+            'Stress-relieve and remove from plate'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Metal AM starts with CAD prep, then builds layer by layer (spread, fuse, repeat), and finishes with heat treatment and removal.',
+          hint: 'Post-processing is critical for metal AM parts.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L5b',
+      title: 'Injection Molding and Sheet Metal',
+      description: 'Mold design, gate placement, bending, DFM.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L5-T3',
+          type: 'teaching',
+          question: 'Design for Manufacturing (DFM)',
+          explanation: 'DFM means designing parts so they\'re easy and cheap to produce. For injection molding: keep wall thickness uniform, add draft angles, avoid sharp internal corners, and round out features. For sheet metal: respect minimum bend radii and keep holes away from bend lines. Unnecessary tight tolerances add cost.',
+          hint: 'Always ask: does this tolerance actually matter for the part\'s function?',
+        },
+        {
+          id: 'u7-L5b-EZ1',
+          type: 'true-false',
+          question: 'Injection molding is best suited for high-volume plastic part production.',
+          correctAnswer: true,
+          explanation: 'Correct. The high tooling cost is offset by very low per-part cost at high volumes.',
+          hint: 'Molds are expensive but each shot is cheap.',
         },
         {
           id: 'u7-L5-Q10',
@@ -2013,6 +2647,13 @@ export const unit7: Unit = {
           hint: "Additive manufacturing's advantage is geometric freedom."
         },
         {
+          id: 'u7-L5b-T1',
+          type: 'teaching',
+          question: 'Injection Molding Basics',
+          explanation: 'Injection molding melts plastic pellets and forces them into a steel mold cavity under high pressure. It produces consistent, high-volume parts with tight tolerances. Key design rules: uniform wall thickness, draft angles, and rounded corners.',
+          hint: 'Thick sections cause sink marks. Thin sections may not fill completely.',
+        },
+        {
           id: 'u7-L5-Q15',
           type: 'multiple-choice',
           question: "In sheet metal fabrication, what is a K-factor and why is it important for bend calculations?",
@@ -2039,13 +2680,6 @@ export const unit7: Unit = {
 
           explanation: "Topology optimization starts with a design space (maximum envelope), loads, constraints, and boundary conditions, then iteratively removes material from low-stress regions while maintaining structural requirements. The result is often an organic, bone-like structure that places material only where it is needed.",
           hint: "Algorithms distribute material optimally."
-        },
-        {
-          id: 'u7-L5-T3',
-          type: 'teaching',
-          question: 'Design for Manufacturing (DFM)',
-          explanation: 'DFM means designing parts so they\'re easy and cheap to produce. For injection molding: keep wall thickness uniform, add draft angles, avoid sharp internal corners, and round out features. For sheet metal: respect minimum bend radii and keep holes away from bend lines. Unnecessary tight tolerances add cost.',
-          hint: 'Always ask: does this tolerance actually matter for the part\'s function?',
         },
         {
           id: 'u7-L5-Q17',
@@ -2095,6 +2729,56 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="20" y1="20" x2="40" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="60" y2="20" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="60" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="60" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="20" x2="20" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="20" y1="40" x2="20" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="20" x2="40" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="40" y1="40" x2="40" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="20" x2="60" y2="40" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <line x1="60" y1="40" x2="60" y2="60" stroke="#A5E86C" stroke-width="2" opacity="0.3"/> <circle cx="20" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="20" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.45s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;21;19;20" dur="0.35s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="20" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.5s" repeatCount="indefinite"/> <animate attributeName="cy" values="20;19;21;20" dur="0.4s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="20;19;21;20" dur="0.35s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.45s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.4"> <animate attributeName="cx" values="40;41;39;40" dur="0.38s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;39;41;40" dur="0.42s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="40" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="60;59;61;60" dur="0.42s" repeatCount="indefinite"/> <animate attributeName="cy" values="40;41;39;40" dur="0.5s" repeatCount="indefinite"/> </circle> <circle cx="20" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="20;21;19;20" dur="0.48s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.38s" repeatCount="indefinite"/> </circle> <circle cx="40" cy="60" r="6" fill="#58CC02" opacity="0.4"> <animate attributeName="cx" values="40;39;41;40" dur="0.4s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;61;59;60" dur="0.48s" repeatCount="indefinite"/> </circle> <circle cx="60" cy="60" r="6" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="60;61;59;60" dur="0.36s" repeatCount="indefinite"/> <animate attributeName="cy" values="60;59;61;60" dur="0.44s" repeatCount="indefinite"/> </circle> </svg>',
           explanation: "Boss DFM guidelines: (1) OD = 2-2.5× screw pilot hole diameter. (2) Wall thickness = 50-60% of adjacent wall. (3) Height ≤ 2-3× OD.",
           hint: "Boss wall thickness must be thin enough to avoid sink."
+        },
+        {
+          id: 'u7-L5b-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these design features by manufacturing friendliness',
+          options: [
+            'Uniform wall thickness',
+            'Sharp internal corners',
+            'Draft angles on walls',
+            'Undercuts',
+            'Generous fillets',
+            'Zero-draft vertical walls'
+          ],
+          buckets: ['Good for injection molding', 'Bad for injection molding'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Uniform walls, draft angles, and fillets are injection molding friendly. Sharp corners, undercuts, and zero-draft walls cause problems.',
+          hint: 'The part needs to release cleanly from the mold.',
+        },
+        {
+          id: 'u7-L5b-MP1',
+          type: 'match-pairs',
+          question: 'Match each sheet metal term to its meaning',
+          options: ['K-factor', 'Bend allowance', 'Springback', 'Minimum bend radius'],
+          matchTargets: [
+            'Neutral axis position ratio',
+            'Arc length of the bend',
+            'Elastic recovery after forming',
+            'Smallest radius before cracking'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'K-factor locates the neutral axis. Bend allowance is the arc length consumed by the bend. Springback is elastic recovery. Minimum bend radius prevents cracking.',
+          hint: 'These terms all relate to how sheet metal behaves during bending.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L5c',
+      title: 'Design for Manufacturing',
+      description: 'Tolerances, process selection, cost considerations.',
+      icon: '📝',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L5c-EZ1',
+          type: 'true-false',
+          question: 'Higher production volume usually means lower cost per part.',
+          correctAnswer: true,
+          explanation: 'Yes. Fixed costs (tooling, setup) spread across more parts, reducing unit cost.',
+          hint: 'Economy of scale.',
         },
         {
           id: 'u7-L5-Q20',
@@ -2180,6 +2864,13 @@ export const unit7: Unit = {
           hint: "Without a relief, the material at the end of a bend."
         },
         {
+          id: 'u7-L5c-T1',
+          type: 'teaching',
+          question: 'Process Selection Strategy',
+          explanation: 'Choose the manufacturing process based on material, volume, geometry, tolerance, and cost. Low volume favors machining or AM. High volume favors casting, forging, or injection molding. Tight tolerances favor machining or grinding.',
+          hint: 'Try this now: pick a process for 100,000 aluminum brackets with 0.1 mm tolerance.',
+        },
+        {
           id: 'u7-L5-Q26',
           type: 'multiple-choice',
           question: "An injection molder observes that parts are sticking in the mold cavity side instead of pulling out with the core side during mold opening. What is the most likely cause?",
@@ -2250,16 +2941,48 @@ export const unit7: Unit = {
 
           explanation: "Blanking is a shearing process where the desired shape (the blank) is cut from the sheet. Both use the same principle, but they differ in which piece is the product.",
           hint: "This shearing operation produces a flat part (the."
-        }
+        },
+        {
+          id: 'u7-L5c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort by best manufacturing process match',
+          options: [
+            '1 prototype bracket',
+            '500,000 plastic housings',
+            '50 titanium aerospace parts',
+            '10,000 aluminum engine blocks',
+            'Custom lattice implant',
+            'Million steel fasteners'
+          ],
+          buckets: ['Machining or AM', 'Casting or molding'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Low volume, complex, or custom parts suit machining or AM. High volume production suits casting, molding, or forging.',
+          hint: 'Volume is the biggest factor in process selection.',
+        },
+        {
+          id: 'u7-L5c-OS1',
+          type: 'order-steps',
+          question: 'Order the injection molding cycle',
+          steps: [
+            'Close mold',
+            'Inject molten plastic',
+            'Pack and hold pressure',
+            'Cool part in mold',
+            'Open mold and eject'
+          ],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'The cycle: close, inject, pack/hold, cool, eject. Cooling time is usually the longest step.',
+          hint: 'Packing pressure compensates for shrinkage during cooling.',
+        },
       ]
     },
     {
       id: 'u7-L6',
-      title: 'Welding & Joining',
-      description: 'Welding processes (MIG/MAG, TIG, stick, laser), HAZ metallurgy, weld defects, joint design, fillet weld sizing, weldability, residual stresses and distortion control.',
+      title: 'Welding Processes',
+      description: 'MIG, TIG, stick, laser welding fundamentals.',
       icon: '⚡',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u7-L6-T1',
@@ -2267,6 +2990,14 @@ export const unit7: Unit = {
           question: 'Welding Processes Overview',
           explanation: 'MIG (GMAW) feeds a solid wire electrode with shielding gas, great for speed and ease. TIG (GTAW) uses a non-consumable tungsten electrode with a separate filler rod, giving the cleanest, most precise welds. Stick (SMAW) uses a flux-coated electrode and works well outdoors. Each process suits different materials, thicknesses, and quality requirements.',
           hint: 'TIG is the go-to for stainless steel and aluminum when weld quality is critical.',
+        },
+        {
+          id: 'u7-L6-EZ1',
+          type: 'true-false',
+          question: 'MIG welding uses a continuously fed wire electrode.',
+          correctAnswer: true,
+          explanation: 'Yes. MIG (GMAW) feeds a solid wire electrode through a gun, making it fast and easy to learn.',
+          hint: 'MIG stands for metal inert gas.',
         },
         {
           id: 'u7-L6-Q1',
@@ -2338,6 +3069,13 @@ export const unit7: Unit = {
           hint: 'What gives the T6 temper its strength (precipitates.',
                 },
         {
+          id: 'u7-L6-T1b',
+          type: 'teaching',
+          question: 'Shielding in Welding',
+          explanation: 'Molten metal reacts with oxygen and nitrogen in air, causing porosity and embrittlement. MIG uses a gas shield (argon or CO2). Stick electrodes have a flux coating that burns off and shields the weld pool. TIG uses a separate argon gas stream.',
+          hint: 'If you see porosity in a MIG weld, check the gas flow rate and look for drafts.',
+        },
+        {
           id: 'u7-L6-Q6',
           type: 'fill-blank',
           question: 'Aluminum bracket to a steel frame. Fusion welding is not feasible because of brittle _____ compounds forming at the interface. The most practical joining method for this dissimilar-metal joint is _____ fastening (using bolts or rivets with insulating bushings to prevent galvanic corrosion).',
@@ -2394,6 +3132,56 @@ export const unit7: Unit = {
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="28" y="6" width="12" height="32" rx="6" fill="#58CC02" opacity="0.15" transform="rotate(-15,34,22)"/> <rect x="28" y="6" width="12" height="32" rx="6" stroke="#3B8700" stroke-width="2" fill="none" transform="rotate(-15,34,22)"/> <rect x="31" y="36" width="6" height="10" rx="3" fill="#3B8700" opacity="0.4" transform="rotate(-15,34,41)"/> <circle cx="34" cy="50" r="6" fill="#58CC02" opacity="0.2"> <animate attributeName="r" values="4;7;4" dur="0.3s" repeatCount="indefinite"/> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="0.3s" repeatCount="indefinite"/> </circle> <rect x="8" y="52" width="64" height="10" rx="5" fill="#58CC02" opacity="0.1"/> <rect x="8" y="52" width="64" height="10" rx="5" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="14" y1="57" x2="34" y2="57" stroke="#3B8700" stroke-width="3" opacity="0.3" stroke-linecap="round"/> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.6s" repeatCount="indefinite"/> <animateMotion dur="0.6s" repeatCount="indefinite" path="M34,50 L26,40"/> </circle> <circle r="1.2" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.5s" repeatCount="indefinite" begin="0.1s"/> <animateMotion dur="0.5s" repeatCount="indefinite" path="M34,50 L44,38" begin="0.1s"/> </circle> <circle r="1.5" fill="#A5E86C"> <animate attributeName="opacity" values="0.7;0" dur="0.7s" repeatCount="indefinite" begin="0.2s"/> <animateMotion dur="0.7s" repeatCount="indefinite" path="M34,50 L22,36" begin="0.2s"/> </circle> <circle r="1" fill="#3B8700"> <animate attributeName="opacity" values="0.5;0" dur="0.45s" repeatCount="indefinite" begin="0.15s"/> <animateMotion dur="0.45s" repeatCount="indefinite" path="M34,50 L42,34" begin="0.15s"/> </circle> <circle r="1.3" fill="#58CC02"> <animate attributeName="opacity" values="0.6;0" dur="0.55s" repeatCount="indefinite" begin="0.3s"/> <animateMotion dur="0.55s" repeatCount="indefinite" path="M34,50 L28,32" begin="0.3s"/> </circle> </svg>',
           explanation: "Preheating serves multiple functions: (1) Slows the cooling rate through the critical temperature range, reducing the hardness of the HAZ. (2) Allows more time for hydrogen to diffuse out of the joint before the weld cools to temperatures where hydrogen embrittlement occurs (<200°C).",
           hint: "Slower cooling = softer HAZ + more time for hydrogen to."
+        },
+        {
+          id: 'u7-L6-MP1',
+          type: 'match-pairs',
+          question: 'Match each welding process to its key feature',
+          options: ['MIG (GMAW)', 'TIG (GTAW)', 'Stick (SMAW)', 'Laser welding'],
+          matchTargets: [
+            'Continuous wire feed, fast',
+            'Non-consumable tungsten, precise',
+            'Flux-coated rod, works outdoors',
+            'Narrow deep weld, automated'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'MIG feeds wire continuously for speed. TIG uses tungsten for precision. Stick uses flux coating for outdoor portability. Laser welding is narrow and automated.',
+          hint: 'Each process trades off speed, quality, and convenience.',
+        },
+        {
+          id: 'u7-L6-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into consumable vs non-consumable electrode processes',
+          options: [
+            'MIG (GMAW)',
+            'TIG (GTAW)',
+            'Stick (SMAW)',
+            'Flux-cored (FCAW)',
+            'Submerged arc (SAW)',
+            'Plasma arc (PAW)'
+          ],
+          buckets: ['Consumable electrode', 'Non-consumable electrode'],
+          correctBuckets: [0, 1, 0, 0, 0, 1],
+          explanation: 'MIG, Stick, FCAW, and SAW all consume their electrode. TIG and PAW use a non-consumable tungsten electrode with separate filler.',
+          hint: 'Does the electrode melt into the weld pool?',
+        },
+      ]
+    },
+    {
+      id: 'u7-L6b',
+      title: 'HAZ and Weld Defects',
+      description: 'Heat-affected zone metallurgy, porosity, cracking.',
+      icon: '⚡',
+      xpReward: 35,
+      levels: 4,
+      questions: [
+        {
+          id: 'u7-L6b-EZ1',
+          type: 'true-false',
+          question: 'The heat-affected zone (HAZ) is the region next to a weld that was heated but did not melt.',
+          correctAnswer: true,
+          explanation: 'Correct. The HAZ experiences microstructural changes from heat without reaching the melting point.',
+          hint: 'The HAZ sits between the weld metal and unaffected base metal.',
         },
         {
           id: 'u7-L6-Q10',
@@ -2487,6 +3275,13 @@ export const unit7: Unit = {
           hint: "One fills a prepared gap between aligned members;"
         },
         {
+          id: 'u7-L6b-T1',
+          type: 'teaching',
+          question: 'The Heat-Affected Zone',
+          explanation: 'The HAZ is the region next to the weld that gets hot enough to change microstructure but doesn\'t melt. In carbon steel, the HAZ can form hard, brittle martensite if the part cools too fast. Preheating slows cooling and prevents this.',
+          hint: 'Higher carbon equivalent (CE) means more preheat is needed.',
+        },
+        {
           id: 'u7-L6-Q16',
           type: 'true-false',
           question: "Submerged arc welding (SAW) is suitable for all welding positions including vertical-up and overhead.",
@@ -2556,11 +3351,58 @@ export const unit7: Unit = {
           hint: "Short overlaps cause the fillet welds to experience."
         },
         {
+          id: 'u7-L6b-MP1',
+          type: 'match-pairs',
+          question: 'Match each weld defect to its cause',
+          options: ['Porosity', 'Lack of fusion', 'Hydrogen cracking', 'Undercut'],
+          matchTargets: [
+            'Trapped gas bubbles',
+            'Insufficient heat input',
+            'Moisture + hard HAZ',
+            'Excessive current, edge melting'
+          ],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Porosity comes from gas. Lack of fusion means the base metal did not melt. Hydrogen cracking needs moisture, stress, and a hard microstructure. Undercut is excessive melting of the base metal edge.',
+          hint: 'Each defect has a specific root cause and fix.',
+        },
+        {
+          id: 'u7-L6b-OS1',
+          type: 'order-steps',
+          question: 'Order the factors needed for hydrogen cracking (from most to least controllable)',
+          steps: [
+            'Moisture source (remove it)',
+            'Preheat to slow cooling',
+            'Use low-hydrogen electrodes',
+            'Post-weld heat treatment'
+          ],
+          correctOrder: [0, 1, 2, 3],
+          explanation: 'To prevent hydrogen cracking: control moisture first, then manage cooling rate with preheat, use low-H electrodes, and PWHT as a final measure.',
+          hint: 'Hydrogen cracking needs hydrogen, stress, and a susceptible microstructure.',
+        },
+      ]
+    },
+    {
+      id: 'u7-L6c',
+      title: 'Joint Design and Inspection',
+      description: 'Fillet sizing, weld symbols, NDE methods.',
+      icon: '⚡',
+      xpReward: 40,
+      levels: 4,
+      questions: [
+        {
           id: 'u7-L6-T3',
           type: 'teaching',
           question: 'Weld Defects and Inspection',
           explanation: 'Common weld defects include porosity (gas bubbles trapped in the weld), lack of fusion (weld metal didn\'t bond to the base metal), and cracking (from residual stress or hydrogen). Radiographic testing (RT) reveals internal defects on film. Magnetic particle inspection (MPI) finds surface cracks in ferromagnetic materials.',
           hint: 'High carbon equivalent steels need preheating to prevent hydrogen-induced cracking.',
+        },
+        {
+          id: 'u7-L6c-EZ1',
+          type: 'true-false',
+          question: 'Ultrasonic testing can detect internal defects inside a weld.',
+          correctAnswer: true,
+          explanation: 'Yes. UT sends sound waves through the material and detects reflections from internal flaws.',
+          hint: 'Sound waves can travel through solid metal.',
         },
         {
           id: 'u7-L6-Q21',
@@ -2633,6 +3475,13 @@ export const unit7: Unit = {
           hint: "A laser beam concentrates enormous energy into a tiny spot."
         },
         {
+          id: 'u7-L6c-T1',
+          type: 'teaching',
+          question: 'Weld Inspection Methods',
+          explanation: 'Visual inspection catches surface defects. Dye penetrant testing (PT) finds surface cracks. Magnetic particle testing (MT) finds surface and near-surface cracks in ferromagnetic materials. Radiography (RT) and ultrasonic testing (UT) find internal defects.',
+          hint: 'Try this now: decide which NDE method you would use for a pressure vessel butt weld.',
+        },
+        {
           id: 'u7-L6-Q26',
           type: 'multiple-choice',
           question: "What is the difference between undercut and underfill as weld defects?",
@@ -2699,8 +3548,166 @@ export const unit7: Unit = {
 
           explanation: "Under any loading direction, fillet weld failure occurs through the throat. For longitudinal shear, the shear stress τ = F/(a × L) where a = throat = 0.707 × leg for equal-leg fillets, and L = weld length.",
           hint: "The minimum dimension through a fillet weld."
-        }
+        },
+        {
+          id: 'u7-L6c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these NDE methods by defect detection capability',
+          options: [
+            'Visual inspection (VT)',
+            'Dye penetrant (PT)',
+            'Magnetic particle (MT)',
+            'Ultrasonic (UT)',
+            'Radiography (RT)',
+            'Eddy current (ET)'
+          ],
+          buckets: ['Surface defects only', 'Internal defects too'],
+          correctBuckets: [0, 0, 0, 1, 1, 0],
+          explanation: 'VT, PT, MT, and ET detect surface or near-surface defects. UT and RT can find internal defects like voids, inclusions, and lack of fusion.',
+          hint: 'Can the method see inside the material?',
+        },
+        {
+          id: 'u7-L6c-MP1',
+          type: 'match-pairs',
+          question: 'Match each joint type to its typical application',
+          options: ['Butt joint', 'Fillet (T-joint)', 'Lap joint', 'Corner joint'],
+          matchTargets: ['Pipe or plate end-to-end', 'Stiffener to plate', 'Overlapping sheets', 'Box or frame corner'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Butt joints connect plates end-to-end. T-joints attach stiffeners. Lap joints overlap sheets. Corner joints form box structures.',
+          hint: 'Think about how the pieces physically fit together.',
+        },
       ]
-    }
+    },
+    {
+      id: 'u7-L-conv',
+      title: 'Materials Selection Meeting',
+      description: 'Help an engineer choose the right material for a critical component.',
+      icon: '💬',
+      xpReward: 25,
+      type: 'conversation',
+      questions: [],
+      conversationStartNodeId: 'u7-L-conv-C1',
+      conversationNodes: [
+        {
+          id: 'u7-L-conv-C1',
+          speaker: 'Lead Engineer',
+          message: "We need to pick a material for a new pressure vessel. It'll operate at -50 degrees C with cyclic pressurization. What's your first concern?",
+          options: [
+            {
+              text: "Low-temperature toughness. We need an FCC metal or one well above its DBTT.",
+              nextNodeId: 'u7-L-conv-N1',
+              quality: 'great',
+              feedback: 'Exactly right. At -50 degrees C, BCC steels risk brittle fracture. FCC metals like austenitic stainless stay ductile.',
+            },
+            {
+              text: "We should focus on getting the highest yield strength possible.",
+              nextNodeId: 'u7-L-conv-N1',
+              quality: 'okay',
+              feedback: "Strength matters, but at -50 degrees C the bigger risk is brittle fracture. Toughness comes first.",
+            },
+            {
+              text: "Let's just use whatever we used last time.",
+              nextNodeId: 'u7-L-conv-N1',
+              quality: 'poor',
+              feedback: "The operating conditions are different. Temperature changes the failure mode. You need to evaluate the material for this specific application.",
+            },
+          ],
+        },
+        {
+          id: 'u7-L-conv-N1',
+          speaker: 'Lead Engineer',
+          message: "Good thinking on temperature. Now, the cyclic loading means fatigue is a concern too. The design team proposed 4340 steel, quenched and tempered to 50 HRC. Thoughts?",
+          nextNodeId: 'u7-L-conv-C2',
+        },
+        {
+          id: 'u7-L-conv-C2',
+          speaker: 'Lead Engineer',
+          message: "So, 4340 at 50 HRC for a cyclic-pressure vessel at -50 degrees C. What do you think?",
+          options: [
+            {
+              text: "That's too hard. High hardness means low K_IC. At -50 degrees C with fatigue cracks, we'll get brittle fracture. Temper it softer or switch to 304L stainless.",
+              nextNodeId: 'u7-L-conv-N2',
+              quality: 'great',
+              feedback: "Spot on. 4340 at 50 HRC has poor fracture toughness. Combined with low temperature and cyclic loading, it's a recipe for catastrophic failure.",
+            },
+            {
+              text: "4340 is a great alloy. 50 HRC should give excellent fatigue strength.",
+              nextNodeId: 'u7-L-conv-N2',
+              quality: 'okay',
+              feedback: "4340 is indeed excellent, but at 50 HRC its fracture toughness is dangerously low for a pressure vessel at -50 degrees C. Hardness isn't everything.",
+            },
+            {
+              text: "I don't know enough about 4340 to comment.",
+              nextNodeId: 'u7-L-conv-N2',
+              quality: 'poor',
+              feedback: "In an interview, you should work through what you know: high HRC means low toughness, and low temperature makes BCC metals more brittle. Put those together.",
+            },
+          ],
+        },
+        {
+          id: 'u7-L-conv-N2',
+          speaker: 'Lead Engineer',
+          message: "Right. We switched to 304L stainless. Now the fabrication team says they want to weld the vessel without preheat or PWHT. The wall is 25 mm thick. Any concerns?",
+          nextNodeId: 'u7-L-conv-C3',
+        },
+        {
+          id: 'u7-L-conv-C3',
+          speaker: 'Lead Engineer',
+          message: "Welding 25 mm thick 304L without preheat or post-weld heat treatment. Your call?",
+          options: [
+            {
+              text: "304L is fine without preheat, it's austenitic with low carbon so no martensite in the HAZ. But we should check for sensitization and verify the ferrite number to avoid hot cracking.",
+              nextNodeId: 'u7-L-conv-END',
+              quality: 'great',
+              feedback: "Perfect. Austenitic stainless doesn't need preheat because it doesn't form martensite. The L grade resists sensitization. Checking ferrite number prevents solidification cracking.",
+            },
+            {
+              text: "25 mm thick plate always needs preheat, regardless of material.",
+              nextNodeId: 'u7-L-conv-END',
+              quality: 'okay',
+              feedback: "Preheat is critical for carbon steel to avoid hydrogen cracking, but austenitic stainless is different. It doesn't form martensite, so preheat isn't needed. Material matters.",
+            },
+            {
+              text: "I'd skip the preheat and PWHT to save time and money.",
+              nextNodeId: 'u7-L-conv-END',
+              quality: 'poor',
+              feedback: "You got the right answer (no preheat needed) but for the wrong reason. The correct reasoning is that 304L doesn't form martensite, not that it saves money. Engineering decisions need engineering justification.",
+            },
+          ],
+        },
+        {
+          id: 'u7-L-conv-END',
+          speaker: 'Narrator',
+          message: "You've worked through a real material selection problem: choosing the right alloy for temperature, loading, and weldability. In interviews, showing you can connect material science to practical decisions is what sets you apart.",
+        },
+      ],
+    },
+    {
+      id: 'u7-L-speed',
+      title: 'Materials Rapid Fire',
+      description: '15 quick questions on materials and manufacturing. 60 seconds.',
+      icon: '⚡',
+      xpReward: 20,
+      type: 'speed-round',
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        { id: 'u7-L-speed-SQ1', question: 'What crystal structure is austenite?', options: ['BCC', 'FCC', 'HCP', 'BCT'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ2', question: 'Elastic modulus of steel?', options: ['70 GPa', '120 GPa', '200 GPa', '400 GPa'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ3', question: 'Eutectoid carbon content in steel?', options: ['0.02%', '0.4%', '0.8%', '2.14%'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ4', question: 'Hardest microstructure in steel?', options: ['Ferrite', 'Pearlite', 'Bainite', 'Martensite'], correctIndex: 3 },
+        { id: 'u7-L-speed-SQ5', question: 'Which test measures impact toughness?', options: ['Tensile', 'Charpy', 'Rockwell', 'Creep'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ6', question: 'Beach marks indicate which failure?', options: ['Creep', 'Fatigue', 'Corrosion', 'Yielding'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ7', question: 'MIG welding electrode type?', options: ['Non-consumable', 'Consumable wire', 'Flux-coated', 'Tungsten'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ8', question: 'FDM uses which material form?', options: ['Powder', 'Resin', 'Filament', 'Sheet'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ9', question: 'In turning, what rotates?', options: ['Tool', 'Workpiece', 'Both', 'Neither'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ10', question: 'Quenching medium for highest cooling rate?', options: ['Air', 'Oil', 'Water', 'Furnace'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ11', question: 'Poisson ratio of steel?', options: ['0.1', '0.3', '0.5', '0.7'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ12', question: 'Which casting process uses wax patterns?', options: ['Sand', 'Die', 'Investment', 'Centrifugal'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ13', question: 'G01 in CNC means?', options: ['Rapid move', 'Linear feed', 'Arc CW', 'Home'], correctIndex: 1 },
+        { id: 'u7-L-speed-SQ14', question: 'Steel vs cast iron boundary?', options: ['0.8% C', '1.0% C', '2.14% C', '4.3% C'], correctIndex: 2 },
+        { id: 'u7-L-speed-SQ15', question: 'Purpose of tempering?', options: ['Increase hardness', 'Restore toughness', 'Add carbon', 'Remove stress'], correctIndex: 1 },
+      ],
+    },
   ]
 };

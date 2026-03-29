@@ -3,18 +3,21 @@ import type { Unit } from '../types';
 export const unit8: Unit = {
   id: 'u8-machine',
   title: 'Machine Design',
-  description: 'Shafts, bearings, gears, fasteners, springs, and seals — core machine element design for mechanical engineers.',
+  description: 'Shafts, bearings, gears, fasteners, springs, and seals: core machine element design for mechanical engineers.',
   color: '#3B82F6',
   icon: '⚙️',
   topicId: 'machine-elements',
   lessons: [
+    // ─────────────────────────────────────────────────────────────
+    // LESSON 1a: Shafts & Keys — Basics
+    // ──────────���──────────────────────────────────────────────────
     {
       id: 'u8-L1',
-      title: 'Shafts & Keys',
-      description: 'Shaft design for bending+torsion, keyway stress concentration, ASME shaft code, critical speed, whirling.',
+      title: 'Shaft Basics',
+      description: 'What shafts do, torque transmission, and basic sizing.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u8-L1-T1',
@@ -24,90 +27,65 @@ export const unit8: Unit = {
           hint: 'Every rotating machine has at least one shaft.',
         },
         {
+          id: 'u8-L1-Q1a',
+          type: 'true-false',
+          question: 'A shaft transmits power by rotating under torque.',
+          correctAnswer: true,
+          explanation: 'Yes. Shafts transmit mechanical power through rotation. Power equals torque times angular velocity (P = T x omega).',
+          hint: 'Think about what a motor output shaft does.',
+        },
+        {
           id: 'u8-L1-Q1',
           type: 'multiple-choice',
           question: 'A shaft broke at a keyway. Beach marks radiate from the keyway corner. What failure mode is this?',
           options: [
-            'The shaft was overloaded in a single static event.',
-            'Fatigue initiated at stress concentration from keyway.',
-            'The key was too loose, causing the shaft to twist and shear at the keyway.',
-            'Corrosion gradually weakened the shaft at the keyway.'
+            'The shaft was overloaded in a single static event',
+            'Fatigue initiated at stress concentration from keyway',
+            'The key was too loose, causing twist and shear',
+            'Corrosion gradually weakened the shaft'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Beach marks are the definitive indicator of fatigue failure. The crack originated at the keyway corner — a classic stress concentration site (Kt = 2.0-3.0).',
-          hint: 'Beach marks point to the failure mode.'
+          explanation: 'Beach marks are the definitive indicator of fatigue failure. The crack originated at the keyway corner, a classic stress concentration site (Kt = 2.0 to 3.0).',
+          hint: 'Beach marks point to the failure mode.',
         },
         {
           id: 'u8-L1-Q2',
           type: 'multiple-choice',
           question: 'A shaft transmits 50 kW at 1500 RPM. Distortion energy gives d_min = 38 mm. Why would you select a larger diameter?',
           options: [
-            'No adjustment needed — 38 mm is the answer from the formula, so use 38 mm',
+            'No adjustment needed, 38 mm is the answer',
             'Round up to 40 mm for standard sizing',
-            'Double it to 76 mm — always use a safety factor of 2.0 on calculated shaft',
-            'Only round up to the nearest mm (39 mm) — going larger wastes material'
+            'Double it to 76 mm for safety factor of 2.0',
+            'Only round up to 39 mm, going larger wastes material'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Shaft body (horizontal cylinder) --> <rect x="6" y="28" width="52" height="14" rx="7" fill="#58CC02" opacity="0.08"/> <rect x="6" y="28" width="52" height="14" rx="7" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Shaft centerline --> <line x1="4" y1="35" x2="60" y2="35" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.2"/> <!-- Bending moment M arrow (curved at top) --> <path d="M26,22 A8,8 0 0,1 38,22" stroke="#58CC02" stroke-width="1.5" fill="none"/> <polygon points="37,20 40,22 37,24" fill="#58CC02"/> <text x="32" y="18" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">M</text> <!-- Torque T arrow (curved around end) --> <path d="M58,30 A6,6 0 0,1 58,40" stroke="#58CC02" stroke-width="1.5" fill="none"/> <polygon points="56.5,39 58,42 59.5,39" fill="#58CC02"/> <text x="64" y="37" font-size="5" fill="#334155" font-weight="bold">T</text> <!-- Bearing supports --> <polygon points="10,42 6,50 14,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <polygon points="50,42 46,50 54,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Stress element (right side) --> <rect x="62" y="18" width="16" height="16" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <!-- Normal stress sigma arrows (horizontal, tension/compression) --> <line x1="60" y1="26" x2="55" y2="26" stroke="#58CC02" stroke-width="1.2"/> <polygon points="56,24.5 53,26 56,27.5" fill="#58CC02"/> <line x1="80" y1="26" x2="75" y2="26" stroke="#58CC02" stroke-width="1.2"/> <polygon points="79,24.5 82,26 79,27.5" fill="#58CC02"/> <text x="70" y="24" font-size="5" fill="#334155" text-anchor="middle" font-style="italic">σ</text> <!-- Shear stress tau arrows (on faces) --> <line x1="64" y1="18" x2="76" y2="18" stroke="#3B8700" stroke-width="1" opacity="0.6"/> <polygon points="75,16.5 78,18 75,19.5" fill="#3B8700" opacity="0.6"/> <line x1="76" y1="34" x2="64" y2="34" stroke="#3B8700" stroke-width="1" opacity="0.6"/> <polygon points="65,32.5 62,34 65,35.5" fill="#3B8700" opacity="0.6"/> <text x="70" y="40" font-size="5" fill="#334155" text-anchor="middle" font-style="italic">τ</text> <!-- Labels --> <text x="30" y="56" font-size="4" fill="#6B7280" text-anchor="middle">shaft under M + T</text> <text x="70" y="46" font-size="4" fill="#6B7280" text-anchor="middle">stress element</text> <!-- Pulsing stress element --> <rect x="62" y="18" width="16" height="16" rx="1" fill="none" stroke="#A5E86C" stroke-width="0.5" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> </rect> </svg>',
           explanation: 'Shaft sizing never stops at the formula result. Account for standard sizes, keyway stress concentration, bearing bore, and deflection limits.',
-          hint: 'The formula gives a minimum; real-world factors add more.'
+          hint: 'The formula gives a minimum; real-world factors add more.',
         },
         {
-          id: 'u8-L1-Q3',
-          type: 'true-false',
-          question: 'A shaft operating above its first critical speed will always experience dangerous vibrations and should be avoided.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="10" y1="68" x2="74" y2="68" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="10" y1="68" x2="10" y2="6" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,66.5 74,69.5 76,68" fill="#3B8700" opacity="0.4"/> <polygon points="8.5,6 11.5,6 10,4" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">Speed (RPM)</text> <text x="5" y="36" text-anchor="middle" font-size="5" fill="#334155" font-style="italic">A</text> <!-- Amplitude response curve (resonance peak) --> <path d="M14,64 Q18,63 22,62 Q26,60 30,54 Q33,44 36,24 Q37,14 38,10 Q39,14 40,24 Q43,44 46,54 Q50,60 54,62 Q58,63 62,64 Q66,64 70,64" stroke="#58CC02" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- Critical speed vertical dashed line --> <line x1="38" y1="10" x2="38" y2="68" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/> <!-- Critical speed label --> <text x="38" y="74" font-size="4" fill="#334155" text-anchor="middle" font-weight="bold">n_cr</text> <!-- Peak marker --> <circle cx="38" cy="10" r="2.5" fill="#3B8700" opacity="0.6"> <animate attributeName="r" values="2;3.5;2" dur="1.5s" repeatCount="indefinite"/> </circle> <!-- Subcritical region label --> <text x="22" y="56" font-size="4" fill="#6B7280" text-anchor="middle">Sub-</text> <text x="22" y="61" font-size="4" fill="#6B7280" text-anchor="middle">critical</text> <!-- Supercritical region label --> <text x="58" y="56" font-size="4" fill="#6B7280" text-anchor="middle">Super-</text> <text x="58" y="61" font-size="4" fill="#6B7280" text-anchor="middle">critical</text> <!-- Safe operating zone arrow (supercritical) --> <line x1="50" y1="50" x2="66" y2="50" stroke="#A5E86C" stroke-width="1.5" opacity="0.4"/> <polygon points="65,48.5 68,50 65,51.5" fill="#A5E86C" opacity="0.4"/> <text x="58" y="48" font-size="3.5" fill="#A5E86C" opacity="0.5" text-anchor="middle">safe zone</text> <!-- Danger zone bracket around peak --> <path d="M32,8 L32,6 L44,6 L44,8" stroke="#3B8700" stroke-width="0.8" fill="none" opacity="0.4"/> <text x="38" y="5" font-size="3" fill="#6B7280" opacity="0.5" text-anchor="middle">danger</text> </svg>',
-          explanation: 'Supercritical shaft operation is routine in many applications — turbomachinery, centrifugal separators, and dental drills operate above the first critical speed.',
-          hint: 'What happens to shaft deflection as speed continues.'
-        },
-        {
-          id: 'u8-L1-Q4',
-          type: 'multiple-choice',
-          question: 'In ASME shaft code, why is K_b > K_t for the same loading?',
-          options: [
-            'Bending forces are always larger than torsional forces in real machines',
-            'In a rotating shaft, a fixed bending load creates fully reversed stress',
-            'Bending causes axial deflection that damages bearings, while torsion only',
-            'The bending factor is arbitrary — older codes used equal factors'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Consider a horizontal shaft with a gear load pushing downward at midspan: the top fiber is in tension and the bottom in compression.',
-          hint: 'Consider what a single point on the shaft surface.'
-        },
-        {
-          id: 'u8-L1-T2',
+          id: 'u8-L1-T1b',
           type: 'teaching',
-          question: 'Keys, keyways, and stress risers',
-          explanation: 'A key is a small metal piece that locks a gear or pulley to a shaft for torque transfer. The keyway slot creates a stress concentration (Kt = 2 to 3), making it the most common fatigue crack initiation site on shafts.',
-          hint: 'Larger fillet radii in the keyway reduce Kt significantly.',
+          question: 'Torsional shear stress in shafts',
+          explanation: 'When a shaft transmits torque T, shear stress varies linearly from zero at the center to maximum at the surface: tau = Tc/J, where c is the outer radius and J is the polar moment of inertia.',
+          hint: 'Try this now: look up tau = 16T/(pi*d^3) for solid shafts.',
         },
         {
-          id: 'u8-L1-Q5',
-          type: 'multiple-choice',
-          question: 'A centrifuge operates at 12,000 RPM but its first critical speed is calculated at 8,000 RPM. Is this design safe?',
-          options: [
-            'Unsafe — operating above the first critical speed always causes failure',
-            'Safe — supercritical operation is routine if you pass through quickly',
-            'Only safe if the shaft is perfectly balanced to sub-gram precision',
-            'Safe only below twice the critical speed, dangerous above that limit'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Supercritical operation (above the first critical speed) is completely routine in many high-speed machines.',
-          hint: 'Consider what actually happens above the critical speed.'
+          id: 'u8-L1-Q24',
+          type: 'true-false',
+          question: 'For a shaft under pure torsion, the maximum shear stress occurs at the center of the shaft cross-section.',
+          correctAnswer: false,
+          explanation: 'For a solid circular shaft under torsion, shear stress is linear from zero at the center to maximum at the outer surface. tau = Tr/J.',
+          hint: 'Consider the torsion formula tau = Tr/J.',
         },
         {
-          id: 'u8-L1-Q6',
-          type: 'fill-blank',
-          question: 'The phenomenon where a rotating shaft deflects laterally because its speed matches a natural frequency is called _____ (or whirling).',
-          blanks: ['critical speed'],
-          wordBank: ['critical speed', 'resonance frequency', 'flutter', 'precession', 'vibration mode'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Critical speed (whirling) occurs when the shaft rotation speed coincides with a natural frequency of lateral vibration. At this speed, even small imbalances cause large lateral deflections due.',
-          hint: 'rotational speed matches the natural frequency.'
+          id: 'u8-L1-MP1',
+          type: 'match-pairs',
+          question: 'Match each shaft concept to its description.',
+          options: ['Torque', 'Critical speed', 'Keyway', 'Shaft shoulder'],
+          matchTargets: ['Twisting load that transmits power', 'RPM where vibration peaks', 'Slot for locking gears to shaft', 'Step change for axial location'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Torque drives rotation, critical speed causes resonance, keyways lock components, and shoulders locate them axially.',
+          hint: 'Think about what each feature does on a shaft.',
         },
         {
           id: 'u8-L1-Q7',
@@ -120,14 +98,13 @@ export const unit8: Unit = {
             '44.2 MPa'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Torque T = P/omega = 30000/(720 x 2pi/60) = 30000/75.4 = 397.9 N·m. Polar moment J = pi*d^4/32 = pi*(0.045)^4/32 = 4.026 x 10^-7 m^4. Shear stress tau = T*c/J = 397.9 * 0.0225 / 4.026e-7 = 22.1 MPa.',
-          hint: 'Use T = P/omega, then tau = Tc/J where c = d/2 and J = pi*d^4/32.'
+          explanation: 'T = P/omega = 30000/(720 x 2pi/60) = 397.9 N*m. J = pi*d^4/32 = 4.026 x 10^-7 m^4. tau = Tc/J = 397.9 x 0.0225 / 4.026e-7 = 22.1 MPa.',
+          hint: 'Use T = P/omega, then tau = Tc/J where c = d/2.',
         },
         {
           id: 'u8-L1-Q8',
           type: 'multiple-choice',
-          question: 'Per the maximum shear stress theory (Tresca), the equivalent shear stress on a shaft subjected to both bending moment M and torque T is:',
+          question: 'Per the maximum shear stress theory (Tresca), the equivalent shear stress on a shaft under bending M and torque T is:',
           options: [
             'tau_eq = (M + T) / (pi*d^3/16)',
             'tau_eq = sqrt(M^2 + T^2) * 16/(pi*d^3)',
@@ -135,55 +112,189 @@ export const unit8: Unit = {
             'tau_eq = 16/(pi*d^3) * (M + T/2)'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="4" y1="40" x2="76" y2="40" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <line x1="40" y1="76" x2="40" y2="4" stroke="#3B8700" stroke-width="1.2" stroke-linecap="round"/> <polygon points="76,38.5 76,41.5 78,40" fill="#3B8700" opacity="0.4"/> <polygon points="38.5,4 41.5,4 40,2" fill="#3B8700" opacity="0.4"/> <text x="76" y="36" font-size="5" fill="#334155" font-style="italic">σ</text> <text x="43" y="7" font-size="5" fill="#334155" font-style="italic">τ</text> <!-- Mohr circle: center at (40,40), radius 20 --> <circle cx="40" cy="40" r="20" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="20" stroke="#58CC02" stroke-width="2" fill="none"/> <!-- Center point C --> <circle cx="40" cy="40" r="1.5" fill="#3B8700" opacity="0.5"/> <text x="42" y="46" font-size="4" fill="#6B7280">C</text> <!-- σ₁ point (right) --> <circle cx="60" cy="40" r="2.5" fill="#3B8700" opacity="0.5"/> <text x="62" y="48" font-size="5" fill="#334155">σ₁</text> <!-- σ₂ point (left) --> <circle cx="20" cy="40" r="2.5" fill="#58CC02" opacity="0.5"/> <text x="14" y="48" font-size="5" fill="#334155">σ₂</text> <!-- Diameter line connecting σ₁ and σ₂ --> <line x1="20" y1="40" x2="60" y2="40" stroke="#3B8700" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/> <!-- τ_max point at top of circle --> <circle cx="40" cy="20" r="2.5" fill="#3B8700" opacity="0.6"> <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/> </circle> <!-- τ_max vertical arrow from center to top --> <line x1="40" y1="40" x2="40" y2="22" stroke="#58CC02" stroke-width="1.5" opacity="0.5"/> <polygon points="38.5,23 40,19 41.5,23" fill="#58CC02" opacity="0.5"/> <!-- τ_max label --> <text x="48" y="18" font-size="5" fill="#334155" font-weight="bold">τ_max</text> <!-- Radius dimension: (σ₁ - σ₂)/2 label --> <line x1="20" y1="52" x2="60" y2="52" stroke="#6B7280" stroke-width="0.6" opacity="0.4"/> <line x1="20" y1="50" x2="20" y2="54" stroke="#6B7280" stroke-width="0.6" opacity="0.4"/> <line x1="60" y1="50" x2="60" y2="54" stroke="#6B7280" stroke-width="0.6" opacity="0.4"/> <text x="40" y="58" font-size="4" fill="#334155" text-anchor="middle" opacity="0.6">(σ₁−σ₂)/2</text> <!-- Formula at bottom --> <text x="40" y="70" font-size="4.5" fill="#334155" text-anchor="middle" opacity="0.5">τ_max = R = (σ₁−σ₂)/2</text> </svg>',
-          explanation: 'For combined bending and torsion on a solid circular shaft, the principal stresses can be found from the Mohr circle.',
-          hint: 'Combine bending stress sigma = 32M/(pi*d^3) and torsional.'
+          explanation: 'For combined bending and torsion on a solid circular shaft, the principal stresses come from the Mohr circle. The equivalent shear stress uses the square root of the sum of squares.',
+          hint: 'Combine bending stress sigma = 32M/(pi*d^3) and torsional shear.',
+        },
+        {
+          id: 'u8-L1-Q3',
+          type: 'true-false',
+          question: 'A shaft operating above its first critical speed will always experience dangerous vibrations and should be avoided.',
+          correctAnswer: false,
+          explanation: 'Supercritical shaft operation is routine in turbomachinery, centrifugal separators, and dental drills. They pass through the critical speed quickly during startup.',
+          hint: 'Think about what happens to shaft deflection as speed continues past the resonance.',
+        },
+        {
+          id: 'u8-L1-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these into "Increases shaft life" or "Decreases shaft life".',
+          options: ['Larger fillet radius', 'Sharp keyway corners', 'Shot peening surface', 'Press-fit hub', 'Polished surface finish', 'Corrosive environment'],
+          buckets: ['Increases life', 'Decreases life'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Larger fillets, shot peening, and polished surfaces improve fatigue life. Sharp corners, press-fits, and corrosion hurt it.',
+          hint: 'Stress concentrations and surface damage reduce fatigue life.',
+        },
+      ]
+    },
+    // ���────────────────────────────────────────────────────────────
+    // LESSON 1b: Shafts & Keys — Keys, Splines, and Critical Speed
+    // ─────────���─────────────────���─────────────────────────────��───
+    {
+      id: 'u8-L1b',
+      title: 'Keys & Critical Speed',
+      description: 'Key types, spline connections, critical speed, and Dunkerley formula.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L1-T2',
+          type: 'teaching',
+          question: 'Keys, keyways, and stress risers',
+          explanation: 'A key is a small metal piece that locks a gear or pulley to a shaft for torque transfer. The keyway slot creates a stress concentration (Kt = 2 to 3), making it the most common fatigue crack initiation site on shafts.',
+          hint: 'Larger fillet radii in the keyway reduce Kt significantly.',
+        },
+        {
+          id: 'u8-L1b-Q1a',
+          type: 'true-false',
+          question: 'A keyway creates a stress concentration on a shaft.',
+          correctAnswer: true,
+          explanation: 'Yes. The sharp corners of a keyway slot raise local stress by a factor of 2 to 3, making it a common fatigue crack initiation site.',
+          hint: 'Sharp geometric changes raise local stress.',
         },
         {
           id: 'u8-L1-Q9',
           type: 'multiple-choice',
-          question: 'Primary advantage of using an involute spline connection instead of a single key for transmitting torque from a gear to a shaft?',
+          question: 'Primary advantage of using an involute spline instead of a single key for torque transmission?',
           options: [
             'Splines are cheaper to manufacture than keyways',
-            'Splines distribute torque uniformly around the shaft circumference,',
-            'Splines allow the gear to slide axially on the shaft, which single keys',
-            'Splines create a permanent joint that cannot be disassembled'
+            'Splines distribute torque uniformly around the circumference',
+            'Splines allow axial sliding on the shaft',
+            'Splines create a permanent, non-removable joint'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer spline (hub, static) --> <circle cx="40" cy="40" r="26" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.25"/> <!-- Inner spline teeth (static ring showing spline profile) --> <path d="M40,16 L43,18 L43,24 L40,26 L37,24 L37,18 Z" fill="#58CC02" opacity="0.15"/> <path d="M56.5,22.5 L58,25.5 L54.5,30 L51,30 L49.5,27 L53,22.5 Z" fill="#58CC02" opacity="0.15"/> <path d="M64,40 L62,43 L56,43 L54,40 L56,37 L62,37 Z" fill="#58CC02" opacity="0.15"/> <path d="M56.5,57.5 L53,62 L49.5,53 L51,50 L54.5,50 L58,54.5 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,64 L37,62 L37,56 L40,54 L43,56 L43,62 Z" fill="#58CC02" opacity="0.15"/> <path d="M23.5,57.5 L22,54.5 L25.5,50 L29,50 L30.5,53 L27,57.5 Z" fill="#58CC02" opacity="0.15"/> <path d="M16,40 L18,37 L24,37 L26,40 L24,43 L18,43 Z" fill="#58CC02" opacity="0.15"/> <path d="M23.5,22.5 L27,18 L30.5,27 L29,30 L25.5,30 L22,25.5 Z" fill="#58CC02" opacity="0.15"/> <!-- Shaft (rotating inside the spline) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#58CC02" stroke-width="2" fill="none"/> <line x1="40" y1="26" x2="40" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.15"/> <line x1="26" y1="40" x2="54" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.15"/> </g> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <circle cx="40" cy="40" r="1.5" fill="white" opacity="0.2"/> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.18" font-style="italic">torque + axial slide</text> </svg>',
-          explanation: 'A single keyway creates a severe stress concentration (Kt = 2-3) and transmits torque through a single contact area.',
-          hint: 'Compare the load path: one keyway slot.'
+          explanation: 'A single keyway creates a severe stress concentration and transmits torque through a single contact area. Splines distribute the load around the full circumference.',
+          hint: 'Compare the load path: one keyway slot vs. many spline teeth.',
+        },
+        {
+          id: 'u8-L1-Q15',
+          type: 'true-false',
+          question: 'A Woodruff key is preferred over a rectangular key when the shaft diameter is large (>100 mm) and the torque is very high.',
+          correctAnswer: false,
+          explanation: 'Woodruff keys are semicircular and preferred for small shafts and light-to-moderate torque. They self-align with tapered hubs but have less shear area than rectangular keys.',
+          hint: 'Consider which key type provides more shear area.',
+        },
+        {
+          id: 'u8-L1-T2b',
+          type: 'teaching',
+          question: 'Critical speed and the Dunkerley formula',
+          explanation: 'Every shaft has a critical speed where vibration spikes because RPM matches a natural frequency. The Dunkerley formula estimates it for multi-mass shafts: 1/omega_c^2 = 1/omega_1^2 + 1/omega_2^2 + ...',
+          hint: 'Try this now: Dunkerley always gives a conservative (lower) estimate.',
+        },
+        {
+          id: 'u8-L1-Q5',
+          type: 'multiple-choice',
+          question: 'A centrifuge operates at 12,000 RPM but its first critical speed is 8,000 RPM. Is this design safe?',
+          options: [
+            'Unsafe, operating above critical always causes failure',
+            'Safe, supercritical operation is routine if you pass through quickly',
+            'Only safe if balanced to sub-gram precision',
+            'Safe only below twice the critical speed'
+          ],
+          correctIndex: 1,
+          explanation: 'Supercritical operation (above the first critical speed) is completely routine in many high-speed machines.',
+          hint: 'Consider what actually happens above the critical speed.',
+        },
+        {
+          id: 'u8-L1-Q6',
+          type: 'fill-blank',
+          question: 'The phenomenon where a rotating shaft deflects laterally because its speed matches a natural frequency is called _____ (or whirling).',
+          blanks: ['critical speed'],
+          wordBank: ['critical speed', 'resonance frequency', 'flutter', 'precession', 'vibration mode'],
+          explanation: 'Critical speed (whirling) occurs when rotation speed coincides with a natural frequency of lateral vibration, causing large deflections.',
+          hint: 'Rotational speed matches the natural frequency.',
+        },
+        {
+          id: 'u8-L1-Q16',
+          type: 'multiple-choice',
+          question: 'How does the Dunkerley formula combine individual critical speeds of a multi-mass shaft?',
+          options: [
+            'Add all speeds directly',
+            'Average the individual speeds',
+            'Reciprocal sum: 1/omega_c^2 = 1/omega_1^2 + 1/omega_2^2 + ...',
+            'Multiply all speeds together'
+          ],
+          correctIndex: 2,
+          explanation: 'The Dunkerley formula estimates the first critical speed by combining individual critical speeds using reciprocal squares. It gives a lower-bound (conservative) estimate.',
+          hint: 'This method provides a lower-bound estimate.',
         },
         {
           id: 'u8-L1-Q10',
           type: 'true-false',
           question: 'A hollow shaft (same OD and material as solid) always has lower critical speed due to less stiffness.',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="16" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.3" stroke-dasharray="3,3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <line x1="40" y1="16" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="16" y1="40" x2="64" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="18" r="2" fill="#3B8700" opacity="0.4"/> </g> <circle cx="40" cy="40" r="10" fill="white"/> <circle cx="40" cy="40" r="10" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.5"/> <circle cx="40" cy="40" r="4" fill="#FAFAFA" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <text x="40" y="74" text-anchor="middle" font-size="4" fill="#334155" opacity="0.3" font-style="italic">hollow shaft</text> </svg>',
-          explanation: 'A hollow shaft is lighter than a solid shaft of the same outer diameter, and its second moment of area (I) decreases less than its mass per unit length decreases.',
-          hint: 'Critical speed depends on the ratio of stiffness to mass.'
+          explanation: 'A hollow shaft is lighter than a solid shaft of the same OD. Its stiffness (I) decreases less than its mass per unit length, so the stiffness-to-mass ratio can actually increase.',
+          hint: 'Critical speed depends on the ratio of stiffness to mass.',
         },
         {
-          id: 'u8-L1-Q11',
-          type: 'multiple-choice',
-          question: 'The stress concentration factor is Kt = 2.5. Which approach is most effective?',
-          options: [
-            'Increase fillet radius from 1 mm to 4 mm to reduce Kt significantly',
-            'Add a second shoulder step (50→45→40 mm) keeping the same fillet radii',
-            'Polish the fillet to mirror finish since surface finish dominates Kt',
-            'Add a retaining ring groove near the fillet to redistribute stress'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Plate with hole --> <rect x="8" y="18" width="64" height="44" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Central hole --> <circle cx="40" cy="40" r="8" stroke-width="0.8" stroke="#58CC02" fill="white"/> <!-- Stress flow lines (curving around hole) --> <g stroke="#58CC02" stroke-width="0.4" opacity="0.35"> <path d="M8,24 Q30,24 32,34 Q34,38 32,42 Q30,52 8,56" fill="none"/> <path d="M8,28 Q28,28 33,36 Q34,38 33,42 Q28,50 8,52" fill="none"/> <path d="M8,36 Q26,36 32,38 Q34,40 32,42 Q26,44 8,44" fill="none"/> <path d="M72,24 Q50,24 48,34 Q46,38 48,42 Q50,52 72,56" fill="none"/> <path d="M72,28 Q52,28 47,36 Q46,38 47,42 Q52,50 72,52" fill="none"/> <path d="M72,36 Q54,36 48,38 Q46,40 48,42 Q54,44 72,44" fill="none"/> </g> <!-- Stress concentration zones (top and bottom of hole) --> <g fill="#A5E86C" opacity="0.2"> <ellipse cx="40" cy="32" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> <ellipse cx="40" cy="48" rx="4" ry="2"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </ellipse> </g> <!-- Tension arrows --> <g opacity="0.5"> <line x1="2" y1="40" x2="7" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <line x1="78" y1="40" x2="73" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="-2" y="43" font-size="3" fill="#58CC02">σ</text> <text x="78" y="43" font-size="3" fill="#58CC02">σ</text> </g> <!-- Kt label --> <text x="40" y="14" text-anchor="middle" font-size="4" fill="#58CC02" opacity="0.5">K_t = σ_max/σ_nom</text> <!-- Max stress indicator --> <text x="40" y="30" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">σ_max</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">notch effect</text> </svg>',
-          explanation: 'The fillet radius is the dominant factor controlling stress concentration at a shoulder.',
-          hint: 'which geometric parameter has the greatest influence on Kt.'
+          id: 'u8-L1b-OS1',
+          type: 'order-steps',
+          question: 'Order the shaft design process from start to finish.',
+          steps: ['Identify loads (torque, bending, axial)', 'Calculate minimum diameter from strength criteria', 'Apply stress concentration and safety factors', 'Select standard shaft size and check deflection', 'Verify critical speed is above operating range'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Shaft design starts with load analysis, then strength sizing, then practical adjustments for stress risers, standard sizes, and dynamics.',
+          hint: 'You need to know the loads before you can size anything.',
         },
+        {
+          id: 'u8-L1-Q30',
+          type: 'fill-blank',
+          question: 'A key that is semicircular in shape and sits in a semicircular pocket milled into the shaft is called a _____ key.',
+          blanks: ['Woodruff'],
+          wordBank: ['Woodruff', 'feather', 'square', 'Gib-head', 'spline'],
+          explanation: 'The Woodruff key is a semicircular (half-moon) shaped key that fits into a semicircular pocket. It is commonly used on tapered shaft sections because it can tilt slightly to align.',
+          hint: 'This key type is named after its inventor.',
+        },
+      ]
+    },
+    // ───────��────────────────────────────��────────────────────────
+    // LESSON 1c: Shafts & Keys — Fatigue Design and Advanced Sizing
+    // ─────────��──────────────��─────────────────────────────────���──
+    {
+      id: 'u8-L1c',
+      title: 'Shaft Fatigue Design',
+      description: 'Fatigue criteria (Soderberg, Goodman, Gerber), Marin factors, and advanced shaft sizing.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
         {
           id: 'u8-L1-T3',
           type: 'teaching',
           question: 'Critical speed and fatigue criteria',
-          explanation: 'Every shaft has a critical speed where it vibrates violently because the RPM matches a natural frequency. Many machines safely operate above this speed by passing through it quickly. For fatigue design, the Soderberg, Goodman, and Gerber criteria combine alternating and mean stresses to predict safe life.',
+          explanation: 'For fatigue design, the Soderberg, Goodman, and Gerber criteria combine alternating and mean stresses to predict safe life. Soderberg is the most conservative, using yield strength on the mean stress axis.',
           hint: 'The Soderberg criterion is the most conservative of the three.',
+        },
+        {
+          id: 'u8-L1c-Q1a',
+          type: 'multiple-choice',
+          question: 'Which fatigue criterion is the most conservative?',
+          options: ['Goodman', 'Soderberg', 'Gerber', 'They are all identical'],
+          correctIndex: 1,
+          explanation: 'Soderberg uses yield strength (not ultimate) for the mean stress axis, making it the most conservative choice for ductile materials.',
+          hint: 'The one that uses yield strength instead of ultimate.',
+        },
+        {
+          id: 'u8-L1-Q4',
+          type: 'multiple-choice',
+          question: 'In ASME shaft code, why is K_b > K_t for the same loading?',
+          options: [
+            'Bending forces are always larger than torsional forces',
+            'A rotating shaft under fixed bending creates fully reversed stress',
+            'Bending causes axial deflection that damages bearings',
+            'The bending factor is arbitrary from older codes'
+          ],
+          correctIndex: 1,
+          explanation: 'A rotating shaft with a fixed bending load sees each surface point cycle from tension to compression each revolution, creating fully reversed stress, which is the most damaging fatigue condition.',
+          hint: 'Consider what a single point on the shaft surface experiences during one revolution.',
         },
         {
           id: 'u8-L1-Q12',
@@ -196,200 +307,38 @@ export const unit8: Unit = {
             'Fracture toughness (K_Ic)'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Axes --> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <polygon points="74,63.5 74,66.5 76,65" fill="#3B8700" opacity="0.4"/> <polygon points="10.5,8 13.5,8 12,6" fill="#3B8700" opacity="0.4"/> <text x="44" y="76" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">log N</text> <text x="6" y="36" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">S</text> <!-- S-N curve (animated draw) --> <path d="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="90" stroke-dashoffset="90"> <animate attributeName="stroke-dashoffset" values="90;0;0;90" keyTimes="0;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </path> <!-- Endurance limit line (horizontal asymptote) --> <line x1="48" y1="48" x2="74" y2="48" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </line> <text x="72" y="44" font-size="4" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> S_e </text> <!-- Tracing dot --> <circle r="3.5" fill="#3B8700"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <circle r="1.5" fill="white" opacity="0.4"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="0.4;0.4;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> <!-- Region labels --> <text x="24" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">LCF</text> <text x="56" y="60" font-size="3.5" fill="#3B8700" opacity="0.15">HCF</text> </svg>',
-          explanation: 'The Soderberg criterion plots the alternating stress component against the mean stress component and draws a line from the endurance limit (on the alternating axis) to the yield strength (on.',
-          hint: 'Soderberg is the most conservative of the common fatigue.'
+          explanation: 'Soderberg draws a line from the endurance limit (alternating axis) to the yield strength (mean axis). Points below the line are considered safe.',
+          hint: 'Soderberg is the most conservative of the common fatigue criteria.',
         },
         {
-          id: 'u8-L1-Q13',
-          type: 'fill-blank',
-          question: 'The ratio D/d (mean coil diameter to wire diameter) is called the spring _____.',
-          blanks: ['index'],
-          wordBank: ['index', 'ratio', 'constant', 'factor', 'modulus'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Spring front view (single coil, showing D and d) --> <!-- Outer coil circle (shows mean coil diameter D) --> <circle cx="40" cy="36" r="22" stroke="#58CC02" stroke-width="5" fill="none" opacity="0.2"/> <circle cx="40" cy="36" r="22" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Wire cross-section highlight (top, showing wire diameter d) --> <circle cx="40" cy="14" r="2.5" fill="#58CC02" opacity="0.4" stroke="#3B8700" stroke-width="1"/> <!-- Wire cross-section highlight (bottom) --> <circle cx="40" cy="58" r="2.5" fill="#58CC02" opacity="0.4" stroke="#3B8700" stroke-width="1"/> <!-- Wire cross-section highlight (left) --> <circle cx="18" cy="36" r="2.5" fill="#58CC02" opacity="0.4" stroke="#3B8700" stroke-width="1"/> <!-- Wire cross-section highlight (right) --> <circle cx="62" cy="36" r="2.5" fill="#58CC02" opacity="0.4" stroke="#3B8700" stroke-width="1"/> <!-- Mean coil diameter D dimension line (horizontal through center) --> <line x1="18" y1="36" x2="62" y2="36" stroke="#334155" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/> <line x1="18" y1="68" x2="62" y2="68" stroke="#334155" stroke-width="0.8" opacity="0.5"/> <line x1="18" y1="60" x2="18" y2="70" stroke="#334155" stroke-width="0.6" opacity="0.5"/> <line x1="62" y1="60" x2="62" y2="70" stroke="#334155" stroke-width="0.6" opacity="0.5"/> <polygon points="20,67 18,68 20,69" fill="#334155" opacity="0.5"/> <polygon points="60,67 62,68 60,69" fill="#334155" opacity="0.5"/> <text x="40" y="73" font-size="6" fill="#334155" text-anchor="middle" font-weight="bold">D</text> <!-- Wire diameter d dimension line (at top cross-section) --> <line x1="40" y1="11.5" x2="40" y2="16.5" stroke="#334155" stroke-width="0.8" opacity="0.5"/> <line x1="34" y1="11.5" x2="46" y2="11.5" stroke="#334155" stroke-width="0.5" opacity="0.4"/> <line x1="34" y1="16.5" x2="46" y2="16.5" stroke="#334155" stroke-width="0.5" opacity="0.4"/> <text x="48" y="15" font-size="6" fill="#334155" font-weight="bold">d</text> <!-- Center point --> <circle cx="40" cy="36" r="1.5" fill="#3B8700" opacity="0.3"/> <!-- Formula --> <text x="40" y="6" font-size="5" fill="#334155" text-anchor="middle" opacity="0.5">C = D/d</text> </svg>',
-          explanation: 'The spring index C = D/d describes how tightly a coil is wound. For shafts, a similar concept applies when analyzing helical components mounted on shafts.',
-          hint: 'This dimensionless ratio uses the mean diameter.'
-        },
-        {
-          id: 'u8-L1-Q14',
-          type: 'multiple-choice',
-          question: 'Using the pure torsion formula with an allowable shear stress of 42 MPa, what is the minimum required diameter?',
-          options: [
-            '38 mm',
-            '45 mm',
-            '52 mm',
-            '60 mm'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'T = P/omega = 75000/(1000*2*pi/60) = 75000/104.72 = 716.2 N·m.',
-          hint: 'Use tau = 16T/(pi*d^3) and solve for d.'
-        },
-        {
-          id: 'u8-L1-Q15',
-          type: 'true-false',
-          question: 'A Woodruff key is preferred over a rectangular (flat) key when the shaft diameter is large (>100 mm) and the torque is very high.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Hub (outer, cross-section view) --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.04"/> <circle cx="40" cy="40" r="28" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.2"/> <!-- Shaft (inner circle) --> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Key (rectangular, fits in keyway slot) --> <rect x="36" y="22" width="8" height="10" rx="1" fill="#3B8700" opacity="0.3"> <animate attributeName="opacity" values="0.3;0.5;0.3" dur="2s" repeatCount="indefinite"/> </rect> <rect x="36" y="22" width="8" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Keyway in shaft --> <rect x="37" y="26" width="6" height="8" rx="0.5" fill="#58CC02" opacity="0.05"/> <!-- Keyway in hub --> <rect x="37" y="20" width="6" height="6" rx="0.5" fill="#58CC02" opacity="0.03"/> <!-- Torque arrow --> <path d="M68,32 A20,20 0 0,1 68,48" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> </path> <polygon points="67,47 69,51 70,46" fill="#3B8700" opacity="0.2"/> <text x="72" y="42" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">T</text> <!-- Shear force on key faces --> <g opacity="0"> <animate attributeName="opacity" values="0;0.25;0" dur="2s" repeatCount="indefinite"/> <line x1="36" y1="28" x2="32" y2="28" stroke="#58CC02" stroke-width="0.8"/> <polygon points="33,26.5 30,28 33,29.5" fill="#58CC02"/> <line x1="44" y1="26" x2="48" y2="26" stroke="#58CC02" stroke-width="0.8"/> <polygon points="47,24.5 50,26 47,27.5" fill="#58CC02"/> </g> <!-- Center --> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="1.2" fill="white" opacity="0.15"/> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">torque transmission</text> </svg>',
-          explanation: 'Woodruff keys are semicircular and are preferred for small shafts and light-to-moderate torque applications because they self-align with tapered hubs and are easy to assemble.',
-          hint: 'Consider which key type provides more shear area and less.'
-        },
-        {
-          id: 'u8-L1-Q16',
-          type: 'multiple-choice',
-          question: 'How does it combine the individual critical speeds?',
-          options: [
-            'Add all speeds: \u03C9_c = \u03C9_1 + \u03C9_2 + \u03C9_3 directly',
-            'Average: \u03C9_c = (\u03C9_1 + \u03C9_2 + \u03C9_3)/3 of each speed',
-            'Reciprocal sum: 1/\u03C9_c\xB2 = 1/\u03C9_1\xB2 + 1/\u03C9_2\xB2 + 1/\u03C9_3\xB2',
-            'Product: \u03C9_c = \u03C9_1 \xD7 \u03C9_2 \xD7 \u03C9_3 of all speeds'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'The Dunkerley formula estimates the first critical speed of a multi-mass shaft system by combining individual critical speeds using reciprocal squares: 1/omega_c^2 = sum(1/omega_i^2).',
-          hint: 'This method provides a lower-bound (conservative) estimate.'
-        },
-        {
-          id: 'u8-L1-Q17',
-          type: 'multiple-choice',
-          question: 'Which type of fit is typically used between a shaft and a bearing inner race?',
-          options: [
-            'Clearance fit on the shaft, interference fit in the housing',
-            'Interference fit on the shaft, clearance fit in the housing',
-            'Clearance fit on both shaft and housing',
-            'Interference fit on both shaft and housing'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> </svg>',
-          explanation: 'When the shaft rotates and the housing is stationary, the inner race rotates with the shaft (rotating load on inner race), so it needs an interference fit (e.g., k5, m5, or n6 on the shaft).',
-          hint: 'The race that rotates relative to the load direction needs.'
-        },
-        {
-          id: 'u8-L1-Q18',
-          type: 'multiple-choice',
-          question: 'Using the distortion energy (von Mises) theory, what is the equivalent bending moment?',
-          options: [
-            'M_eq = 570 N·m',
-            'M_eq = 583 N·m',
-            'M_eq = 640 N·m',
-            'M_eq = 900 N·m'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Using the distortion energy theory, the equivalent bending moment is M_eq = sqrt(M^2 + (3/4)*T^2) = sqrt(500^2 + 0.75*400^2) = sqrt(250000 + 120000) = sqrt(370000) = 583 N·m.',
-          hint: 'Von Mises equivalent: M_eq = sqrt(M^2 + 0.75*T^2).'
+          id: 'u8-L1c-T2',
+          type: 'teaching',
+          question: 'Marin factors and real-world endurance',
+          explanation: 'Lab endurance limits come from polished, small-diameter specimens. Real shafts have rougher surfaces, larger sizes, and higher temperatures. Marin derating factors (surface, size, reliability, temperature) reduce the lab value to a practical one, often 25 to 50% of the original.',
+          hint: 'Try this now: check how surface finish affects S_e for your next design.',
         },
         {
           id: 'u8-L1-Q19',
           type: 'true-false',
-          question: 'In service, a shaft\'s endurance limit is typically 25-50% of the lab specimen value due to Marin derating factors.',
+          question: 'In service, a shaft\'s endurance limit is typically 25 to 50% of the lab specimen value due to Marin derating factors.',
           correctAnswer: true,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <line x1="12" y1="65" x2="74" y2="65" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <line x1="12" y1="65" x2="12" y2="8" stroke="#3B8700" stroke-width="1.5" stroke-linecap="round"/> <text x="44" y="76" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">log N</text> <text x="6" y="36" text-anchor="middle" font-size="5.5" fill="#3B8700" opacity="0.3" font-style="italic">S</text> <path d="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" stroke="#58CC02" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="90" stroke-dashoffset="90"> <animate attributeName="stroke-dashoffset" values="90;0;0;90" keyTimes="0;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </path> <line x1="48" y1="48" x2="74" y2="48" stroke="#A5E86C" stroke-width="1" stroke-dasharray="2,3" opacity="0"> <animate attributeName="opacity" values="0;0;0.3;0.3;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> </line> <text x="72" y="44" font-size="4" fill="#3B8700" opacity="0" font-style="italic"> <animate attributeName="opacity" values="0;0;0.25;0.25;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" repeatCount="indefinite"/> S_e </text> <circle r="3.5" fill="#3B8700"> <animateMotion dur="5s" repeatCount="indefinite" path="M16,14 Q24,16 32,26 Q40,36 48,42 Q56,46 68,48" keyPoints="0;1;1;0" keyTimes="0;0.5;0.8;1" calcMode="linear"/> <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.51;1" dur="5s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Standard endurance limit values (S_e\') are obtained from polished, small-diameter (7.6 mm), laboratory test specimens under controlled conditions.',
-          hint: 'Consider the Marin modification factors that account.'
+          explanation: 'Standard endurance values come from polished, small specimens. Real conditions (surface finish, size, temperature, reliability) reduce the practical endurance limit significantly.',
+          hint: 'Consider the Marin modification factors.',
         },
         {
-          id: 'u8-L1-Q20',
-          type: 'multiple-choice',
-          question: 'What is the main purpose of a shaft shoulder (step change in diameter)?',
-          options: [
-            'To increase the overall strength of the shaft by adding material',
-            'To provide an axial locating surface for bearings, gears, and other',
-            'To reduce the weight of the shaft by removing material from non-critical',
-            'To increase the critical speed by changing the mass distribution'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Shaft shoulders provide a positive axial locating surface for components like bearings and gears.',
-          hint: 'What happens when you slide a bearing or gear onto a shaft.'
-        },
-        {
-          id: 'u8-L1-Q21',
-          type: 'multiple-choice',
-          question: 'A shaft deflects 0.8 mm under a gear mounted at midspan. What is the most weight-efficient solution?',
-          options: [
-            'Increase the shaft diameter uniformly along its entire length',
-            'Increase the shaft diameter only in the region near the gear',
-            'Switch to a higher-strength material (e.g., from AISI 1045 to AISI 4340)',
-            'Reduce the gear module to decrease the tangential force'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="52" height="14" rx="7" fill="#58CC02" opacity="0.08"/> <rect x="6" y="28" width="52" height="14" rx="7" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="4" y1="35" x2="60" y2="35" stroke="#3B8700" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.2"/> <path d="M26,22 A8,8 0 0,1 38,22" stroke="#58CC02" stroke-width="1.5" fill="none"/> <polygon points="37,20 40,22 37,24" fill="#58CC02"/> <text x="32" y="18" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">M</text> <polygon points="10,42 6,50 14,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <polygon points="50,42 46,50 54,50" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <text x="30" y="56" font-size="4" fill="#6B7280" text-anchor="middle">shaft deflection</text> <rect x="62" y="18" width="16" height="16" rx="1" fill="#58CC02" opacity="0.06" stroke="#3B8700" stroke-width="1"/> <rect x="62" y="18" width="16" height="16" rx="1" fill="none" stroke="#A5E86C" stroke-width="0.5" opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> </rect> </svg>',
-          explanation: 'Shaft deflection is a stiffness problem, not a strength problem. Deflection depends on EI (modulus times moment of inertia) and span length.',
-          hint: 'Deflection depends on stiffness (EI), not strength.'
-        },
-        {
-          id: 'u8-L1-Q22',
-          type: 'fill-blank',
-          question: 'The ASME shaft design code uses combined shock and fatigue factors K_b and K_t applied to bending and torsion. For a gradually _____?',
-          blanks: ['1.0'],
-          wordBank: ['1.0', '1.5', '2.0', '0.5', '3.0'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'In the ASME shaft code for gradually applied or steady loads: K_b = 1.5 and K_t = 1.0.',
-          hint: 'Steady torsion creates constant shear (no fatigue.'
-        },
-        {
-          id: 'u8-L1-Q23',
-          type: 'multiple-choice',
-          question: 'A square key has width w = height h = d/4 and length L. If the shaft transmits torque T, what is the shear stress in the key?',
-          options: [
-            'tau = 2T / (d * w * L)',
-            'tau = 4T / (d * w * L)',
-            'tau = T / (d * w * L)',
-            'tau = T * d / (2 * w * L)'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'The torque creates a tangential force at the shaft surface: F = T / (d/2) = 2T/d. This force acts on the shear area of the key (width x length = w*L).',
-          hint: 'Find the tangential force from torque (F = T/(d/2)), then.'
-        },
-        {
-          id: 'u8-L1-Q24',
-          type: 'true-false',
-          question: 'For a shaft under pure torsion, the maximum shear stress occurs at the center of the shaft cross-section.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'For a solid circular shaft under torsion, the shear stress distribution is linear from zero at the center to maximum at the outer surface. tau = T*r/J, where r is the radial distance from the center.',
-          hint: 'Consider the torsion formula tau = Tr/J.'
-        },
-        {
-          id: 'u8-L1-Q25',
-          type: 'multiple-choice',
-          question: 'What percentage of the torsional strength of a solid 80 mm shaft does it retain?',
-          options: [
-            '61%',
-            '73%',
-            '85%',
-            '88%'
-          ],
-          correctIndex: 3,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'For torsion, strength is proportional to the polar section modulus Z_p = J/c. For the solid shaft: J_solid = pi*80^4/32 = 4.021e6 mm^4.',
-          hint: 'Compare the polar moments: J_hollow/J_solid = (D^4 - d^4)/D^4.'
-        },
-        {
-          id: 'u8-L1-Q26',
-          type: 'multiple-choice',
-          question: 'What is the effect of a press-fit (interference fit) hub on the fatigue life of a shaft?',
-          options: [
-            'Improves fatigue life by adding structural support material around the shaft',
-            'Has no effect on fatigue life since the hub is a separate component entirely',
-            'Reduces fatigue life due to fretting and stress concentration at the interface',
-            'Improves fatigue life by creating beneficial compressive residual stresses'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'Press-fit hubs are a significant but often overlooked source of fatigue failure in shafts.',
-          hint: 'What happens at the interface between shaft and hub when.'
+          id: 'u8-L1c-MP1',
+          type: 'match-pairs',
+          question: 'Match each fatigue criterion to its mean stress reference.',
+          options: ['Soderberg', 'Goodman', 'Gerber', 'ASME-elliptic'],
+          matchTargets: ['Yield strength (linear)', 'Ultimate strength (linear)', 'Ultimate strength (parabolic)', 'Yield + endurance (ellipse)'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Soderberg uses S_y (linear), Goodman uses S_ut (linear), Gerber uses S_ut (parabola), and ASME-elliptic uses an ellipse between S_y and S_e.',
+          hint: 'Each criterion defines a different safe zone boundary.',
         },
         {
           id: 'u8-L1-Q27',
           type: 'multiple-choice',
-          question: 'Using the approximation S_e\' = 0.5*S_ut for steels, what is the uncorrected endurance limit?',
+          question: 'Using the approximation S_e\' = 0.5*S_ut for steels with S_ut = 900 MPa, what is the uncorrected endurance limit?',
           options: [
             '327 MPa',
             '450 MPa',
@@ -397,116 +346,197 @@ export const unit8: Unit = {
             '700 MPa'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'For steels with S_ut < 1400 MPa, the uncorrected endurance limit is approximated as S_e\' = 0.5 * S_ut = 0.5 * 900 = 450 MPa.',
-          hint: 'The standard approximation for steel endurance limit.'
+          explanation: 'For steels with S_ut < 1400 MPa: S_e\' = 0.5 x S_ut = 0.5 x 900 = 450 MPa. This is the lab specimen value before Marin corrections.',
+          hint: 'The standard approximation for steel endurance limit.',
         },
         {
-          id: 'u8-L1-Q28',
-          type: 'true-false',
-          question: 'A set screw alone (without a key) is adequate for transmitting moderate torque from a pulley to a shaft in industrial applications.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Hub (outer, cross-section view) --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.04"/> <circle cx="40" cy="40" r="28" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.2"/> <!-- Shaft (inner circle) --> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Key (rectangular, fits in keyway slot) --> <rect x="36" y="22" width="8" height="10" rx="1" fill="#3B8700" opacity="0.3"> <animate attributeName="opacity" values="0.3;0.5;0.3" dur="2s" repeatCount="indefinite"/> </rect> <rect x="36" y="22" width="8" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Keyway in shaft --> <rect x="37" y="26" width="6" height="8" rx="0.5" fill="#58CC02" opacity="0.05"/> <!-- Keyway in hub --> <rect x="37" y="20" width="6" height="6" rx="0.5" fill="#58CC02" opacity="0.03"/> <!-- Torque arrow --> <path d="M68,32 A20,20 0 0,1 68,48" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> </path> <polygon points="67,47 69,51 70,46" fill="#3B8700" opacity="0.2"/> <text x="72" y="42" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">T</text> <!-- Shear force on key faces --> <g opacity="0"> <animate attributeName="opacity" values="0;0.25;0" dur="2s" repeatCount="indefinite"/> <line x1="36" y1="28" x2="32" y2="28" stroke="#58CC02" stroke-width="0.8"/> <polygon points="33,26.5 30,28 33,29.5" fill="#58CC02"/> <line x1="44" y1="26" x2="48" y2="26" stroke="#58CC02" stroke-width="0.8"/> <polygon points="47,24.5 50,26 47,27.5" fill="#58CC02"/> </g> <!-- Center --> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="1.2" fill="white" opacity="0.15"/> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">torque transmission</text> </svg>',
-          explanation: 'Set screws provide only a small clamping force against the shaft surface and rely on friction (or a shallow point indent) to transmit torque.',
-          hint: 'Consider the torque capacity of the small friction contact.'
+          id: 'u8-L1-Q18',
+          type: 'multiple-choice',
+          question: 'Using von Mises theory with M = 500 N*m and T = 400 N*m, what is the equivalent bending moment?',
+          options: [
+            'M_eq = 570 N*m',
+            'M_eq = 583 N*m',
+            'M_eq = 640 N*m',
+            'M_eq = 900 N*m'
+          ],
+          correctIndex: 1,
+          explanation: 'M_eq = sqrt(M^2 + (3/4)*T^2) = sqrt(500^2 + 0.75*400^2) = sqrt(250000 + 120000) = sqrt(370000) = 583 N*m.',
+          hint: 'Von Mises equivalent: M_eq = sqrt(M^2 + 0.75*T^2).',
         },
         {
           id: 'u8-L1-Q29',
           type: 'multiple-choice',
-          question: 'Using the DE-Goodman criterion, what are the equivalent alternating and mean stresses?',
+          question: 'Using the DE-Goodman criterion with sigma_a = 200 MPa and tau_m = 80 MPa, what is the equivalent mean stress?',
           options: [
-            'sigma_a\' = 200 MPa, sigma_m\' = 80 MPa (shear unchanged)',
-            'sigma_a\' = 200 MPa, sigma_m\' = 138.6 MPa (sqrt(3) * 80)',
-            'sigma_a\' = 215 MPa, sigma_m\' = 80 MPa (von Mises on bending)',
-            'sigma_a\' = 280 MPa, sigma_m\' = 0 MPa (mean stress ignored)'
+            'sigma_m\' = 80 MPa (shear unchanged)',
+            'sigma_m\' = 138.6 MPa (sqrt(3) x 80)',
+            'sigma_m\' = 160 MPa (2 x 80)',
+            'sigma_m\' = 0 MPa (mean stress ignored)'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="18" fill="#58CC02" opacity="0.04"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> <rect x="34" y="16" width="12" height="10" rx="4" fill="#3B8700" opacity="0.35"/> <rect x="35" y="17" width="10" height="8" rx="3" fill="#A5E86C" opacity="0.25"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="24" y1="40" x2="56" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <circle cx="40" cy="21" r="2" fill="#3B8700" opacity="0.5"/> </g> <circle cx="40" cy="40" r="6" fill="#FAFAFA"/> <circle cx="40" cy="40" r="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.3"/> <path d="M68,30 Q74,40 68,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.25"> <animate attributeName="opacity" values="0.1;0.35;0.1" dur="1.5s" repeatCount="indefinite"/> </path> <polygon points="68,50 71,47 65,47" fill="#A5E86C" opacity="0.25"/> </svg>',
-          explanation: 'The distortion energy (DE) theory converts shear stress to equivalent normal stress by multiplying by sqrt(3).',
-          hint: 'The DE theory converts shear stress to equivalent normal.'
+          explanation: 'The distortion energy theory converts shear stress to equivalent normal stress by multiplying by sqrt(3). So sigma_m\' = sqrt(3) x 80 = 138.6 MPa.',
+          hint: 'The DE theory converts shear to equivalent normal stress.',
         },
         {
-          id: 'u8-L1-Q30',
-          type: 'fill-blank',
-          question: 'A key that is semicircular in shape, sits in a semicircular pocket milled into the shaft, and is often used on tapered shaft _____?',
-          blanks: ['Woodruff'],
-          wordBank: ['Woodruff', 'feather', 'square', 'Gib-head', 'spline'],
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.04"/> <circle cx="40" cy="40" r="28" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.2"/> <circle cx="40" cy="40" r="14" fill="#58CC02" opacity="0.08"/> <circle cx="40" cy="40" r="14" stroke="#3B8700" stroke-width="2" fill="none"/> <rect x="36" y="22" width="8" height="10" rx="1" fill="#3B8700" opacity="0.3"> <animate attributeName="opacity" values="0.3;0.5;0.3" dur="2s" repeatCount="indefinite"/> </rect> <rect x="36" y="22" width="8" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M68,32 A20,20 0 0,1 68,48" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.2"> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> </path> <polygon points="67,47 69,51 70,46" fill="#3B8700" opacity="0.2"/> <text x="72" y="42" font-size="5" fill="#3B8700" opacity="0.2" font-style="italic">T</text> <circle cx="40" cy="40" r="3" fill="#3B8700" opacity="0.25"/> </svg>',
-          explanation: 'The Woodruff key is a semicircular (half-moon) shaped key that fits into a semicircular pocket in the shaft. It is commonly used on tapered shaft sections because it can tilt slightly to align.',
-          hint: 'This key type is named after its inventor.'
-        }
+          id: 'u8-L1-Q11',
+          type: 'multiple-choice',
+          question: 'A shaft shoulder has Kt = 2.5. Which approach is most effective at reducing it?',
+          options: [
+            'Increase fillet radius from 1 mm to 4 mm',
+            'Add a second step keeping the same fillet radii',
+            'Polish the fillet to mirror finish',
+            'Add a retaining ring groove nearby'
+          ],
+          correctIndex: 0,
+          explanation: 'The fillet radius is the dominant factor controlling stress concentration at a shoulder. Increasing it from 1 to 4 mm can drop Kt from 2.5 to 1.5 or less.',
+          hint: 'Which geometric parameter has the greatest influence on Kt?',
+        },
       ]
     },
+    // ─��───────────────────────────────────────────────────────────
+    // LESSON 2a: Bearings & Lubrication — Bearing Types
+    // ─────────────────────────────────────────────────────────────
     {
       id: 'u8-L2',
-      title: 'Bearings & Lubrication',
-      description: 'Ball/roller/plain bearings, L10 life calculation, bearing selection, viscosity, lubrication regimes.',
+      title: 'Bearing Types',
+      description: 'Rolling vs. plain bearings, ball, roller, needle, and angular contact types.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u8-L2-T1',
           type: 'teaching',
           question: 'Rolling vs plain bearings',
-          explanation: 'Bearings support rotating shafts and reduce friction. Rolling element bearings (ball, roller) use small rolling parts between races. Plain (journal) bearings use an oil film between the shaft and a sleeve. Rolling bearings suit high speed and low maintenance, while journal bearings handle heavy loads and shock well.',
+          explanation: 'Bearings support rotating shafts and reduce friction. Rolling element bearings (ball, roller) use small rolling parts between races. Plain (journal) bearings use an oil film between the shaft and a sleeve.',
           hint: 'Most electric motors use ball bearings for their simplicity.',
         },
         {
-          id: 'u8-L2-Q1',
-          type: 'multiple-choice',
-          question: 'What is the L10 life in millions of revolutions?',
-          options: [
-            '25 million revolutions',
-            '125 million revolutions',
-            '625 million revolutions',
-            '3125 million revolutions'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'For ball bearings: L10 = (C/P)^p where p = 3 for ball bearings. L10 = (25/5)^3 = 5^3 = 125 million revolutions. For roller bearings, p = 10/3.',
-          hint: 'L10 = (C/P)^p with p = 3 for ball bearings.'
+          id: 'u8-L2-Q1a',
+          type: 'true-false',
+          question: 'Ball bearings use rolling elements to reduce friction between a shaft and its housing.',
+          correctAnswer: true,
+          explanation: 'Yes. Ball bearings replace sliding friction with rolling friction by placing balls between inner and outer races.',
+          hint: 'Rolling contact has much lower friction than sliding contact.',
         },
         {
           id: 'u8-L2-Q2',
           type: 'multiple-choice',
-          question: 'An electric motor shaft. When would you choose a deep groove ball bearing over a tapered roller bearing, and vice versa?',
+          question: 'When would you choose a deep groove ball bearing over a tapered roller bearing?',
           options: [
-            'Use tapered roller bearings for both — they are superior in every way',
-            'Use deep groove ball bearings for both — lower friction suits every case',
-            'Conveyor: tapered roller; motor: deep groove ball for high-speed, low load',
-            'The choice depends only on the catalog life calculation result, nothing else'
+            'Use tapered roller in every case',
+            'Use deep groove ball in every case',
+            'Deep groove for high-speed, low-load; tapered roller for heavy loads',
+            'The choice depends only on catalog life calculation'
           ],
           correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'Bearing selection is about matching the bearing type to the application requirements.',
-          hint: 'Match the bearing characteristics (load capacity, speed.'
+          explanation: 'Deep groove ball bearings excel at high speed and moderate loads. Tapered rollers handle heavy combined radial and axial loads but have more friction.',
+          hint: 'Match the bearing characteristics to the application requirements.',
         },
         {
-          id: 'u8-L2-Q3',
-          type: 'true-false',
-          question: 'In hydrodynamic (journal) bearing lubrication, the load-carrying capacity increases with increasing lubricant viscosity, shaft?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.04"/> <circle cx="40" cy="40" r="28" stroke="#3B8700" stroke-width="2.5" fill="none" opacity="0.25"/> <circle cx="40" cy="42" r="22" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="42" r="22" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,42;360,40,42" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <line x1="18" y1="42" x2="62" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> </g> <circle cx="40" cy="42" r="5" fill="#3B8700" opacity="0.3"/> <circle cx="40" cy="42" r="2" fill="white" opacity="0.2"/> <path d="M20,54 Q30,50 40,52 Q50,54 60,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </path> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">oil film</text> </svg>',
-          explanation: 'The Sommerfeld number S = (μNd)/(P × c²) governs hydrodynamic bearing performance, where μ is viscosity, N is speed, d is diameter, P is pressure, and c is clearance.',
-          hint: 'Consider the hydrodynamic wedge effect.'
+          id: 'u8-L2-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these bearings into "Handles axial load" vs. "Radial only".',
+          options: ['Angular contact ball', 'Tapered roller', 'Cylindrical roller (NU type)', 'Needle roller', 'Thrust ball', 'Deep groove ball'],
+          buckets: ['Handles axial load', 'Radial only'],
+          correctBuckets: [0, 0, 1, 1, 0, 0],
+          explanation: 'Angular contact, tapered roller, thrust ball, and deep groove ball bearings handle axial loads. Standard cylindrical and needle rollers are radial only.',
+          hint: 'Contact angle allows a bearing to take axial load.',
         },
         {
-          id: 'u8-L2-Q4',
+          id: 'u8-L2-Q10',
           type: 'multiple-choice',
-          question: 'A plain (journal) bearing in a large pump is showing intermittent high temperatures and occasional metal-to-metal contact noise?',
+          question: 'A self-aligning ball bearing can accommodate 2 to 3 degrees of misalignment. What makes this possible?',
           options: [
-            'Bearing clearance too large, causing shaft to rattle at all operating speeds',
-            'At low startup speeds, bearing operates in boundary/mixed lubrication regime',
-            'Lubricant viscosity too high, causing overheating at startup from poor flow',
-            'Shaft is misaligned and contacts the bearing surface only during startup'
+            'Higher load capacity than deep groove bearings',
+            'A spherical (concave) outer raceway that lets the inner ring tilt',
+            'Lower friction than any other bearing type',
+            'It can handle high axial loads in both directions'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'This is a classic Stribeck curve problem. Hydrodynamic bearings require relative motion between shaft and bearing to drag lubricant into the converging wedge and build pressure.',
-          hint: 'On the Stribeck curve, low speed means low bearing.'
+          explanation: 'Self-aligning ball bearings have a spherical outer raceway that allows the inner ring assembly to tilt 2 to 3 degrees relative to the outer ring.',
+          hint: 'The outer raceway shape is the key feature.',
         },
+        {
+          id: 'u8-L2-T1b',
+          type: 'teaching',
+          question: 'Bearing fits and mounting',
+          explanation: 'When the shaft rotates, the inner race needs an interference fit (tight on shaft, e.g. k5, m5) to prevent creep. The outer race gets a clearance fit in the housing. Reverse the fits when the housing rotates instead.',
+          hint: 'The race that rotates relative to the load needs an interference fit.',
+        },
+        {
+          id: 'u8-L2-Q17',
+          type: 'multiple-choice',
+          question: 'Which fit is typically used between a shaft and a bearing inner race?',
+          options: [
+            'Clearance on shaft, interference in housing',
+            'Interference on shaft, clearance in housing',
+            'Clearance on both',
+            'Interference on both'
+          ],
+          correctIndex: 1,
+          explanation: 'When the shaft rotates, the inner race rotates with it (rotating load on inner race), so it needs an interference fit to prevent creep.',
+          hint: 'The race that rotates relative to the load direction needs a tight fit.',
+        },
+        {
+          id: 'u8-L2-Q13',
+          type: 'true-false',
+          question: 'Needle roller bearings are ideal for applications with large available radial space but limited axial space.',
+          correctAnswer: false,
+          explanation: 'This is reversed. Needle rollers are thin and long, making them ideal when radial space is limited. They have a very small cross-section compared to standard rollers.',
+          hint: 'Needle rollers are thin and long.',
+        },
+        {
+          id: 'u8-L2-MP1',
+          type: 'match-pairs',
+          question: 'Match each bearing type to its best application.',
+          options: ['Deep groove ball', 'Tapered roller', 'Needle roller', 'Spherical roller'],
+          matchTargets: ['High-speed electric motor', 'Heavy axial + radial in gearbox', 'Tight radial space (con rod)', 'Heavy load with misalignment'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each bearing type is optimized for specific load, speed, and space constraints.',
+          hint: 'Match the bearing strength to the application need.',
+        },
+        {
+          id: 'u8-L2-Q11',
+          type: 'multiple-choice',
+          question: 'What is the primary advantage of an angular contact bearing over a deep groove ball bearing?',
+          options: [
+            'Lower friction for the same load',
+            'Higher combined axial and radial load capacity',
+            'Cheaper to manufacture',
+            'No preload required'
+          ],
+          correctIndex: 1,
+          explanation: 'The contact angle (typically 15 to 40 degrees) allows angular contact bearings to support significant axial loads alongside radial loads.',
+          hint: 'The contact angle determines how the load is distributed.',
+        },
+        {
+          id: 'u8-L2-Q5',
+          type: 'multiple-choice',
+          question: 'A bearing inner race shows spalling in a narrow band, but the outer race looks normal. What caused this?',
+          options: [
+            'Normal fatigue from exceeding rated L10 life',
+            'Contaminated lubricant with abrasive particles',
+            'Misalignment concentrated load on a narrow band',
+            'Electrical discharge damage (fluting)'
+          ],
+          correctIndex: 2,
+          explanation: 'The wear pattern is diagnostic. Normal loading distributes contact across most of the raceway width. A narrow band indicates concentrated load from misalignment.',
+          hint: 'The key clue is that the spalling is in a narrow band.',
+        },
+      ]
+    },
+    // ───────────────────────────────────────���─────────────────────
+    // LESSON 2b: Bearings & Lubrication — L10 Life and Selection
+    // ──���────────────────────��─────────────────────────��───────────
+    {
+      id: 'u8-L2b',
+      title: 'Bearing Life & Selection',
+      description: 'L10 life calculation, dynamic load ratings, equivalent loads, and reliability adjustments.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
         {
           id: 'u8-L2-T2',
           type: 'teaching',
@@ -515,34 +545,40 @@ export const unit8: Unit = {
           hint: 'Doubling the load on a ball bearing cuts life to 1/8.',
         },
         {
-          id: 'u8-L2-Q5',
+          id: 'u8-L2b-Q1a',
+          type: 'true-false',
+          question: 'L10 life means 90% of bearings survive to that number of revolutions.',
+          correctAnswer: true,
+          explanation: 'L10 (pronounced "L-ten") life means 10% failure rate, so 90% of bearings in a population will reach this life.',
+          hint: 'The subscript 10 represents the failure percentage.',
+        },
+        {
+          id: 'u8-L2-Q1',
           type: 'multiple-choice',
-          question: 'The outer race looks normal. What does this wear pattern tell you about the root cause?',
+          question: 'A ball bearing has C = 25 kN and applied load P = 5 kN. What is L10 in millions of revolutions?',
           options: [
-            'Normal fatigue wear from exceeding rated L10 life, needs replacement',
-            'Contaminated lubricant — abrasive particles caused accelerated damage',
-            'Misalignment — load concentrated on a narrow band instead of full width',
-            'Electrical discharge damage (fluting) — stray currents through bearing'
+            '25 million revolutions',
+            '125 million revolutions',
+            '625 million revolutions',
+            '3125 million revolutions'
           ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The wear pattern is diagnostic. Normal loading distributes contact across most of the raceway width.',
-          hint: 'The key clue is that the spalling is in a narrow band,.'
+          correctIndex: 1,
+          explanation: 'For ball bearings: L10 = (C/P)^p where p = 3. L10 = (25/5)^3 = 5^3 = 125 million revolutions.',
+          hint: 'L10 = (C/P)^p with p = 3 for ball bearings.',
         },
         {
           id: 'u8-L2-Q6',
           type: 'fill-blank',
-          question: 'The bearing life L_____ represents the number of revolutions at which _____% of bearings in a population will have failed.',
-          blanks: ['10', '10'],
-          wordBank: ['10', '10', '50', '90', '1'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> </svg>',
-          explanation: 'L10 (pronounced "L-ten") life is the rated life at 90% reliability .',
-          hint: 'The subscript represents the percentage of bearings.'
+          question: 'The bearing life L_____ represents the number of revolutions at which 10% of bearings have failed.',
+          blanks: ['10'],
+          wordBank: ['10', '50', '90', '1', '5'],
+          explanation: 'L10 life is the rated life at 90% reliability, meaning 10% of the population will have failed by this point.',
+          hint: 'The subscript represents the percentage of bearings that fail.',
         },
         {
           id: 'u8-L2-Q7',
           type: 'multiple-choice',
-          question: 'What is the L10 life in operating hours?',
+          question: 'A roller bearing has C = 50 kN and P = 10 kN at 500 RPM. What is L10 in operating hours?',
           options: [
             '4630 hours',
             '6945 hours',
@@ -550,14 +586,20 @@ export const unit8: Unit = {
             '13890 hours'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
-          explanation: 'For roller bearings, p = 10/3. L10 = (C/P)^(10/3) = (50/10)^(10/3) = 5^3.333 = 208.3 million revolutions.',
-          hint: 'Use p = 10/3 for roller bearings.'
+          explanation: 'For roller bearings, p = 10/3. L10 = (50/10)^(10/3) = 5^3.333 = 208.3 million revolutions. Hours = 208.3e6 / (500 x 60) = 6945 hours.',
+          hint: 'Use p = 10/3 for roller bearings, then convert revolutions to hours.',
+        },
+        {
+          id: 'u8-L2b-T2',
+          type: 'teaching',
+          question: 'Equivalent dynamic load and reliability',
+          explanation: 'When a bearing sees both radial (Fr) and axial (Fa) loads, you combine them: P = X*Fr + Y*Fa. X and Y come from the bearing catalog based on the Fa/Fr ratio. For higher reliability than 90%, multiply L10 by a factor less than 1 (e.g., 0.21 for 99% reliability).',
+          hint: 'Try this now: look up X and Y factors in any bearing catalog.',
         },
         {
           id: 'u8-L2-Q8',
           type: 'multiple-choice',
-          question: 'What is the equivalent dynamic bearing load P for a bearing subjected to a radial load Fr = 4 kN and an axial load Fa = 3 kN?',
+          question: 'Fr = 4 kN, Fa = 3 kN, X = 0.56, Y = 1.2. What is the equivalent dynamic load P?',
           options: [
             'P = 4.0 kN',
             'P = 5.0 kN',
@@ -565,429 +607,208 @@ export const unit8: Unit = {
             'P = 7.0 kN'
           ],
           correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The equivalent dynamic bearing load combines radial and axial loads: P = X*Fr + Y*Fa = 0.56*4 + 1.2*3 = 2.24 + 3.6 = 5.84 kN.',
-          hint: 'P = X*Fr + Y*Fa. The X and Y factors come from the bearing.'
-        },
-        {
-          id: 'u8-L2-Q9',
-          type: 'true-false',
-          question: 'Grease lubrication is preferred over oil lubrication for bearings operating at very high speeds because grease provides better cooling.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'Oil lubrication is preferred for high-speed bearings.',
-          hint: 'Which lubricant can be circulated through the bearing.'
-        },
-        {
-          id: 'u8-L2-Q10',
-          type: 'multiple-choice',
-          question: 'What property of this bearing makes it suitable?',
-          options: [
-            'Higher load capacity than standard deep groove bearings',
-            'Accommodates angular misalignment of 2-3\xB0 between rings',
-            'It has lower friction than any other bearing type used',
-            'It can handle high axial loads in both directions'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
-          explanation: 'Self-aligning ball bearings have a spherical (concave) outer raceway that allows the inner ring assembly to tilt 2-3 degrees relative to the outer ring.',
-          hint: 'The outer raceway shape is the key feature.'
-        },
-        {
-          id: 'u8-L2-Q11',
-          type: 'multiple-choice',
-          question: 'What is the primary advantage of this design over a standard deep groove ball bearing?',
-          options: [
-            'It has lower friction for the same load',
-            'It can handle higher combined axial and radial loads,',
-            'It is cheaper to manufacture than deep groove bearings',
-            'It does not require any preload and can be installed with clearance'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The contact angle (typically 15-40 degrees) allows angular contact bearings to support significant axial loads in one direction alongside radial loads.',
-          hint: 'The contact angle determines how the load is distributed.'
-        },
-        {
-          id: 'u8-L2-Q12',
-          type: 'multiple-choice',
-          question: 'The viscosity of a lubricating oil is specified as ISO VG 68. What does this number represent?',
-          options: [
-            'The oil has a kinematic viscosity of 68 cSt at 40°C',
-            'The oil has a kinematic viscosity of 68 cSt at 100°C',
-            'The oil has a dynamic viscosity of 68 Pa·s at 40°C',
-            'The oil weighs 68 kg/m³'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Housing (cross-section) --> <rect x="10" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <rect x="46" y="10" width="24" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Gap between parts --> <rect x="34" y="10" width="12" height="60" fill="none"/> <!-- Groove --> <rect x="28" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <rect x="44" y="32" width="8" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- O-Ring (cross section - compressed ellipse) --> <ellipse cx="40" cy="40" rx="5" ry="6" stroke-width="1" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.2"> <animate attributeName="rx" values="5;6;5" dur="3s" repeatCount="indefinite"/> <animate attributeName="ry" values="6;5;6" dur="3s" repeatCount="indefinite"/> </ellipse> <!-- Contact points --> <g opacity="0.3"> <line x1="34" y1="37" x2="36" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="40" x2="35" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="34" y1="43" x2="36" y2="43" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="37" x2="46" y2="37" stroke-width="0.4" stroke="#3B8700"/> <line x1="45" y1="40" x2="46" y2="40" stroke-width="0.4" stroke="#3B8700"/> <line x1="44" y1="43" x2="46" y2="43" stroke-width="0.4" stroke="#3B8700"/> </g> <!-- Pressure arrow --> <g opacity="0.4"> <line x1="40" y1="14" x2="40" y2="28" stroke-width="0.6" stroke="#3B8700"/> <polygon points="38.5,28 41.5,28 40,31" fill="#3B8700"/> <text x="40" y="12" font-size="3" fill="#3B8700" text-anchor="middle">P</text> </g> <!-- Seal labels --> <text x="22" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">housing</text> <text x="58" y="8" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">shaft</text> <!-- Hatching on housing walls --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.15"> <line x1="12" y1="15" x2="16" y2="11"/><line x1="12" y1="22" x2="16" y2="18"/> <line x1="12" y1="29" x2="16" y2="25"/><line x1="12" y1="50" x2="16" y2="46"/> <line x1="12" y1="57" x2="16" y2="53"/><line x1="12" y1="64" x2="16" y2="60"/> <line x1="64" y1="15" x2="68" y2="11"/><line x1="64" y1="22" x2="68" y2="18"/> <line x1="64" y1="29" x2="68" y2="25"/><line x1="64" y1="50" x2="68" y2="46"/> <line x1="64" y1="57" x2="68" y2="53"/><line x1="64" y1="64" x2="68" y2="60"/> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">static seal</text> </svg>',
-          explanation: 'ISO VG (Viscosity Grade) numbers represent the kinematic viscosity in centistokes (cSt) at 40°C (midpoint of the grade range, ±10%). So ISO VG 68 means approximately 68 cSt at 40°C.',
-          hint: 'ISO VG stands for Viscosity Grade.'
-        },
-        {
-          id: 'u8-L2-Q13',
-          type: 'true-false',
-          question: 'Needle roller bearings are ideal for applications with large available radial space but limited axial space.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'This is reversed.',
-          hint: 'Needle rollers are thin and long.'
+          explanation: 'P = X*Fr + Y*Fa = 0.56 x 4 + 1.2 x 3 = 2.24 + 3.6 = 5.84 kN.',
+          hint: 'P = X*Fr + Y*Fa. Plug in the values.',
         },
         {
           id: 'u8-L2-Q14',
           type: 'multiple-choice',
-          question: 'A bearing application requires 99% reliability instead of the standard 90%. How does this affect the bearing life compared to L10?',
+          question: 'A bearing application requires 99% reliability instead of 90%. How does this affect bearing life compared to L10?',
           options: [
-            'L1 = 0.21 × L10 (one-fifth of standard life)',
-            'L1 = 0.5 × L10 (half the standard life rating)',
-            'L1 = 0.9 × L10 (slightly less than standard)',
-            'L1 = 0.99 × L10 (essentially same as standard)'
+            'Life increases by 10%',
+            'Life drops to about 21% of L10',
+            'Life drops to about 50% of L10',
+            'No change, L10 already accounts for this'
+          ],
+          correctIndex: 1,
+          explanation: 'The reliability adjustment factor a1 for 99% reliability is approximately 0.21. So L1 = 0.21 x L10.',
+          hint: 'Higher reliability means fewer bearings can fail, so rated life drops.',
+        },
+        {
+          id: 'u8-L2b-OS1',
+          type: 'order-steps',
+          question: 'Order the bearing selection process.',
+          steps: ['Determine radial and axial loads', 'Calculate equivalent dynamic load P', 'Choose required L10 life in hours', 'Calculate required dynamic load rating C', 'Select bearing from catalog with C >= required'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Bearing selection starts with loads, then combined load, target life, required C rating, and finally catalog selection.',
+          hint: 'You need to know your loads before you can calculate anything.',
+        },
+        {
+          id: 'u8-L2-Q9',
+          type: 'true-false',
+          question: 'Grease lubrication is preferred over oil for bearings at very high speeds because grease provides better cooling.',
+          correctAnswer: false,
+          explanation: 'Oil lubrication is preferred for high-speed bearings. Oil can be circulated for cooling and removes heat much better than grease, which stays in place and can overheat.',
+          hint: 'Which lubricant can be circulated through the bearing for cooling?',
+        },
+        {
+          id: 'u8-L2-Q12',
+          type: 'multiple-choice',
+          question: 'ISO VG 68 lubricating oil. What does the 68 represent?',
+          options: [
+            'Kinematic viscosity of 68 cSt at 40 C',
+            'Kinematic viscosity of 68 cSt at 100 C',
+            'Dynamic viscosity of 68 Pa*s at 40 C',
+            'Oil density of 68 kg/m^3'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
-          explanation: 'The reliability adjustment factor a1 dramatically reduces the rated life for higher reliability. For 99% reliability (L1 life).',
-          hint: 'The Weibull distribution of bearing failures means.'
+          explanation: 'ISO VG (Viscosity Grade) numbers represent kinematic viscosity in centistokes (cSt) at 40 C. VG 68 means approximately 68 cSt at 40 C.',
+          hint: 'ISO VG stands for Viscosity Grade, measured at 40 C.',
+        },
+      ]
+    },
+    // ─────────────────────────────────────────────────────────────
+    // LESSON 2c: Bearings & Lubrication — Lubrication Regimes
+    // ───────────��──────────────────────────────────���──────────────
+    {
+      id: 'u8-L2c',
+      title: 'Lubrication & Journal Bearings',
+      description: 'Hydrodynamic lubrication, Stribeck curve, Sommerfeld number, and journal bearing design.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L2c-T1',
+          type: 'teaching',
+          question: 'The Stribeck curve and lubrication regimes',
+          explanation: 'The Stribeck curve shows how friction changes with speed. At low speed, surfaces touch directly (boundary lubrication). As speed increases, a partial oil film forms (mixed), then a full film separates the surfaces (hydrodynamic). Journal bearings work best in the hydrodynamic regime.',
+          hint: 'Startup is always the most damaging time for journal bearings.',
+        },
+        {
+          id: 'u8-L2c-Q1a',
+          type: 'true-false',
+          question: 'In hydrodynamic lubrication, a full oil film separates the shaft from the bearing surface.',
+          correctAnswer: true,
+          explanation: 'Yes. In the hydrodynamic regime, the shaft drags oil into a converging wedge that builds pressure, completely separating the metal surfaces.',
+          hint: 'Hydro = fluid, dynamic = motion.',
+        },
+        {
+          id: 'u8-L2-Q3',
+          type: 'true-false',
+          question: 'In hydrodynamic lubrication, load-carrying capacity increases with increasing viscosity and shaft speed.',
+          correctAnswer: true,
+          explanation: 'The Sommerfeld number S = (mu*N*d)/(P*c^2) governs hydrodynamic performance. Higher viscosity and speed both increase the oil film pressure.',
+          hint: 'Consider the hydrodynamic wedge effect.',
+        },
+        {
+          id: 'u8-L2-Q4',
+          type: 'multiple-choice',
+          question: 'A journal bearing in a pump shows intermittent high temps and metal contact noise only at startup. What is the cause?',
+          options: [
+            'Bearing clearance too large, causing rattle at all speeds',
+            'At low startup speed, bearing operates in boundary/mixed lubrication',
+            'Lubricant viscosity too high, causing overheat from poor flow',
+            'Shaft misalignment contacts bearing only during startup'
+          ],
+          correctIndex: 1,
+          explanation: 'This is a classic Stribeck curve problem. Hydrodynamic bearings need shaft rotation to drag lubricant into the wedge and build pressure. At startup speeds, the oil film hasn\'t formed yet.',
+          hint: 'On the Stribeck curve, low speed means the bearing number is low.',
+        },
+        {
+          id: 'u8-L2c-MP1',
+          type: 'match-pairs',
+          question: 'Match each lubrication regime to its characteristic.',
+          options: ['Boundary', 'Mixed', 'Hydrodynamic', 'Elastohydrodynamic'],
+          matchTargets: ['Metal-to-metal contact, highest wear', 'Partial oil film, some contact', 'Full oil film, lowest friction', 'Oil film in rolling contacts (gears)'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Boundary has direct contact, mixed is partial, hydrodynamic has full separation, and EHL applies to rolling contacts under high pressure.',
+          hint: 'Think about how much metal-to-metal contact exists.',
+        },
+        {
+          id: 'u8-L2c-T2',
+          type: 'teaching',
+          question: 'Sommerfeld number and bearing design',
+          explanation: 'The Sommerfeld number S = (mu*N*d)/(P*c^2) is the key dimensionless parameter for journal bearings. It combines viscosity (mu), speed (N), diameter (d), load pressure (P), and clearance (c). Higher S means thicker oil film and lower eccentricity.',
+          hint: 'Try this now: increasing clearance c reduces S quadratically.',
+        },
+        {
+          id: 'u8-L2c-Q5',
+          type: 'multiple-choice',
+          question: 'What happens to the minimum oil film thickness in a journal bearing if you double the shaft speed?',
+          options: [
+            'Film thickness stays the same',
+            'Film thickness approximately doubles',
+            'Film thickness increases (but not linearly)',
+            'Film thickness decreases because of heat'
+          ],
+          correctIndex: 2,
+          explanation: 'Higher speed increases the Sommerfeld number, which reduces eccentricity and increases film thickness. The relationship is not linear because the Sommerfeld number charts are nonlinear.',
+          hint: 'Higher speed means more oil is dragged into the wedge.',
+        },
+        {
+          id: 'u8-L2c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort into "Rolling element bearing advantage" vs. "Journal bearing advantage".',
+          options: ['Low friction at startup', 'Handles shock loads well', 'Low maintenance', 'Very heavy load capacity', 'Standardized catalog sizing', 'Silent at high load'],
+          buckets: ['Rolling element', 'Journal bearing'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Rolling elements win on startup friction, maintenance, and standardization. Journal bearings win on shock absorption, heavy loads, and noise at high load.',
+          hint: 'Journal bearings need speed to build their oil film.',
         },
         {
           id: 'u8-L2-Q15',
           type: 'multiple-choice',
-          question: 'What is the minimum film thickness parameter (lambda ratio) and what values indicate safe hydrodynamic lubrication?',
+          question: 'What is the Petroff equation used for?',
           options: [
-            'Lambda = h_min/R_a_combined.',
-            'Lambda = viscosity/pressure.',
-            'Lambda = oil flow rate/bearing clearance. Lambda > 10 means safe operation',
-            'Lambda = shaft speed/critical speed. Lambda > 0.5 means safe operation'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The lambda ratio (specific film thickness) is the ratio of the minimum oil film thickness to the composite surface roughness of the two mating surfaces.',
-          hint: 'This ratio compares the oil film thickness.'
-        },
-        {
-          id: 'u8-L2-T3',
-          type: 'teaching',
-          question: 'Lubrication regimes explained',
-          explanation: 'The Stribeck curve shows 3 lubrication regimes. Boundary: metal-to-metal contact at low speed. Mixed: partial oil film. Hydrodynamic: full oil film separates the surfaces completely. Journal bearings need enough speed to build a full oil wedge, which is why startup and shutdown are the most damaging moments.',
-          hint: 'The Sommerfeld number helps predict which regime you\'re in.',
-        },
-        {
-          id: 'u8-L2-Q16',
-          type: 'fill-blank',
-          question: 'The thin layer of soft metal used as the bearing surface in journal bearings is called _____ metal.',
-          blanks: ['Babbitt'],
-          wordBank: ['Babbitt', 'bronze', 'bearing', 'Monel', 'stellite'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="24" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Inner race --> <circle cx="40" cy="40" r="12" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="16" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Shaft hole --> <circle cx="40" cy="40" r="6" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.2"/> <!-- Rolling elements (balls) positioned between races --> <g> <circle cx="40" cy="20" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="54.1" cy="23.9" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="60" cy="40" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="54.1" cy="56.1" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="40" cy="60" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="25.9" cy="56.1" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="20" cy="40" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="25.9" cy="23.9" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <!-- Cage rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="6s" repeatCount="indefinite"/> </g> <!-- Inner race rotation indicator --> <g> <line x1="40" y1="40" x2="40" y2="34" stroke-width="0.5" stroke="#3B8700" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Load arrow --> <line x1="40" y1="2" x2="40" y2="10" stroke-width="0.6" stroke="#3B8700" opacity="0.4"/> <polygon points="38.5,10 41.5,10 40,13" fill="#3B8700" opacity="0.4"/> <text x="44" y="7" font-size="3" fill="#3B8700" opacity="0.4">W</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">anti-friction bearing</text> </svg>',
-          explanation: 'Babbitt metal (also called white metal) is a soft tin-based or lead-based alloy used as the bearing surface material in journal (plain) bearings.',
-          hint: 'This bearing material was invented in the 1830s.'
-        },
-        {
-          id: 'u8-L2-Q17',
-          type: 'multiple-choice',
-          question: 'For a purely radial load of 8 kN at 1500 RPM, which bearing gives longer life?',
-          options: [
-            '6208 ball bearing — ball bearings always outlast rollers',
-            'NU208 roller: L10 = (41/8)^(10/3) = 218 Mrev, much longer life',
-            'Both give the same life because they have the same bore size',
-            '6208 ball: L10 = (29.5/8)^3 = 50.1 Mrev, longer than roller'
+            'Calculating L10 bearing life',
+            'Estimating friction torque in a lightly loaded journal bearing',
+            'Determining the contact stress in rolling bearings',
+            'Selecting bearing clearance'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The roller bearing has both a higher C rating and a higher life exponent (10/3 vs. 3), giving it a dramatically longer life for purely radial loads.',
-          hint: 'Remember to use the correct exponent: p = 3 for ball.'
-        },
-        {
-          id: 'u8-L2-Q18',
-          type: 'multiple-choice',
-          question: 'What is the difference between face-to-face (DF) and back-to-back (DB) arrangements for paired angular contact bearings?',
-          options: [
-            'No difference — both arrangements perform identically in practice',
-            'DB (back-to-back) provides wider effective span and better moment rigidity',
-            'DF is used for high-speed applications and DB for low-speed applications',
-            'DB handles only radial loads while DF handles only axial loads'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
-          explanation: 'In back-to-back (DB) mounting, the contact lines diverge outward, creating a wider effective bearing span than the physical distance between bearings.',
-          hint: 'Trace the contact angle lines.'
-        },
-        {
-          id: 'u8-L2-Q19',
-          type: 'true-false',
-          question: 'Bearing preload always reduces bearing life because it increases the internal load on the rolling elements.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'While excessive preload does reduce bearing life by increasing contact stress, appropriate preload actually improves performance in several ways.',
-          hint: 'Consider the beneficial effects of eliminating internal.'
-        },
-        {
-          id: 'u8-L2-Q20',
-          type: 'multiple-choice',
-          question: 'A hydrodynamic journal bearing operates with a Sommerfeld number of 0.15. What does an eccentricity ratio of 0.6 mean physically?',
-          options: [
-            'Shaft center displaced 60% of radial clearance',
-            'The bearing is 60% worn from its original size',
-            'Shaft is rotating at 60% of the maximum speed',
-            'The oil fills 60% of the bearing clearance gap'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="24" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Inner race --> <circle cx="40" cy="40" r="12" stroke-width="1" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="16" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Shaft hole --> <circle cx="40" cy="40" r="6" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.2"/> <!-- Rolling elements (balls) positioned between races --> <g> <circle cx="40" cy="20" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="54.1" cy="23.9" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="60" cy="40" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="54.1" cy="56.1" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="40" cy="60" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="25.9" cy="56.1" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="20" cy="40" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <circle cx="25.9" cy="23.9" r="3.5" stroke-width="0.6" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.1"/> <!-- Cage rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="6s" repeatCount="indefinite"/> </g> <!-- Inner race rotation indicator --> <g> <line x1="40" y1="40" x2="40" y2="34" stroke-width="0.5" stroke="#3B8700" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Load arrow --> <line x1="40" y1="2" x2="40" y2="10" stroke-width="0.6" stroke="#3B8700" opacity="0.4"/> <polygon points="38.5,10 41.5,10 40,13" fill="#3B8700" opacity="0.4"/> <text x="44" y="7" font-size="3" fill="#3B8700" opacity="0.4">W</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">anti-friction bearing</text> </svg>',
-          explanation: 'The eccentricity ratio epsilon = e/c, where e is the displacement of the shaft center from the bearing center, and c is the radial clearance.',
-          hint: 'The eccentricity ratio describes where the shaft sits.'
-        },
-        {
-          id: 'u8-L2-Q21',
-          type: 'multiple-choice',
-          question: 'What is the primary failure mode that determines the L10 life rating of rolling element bearings?',
-          options: [
-            'Abrasive wear of the rolling elements from particle contamination',
-            'Subsurface-initiated fatigue spalling of the raceways under load',
-            'Cage failure and roller jamming from insufficient lubrication',
-            'Lubricant breakdown and overheating — which contradicts established test results'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The L10 life formula is based on subsurface-initiated rolling contact fatigue. Cyclic Hertzian contact stress creates a zone of maximum shear stress below the raceway surface (at about 0.5 times.',
-          hint: 'The L10 formula is based on a specific fatigue mechanism.'
-        },
-        {
-          id: 'u8-L2-Q22',
-          type: 'fill-blank',
-          question: 'The bearing arrangement where one bearing is fixed (locating) and the other can slide axially in its housing to accommodate _____?',
-          blanks: ['free'],
-          wordBank: ['free', 'rigid', 'preloaded', 'spring', 'duplex'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Shaft --> <rect x="4" y="36" width="72" height="8" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Housing (top) --> <rect x="14" y="10" width="52" height="16" rx="1" stroke-width="0.7" stroke="#58CC02" fill="none"/> <rect x="14" y="10" width="52" height="16" fill="#58CC02" opacity="0.03"/> <!-- Housing (bottom) --> <rect x="14" y="54" width="52" height="16" rx="1" stroke-width="0.7" stroke="#58CC02" fill="none"/> <rect x="14" y="54" width="52" height="16" fill="#58CC02" opacity="0.03"/> <!-- Labyrinth teeth (top, from housing downward) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="18" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="26" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="34" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="42" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="50" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="58" y="26" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> </g> <!-- Labyrinth teeth (bottom, from housing upward) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="18" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="26" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="34" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="42" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="50" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> <rect x="58" y="44" width="2" height="10" rx="0.3" fill="#58CC02" fill-opacity="0.06"/> </g> <!-- Pressure gradient (high to low) --> <text x="8" y="42" font-size="3" fill="#58CC02" opacity="0.4" text-anchor="middle">P_H</text> <text x="72" y="42" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">P_L</text> <!-- Leakage flow particles (tortuous path) --> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="16;22;22;30;30;38;38;46;46;54;54;62;62;68" dur="4s" repeatCount="indefinite"/> <animate attributeName="cy" values="34;34;32;32;34;34;32;32;34;34;32;32;34;34" dur="4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0.5"> <animate attributeName="cx" values="16;22;22;30;30;38;38;46;46;54;54;62;62;68" dur="4s" repeatCount="indefinite" begin="2s"/> <animate attributeName="cy" values="46;46;48;48;46;46;48;48;46;46;48;48;46;46" dur="4s" repeatCount="indefinite" begin="2s"/> </circle> <!-- Clearance gap label --> <line x1="62" y1="36" x2="62" y2="26" stroke-width="0.2" stroke="#3B8700" opacity="0.25"/> <text x="66" y="32" font-size="2" fill="#3B8700" opacity="0.3">gap</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">non-contact seal</text> </svg>',
-          explanation: 'In a fixed-free (or locating-non-locating) bearing arrangement, one bearing is fixed in both axial directions (it locates the shaft axially relative to the housing), while the other bearing.',
-          hint: 'One bearing locates the shaft, the other allows axial.'
-        },
-        {
-          id: 'u8-L2-Q23',
-          type: 'multiple-choice',
-          question: 'What advantage does an oil mist lubrication system provide over conventional oil bath or grease lubrication for high-speed bearings?',
-          options: [
-            'Higher load capacity due to thicker oil film',
-            'Minimal friction and heat generation',
-            'Lower initial cost than grease lubrication',
-            'Eliminates the need for bearing seals entirely'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'Oil mist lubrication delivers a fine aerosol of oil droplets suspended in air to the bearing.',
-          hint: 'At very high speeds, what causes the most bearing heat.'
-        },
-        {
-          id: 'u8-L2-Q24',
-          type: 'true-false',
-          question: 'If the bearing load doubles, the L10 life of a ball bearing is reduced to one-eighth of its original value.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bearing housing (outer) --> <circle cx="40" cy="40" r="26" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Journal (shaft, offset) --> <circle cx="42" cy="43" r="18" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="42" cy="43" r="3" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Oil wedge (crescent-shaped gap) --> <path d="M22,24 A26,26 0 0,1 58,24 A18,18 0 0,0 22,24" fill="#A5E86C" opacity="0.1"/> <!-- Pressure distribution (arrows from shaft surface outward) --> <g opacity="0.3"> <line x1="34" y1="26" x2="32" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="30.8,18 33.2,18 32,16" fill="#A5E86C"/> <line x1="42" y1="25" x2="42" y2="16" stroke-width="0.5" stroke="#A5E86C"/> <polygon points="40.5,16 43.5,16 42,14" fill="#A5E86C"/> <line x1="50" y1="26" x2="52" y2="18" stroke-width="0.4" stroke="#A5E86C"/> <polygon points="50.8,18 53.2,18 52,16" fill="#A5E86C"/> <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/> </g> <!-- Minimum film thickness --> <line x1="42" y1="61" x2="42" y2="66" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <text x="48" y="65" font-size="2.5" fill="#3B8700" opacity="0.35">h_min</text> <!-- Shaft rotation --> <g> <circle cx="42" cy="26" r="0.8" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,42,43;360,42,43" dur="2s" repeatCount="indefinite"/> </g> <!-- Eccentricity --> <line x1="40" y1="40" x2="42" y2="43" stroke-width="0.3" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="36" y="38" font-size="2.5" fill="#3B8700" opacity="0.35">e</text> <!-- Load arrow --> <g opacity="0.4"> <line x1="42" y1="70" x2="42" y2="66" stroke-width="0.5" stroke="#58CC02"/> <polygon points="40.5,70 43.5,70 42,72" fill="#58CC02"/> <text x="46" y="74" font-size="3" fill="#58CC02">W</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3" fill="#3B8700" opacity="0.15" font-style="italic">oil film pressure</text> </svg>',
-          explanation: 'For ball bearings: L10 = (C/P)^3. If the load doubles (P becomes 2P), the new life is L10_new = (C/2P)^3 = (1/2)^3 × (C/P)^3 = (1/8) × L10_original.',
-          hint: 'Apply the L10 formula with the new load and compare:.'
-        },
-        {
-          id: 'u8-L2-Q25',
-          type: 'multiple-choice',
-          question: 'What is the key design limitation of thrust ball bearings?',
-          options: [
-            'Cannot handle any radial load — purely axial bearings',
-            'Speed limited by centrifugal forces on balls at high RPM',
-            'They can only be used in vertical shaft orientations',
-            'They require oil lubrication and cannot use grease'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'Thrust ball bearings handle axial loads well but have a significant speed limitation.',
-          hint: 'Consider what forces act on the balls as the bearing.'
-        },
-        {
-          id: 'u8-L2-Q26',
-          type: 'multiple-choice',
-          question: 'What is the Sommerfeld number?',
-          options: [
-            'S = 0.045',
-            'S = 0.090',
-            'S = 0.225',
-            'S = 0.450'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.04"/> <circle cx="40" cy="40" r="28" stroke="#3B8700" stroke-width="2.5" fill="none" opacity="0.25"/> <circle cx="40" cy="42" r="22" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="42" r="22" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,42;360,40,42" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="20" x2="40" y2="64" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> <line x1="18" y1="42" x2="62" y2="42" stroke="#3B8700" stroke-width="0.8" opacity="0.12"/> </g> <circle cx="40" cy="42" r="5" fill="#3B8700" opacity="0.3"/> <circle cx="40" cy="42" r="2" fill="white" opacity="0.2"/> <path d="M20,54 Q30,50 40,52 Q50,54 60,50" stroke="#A5E86C" stroke-width="1.5" fill="none" opacity="0.3"> <animate attributeName="opacity" values="0.15;0.35;0.15" dur="2s" repeatCount="indefinite"/> </path> <text x="40" y="76" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">oil film</text> </svg>',
-          explanation: 'The Sommerfeld number S = (r/c)^2 × (mu × N) / P, where r = D/2 = 50 mm, c = 0.05 mm, mu = 30 × 10^-3 Pa·s, N = 1500/60 = 25 rev/s, and P = W/(L×D) = 5000/(0.05×0.1) = 1 MPa.',
-          hint: 'S = (r/c)^2 × (mu × N) / P. Be careful with units.'
-        },
-        {
-          id: 'u8-L2-Q27',
-          type: 'multiple-choice',
-          question: 'What is "false brinelling" in a rolling element bearing, and when does it occur?',
-          options: [
-            'Static overloading that creates permanent dents in the raceway — it occurs',
-            'Wear marks on the raceway caused by small oscillating movements of',
-            'Corrosion pits that resemble brinell marks — it occurs in humid storage',
-            'Fatigue spalling that occurs at the location of maximum Hertzian stress, which'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'False brinelling occurs when a non-rotating bearing is subjected to vibration (e.g., equipment in standby, bearings during transport, or wind-excited idle machinery).',
-          hint: 'This damage pattern looks like static overload dents.'
+          explanation: 'The Petroff equation estimates friction torque (and power loss) in a concentric (lightly loaded) journal bearing where the shaft is centered in the bearing.',
+          hint: 'This equation assumes no eccentricity (concentric operation).',
         },
         {
           id: 'u8-L2-Q28',
           type: 'true-false',
-          question: 'Hydrostatic bearings can theoretically support a load at zero shaft speed because the pressure is supplied by an external pump?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Housing bore (cross section) --> <rect x="10" y="10" width="22" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <rect x="48" y="10" width="22" height="60" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Shaft (center) --> <rect x="34" y="8" width="12" height="64" rx="1" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Seal body (rubber) --> <path d="M32,30 L32,50 Q34,48 34,40 Q34,32 32,30" stroke-width="0.7" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.1"/> <path d="M48,30 L48,50 Q46,48 46,40 Q46,32 48,30" stroke-width="0.7" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.1"/> <!-- Seal lip (spring-loaded against shaft) --> <path d="M32,36 Q34,38 34,40 Q34,42 32,44" stroke-width="1" stroke="#A5E86C" fill="none"/> <path d="M48,36 Q46,38 46,40 Q46,42 48,44" stroke-width="1" stroke="#A5E86C" fill="none"/> <!-- Garter spring --> <circle cx="31" cy="40" r="2" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.4"/> <circle cx="49" cy="40" r="2" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Metal case --> <path d="M28,28 L32,28 L32,52 L28,52" stroke-width="0.6" stroke="#58CC02" fill="none" opacity="0.5"/> <path d="M52,28 L48,28 L48,52 L52,52" stroke-width="0.6" stroke="#58CC02" fill="none" opacity="0.5"/> <!-- Shaft rotation indicator --> <g> <line x1="40" y1="40" x2="40" y2="34" stroke-width="0.3" stroke="#3B8700" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Oil side label --> <text x="16" y="40" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">oil</text> <!-- Air side label --> <text x="64" y="40" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">air</text> <!-- Oil film indicator --> <line x1="34" y1="38" x2="34" y2="42" stroke-width="0.3" stroke="#A5E86C" opacity="0.4"> <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/> </line> <!-- Hatching on housing --> <g stroke="#58CC02" stroke-width="0.2" opacity="0.12"> <line x1="12" y1="14" x2="16" y2="10"/><line x1="12" y1="24" x2="16" y2="20"/> <line x1="12" y1="54" x2="16" y2="50"/><line x1="12" y1="64" x2="16" y2="60"/> <line x1="64" y1="14" x2="68" y2="10"/><line x1="64" y1="24" x2="68" y2="20"/> <line x1="64" y1="54" x2="68" y2="50"/><line x1="64" y1="64" x2="68" y2="60"/> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">rotary shaft seal</text> </svg>',
-          explanation: 'Hydrostatic bearings use an external pump to supply pressurized oil to recesses (pockets) in the bearing surface. The pressurized oil creates a load-carrying film regardless of shaft speed,.',
-          hint: 'What is the source of the load-carrying oil pressure.'
+          question: 'A bearing with a higher dynamic load rating C always lasts longer than one with a lower C, regardless of conditions.',
+          correctAnswer: false,
+          explanation: 'Life also depends on the applied load P, lubrication, alignment, contamination, and temperature. A high-C bearing under poor conditions can fail faster than a lower-C bearing in ideal conditions.',
+          hint: 'The formula is L10 = (C/P)^p, but real life has many other factors.',
         },
         {
-          id: 'u8-L2-Q29',
+          id: 'u8-L2-Q26',
           type: 'multiple-choice',
-          question: 'What does the "C0" of a bearing represent, and when is it the governing design criterion instead of C (dynamic rating)?',
+          question: 'What is the primary purpose of bearing preload in angular contact bearings?',
           options: [
-            'C0 is the maximum load a bearing can carry at zero speed — it is never used',
-            'C0 is the static load that produces a permanent deformation of 0.0001d (0.01%',
-            'C0 is the load at which the bearing seizes due to insufficient clearance,',
-            'C0 is the load capacity at 0°C temperature, provided all secondary effects'
+            'To increase the bearing temperature for better lubrication',
+            'To eliminate internal clearance and increase rigidity',
+            'To reduce the dynamic load rating',
+            'To make the bearing self-aligning'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race --> <circle cx="40" cy="40" r="28" fill="#58CC02" opacity="0.05"/> <circle cx="40" cy="40" r="28" stroke="#58CC02" stroke-width="3" fill="none" opacity="0.3"/> <!-- Outer raceway groove (where balls contact) --> <circle cx="40" cy="40" r="23.5" stroke="#A5E86C" stroke-width="3" fill="none" opacity="0.06"/> <!-- Inner race --> <circle cx="40" cy="40" r="12.5" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="40" r="12.5" stroke="#3B8700" stroke-width="3" fill="none"/> <!-- Inner raceway groove --> <circle cx="40" cy="40" r="13.5" stroke="#A5E86C" stroke-width="2" fill="none" opacity="0.06"/> <!-- Inner race crosshairs (shaft rotation indicator) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="28" x2="40" y2="52" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> <line x1="28" y1="40" x2="52" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.15"/> </g> <!-- Shaft bore --> <circle cx="40" cy="40" r="5" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="2" fill="white" opacity="0.12"/> <!-- Ball cage + balls (cage speed ≈ half shaft speed) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="4s" repeatCount="indefinite"/> <!-- Cage retainer ring --> <circle cx="40" cy="40" r="18" stroke="#A5E86C" stroke-width="0.8" stroke-dasharray="4,10" fill="none" opacity="0.2"/> <!-- Ball 0° --> <circle cx="58" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="58" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="56.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 45° --> <circle cx="52.7" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 90° --> <circle cx="40" cy="22" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="22" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="20.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 135° --> <circle cx="27.3" cy="27.3" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="27.3" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="25.8" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 180° --> <circle cx="22" cy="40" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="22" cy="40" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="20.5" cy="38.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 225° --> <circle cx="27.3" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="27.3" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="25.8" cy="51.2" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 270° --> <circle cx="40" cy="58" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="40" cy="58" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="38.5" cy="56.5" r="1.5" fill="white" opacity="0.3"/> <!-- Ball 315° --> <circle cx="52.7" cy="52.7" r="5" fill="#58CC02" opacity="0.22"/> <circle cx="52.7" cy="52.7" r="5" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="51.2" cy="51.2" r="1.5" fill="white" opacity="0.3"/> </g> </svg>',
-          explanation: 'The basic static load rating C0 is the static load that produces a combined permanent deformation of the rolling element and raceway equal to 0.0001 times the rolling element diameter at the most.',
-          hint: 'This rating defines the allowable load before permanent.'
+          explanation: 'Preload eliminates internal clearance, increases stiffness, and distributes load more evenly among the rolling elements. It\'s essential for precision spindle applications.',
+          hint: 'Think about what happens if there\'s play in a precision spindle.',
         },
-        {
-          id: 'u8-L2-Q30',
-          type: 'fill-blank',
-          question: 'The curve that shows friction coefficient versus bearing parameter and identifies the three lubrication regimes is called the _____ curve.',
-          blanks: ['Stribeck'],
-          wordBank: ['Stribeck', 'Moody', 'Hertz', 'Sommerfeld', 'Raimondi'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Outer race (spherical inner surface) --> <ellipse cx="40" cy="40" rx="28" ry="24" stroke-width="0.8" stroke="#58CC02" fill="none"/> <!-- Inner race --> <circle cx="40" cy="40" r="10" stroke-width="0.7" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="4" stroke-width="0.4" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Two rows of barrel rollers --> <!-- Row 1 (upper) --> <g> <ellipse cx="40" cy="22" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08"/> <ellipse cx="25" cy="30" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08" transform="rotate(-30,25,30)"/> <ellipse cx="55" cy="30" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08" transform="rotate(30,55,30)"/> </g> <!-- Row 2 (lower) --> <g> <ellipse cx="40" cy="58" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08"/> <ellipse cx="25" cy="50" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08" transform="rotate(30,25,50)"/> <ellipse cx="55" cy="50" rx="5" ry="3" stroke-width="0.5" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.08" transform="rotate(-30,55,50)"/> </g> <!-- Center rib --> <line x1="14" y1="40" x2="66" y2="40" stroke-width="0.3" stroke="#3B8700" opacity="0.15"/> <!-- Misalignment indicator (tilted inner) --> <ellipse cx="40" cy="40" rx="10" ry="9" stroke-width="0.3" stroke="#3B8700" fill="none" opacity="0.2" transform="rotate(8,40,40)"> <animateTransform attributeName="transform" type="rotate" values="8,40,40;-8,40,40;8,40,40" dur="4s" repeatCount="indefinite"/> </ellipse> <!-- Shaft rotation --> <g> <circle cx="40" cy="30" r="0.7" fill="#58CC02" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="3s" repeatCount="indefinite"/> </g> <!-- Load + misalignment arrows --> <g opacity="0.35"> <line x1="40" y1="4" x2="40" y2="12" stroke-width="0.5" stroke="#3B8700"/> <polygon points="38.5,12 41.5,12 40,15" fill="#3B8700"/> <text x="46" y="8" font-size="2.5" fill="#3B8700">W</text> </g> <!-- Self-aligning label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">self-aligning</text> </svg>',
-          explanation: 'The Stribeck curve (named after Richard Stribeck, 1902) plots the friction coefficient against the bearing parameter (mu*N/P or a similar dimensionless group).',
-          hint: 'This famous curve from the early 1900s is fundamental.'
-        }
       ]
     },
+    // ────���─────────────────────────────────���──────────────────────
+    // LESSON 3a: Gears — Basics and Ratios
+    // ─────────────────��───────────────────────────────────────────
     {
       id: 'u8-L3',
-      title: 'Gears & Power Transmission',
-      description: 'Spur/helical/bevel/worm gears, Lewis equation, gear ratios, tooth contact stress, gear trains, efficiency.',
+      title: 'Gear Basics',
+      description: 'Gear ratios, speed and torque relationships, module, and pitch circle diameter.',
       icon: '📝',
       xpReward: 30,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u8-L3-T1',
           type: 'teaching',
           question: 'How gears transmit power',
-          explanation: 'Gears transfer rotational power between shafts by meshing teeth. The gear ratio equals the ratio of tooth counts: a 20-tooth pinion driving an 80-tooth gear gives a 4:1 ratio. Speed goes down by that factor, but torque goes up by the same factor. Power stays constant (minus friction losses).',
+          explanation: 'Gears transfer rotational power between shafts by meshing teeth. The gear ratio equals the ratio of tooth counts: a 20-tooth pinion driving an 80-tooth gear gives a 4:1 ratio. Speed goes down by that factor, torque goes up by the same factor.',
           hint: 'P = T x omega, so if speed halves, torque doubles.',
         },
         {
-          id: 'u8-L3-Q1',
-          type: 'multiple-choice',
-          question: 'If the pinion rotates at 1200 RPM and transmits 10 kW, what is the torque on the gear?',
-          options: [
-            '79.6 N·m',
-            '159.2 N·m',
-            '318.4 N·m',
-            '636.6 N·m'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Large Gear — 12 teeth, center (26,42), ro=18 --> <g> <animateTransform attributeName="transform" type="rotate" values="0,26,42;360,26,42" dur="4s" repeatCount="indefinite"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" fill="#58CC02" opacity="0.12"/> <path d="M39.4,40.1 L41.2,40.2 L44.0,41.2 L44.0,42.8 L41.2,43.8 L39.4,43.9 L38.5,47.0 L40.1,48.0 L42.0,50.3 L41.2,51.6 L38.3,51.2 L36.6,50.3 L34.3,52.6 L35.2,54.3 L35.6,57.2 L34.3,58.0 L32.0,56.1 L31.0,54.5 L27.9,55.4 L27.8,57.2 L26.8,60.0 L25.2,60.0 L24.2,57.2 L24.1,55.4 L21.0,54.5 L20.0,56.1 L17.7,58.0 L16.4,57.2 L16.8,54.3 L17.7,52.6 L15.4,50.3 L13.7,51.2 L10.8,51.6 L10.0,50.3 L11.9,48.0 L13.5,47.0 L12.6,43.9 L10.8,43.8 L8.0,42.8 L8.0,41.2 L10.8,40.2 L12.6,40.1 L13.5,37.0 L11.9,36.0 L10.0,33.7 L10.8,32.4 L13.7,32.8 L15.4,33.7 L17.7,31.4 L16.8,29.7 L16.4,26.8 L17.7,26.0 L20.0,27.9 L21.0,29.5 L24.1,28.6 L24.2,26.8 L25.2,24.0 L26.8,24.0 L27.8,26.8 L27.9,28.6 L31.0,29.5 L32.0,27.9 L34.3,26.0 L35.6,26.8 L35.2,29.7 L34.3,31.4 L36.6,33.7 L38.3,32.8 L41.2,32.4 L42.0,33.7 L40.1,36.0 L38.5,37.0 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="26" cy="42" r="9" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <!-- Spokes --> <line x1="26" y1="33" x2="26" y2="51" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> <line x1="17" y1="42" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.2" opacity="0.15"/> </g> <!-- Large gear hub (static) --> <circle cx="26" cy="42" r="4.5" fill="#58CC02" opacity="0.2"/> <circle cx="26" cy="42" r="3" fill="#3B8700"/> <circle cx="26" cy="42" r="1.2" fill="white" opacity="0.4"/> <!-- Small Gear — 8 teeth, center (56,42), ro=12, 3:2 ratio --> <g> <animateTransform attributeName="transform" type="rotate" values="0,56,42;-540,56,42" dur="4s" repeatCount="indefinite"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" fill="#58CC02" opacity="0.12"/> <path d="M64.9,43.6 L66.0,44.2 L67.4,45.9 L66.8,47.3 L64.6,47.5 L63.4,47.1 L61.1,49.4 L61.5,50.6 L61.3,52.8 L59.9,53.4 L58.2,52.0 L57.6,50.9 L54.4,50.9 L53.8,52.0 L52.1,53.4 L50.7,52.8 L50.5,50.6 L50.9,49.4 L48.6,47.1 L47.4,47.5 L45.2,47.3 L44.6,45.9 L46.0,44.2 L47.1,43.6 L47.1,40.4 L46.0,39.8 L44.6,38.1 L45.2,36.7 L47.4,36.5 L48.6,36.9 L50.9,34.6 L50.5,33.4 L50.7,31.2 L52.1,30.6 L53.8,32.0 L54.4,33.1 L57.6,33.1 L58.2,32.0 L59.9,30.6 L61.3,31.2 L61.5,33.4 L61.1,34.6 L63.4,36.9 L64.6,36.5 L66.8,36.7 L67.4,38.1 L66.0,39.8 L64.9,40.4 Z" stroke="#58CC02" stroke-width="1.5" fill="none"/> <!-- Inner ring --> <circle cx="56" cy="42" r="5.5" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> </g> <!-- Small gear hub (static) --> <circle cx="56" cy="42" r="3.5" fill="#58CC02" opacity="0.2"/> <circle cx="56" cy="42" r="2.2" fill="#3B8700"/> <circle cx="56" cy="42" r="0.8" fill="white" opacity="0.4"/> </svg>',
-          explanation: 'Gear ratio = N_gear/N_pinion = 80/20 = 4. Gear speed = 1200/4 = 300 RPM. Torque on pinion: T_p = P/ω = 10000/(1200 × 2π/60) = 10000/125.66 = 79.6 N·m.',
-          hint: 'Power is constant (P = Tω).'
-        },
-        {
-          id: 'u8-L3-Q2',
-          type: 'multiple-choice',
-          question: 'The gears were designed for a 5-year life. What are the possible causes, and how would you investigate?',
-          options: [
-            'The gear teeth are too thin — pitting is caused by bending stress exceeding',
-            'Pitting is surface contact fatigue caused by Hertzian stress exceeding',
-            'Pitting is caused by abrasive wear from contaminated oil.',
-            'Pitting always occurs on new gears during break-in and is not a concern.'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Left gear (partial, showing teeth) --> <circle cx="10" cy="40" r="28" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.15" stroke-dasharray="2,4"/> <!-- Pitch circle left --> <circle cx="10" cy="40" r="24" stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.3"/> <!-- Base circle left --> <circle cx="10" cy="40" r="21" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2,2"/> <!-- Left gear teeth (3 visible) --> <path d="M34,32 L36,30 L38,32 L38,36 L36,38 L34,36 Z" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <path d="M34,40 L36,38 L38,40 L38,44 L36,46 L34,44 Z" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <path d="M34,48 L36,46 L38,48 L38,52 L36,54 L34,52 Z" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <!-- Right gear (partial, showing teeth) --> <circle cx="70" cy="40" r="28" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.15" stroke-dasharray="2,4"/> <!-- Pitch circle right --> <circle cx="70" cy="40" r="24" stroke="#58CC02" stroke-width="1.2" fill="none" opacity="0.3"/> <!-- Base circle right --> <circle cx="70" cy="40" r="21" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2,2"/> <!-- Right gear teeth (3 visible, meshing) --> <path d="M46,36 L44,34 L42,36 L42,40 L44,42 L46,40 Z" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <path d="M46,44 L44,42 L42,44 L42,48 L44,50 L46,48 Z" fill="#58CC02" opacity="0.15" stroke="#3B8700" stroke-width="0.8"/> <!-- Pitch point (contact at pitch circles) --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.6"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> <!-- Pressure angle line (through pitch point) --> <line x1="34" y1="48" x2="46" y2="32" stroke="#3B8700" stroke-width="1" opacity="0.5"/> <!-- Common tangent (perpendicular to pressure angle at pitch point) --> <line x1="34" y1="32" x2="46" y2="48" stroke="#6B7280" stroke-width="0.6" stroke-dasharray="2,2" opacity="0.3"/> <!-- Pressure angle arc --> <path d="M42,36 A4,4 0 0,1 40,38" stroke="#3B8700" stroke-width="0.8" fill="none" opacity="0.5"/> <text x="44" y="35" font-size="4" fill="#334155" opacity="0.6">φ</text> <!-- Labels --> <text x="10" y="12" font-size="4" fill="#6B7280" text-anchor="middle">Pitch circle</text> <text x="10" y="68" font-size="3.5" fill="#6B7280" text-anchor="middle" opacity="0.5">Base circle</text> <!-- Addendum / Dedendum labels on right side --> <line x1="66" y1="12" x2="66" y2="16" stroke="#334155" stroke-width="0.6" opacity="0.4"/> <line x1="66" y1="16" x2="66" y2="19" stroke="#334155" stroke-width="0.6" opacity="0.4"/> <text x="72" y="14" font-size="3.5" fill="#334155" opacity="0.5">Add.</text> <text x="72" y="19" font-size="3.5" fill="#334155" opacity="0.5">Ded.</text> <!-- Pitch point label --> <text x="40" y="54" font-size="4" fill="#334155" text-anchor="middle" opacity="0.5">pitch point</text> <!-- Contact line label --> <text x="30" y="50" font-size="3.5" fill="#6B7280" opacity="0.4">line of</text> <text x="30" y="54" font-size="3.5" fill="#6B7280" opacity="0.4">action</text> </svg>',
-          explanation: 'Pitting is surface fatigue failure driven by cyclic Hertzian (contact) stress. Subsurface cracks initiate at the depth of maximum shear stress and propagate to the surface, releasing particles.',
-          hint: 'Pitting is a contact stress (Hertzian) problem, not.'
-        },
-        {
-          id: 'u8-L3-Q3',
+          id: 'u8-L3-Q1a',
           type: 'true-false',
-          question: 'A worm gear set is specified for a crane hoist to provide self-locking. However, self-locking worm gears are inherently less?',
+          question: 'In a gear pair, power is conserved (minus friction losses).',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Worm shaft (horizontal cylinder) --> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Worm thread (scrolling animation) --> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="64" y1="20" x2="70" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <!-- Worm wheel (below, slow rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="56" r="13" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.12"/> <!-- Teeth --> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="52.7" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="52.7" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="68.7" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="27.3" cy="43.3" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> <!-- Input/output arrows --> <polygon points="74,25 78,26 74,27" fill="#3B8700" opacity="0.2"/> <path d="M22,68 A14,14 0 0,0 26,72" stroke="#A5E86C" stroke-width="0.7" fill="none" opacity="0.15"/> <polygon points="25,71 28,74 24,73" fill="#A5E86C" opacity="0.15"/> <text x="40" y="10" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">high ratio</text> </svg>',
-          explanation: 'This is a fundamental engineering trade-off.',
-          hint: 'Consider the relationship between friction and efficiency.'
-        },
-        {
-          id: 'u8-L3-Q4',
-          type: 'multiple-choice',
-          question: 'Both can achieve the required ratio. What are the trade-offs, and when would you prefer each type?',
-          options: [
-            'Spur gears are always preferred — they are simpler, cheaper, and have no',
-            'Helical gears are always preferred — they are quieter and stronger in every',
-            'Helical gears: quieter, smoother (gradual tooth engagement), higher load',
-            'The only difference is noise — choose helical for quiet environments and spur'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The spur vs. helical decision involves several trade-offs.',
-          hint: 'Consider how the tooth contact differs between spur.'
-        },
-        {
-          id: 'u8-L3-T2',
-          type: 'teaching',
-          question: 'Spur, helical, bevel, and worm gears',
-          explanation: 'Spur gears have straight teeth and are the simplest. Helical gears have angled teeth for smoother, quieter operation but create axial thrust. Bevel gears transfer power between intersecting shafts (usually 90 degrees). Worm gears give very high ratios and can be self-locking, but have low efficiency.',
-          hint: 'Helical gears need thrust bearings to handle axial loads.',
-        },
-        {
-          id: 'u8-L3-Q5',
-          type: 'multiple-choice',
-          question: 'If the input shaft runs at 2400 RPM, what is the output speed?',
-          options: [
-            '100 RPM',
-            '200 RPM',
-            '400 RPM',
-            '800 RPM'
-          ],
-          correctIndex: 0,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Overall gear ratio = 3 × 4 × 2 = 24:1 (reduction). Output speed = 2400/24 = 100 RPM. Gear ratios in series multiply.',
-          hint: 'For gears in series, the total ratio is the product.'
-        },
-        {
-          id: 'u8-L3-Q6',
-          type: 'fill-blank',
-          question: 'The two primary gear tooth failure modes are _____ and _____ at the tooth root (bending fatigue).',
-          blanks: ['pitting', 'breakage'],
-          wordBank: ['pitting', 'breakage', 'scoring', 'erosion', 'fretting', 'spalling'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Horizontal shaft --> <rect x="2" y="38" width="28" height="4" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Vertical shaft --> <rect x="38" y="2" width="4" height="28" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Horizontal bevel gear (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,38,40;360,38,40" dur="2s" repeatCount="indefinite"/> <ellipse cx="38" cy="40" rx="16" ry="6" fill="#58CC02" opacity="0.1"/> <ellipse cx="38" cy="40" rx="16" ry="6" stroke="#58CC02" stroke-width="2" fill="none"/> <ellipse cx="38" cy="40" rx="10" ry="3.5" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="22" cy="40" r="1.5" fill="#3B8700" opacity="0.25"/> <circle cx="38" cy="34" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="38" cy="46" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <!-- Vertical bevel gear (rotating, meshed at 90°) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,38;-360,40,38" dur="2s" repeatCount="indefinite"/> <ellipse cx="40" cy="38" rx="6" ry="16" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="38" rx="6" ry="16" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="38" rx="3.5" ry="10" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="40" cy="22" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="40" cy="54" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Mesh point --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- 90° angle indicator --> <rect x="30" y="30" width="4" height="4" stroke="#3B8700" stroke-width="0.6" fill="none" opacity="0.15"/> <text x="56" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">90° power transfer</text> </svg>',
-          explanation: 'Pitting is surface fatigue failure caused by cyclic Hertzian (contact) stress. Subsurface cracks initiate at the depth of maximum shear stress, propagate to the surface, and release small.',
-          hint: 'This surface fatigue phenomenon creates small craters.'
-        },
-        {
-          id: 'u8-L3-Q7',
-          type: 'multiple-choice',
-          question: 'What does the Lewis form factor depend on?',
-          options: [
-            'Only the gear material and hardness — a secondary effect only',
-            'Only the module and face width, not tooth count',
-            'Number of teeth determines tooth geometry at the root',
-            'The rotational speed and the power transmitted'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The Lewis form factor Y depends on the number of teeth because the tooth profile geometry changes with tooth count.',
-          hint: 'The Lewis form factor characterizes the tooth geometry.'
-        },
-        {
-          id: 'u8-L3-T3',
-          type: 'teaching',
-          question: 'Gear tooth sizing and failure',
-          explanation: 'Gear teeth fail in two main ways: bending fatigue at the tooth root (analyzed with the Lewis equation) and surface pitting from contact stress (Hertzian stress). The module (m = D/Z) sets the tooth size. Pitch circle diameter is simply m times the number of teeth.',
-          hint: 'The Lewis form factor depends on the number of teeth.',
+          explanation: 'Yes. P = T x omega stays constant through the gear mesh. If speed drops, torque increases proportionally.',
+          hint: 'Energy in = energy out (minus losses to friction and heat).',
         },
         {
           id: 'u8-L3-Q8',
@@ -1000,25 +821,66 @@ export const unit8: Unit = {
             '200 mm'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The pitch circle diameter is D = m × Z = 4 × 25 = 100 mm. The module is the ratio of the pitch diameter to the number of teeth (m = D/Z).',
-          hint: 'The pitch circle diameter is simply the product.'
+          explanation: 'D = m x Z = 4 x 25 = 100 mm. The module is the ratio of pitch diameter to number of teeth (m = D/Z).',
+          hint: 'The pitch circle diameter is simply module times teeth.',
+        },
+        {
+          id: 'u8-L3-Q1',
+          type: 'multiple-choice',
+          question: 'A 20-tooth pinion drives an 80-tooth gear at 1200 RPM transmitting 10 kW. What is the torque on the gear?',
+          options: [
+            '79.6 N*m',
+            '159.2 N*m',
+            '318.4 N*m',
+            '636.6 N*m'
+          ],
+          correctIndex: 2,
+          explanation: 'Gear ratio = 80/20 = 4. Gear speed = 1200/4 = 300 RPM. Torque on pinion: T_p = P/omega = 10000/125.66 = 79.6 N*m. Gear torque = 79.6 x 4 = 318.4 N*m.',
+          hint: 'Power is constant (P = T*omega). Gear ratio multiplies torque.',
+        },
+        {
+          id: 'u8-L3-T1b',
+          type: 'teaching',
+          question: 'Gear trains multiply ratios',
+          explanation: 'When multiple gear pairs are connected in series, the overall ratio is the product of individual ratios. A 3-stage gearbox with ratios of 3:1, 4:1, and 2:1 gives an overall ratio of 3 x 4 x 2 = 24:1.',
+          hint: 'Try this now: calculate the output speed of a 24:1 gearbox at 2400 RPM input.',
+        },
+        {
+          id: 'u8-L3-Q5',
+          type: 'multiple-choice',
+          question: 'A 3-stage gearbox has ratios of 3:1, 4:1, and 2:1. If the input is 2400 RPM, what is the output speed?',
+          options: [
+            '100 RPM',
+            '200 RPM',
+            '400 RPM',
+            '800 RPM'
+          ],
+          correctIndex: 0,
+          explanation: 'Overall gear ratio = 3 x 4 x 2 = 24:1. Output speed = 2400/24 = 100 RPM.',
+          hint: 'For gears in series, the total ratio is the product.',
         },
         {
           id: 'u8-L3-Q9',
           type: 'true-false',
-          question: 'In a standard 20-degree pressure angle spur gear system, the minimum number of teeth on the pinion to avoid undercutting is 17.',
+          question: 'In a standard 20-degree pressure angle spur gear, the minimum number of teeth to avoid undercutting is 17.',
           correctAnswer: true,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Undercutting occurs when the dedendum circle of the mating gear extends below the base circle of the pinion during generation.',
-          hint: 'Use Z_min = 2/sin^2(phi).'
+          explanation: 'Undercutting occurs when the dedendum circle extends below the base circle. For 20-degree pressure angle: Z_min = 2/sin^2(20) = 2/0.117 = 17.1, so 17 teeth minimum.',
+          hint: 'Use Z_min = 2/sin^2(phi).',
+        },
+        {
+          id: 'u8-L3-MP1',
+          type: 'match-pairs',
+          question: 'Match each gear term to its definition.',
+          options: ['Module (m)', 'Pitch circle', 'Addendum', 'Dedendum'],
+          matchTargets: ['D/Z, sets tooth size', 'Imaginary circle where teeth mesh', 'Tooth height above pitch circle', 'Tooth depth below pitch circle'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Module defines tooth size, pitch circle is the meshing reference, addendum is the tip, dedendum is the root.',
+          hint: 'These terms describe the geometry of a gear tooth.',
         },
         {
           id: 'u8-L3-Q10',
           type: 'multiple-choice',
-          question: 'If the sun gear is the input at 1000 RPM and the ring gear is fixed, what is the output speed of the planet carrier?',
+          question: 'In a planetary gear set, sun = 20 teeth, ring = 80 teeth. Sun input at 1000 RPM, ring fixed. Carrier output speed?',
           options: [
             '100 RPM',
             '200 RPM',
@@ -1026,300 +888,350 @@ export const unit8: Unit = {
             '500 RPM'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Ring gear (fixed outer, static) --> <circle cx="40" cy="40" r="30" stroke="#3B8700" stroke-width="3" fill="none" opacity="0.2"/> <circle cx="40" cy="40" r="27" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.08"/> <!-- Carrier arm (rotating slowly) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="6s" repeatCount="indefinite"/> <line x1="40" y1="40" x2="40" y2="22" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.25"/> <line x1="40" y1="40" x2="40" y2="58" stroke="#3B8700" stroke-width="2" stroke-linecap="round" opacity="0.25"/> <!-- Planet gear 1 (top) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,24;-720,40,24" dur="6s" repeatCount="indefinite"/> <circle cx="40" cy="24" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="24" r="8" stroke="#58CC02" stroke-width="1.5" fill="none"/> <line x1="40" y1="16" x2="40" y2="32" stroke="#A5E86C" stroke-width="0.8" opacity="0.2"/> <circle cx="40" cy="24" r="2" fill="#3B8700" opacity="0.4"/> </g> <!-- Planet gear 2 (bottom) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-720,40,56" dur="6s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="56" r="8" stroke="#58CC02" stroke-width="1.5" fill="none"/> <line x1="40" y1="48" x2="40" y2="64" stroke="#A5E86C" stroke-width="0.8" opacity="0.2"/> <circle cx="40" cy="56" r="2" fill="#3B8700" opacity="0.4"/> </g> </g> <!-- Sun gear (center, fast rotation) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,40;-360,40,40" dur="3s" repeatCount="indefinite"/> <circle cx="40" cy="40" r="8" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="8" stroke="#3B8700" stroke-width="2" fill="none"/> <line x1="40" y1="32" x2="40" y2="48" stroke="#3B8700" stroke-width="1" opacity="0.2"/> <line x1="32" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.2"/> </g> <circle cx="40" cy="40" r="3" fill="#3B8700"/> <circle cx="40" cy="40" r="1.2" fill="white" opacity="0.2"/> <!-- Labels --> <text x="40" y="10" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2">ring (fixed)</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.2">sun + planets + carrier</text> </svg>',
-          explanation: 'Using the fundamental equation of planetary gears (Willis equation): N_R - N_C = -Z_S/Z_R × (N_S - N_C), where N = speed, Z = teeth, S = sun, R = ring, C = carrier.',
-          hint: 'Use the Willis equation with the ring gear speed set.'
+          explanation: 'Using the Willis equation with the ring fixed (N_R = 0): carrier speed N_C = N_S x Z_S / (Z_S + Z_R) = 1000 x 20 / (20 + 80) = 200 RPM.',
+          hint: 'Use the Willis equation with ring speed set to zero.',
         },
         {
           id: 'u8-L3-Q11',
           type: 'multiple-choice',
-          question: 'What is the contact ratio in spur gearing, and why is a value greater than 1.0 essential?',
+          question: 'What is the contact ratio in spur gearing, and why must it exceed 1.0?',
           options: [
-            'Contact ratio is the ratio of tooth contact area to total tooth surface area.',
-            'Contact ratio is the ratio of the length of the path of contact to the base',
-            'Contact ratio is the ratio of the pinion speed to the gear speed.',
-            'Contact ratio is the percentage of the gear face width in contact.'
+            'Ratio of tooth contact area to total tooth surface',
+            'Ratio of path of contact length to base pitch, ensures continuous meshing',
+            'Ratio of pinion speed to gear speed',
+            'Percentage of gear face width in contact'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The contact ratio (CR) equals the length of the arc of action divided by the circular pitch (or equivalently, the length of the path of contact divided by the base pitch).',
-          hint: 'This ratio ensures smooth, continuous tooth engagement.'
+          explanation: 'The contact ratio equals the length of the path of contact divided by the base pitch. A value above 1.0 means at least one tooth pair is always in contact for smooth, continuous operation.',
+          hint: 'This ratio ensures smooth, continuous tooth engagement.',
+        },
+      ]
+    },
+    // ─────────────────────────────────────────────────────────────
+    // LESSON 3b: Gears — Types and Selection
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: 'u8-L3b',
+      title: 'Gear Types',
+      description: 'Spur, helical, bevel, and worm gears: characteristics, trade-offs, and selection.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L3-T2',
+          type: 'teaching',
+          question: 'Spur, helical, bevel, and worm gears',
+          explanation: 'Spur gears have straight teeth and are the simplest. Helical gears have angled teeth for smoother, quieter operation but create axial thrust. Bevel gears transfer power between intersecting shafts. Worm gears give very high ratios and can be self-locking.',
+          hint: 'Helical gears need thrust bearings to handle axial loads.',
+        },
+        {
+          id: 'u8-L3b-Q1a',
+          type: 'multiple-choice',
+          question: 'Which gear type has the simplest, straight teeth?',
+          options: ['Spur', 'Helical', 'Bevel', 'Worm'],
+          correctIndex: 0,
+          explanation: 'Spur gears have straight teeth parallel to the shaft axis. They\'re the simplest and cheapest to manufacture.',
+          hint: 'The most basic gear type.',
+        },
+        {
+          id: 'u8-L3-Q4',
+          type: 'multiple-choice',
+          question: 'When would you prefer helical gears over spur gears?',
+          options: [
+            'Spur gears are always preferred',
+            'Helical gears are always preferred',
+            'Helical for quieter operation and higher load capacity, spur for simplicity',
+            'The only difference is noise level'
+          ],
+          correctIndex: 2,
+          explanation: 'Helical gears engage gradually (smoother, quieter) and share load across more tooth length. But they create axial thrust and cost more to manufacture.',
+          hint: 'Consider how the tooth contact differs between spur and helical.',
+        },
+        {
+          id: 'u8-L3-SB1',
+          type: 'sort-buckets',
+          question: 'Sort these characteristics into "Spur gear" vs. "Helical gear".',
+          options: ['Straight teeth', 'Angled teeth', 'No axial thrust', 'Creates axial thrust', 'Noisier at high speed', 'Smoother tooth engagement'],
+          buckets: ['Spur gear', 'Helical gear'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Spur gears have straight teeth, no axial thrust, and are noisier. Helical gears have angled teeth, create thrust, and run smoother.',
+          hint: 'The helix angle is what creates the axial thrust force.',
+        },
+        {
+          id: 'u8-L3-Q3',
+          type: 'true-false',
+          question: 'Self-locking worm gears are inherently less efficient than non-self-locking worm gears.',
+          correctAnswer: true,
+          explanation: 'Self-locking requires high friction (low lead angle), which means more energy is lost to heat. This is a fundamental trade-off: safety vs. efficiency.',
+          hint: 'Consider the relationship between friction and efficiency.',
+        },
+        {
+          id: 'u8-L3b-T2',
+          type: 'teaching',
+          question: 'Helical gear forces',
+          explanation: 'Helical gear teeth create three force components: tangential (Wt = 2T/d), radial (Wr = Wt*tan(phi)/cos(psi)), and axial (Wa = Wt*tan(psi)). The helix angle psi determines how much axial thrust is generated.',
+          hint: 'The axial force is why helical gears need thrust bearings.',
         },
         {
           id: 'u8-L3-Q12',
           type: 'multiple-choice',
-          question: 'What are the three force components acting on a helical gear tooth, and how does the helix angle affect them?',
+          question: 'What are the three force components on a helical gear tooth?',
           options: [
-            'Only tangential and radial — helical gears have no additional forces compared',
-            'Tangential (Wt = 2T/d), radial (Wr = Wt*tan(phi)/cos(psi))',
+            'Only tangential and radial, same as spur',
+            'Tangential, radial, and axial (from the helix angle)',
             'Tangential, gravitational, and centrifugal',
             'Tangential, radial, and frictional'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'Helical gear teeth are inclined at a helix angle psi to the gear axis, creating three force components.',
-          hint: 'The helix angle introduces a force component that spur.'
+          explanation: 'The helix angle creates an additional axial force component that spur gears don\'t have. This is why helical gears need thrust bearings.',
+          hint: 'The helix angle introduces a force that spur gears don\'t have.',
         },
         {
           id: 'u8-L3-Q13',
           type: 'true-false',
-          question: 'A bevel gear set can connect two shafts at any angle, not just 90 degrees, though 90-degree shaft angles are the most common configuration.',
+          question: 'Bevel gears can connect shafts at any angle, not just 90 degrees.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Horizontal shaft --> <rect x="2" y="38" width="28" height="4" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Vertical shaft --> <rect x="38" y="2" width="4" height="28" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Horizontal bevel gear (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,38,40;360,38,40" dur="2s" repeatCount="indefinite"/> <ellipse cx="38" cy="40" rx="16" ry="6" fill="#58CC02" opacity="0.1"/> <ellipse cx="38" cy="40" rx="16" ry="6" stroke="#58CC02" stroke-width="2" fill="none"/> <ellipse cx="38" cy="40" rx="10" ry="3.5" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="22" cy="40" r="1.5" fill="#3B8700" opacity="0.25"/> <circle cx="38" cy="34" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="38" cy="46" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <!-- Vertical bevel gear (rotating, meshed at 90°) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,38;-360,40,38" dur="2s" repeatCount="indefinite"/> <ellipse cx="40" cy="38" rx="6" ry="16" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="38" rx="6" ry="16" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="38" rx="3.5" ry="10" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="40" cy="22" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="40" cy="54" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Mesh point --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- 90° angle indicator --> <rect x="30" y="30" width="4" height="4" stroke="#3B8700" stroke-width="0.6" fill="none" opacity="0.15"/> <text x="56" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">90° power transfer</text> </svg>',
-          explanation: 'Bevel gears are designed to transmit power between intersecting shafts at various angles.',
-          hint: 'Bevel gear cones can be designed for various included.'
+          explanation: 'Bevel gears transmit power between intersecting shafts at various angles. 90-degree configurations are most common, but other angles work too.',
+          hint: 'Bevel gear cones can be designed for various included angles.',
         },
         {
-          id: 'u8-L3-Q14',
-          type: 'multiple-choice',
-          question: 'In the AGMA gear design methodology, the two primary failure modes checked are:',
-          options: [
-            'Bending fatigue at the tooth root (using the Lewis/AGMA bending stress',
-            'Tooth shear failure and bearing overload, which would only hold true if',
-            'Abrasive wear and corrosion',
-            'Thermal distortion and vibration resonance'
-          ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'AGMA gear rating requires checking two independent failure modes: Bending stress at the tooth root — the tooth acts as a cantilever beam, and the maximum tensile stress occurs at the root fillet.',
-          hint: 'Gear teeth can fail by breaking off at the root.'
+          id: 'u8-L3b-MP1',
+          type: 'match-pairs',
+          question: 'Match each gear type to its best use case.',
+          options: ['Spur', 'Helical', 'Bevel', 'Worm'],
+          matchTargets: ['Simple, low-cost parallel shafts', 'Quiet, high-load parallel shafts', '90-degree intersecting shafts', 'Very high ratio, self-locking'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Each gear type is optimized for specific shaft arrangements and requirements.',
+          hint: 'Think about the shaft orientation each type handles.',
         },
         {
           id: 'u8-L3-Q15',
           type: 'multiple-choice',
-          question: 'A worm gear reducer has a worm lead angle of 5 degrees. If the coefficient of friction is 0.08, will the gear set be self-locking?',
+          question: 'A worm gear set has a single-start worm and a 40-tooth worm wheel. What is the gear ratio?',
           options: [
-            'No — the lead angle must be zero for self-locking',
-            'Yes — self-locking occurs when the lead angle is less than the friction angle.',
-            'Yes — self-locking always occurs when the lead angle is less than 10 degrees',
-            'No — the lead angle (5 degrees) is greater than the friction angle'
-          ],
-          correctIndex: 3,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="20" width="64" height="12" rx="6" fill="#58CC02" opacity="0.08"/> <rect x="8" y="20" width="64" height="12" rx="6" stroke="#3B8700" stroke-width="1.5" fill="none"/> <g> <line x1="16" y1="20" x2="22" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="28" y1="20" x2="34" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="40" y1="20" x2="46" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <line x1="52" y1="20" x2="58" y2="32" stroke="#A5E86C" stroke-width="1.5" opacity="0.3"/> <animateTransform attributeName="transform" type="translate" values="0,0;-12,0" dur="0.8s" repeatCount="indefinite"/> </g> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,56;-36,40,56" dur="0.8s" repeatCount="indefinite"/> <circle cx="40" cy="56" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="40" cy="56" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="40" cy="38" r="1.8" fill="#3B8700" opacity="0.3"/> <circle cx="58" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="74" r="1.8" fill="#3B8700" opacity="0.25"/> <circle cx="22" cy="56" r="1.8" fill="#3B8700" opacity="0.25"/> </g> <circle cx="40" cy="56" r="4" fill="#3B8700"/> <circle cx="40" cy="56" r="1.5" fill="white" opacity="0.25"/> </svg>',
-          explanation: 'Self-locking occurs when the lead angle (lambda) is less than the friction angle (arctan(mu)). Friction angle = arctan(0.08) = 4.57 degrees.',
-          hint: 'Compare the lead angle with arctan(coefficient.'
-        },
-        {
-          id: 'u8-L3-Q16',
-          type: 'fill-blank',
-          question: 'The imaginary circle on which gear teeth appear to roll without slipping against each other is called the _____ circle.',
-          blanks: ['pitch'],
-          wordBank: ['pitch', 'base', 'addendum', 'dedendum', 'root'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'The pitch circle is the theoretical circle on which gear teeth mesh — it represents the pure rolling contact between two mating gears (no sliding at the pitch point).',
-          hint: 'This circle defines the theoretical rolling contact.'
-        },
-        {
-          id: 'u8-L3-Q17',
-          type: 'multiple-choice',
-          question: 'What is the velocity ratio of a compound gear train where gear A (30 teeth) drives gear B (90 teeth), and gear C drives gear D (60 teeth)?',
-          options: [
-            '3:1',
-            '6:1',
-            '9:1',
-            '12:1'
+            '10:1',
+            '20:1',
+            '40:1',
+            '80:1'
           ],
           correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Horizontal shaft --> <rect x="2" y="38" width="28" height="4" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Vertical shaft --> <rect x="38" y="2" width="4" height="28" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Horizontal bevel gear (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,38,40;360,38,40" dur="2s" repeatCount="indefinite"/> <ellipse cx="38" cy="40" rx="16" ry="6" fill="#58CC02" opacity="0.1"/> <ellipse cx="38" cy="40" rx="16" ry="6" stroke="#58CC02" stroke-width="2" fill="none"/> <ellipse cx="38" cy="40" rx="10" ry="3.5" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="22" cy="40" r="1.5" fill="#3B8700" opacity="0.25"/> <circle cx="38" cy="34" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="38" cy="46" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <!-- Vertical bevel gear (rotating, meshed at 90°) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,38;-360,40,38" dur="2s" repeatCount="indefinite"/> <ellipse cx="40" cy="38" rx="6" ry="16" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="38" rx="6" ry="16" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="38" rx="3.5" ry="10" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="40" cy="22" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="40" cy="54" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Mesh point --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- 90° angle indicator --> <rect x="30" y="30" width="4" height="4" stroke="#3B8700" stroke-width="0.6" fill="none" opacity="0.15"/> <text x="56" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">90° power transfer</text> </svg>',
-          explanation: 'In a compound gear train, gears on the same shaft rotate at the same speed. Stage 1: ratio = Z_B/Z_A = 90/30 = 3. Stage 2: ratio = Z_D/Z_C = 60/20 = 3.',
-          hint: 'Multiply the individual stage ratios.'
+          explanation: 'Worm gear ratio = number of worm wheel teeth / number of worm starts = 40/1 = 40:1. This is why worm gears achieve very high ratios in a compact package.',
+          hint: 'Ratio = wheel teeth / worm starts.',
+        },
+        {
+          id: 'u8-L3-Q6',
+          type: 'fill-blank',
+          question: 'The two primary gear tooth failure modes are surface _____ and tooth root breakage (bending fatigue).',
+          blanks: ['pitting'],
+          wordBank: ['pitting', 'scoring', 'erosion', 'fretting', 'spalling'],
+          explanation: 'Pitting is surface fatigue from cyclic Hertzian contact stress. Tooth root breakage is bending fatigue. These are the two failure modes checked in AGMA design.',
+          hint: 'This surface fatigue creates small craters on the tooth flanks.',
+        },
+      ]
+    },
+    // ─────��─────────────────────────��─────────────────────────────
+    // LESSON 3c: Gears — Tooth Strength and AGMA Design
+    // ─���────────────────────��──────────────────────────────────────
+    {
+      id: 'u8-L3c',
+      title: 'Gear Tooth Design',
+      description: 'Lewis equation, AGMA bending and contact stress, form factor, and gear sizing.',
+      icon: '📝',
+      xpReward: 30,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L3-T3',
+          type: 'teaching',
+          question: 'Gear tooth sizing and failure',
+          explanation: 'Gear teeth fail by bending fatigue at the root (Lewis equation) and surface pitting from contact stress (Hertzian). The module (m = D/Z) sets tooth size. AGMA design requires checking both failure modes independently.',
+          hint: 'The Lewis form factor depends on the number of teeth.',
+        },
+        {
+          id: 'u8-L3c-Q1a',
+          type: 'multiple-choice',
+          question: 'AGMA gear design checks two independent failure modes. Which are they?',
+          options: [
+            'Bending fatigue at root and surface pitting from contact stress',
+            'Tooth shear and bearing overload',
+            'Abrasive wear and corrosion',
+            'Thermal distortion and vibration'
+          ],
+          correctIndex: 0,
+          explanation: 'AGMA requires checking bending stress at the tooth root (Lewis/AGMA method) and contact stress on the tooth flank (Hertzian/AGMA method). Both must be within allowable limits.',
+          hint: 'Teeth can break off at the root or pit on the surface.',
+        },
+        {
+          id: 'u8-L3-Q7',
+          type: 'multiple-choice',
+          question: 'What does the Lewis form factor depend on?',
+          options: [
+            'Only material and hardness',
+            'Only module and face width',
+            'Number of teeth, which determines tooth geometry at the root',
+            'Rotational speed and power transmitted'
+          ],
+          correctIndex: 2,
+          explanation: 'The Lewis form factor Y depends on number of teeth because the tooth profile geometry (root fillet shape and thickness) changes with tooth count.',
+          hint: 'The form factor characterizes the tooth root geometry.',
+        },
+        {
+          id: 'u8-L3-Q2',
+          type: 'multiple-choice',
+          question: 'Spur gear teeth show pitting on the flanks after 2 years. What is the root cause?',
+          options: [
+            'Teeth are too thin, pitting is from bending stress',
+            'Surface contact fatigue from Hertzian stress exceeding the allowable limit',
+            'Abrasive wear from contaminated oil',
+            'Pitting always occurs during break-in'
+          ],
+          correctIndex: 1,
+          explanation: 'Pitting is surface fatigue driven by cyclic Hertzian contact stress. Subsurface cracks initiate at the depth of maximum shear stress and propagate to the surface.',
+          hint: 'Pitting is a contact stress (Hertzian) problem.',
+        },
+        {
+          id: 'u8-L3c-T2',
+          type: 'teaching',
+          question: 'Lewis bending stress equation',
+          explanation: 'The Lewis equation estimates bending stress at the tooth root: sigma = Wt/(b*m*Y), where Wt is the tangential force, b is face width, m is module, and Y is the form factor. AGMA adds correction factors for dynamics, overload, and reliability.',
+          hint: 'Try this now: more teeth means a higher Y factor and lower stress.',
+        },
+        {
+          id: 'u8-L3-Q14',
+          type: 'multiple-choice',
+          question: 'In AGMA methodology, the two primary failure modes checked are:',
+          options: [
+            'Bending fatigue at root (Lewis/AGMA) and surface pitting (Hertzian/AGMA)',
+            'Tooth shear and bearing overload',
+            'Abrasive wear and corrosion',
+            'Thermal distortion and vibration resonance'
+          ],
+          correctIndex: 0,
+          explanation: 'AGMA gear rating requires checking bending stress at the tooth root and contact stress on the flank. Both must be below their respective allowable stresses.',
+          hint: 'Gear teeth can fail by breaking off or by surface fatigue.',
+        },
+        {
+          id: 'u8-L3c-OS1',
+          type: 'order-steps',
+          question: 'Order the AGMA gear design process.',
+          steps: ['Determine power, speed, and gear ratio', 'Select module and number of teeth', 'Calculate tangential force Wt', 'Check bending stress at tooth root', 'Check contact stress on tooth flank'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'AGMA design starts with requirements, then geometry selection, force calculation, and finally both stress checks.',
+          hint: 'You need the geometry before you can calculate forces.',
         },
         {
           id: 'u8-L3-Q18',
           type: 'multiple-choice',
-          question: 'When designing gears for a speed reducer, the pinion is typically made harder than the gear. Why?',
+          question: 'Increasing the face width of a gear by 50% affects bending stress and contact stress differently. How?',
           options: [
-            'The pinion costs less to harden because it is smaller',
-            'Pinion makes more contact cycles, rotating faster',
-            'Pinion is always input gear, must be harder by code',
-            'Making the pinion harder significantly reduces noise'
+            'Both decrease by 50%',
+            'Bending decreases by 33%, contact decreases by 18%',
+            'Both decrease by 33%',
+            'Only contact stress changes'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'In a speed reducer, the pinion (smaller gear) rotates faster than the gear (larger gear) by the gear ratio.',
-          hint: 'Consider how many times each pinion tooth contacts a gear.'
+          explanation: 'Bending stress is inversely proportional to face width (sigma ~ 1/b, so 1/1.5 = 33% reduction). Contact stress is inversely proportional to sqrt(b) (1/sqrt(1.5) = 18% reduction).',
+          hint: 'Bending stress is proportional to 1/b, contact stress to 1/sqrt(b).',
         },
         {
           id: 'u8-L3-Q19',
           type: 'true-false',
-          question: 'The pressure angle in a gear system affects the direction of the force between meshing teeth. A higher pressure angle produces a?',
+          question: 'Case-hardened gears are stronger in both bending and surface contact than through-hardened gears of the same grade.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'The pressure angle (phi) is the angle between the line of action (the direction of the tooth contact force) and the tangent to the pitch circles.',
-          hint: 'Resolve the tooth contact force into tangential and radial.'
-        },
-        {
-          id: 'u8-L3-Q20',
-          type: 'multiple-choice',
-          question: 'A gear set is producing excessive noise during operation. Which design modifications can reduce gear noise?',
-          options: [
-            'Increase the module (larger teeth) and reduce the face width',
-            'Switch from spur to helical gears, increase the contact ratio, improve tooth',
-            'Use a lower-viscosity lubricant to reduce churning noise — though this factor',
-            'Increase the operating speed to move past resonant frequencies —'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Gear noise is caused by transmission error — the deviation from perfect conjugate (constant velocity ratio) motion.',
-          hint: 'Gear noise comes from sudden changes in load and contact.'
+          explanation: 'Case hardening gives a hard, wear-resistant surface (high contact strength) with a tough core (good bending strength). Through-hardening compromises between surface and core properties.',
+          hint: 'Case hardening optimizes both surface and core properties.',
         },
         {
           id: 'u8-L3-Q21',
           type: 'multiple-choice',
-          question: 'Difference between a standard gear train and a planetary (epicyclic) gear train in terms of shaft arrangement?',
+          question: 'What is the typical efficiency of a single-stage spur gear set?',
           options: [
-            'Standard gear trains use parallel shafts with external meshing only',
-            'Standard gear trains use larger gears; planetary gear trains use smaller gears',
-            'Standard gear trains can only reduce speed',
-            'There is no fundamental difference — they are different names for the same thing'
+            '75 to 80%',
+            '85 to 90%',
+            '95 to 99%',
+            '99.5 to 99.9%'
           ],
-          correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear 1 (input, small) --> <circle cx="16" cy="40" r="10" stroke-width="0.7" stroke="#58CC02" fill="none"/> <circle cx="16" cy="40" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <line x1="16" y1="30" x2="16" y2="32"/><line x1="16" y1="48" x2="16" y2="50"/> <line x1="6" y1="40" x2="8" y2="40"/><line x1="24" y1="40" x2="26" y2="40"/> <line x1="9" y1="33" x2="10.5" y2="34.5"/><line x1="21.5" y1="45.5" x2="23" y2="47"/> <line x1="9" y1="47" x2="10.5" y2="45.5"/><line x1="21.5" y1="34.5" x2="23" y2="33"/> </g> <!-- Gear 2 (idler, medium) --> <circle cx="40" cy="40" r="14" stroke-width="0.7" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="2.5" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <line x1="40" y1="26" x2="40" y2="28"/><line x1="40" y1="52" x2="40" y2="54"/> <line x1="26" y1="40" x2="28" y2="40"/><line x1="52" y1="40" x2="54" y2="40"/> <line x1="30.1" y1="30.1" x2="31.5" y2="31.5"/><line x1="48.5" y1="48.5" x2="49.9" y2="49.9"/> <line x1="30.1" y1="49.9" x2="31.5" y2="48.5"/><line x1="48.5" y1="31.5" x2="49.9" y2="30.1"/> </g> <!-- Gear 3 (output, large) --> <circle cx="66" cy="40" r="10" stroke-width="0.7" stroke="#58CC02" fill="none"/> <circle cx="66" cy="40" r="2" stroke-width="0.5" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"/> <g stroke="#58CC02" stroke-width="0.4" opacity="0.3"> <line x1="66" y1="30" x2="66" y2="32"/><line x1="66" y1="48" x2="66" y2="50"/> <line x1="56" y1="40" x2="58" y2="40"/><line x1="74" y1="40" x2="76" y2="40"/> <line x1="59" y1="33" x2="60.5" y2="34.5"/><line x1="71.5" y1="45.5" x2="73" y2="47"/> <line x1="59" y1="47" x2="60.5" y2="45.5"/><line x1="71.5" y1="34.5" x2="73" y2="33"/> </g> <!-- Rotation indicators --> <g> <circle cx="16" cy="31" r="0.8" fill="#58CC02" opacity="0.4"/> <animateTransform attributeName="transform" type="rotate" values="0,16,40;360,16,40" dur="2s" repeatCount="indefinite"/> </g> <g> <circle cx="40" cy="27" r="0.8" fill="#58CC02" opacity="0.4"/> <animateTransform attributeName="transform" type="rotate" values="360,40,40;0,40,40" dur="2.8s" repeatCount="indefinite"/> </g> <g> <circle cx="66" cy="31" r="0.8" fill="#58CC02" opacity="0.4"/> <animateTransform attributeName="transform" type="rotate" values="0,66,40;360,66,40" dur="2s" repeatCount="indefinite"/> </g> <!-- Speed labels --> <text x="16" y="22" font-size="2.8" fill="#58CC02" opacity="0.5" text-anchor="middle">Z₁=12</text> <text x="40" y="18" font-size="2.8" fill="#58CC02" opacity="0.5" text-anchor="middle">Z₂=18</text> <text x="66" y="22" font-size="2.8" fill="#58CC02" opacity="0.5" text-anchor="middle">Z₃=12</text> <!-- Arrows --> <text x="16" y="58" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">input</text> <text x="66" y="58" font-size="2.5" fill="#3B8700" opacity="0.4" text-anchor="middle">output</text> <!-- Ratio formula --> <text x="40" y="70" font-size="3.5" fill="#58CC02" opacity="0.4" text-anchor="middle">i = Z₂·Z₃ / Z₁·Z₂</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">speed reduction</text> </svg>',
-          explanation: 'In a standard gear train, each gear rotates on its own fixed axis, and shafts are parallel but offset.',
-          hint: 'Consider the physical shaft arrangement.'
+          correctIndex: 2,
+          explanation: 'Spur and helical gears are very efficient, typically 95 to 99% per stage. Worm gears are much lower (40 to 90% depending on lead angle).',
+          hint: 'Involute gears have very low sliding losses.',
         },
         {
-          id: 'u8-L3-Q22',
-          type: 'multiple-choice',
-          question: 'The AGMA dynamic factor (Kv) accounts for what effect in gear design?',
-          options: [
-            'Effect of material density on overall gear weight',
-            'Internal dynamic loads from tooth errors and profiles',
-            'The dynamic viscosity of the lubricant in the mesh',
-            'Effect of gear inertia during startup and shutdown'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The AGMA dynamic factor Kv accounts for the additional loads generated within the gear mesh due to imperfect tooth geometry.',
-          hint: 'This factor accounts for the difference between the ideal.'
+          id: 'u8-L3c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort into "Increases gear tooth strength" vs. "Decreases gear tooth strength".',
+          options: ['Larger module', 'Wider face width', 'Fewer teeth (below 17)', 'Case hardening', 'Higher operating temperature', 'Misalignment'],
+          buckets: ['Increases strength', 'Decreases strength'],
+          correctBuckets: [0, 0, 1, 0, 1, 1],
+          explanation: 'Larger module, wider face, and case hardening increase strength. Too few teeth (undercutting), high temperature, and misalignment reduce it.',
+          hint: 'Undercutting weakens the tooth root.',
         },
-        {
-          id: 'u8-L3-Q23',
-          type: 'true-false',
-          question: 'In a worm gear set, the worm can always drive the gear, but the gear cannot always drive the worm. This asymmetry is called?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'This asymmetry is the defining characteristic of worm gears. The worm (screw-like member) can always drive the worm wheel (gear) because the force component along the thread drives the gear rotation.',
-          hint: 'Consider the force geometry.'
-        },
-        {
-          id: 'u8-L3-Q24',
-          type: 'multiple-choice',
-          question: 'What is the base circle diameter of the pinion?',
-          options: [
-            '45.7 mm',
-            '50.7 mm',
-            '54.0 mm',
-            '57.4 mm'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The pitch circle diameter D = m × Z = 3 × 18 = 54 mm. The base circle diameter D_b = D × cos(phi) = 54 × cos(20) = 54 × 0.9397 = 50.7 mm.',
-          hint: 'D_b = D × cos(phi).'
-        },
-        {
-          id: 'u8-L3-Q25',
-          type: 'multiple-choice',
-          question: 'What is the typical efficiency of each common gear type?',
-          options: [
-            'Spur: 40-60%, Helical: 60-80%, Bevel: 30-50%, Worm: 95-99%',
-            'Spur: 95-99%, Helical: 95-99%, Bevel: 95-99%, Worm: 40-90%',
-            'All gear types are equally efficient at 95%',
-            'Spur: 99%, Helical: 85%, Bevel: 75%, Worm: 65%'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Horizontal shaft --> <rect x="2" y="38" width="28" height="4" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Vertical shaft --> <rect x="38" y="2" width="4" height="28" rx="2" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.25"/> <!-- Horizontal bevel gear (rotating) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,38,40;360,38,40" dur="2s" repeatCount="indefinite"/> <ellipse cx="38" cy="40" rx="16" ry="6" fill="#58CC02" opacity="0.1"/> <ellipse cx="38" cy="40" rx="16" ry="6" stroke="#58CC02" stroke-width="2" fill="none"/> <ellipse cx="38" cy="40" rx="10" ry="3.5" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="54" cy="40" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="22" cy="40" r="1.5" fill="#3B8700" opacity="0.25"/> <circle cx="38" cy="34" r="1.5" fill="#3B8700" opacity="0.3"/> <circle cx="38" cy="46" r="1.5" fill="#3B8700" opacity="0.3"/> </g> <!-- Vertical bevel gear (rotating, meshed at 90°) --> <g> <animateTransform attributeName="transform" type="rotate" values="0,40,38;-360,40,38" dur="2s" repeatCount="indefinite"/> <ellipse cx="40" cy="38" rx="6" ry="16" fill="#58CC02" opacity="0.08"/> <ellipse cx="40" cy="38" rx="6" ry="16" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="38" rx="3.5" ry="10" stroke="#A5E86C" stroke-width="0.8" fill="none" opacity="0.15"/> <circle cx="40" cy="22" r="1.5" fill="#3B8700" opacity="0.35"/> <circle cx="40" cy="54" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Mesh point --> <circle cx="40" cy="40" r="2" fill="#3B8700" opacity="0.3"/> <!-- 90° angle indicator --> <rect x="30" y="30" width="4" height="4" stroke="#3B8700" stroke-width="0.6" fill="none" opacity="0.15"/> <text x="56" y="74" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">90° power transfer</text> </svg>',
-          explanation: 'Spur, helical, and bevel gears all have very high efficiencies (95-99% per stage) because their tooth contact involves primarily rolling with minimal sliding.',
-          hint: 'Consider the nature of tooth contact.'
-        },
-        {
-          id: 'u8-L3-Q26',
-          type: 'fill-blank',
-          question: 'The gear tooth profile used in virtually all modern gearing, where the tooth shape is generated by a point on a line rolling on _____?',
-          blanks: ['involute'],
-          wordBank: ['involute', 'cycloidal', 'epicycloidal', 'trochoid', 'circular'],
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'The involute profile is the standard tooth form for modern gears. An involute is the curve traced by a point on a taut string unwinding from a circle (the base circle).',
-          hint: 'This curve is generated by unwinding a string.'
-        },
-        {
-          id: 'u8-L3-Q27',
-          type: 'multiple-choice',
-          question: 'Which of the following is the PRIMARY reason for applying positive profile shift to a small pinion?',
-          options: [
-            'To make the gear cheaper to manufacture overall',
-            'Avoid tooth root undercutting when pinion has few teeth',
-            'Increase the gear ratio beyond tooth count limits',
-            'To reduce gear noise at high operating speeds'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'Positive profile shift moves the cutting tool outward from the gear blank center, producing a thicker tooth root that avoids undercutting and increases bending strength.',
-          hint: 'When a pinion has very few teeth, what geometric problem.'
-        },
-        {
-          id: 'u8-L3-Q28',
-          type: 'true-false',
-          question: 'Herringbone (double-helical) gears eliminate the axial thrust problem of single-helical gears by having two sets of teeth with?',
-          correctAnswer: true,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Herringbone gears have two helical sections with opposite hand (one right-hand, one left-hand) on the same gear body.',
-          hint: 'What happens when two equal and opposite axial forces act.'
-        },
-        {
-          id: 'u8-L3-Q29',
-          type: 'multiple-choice',
-          question: 'A gear tooth breaks off at the root after several years of service. What is the AGMA failure mode classification?',
-          options: [
-            'Surface durability failure governed by Hertzian contact stress (sigma_H)',
-            'Bending fatigue failure governed by the bending stress at the tooth root',
-            'Scoring failure governed by flash temperature rise',
-            'Wear failure governed by the sliding velocity rate'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <circle cx="28" cy="40" r="20" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="28" cy="40" r="16" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,28,40;360,28,40" dur="4s" repeatCount="indefinite"/> <line x1="28" y1="20" x2="28" y2="60" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <line x1="8" y1="40" x2="48" y2="40" stroke="#3B8700" stroke-width="0.8" opacity="0.1"/> <rect x="26" y="18" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="26" y="56" width="4" height="6" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="8" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="42" y="38" width="6" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="15" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,17.5,26)"/> <rect x="38" y="24" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,40.5,26)"/> <rect x="15" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(45,17.5,54)"/> <rect x="38" y="52" width="5" height="4" rx="1" fill="#3B8700" opacity="0.2" transform="rotate(-45,40.5,54)"/> </g> <circle cx="28" cy="40" r="4" fill="#3B8700" opacity="0.4"/> <circle cx="60" cy="40" r="12" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.15"/> <circle cx="60" cy="40" r="9" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,60,40;-540,60,40" dur="4s" repeatCount="indefinite"/> <rect x="58" y="30" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="58" y="46" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="50" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> <rect x="66" y="38" width="4" height="4" rx="1" fill="#3B8700" opacity="0.3"/> </g> <circle cx="60" cy="40" r="3" fill="#3B8700" opacity="0.4"/> <circle cx="48" cy="40" r="2" fill="#3B8700" opacity="0.5"> <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/> </circle> </svg>',
-          explanation: 'Tooth breakage at the root with fatigue beach marks is classic bending fatigue failure.',
-          hint: 'The fracture location (root fillet) and the presence.'
-        },
-        {
-          id: 'u8-L3-Q30',
-          type: 'fill-blank',
-          question: 'In metric gear systems, tooth size is defined by the _____ (m = D/Z), while in imperial systems the equivalent parameter is the _____?',
-          blanks: ['module', 'diametral'],
-          wordBank: ['module', 'diametral', 'pitch', 'circular', 'contact', 'base'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Gear body --> <circle cx="40" cy="40" r="26" stroke-width="0.8" stroke="#58CC02" fill="none"/> <circle cx="40" cy="40" r="22" stroke-width="0.4" stroke="#58CC02" fill="none" opacity="0.3"/> <circle cx="40" cy="40" r="5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <circle cx="40" cy="40" r="2" fill="#58CC02" opacity="0.25"/> <!-- Teeth (16 teeth around) --> <g stroke="#58CC02" stroke-width="0.6"> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(22.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(45,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(67.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(90,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(112.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(135,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(157.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(180,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(202.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(225,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(247.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(270,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(292.5,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(315,40,40)"/> <rect x="38" y="12" width="4" height="5" rx="0.5" fill="#58CC02" fill-opacity="0.06" transform="rotate(337.5,40,40)"/> </g> <!-- Rotation --> <animateTransform attributeName="transform" type="rotate" values="0,40,40;360,40,40" dur="5s" repeatCount="indefinite"/> <!-- Dimension lines --> <line x1="40" y1="40" x2="40" y2="14" stroke-width="0.4" stroke="#3B8700" opacity="0.3" stroke-dasharray="1,1"/> <text x="44" y="28" font-size="3" fill="#3B8700" opacity="0.4">R</text> <!-- Pitch circle label --> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">involute profile</text> </svg>',
-          explanation: 'The module (m) is the fundamental parameter defining tooth size in the metric gear system. m = D/Z (mm).',
-          hint: 'This parameter is the metric measure of tooth size.'
-        }
       ]
     },
+    // ──────────────────────────────��──────────────────────────────
+    // LESSON 4a: Fasteners & Joints — Bolt Basics
+    // ──────────────────────────────────────────────────────��──────
     {
       id: 'u8-L4',
-      title: 'Fasteners & Joints',
-      description: 'Bolt preload, bolt stiffness, gasket factors, welded joints (fillet/butt), adhesive bonding, joint design.',
+      title: 'Bolt Basics',
+      description: 'How bolted joints work, preload, and bolt grades.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u8-L4-T1',
           type: 'teaching',
           question: 'How bolted joints really work',
-          explanation: 'A bolt doesn\'t just hold parts together. It\'s pre-stretched (preloaded) during tightening, which clamps the joint members in compression. When an external load tries to separate the joint, the bolt and clamped members share that load based on their relative stiffnesses.',
+          explanation: 'A bolt isn\'t just a pin. It\'s pre-stretched (preloaded) during tightening, which clamps the joint in compression. When an external load tries to separate the joint, the bolt and clamped members share that load based on their relative stiffnesses.',
           hint: 'Higher preload means the joint can handle more external load.',
+        },
+        {
+          id: 'u8-L4-Q1a',
+          type: 'true-false',
+          question: 'A bolt creates clamping force by being pre-stretched during tightening.',
+          correctAnswer: true,
+          explanation: 'Yes. When you tighten a bolt, you stretch it slightly. That stretch creates the preload force that clamps the joint members in compression.',
+          hint: 'Think about what happens to the bolt when you turn the nut.',
+        },
+        {
+          id: 'u8-L4-Q6',
+          type: 'fill-blank',
+          question: 'The initial tension applied to a bolt during tightening, before any external load, is called _____.',
+          blanks: ['preload'],
+          wordBank: ['preload', 'proof load', 'torque', 'clamping', 'yield force'],
+          explanation: 'Preload (pretension) is the bolt tension from tightening. It creates the clamping force that holds the joint together.',
+          hint: 'This force exists in the bolt before any external load is applied.',
+        },
+        {
+          id: 'u8-L4-Q3',
+          type: 'true-false',
+          question: 'A bolted joint should always be designed so the bolt is loaded in shear rather than tension.',
+          correctAnswer: false,
+          explanation: 'Properly designed bolted joints usually load the bolt in tension (clamping). The preload creates friction between surfaces that resists shear loads.',
+          hint: 'Consider how a properly preloaded joint resists sliding.',
+        },
+        {
+          id: 'u8-L4-T1b',
+          type: 'teaching',
+          question: 'Bolt grades and strength',
+          explanation: 'Metric bolt classes like 8.8 or 10.9 encode strength. The first number times 100 gives ultimate tensile strength in MPa (8 = 800 MPa). The second is the yield-to-ultimate ratio (0.8 = 80%). So an 8.8 bolt has 640 MPa yield strength.',
+          hint: 'Try this now: calculate the yield strength of a 10.9 bolt.',
+        },
+        {
+          id: 'u8-L4-MP1',
+          type: 'match-pairs',
+          question: 'Match each bolt class to its yield strength.',
+          options: ['Class 4.6', 'Class 8.8', 'Class 10.9', 'Class 12.9'],
+          matchTargets: ['240 MPa', '640 MPa', '900 MPa', '1080 MPa'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: '4.6: 400 x 0.6 = 240 MPa. 8.8: 800 x 0.8 = 640 MPa. 10.9: 1000 x 0.9 = 900 MPa. 12.9: 1200 x 0.9 = 1080 MPa.',
+          hint: 'First number x 100 = UTS. Second number = yield/UTS ratio.',
         },
         {
           id: 'u8-L4-Q1',
           type: 'multiple-choice',
-          question: 'If the external load is 20 kN, how much additional load does the bolt carry?',
+          question: 'Bolt stiffness k_b = 400 kN/mm, member stiffness k_c = 1200 kN/mm. External load = 20 kN. How much additional load does the bolt carry?',
           options: [
             '5 kN',
             '10 kN',
@@ -1327,45 +1239,27 @@ export const unit8: Unit = {
             '20 kN'
           ],
           correctIndex: 0,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The stiffness ratio (load fraction carried by bolt) C = k_b/(k_b + k_c) = 400/(400 + 1200) = 0.25. Additional bolt load = C × F_ext = 0.25 × 20 = 5 kN.',
-          hint: 'The load split depends on the stiffness ratio: C =.'
+          explanation: 'Stiffness ratio C = k_b/(k_b + k_c) = 400/(400 + 1200) = 0.25. Additional bolt load = C x F_ext = 0.25 x 20 = 5 kN. The stiff members absorb most of the external load.',
+          hint: 'The load split depends on the stiffness ratio C = k_b/(k_b + k_c).',
         },
         {
           id: 'u8-L4-Q2',
           type: 'multiple-choice',
-          question: 'The torque wrench was calibrated correctly. What is the most likely cause of the preload scatter?',
+          question: 'A torque wrench was calibrated correctly, but bolt preloads vary by +/-30%. What is the most likely cause?',
           options: [
-            'The torque wrench is inaccurate despite calibration — switch to a more',
-            'Friction variation — torque-controlled tightening depends heavily on thread',
-            'The bolts are different grades — some are 8.8 and others are 10.9, causing',
-            'The flange is warped, preventing the bolts from clamping evenly, provided all'
+            'The torque wrench is inaccurate despite calibration',
+            'Friction variation in threads and under the bolt head',
+            'The bolts are different grades',
+            'The flange is warped'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'This is a fundamental limitation of torque-controlled tightening.',
-          hint: 'If the torque wrench is accurate but preloads vary,.'
-        },
-        {
-          id: 'u8-L4-Q3',
-          type: 'true-false',
-          question: 'A bolted joint should always be designed so that the bolt is loaded in shear (like a pin) rather than in tension, because bolts?',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'This is false. Properly designed bolted joints usually load the bolt in tension (clamping force), not shear.',
-          hint: 'Consider how a properly preloaded bolted joint resists.'
-        },
-        {
-          id: 'u8-L4-T2',
-          type: 'teaching',
-          question: 'Bolt grades and preload limits',
-          explanation: 'Metric bolt classes like 8.8 or 10.9 encode strength. The first number times 100 gives ultimate tensile strength in MPa (8 = 800 MPa). The second number is the yield-to-ultimate ratio (0.8 = 80%). Maximum preload is typically 75-90% of the bolt\'s proof load, which is slightly below yield.',
-          hint: 'An 8.8 bolt has 640 MPa yield strength (800 x 0.8).',
+          explanation: 'Torque-controlled tightening depends heavily on thread and underhead friction. Only 10 to 15% of applied torque actually stretches the bolt. Friction variation is the main source of preload scatter.',
+          hint: 'If the wrench is accurate but preloads vary, something else is consuming the torque.',
         },
         {
           id: 'u8-L4-Q4',
           type: 'multiple-choice',
-          question: 'A bolted joint uses an M12 × 1.75 bolt of property class 8.8. What is the maximum recommended preload?',
+          question: 'An M12 bolt, class 8.8, has a tensile stress area of 84.3 mm^2. What is the maximum recommended preload (75% of proof)?',
           options: [
             '25.3 kN',
             '37.9 kN',
@@ -1373,804 +1267,895 @@ export const unit8: Unit = {
             '67.4 kN'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The recommended preload is typically 75% of proof load for non-permanent connections (90% for permanent ones). Proof load = proof strength × tensile stress area = 600 × 84.3 = 50,580 N = 50.6 kN.',
-          hint: 'Target preload is typically 75% of proof load.'
+          explanation: 'Proof strength for 8.8 = 600 MPa. Proof load = 600 x 84.3 = 50,580 N = 50.6 kN. Recommended preload = 0.75 x 50.6 = 37.9 kN.',
+          hint: 'Target preload is typically 75% of proof load.',
         },
         {
-          id: 'u8-L4-Q5',
-          type: 'multiple-choice',
-          question: 'You are considering adhesive bonding. What are the key design considerations and limitations?',
-          options: [
-            'Adhesive bonding is always inferior to mechanical fastening — it should only',
-            'Design the joint for shear loading (lap joints), maximize bond area, avoid',
-            'Simply apply adhesive to the mating surfaces and clamp them together — modern',
-            'Adhesive bonding cannot join dissimilar metals — the different thermal'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="20" width="64" height="14" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="8" y="20" width="64" height="14" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="8" y="46" width="64" height="14" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="8" y="46" width="64" height="14" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="8" y="34" width="64" height="12" rx="0" fill="#A5E86C" opacity="0.15"/> <rect x="8" y="34" width="64" height="12" rx="0" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="4" y1="27" x2="0" y2="27" stroke="#3B8700" stroke-width="1"/> <polygon points="1,25.5 -2,27 1,28.5" fill="#3B8700"/> <line x1="76" y1="53" x2="80" y2="53" stroke="#3B8700" stroke-width="1"/> <polygon points="79,51.5 82,53 79,54.5" fill="#3B8700"/> </g> <text x="40" y="42" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-style="italic">adhesive</text> </svg>',
-          explanation: 'Adhesive bonding is increasingly used in automotive (reducing weight 30-40% vs. spot welding) and aerospace.',
-          hint: 'Adhesive joints are strong in shear but weak in peel.'
+          id: 'u8-L4-SB1',
+          type: 'sort-buckets',
+          question: 'Sort into "Increases joint reliability" vs. "Decreases joint reliability".',
+          options: ['Higher preload (within limits)', 'Proper lubrication on threads', 'Loose bolt (low preload)', 'Lock washer or thread locker', 'Reusing stretch bolts', 'Calibrated torque wrench'],
+          buckets: ['Increases reliability', 'Decreases reliability'],
+          correctBuckets: [0, 0, 1, 0, 1, 0],
+          explanation: 'Proper preload, lubrication, locking, and calibrated tools increase reliability. Low preload and reused stretch bolts reduce it.',
+          hint: 'Consistent, adequate preload is the key to reliable bolted joints.',
+        },
+      ]
+    },
+    // ─────────────��─────────────��─────────────────────────────────
+    // LESSON 4b: Fasteners — Stiffness, Separation, and Fatigue
+    // ──────────────���─────────────────────────────────���────────────
+    {
+      id: 'u8-L4b',
+      title: 'Bolt Design & Analysis',
+      description: 'Joint stiffness, separation load, bolt fatigue, and gasket factors.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L4-T2',
+          type: 'teaching',
+          question: 'Bolt stiffness and joint separation',
+          explanation: 'The bolt and clamped members act like springs in parallel. The stiffness ratio C = k_b/(k_b + k_c) determines how much of an external load the bolt feels. Joint separation occurs when the external load exceeds F_i/(1 - C), where F_i is the preload.',
+          hint: 'Stiffer members (larger k_c) mean the bolt feels less of the external load.',
         },
         {
-          id: 'u8-L4-Q6',
-          type: 'fill-blank',
-          question: 'The initial tension applied to a bolt during tightening, before any external load is applied, is called _____.',
-          blanks: ['preload'],
-          wordBank: ['preload', 'proof load', 'torque', 'clamping', 'yield force'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Preload (also called pretension or initial clamping force) is the tension in the bolt created during tightening. It compresses the clamped members, creating a friction force that resists joint.',
-          hint: 'This is the force in the bolt when it is tightened, before.'
+          id: 'u8-L4b-Q1a',
+          type: 'true-false',
+          question: 'In a bolted joint, stiffer clamped members mean the bolt carries a smaller fraction of external load.',
+          correctAnswer: true,
+          explanation: 'Yes. C = k_b/(k_b + k_c). As k_c increases, C decreases, so the bolt carries a smaller fraction of the external tensile load.',
+          hint: 'The stiffness ratio C determines load sharing.',
         },
         {
           id: 'u8-L4-Q7',
           type: 'multiple-choice',
-          question: 'At what external load does the joint separate (lose clamping)?',
+          question: 'Preload = 40 kN, stiffness ratio C = 0.25. At what external load does the joint separate?',
           options: [
             '40 kN',
-            '50 kN',
-            '57.1 kN',
-            '133.3 kN'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Joint separation occurs when the clamping force on the members reaches zero. The clamping force decreases as the external load increases: F_clamp = F_preload - (1-C) × F_ext.',
-          hint: 'Separation occurs when F_clamp = F_i - (1-C)*F_ext = 0.'
-        },
-        {
-          id: 'u8-L4-Q8',
-          type: 'multiple-choice',
-          question: 'Why are hardened washers (such as SAE grade 8 flat washers) used under bolt heads in structural connections?',
-          options: [
-            'They make the joint look more professional, provided all secondary effects',
-            'They distribute the bolt head load over a larger area to prevent embedding',
-            'They act as springs to maintain preload during thermal cycling, which would',
-            'They are only used to fill gaps when the bolt is too long'
+            '53.3 kN',
+            '80 kN',
+            '160 kN'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Hardened washers serve multiple critical functions: Load distribution .',
-          hint: 'What happens when you tighten a high-strength bolt against.'
+          explanation: 'Joint separation occurs when F_ext = F_i/(1 - C) = 40/(1 - 0.25) = 40/0.75 = 53.3 kN. At this point, the clamping force drops to zero.',
+          hint: 'Separation happens when clamping force reaches zero.',
         },
         {
           id: 'u8-L4-Q9',
-          type: 'true-false',
-          question: 'Lock washers are an effective and reliable method for preventing bolt loosening in vibrating structures.',
-          correctAnswer: false,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Despite their widespread use, research (notably by Junker and others) has shown that split lock washers are largely ineffective at preventing loosening under transverse vibration .',
-          hint: 'Consider the Junker vibration test results.'
+          type: 'multiple-choice',
+          question: 'Why do bolted joints under cyclic loading benefit from high preload?',
+          options: [
+            'High preload makes the bolt stronger',
+            'High preload reduces the alternating stress the bolt experiences',
+            'High preload prevents the bolt from rotating',
+            'High preload is only needed for static loads'
+          ],
+          correctIndex: 1,
+          explanation: 'With high preload and stiff members, the bolt sees only a small fraction of the cyclic external load. This keeps the alternating stress low, which is what drives fatigue failure.',
+          hint: 'Fatigue depends on alternating stress, not total stress.',
+        },
+        {
+          id: 'u8-L4b-T2',
+          type: 'teaching',
+          question: 'Gaskets and joint sealing',
+          explanation: 'Gaskets seal joints by filling surface imperfections. They\'re much softer than steel, so they dramatically reduce member stiffness k_c. This means C increases and the bolt feels more of the external load. Gasket factors (m and y) from ASME standards define the required seating and operating pressures.',
+          hint: 'A soft gasket makes the joint more sensitive to external loads.',
         },
         {
           id: 'u8-L4-Q10',
-          type: 'multiple-choice',
-          question: 'If the applied load is 50 kN in shear parallel to the weld, what is the shear stress on the weld throat?',
-          options: [
-            '29.5 MPa',
-            '41.7 MPa',
-            '58.9 MPa',
-            '83.3 MPa'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,28 Q40,24 46,28" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,38 Q40,42 46,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <ellipse cx="40" cy="33" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <rect x="6" y="50" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="50" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="50" width="10" height="22" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="50" width="10" height="22" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,60 L40,60 L40,50" fill="#58CC02" opacity="0.25"/> <path d="M34,60 Q38,54 40,50" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,32 L44,26"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,32 L36,24" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">weld types</text> </svg>',
-          explanation: 'For a fillet weld, the critical section is the throat, which is the shortest distance through the weld. Throat size = 0.707 × leg size = 0.707 × 8 = 5.656 mm.',
-          hint: 'Throat = 0.707 × leg size.'
+          type: 'true-false',
+          question: 'Adding a gasket to a bolted joint increases the fraction of external load carried by the bolt.',
+          correctAnswer: true,
+          explanation: 'Gaskets are soft, reducing k_c dramatically. This increases C = k_b/(k_b + k_c), so the bolt carries a larger fraction of external load.',
+          hint: 'A soft gasket reduces member stiffness k_c.',
         },
         {
-          id: 'u8-L4-T3',
-          type: 'teaching',
-          question: 'Welded joints and joint types',
-          explanation: 'Besides bolts, joints can use welds, adhesives, or rivets. Fillet welds join overlapping or perpendicular plates, and their strength is based on the throat area (0.707 times the leg size). Butt welds join plates edge-to-edge and can be as strong as the base metal if done properly.',
-          hint: 'For fillet welds, the weakest plane is through the throat.',
+          id: 'u8-L4b-OS1',
+          type: 'order-steps',
+          question: 'Order the bolt fatigue analysis steps.',
+          steps: ['Determine preload F_i and stiffness ratio C', 'Calculate bolt force range from cyclic external load', 'Find alternating and mean stress in the bolt', 'Plot on modified Goodman diagram', 'Check safety factor against fatigue line'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Bolt fatigue analysis requires knowing the load range, which depends on preload and stiffness, then checking against the fatigue criterion.',
+          hint: 'You need the stiffness ratio to know the bolt load range.',
         },
         {
-          id: 'u8-L4-Q11',
+          id: 'u8-L4-Q5',
           type: 'multiple-choice',
-          question: 'What is the difference between a slip-critical (friction-type) bolted connection and a bearing-type bolted connection?',
+          question: 'When is adhesive bonding a better choice than mechanical fastening?',
           options: [
-            'They are the same — just different terminology used by different codes,',
-            'Slip-critical transfers load by friction between plates',
-            'Slip-critical uses higher-grade bolts than bearing',
-            'Slip-critical connections are for static loads only'
+            'Adhesive is always inferior to mechanical fastening',
+            'Design for shear loading, maximize bond area, avoid peel',
+            'Just apply adhesive and clamp, modern adhesives handle everything',
+            'Adhesive cannot join dissimilar metals'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Slip-critical connections rely on the friction between the clamped surfaces (faying surfaces) to transfer the shear load.',
-          hint: 'Consider the load path: does the load pass through.'
+          explanation: 'Adhesive joints excel in shear but are weak in peel and cleavage. Maximize bond area, use lap joints, and control surface preparation.',
+          hint: 'Adhesive joints are strong in shear but weak in peel.',
         },
         {
           id: 'u8-L4-Q12',
           type: 'multiple-choice',
-          question: 'What is the purpose of a gasket factor "m" in the ASME Boiler and Pressure Vessel Code flange design methodology?',
+          question: 'A fillet weld connects two plates in a lap joint. The weld fails through which cross-section?',
           options: [
-            'It is the gasket material modulus of elasticity',
-            'It is the maintenance factor for how often the gasket should be replaced',
-            'It is the ratio of residual gasket stress to internal pressure needed',
-            'It is the maximum allowable gasket compression'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="16" width="64" height="20" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="8" y="16" width="64" height="20" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="8" y="44" width="64" height="20" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="64" height="20" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="12" y="36" width="56" height="8" rx="1" fill="#A5E86C" opacity="0.25"/> <rect x="12" y="36" width="56" height="8" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"/> <rect x="18" y="14" width="4" height="52" rx="1" fill="#3B8700" opacity="0.2"/> <rect x="58" y="14" width="4" height="52" rx="1" fill="#3B8700" opacity="0.2"/> <rect x="16" y="10" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="56" y="10" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="16" y="66" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="56" y="66" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <g opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> <text x="40" y="42" text-anchor="middle" font-size="4" fill="#3B8700" font-style="italic">gasket</text> </g> </svg>',
-          explanation: 'The gasket factor m (from ASME BPVC, Appendix 2) represents the ratio of the gasket stress to the contained pressure needed to maintain a leak-tight seal during operation.',
-          hint: 'This factor ensures enough residual gasket compression.'
-        },
-        {
-          id: 'u8-L4-Q13',
-          type: 'true-false',
-          question: 'In a properly designed bolted joint under cyclic loading, the bolt experiences a much smaller fluctuating stress amplitude than?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'This is the fundamental advantage of a preloaded bolted joint for fatigue resistance. The fluctuating bolt load = C × F_external (fluctuating), where C = k_b/(k_b + k_c) is typically 0.15-0.35.',
-          hint: 'Consider the stiffness ratio C and how it splits.'
-        },
-        {
-          id: 'u8-L4-Q14',
-          type: 'multiple-choice',
-          question: 'For a bolt with unthreaded shank length L_s, threaded length in the grip L_t, tensile stress area A_t, and nominal area A_d,?',
-          options: [
-            'k_b = E\xD7A_d / (L_s + L_t) using shank area only',
-            'k_b = 1/(L_s/(EA_d) + L_t/(EA_t)), two springs',
-            'k_b = E\xD7(A_d + A_t) / (L_s + L_t) average area',
-            'k_b = E\xD7A_t / L_t, only threaded portion matters'
+            'Through the weld toe on the base plate',
+            'Through the throat of the weld (45-degree plane)',
+            'Through the root of the weld',
+            'Through the thinner base plate'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The bolt is modeled as two springs in series: the unthreaded shank with stiffness k_d = E*A_d/L_s, and the threaded portion within the grip with stiffness k_t = E*A_t/L_t.',
-          hint: 'Model the bolt as two different cross-sections in series.'
+          explanation: 'Fillet welds fail through the throat, which is the minimum cross-section at 45 degrees through the weld. Throat = 0.707 x leg size.',
+          hint: 'The weakest plane through a fillet weld is at 45 degrees.',
+        },
+        {
+          id: 'u8-L4b-MP1',
+          type: 'match-pairs',
+          question: 'Match each tightening method to its preload accuracy.',
+          options: ['Torque wrench', 'Turn-of-nut', 'Stretch measurement', 'Hydraulic tensioner'],
+          matchTargets: ['+/- 25 to 30%', '+/- 10 to 15%', '+/- 3 to 5%', '+/- 5 to 10%'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Torque wrenches have the most scatter due to friction. Turn-of-nut and hydraulic tensioners are better. Direct stretch measurement is the most accurate.',
+          hint: 'Methods that bypass friction give more consistent preload.',
         },
         {
           id: 'u8-L4-Q15',
           type: 'multiple-choice',
-          question: 'What is the main advantage of a butt weld over a fillet weld for joining two plates in tension?',
+          question: 'What is the primary purpose of a lock washer?',
           options: [
-            'Butt welds are cheaper and faster to produce overall',
-            'CJP butt weld has the full cross-section of parent metal',
-            'Butt welds do not require any edge preparation work',
-            'Butt welds never develop any residual stresses'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'A complete joint penetration (CJP) butt weld fuses the full thickness of the base metal, so the weld cross-section equals the base metal cross-section.',
-          hint: 'Compare the effective load-carrying cross-section of each.'
-        },
-        {
-          id: 'u8-L4-Q16',
-          type: 'fill-blank',
-          question: 'The property class marking "10.9" on a metric bolt means the minimum tensile strength is _____ MPa.',
-          blanks: ['1040'],
-          wordBank: ['1040', '800', '900', '1200', '640'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Rod A (left, with socket) --> <rect x="4" y="36" width="28" height="8" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- Socket end --> <rect x="28" y="30" width="10" height="20" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.03"/> <!-- Rod B (right, with spigot) --> <rect x="48" y="36" width="28" height="8" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <!-- Spigot end --> <rect x="40" y="34" width="10" height="12" rx="0.5" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Cotter (wedge/taper pin) --> <path d="M34,22 L38,22 L37,58 L35,58 Z" stroke-width="0.8" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.15"> <animate attributeName="d" values="M34,26 L38,26 L37,54 L35,54 Z;M34,22 L38,22 L37,58 L35,58 Z;M34,26 L38,26 L37,54 L35,54 Z" dur="3s" repeatCount="indefinite"/> </path> <!-- Slot through socket and spigot --> <line x1="32" y1="30" x2="32" y2="50" stroke-width="0.3" stroke="#3B8700" opacity="0.2" stroke-dasharray="1,1"/> <line x1="40" y1="30" x2="40" y2="50" stroke-width="0.3" stroke="#3B8700" opacity="0.2" stroke-dasharray="1,1"/> <!-- Force arrows (tension) --> <g opacity="0.5"> <line x1="2" y1="40" x2="-2" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <text x="-4" y="41.5" font-size="3" fill="#58CC02" text-anchor="end">P</text> <line x1="78" y1="40" x2="82" y2="40" stroke-width="0.6" stroke="#58CC02"/> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="84" y="41.5" font-size="3" fill="#58CC02">P</text> </g> <!-- Taper label --> <text x="26" y="18" font-size="2.5" fill="#3B8700" opacity="0.4">cotter</text> <!-- Component labels --> <text x="16" y="34" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">socket</text> <text x="60" y="34" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">spigot</text> <!-- Hammering animation indicator --> <g opacity="0.3"> <line x1="36" y1="16" x2="36" y2="20" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="y1" values="18;14;18" dur="3s" repeatCount="indefinite"/> </line> <polygon points="34.5,16 37.5,16 36,19" fill="#3B8700"> <animate attributeName="points" values="34.5,18 37.5,18 36,21;34.5,14 37.5,14 36,17;34.5,18 37.5,18 36,21" dur="3s" repeatCount="indefinite"/> </polygon> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">detachable joint</text> </svg>',
-          explanation: 'In the ISO metric bolt property class system, the number before the decimal point × 100 gives the minimum ultimate tensile strength in MPa.',
-          hint: 'The first number × 100 gives UTS in MPa.'
-        },
-        {
-          id: 'u8-L4-Q17',
-          type: 'multiple-choice',
-          question: 'A gasketed flange joint is being designed. Which condition typically requires more bolt load?',
-          options: [
-            'Seating condition always requires more bolt load',
-            'Operating condition always requires more bolt load',
-            'Depends on gasket type and pressure — soft vs metallic',
-            'Both conditions require exactly the same bolt load'
+            'To increase the bolt preload',
+            'To distribute load over a larger area',
+            'To resist loosening from vibration',
+            'To seal the joint against fluids'
           ],
           correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="8" y="16" width="64" height="20" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="8" y="16" width="64" height="20" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="8" y="44" width="64" height="20" rx="2" fill="#58CC02" opacity="0.08"/> <rect x="8" y="44" width="64" height="20" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="12" y="36" width="56" height="8" rx="1" fill="#A5E86C" opacity="0.25"/> <rect x="12" y="36" width="56" height="8" rx="1" stroke="#58CC02" stroke-width="1" fill="none" opacity="0.3"/> <rect x="18" y="14" width="4" height="52" rx="1" fill="#3B8700" opacity="0.2"/> <rect x="58" y="14" width="4" height="52" rx="1" fill="#3B8700" opacity="0.2"/> <rect x="16" y="10" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="56" y="10" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="16" y="66" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <rect x="56" y="66" width="8" height="4" rx="1.5" fill="#3B8700" opacity="0.3"/> <g opacity="0.15"> <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/> <text x="40" y="42" text-anchor="middle" font-size="4" fill="#3B8700" font-style="italic">gasket</text> </g> </svg>',
-          explanation: 'The ASME BPVC flange design checks two conditions: (1) Seating condition (W_m2): the bolt load must compress the gasket to its minimum seating stress y over the gasket area. No pressure is present.',
-          hint: 'Compare the gasket seating stress (y) requirement against.'
+          explanation: 'Lock washers (split, toothed, or Nordlock) resist bolt loosening from vibration and dynamic loads. They don\'t increase preload or distribute load.',
+          hint: 'Vibration can cause bolts to rotate and lose preload.',
+        },
+      ]
+    },
+    // ─��───────────────────────────────────────────────────────────
+    // LESSON 4c: Fasteners — Welded and Adhesive Joints
+    // ─────────────────────────────────────────────────────────────
+    {
+      id: 'u8-L4c',
+      title: 'Welded & Adhesive Joints',
+      description: 'Fillet and butt welds, weld sizing, adhesive joint design, and joint selection.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L4c-T1',
+          type: 'teaching',
+          question: 'Fillet vs. butt welds',
+          explanation: 'Fillet welds join overlapping plates at right angles. They fail through the throat (0.707 x leg size). Butt welds join plates end-to-end with full penetration. Butt welds are stronger (full cross-section) but require more joint preparation.',
+          hint: 'Butt welds can be as strong as the base metal with proper technique.',
         },
         {
-          id: 'u8-L4-Q18',
+          id: 'u8-L4c-Q1a',
           type: 'multiple-choice',
-          question: 'What is the Junker test, and what does it evaluate?',
-          options: [
-            'A test for bolt tensile strength under impact loads',
-            'Vibration test applying transverse motion to a joint',
-            'A test for gasket creep under high temperature use',
-            'A non-destructive testing method for weld defects'
-          ],
+          question: 'Which weld type provides the strongest joint?',
+          options: ['Fillet weld', 'Full-penetration butt weld', 'Spot weld', 'Plug weld'],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The Junker test (DIN 65151, NAS 3350) applies controlled transverse vibration (perpendicular to the bolt axis) to a bolted joint while monitoring the clamping force over thousands of cycles.',
-          hint: 'This standardized test specifically addresses bolt.'
-        },
-        {
-          id: 'u8-L4-Q19',
-          type: 'true-false',
-          question: 'When tightening bolts in a circular flange pattern, the recommended tightening sequence is to go around the circle sequentially?',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Rod A (left) with single eye --> <rect x="2" y="37" width="26" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <circle cx="30" cy="40" r="8" stroke-width="0.7" stroke="#58CC02" fill="none"/> <!-- Rod B (right) with forked eye --> <rect x="52" y="37" width="26" height="6" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#58CC02" fill-opacity="0.05"/> <circle cx="50" cy="40" r="8" stroke-width="0.7" stroke="#58CC02" fill="none"/> <!-- Fork prongs (above and below) --> <path d="M52,33 Q48,33 46,34 A8,8 0 0,0 46,46 Q48,47 52,47" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.4"/> <!-- Knuckle pin --> <rect x="28" y="28" width="4" height="24" rx="1.5" stroke-width="0.8" stroke="#A5E86C" fill="#A5E86C" fill-opacity="0.15"/> <circle cx="30" cy="28" r="2" stroke-width="0.5" stroke="#A5E86C" fill="none" opacity="0.5"/> <circle cx="30" cy="52" r="2" stroke-width="0.5" stroke="#A5E86C" fill="none" opacity="0.5"/> <!-- Pin hole --> <circle cx="40" cy="40" r="3" stroke-width="0.5" stroke="#58CC02" fill="none" opacity="0.3"/> <!-- Angular motion indicator --> <path d="M50,28 A12,12 0 0,1 50,52" stroke-width="0.4" stroke="#3B8700" opacity="0.25" fill="none"/> <g> <line x1="50" y1="40" x2="58" y2="36" stroke-width="0.4" stroke="#3B8700" opacity="0.3"/> <animateTransform attributeName="transform" type="rotate" values="-10,40,40;10,40,40;-10,40,40" dur="3s" repeatCount="indefinite"/> </g> <!-- Tension arrows --> <g opacity="0.45"> <polygon points="2,38.5 2,41.5 -1,40" fill="#58CC02"/> <text x="-3" y="41.5" font-size="3" fill="#58CC02" text-anchor="end">P</text> <polygon points="78,38.5 78,41.5 81,40" fill="#58CC02"/> <text x="82" y="41.5" font-size="3" fill="#58CC02">P</text> </g> <!-- Labels --> <text x="16" y="34" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">eye</text> <text x="64" y="34" font-size="2.5" fill="#3B8700" opacity="0.35" text-anchor="middle">fork</text> <text x="30" y="24" font-size="2.5" fill="#A5E86C" opacity="0.4" text-anchor="middle">pin</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">articulating joint</text> </svg>',
-          explanation: 'Sequential (clockwise) tightening is WRONG for flanged joints. The correct procedure is a star (criss-cross) pattern .',
-          hint: 'What happens to the gasket compression and flange.'
+          explanation: 'A full-penetration butt weld fuses the entire cross-section, making it as strong as the base metal (with proper technique and filler).',
+          hint: 'Which weld fuses the entire thickness of the plates?',
         },
         {
           id: 'u8-L4-Q20',
           type: 'multiple-choice',
-          question: 'The weld has been classified as a Category C detail per AWS/AISC. What does the fatigue category primarily depend on?',
+          question: 'A fillet weld has a leg size of 8 mm. What is the throat dimension?',
           options: [
-            'The welding process (MIG, TIG, stick) used',
-            'The color of the welding electrode',
-            'The joint geometry and type of weld detail — the shape of the stress',
-            'Only the base metal strength — higher-strength steel always gives better weld'
+            '4 mm',
+            '5.66 mm',
+            '8 mm',
+            '11.3 mm'
           ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,28 Q40,24 46,28" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,38 Q40,42 46,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <ellipse cx="40" cy="33" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <rect x="6" y="50" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="50" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="50" width="10" height="22" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="50" width="10" height="22" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,60 L40,60 L40,50" fill="#58CC02" opacity="0.25"/> <path d="M34,60 Q38,54 40,50" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,32 L44,26"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,32 L36,24" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">weld types</text> </svg>',
-          explanation: 'Fatigue performance of welded joints is governed by the detail category (A through E/E\'), which is determined by the joint geometry and the resulting stress concentration.',
-          hint: 'Weld fatigue life depends on the stress concentration.'
+          correctIndex: 1,
+          explanation: 'Throat = 0.707 x leg = 0.707 x 8 = 5.66 mm. The throat is the shortest distance through the weld cross-section.',
+          hint: 'The throat is 0.707 times the leg size (sin 45 degrees).',
         },
         {
           id: 'u8-L4-Q21',
-          type: 'multiple-choice',
-          question: 'What thread type is preferred for bolts in high-pressure applications (e.g., pressure vessels and hydraulic cylinders)?',
-          options: [
-            'Coarse thread — it is stronger because it has more cross-sectional area',
-            'Fine thread — it has a larger tensile stress area, lower helix angle (more',
-            'Acme thread — it has a stronger trapezoidal shape, which would only hold true',
-            'Square thread — it produces no radial force on the nut'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Fine-pitch threads are preferred in high-pressure and fatigue-critical applications.',
-          hint: 'Compare the geometric properties of fine.'
+          type: 'true-false',
+          question: 'Welded joints under fatigue loading should avoid sharp notches and undercuts at the weld toe.',
+          correctAnswer: true,
+          explanation: 'The weld toe is a stress concentration site. Sharp notches and undercuts drastically reduce fatigue life. Proper weld profile and toe grinding improve fatigue performance.',
+          hint: 'Stress concentrations are the enemy of fatigue life.',
+        },
+        {
+          id: 'u8-L4c-T2',
+          type: 'teaching',
+          question: 'Adhesive joint design',
+          explanation: 'Adhesive joints work best in shear (lap joints). Design rules: maximize overlap area, avoid peel and cleavage loads, control bondline thickness (0.1 to 0.25 mm), and ensure proper surface preparation. Adhesives can join dissimilar materials without heat distortion.',
+          hint: 'Try this now: compare the shear strength of a 25 mm overlap vs. a 50 mm overlap.',
+        },
+        {
+          id: 'u8-L4c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort into "Good for adhesive joints" vs. "Bad for adhesive joints".',
+          options: ['Shear loading', 'Large bond area', 'Peel loading', 'Thin bondline (0.1-0.25 mm)', 'High temperature (>200 C)', 'Impact/cleavage loads'],
+          buckets: ['Good for adhesive', 'Bad for adhesive'],
+          correctBuckets: [0, 0, 1, 0, 1, 1],
+          explanation: 'Adhesives excel in shear with large area and thin bondlines. They struggle with peel, cleavage, impact, and high temperatures.',
+          hint: 'Adhesives are strong in shear but weak when peeled apart.',
         },
         {
           id: 'u8-L4-Q22',
-          type: 'fill-blank',
-          question: 'The ratio T/(F*d) in the torque-tension relationship T = K*F*d, where T is torque, F is bolt preload, and d is nominal diameter, _____?',
-          blanks: ['K'],
-          wordBank: ['K', 'C', 'f', 'mu', 'n'],
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The nut factor K (also called torque coefficient) in T = K × F × d encompasses all friction effects in the bolted joint: thread friction, bearing surface friction, and thread geometry.',
-          hint: 'This dimensionless coefficient relates applied torque.'
+          type: 'multiple-choice',
+          question: 'What welding defect is most dangerous for fatigue life?',
+          options: [
+            'Slight porosity in the weld interior',
+            'Minor spatter on the base plate surface',
+            'Lack of fusion at the weld root',
+            'Slight discoloration from oxidation'
+          ],
+          correctIndex: 2,
+          explanation: 'Lack of fusion creates a crack-like defect at the weld root. Under cyclic loading, this acts as a pre-existing crack and dramatically reduces fatigue life.',
+          hint: 'Which defect acts most like a pre-existing crack?',
         },
         {
-          id: 'u8-L4-Q23',
-          type: 'multiple-choice',
-          question: 'In a welded structure, what is the most common location for fatigue crack initiation?',
-          options: [
-            'At center of weld bead, where metal is hottest',
-            'At the weld toe — transition between weld and base',
-            'In base metal far from weld, highest residual stress',
-            'At the midpoint of the weld length precisely'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="46" y="28" width="28" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="46" y="28" width="28" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,28 Q40,24 46,28" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <path d="M34,38 Q40,42 46,38" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <ellipse cx="40" cy="33" rx="6" ry="8" fill="#58CC02" opacity="0.2"/> <rect x="6" y="50" width="34" height="10" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="6" y="50" width="34" height="10" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <rect x="40" y="50" width="10" height="22" rx="1" fill="#58CC02" opacity="0.1"/> <rect x="40" y="50" width="10" height="22" rx="1" stroke="#3B8700" stroke-width="1.2" fill="none"/> <path d="M34,60 L40,60 L40,50" fill="#58CC02" opacity="0.25"/> <path d="M34,60 Q38,54 40,50" stroke="#58CC02" stroke-width="1.5" fill="none" opacity="0.4"/> <circle r="1" fill="#58CC02" opacity="0"> <animateMotion dur="0.4s" repeatCount="indefinite" path="M40,32 L44,26"/> <animate attributeName="opacity" values="0.5;0" dur="0.4s" repeatCount="indefinite"/> </circle> <circle r="0.8" fill="#A5E86C" opacity="0"> <animateMotion dur="0.35s" repeatCount="indefinite" path="M40,32 L36,24" begin="0.1s"/> <animate attributeName="opacity" values="0.4;0" dur="0.35s" begin="0.1s" repeatCount="indefinite"/> </circle> <text x="40" y="18" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2">weld types</text> </svg>',
-          explanation: 'The weld toe is the most common fatigue crack initiation site in welded joints.',
-          hint: 'Look at the joint geometry.'
+          id: 'u8-L4c-MP1',
+          type: 'match-pairs',
+          question: 'Match each joining method to its best application.',
+          options: ['Bolted joint', 'Fillet weld', 'Butt weld', 'Adhesive bond'],
+          matchTargets: ['Needs disassembly for maintenance', 'Structural T-joint or bracket', 'Full-strength plate splice', 'Joining dissimilar thin materials'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Bolts allow disassembly. Fillet welds suit T-joints. Butt welds give full strength. Adhesives join dissimilar and thin materials.',
+          hint: 'Each method has a sweet spot in terms of joint geometry and requirements.',
         },
         {
           id: 'u8-L4-Q24',
           type: 'true-false',
-          question: 'The strength of a properly made fillet weld is independent of the direction of loading relative to the weld axis — transverse?',
+          question: 'Riveted joints are still commonly used in new steel building construction because they are stronger than bolted joints.',
           correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Transverse fillet welds (loaded perpendicular to their axis) are approximately 50% stronger than longitudinal fillet welds (loaded parallel to their axis) of the same size.',
-          hint: 'Consider the failure plane orientation and stress state.'
+          explanation: 'Rivets have been largely replaced by high-strength bolts in structural steel. Bolts are easier to install, inspect, and can be tightened to precise preloads.',
+          hint: 'Modern construction uses high-strength bolts almost exclusively.',
         },
         {
           id: 'u8-L4-Q25',
           type: 'multiple-choice',
-          question: 'What is the purpose of using a Belleville (conical disc) washer stack under a bolt head?',
+          question: 'What is the main advantage of a double-lap joint over a single-lap joint?',
           options: [
-            'To increase the bolt preload beyond what the torque wrench can achieve',
-            'To maintain bolt preload when the joint experiences thermal',
-            'To reduce the required torque for tightening',
-            'To prevent the bolt from being overtightened'
+            'Uses less material',
+            'Eliminates the bending moment from eccentric loading',
+            'Easier to manufacture',
+            'Requires fewer fasteners'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Belleville washers (also called disc springs) are conical disc springs that add controlled compliance to the bolted joint.',
-          hint: 'These conical washers act as springs.'
-        },
-        {
-          id: 'u8-L4-Q26',
-          type: 'multiple-choice',
-          question: 'What is the bolt shear capacity if the allowable shear stress is 160 MPa?',
-          options: [
-            '13.5 kN per bolt, valid only for isotropic material behavior',
-            '67.4 kN total for all 5 bolts',
-            '134.9 kN total for all 5 bolts',
-            '84.3 kN per bolt — not the primary mechanism here'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'Each bolt in single shear has one shear plane. Shear capacity per bolt = tau_allow × A = 160 × 84.3 = 13,488 N ≈ 13.5 kN. Total capacity for 5 bolts = 5 × 13.5 = 67.4 kN.',
-          hint: 'Shear capacity = allowable shear stress × shear area.'
-        },
-        {
-          id: 'u8-L4-Q27',
-          type: 'multiple-choice',
-          question: 'What is "hydrogen embrittlement" in bolted joints, and which bolt grades are most susceptible?',
-          options: [
-            'Corrosion caused by water — all bolt grades are equally affected, provided all',
-            'A form of stress corrosion cracking where hydrogen atoms diffuse into',
-            'Galvanic corrosion between dissimilar metals in the joint, provided all',
-            'Fatigue failure accelerated by humidity — only low-strength bolts are'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Hydrogen embrittlement (HE) is a delayed failure mode where hydrogen atoms (from electroplating, cathodic protection, pickling, or corrosive environments) diffuse into the bolt steel.',
-          hint: 'This failure mode is time-delayed and affects the hardest.'
+          explanation: 'A single-lap joint creates a bending moment because the load path is offset. A double-lap joint is symmetric, eliminating this eccentricity.',
+          hint: 'Think about the load path in each configuration.',
         },
         {
           id: 'u8-L4-Q28',
-          type: 'true-false',
-          question: 'A longer bolt improves fatigue life in a cyclically loaded bolted joint because the longer bolt is more compliant, resulting in?',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Top plate --> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bottom plate --> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Bolt shaft (through both plates) --> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="38" y="16" width="4" height="38" rx="1" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.3"/> <!-- Bolt head (hex, top) --> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Nut (hex, bottom) --> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <!-- Washer (top) --> <rect x="36" y="18" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Washer (bottom) --> <rect x="36" y="50" width="8" height="2" rx="1" fill="#A5E86C" opacity="0.15"/> <!-- Thread marks on bolt shaft --> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <!-- Preload/clamping force arrows (pulsing) --> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <!-- Bolt tension (upward on bolt) --> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <!-- Bolt tension (downward on bolt) --> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> <!-- Clamping compression (plates pushed together) --> <polygon points="24,22 26,19 28,22" fill="#58CC02" opacity="0.5"/> <polygon points="24,48 26,51 28,48" fill="#58CC02" opacity="0.5"/> <polygon points="52,22 54,19 56,22" fill="#58CC02" opacity="0.5"/> <polygon points="52,48 54,51 56,48" fill="#58CC02" opacity="0.5"/> </g> <!-- Labels --> <text x="22" y="10" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">F_preload</text> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'This is a key design principle for fatigue-loaded bolted joints. A longer bolt has lower stiffness (k_b = EA/L, inversely proportional to length).',
-          hint: 'How does bolt length affect stiffness k_b, and how does.'
-        },
-        {
-          id: 'u8-L4-Q29',
-          type: 'multiple-choice',
-          question: 'What is the angle-of-turn tightening method, and why is it more accurate than pure torque control for achieving bolt preload?',
-          options: [
-            'The bolt is tightened by counting the number of turns from hand-tight — this',
-            'The bolt is first snugged to a threshold torque, then turned through',
-            'The bolt is tightened until the wrench handle is at a specific angle — this',
-            'This method involves measuring the bolt head angle with a protractor — it'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="24" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="24" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="10" y="36" width="60" height="12" rx="2" fill="#58CC02" opacity="0.1"/> <rect x="10" y="36" width="60" height="12" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="38" y="16" width="4" height="38" rx="1" fill="#3B8700" opacity="0.25"/> <rect x="34" y="12" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="12" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <rect x="34" y="52" width="12" height="6" rx="2" fill="#58CC02" opacity="0.2"/> <rect x="34" y="52" width="12" height="6" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none"/> <line x1="38.5" y1="44" x2="41.5" y2="43" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="46" x2="41.5" y2="45" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <line x1="38.5" y1="48" x2="41.5" y2="47" stroke="#A5E86C" stroke-width="0.5" opacity="0.15"/> <g> <animate attributeName="opacity" values="0.15;0.3;0.15" dur="2s" repeatCount="indefinite"/> <line x1="40" y1="22" x2="40" y2="16" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,17 40,14 41.5,17" fill="#3B8700"/> <line x1="40" y1="48" x2="40" y2="54" stroke="#3B8700" stroke-width="1"/> <polygon points="38.5,53 40,56 41.5,53" fill="#3B8700"/> </g> <text x="40" y="68" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">clamping force</text> </svg>',
-          explanation: 'The angle-of-turn (or turn-of-nut) method works in two steps.',
-          hint: 'Preload = bolt stiffness × bolt elongation.'
-        },
-        {
-          id: 'u8-L4-Q30',
           type: 'fill-blank',
-          question: 'A welded joint where the weld metal is deposited in a groove between the edges of the plates being joined, providing full _____?',
-          blanks: ['butt'],
-          wordBank: ['butt', 'fillet', 'plug', 'slot', 'seam'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Bottom part (base with ledge) --> <path d="M10,50 L70,50 L70,66 L10,66 Z" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Ledge/undercut --> <rect x="56" y="44" width="8" height="6" rx="0.5" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <rect x="16" y="44" width="8" height="6" rx="0.5" stroke-width="0.6" stroke="#58CC02" fill="#58CC02" fill-opacity="0.06"/> <!-- Top part (clip with cantilever hooks) --> <g> <path d="M18,42 L18,20 L62,20 L62,42" stroke-width="0.8" stroke="#58CC02" fill="none"/> <rect x="18" y="20" width="44" height="22" fill="#58CC02" opacity="0.03"/> <!-- Left hook --> <path d="M18,42 L14,42 L14,46 L20,46" stroke-width="0.8" stroke="#A5E86C" fill="none"/> <!-- Right hook --> <path d="M62,42 L66,42 L66,46 L60,46" stroke-width="0.8" stroke="#A5E86C" fill="none"/> <animate attributeName="transform" values="translate(0,-14);translate(0,0);translate(0,-14)" dur="3s" repeatCount="indefinite" attributeType="XML" type="translate"/> </g> <!-- Deflection arrows on hooks --> <g opacity="0.3"> <path d="M12,38 Q10,42 14,44" stroke-width="0.4" stroke="#3B8700" fill="none"> <animate attributeName="opacity" values="0;0.4;0" dur="3s" repeatCount="indefinite"/> </path> <path d="M68,38 Q70,42 66,44" stroke-width="0.4" stroke="#3B8700" fill="none"> <animate attributeName="opacity" values="0;0.4;0" dur="3s" repeatCount="indefinite"/> </path> </g> <!-- Press-in arrow --> <g opacity="0.45"> <line x1="40" y1="4" x2="40" y2="14" stroke-width="0.6" stroke="#58CC02"/> <polygon points="38.5,14 41.5,14 40,17" fill="#58CC02"/> <text x="45" y="10" font-size="3" fill="#58CC02">F</text> </g> <!-- Click label --> <text x="40" y="58" font-size="3" fill="#3B8700" opacity="0.3" text-anchor="middle">locked</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">cantilever hook</text> </svg>',
-          explanation: 'A butt (groove) weld joins two plates edge-to-edge, with the weld metal filling a prepared groove (V, J, U, or bevel shape) between the plate edges.',
-          hint: 'This weld type fills a groove between plate edges.'
-        }
+          question: 'The minimum cross-section through a fillet weld, at 45 degrees, is called the _____ of the weld.',
+          blanks: ['throat'],
+          wordBank: ['throat', 'root', 'toe', 'leg', 'face'],
+          explanation: 'The throat is the shortest distance through the fillet weld cross-section (at 45 degrees). It equals 0.707 times the leg size and is the critical dimension for strength calculations.',
+          hint: 'This dimension is used in all fillet weld stress calculations.',
+        },
       ]
     },
+    // ─────��────────────────────────────────────��──────────────────
+    // LESSON 5a: Springs & Seals — Spring Basics
+    // ────��──────────────────���─────────────────────────────────────
     {
       id: 'u8-L5',
-      title: 'Springs & Seals',
-      description: 'Helical spring design, Wahl factor, spring rate, O-ring/lip seal/mechanical seal selection, PV limits.',
+      title: 'Spring Basics',
+      description: 'Helical spring design, spring rate, spring index, and the Wahl correction factor.',
       icon: '📝',
       xpReward: 25,
-  levels: 4,
+      levels: 4,
       questions: [
         {
           id: 'u8-L5-T1',
           type: 'teaching',
           question: 'Spring basics and spring rate',
-          explanation: 'A helical compression spring stores energy by deflecting under load. Its spring rate k = Gd^4/(8D^3*Na), where G is shear modulus, d is wire diameter, D is mean coil diameter, and Na is the number of active coils. The spring index C = D/d should be between 4 and 12 for practical manufacturing.',
-          hint: 'A smaller wire diameter or more coils gives a softer spring.',
+          explanation: 'A helical compression spring stores energy by deflecting under load. Its spring rate k = Gd^4/(8D^3*Na), where G is shear modulus, d is wire diameter, D is mean coil diameter, and Na is the number of active coils.',
+          hint: 'Doubling the wire diameter increases the spring rate by 16x (d^4).',
+        },
+        {
+          id: 'u8-L5-Q1a',
+          type: 'true-false',
+          question: 'A stiffer spring (higher k) deflects less under the same load.',
+          correctAnswer: true,
+          explanation: 'Yes. F = k*x, so for a given force F, higher k means smaller deflection x.',
+          hint: 'Spring rate k = F/x.',
         },
         {
           id: 'u8-L5-Q1',
           type: 'multiple-choice',
-          question: 'Using G = 80 GPa, what is the spring rate?',
+          question: 'Which factor has the greatest effect on spring rate?',
           options: [
-            '14.5 N/mm',
-            '23.1 N/mm',
-            '28.9 N/mm',
-            '36.2 N/mm'
-          ],
-          correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Spring rate k = Gd⁴/(8D³Nₐ) = (80,000 × 5⁴)/(8 × 30³ × 8) = (80,000 × 625)/(8 × 27,000 × 8) = 50,000,000/1,728,000 ≈ 28.9 N/mm. The spring index C = D/d = 6, which is in the typical design range.',
-          hint: 'k = Gd⁴/(8D³N_a). Be consistent with units.'
-        },
-        {
-          id: 'u8-L5-Q2',
-          type: 'multiple-choice',
-          question: 'The spring index (D/d) is 4.5. What is the likely cause, and what would you change?',
-          options: [
-            'The spring material is defective — replace the supplier and use the same',
-            'Spring index too low, causing high Wahl correction factor',
-            'The spring is corroding at that specific location',
-            'Spring is bottoming out during operation causing impact'
+            'Number of active coils (Na)',
+            'Wire diameter (d)',
+            'Mean coil diameter (D)',
+            'Free length'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'A spring index of 4.5 is at the low end of the practical range (4-12).',
-          hint: 'The failure location (inner coil surface) and the low.'
+          explanation: 'Wire diameter appears as d^4 in the spring rate formula, so it has the strongest effect. Doubling d increases k by 16 times.',
+          hint: 'Look at the exponents in k = Gd^4/(8D^3*Na).',
         },
         {
-          id: 'u8-L5-T2',
+          id: 'u8-L1-Q13',
+          type: 'fill-blank',
+          question: 'The ratio D/d (mean coil diameter to wire diameter) is called the spring _____.',
+          blanks: ['index'],
+          wordBank: ['index', 'ratio', 'constant', 'factor', 'modulus'],
+          explanation: 'The spring index C = D/d describes how tightly a coil is wound. Practical values are between 4 and 12.',
+          hint: 'This dimensionless ratio uses the mean coil diameter.',
+        },
+        {
+          id: 'u8-L5-T1b',
           type: 'teaching',
           question: 'The Wahl correction factor',
-          explanation: 'In a helical spring, the inner surface of the coil sees higher stress than the outer surface due to curvature and direct shear. The Wahl factor Kw corrects for this. A low spring index (tightly wound coils, C below 5) gives a high Wahl factor, which means much higher stress on the inner coil surface.',
-          hint: 'Wahl factor matters most for fatigue-loaded springs.',
+          explanation: 'The basic shear stress formula tau = 8FD/(pi*d^3) underestimates the actual stress on the inner coil. The Wahl factor K_w accounts for curvature and direct shear: K_w = (4C - 1)/(4C - 4) + 0.615/C. For C = 6, K_w is about 1.25.',
+          hint: 'Try this now: calculate K_w for C = 8.',
         },
         {
           id: 'u8-L5-Q3',
           type: 'true-false',
-          question: 'O-ring seals rely primarily on the elastic deformation (squeeze) of the rubber to create a seal at low pressures, and on system?',
+          question: 'The Wahl factor is always greater than 1.0 because it accounts for curvature effects.',
           correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="10" width="60" height="60" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="10" y="10" width="60" height="60" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <rect x="30" y="10" width="20" height="60" fill="#58CC02" opacity="0.06"/> <rect x="30" y="10" width="20" height="60" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.15"/> <ellipse cx="40" cy="40" rx="8" ry="12" fill="#58CC02" opacity="0.3"/> <ellipse cx="40" cy="40" rx="8" ry="12" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="40" rx="4" ry="7" fill="#A5E86C" opacity="0.15"/> <ellipse cx="38" cy="36" rx="2" ry="3" fill="white" opacity="0.2"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="52" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <text x="62" y="42" font-size="3.5" fill="#3B8700" font-style="italic">P</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">squeeze seal</text> </svg>',
-          explanation: 'At low pressures, the O-ring seals through the initial squeeze (typically 10–30% compression) that creates contact stress against the mating surfaces.',
-          hint: 'Consider the two sealing mechanisms: initial compression.'
+          explanation: 'The inner surface of a coil has higher stress due to curvature. The Wahl factor is always > 1.0 to correct for this, typically 1.1 to 1.4.',
+          hint: 'Curvature concentrates stress on the inner side of the coil.',
+        },
+        {
+          id: 'u8-L5-MP1',
+          type: 'match-pairs',
+          question: 'Match each spring parameter to its effect on spring rate.',
+          options: ['Increase wire diameter d', 'Increase coil diameter D', 'Add more active coils', 'Use stiffer material (higher G)'],
+          matchTargets: ['k increases (d^4 effect)', 'k decreases (D^3 effect)', 'k decreases (1/Na effect)', 'k increases (proportional)'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'k = Gd^4/(8D^3*Na). Wire diameter increases k most strongly. Coil diameter and active coils decrease it.',
+          hint: 'Look at how each parameter appears in the formula.',
         },
         {
           id: 'u8-L5-Q4',
           type: 'multiple-choice',
-          question: 'The shaft surface under the seal shows a polished wear groove. What are the possible causes?',
+          question: 'A spring has d = 3 mm, D = 24 mm. What is the spring index C?',
           options: [
-            'The seal was installed backward — lip seals only work in one direction.',
-            'The shaft surface roughness was either too rough (abraded the lip) or too',
-            'The oil viscosity was too low, causing it to pass through the seal regardless',
-            'Lip seals have a fixed life and always wear out — 18 months is normal.'
+            '4',
+            '6',
+            '8',
+            '12'
           ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="10" width="60" height="60" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="10" y="10" width="60" height="60" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <rect x="30" y="10" width="20" height="60" fill="#58CC02" opacity="0.06"/> <rect x="30" y="10" width="20" height="60" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.15"/> <ellipse cx="40" cy="40" rx="8" ry="12" fill="#58CC02" opacity="0.3"/> <ellipse cx="40" cy="40" rx="8" ry="12" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="40" rx="4" ry="7" fill="#A5E86C" opacity="0.15"/> <ellipse cx="38" cy="36" rx="2" ry="3" fill="white" opacity="0.2"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="52" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <text x="62" y="42" font-size="3.5" fill="#3B8700" font-style="italic">P</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">squeeze seal</text> </svg>',
-          explanation: 'Lip seal wear grooves are a common maintenance issue. Root causes: Shaft hardness too low .',
-          hint: 'The wear groove is the key clue.'
+          correctIndex: 2,
+          explanation: 'C = D/d = 24/3 = 8. This is in the practical range of 4 to 12.',
+          hint: 'C = mean coil diameter / wire diameter.',
         },
         {
           id: 'u8-L5-Q5',
           type: 'multiple-choice',
-          question: 'You are selecting a seal for a centrifugal pump handling hot (90°C) chemical process fluid at 1.5 MPa. The pump runs?',
+          question: 'What happens if the spring index C is too low (e.g., C = 3)?',
           options: [
-            'A standard nitrile rubber lip seal — it is the simplest and cheapest option',
-            'A mechanical face seal with chemically resistant face materials (SiC/SiC',
-            'An O-ring in a groove — O-rings are universal seals that work at any pressure',
-            'A labyrinth seal — non-contact seals last forever because there is no wear'
+            'The spring becomes too soft',
+            'The spring is difficult to manufacture and has high residual stress',
+            'The spring rate decreases dramatically',
+            'Nothing, any C value works'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'This application eliminates most seal types. Lip seals: cannot handle 1.5 MPa continuous pressure (max ~0.05 MPa without special backing).',
-          hint: 'Eliminate seal types that fail any of the four.'
-        },
-        {
-          id: 'u8-L5-Q6',
-          type: 'fill-blank',
-          question: 'An O-ring seals at low pressure through its initial compression (squeeze), but at higher pressures it is pushed against the _____?',
-          blanks: ['self'],
-          wordBank: ['self', 'spring', 'hydraulic', 'gas', 'force'],
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="10" width="60" height="60" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="10" y="10" width="60" height="60" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <rect x="30" y="10" width="20" height="60" fill="#58CC02" opacity="0.06"/> <rect x="30" y="10" width="20" height="60" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.15"/> <ellipse cx="40" cy="40" rx="8" ry="12" fill="#58CC02" opacity="0.3"/> <ellipse cx="40" cy="40" rx="8" ry="12" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="40" rx="4" ry="7" fill="#A5E86C" opacity="0.15"/> <ellipse cx="38" cy="36" rx="2" ry="3" fill="white" opacity="0.2"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="52" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <text x="62" y="42" font-size="3.5" fill="#3B8700" font-style="italic">P</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">squeeze seal</text> </svg>',
-          explanation: 'O-rings are self-energizing (or pressure-energizing) seals. At low/zero pressure, sealing depends on the initial squeeze (10-30% compression) that creates contact stress against the mating surfaces.',
-          hint: 'The system pressure itself assists the sealing action.'
+          explanation: 'Low C means the coil is wound very tightly. This makes manufacturing difficult, increases residual stresses, and raises the Wahl correction factor significantly.',
+          hint: 'Tight coils are hard to wind and have high curvature stress.',
         },
         {
           id: 'u8-L5-Q7',
           type: 'multiple-choice',
-          question: 'What is the maximum force the spring can exert before going solid?',
+          question: 'Two identical springs in parallel have a combined spring rate of:',
           options: [
-            '400 N',
-            '600 N',
-            '800 N',
-            '1200 N'
+            'k/2',
+            'k',
+            '2k',
+            'k^2'
           ],
           correctIndex: 2,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="0,40,40;720,40,40;720,40,40;0,40,40" keyTimes="0;0.3;0.7;1" calcMode="spline" keySplines="0.2 0 0.8 1;0.5 0 0.5 1;0.2 0 0.8 1"/> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="17" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="24" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="56" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="24" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="56" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="28.7" cy="28.7" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="51.3" cy="51.3" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> </g> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <g> <rect x="54" y="24" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="24;29;24" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <rect x="54" y="44" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="44;39;44" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <path d="M62,28 Q68,40 62,52" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> </g> </svg>',
-          explanation: 'Maximum deflection before solid = free length - solid length = 100 - 60 = 40 mm. Maximum force at solid height = k × delta_max = 20 × 40 = 800 N.',
-          hint: 'Maximum deflection = free length - solid length.'
+          explanation: 'Springs in parallel add: k_total = k1 + k2 = 2k. Both springs share the load and deflect the same amount.',
+          hint: 'Parallel springs share the load. Series springs share the deflection.',
         },
         {
-          id: 'u8-L5-Q8',
-          type: 'multiple-choice',
-          question: 'The Wahl correction factor K_w for a helical spring with spring index C is given by K_w = (4C-1)/(4C-4) + 0.615/C. For C = 6, what is K_w?',
-          options: [
-            '1.15',
-            '1.25',
-            '1.35',
-            '1.45'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'K_w = (4×6-1)/(4×6-4) + 0.615/6 = 23/20 + 0.1025 = 1.15 + 0.1025 = 1.2525 ≈ 1.25.',
-          hint: 'Substitute C = 6 into the Wahl formula and compute each.'
+          id: 'u8-L5-SB1',
+          type: 'sort-buckets',
+          question: 'Sort spring configurations: "Springs in parallel" vs. "Springs in series".',
+          options: ['Both support the same platform', 'One stacked inside the other (end to end)', 'Combined rate = k1 + k2', 'Combined rate = 1/(1/k1 + 1/k2)', 'Same deflection', 'Same force through each'],
+          buckets: ['Parallel', 'Series'],
+          correctBuckets: [0, 1, 0, 1, 0, 1],
+          explanation: 'Parallel springs share load with same deflection (rates add). Series springs share deflection with same force (reciprocals add).',
+          hint: 'Think about whether both springs see the same force or same displacement.',
+        },
+      ]
+    },
+    // ─────────────────────────────────────────���───────────────────
+    // LESSON 5b: Springs & Seals — Spring Failure and Seal Types
+    // ��─────────────────────��────────────────────────────��─────────
+    {
+      id: 'u8-L5b',
+      title: 'Spring Fatigue & Seals',
+      description: 'Spring fatigue, surge, buckling, and an introduction to O-rings, lip seals, and mechanical seals.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L5b-T1',
+          type: 'teaching',
+          question: 'Spring fatigue and failure modes',
+          explanation: 'Springs under cyclic loading can fail by fatigue, just like shafts. Shot peening the wire surface creates compressive residual stress that improves fatigue life by 20 to 50%. Springs can also fail by surging (resonance), buckling (if too slender), or yielding (set).',
+          hint: 'Presetting (over-compressing) a spring removes permanent set.',
+        },
+        {
+          id: 'u8-L5b-Q1a',
+          type: 'true-false',
+          question: 'Shot peening a spring wire improves its fatigue life.',
+          correctAnswer: true,
+          explanation: 'Yes. Shot peening creates a compressive residual stress layer on the surface, which opposes the tensile stresses that drive fatigue cracks.',
+          hint: 'Surface compression resists crack initiation.',
         },
         {
           id: 'u8-L5-Q9',
           type: 'true-false',
-          question: 'Springs made from larger-diameter wire have a higher endurance limit than springs made from smaller-diameter wire of the same material.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'This is false — smaller diameter wire actually has a higher ultimate tensile strength and correspondingly higher endurance limit than larger diameter wire.',
-          hint: 'Consider how wire drawing (cold work) affects strength.'
+          question: 'Spring surge occurs when the operating frequency matches a natural frequency of the spring coils.',
+          correctAnswer: true,
+          explanation: 'Spring surge is resonance. The coils vibrate as a distributed mass-spring system, and if the operating frequency hits a natural frequency, amplitudes spike and can cause failure.',
+          hint: 'Surge is the spring version of shaft whirling.',
         },
         {
           id: 'u8-L5-Q10',
           type: 'multiple-choice',
-          question: 'What is "spring surge" and why is it a concern in high-speed applications?',
+          question: 'A compression spring buckles when its free length exceeds about how many times its mean coil diameter?',
           options: [
-            'Spring surge is the increase in spring rate under high loads, provided all',
-            'Spring surge is a resonance phenomenon where a compression wave travels back',
-            'Spring surge is the tendency of a spring to buckle under high compression',
-            'Spring surge is the increase in free length due to thermal expansion at high'
+            '2 times',
+            '4 times',
+            '8 times',
+            '12 times'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Spring surge occurs when a helical spring is excited at or near its natural frequency.',
-          hint: 'Like any elastic body, a spring has natural frequencies.'
+          explanation: 'A general guideline is that helical compression springs with free length > 4 x D are susceptible to buckling, especially if the ends are not well-guided.',
+          hint: 'Slender springs buckle, like slender columns.',
         },
         {
-          id: 'u8-L5-Q11',
-          type: 'multiple-choice',
-          question: 'What is the difference between "closed and ground" and "closed and unground" spring ends for helical compression springs?',
-          options: [
-            'There is no functional difference — grinding is only cosmetic, provided all',
-            'Closed and ground ends have the last coil bent flat and the end face is ground',
-            'Ground ends are for extension springs; unground ends are for compression springs',
-            'Ground ends have fewer active coils, making the spring stiffer, provided all'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Spring end conditions affect both the spring geometry and the load application. Closed and ground.',
-          hint: 'How does the end surface flatness affect the way.'
-        },
-        {
-          id: 'u8-L5-Q12',
-          type: 'fill-blank',
-          question: 'The product of the contact pressure (P) and sliding velocity (V) at a seal or bearing interface, which governs wear rate and _____?',
-          blanks: ['PV'],
-          wordBank: ['PV', 'FN', 'HV', 'CV', 'KV'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Disc (rotating) --> <rect x="36" y="8" width="8" height="64" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Disc surface pattern --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="38" y1="10" x2="42" y2="10"/><line x1="38" y1="16" x2="42" y2="16"/> <line x1="38" y1="22" x2="42" y2="22"/><line x1="38" y1="28" x2="42" y2="28"/> <line x1="38" y1="34" x2="42" y2="34"/><line x1="38" y1="46" x2="42" y2="46"/> <line x1="38" y1="52" x2="42" y2="52"/><line x1="38" y1="58" x2="42" y2="58"/> <line x1="38" y1="64" x2="42" y2="64"/><line x1="38" y1="70" x2="42" y2="70"/> </g> <!-- Caliper body (C-shape) --> <path d="M18,24 L18,14 L62,14 L62,24" stroke-width="1.2" stroke="#58CC02" fill="none"/> <path d="M18,56 L18,66 L62,66 L62,56" stroke-width="1.2" stroke="#58CC02" fill="none"/> <!-- Inner pad (left) --> <rect x="26" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="x" values="26;32;26" dur="2s" repeatCount="indefinite"/> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Outer pad (right) --> <rect x="44" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Piston (left side) --> <rect x="20" y="32" width="6" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none"> <animate attributeName="x" values="20;26;20" dur="2s" repeatCount="indefinite"/> </rect> <!-- Hydraulic line --> <line x1="10" y1="40" x2="20" y2="40" stroke-width="0.6" stroke="#58CC02"/> <circle cx="8" cy="40" r="2" stroke-width="0.4" stroke="#58CC02" fill="none"/> <text x="8" y="41.5" font-size="2.5" fill="#58CC02" text-anchor="middle">P</text> <!-- Friction force arrows --> <g opacity="0.3"> <line x1="34" y1="38" x2="34" y2="32" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="32.8,32 35.2,32 34,30" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> <line x1="46" y1="42" x2="46" y2="48" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="44.8,48 47.2,48 46,50" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> </g> <!-- Labels --> <text x="40" y="10" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">caliper</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">friction braking</text> </svg>',
-          explanation: 'The PV (pressure-velocity) value is a fundamental parameter for sliding contact surfaces (seals, plain bearings, bushings).',
-          hint: 'This two-letter abbreviation multiplies pressure.'
-        },
-        {
-          id: 'u8-L5-Q13',
-          type: 'multiple-choice',
-          question: 'The spring buckles during operation. What is the likely cause and solution?',
-          options: [
-            'Material is too soft — use a higher-grade wire',
-            'L_f/D = 6 is too high — spring will buckle under load',
-            'Wire diameter is too large — use thinner wire',
-            'Too few coils — add more coils to stiffen spring'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'Helical compression springs can buckle like columns when the slenderness ratio (free length / mean coil diameter) is too high.',
-          hint: 'Like columns, springs can buckle when they are too long.'
-        },
-        {
-          id: 'u8-L5-T3',
+          id: 'u8-L5b-T2',
           type: 'teaching',
-          question: 'Seal types and how they work',
-          explanation: 'Seals prevent fluid leakage between moving parts. O-rings are the simplest: rubber rings squeezed into a groove. Lip seals use a flexible edge pressed against a shaft by a spring. Mechanical seals use flat, lapped faces rotating against each other. Each type has different pressure, speed, and temperature limits.',
-          hint: 'O-rings work great for static seals and low-speed dynamic ones.',
+          question: 'Seal types and selection',
+          explanation: 'Seals keep fluids in and contaminants out. O-rings are simple, cheap, and work for static and slow dynamic applications. Lip seals handle rotating shafts at moderate speeds. Mechanical (face) seals handle high pressures and speeds in pumps.',
+          hint: 'Try this now: check the PV limit for an O-ring vs. a lip seal.',
         },
         {
           id: 'u8-L5-Q14',
           type: 'multiple-choice',
-          question: 'What is the key difference between a single-acting mechanical seal and a double mechanical seal in pump applications?',
+          question: 'Which seal type is best for a centrifugal pump shaft running at 3600 RPM?',
           options: [
-            'Single seals use one spring',
-            'A single seal has one pair of sealing faces and the process fluid lubricates',
-            'Single seals work at low pressure',
-            'There is no difference in containment — double seals just last twice as long,'
+            'O-ring in a groove',
+            'Felt ring seal',
+            'Mechanical (face) seal',
+            'Labyrinth seal'
           ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylinder body --> <rect x="8" y="30" width="45" height="20" rx="2" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Piston rod --> <rect x="53" y="37" width="20" height="6" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"> <animate attributeName="x" values="38;53;38" dur="3s" repeatCount="indefinite"/> </rect> <!-- Piston head inside cylinder --> <rect x="35" y="31.5" width="4" height="17" rx="0.5" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.15"> <animate attributeName="x" values="20;35;20" dur="3s" repeatCount="indefinite"/> </rect> <!-- Rod end fitting --> <circle cx="73" cy="40" r="3" stroke-width="0.7" stroke="#58CC02" fill="none"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="73" cy="40" r="1" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <!-- Hydraulic fluid (left chamber) --> <rect x="9" y="31" width="26" height="18" rx="1" fill="#A5E86C" opacity="0.12"> <animate attributeName="width" values="11;26;11" dur="3s" repeatCount="indefinite"/> </rect> <!-- Port connections --> <line x1="15" y1="30" x2="15" y2="22" stroke-width="0.8" stroke="#58CC02"/> <line x1="45" y1="30" x2="45" y2="22" stroke-width="0.8" stroke="#58CC02"/> <text x="15" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₁</text> <text x="45" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₂</text> <!-- Seals --> <line x1="8" y1="32" x2="8" y2="48" stroke-width="1.5" stroke="#3B8700" opacity="0.3"/> <!-- Force arrow --> <line x1="73" y1="55" x2="73" y2="55" stroke-width="0.8" stroke="#3B8700" opacity="0.4"> <animate attributeName="x1" values="58;73;58" dur="3s" repeatCount="indefinite"/> <animate attributeName="x2" values="58;73;58" dur="3s" repeatCount="indefinite"/> </line> <g opacity="0.5"> <line x1="66" y1="58" x2="73" y2="58" stroke-width="0.6" stroke="#3B8700"/> <polygon points="73,56.5 73,59.5 76,58" fill="#3B8700"/> <text x="70" y="63" font-size="3" fill="#3B8700" text-anchor="middle">F</text> </g> <!-- Base mount --> <rect x="4" y="34" width="4" height="12" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <!-- Hatching for fixed mount --> <line x1="2" y1="35" x2="4" y2="37" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="38" x2="4" y2="40" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="41" x2="4" y2="43" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="44" x2="4" y2="46" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">linear actuator</text> </svg>',
-          explanation: 'Single mechanical seals have one sealing interface between a rotating face (on the shaft) and a stationary face (in the gland).',
-          hint: 'How many levels of sealing does each configuration.'
+          correctIndex: 2,
+          explanation: 'Mechanical face seals are the standard for centrifugal pumps. Two precision-lapped surfaces maintain a thin fluid film under pressure and high speed.',
+          hint: 'Two flat, precision-lapped surfaces.',
         },
         {
-          id: 'u8-L5-Q15',
-          type: 'true-false',
-          question: 'Nitrile rubber (NBR) O-rings are suitable for use with hydraulic fluids at temperatures up to 150°C.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'Nitrile rubber (NBR/Buna-N) has a maximum continuous service temperature of approximately 100-120°C (depending on the specific compound). Above this temperature, NBR hardens, loses elasticity,.',
-          hint: 'Check the maximum continuous temperature rating for NBR.'
+          id: 'u8-L5b-MP1',
+          type: 'match-pairs',
+          question: 'Match each seal type to its best application.',
+          options: ['O-ring', 'Lip seal', 'Mechanical face seal', 'Labyrinth seal'],
+          matchTargets: ['Static flanges, hydraulic fittings', 'Rotating shaft, moderate speed', 'Pump shaft, high pressure', 'Non-contact, gas turbine'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'O-rings suit static and low-speed. Lip seals handle moderate shaft speeds. Mechanical seals handle pump conditions. Labyrinths are non-contact for high-speed gas applications.',
+          hint: 'Each seal type excels in a specific speed and pressure range.',
         },
         {
           id: 'u8-L5-Q16',
           type: 'multiple-choice',
-          question: 'What is the primary stress distribution in each leaf?',
+          question: 'What does the PV limit represent for a seal?',
           options: [
-            'Pure torsion — the leaves twist under the load',
-            'Pure tension — leaves stretched by vehicle weight',
-            'Bending stress — each leaf acts as a loaded beam',
-            'Uniform compressive stress through leaf thickness'
+            'Pressure times Volume flow rate',
+            'Pressure times sliding Velocity',
+            'Power times Vibration frequency',
+            'Preload times Viscosity'
           ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <polygon points="14,52 10,60 18,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <polygon points="66,52 62,60 70,60" stroke="#3B8700" stroke-width="1.2" fill="none" opacity="0.3"/> <path d="M14,50 Q40,34 66,50" stroke="#58CC02" stroke-width="4" fill="none" stroke-linecap="round"/> <path d="M20,49 Q40,38 60,49" stroke="#58CC02" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.7"/> <path d="M26,48 Q40,40 54,48" stroke="#58CC02" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/> <line x1="40" y1="20" x2="40" y2="34" stroke="#3B8700" stroke-width="1.5" opacity="0.3"/> <polygon points="38.5,33 40,36 41.5,33" fill="#3B8700" opacity="0.3"/> <text x="40" y="16" font-size="5" fill="#3B8700" text-anchor="middle" font-weight="bold" opacity="0.3">F</text> <text x="40" y="72" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">leaf spring</text> </svg>',
-          explanation: 'Leaf springs are essentially stacked beam springs.',
-          hint: 'A leaf spring is fundamentally a beam element.'
+          correctIndex: 1,
+          explanation: 'PV = pressure x sliding velocity. It\'s a measure of heat generation at the seal interface. Exceeding the PV limit causes overheating and rapid wear.',
+          hint: 'P is contact pressure, V is rubbing speed.',
         },
         {
           id: 'u8-L5-Q17',
-          type: 'multiple-choice',
-          question: 'What is compression set in elastomeric seals, and why is it a critical property?',
-          options: [
-            'Compression set is the maximum force needed to compress the seal, provided all',
-            'Compression set is the permanent deformation remaining after an elastomeric',
-            'Compression set is the initial deflection when the seal is first installed,',
-            'Compression set is the rate at which the seal compresses under constant load,'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="0,40,40;720,40,40;720,40,40;0,40,40" keyTimes="0;0.3;0.7;1" calcMode="spline" keySplines="0.2 0 0.8 1;0.5 0 0.5 1;0.2 0 0.8 1"/> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="17" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="24" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="56" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="24" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="56" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="28.7" cy="28.7" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="51.3" cy="51.3" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> </g> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <g> <rect x="54" y="24" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="24;29;24" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <rect x="54" y="44" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="44;39;44" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <path d="M62,28 Q68,40 62,52" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> </g> </svg>',
-          explanation: 'Compression set is measured as the percentage of original deflection that is not recovered after the seal is released from a compressed state (typically after 22 hours at a specified temperature,.',
-          hint: 'When an O-ring is compressed in a groove for months.'
+          type: 'true-false',
+          question: 'An O-ring seal works by being squeezed between surfaces, and the system pressure pushes it harder against the sealing surface.',
+          correctAnswer: true,
+          explanation: 'O-rings work by initial squeeze (compression) plus pressure energization. As system pressure rises, the O-ring is pushed harder against the groove walls, improving the seal.',
+          hint: 'Higher pressure makes the O-ring seal better.',
         },
         {
-          id: 'u8-L5-Q18',
-          type: 'fill-blank',
-          question: 'The correction factor applied to the simple torsion shear stress formula for helical springs to account for curvature and direct _____?',
-          blanks: ['Wahl'],
-          wordBank: ['Wahl', 'Goodman', 'Soderberg', 'Bergstrasser', 'Johnson'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'The Wahl factor (K_w), developed by A.M.',
-          hint: 'This correction factor is named after the engineer who.'
-        },
-        {
-          id: 'u8-L5-Q19',
-          type: 'multiple-choice',
-          question: 'Two springs with rates k1 = 30 N/mm and k2 = 20 N/mm are connected in parallel. What is the combined spring rate?',
-          options: [
-            '12 N/mm',
-            '25 N/mm',
-            '50 N/mm',
-            '600 N/mm'
-          ],
-          correctIndex: 2,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'For springs in parallel, the combined rate is the sum: k_total = k1 + k2 = 30 + 20 = 50 N/mm.',
-          hint: 'Parallel springs share the same deflection.'
+          id: 'u8-L5b-OS1',
+          type: 'order-steps',
+          question: 'Order seal selection from simplest to most complex application.',
+          steps: ['Static flange joint (use O-ring)', 'Slow reciprocating cylinder (use O-ring or U-cup)', 'Moderate-speed rotating shaft (use lip seal)', 'High-speed pump shaft (use mechanical seal)', 'Gas turbine shaft (use labyrinth + carbon seal)'],
+          correctOrder: [0, 1, 2, 3, 4],
+          explanation: 'Seal complexity increases with speed, pressure, and temperature requirements.',
+          hint: 'Start simple and add complexity only when needed.',
         },
         {
           id: 'u8-L5-Q20',
-          type: 'true-false',
-          question: 'A labyrinth seal provides zero leakage and can replace contact seals in any application where leakage is unacceptable.',
-          correctAnswer: false,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'Labyrinth seals are non-contact seals that reduce leakage through a series of throttling gaps (teeth or fins), but they do NOT provide zero leakage.',
-          hint: 'Labyrinth seals are non-contact.'
-        },
-        {
-          id: 'u8-L5-Q21',
           type: 'multiple-choice',
-          question: 'An extension spring has hooks at both ends. Where is the most likely failure location, and why?',
+          question: 'What is the most common cause of premature lip seal failure?',
           options: [
-            'At center of spring body, where stress is highest',
-            'At hooks — bend radius at hook transition is critical',
-            'At the point where spring contacts its anchor point',
-            'Extension springs fail randomly along their length'
+            'Wrong material selection',
+            'Shaft surface roughness outside specification',
+            'Incorrect lubricant type',
+            'Over-tightening the seal housing'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="26" y="4" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <circle cx="40" cy="12" r="3" fill="#3B8700"/> <polyline stroke="#58CC02" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"> <animate attributeName="points" dur="2.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values=" 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64; 40,14 40,18 28,24 52,30 28,36 52,42 28,48 52,54 28,60 52,66 28,72 52,78 40,82 40,84; 40,14 40,17 28,21 52,25 28,29 52,33 28,37 52,41 28,45 52,49 28,53 52,57 40,61 40,64 "/> </polyline> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,20;0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="26" y="64" width="28" height="6" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="26" y="64" width="28" height="6" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> </g> <text x="22" y="42" font-size="8" fill="#3B8700" font-style="italic" opacity="0.35">k</text> </svg>',
-          explanation: 'Extension spring hooks are the most common failure point.',
-          hint: 'The sharp bend where the body coil transitions into.'
+          explanation: 'Lip seals ride on the shaft surface. If it\'s too rough, the lip wears quickly. If too smooth, the seal can\'t form a proper oil film. Ra 0.2 to 0.5 micrometers is typical.',
+          hint: 'The seal lip rides directly on the shaft surface.',
+        },
+      ]
+    },
+    // ───────────────────────────────────────��─────────────────────
+    // LESSON 5c: Springs & Seals — Advanced Design
+    // ────────────────────────���────────────────────────────────────
+    {
+      id: 'u8-L5c',
+      title: 'Advanced Spring & Seal Design',
+      description: 'Spring material selection, end types, seal materials, and failure analysis.',
+      icon: '📝',
+      xpReward: 25,
+      levels: 4,
+      questions: [
+        {
+          id: 'u8-L5-T3',
+          type: 'teaching',
+          question: 'Spring end types and solid height',
+          explanation: 'Spring end types affect active coils and stability. Plain ends have Na = N (total coils). Squared and ground ends have Na = N - 2, providing flat seating surfaces. Solid height (all coils touching) limits maximum deflection.',
+          hint: 'Squared and ground ends give the most stable seating.',
+        },
+        {
+          id: 'u8-L5c-Q1a',
+          type: 'multiple-choice',
+          question: 'A spring has 10 total coils with squared and ground ends. How many active coils?',
+          options: ['8', '9', '10', '12'],
+          correctIndex: 0,
+          explanation: 'Squared and ground ends have 2 inactive coils (one at each end for flat seating). So Na = N - 2 = 10 - 2 = 8 active coils.',
+          hint: 'Each squared end removes one coil from being active.',
         },
         {
           id: 'u8-L5-Q22',
           type: 'multiple-choice',
-          question: 'What is the typical O-ring squeeze (compression) percentage for a static face seal application?',
+          question: 'Which spring material is best for high-temperature applications (above 250 C)?',
           options: [
-            '1-5%',
-            '10-30%',
-            '40-60%',
-            '70-90%'
+            'Music wire (ASTM A228)',
+            'Chrome-vanadium (ASTM A231)',
+            'Inconel X-750',
+            'Stainless steel 302'
           ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'For static seal applications, the recommended O-ring squeeze is typically 10-30% of the O-ring cross-section diameter.',
-          hint: 'The squeeze must be enough to seal but not so much.'
+          correctIndex: 2,
+          explanation: 'Inconel X-750 is a nickel-based superalloy that maintains its spring properties above 250 C. Standard spring steels lose significant strength above 150 to 200 C.',
+          hint: 'Nickel-based superalloys maintain strength at high temperature.',
         },
         {
           id: 'u8-L5-Q23',
-          type: 'multiple-choice',
-          question: 'Shot peening is commonly applied to springs. What does it do, and how does it improve fatigue life?',
-          options: [
-            'It smooths the surface to reduce friction, provided all secondary effects',
-            'It introduces a layer of compressive residual stress on the wire surface',
-            'It hardens the core of the wire by cold working',
-            'It removes surface defects by chipping away damaged material'
-          ],
-          correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Disc (rotating) --> <rect x="36" y="8" width="8" height="64" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.04"/> <!-- Disc surface pattern --> <g stroke="#58CC02" stroke-width="0.3" opacity="0.15"> <line x1="38" y1="10" x2="42" y2="10"/><line x1="38" y1="16" x2="42" y2="16"/> <line x1="38" y1="22" x2="42" y2="22"/><line x1="38" y1="28" x2="42" y2="28"/> <line x1="38" y1="34" x2="42" y2="34"/><line x1="38" y1="46" x2="42" y2="46"/> <line x1="38" y1="52" x2="42" y2="52"/><line x1="38" y1="58" x2="42" y2="58"/> <line x1="38" y1="64" x2="42" y2="64"/><line x1="38" y1="70" x2="42" y2="70"/> </g> <!-- Caliper body (C-shape) --> <path d="M18,24 L18,14 L62,14 L62,24" stroke-width="1.2" stroke="#58CC02" fill="none"/> <path d="M18,56 L18,66 L62,66 L62,56" stroke-width="1.2" stroke="#58CC02" fill="none"/> <!-- Inner pad (left) --> <rect x="26" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="x" values="26;32;26" dur="2s" repeatCount="indefinite"/> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Outer pad (right) --> <rect x="44" y="26" width="10" height="28" rx="1" stroke-width="0.7" stroke="#58CC02" fill="#A5E86C" fill-opacity="0.12"> <animate attributeName="width" values="10;4;10" dur="2s" repeatCount="indefinite"/> </rect> <!-- Piston (left side) --> <rect x="20" y="32" width="6" height="16" rx="1" stroke-width="0.5" stroke="#58CC02" fill="none"> <animate attributeName="x" values="20;26;20" dur="2s" repeatCount="indefinite"/> </rect> <!-- Hydraulic line --> <line x1="10" y1="40" x2="20" y2="40" stroke-width="0.6" stroke="#58CC02"/> <circle cx="8" cy="40" r="2" stroke-width="0.4" stroke="#58CC02" fill="none"/> <text x="8" y="41.5" font-size="2.5" fill="#58CC02" text-anchor="middle">P</text> <!-- Friction force arrows --> <g opacity="0.3"> <line x1="34" y1="38" x2="34" y2="32" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="32.8,32 35.2,32 34,30" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> <line x1="46" y1="42" x2="46" y2="48" stroke-width="0.5" stroke="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </line> <polygon points="44.8,48 47.2,48 46,50" fill="#3B8700"> <animate attributeName="opacity" values="0;0.4;0" dur="2s" repeatCount="indefinite"/> </polygon> </g> <!-- Labels --> <text x="40" y="10" font-size="3" fill="#3B8700" opacity="0.4" text-anchor="middle">caliper</text> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">friction braking</text> </svg>',
-          explanation: 'Shot peening is a cold working process where the spring wire surface is bombarded with small hardened steel or glass beads at high velocity.',
-          hint: 'Fatigue cracks start at the surface in tension.'
+          type: 'true-false',
+          question: 'Music wire (ASTM A228) has the highest tensile strength of common spring materials.',
+          correctAnswer: true,
+          explanation: 'Music wire has the highest tensile strength among common spring steels, making it the go-to choice for small, high-stress springs at room temperature.',
+          hint: 'This wire type is the strongest but can\'t handle high temps.',
         },
         {
-          id: 'u8-L5-Q24',
-          type: 'true-false',
-          question: 'A torsion spring stores energy by twisting the coils, and the primary stress in the wire is bending stress, not torsional shear stress.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Cylinder body --> <rect x="8" y="30" width="45" height="20" rx="2" stroke-width="1" stroke="#58CC02" fill="none"/> <!-- Piston rod --> <rect x="53" y="37" width="20" height="6" rx="1" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.1"> <animate attributeName="x" values="38;53;38" dur="3s" repeatCount="indefinite"/> </rect> <!-- Piston head inside cylinder --> <rect x="35" y="31.5" width="4" height="17" rx="0.5" stroke-width="0.8" stroke="#58CC02" fill="#58CC02" fill-opacity="0.15"> <animate attributeName="x" values="20;35;20" dur="3s" repeatCount="indefinite"/> </rect> <!-- Rod end fitting --> <circle cx="73" cy="40" r="3" stroke-width="0.7" stroke="#58CC02" fill="none"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <circle cx="73" cy="40" r="1" fill="#58CC02" opacity="0.3"> <animate attributeName="cx" values="58;73;58" dur="3s" repeatCount="indefinite"/> </circle> <!-- Hydraulic fluid (left chamber) --> <rect x="9" y="31" width="26" height="18" rx="1" fill="#A5E86C" opacity="0.12"> <animate attributeName="width" values="11;26;11" dur="3s" repeatCount="indefinite"/> </rect> <!-- Port connections --> <line x1="15" y1="30" x2="15" y2="22" stroke-width="0.8" stroke="#58CC02"/> <line x1="45" y1="30" x2="45" y2="22" stroke-width="0.8" stroke="#58CC02"/> <text x="15" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₁</text> <text x="45" y="20" font-size="3" fill="#58CC02" text-anchor="middle">P₂</text> <!-- Seals --> <line x1="8" y1="32" x2="8" y2="48" stroke-width="1.5" stroke="#3B8700" opacity="0.3"/> <!-- Force arrow --> <line x1="73" y1="55" x2="73" y2="55" stroke-width="0.8" stroke="#3B8700" opacity="0.4"> <animate attributeName="x1" values="58;73;58" dur="3s" repeatCount="indefinite"/> <animate attributeName="x2" values="58;73;58" dur="3s" repeatCount="indefinite"/> </line> <g opacity="0.5"> <line x1="66" y1="58" x2="73" y2="58" stroke-width="0.6" stroke="#3B8700"/> <polygon points="73,56.5 73,59.5 76,58" fill="#3B8700"/> <text x="70" y="63" font-size="3" fill="#3B8700" text-anchor="middle">F</text> </g> <!-- Base mount --> <rect x="4" y="34" width="4" height="12" rx="1" stroke-width="0.6" stroke="#58CC02" fill="none"/> <!-- Hatching for fixed mount --> <line x1="2" y1="35" x2="4" y2="37" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="38" x2="4" y2="40" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="41" x2="4" y2="43" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <line x1="2" y1="44" x2="4" y2="46" stroke-width="0.3" stroke="#58CC02" opacity="0.3"/> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">linear actuator</text> </svg>',
-          explanation: 'Despite its name, a torsion spring stores energy through bending of the wire .',
-          hint: 'What happens to the wire cross-section as you apply.'
+          id: 'u8-L5c-T2',
+          type: 'teaching',
+          question: 'Seal material compatibility',
+          explanation: 'Seal material must be compatible with the fluid being sealed. NBR (nitrile) works for petroleum oils. FKM (Viton) handles fuels and high temperatures. EPDM works for water and steam but not petroleum. PTFE handles almost everything but needs a spring energizer.',
+          hint: 'Try this now: check if your seal material is compatible with the fluid.',
+        },
+        {
+          id: 'u8-L5c-SB1',
+          type: 'sort-buckets',
+          question: 'Sort seal materials: "Good with petroleum oil" vs. "Not for petroleum oil".',
+          options: ['NBR (nitrile)', 'FKM (Viton)', 'EPDM', 'PTFE', 'Neoprene', 'Silicone'],
+          buckets: ['Good with petroleum', 'Not for petroleum'],
+          correctBuckets: [0, 0, 1, 0, 0, 1],
+          explanation: 'NBR, FKM, PTFE, and neoprene work with petroleum oils. EPDM and silicone swell and degrade in petroleum.',
+          hint: 'EPDM and silicone are the main ones to avoid with oil.',
         },
         {
           id: 'u8-L5-Q25',
           type: 'multiple-choice',
-          question: 'A mechanical face seal is leaking excessively. What is the most likely cause?',
+          question: 'A spring in a valve must maintain force over millions of cycles. Which is most critical?',
           options: [
-            'The seal was installed upside down incorrectly',
-            'Particulate contamination — hard particles entered',
-            'The seal spring force is set too high for use',
-            'Shaft speed is too low for hydrodynamic lift'
+            'Free length tolerance',
+            'Fatigue life at the working stress range',
+            'Spring color coating',
+            'Wire surface finish appearance'
           ],
           correctIndex: 1,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <!-- Guide rails (fixed frame) --> <line x1="35" y1="2" x2="35" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <line x1="45" y1="2" x2="45" y2="42" stroke="#A5E86C" stroke-width="1.5" opacity="0.18"/> <!-- Fixed top plate --> <rect x="32" y="1" width="16" height="3" rx="1.5" fill="#3B8700" opacity="0.12"/> <!-- Return spring (animated compression in sync with follower) --> <path stroke="#58CC02" stroke-width="1.3" fill="none" opacity="0.3" stroke-linecap="round"> <animate attributeName="d" values="M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15;M36,4 L44,4.8 L36,5.5 L44,6.3 L36,7;M36,4 L44,6.8 L36,9.5 L44,12.3 L36,15" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </path> <!-- Follower assembly (translates up when cam lobe passes) --> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> <!-- Mass block --> <rect x="34" y="15" width="12" height="8" rx="3" fill="#58CC02" opacity="0.15"/> <rect x="34" y="15" width="12" height="8" rx="3" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="40" y="21.5" text-anchor="middle" font-size="6" fill="#3B8700" opacity="0.35" font-weight="bold">m</text> <!-- Follower stem --> <rect x="37.5" y="23" width="5" height="17" rx="2.5" fill="#58CC02" opacity="0.2"/> <rect x="37.5" y="23" width="5" height="17" rx="2.5" stroke="#3B8700" stroke-width="1.2" fill="none"/> <!-- Roller (contacts cam surface) --> <circle cx="40" cy="44" r="4" fill="#58CC02" opacity="0.18"/> <circle cx="40" cy="44" r="4" stroke="#3B8700" stroke-width="1.5" fill="none"/> <circle cx="40" cy="44" r="1.5" fill="#3B8700" opacity="0.35"/> </g> <!-- Cam shaft (fixed pivot) --> <circle cx="40" cy="58" r="3.5" fill="#3B8700"/> <circle cx="40" cy="58" r="1.2" fill="white" opacity="0.4"/> <!-- Pear-shaped cam (rotating) — lobe starts pointing down --> <g> <animateTransform attributeName="transform" type="rotate" values="180,40,58;540,40,58" dur="2s" repeatCount="indefinite"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" fill="#58CC02" opacity="0.15"/> <path d="M40,40 C51,40 56,50 53,58 C50,65 40,68 40,68 C40,68 30,65 27,58 C24,50 29,40 40,40 Z" stroke="#3B8700" stroke-width="2" fill="none"/> <!-- Lobe marker --> <circle cx="40" cy="42" r="1.5" fill="#3B8700" opacity="0.25"/> </g> <!-- Rotation direction arrow --> <path d="M56,64 A14,14 0 0,1 52,70" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <polygon points="52,68 52,72 55,70" fill="#A5E86C" opacity="0.2"/> </svg>',
-          explanation: 'Circumferential scoring on mechanical seal faces is the hallmark of particle contamination. Mechanical seals operate with extremely flat faces (lapped to within 1-2 helium light bands, or 0.3-0.6.',
-          hint: 'The seal faces are precision-lapped to light-band.'
+          explanation: 'For millions of cycles, fatigue life is the primary concern. The working stress range must be below the endurance limit, and shot peening is typically required.',
+          hint: 'High cycle count = fatigue is the dominant concern.',
         },
         {
-          id: 'u8-L5-Q26',
-          type: 'multiple-choice',
-          question: 'What is the difference between backup rings and anti-extrusion rings in O-ring seal design?',
-          options: [
-            'Different names for the same hard ring component',
-            'Backup rings prevent the O-ring from moving out',
-            'Backup rings are used with static seals only',
-            'Different functions — backup rings center the O-ring'
-          ],
-          correctIndex: 0,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="10" y="10" width="60" height="60" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="10" y="10" width="60" height="60" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <rect x="30" y="10" width="20" height="60" fill="#58CC02" opacity="0.06"/> <rect x="30" y="10" width="20" height="60" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.15"/> <ellipse cx="40" cy="40" rx="8" ry="12" fill="#58CC02" opacity="0.3"/> <ellipse cx="40" cy="40" rx="8" ry="12" stroke="#3B8700" stroke-width="2" fill="none"/> <ellipse cx="40" cy="40" rx="4" ry="7" fill="#A5E86C" opacity="0.15"/> <ellipse cx="38" cy="36" rx="2" ry="3" fill="white" opacity="0.2"/> <g opacity="0.2"> <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/> <line x1="52" y1="40" x2="58" y2="40" stroke="#3B8700" stroke-width="1"/> <polygon points="57,38.5 60,40 57,41.5" fill="#3B8700"/> <text x="62" y="42" font-size="3.5" fill="#3B8700" font-style="italic">P</text> </g> <text x="40" y="76" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">squeeze seal</text> </svg>',
-          explanation: 'Backup rings and anti-extrusion rings are indeed the same component with two names.',
-          hint: 'These are two names for the same critical component.'
+          id: 'u8-L5c-MP1',
+          type: 'match-pairs',
+          question: 'Match each spring material to its primary advantage.',
+          options: ['Music wire A228', 'Chrome-vanadium A231', 'Stainless 302', 'Inconel X-750'],
+          matchTargets: ['Highest strength, low cost', 'Good fatigue life, impact resistance', 'Corrosion resistance', 'High temperature (>250 C)'],
+          correctMatches: [0, 1, 2, 3],
+          explanation: 'Music wire is strongest but basic. Chrome-vanadium handles shock. Stainless resists corrosion. Inconel handles extreme heat.',
+          hint: 'Each material has a sweet spot.',
         },
         {
           id: 'u8-L5-Q27',
           type: 'multiple-choice',
-          question: 'A Belleville (disc) spring has a unique load-deflection characteristic compared to helical springs. What is it?',
+          question: 'What is the purpose of "presetting" (cold setting) a compression spring?',
           options: [
-            'Belleville springs have a perfectly linear load-deflection curve',
-            'By selecting the ratio of free height (h) to thickness (t),',
-            'Belleville springs always have a progressive (increasing rate) characteristic',
-            'Belleville springs can only deflect to flat and then stop'
+            'To increase the spring rate',
+            'To remove permanent set so the spring won\'t lose height in service',
+            'To improve the surface finish',
+            'To change the wire diameter'
           ],
           correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <ellipse cx="40" cy="40" rx="28" ry="8" fill="#58CC02" opacity="0.06"/> <ellipse cx="40" cy="40" rx="28" ry="8" stroke="#58CC02" stroke-width="2" fill="none" opacity="0.3"/> <ellipse cx="40" cy="40" rx="14" ry="4" fill="white"/> <ellipse cx="40" cy="40" rx="14" ry="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.5"/> <path d="M12,40 L26,34" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <path d="M68,40 L54,34" stroke="#3B8700" stroke-width="2" fill="none" opacity="0.3"/> <line x1="40" y1="14" x2="40" y2="30" stroke="#3B8700" stroke-width="1.5" opacity="0.25"/> <polygon points="38.5,29 40,32 41.5,29" fill="#3B8700" opacity="0.25"/> <text x="40" y="10" font-size="5" fill="#3B8700" text-anchor="middle" font-weight="bold" opacity="0.3">F</text> <text x="40" y="60" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.15" font-style="italic">Belleville</text> </svg>',
-          explanation: 'Belleville (conical disc) springs have a unique nonlinear characteristic controlled by the h/t ratio (free cone height to material thickness).',
-          hint: 'The free height to thickness ratio controls whether.'
-        },
-        {
-          id: 'u8-L5-Q28',
-          type: 'true-false',
-          question: 'When springs are connected in series, the combined spring rate is lower than the rate of any individual spring.',
-          correctAnswer: true,
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" values="0,22,40;360,22,40" dur="2s" repeatCount="indefinite"/> <circle cx="22" cy="40" r="14" fill="#58CC02" opacity="0.1"/> <circle cx="22" cy="40" r="14" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="22" y1="26" x2="22" y2="54" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="8" y1="40" x2="36" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="22" cy="40" r="4" fill="#3B8700"/> <g> <animateTransform attributeName="transform" type="rotate" values="0,58,40;360,58,40" dur="2s" repeatCount="indefinite"/> <circle cx="58" cy="40" r="11" fill="#58CC02" opacity="0.1"/> <circle cx="58" cy="40" r="11" stroke="#58CC02" stroke-width="2.5" fill="none"/> <line x1="58" y1="29" x2="58" y2="51" stroke="#3B8700" stroke-width="1" opacity="0.25"/> <line x1="47" y1="40" x2="69" y2="40" stroke="#3B8700" stroke-width="1" opacity="0.25"/> </g> <circle cx="58" cy="40" r="3.5" fill="#3B8700"/> <line x1="22" y1="26" x2="58" y2="29" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <line x1="22" y1="54" x2="58" y2="51" stroke="#3B8700" stroke-width="3" opacity="0.35" stroke-linecap="round"/> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M22,26 L58,29" begin="0.5s"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54"/> </circle> <circle r="2.5" fill="#3B8700" opacity="0.5"> <animateMotion dur="2s" repeatCount="indefinite" path="M58,51 L22,54" begin="0.5s"/> </circle> </svg>',
-          explanation: 'For springs in series: 1/k_total = 1/k1 + 1/k2 + . The reciprocal of the total rate is the sum of the reciprocals. This means k_total is always less than the smallest individual spring rate.',
-          hint: 'In series, each spring sees the full load and deflects.'
+          explanation: 'Presetting compresses the spring beyond its intended working deflection. This yields the high-stress areas slightly, so they don\'t yield again in service. The spring loses a small amount of free length but won\'t take additional set.',
+          hint: 'Over-compress once so it doesn\'t lose height later.',
         },
         {
           id: 'u8-L5-Q29',
-          type: 'multiple-choice',
-          question: 'A hydraulic cylinder uses a piston seal and a rod seal. Why is the rod seal more prone to failure than the piston seal?',
-          options: [
-            'The rod seal sees higher pressure, provided all secondary effects including',
-            'The rod seal is exposed to the external environment (dust, moisture,',
-            'The rod seal has a smaller diameter and therefore higher stress, provided all',
-            'The rod is harder than the cylinder bore, causing more wear, provided all'
-          ],
-          correctIndex: 1,
-
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <rect x="6" y="10" width="68" height="60" rx="4" fill="#58CC02" opacity="0.04"/> <rect x="6" y="10" width="68" height="60" rx="4" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.2"/> <rect x="28" y="10" width="24" height="60" fill="#A5E86C" opacity="0.06"/> <rect x="34" y="26" width="12" height="28" rx="2" fill="#3B8700" opacity="0.15"/> <rect x="34" y="26" width="12" height="28" rx="2" stroke="#3B8700" stroke-width="1.5" fill="none" opacity="0.4"/> <g> <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/> <rect x="30" y="34" width="20" height="4" rx="1" fill="#58CC02" opacity="0.3"/> <rect x="30" y="34" width="20" height="4" rx="1" stroke="#58CC02" stroke-width="1.2" fill="none"/> </g> <rect x="12" y="58" width="56" height="8" rx="2" fill="#A5E86C" opacity="0.12"/> <text x="40" y="64" text-anchor="middle" font-size="4" fill="#3B8700" opacity="0.2" font-weight="bold">P</text> <text x="40" y="78" text-anchor="middle" font-size="3.5" fill="#3B8700" opacity="0.15" font-style="italic">piston seal</text> </svg>',
-          explanation: 'The rod seal (mounted in the cylinder head) seals the reciprocating rod as it extends and retracts.',
-          hint: 'Consider the environment each seal operates.'
+          type: 'true-false',
+          question: 'Extension springs are more prone to fatigue failure than compression springs because of stress concentration at the hooks.',
+          correctAnswer: true,
+          explanation: 'Extension spring hooks create stress concentrations where the wire bends sharply. This makes them more susceptible to fatigue failure than compression springs with flat, ground ends.',
+          hint: 'Hooks are the weak point of extension springs.',
         },
         {
           id: 'u8-L5-Q30',
-          type: 'fill-blank',
-          question: 'The seal type where two precision-lapped flat surfaces maintain contact under spring and hydraulic pressure to prevent leakage _____?',
-          blanks: ['mechanical'],
-          wordBank: ['mechanical', 'labyrinth', 'lip', 'packing', 'carbon'],
-          diagram: '<svg viewBox="0 0 80 80" fill="none"> <g> <animateTransform attributeName="transform" type="rotate" dur="3s" repeatCount="indefinite" values="0,40,40;720,40,40;720,40,40;0,40,40" keyTimes="0;0.3;0.7;1" calcMode="spline" keySplines="0.2 0 0.8 1;0.5 0 0.5 1;0.2 0 0.8 1"/> <circle cx="40" cy="40" r="24" fill="#58CC02" opacity="0.1"/> <circle cx="40" cy="40" r="24" stroke="#58CC02" stroke-width="2.5" fill="none"/> <circle cx="40" cy="40" r="17" stroke="#A5E86C" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="24" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="40" cy="56" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="24" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="56" cy="40" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="28.7" cy="28.7" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> <circle cx="51.3" cy="51.3" r="3" stroke="#3B8700" stroke-width="1" fill="none" opacity="0.2"/> </g> <circle cx="40" cy="40" r="7" fill="#3B8700" opacity="0.25"/> <circle cx="40" cy="40" r="4" fill="#3B8700"/> <g> <rect x="54" y="24" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="24;29;24" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <rect x="54" y="44" width="10" height="12" rx="5" fill="#58CC02" opacity="0.25"> <animate attributeName="y" values="44;39;44" dur="3s" repeatCount="indefinite" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1"/> </rect> <path d="M62,28 Q68,40 62,52" stroke="#3B8700" stroke-width="2" fill="none" stroke-linecap="round"/> </g> </svg>',
-          explanation: 'Mechanical (face) seals are the standard sealing technology for centrifugal pumps, compressors, and other rotating equipment handling liquids.',
-          hint: 'Two flat, precision-lapped surfaces.'
-        }
+          type: 'multiple-choice',
+          question: 'A mechanical face seal is leaking excessively. The seal faces show deep grooves. Most likely cause?',
+          options: [
+            'Normal wear from long service life',
+            'Abrasive particles in the sealed fluid',
+            'Incorrect spring tension',
+            'Thermal expansion of the seal housing'
+          ],
+          correctIndex: 1,
+          explanation: 'Deep grooves on mechanical seal faces are caused by abrasive particles (sand, dirt, scale) in the fluid. Clean fluid or add filtration upstream of the seal.',
+          hint: 'Something hard is scratching the precision-lapped faces.',
+        },
       ]
-    }
+    },
+    // ──���──────────────────────────────────────────────────────────
+    // CONVERSATION LESSON: Machine Design Decision Making
+    // ────────────────��────────────────────────────────��───────────
+    {
+      id: 'u8-L-conv',
+      title: 'Gearbox Bearing Selection',
+      description: 'Walk through a real bearing selection scenario for an industrial gearbox.',
+      icon: '💬',
+      xpReward: 30,
+      levels: 1,
+      type: 'conversation',
+      questions: [],
+      conversationStartNodeId: 'u8-L-conv-C1',
+      conversationNodes: [
+        {
+          id: 'u8-L-conv-C1',
+          speaker: 'Senior Engineer',
+          message: 'We\'re designing a 2-stage helical gearbox for a conveyor drive. Input shaft runs at 1450 RPM with 15 kW. The output shaft sees heavy radial loads from the chain sprocket, plus some axial thrust from the helical gears. What bearing type would you pick for the output shaft?',
+          options: [
+            {
+              text: 'Tapered roller bearings in a back-to-back arrangement to handle both radial and axial loads',
+              nextNodeId: 'u8-L-conv-C2-great',
+              quality: 'great',
+              feedback: 'Excellent choice. Tapered rollers handle the heavy combined loads, and back-to-back mounting provides rigidity and handles thrust in both directions.',
+            },
+            {
+              text: 'Deep groove ball bearings, they are the most common type',
+              nextNodeId: 'u8-L-conv-C2-okay',
+              quality: 'okay',
+              feedback: 'Deep groove balls work for light to moderate loads, but this is a heavy-duty conveyor. The radial loads and helical thrust may exceed their ratings quickly.',
+            },
+            {
+              text: 'Plain journal bearings for the heavy loads',
+              nextNodeId: 'u8-L-conv-C2-poor',
+              quality: 'poor',
+              feedback: 'Journal bearings handle heavy radial loads well, but they need continuous oil supply, can\'t handle axial thrust easily, and are unusual in standard gearboxes.',
+            },
+          ],
+        },
+        {
+          id: 'u8-L-conv-C2-great',
+          speaker: 'Senior Engineer',
+          message: 'Good thinking. Now, the catalog shows a tapered roller bearing with C = 95 kN. The equivalent dynamic load on the output shaft is P = 12 kN at 180 RPM. The customer wants 20,000 hours of life. How do you check if this bearing works?',
+          nextNodeId: 'u8-L-conv-C3',
+        },
+        {
+          id: 'u8-L-conv-C2-okay',
+          speaker: 'Senior Engineer',
+          message: 'Let\'s reconsider. For heavy combined loads in a gearbox, tapered rollers are standard. But the analysis process is the same. The catalog shows C = 95 kN. Output shaft load P = 12 kN at 180 RPM. Customer wants 20,000 hours. How do you check if this bearing works?',
+          nextNodeId: 'u8-L-conv-C3',
+        },
+        {
+          id: 'u8-L-conv-C2-poor',
+          speaker: 'Senior Engineer',
+          message: 'For a standard gearbox, rolling element bearings are the way to go. Let\'s use tapered rollers. The catalog shows C = 95 kN. Output shaft load P = 12 kN at 180 RPM. Customer wants 20,000 hours. How do you verify the life?',
+          nextNodeId: 'u8-L-conv-C3',
+        },
+        {
+          id: 'u8-L-conv-C3',
+          speaker: 'Senior Engineer',
+          message: 'Walk me through how you\'d verify the bearing life meets the 20,000-hour requirement.',
+          options: [
+            {
+              text: 'Convert 20,000 hours to revolutions (20000 x 60 x 180 = 216 million rev), then check L10 = (C/P)^(10/3) = (95/12)^3.33 = 1283 million rev. That exceeds 216 million, so it passes.',
+              nextNodeId: 'u8-L-conv-C4-great',
+              quality: 'great',
+              feedback: 'Perfect. You used p = 10/3 for roller bearings and properly converted hours to revolutions. The bearing has about 6x the required life.',
+            },
+            {
+              text: 'Use L10 = (C/P)^3 = (95/12)^3 = about 500 million revolutions. That seems like enough.',
+              nextNodeId: 'u8-L-conv-C4-okay',
+              quality: 'okay',
+              feedback: 'Close, but you used p = 3, which is for ball bearings. Roller bearings use p = 10/3 = 3.33. The actual life is even higher, so it still passes, but the exponent matters for close calls.',
+            },
+            {
+              text: 'C is bigger than P, so the bearing should last a long time. It\'s fine.',
+              nextNodeId: 'u8-L-conv-C4-poor',
+              quality: 'poor',
+              feedback: 'You need to actually calculate the life. "C > P" just means it can carry the load, but doesn\'t tell you for how long. Always run the numbers.',
+            },
+          ],
+        },
+        {
+          id: 'u8-L-conv-C4-great',
+          speaker: 'Senior Engineer',
+          message: 'Solid work. One last question: the gearbox will be installed outdoors in a mining site with lots of dust. What bearing protection measures would you recommend?',
+          nextNodeId: 'u8-L-conv-C5',
+        },
+        {
+          id: 'u8-L-conv-C4-okay',
+          speaker: 'Senior Engineer',
+          message: 'Right idea, wrong exponent, but the result is still a pass. Now, the gearbox goes outdoors at a mining site with lots of dust. What bearing protection do you recommend?',
+          nextNodeId: 'u8-L-conv-C5',
+        },
+        {
+          id: 'u8-L-conv-C4-poor',
+          speaker: 'Senior Engineer',
+          message: 'Always calculate. L10 = (95/12)^3.33 = 1283 million revolutions, which gives about 119,000 hours. Now, the gearbox goes outdoors at a mining site with lots of dust. What protection measures would you recommend?',
+          nextNodeId: 'u8-L-conv-C5',
+        },
+        {
+          id: 'u8-L-conv-C5',
+          speaker: 'Senior Engineer',
+          message: 'What specific contamination protection would you specify for this harsh environment?',
+          options: [
+            {
+              text: 'Sealed bearings (2RS type) or labyrinth seals at shaft entries, breather with filter on the housing, and synthetic oil with regular oil analysis schedule.',
+              nextNodeId: 'u8-L-conv-end',
+              quality: 'great',
+              feedback: 'Complete answer. Seals keep dust out, filtered breather prevents contamination during thermal breathing, and oil analysis catches problems early.',
+            },
+            {
+              text: 'Use sealed bearings and change the oil more frequently.',
+              nextNodeId: 'u8-L-conv-end',
+              quality: 'okay',
+              feedback: 'Good start, but you should also address the housing entries (labyrinth seals) and use filtered breathers. Frequent oil changes help but don\'t prevent ingress.',
+            },
+            {
+              text: 'Just use a higher load rating bearing to compensate for contamination.',
+              nextNodeId: 'u8-L-conv-end',
+              quality: 'poor',
+              feedback: 'A bigger bearing doesn\'t prevent contamination. Particles in the oil damage bearing surfaces regardless of load rating. Prevention (sealing, filtration) is the correct approach.',
+            },
+          ],
+        },
+        {
+          id: 'u8-L-conv-end',
+          speaker: 'Narrator',
+          message: 'Great work walking through this gearbox bearing selection. You covered bearing type selection, life calculation, and contamination protection: three critical aspects of real-world machine design.',
+        },
+      ],
+    },
+    // ──────────────────────────────────────────���──────────────────
+    // SPEED ROUND: Machine Design Rapid Fire
+    // ─��─────────────────────────────────────────────────────��─────
+    {
+      id: 'u8-L-speed',
+      title: 'Machine Design Speed Round',
+      description: '15 rapid-fire questions on shafts, bearings, gears, fasteners, springs, and seals.',
+      icon: '⚡',
+      xpReward: 30,
+      levels: 1,
+      type: 'speed-round',
+      questions: [],
+      speedTimeLimit: 60,
+      speedQuestions: [
+        {
+          id: 'u8-L-speed-SQ1',
+          question: 'What transmits power through a rotating shaft?',
+          options: ['Torque', 'Shear force', 'Axial load', 'Bending only'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ2',
+          question: 'Where is shear stress maximum in a solid shaft under torsion?',
+          options: ['Outer surface', 'Center', 'Midway', 'Uniform'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ3',
+          question: 'Beach marks on a shaft indicate what failure?',
+          options: ['Fatigue', 'Overload', 'Corrosion', 'Creep'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ4',
+          question: 'L10 bearing life exponent for ball bearings?',
+          options: ['3', '10/3', '2', '4'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ5',
+          question: 'What does a keyway create on a shaft?',
+          options: ['Stress concentration', 'Lubrication groove', 'Cooling channel', 'Balance weight'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ6',
+          question: 'Gear ratio equals what ratio?',
+          options: ['Teeth count', 'Diameter', 'Both A and B', 'Weight'],
+          correctIndex: 2,
+        },
+        {
+          id: 'u8-L-speed-SQ7',
+          question: 'Which gear type can be self-locking?',
+          options: ['Worm', 'Spur', 'Helical', 'Bevel'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ8',
+          question: 'Bolt preload is typically what % of proof load?',
+          options: ['75%', '50%', '100%', '25%'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ9',
+          question: 'Fillet weld throat = leg size times what?',
+          options: ['0.707', '1.0', '0.5', '1.414'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ10',
+          question: 'Spring index C = D/d should be in what range?',
+          options: ['4 to 12', '1 to 3', '15 to 30', '0.5 to 2'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ11',
+          question: 'Which fatigue criterion is most conservative?',
+          options: ['Soderberg', 'Goodman', 'Gerber', 'ASME'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ12',
+          question: 'Helical gears create what extra force that spur gears don\'t?',
+          options: ['Axial thrust', 'Centrifugal', 'Gravitational', 'Magnetic'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ13',
+          question: 'What seal type is standard for centrifugal pumps?',
+          options: ['Mechanical face', 'O-ring', 'Lip seal', 'Felt ring'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ14',
+          question: 'The Wahl factor corrects for what in springs?',
+          options: ['Curvature stress', 'Temperature', 'Corrosion', 'Weight'],
+          correctIndex: 0,
+        },
+        {
+          id: 'u8-L-speed-SQ15',
+          question: 'An 8.8 bolt has what ultimate tensile strength?',
+          options: ['800 MPa', '880 MPa', '640 MPa', '1000 MPa'],
+          correctIndex: 0,
+        },
+      ],
+    },
   ]
 };
