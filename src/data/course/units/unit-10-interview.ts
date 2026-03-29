@@ -31,14 +31,6 @@ export const unit10: Unit = {
           hint: 'These estimates prioritize order of magnitude, not precision.',
         },
         {
-          id: 'u10-L1-NEW-E1',
-          type: 'true-false',
-          question: 'In a Fermi estimation, getting within an order of magnitude (factor of 10) of the real answer is considered a good result.',
-          correctAnswer: true,
-          explanation: 'Fermi estimates aim for the right power of 10, not the exact number.',
-          hint: 'These estimates prioritize order of magnitude, not precision.',
-        },
-        {
           id: 'u10-L1-Q1',
           type: 'multiple-choice',
           question: 'Estimate the power needed to keep a car at highway speed. What approach should you take?',
@@ -133,40 +125,6 @@ export const unit10: Unit = {
           correctAnswer: true,
           explanation: 'Water density at standard conditions is 1,000 kg/m3. This is one of the most important anchor values.',
           hint: 'This is a fundamental reference value.',
-        },
-        {
-          id: 'u10-L1-NEW-MP1',
-          type: 'match-pairs',
-          question: 'Match each estimation technique to its description:',
-          options: [
-            'Fermi estimation',
-            'Dimensional analysis',
-            'Scaling law',
-            'Sanity check'
-          ],
-          matchTargets: [
-            'Break unknowns into estimable pieces',
-            'Use units to derive relationships',
-            'Predict how changes scale with size',
-            'Compare result to known values'
-          ],
-          correctMatches: [0, 1, 2, 3],
-          explanation: 'Each technique serves a different purpose in engineering estimation.',
-          hint: 'Think about what each method does.',
-        },
-        {
-          id: 'u10-L1-NEW-E2',
-          type: 'multiple-choice',
-          question: 'What does "order of magnitude" mean?',
-          options: [
-            'A factor of 10',
-            'A factor of 2',
-            'An exact answer',
-            'A factor of 100'
-          ],
-          correctIndex: 0,
-          explanation: 'An order of magnitude is a factor of 10. If the real answer is 5,000, being within an order of magnitude means your answer is between 500 and 50,000.',
-          hint: 'Think about powers of 10.',
         },
         {
           id: 'u10-L1b-NEW-SB1',
@@ -352,14 +310,6 @@ export const unit10: Unit = {
           hint: 'Beach marks show progressive crack growth over many cycles.',
         },
         {
-          id: 'u10-L2-NEW-E1',
-          type: 'true-false',
-          question: 'Beach marks on a fracture surface indicate that the part failed by fatigue, not sudden overload.',
-          correctAnswer: true,
-          explanation: 'Beach marks are concentric arcs radiating from the crack origin, a hallmark of fatigue.',
-          hint: 'Beach marks show progressive crack growth over many cycles.',
-        },
-        {
           id: 'u10-L2-Q1',
           type: 'multiple-choice',
           question: 'A rotating shaft fracture surface shows a smooth, flat region with beach marks covering 80% of the cross-section, and a rough,?',
@@ -455,40 +405,6 @@ export const unit10: Unit = {
           correctAnswer: true,
           explanation: 'Developed at Toyota, the 5 Whys peels back layers of symptoms until you reach the true root cause.',
           hint: 'Each "why" digs one layer deeper.',
-        },
-        {
-          id: 'u10-L2-NEW-MP1',
-          type: 'match-pairs',
-          question: 'Match each fracture feature to its failure mode:',
-          options: [
-            'Beach marks',
-            'Chevron pattern',
-            'Cup-and-cone',
-            'Intergranular voids'
-          ],
-          matchTargets: [
-            'Fatigue',
-            'Brittle overload',
-            'Ductile overload',
-            'Creep'
-          ],
-          correctMatches: [0, 1, 2, 3],
-          explanation: 'Each failure mode leaves a distinctive signature on the fracture surface.',
-          hint: 'Each feature is unique to one failure mode.',
-        },
-        {
-          id: 'u10-L2-NEW-E2',
-          type: 'multiple-choice',
-          question: 'Which failure mode is caused by repeated loading and unloading over many cycles?',
-          options: [
-            'Fatigue',
-            'Overload',
-            'Creep',
-            'Erosion'
-          ],
-          correctIndex: 0,
-          explanation: 'Fatigue is caused by cyclic loading. Cracks grow slowly until final fracture.',
-          hint: 'Think about what "repeated loading" means.',
         },
         {
           id: 'u10-L2b-NEW-OS1',
@@ -668,14 +584,6 @@ export const unit10: Unit = {
           hint: 'There\'s no universal "best" material.',
         },
         {
-          id: 'u10-L3-NEW-E1',
-          type: 'true-false',
-          question: 'When an interviewer asks "which material is best?" the right first response is to ask what the constraints and priorities are.',
-          correctAnswer: true,
-          explanation: 'Material selection always depends on context. Asking about constraints shows engineering maturity.',
-          hint: 'There\'s no universal "best" material.',
-        },
-        {
           id: 'u10-L3-Q1',
           type: 'multiple-choice',
           question: 'Steel has E = 200 GPa and density 7850 kg/m^3. Which is better for a bending beam?',
@@ -770,40 +678,6 @@ export const unit10: Unit = {
           correctAnswer: true,
           explanation: 'DFM simplifies each part. DFA reduces the total number of parts. Both lower cost.',
           hint: 'DFM focuses on individual part simplicity.',
-        },
-        {
-          id: 'u10-L3-NEW-MP1',
-          type: 'match-pairs',
-          question: 'Match each loading mode to its lightweight material index:',
-          options: [
-            'Tension (min weight)',
-            'Bending (min weight)',
-            'Buckling (min weight)',
-            'Thermal insulation'
-          ],
-          matchTargets: [
-            'sigma_y / rho',
-            'sigma_y^(2/3) / rho',
-            'E^(1/2) / rho',
-            '1 / k (thermal conductivity)'
-          ],
-          correctMatches: [0, 1, 2, 3],
-          explanation: 'Different loading modes require different property combinations for optimal lightweight design.',
-          hint: 'Each loading mode has a unique material index.',
-        },
-        {
-          id: 'u10-L3-NEW-E2',
-          type: 'multiple-choice',
-          question: 'What does a material index help you do?',
-          options: [
-            'Rank materials for a specific loading scenario',
-            'Calculate exact stress values',
-            'Determine the manufacturing process',
-            'Find the material\'s price'
-          ],
-          correctIndex: 0,
-          explanation: 'Material indices like E/rho or sigma_y/rho rank materials for specific loading modes (tension, bending, etc.).',
-          hint: 'Material indices combine properties relevant to your design goal.',
         },
         {
           id: 'u10-L3b-NEW-SB1',
@@ -984,14 +858,6 @@ export const unit10: Unit = {
           hint: 'Think about the trade-off between accuracy and speed.',
         },
         {
-          id: 'u10-L4-NEW-E1',
-          type: 'true-false',
-          question: 'In FEA, using a finer (denser) mesh generally improves accuracy but increases computation time.',
-          correctAnswer: true,
-          explanation: 'More elements means better approximation of the geometry and stress field, but solving takes longer.',
-          hint: 'Think about the trade-off between accuracy and speed.',
-        },
-        {
           id: 'u10-L4-Q1',
           type: 'multiple-choice',
           question: 'In an FEA stress analysis, you observe that the maximum stress at a sharp re-entrant corner keeps increasing as you refine the?',
@@ -1086,40 +952,6 @@ export const unit10: Unit = {
           correctAnswer: true,
           explanation: 'Fixing all translations and rotations at a node models a perfectly rigid wall mount.',
           hint: 'Six DOF means 3 translations + 3 rotations.',
-        },
-        {
-          id: 'u10-L4-NEW-MP1',
-          type: 'match-pairs',
-          question: 'Match each FEA term to its meaning:',
-          options: [
-            'Node',
-            'Element',
-            'Boundary condition',
-            'Convergence'
-          ],
-          matchTargets: [
-            'A point in the mesh',
-            'A small piece of the geometry',
-            'A constraint or load applied to the model',
-            'Results stabilize as mesh is refined'
-          ],
-          correctMatches: [0, 1, 2, 3],
-          explanation: 'These are the fundamental concepts of FEA that every engineer should know.',
-          hint: 'Each term describes a basic FEA building block.',
-        },
-        {
-          id: 'u10-L4-NEW-E2',
-          type: 'multiple-choice',
-          question: 'What is a "mesh" in FEA?',
-          options: [
-            'The network of elements that divide the geometry',
-            'The loading conditions applied to the model',
-            'The material property database',
-            'The solver algorithm'
-          ],
-          correctIndex: 0,
-          explanation: 'A mesh is the collection of nodes and elements that discretize the continuous geometry.',
-          hint: 'Think about dividing a shape into small pieces.',
         },
         {
           id: 'u10-L4b-NEW-OS1',
@@ -1300,14 +1132,6 @@ export const unit10: Unit = {
           hint: 'Process matters more than the specific conclusion.',
         },
         {
-          id: 'u10-L5-NEW-E1',
-          type: 'true-false',
-          question: 'In a case study interview, demonstrating a structured approach is more important than getting the exact right answer.',
-          correctAnswer: true,
-          explanation: 'Interviewers evaluate your thought process and communication, not just the final answer.',
-          hint: 'Process matters more than the specific conclusion.',
-        },
-        {
           id: 'u10-L5-Q1',
           type: 'multiple-choice',
           question: 'The leak occurs at the O-ring seal interface. What should be your first investigation step?',
@@ -1397,35 +1221,6 @@ export const unit10: Unit = {
           correctAnswer: false,
           explanation: 'Lab tests can\'t replicate every field condition. Temperature, humidity, vibration, and user behavior all vary.',
           hint: 'Think about what conditions might differ between lab and field.',
-        },
-        {
-          id: 'u10-L5-NEW-OS1',
-          type: 'order-steps',
-          question: 'Put these troubleshooting steps in order:',
-          steps: [
-            'Gather symptoms and operating conditions',
-            'Form hypotheses about root cause',
-            'Design tests to confirm or eliminate hypotheses',
-            'Implement the fix',
-            'Verify the fix resolved the issue'
-          ],
-          correctOrder: [0, 1, 2, 3, 4],
-          explanation: 'Systematic troubleshooting: gather data, hypothesize, test, fix, then verify.',
-          hint: 'You need symptoms before you can form hypotheses.',
-        },
-        {
-          id: 'u10-L5-NEW-E2',
-          type: 'multiple-choice',
-          question: 'What should you do first when given a case study problem in an interview?',
-          options: [
-            'Clarify the problem and state your assumptions',
-            'Start calculating immediately',
-            'Ask for the correct answer',
-            'Look up the solution online'
-          ],
-          correctIndex: 0,
-          explanation: 'Always start by understanding and framing the problem. Then state assumptions before diving into analysis.',
-          hint: 'Good engineers define the problem before solving it.',
         },
         {
           id: 'u10-L5b-NEW-MP1',
@@ -1611,14 +1406,6 @@ export const unit10: Unit = {
           hint: 'This is the most recognized quality standard globally.',
         },
         {
-          id: 'u10-L6-NEW-E1',
-          type: 'true-false',
-          question: 'ISO 9001 is the international standard for quality management systems.',
-          correctAnswer: true,
-          explanation: 'ISO 9001 defines requirements for a quality management system. It\'s the most widely used standard worldwide.',
-          hint: 'This is the most recognized quality standard globally.',
-        },
-        {
           id: 'u10-L6-Q1',
           type: 'multiple-choice',
           question: 'Which standard should they certify to?',
@@ -1714,40 +1501,6 @@ export const unit10: Unit = {
           correctAnswer: true,
           explanation: 'FMEA systematically identifies potential failure modes, their effects, and their causes to prioritize risks.',
           hint: 'Each letter stands for a word in the full name.',
-        },
-        {
-          id: 'u10-L6-NEW-MP1',
-          type: 'match-pairs',
-          question: 'Match each standard to its primary focus:',
-          options: [
-            'ISO 9001',
-            'ASME BPVC',
-            'ISO 14001',
-            'ASME Y14.5'
-          ],
-          matchTargets: [
-            'Quality management',
-            'Pressure vessel safety',
-            'Environmental management',
-            'GD&T dimensioning'
-          ],
-          correctMatches: [0, 1, 2, 3],
-          explanation: 'Each standard covers a specific domain. Knowing which is which is professional literacy.',
-          hint: 'Match based on the keywords in each standard\'s name.',
-        },
-        {
-          id: 'u10-L6-NEW-E2',
-          type: 'multiple-choice',
-          question: 'What is the ASME Boiler and Pressure Vessel Code (BPVC) primarily used for?',
-          options: [
-            'Safe design and construction of pressure equipment',
-            'Electrical wiring standards',
-            'Software quality assurance',
-            'Environmental regulations'
-          ],
-          correctIndex: 0,
-          explanation: 'ASME BPVC is the primary standard for pressure vessel and boiler design safety in the US.',
-          hint: 'Think about what "boiler and pressure vessel" tells you.',
         },
         {
           id: 'u10-L6b-NEW-OS1',

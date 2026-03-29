@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, BookOpen, Trophy, User, Swords } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useDailyQuests, useWeeklyQuests } from '@/store/useEngagementStore';
 
 const tabs = [
   { href: '/', label: 'Home', icon: LayoutDashboard, activeColor: 'text-primary-600', activeBg: 'bg-primary-50', inactiveColor: 'text-slate-400' },
@@ -15,6 +16,9 @@ const tabs = [
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
+  const dailyQuests = useDailyQuests();
+  const weeklyQuests = useWeeklyQuests();
+  const hasClaimable = [...dailyQuests, ...weeklyQuests].some(q => q.completed && !q.claimed);
 
   return (
     <nav
@@ -43,6 +47,9 @@ export default function MobileBottomNav() {
                 )}
               >
                 <Icon className={cn('w-5 h-5 transition-transform duration-200', isActive && 'scale-110')} />
+                {tab.href === '/quests' && hasClaimable && (
+                  <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
+                )}
               </span>
               <span className={cn(
                 'text-[10px] transition-all duration-200',

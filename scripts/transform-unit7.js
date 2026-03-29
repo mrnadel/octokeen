@@ -823,48 +823,47 @@ for (const lesson of lessons) {
     const newTypeQs = makeNewTypeQuestions(n, si);
     const easyQ = makeEasyQuestion(n, si);
 
-    // Build the sub-lesson question array with proper difficulty progression:
-    // 1. Teaching card (existing T1/T2/T3 or new one)
-    // 2. Easy question right after teaching card
-    // 3. Existing questions (easy -> medium -> hard)
-    // 4. Second teaching card
-    // 5. Another easy question
-    // 6. More existing questions
-    // 7. New-type questions (match-pairs, sort-buckets, order-steps)
+    // Structure preserves ALL original question IDs:
+    // T1 -> easy -> Q1-Q3 -> T2(new) -> Q4-Q6 -> newType1 -> newType2 -> Q7-Q10
+    // Total: 2 teaching + 1 easy + 10 existing + 2 new-type = 15 items
 
     // Find existing teaching card in this third
     const teachingIdx = items.findIndex(q => q.idSuffix.startsWith('T'));
 
-    // Emit items in difficulty-ramped order
-    // First: teaching card (existing one)
+    // Get regular questions (non-teaching)
+    const regularQs = items.filter((q, idx) => idx !== teachingIdx);
+
+    // 1. Existing teaching card
     if (teachingIdx >= 0) {
       output += `        ${items[teachingIdx].raw},\n`;
     }
 
-    // Easy question after first teaching card
+    // 2. Trivially easy question right after teaching card
     output += `        ${toTS(easyQ)},\n`;
 
-    // Emit first batch of existing questions (skip teaching card)
-    const regularQs = items.filter((q, idx) => idx !== teachingIdx);
-    const halfPoint = Math.ceil(regularQs.length / 2);
-
-    for (let qi = 0; qi < halfPoint; qi++) {
+    // 3. First batch of questions (easy, items 0-2)
+    for (let qi = 0; qi < 3 && qi < regularQs.length; qi++) {
       output += `        ${regularQs[qi].raw},\n`;
     }
 
-    // Second teaching card (new one)
+    // 4. New teaching card (second one)
     for (const tc of newTeachingCards) {
       output += `        ${toTS(tc)},\n`;
     }
 
-    // Remaining existing questions
-    for (let qi = halfPoint; qi < regularQs.length; qi++) {
+    // 5. Middle questions (medium, items 3-5)
+    for (let qi = 3; qi < 6 && qi < regularQs.length; qi++) {
       output += `        ${regularQs[qi].raw},\n`;
     }
 
-    // New question types
+    // 6. New question types (variety)
     for (const ntq of newTypeQs) {
       output += `        ${toTS(ntq)},\n`;
+    }
+
+    // 7. Remaining questions (harder, items 6+)
+    for (let qi = 6; qi < regularQs.length; qi++) {
+      output += `        ${regularQs[qi].raw},\n`;
     }
 
     output += `      ]\n`;

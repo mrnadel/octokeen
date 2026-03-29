@@ -194,84 +194,34 @@ async function main() {
     return;
   }
 
-  // ── Generate HTML ──────────────────────────────────────────────────
+  // ── Output ────────────────────────────────────────────────────────
 
   const escapeHtml = (s: string) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-  let courseSections = '';
-  for (const course of courses) {
-    let unitSections = '';
-    for (const unit of course.units) {
-      const unitDiagramCount = unit.lessons.reduce((s, l) => s + l.diagrams.length, 0);
-      let lessonSections = '';
-      for (const lesson of unit.lessons) {
-        let cards = '';
-        for (const d of lesson.diagrams) {
-          cards += `
-            <div class="card" data-search="${escapeHtml(d.questionId.toLowerCase())} ${escapeHtml(d.questionText.toLowerCase())} ${escapeHtml(d.questionType.toLowerCase())} ${escapeHtml(d.lessonTitle.toLowerCase())} ${escapeHtml(d.unitTitle.toLowerCase())}">
-              <div class="diagram-container">
-                ${d.diagram}
-              </div>
-              <div class="card-info">
-                <code class="qid">${escapeHtml(d.questionId)}</code>
-                <span class="badge badge-${d.questionType}">${escapeHtml(d.questionType)}</span>
-                <p class="qtext">${escapeHtml(d.questionText)}</p>
-              </div>
-            </div>`;
-        }
-        lessonSections += `
-          <div class="lesson-group">
-            <h4 class="lesson-title">${escapeHtml(lesson.lessonTitle)} <span class="count">${lesson.diagrams.length}</span></h4>
-            <div class="grid">
-              ${cards}
-            </div>
-          </div>`;
-      }
-      unitSections += `
-        <details class="unit-details" open>
-          <summary class="unit-summary">
-            <span class="unit-icon">${unit.unitIcon}</span>
-            <span class="unit-name">${escapeHtml(unit.unitTitle)}</span>
-            <span class="count">${unitDiagramCount}</span>
-            <span class="chevron"></span>
-          </summary>
-          ${lessonSections}
-        </details>`;
-    }
-    courseSections += `
-      <details class="course-details" open>
-        <summary class="course-summary">
-          <span class="course-name">${escapeHtml(course.name)}</span>
-          <span class="count">${course.totalDiagrams}</span>
-          <span class="chevron"></span>
-        </summary>
-        ${unitSections}
-      </details>`;
-  }
+  const slugify = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-  // Build slug for each course
   const courseSlugMap: Record<string, string> = {};
   for (const course of courses) {
-    courseSlugMap[course.name] = course.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    courseSlugMap[course.name] = slugify(course.name);
   }
 
-  // Build tab buttons
+  // ── Build tab buttons and tab pages ───────────────────────────────
+
   const tabButtons = courses.map(c => {
     const slug = courseSlugMap[c.name];
     return `<button class="tab" data-tab="${slug}" onclick="switchTab('${slug}')">${escapeHtml(c.name)} <span class="tab-count">${c.totalDiagrams}</span></button>`;
   }).join('\n        ');
 
-  // Build tab pages (one per course)
   let tabPages = '';
   for (const course of courses) {
     const slug = courseSlugMap[course.name];
     let unitSidebar = '';
     let unitContent = '';
 
-    for (let ui = 0; ui < course.units.length; ui++) {
-      const unit = course.units[ui];
-      const unitSlug = `${slug}/${unit.unitTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+    for (const unit of course.units) {
+      const unitSlug = `${slug}/${slugify(unit.unitTitle)}`;
       const unitDiagramCount = unit.lessons.reduce((s, l) => s + l.diagrams.length, 0);
 
       unitSidebar += `<a class="sidebar-unit" href="#${unitSlug}" data-unit="${unitSlug}" onclick="switchUnit('${unitSlug}')">${unit.unitIcon} ${escapeHtml(unit.unitTitle)} <span class="count">${unitDiagramCount}</span></a>\n`;
@@ -319,7 +269,9 @@ async function main() {
       </div>`;
   }
 
-  const html = `<!DOCTYPE html>
+  // ── Thing 1: Generate standalone gallery.html ─────────────────────
+
+  const standaloneHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -504,10 +456,8 @@ async function main() {
   <script>
     // ── Tab routing ──
     function switchTab(slug) {
-      // Hide all tab pages, deactivate all tabs
       document.querySelectorAll('.tab-page').forEach(p => p.style.display = 'none');
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      // Show target
       const page = document.getElementById('page-' + slug);
       const tab = document.querySelector('.tab[data-tab="' + slug + '"]');
       if (page) page.style.display = '';
@@ -519,7 +469,7 @@ async function main() {
         if (firstUnit) {
           const unitSlug = firstUnit.getAttribute('data-unit');
           location.hash = unitSlug;
-          return; // hashchange will call switchUnit
+          return;
         }
       }
     }
@@ -553,7 +503,6 @@ async function main() {
     function handleHash() {
       const hash = location.hash.slice(1);
       if (!hash) {
-        // Default to first course, first unit
         const firstTab = document.querySelector('.tab');
         if (firstTab) {
           const slug = firstTab.getAttribute('data-tab');
@@ -595,9 +544,59 @@ async function main() {
 </body>
 </html>`;
 
-  const outputPath = path.join(ROOT, 'gallery.html');
-  fs.writeFileSync(outputPath, html, 'utf-8');
-  console.log(`\nGallery written to ${outputPath}`);
+  const standaloneOutputPath = path.join(ROOT, 'gallery.html');
+  fs.writeFileSync(standaloneOutputPath, standaloneHtml, 'utf-8');
+  console.log(`\nStandalone gallery written to ${standaloneOutputPath}`);
+
+  // ── Thing 2: Inject link card into modal-gallery.html ─────────────
+
+  const MARKER_START = '<!-- SVG-GALLERY-START -->';
+  const MARKER_END = '<!-- SVG-GALLERY-END -->';
+
+  const sectionHtml = `${MARKER_START}
+<div class="sec">SVG Diagram Gallery</div>
+<div class="g" style="margin-top:16px;">
+  <div class="cw">
+    <a href="gallery.html" style="display:block;width:375px;padding:32px 24px;background:#0d0d14;border:2px solid #1a1a2e;border-radius:20px;text-decoration:none;text-align:center;transition:border-color .2s,transform .15s;" onmouseover="this.style.borderColor='#818CF8';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='#1a1a2e';this.style.transform=''">
+      <div style="font-size:48px;margin-bottom:12px;">&#127912;</div>
+      <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:6px;">Open SVG Gallery</div>
+      <div style="font-size:13px;color:#818CF8;font-weight:700;">${grandTotal} diagrams across ${courses.length} courses</div>
+      <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+        ${courses.map(c => `<span style="padding:3px 10px;background:#1a1a2e;border-radius:8px;font-size:11px;font-weight:800;color:#666;">${escapeHtml(c.name)}: ${c.totalDiagrams}</span>`).join('\n        ')}
+      </div>
+      <div style="margin-top:16px;padding:10px 20px;background:#818CF8;border-radius:10px;font-size:13px;font-weight:800;color:#fff;display:inline-block;">Open gallery.html &rarr;</div>
+    </a>
+  </div>
+</div>
+${MARKER_END}`;
+
+  const modalGalleryPath = path.join(ROOT, 'modal-gallery.html');
+  if (!fs.existsSync(modalGalleryPath)) {
+    console.error('\nmodal-gallery.html not found. Cannot inject SVG gallery section.');
+    return;
+  }
+
+  let modalHtml = fs.readFileSync(modalGalleryPath, 'utf-8');
+
+  // Remove previous injection if present (idempotent)
+  const startIdx = modalHtml.indexOf(MARKER_START);
+  const endIdx = modalHtml.indexOf(MARKER_END);
+  if (startIdx !== -1 && endIdx !== -1) {
+    modalHtml = modalHtml.slice(0, startIdx) + modalHtml.slice(endIdx + MARKER_END.length);
+  }
+
+  // Inject before the footer div
+  const footerMarker = '<div style="text-align:center;margin-top:64px;';
+  const insertIdx = modalHtml.indexOf(footerMarker);
+  if (insertIdx !== -1) {
+    modalHtml = modalHtml.slice(0, insertIdx) + sectionHtml + '\n\n' + modalHtml.slice(insertIdx);
+  } else {
+    // Fallback: inject before </body>
+    modalHtml = modalHtml.replace('</body>', sectionHtml + '\n</body>');
+  }
+
+  fs.writeFileSync(modalGalleryPath, modalHtml, 'utf-8');
+  console.log(`SVG gallery link injected into ${modalGalleryPath}`);
 }
 
 main().catch(err => {

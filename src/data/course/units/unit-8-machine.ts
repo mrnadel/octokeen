@@ -9,7 +9,7 @@ export const unit8: Unit = {
   topicId: 'machine-elements',
   lessons: [
     // ─────────────────────────────────────────────────────────────
-    // LESSON 1a: Shafts & Keys — Basics
+    // LESSON 1a: Shafts & Keys : Basics
     // ──────────���──────────────────────────────────────────────────
     {
       id: 'u8-L1',
@@ -136,7 +136,7 @@ export const unit8: Unit = {
       ]
     },
     // ���────────────────────────────────────────────────────────────
-    // LESSON 1b: Shafts & Keys — Keys, Splines, and Critical Speed
+    // LESSON 1b: Shafts & Keys : Keys, Splines, and Critical Speed
     // ─────────���─────────────────���─────────────────────────────��───
     {
       id: 'u8-L1b',
@@ -256,7 +256,7 @@ export const unit8: Unit = {
       ]
     },
     // ───────��────────────────────────────��────────────────────────
-    // LESSON 1c: Shafts & Keys — Fatigue Design and Advanced Sizing
+    // LESSON 1c: Shafts & Keys : Fatigue Design and Advanced Sizing
     // ─────────��──────────────��─────────────────────────────────���──
     {
       id: 'u8-L1c',
@@ -394,7 +394,7 @@ export const unit8: Unit = {
       ]
     },
     // ─��───────────────────────────────────────────────────────────
-    // LESSON 2a: Bearings & Lubrication — Bearing Types
+    // LESSON 2a: Bearings & Lubrication : Bearing Types
     // ─────────────────────────────────────────────────────────────
     {
       id: 'u8-L2',
@@ -527,7 +527,7 @@ export const unit8: Unit = {
       ]
     },
     // ───────────────────────────────────────���─────────────────────
-    // LESSON 2b: Bearings & Lubrication — L10 Life and Selection
+    // LESSON 2b: Bearings & Lubrication : L10 Life and Selection
     // ──���────────────────────��─────────────────────────��───────────
     {
       id: 'u8-L2b',
@@ -658,7 +658,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────────────────────────────────────────────────────────────
-    // LESSON 2c: Bearings & Lubrication — Lubrication Regimes
+    // LESSON 2c: Bearings & Lubrication : Lubrication Regimes
     // ───────────��──────────────────────────────────���──────────────
     {
       id: 'u8-L2c',
@@ -785,7 +785,7 @@ export const unit8: Unit = {
       ]
     },
     // ────���─────────────────────────────────���──────────────────────
-    // LESSON 3a: Gears — Basics and Ratios
+    // LESSON 3a: Gears : Basics and Ratios
     // ─────────────────��───────────────────────────────────────────
     {
       id: 'u8-L3',
@@ -908,7 +908,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────────────────────────────────────────────────────────────
-    // LESSON 3b: Gears — Types and Selection
+    // LESSON 3b: Gears : Types and Selection
     // ─────────────────────────────────────────────────────────────
     {
       id: 'u8-L3b',
@@ -1031,7 +1031,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────��─────────────────────────��─────────────────────────────
-    // LESSON 3c: Gears — Tooth Strength and AGMA Design
+    // LESSON 3c: Gears : Tooth Strength and AGMA Design
     // ─���────────────────────��──────────────────────────────────────
     {
       id: 'u8-L3c',
@@ -1169,7 +1169,7 @@ export const unit8: Unit = {
       ]
     },
     // ──────────────────────────────��──────────────────────────────
-    // LESSON 4a: Fasteners & Joints — Bolt Basics
+    // LESSON 4a: Fasteners & Joints : Bolt Basics
     // ──────────────────────────────────────────────────────��──────
     {
       id: 'u8-L4',
@@ -1283,7 +1283,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────────────��─────────────��─────────────────────────────────
-    // LESSON 4b: Fasteners — Stiffness, Separation, and Fatigue
+    // LESSON 4b: Fasteners : Stiffness, Separation, and Fatigue
     // ──────────────���─────────────────────────────────���────────────
     {
       id: 'u8-L4b',
@@ -1415,7 +1415,7 @@ export const unit8: Unit = {
       ]
     },
     // ─��───────────────────────────────────────────────────────────
-    // LESSON 4c: Fasteners — Welded and Adhesive Joints
+    // LESSON 4c: Fasteners : Welded and Adhesive Joints
     // ─────────────────────────────────────────────────────────────
     {
       id: 'u8-L4c',
@@ -1538,7 +1538,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────��────────────────────────────────────��──────────────────
-    // LESSON 5a: Springs & Seals — Spring Basics
+    // LESSON 5a: Springs & Seals : Spring Basics
     // ────��──────────────────���─────────────────────────────────────
     {
       id: 'u8-L5',
@@ -1666,7 +1666,7 @@ export const unit8: Unit = {
       ]
     },
     // ─────────────────────────────────────────���───────────────────
-    // LESSON 5b: Springs & Seals — Spring Failure and Seal Types
+    // LESSON 5b: Springs & Seals : Spring Failure and Seal Types
     // ��─────────────────────��────────────────────────────��─────────
     {
       id: 'u8-L5b',
@@ -1792,7 +1792,7 @@ export const unit8: Unit = {
       ]
     },
     // ───────────────────────────────────────��─────────────────────
-    // LESSON 5c: Springs & Seals — Advanced Design
+    // LESSON 5c: Springs & Seals : Advanced Design
     // ────────────────────────���────────────────────────────────────
     {
       id: 'u8-L5c',
