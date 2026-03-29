@@ -85,6 +85,7 @@ export default function CaseStudyView({
     if (initRef.current) return;
     initRef.current = true;
     onProgress(0, sections.length);
+    return () => { initRef.current = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

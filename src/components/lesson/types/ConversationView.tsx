@@ -144,7 +144,7 @@ export default function ConversationView({
         showAutoNode(firstNode.nextNodeId);
       }
     }, 1000);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); initRef.current = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

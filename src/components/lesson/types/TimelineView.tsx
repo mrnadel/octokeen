@@ -35,9 +35,11 @@ export default function TimelineView({
     initRef.current = true;
     onProgress(0, totalDecisions);
     // Show choices after brief reading delay
+    let timer: ReturnType<typeof setTimeout> | undefined;
     if (currentStage?.choices && currentStage.choices.length > 0) {
-      setTimeout(() => setShowChoices(true), 600);
+      timer = setTimeout(() => setShowChoices(true), 600);
     }
+    return () => { if (timer) clearTimeout(timer); initRef.current = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
