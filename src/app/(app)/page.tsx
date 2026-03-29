@@ -138,6 +138,18 @@ export default function HomePage() {
     );
   }
 
+  // Lesson flow covers: active lesson → result screen → celebrations → chapter/course completion.
+  // An opaque backdrop stays mounted through ALL phases so the home page never flashes between screens.
+  const lessonFlowActive = !!(
+    activeLesson ||
+    lessonResult ||
+    (flagCelebrations && (
+      pendingCelebrations.length > 0 ||
+      chapterJustCompleted ||
+      courseJustCompleted
+    ))
+  );
+
   return (
     <>
       {/* Course intro flow for new professions */}
@@ -195,6 +207,11 @@ export default function HomePage() {
 
       {/* Course map */}
       <CourseMap />
+
+      {/* Opaque backdrop stays mounted during entire lesson flow so home page never flashes */}
+      {lessonFlowActive && (
+        <div className="fixed inset-0 z-50 bg-[#FAFAFA]" aria-hidden="true" />
+      )}
 
       <Suspense fallback={null}>
         {activeLesson && <LessonView />}

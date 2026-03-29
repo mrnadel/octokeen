@@ -36,7 +36,7 @@ export default function ResultScreen() {
   // Sound on mount
   useEffect(() => {
     if (!lessonResult) return;
-    playSound(lessonResult.passed ? (lessonResult.isFlawless ? 'sessionComplete' : 'lessonPass') : 'lessonFail');
+    playSound(lessonResult.passed ? 'lessonPass' : 'lessonFail');
   }, [lessonResult]);
 
   useEffect(() => {

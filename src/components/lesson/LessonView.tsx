@@ -24,7 +24,6 @@ import ConversationView from './types/ConversationView';
 import SpeedRoundView from './types/SpeedRoundView';
 import TimelineView from './types/TimelineView';
 import CaseStudyView from './types/CaseStudyView';
-import ResultScreen from './ResultScreen';
 import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useDoubleXpActive } from '@/store/useEngagementStore';
@@ -438,45 +437,18 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     isCalcOpen,
   ]);
 
-  // Keep a frozen snapshot of the last question so the lesson view stays visible
-  // behind the result screen (instead of fading out immediately).
-  const lastQuestionRef = useRef<CourseQuestion | null>(null);
-  if (currentQuestion) lastQuestionRef.current = currentQuestion;
-  const displayQuestion = currentQuestion ?? lastQuestionRef.current;
+  const displayQuestion = currentQuestion;
 
-  // === EXIT ANIMATION STATE ===
-  // When lesson completes, slide the lesson view down before showing ResultScreen.
-  const [exiting, setExiting] = useState(false);
-  const [showResult, setShowResult] = useState(false);
-
-  useEffect(() => {
-    if (!adapter && lessonResult && !showResult) {
-      // Start slide-down exit
-      setExiting(true);
-      // After exit animation completes, show result screen
-      const timer = setTimeout(() => {
-        setShowResult(true);
-      }, 350);
-      return () => clearTimeout(timer);
-    }
-  }, [adapter, lessonResult, showResult]);
-
-  // Show result screen after exit animation
-  if (showResult && lessonResult) return <ResultScreen />;
-
-  if (!displayQuestion && !isNonStandard && !exiting) return null;
+  if (!displayQuestion && !isNonStandard) return null;
 
   return (
     <AnimatePresence>
       <motion.div
         key="lesson-view"
         initial={{ y: '100%' }}
-        animate={{ y: exiting ? '100%' : 0 }}
+        animate={{ y: 0 }}
         exit={{ y: '100%' }}
-        transition={exiting
-          ? { type: 'tween', duration: 0.3, ease: 'easeIn' }
-          : { type: 'spring', stiffness: 300, damping: 30 }
-        }
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed inset-0 z-[60] flex items-center justify-center"
         role="main"
         aria-label={adapter ? 'Practice view' : 'Lesson view'}
@@ -1096,8 +1068,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         </AnimatePresence>
       </motion.div>
 
-      {/* Result screen overlay — lesson view stays visible underneath */}
-      {!adapter && lessonResult && <ResultScreen />}
     </AnimatePresence>
   );
 }
