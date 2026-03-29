@@ -201,9 +201,6 @@ export default function GetStartedPage() {
   const [hearts, setHearts] = useState(STARTING_HEARTS);
   const [showOutOfHearts, setShowOutOfHearts] = useState(false);
 
-  // Track whether user skipped the test (so Back from signup goes to step 1, not step 2)
-  const [skippedTest, setSkippedTest] = useState(false);
-
   // Navigation loading
   const [navigating, setNavigating] = useState(false);
 
@@ -223,14 +220,11 @@ export default function GetStartedPage() {
   const prevStep = useCallback(() => {
     setDirection(-1);
     setStep((s) => {
-      // If on signup (step 3) and user skipped the test, go back to level selection (step 1)
-      if (s === 3 && skippedTest) {
-        setSkippedTest(false);
-        return 1;
-      }
+      // From signup (step 3) or placement test (step 2), always go back to level selection (step 1)
+      if (s === 2 || s === 3) return 1;
       return Math.max(s - 1, 0);
     });
-  }, [skippedTest]);
+  }, []);
 
   // Track which start unit was loaded so we reload if the user picks a different level
   const loadedForStartUnit = useRef<number | null>(null);
@@ -348,10 +342,11 @@ export default function GetStartedPage() {
     finishPlacement();
   }, [finishPlacement]);
 
-  // SessionAdapter exit (quit test)
+  // SessionAdapter exit (quit test) — go back to level selection
   const handleAdapterExit = useCallback(() => {
-    finishPlacement();
-  }, [finishPlacement]);
+    setDirection(-1);
+    setStep(1);
+  }, []);
 
   // Refill hearts and continue the placement test
   const handleRefillHearts = () => {
@@ -398,7 +393,6 @@ export default function GetStartedPage() {
   // "I'm new" handler: skip test, place at unit 0
   const handleNewUser = () => {
     setPlacedUnitIndex(0);
-    setSkippedTest(true);
     setDirection(1);
     setStep(3);
   };
@@ -408,7 +402,6 @@ export default function GetStartedPage() {
     const meta = getCourseMetaForProfession(selectedProfession);
     const startIdx = Math.floor(startFraction * meta.length);
     setTestStartUnit(startIdx);
-    setSkippedTest(false);
     nextStep();
   };
 
