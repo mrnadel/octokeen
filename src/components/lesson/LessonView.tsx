@@ -29,6 +29,7 @@ import FlagButton from '@/components/feedback/FlagButton';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useDoubleXpActive } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
+import { playSound } from '@/lib/sounds';
 import { HeartDisplay } from '@/components/ui/HeartDisplay';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
@@ -191,6 +192,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       if (correct) {
         setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
       } else {
+        playSound('heartLost');
         loseHeart();
       }
     },
@@ -266,6 +268,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       if (correct) {
         setXpGain((prev) => prev + (isDoubleXp ? 20 : 10));
       } else if (!adapter?.noHearts) {
+        playSound('heartLost');
         loseHeart();
       }
     },

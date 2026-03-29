@@ -17,12 +17,15 @@ import {
   RotateCcw,
   AlertTriangle,
   Loader2,
+  Volume2,
+  VolumeOff,
 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useSoundStore } from '@/store/useSoundStore';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -104,6 +107,8 @@ export default function SettingsPage() {
   }, [resetConfirmText, displayName]);
 
   const { state: pushState, subscribe: enablePush, unsubscribe: disablePush } = usePushNotifications();
+  const soundEnabled = useSoundStore((s) => s.enabled);
+  const toggleSound = useSoundStore((s) => s.toggleSound);
 
   return (
     <div className="pb-10">
@@ -156,6 +161,32 @@ export default function SettingsPage() {
             </div>
           </div>
         )}
+
+        {/* Sound Effects */}
+        <div>
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-1">Sound</h3>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 w-full px-4 py-3.5">
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                {soundEnabled ? <Volume2 className="w-4 h-4 text-indigo-500" /> : <VolumeOff className="w-4 h-4 text-gray-400" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-bold text-gray-700 block">Sound Effects</span>
+                <span className="text-xs text-gray-400">{soundEnabled ? 'Dings, chimes, and celebrations' : 'All sounds muted'}</span>
+              </div>
+              <button
+                onClick={toggleSound}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
+                  soundEnabled
+                    ? 'text-white bg-indigo-500 hover:bg-indigo-600'
+                    : 'text-gray-400 bg-gray-100 hover:bg-gray-200'
+                }`}
+              >
+                {soundEnabled ? 'On' : 'Off'}
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Subscription / Billing */}
         <div>

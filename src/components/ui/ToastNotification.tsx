@@ -3,6 +3,7 @@
 import { useEffect, useCallback } from 'react';
 import { create } from 'zustand';
 import { motion, AnimatePresence } from 'framer-motion';
+import { playSound } from '@/lib/sounds';
 
 // ─── Toast Store ───
 
@@ -26,6 +27,7 @@ export const useToastStore = create<ToastStore>((set) => ({
   toasts: [],
   push: (toast) => {
     const id = `t-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+    playSound('toast');
     set((s) => ({
       toasts: [...s.toasts, { ...toast, id }].slice(-5), // keep max 5
     }));

@@ -308,6 +308,7 @@ export function GemShop() {
   function handleToggleEquip(itemId: string) {
     const item = shopItems.find((i) => i.id === itemId);
     if (!item) return;
+    playSound('equip');
     const { equipTitle, equipFrame } = useEngagementStore.getState();
     if (item.type === 'title') {
       const isCurrently = gems.selectedTitle === itemId;
