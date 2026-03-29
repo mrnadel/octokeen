@@ -59,6 +59,21 @@ export default function HomePage() {
   const flagIntroFlow = useFeatureFlag('course.intro_flow');
   const flagPlacementTest = useFeatureFlag('course.placement_test');
 
+  const debugSkipToUnit = useCourseStore((s) => s.debugSkipToUnit);
+  const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
+
+  // Apply pending placement from get-started flow (Google sign-in redirect)
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('octokeen-placement');
+      if (!raw) return;
+      sessionStorage.removeItem('octokeen-placement');
+      const { professionId, unitIndex } = JSON.parse(raw);
+      if (professionId) setActiveProfession(professionId);
+      if (unitIndex > 0) debugSkipToUnit(unitIndex);
+    } catch {}
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Course intro flow: show when user hasn't completed intro for current profession
   // Skip for existing users who already have lesson progress (pre-feature migration)
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);

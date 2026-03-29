@@ -18,6 +18,7 @@ import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-m
 import LessonView from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
 import type { Unit, CourseQuestion } from '@/data/course/types';
+import { Mascot } from '@/components/ui/Mascot';
 
 /* ─── Constants ─── */
 
@@ -237,6 +238,8 @@ export default function GetStartedPage() {
     setPlacementIndex(0);
     setPlacementAnswer(null);
     setPlacementRevealed(false);
+    setAnsweredIds(new Set());
+    submittedRef.current = new Set();
     setHighestPassedUnit(-1);
     setHearts(STARTING_HEARTS);
     setPlacementDone(false);
@@ -283,8 +286,8 @@ export default function GetStartedPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, selectedProfession, testStartUnit]);
 
-  // Track answers for the adapter
-  const answeredIdsRef = useRef<Set<string>>(new Set());
+  // Track answers for the adapter (state so re-renders update isCurrentAnswered)
+  const [answeredIds, setAnsweredIds] = useState<Set<string>>(new Set());
 
   const finishPlacement = useCallback(() => {
     // If user answered at least one question correctly, place them after the highest unit they passed.
@@ -297,8 +300,17 @@ export default function GetStartedPage() {
   }, [highestPassedUnit, testStartUnit]);
 
   // SessionAdapter submit: track correctness and hearts
+  const submittedRef = useRef<Set<string>>(new Set());
   const handleAdapterSubmit = useCallback((questionId: string, correct: boolean) => {
-    answeredIdsRef.current.add(questionId);
+    // Guard against double-submission (prevent duplicate heart loss)
+    if (submittedRef.current.has(questionId)) return;
+    submittedRef.current.add(questionId);
+
+    setAnsweredIds(prev => {
+      const next = new Set(prev);
+      next.add(questionId);
+      return next;
+    });
     const pq = placementQuestions.find(p => p.question.id === questionId);
     if (correct && pq) {
       setHighestPassedUnit((prev) => Math.max(prev, pq.unitIndex));
@@ -345,7 +357,7 @@ export default function GetStartedPage() {
       currentQuestion: pq.question,
       answeredCount: placementIndex,
       totalQuestions: placementQuestions.length,
-      isCurrentAnswered: answeredIdsRef.current.has(pq.question.id),
+      isCurrentAnswered: answeredIds.has(pq.question.id),
       isLastQuestion: placementIndex >= placementQuestions.length - 1,
       unitColor: TEST_THEME.color,
       theme: TEST_THEME,
@@ -361,7 +373,7 @@ export default function GetStartedPage() {
       exitConfirmMessage: 'You\'ll be placed based on your answers so far.',
       noHearts: true, // We handle hearts ourselves via the modal
     };
-  }, [placementQuestions, placementIndex, handleAdapterSubmit, handleAdapterNext, handleAdapterComplete, handleAdapterExit]);
+  }, [placementQuestions, placementIndex, answeredIds, handleAdapterSubmit, handleAdapterNext, handleAdapterComplete, handleAdapterExit]);
 
   // When placement test finishes (aced all), go to signup
   useEffect(() => {
@@ -444,17 +456,15 @@ export default function GetStartedPage() {
     signIn('google', { callbackUrl: '/' });
   };
 
+  const debugSkipToUnit = useCourseStore((s) => s.debugSkipToUnit);
   const completeOnboarding = () => {
     if (navigating) return;
     setNavigating(true);
     setActiveProfession(selectedProfession);
-    // Save placement to sessionStorage
-    try {
-      sessionStorage.setItem(
-        'octokeen-placement',
-        JSON.stringify({ professionId: selectedProfession, unitIndex: placedUnitIndex })
-      );
-    } catch {}
+    // Apply placement: skip to the placed unit in the course store
+    if (placedUnitIndex > 0) {
+      debugSkipToUnit(placedUnitIndex);
+    }
     analytics.milestone({ type: 'onboarding_completed' });
     window.location.href = '/';
   };
@@ -741,8 +751,8 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="text-center max-w-sm mx-auto w-full"
             >
-              <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="text-5xl mb-6">
-                &#x1F680;
+              <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="mb-4 flex justify-center">
+                <Mascot pose="celebrating" size={140} />
               </motion.div>
 
               <motion.h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
@@ -757,9 +767,9 @@ export default function GetStartedPage() {
                   className="mb-6"
                 >
                   <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-500/10 mb-3">
-                    <span className="text-lg">{meta[placedUnitIndex]?.icon ?? '&#x1F3AF;'}</span>
+                    <span className="text-lg">{meta[placedUnitIndex]?.icon ?? '\uD83C\uDFAF'}</span>
                     <span className="text-base font-black text-primary-600">
-                      Unit {placedUnitIndex + 1}: {placedUnitName}
+                      Unit {placedUnitIndex + 1}{placedUnitName !== `Unit ${placedUnitIndex + 1}` ? `: ${placedUnitName}` : ''}
                     </span>
                   </div>
                   <p className="text-gray-500 text-sm font-semibold leading-relaxed">
