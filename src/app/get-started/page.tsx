@@ -23,7 +23,7 @@ import type { Unit, CourseQuestion } from '@/data/course/types';
 
 const STARTING_HEARTS = 3;
 const TOTAL_STEPS = 5;
-const QUESTIONS_PER_UNIT = 2;
+const PLACEMENT_QUESTION_COUNT = 5;
 
 const SUPPORTED_QUESTION_TYPES = new Set([
   'multiple-choice',
@@ -241,13 +241,24 @@ export default function GetStartedPage() {
     async function loadPlacementQuestions() {
       setLoadingUnits(true);
       const meta = getCourseMetaForProfession(selectedProfession);
+      const totalUnits = meta.length;
       const allQuestions: PlacementQuestion[] = [];
 
-      // Load units one at a time and pick questions
-      for (let i = 0; i < meta.length; i++) {
+      // Pick evenly spaced unit indices (e.g. for 13 units, 5 questions: units 0, 3, 5, 8, 11)
+      const unitIndices: number[] = [];
+      if (totalUnits <= PLACEMENT_QUESTION_COUNT) {
+        for (let i = 0; i < totalUnits; i++) unitIndices.push(i);
+      } else {
+        for (let i = 0; i < PLACEMENT_QUESTION_COUNT; i++) {
+          unitIndices.push(Math.round(i * (totalUnits - 1) / (PLACEMENT_QUESTION_COUNT - 1)));
+        }
+      }
+
+      // Load only the selected units, pick 1 question from each
+      for (const idx of unitIndices) {
         try {
-          const fullUnit = await loadUnitData(i, selectedProfession);
-          const picked = pickQuestionsFromUnit(fullUnit, i, QUESTIONS_PER_UNIT);
+          const fullUnit = await loadUnitData(idx, selectedProfession);
+          const picked = pickQuestionsFromUnit(fullUnit, idx, 1);
           allQuestions.push(...picked);
         } catch {
           // Skip units that fail to load
