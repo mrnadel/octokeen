@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import { MoneyText } from '@/components/ui/MoneyText';
+import { playSound } from '@/lib/sounds';
 
 /** Memoised diagram so SVG animations don't reset on answer selection re-renders */
 const DiagramDisplay = memo(function DiagramDisplay({ html }: { html: string }) {
@@ -143,6 +144,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
       }
 
       setLocalCorrect(correct);
+      playSound(correct ? 'correct' : 'wrong');
       onAnswer(correct);
     }, [answered, hasSelection, question, selectedIndex, selectedBool, filledBlanks, shuffledIndices, onAnswer]);
 
@@ -399,7 +401,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
               return (
                 <motion.button
                   key={originalIndex}
-                  onClick={() => !answered && setSelectedIndex(displayIndex)}
+                  onClick={() => { if (!answered) { playSound('tap'); setSelectedIndex(displayIndex); } }}
                   disabled={answered}
                   initial={{ opacity: 0, y: 16 }}
                   animate={revealAnimation}
@@ -501,7 +503,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
               return (
                 <motion.button
                   key={String(value)}
-                  onClick={() => !answered && setSelectedBool(value)}
+                  onClick={() => { if (!answered) { playSound('tap'); setSelectedBool(value); } }}
                   disabled={answered}
                   initial={{ opacity: 0, y: 14 }}
                   animate={revealAnimation}

@@ -19,7 +19,7 @@ import { getProfession, PROFESSIONS } from '@/data/professions';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 import LessonView from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
-import type { Unit, CourseQuestion } from '@/data/course/types';
+import type { Unit, CourseQuestion, CourseIntroData } from '@/data/course/types';
 import { Mascot } from '@/components/ui/Mascot';
 
 /* ─── Constants ─── */
@@ -196,6 +196,8 @@ export default function GetStartedPage() {
 
   // Self-assessment level: determines which unit range the test draws from
   const [testStartUnit, setTestStartUnit] = useState(0);
+  // Track experience level choice for CourseIntroData (0=new, 1=little, 2=fair, 3=lot)
+  const [selfAssessLevel, setSelfAssessLevel] = useState<0 | 1 | 2 | 3>(0);
 
   // Hearts
   const [hearts, setHearts] = useState(STARTING_HEARTS);
@@ -392,6 +394,7 @@ export default function GetStartedPage() {
 
   // "I'm new" handler: skip test, place at unit 0
   const handleNewUser = () => {
+    setSelfAssessLevel(0);
     setPlacedUnitIndex(0);
     setDirection(1);
     setStep(3);
@@ -399,6 +402,8 @@ export default function GetStartedPage() {
 
   // Level option handler: set the starting range and go to placement test
   const handleLevelChoice = (startFraction: number) => {
+    const levelMap: Record<number, 0 | 1 | 2 | 3> = { 0: 1, 0.3: 2, 0.6: 3 };
+    setSelfAssessLevel(levelMap[startFraction] ?? 1);
     const meta = getCourseMetaForProfession(selectedProfession);
     const startIdx = Math.floor(startFraction * meta.length);
     setTestStartUnit(startIdx);
@@ -448,6 +453,16 @@ export default function GetStartedPage() {
     }
   };
 
+  // Build CourseIntroData from the get-started flow so the home page
+  // doesn't re-show the questionnaire after signup.
+  const buildIntroData = useCallback((): CourseIntroData => ({
+    experienceLevel: selfAssessLevel,
+    placementChoice: selfAssessLevel === 0 ? 'scratch' : 'test',
+    goal: 'interview',
+    dailyMinutes: 10,
+    completedAt: new Date().toISOString(),
+  }), [selfAssessLevel]);
+
   // Reset user-specific stores so stale localStorage from previous sessions
   // doesn't trigger false streak-break / comeback / welcome-back popups.
   const resetStoresForNewUser = useCallback(() => {
@@ -490,6 +505,8 @@ export default function GetStartedPage() {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
     resetStoresForNewUser();
+    // Mark intro as completed so home page doesn't re-show the questionnaire
+    useCourseStore.getState().completeCourseIntro(selectedProfession, buildIntroData());
     // Save placement before redirecting
     try {
       sessionStorage.setItem(
@@ -504,6 +521,8 @@ export default function GetStartedPage() {
     if (navigating) return;
     setNavigating(true);
     resetStoresForNewUser();
+    // Mark intro as completed so home page doesn't re-show the questionnaire
+    useCourseStore.getState().completeCourseIntro(selectedProfession, buildIntroData());
     setActiveProfession(selectedProfession);
     // Apply placement: unlock units up to placed unit (without marking lessons as done)
     if (placedUnitIndex > 0) {

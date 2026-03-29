@@ -12,6 +12,7 @@ import { getProfession, PROFESSIONS } from '@/data/professions';
 
 import { useGems, useEngagementStore, useDoubleXpActive } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
 import { shopItems } from '@/data/gem-shop';
 import { getXpToNextLevel, levels } from '@/data/levels';
 import { getLevelReward } from '@/data/level-rewards';
@@ -20,7 +21,7 @@ import { LevelBadge } from '@/components/engagement/LevelBadge';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { CourseIcon } from '@/components/course/CourseIcon';
 
-type PopoverType = 'course' | 'streak' | 'xp' | 'gems' | null;
+type PopoverType = 'course' | 'streak' | 'xp' | 'gems' | 'hearts' | null;
 
 function getGreeting(): string {
   const hour = new Date().getHours();
