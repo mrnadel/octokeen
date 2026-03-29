@@ -15,24 +15,27 @@ interface UpgradeModalProps { isOpen: boolean; onClose: () => void; reason?: str
 
 export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const { data: session } = useSession();
 
-  useEffect(() => { if (isOpen) analytics.feature('upgrade_modal_shown', { reason }); }, [isOpen, reason]);
+  useEffect(() => { if (isOpen) { analytics.feature('upgrade_modal_shown', { reason }); setError(''); } }, [isOpen, reason]);
 
   const handleSubscribe = async () => {
     if (!session?.user?.id) return;
     setLoading(true);
+    setError('');
     analytics.subscription({ action: 'checkout_initiated', plan: 'pro', interval: 'month', source: 'upgrade_modal' });
     try {
       const res = await fetch('/api/paddle/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priceId: PADDLE_PRICES.PRO_MONTHLY }) });
-      if (!res.ok) return;
+      if (!res.ok) { setError('Failed to start checkout. Please try again.'); return; }
       const { transactionId } = await res.json();
       const paddle = await getPaddle();
-      if (!paddle || !transactionId) return;
+      if (!paddle || !transactionId) { setError('Payment system unavailable. Try again later.'); return; }
       paddle.Checkout.open({ transactionId, settings: { successUrl: `${window.location.origin}/checkout/success` } });
       onClose();
     } catch (err) {
       console.error('Checkout error:', err);
+      setError('Something went wrong. Please try again.');
       analytics.error({ action: 'checkout', message: 'Checkout failed', source: 'upgrade_modal' });
     } finally { setLoading(false); }
   };
@@ -85,6 +88,12 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
 
       <h3 id="upgrade-modal-title" className="text-[28px] font-black mb-1">Octokeen Pro</h3>
       <p className="text-sm text-white/50 mb-5">{reason || 'Unlock your full potential'}</p>
+
+      {error && (
+        <div className="w-full px-4 py-2.5 rounded-xl bg-red-500/20 border border-red-400/30 mb-4">
+          <p className="text-sm font-semibold text-red-200 text-center">{error}</p>
+        </div>
+      )}
 
       <ul className="w-full space-y-2">
         {features.map((f) => (

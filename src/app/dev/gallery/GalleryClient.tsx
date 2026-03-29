@@ -33,6 +33,12 @@ interface ScreenDef {
   render: () => ReactNode;
   setup?: () => void;
   cleanup?: () => void;
+  /**
+   * Screens that share the same store slice must have the same storeSlot.
+   * Only one screen per slot renders at a time in the grid.
+   * The PhoneFrame shows a tab switcher for conflicting screens.
+   */
+  storeSlot?: string;
 }
 
 const noop = () => {};
@@ -121,9 +127,9 @@ const SCREENS: ScreenDef[] = [
     render: () => <StreakFreeze />,
   },
 
-  // League (store-dependent)
+  // League (store-dependent, share 'league' slot)
   {
-    id: 'league-winner', label: 'LeagueWinner', section: 'League',
+    id: 'league-winner', label: 'LeagueWinner', section: 'League', storeSlot: 'league',
     setup: () => {
       useEngagementStore.setState((s) => ({
         league: {
@@ -143,27 +149,27 @@ const SCREENS: ScreenDef[] = [
     render: () => <LeagueWinner />,
   },
   {
-    id: 'league-promoted', label: 'LeaguePromotion (Promoted)', section: 'League',
+    id: 'league-promoted', label: 'LeaguePromotion (Promoted)', section: 'League', storeSlot: 'league',
     setup: () => setLeagueMock(2, true, false, 3),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
   {
-    id: 'league-stayed', label: 'LeaguePromotion (Stayed)', section: 'League',
+    id: 'league-stayed', label: 'LeaguePromotion (Stayed)', section: 'League', storeSlot: 'league',
     setup: () => setLeagueMock(8, false, false, 2),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
   {
-    id: 'league-demoted', label: 'LeaguePromotion (Demoted)', section: 'League',
+    id: 'league-demoted', label: 'LeaguePromotion (Demoted)', section: 'League', storeSlot: 'league',
     setup: () => setLeagueMock(14, false, true, 1),
     cleanup: clearLeagueMock,
     render: () => <LeaguePromotion />,
   },
 
-  // Lesson Results (store-dependent)
+  // Lesson Results (store-dependent, share 'lessonResult' slot)
   {
-    id: 'result-flawless', label: 'ResultScreen (Flawless)', section: 'Lesson Results',
+    id: 'result-flawless', label: 'ResultScreen (Flawless)', section: 'Lesson Results', storeSlot: 'lessonResult',
     setup: () => useCourseStore.setState({
       lessonResult: { lessonId: 'mock-1', unitTitle: 'Unit 1', lessonTitle: 'Thermodynamics Basics', totalQuestions: 8, correctAnswers: 8, xpEarned: 45, accuracy: 100, stars: 3, passed: true, isFlawless: true, isNewBest: true, isFirstCompletion: false, isGolden: false } as never,
     }),
@@ -171,7 +177,7 @@ const SCREENS: ScreenDef[] = [
     render: () => <ResultScreen />,
   },
   {
-    id: 'result-passed', label: 'ResultScreen (Passed)', section: 'Lesson Results',
+    id: 'result-passed', label: 'ResultScreen (Passed)', section: 'Lesson Results', storeSlot: 'lessonResult',
     setup: () => useCourseStore.setState({
       lessonResult: { lessonId: 'mock-2', unitTitle: 'Unit 2', lessonTitle: 'Heat Transfer', totalQuestions: 8, correctAnswers: 7, xpEarned: 32, accuracy: 85, stars: 2, passed: true, isFlawless: false, isNewBest: false, isFirstCompletion: false, isGolden: false } as never,
     }),
@@ -179,7 +185,7 @@ const SCREENS: ScreenDef[] = [
     render: () => <ResultScreen />,
   },
   {
-    id: 'result-failed', label: 'ResultScreen (Failed)', section: 'Lesson Results',
+    id: 'result-failed', label: 'ResultScreen (Failed)', section: 'Lesson Results', storeSlot: 'lessonResult',
     setup: () => useCourseStore.setState({
       lessonResult: { lessonId: 'mock-3', unitTitle: 'Unit 3', lessonTitle: 'Fluid Mechanics', totalQuestions: 8, correctAnswers: 3, xpEarned: 8, accuracy: 40, stars: 0, passed: false, isFlawless: false, isNewBest: false, isFirstCompletion: false, isGolden: false } as never,
     }),
@@ -187,7 +193,7 @@ const SCREENS: ScreenDef[] = [
     render: () => <ResultScreen />,
   },
   {
-    id: 'result-golden', label: 'ResultScreen (Golden)', section: 'Lesson Results',
+    id: 'result-golden', label: 'ResultScreen (Golden)', section: 'Lesson Results', storeSlot: 'lessonResult',
     setup: () => useCourseStore.setState({
       lessonResult: { lessonId: 'mock-4', unitTitle: 'Unit 1', lessonTitle: 'Statics Review', totalQuestions: 8, correctAnswers: 8, xpEarned: 60, accuracy: 100, stars: 3, passed: true, isFlawless: true, isNewBest: true, isFirstCompletion: false, isGolden: true } as never,
     }),
@@ -195,9 +201,9 @@ const SCREENS: ScreenDef[] = [
     render: () => <ResultScreen />,
   },
 
-  // Placement Test (store-dependent)
+  // Placement Test (store-dependent, share 'placementResult' slot)
   {
-    id: 'placement-passed', label: 'PlacementTestResult (Passed)', section: 'Placement Test',
+    id: 'placement-passed', label: 'PlacementTestResult (Passed)', section: 'Placement Test', storeSlot: 'placementResult',
     setup: () => useCourseStore.setState({
       placementTestResult: { passed: true, targetUnitIndex: 3, targetUnitTitle: 'Unit 4: Dynamics', totalQuestions: 10, correctAnswers: 8, mistakes: 2, maxMistakes: 4, unitsSkipped: 3 } as never,
     }),
@@ -205,7 +211,7 @@ const SCREENS: ScreenDef[] = [
     render: () => <PlacementTestResult />,
   },
   {
-    id: 'placement-failed', label: 'PlacementTestResult (Failed)', section: 'Placement Test',
+    id: 'placement-failed', label: 'PlacementTestResult (Failed)', section: 'Placement Test', storeSlot: 'placementResult',
     setup: () => useCourseStore.setState({
       placementTestResult: { passed: false, targetUnitIndex: 0, targetUnitTitle: 'Unit 1', totalQuestions: 10, correctAnswers: 4, mistakes: 6, maxMistakes: 4, unitsSkipped: 0 } as never,
     }),
@@ -276,18 +282,38 @@ export default function GalleryClient() {
         />
       )}
 
-      {grouped.map(({ section, screens }) => (
-        <div key={section}>
-          <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 2.5, color: '#444', margin: '48px 0 24px', textAlign: 'center' }}>
-            {section}
+      {grouped.map(({ section, screens }) => {
+        // Group screens by storeSlot. Non-slotted screens get their own group.
+        const groups: { key: string; screens: ScreenDef[] }[] = [];
+        const slotMap = new Map<string, ScreenDef[]>();
+
+        for (const s of screens) {
+          if (s.storeSlot) {
+            const existing = slotMap.get(s.storeSlot);
+            if (existing) { existing.push(s); }
+            else { const arr = [s]; slotMap.set(s.storeSlot, arr); groups.push({ key: s.storeSlot, screens: arr }); }
+          } else {
+            groups.push({ key: s.id, screens: [s] });
+          }
+        }
+
+        return (
+          <div key={section}>
+            <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 2.5, color: '#444', margin: '48px 0 24px', textAlign: 'center' }}>
+              {section}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 36 }}>
+              {groups.map((group) =>
+                group.screens.length === 1 ? (
+                  <PhoneFrame key={group.key} screen={group.screens[0]} onClick={() => setActiveScreen(group.screens[0].id)} />
+                ) : (
+                  <TabbedPhoneFrame key={group.key} screens={group.screens} onClickScreen={(id) => setActiveScreen(id)} />
+                )
+              )}
+            </div>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 36 }}>
-            {screens.map((screen) => (
-              <PhoneFrame key={screen.id} screen={screen} onClick={() => setActiveScreen(screen.id)} />
-            ))}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -333,6 +359,79 @@ function PhoneFrame({ screen, onClick }: { screen: ScreenDef; onClick: () => voi
           </div>
         )}
         {/* Force sm: responsive classes to render as mobile (full-screen) */}
+        <style>{`
+          .gallery-phone-frame .sm\\:h-auto { height: 100% !important; }
+          .gallery-phone-frame .sm\\:max-w-sm { max-width: 100% !important; }
+          .gallery-phone-frame .sm\\:rounded-2xl { border-radius: 0 !important; }
+          .gallery-phone-frame .sm\\:shadow-2xl { box-shadow: none !important; }
+          .gallery-phone-frame .sm\\:p-4 { padding: 0 !important; }
+          .gallery-phone-frame .sm\\:pt-10 { padding-top: 15vh !important; }
+          .gallery-phone-frame .sm\\:pb-5 { padding-bottom: 2rem !important; }
+          .gallery-phone-frame .sm\\:flex-initial { flex: 1 !important; }
+        `}</style>
+      </div>
+    </div>
+  );
+}
+
+// ─── Tabbed Phone Frame (for store-conflicting screens) ──────
+
+function TabbedPhoneFrame({ screens, onClickScreen }: { screens: ScreenDef[]; onClickScreen: (id: string) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { rootMargin: '200px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const active = screens[activeIdx];
+
+  return (
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+      {/* Tab switcher */}
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 375 }}>
+        {screens.map((s, i) => (
+          <button
+            key={s.id}
+            onClick={(e) => { e.stopPropagation(); setActiveIdx(i); }}
+            style={{
+              padding: '4px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
+              fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5,
+              background: i === activeIdx ? '#444' : '#1a1a1a',
+              color: i === activeIdx ? '#fff' : '#555',
+            }}
+          >
+            {s.label.replace(/.*\(/, '').replace(')', '') || s.label}
+          </button>
+        ))}
+      </div>
+      {/* Phone frame */}
+      <div
+        onClick={() => onClickScreen(active.id)}
+        style={{
+          width: 375, height: 812, borderRadius: 44, overflow: 'hidden',
+          border: '3px solid #2a2a2a', position: 'relative', cursor: 'pointer',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6)', background: '#000',
+          transform: 'scale(1)',
+        }}
+      >
+        {visible ? (
+          <div style={{ pointerEvents: 'none', width: '100%', height: '100%' }} className="gallery-phone-frame">
+            <ScreenRenderer key={active.id} screen={active} />
+          </div>
+        ) : (
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#333', fontSize: 13 }}>
+            Loading...
+          </div>
+        )}
         <style>{`
           .gallery-phone-frame .sm\\:h-auto { height: 100% !important; }
           .gallery-phone-frame .sm\\:max-w-sm { max-width: 100% !important; }
