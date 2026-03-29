@@ -1,0 +1,1 @@
+ALTER TABLE "course_progress" ADD COLUMN "placement_unit_index" integer DEFAULT 0 NOT NULL;

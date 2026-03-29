@@ -21,7 +21,7 @@ import { LevelBadge } from '@/components/engagement/LevelBadge';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { CourseIcon } from '@/components/course/CourseIcon';
 
-type PopoverType = 'course' | 'streak' | 'xp' | 'gems' | 'hearts' | null;
+type PopoverType = 'course' | 'streak' | 'gems' | 'hearts' | null;
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -147,7 +147,6 @@ export function CourseHeader() {
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
   const profession = getProfession(activeProfession);
-  const { current: currentLevel } = getXpToNextLevel(progress.totalXp);
   const router = useRouter();
 
   const heartsCurrent = useHeartsStore((s) => s.current);
@@ -158,7 +157,6 @@ export function CourseHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const courseBtnRef = useRef<HTMLButtonElement>(null);
   const streakBtnRef = useRef<HTMLButtonElement>(null);
-  const xpBtnRef = useRef<HTMLButtonElement>(null);
   const gemsBtnRef = useRef<HTMLButtonElement>(null);
   const heartsBtnRef = useRef<HTMLButtonElement>(null);
   const popoverPanelRef = useRef<HTMLDivElement>(null);
@@ -170,7 +168,7 @@ export function CourseHeader() {
       setPopoverPos(null);
       return;
     }
-    const ref = type === 'course' ? courseBtnRef : type === 'streak' ? streakBtnRef : type === 'xp' ? xpBtnRef : type === 'hearts' ? heartsBtnRef : gemsBtnRef;
+    const ref = type === 'course' ? courseBtnRef : type === 'streak' ? streakBtnRef : type === 'hearts' ? heartsBtnRef : gemsBtnRef;
     const headerEl = headerRef.current;
     if (!headerEl || !ref?.current) return;
 
@@ -211,7 +209,6 @@ export function CourseHeader() {
         popoverPanelRef.current?.contains(target) ||
         courseBtnRef.current?.contains(target) ||
         streakBtnRef.current?.contains(target) ||
-        xpBtnRef.current?.contains(target) ||
         gemsBtnRef.current?.contains(target) ||
         heartsBtnRef.current?.contains(target)
       ) return;
@@ -274,28 +271,6 @@ export function CourseHeader() {
             >
               <StreakFlame state={flameState} size={28} />
               <AnimatedCounter value={progress.currentStreak} showDelta deltaColor="#D97706" />
-            </button>
-
-            <button
-              ref={xpBtnRef}
-              className="flex items-center transition-all active:scale-95"
-              style={{
-                gap: 4,
-                fontWeight: 800,
-                fontSize: 17,
-                color: popover === 'xp' ? '#7B2FBE' : '#3C3C3C',
-                padding: '4px 8px',
-                borderRadius: 10,
-                background: popover === 'xp' ? '#F3E6FF' : 'transparent',
-                minWidth: 44,
-                minHeight: 44,
-                justifyContent: 'center',
-              }}
-              onClick={() => togglePopover('xp')}
-              aria-label={`${progress.totalXp.toLocaleString()} experience points`}
-              aria-expanded={popover === 'xp'}
-            >
-              <LevelBadge level={currentLevel} size={36} />
             </button>
 
             <button
@@ -428,9 +403,7 @@ export function CourseHeader() {
                   <GemsPopoverContent gems={gems} onGoToShop={closePopover} />
                 ) : popover === 'hearts' ? (
                   <HeartsPopoverContent onClose={closePopover} />
-                ) : (
-                  <XpLevelPopover totalXp={progress.totalXp} />
-                )}
+                ) : null}
             </div>
           </motion.div>
         )}
@@ -1278,6 +1251,8 @@ function GemsPopoverContent({
 }
 
 // ─── Hearts popover (Duolingo-style) ───
+const HEART_COST = 100; // gems per single heart — balanced: ~2 lessons worth of gem earnings
+
 function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
   const current = useHeartsStore((s) => s.current);
   const max = useHeartsStore((s) => s.max);
@@ -1295,8 +1270,8 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
       const totalSeconds = Math.ceil(ms / 1000);
       const hours = Math.floor(totalSeconds / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
-      if (hours > 0) setCountdown(`${hours} hour${hours !== 1 ? 's' : ''} ${minutes} min`);
-      else setCountdown(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+      if (hours > 0) setCountdown(`${hours}h ${minutes}m`);
+      else setCountdown(`${minutes}m`);
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -1304,48 +1279,68 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
   }, [getTimeUntilNextHeart, rechargeHearts]);
 
   const unlimited = isUnlimited();
+  const missingHearts = max - current;
+  const canBuyOne = !unlimited && current < max && gems.balance >= HEART_COST;
+  const refillCost = missingHearts * HEART_COST;
+  const canRefillAll = !unlimited && missingHearts > 1 && gems.balance >= refillCost;
+
+  const buyOneHeart = () => {
+    if (!canBuyOne) return;
+    useHeartsStore.setState((s) => ({
+      current: s.current + 1,
+      lastRechargeAt: s.current + 1 >= s.max ? Date.now() : s.lastRechargeAt,
+    }));
+    useEngagementStore.getState().addGems(-HEART_COST, 'heart_purchase');
+  };
+
+  const refillAll = () => {
+    if (!canRefillAll) return;
+    useHeartsStore.setState({ current: max, lastRechargeAt: Date.now() });
+    useEngagementStore.getState().addGems(-refillCost, 'heart_refill');
+  };
+
+  const heartPath = 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z';
 
   return (
     <div style={{ textAlign: 'center' }}>
       {/* Title */}
-      <h3 style={{ fontSize: 20, fontWeight: 800, color: '#3C3C3C', marginBottom: 14 }}>
+      <h3 style={{ fontSize: 20, fontWeight: 800, color: '#3C3C3C', marginBottom: 16 }}>
         Hearts
       </h3>
 
       {/* Heart icons row */}
-      <div className="flex items-center justify-center" style={{ gap: 4, marginBottom: 14 }}>
+      <div className="flex items-center justify-center" style={{ gap: 6, marginBottom: 16 }}>
         {unlimited ? (
-          <div className="flex items-center" style={{ gap: 6 }}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EF4444">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-            <span style={{ fontSize: 24, fontWeight: 800, color: '#EF4444' }}>&infin;</span>
-          </div>
+          <>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="#EF4444"><path d={heartPath}/></svg>
+            <span style={{ fontSize: 28, fontWeight: 800, color: '#EF4444', lineHeight: 1 }}>&infin;</span>
+          </>
         ) : (
           Array.from({ length: max }, (_, i) => {
             const isFull = i < current;
-            const isBreaking = i === current; // the one that just became empty
+            const isBreaking = i === current;
             return (
               <motion.svg
                 key={i}
-                width="32"
-                height="32"
+                width="36"
+                height="36"
                 viewBox="0 0 24 24"
-                fill={isFull ? '#EF4444' : isBreaking ? '#FECDD3' : '#D1D5DB'}
+                fill={isFull ? '#EF4444' : isBreaking ? '#FECDD3' : '#D4D4D8'}
                 initial={false}
-                animate={isBreaking ? { scale: [1, 1.15, 1], opacity: [1, 0.7, 1] } : {}}
-                transition={{ duration: 0.4 }}
+                animate={isBreaking ? { scale: [1, 1.12, 1] } : {}}
+                transition={{ duration: 0.5 }}
+                style={{ filter: isFull ? 'drop-shadow(0 1px 2px rgba(239,68,68,0.3))' : 'none' }}
               >
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <path d={heartPath}/>
               </motion.svg>
             );
           })
         )}
       </div>
 
-      {/* Countdown or status message */}
+      {/* Status text */}
       {unlimited ? (
-        <p style={{ fontSize: 13, fontWeight: 700, color: '#16A34A', marginBottom: 6 }}>
+        <p style={{ fontSize: 13, fontWeight: 700, color: '#16A34A', marginBottom: 4 }}>
           You have unlimited hearts!
         </p>
       ) : current < max && countdown ? (
@@ -1354,98 +1349,114 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
         </p>
       ) : null}
 
-      <p style={{ fontSize: 12, fontWeight: 600, color: '#9CA3AF', marginBottom: 16 }}>
+      <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginBottom: 18 }}>
         {unlimited
-          ? 'Pro members never run out of hearts.'
-          : current > 0
-            ? 'You have hearts left! Keep on learning.'
-            : 'Run out of hearts? Wait for them to recharge.'}
+          ? 'Pro members never run out.'
+          : current === max
+            ? 'Full hearts! Keep on learning.'
+            : current > 0
+              ? 'You have hearts left! Keep on learning.'
+              : 'Wait for recharge, or spend gems below.'}
       </p>
 
       {/* Action cards */}
       {!unlimited && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {/* Unlimited hearts CTA */}
+          {/* Get Super — unlimited hearts */}
           <Link
             href="/pricing"
             onClick={onClose}
             className="flex items-center transition-all hover:brightness-105 active:scale-[0.98]"
             style={{
-              gap: 12,
-              padding: '12px 14px',
-              borderRadius: 14,
+              gap: 10,
+              padding: '10px 12px',
+              borderRadius: 12,
               background: '#F9FAFB',
               border: '1.5px solid #E5E7EB',
               textDecoration: 'none',
             }}
           >
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, #EC4899, #8B5CF6)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              <span style={{ fontSize: 18, color: 'white', fontWeight: 900 }}>&infin;</span>
+            <div style={{
+              width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+              background: 'linear-gradient(135deg, #EC4899, #8B5CF6)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ fontSize: 16, color: 'white', fontWeight: 900, lineHeight: 1 }}>&infin;</span>
             </div>
-            <span style={{ fontSize: 13, fontWeight: 800, color: '#3C3C3C', flex: 1, textAlign: 'left' }}>
+            <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
               UNLIMITED HEARTS
             </span>
-            <span style={{ fontSize: 13, fontWeight: 800, color: '#E11D48' }}>
+            <span style={{ fontSize: 12, fontWeight: 800, color: '#E11D48', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
               GET SUPER
             </span>
           </Link>
 
-          {/* Refill hearts CTA */}
+          {/* Buy one heart */}
           {current < max && (
             <button
               className="flex items-center transition-all hover:brightness-105 active:scale-[0.98]"
               style={{
-                gap: 12,
-                padding: '12px 14px',
-                borderRadius: 14,
+                gap: 10,
+                padding: '10px 12px',
+                borderRadius: 12,
                 background: '#F9FAFB',
                 border: '1.5px solid #E5E7EB',
-                cursor: gems.balance >= 350 ? 'pointer' : 'not-allowed',
-                opacity: gems.balance >= 350 ? 1 : 0.5,
+                cursor: canBuyOne ? 'pointer' : 'not-allowed',
+                opacity: canBuyOne ? 1 : 0.45,
                 width: '100%',
               }}
-              disabled={gems.balance < 350}
-              onClick={() => {
-                if (gems.balance >= 350) {
-                  useHeartsStore.setState({ current: max, lastRechargeAt: Date.now() });
-                  useEngagementStore.getState().addGems(-350, 'heart_refill');
-                  onClose();
-                }
-              }}
+              disabled={!canBuyOne}
+              onClick={buyOneHeart}
             >
-              <div
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  background: '#FEE2E2',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#EF4444">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <div style={{
+                width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+                background: '#FEE2E2',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4444"><path d={heartPath}/></svg>
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
+                BUY ONE HEART
+              </span>
+              <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>
+                <span style={{ fontSize: 16 }}>💎</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED' }}>{HEART_COST}</span>
+              </div>
+            </button>
+          )}
+
+          {/* Refill all hearts */}
+          {missingHearts > 1 && (
+            <button
+              className="flex items-center transition-all hover:brightness-105 active:scale-[0.98]"
+              style={{
+                gap: 10,
+                padding: '10px 12px',
+                borderRadius: 12,
+                background: '#F9FAFB',
+                border: '1.5px solid #E5E7EB',
+                cursor: canRefillAll ? 'pointer' : 'not-allowed',
+                opacity: canRefillAll ? 1 : 0.45,
+                width: '100%',
+              }}
+              disabled={!canRefillAll}
+              onClick={refillAll}
+            >
+              <div style={{
+                width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+                background: '#FEE2E2',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
                 </svg>
               </div>
-              <span style={{ fontSize: 13, fontWeight: 800, color: '#3C3C3C', flex: 1, textAlign: 'left' }}>
-                REFILL HEARTS
+              <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
+                REFILL ALL ({missingHearts})
               </span>
-              <div className="flex items-center" style={{ gap: 4 }}>
-                <span style={{ fontSize: 18 }}>💎</span>
-                <span style={{ fontSize: 14, fontWeight: 800, color: '#7C3AED' }}>350</span>
+              <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>
+                <span style={{ fontSize: 16 }}>💎</span>
+                <span style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED' }}>{refillCost}</span>
               </div>
             </button>
           )}

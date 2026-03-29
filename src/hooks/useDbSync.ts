@@ -122,6 +122,7 @@ export function useDbSync() {
                 lastActiveDate: db.lastActiveDate > local.lastActiveDate
                   ? db.lastActiveDate : local.lastActiveDate,
                 activeDays: local.activeDays, // client-only field, never from DB
+                placementUnitIndex: Math.max(db.placementUnitIndex ?? 0, local.placementUnitIndex ?? 0) || undefined,
                 completedLessons: mergedLessons,
                 courseIntros: Object.keys(mergedIntros).length > 0 ? mergedIntros : undefined,
               },

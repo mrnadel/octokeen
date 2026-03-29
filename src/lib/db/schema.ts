@@ -168,6 +168,7 @@ export const courseProgress = pgTable('course_progress', {
       >
     >()
     .default({}),
+  placementUnitIndex: integer('placement_unit_index').default(0).notNull(),
   activeProfession: text('active_profession').default('mechanical-engineering'),
   courseIntros: jsonb('course_intros').$type<Record<string, unknown>>().default({}),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),

@@ -38,6 +38,7 @@ export async function GET() {
     longestStreak: progress?.longestStreak ?? 0,
     lastActiveDate: progress?.lastActiveDate ?? '',
     activeDays: [],  // Client-only field — tracked in localStorage, not DB
+    placementUnitIndex: progress?.placementUnitIndex ?? 0,
     completedLessons:
       (progress?.completedLessons as CourseProgress['completedLessons']) ?? {},
     courseIntros:
@@ -104,6 +105,7 @@ export async function POST(request: NextRequest) {
     currentStreak: progress.currentStreak,
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
+    placementUnitIndex: progress.placementUnitIndex ?? 0,
     completedLessons: filteredLessons,
     activeProfession: activeProfession ?? 'mechanical-engineering',
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
