@@ -12,9 +12,12 @@ interface ProfessionPickerProps {
   compact?: boolean;
   /** IDs of gated courses the user has been granted access to. */
   grantedCourses?: string[];
+  /** Profession IDs to completely hide from the picker. */
+  filterOut?: string[];
 }
 
-export function ProfessionPicker({ selectedId, onSelect, compact = false, grantedCourses }: ProfessionPickerProps) {
+export function ProfessionPicker({ selectedId, onSelect, compact = false, grantedCourses, filterOut }: ProfessionPickerProps) {
+  const visibleProfessions = filterOut ? PROFESSIONS.filter(p => !filterOut.includes(p.id)) : PROFESSIONS;
   return (
     <div
       className={cn(
@@ -22,7 +25,7 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
         compact ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'
       )}
     >
-      {PROFESSIONS.map((profession, index) => {
+      {visibleProfessions.map((profession, index) => {
         const isActive = selectedId === profession.id;
         const isGated = profession.requiresAccess && grantedCourses && !grantedCourses.includes(profession.id);
         const isDisabled = profession.isComingSoon === true || isGated;

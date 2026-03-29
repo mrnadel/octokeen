@@ -56,7 +56,7 @@ export const PROFESSIONS: Profession[] = [
   },
 ];
 
-export const DEFAULT_PROFESSION = 'mechanical-engineering';
+export const DEFAULT_PROFESSION = 'personal-finance';
 
 export function getProfession(id: string) {
   return PROFESSIONS.find(p => p.id === id);

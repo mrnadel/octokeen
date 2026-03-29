@@ -2,135 +2,87 @@
 
 import { useState, useCallback } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ChevronRight,
-  Rocket,
-  ArrowLeft,
   Loader2,
-  BookOpen,
-  Trophy,
+  ArrowLeft,
+  Heart,
   Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/mixpanel';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
 import { useCourseStore } from '@/store/useCourseStore';
-import { getProfession, DEFAULT_PROFESSION } from '@/data/professions';
+import { getProfession, PROFESSIONS } from '@/data/professions';
 
-/* ─── Constants ─── */
+/* ─── Trial Questions (universal, fun) ─── */
 
-const TOTAL_STEPS = 5;
-
-const SAMPLE_QUESTIONS = [
+const TRIAL_QUESTIONS = [
   {
-    topic: 'thermodynamics',
-    topicIcon: '🔥',
-    question: 'You leave the refrigerator door open in a sealed, insulated kitchen. After several hours, the kitchen temperature will:',
+    topic: 'Money Smarts',
+    topicIcon: '💰',
+    question: 'You have $1,000 in a savings account earning 5% interest per year. After one year, you have:',
     options: [
-      { id: 'a', text: 'Decrease — the fridge is cooling the room' },
-      { id: 'b', text: 'Stay the same — cooling and heating balance out' },
-      { id: 'c', text: 'Increase — the compressor motor adds net energy' },
-      { id: 'd', text: 'Decrease, then increase once the compressor overheats' },
-    ],
-    correctAnswer: 'c',
-    explanation: 'A refrigerator moves heat from inside to outside, plus the compressor adds work energy. With the door open, the net effect is the compressor\'s work being added as heat to the room.',
-  },
-  {
-    topic: 'fluid-mechanics',
-    topicIcon: '💧',
-    question: 'An airplane wing generates lift primarily because:',
-    options: [
-      { id: 'a', text: 'Air on top travels a longer path and must go faster (equal transit time)' },
-      { id: 'b', text: 'The wing deflects air downward — Newton\'s third law pushes it up' },
-      { id: 'c', text: 'Circulation and angle of attack make air faster on top, creating lower pressure (Bernoulli)' },
-      { id: 'd', text: 'The wing shape creates a vacuum above it' },
-    ],
-    correctAnswer: 'c',
-    explanation: 'The "equal transit time" theory is a myth! Air moves faster over the top due to circulation and angle of attack, not because it must meet at the trailing edge. This pressure difference creates lift.',
-  },
-  {
-    topic: 'strength-of-materials',
-    topicIcon: '🏗️',
-    question: 'A bolt is tightened to clamp two plates together. What type of stress is the bolt primarily under?',
-    options: [
-      { id: 'a', text: 'Pure shear stress along the thread interface' },
-      { id: 'b', text: 'Tensile stress along its axis from the preload' },
-      { id: 'c', text: 'Compressive stress — it\'s being squeezed by the nut' },
-      { id: 'd', text: 'Bending stress from plate misalignment' },
-    ],
-    correctAnswer: 'b',
-    explanation: 'When you torque a bolt, the nut pulls the bolt head and stretches the shank — creating axial tensile stress (preload). The plates are compressed, not the bolt!',
-  },
-  {
-    topic: 'heat-transfer',
-    topicIcon: '🌡️',
-    question: 'Why does blowing on hot soup cool it down faster?',
-    options: [
-      { id: 'a', text: 'Your breath is cooler than the soup' },
-      { id: 'b', text: 'Blowing removes the hot boundary layer, increasing convective and evaporative cooling' },
-      { id: 'c', text: 'The wind chill effect makes it "feel" cooler' },
-      { id: 'd', text: 'Blowing increases the soup\'s emissivity' },
-    ],
-    correctAnswer: 'b',
-    explanation: 'Hot soup creates a stagnant boundary layer of warm, humid air. Blowing strips it away, replacing it with fresh, cooler, drier air — boosting both convection and evaporation.',
-  },
-  {
-    topic: 'machine-design',
-    topicIcon: '⚙️',
-    question: 'A shaft transmitting torque fails in a spiral pattern at 45° to its axis. This indicates:',
-    options: [
-      { id: 'a', text: 'The material is brittle and failed under principal tensile stress' },
-      { id: 'b', text: 'The shaft was overloaded in pure bending' },
-      { id: 'c', text: 'Fatigue failure from reversed bending cycles' },
-      { id: 'd', text: 'The keyway created a stress concentration leading to shear failure' },
+      { id: 'a', text: 'Exactly $1,050' },
+      { id: 'b', text: 'Less than $1,050 after inflation' },
+      { id: 'c', text: 'More than $1,050 from compound interest' },
+      { id: 'd', text: '$1,005' },
     ],
     correctAnswer: 'a',
-    explanation: 'In pure torsion, maximum tensile stress acts at 45° to the shaft axis. Brittle materials (like cast iron) fracture along this 45° helix. Ductile materials would shear on the transverse plane instead.',
+    explanation: 'Simple interest on $1,000 at 5% = $50. So you\'d have exactly $1,050 after one year. Compound interest kicks in from year two onward.',
   },
   {
-    topic: 'dynamics',
-    topicIcon: '🎯',
-    question: 'A spinning figure skater pulls in their arms and spins faster. This is because:',
+    topic: 'Psychology',
+    topicIcon: '🧠',
+    question: 'You bought a movie ticket for $15 but the movie is terrible. Should you stay to "get your money\'s worth"?',
     options: [
-      { id: 'a', text: 'They push off the ice to gain speed' },
-      { id: 'b', text: 'Angular momentum is conserved — smaller moment of inertia means higher angular velocity' },
-      { id: 'c', text: 'Air resistance decreases when arms are tucked in' },
-      { id: 'd', text: 'Their weight shifts closer to center, creating a gravitational torque' },
+      { id: 'a', text: 'Yes — you already paid, might as well watch it' },
+      { id: 'b', text: 'No — the $15 is gone either way, leaving saves your time' },
     ],
     correctAnswer: 'b',
-    explanation: 'Angular momentum L = Iω is conserved (no external torque). Pulling arms in reduces moment of inertia I, so angular velocity ω must increase. This is why skaters spin so fast with arms tucked!',
+    explanation: 'This is the "sunk cost fallacy." The $15 is spent whether you stay or leave. The rational choice is to use your time on something better.',
+  },
+  {
+    topic: 'Everyday Science',
+    topicIcon: '🔬',
+    question: 'Why does your phone battery drain faster in cold weather?',
+    options: [
+      { id: 'a', text: 'Cold slows the chemical reactions inside the battery' },
+      { id: 'b', text: 'The screen uses more power to stay warm' },
+      { id: 'c', text: 'Cold air blocks the wireless signal' },
+      { id: 'd', text: 'The processor speeds up to generate heat' },
+    ],
+    correctAnswer: 'a',
+    explanation: 'Lithium-ion batteries rely on chemical reactions to produce electricity. Cold temperatures slow these reactions, reducing available power and making the battery appear to drain faster.',
+  },
+  {
+    topic: 'Space',
+    topicIcon: '🚀',
+    question: 'If the Sun suddenly disappeared, how long until we\'d notice?',
+    options: [
+      { id: 'a', text: 'Instantly' },
+      { id: 'b', text: 'About 8 minutes' },
+      { id: 'c', text: 'About 24 hours' },
+      { id: 'd', text: 'About 1 second' },
+    ],
+    correctAnswer: 'b',
+    explanation: 'Light takes about 8 minutes and 20 seconds to travel from the Sun to Earth. We\'d see sunlight (and feel gravity) for another 8 minutes before everything went dark.',
   },
 ];
 
 const TRIAL_COUNT = 3;
 const XP_CORRECT = 25;
 const XP_WRONG = 5;
-
-const FEATURES = [
-  { icon: BookOpen, label: 'Bite-sized lessons', color: 'text-primary-500' },
-  { icon: Zap, label: 'Real interview Qs', color: 'text-primary-500' },
-  { icon: Trophy, label: 'Track progress', color: 'text-primary-400' },
-];
+const STARTING_HEARTS = 3;
+const TOTAL_STEPS = 4;
 
 /* ─── Animation Variants ─── */
 
 const slideVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 60 : -60,
-    opacity: 0,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -60 : 60,
-    opacity: 0,
-  }),
+  enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -60 : 60, opacity: 0 }),
 };
 
 /* ─── Password Strength ─── */
@@ -182,39 +134,76 @@ function GoogleIcon() {
   );
 }
 
-/* ─── Mascot Component ─── */
+/* ─── Hearts Display ─── */
 
-function Mascot({ className, size = 'md' }: { className?: string; size?: 'sm' | 'md' | 'lg' }) {
-  const sizes = {
-    sm: { width: 80, height: 80 },
-    md: { width: 140, height: 140 },
-    lg: { width: 200, height: 200 },
-  };
+function HeartsBar({ hearts, max }: { hearts: number; max: number }) {
   return (
-    <img
-      src="/mascot.svg"
-      alt="Octokeen mascot"
-      width={sizes[size].width}
-      height={sizes[size].height}
-      className={cn('select-none pointer-events-none', className)}
-    />
+    <div className="flex items-center gap-1">
+      {Array.from({ length: max }).map((_, i) => (
+        <Heart
+          key={i}
+          className={cn(
+            'w-5 h-5 transition-all',
+            i < hearts
+              ? 'fill-red-500 text-red-500'
+              : 'fill-gray-200 text-gray-200'
+          )}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─── Out of Hearts Modal ─── */
+
+function OutOfHeartsModal({ onRefill }: { onRefill: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6"
+    >
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-xl"
+      >
+        <div className="flex justify-center gap-1 mb-4">
+          {[0, 1, 2].map((i) => (
+            <Heart key={i} className="w-8 h-8 fill-gray-200 text-gray-200" />
+          ))}
+        </div>
+        <h3 className="text-2xl font-black text-gray-900 mb-2">Out of hearts!</h3>
+        <p className="text-gray-500 text-sm font-semibold mb-6 leading-relaxed">
+          No worries. Tap below to refill your hearts for free and keep practicing.
+        </p>
+        <button
+          onClick={onRefill}
+          className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+          style={{ boxShadow: '0 5px 0 #0F766E' }}
+        >
+          REFILL HEARTS FOR FREE
+        </button>
+      </motion.div>
+    </motion.div>
   );
 }
 
 /* ─── Main Component ─── */
 
 export default function GetStartedPage() {
-  const router = useRouter();
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  // Profession selection
+  // Profession selection — filter out requiresAccess courses
+  const publicProfessions = PROFESSIONS.filter(p => !p.requiresAccess);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
-  const [selectedProfession, setSelectedProfession] = useState<string>(DEFAULT_PROFESSION);
+  const [selectedProfession, setSelectedProfession] = useState<string>(publicProfessions[0]?.id ?? '');
 
   // Trial questions (3 random from pool)
   const [trialQuestions] = useState(() => {
-    const shuffled = [...SAMPLE_QUESTIONS].sort(() => Math.random() - 0.5);
+    const shuffled = [...TRIAL_QUESTIONS].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, TRIAL_COUNT);
   });
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -223,6 +212,10 @@ export default function GetStartedPage() {
   const [trialXp, setTrialXp] = useState(0);
   const [trialCorrect, setTrialCorrect] = useState(0);
   const [trialDone, setTrialDone] = useState(false);
+
+  // Hearts
+  const [hearts, setHearts] = useState(STARTING_HEARTS);
+  const [showOutOfHearts, setShowOutOfHearts] = useState(false);
 
   // Navigation loading
   const [navigating, setNavigating] = useState(false);
@@ -246,12 +239,26 @@ export default function GetStartedPage() {
   }, []);
 
   const handleTrialAnswer = (optionId: string) => {
-    if (trialRevealed) return;
+    if (trialRevealed || showOutOfHearts) return;
     setTrialAnswer(optionId);
     setTrialRevealed(true);
     const isCorrect = optionId === trialQuestions[questionIndex].correctAnswer;
     setTrialXp((prev) => prev + (isCorrect ? XP_CORRECT : XP_WRONG));
-    if (isCorrect) setTrialCorrect((prev) => prev + 1);
+    if (isCorrect) {
+      setTrialCorrect((prev) => prev + 1);
+    } else {
+      const newHearts = hearts - 1;
+      setHearts(newHearts);
+      if (newHearts <= 0) {
+        // Show modal after a brief delay so user sees the wrong answer feedback first
+        setTimeout(() => setShowOutOfHearts(true), 800);
+      }
+    }
+  };
+
+  const handleRefillHearts = () => {
+    setHearts(STARTING_HEARTS);
+    setShowOutOfHearts(false);
   };
 
   const handleNextTrialQuestion = () => {
@@ -293,11 +300,7 @@ export default function GetStartedPage() {
 
       analytics.auth({ action: 'signup', method: 'credentials' });
 
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      });
+      const result = await signIn('credentials', { email, password, redirect: false });
 
       if (result?.error) {
         setError('Account created but login failed. Try signing in.');
@@ -316,15 +319,10 @@ export default function GetStartedPage() {
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
-    // Guest trial XP already saved by handleTrialContinue, but save again in case
     if (trialXp > 0) {
       try { sessionStorage.setItem('octokeen-guest-xp', JSON.stringify({ xp: trialXp })); } catch {}
     }
     signIn('google', { callbackUrl: '/' });
-  };
-
-  const handleProfessionSelect = (id: string) => {
-    setSelectedProfession(id);
   };
 
   const handleProfessionContinue = () => {
@@ -335,17 +333,20 @@ export default function GetStartedPage() {
   const completeOnboarding = () => {
     if (navigating) return;
     setNavigating(true);
-    // Ensure profession is set before navigating
     setActiveProfession(selectedProfession);
     analytics.milestone({ type: 'onboarding_completed' });
     window.location.href = '/';
   };
 
-  // Which steps can go back
-  const canGoBack = step > 0 && step !== TOTAL_STEPS - 1;
+  const canGoBack = step > 0 && step < TOTAL_STEPS - 1;
 
   return (
     <div className="min-h-[100dvh] bg-white flex flex-col">
+      {/* ── Out of Hearts Modal ── */}
+      <AnimatePresence>
+        {showOutOfHearts && <OutOfHeartsModal onRefill={handleRefillHearts} />}
+      </AnimatePresence>
+
       {/* ── Loading Overlay ── */}
       <AnimatePresence>
         {navigating && (
@@ -354,14 +355,8 @@ export default function GetStartedPage() {
             animate={{ opacity: 1 }}
             className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4"
           >
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-            >
-              <Mascot size="md" />
-            </motion.div>
+            <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
             <p className="text-lg font-black text-gray-900">Preparing your course...</p>
-            <Loader2 className="w-6 h-6 animate-spin text-primary-500" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -374,150 +369,32 @@ export default function GetStartedPage() {
               key={i}
               className={cn(
                 'h-2 rounded-full flex-1 transition-all duration-500',
-                i < step
-                  ? 'bg-primary-500'
-                  : i === step
-                    ? 'bg-primary-500/60'
-                    : 'bg-gray-100'
+                i < step ? 'bg-primary-500' : i === step ? 'bg-primary-500/60' : 'bg-gray-100'
               )}
             />
           ))}
         </div>
         <div className="flex items-center justify-between mt-3 max-w-lg mx-auto">
           {canGoBack ? (
-            <button
-              onClick={prevStep}
-              className="flex items-center gap-1 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back
+            <button onClick={prevStep} className="flex items-center gap-1 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Back
             </button>
-          ) : (
-            <div />
-          )}
-          <span className="text-xs font-bold text-gray-300 tabular-nums">
-            {step + 1} / {TOTAL_STEPS}
-          </span>
+          ) : <div />}
+          <span className="text-xs font-bold text-gray-300 tabular-nums">{step + 1} / {TOTAL_STEPS}</span>
         </div>
       </div>
 
       {/* ── Step Content ── */}
       <div className="flex-1 px-4 sm:px-5 flex flex-col justify-center pb-4 sm:pb-8">
         <AnimatePresence mode="wait" custom={direction}>
-          {/* ═══ Step 0: Welcome ═══ */}
+
+          {/* ═══ Step 0: Choose Course ═══ */}
           {step === 0 && (
-            <motion.div
-              key="welcome"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="max-w-lg mx-auto w-full"
-            >
-              {/* Desktop: side-by-side layout */}
-              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                {/* Mascot */}
-                <motion.div
-                  className="shrink-0"
-                  initial={{ scale: 0.6, rotate: -15 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.1, type: 'spring', stiffness: 180, damping: 14 }}
-                >
-                  <Mascot size="lg" className="drop-shadow-xl" />
-                </motion.div>
-
-                {/* Text content */}
-                <div className="text-center md:text-left flex-1">
-                  <motion.div
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-500/10 text-primary-500 text-xs font-black uppercase tracking-wider mb-4"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
-                  >
-                    <Zap className="w-3 h-3" />
-                    Free to start
-                  </motion.div>
-
-                  <motion.h1
-                    className="text-3xl sm:text-4xl font-black text-gray-900 mb-3 leading-tight"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    Ace your{' '}
-                    <span className="text-primary-500">interview</span>
-                  </motion.h1>
-
-                  <motion.p
-                    className="text-gray-500 text-base sm:text-lg mb-6 leading-relaxed"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    1,500+ bite-sized questions across 11 topics. Earn XP, keep your streak, and actually remember what you learn.
-                  </motion.p>
-
-                  {/* Feature pills */}
-                  <motion.div
-                    className="flex flex-wrap justify-center md:justify-start gap-2 mb-8"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35 }}
-                  >
-                    {FEATURES.map((f) => (
-                      <div
-                        key={f.label}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100"
-                      >
-                        <f.icon className={cn('w-3.5 h-3.5', f.color)} />
-                        <span className="text-xs font-bold text-gray-600">{f.label}</span>
-                      </div>
-                    ))}
-                  </motion.div>
-
-                  <motion.div
-                    className="flex flex-col sm:flex-row items-center gap-3"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <button
-                      onClick={nextStep}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-500 text-white font-extrabold text-lg rounded-2xl transition-all active:translate-y-[2px]"
-                      style={{ boxShadow: '0 5px 0 #0F766E' }}
-                    >
-                      GET STARTED
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </motion.div>
-
-                  <motion.p
-                    className="mt-5 text-sm text-gray-400 font-semibold"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    Already have an account?{' '}
-                    <Link href="/login" className="text-[#1CB0F6] font-bold">
-                      Log in
-                    </Link>
-                  </motion.p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ═══ Step 1: Choose Profession ═══ */}
-          {step === 1 && (
             <motion.div
               key="profession"
               custom={direction}
               variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
+              initial="enter" animate="center" exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-lg mx-auto w-full"
             >
@@ -537,7 +414,8 @@ export default function GetStartedPage() {
 
               <ProfessionPicker
                 selectedId={selectedProfession}
-                onSelect={handleProfessionSelect}
+                onSelect={setSelectedProfession}
+                filterOut={['mechanical-engineering']}
               />
 
               <motion.div
@@ -551,29 +429,28 @@ export default function GetStartedPage() {
                   disabled={!selectedProfession}
                   className={cn(
                     'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
-                    selectedProfession
-                      ? 'bg-primary-500 text-white'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    selectedProfession ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   )}
-                  style={{
-                    boxShadow: selectedProfession ? '0 5px 0 #0F766E' : 'none',
-                  }}
+                  style={{ boxShadow: selectedProfession ? '0 5px 0 #0F766E' : 'none' }}
                 >
                   CONTINUE
                 </button>
               </motion.div>
+
+              <p className="text-center text-gray-400 text-sm font-semibold mt-5">
+                Already have an account?{' '}
+                <Link href="/login" className="text-primary-500 font-bold">Log in</Link>
+              </p>
             </motion.div>
           )}
 
-          {/* ═══ Step 2: Trial Questions ═══ */}
-          {step === 2 && (
+          {/* ═══ Step 1: Trial Questions with Hearts ═══ */}
+          {step === 1 && (
             <motion.div
               key="trial"
               custom={direction}
               variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
+              initial="enter" animate="center" exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-lg mx-auto w-full"
             >
@@ -584,20 +461,23 @@ export default function GetStartedPage() {
                     <span className="text-xs font-black text-gray-400 uppercase tracking-wider">
                       Question {questionIndex + 1} / {TRIAL_COUNT}
                     </span>
-                    {trialXp > 0 && (
-                      <motion.span
-                        key={trialXp}
-                        initial={{ scale: 1.4 }}
-                        animate={{ scale: 1 }}
-                        className="text-xs font-black text-primary-500 flex items-center gap-1"
-                      >
-                        <Zap className="w-3.5 h-3.5" />
-                        {trialXp} XP
-                      </motion.span>
-                    )}
+                    <div className="flex items-center gap-4">
+                      {trialXp > 0 && (
+                        <motion.span
+                          key={trialXp}
+                          initial={{ scale: 1.4 }}
+                          animate={{ scale: 1 }}
+                          className="text-xs font-black text-primary-500 flex items-center gap-1"
+                        >
+                          <Zap className="w-3.5 h-3.5" />
+                          {trialXp} XP
+                        </motion.span>
+                      )}
+                      <HeartsBar hearts={hearts} max={STARTING_HEARTS} />
+                    </div>
                   </div>
 
-                  {/* Question card — keyed for transition */}
+                  {/* Question card */}
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={questionIndex}
@@ -606,22 +486,17 @@ export default function GetStartedPage() {
                       exit={{ opacity: 0, x: -30 }}
                       transition={{ duration: 0.2 }}
                     >
-                      {/* Mascot + question */}
-                      <div className="flex items-start gap-3 mb-5">
-                        <div className="shrink-0">
-                          <Mascot size="sm" className="drop-shadow-md" />
+                      {/* Question */}
+                      <div className="bg-gray-50 rounded-2xl px-5 py-4 mb-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-lg">{trialQuestions[questionIndex].topicIcon}</span>
+                          <span className="text-xs font-black text-primary-500 uppercase tracking-wider">
+                            {trialQuestions[questionIndex].topic}
+                          </span>
                         </div>
-                        <div className="relative bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-lg">{trialQuestions[questionIndex].topicIcon}</span>
-                            <span className="text-xs font-black text-primary-500 uppercase tracking-wider">
-                              {trialQuestions[questionIndex].topic.replace(/-/g, ' ')}
-                            </span>
-                          </div>
-                          <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
-                            {trialQuestions[questionIndex].question}
-                          </h2>
-                        </div>
+                        <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
+                          {trialQuestions[questionIndex].question}
+                        </h2>
                       </div>
 
                       {/* Options */}
@@ -631,13 +506,9 @@ export default function GetStartedPage() {
                           const isSelected = trialAnswer === opt.id;
                           let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
                           if (trialRevealed) {
-                            if (isCorrect) {
-                              optionStyle = 'border-primary-500 bg-primary-500/5';
-                            } else if (isSelected && !isCorrect) {
-                              optionStyle = 'border-red-400 bg-red-50';
-                            } else {
-                              optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
-                            }
+                            if (isCorrect) optionStyle = 'border-primary-500 bg-primary-500/5';
+                            else if (isSelected && !isCorrect) optionStyle = 'border-red-400 bg-red-50';
+                            else optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
                           } else if (isSelected) {
                             optionStyle = 'border-primary-400 bg-primary-50';
                           }
@@ -657,17 +528,13 @@ export default function GetStartedPage() {
                             >
                               <span className={cn(
                                 'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
-                                trialRevealed && isCorrect
-                                  ? 'bg-primary-500 text-white'
-                                  : trialRevealed && isSelected && !isCorrect
-                                    ? 'bg-red-400 text-white'
-                                    : 'bg-gray-100 text-gray-500'
+                                trialRevealed && isCorrect ? 'bg-primary-500 text-white'
+                                  : trialRevealed && isSelected && !isCorrect ? 'bg-red-400 text-white'
+                                  : 'bg-gray-100 text-gray-500'
                               )}>
                                 {trialRevealed && isCorrect ? '✓' : trialRevealed && isSelected && !isCorrect ? '✗' : opt.id.toUpperCase()}
                               </span>
-                              <span className="text-sm font-semibold text-gray-700 leading-snug">
-                                {opt.text}
-                              </span>
+                              <span className="text-sm font-semibold text-gray-700 leading-snug">{opt.text}</span>
                             </motion.button>
                           );
                         })}
@@ -675,7 +542,7 @@ export default function GetStartedPage() {
 
                       {/* Explanation + Next */}
                       <AnimatePresence>
-                        {trialRevealed && (
+                        {trialRevealed && !showOutOfHearts && (
                           <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
@@ -687,11 +554,11 @@ export default function GetStartedPage() {
                               'p-4 rounded-xl mb-5',
                               trialAnswer === trialQuestions[questionIndex].correctAnswer
                                 ? 'bg-primary-500/10 border border-primary-500/20'
-                                : 'bg-primary-50 border border-primary-200'
+                                : 'bg-orange-50 border border-orange-200'
                             )}>
                               <p className={cn(
                                 'font-black text-sm mb-1',
-                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-primary-500' : 'text-primary-600'
+                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-primary-500' : 'text-orange-600'
                               )}>
                                 {trialAnswer === trialQuestions[questionIndex].correctAnswer
                                   ? `🎉 Correct! +${XP_CORRECT} XP`
@@ -724,36 +591,31 @@ export default function GetStartedPage() {
                   className="text-center"
                 >
                   <motion.div
-                    initial={{ scale: 0.5, rotate: -20 }}
-                    animate={{ scale: 1, rotate: 0 }}
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: 1 }}
                     transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-                    className="mb-4"
+                    className="text-5xl mb-4"
                   >
-                    <Mascot size="lg" className="mx-auto drop-shadow-xl" />
+                    {trialCorrect === TRIAL_COUNT ? '\uD83C\uDF89' : '\uD83D\uDCAA'}
                   </motion.div>
 
                   <motion.h2
                     className="text-2xl sm:text-3xl font-black text-gray-900 mb-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
                   >
                     Nice work!
                   </motion.h2>
 
                   <motion.p
                     className="text-gray-400 text-sm font-semibold mb-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.25 }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
                   >
                     {trialCorrect}/{TRIAL_COUNT} correct
                   </motion.p>
 
                   <motion.div
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary-500/10 mb-8"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
                   >
                     <Zap className="w-5 h-5 text-primary-500" />
@@ -761,11 +623,7 @@ export default function GetStartedPage() {
                     <span className="text-sm font-bold text-primary-500/70">earned</span>
                   </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.45 }}
-                  >
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
                     <button
                       onClick={handleTrialContinue}
                       className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
@@ -782,36 +640,21 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 3: Create Account ═══ */}
-          {step === 3 && (
+          {/* ═══ Step 2: Create Account ═══ */}
+          {step === 2 && (
             <motion.div
               key="signup"
               custom={direction}
               variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
+              initial="enter" animate="center" exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-sm mx-auto w-full"
             >
               <div className="text-center mb-6">
-                <motion.div
-                  initial={{ scale: 0.6, y: 10 }}
-                  animate={{ scale: 1, y: 0 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                  className="mb-3"
-                >
-                  <Mascot size="sm" className="mx-auto drop-shadow-md" />
-                </motion.div>
-                <h2 className="text-2xl font-black text-gray-900 mb-1">
-                  Save your progress
-                </h2>
-                <p className="text-gray-400 text-sm font-semibold">
-                  Create a free account to start learning
-                </p>
+                <h2 className="text-2xl font-black text-gray-900 mb-1">Save your progress</h2>
+                <p className="text-gray-400 text-sm font-semibold">Create a free account to start learning</p>
               </div>
 
-              {/* Google */}
               <button
                 onClick={handleGoogleSignIn}
                 disabled={googleLoading}
@@ -827,117 +670,52 @@ export default function GetStartedPage() {
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
 
-              {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-3">
                 {error && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
-                    {error}
-                  </div>
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">{error}</div>
                 )}
-
-                <input
-                  type="text"
-                  placeholder="Name"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  required
-                  minLength={2}
-                  maxLength={50}
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
-                />
-
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
-                />
-
+                <input type="text" placeholder="Name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required minLength={2} maxLength={50}
+                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
+                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required
+                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
                 <div>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={8}
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors"
-                  />
+                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}
+                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
                   <PasswordStrength password={password} />
                 </div>
-
-                <button
-                  type="submit"
-                  disabled={loading || password.length < 8}
-                  className={cn(
-                    'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
-                    loading || password.length < 8
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-primary-500 text-white'
-                  )}
-                  style={{
-                    boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #0F766E',
-                  }}
-                >
-                  {loading ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Creating account...
-                    </span>
-                  ) : 'CREATE ACCOUNT'}
+                <button type="submit" disabled={loading || password.length < 8}
+                  className={cn('w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
+                    loading || password.length < 8 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary-500 text-white')}
+                  style={{ boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #0F766E' }}>
+                  {loading ? <span className="flex items-center justify-center gap-2"><Loader2 className="w-5 h-5 animate-spin" />Creating account...</span> : 'CREATE ACCOUNT'}
                 </button>
               </form>
 
               <p className="text-center text-gray-400 text-sm font-semibold mt-5">
-                Already have an account?{' '}
-                <Link href="/login" className="text-[#1CB0F6] font-bold">
-                  Log in
-                </Link>
+                Already have an account?{' '}<Link href="/login" className="text-primary-500 font-bold">Log in</Link>
               </p>
             </motion.div>
           )}
 
-          {/* ═══ Step 4: Ready! ═══ */}
-          {step === 4 && (
+          {/* ═══ Step 3: Ready! ═══ */}
+          {step === 3 && (
             <motion.div
               key="ready"
               custom={direction}
               variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
+              initial="enter" animate="center" exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="text-center max-w-sm mx-auto w-full"
             >
-              {/* Mascot celebration */}
-              <motion.div
-                className="relative mx-auto mb-6"
-                initial={{ scale: 0.5, rotate: -20 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-              >
-                <Mascot size="lg" className="mx-auto drop-shadow-xl" />
+              <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="text-5xl mb-6">
+                &#x1F680;
               </motion.div>
 
-              <motion.h2
-                className="text-2xl sm:text-3xl font-black text-gray-900 mb-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
+              <motion.h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 You&apos;re all set!
               </motion.h2>
 
-              <motion.p
-                className="text-gray-500 text-base mb-8 leading-relaxed"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                All lessons are free — start any unit.
-                <br />
+              <motion.p className="text-gray-500 text-base mb-8 leading-relaxed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                 Dive in and master {getProfession(selectedProfession)?.name ?? 'your course'}!
               </motion.p>
 
@@ -946,22 +724,14 @@ export default function GetStartedPage() {
                 disabled={navigating}
                 className="w-full py-4 rounded-2xl bg-primary-500 text-white font-extrabold text-lg transition-all active:translate-y-[2px] disabled:opacity-70 flex items-center justify-center gap-2"
                 style={{ boxShadow: navigating ? 'none' : '0 5px 0 #0F766E' }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {navigating ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Loading your course...
-                  </>
-                ) : (
-                  'START LEARNING'
-                )}
+                {navigating ? <><Loader2 className="w-5 h-5 animate-spin" />Loading your course...</> : 'START LEARNING'}
               </motion.button>
             </motion.div>
           )}
+
         </AnimatePresence>
       </div>
     </div>
