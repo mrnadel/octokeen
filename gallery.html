@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MechReady — Modal Gallery</title>
+<title>Octokeen Gallery</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -52,12 +52,29 @@
   @keyframes bkfx{0%{transform:translate(0,0);opacity:.1}33%{transform:translate(var(--dx,20px),var(--dy,-30px));opacity:.25}66%{transform:translate(calc(var(--dx)*-1),calc(var(--dy)*-.5));opacity:.12}100%{transform:translate(0,0);opacity:.1}}
   .bubble-fx{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:bbfx var(--d,7s) var(--dl,0s) infinite ease-in-out;}
   @keyframes bbfx{0%{opacity:0;transform:translateY(0) scale(.5)}12%{opacity:.5}85%{opacity:.2}100%{opacity:0;transform:translateY(-120%) scale(1.1)}}
+
+  /* Tab Navigation */
+  .tab-bar{position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;padding:0 24px;gap:32px;height:56px;margin:-40px -20px 0;padding-left:28px;padding-right:28px;}
+  .tab-bar-title{font-size:15px;font-weight:800;color:#fff;white-space:nowrap;margin-right:8px;letter-spacing:-0.2px;}
+  .tab-bar-sep{width:1px;height:24px;background:#222;flex-shrink:0;}
+  .tab-bar-tabs{display:flex;gap:4px;height:100%;}
+  .tab-btn{background:none;border:none;color:#555;font-size:13px;font-weight:600;cursor:pointer;padding:0 14px;height:100%;display:flex;align-items:center;position:relative;transition:color .15s;}
+  .tab-btn:hover{color:#999;}
+  .tab-btn.active{color:#c4c9f7;}
+  .tab-btn.active::after{content:'';position:absolute;bottom:0;left:8px;right:8px;height:2px;background:#818CF8;border-radius:1px;}
 </style>
 </head>
 <body>
-<h1>MechReady — Modal Gallery</h1>
-<p class="sub">18 screens &middot; Bold backgrounds &middot; Contextual FX &middot; Mascot &middot; 3D buttons pinned bottom</p>
+<div class="tab-bar">
+  <span class="tab-bar-title">Octokeen Gallery</span>
+  <div class="tab-bar-sep"></div>
+  <div class="tab-bar-tabs">
+    <button class="tab-btn active" data-tab="screens">Screens</button>
+    <button class="tab-btn" data-tab="diagrams">SVG Diagrams</button>
+  </div>
+</div>
 
+<div id="tab-screens">
 <div class="sec">Utility Modals</div>
 <div class="g">
 <div class="cw"><div class="cl">OutOfHeartsModal <span class="tip" data-tip="Practice lesson &#8594; Answer wrong with 0 hearts">?</span></div>
@@ -1369,6 +1386,9 @@
 
 
 
+</div>
+
+<div id="tab-diagrams" style="display:none">
 <!-- SVG-GALLERY-START -->
 <div class="sec">SVG Diagram Gallery <span style="font-size:10px;color:#818CF8;font-weight:800;background:#1a1a2e;padding:2px 10px;border-radius:8px;margin-left:8px;vertical-align:middle;">1121</span></div>
 <div style="max-width:1400px;margin:0 auto;padding:0 20px;">
@@ -11927,9 +11947,43 @@
 
 </div>
 <!-- SVG-GALLERY-END -->
+</div>
 
 <div style="text-align:center;margin-top:64px;padding:24px;border-top:1px solid #1a1a1a;">
   <p style="font-size:11px;color:#444;">41 screens &middot; Hearts, Confetti, Stars, Sparkles, Fireworks, Snow, Bokeh, Bubbles</p>
 </div>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panels = {
+    screens: document.getElementById('tab-screens'),
+    diagrams: document.getElementById('tab-diagrams')
+  };
+
+  function activate(id) {
+    if (!panels[id]) id = 'screens';
+    for (var k in panels) {
+      panels[k].style.display = k === id ? '' : 'none';
+    }
+    tabs.forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-tab') === id);
+    });
+  }
+
+  function onHash() {
+    var h = location.hash.replace('#','');
+    activate(h || 'screens');
+  }
+
+  tabs.forEach(function(b) {
+    b.addEventListener('click', function() {
+      location.hash = b.getAttribute('data-tab');
+    });
+  });
+
+  window.addEventListener('hashchange', onHash);
+  onHash();
+})();
+</script>
 </body>
 </html>
