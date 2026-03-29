@@ -178,9 +178,20 @@ const sounds: Record<SoundName, () => void> = {
   },
 
   lessonPass() {
-    tone(659, 0.15, 'sine', 0);       // E5
-    tone(784, 0.15, 'sine', 0.1);     // G5
-    tone(1047, 0.3, 'sine', 0.2);     // C6
+    // Victory fanfare: brass-style triangle waves, quick rhythmic motif
+    // Da-da-da-DAAA! (short-short-short-long, rising)
+    tone(523, 0.1, 'triangle', 0, 0.3);       // C5  (da)
+    tone(523, 0.1, 'triangle', 0.1, 0.3);     // C5  (da)
+    tone(523, 0.1, 'triangle', 0.2, 0.3);     // C5  (da)
+    tone(659, 0.12, 'triangle', 0.32, 0.32);  // E5  (rising)
+    tone(784, 0.12, 'triangle', 0.42, 0.32);  // G5  (rising)
+    // Big final chord: C major triad held
+    tone(1047, 0.55, 'triangle', 0.52, 0.3);  // C6
+    tone(784, 0.55, 'triangle', 0.52, 0.22);  // G5
+    tone(1319, 0.55, 'triangle', 0.52, 0.18); // E6
+    // Shimmer overtone on top
+    tone(2093, 0.4, 'sine', 0.54, 0.06);      // C7 sparkle
+    noise(0.06, 0.52, 5000, 0.04);             // bright sizzle
   },
 
   lessonFail() {
