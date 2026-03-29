@@ -13,6 +13,8 @@ import { analytics } from '@/lib/mixpanel';
 import Link from 'next/link';
 import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useStore } from '@/store/useStore';
+import { useEngagementStore } from '@/store/useEngagementStore';
 import { getProfession, PROFESSIONS } from '@/data/professions';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 import LessonView from '@/components/lesson/LessonView';
@@ -443,9 +445,48 @@ export default function GetStartedPage() {
     }
   };
 
+  // Reset user-specific stores so stale localStorage from previous sessions
+  // doesn't trigger false streak-break / comeback / welcome-back popups.
+  const resetStoresForNewUser = useCallback(() => {
+    useStore.getState().resetProgress();
+    useEngagementStore.setState({
+      dailyQuests: [],
+      weeklyQuests: [],
+      dailyQuestDate: null,
+      weeklyQuestDate: null,
+      dailyChestClaimed: false,
+      weeklyChestClaimed: false,
+      streak: {
+        freezesOwned: 0,
+        freezeUsedToday: false,
+        lastStreakBreakDate: null,
+        lastStreakValueBeforeBreak: 0,
+        repairAvailable: false,
+        milestonesReached: [],
+      },
+      comeback: {
+        isInComebackFlow: false,
+        comebackQuestsCompleted: 0,
+        daysAway: 0,
+        lastDismissedDate: null,
+      },
+      dismissedNudges: [],
+      doubleXpExpiry: null,
+    });
+    useCourseStore.setState((s) => ({
+      progress: {
+        ...s.progress,
+        completedLessons: {},
+        currentStreak: 0,
+        courseIntros: {},
+      },
+    }));
+  }, []);
+
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
+    resetStoresForNewUser();
     // Save placement before redirecting
     try {
       sessionStorage.setItem(
@@ -460,6 +501,7 @@ export default function GetStartedPage() {
   const completeOnboarding = () => {
     if (navigating) return;
     setNavigating(true);
+    resetStoresForNewUser();
     setActiveProfession(selectedProfession);
     // Apply placement: skip to the placed unit in the course store
     if (placedUnitIndex > 0) {
