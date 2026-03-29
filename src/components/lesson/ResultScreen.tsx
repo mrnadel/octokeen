@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Zap, Target } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getLessonByIdMeta } from '@/data/course/course-meta';
 import { useBackHandler } from '@/hooks/useBackHandler';
@@ -76,7 +77,15 @@ export default function ResultScreen() {
     if (isGolden) return 'Mastered!';
     if (attempts >= 3) return 'Golden Unlocked!';
     if (lessonResult.accuracy >= 90) return 'Perfect Score!';
-    return 'Great Work!';
+    return 'Lesson Complete!';
+  };
+
+  const getAccuracyLabel = () => {
+    if (lessonResult.accuracy === 100) return 'PERFECT';
+    if (lessonResult.accuracy >= 90) return 'AMAZING';
+    if (lessonResult.accuracy >= 80) return 'GREAT';
+    if (lessonResult.accuracy >= 60) return 'GOOD';
+    return 'KEEP TRYING';
   };
 
   return (
@@ -123,34 +132,65 @@ export default function ResultScreen() {
           {lessonResult.lessonTitle}
         </motion.p>
 
-        {/* Stats */}
+        {/* Stats — Duolingo-style cards */}
         <motion.div
-          className="flex w-full max-w-xs bg-white/10 rounded-2xl overflow-hidden"
+          className="flex gap-3 w-full max-w-xs"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <div className="flex-1 py-4 text-center">
-            <div className="text-2xl font-extrabold">{lessonResult.accuracy}%</div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mt-1">Accuracy</div>
-          </div>
-          <div className="w-px bg-white/10 my-3" />
-          <div className="flex-1 py-4 text-center">
-            <motion.div
-              className="text-2xl font-extrabold"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 250, damping: 15, delay: 0.7 }}
+          {/* XP card */}
+          <motion.div
+            className="flex-1 rounded-2xl overflow-hidden"
+            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.55, type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <div
+              className="py-1.5 text-center"
+              style={{ background: 'rgba(255,255,255,0.25)' }}
             >
-              +{lessonResult.xpEarned}
-            </motion.div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mt-1">XP</div>
-          </div>
-          <div className="w-px bg-white/10 my-3" />
-          <div className="flex-1 py-4 text-center">
-            <div className="text-2xl font-extrabold">{lessonResult.correctAnswers}/{lessonResult.totalQuestions}</div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mt-1">Correct</div>
-          </div>
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">
+                Total XP
+              </span>
+            </div>
+            <div className="py-4 flex items-center justify-center gap-2">
+              <Zap className="w-5 h-5 text-white" fill="currentColor" />
+              <motion.span
+                className="text-[26px] font-extrabold text-white"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 250, damping: 15, delay: 0.7 }}
+              >
+                {lessonResult.xpEarned}
+              </motion.span>
+            </div>
+          </motion.div>
+
+          {/* Accuracy card */}
+          <motion.div
+            className="flex-1 rounded-2xl overflow-hidden"
+            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <div
+              className="py-1.5 text-center"
+              style={{ background: 'rgba(255,255,255,0.25)' }}
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">
+                {getAccuracyLabel()}
+              </span>
+            </div>
+            <div className="py-4 flex items-center justify-center gap-2">
+              <Target className="w-5 h-5 text-white" />
+              <span className="text-[26px] font-extrabold text-white">
+                {lessonResult.accuracy}%
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
 
         {isFlawless && passed && (
