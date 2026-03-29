@@ -6,11 +6,13 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Sparkles } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { getUnitTheme, type UnitTheme } from '@/lib/unitThemes';
 import { PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
+import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import { UnitHeader } from './UnitHeader';
 import { LessonNode } from './LessonNode';
 
@@ -249,7 +251,9 @@ export function CourseMap() {
   const router = useRouter();
   const isGuest = status !== 'authenticated';
   const { isProUser } = useSubscription();
+  const hasHearts = useHeartsStore((s) => s.hasHearts);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showOutOfHearts, setShowOutOfHearts] = useState(false);
   const [jumpModal, setJumpModal] = useState<JumpModalType | null>(null);
 
   const isFreeLocked = useCallback((unitIndex: number) =>
@@ -344,16 +348,23 @@ export function CourseMap() {
             setJumpModal({ kind: 'placement-test', unitIndex });
           }
         }
-      } else if (state === 'completed' && lessonProgress) {
-        const lesson = courseData[unitIndex].lessons[lessonIndex];
-        const maxLevels = lesson.levels ?? 1;
-        const isGoldenEligible = maxLevels > 1 && (lessonProgress.attempts ?? 0) >= maxLevels - 1;
-        startLesson(unitIndex, lessonIndex, isGoldenEligible);
       } else {
-        startLesson(unitIndex, lessonIndex);
+        // Block lesson start if out of hearts
+        if (!hasHearts()) {
+          setShowOutOfHearts(true);
+          return;
+        }
+        if (state === 'completed' && lessonProgress) {
+          const lesson = courseData[unitIndex].lessons[lessonIndex];
+          const maxLevels = lesson.levels ?? 1;
+          const isGoldenEligible = maxLevels > 1 && (lessonProgress.attempts ?? 0) >= maxLevels - 1;
+          startLesson(unitIndex, lessonIndex, isGoldenEligible);
+        } else {
+          startLesson(unitIndex, lessonIndex);
+        }
       }
     },
-    [isFreeLocked, isGuest, courseData, isLessonUnlocked, startLesson]
+    [isFreeLocked, isGuest, courseData, isLessonUnlocked, startLesson, hasHearts]
   );
 
   // Auto-scroll to the current lesson after mount + animations settle
@@ -803,6 +814,11 @@ export function CourseMap() {
         isOpen={showUpgradeModal}
         onClose={() => setShowUpgradeModal(false)}
         reason="Unlock all 10 course units"
+      />
+
+      <OutOfHeartsModal
+        isOpen={showOutOfHearts}
+        onClose={() => setShowOutOfHearts(false)}
       />
 
       {/* Fixed scroll-to-current button — bottom-right, above mobile nav */}
