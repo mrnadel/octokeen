@@ -294,6 +294,13 @@ export const unit10: Unit = {
           hint: 'Use energy balance: potential energy mgh = work done.'
         },
         {
+          id: 'u10-L1-T3',
+          type: 'teaching',
+          question: 'Scaling Laws Save Time',
+          explanation: 'Many engineering quantities follow simple power laws. Beam deflection scales as L^3, natural frequency as 1/L^2, and pump power as speed^3. Knowing these relationships lets you estimate the effect of design changes instantly without recalculating from scratch.',
+          hint: 'If someone asks "what happens when I double X," think about the scaling exponent.',
+        },
+        {
           id: 'u10-L1-Q20',
           type: 'fill-blank',
           question: 'The dimensionless number that characterizes the ratio of _____ forces to viscous forces in fluid flow, determining whether flow _____?',
