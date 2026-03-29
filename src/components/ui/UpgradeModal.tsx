@@ -90,7 +90,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
       <p className="text-sm text-white/50 mb-5">{reason || 'Unlock your full potential'}</p>
 
       {error && (
-        <div className="w-full px-4 py-2.5 rounded-xl bg-red-500/20 border border-red-400/30 mb-4">
+        <div role="alert" className="w-full px-4 py-2.5 rounded-xl bg-red-500/20 border border-red-400/30 mb-4">
           <p className="text-sm font-semibold text-red-200 text-center">{error}</p>
         </div>
       )}

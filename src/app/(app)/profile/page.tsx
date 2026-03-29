@@ -371,8 +371,14 @@ export default function ProfilePage() {
         useCourseStore.setState((state) => ({ progress: { ...state.progress, displayName: newName.trim() } }));
         await updateSession({ name: newName.trim() });
         setEditingName(false);
+      } else {
+        setAvatarError('Failed to update name');
+        setTimeout(() => setAvatarError(''), 4000);
       }
-    } catch { /* silent */ } finally {
+    } catch {
+      setAvatarError('Failed to update name');
+      setTimeout(() => setAvatarError(''), 4000);
+    } finally {
       setNameLoading(false);
     }
   };
@@ -416,8 +422,14 @@ export default function ProfilePage() {
       });
       if (res.ok) {
         await updateSession({ image: '' });
+      } else {
+        setAvatarError('Failed to remove avatar');
+        setTimeout(() => setAvatarError(''), 4000);
       }
-    } catch { /* silent */ } finally {
+    } catch {
+      setAvatarError('Failed to remove avatar');
+      setTimeout(() => setAvatarError(''), 4000);
+    } finally {
       setAvatarUploading(false);
     }
   }, [updateSession]);

@@ -105,7 +105,11 @@ export default function HomePage() {
   };
 
   if (status === 'loading') {
-    return null;
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="w-8 h-8 border-3 border-surface-200 border-t-primary-500 rounded-full animate-spin" />
+      </div>
+    );
   }
 
   if (status === 'unauthenticated') {

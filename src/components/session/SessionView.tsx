@@ -55,10 +55,18 @@ export default function SessionView() {
     return <SessionSummary summary={sessionSummary} />;
   }
 
-  if (!session) return null;
+  if (!session || !session.questions[session.currentIndex]) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
+        <div className="text-center">
+          <div className="w-10 h-10 border-3 border-surface-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm font-semibold text-surface-500">Loading questions...</p>
+        </div>
+      </div>
+    );
+  }
 
   const currentQuestion = session.questions[session.currentIndex];
-  if (!currentQuestion) return null;
 
   const adapter: SessionAdapter = {
     currentQuestion,

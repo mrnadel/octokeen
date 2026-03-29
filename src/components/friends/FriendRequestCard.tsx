@@ -30,8 +30,11 @@ export default function FriendRequestCard({
   const [loading, setLoading] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [accepted, setAccepted] = useState(false);
+  const [error, setError] = useState('');
+
   async function handleAccept() {
     setLoading(true);
+    setError('');
     try {
       const res = await fetch(`/api/friends/request/${id}`, {
         method: 'PATCH',
@@ -42,7 +45,11 @@ export default function FriendRequestCard({
         setAccepted(true);
         onAction?.();
         setTimeout(() => setHidden(true), 1000);
+      } else {
+        setError('Failed');
       }
+    } catch {
+      setError('Failed');
     } finally {
       setLoading(false);
     }
@@ -50,6 +57,7 @@ export default function FriendRequestCard({
 
   async function handleDecline() {
     setLoading(true);
+    setError('');
     try {
       const res = await fetch(`/api/friends/request/${id}`, {
         method: 'PATCH',
@@ -59,7 +67,11 @@ export default function FriendRequestCard({
       if (res.ok) {
         setHidden(true);
         onAction?.();
+      } else {
+        setError('Failed');
       }
+    } catch {
+      setError('Failed');
     } finally {
       setLoading(false);
     }
@@ -67,12 +79,17 @@ export default function FriendRequestCard({
 
   async function handleCancel() {
     setLoading(true);
+    setError('');
     try {
       const res = await fetch(`/api/friends/request/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setHidden(true);
         onAction?.();
+      } else {
+        setError('Failed');
       }
+    } catch {
+      setError('Failed');
     } finally {
       setLoading(false);
     }
@@ -96,7 +113,9 @@ export default function FriendRequestCard({
           <Link href={`/user/${userId}`}>
             <p className="text-sm font-bold text-surface-900 truncate">{displayName}</p>
           </Link>
-          <p className="text-xs text-surface-400 font-semibold">Level {level}</p>
+          <p className="text-xs text-surface-400 font-semibold">
+            {error ? <span className="text-red-500">{error}</span> : `Level ${level}`}
+          </p>
         </div>
 
         {accepted ? (
