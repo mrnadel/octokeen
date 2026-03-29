@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Loader2,
   ArrowLeft,
   Heart,
-  Zap,
+  CheckCircle2,
+  XCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/mixpanel';
@@ -15,67 +16,20 @@ import Link from 'next/link';
 import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
 import { useCourseStore } from '@/store/useCourseStore';
 import { getProfession, PROFESSIONS } from '@/data/professions';
+import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
+import type { Unit, CourseQuestion } from '@/data/course/types';
 
-/* ─── Trial Questions (universal, fun) ─── */
+/* ─── Constants ─── */
 
-const TRIAL_QUESTIONS = [
-  {
-    topic: 'Money Smarts',
-    topicIcon: '💰',
-    question: 'You have $1,000 in a savings account earning 5% interest per year. After one year, you have:',
-    options: [
-      { id: 'a', text: 'Exactly $1,050' },
-      { id: 'b', text: 'Less than $1,050 after inflation' },
-      { id: 'c', text: 'More than $1,050 from compound interest' },
-      { id: 'd', text: '$1,005' },
-    ],
-    correctAnswer: 'a',
-    explanation: 'Simple interest on $1,000 at 5% = $50. So you\'d have exactly $1,050 after one year. Compound interest kicks in from year two onward.',
-  },
-  {
-    topic: 'Psychology',
-    topicIcon: '🧠',
-    question: 'You bought a movie ticket for $15 but the movie is terrible. Should you stay to "get your money\'s worth"?',
-    options: [
-      { id: 'a', text: 'Yes — you already paid, might as well watch it' },
-      { id: 'b', text: 'No — the $15 is gone either way, leaving saves your time' },
-    ],
-    correctAnswer: 'b',
-    explanation: 'This is the "sunk cost fallacy." The $15 is spent whether you stay or leave. The rational choice is to use your time on something better.',
-  },
-  {
-    topic: 'Everyday Science',
-    topicIcon: '🔬',
-    question: 'Why does your phone battery drain faster in cold weather?',
-    options: [
-      { id: 'a', text: 'Cold slows the chemical reactions inside the battery' },
-      { id: 'b', text: 'The screen uses more power to stay warm' },
-      { id: 'c', text: 'Cold air blocks the wireless signal' },
-      { id: 'd', text: 'The processor speeds up to generate heat' },
-    ],
-    correctAnswer: 'a',
-    explanation: 'Lithium-ion batteries rely on chemical reactions to produce electricity. Cold temperatures slow these reactions, reducing available power and making the battery appear to drain faster.',
-  },
-  {
-    topic: 'Space',
-    topicIcon: '🚀',
-    question: 'If the Sun suddenly disappeared, how long until we\'d notice?',
-    options: [
-      { id: 'a', text: 'Instantly' },
-      { id: 'b', text: 'About 8 minutes' },
-      { id: 'c', text: 'About 24 hours' },
-      { id: 'd', text: 'About 1 second' },
-    ],
-    correctAnswer: 'b',
-    explanation: 'Light takes about 8 minutes and 20 seconds to travel from the Sun to Earth. We\'d see sunlight (and feel gravity) for another 8 minutes before everything went dark.',
-  },
-];
-
-const TRIAL_COUNT = 3;
-const XP_CORRECT = 25;
-const XP_WRONG = 5;
 const STARTING_HEARTS = 3;
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
+const QUESTIONS_PER_UNIT = 2;
+
+const SUPPORTED_QUESTION_TYPES = new Set([
+  'multiple-choice',
+  'true-false',
+  'multi-select',
+]);
 
 /* ─── Animation Variants ─── */
 
@@ -140,21 +94,26 @@ function HeartsBar({ hearts, max }: { hearts: number; max: number }) {
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: max }).map((_, i) => (
-        <Heart
+        <motion.div
           key={i}
-          className={cn(
-            'w-5 h-5 transition-all',
-            i < hearts
-              ? 'fill-red-500 text-red-500'
-              : 'fill-gray-200 text-gray-200'
-          )}
-        />
+          animate={i === hearts ? { scale: [1, 0.6, 1], opacity: [1, 0.3, 1] } : {}}
+          transition={{ duration: 0.4 }}
+        >
+          <Heart
+            className={cn(
+              'w-5 h-5 transition-all',
+              i < hearts
+                ? 'fill-red-500 text-red-500'
+                : 'fill-gray-200 text-gray-200'
+            )}
+          />
+        </motion.div>
       ))}
     </div>
   );
 }
 
-/* ─── Out of Hearts Modal ─── */
+/* ─── Out of Hearts Modal (placement version) ─── */
 
 function OutOfHeartsModal({ onRefill }: { onRefill: () => void }) {
   return (
@@ -176,7 +135,7 @@ function OutOfHeartsModal({ onRefill }: { onRefill: () => void }) {
         </div>
         <h3 className="text-2xl font-black text-gray-900 mb-2">Out of hearts!</h3>
         <p className="text-gray-500 text-sm font-semibold mb-6 leading-relaxed">
-          No worries. Tap below to refill your hearts for free and keep practicing.
+          No worries. Tap below to refill for free and keep going.
         </p>
         <button
           onClick={onRefill}
@@ -190,28 +149,64 @@ function OutOfHeartsModal({ onRefill }: { onRefill: () => void }) {
   );
 }
 
+/* ─── Helpers: pick questions from a unit ─── */
+
+interface PlacementQuestion {
+  question: CourseQuestion;
+  unitIndex: number;
+  unitTitle: string;
+  unitIcon: string;
+}
+
+function pickQuestionsFromUnit(unit: Unit, unitIndex: number, count: number): PlacementQuestion[] {
+  // Gather all supported questions across all lessons (skip 'teaching' type)
+  const eligible: CourseQuestion[] = [];
+  for (const lesson of unit.lessons) {
+    for (const q of lesson.questions) {
+      if (SUPPORTED_QUESTION_TYPES.has(q.type)) {
+        eligible.push(q);
+      }
+    }
+  }
+
+  if (eligible.length === 0) return [];
+
+  // Pick evenly spaced questions
+  const picked: PlacementQuestion[] = [];
+  const step = Math.max(1, Math.floor(eligible.length / count));
+  for (let i = 0; i < count && i * step < eligible.length; i++) {
+    picked.push({
+      question: eligible[i * step],
+      unitIndex,
+      unitTitle: unit.title,
+      unitIcon: unit.icon,
+    });
+  }
+
+  return picked;
+}
+
 /* ─── Main Component ─── */
 
 export default function GetStartedPage() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  // Profession selection — filter out requiresAccess courses
+  // Profession selection
   const publicProfessions = PROFESSIONS.filter(p => !p.requiresAccess);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
   const [selectedProfession, setSelectedProfession] = useState<string>(publicProfessions[0]?.id ?? '');
 
-  // Trial questions (3 random from pool)
-  const [trialQuestions] = useState(() => {
-    const shuffled = [...TRIAL_QUESTIONS].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, TRIAL_COUNT);
-  });
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [trialAnswer, setTrialAnswer] = useState<string | null>(null);
-  const [trialRevealed, setTrialRevealed] = useState(false);
-  const [trialXp, setTrialXp] = useState(0);
-  const [trialCorrect, setTrialCorrect] = useState(0);
-  const [trialDone, setTrialDone] = useState(false);
+  // Placement test state
+  const [placementQuestions, setPlacementQuestions] = useState<PlacementQuestion[]>([]);
+  const [placementIndex, setPlacementIndex] = useState(0);
+  const [placementAnswer, setPlacementAnswer] = useState<number[] | null>(null);
+  const [placementRevealed, setPlacementRevealed] = useState(false);
+  const [highestPassedUnit, setHighestPassedUnit] = useState(-1);
+  const [placedUnitIndex, setPlacedUnitIndex] = useState(0);
+  const [loadingUnits, setLoadingUnits] = useState(false);
+  const [placementDone, setPlacementDone] = useState(false);
+  const loadingRef = useRef(false);
 
   // Hearts
   const [hearts, setHearts] = useState(STARTING_HEARTS);
@@ -238,43 +233,100 @@ export default function GetStartedPage() {
     setStep((s) => Math.max(s - 1, 0));
   }, []);
 
-  const handleTrialAnswer = (optionId: string) => {
-    if (trialRevealed || showOutOfHearts) return;
-    setTrialAnswer(optionId);
-    setTrialRevealed(true);
-    const isCorrect = optionId === trialQuestions[questionIndex].correctAnswer;
-    setTrialXp((prev) => prev + (isCorrect ? XP_CORRECT : XP_WRONG));
+  // Load placement test questions when entering step 2
+  useEffect(() => {
+    if (step !== 2 || placementQuestions.length > 0 || loadingRef.current) return;
+    loadingRef.current = true;
+
+    async function loadPlacementQuestions() {
+      setLoadingUnits(true);
+      const meta = getCourseMetaForProfession(selectedProfession);
+      const allQuestions: PlacementQuestion[] = [];
+
+      // Load units one at a time and pick questions
+      for (let i = 0; i < meta.length; i++) {
+        try {
+          const fullUnit = await loadUnitData(i, selectedProfession);
+          const picked = pickQuestionsFromUnit(fullUnit, i, QUESTIONS_PER_UNIT);
+          allQuestions.push(...picked);
+        } catch {
+          // Skip units that fail to load
+        }
+      }
+
+      setPlacementQuestions(allQuestions);
+      setLoadingUnits(false);
+    }
+
+    loadPlacementQuestions();
+  }, [step, selectedProfession, placementQuestions.length]);
+
+  // Check answer for placement question
+  const handlePlacementAnswer = (selectedIndices: number[]) => {
+    if (placementRevealed || showOutOfHearts) return;
+    setPlacementAnswer(selectedIndices);
+    setPlacementRevealed(true);
+
+    const q = placementQuestions[placementIndex].question;
+    const isCorrect = checkAnswer(q, selectedIndices);
+
     if (isCorrect) {
-      setTrialCorrect((prev) => prev + 1);
+      const unitIdx = placementQuestions[placementIndex].unitIndex;
+      setHighestPassedUnit((prev) => Math.max(prev, unitIdx));
     } else {
       const newHearts = hearts - 1;
       setHearts(newHearts);
       if (newHearts <= 0) {
-        // Show modal after a brief delay so user sees the wrong answer feedback first
         setTimeout(() => setShowOutOfHearts(true), 800);
       }
     }
   };
 
+  const handleNextPlacementQuestion = () => {
+    if (placementIndex + 1 >= placementQuestions.length) {
+      // All questions done, user aced it
+      finishPlacement();
+    } else {
+      setPlacementIndex((prev) => prev + 1);
+      setPlacementAnswer(null);
+      setPlacementRevealed(false);
+    }
+  };
+
+  const finishPlacement = useCallback(() => {
+    const placed = highestPassedUnit + 1;
+    setPlacedUnitIndex(placed);
+    setPlacementDone(true);
+  }, [highestPassedUnit]);
+
+  // Refill hearts and continue the placement test
   const handleRefillHearts = () => {
     setHearts(STARTING_HEARTS);
     setShowOutOfHearts(false);
   };
 
-  const handleNextTrialQuestion = () => {
-    if (questionIndex + 1 >= TRIAL_COUNT) {
-      setTrialDone(true);
-    } else {
-      setQuestionIndex((prev) => prev + 1);
-      setTrialAnswer(null);
-      setTrialRevealed(false);
+  // When placement test finishes (aced all), go to signup
+  useEffect(() => {
+    if (placementDone) {
+      setDirection(1);
+      setStep(3);
     }
+  }, [placementDone]);
+
+  // "I'm new" handler: skip test, place at unit 0
+  const handleNewUser = () => {
+    setPlacedUnitIndex(0);
+    setDirection(1);
+    setStep(3);
   };
 
-  const handleTrialContinue = () => {
-    try {
-      sessionStorage.setItem('octokeen-guest-xp', JSON.stringify({ xp: trialXp }));
-    } catch {}
+  // "Test my level" handler: go to placement test
+  const handleTestLevel = () => {
+    nextStep();
+  };
+
+  const handleProfessionContinue = () => {
+    setActiveProfession(selectedProfession);
     nextStep();
   };
 
@@ -319,35 +371,45 @@ export default function GetStartedPage() {
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
-    if (trialXp > 0) {
-      try { sessionStorage.setItem('octokeen-guest-xp', JSON.stringify({ xp: trialXp })); } catch {}
-    }
+    // Save placement before redirecting
+    try {
+      sessionStorage.setItem(
+        'octokeen-placement',
+        JSON.stringify({ professionId: selectedProfession, unitIndex: placedUnitIndex })
+      );
+    } catch {}
     signIn('google', { callbackUrl: '/' });
-  };
-
-  const handleProfessionContinue = () => {
-    setActiveProfession(selectedProfession);
-    nextStep();
   };
 
   const completeOnboarding = () => {
     if (navigating) return;
     setNavigating(true);
     setActiveProfession(selectedProfession);
+    // Save placement to sessionStorage
+    try {
+      sessionStorage.setItem(
+        'octokeen-placement',
+        JSON.stringify({ professionId: selectedProfession, unitIndex: placedUnitIndex })
+      );
+    } catch {}
     analytics.milestone({ type: 'onboarding_completed' });
     window.location.href = '/';
   };
 
   const canGoBack = step > 0 && step < TOTAL_STEPS - 1;
 
+  // Get the placed unit name for the ready screen
+  const meta = getCourseMetaForProfession(selectedProfession);
+  const placedUnitName = meta[placedUnitIndex]?.title ?? `Unit ${placedUnitIndex + 1}`;
+
   return (
     <div className="min-h-[100dvh] bg-white flex flex-col">
-      {/* ── Out of Hearts Modal ── */}
+      {/* Out of Hearts Modal */}
       <AnimatePresence>
         {showOutOfHearts && <OutOfHeartsModal onRefill={handleRefillHearts} />}
       </AnimatePresence>
 
-      {/* ── Loading Overlay ── */}
+      {/* Loading Overlay */}
       <AnimatePresence>
         {navigating && (
           <motion.div
@@ -361,7 +423,7 @@ export default function GetStartedPage() {
         )}
       </AnimatePresence>
 
-      {/* ── Progress Bar ── */}
+      {/* Progress Bar */}
       <div className="px-5 pt-4 pb-2">
         <div className="flex gap-1.5 max-w-lg mx-auto">
           {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
@@ -384,11 +446,11 @@ export default function GetStartedPage() {
         </div>
       </div>
 
-      {/* ── Step Content ── */}
+      {/* Step Content */}
       <div className="flex-1 px-4 sm:px-5 flex flex-col justify-center pb-4 sm:pb-8">
         <AnimatePresence mode="wait" custom={direction}>
 
-          {/* ═══ Step 0: Choose Course ═══ */}
+          {/* Step 0: Choose Course */}
           {step === 0 && (
             <motion.div
               key="profession"
@@ -444,204 +506,153 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 1: Trial Questions with Hearts ═══ */}
+          {/* Step 1: "Already know some?" prompt */}
           {step === 1 && (
             <motion.div
-              key="trial"
+              key="know-some"
               custom={direction}
               variants={slideVariants}
               initial="enter" animate="center" exit="exit"
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-lg mx-auto w-full"
             >
-              {!trialDone ? (
+              <motion.div
+                className="text-center mb-8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2">
+                  Already know some {getProfession(selectedProfession)?.name ?? 'of this'}?
+                </h2>
+                <p className="text-gray-400 text-sm sm:text-base font-semibold">
+                  Take a quick test to find your starting level, or begin from scratch.
+                </p>
+              </motion.div>
+
+              <motion.div
+                className="space-y-3"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <button
+                  onClick={handleNewUser}
+                  className="w-full p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 transition-all text-left group"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl">&#x1F331;</span>
+                    <div>
+                      <p className="text-base font-black text-gray-900 group-hover:text-primary-600 transition-colors">
+                        I&apos;m new to this
+                      </p>
+                      <p className="text-sm font-semibold text-gray-400 mt-0.5">
+                        Start from the basics
+                      </p>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={handleTestLevel}
+                  className="w-full p-5 rounded-2xl border-2 border-primary-200 bg-primary-50/50 hover:border-primary-300 hover:bg-primary-50 transition-all text-left group"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl">&#x1F3AF;</span>
+                    <div>
+                      <p className="text-base font-black text-gray-900 group-hover:text-primary-600 transition-colors">
+                        I know some already
+                      </p>
+                      <p className="text-sm font-semibold text-gray-400 mt-0.5">
+                        Take a placement test to skip ahead
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {/* Step 2: Placement Test */}
+          {step === 2 && (
+            <motion.div
+              key="placement"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter" animate="center" exit="exit"
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className="max-w-lg mx-auto w-full"
+            >
+              {loadingUnits ? (
+                <div className="flex flex-col items-center justify-center gap-4 py-20">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+                  <p className="text-base font-black text-gray-900">Loading placement test...</p>
+                  <p className="text-sm font-semibold text-gray-400">Preparing questions from your course</p>
+                </div>
+              ) : placementQuestions.length === 0 ? (
+                <div className="flex flex-col items-center justify-center gap-4 py-20">
+                  <p className="text-base font-black text-gray-900">No questions available</p>
+                  <button
+                    onClick={() => { setPlacedUnitIndex(0); setDirection(1); setStep(3); }}
+                    className="py-3 px-8 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+                    style={{ boxShadow: '0 5px 0 #0F766E' }}
+                  >
+                    START FROM BASICS
+                  </button>
+                </div>
+              ) : (
                 <>
                   {/* Progress header */}
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-black text-gray-400 uppercase tracking-wider">
-                      Question {questionIndex + 1} / {TRIAL_COUNT}
-                    </span>
-                    <div className="flex items-center gap-4">
-                      {trialXp > 0 && (
-                        <motion.span
-                          key={trialXp}
-                          initial={{ scale: 1.4 }}
-                          animate={{ scale: 1 }}
-                          className="text-xs font-black text-primary-500 flex items-center gap-1"
-                        >
-                          <Zap className="w-3.5 h-3.5" />
-                          {trialXp} XP
-                        </motion.span>
-                      )}
-                      <HeartsBar hearts={hearts} max={STARTING_HEARTS} />
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs font-black text-primary-500 uppercase tracking-wider block truncate">
+                        {placementQuestions[placementIndex]?.unitIcon}{' '}
+                        Unit {placementQuestions[placementIndex]?.unitIndex + 1}: {placementQuestions[placementIndex]?.unitTitle}
+                      </span>
+                      <span className="text-xs font-bold text-gray-400 mt-0.5 block">
+                        Question {placementIndex + 1} / {placementQuestions.length}
+                      </span>
                     </div>
+                    <HeartsBar hearts={hearts} max={STARTING_HEARTS} />
+                  </div>
+
+                  {/* Progress bar for questions */}
+                  <div className="w-full h-1.5 bg-gray-100 rounded-full mb-5 overflow-hidden">
+                    <motion.div
+                      className="h-full bg-primary-500 rounded-full"
+                      initial={false}
+                      animate={{ width: `${((placementIndex) / placementQuestions.length) * 100}%` }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </div>
 
                   {/* Question card */}
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={questionIndex}
+                      key={placementIndex}
                       initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -30 }}
                       transition={{ duration: 0.2 }}
                     >
-                      {/* Question */}
-                      <div className="bg-gray-50 rounded-2xl px-5 py-4 mb-5">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-lg">{trialQuestions[questionIndex].topicIcon}</span>
-                          <span className="text-xs font-black text-primary-500 uppercase tracking-wider">
-                            {trialQuestions[questionIndex].topic}
-                          </span>
-                        </div>
-                        <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
-                          {trialQuestions[questionIndex].question}
-                        </h2>
-                      </div>
-
-                      {/* Options */}
-                      <div className="space-y-2.5 mb-5">
-                        {trialQuestions[questionIndex].options.map((opt, idx) => {
-                          const isCorrect = opt.id === trialQuestions[questionIndex].correctAnswer;
-                          const isSelected = trialAnswer === opt.id;
-                          let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
-                          if (trialRevealed) {
-                            if (isCorrect) optionStyle = 'border-primary-500 bg-primary-500/5';
-                            else if (isSelected && !isCorrect) optionStyle = 'border-red-400 bg-red-50';
-                            else optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
-                          } else if (isSelected) {
-                            optionStyle = 'border-primary-400 bg-primary-50';
-                          }
-
-                          return (
-                            <motion.button
-                              key={opt.id}
-                              onClick={() => handleTrialAnswer(opt.id)}
-                              disabled={trialRevealed}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.05 + idx * 0.04 }}
-                              className={cn(
-                                'w-full flex items-start gap-3 p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
-                                optionStyle
-                              )}
-                            >
-                              <span className={cn(
-                                'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
-                                trialRevealed && isCorrect ? 'bg-primary-500 text-white'
-                                  : trialRevealed && isSelected && !isCorrect ? 'bg-red-400 text-white'
-                                  : 'bg-gray-100 text-gray-500'
-                              )}>
-                                {trialRevealed && isCorrect ? '✓' : trialRevealed && isSelected && !isCorrect ? '✗' : opt.id.toUpperCase()}
-                              </span>
-                              <span className="text-sm font-semibold text-gray-700 leading-snug">{opt.text}</span>
-                            </motion.button>
-                          );
-                        })}
-                      </div>
-
-                      {/* Explanation + Next */}
-                      <AnimatePresence>
-                        {trialRevealed && !showOutOfHearts && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
-                          >
-                            <div className={cn(
-                              'p-4 rounded-xl mb-5',
-                              trialAnswer === trialQuestions[questionIndex].correctAnswer
-                                ? 'bg-primary-500/10 border border-primary-500/20'
-                                : 'bg-orange-50 border border-orange-200'
-                            )}>
-                              <p className={cn(
-                                'font-black text-sm mb-1',
-                                trialAnswer === trialQuestions[questionIndex].correctAnswer ? 'text-primary-500' : 'text-orange-600'
-                              )}>
-                                {trialAnswer === trialQuestions[questionIndex].correctAnswer
-                                  ? `🎉 Correct! +${XP_CORRECT} XP`
-                                  : `💡 Good try! +${XP_WRONG} XP`}
-                              </p>
-                              <p className="text-sm text-gray-600 leading-relaxed">
-                                {trialQuestions[questionIndex].explanation}
-                              </p>
-                            </div>
-
-                            <button
-                              onClick={handleNextTrialQuestion}
-                              className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-                              style={{ boxShadow: '0 5px 0 #0F766E' }}
-                            >
-                              {questionIndex + 1 >= TRIAL_COUNT ? 'SEE YOUR RESULTS' : 'NEXT QUESTION'}
-                            </button>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <PlacementQuestionCard
+                        pq={placementQuestions[placementIndex]}
+                        selectedAnswer={placementAnswer}
+                        revealed={placementRevealed}
+                        showOutOfHearts={showOutOfHearts}
+                        onAnswer={handlePlacementAnswer}
+                        onNext={handleNextPlacementQuestion}
+                        isLast={placementIndex + 1 >= placementQuestions.length}
+                      />
                     </motion.div>
                   </AnimatePresence>
                 </>
-              ) : (
-                /* ─── Trial Results ─── */
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-center"
-                >
-                  <motion.div
-                    initial={{ scale: 0.5 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-                    className="text-5xl mb-4"
-                  >
-                    {trialCorrect === TRIAL_COUNT ? '\uD83C\uDF89' : '\uD83D\uDCAA'}
-                  </motion.div>
-
-                  <motion.h2
-                    className="text-2xl sm:text-3xl font-black text-gray-900 mb-2"
-                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                  >
-                    Nice work!
-                  </motion.h2>
-
-                  <motion.p
-                    className="text-gray-400 text-sm font-semibold mb-6"
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
-                  >
-                    {trialCorrect}/{TRIAL_COUNT} correct
-                  </motion.p>
-
-                  <motion.div
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary-500/10 mb-8"
-                    initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-                  >
-                    <Zap className="w-5 h-5 text-primary-500" />
-                    <span className="text-2xl font-black text-primary-500">{trialXp} XP</span>
-                    <span className="text-sm font-bold text-primary-500/70">earned</span>
-                  </motion.div>
-
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
-                    <button
-                      onClick={handleTrialContinue}
-                      className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-                      style={{ boxShadow: '0 5px 0 #0F766E' }}
-                    >
-                      SAVE MY PROGRESS
-                    </button>
-                    <p className="text-gray-400 text-xs font-semibold mt-3">
-                      Create a free account to keep your XP
-                    </p>
-                  </motion.div>
-                </motion.div>
               )}
             </motion.div>
           )}
 
-          {/* ═══ Step 2: Create Account ═══ */}
-          {step === 2 && (
+          {/* Step 3: Create Account */}
+          {step === 3 && (
             <motion.div
               key="signup"
               custom={direction}
@@ -697,8 +708,8 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* ═══ Step 3: Ready! ═══ */}
-          {step === 3 && (
+          {/* Step 4: Ready */}
+          {step === 4 && (
             <motion.div
               key="ready"
               custom={direction}
@@ -715,9 +726,28 @@ export default function GetStartedPage() {
                 You&apos;re all set!
               </motion.h2>
 
-              <motion.p className="text-gray-500 text-base mb-8 leading-relaxed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                Dive in and master {getProfession(selectedProfession)?.name ?? 'your course'}!
-              </motion.p>
+              {placedUnitIndex > 0 ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="mb-6"
+                >
+                  <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-500/10 mb-3">
+                    <span className="text-lg">{meta[placedUnitIndex]?.icon ?? '&#x1F3AF;'}</span>
+                    <span className="text-base font-black text-primary-600">
+                      Unit {placedUnitIndex + 1}: {placedUnitName}
+                    </span>
+                  </div>
+                  <p className="text-gray-500 text-sm font-semibold leading-relaxed">
+                    You placed into Unit {placedUnitIndex + 1}! We skipped {placedUnitIndex} {placedUnitIndex === 1 ? 'unit' : 'units'} based on your test.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.p className="text-gray-500 text-base mb-6 leading-relaxed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                  Dive in and master {getProfession(selectedProfession)?.name ?? 'your course'}!
+                </motion.p>
+              )}
 
               <motion.button
                 onClick={completeOnboarding}
@@ -735,5 +765,209 @@ export default function GetStartedPage() {
         </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+/* ─── Answer Checking ─── */
+
+function checkAnswer(q: CourseQuestion, selectedIndices: number[]): boolean {
+  switch (q.type) {
+    case 'multiple-choice':
+      return selectedIndices[0] === q.correctIndex;
+    case 'true-false':
+      // index 0 = True, index 1 = False
+      return (selectedIndices[0] === 0) === q.correctAnswer;
+    case 'multi-select': {
+      if (!q.correctIndices) return false;
+      const sorted = [...selectedIndices].sort();
+      const correctSorted = [...q.correctIndices].sort();
+      return sorted.length === correctSorted.length && sorted.every((v, i) => v === correctSorted[i]);
+    }
+    default:
+      return false;
+  }
+}
+
+/* ─── Placement Question Card ─── */
+
+function PlacementQuestionCard({
+  pq,
+  selectedAnswer,
+  revealed,
+  showOutOfHearts,
+  onAnswer,
+  onNext,
+  isLast,
+}: {
+  pq: PlacementQuestion;
+  selectedAnswer: number[] | null;
+  revealed: boolean;
+  showOutOfHearts: boolean;
+  onAnswer: (indices: number[]) => void;
+  onNext: () => void;
+  isLast: boolean;
+}) {
+  const q = pq.question;
+  const isMultiSelect = q.type === 'multi-select';
+  const [multiSelections, setMultiSelections] = useState<number[]>([]);
+
+  // Reset multi-selections when question changes
+  useEffect(() => {
+    setMultiSelections([]);
+  }, [q.id]);
+
+  const options = q.type === 'true-false'
+    ? ['True', 'False']
+    : q.options ?? [];
+
+  const isCorrect = selectedAnswer !== null && checkAnswer(q, selectedAnswer);
+
+  const handleOptionClick = (idx: number) => {
+    if (revealed || showOutOfHearts) return;
+
+    if (isMultiSelect) {
+      setMultiSelections((prev) =>
+        prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+      );
+    } else {
+      onAnswer([idx]);
+    }
+  };
+
+  const handleMultiSelectSubmit = () => {
+    if (multiSelections.length === 0) return;
+    onAnswer(multiSelections);
+  };
+
+  return (
+    <>
+      {/* Question */}
+      <div className="bg-gray-50 rounded-2xl px-5 py-4 mb-5">
+        {q.type === 'multi-select' && (
+          <span className="text-xs font-black text-amber-500 uppercase tracking-wider mb-2 block">
+            Select all that apply
+          </span>
+        )}
+        <h2 className="text-base sm:text-lg font-black text-gray-900 leading-snug">
+          {q.question}
+        </h2>
+      </div>
+
+      {/* Options */}
+      <div className="space-y-2.5 mb-5">
+        {options.map((opt, idx) => {
+          const isSelected = isMultiSelect
+            ? (revealed ? selectedAnswer?.includes(idx) : multiSelections.includes(idx))
+            : selectedAnswer?.[0] === idx;
+
+          let isOptionCorrect = false;
+          if (q.type === 'true-false') {
+            isOptionCorrect = (idx === 0) === q.correctAnswer;
+          } else if (q.type === 'multi-select') {
+            isOptionCorrect = q.correctIndices?.includes(idx) ?? false;
+          } else {
+            isOptionCorrect = idx === q.correctIndex;
+          }
+
+          let optionStyle = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
+          if (revealed) {
+            if (isOptionCorrect) optionStyle = 'border-primary-500 bg-primary-500/5';
+            else if (isSelected && !isOptionCorrect) optionStyle = 'border-red-400 bg-red-50';
+            else optionStyle = 'border-gray-100 bg-gray-50 opacity-60';
+          } else if (isSelected) {
+            optionStyle = 'border-primary-400 bg-primary-50';
+          }
+
+          const label = String.fromCharCode(65 + idx); // A, B, C, D...
+
+          return (
+            <motion.button
+              key={idx}
+              onClick={() => handleOptionClick(idx)}
+              disabled={revealed}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 + idx * 0.04 }}
+              className={cn(
+                'w-full flex items-start gap-3 p-3.5 min-h-[48px] rounded-xl border-2 transition-all text-left',
+                optionStyle
+              )}
+            >
+              <span className={cn(
+                'w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 mt-0.5',
+                revealed && isOptionCorrect ? 'bg-primary-500 text-white'
+                  : revealed && isSelected && !isOptionCorrect ? 'bg-red-400 text-white'
+                  : isSelected && !revealed ? 'bg-primary-400 text-white'
+                  : 'bg-gray-100 text-gray-500'
+              )}>
+                {revealed && isOptionCorrect ? '✓' : revealed && isSelected && !isOptionCorrect ? '✗' : label}
+              </span>
+              <span className="text-sm font-semibold text-gray-700 leading-snug">{opt}</span>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Multi-select submit button (before revealing) */}
+      {isMultiSelect && !revealed && (
+        <button
+          onClick={handleMultiSelectSubmit}
+          disabled={multiSelections.length === 0}
+          className={cn(
+            'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px] mb-5',
+            multiSelections.length === 0
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-primary-500 text-white'
+          )}
+          style={{ boxShadow: multiSelections.length === 0 ? 'none' : '0 5px 0 #0F766E' }}
+        >
+          CHECK ANSWER
+        </button>
+      )}
+
+      {/* Feedback + Next */}
+      <AnimatePresence>
+        {revealed && !showOutOfHearts && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className={cn(
+              'p-4 rounded-xl mb-5 flex items-start gap-3',
+              isCorrect
+                ? 'bg-primary-500/10 border border-primary-500/20'
+                : 'bg-orange-50 border border-orange-200'
+            )}>
+              {isCorrect
+                ? <CheckCircle2 className="w-5 h-5 text-primary-500 shrink-0 mt-0.5" />
+                : <XCircle className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+              }
+              <div>
+                <p className={cn(
+                  'font-black text-sm mb-1',
+                  isCorrect ? 'text-primary-500' : 'text-orange-600'
+                )}>
+                  {isCorrect ? 'Correct!' : 'Incorrect'}
+                </p>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {q.explanation}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={onNext}
+              className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
+              style={{ boxShadow: '0 5px 0 #0F766E' }}
+            >
+              {isLast ? 'FINISH TEST' : 'NEXT QUESTION'}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
