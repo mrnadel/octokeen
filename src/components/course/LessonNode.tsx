@@ -128,7 +128,7 @@ export const LessonNode = memo(function LessonNode({
                 background:
                   isLocked ? 'rgba(0,0,0,0.04)'
                   : isGolden ? undefined
-                  : `${theme.color}18`,
+                  : '#FFFFFF',
                 fontSize: 18,
                 position: 'relative',
               }}
