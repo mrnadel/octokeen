@@ -36,7 +36,7 @@ export default function DesktopSideNav() {
               href="/switch-course"
               className="flex items-center gap-1.5 mt-1 text-xs font-bold text-surface-400 hover:text-surface-600 transition-colors"
             >
-              <CourseIcon professionId={profession.id} color={profession.color} size={16} />
+              <CourseIcon professionId={profession.id} color={profession.color} size={22} />
               <span>{profession.shortName}</span>
             </Link>
           )}

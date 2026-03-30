@@ -163,12 +163,12 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'In the ISO hole-basis system, what does the designation H7/g6 represent?',
           options: [
-            'Hole with H deviation and IT7, mating with g6 shaft',
+            'Transition fit where H and g are surface finishes',
             'A hole of 7 mm mating with a shaft of 6 mm size',
             'An interference fit with 7 mm hole and 6 mm shaft',
-            'Transition fit where H and g are surface finishes'
+            'Hole with H deviation and IT7, mating with g6 shaft'
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           diagram: '<svg viewBox="0 0 80 80" fill="none"> <text x="40" y="7" font-size="5" fill="#334155" text-anchor="middle" font-weight="bold">H7 / g6 Clearance Fit</text> <circle cx="26" cy="40" r="18" fill="#58CC02" opacity="0.06"/> <circle cx="26" cy="40" r="18" stroke="#58CC02" stroke-width="2" fill="none"/> <circle cx="26" cy="40" r="14" fill="#3B8700" opacity="0.1"/> <circle cx="26" cy="40" r="14" stroke="#3B8700" stroke-width="1.5" fill="none"/> <text x="26" y="42" font-size="4" fill="#334155" text-anchor="middle">shaft</text> <text x="26" y="62" font-size="4" fill="#334155" text-anchor="middle">hole</text> <line x1="62" y1="68" x2="62" y2="14" stroke="#3B8700" stroke-width="0.8" opacity="0.3"/> <line x1="52" y1="44" x2="76" y2="44" stroke="#3B8700" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/> <text x="76" y="46" font-size="3" fill="#6B7280">nom</text> <rect x="54" y="30" width="6" height="14" rx="1" fill="#58CC02" opacity="0.2" stroke="#58CC02" stroke-width="1"/> <text x="57" y="38" font-size="3.5" fill="#58CC02" text-anchor="middle" font-weight="bold">H7</text> <rect x="66" y="48" width="6" height="10" rx="1" fill="#3B8700" opacity="0.2" stroke="#3B8700" stroke-width="1"/> <text x="69" y="55" font-size="3.5" fill="#3B8700" text-anchor="middle" font-weight="bold">g6</text> </svg>',
           explanation: 'In the ISO system, uppercase letters denote hole deviations and lowercase letters denote shaft deviations. "H" means the hole has a zero lower deviation (hole starts at nominal).',
           hint: 'Uppercase = hole, lowercase = shaft.',
@@ -258,12 +258,12 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'Why is the H7/H6 hole tolerance more commonly used than custom fundamental deviations (e.g., G7, K7)?',
           options: [
-            'H-type holes have zero lower deviation and match standard tooling',
-            'H-type holes are always more precise than other letter deviations',
             'Non-H holes are not permitted under ASME standards',
+            'H-type holes are always more precise than other letter deviations',
+            'H-type holes have zero lower deviation and match standard tooling',
             'H holes are only used in metric systems'
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           diagram: '<svg viewBox="0 0 80 80" fill="none"><text x="40" y="8" font-size="4.5" fill="#334155" text-anchor="middle" font-weight="bold">H Hole Popularity</text><rect x="8" y="18" width="64" height="20" rx="2" fill="#58CC02" opacity="0.08" stroke="#58CC02" stroke-width="1"/><text x="40" y="30" font-size="4" fill="#58CC02" text-anchor="middle" font-weight="bold">H hole: lower dev = 0</text><text x="40" y="36" font-size="3.5" fill="#334155" text-anchor="middle">Standard reamers match H</text><rect x="14" y="46" width="12" height="8" rx="1" fill="#58CC02" opacity="0.2" stroke="#58CC02" stroke-width="0.8"/><rect x="34" y="46" width="12" height="8" rx="1" fill="#58CC02" opacity="0.2" stroke="#58CC02" stroke-width="0.8"/><rect x="54" y="46" width="12" height="8" rx="1" fill="#58CC02" opacity="0.2" stroke="#58CC02" stroke-width="0.8"/><text x="20" y="52" font-size="3" fill="#334155" text-anchor="middle">H6</text><text x="40" y="52" font-size="3" fill="#334155" text-anchor="middle">H7</text><text x="60" y="52" font-size="3" fill="#334155" text-anchor="middle">H8</text><text x="40" y="68" font-size="3.5" fill="#6B7280" text-anchor="middle">Off-the-shelf tooling</text></svg>',
           explanation: 'Standard reamers, boring bars, and broaches are manufactured to produce H-type holes (zero lower deviation = hole at nominal minimum). Using H holes means off-the-shelf tooling can be used.',
           hint: 'Consider tooling availability.',
@@ -1312,12 +1312,12 @@ export const unit9: Unit = {
           type: 'multiple-choice',
           question: 'Part A is 25 +/-0.1, Part B is 30 +/-0.15, Housing is 56 +/-t. The gap must be at least 0.5 mm. Using worst-case, what is the max allowable housing tolerance t?',
           options: [
-            '+/-0.25 mm',
+            '+/-0.10 mm',
             '+/-0.50 mm',
             '+/-0.15 mm',
-            '+/-0.10 mm'
+            '+/-0.25 mm'
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation: 'Nominal gap = 56.0 - 25.0 - 30.0 = 1.0 mm. Min gap = 1.0 - (0.1 + 0.15 + t) >= 0.5. So t <= 0.25 mm.',
           hint: 'Set up the equation: nominal gap - sum of all tolerances >= minimum required gap.',
         },
@@ -2146,8 +2146,8 @@ export const unit9: Unit = {
         {
           id: 'u9-L-speed-SQ5',
           question: 'H7/g6 is what type of fit?',
-          options: ['Clearance', 'Interference', 'Transition', 'Press'],
-          correctIndex: 0,
+          options: ['Transition', 'Interference', 'Clearance', 'Press'],
+          correctIndex: 2,
         },
         {
           id: 'u9-L-speed-SQ6',

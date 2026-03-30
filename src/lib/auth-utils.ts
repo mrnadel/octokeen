@@ -8,17 +8,23 @@ export async function getAuthUserId(): Promise<string | null> {
 /**
  * Check if the current user is the configured admin.
  * Returns the user ID if admin, or null if not admin / not logged in.
- * Logs a warning if ADMIN_USER_ID is not configured.
+ * Checks by email (ADMIN_EMAIL) first, falls back to ADMIN_USER_ID.
  */
 export async function requireAdmin(): Promise<string | null> {
-  const userId = await getAuthUserId();
+  const session = await auth();
+  const userId = session?.user?.id ?? null;
   if (!userId) return null;
 
-  const adminId = process.env.ADMIN_USER_ID;
-  if (!adminId) {
-    console.warn('[auth] ADMIN_USER_ID env var is not set — all admin requests will be rejected');
-    return null;
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (adminEmail && session?.user?.email === adminEmail) {
+    return userId;
   }
 
-  return userId === adminId ? userId : null;
+  const adminId = process.env.ADMIN_USER_ID;
+  if (adminId && userId === adminId) {
+    return userId;
+  }
+
+  console.warn('[auth] No admin match for user', userId);
+  return null;
 }

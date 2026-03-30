@@ -2,8 +2,8 @@ import type { QuestDefinition } from './engagement-types';
 
 // --------------- Chest Rewards ---------------
 
-export const dailyChestReward = { xp: 50, gems: 15 };
-export const weeklyChestReward = { xp: 150, gems: 50 };
+export const dailyChestReward = { xp: 50, gems: 10 };
+export const weeklyChestReward = { xp: 150, gems: 40 };
 
 // --------------- Daily Quest Pool (10 quests) ---------------
 
@@ -16,7 +16,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'lessons_completed',
     target: 2,
     difficulty: 'easy',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-accuracy-80',
@@ -26,7 +26,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'accuracy_above_threshold',
     target: 1,
     difficulty: 'medium',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
     filter: { threshold: 0.8 },
   },
   {
@@ -37,7 +37,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'stale_topic_practiced',
     target: 1,
     difficulty: 'easy',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-daily-challenge',
@@ -47,7 +47,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'daily_challenges_completed',
     target: 1,
     difficulty: 'medium',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-correct-answers-15',
@@ -57,7 +57,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'questions_correct',
     target: 15,
     difficulty: 'medium',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-earn-xp-100',
@@ -67,7 +67,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'xp_earned',
     target: 100,
     difficulty: 'easy',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-stars-3',
@@ -77,7 +77,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'stars_earned',
     target: 3,
     difficulty: 'easy',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-unit-lesson',
@@ -87,7 +87,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'lessons_completed',
     target: 1,
     difficulty: 'easy',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
     filter: { currentUnit: true },
   },
   {
@@ -98,7 +98,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'fast_answers',
     target: 5,
     difficulty: 'stretch',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
   {
     id: 'dq-perfect-session',
@@ -108,7 +108,7 @@ export const dailyQuestPool: QuestDefinition[] = [
     trackingKey: 'perfect_sessions',
     target: 1,
     difficulty: 'stretch',
-    reward: { xp: 25, gems: 5 },
+    reward: { xp: 25, gems: 3 },
   },
 ];
 
@@ -123,7 +123,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'lessons_completed',
     target: 5,
     difficulty: 'easy',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-xp-500',
@@ -133,7 +133,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'xp_earned',
     target: 500,
     difficulty: 'medium',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-stars-3x3',
@@ -143,7 +143,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'stars_earned',
     target: 9,
     difficulty: 'medium',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-topics-4',
@@ -153,7 +153,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'topics_practiced',
     target: 4,
     difficulty: 'easy',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-all-daily-challenges',
@@ -163,7 +163,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'daily_challenges_completed',
     target: 7,
     difficulty: 'stretch',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-streak-7',
@@ -173,7 +173,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'streak_days',
     target: 7,
     difficulty: 'stretch',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-unit-lessons-3',
@@ -183,7 +183,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'lessons_completed',
     target: 3,
     difficulty: 'medium',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
     filter: { currentUnit: true },
   },
   {
@@ -194,7 +194,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'questions_correct',
     target: 50,
     difficulty: 'medium',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
   },
   {
     id: 'wq-finish-unit',
@@ -204,7 +204,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'lessons_completed',
     target: 1,
     difficulty: 'stretch',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
     filter: { unitComplete: true },
   },
   {
@@ -215,7 +215,7 @@ export const weeklyQuestPool: QuestDefinition[] = [
     trackingKey: 'accuracy_above_threshold',
     target: 3,
     difficulty: 'stretch',
-    reward: { xp: 75, gems: 20 },
+    reward: { xp: 75, gems: 15 },
     filter: { threshold: 0.9 },
   },
 ];

@@ -3,13 +3,13 @@ import type { StreakMilestoneDefinition } from './engagement-types';
 export const streakMilestones: StreakMilestoneDefinition[] = [
   {
     days: 7,
-    gems: 10,
+    gems: 15,
     badgeName: 'Week Warrior',
     badgeIcon: '🔥',
   },
   {
     days: 14,
-    gems: 20,
+    gems: 25,
     badgeName: 'Fortnight of Focus',
     badgeIcon: '⚡',
     hasTitle: true,
@@ -48,5 +48,17 @@ export const streakMilestones: StreakMilestoneDefinition[] = [
     hasTitle: true,
     titleText: 'Centurion',
     titleId: 'reward-title-centurion',
+  },
+  {
+    days: 150,
+    gems: 300,
+    badgeName: 'Unstoppable',
+    badgeIcon: '🚀',
+  },
+  {
+    days: 365,
+    gems: 500,
+    badgeName: 'Year of Mastery',
+    badgeIcon: '🏅',
   },
 ];

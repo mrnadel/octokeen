@@ -461,15 +461,13 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
                 style={{
                   width: 40,
                   height: 40,
-                  borderRadius: 10,
-                  backgroundColor: p.color,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
                 }}
               >
-                <CourseIcon professionId={p.id} color="#FFFFFF" size={22} />
+                <CourseIcon professionId={p.id} color={p.color} size={40} />
               </span>
 
               {/* Text */}

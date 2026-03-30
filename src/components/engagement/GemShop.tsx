@@ -4,6 +4,7 @@ import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
 import { useGems, useEngagementActions, useStreakEnhancements, useEngagementStore } from '@/store/useEngagementStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
 import { shopItems } from '@/data/gem-shop';
 import type { ShopItem } from '@/data/engagement-types';
 import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
@@ -285,6 +286,7 @@ const TitleCard = memo(function TitleCard({ item, canAfford, isDisabled, disable
 export function GemShop() {
   const gems = useGems();
   const streak = useStreakEnhancements();
+  const hearts = useHeartsStore();
   const { purchaseItem } = useEngagementActions();
   const [toasts, setToasts] = useState<ToastState[]>([]);
 
@@ -347,6 +349,9 @@ export function GemShop() {
     } else if (item.type === 'streak_freeze' && streak.freezesOwned >= MAX_STREAK_FREEZES) {
       isDisabled = true;
       disabledReason = 'Max owned';
+    } else if ((item.type === 'heart_refill' || item.type === 'heart_refill_full') && (hearts.isUnlimited() || hearts.current >= hearts.max)) {
+      isDisabled = true;
+      disabledReason = hearts.isUnlimited() ? 'Pro: unlimited hearts' : 'Hearts already full';
     } else if (!canAfford) {
       isDisabled = true;
       disabledReason = `Need ${item.cost - gems.balance} more gems`;

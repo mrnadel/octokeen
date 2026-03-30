@@ -7,7 +7,7 @@ import { lesson7 } from './htw-L7';
 export const unitHowThingsWork: Unit = {
   id: 'u7-how-things-work',
   title: 'How Things Work',
-  description: 'Real-world engineering in everyday objects — from kitchen appliances to car engines, connecting theory to the mechanisms all around us.',
+  description: 'Real-world engineering in everyday objects, from kitchen appliances to car engines, connecting theory to the mechanisms all around us.',
   color: '#78716C',
   icon: '🔧',
   topicId: 'real-world-mechanisms',

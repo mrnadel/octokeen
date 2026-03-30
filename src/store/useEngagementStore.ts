@@ -41,6 +41,7 @@ import {
 } from '@/lib/league-simulator';
 import { drawCompetitorsFromPool } from '@/lib/fake-user-generator';
 import { useStore } from '@/store/useStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
 
 // --------------- Default State Factories ---------------
 
@@ -342,6 +343,29 @@ export const useEngagementStore = create<EngagementStore>()(
           if (state.gems.balance < item.cost) return false;
 
           switch (item.type) {
+            case 'heart_refill':
+            case 'heart_refill_full': {
+              const heartsState = useHeartsStore.getState();
+              // Don't allow purchase if hearts are already full or user has unlimited
+              if (heartsState.isUnlimited() || heartsState.current >= heartsState.max) return false;
+              const heartsToAdd = (item.metadata?.heartsToRefill as number) || 1;
+              // Deduct gems
+              set((s) => ({
+                gems: {
+                  ...s.gems,
+                  balance: s.gems.balance - item.cost,
+                  transactions: [
+                    createGemTransaction(-item.cost, 'shop_purchase'),
+                    ...s.gems.transactions,
+                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                },
+              }));
+              // Add hearts
+              useHeartsStore.setState((hs) => ({
+                current: Math.min(hs.current + heartsToAdd, hs.max),
+              }));
+              return true;
+            }
             case 'streak_freeze': {
               if (state.streak.freezesOwned >= MAX_STREAK_FREEZES) return false;
               // Deduct gems first
@@ -428,7 +452,7 @@ export const useEngagementStore = create<EngagementStore>()(
           if (daysSinceBreak > 3) return false;
 
           // Check gem balance
-          const repairCost = 50;
+          const repairCost = 75;
           if (state.gems.balance < repairCost) return false;
 
           // Deduct gems, mark repair used, and restore streak

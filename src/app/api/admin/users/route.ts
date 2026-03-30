@@ -4,6 +4,14 @@ import { users, userProgress, subscriptions, courseAccess } from '@/lib/db/schem
 import { requireAdmin } from '@/lib/auth-utils';
 import { eq, desc } from 'drizzle-orm';
 
+export async function HEAD() {
+  const adminId = await requireAdmin();
+  if (!adminId) {
+    return new NextResponse(null, { status: 403 });
+  }
+  return new NextResponse(null, { status: 200 });
+}
+
 export async function GET() {
   const adminId = await requireAdmin();
   if (!adminId) {

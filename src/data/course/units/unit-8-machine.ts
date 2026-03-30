@@ -382,12 +382,12 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A shaft shoulder has Kt = 2.5. Which approach is most effective at reducing it?',
           options: [
-            'Increase fillet radius from 1 mm to 4 mm',
+            'Add a retaining ring groove nearby',
             'Add a second step keeping the same fillet radii',
             'Polish the fillet to mirror finish',
-            'Add a retaining ring groove nearby'
+            'Increase fillet radius from 1 mm to 4 mm'
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation: 'The fillet radius is the dominant factor controlling stress concentration at a shoulder. Increasing it from 1 to 4 mm can drop Kt from 2.5 to 1.5 or less.',
           hint: 'Which geometric parameter has the greatest influence on Kt?',
         },
@@ -646,12 +646,12 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'ISO VG 68 lubricating oil. What does the 68 represent?',
           options: [
-            'Kinematic viscosity of 68 cSt at 40 C',
+            'Oil density of 68 kg/m^3',
             'Kinematic viscosity of 68 cSt at 100 C',
             'Dynamic viscosity of 68 Pa*s at 40 C',
-            'Oil density of 68 kg/m^3'
+            'Kinematic viscosity of 68 cSt at 40 C'
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation: 'ISO VG (Viscosity Grade) numbers represent kinematic viscosity in centistokes (cSt) at 40 C. VG 68 means approximately 68 cSt at 40 C.',
           hint: 'ISO VG stands for Viscosity Grade, measured at 40 C.',
         },
@@ -850,12 +850,12 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'A 3-stage gearbox has ratios of 3:1, 4:1, and 2:1. If the input is 2400 RPM, what is the output speed?',
           options: [
-            '100 RPM',
+            '800 RPM',
             '200 RPM',
             '400 RPM',
-            '800 RPM'
+            '100 RPM'
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation: 'Overall gear ratio = 3 x 4 x 2 = 24:1. Output speed = 2400/24 = 100 RPM.',
           hint: 'For gears in series, the total ratio is the product.',
         },
@@ -929,8 +929,8 @@ export const unit8: Unit = {
           id: 'u8-L3b-Q1a',
           type: 'multiple-choice',
           question: 'Which gear type has the simplest, straight teeth?',
-          options: ['Spur', 'Helical', 'Bevel', 'Worm'],
-          correctIndex: 0,
+          options: ['Helical', 'Spur', 'Bevel', 'Worm'],
+          correctIndex: 1,
           explanation: 'Spur gears have straight teeth parallel to the shaft axis. They\'re the simplest and cheapest to manufacture.',
           hint: 'The most basic gear type.',
         },
@@ -1102,12 +1102,12 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'In AGMA methodology, the two primary failure modes checked are:',
           options: [
-            'Bending fatigue at root (Lewis/AGMA) and surface pitting (Hertzian/AGMA)',
-            'Tooth shear and bearing overload',
             'Abrasive wear and corrosion',
+            'Tooth shear and bearing overload',
+            'Bending fatigue at root (Lewis/AGMA) and surface pitting (Hertzian/AGMA)',
             'Thermal distortion and vibration resonance'
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation: 'AGMA gear rating requires checking bending stress at the tooth root and contact stress on the flank. Both must be below their respective allowable stresses.',
           hint: 'Gear teeth can fail by breaking off or by surface fatigue.',
         },
@@ -1233,12 +1233,12 @@ export const unit8: Unit = {
           type: 'multiple-choice',
           question: 'Bolt stiffness k_b = 400 kN/mm, member stiffness k_c = 1200 kN/mm. External load = 20 kN. How much additional load does the bolt carry?',
           options: [
-            '5 kN',
-            '10 kN',
             '15 kN',
+            '10 kN',
+            '5 kN',
             '20 kN'
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation: 'Stiffness ratio C = k_b/(k_b + k_c) = 400/(400 + 1200) = 0.25. Additional bolt load = C x F_ext = 0.25 x 20 = 5 kN. The stiff members absorb most of the external load.',
           hint: 'The load split depends on the stiffness ratio C = k_b/(k_b + k_c).',
         },
@@ -1813,8 +1813,8 @@ export const unit8: Unit = {
           id: 'u8-L5c-Q1a',
           type: 'multiple-choice',
           question: 'A spring has 10 total coils with squared and ground ends. How many active coils?',
-          options: ['8', '9', '10', '12'],
-          correctIndex: 0,
+          options: ['12', '9', '10', '8'],
+          correctIndex: 3,
           explanation: 'Squared and ground ends have 2 inactive coils (one at each end for flat seating). So Na = N - 2 = 10 - 2 = 8 active coils.',
           hint: 'Each squared end removes one coil from being active.',
         },
@@ -2068,20 +2068,20 @@ export const unit8: Unit = {
         {
           id: 'u8-L-speed-SQ1',
           question: 'What transmits power through a rotating shaft?',
-          options: ['Torque', 'Shear force', 'Axial load', 'Bending only'],
-          correctIndex: 0,
+          options: ['Bending only', 'Shear force', 'Axial load', 'Torque'],
+          correctIndex: 3,
         },
         {
           id: 'u8-L-speed-SQ2',
           question: 'Where is shear stress maximum in a solid shaft under torsion?',
-          options: ['Outer surface', 'Center', 'Midway', 'Uniform'],
-          correctIndex: 0,
+          options: ['Center', 'Outer surface', 'Midway', 'Uniform'],
+          correctIndex: 1,
         },
         {
           id: 'u8-L-speed-SQ3',
           question: 'Beach marks on a shaft indicate what failure?',
-          options: ['Fatigue', 'Overload', 'Corrosion', 'Creep'],
-          correctIndex: 0,
+          options: ['Overload', 'Fatigue', 'Corrosion', 'Creep'],
+          correctIndex: 1,
         },
         {
           id: 'u8-L-speed-SQ4',

@@ -82,12 +82,11 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
               {/* Icon */}
               <span
                 className={cn(
-                  'flex items-center justify-center rounded-xl shrink-0',
+                  'flex items-center justify-center shrink-0',
                   compact ? 'w-10 h-10' : 'w-14 h-14'
                 )}
-                style={{ backgroundColor: `${profession.color}15` }}
               >
-                <CourseIcon professionId={profession.id} color={profession.color} size={compact ? 22 : 30} />
+                <CourseIcon professionId={profession.id} color={profession.color} size={compact ? 40 : 56} />
               </span>
 
               {/* Text */}
