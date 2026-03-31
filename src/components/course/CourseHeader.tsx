@@ -1222,7 +1222,7 @@ function GemsPopoverContent({
                       : (isDark ? 'rgba(220,38,38,0.1)' : '#FFF5F5'),
                   }}
                 >
-                  <span style={{ fontSize: 12, color: '#4B5563', fontWeight: 600, textTransform: 'capitalize', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: 12, color: isDark ? '#CBD5E1' : '#4B5563', fontWeight: 600, textTransform: 'capitalize', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {formatGemSource(tx.source)}
                   </span>
                   <span style={{ fontSize: 12, fontWeight: 800, color: isPositive ? '#16A34A' : '#DC2626', flexShrink: 0, marginLeft: 8 }}>
@@ -1271,6 +1271,7 @@ function GemsPopoverContent({
 const HEART_COST = 100; // gems per single heart — balanced: ~2 lessons worth of gem earnings
 
 function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
+  const isDark = useIsDark();
   const current = useHeartsStore((s) => s.current);
   const max = useHeartsStore((s) => s.max);
   const isUnlimited = useHeartsStore((s) => s.isUnlimited);
@@ -1321,7 +1322,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
   return (
     <div style={{ textAlign: 'center' }}>
       {/* Title */}
-      <h3 style={{ fontSize: 20, fontWeight: 800, color: '#3C3C3C', marginBottom: 16 }}>
+      <h3 style={{ fontSize: 20, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', marginBottom: 16 }}>
         Hearts
       </h3>
 
@@ -1342,7 +1343,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
                 width="36"
                 height="36"
                 viewBox="0 0 24 24"
-                fill={isFull ? '#EF4444' : isBreaking ? '#FECDD3' : '#D4D4D8'}
+                fill={isFull ? '#EF4444' : isBreaking ? (isDark ? '#7F1D1D' : '#FECDD3') : (isDark ? '#475569' : '#D4D4D8')}
                 initial={false}
                 animate={isBreaking ? { scale: [1, 1.12, 1] } : {}}
                 transition={{ duration: 0.5 }}
@@ -1361,12 +1362,12 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
           You have unlimited hearts!
         </p>
       ) : current < max && countdown ? (
-        <p style={{ fontSize: 14, fontWeight: 700, color: '#3C3C3C', marginBottom: 4 }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: isDark ? '#E2E8F0' : '#3C3C3C', marginBottom: 4 }}>
           Next heart in <span style={{ color: '#E11D48' }}>{countdown}</span>
         </p>
       ) : null}
 
-      <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginBottom: 18 }}>
+      <p style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#64748B' : '#AFAFAF', marginBottom: 18 }}>
         {unlimited
           ? 'Pro members never run out.'
           : current === max
@@ -1388,8 +1389,8 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
               gap: 10,
               padding: '10px 12px',
               borderRadius: 12,
-              background: '#F9FAFB',
-              border: '1.5px solid #E5E7EB',
+              background: isDark ? '#0F172A' : '#F9FAFB',
+              border: isDark ? '1.5px solid #334155' : '1.5px solid #E5E7EB',
               textDecoration: 'none',
             }}
           >
@@ -1400,7 +1401,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
             }}>
               <span style={{ fontSize: 16, color: 'white', fontWeight: 900, lineHeight: 1 }}>&infin;</span>
             </div>
-            <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: 12, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', whiteSpace: 'nowrap' }}>
               UNLIMITED HEARTS
             </span>
             <span style={{ fontSize: 12, fontWeight: 800, color: '#E11D48', marginLeft: 'auto', whiteSpace: 'nowrap' }}>
@@ -1416,8 +1417,8 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
                 gap: 10,
                 padding: '10px 12px',
                 borderRadius: 12,
-                background: '#F9FAFB',
-                border: '1.5px solid #E5E7EB',
+                background: isDark ? '#0F172A' : '#F9FAFB',
+                border: isDark ? '1.5px solid #334155' : '1.5px solid #E5E7EB',
                 cursor: canBuyOne ? 'pointer' : 'not-allowed',
                 opacity: canBuyOne ? 1 : 0.45,
                 width: '100%',
@@ -1427,12 +1428,12 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
             >
               <div style={{
                 width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-                background: '#FEE2E2',
+                background: isDark ? 'rgba(239,68,68,0.15)' : '#FEE2E2',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4444"><path d={heartPath}/></svg>
               </div>
-              <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', whiteSpace: 'nowrap' }}>
                 BUY ONE HEART
               </span>
               <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>
@@ -1450,8 +1451,8 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
                 gap: 10,
                 padding: '10px 12px',
                 borderRadius: 12,
-                background: '#F9FAFB',
-                border: '1.5px solid #E5E7EB',
+                background: isDark ? '#0F172A' : '#F9FAFB',
+                border: isDark ? '1.5px solid #334155' : '1.5px solid #E5E7EB',
                 cursor: canRefillAll ? 'pointer' : 'not-allowed',
                 opacity: canRefillAll ? 1 : 0.45,
                 width: '100%',
@@ -1461,14 +1462,14 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
             >
               <div style={{
                 width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-                background: '#FEE2E2',
+                background: isDark ? 'rgba(239,68,68,0.15)' : '#FEE2E2',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
                 </svg>
               </div>
-              <span style={{ fontSize: 12, fontWeight: 800, color: '#3C3C3C', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', whiteSpace: 'nowrap' }}>
                 REFILL ALL ({missingHearts})
               </span>
               <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>

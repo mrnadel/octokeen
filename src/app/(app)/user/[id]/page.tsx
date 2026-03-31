@@ -162,7 +162,7 @@ export default function PublicProfilePage() {
 
   if (error || !profile || !levelInfo) {
     return (
-      <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
+      <div className="bg-[#FAFAFA]" style={{ minHeight: '100vh' }}>
         <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-gray-100">
           <div className="flex items-center h-14 px-4">
             <button onClick={() => router.back()} className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors">

@@ -3,7 +3,7 @@ import { QuestBoard } from '@/components/engagement/QuestBoard';
 
 export default function QuestsPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: '#FAFAFA' }}>
+    <div className="min-h-screen overflow-x-hidden bg-[#FAFAFA]">
       <PageHeader title="Quests" subtitle="Complete quests for XP & gems" />
 
       {/* Quest Board */}

@@ -51,7 +51,7 @@ export default function FriendsPage() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
+    <div className="min-h-screen bg-[#FAFAFA]">
       <PageHeader title="Friends" subtitle="Study together, grow together" />
 
       <div className="px-3 sm:px-5 py-4 sm:py-5 max-w-[600px] mx-auto">

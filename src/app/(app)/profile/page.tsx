@@ -25,6 +25,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMasteryStore } from '@/store/useMasteryStore';
+import { useIsDark } from '@/store/useThemeStore';
 import { computeAllMastery } from '@/data/mastery';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useGems, useEngagementStore } from '@/store/useEngagementStore';
@@ -166,6 +167,8 @@ function HeroStat({
   bg,
   border,
   valueColor,
+  darkBg,
+  darkBorder,
   delay = 0,
 }: {
   emoji: string;
@@ -174,15 +177,21 @@ function HeroStat({
   bg: string;
   border: string;
   valueColor: string;
+  darkBg?: string;
+  darkBorder?: string;
   delay?: number;
 }) {
+  const isDark = useIsDark();
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       className="flex-1 flex flex-col items-center py-3.5 rounded-2xl"
-      style={{ background: bg, border: `1.5px solid ${border}` }}
+      style={{
+        background: isDark ? (darkBg || '#1E293B') : bg,
+        border: `1.5px solid ${isDark ? (darkBorder || '#334155') : border}`,
+      }}
     >
       <span className="text-lg sm:text-[22px] leading-none">{emoji}</span>
       <p className="text-lg sm:text-xl font-extrabold tracking-tight mt-1.5" style={{ color: valueColor }}>
@@ -215,7 +224,8 @@ function TopicBar({
   lastPracticed: string | null;
   delay: number;
 }) {
-  const barColor = eventCount > 0 ? MASTERY_COLORS[level] ?? color : '#E5E7EB';
+  const isDark = useIsDark();
+  const barColor = eventCount > 0 ? MASTERY_COLORS[level] ?? color : (isDark ? '#334155' : '#E5E7EB');
   return (
     <motion.div
       initial={{ opacity: 0, x: -12 }}
@@ -285,6 +295,7 @@ function AchievementBadge({
 // PROFILE PAGE
 // ═══════════════════════════════════════════════════════════
 export default function ProfilePage() {
+  const isDark = useIsDark();
   const router = useRouter();
   const { data: session, update: updateSession } = useSession();
   const progress = useStore((s) => s.progress);
@@ -665,9 +676,9 @@ export default function ProfilePage() {
       {/* ─── Stats Row ───────────────────────────────────── */}
       <div className="px-3 sm:px-4 -mt-5 relative z-10">
         <div className="flex gap-2 sm:gap-2.5">
-          <HeroStat emoji="⭐" value={totalXp} label="Total XP" bg="#FFFBEB" border="#FDE68A" valueColor="#B45309" delay={0.2} />
-          <HeroStat emoji="⚡" value={currentStreak} label="Day Streak" bg="#FFF7ED" border="#FED7AA" valueColor="#C2410C" delay={0.3} />
-          <HeroStat emoji="🎯" value={accuracy} label="Accuracy" bg="#F0FDF4" border="#BBF7D0" valueColor="#15803D" delay={0.4} />
+          <HeroStat emoji="⭐" value={totalXp} label="Total XP" bg="#FFFBEB" border="#FDE68A" valueColor="#B45309" darkBg="rgba(180,83,9,0.12)" darkBorder="rgba(180,83,9,0.25)" delay={0.2} />
+          <HeroStat emoji="⚡" value={currentStreak} label="Day Streak" bg="#FFF7ED" border="#FED7AA" valueColor="#C2410C" darkBg="rgba(194,65,12,0.12)" darkBorder="rgba(194,65,12,0.25)" delay={0.3} />
+          <HeroStat emoji="🎯" value={accuracy} label="Accuracy" bg="#F0FDF4" border="#BBF7D0" valueColor="#15803D" darkBg="rgba(21,128,61,0.12)" darkBorder="rgba(21,128,61,0.25)" delay={0.4} />
         </div>
       </div>
 
@@ -702,7 +713,9 @@ export default function ProfilePage() {
                       className="rounded-2xl p-2 transition-all"
                       style={{
                         border: !gems.selectedFrame ? '2px solid #0D9488' : '2px solid transparent',
-                        background: !gems.selectedFrame ? '#F0FDF4' : '#F9FAFB',
+                        background: !gems.selectedFrame
+                          ? (isDark ? 'rgba(13,148,136,0.12)' : '#F0FDF4')
+                          : (isDark ? '#0F172A' : '#F9FAFB'),
                       }}
                     >
                       <AvatarFrame frameStyle={null} size={56}>
@@ -732,7 +745,7 @@ export default function ProfilePage() {
                           className="rounded-2xl p-2 transition-all"
                           style={{
                             border: isEquipped ? `2px solid ${borderColor}` : '2px solid transparent',
-                            background: isEquipped ? `${borderColor}15` : '#F9FAFB',
+                            background: isEquipped ? `${borderColor}15` : (isDark ? '#0F172A' : '#F9FAFB'),
                           }}
                         >
                           <AvatarFrame frameStyle={fStyle} size={56}>
@@ -761,9 +774,13 @@ export default function ProfilePage() {
                     onClick={() => useEngagementStore.getState().equipTitle(null)}
                     className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all"
                     style={{
-                      background: !gems.selectedTitle ? '#F0FDF4' : '#F9FAFB',
-                      border: !gems.selectedTitle ? '2px solid #16A34A' : '2px solid #E5E7EB',
-                      color: !gems.selectedTitle ? '#16A34A' : '#6B7280',
+                      background: !gems.selectedTitle
+                        ? (isDark ? 'rgba(22,163,74,0.12)' : '#F0FDF4')
+                        : (isDark ? '#0F172A' : '#F9FAFB'),
+                      border: !gems.selectedTitle
+                        ? '2px solid #16A34A'
+                        : (isDark ? '2px solid #334155' : '2px solid #E5E7EB'),
+                      color: !gems.selectedTitle ? '#16A34A' : (isDark ? '#94A3B8' : '#6B7280'),
                     }}
                   >
                     None
@@ -789,10 +806,10 @@ export default function ProfilePage() {
                           boxShadow: `0 2px 8px ${titleAccent}40`,
                         } : {
                           background: titleGradient
-                            ? `linear-gradient(white, white) padding-box, ${titleGradient} border-box`
-                            : '#F9FAFB',
-                          border: titleGradient ? '2px solid transparent' : '2px solid #E5E7EB',
-                          color: titleAccent || '#6B7280',
+                            ? `linear-gradient(${isDark ? '#1E293B' : 'white'}, ${isDark ? '#1E293B' : 'white'}) padding-box, ${titleGradient} border-box`
+                            : (isDark ? '#0F172A' : '#F9FAFB'),
+                          border: titleGradient ? '2px solid transparent' : (isDark ? '2px solid #334155' : '2px solid #E5E7EB'),
+                          color: titleAccent || (isDark ? '#94A3B8' : '#6B7280'),
                         }}
                       >
                         <span>{icon}</span>

@@ -32,7 +32,7 @@ export default function LeaguePage() {
   const [tab, setTab] = useState<'league' | 'friends'>('league');
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
+    <div className="min-h-screen bg-[#FAFAFA]">
       <PageHeader title="Leaderboard" subtitle={weekRange} maxWidth />
 
       {/* Tabs */}

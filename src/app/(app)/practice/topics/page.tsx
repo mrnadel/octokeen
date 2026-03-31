@@ -38,7 +38,7 @@ function TopicDeepDiveContent() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAFA' }}>
+    <div className="min-h-screen bg-[#FAFAFA]">
       <PageHeader title="Topic Deep Dive" subtitle="Choose a topic and difficulty, then go deep" />
 
       <div className="px-4 sm:px-5 pt-4 pb-8">

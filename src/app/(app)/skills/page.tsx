@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useIsDark } from '@/store/useThemeStore';
 import { courseMeta } from '@/data/course/course-meta';
 import { topics } from '@/data/topics';
 import { TrendingUp, AlertTriangle, Trophy } from 'lucide-react';
@@ -32,6 +33,7 @@ function scoreToMastery(score: number): Mastery {
 /* ── page ── */
 
 export default function SkillMapPage() {
+  const isDark = useIsDark();
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
 
   // Derive topic stats directly from completed course lessons
@@ -126,7 +128,7 @@ export default function SkillMapPage() {
           : 'Start lessons to build your skills';
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAFAFA' }}>
+    <div className="bg-[#FAFAFA]" style={{ minHeight: '100vh' }}>
       <PageHeader title="Interview Readiness" />
 
       <div className="px-4 sm:px-5 pt-5 pb-10 max-w-[600px] mx-auto">
@@ -138,7 +140,7 @@ export default function SkillMapPage() {
         >
           <div style={{ position: 'relative', width: 120, height: 120, marginBottom: 16 }}>
             <svg width="120" height="120" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="52" fill="none" stroke="#F0F0F0" strokeWidth="10" />
+              <circle cx="60" cy="60" r="52" fill="none" stroke={isDark ? '#334155' : '#F0F0F0'} strokeWidth="10" />
               <motion.circle
                 cx="60"
                 cy="60"
@@ -178,7 +180,7 @@ export default function SkillMapPage() {
               </span>
             </div>
           </div>
-          <p style={{ fontSize: 14, fontWeight: 700, color: '#3C3C3C', textAlign: 'center' }}>
+          <p style={{ fontSize: 14, fontWeight: 700, color: isDark ? '#E2E8F0' : '#3C3C3C', textAlign: 'center' }}>
             {ringMessage}
           </p>
           {/* Quick counts */}
@@ -361,7 +363,7 @@ function TopicRow({ topic, compact, onPractice }: TopicRowProps) {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="flex items-center justify-between" style={{ gap: 8 }}>
-            <h3 className="text-sm sm:text-[15px] font-extrabold text-[#3C3C3C] leading-tight truncate">
+            <h3 className="text-sm sm:text-[15px] font-extrabold text-[#3C3C3C] dark:text-surface-200 leading-tight truncate">
               {topic.name}
             </h3>
             {topic.attempted > 0 && (
@@ -393,9 +395,9 @@ function TopicRow({ topic, compact, onPractice }: TopicRowProps) {
             >
               {meta.label}
             </span>
-            <span className="text-[11px] font-semibold text-[#CFCFCF] shrink-0">{relevanceLabel}</span>
+            <span className="text-[11px] font-semibold text-[#CFCFCF] dark:text-surface-600 shrink-0">{relevanceLabel}</span>
             {topic.totalLessons > 0 && (
-              <span className="text-[11px] font-semibold text-[#CFCFCF] shrink-0">
+              <span className="text-[11px] font-semibold text-[#CFCFCF] dark:text-surface-600 shrink-0">
                 {topic.completedLessonCount}/{topic.totalLessons} lessons
               </span>
             )}
