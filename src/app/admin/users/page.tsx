@@ -54,6 +54,15 @@ export default function AdminUsersPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
   const lastClickedIndex = useRef<number | null>(null);
+  const shiftHeld = useRef(false);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => { if (e.key === 'Shift') shiftHeld.current = true; };
+    const up = (e: KeyboardEvent) => { if (e.key === 'Shift') shiftHeld.current = false; };
+    window.addEventListener('keydown', down);
+    window.addEventListener('keyup', up);
+    return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
+  }, []);
 
   const toggleTier = async (userId: string, currentTier: string) => {
     const newTier = currentTier === 'pro' ? 'free' : 'pro';
@@ -217,11 +226,11 @@ export default function AdminUsersPage() {
     });
   }, [filtered, sortKey, sortDir]);
 
-  const handleSelect = useCallback((id: string, index: number, shiftKey: boolean) => {
+  const handleSelect = useCallback((id: string, index: number) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
 
-      if (shiftKey && lastClickedIndex.current !== null) {
+      if (shiftHeld.current && lastClickedIndex.current !== null) {
         const start = Math.min(lastClickedIndex.current, index);
         const end = Math.max(lastClickedIndex.current, index);
         for (let i = start; i <= end; i++) {
@@ -429,8 +438,7 @@ export default function AdminUsersPage() {
                         <input
                           type="checkbox"
                           checked={selectedIds.has(user.id)}
-                          onChange={() => {}}
-                          onClick={(e) => { e.stopPropagation(); handleSelect(user.id, idx, e.shiftKey); }}
+                          onChange={() => handleSelect(user.id, idx)}
                           className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                         />
                       </td>
@@ -531,8 +539,7 @@ export default function AdminUsersPage() {
                   <input
                     type="checkbox"
                     checked={selectedIds.has(user.id)}
-                    onChange={() => {}}
-                          onClick={(e) => { e.stopPropagation(); handleSelect(user.id, idx, e.shiftKey); }}
+                    onChange={() => handleSelect(user.id, idx)}
                     className="w-4 h-4 mt-1 shrink-0 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">
