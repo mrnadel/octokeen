@@ -5,15 +5,19 @@ import { courseUnits, courseLessons, courseQuestions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { canAccessUnit } from '@/lib/access-control';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
-import { getCourseMetaForProfession } from '@/data/course/course-meta';
+import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const profession = searchParams.get('profession') || 'mechanical-engineering';
 
-  // DB currently only stores ME course content; other professions use static data
+  // Non-ME professions: load full data from static files
   if (profession !== 'mechanical-engineering') {
-    return NextResponse.json({ course: [] });
+    const meta = getCourseMetaForProfession(profession);
+    const course = await Promise.all(
+      meta.map((_, i) => loadUnitData(i, profession))
+    );
+    return NextResponse.json({ course });
   }
 
   // Run all DB queries in parallel instead of sequentially

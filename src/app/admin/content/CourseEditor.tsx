@@ -202,7 +202,7 @@ const formActions: React.CSSProperties = {
 
 // --------------- Component ---------------
 
-export default function CourseEditor() {
+export default function CourseEditor({ professionId = 'mechanical-engineering', readOnly = false }: { professionId?: string; readOnly?: boolean }) {
   const [units, setUnits] = useState<Unit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -222,7 +222,7 @@ export default function CourseEditor() {
   const fetchData = useCallback(async () => {
     try {
       setError(null);
-      const res = await fetch('/api/content/course');
+      const res = await fetch(`/api/content/course?profession=${professionId}`);
       if (!res.ok) throw new Error('Failed to fetch course data');
       const data = await res.json();
       const fetchedUnits: Unit[] = data.course;
@@ -254,11 +254,15 @@ export default function CourseEditor() {
     } finally {
       setLoading(false);
     }
-  }, [selectedUnit, selectedLesson]);
+  }, [selectedUnit, selectedLesson, professionId]);
 
   useEffect(() => {
+    setView('units');
+    setSelectedUnit(null);
+    setSelectedLesson(null);
+    setLoading(true);
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [professionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --------------- API helpers ---------------
 
@@ -360,9 +364,10 @@ export default function CourseEditor() {
       {view === 'units' && (
         <UnitsView
           units={units}
-          editingId={editingId}
-          isAdding={isAdding}
+          editingId={readOnly ? null : editingId}
+          isAdding={readOnly ? false : isAdding}
           saving={saving}
+          readOnly={readOnly}
           onAdd={() => {
             setIsAdding(true);
             setEditingId(null);
@@ -387,9 +392,10 @@ export default function CourseEditor() {
       {view === 'lessons' && selectedUnit && (
         <LessonsView
           unit={selectedUnit}
-          editingId={editingId}
-          isAdding={isAdding}
+          editingId={readOnly ? null : editingId}
+          isAdding={readOnly ? false : isAdding}
           saving={saving}
+          readOnly={readOnly}
           onBack={navigateBack}
           onAdd={() => {
             setIsAdding(true);
@@ -421,9 +427,10 @@ export default function CourseEditor() {
         <QuestionsView
           unit={selectedUnit}
           lesson={selectedLesson}
-          editingId={editingId}
-          isAdding={isAdding}
+          editingId={readOnly ? null : editingId}
+          isAdding={readOnly ? false : isAdding}
           saving={saving}
+          readOnly={readOnly}
           onBack={navigateBack}
           onBackToUnits={() => {
             setSelectedUnit(null);
@@ -475,6 +482,7 @@ function UnitsView({
   editingId,
   isAdding,
   saving,
+  readOnly,
   onAdd,
   onEdit,
   onCancelEdit,
@@ -486,6 +494,7 @@ function UnitsView({
   editingId: string | null;
   isAdding: boolean;
   saving: boolean;
+  readOnly?: boolean;
   onAdd: () => void;
   onEdit: (id: string) => void;
   onCancelEdit: () => void;
@@ -504,7 +513,7 @@ function UnitsView({
             {units.length} units
           </p>
         </div>
-        {!isAdding && (
+        {!isAdding && !readOnly && (
           <button style={btnPrimary} onClick={onAdd}>
             + Add Unit
           </button>
@@ -569,23 +578,25 @@ function UnitsView({
                     {unit.description}
                   </p>
                 </div>
-                <div
-                  style={actionRow}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    style={btnSecondary}
-                    onClick={() => onEdit(unit.id)}
+                {!readOnly && (
+                  <div
+                    style={actionRow}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    Edit
-                  </button>
-                  <button
-                    style={btnDanger}
-                    onClick={() => onDelete(unit.id, unit.title)}
-                  >
-                    Delete
-                  </button>
-                </div>
+                    <button
+                      style={btnSecondary}
+                      onClick={() => onEdit(unit.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={btnDanger}
+                      onClick={() => onDelete(unit.id, unit.title)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -719,6 +730,7 @@ function LessonsView({
   editingId,
   isAdding,
   saving,
+  readOnly,
   onBack,
   onAdd,
   onEdit,
@@ -731,6 +743,7 @@ function LessonsView({
   editingId: string | null;
   isAdding: boolean;
   saving: boolean;
+  readOnly?: boolean;
   onBack: () => void;
   onAdd: () => void;
   onEdit: (id: string) => void;
@@ -765,7 +778,7 @@ function LessonsView({
             {unit.lessons.length !== 1 ? 's' : ''} in {unit.title}
           </p>
         </div>
-        {!isAdding && (
+        {!isAdding && !readOnly && (
           <button style={btnPrimary} onClick={onAdd}>
             + Add Lesson
           </button>
@@ -835,23 +848,25 @@ function LessonsView({
                     {lesson.description}
                   </p>
                 </div>
-                <div
-                  style={actionRow}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    style={btnSecondary}
-                    onClick={() => onEdit(lesson.id)}
+                {!readOnly && (
+                  <div
+                    style={actionRow}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    Edit
-                  </button>
-                  <button
-                    style={btnDanger}
-                    onClick={() => onDelete(lesson.id, lesson.title)}
-                  >
-                    Delete
-                  </button>
-                </div>
+                    <button
+                      style={btnSecondary}
+                      onClick={() => onEdit(lesson.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={btnDanger}
+                      onClick={() => onDelete(lesson.id, lesson.title)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -984,6 +999,7 @@ function QuestionsView({
   editingId,
   isAdding,
   saving,
+  readOnly,
   onBack,
   onBackToUnits,
   onAdd,
@@ -997,6 +1013,7 @@ function QuestionsView({
   editingId: string | null;
   isAdding: boolean;
   saving: boolean;
+  readOnly?: boolean;
   onBack: () => void;
   onBackToUnits: () => void;
   onAdd: () => void;
@@ -1043,7 +1060,7 @@ function QuestionsView({
             {lesson.questions.length !== 1 ? 's' : ''} in {lesson.title}
           </p>
         </div>
-        {!isAdding && (
+        {!isAdding && !readOnly && (
           <button style={btnPrimary} onClick={onAdd}>
             + Add Question
           </button>
@@ -1114,22 +1131,24 @@ function QuestionsView({
                       {truncate(q.explanation, 100)}
                     </p>
                   </div>
-                  <div style={actionRow}>
-                    <button
-                      style={btnSecondary}
-                      onClick={() => onEdit(q.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      style={btnDanger}
-                      onClick={() =>
-                        onDelete(q.id, truncate(q.question, 40))
-                      }
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  {!readOnly && (
+                    <div style={actionRow}>
+                      <button
+                        style={btnSecondary}
+                        onClick={() => onEdit(q.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        style={btnDanger}
+                        onClick={() =>
+                          onDelete(q.id, truncate(q.question, 40))
+                        }
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
