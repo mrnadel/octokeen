@@ -429,8 +429,8 @@ export default function AdminUsersPage() {
                         <input
                           type="checkbox"
                           checked={selectedIds.has(user.id)}
+                          onChange={() => {}}
                           onClick={(e) => { e.stopPropagation(); handleSelect(user.id, idx, e.shiftKey); }}
-                          readOnly
                           className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                         />
                       </td>
@@ -531,8 +531,8 @@ export default function AdminUsersPage() {
                   <input
                     type="checkbox"
                     checked={selectedIds.has(user.id)}
-                    onClick={(e) => { e.stopPropagation(); handleSelect(user.id, idx, e.shiftKey); }}
-                          readOnly
+                    onChange={() => {}}
+                          onClick={(e) => { e.stopPropagation(); handleSelect(user.id, idx, e.shiftKey); }}
                     className="w-4 h-4 mt-1 shrink-0 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">

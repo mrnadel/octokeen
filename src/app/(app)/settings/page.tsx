@@ -19,6 +19,9 @@ import {
   Loader2,
   Volume2,
   VolumeOff,
+  Sun,
+  Moon,
+  Monitor,
 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
@@ -26,6 +29,7 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useSoundStore } from '@/store/useSoundStore';
+import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -109,16 +113,18 @@ export default function SettingsPage() {
   const { state: pushState, subscribe: enablePush, unsubscribe: disablePush } = usePushNotifications();
   const soundEnabled = useSoundStore((s) => s.enabled);
   const toggleSound = useSoundStore((s) => s.toggleSound);
+  const themeMode = useThemeStore((s) => s.mode);
+  const setThemeMode = useThemeStore((s) => s.setMode);
 
   return (
     <div className="pb-10">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-gray-100">
+      <div className="sticky top-0 z-30 bg-white/90 dark:bg-surface-900/90 backdrop-blur-xl border-b border-gray-100 dark:border-surface-700">
         <div className="flex items-center h-14 px-4">
-          <button onClick={() => router.back()} className="p-3 -ml-3 rounded-full hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
-            <ArrowLeft className="w-5 h-5 text-gray-600" />
+          <button onClick={() => router.back()} className="p-3 -ml-3 rounded-full hover:bg-gray-100 dark:hover:bg-surface-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
+            <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-surface-400" />
           </button>
-          <h1 className="text-lg font-extrabold text-gray-900 ml-2">Settings</h1>
+          <h1 className="text-lg font-extrabold text-gray-900 dark:text-surface-50 ml-2">Settings</h1>
         </div>
       </div>
 
@@ -184,6 +190,51 @@ export default function SettingsPage() {
               >
                 {soundEnabled ? 'On' : 'Off'}
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Appearance */}
+        <div>
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-1">Appearance</h3>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 w-full px-4 py-3.5">
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                {themeMode === 'dark' ? (
+                  <Moon className="w-4 h-4 text-indigo-400" />
+                ) : themeMode === 'system' ? (
+                  <Monitor className="w-4 h-4 text-indigo-500" />
+                ) : (
+                  <Sun className="w-4 h-4 text-amber-500" />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-bold text-gray-700 block">Theme</span>
+                <span className="text-xs text-gray-400">
+                  {themeMode === 'light' ? 'Light mode' : themeMode === 'dark' ? 'Dark mode' : 'Follows system'}
+                </span>
+              </div>
+              <div className="flex bg-gray-100 dark:bg-surface-800 rounded-lg p-0.5 gap-0.5">
+                {([
+                  { value: 'light' as ThemeMode, icon: Sun, label: 'Light' },
+                  { value: 'dark' as ThemeMode, icon: Moon, label: 'Dark' },
+                  { value: 'system' as ThemeMode, icon: Monitor, label: 'System' },
+                ]).map(({ value, icon: Icon, label }) => (
+                  <button
+                    key={value}
+                    onClick={() => setThemeMode(value)}
+                    className={`p-1.5 rounded-md transition-all ${
+                      themeMode === value
+                        ? 'bg-white dark:bg-surface-700 shadow-sm text-gray-700 dark:text-surface-100'
+                        : 'text-gray-400 dark:text-surface-500 hover:text-gray-600 dark:hover:text-surface-300'
+                    }`}
+                    aria-label={label}
+                    title={label}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>

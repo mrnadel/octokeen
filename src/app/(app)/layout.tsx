@@ -39,12 +39,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-surface-950">
       <div className="flex">
         {/* Desktop side nav */}
         <DesktopSideNav />
 
-        <div className="flex-1 min-w-0 max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] flex flex-col overflow-x-clip">
+        <div className="flex-1 min-w-0 max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] dark:bg-surface-950 flex flex-col overflow-x-clip">
           <main id="main-content" className="flex-1 pb-16 lg:pb-0">
             {children}
           </main>

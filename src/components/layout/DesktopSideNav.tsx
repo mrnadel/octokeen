@@ -26,7 +26,7 @@ export default function DesktopSideNav() {
 
   return (
       <nav
-        className="hidden lg:flex flex-col w-56 shrink-0 bg-[#FAFAFA] h-screen sticky top-0"
+        className="hidden lg:flex flex-col w-56 shrink-0 bg-[#FAFAFA] dark:bg-surface-950 h-screen sticky top-0"
         aria-label="Desktop navigation"
       >
         <div className="px-5 py-5">

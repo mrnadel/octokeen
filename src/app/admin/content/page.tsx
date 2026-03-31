@@ -2,6 +2,7 @@
 
 import { useState, lazy, Suspense } from 'react';
 import { PROFESSIONS } from '@/data/professions';
+import { CourseIcon } from '@/components/course/CourseIcon';
 import { ChevronRight } from 'lucide-react';
 
 const CourseEditor = lazy(() => import('./CourseEditor'));
@@ -26,7 +27,7 @@ export default function ContentPage() {
               onClick={() => setSelectedProfession(p.id)}
               className="w-full flex items-center gap-3 px-4 py-3.5 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 transition-colors text-left"
             >
-              <span className="text-2xl">{p.icon}</span>
+              <CourseIcon professionId={p.id} color={p.color} size={32} />
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-gray-900 text-sm">{p.name}</div>
                 <div className="text-xs text-gray-400">

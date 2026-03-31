@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind 4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Hide Next.js dev tools badge in development */
 [data-next-badge-root] { display: none !important; }
 
@@ -615,4 +618,260 @@
 .diagram-expanded text {
   font-size: 15px !important;
   font-weight: 700 !important;
+}
+
+/* ══════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════ */
+
+/* Override CSS properties and targeted selectors for dark mode. */
+
+.dark {
+  color-scheme: dark;
+}
+
+/* ── Base ── */
+
+.dark body {
+  background-color: var(--color-surface-950);
+  color: var(--color-surface-200);
+}
+
+.dark ::selection {
+  background-color: var(--color-primary-800);
+  color: var(--color-primary-100);
+}
+
+/* ── Utility class overrides ── */
+
+.dark .card,
+.dark .card-hover,
+.dark .stat-card {
+  background-color: var(--color-surface-900);
+  border-color: var(--color-surface-700);
+}
+.dark .card-hover:hover {
+  border-color: var(--color-surface-600);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+}
+
+.dark .stat-value {
+  color: var(--color-surface-50);
+}
+.dark .stat-label {
+  color: var(--color-surface-400);
+}
+
+.dark .btn-secondary {
+  background-color: var(--color-surface-800);
+  color: var(--color-surface-200);
+  border-color: var(--color-surface-600);
+}
+.dark .btn-secondary:hover {
+  background-color: var(--color-surface-700);
+  border-color: var(--color-surface-500);
+}
+
+.dark .btn-ghost {
+  color: var(--color-surface-400);
+}
+.dark .btn-ghost:hover {
+  background-color: var(--color-surface-800);
+  color: var(--color-surface-100);
+}
+
+.dark .input {
+  background-color: var(--color-surface-800);
+  border-color: var(--color-surface-600);
+  color: var(--color-surface-100);
+}
+.dark .input::placeholder {
+  color: var(--color-surface-500);
+}
+
+.dark .badge-primary {
+  background: var(--color-primary-900);
+  color: var(--color-primary-200);
+}
+.dark .badge-success {
+  background: var(--color-accent-900);
+  color: var(--color-accent-200);
+}
+.dark .badge-warning {
+  background: var(--color-brand-900);
+  color: var(--color-brand-200);
+}
+.dark .badge-error {
+  background: var(--color-danger-900);
+  color: var(--color-danger-200);
+}
+
+.dark .progress-bar {
+  background: var(--color-surface-700);
+}
+
+.dark .lesson-overlay {
+  background: var(--color-surface-950);
+}
+
+/* ── Scrollbar ── */
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-surface-600);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-500);
+}
+
+/* ── Global dark overrides for common Tailwind inline patterns ── */
+
+/* White backgrounds → dark card surface */
+:is(.dark .bg-white) {
+  background-color: var(--color-surface-900) !important;
+}
+:is(.dark .bg-white\/90) {
+  background-color: rgb(15 23 42 / 0.9) !important;
+}
+
+/* Page background (#FAFAFA is used in app layout) */
+:is(.dark .bg-\[\#FAFAFA\]) {
+  background-color: var(--color-surface-950) !important;
+}
+
+/* Gray backgrounds */
+:is(.dark .bg-gray-50) {
+  background-color: var(--color-surface-800) !important;
+}
+:is(.dark .bg-gray-100) {
+  background-color: var(--color-surface-800) !important;
+}
+:is(.dark .bg-gray-200) {
+  background-color: var(--color-surface-700) !important;
+}
+:is(.dark .bg-gray-300) {
+  background-color: var(--color-surface-600) !important;
+}
+
+/* Hover backgrounds */
+:is(.dark .hover\:bg-gray-50:hover) {
+  background-color: var(--color-surface-800) !important;
+}
+:is(.dark .hover\:bg-gray-100:hover) {
+  background-color: var(--color-surface-700) !important;
+}
+:is(.dark .hover\:bg-gray-200:hover) {
+  background-color: var(--color-surface-700) !important;
+}
+
+/* Text colors */
+:is(.dark .text-gray-900) {
+  color: var(--color-surface-50) !important;
+}
+:is(.dark .text-gray-800) {
+  color: var(--color-surface-100) !important;
+}
+:is(.dark .text-gray-700) {
+  color: var(--color-surface-200) !important;
+}
+:is(.dark .text-gray-600) {
+  color: var(--color-surface-300) !important;
+}
+:is(.dark .text-gray-500) {
+  color: var(--color-surface-400) !important;
+}
+:is(.dark .text-gray-400) {
+  color: var(--color-surface-500) !important;
+}
+:is(.dark .text-gray-300) {
+  color: var(--color-surface-500) !important;
+}
+
+/* Border colors */
+:is(.dark .border-gray-50) {
+  border-color: var(--color-surface-800) !important;
+}
+:is(.dark .border-gray-100) {
+  border-color: var(--color-surface-800) !important;
+}
+:is(.dark .border-gray-200) {
+  border-color: var(--color-surface-700) !important;
+}
+:is(.dark .border-gray-300) {
+  border-color: var(--color-surface-600) !important;
+}
+
+/* Slate text */
+:is(.dark .text-slate-400) {
+  color: var(--color-surface-500) !important;
+}
+
+/* Surface tokens used in nav */
+:is(.dark .bg-surface-50) {
+  background-color: var(--color-surface-800) !important;
+}
+
+/* Colored light backgrounds (icon badges) — darken */
+:is(.dark .bg-amber-50) {
+  background-color: rgb(120 53 15 / 0.3) !important;
+}
+:is(.dark .bg-indigo-50) {
+  background-color: rgb(49 46 129 / 0.3) !important;
+}
+:is(.dark .bg-red-50) {
+  background-color: rgb(127 29 29 / 0.3) !important;
+}
+:is(.dark .bg-emerald-50) {
+  background-color: rgb(6 78 59 / 0.3) !important;
+}
+:is(.dark .bg-sky-50) {
+  background-color: rgb(7 89 133 / 0.3) !important;
+}
+:is(.dark .bg-orange-50) {
+  background-color: rgb(124 45 18 / 0.3) !important;
+}
+:is(.dark .bg-primary-50) {
+  background-color: rgb(19 78 74 / 0.3) !important;
+}
+:is(.dark .bg-slate-100) {
+  background-color: var(--color-surface-800) !important;
+}
+
+/* Hover colored backgrounds */
+:is(.dark .hover\:bg-red-50:hover) {
+  background-color: rgb(127 29 29 / 0.2) !important;
+}
+:is(.dark .hover\:bg-amber-50:hover) {
+  background-color: rgb(120 53 15 / 0.2) !important;
+}
+:is(.dark .hover\:bg-primary-50:hover) {
+  background-color: rgb(19 78 74 / 0.2) !important;
+}
+
+/* Red danger zone border */
+:is(.dark .border-red-100) {
+  border-color: rgb(127 29 29 / 0.4) !important;
+}
+:is(.dark .border-red-50) {
+  border-color: rgb(127 29 29 / 0.3) !important;
+}
+
+/* Focus ring */
+:is(.dark .focus\:ring-primary-500\/20:focus) {
+  --tw-ring-color: rgb(20 184 166 / 0.3) !important;
+}
+
+/* Notification dot border */
+:is(.dark .border-white) {
+  border-color: var(--color-surface-900) !important;
+}
+
+/* Disabled states */
+:is(.dark .disabled\:bg-gray-200:disabled) {
+  background-color: var(--color-surface-700) !important;
+}
+:is(.dark .disabled\:bg-gray-300:disabled) {
+  background-color: var(--color-surface-700) !important;
+}
+:is(.dark .disabled\:text-gray-400:disabled) {
+  color: var(--color-surface-500) !important;
 }

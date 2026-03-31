@@ -26,25 +26,23 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <header
-      className="sticky top-0 z-30 bg-white px-4 sm:px-5 py-3"
-      style={{ borderBottom: '2px solid #E5E5E5' }}
+      className="sticky top-0 z-30 bg-white dark:bg-surface-900 px-4 sm:px-5 py-3 border-b-2 border-[#E5E5E5] dark:border-surface-700"
     >
       <div className={`flex items-center gap-2 sm:gap-3${maxWidth ? ' max-w-2xl mx-auto' : ''}`}>
         <Link
           href={backHref}
-          className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[10px] transition-transform active:scale-90 lg:hidden"
-          style={{ background: '#F0F0F0' }}
+          className="flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[10px] transition-transform active:scale-90 lg:hidden bg-[#F0F0F0] dark:bg-surface-800"
           aria-label="Back"
         >
-          <ChevronLeft style={{ width: 20, height: 20, color: '#777' }} />
+          <ChevronLeft className="w-5 h-5 text-[#777] dark:text-surface-400" />
         </Link>
         <div className="flex-1 min-w-0">
-          <h1 className="text-base sm:text-lg font-extrabold text-[#3C3C3C] flex items-center gap-2 leading-tight">
+          <h1 className="text-base sm:text-lg font-extrabold text-[#3C3C3C] dark:text-surface-50 flex items-center gap-2 leading-tight">
             {icon}
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs font-semibold mt-px" style={{ color: '#AFAFAF' }}>
+            <p className="text-xs font-semibold mt-px text-[#AFAFAF] dark:text-surface-500">
               {subtitle}
             </p>
           )}

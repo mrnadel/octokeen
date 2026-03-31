@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Nunito, JetBrains_Mono } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/providers/SessionProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
 import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR } from '@/lib/constants';
@@ -139,6 +140,10 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${nunito.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen">
+        {/* Prevent FOUC: apply dark class before first paint */}
+        <script
+          dangerouslySetInnerHTML={{ __html: `(function(){try{var d=JSON.parse(localStorage.getItem('octokeen-theme')||'{}');var m=d&&d.state&&d.state.mode;if(m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()` }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -153,10 +158,12 @@ export default function RootLayout({
           Skip to main content
         </a>
         <AuthSessionProvider>
-          <MixpanelProvider>
-            {children}
-          </MixpanelProvider>
-          <CookieConsent />
+          <ThemeProvider>
+            <MixpanelProvider>
+              {children}
+            </MixpanelProvider>
+            <CookieConsent />
+          </ThemeProvider>
         </AuthSessionProvider>
       </body>
     </html>

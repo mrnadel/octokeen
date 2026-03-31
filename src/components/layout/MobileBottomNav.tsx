@@ -22,7 +22,7 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-surface-200 lg:hidden"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-surface-900 border-t border-surface-200 dark:border-surface-700 lg:hidden"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       aria-label="Mobile navigation"
     >
@@ -48,7 +48,7 @@ export default function MobileBottomNav() {
               >
                 <Icon className={cn('w-5 h-5 transition-transform duration-200', isActive && 'scale-110')} />
                 {tab.href === '/quests' && hasClaimable && (
-                  <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
+                  <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-surface-900" />
                 )}
               </span>
               <span className={cn(
