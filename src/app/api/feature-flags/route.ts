@@ -4,10 +4,8 @@ import { featureFlags } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
 import { FLAG_DEFINITIONS } from '@/lib/feature-flags';
-import { clientEnv } from '@/lib/env';
-
-function isAdmin(userId: string | undefined) {
-  return userId === clientEnv().NEXT_PUBLIC_ADMIN_USER_ID;
+function isAdmin(email: string | undefined | null) {
+  return email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 }
 
 /** GET: return all flags (public, no auth needed) */
@@ -38,7 +36,7 @@ export async function GET() {
 /** PATCH: toggle a flag (admin only) */
 export async function PATCH(req: Request) {
   const session = await auth();
-  if (!isAdmin(session?.user?.id)) {
+  if (!isAdmin(session?.user?.email)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 

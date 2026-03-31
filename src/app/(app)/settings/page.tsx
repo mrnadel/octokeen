@@ -31,7 +31,7 @@ export default function SettingsPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const { tier, isProUser, hasFetched } = useSubscription();
-  const isAdmin = session?.user?.id === process.env.NEXT_PUBLIC_ADMIN_USER_ID;
+  const isAdmin = session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
   const displayName = session?.user?.name || 'Engineer';
 
   // Password

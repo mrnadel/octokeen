@@ -72,6 +72,9 @@ const clientSchema = z.object({
   NEXT_PUBLIC_ADMIN_USER_ID: z
     .string()
     .optional(),
+  NEXT_PUBLIC_ADMIN_EMAIL: z
+    .string()
+    .optional(),
 });
 
 // --------------- Validation ---------------
@@ -108,6 +111,7 @@ export function validateClientEnv(): ClientEnv {
     NEXT_PUBLIC_PADDLE_PRO_MONTHLY_PRICE_ID: process.env.NEXT_PUBLIC_PADDLE_PRO_MONTHLY_PRICE_ID,
     NEXT_PUBLIC_PADDLE_PRO_YEARLY_PRICE_ID: process.env.NEXT_PUBLIC_PADDLE_PRO_YEARLY_PRICE_ID,
     NEXT_PUBLIC_ADMIN_USER_ID: process.env.NEXT_PUBLIC_ADMIN_USER_ID,
+    NEXT_PUBLIC_ADMIN_EMAIL: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
   });
   if (!result.success) {
     console.warn(
