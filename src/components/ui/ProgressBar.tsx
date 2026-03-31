@@ -25,7 +25,7 @@ export function ProgressBar({
   percent,
   height = 'h-2',
   color,
-  trackClass = 'bg-surface-200',
+  trackClass = 'bg-surface-200 dark:bg-surface-700',
   animate = true,
 }: ProgressBarProps) {
   const barColor = color ?? autoColor(percent);

@@ -4,6 +4,108 @@
 
 ---
 
+## The Experience We're Building
+
+### The promise
+
+You open Octokeen knowing nothing about a subject. 8 months later, you can hold your own with professionals. Not because you crammed, but because you played 5 minutes a day and didn't want to stop.
+
+### How it should feel
+
+**Session by session:** Every 3-5 minute session ends with the learner feeling smarter than when they started. Not exhausted. Not lectured at. Smarter. They should think "I just learned something real" and "that was kind of fun."
+
+**Week by week:** Learners start noticing the subject in their daily life. The finance learner reads a news headline about interest rates and actually understands it. The psychology learner catches themselves anchoring in a negotiation. The space learner looks up at the night sky and knows what they're seeing. The course leaks into their real life.
+
+**Month by month:** Confidence builds. They can explain concepts to friends. They start forming opinions. They're not just memorizing, they're thinking. They feel like they're becoming someone who knows this stuff, not someone who's studying it.
+
+**By the end:** They don't feel like they finished a course. They feel like they gained a superpower. They can analyze, evaluate, and create. They can teach others. They went from "I know nothing about this" to "I'm actually good at this."
+
+### What makes it fun (not school)
+
+| School feels like... | Octokeen feels like... |
+|---------------------|----------------------|
+| Long lectures before any interaction | You're doing something within 10 seconds |
+| One question type (essay or MC) for an hour | 7+ question types, never the same thing twice in a row |
+| You find out you failed weeks later | Instant feedback on every answer, with a clear explanation |
+| Boring textbook tone | Conversational, slightly cheeky, never condescending |
+| Isolated study | Streaks, leagues, XP, gems. Your friends are doing it too. |
+| "Read chapter 14 by Thursday" | "You've got a 47-day streak. Keep going." |
+| One massive exam at the end | Tiny wins every session. Stars, celebrations, level-ups. |
+| No connection to real life | "Try this now: check your credit score" / "Go outside and find Orion" |
+
+### What makes it professional (not a toy)
+
+| Toy apps... | Octokeen... |
+|------------|-------------|
+| Teach trivia and fun facts | Teaches frameworks, calculations, and professional judgment |
+| Stop at "good to know" | Goes to "I can do this job" |
+| Avoid math and complexity | Introduces real calculations from Section 5 onward |
+| Have no progression beyond intermediate | Has 15 sections reaching graduate-intro level |
+| Make you feel smart without being smart | Makes you actually smart, verified by harder and harder challenges |
+| Are based on vibes | Are based on MIT OCW, CFP curriculum, APA standards, and real university syllabi |
+
+### The 3 feelings every lesson must create
+
+1. **"I get it."** The teaching card made the concept click. Not confused. Not overwhelmed. Clear.
+2. **"I got it right."** The easy question after the teaching card confirms understanding. Dopamine hit. Confidence.
+3. **"That was interesting."** At least one question per lesson should make the learner think "huh, I didn't know that" or "that's actually cool." Curiosity is the fuel.
+
+### What we're NOT building
+
+- **Not a textbook with buttons.** If it reads like a textbook, it's wrong. Every word should feel like a conversation.
+- **Not a quiz app.** If there's no teaching, it's just testing. Every lesson must teach something new before asking about it.
+- **Not a casual game.** The content is real, rigorous, and professionally accurate. The packaging is fun, but the substance is serious.
+- **Not a shortcut.** 8 months is 8 months. We don't promise mastery in a weekend. We promise that every day is worth it.
+
+### The Octokeen voice
+
+| Trait | In practice |
+|-------|------------|
+| **Warm but direct** | "Compound interest is your money earning money. The longer you wait, the more you miss." Not "Compound interest, often referred to as the eighth wonder of the world by sources attributed to Einstein..." |
+| **Confident but humble** | We state facts clearly. We don't hedge with "some experts say." But when something is genuinely debated, we say so. |
+| **Playful but never dumb** | A finance lesson can reference coffee habits. A psychology lesson can mention Netflix binges. But the core concept is always rigorous. |
+| **Encouraging but honest** | "Not quite. The answer is B because..." Not "Great try! You're almost there! The answer happens to be B because..." |
+| **Short** | If a sentence is longer than 20 words, it's too long. Split it or cut it. Every word earns its place. |
+
+### Brand personality
+
+| Trait | What it means for content |
+|-------|--------------------------|
+| **Inspiring** | Every lesson unlocks a new ability. Frame knowledge as power, not obligation. "After this lesson, you'll be able to..." |
+| **Inclusive** | Write for everyone: students, career changers, curious retirees. Never assume prior knowledge unless the course structure guarantees it. No jargon without definition. |
+| **Can-do** | Root for the learner. They can do this. "You now know more about investing than 90% of people." |
+| **Curious** | Make learners want to know more. Tease the "why" before the answer. "Why does losing $100 hurt more than gaining $100 feels good?" |
+| **Quirky** | Put the fun in fundamentals. A teaching card about black holes can say "A teaspoon weighs a billion tons." A finance card can say "Your future self is silently judging your savings rate." |
+
+### Writing rules (summary, full rules in content-writing-guide.md)
+
+- **Never use em dashes.** Periods, commas, or colons only. No exceptions.
+- **Max 20 words per sentence.** Split or cut.
+- **Use contractions.** "You're" not "You are."
+- **Numbers as numerals.** "3 planets" not "three planets."
+- **No banned phrases:** "Obviously", "Did you know?", "Nope!", "Classic mistake", "Here's the thing", "Let me explain"
+- **Teaching card explanations:** Max 2 sentences.
+- **Question explanations:** Max 2 sentences.
+- **Options:** Under 15 words each. Roughly equal length. Correct answer not noticeably longer.
+- **correctIndex:** Distributed across 0-3 across the course. Never always 0.
+- **Hints:** One sentence. Practical, not philosophical.
+- **Country-agnostic** where possible. Note country-specific content: "Details vary by country, but the concept applies everywhere."
+
+### Real-world connection rules
+
+Every course must connect to the learner's actual life. This is what makes it stick.
+
+| Section phase | Real-world connection style |
+|--------------|---------------------------|
+| Discovery (1-2) | "Try this now:" hints. "Check your bank balance." "Go outside and find a bright steady dot, that's a planet." |
+| Foundations (3-4) | Scenarios using everyday situations. "Your friend says all debt is bad. What do you say?" |
+| Application (5-7) | Case studies with real numbers. "The Ramirez family earns $75,000/year. Build their budget." |
+| Depth (8-10) | Professional scenarios. "Your client wants to retire in 15 years. Evaluate their plan." |
+| Professional (11-13) | Industry simulations. "You're the financial advisor. What do you recommend and why?" |
+| Mastery (14-15) | Teach-back. "Explain this concept to someone who's never heard of it." Conversation lessons that simulate real professional interactions. |
+
+---
+
 ## Academic Foundations
 
 Every course syllabus is built on real university curricula and professional certification standards, not invented content. The AI writing the content must research these sources to ensure accuracy, completeness, and proper sequencing.

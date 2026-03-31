@@ -258,11 +258,11 @@ export function CourseHeader() {
                 fontSize: 17,
                 color: streakStatus === 'at-risk'
                   ? '#DC2626'
-                  : '#3C3C3C',
+                  : (isDark ? '#E2E8F0' : '#3C3C3C'),
                 padding: '4px 8px',
                 borderRadius: 10,
                 background: streakStatus === 'at-risk'
-                  ? '#FEF2F2'
+                  ? (isDark ? 'rgba(220,38,38,0.15)' : '#FEF2F2')
                   : 'transparent',
                 minWidth: 44,
                 minHeight: 44,
@@ -282,10 +282,10 @@ export function CourseHeader() {
                 gap: 4,
                 fontWeight: 800,
                 fontSize: 17,
-                color: popover === 'gems' ? '#7C3AED' : '#3C3C3C',
+                color: popover === 'gems' ? '#7C3AED' : (isDark ? '#E2E8F0' : '#3C3C3C'),
                 padding: '4px 8px',
                 borderRadius: 10,
-                background: popover === 'gems' ? '#F3E8FF' : 'transparent',
+                background: popover === 'gems' ? (isDark ? 'rgba(124,58,237,0.15)' : '#F3E8FF') : 'transparent',
                 minWidth: 44,
                 minHeight: 44,
                 justifyContent: 'center',
@@ -305,10 +305,10 @@ export function CourseHeader() {
                 gap: 4,
                 fontWeight: 800,
                 fontSize: 17,
-                color: popover === 'hearts' ? '#E11D48' : heartsCurrent > 0 ? '#EF4444' : '#9CA3AF',
+                color: popover === 'hearts' ? '#E11D48' : heartsCurrent > 0 ? '#EF4444' : (isDark ? '#64748B' : '#9CA3AF'),
                 padding: '4px 8px',
                 borderRadius: 10,
-                background: popover === 'hearts' ? '#FFF1F2' : 'transparent',
+                background: popover === 'hearts' ? (isDark ? 'rgba(225,29,72,0.15)' : '#FFF1F2') : 'transparent',
                 minWidth: 44,
                 minHeight: 44,
                 justifyContent: 'center',
@@ -364,9 +364,11 @@ export function CourseHeader() {
               width: popoverPos.width,
               maxWidth: popover === 'course' ? 360 : popover === 'hearts' ? 320 : 340,
               borderRadius: 16,
-              background: 'white',
-              border: '2px solid #E5E5E5',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+              background: isDark ? '#1E293B' : 'white',
+              border: isDark ? '2px solid #334155' : '2px solid #E5E5E5',
+              boxShadow: isDark
+                ? '0 10px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3)'
+                : '0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
               overflow: 'visible',
             }}
             initial={{ opacity: 0, y: -8, scale: 0.96 }}
@@ -383,9 +385,9 @@ export function CourseHeader() {
                 left: popoverPos.arrowLeft,
                 width: 14,
                 height: 14,
-                background: 'white',
-                borderTop: '2px solid #E5E5E5',
-                borderLeft: '2px solid #E5E5E5',
+                background: isDark ? '#1E293B' : 'white',
+                borderTop: isDark ? '2px solid #334155' : '2px solid #E5E5E5',
+                borderLeft: isDark ? '2px solid #334155' : '2px solid #E5E5E5',
                 transform: 'rotate(45deg)',
               }}
             />
@@ -416,14 +418,15 @@ export function CourseHeader() {
 
 // ─── Course popover ───
 function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession: string; onSelect: (id: string) => void }) {
+  const isDark = useIsDark();
   return (
     <div>
       {/* Header */}
       <div style={{ padding: '16px 20px 12px' }}>
-        <h3 style={{ fontSize: 15, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: 15, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', lineHeight: 1.2 }}>
           My Courses
         </h3>
-        <p style={{ fontSize: 12, fontWeight: 600, color: '#AFAFAF', marginTop: 2 }}>
+        <p style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#64748B' : '#AFAFAF', marginTop: 2 }}>
           Choose what to practice
         </p>
       </div>
@@ -449,13 +452,13 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
                 gap: 12,
                 padding: '10px 12px',
                 borderRadius: 12,
-                background: isActive ? `${p.color}10` : 'transparent',
-                border: isActive ? `1.5px solid ${p.color}30` : '1.5px solid transparent',
+                background: isActive ? `${p.color}${isDark ? '20' : '10'}` : 'transparent',
+                border: isActive ? `1.5px solid ${p.color}${isDark ? '40' : '30'}` : '1.5px solid transparent',
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
                 opacity: isDisabled ? 0.45 : 1,
                 marginBottom: i < PROFESSIONS.length - 1 ? 4 : 0,
               }}
-              whileHover={isDisabled ? undefined : { backgroundColor: isActive ? undefined : '#F7F7F7' }}
+              whileHover={isDisabled ? undefined : { backgroundColor: isActive ? undefined : (isDark ? '#334155' : '#F7F7F7') }}
               whileTap={isDisabled ? undefined : { scale: 0.98 }}
             >
               {/* Icon */}
@@ -474,12 +477,12 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
 
               {/* Text */}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+                <div style={{ fontSize: 14, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', lineHeight: 1.2 }}>
                   {p.name}
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#AFAFAF', marginTop: 2, display: 'flex', gap: 6, alignItems: 'center' }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? '#64748B' : '#AFAFAF', marginTop: 2, display: 'flex', gap: 6, alignItems: 'center' }}>
                   <span style={{ color: p.color }}>{p.unitCount} units</span>
-                  <span style={{ color: '#DDD' }}>·</span>
+                  <span style={{ color: isDark ? '#475569' : '#DDD' }}>·</span>
                   <span>{p.questionCount.toLocaleString()} questions</span>
                 </div>
               </div>
@@ -491,8 +494,8 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
                   fontWeight: 800,
                   textTransform: 'uppercase',
                   letterSpacing: 0.5,
-                  color: '#AFAFAF',
-                  background: '#F0F0F0',
+                  color: isDark ? '#64748B' : '#AFAFAF',
+                  background: isDark ? '#334155' : '#F0F0F0',
                   padding: '3px 7px',
                   borderRadius: 6,
                   whiteSpace: 'nowrap',
@@ -601,6 +604,7 @@ function LevelUpConfetti() {
 }
 
 function XpLevelPopover({ totalXp }: { totalXp: number }) {
+  const isDark = useIsDark();
   const { current, next, xpNeeded, progress: levelProgress } = getXpToNextLevel(totalXp);
   const isMaxLevel = !next;
   const progressPercent = Math.round(levelProgress * 100);
@@ -719,7 +723,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
               fontSize: 10,
               fontWeight: 900,
               color: 'white',
-              border: '2px solid white',
+              border: isDark ? '2px solid #1E293B' : '2px solid white',
               boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
             }}
           >
@@ -727,7 +731,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
           </div>
         </motion.div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <h3 style={{ fontSize: 17, fontWeight: 800, color: '#3C3C3C', lineHeight: 1.2 }}>
+          <h3 style={{ fontSize: 17, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', lineHeight: 1.2 }}>
             {current.title}
           </h3>
           <div className="flex items-center" style={{ gap: 6, marginTop: 2 }}>
@@ -759,11 +763,13 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
       <div className="grid grid-cols-2" style={{ gap: 8, marginBottom: 14 }}>
         <motion.div
           style={{
-            background: 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)',
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(22,163,74,0.15) 0%, rgba(22,163,74,0.1) 100%)'
+              : 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)',
             borderRadius: 12,
             padding: '10px 12px',
             textAlign: 'center',
-            border: '1.5px solid #BBF7D0',
+            border: isDark ? '1.5px solid rgba(22,163,74,0.25)' : '1.5px solid #BBF7D0',
           }}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
