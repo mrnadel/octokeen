@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { Search, ChevronUp, ChevronDown, Trash2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -53,6 +53,7 @@ export default function AdminUsersPage() {
   const [confirmText, setConfirmText] = useState('');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
+  const lastClickedIndex = useRef<number | null>(null);
 
   const toggleTier = async (userId: string, currentTier: string) => {
     const newTier = currentTier === 'pro' ? 'free' : 'pro';
@@ -98,23 +99,6 @@ export default function AdminUsersPage() {
       setError('Failed to update access. Please try again.');
     } finally {
       setUpdating(null);
-    }
-  };
-
-  const toggleSelect = (id: string) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleSelectAll = () => {
-    if (selectedIds.size === sorted.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(sorted.map((u) => u.id)));
     }
   };
 
@@ -232,6 +216,34 @@ export default function AdminUsersPage() {
       return 0;
     });
   }, [filtered, sortKey, sortDir]);
+
+  const handleSelect = useCallback((id: string, index: number, shiftKey: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+
+      if (shiftKey && lastClickedIndex.current !== null) {
+        const start = Math.min(lastClickedIndex.current, index);
+        const end = Math.max(lastClickedIndex.current, index);
+        for (let i = start; i <= end; i++) {
+          next.add(sorted[i].id);
+        }
+      } else {
+        if (next.has(id)) next.delete(id);
+        else next.add(id);
+      }
+
+      return next;
+    });
+    lastClickedIndex.current = index;
+  }, [sorted]);
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === sorted.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(sorted.map((u) => u.id)));
+    }
+  };
 
   useEffect(() => {
     if (status !== 'authenticated') return;
@@ -405,7 +417,7 @@ export default function AdminUsersPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sorted.map((user) => (
+                  {sorted.map((user, idx) => (
                     <tr
                       key={user.id}
                       className={cn(
@@ -417,7 +429,7 @@ export default function AdminUsersPage() {
                         <input
                           type="checkbox"
                           checked={selectedIds.has(user.id)}
-                          onChange={() => toggleSelect(user.id)}
+                          onChange={(e) => handleSelect(user.id, idx, e.nativeEvent instanceof MouseEvent && (e.nativeEvent as MouseEvent).shiftKey)}
                           className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                         />
                       </td>
@@ -505,7 +517,7 @@ export default function AdminUsersPage() {
 
           {/* Mobile cards */}
           <div className="md:hidden space-y-2.5">
-            {sorted.map((user) => (
+            {sorted.map((user, idx) => (
               <div
                 key={user.id}
                 className={cn(
@@ -518,7 +530,7 @@ export default function AdminUsersPage() {
                   <input
                     type="checkbox"
                     checked={selectedIds.has(user.id)}
-                    onChange={() => toggleSelect(user.id)}
+                    onChange={(e) => handleSelect(user.id, idx, e.nativeEvent instanceof MouseEvent && (e.nativeEvent as MouseEvent).shiftKey)}
                     className="w-4 h-4 mt-1 shrink-0 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">
