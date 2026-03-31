@@ -226,11 +226,11 @@ export default function AdminUsersPage() {
     });
   }, [filtered, sortKey, sortDir]);
 
-  const handleSelect = useCallback((id: string, index: number) => {
+  const handleSelect = useCallback((id: string, index: number, isShift: boolean) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
 
-      if (shiftHeld.current && lastClickedIndex.current !== null) {
+      if (isShift && lastClickedIndex.current !== null && lastClickedIndex.current !== index) {
         const start = Math.min(lastClickedIndex.current, index);
         const end = Math.max(lastClickedIndex.current, index);
         for (let i = start; i <= end; i++) {
@@ -438,7 +438,8 @@ export default function AdminUsersPage() {
                         <input
                           type="checkbox"
                           checked={selectedIds.has(user.id)}
-                          onChange={() => handleSelect(user.id, idx)}
+                          onChange={(e) => e.preventDefault()}
+                          onMouseDown={(e) => { e.preventDefault(); handleSelect(user.id, idx, e.shiftKey); }}
                           className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                         />
                       </td>
@@ -539,7 +540,8 @@ export default function AdminUsersPage() {
                   <input
                     type="checkbox"
                     checked={selectedIds.has(user.id)}
-                    onChange={() => handleSelect(user.id, idx)}
+                    onChange={(e) => e.preventDefault()}
+                          onMouseDown={(e) => { e.preventDefault(); handleSelect(user.id, idx, e.shiftKey); }}
                     className="w-4 h-4 mt-1 shrink-0 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">
