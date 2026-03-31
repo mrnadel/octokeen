@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Octokeen - Conversion Rate Plan & Forecast</title>
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --surface-2: #22222f;
+    --border: #2a2a3a;
+    --text: #e4e4ef;
+    --text-muted: #8888a0;
+    --accent: #7c5cbf;
+    --accent-light: #9b7fd4;
+    --green: #34d399;
+    --green-dim: #166534;
+    --yellow: #fbbf24;
+    --yellow-dim: #713f12;
+    --red: #f87171;
+    --red-dim: #7f1d1d;
+    --blue: #60a5fa;
+    --orange: #fb923c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1035 0%, #0f0f13 50%, #0d1a2a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent-light), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+
+  .hero .date {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent-light);
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  /* Metric Cards */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .metric-card .label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .metric-card .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .metric-card .detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .metric-card.green .value { color: var(--green); }
+  .metric-card.yellow .value { color: var(--yellow); }
+  .metric-card.red .value { color: var(--red); }
+  .metric-card.blue .value { color: var(--blue); }
+  .metric-card.accent .value { color: var(--accent-light); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.92rem;
+  }
+
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  td { color: var(--text); }
+
+  tr:hover td { background: var(--surface); }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-green { background: var(--green-dim); color: var(--green); }
+  .tag-yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .tag-red { background: var(--red-dim); color: var(--red); }
+
+  /* Comparison */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .comparison-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .comparison-card h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .comparison-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .comparison-card li {
+    padding: 6px 0;
+    font-size: 0.9rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comparison-card li::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .comparison-card.theirs li::before { background: var(--green); }
+  .comparison-card.ours li::before { background: var(--red); }
+
+  /* Milestone Checklist */
+  .milestone {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .milestone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: default;
+  }
+
+  .milestone-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .milestone-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .milestone.phase-1 .milestone-number { background: #1e3a2f; color: var(--green); }
+  .milestone.phase-2 .milestone-number { background: #2d2410; color: var(--yellow); }
+  .milestone.phase-3 .milestone-number { background: #1a1540; color: var(--accent-light); }
+  .milestone.phase-4 .milestone-number { background: #1a2540; color: var(--blue); }
+
+  .milestone-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .milestone-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .milestone-badge {
+    text-align: right;
+  }
+
+  .conversion-badge {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .milestone.phase-1 .conversion-badge { color: var(--green); }
+  .milestone.phase-2 .conversion-badge { color: var(--yellow); }
+  .milestone.phase-3 .conversion-badge { color: var(--accent-light); }
+  .milestone.phase-4 .conversion-badge { color: var(--blue); }
+
+  .conversion-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .milestone-body {
+    padding: 0 24px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+  }
+
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(42, 42, 58, 0.5);
+    align-items: flex-start;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+  }
+
+  .check-box:hover {
+    border-color: var(--accent);
+    background: rgba(124, 92, 191, 0.1);
+  }
+
+  .check-box.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check-box.checked::after {
+    content: '\2713';
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .check-content {
+    flex: 1;
+  }
+
+  .check-title {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .check-detail {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .check-impact {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .impact-high { background: var(--green-dim); color: var(--green); }
+  .impact-med { background: var(--yellow-dim); color: var(--yellow); }
+  .impact-low { background: rgba(96, 165, 250, 0.15); color: var(--blue); }
+
+  /* Progress bar for milestones */
+  .progress-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 30px 0 10px;
+    position: relative;
+  }
+
+  .progress-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .progress-step .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-step:nth-child(1) .dot { background: var(--green); }
+  .progress-step:nth-child(2) .dot { background: var(--yellow); }
+  .progress-step:nth-child(3) .dot { background: var(--accent-light); }
+  .progress-step:nth-child(4) .dot { background: var(--blue); }
+
+  .progress-step .step-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .progress-step .step-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .progress-step:nth-child(1) .step-value { color: var(--green); }
+  .progress-step:nth-child(2) .step-value { color: var(--yellow); }
+  .progress-step:nth-child(3) .step-value { color: var(--accent-light); }
+  .progress-step:nth-child(4) .step-value { color: var(--blue); }
+
+  .progress-line {
+    position: absolute;
+    top: 7px;
+    left: 12%;
+    right: 12%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--yellow), var(--accent-light), var(--blue));
+    border-radius: 2px;
+    z-index: 0;
+  }
+
+  /* Revenue projection */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .rev-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .rev-card .rev-phase {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .rev-card .rev-rate {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .rev-card:nth-child(1) .rev-rate { color: var(--green); }
+  .rev-card:nth-child(2) .rev-rate { color: var(--yellow); }
+  .rev-card:nth-child(3) .rev-rate { color: var(--accent-light); }
+  .rev-card:nth-child(4) .rev-rate { color: var(--blue); }
+
+  .rev-card .rev-amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .rev-card .rev-detail {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Info callout */
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .callout p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .callout strong { color: var(--accent-light); }
+
+  /* Warning callout */
+  .callout-warn {
+    border-left-color: var(--yellow);
+  }
+
+  .callout-warn strong { color: var(--yellow); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .hero { padding: 40px 20px 30px; }
+    .hero h1 { font-size: 1.6rem; }
+    .comparison { grid-template-columns: 1fr; }
+    .revenue-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .hero { background: #f8f8fc; }
+    .metric-card, .milestone, .comparison-card, .rev-card { border: 1px solid #ddd; background: #fafafa; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Octokeen Conversion Plan</h1>
+  <p class="subtitle">Forecast, analysis, and actionable roadmap to maximize free-to-paid conversion</p>
+  <span class="date">March 31, 2026</span>
+</div>
+
+<div class="container">
+
+<!-- ==================== CURRENT STATE ==================== -->
+<section>
+  <h2>Current State</h2>
+
+  <div class="metrics">
+    <div class="metric-card accent">
+      <div class="label">Price</div>
+      <div class="value">$7.99</div>
+      <div class="detail">/month or $49.99/year</div>
+    </div>
+    <div class="metric-card blue">
+      <div class="label">Course Content</div>
+      <div class="value">178</div>
+      <div class="detail">lessons across 10 units</div>
+    </div>
+    <div class="metric-card yellow">
+      <div class="label">Free Hearts</div>
+      <div class="value">5</div>
+      <div class="detail">4-hour recharge each</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">Infra Cost @ 100k</div>
+      <div class="value">~$60</div>
+      <div class="detail">/month (all services)</div>
+    </div>
+  </div>
+
+  <h3>Current Free vs. Pro</h3>
+  <table>
+    <thead>
+      <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Course units</td><td>All 10 units</td><td>All 10 units</td></tr>
+      <tr><td>Practice modes</td><td>All modes</td><td>All modes</td></tr>
+      <tr><td>Hearts</td><td>5 max, 4h recharge</td><td>Unlimited</td></tr>
+      <tr><td>Streak freeze / week</td><td>0</td><td>1</td></tr>
+      <tr><td>Streak repair</td><td>75 gems</td><td>75 gems</td></tr>
+      <tr><td>Analytics</td><td>Basic</td><td>Full dashboard</td></tr>
+      <tr><td>Weekend XP</td><td>1x</td><td>2x</td></tr>
+      <tr><td>Leagues, quests, achievements</td><td>Full access</td><td>Full access</td></tr>
+      <tr><td>Gem shop</td><td>Full access</td><td>Full access</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout-warn callout">
+    <p><strong>Core issue:</strong> Free users have access to 100% of the learning content and all practice modes. The only friction is a soft heart system that can be bypassed by waiting (4h per heart) or spending earned gems (15 gems per heart, ~3 gems per daily quest). There is no compelling reason a patient user would ever need to pay.</p>
+  </div>
+</section>
+
+<!-- ==================== DUOLINGO COMPARISON ==================== -->
+<section>
+  <h2>Why Duolingo Gets 9% and We Won't (Yet)</h2>
+
+  <div class="comparison">
+    <div class="comparison-card theirs">
+      <h4>Duolingo Has</h4>
+      <ul>
+        <li>Aggressive interstitial ads (biggest converter)</li>
+        <li>Nerfed gem-based heart refills in most markets</li>
+        <li>Content progression walls on later skills</li>
+        <li>750M+ total users (scale effects)</li>
+        <li>Family plan & student discounts</li>
+        <li>Max Tier ($14/mo) with AI features</li>
+      </ul>
+    </div>
+    <div class="comparison-card ours">
+      <h4>Octokeen Lacks</h4>
+      <ul>
+        <li>No ads at all (no annoyance-driven conversion)</li>
+        <li>Cheap heart refills via gems (15 gems = ~5 quests)</li>
+        <li>All content free (no progression wall)</li>
+        <li>Niche audience (smaller pool)</li>
+        <li>Single plan (no tier upsell)</li>
+        <li>No AI features to differentiate Pro</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FORECAST ==================== -->
+<section>
+  <h2>Conversion Rate Forecast</h2>
+
+  <p>Predicted conversion at each milestone, assuming 100k registered users with ~15-20% monthly active.</p>
+
+  <div class="progress-track">
+    <div class="progress-line"></div>
+    <div class="progress-step">
+      <div class="dot"></div>
+      <div class="step-value">3-4%</div>
+      <div class="step-label">Current</div>
+    </div>
+    <div class="progress-step">
+      <div class="dot"></div>
+      <div class="step-value">5-7%</div>
+      <div class="step-label">Phase 1</div>
+    </div>
+    <div class="progress-step">
+      <div class="dot"></div>
+      <div class="step-value">7-10%</div>
+      <div class="step-label">Phase 2</div>
+    </div>
+    <div class="progress-step">
+      <div class="dot"></div>
+      <div class="step-value">10-14%</div>
+      <div class="step-label">Phase 3</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 30px">Revenue Projection at 100k Users</h3>
+
+  <div class="revenue-grid">
+    <div class="rev-card">
+      <div class="rev-phase">Current</div>
+      <div class="rev-rate">3.5% conversion</div>
+      <div class="rev-amount">$24k</div>
+      <div class="rev-detail">/month (3,500 Pro users)</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-phase">After Phase 1</div>
+      <div class="rev-rate">6% conversion</div>
+      <div class="rev-amount">$41k</div>
+      <div class="rev-detail">/month (6,000 Pro users)</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-phase">After Phase 2</div>
+      <div class="rev-rate">8.5% conversion</div>
+      <div class="rev-amount">$58k</div>
+      <div class="rev-detail">/month (8,500 Pro users)</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-phase">After Phase 3</div>
+      <div class="rev-rate">12% conversion</div>
+      <div class="rev-amount">$82k</div>
+      <div class="rev-detail">/month (12,000 Pro users)</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Note:</strong> Revenue figures assume $7.99/mo average (some users on annual at lower effective rate). Paddle fees (~5.5%) already deducted. Infrastructure cost (~$60-150/mo at this scale) is negligible and not subtracted.</p>
+  </div>
+</section>
+
+<!-- ==================== ROADMAP ==================== -->
+<section>
+  <h2>Conversion Optimization Roadmap</h2>
+  <p>Complete these in order. Each phase builds on the previous one. The conversion estimate assumes all items in the phase are done.</p>
+
+  <!-- PHASE 1 -->
+  <div class="milestone phase-1">
+    <div class="milestone-header">
+      <div class="milestone-left">
+        <div class="milestone-number">1</div>
+        <div>
+          <div class="milestone-title">Tighten the Economy</div>
+          <div class="milestone-desc">Make free tier feel free, not unlimited. No new features needed, just tuning numbers.</div>
+        </div>
+      </div>
+      <div class="milestone-badge">
+        <div class="conversion-badge">5-7%</div>
+        <div class="conversion-label">Expected rate</div>
+      </div>
+    </div>
+    <div class="milestone-body">
+      <ul class="checklist">
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Increase heart refill gem cost: 15 &rarr; 35 gems per heart</div>
+            <div class="check-detail">Currently a free user earns ~3 gems per daily quest, so 5 quests = 1 free heart. At 35 gems, a full refill costs 175 gems, roughly a week of quest grinding. Makes waiting vs. paying a real tradeoff.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Reduce heart recharge time from 4 hours to 5 hours</div>
+            <div class="check-detail">Extends full recharge from 20 hours to 25 hours. Free users who run out mid-session wait longer. Subtle but compounds with the gem cost increase.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Make streak repair Pro-only (remove 75-gem repair for free users)</div>
+            <div class="check-detail">Losing a 30-day streak with no recovery option is the strongest emotional conversion trigger. Free users keep the freeze purchase (40 gems) but lose repair after the fact.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Reduce daily quest gem rewards: 3 &rarr; 2 gems per quest</div>
+            <div class="check-detail">Slows the free gem accumulation rate. Users earn ~10 gems/day (down from ~15) from daily quests. Makes the gem economy tighter without feeling punitive.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add contextual upgrade prompts at emotional moments</div>
+            <div class="check-detail">Show upgrade modal after: running out of hearts mid-lesson, losing a streak, completing a streak milestone (7/14/30 days), getting promoted in league. These are moments when users feel invested.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="milestone phase-2">
+    <div class="milestone-header">
+      <div class="milestone-left">
+        <div class="milestone-number">2</div>
+        <div>
+          <div class="milestone-title">Content Gating</div>
+          <div class="milestone-desc">The single biggest conversion lever. Gate later content behind Pro.</div>
+        </div>
+      </div>
+      <div class="milestone-badge">
+        <div class="conversion-badge">7-10%</div>
+        <div class="conversion-label">Expected rate</div>
+      </div>
+    </div>
+    <div class="milestone-body">
+      <ul class="checklist">
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Lock Units 5-10 behind Pro subscription</div>
+            <div class="check-detail">Free users get Units 1-4 (Statics, Dynamics, Strength of Materials, Thermodynamics). That's 78 lessons, enough to validate the product. Units 5-10 (Heat Transfer, Fluids, Materials, Machine Design, GD&T, Interview Prep) require Pro. This mirrors how Duolingo locks later skills.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Show locked units on the course map with a Pro badge</div>
+            <div class="check-detail">Users should see Units 5-10 on the map but grayed out with a lock icon and "Pro" tag. Visibility creates desire. Let them tap to see a preview of what the unit covers, then show the upgrade modal.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Gate "Interview Prep" practice mode behind Pro</div>
+            <div class="check-detail">This is your most valuable practice mode for the target audience (ME interview prep). Free users can practice by topic, but the interview simulation mode requires Pro. High perceived value.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Allow one free "preview lesson" per locked unit</div>
+            <div class="check-detail">Let free users try the first lesson of each locked unit. After completing it, show "Enjoyed this? Unlock the full unit with Pro." This is the taste-then-gate pattern.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="milestone phase-3">
+    <div class="milestone-header">
+      <div class="milestone-left">
+        <div class="milestone-number">3</div>
+        <div>
+          <div class="milestone-title">Pro Experience &amp; Trial</div>
+          <div class="milestone-desc">Make Pro feel premium. Let users taste it, then take it away.</div>
+        </div>
+      </div>
+      <div class="milestone-badge">
+        <div class="conversion-badge">10-14%</div>
+        <div class="conversion-label">Expected rate</div>
+      </div>
+    </div>
+    <div class="milestone-body">
+      <ul class="checklist">
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add a 7-day free trial of Pro</div>
+            <div class="check-detail">Let new users experience unlimited hearts, all content, and full analytics for 7 days. After the trial, they revert to free. Loss aversion is the strongest psychological conversion driver. Paddle supports trial periods natively.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Build an "Interview Readiness Score" (Pro-only detailed breakdown)</div>
+            <div class="check-detail">Show all users a single number: "Interview Readiness: 67%". Free users see the score. Pro users see the full breakdown: weak topics, recommended practice plan, topic-by-topic confidence chart. Creates a visible reason to upgrade.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add detailed explanations as a Pro perk</div>
+            <div class="check-detail">Currently listed as a Pro feature in pricing but may not be fully differentiated. Free users get "Correct/Incorrect" with a brief note. Pro users get step-by-step worked solutions with diagrams. This is high value for interview prep.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Monthly-to-annual upgrade prompt after 2 months of Pro</div>
+            <div class="check-detail">Users paying $7.99/mo for 2+ months should see a prompt: "You've been Pro for 2 months ($16 spent). Switch to annual and save 48%." Reduces churn and locks in revenue.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add push notifications for re-engagement</div>
+            <div class="check-detail">You have web-push in your dependencies. Use it: streak at risk (20h since last session), daily quests expiring, league about to reset. Bring users back before they lapse. Earlier comebacks = more sessions = more heart-wall hits = more conversions.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Trigger comeback flow at 24-48 hours (currently 3+ days)</div>
+            <div class="check-detail">The comeback quests mechanic is good but triggers too late. By day 3, most lapsed users are gone. Trigger at 24h absence with a push notification and at 48h with the comeback quest flow.</div>
+          </div>
+          <span class="check-impact impact-low">Low</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="milestone phase-4">
+    <div class="milestone-header">
+      <div class="milestone-left">
+        <div class="milestone-number">4</div>
+        <div>
+          <div class="milestone-title">Advanced Monetization</div>
+          <div class="milestone-desc">Optional growth levers once the core funnel is optimized.</div>
+        </div>
+      </div>
+      <div class="milestone-badge">
+        <div class="conversion-badge">12-16%</div>
+        <div class="conversion-label">Potential ceiling</div>
+      </div>
+    </div>
+    <div class="milestone-body">
+      <ul class="checklist">
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add AI-powered mock interview mode (Pro exclusive)</div>
+            <div class="check-detail">Use an LLM to simulate a real ME interview conversation. Ask follow-up questions, challenge answers, give feedback. This is the highest-value Pro feature you could build and would differentiate Octokeen from any static quiz app.</div>
+          </div>
+          <span class="check-impact impact-high">High</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Introduce a "Pro Max" tier at $14.99/mo</div>
+            <div class="check-detail">Everything in Pro plus AI mock interviews, priority support, and exclusive cosmetics. Creates an anchor that makes $7.99 feel cheap. Even if few users pick Max, it boosts standard Pro conversion through the decoy effect.</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Team/university plans</div>
+            <div class="check-detail">Sell bulk licenses to ME departments and study groups. $5/user/mo for 10+ seats. Different acquisition channel but high LTV and low churn (institutional buyers).</div>
+          </div>
+          <span class="check-impact impact-med">Med</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+          <div class="check-content">
+            <div class="check-title">Add a referral program (give a month, get a month)</div>
+            <div class="check-detail">ME students know other ME students. Give existing Pro users a way to invite friends: both get 1 month of Pro free. Reduces CAC to zero for referred users and boosts word-of-mouth in a tight-knit community.</div>
+          </div>
+          <span class="check-impact impact-low">Low</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== KEY NUMBERS ==================== -->
+<section>
+  <h2>Key Numbers Reference</h2>
+
+  <h3>Current Gem Economy</h3>
+  <table>
+    <thead>
+      <tr><th>Source / Sink</th><th>Amount</th><th>Frequency</th></tr>
+    </thead>
+    <tbody>
+      <tr><td style="color:var(--green)">+ Daily quest reward</td><td>3 gems each</td><td>5 quests/day = 15 gems/day</td></tr>
+      <tr><td style="color:var(--green)">+ Daily chest bonus</td><td>10 gems</td><td>1/day (if all quests done)</td></tr>
+      <tr><td style="color:var(--green)">+ Weekly quest reward</td><td>15 gems each</td><td>5 quests/week = 75 gems/week</td></tr>
+      <tr><td style="color:var(--green)">+ Weekly chest bonus</td><td>40 gems</td><td>1/week (if all quests done)</td></tr>
+      <tr><td style="color:var(--green)">+ League promotion</td><td>25 gems</td><td>Weekly (if promoted)</td></tr>
+      <tr style="border-top: 2px solid var(--border)"><td style="color:var(--green)"><strong>Total earnable</strong></td><td colspan="2"><strong>~290 gems/week</strong> (if fully grinding all quests + promotions)</td></tr>
+      <tr><td colspan="3" style="padding: 8px"></td></tr>
+      <tr><td style="color:var(--red)">&minus; Heart refill (1)</td><td>15 gems</td><td>As needed</td></tr>
+      <tr><td style="color:var(--red)">&minus; Full heart refill (5)</td><td>60 gems</td><td>As needed</td></tr>
+      <tr><td style="color:var(--red)">&minus; Streak freeze</td><td>40 gems</td><td>Max 2 owned</td></tr>
+      <tr><td style="color:var(--red)">&minus; Streak repair</td><td>75 gems</td><td>Within 3 days of break</td></tr>
+      <tr><td style="color:var(--red)">&minus; Double XP (30 min)</td><td>50 gems</td><td>As needed</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout-warn callout">
+    <p><strong>The math problem:</strong> A free user grinding all quests earns ~290 gems/week. A full heart refill costs 60 gems. That's nearly 5 full refills per week from quests alone, which means 25 extra hearts per week on top of natural recharge (roughly 30 hearts/week). Free users can sustain ~55 hearts/week, enough for 55+ lessons with zero wrong answers, or ~30 lessons at a 50% accuracy rate. Pro is a nice-to-have, not a need.</p>
+  </div>
+
+  <h3>Course Structure</h3>
+  <table>
+    <thead>
+      <tr><th>Unit</th><th>Topic</th><th>Lessons</th><th>Proposed Access</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Statics & Equilibrium</td><td>18</td><td><span class="tag tag-green">Free</span></td></tr>
+      <tr><td>2</td><td>Dynamics & Kinematics</td><td>20</td><td><span class="tag tag-green">Free</span></td></tr>
+      <tr><td>3</td><td>Strength of Materials</td><td>22</td><td><span class="tag tag-green">Free</span></td></tr>
+      <tr><td>4</td><td>Thermodynamics</td><td>18</td><td><span class="tag tag-green">Free</span></td></tr>
+      <tr><td>5</td><td>Heat Transfer</td><td>20</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr><td>6</td><td>Fluid Mechanics</td><td>17</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr><td>7a</td><td>How Things Work</td><td>7</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr><td>7b</td><td>Materials & Manufacturing</td><td>22</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr><td>8</td><td>Machine Design</td><td>17</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr><td>9</td><td>GD&T & Tolerancing</td><td>17</td><td><span class="tag tag-yellow">Pro</span></td></tr>
+      <tr style="font-weight: 600; border-top: 2px solid var(--border)">
+        <td colspan="2">Total</td><td>178</td><td><span class="tag tag-green">78 free</span> / <span class="tag tag-yellow">100 Pro</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================== SUMMARY ==================== -->
+<section>
+  <h2>Summary</h2>
+
+  <div class="metrics">
+    <div class="metric-card red">
+      <div class="label">Current Forecast</div>
+      <div class="value">3-4%</div>
+      <div class="detail">Soft paywall, generous gems</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">After Full Roadmap</div>
+      <div class="value">12-16%</div>
+      <div class="detail">Hard gate + trial + AI features</div>
+    </div>
+    <div class="metric-card yellow">
+      <div class="label">Revenue Swing (100k users)</div>
+      <div class="value">3.4x</div>
+      <div class="detail">$24k/mo &rarr; $82k/mo</div>
+    </div>
+    <div class="metric-card blue">
+      <div class="label">Biggest Single Lever</div>
+      <div class="value">Gate</div>
+      <div class="detail">Lock Units 5-10 behind Pro</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Priority order matters.</strong> Phase 1 (economy tuning) is low-effort, high-signal. Phase 2 (content gating) is the structural fix. Phase 3 (trial + features) is retention and ARPU optimization. Phase 4 is growth. Do them in order. Don't skip to Phase 4 hoping AI features will compensate for a leaky free tier.</p>
+  </div>
+</section>
+
+</div>
+
+<div class="footer">
+  Octokeen Conversion Plan &middot; Generated March 31, 2026 &middot; Assumes 100k registered users, 15-20% MAU, $7.99/mo pricing
+</div>
+
+<script>
+  // Persist checkbox state to localStorage
+  document.addEventListener('DOMContentLoaded', () => {
+    const checks = document.querySelectorAll('.check-box');
+    const stored = JSON.parse(localStorage.getItem('octokeen-conversion-plan') || '{}');
+
+    checks.forEach((box, i) => {
+      if (stored[i]) box.classList.add('checked');
+      box.addEventListener('click', () => {
+        const state = {};
+        checks.forEach((b, j) => { if (b.classList.contains('checked')) state[j] = true; });
+        localStorage.setItem('octokeen-conversion-plan', JSON.stringify(state));
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
