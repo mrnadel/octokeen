@@ -110,6 +110,11 @@ export async function POST(request: NextRequest) {
     .where(eq(userProgress.userId, userId))
     .limit(1);
 
+  // Cap JSONB array sizes to prevent unbounded growth
+  const MAX_BOOKMARKS = 500;
+  const MAX_AREAS = 100;
+  const MAX_ACHIEVEMENTS = 200;
+
   const progressData = {
     userId,
     currentLevel: progress.currentLevel,
@@ -117,13 +122,13 @@ export async function POST(request: NextRequest) {
     currentStreak: progress.currentStreak,
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
-    achievementsUnlocked: progress.achievementsUnlocked,
+    achievementsUnlocked: (progress.achievementsUnlocked || []).slice(0, MAX_ACHIEVEMENTS),
     dailyChallengesCompleted: progress.dailyChallengesCompleted,
     totalQuestionsAttempted: progress.totalQuestionsAttempted,
     totalQuestionsCorrect: progress.totalQuestionsCorrect,
-    bookmarkedQuestions: progress.bookmarkedQuestions,
-    weakAreas: progress.weakAreas,
-    strongAreas: progress.strongAreas,
+    bookmarkedQuestions: (progress.bookmarkedQuestions || []).slice(0, MAX_BOOKMARKS),
+    weakAreas: (progress.weakAreas || []).slice(0, MAX_AREAS),
+    strongAreas: (progress.strongAreas || []).slice(0, MAX_AREAS),
     updatedAt: new Date(),
   };
 
@@ -142,14 +147,17 @@ export async function POST(request: NextRequest) {
     .set({ displayName: progress.displayName, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
-  // Delete and re-insert topic progress
+  // Delete and re-insert topic progress (capped to prevent abuse)
+  const MAX_TOPICS = 100;
+  const topicData = progress.topicProgress.slice(0, MAX_TOPICS);
+
   await db
     .delete(topicProgressTable)
     .where(eq(topicProgressTable.userId, userId));
 
-  if (progress.topicProgress.length > 0) {
+  if (topicData.length > 0) {
     await db.insert(topicProgressTable).values(
-      progress.topicProgress.map((tp) => ({
+      topicData.map((tp) => ({
         userId,
         topicId: tp.topicId,
         questionsAttempted: tp.questionsAttempted,
@@ -161,29 +169,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Append-only session history: only insert new sessions
-  // Limit lookup to last 200 sessions — client only sends recent ones
-  const existingSessions = await db
-    .select({ sessionId: sessionHistory.sessionId })
-    .from(sessionHistory)
-    .where(eq(sessionHistory.userId, userId))
-    .orderBy(desc(sessionHistory.date))
-    .limit(200);
+  // Cap sessions per sync to prevent abuse
+  const MAX_SESSIONS_PER_SYNC = 50;
+  const sessions = progress.sessionHistory.slice(0, MAX_SESSIONS_PER_SYNC);
 
-  const existingIds = new Set(existingSessions.map((s) => s.sessionId));
-  const newSessions = progress.sessionHistory.filter(
-    (s) => !existingIds.has(s.id)
-  );
-
-  if (newSessions.length > 0) {
+  if (sessions.length > 0) {
     // ── Server-side daily usage enforcement ──
-    // Check if the user can still answer questions today before accepting new sessions.
     const limitCheck = await canStartPracticeSession(userId);
     const todayStr = new Date().toISOString().split('T')[0];
-    const todaySessions = newSessions.filter((s) => s.date === todayStr);
+    const todaySessions = sessions.filter((s) => s.date === todayStr);
     const todayQuestionsAttempted = todaySessions.reduce((sum, s) => sum + s.questionsAttempted, 0);
 
-    // If the user is on the free tier AND daily limit is reached, reject the new sessions
     if (!limitCheck.allowed && todayQuestionsAttempted > 0) {
       return NextResponse.json(
         { error: 'Daily question limit reached', remaining: 0, limit: limitCheck.limit },
@@ -191,8 +187,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Use ON CONFLICT DO NOTHING instead of manual dedup query
     await db.insert(sessionHistory).values(
-      newSessions.map((s) => ({
+      sessions.map((s) => ({
         userId,
         sessionId: s.id,
         date: s.date,
@@ -202,9 +199,8 @@ export async function POST(request: NextRequest) {
         topicsCovered: s.topicsCovered,
         xpEarned: s.xpEarned,
       }))
-    );
+    ).onConflictDoNothing();
 
-    // Track daily usage — single batch increment instead of per-question loop
     if (todayQuestionsAttempted > 0) {
       await incrementDailyUsageBatch(userId, todayQuestionsAttempted);
     }
@@ -223,10 +219,12 @@ export async function POST(request: NextRequest) {
       streakMilestones: streakMilestones,
     }).where(eq(userProgress.userId, userId));
 
-    // Batch insert new gem transactions
+    // Batch insert new gem transactions (capped)
+    const MAX_GEM_TX_PER_SYNC = 50;
     if (newGemTransactions?.length) {
+      const capped = newGemTransactions.slice(0, MAX_GEM_TX_PER_SYNC);
       await db.insert(gemTransactions).values(
-        newGemTransactions.map((t: { amount: number; source: string }) => ({
+        capped.map((t: { amount: number; source: string }) => ({
           userId,
           amount: t.amount,
           source: t.source,

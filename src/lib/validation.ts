@@ -121,6 +121,41 @@ export const courseProgressSyncSchema = z.object({
   activeProfession: z.string().max(50).optional(),
 });
 
+// ── Engagement sync (dedicated /api/engagement endpoint) ──────────
+export const engagementSyncSchema = z.object({
+  gems: z.object({
+    balance: z.number().int().min(0).max(MAX_GEMS),
+    totalEarned: z.number().int().min(0).max(MAX_GEMS),
+    inventory: z.object({
+      activeTitles: z.array(z.string().max(100)).max(50),
+      activeFrames: z.array(z.string().max(100)).max(50),
+    }),
+    selectedTitle: z.string().max(100).nullable(),
+    selectedFrame: z.string().max(100).nullable(),
+  }),
+  streak: z.object({
+    freezesOwned: z.number().int().min(0).max(10),
+    milestonesReached: z.array(z.number().int().min(0)).max(50),
+  }),
+  hearts: z.object({
+    current: z.number().int().min(0).max(10),
+    lastRechargeAt: z.number().int().min(0),
+  }),
+  doubleXpExpiry: z.string().nullable(),
+  quests: z.object({
+    dailyQuests: z.array(z.unknown()).max(10),
+    weeklyQuests: z.array(z.unknown()).max(10),
+    dailyQuestDate: z.string().nullable(),
+    weeklyQuestDate: z.string().nullable(),
+    dailyChestClaimed: z.boolean(),
+    weeklyChestClaimed: z.boolean(),
+  }).optional(),
+  newGemTransactions: z.array(z.object({
+    amount: z.number().int().min(-1000).max(1000),
+    source: z.string().max(50),
+  })).max(50).optional(),
+});
+
 // Helper to extract the first validation error message
 export function getValidationError(result: { success: false; error: { issues: Array<{ message: string }> } } | { success: true }): string | null {
   if (result.success) return null;

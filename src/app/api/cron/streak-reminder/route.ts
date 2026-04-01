@@ -17,49 +17,75 @@ export async function GET(req: Request) {
 
   const today = new Date().toISOString().split('T')[0];
 
-  // Find users with push subscriptions who have a streak > 0
-  // but haven't been active today — their streak is at risk
-  const atRiskUsers = await db
-    .select({
-      userId: userProgress.userId,
-      currentStreak: userProgress.currentStreak,
-      endpoint: pushSubscriptions.endpoint,
-      p256dh: pushSubscriptions.p256dh,
-      auth: pushSubscriptions.auth,
-    })
-    .from(userProgress)
-    .innerJoin(pushSubscriptions, eq(userProgress.userId, pushSubscriptions.userId))
-    .where(
-      and(
-        gt(userProgress.currentStreak, 0),
-        ne(userProgress.lastActiveDate, today),
-      )
-    );
-
+  // Process at-risk users in batches to avoid timeouts at scale
+  const BATCH_SIZE = 500;
   let sent = 0;
   let failed = 0;
+  let total = 0;
+  let lastUserId: string | null = null;
 
-  for (const user of atRiskUsers) {
-    const streakDays = user.currentStreak;
-    try {
-      await sendPushNotification(
-        { endpoint: user.endpoint, p256dh: user.p256dh, auth: user.auth },
-        {
-          title: `Your ${streakDays}-day streak is at risk!`,
-          body: 'Complete one lesson today to keep it alive.',
-          tag: 'streak-reminder',
-          url: '/',
-        },
-      );
-      sent++;
-    } catch (err: unknown) {
-      // If subscription expired (410 Gone), remove it
-      if (err && typeof err === 'object' && 'statusCode' in err && (err as { statusCode: number }).statusCode === 410) {
-        await db.delete(pushSubscriptions).where(eq(pushSubscriptions.endpoint, user.endpoint));
-      }
-      failed++;
+  while (true) {
+    // Cursor-based pagination: fetch next batch of at-risk users
+    const conditions = [
+      gt(userProgress.currentStreak, 0),
+      ne(userProgress.lastActiveDate, today),
+    ];
+    if (lastUserId) {
+      conditions.push(gt(userProgress.userId, lastUserId));
     }
+
+    const batch = await db
+      .select({
+        userId: userProgress.userId,
+        currentStreak: userProgress.currentStreak,
+        endpoint: pushSubscriptions.endpoint,
+        p256dh: pushSubscriptions.p256dh,
+        auth: pushSubscriptions.auth,
+      })
+      .from(userProgress)
+      .innerJoin(pushSubscriptions, eq(userProgress.userId, pushSubscriptions.userId))
+      .where(and(...conditions))
+      .orderBy(userProgress.userId)
+      .limit(BATCH_SIZE);
+
+    if (batch.length === 0) break;
+
+    total += batch.length;
+    lastUserId = batch[batch.length - 1].userId;
+
+    // Send notifications concurrently in small groups
+    const CONCURRENCY = 10;
+    for (let i = 0; i < batch.length; i += CONCURRENCY) {
+      const chunk = batch.slice(i, i + CONCURRENCY);
+      const results = await Promise.allSettled(
+        chunk.map((user) =>
+          sendPushNotification(
+            { endpoint: user.endpoint, p256dh: user.p256dh, auth: user.auth },
+            {
+              title: `Your ${user.currentStreak}-day streak is at risk!`,
+              body: 'Complete one lesson today to keep it alive.',
+              tag: 'streak-reminder',
+              url: '/',
+            },
+          )
+        )
+      );
+
+      for (let j = 0; j < results.length; j++) {
+        if (results[j].status === 'fulfilled') {
+          sent++;
+        } else {
+          const err = (results[j] as PromiseRejectedResult).reason;
+          if (err && typeof err === 'object' && 'statusCode' in err && (err as { statusCode: number }).statusCode === 410) {
+            await db.delete(pushSubscriptions).where(eq(pushSubscriptions.endpoint, chunk[j].endpoint));
+          }
+          failed++;
+        }
+      }
+    }
+
+    if (batch.length < BATCH_SIZE) break; // Last batch
   }
 
-  return NextResponse.json({ sent, failed, total: atRiskUsers.length });
+  return NextResponse.json({ sent, failed, total });
 }

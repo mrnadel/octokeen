@@ -10,7 +10,6 @@ import { useHeartsStore } from '@/store/useHeartsStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { getUnitTheme, type UnitTheme } from '@/lib/unitThemes';
-import { PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import { LessonNode } from './LessonNode';
@@ -927,7 +926,7 @@ export function CourseMap() {
                         Take a placement test to jump to this unit. You&apos;ll answer questions from the units in between.
                       </p>
                       <p style={{ fontSize: 13, color: '#CFCFCF', fontWeight: 600, marginBottom: 20 }}>
-                        Pass with fewer than {PLACEMENT_TEST_CONFIG.maxMistakes} mistakes to unlock.
+                        You need ~75% accuracy to pass.
                       </p>
                       <div className="flex" style={{ gap: 12 }}>
                         <button

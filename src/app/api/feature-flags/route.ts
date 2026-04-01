@@ -4,8 +4,8 @@ import { featureFlags } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
 import { FLAG_DEFINITIONS } from '@/lib/feature-flags';
-function isAdmin(email: string | undefined | null) {
-  return email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+function isAdmin(userId: string | undefined | null) {
+  return userId === process.env.ADMIN_USER_ID;
 }
 
 // Cache headers: CDN caches for 5 min. Admin PATCH busts on next request.
@@ -41,7 +41,7 @@ export async function GET() {
 /** PATCH: toggle a flag (admin only) */
 export async function PATCH(req: Request) {
   const session = await auth();
-  if (!isAdmin(session?.user?.email)) {
+  if (!isAdmin(session?.user?.id)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 

@@ -11,7 +11,7 @@ import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
 import type { CourseProgress, CourseIntroData, ActiveLesson, LessonResult, PlacementTest, PlacementTestResult, Unit, Lesson } from '@/data/course/types';
-import { generatePlacementQuestions, getFirstIncompleteUnitIndex, PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
+import { generatePlacementQuestions, getFirstIncompleteUnitIndex, getMaxMistakes, PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
@@ -655,7 +655,7 @@ export const useCourseStore = create<CourseState>()(
                   targetUnitIndex,
                   targetUnitTitle: freshState.courseData[targetUnitIndex]?.title ?? '',
                   totalQuestions: 0, correctAnswers: 0, mistakes: 0,
-                  maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+                  maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
                   unitsSkipped: targetUnitIndex - fromUnit,
                   xpEarned: 0,
                   accuracy: 0,
@@ -672,7 +672,7 @@ export const useCourseStore = create<CourseState>()(
                 currentQuestionIndex: 0,
                 answers: [],
                 mistakes: 0,
-                maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+                maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
                 startTime: Date.now(),
               },
             });
@@ -715,7 +715,7 @@ export const useCourseStore = create<CourseState>()(
               totalQuestions: 0,
               correctAnswers: 0,
               mistakes: 0,
-              maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+              maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
               unitsSkipped: targetUnitIndex - fromUnit,
               xpEarned: 0,
               accuracy: 0,
@@ -732,7 +732,7 @@ export const useCourseStore = create<CourseState>()(
             currentQuestionIndex: 0,
             answers: [],
             mistakes: 0,
-            maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
+            maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
             startTime: Date.now(),
           },
         });

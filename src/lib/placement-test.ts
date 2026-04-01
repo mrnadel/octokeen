@@ -15,11 +15,25 @@ import type { Unit, CourseQuestion, CourseProgress } from '@/data/course/types';
 
 // ─── Configuration ───────────────────────────────────────────────
 export const PLACEMENT_TEST_CONFIG = {
-  /** Maximum wrong answers allowed. Pass = mistakes < this value. */
-  maxMistakes: 3,
+  /** Base wrong answers allowed (scales with units skipped) */
+  maxMistakesBase: 2,
+  /** Extra mistakes allowed per additional unit skipped */
+  maxMistakesPerUnit: 1,
   /** Questions selected per skipped unit */
-  questionsPerUnit: 3,
+  questionsPerUnit: 8,
 } as const;
+
+/**
+ * Compute allowed mistakes based on how many units are being skipped.
+ * 1 unit = 2 mistakes, 2 units = 3, 3 units = 4, etc.
+ * Pass threshold is ~75% accuracy.
+ */
+export function getMaxMistakes(unitsSkipped: number): number {
+  return (
+    PLACEMENT_TEST_CONFIG.maxMistakesBase +
+    Math.max(0, unitsSkipped - 1) * PLACEMENT_TEST_CONFIG.maxMistakesPerUnit
+  );
+}
 
 // ─── Helpers ─────────────────────────────────────────────────────
 

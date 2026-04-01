@@ -118,38 +118,17 @@ export async function incrementDailyUsageBatch(userId: string, count: number): P
   if (count <= 0) return;
   const today = getTodayString();
 
-  // Try atomic increment first (handles the common case without a race condition)
-  const result = await db
-    .update(dailyUsage)
-    .set({
-      questionsUsed: sql`${dailyUsage.questionsUsed} + ${count}`,
-      updatedAt: new Date(),
-    })
-    .where(and(eq(dailyUsage.userId, userId), eq(dailyUsage.date, today)));
-
-  const rowCount = (result as unknown as { rowCount: number }).rowCount;
-
-  // If no row was updated, this is the first question today — insert
-  if (rowCount === 0) {
-    const insertResult = await db.insert(dailyUsage).values({
-      userId,
-      date: today,
-      questionsUsed: count,
-    }).onConflictDoNothing();
-
-    const insertRowCount = (insertResult as unknown as { rowCount: number }).rowCount;
-
-    // If insert was a no-op (concurrent insert won), do the increment
-    if (insertRowCount === 0) {
-      await db
-        .update(dailyUsage)
-        .set({
-          questionsUsed: sql`${dailyUsage.questionsUsed} + ${count}`,
-          updatedAt: new Date(),
-        })
-        .where(and(eq(dailyUsage.userId, userId), eq(dailyUsage.date, today)));
-    }
-  }
+  // Atomic upsert: INSERT or increment on conflict. Single round-trip, no race condition.
+  await db
+    .insert(dailyUsage)
+    .values({ userId, date: today, questionsUsed: count })
+    .onConflictDoUpdate({
+      target: [dailyUsage.userId, dailyUsage.date],
+      set: {
+        questionsUsed: sql`${dailyUsage.questionsUsed} + ${count}`,
+        updatedAt: new Date(),
+      },
+    });
 }
 
 /**

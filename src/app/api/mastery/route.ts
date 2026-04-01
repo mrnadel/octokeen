@@ -71,6 +71,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, inserted: 0 });
   }
 
+  // Cap batch size to prevent abuse and memory spikes
+  const MAX_EVENTS_PER_REQUEST = 200;
+  if (events.length > MAX_EVENTS_PER_REQUEST) {
+    return NextResponse.json(
+      { error: `Too many events (max ${MAX_EVENTS_PER_REQUEST} per request)` },
+      { status: 400 }
+    );
+  }
+
   // Validate required fields on each event
   const valid = events.every(
     (e: Record<string, unknown>) =>

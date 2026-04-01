@@ -6,8 +6,12 @@ import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
+import { useHeartsStore } from '@/store/useHeartsStore';
 import { streakMilestones } from '@/data/streak-milestones';
 import { shallow } from 'zustand/shallow';
+
+/** Track gem transactions that have already been synced to avoid double-inserting. */
+let lastSyncedGemTxCount = 0;
 
 export function useDbSync() {
   const { status } = useSession();
@@ -33,11 +37,12 @@ export function useDbSync() {
         hydrateTimeout = setTimeout(() => controller.abort(), 15000);
 
         const fetchOpts = { signal: controller.signal };
-        const [progressRes, courseRes, feedbackRes, contentCourseRes] = await Promise.all([
+        const [progressRes, courseRes, feedbackRes, contentCourseRes, engagementRes] = await Promise.all([
           fetch('/api/progress', fetchOpts),
           fetch('/api/course-progress', fetchOpts),
           fetch('/api/content-feedback', fetchOpts),
           fetch(`/api/content/course?profession=${encodeURIComponent(activeProfession)}`, fetchOpts),
+          fetch('/api/engagement', fetchOpts),
         ]);
         clearTimeout(hydrateTimeout);
 
@@ -140,14 +145,131 @@ export function useDbSync() {
         if (contentCourseRes.ok) {
           const data = await contentCourseRes.json();
           // Only apply DB course data if the user is still on the same profession
-          // (DB currently only has ME content; other professions use static data)
           if (data.course?.length && useCourseStore.getState().activeProfession === activeProfession) {
             useCourseStore.getState().setCourseData(data.course);
           }
         }
 
-        // Practice questions removed — all questions come from course data now
-        // contentQuestionsRes is unused
+        // Hydrate engagement store from DB (server-authoritative for economy)
+        if (engagementRes.ok) {
+          const eng = await engagementRes.json();
+          const localEng = useEngagementStore.getState();
+
+          // DB wins for economy fields (gems, streak freezes, inventory, hearts)
+          useEngagementStore.setState((s) => ({
+            gems: {
+              ...s.gems,
+              balance: Math.max(eng.gems.balance ?? 0, s.gems.balance),
+              totalEarned: Math.max(eng.gems.totalEarned ?? 0, s.gems.totalEarned),
+              inventory: {
+                activeTitles: [...new Set([
+                  ...(eng.gems.inventory?.activeTitles ?? []),
+                  ...s.gems.inventory.activeTitles,
+                ])],
+                activeFrames: [...new Set([
+                  ...(eng.gems.inventory?.activeFrames ?? []),
+                  ...s.gems.inventory.activeFrames,
+                ])],
+              },
+              selectedTitle: eng.gems.selectedTitle ?? s.gems.selectedTitle,
+              selectedFrame: eng.gems.selectedFrame ?? s.gems.selectedFrame,
+            },
+            streak: {
+              ...s.streak,
+              freezesOwned: Math.max(eng.streak.freezesOwned ?? 0, s.streak.freezesOwned),
+              milestonesReached: [...new Set([
+                ...(eng.streak.milestonesReached ?? []),
+                ...s.streak.milestonesReached,
+              ])],
+            },
+            doubleXpExpiry: eng.doubleXpExpiry ?? s.doubleXpExpiry,
+          }));
+
+          // Hydrate hearts (DB wins for current count; recalculate recharge)
+          const dbHearts = eng.hearts;
+          if (dbHearts) {
+            const localHearts = useHeartsStore.getState();
+            useHeartsStore.setState({
+              current: Math.min(
+                Math.max(dbHearts.current ?? 5, localHearts.current),
+                localHearts.max,
+              ),
+              lastRechargeAt: Math.max(
+                dbHearts.lastRechargeAt ?? 0,
+                localHearts.lastRechargeAt,
+              ),
+            });
+          }
+
+          // Hydrate quests from DB if they match the current date
+          // (local quests for today/this week take priority since they may have newer progress)
+          if (eng.quests) {
+            const localDaily = localEng.dailyQuestDate;
+            const localWeekly = localEng.weeklyQuestDate;
+
+            if (eng.quests.daily && eng.quests.daily.questDate === localDaily) {
+              // Same day: merge quest progress (take the higher progress values)
+              const dbQuests = eng.quests.daily.quests as typeof localEng.dailyQuests;
+              if (Array.isArray(dbQuests) && dbQuests.length > 0) {
+                useEngagementStore.setState((s) => {
+                  // If local has no quests for today, use DB
+                  if (s.dailyQuests.length === 0) {
+                    return {
+                      dailyQuests: dbQuests,
+                      dailyChestClaimed: eng.quests.daily.chestClaimed ?? false,
+                    };
+                  }
+                  // Otherwise merge: take higher progress per quest
+                  const merged = s.dailyQuests.map((lq) => {
+                    const dbq = dbQuests.find((dq: { definitionId?: string }) => dq.definitionId === lq.definitionId);
+                    if (!dbq) return lq;
+                    return {
+                      ...lq,
+                      progress: Math.max(lq.progress, dbq.progress ?? 0),
+                      completed: lq.completed || dbq.completed,
+                      claimed: lq.claimed || dbq.claimed,
+                    };
+                  });
+                  return {
+                    dailyQuests: merged,
+                    dailyChestClaimed: s.dailyChestClaimed || eng.quests.daily.chestClaimed,
+                  };
+                });
+              }
+            }
+
+            if (eng.quests.weekly && eng.quests.weekly.questDate === localWeekly) {
+              const dbQuests = eng.quests.weekly.quests as typeof localEng.weeklyQuests;
+              if (Array.isArray(dbQuests) && dbQuests.length > 0) {
+                useEngagementStore.setState((s) => {
+                  if (s.weeklyQuests.length === 0) {
+                    return {
+                      weeklyQuests: dbQuests,
+                      weeklyChestClaimed: eng.quests.weekly.chestClaimed ?? false,
+                    };
+                  }
+                  const merged = s.weeklyQuests.map((lq) => {
+                    const dbq = dbQuests.find((dq: { definitionId?: string }) => dq.definitionId === lq.definitionId);
+                    if (!dbq) return lq;
+                    return {
+                      ...lq,
+                      progress: Math.max(lq.progress, dbq.progress ?? 0),
+                      completed: lq.completed || dbq.completed,
+                      claimed: lq.claimed || dbq.claimed,
+                    };
+                  });
+                  return {
+                    weeklyQuests: merged,
+                    weeklyChestClaimed: s.weeklyChestClaimed || eng.quests.weekly.chestClaimed,
+                  };
+                });
+              }
+            }
+          }
+
+          // Initialize the synced tx count so we don't re-send existing transactions
+          lastSyncedGemTxCount = useEngagementStore.getState().gems.transactions.length;
+        }
 
         // Merge guest trial XP earned before registration
         try {
@@ -227,11 +349,97 @@ export function useDbSync() {
       { equalityFn: shallow },
     );
 
+    // Shared sync function for engagement + hearts
+    let engagementTimer: ReturnType<typeof setTimeout>;
+
+    function syncEngagement(includeQuests: boolean) {
+      clearTimeout(engagementTimer);
+      engagementTimer = setTimeout(() => {
+        const eng = useEngagementStore.getState();
+        const hearts = useHeartsStore.getState();
+
+        // Extract only new gem transactions since last sync
+        const allTx = eng.gems.transactions;
+        const newTxCount = allTx.length - lastSyncedGemTxCount;
+        const newGemTransactions = newTxCount > 0
+          ? allTx.slice(0, newTxCount).map((t) => ({ amount: t.amount, source: t.source }))
+          : undefined;
+        lastSyncedGemTxCount = allTx.length;
+
+        const payload: Record<string, unknown> = {
+          gems: {
+            balance: eng.gems.balance,
+            totalEarned: eng.gems.totalEarned,
+            inventory: eng.gems.inventory,
+            selectedTitle: eng.gems.selectedTitle,
+            selectedFrame: eng.gems.selectedFrame,
+          },
+          streak: {
+            freezesOwned: eng.streak.freezesOwned,
+            milestonesReached: eng.streak.milestonesReached,
+          },
+          hearts: {
+            current: hearts.current,
+            lastRechargeAt: hearts.lastRechargeAt,
+          },
+          doubleXpExpiry: eng.doubleXpExpiry,
+          newGemTransactions,
+        };
+
+        if (includeQuests) {
+          payload.quests = {
+            dailyQuests: eng.dailyQuests,
+            weeklyQuests: eng.weeklyQuests,
+            dailyQuestDate: eng.dailyQuestDate,
+            weeklyQuestDate: eng.weeklyQuestDate,
+            dailyChestClaimed: eng.dailyChestClaimed,
+            weeklyChestClaimed: eng.weeklyChestClaimed,
+          };
+        }
+
+        fetch('/api/engagement', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).catch(console.error);
+      }, 1500);
+    }
+
+    // Engagement store sync (debounced, includes quests)
+    const unsubEngagement = useEngagementStore.subscribe(
+      (state) => ({
+        gems: state.gems,
+        streak: state.streak,
+        doubleXpExpiry: state.doubleXpExpiry,
+        dailyQuests: state.dailyQuests,
+        weeklyQuests: state.weeklyQuests,
+        dailyQuestDate: state.dailyQuestDate,
+        weeklyQuestDate: state.weeklyQuestDate,
+        dailyChestClaimed: state.dailyChestClaimed,
+        weeklyChestClaimed: state.weeklyChestClaimed,
+      }),
+      () => syncEngagement(true),
+      { equalityFn: shallow },
+    );
+
+    // Also sync when hearts change independently (e.g. heart loss during lesson)
+    let prevHearts = { current: useHeartsStore.getState().current, lastRechargeAt: useHeartsStore.getState().lastRechargeAt };
+    const unsubHearts = useHeartsStore.subscribe((state) => {
+      const next = { current: state.current, lastRechargeAt: state.lastRechargeAt };
+      if (next.current !== prevHearts.current || next.lastRechargeAt !== prevHearts.lastRechargeAt) {
+        prevHearts = next;
+        syncEngagement(false);
+      }
+    });
+
     return () => {
       clearTimeout(progressTimer);
       clearTimeout(courseTimer);
+      clearTimeout(engagementTimer);
       unsubProgress();
       unsubCourse();
+      unsubEngagement();
+      unsubHearts();
     };
   }, [isAuthenticated]);
 
