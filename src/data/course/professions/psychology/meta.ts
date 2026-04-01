@@ -824,4 +824,366 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u13-L4", title: "Therapy and Treatment Synthesis", description: "Apply everything you learned to complex, real-world scenarios.", icon: "📝", xpReward: 35, questions: [] },
     ],
   },
+
+  // ── Section 3: Learning (Part 1, 5 units) ──
+  {
+    id: 'psy-sec3-u1', title: 'Pavlov\'s Dogs and Learned Reactions',
+    description: 'How your brain learns to connect unrelated things through repeated pairing.',
+    color: '#8B5CF6', icon: '🐕', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u1-L1', title: 'What Is Learning?', description: 'Learning means a lasting change in behavior based on experience.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u1-L2', title: 'Pavlov\'s Discovery', description: 'How a Russian scientist stumbled onto one of psychology\'s biggest findings.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u1-L3', title: 'The Building Blocks of Conditioning', description: 'Learn the 4 key terms that describe every classical conditioning situation.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u1-L4', title: 'Extinction and Spontaneous Recovery', description: 'Conditioned responses can fade and then surprise you by coming back.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u1-L5', title: 'Generalization and Discrimination', description: 'Why similar things trigger the same response, and how you learn to tell them apart.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u2', title: 'Skinner\'s Box and Learning by Consequences',
+    description: 'How rewards and punishments shape the behaviors you repeat or avoid.',
+    color: '#8B5CF6', icon: '🐀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u2-L1', title: 'What Is Operant Conditioning?', description: 'Learning from consequences: you repeat what works and stop what doesn\'t.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u2-L2', title: 'Reinforcement: Adding and Removing', description: 'Two ways to make a behavior happen more often.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L3', title: 'Punishment: Adding and Removing', description: 'Two ways to make a behavior happen less often.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L4', title: 'Shaping Behavior Step by Step', description: 'How to build complex behaviors by reinforcing small steps toward the goal.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L5', title: 'The Full Operant Picture', description: 'Combine reinforcement, punishment, and shaping to analyze real behavior.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u3', title: 'Reinforcement Schedules',
+    description: 'When and how often you deliver rewards changes how people behave.',
+    color: '#8B5CF6', icon: '📊', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u3-L1', title: 'Continuous vs. Partial Reinforcement', description: 'Rewarding every time vs. rewarding sometimes creates very different patterns.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u3-L2', title: 'Ratio Schedules: Counting Responses', description: 'Reinforcement based on how many times you do something.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u3-L3', title: 'Interval Schedules: Watching the Clock', description: 'Reinforcement based on how much time has passed.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u3-L4', title: 'Comparing All Four Schedules', description: 'See how the 4 reinforcement schedules differ in speed, pattern, and extinction resistance.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u3-L5', title: 'Schedules in the Real World', description: 'Spot reinforcement schedules in everyday life, apps, and workplaces.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u4', title: 'Learning Foundations Review',
+    description: 'Test your knowledge of classical conditioning, operant conditioning, and reinforcement schedules.',
+    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u4-L1', title: 'Classical Conditioning Review', description: 'Revisit Pavlov\'s key concepts: conditioning, extinction, generalization, and discrimination.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u4-L2', title: 'Operant Conditioning Review', description: 'Revisit reinforcement, punishment, shaping, and the key differences from classical conditioning.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u4-L3', title: 'Reinforcement Schedules Review', description: 'Test your ability to identify and compare all 4 reinforcement schedules.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u5', title: 'Bandura\'s Bobo Doll and Learning by Watching',
+    description: 'How you learn new behaviors just by observing other people.',
+    color: '#8B5CF6', icon: '👀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u5-L1', title: 'Learning Without Direct Experience', description: 'You don\'t need rewards or punishments to learn. Watching is enough.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u5-L2', title: 'The Bobo Doll Experiment', description: 'The famous study that proved children imitate aggression they observe.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L3', title: 'The Four Steps of Modeling', description: 'Attention, retention, reproduction, and motivation: the full process of learning by watching.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L4', title: 'Prosocial and Antisocial Modeling', description: 'Observation can teach kindness or cruelty, depending on the model.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L5', title: 'Observational Learning Everywhere', description: 'Recognize how modeling shapes language, culture, skills, and social norms around you.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 3: Learning (Part 2, 4 units) ──
+  {
+    id: 'psy-sec3-u6', title: 'Habituation and Sensitization',
+    description: 'Why you stop noticing your watch but flinch harder at a sudden noise.',
+    color: '#6366F1', icon: '🔕', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u6-L1', title: 'What Is Habituation?', description: 'How your brain learns to tune out things that don\'t matter.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u6-L2', title: 'Dishabituation and Spontaneous Recovery', description: 'What brings a habituated response back to life.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u6-L3', title: 'What Is Sensitization?', description: 'When your brain turns the volume up instead of down.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u6-L4', title: 'Habituation in Research and Everyday Life', description: 'How scientists and everyday situations reveal the power of habituation.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u7', title: 'Habits: Formation, Loops, and Breaking Them',
+    description: 'How behaviors become automatic and what it takes to change them.',
+    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u7-L1', title: 'What Makes a Habit?', description: 'Why some behaviors become effortless and automatic.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u7-L2', title: 'The Habit Loop', description: 'The three-part cycle that drives every habit.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u7-L3', title: 'How Habits Form', description: 'The process that turns new behaviors into automatic routines.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u7-L4', title: 'Breaking and Replacing Habits', description: 'Why willpower alone fails and what actually works.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u7-L5', title: 'Habits and Operant Conditioning', description: 'How rewards and reinforcement connect to habit formation.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u8', title: 'Learning Transfer and Generalization',
+    description: 'How skills and knowledge from one situation apply to another.',
+    color: '#EC4899', icon: '🔀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u8-L1', title: 'What Is Learning Transfer?', description: 'How knowledge from one context helps in a completely different one.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u8-L2', title: 'Near and Far Transfer', description: 'Why some skills transfer easily and others barely transfer at all.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u8-L3', title: 'Generalization in Conditioning', description: 'How conditioned responses spread to similar stimuli and situations.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u8-L4', title: 'Analogical Reasoning and Transfer', description: 'How spotting similarities between different problems enables far transfer.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u8-L5', title: 'Barriers to Transfer', description: 'What prevents learning from carrying over to new situations.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec3-u9', title: 'Learning: Full Section Review',
+    description: 'Test your knowledge across all learning concepts from classical conditioning to transfer.',
+    color: '#F59E0B', icon: '🏆', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u9-L1', title: 'Conditioning Foundations Review', description: 'Revisit classical conditioning, operant conditioning, and reinforcement schedules.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u9-L2', title: 'Observational and Non-Associative Learning Review', description: 'Revisit Bandura\'s observational learning, habituation, and sensitization.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u9-L3', title: 'Habits and Transfer Review', description: 'Revisit habit formation, the habit loop, and learning transfer.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u9-L4', title: 'Section 3 Comprehensive Checkpoint', description: 'A challenging test spanning all learning concepts from this section.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 5: Thinking & Intelligence (Part 1, 5 units) ──
+  {
+    id: 'psy-sec5-u1', title: 'What Is Intelligence?',
+    description: 'Explore the major theories about what intelligence really is and why psychologists still debate it.',
+    color: '#8B5CF6', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u1-L1', title: 'Defining Intelligence', description: 'Why intelligence is one of the hardest things in psychology to define.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u1-L2', title: 'Fluid vs. Crystallized Intelligence', description: 'Two types of intelligence that change in opposite directions as we age.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u1-L3', title: 'Nature vs. Nurture in Intelligence', description: 'How much of intelligence is genetic and how much comes from environment.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u1-L4', title: 'The Intelligence Controversy', description: 'Why intelligence research has been so politically and ethically charged.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u1-L5', title: 'Modern Views on Intelligence', description: 'How current researchers think about intelligence beyond the old "one number" model.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u2', title: 'IQ Tests: What They Measure',
+    description: 'Understand how IQ tests work, what they predict well, and what they miss entirely.',
+    color: '#7C3AED', icon: '📊', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u2-L1', title: 'The History of IQ Testing', description: 'How intelligence testing began and why it was created.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u2-L2', title: 'How Modern IQ Tests Work', description: 'What today\'s IQ tests actually measure and how scores are calculated.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u2-L3', title: 'What IQ Predicts and Misses', description: 'IQ correlates with some outcomes but fails to capture many important abilities.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u2-L4', title: 'Giftedness and Intellectual Disability', description: 'How psychologists define the extremes of the IQ distribution.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u2-L5', title: 'Criticisms and Alternatives to IQ', description: 'Why some psychologists think IQ tests need to be rethought or replaced.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u3', title: 'Multiple Intelligences and Creativity',
+    description: 'Explore Gardner\'s theory of multiple intelligences and what psychologists know about creative thinking.',
+    color: '#6D28D9', icon: '🎨', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u3-L1', title: 'Gardner\'s Multiple Intelligences', description: 'The theory that intelligence comes in at least 8 different forms.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u3-L2', title: 'Debate Over Multiple Intelligences', description: 'Why many psychologists question Gardner\'s theory despite its popularity.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u3-L3', title: 'What Is Creativity?', description: 'How psychologists define and study creative thinking.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u3-L4', title: 'Fostering and Blocking Creativity', description: 'What helps and what kills creative thinking, according to research.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u3-L5', title: 'The 10,000-Hour Debate', description: 'Does practice alone make you an expert, or does talent matter too?', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u4', title: 'Thinking & Intelligence Review',
+    description: 'Revisit key concepts from intelligence theories, IQ testing, creativity, and multiple intelligences.',
+    color: '#5B21B6', icon: '🔄', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u4-L1', title: 'Intelligence Theories Recap', description: 'Review the major theories of intelligence from Spearman to the CHC model.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u4-L2', title: 'IQ Testing Review', description: 'Revisit the history, mechanics, and limitations of IQ testing.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u4-L3', title: 'Creativity and Practice Review', description: 'Revisit what drives creativity and the role of deliberate practice in expertise.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u5', title: 'Problem Solving and Reasoning',
+    description: 'Learn the mental tools humans use to solve problems and why we sometimes get stuck.',
+    color: '#4C1D95', icon: '🧩', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u5-L1', title: 'Types of Problems', description: 'Well-defined vs. ill-defined problems and why the distinction matters.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u5-L2', title: 'Heuristics and Mental Shortcuts', description: 'The most common mental shortcuts and when they lead us astray.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u5-L3', title: 'Cognitive Biases in Reasoning', description: 'Systematic errors in thinking that affect everyone.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u5-L4', title: 'Barriers to Good Reasoning', description: 'Mental set, sunk cost fallacy, and other traps that block clear thinking.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u5-L5', title: 'System 1 and System 2 Thinking', description: 'The two systems your brain uses to make decisions, and when each one leads.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 5: Thinking & Intelligence (Part 2, 5 units) ──
+  {
+    id: 'psy-sec5-u6', title: 'Does Language Shape Your Thoughts?',
+    description: 'How the words you speak might change the way you think about the world.',
+    color: '#8B5CF6', icon: '🗣️', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u6-L1', title: 'The Sapir-Whorf Hypothesis', description: 'The bold idea that language controls or influences how you perceive reality.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u6-L2', title: 'Color, Space, and Time Across Languages', description: 'How speakers of different languages literally see colors, directions, and time differently.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L3', title: 'Bilingualism and Cognitive Flexibility', description: 'How speaking two languages reshapes the brain and sharpens mental agility.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L4', title: 'Thinking Without Words', description: 'Evidence that thought can exist independently of language, from deaf children to animal cognition.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L5', title: 'Language, Labels, and Real-World Impact', description: 'How language shapes stereotypes, legal decisions, and everyday judgments.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u7', title: 'How Babies Learn to Talk',
+    description: 'The remarkable journey from first cries to full sentences in just a few years.',
+    color: '#EC4899', icon: '👶', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u7-L1', title: 'From Coos to Conversations', description: 'The predictable stages every child passes through on the way to fluent speech.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u7-L2', title: 'Born to Talk or Taught to Talk?', description: 'The great debate: is language ability built into the brain, or is it entirely learned?', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L3', title: 'Critical Periods and Missed Windows', description: 'What happens when children miss the window for language, and what that teaches us about the brain.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L4', title: 'How Parents Shape Language Growth', description: 'The role of baby talk, reading aloud, and conversational turns in building young brains.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L5', title: 'When Language Development Stalls', description: 'Understanding language delays, disorders, and how early intervention changes outcomes.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u8', title: 'Consciousness: The Mystery Inside Your Head',
+    description: 'What it means to be aware, why it matters, and why science still cannot fully explain it.',
+    color: '#6366F1', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u8-L1', title: 'What Is Consciousness?', description: 'How psychologists and philosophers define awareness, and why it is so hard to study.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u8-L2', title: 'Theories of Consciousness', description: 'The leading scientific theories attempting to explain how awareness arises in the brain.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L3', title: 'The Power of the Unconscious', description: 'How much of your thinking happens outside your awareness, from priming to blindsight.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L4', title: 'Attention: The Gatekeeper of Consciousness', description: 'How attention filters what enters your awareness and why you miss so much of reality.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L5', title: 'Do You Actually Choose Your Choices?', description: 'What neuroscience reveals about free will, the timing of decisions, and the limits of self-awareness.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u9', title: 'Altered States of Consciousness',
+    description: 'How sleep, dreams, meditation, and hypnosis change your awareness in fascinating ways.',
+    color: '#7C3AED', icon: '🌙', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u9-L1', title: 'What Happens When You Sleep', description: 'The stages your brain cycles through every night and why each one matters.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u9-L2', title: 'Why We Dream', description: 'The major theories about why the sleeping brain creates vivid stories, images, and emotions.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L3', title: 'Meditation and the Science of Mindfulness', description: 'What happens in the brain during meditation and what the evidence actually shows.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L4', title: 'Hypnosis: Separating Myth from Science', description: 'What hypnosis actually is, who it works for, and what it cannot do.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L5', title: 'Substances That Alter Consciousness', description: 'How drugs change brain chemistry and conscious experience, from caffeine to psychedelics.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec5-u10', title: 'Thinking & Intelligence: Full Review',
+    description: 'Test your knowledge across all of Section 5, from problem-solving to consciousness.',
+    color: '#A78BFA', icon: '🏆', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u10-L1', title: 'Thinking and Intelligence Recap', description: 'Review key concepts from problem-solving, creativity, and intelligence theory.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L2', title: 'Language, Thought, and Acquisition Recap', description: 'Review linguistic relativity, bilingualism, and how children learn language.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L3', title: 'Consciousness and Altered States Recap', description: 'Review consciousness theories, sleep, dreams, meditation, and hypnosis.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L4', title: 'Section 5 Speed Round', description: 'Rapid-fire recall across all of Thinking & Intelligence.', icon: '⚡', type: 'speed-round', xpReward: 35, questions: [] },
+    ],
+  },
+
+  // ── Section 13: Applied & Industrial Psychology (Part 1, 6 units) ──
+  {
+    id: 'psy-sec13-u1', title: 'Why Consumers Act Irrationally',
+    description: 'How cognitive biases lead people to make predictably irrational economic decisions.',
+    color: '#6366F1', icon: '🧠', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u1-L1', title: 'Bounded Rationality and Heuristics', description: 'Why people settle for "good enough" instead of perfectly rational choices.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u1-L2', title: 'The Anchoring Effect', description: 'How the first number you see changes every number that follows.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u1-L3', title: 'Loss Aversion and the Endowment Effect', description: 'Why losing $100 hurts more than gaining $100 feels good.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u1-L4', title: 'Framing Effects and Prospect Theory', description: 'How the same information leads to different choices depending on presentation.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u1-L5', title: 'Choice Overload and Decision Fatigue', description: 'Why more options often lead to worse decisions or no decision at all.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u2', title: 'The Psychology Behind Pricing',
+    description: 'How marketers use cognitive biases to influence what you buy and how much you pay.',
+    color: '#EC4899', icon: '💰', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u2-L1', title: 'Price Perception and Charm Pricing', description: 'Why $9.99 feels dramatically cheaper than $10.00.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u2-L2', title: 'The Decoy Effect and Asymmetric Dominance', description: 'How adding a worse option makes another option look better.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u2-L3', title: 'Scarcity, Urgency, and Social Proof', description: 'The persuasion triggers that make people buy faster and more impulsively.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u2-L4', title: 'The Psychology of Free and Bundling', description: 'Why "free" is the most powerful word in marketing and how bundles change value perception.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u2-L5', title: 'Nudge Theory and Choice Architecture', description: 'How small design changes can guide better decisions without restricting freedom.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u3', title: 'Mental Accounting and Financial Behavior',
+    description: 'How people mentally categorize money and why it leads to irrational financial decisions.',
+    color: '#14B8A6', icon: '🏦', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u3-L1', title: 'Mental Accounting Basics', description: 'Why people treat money differently depending on where it came from or what it is for.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u3-L2', title: 'The Sunk Cost Fallacy', description: 'Why people throw good money after bad because of what they already spent.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u3-L3', title: 'Payment Pain and Spending Psychology', description: 'Why credit cards make you spend more and how payment methods change behavior.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u3-L4', title: 'Temporal Discounting and Instant Gratification', description: 'Why we consistently choose smaller rewards now over larger rewards later.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u3-L5', title: 'Behavioral Finance in Investing', description: 'How cognitive biases cause investors to buy high, sell low, and overestimate their skills.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u4', title: 'Behavioral Economics in Action',
+    description: 'Review and apply key concepts from behavioral economics, pricing psychology, and financial behavior.',
+    color: '#F97316', icon: '🔄', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u4-L1', title: 'Bias Identification Challenge', description: 'Identify which cognitive bias is at work in real-world consumer and financial scenarios.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u4-L2', title: 'Marketing Psychology Synthesis', description: 'Connect pricing strategies, persuasion principles, and consumer psychology into a unified framework.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u4-L3', title: 'Applied Behavioral Economics', description: 'Integrate all behavioral economics concepts into real-world analysis and debiasing strategies.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u5', title: 'Workplace Motivation and Leadership',
+    description: 'What drives people at work and what separates effective leaders from ineffective ones.',
+    color: '#8B5CF6', icon: '💼', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u5-L1', title: 'Intrinsic vs. Extrinsic Motivation', description: 'Why some rewards increase motivation and others destroy it.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u5-L2', title: 'Self-Determination Theory at Work', description: 'How fulfilling three basic psychological needs creates engaged, motivated employees.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u5-L3', title: 'Herzberg and Job Satisfaction', description: 'Why removing dissatisfaction and creating satisfaction are two completely different things.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u5-L4', title: 'Leadership Styles and Effectiveness', description: 'The major leadership theories and which styles work best in different situations.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u5-L5', title: 'Emotional Intelligence in Leadership', description: 'Why the best leaders manage emotions, not just tasks.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u6', title: 'Organizational Behavior and Team Dynamics',
+    description: 'How groups, teams, and organizational cultures shape individual behavior at work.',
+    color: '#059669', icon: '👥', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u6-L1', title: 'Group Dynamics and Social Loafing', description: 'Why people work differently in groups than alone, and not always for the better.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec13-u6-L2', title: 'Groupthink and Decision-Making Failures', description: 'How the desire for harmony can lead smart groups to make catastrophic decisions.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u6-L3', title: 'Organizational Culture and Climate', description: 'How shared values, norms, and assumptions shape behavior throughout an organization.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u6-L4', title: 'Psychological Safety and High-Performance Teams', description: 'Google\'s research on what makes teams succeed and why feeling safe to fail is the key factor.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u6-L5', title: 'Conflict, Negotiation, and Organizational Justice', description: 'How workplace conflict can be productive, and why perceived fairness determines employee commitment.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 13: Applied & Industrial Psychology (Part 2, 5 units) ──
+  {
+    id: 'psy-sec13-u7', title: 'Hiring Right and Giving Better Feedback',
+    description: 'How psychology improves hiring decisions, performance reviews, and constructive feedback.',
+    color: '#8B5CF6', icon: '📋', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u7-L1', title: 'Structured vs Unstructured Interviews', description: 'Why the format of an interview matters more than gut instinct.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u7-L2', title: 'Performance Appraisal and Rater Bias', description: 'Why performance reviews often fail and how to make them accurate.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u7-L3', title: 'Constructive Feedback That Works', description: 'Evidence-based strategies for giving feedback that changes behavior.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u7-L4', title: 'Job Satisfaction and Engagement', description: 'What actually makes people satisfied at work, and what does not.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u7-L5', title: 'Fairness, Justice, and Psychological Contracts', description: 'How perceived fairness shapes trust, motivation, and turnover.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u8', title: 'The Psychology Behind Great Design',
+    description: 'How cognitive principles shape user experience, interfaces, and product decisions.',
+    color: '#EC4899', icon: '🎨', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u8-L1', title: 'Cognitive Load and Interface Design', description: 'Why simple interfaces win and how working memory limits design.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u8-L2', title: 'Gestalt Principles in Visual Design', description: 'How the brain organizes visual information and why designers use grouping.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u8-L3', title: 'Persuasion Patterns and Dark Patterns', description: 'When design nudges help users versus when they manipulate them.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u8-L4', title: 'Decision Architecture and Choice Framing', description: 'How the presentation of choices shapes what people decide.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u8-L5', title: 'Accessibility and Inclusive Design', description: 'Why designing for diverse abilities improves the experience for everyone.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u9', title: 'The Mental Game of Sports',
+    description: 'How psychology shapes athletic performance, from visualization to choking under pressure.',
+    color: '#F97316', icon: '🏅', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u9-L1', title: 'Mental Imagery and Visualization', description: 'Why imagining a perfect performance actually improves the real one.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u9-L2', title: 'Arousal, Anxiety, and the Zone', description: 'Why some pressure helps performance while too much destroys it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u9-L3', title: 'Choking Under Pressure', description: 'Why skilled performers suddenly fail and how to prevent it.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u9-L4', title: 'Goal Setting and Self-Talk', description: 'How goal types and internal dialogue affect athletic performance.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u9-L5', title: 'Team Dynamics and Group Motivation', description: 'Why some teams perform above their talent level and others collapse.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u10', title: 'Changing Health Behaviors for Good',
+    description: 'How psychology explains why health habits are hard to change and what actually works.',
+    color: '#10B981', icon: '💚', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u10-L1', title: 'The Stages of Behavior Change', description: 'Why change happens in stages and why most people are not ready to act yet.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u10-L2', title: 'The Health Belief Model', description: 'Why people ignore health risks and what makes them take action.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec13-u10-L3', title: 'Habit Formation and Breaking', description: 'The science of how habits form, persist, and can be changed.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u10-L4', title: 'Stress, Coping, and the Biopsychosocial Model', description: 'How biological, psychological, and social factors interact in health.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u10-L5', title: 'Adherence and the Intention-Action Gap', description: 'Why people know what to do for their health but still do not do it.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'psy-sec13-u11', title: 'Applied Psychology: Full Section Review',
+    description: 'Test your knowledge across all of applied and industrial psychology.',
+    color: '#6366F1', icon: '🏁', sectionIndex: 12, sectionTitle: 'Applied & Industrial Psychology',
+    lessons: [
+      { id: 'psy-sec13-u11-L1', title: 'Behavioral Economics and Consumer Review', description: 'Review key concepts from behavioral economics, pricing, and mental accounting.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u11-L2', title: 'Workplace and Organizational Review', description: 'Review motivation, leadership, teams, hiring, and feedback.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u11-L3', title: 'UX, Sports, and Health Review', description: 'Review design psychology, athletic performance, and behavior change.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'psy-sec13-u11-L4', title: 'Applied Psychology Speed Challenge', description: 'Rapid-fire questions covering all of Section 13.', icon: '⚡', type: 'speed-round', xpReward: 35, questions: [] },
+    ],
+  },
 ];

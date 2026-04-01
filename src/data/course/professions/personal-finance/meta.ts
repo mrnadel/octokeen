@@ -716,4 +716,161 @@ export const financeCourseMeta: Unit[] = [
       { id: "pf-s14-u11-L4", title: "Comprehensive Business Finance Challenge", description: "The ultimate test. Apply everything from Section 14 to real business scenarios.", icon: "✅", xpReward: 35, questions: [] },
     ],
   },
+
+  // ── Section 5: Taxes (Part 1, 7 units) ──
+  {
+    id: 'fin-sec5-u1', title: 'Why We Pay Taxes and Where the Money Goes',
+    description: 'Taxes fund the systems you use every day. Learn why they exist and where the money actually goes.',
+    color: '#D97706', icon: '🏛️', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u1-L1', title: 'Why Taxes Exist', description: 'The purpose of taxes and why every government collects them.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u1-L2', title: 'Where Your Tax Money Goes', description: 'The major categories of government spending and how your taxes are divided.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u1-L3', title: 'Progressive, Flat, and Regressive Taxes', description: 'Three tax structures and how each one affects people at different income levels.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u1-L4', title: 'Payroll Taxes and Social Programs', description: 'The taxes automatically taken from your paycheck before you ever see the money.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u1-L5', title: 'Tax Myths That Cost You Money', description: 'Common misconceptions about taxes that lead to bad financial decisions.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u2', title: 'Income Tax Basics: Brackets, Rates, and Filing',
+    description: 'How income tax actually works, from marginal brackets to filing status.',
+    color: '#B45309', icon: '📊', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u2-L1', title: 'How Tax Brackets Work', description: 'The marginal rate system and why it matters for every earner.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u2-L2', title: 'Marginal Rate Calculations', description: 'Practice calculating tax using brackets and finding your effective rate.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u2-L3', title: 'Filing Status and Why It Matters', description: 'How your filing status changes your brackets, deductions, and tax bill.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u2-L4', title: 'Taxable Income vs Gross Income', description: 'The difference between what you earn and what the government actually taxes.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u2-L5', title: 'Sources of Taxable Income', description: 'Not all money you receive counts as taxable income. Learn what does and what doesn\'t.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u2-L6', title: 'Tax Year and Filing Deadlines', description: 'When the tax year starts and ends, and what happens if you miss the deadline.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u3', title: 'W-2s, 1099s, and Tax Forms Explained',
+    description: 'The forms you\'ll receive, what they mean, and how to use them to file your return.',
+    color: '#92400E', icon: '📄', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u3-L1', title: 'The W-2: Your Employee Tax Summary', description: 'What\'s on a W-2, where the numbers come from, and why you need it to file.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u3-L2', title: 'The 1099: Non-Employee Income', description: 'How freelance, contract, investment, and other non-wage income gets reported.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u3-L3', title: 'The W-4: Controlling Your Withholding', description: 'How to tell your employer the right amount of tax to take from each paycheck.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u3-L4', title: 'Reading Your Pay Stub', description: 'Decode every line on your pay stub so you know exactly where your money goes.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u3-L5', title: 'Putting Tax Forms Together', description: 'How all the forms connect and what to do when you\'re ready to file.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u4', title: 'Review: Tax Foundations',
+    description: 'Test your knowledge of tax basics, brackets, forms, and filing before moving on.',
+    color: '#78350F', icon: '🔄', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u4-L1', title: 'Review: Tax Basics and Brackets', description: 'Recall the fundamentals of tax types, bracket math, and effective rates.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u4-L2', title: 'Review: Tax Forms and Filing', description: 'Recall the purpose of W-2s, 1099s, W-4s, and the filing process.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u4-L3', title: 'Review: Applied Tax Scenarios', description: 'Put everything together with real-world scenarios combining brackets, forms, and filing.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u5', title: 'Deductions vs Credits: What Saves You More',
+    description: 'Two powerful tools for reducing your tax bill. One lowers your income, the other lowers your tax directly.',
+    color: '#A16207', icon: '✂️', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u5-L1', title: 'Deductions Reduce Your Taxable Income', description: 'How deductions work and why they save you less than you might think.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u5-L2', title: 'Credits Reduce Your Tax Bill Directly', description: 'Why a $1,000 credit is always worth more than a $1,000 deduction.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u5-L3', title: 'Deductions vs Credits Side by Side', description: 'Compare the two directly to understand when each matters most.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u5-L4', title: 'Common Credits Worth Knowing', description: 'The most impactful tax credits and who qualifies for them.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u5-L5', title: 'Maximizing Your Tax Savings', description: 'Strategies for combining deductions and credits to keep more of your money.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u6', title: 'Standard Deduction vs Itemizing',
+    description: 'Two paths to reducing your taxable income. One is simple, one takes work. Learn when each wins.',
+    color: '#CA8A04', icon: '📋', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u6-L1', title: 'The Standard Deduction Explained', description: 'The automatic deduction everyone gets and why most people use it.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u6-L2', title: 'When Itemizing Makes Sense', description: 'Situations where listing expenses individually beats the standard deduction.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u6-L3', title: 'The Bunching Strategy', description: 'A smart technique for getting more value from your deductions across multiple years.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'fin-sec5-u6-L4', title: 'Above-the-Line vs Below-the-Line', description: 'Two types of deductions that work differently in your tax calculation.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u6-L5', title: 'Making the Standard vs Itemizing Decision', description: 'A practical framework for choosing the right deduction strategy each year.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u7', title: 'Tax-Advantaged Accounts: 401k, IRA, HSA',
+    description: 'Special accounts that let your money grow tax-free or tax-deferred. The biggest legal tax break most people have.',
+    color: '#EAB308', icon: '🏦', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u7-L1', title: 'What Tax-Advantaged Means', description: 'How the government incentivizes saving by offering tax breaks on certain accounts.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u7-L2', title: 'Employer Plans: 401(k) and Equivalents', description: 'The most powerful retirement savings tool most employees have access to.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u7-L3', title: 'IRAs: Traditional and Roth', description: 'Individual retirement accounts you open yourself, with different tax advantages.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u7-L4', title: 'HSAs: The Triple Tax Advantage', description: 'The most tax-efficient account available, if you qualify for one.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u7-L5', title: 'Contribution Limits and Rules', description: 'How much you can put into each account and what happens if you exceed the limits.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u7-L6', title: 'Choosing the Right Accounts for You', description: 'How to pick the best combination of tax-advantaged accounts based on your situation.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 5: Taxes (Part 2, 6 units) ──
+  {
+    id: 'fin-sec5-u8', title: 'Capital Gains and Investment Taxes',
+    description: 'Learn how profits from investments are taxed and strategies to keep more of your gains.',
+    color: '#0891B2', icon: '📈', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u8-L1', title: 'What Are Capital Gains?', description: 'The difference between ordinary income and investment profits, and why it matters for your tax bill.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u8-L2', title: 'Short-Term vs Long-Term Rates', description: 'How holding period determines your tax rate on investment gains.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u8-L3', title: 'Dividends and Interest Income', description: 'How dividends and interest from your investments are taxed.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u8-L4', title: 'Tax-Loss Harvesting in Practice', description: 'How to strategically sell losing investments to reduce your tax bill.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'fin-sec5-u8-L5', title: 'Tax-Advantaged Accounts for Investors', description: 'How IRAs, 401(k)s, HSAs, and 529s shelter your investment gains from taxes.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u9', title: 'Self-Employment and Freelancer Taxes',
+    description: 'Navigate the tax rules that apply when you work for yourself.',
+    color: '#0891B2', icon: '💼', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u9-L1', title: 'The Self-Employment Tax Surprise', description: 'Why freelancers pay more in payroll taxes and how to prepare for it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u9-L2', title: 'Quarterly Estimated Tax Payments', description: 'How to calculate and pay taxes four times a year to avoid penalties.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u9-L3', title: 'Business Deductions That Save You Money', description: 'The most valuable deductions freelancers and self-employed people can claim.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u9-L4', title: 'Choosing Your Business Structure', description: 'How sole proprietorships, LLCs, and S-Corps affect your self-employment taxes.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'fin-sec5-u9-L5', title: 'Record-Keeping and Audit Protection', description: 'How to organize your freelance finances and protect yourself from audits.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u10', title: 'Tax Concepts in Action',
+    description: 'Review deductions, credits, filing, capital gains, and self-employment taxes from units 5 through 9.',
+    color: '#0891B2', icon: '🔄', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u10-L1', title: 'Deductions, Credits, and Filing Review', description: 'Reinforce the differences between deductions and credits, and when to itemize.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u10-L2', title: 'Capital Gains and Investment Tax Review', description: 'Review how investment profits, dividends, and tax-loss harvesting work.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'fin-sec5-u10-L3', title: 'Self-Employment Tax Review', description: 'Review quarterly payments, business deductions, and choosing a business structure.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u11', title: 'Common Tax Mistakes and Audit Triggers',
+    description: 'Avoid the errors that cost taxpayers thousands and attract IRS attention.',
+    color: '#0891B2', icon: '⚠️', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u11-L1', title: 'Mistakes That Cost You Money', description: 'The most common filing errors and how they shrink your refund or increase your bill.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u11-L2', title: 'What Triggers an Audit', description: 'The red flags that make the IRS look more closely at your return.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u11-L3', title: 'Tax Fraud vs Honest Mistakes', description: 'The difference between an error and a crime, and why intent matters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u11-L4', title: 'Surviving an Audit', description: 'What to expect, how to respond, and how to protect yourself if the IRS comes calling.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'fin-sec5-u11-L5', title: 'Identity Theft and Tax Scams', description: 'Protect yourself from people who want to steal your refund or your identity.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u12', title: 'Tax Planning Strategies',
+    description: 'Legal strategies to reduce your lifetime tax burden through smart timing, accounts, and structures.',
+    color: '#0891B2', icon: '🎯', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u12-L1', title: 'Tax Planning vs Tax Preparation', description: 'Why planning throughout the year saves more than scrambling in April.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u12-L2', title: 'Income Shifting and Timing Strategies', description: 'How to time income and deductions to pay less tax across years.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u12-L3', title: 'Asset Location Strategy', description: 'Putting the right investments in the right accounts to minimize taxes on growth.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u12-L4', title: 'Roth Conversion Strategies', description: 'When and why to convert traditional retirement savings to Roth for tax-free growth.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'fin-sec5-u12-L5', title: 'Putting Your Tax Plan Together', description: 'Combine all strategies into a personalized year-round tax plan.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'fin-sec5-u13', title: 'Section 5 Tax Mastery',
+    description: 'Comprehensive review pulling from all 12 units of the Taxes section.',
+    color: '#0891B2', icon: '🏆', sectionIndex: 4, sectionTitle: 'Taxes',
+    lessons: [
+      { id: 'fin-sec5-u13-L1', title: 'Tax Foundations Comprehensive Review', description: 'Review brackets, deductions, credits, and filing from the first half of the section.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u13-L2', title: 'Investment and Self-Employment Tax Review', description: 'Comprehensive review of capital gains, dividends, and freelancer tax obligations.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u13-L3', title: 'Tax Planning and Protection Review', description: 'Review tax planning strategies, audit protection, and common mistakes.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'fin-sec5-u13-L4', title: 'Section 5 Checkpoint', description: 'Final checkpoint testing all major concepts from the entire Taxes section.', icon: '📝', xpReward: 35, questions: [] },
+    ],
+  },
 ];

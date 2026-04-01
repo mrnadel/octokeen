@@ -721,4 +721,249 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-sec7-u10-L4", title: "Section 7 Speed Round", description: "15 rapid-fire questions covering all of Section 7.", icon: "⚡", xpReward: 35, questions: [] },
     ],
   },
+
+  // ── Section 6: Galaxies (Part 1, 5 units) ──
+  {
+    id: 'sp-sec6-u1', title: 'What Is a Galaxy?',
+    description: 'Learn what galaxies are and how astronomers classify them by shape.',
+    color: '#8B5CF6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u1-L1', title: 'Billions of Stars Together', description: 'What a galaxy is and why galaxies matter in astronomy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u1-L2', title: 'The Hubble Tuning Fork', description: 'How Edwin Hubble organized galaxies by their shape.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u1-L3', title: 'Elliptical Galaxies: The Quiet Giants', description: 'Why elliptical galaxies are full of old stars and low on gas.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u1-L4', title: 'Spiral Galaxies: Arms of Star Formation', description: 'How spiral arms form and why barred spirals are so common.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u1-L5', title: 'Irregular Galaxies and Putting It Together', description: 'Explore irregular galaxies and practice classifying all types.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u2', title: 'The Milky Way: Our Home Galaxy',
+    description: 'Explore the structure, size, and place of our home galaxy in the universe.',
+    color: '#7C3AED', icon: '🌀', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u2-L1', title: 'Welcome to the Milky Way', description: 'Basic facts about our galaxy: type, size, and star count.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u2-L2', title: 'Inside the Milky Way\'s Structure', description: 'The bulge, disk, halo, and spiral arms of our galaxy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u2-L3', title: 'Where Are We in the Galaxy?', description: 'The Sun\'s location in the Milky Way and how we orbit the galactic center.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L4', title: 'The Milky Way\'s Neighborhood', description: 'Satellite galaxies and the Local Group of galaxies.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L5', title: 'How We Map a Galaxy From Inside', description: 'The challenges and methods of mapping a galaxy while living inside it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L6', title: 'The Milky Way\'s Future', description: 'What will happen to our galaxy over the next few billion years.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u3', title: 'Dark Matter: The Invisible Glue',
+    description: 'Discover the mysterious invisible substance that holds galaxies together.',
+    color: '#6D28D9', icon: '🔮', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u3-L1', title: 'The Missing Mass Problem', description: 'Why galaxies seem to have far more mass than we can see.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u3-L2', title: 'How Dark Matter Shapes the Universe', description: 'The gravitational role dark matter plays in galaxies and beyond.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L3', title: 'How Much Dark Matter Is There?', description: 'The staggering proportion of dark matter in galaxies and the universe.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L4', title: 'What Could Dark Matter Be?', description: 'The leading theories about dark matter\'s identity and the search to detect it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L5', title: 'Dark Matter vs. Dark Energy', description: 'Two mysterious forces that sound similar but work in opposite ways.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u4', title: 'Galaxies: Review',
+    description: 'Test your knowledge of galaxy types, the Milky Way, and dark matter.',
+    color: '#5B21B6', icon: '🔄', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u4-L1', title: 'Galaxy Types Refresher', description: 'Review galaxy classification and key features of each type.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u4-L2', title: 'Milky Way Knowledge Check', description: 'Review our galaxy\'s structure, size, and place in the Local Group.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u4-L3', title: 'Dark Matter Knowledge Check', description: 'Review dark matter evidence, its role, and how it differs from dark energy.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u5', title: 'Galaxy Collisions and Mergers',
+    description: 'What happens when galaxies crash into each other and reshape the universe.',
+    color: '#4C1D95', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u5-L1', title: 'How Galaxies Collide', description: 'Why galaxy collisions are common and how gravity drives them.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u5-L2', title: 'Tidal Tails and Bridges', description: 'How gravity distorts galaxies during close encounters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L3', title: 'Major and Minor Mergers', description: 'The difference between equal-sized collisions and a big galaxy eating a small one.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L4', title: 'Starbursts: Collisions That Ignite', description: 'How galaxy collisions trigger explosive waves of new star formation.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L5', title: 'Famous Merging Galaxies', description: 'A tour of the most spectacular colliding galaxy systems astronomers have found.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 6: Galaxies (Part 2, 5 units) ──
+  {
+    id: 'sp-sec6-u6', title: 'The Local Group and Galaxy Clusters',
+    description: 'Explore our galactic neighborhood and the massive structures galaxies form together.',
+    color: '#8B5CF6', icon: '🏘️', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u6-L1', title: 'Our Galactic Neighborhood', description: 'Meet the Local Group: the collection of galaxies that includes the Milky Way.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u6-L2', title: 'Galaxy Clusters and Beyond', description: 'How groups of galaxies form clusters containing hundreds or thousands of members.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u6-L3', title: 'Andromeda Is Coming', description: 'The Milky Way and Andromeda are on a collision course billions of years from now.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u6-L4', title: 'Explaining the Local Group', description: 'Help a curious friend understand our galactic neighborhood.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u6-L5', title: 'Local Group Speed Round', description: 'Race the clock on galaxy groups, clusters, and the cosmic web.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u7', title: 'Active Galactic Nuclei and Quasars',
+    description: 'Discover the most powerful engines in the universe: supermassive black holes devouring matter at galaxy centers.',
+    color: '#EC4899', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u7-L1', title: 'What Is an Active Galaxy?', description: 'Some galaxies have extraordinarily bright centers powered by feeding black holes.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u7-L2', title: 'Types of Active Galaxies', description: 'Seyferts, radio galaxies, blazars, and how they\'re connected.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u7-L3', title: 'Quasars: Beacons of the Early Universe', description: 'The most luminous persistent objects in the cosmos and what they tell us about the early universe.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u7-L4', title: 'Relativistic Jets of Energy', description: 'How supermassive black holes launch jets traveling close to the speed of light.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u7-L5', title: 'AGN Feedback and Galaxy Evolution', description: 'How active black holes shape the galaxies around them.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u7-L6', title: 'AGN and Quasars Speed Round', description: 'Race the clock on active galaxies, quasars, jets, and AGN feedback.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u8', title: 'Deep Sky Objects: Nebulae, Clusters, Galaxies',
+    description: 'Learn to identify and understand the fuzzy objects that fill the night sky beyond our solar system.',
+    color: '#14B8A6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u8-L1', title: 'What Are Deep Sky Objects?', description: 'A tour of everything beyond the solar system that isn\'t an individual star.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u8-L2', title: 'Nebulae: Stellar Nurseries and Graveyards', description: 'Emission, reflection, dark, and planetary nebulae each tell a different story.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u8-L3', title: 'Star Clusters: Open and Globular', description: 'Two types of star clusters reveal different chapters of a galaxy\'s history.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u8-L4', title: 'Famous Deep Sky Showpieces', description: 'The most stunning and scientifically important DSOs you should know.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u8-L5', title: 'Deep Sky Objects Speed Round', description: 'Race the clock on nebulae, clusters, galaxies, and famous DSOs.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u9', title: 'The Cosmic Distance Ladder',
+    description: 'How astronomers measure distances from nearby stars to the edge of the observable universe.',
+    color: '#F59E0B', icon: '📏', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u9-L1', title: 'The Problem of Cosmic Distances', description: 'Why measuring distances in space is one of the hardest problems in astronomy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u9-L2', title: 'Parallax: The Foundation', description: 'How Earth\'s orbit gives us a baseline for measuring stellar distances.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u9-L3', title: 'Standard Candles: Cepheids and Beyond', description: 'Objects with known brightness let us measure distances to other galaxies.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u9-L4', title: 'Supernovae, Redshift, and Hubble\'s Law', description: 'How exploding stars and expanding space measure the most distant reaches of the cosmos.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u9-L5', title: 'Explaining the Distance Ladder', description: 'Help a science student understand how astronomers measure cosmic distances.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u9-L6', title: 'Cosmic Distance Ladder Speed Round', description: 'Race the clock on parallax, Cepheids, supernovae, and Hubble\'s law.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec6-u10', title: 'Section 6 Review and Checkpoint',
+    description: 'Test your knowledge across all of Section 6: galaxies, AGNs, deep sky objects, and the cosmic distance ladder.',
+    color: '#F59E0B', icon: '🏆', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u10-L1', title: 'Galaxies and the Local Group Review', description: 'Review galaxy types, formation, collisions, and the Local Group.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u10-L2', title: 'AGN, Quasars, and Deep Sky Review', description: 'Review active galaxies, quasars, jets, nebulae, and star clusters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u10-L3', title: 'Cosmic Distance Ladder Review', description: 'Review parallax, standard candles, Hubble\'s law, and dark energy.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u10-L4', title: 'Section 6 Final Speed Round', description: 'Race the clock across everything in Section 6: galaxies, AGNs, DSOs, and the distance ladder.', icon: '⚡', type: 'speed-round', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 13: Space Technology & Engineering (Part 1, 5 units) ──
+  {
+    id: 'sp-sec13-u1', title: 'Satellite Design and Orbits',
+    description: 'Learn how satellites are built, how they stay in orbit, and why different missions need different altitudes.',
+    color: '#6366F1', icon: '🛰️', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u1-L1', title: 'What Makes a Satellite', description: 'The basic building blocks every satellite needs to work in space.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u1-L2', title: 'Why Satellites Stay Up', description: 'The physics of orbits and why satellites do not fall straight down.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u1-L3', title: 'Choosing the Right Orbit', description: 'Different missions need different orbits, from low Earth to geostationary and beyond.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u1-L4', title: 'Changing Orbits with Delta-V', description: 'How spacecraft change their orbits using thrust and the concept of delta-v.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u1-L5', title: 'Surviving the Space Environment', description: 'The extreme conditions satellites must endure: vacuum, radiation, temperature swings, and debris.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u2', title: 'How We Talk to Spacecraft',
+    description: 'Understand how radio signals travel between Earth and spacecraft across millions of kilometers.',
+    color: '#3B82F6', icon: '📡', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u2-L1', title: 'Radio Waves Across Space', description: 'Why radio waves are the primary method for communicating with spacecraft.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u2-L2', title: 'The Deep Space Network', description: 'NASA\'s global array of giant dish antennas that keeps contact with distant spacecraft.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u2-L3', title: 'Uplink, Downlink, and Data Rates', description: 'How commands travel up and science data comes down, and why bandwidth matters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u2-L4', title: 'Antennas and Signal Processing', description: 'Different antenna designs and how spacecraft extract clean data from noisy signals.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u2-L5', title: 'Laser Links and Future Communications', description: 'How optical communication could revolutionize data rates from deep space.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u3', title: 'Solar, RTGs, and Batteries',
+    description: 'Explore the three main power sources that keep spacecraft alive, from sunlit panels to nuclear generators.',
+    color: '#F59E0B', icon: '⚡', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u3-L1', title: 'Solar Panels in Space', description: 'How solar panels work, their efficiency, and why they are the most common spacecraft power source.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u3-L2', title: 'Nuclear Power with RTGs', description: 'How radioactive decay provides reliable electricity for missions far from the Sun.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u3-L3', title: 'Batteries for Eclipse and Peaks', description: 'How spacecraft store energy for when the Sun is blocked or demand spikes.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u3-L4', title: 'Choosing the Right Power Source', description: 'How engineers pick between solar, RTG, and other options based on mission needs.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u3-L5', title: 'Real-World Power Tradeoffs', description: 'Advanced considerations engineers face when designing spacecraft power systems.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u4', title: 'Review: Satellites, Comms, and Power',
+    description: 'Test your knowledge across satellite design, communication systems, and power sources.',
+    color: '#8B5CF6', icon: '🔄', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u4-L1', title: 'Satellites and Orbits Recap', description: 'Review satellite subsystems, orbital mechanics, and orbit types.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u4-L2', title: 'Space Communication Recap', description: 'Review how we send commands and receive data across the solar system.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u4-L3', title: 'Power Systems Recap', description: 'Review solar panels, RTGs, batteries, and how engineers choose between them.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u5', title: 'Life Support and Habitation',
+    description: 'Discover how engineers keep humans alive in space with air, water, food, and radiation shielding.',
+    color: '#10B981', icon: '🏠', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u5-L1', title: 'Keeping Humans Alive in Space', description: 'The fundamental requirements for human survival and how spacecraft provide them.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec13-u5-L2', title: 'Breathing in Space', description: 'How spacecraft generate oxygen, remove CO2, and manage atmospheric pressure.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u5-L3', title: 'Water Recycling and Feeding a Crew', description: 'How spacecraft recycle water and provide nutrition for long-duration missions.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u5-L4', title: 'Shielding Crews from Radiation', description: 'The radiation threats in space and how engineers protect astronauts from them.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u5-L5', title: 'Designing a Home in Space', description: 'How engineers design living spaces for crews spending months or years away from Earth.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  // ── Section 13: Space Technology & Engineering (Part 2, 5 units) ──
+  {
+    id: 'sp-sec13-u6', title: 'Space Debris & Orbital Traffic Management',
+    description: 'Learn why millions of debris fragments threaten active satellites and how agencies track and avoid them.',
+    color: '#6366F1', icon: '🛰️', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u6-L1', title: 'The Growing Debris Problem', description: 'Why orbital junk is one of the biggest threats to spaceflight today.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u6-L2', title: 'Kessler Syndrome and Cascading Collisions', description: 'How one collision can trigger a chain reaction that threatens entire orbital zones.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u6-L3', title: 'Tracking and Conjunction Assessment', description: 'How ground-based and space-based sensors track debris and predict close approaches.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u6-L4', title: 'Active Debris Removal and Mitigation', description: 'Technologies and policies being developed to clean up orbit and prevent future debris.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u6-L5', title: 'Mega-Constellations and Orbital Safety', description: 'How large satellite constellations change the debris risk landscape and what safeguards are needed.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u7', title: 'In-Space Manufacturing & 3D Printing',
+    description: 'Explore how microgravity enables new manufacturing processes and why building in space could transform exploration.',
+    color: '#8B5CF6', icon: '🏭', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u7-L1', title: 'Why Manufacture in Space?', description: 'The advantages of building things in microgravity instead of launching them from Earth.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u7-L2', title: '3D Printing in Microgravity', description: 'How additive manufacturing works in space and what\'s been printed on the ISS.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u7-L3', title: 'Materials and Metal Printing in Space', description: 'Advanced materials and metal printing that push space manufacturing beyond plastic parts.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u7-L4', title: 'Orbital Factories and Commercial Applications', description: 'How companies plan to build commercial factories in orbit and what products they aim to produce.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u7-L5', title: 'Building Habitats from Local Resources', description: 'How 3D printing with regolith and ISRU could build lunar and Martian structures.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u8', title: 'Space Tourism: Engineering for Passengers',
+    description: 'Discover the engineering challenges of carrying paying passengers to space safely and comfortably.',
+    color: '#EC4899', icon: '🎟️', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u8-L1', title: 'From Astronauts to Tourists', description: 'How spaceflight is being redesigned for people without years of training.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u8-L2', title: 'G-Forces and Passenger Comfort', description: 'How engineers manage acceleration loads to keep untrained passengers safe and comfortable.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u8-L3', title: 'Life Support for Short Missions', description: 'How tourist vehicles provide breathable air, temperature control, and emergency systems for civilians.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u8-L4', title: 'Space Hotels and Extended Tourist Stays', description: 'Engineering challenges of hosting tourists in orbit for days or weeks.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u8-L5', title: 'Regulation and Space Tourism\'s Future', description: 'How governments regulate commercial spaceflight and what the industry might look like in coming decades.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u9', title: 'Future Propulsion: Ion Drives, Solar Sails, Nuclear',
+    description: 'Explore advanced propulsion technologies that could carry spacecraft faster and farther than chemical rockets.',
+    color: '#F97316', icon: '🚀', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u9-L1', title: 'Why Chemical Rockets Aren\'t Enough', description: 'The limitations of chemical propulsion and why we need alternatives for deep space.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u9-L2', title: 'Ion Drives and Hall Thrusters', description: 'How electric propulsion accelerates ions to extreme speeds for efficient space travel.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec13-u9-L3', title: 'Solar Sails: Sailing on Sunlight', description: 'How spacecraft can accelerate using nothing but the pressure of sunlight.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u9-L4', title: 'Nuclear Propulsion for Deep Space', description: 'How nuclear reactors could power faster trips to Mars and beyond.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u9-L5', title: 'Exotic Propulsion Concepts', description: 'From antimatter engines to laser sails, the propulsion ideas that could reach other stars.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+  {
+    id: 'sp-sec13-u10', title: 'Space Technology Review',
+    description: 'Test your mastery of spacecraft design, life support, debris, manufacturing, tourism, and advanced propulsion.',
+    color: '#10B981', icon: '🏆', sectionIndex: 12, sectionTitle: 'Space Technology & Engineering',
+    lessons: [
+      { id: 'sp-sec13-u10-L1', title: 'Checkpoint: Debris and Orbital Safety', description: 'Prove your knowledge of space debris, Kessler syndrome, tracking, and mitigation.', icon: '✅', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u10-L2', title: 'Checkpoint: In-Space Manufacturing', description: 'Prove your knowledge of 3D printing, ISRU, orbital factories, and material processing.', icon: '✅', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u10-L3', title: 'Checkpoint: Space Tourism Engineering', description: 'Prove your knowledge of tourist vehicle design, safety, g-forces, and regulation.', icon: '✅', xpReward: 30, questions: [] },
+      { id: 'sp-sec13-u10-L4', title: 'Checkpoint: Advanced Propulsion', description: 'Prove your mastery of ion drives, solar sails, nuclear propulsion, and exotic concepts.', icon: '✅', xpReward: 30, questions: [] },
+    ],
+  },
 ];
