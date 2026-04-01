@@ -232,4 +232,6 @@ export interface PlacementTestResult {
   mistakes: number;
   maxMistakes: number;
   unitsSkipped: number;
+  xpEarned: number;
+  accuracy: number;
 }

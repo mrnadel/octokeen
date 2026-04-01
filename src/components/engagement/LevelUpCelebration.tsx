@@ -2,7 +2,9 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Gem, Snowflake, Tag, Image as ImageIcon, Star } from 'lucide-react';
+import { Snowflake, Tag, Image as ImageIcon, Star } from 'lucide-react';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { CURRENCY } from '@/data/currency';
 import { playSound } from '@/lib/sounds';
 import type { LevelReward } from '@/data/level-rewards';
 import { levels } from '@/data/levels';
@@ -41,7 +43,7 @@ export function LevelUpCelebration({ reward, onClose }: Props) {
       <motion.p className="text-base font-bold mb-5" style={{ color: isMilestone ? '#FDE68A' : 'rgba(255,255,255,0.5)' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>{levelDef?.title ?? 'Engineer'}</motion.p>
 
       <motion.div className="flex flex-col items-center gap-2" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <div className="flex items-center gap-2"><Gem className="w-5 h-5" style={{ color: '#A78BFA' }} /><span className="text-base font-extrabold" style={{ color: '#A78BFA' }}>+{reward.gems} gems</span></div>
+        <div className="flex items-center gap-2"><CurrencyIcon size={20} /><span className="text-base font-extrabold" style={{ color: '#A78BFA' }}>+{reward.gems} {CURRENCY.plural}</span></div>
         {reward.streakFreeze && <div className="flex items-center gap-2"><Snowflake className="w-5 h-5" style={{ color: '#67E8F9' }} /><span className="text-base font-extrabold" style={{ color: '#67E8F9' }}>+1 Streak Freeze</span></div>}
         {reward.title && <div className="flex items-center gap-2"><Tag className="w-5 h-5" style={{ color: '#FDE68A' }} /><span className="text-base font-extrabold" style={{ color: '#FDE68A' }}>Title: &ldquo;{reward.title}&rdquo;</span></div>}
         {reward.frame && <div className="flex items-center gap-2"><ImageIcon className="w-5 h-5" style={{ color: '#86EFAC' }} /><span className="text-base font-extrabold" style={{ color: '#86EFAC' }}>Profile Frame</span></div>}

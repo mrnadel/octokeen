@@ -29,7 +29,7 @@ const STEPS = [
     color: '#F59E0B',
     bg: '#FFFBEB',
     title: 'Build your streak',
-    desc: 'Practice every day to grow your streak and earn bonus gems.',
+    desc: 'Practice every day to grow your streak and earn bonus Octokens.',
   },
   {
     icon: Trophy,

@@ -1,6 +1,140 @@
 import type { Unit } from '../../types';
 
 export const psychologyCourseMeta: Unit[] = [
+
+  // ── Section 1: Welcome to Your Mind (8 units from section-1-mind-part1 and part2) ──
+  {
+    id: 'psy-sec1-u1',
+    title: 'What Is Psychology?',
+    description: 'Discover what psychologists actually study and why it matters for your everyday life.',
+    color: '#A78BFA',
+    icon: '🧠',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u1-L1', title: 'More Than Mind Reading', description: 'What psychology really is and why most people get it wrong.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u1-L2', title: 'The Many Faces of Psychology', description: 'The surprising range of topics psychologists actually study.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u1-L3', title: 'How Psychologists Find Answers', description: 'The basic tools psychologists use to separate fact from fiction.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u1-L4', title: 'What Is Psychology? Blitz', description: 'Race the clock on everything from this unit.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u2',
+    title: 'A Brief History: Freud to fMRI',
+    description: 'How psychology evolved from philosophy to brain scanners in just 150 years.',
+    color: '#818CF8',
+    icon: '📜',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u2-L1', title: 'The Birth of Psychology', description: 'How psychology split from philosophy and became its own science.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u2-L2', title: 'Freud and the Unconscious', description: 'The controversial doctor who changed how we think about hidden thoughts.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u2-L3', title: 'Three Big Shifts in Psychology', description: 'How behaviorism, humanism, and cognitive science transformed the field.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u2-L4', title: 'Modern Psychology and Brain Imaging', description: 'How technology lets us watch the brain in action.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u2-L5', title: 'History of Psychology Blitz', description: 'Race the clock on the key figures and ideas that shaped psychology.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u3',
+    title: 'Brain Anatomy: The 3-Pound Universe',
+    description: 'Explore the major parts of your brain and what each one does.',
+    color: '#C084FC',
+    icon: '🧬',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u3-L1', title: 'Meet Your Brain', description: 'The basics of what lives inside your skull and why it matters.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u3-L2', title: 'The Brain Stem and Cerebellum', description: 'The parts that keep you alive and moving without you even thinking about it.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u3-L3', title: 'The Cerebrum and Its Lobes', description: 'The wrinkly outer layer where thinking, planning, and personality live.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u3-L4', title: 'Left Brain, Right Brain', description: 'What the two hemispheres actually do and why the popular myth is mostly wrong.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u3-L5', title: 'Brain Anatomy Blitz', description: 'Race the clock on brain parts, lobes, and myths.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u4',
+    title: 'Section 1 Review',
+    description: 'Pull together everything you\'ve learned about psychology, its history, and the brain.',
+    color: '#7C3AED',
+    icon: '🎯',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u4-L1', title: 'Psychology Foundations Review', description: 'Test your knowledge of what psychology is and how it works.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u4-L2', title: 'Brain Anatomy Review', description: 'Test your knowledge of brain parts, lobes, and what they do.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec1-u4-L3', title: 'Welcome to Your Mind: Final Blitz', description: 'The ultimate speed round covering everything from Section 1.', icon: '⚡', type: 'speed-round', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u5',
+    title: 'The Brain\'s Messaging System',
+    description: 'How billions of tiny cells use electricity and chemicals to create every thought you have.',
+    color: '#A78BFA',
+    icon: '⚡',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u5-L1', title: 'What Is a Neuron?', description: 'The basic building block of your brain and nervous system.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u5-L2', title: 'How Neurons Fire', description: 'The electrical spark that travels down every neuron when it sends a message.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u5-L3', title: 'The Synapse', description: 'The tiny gap between neurons where chemical messages jump across.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u5-L4', title: 'Meet the Neurotransmitters', description: 'The key chemical messengers in your brain and what each one does.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u5-L5', title: 'Neural Networks and Plasticity', description: 'How your brain rewires itself every time you learn something new.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u6',
+    title: 'Left Brain, Right Brain: Myth vs Reality',
+    description: 'Why the popular idea that people are "left-brained" or "right-brained" is wrong.',
+    color: '#A78BFA',
+    icon: '🧩',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u6-L1', title: 'The Two Hemispheres', description: 'Your brain has two halves, and they do have some specializations.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u6-L2', title: 'The Split-Brain Experiments', description: 'What happens when the connection between brain halves is cut.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u6-L3', title: 'Busting the Left-Brain/Right-Brain Myth', description: 'Why calling yourself left-brained or right-brained is not supported by science.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u6-L4', title: 'How the Hemispheres Actually Differ', description: 'The real differences between hemispheres and why they matter.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u6-L5', title: 'Lateralization Around the World', description: 'How handedness, culture, and individual differences affect brain organization.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u7',
+    title: 'The Conscious and Unconscious Mind',
+    description: 'Most of what your brain does happens without you knowing it.',
+    color: '#A78BFA',
+    icon: '🌊',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u7-L1', title: 'What Is Consciousness?', description: 'The experience of being aware of yourself and your surroundings.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec1-u7-L2', title: 'The Unconscious Mind', description: 'The vast mental activity happening below your awareness every second.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u7-L3', title: 'Automatic vs Controlled Processing', description: 'Why some things require focus and others happen on autopilot.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u7-L4', title: 'Sleep and Altered States', description: 'What happens to consciousness when you sleep, dream, or meditate.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u7-L5', title: 'Attention and Its Limits', description: 'Why you can only focus on a few things at once and what that means for daily life.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec1-u8',
+    title: 'Your Mind: The Complete Picture',
+    description: 'Test your knowledge of neurons, hemispheres, consciousness, and everything from Section 1.',
+    color: '#A78BFA',
+    icon: '🏆',
+    sectionIndex: 0,
+    sectionTitle: 'Welcome to Your Mind',
+    lessons: [
+      { id: 'psy-sec1-u8-L1', title: 'Neurons and Brain Communication Review', description: 'Revisit how neurons fire, connect, and communicate using chemicals.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u8-L2', title: 'Hemispheres and the Left/Right Myth Review', description: 'Test what you know about how the two brain halves really work.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec1-u8-L3', title: 'Consciousness, Attention, and Processing Review', description: 'Test your understanding of awareness, automatic processing, and altered states.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec1-u8-L4', title: 'Section 1 Speed Round', description: 'Race the clock on everything from Welcome to Your Mind.', icon: '⚡', type: 'speed-round', xpReward: 30, questions: [] },
+    ],
+  },
+
   // ── Unit 1: Your Amazing Brain ──
   {
     id: "psy-u1-brain",
@@ -20,6 +154,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Section 2: How You Sense the World (9 units) ──
   {
     id: "psy-s2-u1",
@@ -38,6 +173,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "psy-s2-u2",
     title: "Optical Illusions and Perception Tricks",
@@ -55,6 +191,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "psy-s2-u3",
     title: "Hearing, Touch, Taste, Smell",
@@ -71,6 +208,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "psy-s2-u4",
     title: "Review: Senses",
@@ -85,6 +223,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-s2-u4-L3", title: "Apply What You Know", description: "Use your knowledge to solve real-world sensory scenarios.", icon: "📝", xpReward: 20, questions: [] },
     ],
   },
+
 
   {
     id: "psy-s2-u5",
@@ -101,6 +240,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-s2-u5-L4", title: "Chronic Pain and the Brain", description: "When pain persists long after the injury is healed.", icon: "📝", xpReward: 20, questions: [] },
     ],
   },
+
 
   {
     id: "psy-s2-u6",
@@ -119,6 +259,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "psy-s2-u7",
     title: "Change Blindness and Inattention",
@@ -134,6 +275,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-s2-u7-L4", title: "Real-World Consequences", description: "How inattention and change blindness affect driving, eyewitness testimony, and more.", icon: "📝", xpReward: 20, questions: [] },
     ],
   },
+
 
   {
     id: "psy-s2-u8",
@@ -152,6 +294,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "psy-s2-u9",
     title: "Review + Checkpoint",
@@ -167,6 +310,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-s2-u9-L4", title: "Section Checkpoint", description: "Prove your mastery of sensation and perception across all units.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   // ── Unit 2: Thinking Traps ──
   {
@@ -189,6 +333,124 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 3: Learning (Part 1, 5 units) ──
+  {
+    id: 'psy-sec3-u1', title: 'Pavlov\'s Dogs and Learned Reactions',
+    description: 'How your brain learns to connect unrelated things through repeated pairing.',
+    color: '#8B5CF6', icon: '🐕', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u1-L1', title: 'What Is Learning?', description: 'Learning means a lasting change in behavior based on experience.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u1-L2', title: 'Pavlov\'s Discovery', description: 'How a Russian scientist stumbled onto one of psychology\'s biggest findings.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u1-L3', title: 'The Building Blocks of Conditioning', description: 'Learn the 4 key terms that describe every classical conditioning situation.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u1-L4', title: 'Extinction and Spontaneous Recovery', description: 'Conditioned responses can fade and then surprise you by coming back.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u1-L5', title: 'Generalization and Discrimination', description: 'Why similar things trigger the same response, and how you learn to tell them apart.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u2', title: 'Skinner\'s Box and Learning by Consequences',
+    description: 'How rewards and punishments shape the behaviors you repeat or avoid.',
+    color: '#8B5CF6', icon: '🐀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u2-L1', title: 'What Is Operant Conditioning?', description: 'Learning from consequences: you repeat what works and stop what doesn\'t.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u2-L2', title: 'Reinforcement: Adding and Removing', description: 'Two ways to make a behavior happen more often.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L3', title: 'Punishment: Adding and Removing', description: 'Two ways to make a behavior happen less often.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L4', title: 'Shaping Behavior Step by Step', description: 'How to build complex behaviors by reinforcing small steps toward the goal.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u2-L5', title: 'The Full Operant Picture', description: 'Combine reinforcement, punishment, and shaping to analyze real behavior.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u3', title: 'Reinforcement Schedules',
+    description: 'When and how often you deliver rewards changes how people behave.',
+    color: '#8B5CF6', icon: '📊', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u3-L1', title: 'Continuous vs. Partial Reinforcement', description: 'Rewarding every time vs. rewarding sometimes creates very different patterns.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u3-L2', title: 'Ratio Schedules: Counting Responses', description: 'Reinforcement based on how many times you do something.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u3-L3', title: 'Interval Schedules: Watching the Clock', description: 'Reinforcement based on how much time has passed.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u3-L4', title: 'Comparing All Four Schedules', description: 'See how the 4 reinforcement schedules differ in speed, pattern, and extinction resistance.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u3-L5', title: 'Schedules in the Real World', description: 'Spot reinforcement schedules in everyday life, apps, and workplaces.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u4', title: 'Learning Foundations Review',
+    description: 'Test your knowledge of classical conditioning, operant conditioning, and reinforcement schedules.',
+    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u4-L1', title: 'Classical Conditioning Review', description: 'Revisit Pavlov\'s key concepts: conditioning, extinction, generalization, and discrimination.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u4-L2', title: 'Operant Conditioning Review', description: 'Revisit reinforcement, punishment, shaping, and the key differences from classical conditioning.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u4-L3', title: 'Reinforcement Schedules Review', description: 'Test your ability to identify and compare all 4 reinforcement schedules.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u5', title: 'Bandura\'s Bobo Doll and Learning by Watching',
+    description: 'How you learn new behaviors just by observing other people.',
+    color: '#8B5CF6', icon: '👀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u5-L1', title: 'Learning Without Direct Experience', description: 'You don\'t need rewards or punishments to learn. Watching is enough.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u5-L2', title: 'The Bobo Doll Experiment', description: 'The famous study that proved children imitate aggression they observe.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L3', title: 'The Four Steps of Modeling', description: 'Attention, retention, reproduction, and motivation: the full process of learning by watching.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L4', title: 'Prosocial and Antisocial Modeling', description: 'Observation can teach kindness or cruelty, depending on the model.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u5-L5', title: 'Observational Learning Everywhere', description: 'Recognize how modeling shapes language, culture, skills, and social norms around you.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+
+  // ── Section 3: Learning (Part 2, 4 units) ──
+  {
+    id: 'psy-sec3-u6', title: 'Habituation and Sensitization',
+    description: 'Why you stop noticing your watch but flinch harder at a sudden noise.',
+    color: '#6366F1', icon: '🔕', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u6-L1', title: 'What Is Habituation?', description: 'How your brain learns to tune out things that don\'t matter.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u6-L2', title: 'Dishabituation and Spontaneous Recovery', description: 'What brings a habituated response back to life.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u6-L3', title: 'What Is Sensitization?', description: 'When your brain turns the volume up instead of down.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u6-L4', title: 'Habituation in Research and Everyday Life', description: 'How scientists and everyday situations reveal the power of habituation.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u7', title: 'Habits: Formation, Loops, and Breaking Them',
+    description: 'How behaviors become automatic and what it takes to change them.',
+    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u7-L1', title: 'What Makes a Habit?', description: 'Why some behaviors become effortless and automatic.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u7-L2', title: 'The Habit Loop', description: 'The three-part cycle that drives every habit.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u7-L3', title: 'How Habits Form', description: 'The process that turns new behaviors into automatic routines.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u7-L4', title: 'Breaking and Replacing Habits', description: 'Why willpower alone fails and what actually works.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u7-L5', title: 'Habits and Operant Conditioning', description: 'How rewards and reinforcement connect to habit formation.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u8', title: 'Learning Transfer and Generalization',
+    description: 'How skills and knowledge from one situation apply to another.',
+    color: '#EC4899', icon: '🔀', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u8-L1', title: 'What Is Learning Transfer?', description: 'How knowledge from one context helps in a completely different one.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec3-u8-L2', title: 'Near and Far Transfer', description: 'Why some skills transfer easily and others barely transfer at all.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u8-L3', title: 'Generalization in Conditioning', description: 'How conditioned responses spread to similar stimuli and situations.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u8-L4', title: 'Analogical Reasoning and Transfer', description: 'How spotting similarities between different problems enables far transfer.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u8-L5', title: 'Barriers to Transfer', description: 'What prevents learning from carrying over to new situations.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec3-u9', title: 'Learning: Full Section Review',
+    description: 'Test your knowledge across all learning concepts from classical conditioning to transfer.',
+    color: '#F59E0B', icon: '🏆', sectionIndex: 2, sectionTitle: 'Learning',
+    lessons: [
+      { id: 'psy-sec3-u9-L1', title: 'Conditioning Foundations Review', description: 'Revisit classical conditioning, operant conditioning, and reinforcement schedules.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u9-L2', title: 'Observational and Non-Associative Learning Review', description: 'Revisit Bandura\'s observational learning, habituation, and sensitization.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec3-u9-L3', title: 'Habits and Transfer Review', description: 'Revisit habit formation, the habit loop, and learning transfer.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec3-u9-L4', title: 'Section 3 Comprehensive Checkpoint', description: 'A challenging test spanning all learning concepts from this section.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+
   // ── Unit 3: How Your Memory Works ──
   {
     id: "psy-u3-memory",
@@ -209,6 +471,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-u3-L8", title: "Memory Speed Round", description: "Race the clock on everything you've learned about memory and learning.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
 
   // ── Unit 4: Why You Feel What You Feel ──
   {
@@ -232,6 +495,138 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 5: Thinking & Intelligence (Part 1, 5 units) ──
+  {
+    id: 'psy-sec5-u1', title: 'What Is Intelligence?',
+    description: 'Explore the major theories about what intelligence really is and why psychologists still debate it.',
+    color: '#8B5CF6', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u1-L1', title: 'Defining Intelligence', description: 'Why intelligence is one of the hardest things in psychology to define.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u1-L2', title: 'Fluid vs. Crystallized Intelligence', description: 'Two types of intelligence that change in opposite directions as we age.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u1-L3', title: 'Nature vs. Nurture in Intelligence', description: 'How much of intelligence is genetic and how much comes from environment.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u1-L4', title: 'The Intelligence Controversy', description: 'Why intelligence research has been so politically and ethically charged.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u1-L5', title: 'Modern Views on Intelligence', description: 'How current researchers think about intelligence beyond the old "one number" model.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u2', title: 'IQ Tests: What They Measure',
+    description: 'Understand how IQ tests work, what they predict well, and what they miss entirely.',
+    color: '#7C3AED', icon: '📊', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u2-L1', title: 'The History of IQ Testing', description: 'How intelligence testing began and why it was created.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u2-L2', title: 'How Modern IQ Tests Work', description: 'What today\'s IQ tests actually measure and how scores are calculated.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u2-L3', title: 'What IQ Predicts and Misses', description: 'IQ correlates with some outcomes but fails to capture many important abilities.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u2-L4', title: 'Giftedness and Intellectual Disability', description: 'How psychologists define the extremes of the IQ distribution.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u2-L5', title: 'Criticisms and Alternatives to IQ', description: 'Why some psychologists think IQ tests need to be rethought or replaced.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u3', title: 'Multiple Intelligences and Creativity',
+    description: 'Explore Gardner\'s theory of multiple intelligences and what psychologists know about creative thinking.',
+    color: '#6D28D9', icon: '🎨', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u3-L1', title: 'Gardner\'s Multiple Intelligences', description: 'The theory that intelligence comes in at least 8 different forms.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u3-L2', title: 'Debate Over Multiple Intelligences', description: 'Why many psychologists question Gardner\'s theory despite its popularity.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u3-L3', title: 'What Is Creativity?', description: 'How psychologists define and study creative thinking.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u3-L4', title: 'Fostering and Blocking Creativity', description: 'What helps and what kills creative thinking, according to research.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u3-L5', title: 'The 10,000-Hour Debate', description: 'Does practice alone make you an expert, or does talent matter too?', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u4', title: 'Thinking & Intelligence Review',
+    description: 'Revisit key concepts from intelligence theories, IQ testing, creativity, and multiple intelligences.',
+    color: '#5B21B6', icon: '🔄', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u4-L1', title: 'Intelligence Theories Recap', description: 'Review the major theories of intelligence from Spearman to the CHC model.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u4-L2', title: 'IQ Testing Review', description: 'Revisit the history, mechanics, and limitations of IQ testing.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u4-L3', title: 'Creativity and Practice Review', description: 'Revisit what drives creativity and the role of deliberate practice in expertise.', icon: '📝', xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u5', title: 'Problem Solving and Reasoning',
+    description: 'Learn the mental tools humans use to solve problems and why we sometimes get stuck.',
+    color: '#4C1D95', icon: '🧩', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u5-L1', title: 'Types of Problems', description: 'Well-defined vs. ill-defined problems and why the distinction matters.', icon: '📝', xpReward: 15, questions: [] },
+      { id: 'psy-sec5-u5-L2', title: 'Heuristics and Mental Shortcuts', description: 'The most common mental shortcuts and when they lead us astray.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u5-L3', title: 'Cognitive Biases in Reasoning', description: 'Systematic errors in thinking that affect everyone.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u5-L4', title: 'Barriers to Good Reasoning', description: 'Mental set, sunk cost fallacy, and other traps that block clear thinking.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u5-L5', title: 'System 1 and System 2 Thinking', description: 'The two systems your brain uses to make decisions, and when each one leads.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+
+  // ── Section 5: Thinking & Intelligence (Part 2, 5 units) ──
+  {
+    id: 'psy-sec5-u6', title: 'Does Language Shape Your Thoughts?',
+    description: 'How the words you speak might change the way you think about the world.',
+    color: '#8B5CF6', icon: '🗣️', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u6-L1', title: 'The Sapir-Whorf Hypothesis', description: 'The bold idea that language controls or influences how you perceive reality.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u6-L2', title: 'Color, Space, and Time Across Languages', description: 'How speakers of different languages literally see colors, directions, and time differently.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L3', title: 'Bilingualism and Cognitive Flexibility', description: 'How speaking two languages reshapes the brain and sharpens mental agility.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L4', title: 'Thinking Without Words', description: 'Evidence that thought can exist independently of language, from deaf children to animal cognition.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u6-L5', title: 'Language, Labels, and Real-World Impact', description: 'How language shapes stereotypes, legal decisions, and everyday judgments.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u7', title: 'How Babies Learn to Talk',
+    description: 'The remarkable journey from first cries to full sentences in just a few years.',
+    color: '#EC4899', icon: '👶', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u7-L1', title: 'From Coos to Conversations', description: 'The predictable stages every child passes through on the way to fluent speech.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u7-L2', title: 'Born to Talk or Taught to Talk?', description: 'The great debate: is language ability built into the brain, or is it entirely learned?', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L3', title: 'Critical Periods and Missed Windows', description: 'What happens when children miss the window for language, and what that teaches us about the brain.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L4', title: 'How Parents Shape Language Growth', description: 'The role of baby talk, reading aloud, and conversational turns in building young brains.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u7-L5', title: 'When Language Development Stalls', description: 'Understanding language delays, disorders, and how early intervention changes outcomes.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u8', title: 'Consciousness: The Mystery Inside Your Head',
+    description: 'What it means to be aware, why it matters, and why science still cannot fully explain it.',
+    color: '#6366F1', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u8-L1', title: 'What Is Consciousness?', description: 'How psychologists and philosophers define awareness, and why it is so hard to study.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u8-L2', title: 'Theories of Consciousness', description: 'The leading scientific theories attempting to explain how awareness arises in the brain.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L3', title: 'The Power of the Unconscious', description: 'How much of your thinking happens outside your awareness, from priming to blindsight.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L4', title: 'Attention: The Gatekeeper of Consciousness', description: 'How attention filters what enters your awareness and why you miss so much of reality.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u8-L5', title: 'Do You Actually Choose Your Choices?', description: 'What neuroscience reveals about free will, the timing of decisions, and the limits of self-awareness.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u9', title: 'Altered States of Consciousness',
+    description: 'How sleep, dreams, meditation, and hypnosis change your awareness in fascinating ways.',
+    color: '#7C3AED', icon: '🌙', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u9-L1', title: 'What Happens When You Sleep', description: 'The stages your brain cycles through every night and why each one matters.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'psy-sec5-u9-L2', title: 'Why We Dream', description: 'The major theories about why the sleeping brain creates vivid stories, images, and emotions.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L3', title: 'Meditation and the Science of Mindfulness', description: 'What happens in the brain during meditation and what the evidence actually shows.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L4', title: 'Hypnosis: Separating Myth from Science', description: 'What hypnosis actually is, who it works for, and what it cannot do.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u9-L5', title: 'Substances That Alter Consciousness', description: 'How drugs change brain chemistry and conscious experience, from caffeine to psychedelics.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'psy-sec5-u10', title: 'Thinking & Intelligence: Full Review',
+    description: 'Test your knowledge across all of Section 5, from problem-solving to consciousness.',
+    color: '#A78BFA', icon: '🏆', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
+    lessons: [
+      { id: 'psy-sec5-u10-L1', title: 'Thinking and Intelligence Recap', description: 'Review key concepts from problem-solving, creativity, and intelligence theory.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L2', title: 'Language, Thought, and Acquisition Recap', description: 'Review linguistic relativity, bilingualism, and how children learn language.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L3', title: 'Consciousness and Altered States Recap', description: 'Review consciousness theories, sleep, dreams, meditation, and hypnosis.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'psy-sec5-u10-L4', title: 'Section 5 Speed Round', description: 'Rapid-fire recall across all of Thinking & Intelligence.', icon: '⚡', type: 'speed-round', xpReward: 35, questions: [] },
+    ],
+  },
+
+
   // ── Unit 5: How Others Change Your Mind ──
   {
     id: "psy-u5-social",
@@ -254,6 +649,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 6: What Makes You, You? ──
   {
     id: "psy-u6-personality",
@@ -275,6 +671,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 7: How to Decide Better ──
   {
     id: "psy-u7-decisions",
@@ -295,6 +692,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-u7-L8", title: "Better Decisions Speed Round", description: "Race the clock on System 1 and 2, loss aversion, heuristics, and nudges.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
 
   // ── Unit 8: Why You're Bad with Money ──
   {
@@ -319,6 +717,7 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 9: Think Like a Scientist ──
   {
     id: "psy-u9-mental-models",
@@ -341,6 +740,152 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 10: Developmental Psychology (11 units) ──
+  {
+    id: "psy-sec10-u1", title: "From Conception to First Breath",
+    description: "How a single cell becomes a newborn with remarkable built-in abilities.",
+    color: "#F59E0B", icon: "👶", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u1-L1", title: "The Three Prenatal Stages", description: "How human development unfolds from fertilization to birth.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u1-L2", title: "Teratogens and Critical Periods", description: "Why timing matters when it comes to prenatal harm.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u1-L3", title: "What Newborns Can Do", description: "Babies arrive with built-in reflexes and surprising perceptual abilities.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u1-L4", title: "Nature, Nurture, and Interaction", description: "The age-old debate and why the answer is always both.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u1-L5", title: "Culture Shapes Early Development", description: "How different cultures approach pregnancy, birth, and infancy.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u2", title: "How Children Think: Piaget",
+    description: "Four stages of cognitive development from infancy to adolescence.",
+    color: "#F59E0B", icon: "🧩", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u2-L1", title: "Sensorimotor Stage", description: "How babies learn by touching, looking, and putting things in their mouths.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u2-L2", title: "Preoperational Stage", description: "Language explodes but logic lags behind.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u2-L3", title: "Concrete Operational Stage", description: "Logical thinking arrives but stays tied to physical reality.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u2-L4", title: "Formal Operational Stage", description: "Abstract thinking, hypothetical reasoning, and metacognition.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u2-L5", title: "Piaget Under the Microscope", description: "What Piaget got right, what he got wrong, and what came after.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u2-L6", title: "Piaget in Practice", description: "How Piaget's stages show up in parenting, teaching, and design.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u3", title: "Attachment: The Bond That Shapes Us",
+    description: "How early relationships wire the brain for trust, love, and resilience.",
+    color: "#F59E0B", icon: "🤝", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u3-L1", title: "Bowlby's Attachment Theory", description: "Why babies are biologically programmed to bond.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u3-L2", title: "Ainsworth's Strange Situation", description: "The experiment that revealed four attachment styles.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u3-L3", title: "Secure vs Insecure Attachment", description: "What each style looks like and why it matters.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u3-L4", title: "Attachment Across the Lifespan", description: "How childhood attachment shapes adult relationships.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u3-L5", title: "Can Attachment Change?", description: "Earned security and the plasticity of attachment.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u3-L6", title: "Culture and Attachment", description: "How collectivist and individualist cultures shape caregiving.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u4", title: "Review: Early Development and Attachment",
+    description: "Test your knowledge of prenatal development, Piaget, and attachment.",
+    color: "#F59E0B", icon: "🔄", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u4-L1", title: "Prenatal and Newborn Review", description: "Revisit stages, teratogens, and newborn capabilities.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u4-L2", title: "Piaget Review", description: "Test your grasp of the four cognitive stages.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u4-L3", title: "Attachment Review", description: "Bowlby, Ainsworth, and attachment styles revisited.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u5", title: "Learning with Help: Vygotsky",
+    description: "Why what you can do with guidance matters more than what you can do alone.",
+    color: "#F59E0B", icon: "🪜", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u5-L1", title: "The Zone of Proximal Development", description: "The sweet spot between too easy and too hard.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u5-L2", title: "Scaffolding", description: "How skilled helpers build temporary support structures.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u5-L3", title: "Language as a Tool for Thought", description: "How inner speech shapes cognitive development.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u5-L4", title: "Vygotsky vs Piaget", description: "Two giants, two views of how children learn.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u5-L5", title: "Vygotsky in the Classroom", description: "Cooperative learning, peer tutoring, and guided discovery.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u6", title: "Erikson's 8 Life Challenges",
+    description: "A roadmap of psychosocial crises from infancy to old age.",
+    color: "#F59E0B", icon: "🗺️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u6-L1", title: "Trust vs Mistrust and Autonomy vs Shame", description: "The first two crises of infancy and toddlerhood.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u6-L2", title: "Initiative, Industry, and Identity", description: "Childhood through adolescence: three crises that build the self.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u6-L3", title: "Intimacy, Generativity, and Integrity", description: "Adulthood's three challenges: love, legacy, and meaning.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u6-L4", title: "Erikson in Real Life", description: "Spotting psychosocial crises in yourself and others.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u6-L5", title: "Critiques and Cultural Limits", description: "Where Erikson's model falls short and what came after.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u6-L6", title: "Erikson Applied", description: "Using psychosocial stages in parenting, education, and therapy.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u7", title: "Moral Development: Kohlberg and Gilligan",
+    description: "How our sense of right and wrong develops from childhood through adulthood.",
+    color: "#8B5CF6", icon: "⚖️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u7-L1", title: "Kohlberg's Moral Reasoning", description: "Three levels, six stages, and the famous Heinz dilemma.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u7-L2", title: "Gilligan's Ethics of Care", description: "A different voice: why justice is not the only moral framework.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u7-L3", title: "Moral Emotions and Intuitions", description: "Haidt's moral foundations and the limits of pure reasoning.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u7-L4", title: "Culture and Moral Development", description: "How moral priorities differ across societies.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u7-L5", title: "Moral Development in Practice", description: "Applying moral development theory to real dilemmas.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u8", title: "Adolescent Brain and Identity Formation",
+    description: "Why teenagers take risks, seek independence, and struggle to find themselves.",
+    color: "#8B5CF6", icon: "🧠", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u8-L1", title: "The Teenage Brain", description: "Prefrontal cortex lag, synaptic pruning, and why risk feels rewarding.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u8-L2", title: "Identity: Erikson and Marcia", description: "Four identity statuses and the search for self.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u8-L3", title: "Peer Influence and Conformity", description: "Why friends matter more than parents during adolescence.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u8-L4", title: "Risk, Reward, and Decision Making", description: "Why teens know the risks but take them anyway.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u8-L5", title: "Emerging Adulthood", description: "The new life stage between adolescence and full adulthood.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u9", title: "Adult Development and Aging",
+    description: "How cognition, personality, and social roles evolve through adulthood.",
+    color: "#8B5CF6", icon: "🌳", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u9-L1", title: "Erikson's Adult Stages", description: "Intimacy, generativity, and integrity revisited in depth.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u9-L2", title: "Cognitive Changes in Adulthood", description: "Fluid vs crystallized intelligence and the aging brain.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u9-L3", title: "Physical Aging", description: "What happens to the body and what science says about slowing it.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u9-L4", title: "Social and Emotional Changes", description: "Socioemotional selectivity and the positivity effect.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u9-L5", title: "Successful Aging", description: "What predicts well-being in later life.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u10", title: "Death, Dying, and Grief",
+    description: "How we understand, face, and cope with the end of life.",
+    color: "#8B5CF6", icon: "🕊️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u10-L1", title: "Facing Death", description: "How understanding of death develops across the lifespan.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u10-L2", title: "Kubler-Ross and Beyond", description: "The five responses and why they are not universal stages.", icon: "📝", xpReward: 10, questions: [] },
+      { id: "psy-sec10-u10-L3", title: "Grief Is Not Linear", description: "Why the stage model fails and what actually helps.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u10-L4", title: "Culture and Death", description: "How different traditions approach dying and mourning.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u10-L5", title: "Complicated Grief", description: "When grief becomes prolonged and how to recognize it.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+  {
+    id: "psy-sec10-u11", title: "Developmental Psychology Review",
+    description: "Comprehensive review across all developmental psychology topics.",
+    color: "#8B5CF6", icon: "🏁", sectionIndex: 9, sectionTitle: "Developmental Psychology",
+    lessons: [
+      { id: "psy-sec10-u11-L1", title: "Foundations Review", description: "Prenatal development, Piaget, and attachment revisited.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u11-L2", title: "Theories Review", description: "Vygotsky, Erikson, and Kohlberg side by side.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u11-L3", title: "Adolescence Through Aging", description: "The teenage brain, adult development, and end of life.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "psy-sec10-u11-L4", title: "Section Checkpoint", description: "Full section challenge across all developmental topics.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+
   // ── Unit 10: Spot the Manipulation ──
   {
     id: "psy-u10-influence",
@@ -360,139 +905,6 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
-  // ── Section 10: Developmental Psychology (11 units) ──
-  {
-    id: "psy-sec10-u1", title: "From Conception to First Breath",
-    description: "How a single cell becomes a newborn with remarkable built-in abilities.",
-    color: "#F59E0B", icon: "👶", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u1-L1", title: "The Three Prenatal Stages", description: "How human development unfolds from fertilization to birth.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u1-L2", title: "Teratogens and Critical Periods", description: "Why timing matters when it comes to prenatal harm.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u1-L3", title: "What Newborns Can Do", description: "Babies arrive with built-in reflexes and surprising perceptual abilities.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u1-L4", title: "Nature, Nurture, and Interaction", description: "The age-old debate and why the answer is always both.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u1-L5", title: "Culture Shapes Early Development", description: "How different cultures approach pregnancy, birth, and infancy.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u2", title: "How Children Think: Piaget",
-    description: "Four stages of cognitive development from infancy to adolescence.",
-    color: "#F59E0B", icon: "🧩", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u2-L1", title: "Sensorimotor Stage", description: "How babies learn by touching, looking, and putting things in their mouths.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u2-L2", title: "Preoperational Stage", description: "Language explodes but logic lags behind.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u2-L3", title: "Concrete Operational Stage", description: "Logical thinking arrives but stays tied to physical reality.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u2-L4", title: "Formal Operational Stage", description: "Abstract thinking, hypothetical reasoning, and metacognition.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u2-L5", title: "Piaget Under the Microscope", description: "What Piaget got right, what he got wrong, and what came after.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u2-L6", title: "Piaget in Practice", description: "How Piaget's stages show up in parenting, teaching, and design.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u3", title: "Attachment: The Bond That Shapes Us",
-    description: "How early relationships wire the brain for trust, love, and resilience.",
-    color: "#F59E0B", icon: "🤝", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u3-L1", title: "Bowlby's Attachment Theory", description: "Why babies are biologically programmed to bond.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u3-L2", title: "Ainsworth's Strange Situation", description: "The experiment that revealed four attachment styles.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u3-L3", title: "Secure vs Insecure Attachment", description: "What each style looks like and why it matters.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u3-L4", title: "Attachment Across the Lifespan", description: "How childhood attachment shapes adult relationships.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u3-L5", title: "Can Attachment Change?", description: "Earned security and the plasticity of attachment.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u3-L6", title: "Culture and Attachment", description: "How collectivist and individualist cultures shape caregiving.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u4", title: "Review: Early Development and Attachment",
-    description: "Test your knowledge of prenatal development, Piaget, and attachment.",
-    color: "#F59E0B", icon: "🔄", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u4-L1", title: "Prenatal and Newborn Review", description: "Revisit stages, teratogens, and newborn capabilities.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u4-L2", title: "Piaget Review", description: "Test your grasp of the four cognitive stages.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u4-L3", title: "Attachment Review", description: "Bowlby, Ainsworth, and attachment styles revisited.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u5", title: "Learning with Help: Vygotsky",
-    description: "Why what you can do with guidance matters more than what you can do alone.",
-    color: "#F59E0B", icon: "🪜", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u5-L1", title: "The Zone of Proximal Development", description: "The sweet spot between too easy and too hard.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u5-L2", title: "Scaffolding", description: "How skilled helpers build temporary support structures.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u5-L3", title: "Language as a Tool for Thought", description: "How inner speech shapes cognitive development.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u5-L4", title: "Vygotsky vs Piaget", description: "Two giants, two views of how children learn.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u5-L5", title: "Vygotsky in the Classroom", description: "Cooperative learning, peer tutoring, and guided discovery.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u6", title: "Erikson's 8 Life Challenges",
-    description: "A roadmap of psychosocial crises from infancy to old age.",
-    color: "#F59E0B", icon: "🗺️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u6-L1", title: "Trust vs Mistrust and Autonomy vs Shame", description: "The first two crises of infancy and toddlerhood.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u6-L2", title: "Initiative, Industry, and Identity", description: "Childhood through adolescence: three crises that build the self.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u6-L3", title: "Intimacy, Generativity, and Integrity", description: "Adulthood's three challenges: love, legacy, and meaning.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u6-L4", title: "Erikson in Real Life", description: "Spotting psychosocial crises in yourself and others.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u6-L5", title: "Critiques and Cultural Limits", description: "Where Erikson's model falls short and what came after.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u6-L6", title: "Erikson Applied", description: "Using psychosocial stages in parenting, education, and therapy.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u7", title: "Moral Development: Kohlberg and Gilligan",
-    description: "How our sense of right and wrong develops from childhood through adulthood.",
-    color: "#8B5CF6", icon: "⚖️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u7-L1", title: "Kohlberg's Moral Reasoning", description: "Three levels, six stages, and the famous Heinz dilemma.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u7-L2", title: "Gilligan's Ethics of Care", description: "A different voice: why justice is not the only moral framework.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u7-L3", title: "Moral Emotions and Intuitions", description: "Haidt's moral foundations and the limits of pure reasoning.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u7-L4", title: "Culture and Moral Development", description: "How moral priorities differ across societies.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u7-L5", title: "Moral Development in Practice", description: "Applying moral development theory to real dilemmas.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u8", title: "Adolescent Brain and Identity Formation",
-    description: "Why teenagers take risks, seek independence, and struggle to find themselves.",
-    color: "#8B5CF6", icon: "🧠", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u8-L1", title: "The Teenage Brain", description: "Prefrontal cortex lag, synaptic pruning, and why risk feels rewarding.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u8-L2", title: "Identity: Erikson and Marcia", description: "Four identity statuses and the search for self.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u8-L3", title: "Peer Influence and Conformity", description: "Why friends matter more than parents during adolescence.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u8-L4", title: "Risk, Reward, and Decision Making", description: "Why teens know the risks but take them anyway.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u8-L5", title: "Emerging Adulthood", description: "The new life stage between adolescence and full adulthood.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u9", title: "Adult Development and Aging",
-    description: "How cognition, personality, and social roles evolve through adulthood.",
-    color: "#8B5CF6", icon: "🌳", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u9-L1", title: "Erikson's Adult Stages", description: "Intimacy, generativity, and integrity revisited in depth.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u9-L2", title: "Cognitive Changes in Adulthood", description: "Fluid vs crystallized intelligence and the aging brain.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u9-L3", title: "Physical Aging", description: "What happens to the body and what science says about slowing it.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u9-L4", title: "Social and Emotional Changes", description: "Socioemotional selectivity and the positivity effect.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u9-L5", title: "Successful Aging", description: "What predicts well-being in later life.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u10", title: "Death, Dying, and Grief",
-    description: "How we understand, face, and cope with the end of life.",
-    color: "#8B5CF6", icon: "🕊️", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u10-L1", title: "Facing Death", description: "How understanding of death develops across the lifespan.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u10-L2", title: "Kubler-Ross and Beyond", description: "The five responses and why they are not universal stages.", icon: "📝", xpReward: 10, questions: [] },
-      { id: "psy-sec10-u10-L3", title: "Grief Is Not Linear", description: "Why the stage model fails and what actually helps.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u10-L4", title: "Culture and Death", description: "How different traditions approach dying and mourning.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u10-L5", title: "Complicated Grief", description: "When grief becomes prolonged and how to recognize it.", icon: "📝", xpReward: 15, questions: [] },
-    ],
-  },
-  {
-    id: "psy-sec10-u11", title: "Developmental Psychology Review",
-    description: "Comprehensive review across all developmental psychology topics.",
-    color: "#8B5CF6", icon: "🏁", sectionIndex: 9, sectionTitle: "Developmental Psychology",
-    lessons: [
-      { id: "psy-sec10-u11-L1", title: "Foundations Review", description: "Prenatal development, Piaget, and attachment revisited.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u11-L2", title: "Theories Review", description: "Vygotsky, Erikson, and Kohlberg side by side.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u11-L3", title: "Adolescence Through Aging", description: "The teenage brain, adult development, and end of life.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "psy-sec10-u11-L4", title: "Section Checkpoint", description: "Full section challenge across all developmental topics.", icon: "📝", xpReward: 20, questions: [] },
-    ],
-  },
 
   // ── Section 11: Mental Health & Abnormal Psychology (15 units) ──
   {
@@ -507,6 +919,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u1-L5", title: "How Common Are Mental Disorders?", description: "The prevalence of mental illness and why mental health literacy matters.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u2", title: "Anxiety Disorders",
     description: "How normal worry becomes a disorder, from generalized anxiety to panic attacks to phobias.",
@@ -520,6 +933,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u2-L6", title: "The Biology of Anxiety", description: "How the brain and body create anxiety responses.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u3", title: "Depression: Causes, Biology, and Experience",
     description: "Understanding major depressive disorder, its biological roots, and what it feels like.",
@@ -533,6 +947,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u3-L6", title: "Who Gets Depressed?", description: "How depression varies by gender, age, and culture.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u4", title: "Review: Foundations of Mental Health",
     description: "Consolidate your knowledge of diagnosis, anxiety disorders, and depression.",
@@ -543,6 +958,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u4-L3", title: "Depression Review", description: "Synthesize biological, psychological, and social perspectives on depression.", icon: "📝", xpReward: 20, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u5", title: "Bipolar Disorder",
     description: "Understanding the mood swings of bipolar disorder, from mania to depression.",
@@ -555,6 +971,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u5-L5", title: "Cyclothymia and Bipolar Myths", description: "A milder bipolar variant and common misconceptions that harm understanding.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u6", title: "PTSD and Trauma",
     description: "How traumatic experiences can reshape the brain and behavior, and how people recover.",
@@ -568,6 +985,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u6-L6", title: "Trauma-Informed Care", description: "How understanding trauma changes the way we support people.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u7", title: "OCD and Related Disorders",
     description: "Understanding obsessive-compulsive disorder, body dysmorphia, and hoarding.",
@@ -580,6 +998,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u7-L5", title: "Hoarding Disorder", description: "When difficulty discarding possessions creates dangerous living conditions.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u8", title: "Schizophrenia and Psychosis",
     description: "Understanding psychotic disorders, from hallucinations and delusions to treatment and recovery.",
@@ -593,6 +1012,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u8-L6", title: "Beyond Schizophrenia", description: "Brief psychotic disorder, schizoaffective disorder, and the psychosis spectrum.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u9", title: "Review: Mood, Trauma, and Psychotic Disorders",
     description: "Reinforce your knowledge of bipolar disorder, PTSD, OCD, and schizophrenia.",
@@ -603,6 +1023,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u9-L3", title: "Cross-Disorder Comparisons", description: "Distinguish between conditions that share overlapping features.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u10", title: "Personality Disorders: Clusters A, B, C",
     description: "How enduring patterns of behavior and thinking can become personality disorders.",
@@ -614,6 +1035,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u10-L4", title: "Cluster C: Anxious and Fearful Patterns", description: "Avoidant, dependent, and obsessive-compulsive personality disorders.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u11", title: "Eating Disorders",
     description: "How distorted relationships with food and body image become serious clinical conditions.",
@@ -625,6 +1047,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u11-L4", title: "Eating Disorder Treatment and Recovery", description: "Evidence-based approaches to treating eating disorders.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u12", title: "Substance Use Disorders and Addiction",
     description: "How the brain's reward system gets hijacked and what makes recovery so challenging.",
@@ -638,6 +1061,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u12-L6", title: "Substance Use Disorders Speed Round", description: "Rapid recall of addiction science, treatment, and key concepts.", icon: "⚡", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u13", title: "Neurodevelopmental: ADHD and Autism Spectrum",
     description: "Understanding conditions that shape how the brain develops from early childhood.",
@@ -649,6 +1073,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u13-L4", title: "Living with ADHD and Autism", description: "Strengths, challenges, and how support makes the difference.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u14", title: "Stigma and Mental Health Advocacy",
     description: "How stigma harms people with mental health conditions and what we can do about it.",
@@ -659,6 +1084,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u14-L3", title: "Reducing Stigma and Advocacy", description: "Evidence-based strategies for fighting mental health stigma.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec11-u15", title: "Section 11 Review and Checkpoint",
     description: "Prove your mastery of mental health and abnormal psychology across all units.",
@@ -669,6 +1095,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec11-u15-L3", title: "Applying Anti-Stigma Knowledge", description: "Use everything you have learned to challenge stigma across conditions.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
 
   // ── Section 12: Therapy & Treatment (13 units) ──
   {
@@ -683,6 +1110,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u1-L5", title: "Therapy Today Is Not What You Think", description: "Busting the biggest misconception about what modern therapy actually looks like.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u2", title: "CBT: Changing Thoughts to Change Feelings",
     description: "The most widely studied therapy and how it rewires unhelpful thinking patterns.",
@@ -696,6 +1124,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u2-L6", title: "CBT in the Real World", description: "Digital CBT, self-help applications, and how CBT is accessed globally.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u3", title: "DBT: Balancing Acceptance and Change",
     description: "A therapy built for the hardest-to-treat conditions, now used far beyond its origins.",
@@ -708,6 +1137,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u3-L5", title: "DBT vs. CBT and When to Choose Which", description: "Comparing the two therapies and understanding which fits different situations.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u4", title: "Review: History, CBT, and DBT",
     description: "Consolidate your knowledge of therapy history, cognitive behavioral therapy, and dialectical behavior therapy.",
@@ -718,6 +1148,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u4-L3", title: "DBT Concepts and Skills Review", description: "Test your grasp of DBT philosophy, skill modules, and how it differs from CBT.", icon: "📝", xpReward: 20, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u5", title: "Psychodynamic Therapy: The Modern Descendant of Freud",
     description: "How Freud's ideas evolved into a modern, evidence-supported therapy approach.",
@@ -730,6 +1161,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u5-L5", title: "Choosing Psychodynamic Therapy Wisely", description: "When this approach shines and when other therapies may be more appropriate.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u6", title: "Person-Centered Therapy: The Power of Being Heard",
     description: "Carl Rogers' approach and why empathy, genuineness, and acceptance are therapeutic.",
@@ -742,6 +1174,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u6-L5", title: "Existential Therapy and Beyond", description: "How the humanistic tradition expanded into existential questions about meaning and mortality.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u7", title: "Group Therapy and Family Systems",
     description: "Why healing sometimes happens best in the company of others.",
@@ -754,6 +1187,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u7-L5", title: "Matching Format to Need", description: "How therapists decide whether individual, group, or family therapy is the best fit.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u8", title: "Psychopharmacology: How Medications Treat Mental Health",
     description: "How psychiatric medications work in the brain and when they are used.",
@@ -767,6 +1201,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u8-L6", title: "Medication Myths and Responsible Use", description: "Common misconceptions about psychiatric medication and principles of responsible use.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u9", title: "Therapy Approaches and Medications Review",
     description: "Test your knowledge of psychodynamic therapy, humanistic therapy, group therapy, and psychopharmacology.",
@@ -777,6 +1212,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u9-L3", title: "Medication Classes and Mechanisms", description: "Review SSRIs, SNRIs, antipsychotics, and other psychiatric medications.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u10", title: "When to Seek Help and Finding a Therapist",
     description: "Recognize when professional help is needed and learn how to find the right therapist for you.",
@@ -789,6 +1225,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u10-L5", title: "Overcoming Barriers to Seeking Help", description: "Common obstacles to starting therapy and practical strategies for overcoming them.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u11", title: "Evidence-Based Practice: What Works",
     description: "How researchers determine which therapies are effective and what the evidence says.",
@@ -801,6 +1238,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u11-L5", title: "Integrative and Combined Treatments", description: "How combining therapy with medication or other approaches can improve outcomes.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u12", title: "Cultural Competence in Therapy",
     description: "Why culture matters in mental health treatment and how therapists can be more inclusive.",
@@ -813,6 +1251,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: "psy-sec12-u12-L5", title: "Building an Inclusive Mental Health System", description: "What needs to change to make mental health care work for everyone.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: "psy-sec12-u13", title: "Therapy & Treatment: Complete Review",
     description: "Test your knowledge across all therapy and treatment topics.",
@@ -825,234 +1264,6 @@ export const psychologyCourseMeta: Unit[] = [
     ],
   },
 
-  // ── Section 3: Learning (Part 1, 5 units) ──
-  {
-    id: 'psy-sec3-u1', title: 'Pavlov\'s Dogs and Learned Reactions',
-    description: 'How your brain learns to connect unrelated things through repeated pairing.',
-    color: '#8B5CF6', icon: '🐕', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u1-L1', title: 'What Is Learning?', description: 'Learning means a lasting change in behavior based on experience.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u1-L2', title: 'Pavlov\'s Discovery', description: 'How a Russian scientist stumbled onto one of psychology\'s biggest findings.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u1-L3', title: 'The Building Blocks of Conditioning', description: 'Learn the 4 key terms that describe every classical conditioning situation.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u1-L4', title: 'Extinction and Spontaneous Recovery', description: 'Conditioned responses can fade and then surprise you by coming back.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u1-L5', title: 'Generalization and Discrimination', description: 'Why similar things trigger the same response, and how you learn to tell them apart.', icon: '📝', xpReward: 20, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u2', title: 'Skinner\'s Box and Learning by Consequences',
-    description: 'How rewards and punishments shape the behaviors you repeat or avoid.',
-    color: '#8B5CF6', icon: '🐀', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u2-L1', title: 'What Is Operant Conditioning?', description: 'Learning from consequences: you repeat what works and stop what doesn\'t.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u2-L2', title: 'Reinforcement: Adding and Removing', description: 'Two ways to make a behavior happen more often.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u2-L3', title: 'Punishment: Adding and Removing', description: 'Two ways to make a behavior happen less often.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u2-L4', title: 'Shaping Behavior Step by Step', description: 'How to build complex behaviors by reinforcing small steps toward the goal.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u2-L5', title: 'The Full Operant Picture', description: 'Combine reinforcement, punishment, and shaping to analyze real behavior.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u3', title: 'Reinforcement Schedules',
-    description: 'When and how often you deliver rewards changes how people behave.',
-    color: '#8B5CF6', icon: '📊', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u3-L1', title: 'Continuous vs. Partial Reinforcement', description: 'Rewarding every time vs. rewarding sometimes creates very different patterns.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u3-L2', title: 'Ratio Schedules: Counting Responses', description: 'Reinforcement based on how many times you do something.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u3-L3', title: 'Interval Schedules: Watching the Clock', description: 'Reinforcement based on how much time has passed.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u3-L4', title: 'Comparing All Four Schedules', description: 'See how the 4 reinforcement schedules differ in speed, pattern, and extinction resistance.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec3-u3-L5', title: 'Schedules in the Real World', description: 'Spot reinforcement schedules in everyday life, apps, and workplaces.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u4', title: 'Learning Foundations Review',
-    description: 'Test your knowledge of classical conditioning, operant conditioning, and reinforcement schedules.',
-    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u4-L1', title: 'Classical Conditioning Review', description: 'Revisit Pavlov\'s key concepts: conditioning, extinction, generalization, and discrimination.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u4-L2', title: 'Operant Conditioning Review', description: 'Revisit reinforcement, punishment, shaping, and the key differences from classical conditioning.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u4-L3', title: 'Reinforcement Schedules Review', description: 'Test your ability to identify and compare all 4 reinforcement schedules.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u5', title: 'Bandura\'s Bobo Doll and Learning by Watching',
-    description: 'How you learn new behaviors just by observing other people.',
-    color: '#8B5CF6', icon: '👀', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u5-L1', title: 'Learning Without Direct Experience', description: 'You don\'t need rewards or punishments to learn. Watching is enough.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u5-L2', title: 'The Bobo Doll Experiment', description: 'The famous study that proved children imitate aggression they observe.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u5-L3', title: 'The Four Steps of Modeling', description: 'Attention, retention, reproduction, and motivation: the full process of learning by watching.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u5-L4', title: 'Prosocial and Antisocial Modeling', description: 'Observation can teach kindness or cruelty, depending on the model.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u5-L5', title: 'Observational Learning Everywhere', description: 'Recognize how modeling shapes language, culture, skills, and social norms around you.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-
-  // ── Section 3: Learning (Part 2, 4 units) ──
-  {
-    id: 'psy-sec3-u6', title: 'Habituation and Sensitization',
-    description: 'Why you stop noticing your watch but flinch harder at a sudden noise.',
-    color: '#6366F1', icon: '🔕', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u6-L1', title: 'What Is Habituation?', description: 'How your brain learns to tune out things that don\'t matter.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u6-L2', title: 'Dishabituation and Spontaneous Recovery', description: 'What brings a habituated response back to life.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u6-L3', title: 'What Is Sensitization?', description: 'When your brain turns the volume up instead of down.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u6-L4', title: 'Habituation in Research and Everyday Life', description: 'How scientists and everyday situations reveal the power of habituation.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u7', title: 'Habits: Formation, Loops, and Breaking Them',
-    description: 'How behaviors become automatic and what it takes to change them.',
-    color: '#8B5CF6', icon: '🔄', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u7-L1', title: 'What Makes a Habit?', description: 'Why some behaviors become effortless and automatic.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u7-L2', title: 'The Habit Loop', description: 'The three-part cycle that drives every habit.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u7-L3', title: 'How Habits Form', description: 'The process that turns new behaviors into automatic routines.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u7-L4', title: 'Breaking and Replacing Habits', description: 'Why willpower alone fails and what actually works.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec3-u7-L5', title: 'Habits and Operant Conditioning', description: 'How rewards and reinforcement connect to habit formation.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u8', title: 'Learning Transfer and Generalization',
-    description: 'How skills and knowledge from one situation apply to another.',
-    color: '#EC4899', icon: '🔀', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u8-L1', title: 'What Is Learning Transfer?', description: 'How knowledge from one context helps in a completely different one.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec3-u8-L2', title: 'Near and Far Transfer', description: 'Why some skills transfer easily and others barely transfer at all.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u8-L3', title: 'Generalization in Conditioning', description: 'How conditioned responses spread to similar stimuli and situations.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u8-L4', title: 'Analogical Reasoning and Transfer', description: 'How spotting similarities between different problems enables far transfer.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec3-u8-L5', title: 'Barriers to Transfer', description: 'What prevents learning from carrying over to new situations.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec3-u9', title: 'Learning: Full Section Review',
-    description: 'Test your knowledge across all learning concepts from classical conditioning to transfer.',
-    color: '#F59E0B', icon: '🏆', sectionIndex: 2, sectionTitle: 'Learning',
-    lessons: [
-      { id: 'psy-sec3-u9-L1', title: 'Conditioning Foundations Review', description: 'Revisit classical conditioning, operant conditioning, and reinforcement schedules.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u9-L2', title: 'Observational and Non-Associative Learning Review', description: 'Revisit Bandura\'s observational learning, habituation, and sensitization.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec3-u9-L3', title: 'Habits and Transfer Review', description: 'Revisit habit formation, the habit loop, and learning transfer.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec3-u9-L4', title: 'Section 3 Comprehensive Checkpoint', description: 'A challenging test spanning all learning concepts from this section.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-
-  // ── Section 5: Thinking & Intelligence (Part 1, 5 units) ──
-  {
-    id: 'psy-sec5-u1', title: 'What Is Intelligence?',
-    description: 'Explore the major theories about what intelligence really is and why psychologists still debate it.',
-    color: '#8B5CF6', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u1-L1', title: 'Defining Intelligence', description: 'Why intelligence is one of the hardest things in psychology to define.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec5-u1-L2', title: 'Fluid vs. Crystallized Intelligence', description: 'Two types of intelligence that change in opposite directions as we age.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u1-L3', title: 'Nature vs. Nurture in Intelligence', description: 'How much of intelligence is genetic and how much comes from environment.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u1-L4', title: 'The Intelligence Controversy', description: 'Why intelligence research has been so politically and ethically charged.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u1-L5', title: 'Modern Views on Intelligence', description: 'How current researchers think about intelligence beyond the old "one number" model.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u2', title: 'IQ Tests: What They Measure',
-    description: 'Understand how IQ tests work, what they predict well, and what they miss entirely.',
-    color: '#7C3AED', icon: '📊', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u2-L1', title: 'The History of IQ Testing', description: 'How intelligence testing began and why it was created.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec5-u2-L2', title: 'How Modern IQ Tests Work', description: 'What today\'s IQ tests actually measure and how scores are calculated.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u2-L3', title: 'What IQ Predicts and Misses', description: 'IQ correlates with some outcomes but fails to capture many important abilities.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u2-L4', title: 'Giftedness and Intellectual Disability', description: 'How psychologists define the extremes of the IQ distribution.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u2-L5', title: 'Criticisms and Alternatives to IQ', description: 'Why some psychologists think IQ tests need to be rethought or replaced.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u3', title: 'Multiple Intelligences and Creativity',
-    description: 'Explore Gardner\'s theory of multiple intelligences and what psychologists know about creative thinking.',
-    color: '#6D28D9', icon: '🎨', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u3-L1', title: 'Gardner\'s Multiple Intelligences', description: 'The theory that intelligence comes in at least 8 different forms.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec5-u3-L2', title: 'Debate Over Multiple Intelligences', description: 'Why many psychologists question Gardner\'s theory despite its popularity.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u3-L3', title: 'What Is Creativity?', description: 'How psychologists define and study creative thinking.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u3-L4', title: 'Fostering and Blocking Creativity', description: 'What helps and what kills creative thinking, according to research.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u3-L5', title: 'The 10,000-Hour Debate', description: 'Does practice alone make you an expert, or does talent matter too?', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u4', title: 'Thinking & Intelligence Review',
-    description: 'Revisit key concepts from intelligence theories, IQ testing, creativity, and multiple intelligences.',
-    color: '#5B21B6', icon: '🔄', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u4-L1', title: 'Intelligence Theories Recap', description: 'Review the major theories of intelligence from Spearman to the CHC model.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u4-L2', title: 'IQ Testing Review', description: 'Revisit the history, mechanics, and limitations of IQ testing.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u4-L3', title: 'Creativity and Practice Review', description: 'Revisit what drives creativity and the role of deliberate practice in expertise.', icon: '📝', xpReward: 20, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u5', title: 'Problem Solving and Reasoning',
-    description: 'Learn the mental tools humans use to solve problems and why we sometimes get stuck.',
-    color: '#4C1D95', icon: '🧩', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u5-L1', title: 'Types of Problems', description: 'Well-defined vs. ill-defined problems and why the distinction matters.', icon: '📝', xpReward: 15, questions: [] },
-      { id: 'psy-sec5-u5-L2', title: 'Heuristics and Mental Shortcuts', description: 'The most common mental shortcuts and when they lead us astray.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u5-L3', title: 'Cognitive Biases in Reasoning', description: 'Systematic errors in thinking that affect everyone.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u5-L4', title: 'Barriers to Good Reasoning', description: 'Mental set, sunk cost fallacy, and other traps that block clear thinking.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u5-L5', title: 'System 1 and System 2 Thinking', description: 'The two systems your brain uses to make decisions, and when each one leads.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-
-  // ── Section 5: Thinking & Intelligence (Part 2, 5 units) ──
-  {
-    id: 'psy-sec5-u6', title: 'Does Language Shape Your Thoughts?',
-    description: 'How the words you speak might change the way you think about the world.',
-    color: '#8B5CF6', icon: '🗣️', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u6-L1', title: 'The Sapir-Whorf Hypothesis', description: 'The bold idea that language controls or influences how you perceive reality.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u6-L2', title: 'Color, Space, and Time Across Languages', description: 'How speakers of different languages literally see colors, directions, and time differently.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u6-L3', title: 'Bilingualism and Cognitive Flexibility', description: 'How speaking two languages reshapes the brain and sharpens mental agility.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u6-L4', title: 'Thinking Without Words', description: 'Evidence that thought can exist independently of language, from deaf children to animal cognition.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u6-L5', title: 'Language, Labels, and Real-World Impact', description: 'How language shapes stereotypes, legal decisions, and everyday judgments.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u7', title: 'How Babies Learn to Talk',
-    description: 'The remarkable journey from first cries to full sentences in just a few years.',
-    color: '#EC4899', icon: '👶', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u7-L1', title: 'From Coos to Conversations', description: 'The predictable stages every child passes through on the way to fluent speech.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u7-L2', title: 'Born to Talk or Taught to Talk?', description: 'The great debate: is language ability built into the brain, or is it entirely learned?', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u7-L3', title: 'Critical Periods and Missed Windows', description: 'What happens when children miss the window for language, and what that teaches us about the brain.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u7-L4', title: 'How Parents Shape Language Growth', description: 'The role of baby talk, reading aloud, and conversational turns in building young brains.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u7-L5', title: 'When Language Development Stalls', description: 'Understanding language delays, disorders, and how early intervention changes outcomes.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u8', title: 'Consciousness: The Mystery Inside Your Head',
-    description: 'What it means to be aware, why it matters, and why science still cannot fully explain it.',
-    color: '#6366F1', icon: '🧠', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u8-L1', title: 'What Is Consciousness?', description: 'How psychologists and philosophers define awareness, and why it is so hard to study.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u8-L2', title: 'Theories of Consciousness', description: 'The leading scientific theories attempting to explain how awareness arises in the brain.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u8-L3', title: 'The Power of the Unconscious', description: 'How much of your thinking happens outside your awareness, from priming to blindsight.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u8-L4', title: 'Attention: The Gatekeeper of Consciousness', description: 'How attention filters what enters your awareness and why you miss so much of reality.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u8-L5', title: 'Do You Actually Choose Your Choices?', description: 'What neuroscience reveals about free will, the timing of decisions, and the limits of self-awareness.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u9', title: 'Altered States of Consciousness',
-    description: 'How sleep, dreams, meditation, and hypnosis change your awareness in fascinating ways.',
-    color: '#7C3AED', icon: '🌙', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u9-L1', title: 'What Happens When You Sleep', description: 'The stages your brain cycles through every night and why each one matters.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'psy-sec5-u9-L2', title: 'Why We Dream', description: 'The major theories about why the sleeping brain creates vivid stories, images, and emotions.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u9-L3', title: 'Meditation and the Science of Mindfulness', description: 'What happens in the brain during meditation and what the evidence actually shows.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u9-L4', title: 'Hypnosis: Separating Myth from Science', description: 'What hypnosis actually is, who it works for, and what it cannot do.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u9-L5', title: 'Substances That Alter Consciousness', description: 'How drugs change brain chemistry and conscious experience, from caffeine to psychedelics.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'psy-sec5-u10', title: 'Thinking & Intelligence: Full Review',
-    description: 'Test your knowledge across all of Section 5, from problem-solving to consciousness.',
-    color: '#A78BFA', icon: '🏆', sectionIndex: 4, sectionTitle: 'Thinking & Intelligence',
-    lessons: [
-      { id: 'psy-sec5-u10-L1', title: 'Thinking and Intelligence Recap', description: 'Review key concepts from problem-solving, creativity, and intelligence theory.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u10-L2', title: 'Language, Thought, and Acquisition Recap', description: 'Review linguistic relativity, bilingualism, and how children learn language.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u10-L3', title: 'Consciousness and Altered States Recap', description: 'Review consciousness theories, sleep, dreams, meditation, and hypnosis.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'psy-sec5-u10-L4', title: 'Section 5 Speed Round', description: 'Rapid-fire recall across all of Thinking & Intelligence.', icon: '⚡', type: 'speed-round', xpReward: 35, questions: [] },
-    ],
-  },
 
   // ── Section 13: Applied & Industrial Psychology (Part 1, 6 units) ──
   {
@@ -1067,6 +1278,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u1-L5', title: 'Choice Overload and Decision Fatigue', description: 'Why more options often lead to worse decisions or no decision at all.', icon: '📝', xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u2', title: 'The Psychology Behind Pricing',
     description: 'How marketers use cognitive biases to influence what you buy and how much you pay.',
@@ -1079,6 +1291,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u2-L5', title: 'Nudge Theory and Choice Architecture', description: 'How small design changes can guide better decisions without restricting freedom.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u3', title: 'Mental Accounting and Financial Behavior',
     description: 'How people mentally categorize money and why it leads to irrational financial decisions.',
@@ -1091,6 +1304,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u3-L5', title: 'Behavioral Finance in Investing', description: 'How cognitive biases cause investors to buy high, sell low, and overestimate their skills.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u4', title: 'Behavioral Economics in Action',
     description: 'Review and apply key concepts from behavioral economics, pricing psychology, and financial behavior.',
@@ -1101,6 +1315,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u4-L3', title: 'Applied Behavioral Economics', description: 'Integrate all behavioral economics concepts into real-world analysis and debiasing strategies.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u5', title: 'Workplace Motivation and Leadership',
     description: 'What drives people at work and what separates effective leaders from ineffective ones.',
@@ -1113,6 +1328,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u5-L5', title: 'Emotional Intelligence in Leadership', description: 'Why the best leaders manage emotions, not just tasks.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u6', title: 'Organizational Behavior and Team Dynamics',
     description: 'How groups, teams, and organizational cultures shape individual behavior at work.',
@@ -1125,6 +1341,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u6-L5', title: 'Conflict, Negotiation, and Organizational Justice', description: 'How workplace conflict can be productive, and why perceived fairness determines employee commitment.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
 
   // ── Section 13: Applied & Industrial Psychology (Part 2, 5 units) ──
   {
@@ -1139,6 +1356,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u7-L5', title: 'Fairness, Justice, and Psychological Contracts', description: 'How perceived fairness shapes trust, motivation, and turnover.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u8', title: 'The Psychology Behind Great Design',
     description: 'How cognitive principles shape user experience, interfaces, and product decisions.',
@@ -1151,6 +1369,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u8-L5', title: 'Accessibility and Inclusive Design', description: 'Why designing for diverse abilities improves the experience for everyone.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u9', title: 'The Mental Game of Sports',
     description: 'How psychology shapes athletic performance, from visualization to choking under pressure.',
@@ -1163,6 +1382,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u9-L5', title: 'Team Dynamics and Group Motivation', description: 'Why some teams perform above their talent level and others collapse.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u10', title: 'Changing Health Behaviors for Good',
     description: 'How psychology explains why health habits are hard to change and what actually works.',
@@ -1175,6 +1395,7 @@ export const psychologyCourseMeta: Unit[] = [
       { id: 'psy-sec13-u10-L5', title: 'Adherence and the Intention-Action Gap', description: 'Why people know what to do for their health but still do not do it.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'psy-sec13-u11', title: 'Applied Psychology: Full Section Review',
     description: 'Test your knowledge across all of applied and industrial psychology.',

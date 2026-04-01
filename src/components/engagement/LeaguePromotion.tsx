@@ -8,6 +8,7 @@ import { leagueTiers } from '@/data/league';
 import { LEAGUE_GEM_REWARD_PROMOTION } from '@/data/league';
 import { GameButton, type GameButtonVariant } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
+import { CURRENCY } from '@/data/currency';
 import { LeagueImage } from '@/components/icons/LeagueImage';
 import type { FXName } from '@/components/ui/ScreenFX';
 
@@ -32,7 +33,7 @@ export function LeaguePromotion() {
   const currentTier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
 
   const content = isPromoted ? {
-    headline: `Promoted to ${currentTier.name}!`, subtext: `You earned +${LEAGUE_GEM_REWARD_PROMOTION} gems for finishing in the top ranks.`,
+    headline: `Promoted to ${currentTier.name}!`, subtext: `You earned +${LEAGUE_GEM_REWARD_PROMOTION} ${CURRENCY.plural} for finishing in the top ranks.`,
     bg: '#58A700', buttonVariant: 'green' as GameButtonVariant, fx: 'confetti' as FXName,
   } : isDemoted ? {
     headline: `Moved to ${currentTier.name}`, subtext: "Keep practicing and you'll climb back.",

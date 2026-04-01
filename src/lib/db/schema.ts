@@ -29,6 +29,7 @@ export const users = pgTable('users', {
   joinedDate: text('joined_date'),
   inviteCode: text('invite_code').unique(),
   country: text('country'),                    // ISO 3166-1 alpha-2 (e.g. 'US', 'IL')
+  profilePublic: boolean('profile_public').default(true).notNull(),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });

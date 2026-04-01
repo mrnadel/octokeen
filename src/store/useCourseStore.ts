@@ -657,6 +657,8 @@ export const useCourseStore = create<CourseState>()(
                   totalQuestions: 0, correctAnswers: 0, mistakes: 0,
                   maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
                   unitsSkipped: targetUnitIndex - fromUnit,
+                  xpEarned: 0,
+                  accuracy: 0,
                 },
               });
               return;
@@ -715,6 +717,8 @@ export const useCourseStore = create<CourseState>()(
               mistakes: 0,
               maxMistakes: PLACEMENT_TEST_CONFIG.maxMistakes,
               unitsSkipped: targetUnitIndex - fromUnit,
+              xpEarned: 0,
+              accuracy: 0,
             },
           });
           return;
@@ -771,6 +775,15 @@ export const useCourseStore = create<CourseState>()(
 
         const correct = test.answers.filter((a) => a.correct).length;
         const passed = test.mistakes < test.maxMistakes;
+        const accuracy = test.questions.length > 0
+          ? Math.round((correct / test.questions.length) * 100)
+          : 0;
+
+        // XP: 10 per correct answer, bonus for high accuracy
+        const baseXp = correct * 10;
+        const xpEarned = passed
+          ? (accuracy === 100 && test.questions.length >= 3 ? baseXp * 2 : baseXp)
+          : Math.round(baseXp * 0.25);
 
         const { courseData, progress } = state;
 
@@ -797,6 +810,8 @@ export const useCourseStore = create<CourseState>()(
           }
         }
 
+        const newTotalXp = progress.totalXp + xpEarned;
+
         set({
           activePlacementTest: null,
           placementTestResult: {
@@ -808,8 +823,12 @@ export const useCourseStore = create<CourseState>()(
             mistakes: test.mistakes,
             maxMistakes: test.maxMistakes,
             unitsSkipped: test.targetUnitIndex - test.fromUnitIndex,
+            xpEarned,
+            accuracy,
           },
-          progress: passed ? { ...progress, completedLessons: newCompleted } : progress,
+          progress: passed
+            ? { ...progress, completedLessons: newCompleted, totalXp: newTotalXp }
+            : { ...progress, totalXp: newTotalXp },
         });
       },
 

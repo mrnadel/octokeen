@@ -54,7 +54,7 @@ const PRO_FEATURES = [
   {
     icon: GraduationCap,
     label: 'Premium league rewards',
-    sublabel: 'Earn bonus gems from league promotions',
+    sublabel: 'Earn bonus Octokens from league promotions',
   },
 ];
 

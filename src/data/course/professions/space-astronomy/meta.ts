@@ -1,6 +1,140 @@
 import type { Unit } from '../../types';
 
 export const spaceCourseMeta: Unit[] = [
+
+  // ── Section 1: Looking Up (8 units from section-1-lookingup-part1 and part2) ──
+  {
+    id: "sp-sec1-u1",
+    title: "Welcome to the Universe",
+    description: "Discover where you are in space and why the night sky is one of the greatest shows on Earth.",
+    color: "#818CF8",
+    icon: "🌌",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u1-L1", title: "You Are Here", description: "Your address in the universe, from your street to the edge of the observable cosmos.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u1-L2", title: "What's Out There", description: "The basic types of objects you can spot in the night sky and what makes each one different.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u1-L3", title: "Light Pollution and Dark Skies", description: "Why city lights hide the stars and how to find better views of the night sky.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u1-L4", title: "The Scale of It All", description: "Get a feel for how enormous the universe really is, from Earth to the edge of what we can observe.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u2",
+    title: "Stars, Planets, and Satellites by Eye",
+    description: "Learn to tell the difference between stars, planets, and human-made satellites without any equipment.",
+    color: "#A78BFA",
+    icon: "⭐",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u2-L1", title: "How Stars Behave in the Sky", description: "Why stars twinkle, why they come in different colors, and how to spot the brightest ones.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u2-L2", title: "Spotting Planets with Your Eyes", description: "How to tell a planet from a star without a telescope, and which planets are easiest to find.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u2-L3", title: "Satellites and the ISS", description: "How to spot human-made objects in orbit, including the International Space Station.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u2-L4", title: "Telling Them All Apart", description: "A quick-reference guide to identifying stars, planets, satellites, meteors, and airplanes at a glance.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u2-L5", title: "Night Sky Safari", description: "Put everything together and plan your first real stargazing outing.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u3",
+    title: "Constellations and the Celestial Sphere",
+    description: "Learn the star patterns that ancient cultures named and the imaginary sphere astronomers use to map the sky.",
+    color: "#6366F1",
+    icon: "✨",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u3-L1", title: "What Are Constellations", description: "The patterns humans drew in the stars and why they still matter today.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u3-L2", title: "Famous Constellations You Can Find Tonight", description: "The most recognizable star patterns and how to locate them in the sky.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u3-L3", title: "The Celestial Sphere", description: "The imaginary dome astronomers use to describe where objects are in the sky.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u3-L4", title: "Navigation by the Stars", description: "How ancient travelers and modern adventurers use stars to find their way.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u3-L5", title: "Why the Sky Changes with the Seasons", description: "Why different constellations are visible at different times of year.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u4",
+    title: "Looking Up: Review",
+    description: "Test your knowledge of the night sky, sky objects, constellations, and celestial navigation from Units 1 through 3.",
+    color: "#7C3AED",
+    icon: "🔄",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u4-L1", title: "Universe and Sky Objects Review", description: "Review cosmic scales, stars, planets, satellites, and meteors.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u4-L2", title: "Constellations and Celestial Sphere Review", description: "Review constellation identification, the celestial sphere, and seasonal sky changes.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u4-L3", title: "Looking Up: Full Challenge", description: "A tougher mix pulling from all three previous units to test your complete understanding.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u5",
+    title: "Cosmic Distances",
+    description: "Learn the three distance units astronomers use: AU, light-year, and parsec.",
+    color: "#818CF8",
+    icon: "📏",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u5-L1", title: "Why Miles Fall Short", description: "Ordinary distance units break down when space gets involved.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u5-L2", title: "The Astronomical Unit", description: "The AU: astronomy's yardstick for measuring our solar system.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u5-L3", title: "What Is a Light-Year?", description: "The distance light travels in one year, and why it matters.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u5-L4", title: "Introducing the Parsec", description: "The distance unit professional astronomers love, built from geometry.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u5-L5", title: "AU, Light-Year, and Parsec Together", description: "Compare the three cosmic rulers and know when to use each one.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u6",
+    title: "Your First Stargazing Session",
+    description: "A practical, hands-on guide to seeing the night sky tonight, no equipment required.",
+    color: "#818CF8",
+    icon: "🔭",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u6-L1", title: "Getting Ready to Stargaze", description: "What you need, what to wear, and when to go for the best sky views.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u6-L2", title: "Finding a Dark Sky", description: "How light pollution works and where to escape it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u6-L3", title: "Your First Objects in the Sky", description: "Start with the Moon, planets, and the brightest stars. Build from there.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u6-L4", title: "Using a Star App", description: "How phone apps can help you identify anything in the sky instantly.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u6-L5", title: "Your Stargazing Checklist", description: "A quick recap of everything you need for a successful night under the stars.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u7",
+    title: "Why Stars Rise and Set",
+    description: "Understand why the sky seems to spin and how Earth's rotation creates the show.",
+    color: "#818CF8",
+    icon: "🌍",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u7-L1", title: "Earth Spins, the Stars Stay Put", description: "Why it looks like the sky rotates when really it is Earth that spins.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec1-u7-L2", title: "The Pole Star and the Sky", description: "How Polaris marks the North Celestial Pole and why it barely moves.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u7-L3", title: "Stars That Never Set", description: "Some stars circle the pole all night and never dip below the horizon.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec1-u7-L4", title: "Why the Sky Changes with the Seasons", description: "How Earth's orbit causes different constellations to appear at different times of year.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u7-L5", title: "The Sun's Path Across the Sky", description: "How the Sun moves through the sky during the day and why it changes with the seasons.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec1-u8",
+    title: "Looking Up: Review and Checkpoint",
+    description: "Test everything you've learned in Section 1, from constellations to cosmic distances to sky motion.",
+    color: "#818CF8",
+    icon: "🏁",
+    sectionIndex: 0,
+    sectionTitle: "Looking Up",
+    lessons: [
+      { id: "sp-sec1-u8-L1", title: "Distances and Scales Review", description: "Revisit AU, light-years, parsecs, and cosmic scales from Section 1.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u8-L2", title: "Stargazing Skills Review", description: "Review practical stargazing skills, sky objects, and observation techniques.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u8-L3", title: "Sky Motion Review", description: "Review Earth rotation, star trails, circumpolar stars, and seasonal changes.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec1-u8-L4", title: "Looking Up Speed Round", description: "15 rapid-fire questions covering everything from Section 1.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
   // ── Unit 1: Look Up! ──
   {
     id: "sp-u1-night-sky",
@@ -20,6 +154,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u1-L7", title: "Night Sky Speed Round", description: "Race the clock on stars, planets, constellations, and light-years.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
 
   // ── Unit 2: Our Solar System ──
   {
@@ -42,6 +177,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 3: Seasons, Tides & Eclipses ──
   {
     id: "sp-u3-earth-moon",
@@ -62,6 +198,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Section 4: Light & Telescopes (12 units) ──
   {
     id: "sp-s4-u1",
@@ -79,6 +216,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u1-L5", title: "Why Astronomers Obsess Over Light", description: "How astronomers extract temperature, speed, and composition from starlight.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-s4-u2",
@@ -98,6 +236,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u3",
     title: "How Telescopes Work: Refractors",
@@ -114,6 +253,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u3-L5", title: "Inside a Refractor Telescope", description: "Understand the optical path from starlight entering the lens to your eye.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-s4-u4",
@@ -132,6 +272,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u5",
     title: "Review: Light and Optics",
@@ -146,6 +287,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u5-L3", title: "Review: Light and Optics Calculations", description: "Practice the math of magnification, inverse square law, and light speed.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-s4-u6",
@@ -165,6 +307,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u7",
     title: "Radio Telescopes and Interferometry",
@@ -181,6 +324,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u7-L5", title: "What Radio Astronomy Found", description: "Pulsars, quasars, and the cosmic microwave background: radio's greatest hits.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-s4-u8",
@@ -200,6 +344,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u9",
     title: "Spectroscopy: Reading Starlight",
@@ -218,6 +363,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u10",
     title: "Redshift, Blueshift, and Doppler Effect",
@@ -234,6 +380,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u10-L5", title: "Redshift as a Distance Tool", description: "How astronomers use redshift to measure the distance and age of the universe.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-s4-u11",
@@ -252,6 +399,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-s4-u12",
     title: "Review + Checkpoint",
@@ -267,6 +415,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-s4-u12-L4", title: "Section 4 Checkpoint Challenge", description: "A comprehensive challenge covering all of Light and Telescopes. Prove your mastery.", icon: "📝", xpReward: 35, questions: [] },
     ],
   },
+
 
   // ── Unit 4: How Stars Live and Die ──
   {
@@ -290,6 +439,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 5: How We Get to Space ──
   {
     id: "sp-u5-rockets",
@@ -311,6 +461,141 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u5-L8", title: "Getting to Space Blitz", description: "Race through rocket science, orbital mechanics, and launch facts.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
+
+  // ── Section 6: Galaxies (Part 1, 5 units) ──
+  {
+    id: 'sp-sec6-u1', title: 'What Is a Galaxy?',
+    description: 'Learn what galaxies are and how astronomers classify them by shape.',
+    color: '#8B5CF6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u1-L1', title: 'Billions of Stars Together', description: 'What a galaxy is and why galaxies matter in astronomy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u1-L2', title: 'The Hubble Tuning Fork', description: 'How Edwin Hubble organized galaxies by their shape.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u1-L3', title: 'Elliptical Galaxies: The Quiet Giants', description: 'Why elliptical galaxies are full of old stars and low on gas.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u1-L4', title: 'Spiral Galaxies: Arms of Star Formation', description: 'How spiral arms form and why barred spirals are so common.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u1-L5', title: 'Irregular Galaxies and Putting It Together', description: 'Explore irregular galaxies and practice classifying all types.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u2', title: 'The Milky Way: Our Home Galaxy',
+    description: 'Explore the structure, size, and place of our home galaxy in the universe.',
+    color: '#7C3AED', icon: '🌀', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u2-L1', title: 'Welcome to the Milky Way', description: 'Basic facts about our galaxy: type, size, and star count.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u2-L2', title: 'Inside the Milky Way\'s Structure', description: 'The bulge, disk, halo, and spiral arms of our galaxy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u2-L3', title: 'Where Are We in the Galaxy?', description: 'The Sun\'s location in the Milky Way and how we orbit the galactic center.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L4', title: 'The Milky Way\'s Neighborhood', description: 'Satellite galaxies and the Local Group of galaxies.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L5', title: 'How We Map a Galaxy From Inside', description: 'The challenges and methods of mapping a galaxy while living inside it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u2-L6', title: 'The Milky Way\'s Future', description: 'What will happen to our galaxy over the next few billion years.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u3', title: 'Dark Matter: The Invisible Glue',
+    description: 'Discover the mysterious invisible substance that holds galaxies together.',
+    color: '#6D28D9', icon: '🔮', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u3-L1', title: 'The Missing Mass Problem', description: 'Why galaxies seem to have far more mass than we can see.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u3-L2', title: 'How Dark Matter Shapes the Universe', description: 'The gravitational role dark matter plays in galaxies and beyond.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L3', title: 'How Much Dark Matter Is There?', description: 'The staggering proportion of dark matter in galaxies and the universe.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L4', title: 'What Could Dark Matter Be?', description: 'The leading theories about dark matter\'s identity and the search to detect it.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u3-L5', title: 'Dark Matter vs. Dark Energy', description: 'Two mysterious forces that sound similar but work in opposite ways.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u4', title: 'Galaxies: Review',
+    description: 'Test your knowledge of galaxy types, the Milky Way, and dark matter.',
+    color: '#5B21B6', icon: '🔄', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u4-L1', title: 'Galaxy Types Refresher', description: 'Review galaxy classification and key features of each type.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u4-L2', title: 'Milky Way Knowledge Check', description: 'Review our galaxy\'s structure, size, and place in the Local Group.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u4-L3', title: 'Dark Matter Knowledge Check', description: 'Review dark matter evidence, its role, and how it differs from dark energy.', icon: '📝', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u5', title: 'Galaxy Collisions and Mergers',
+    description: 'What happens when galaxies crash into each other and reshape the universe.',
+    color: '#4C1D95', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u5-L1', title: 'How Galaxies Collide', description: 'Why galaxy collisions are common and how gravity drives them.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u5-L2', title: 'Tidal Tails and Bridges', description: 'How gravity distorts galaxies during close encounters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L3', title: 'Major and Minor Mergers', description: 'The difference between equal-sized collisions and a big galaxy eating a small one.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L4', title: 'Starbursts: Collisions That Ignite', description: 'How galaxy collisions trigger explosive waves of new star formation.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u5-L5', title: 'Famous Merging Galaxies', description: 'A tour of the most spectacular colliding galaxy systems astronomers have found.', icon: '📝', xpReward: 30, questions: [] },
+    ],
+  },
+
+
+  // ── Section 6: Galaxies (Part 2, 5 units) ──
+  {
+    id: 'sp-sec6-u6', title: 'The Local Group and Galaxy Clusters',
+    description: 'Explore our galactic neighborhood and the massive structures galaxies form together.',
+    color: '#8B5CF6', icon: '🏘️', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u6-L1', title: 'Our Galactic Neighborhood', description: 'Meet the Local Group: the collection of galaxies that includes the Milky Way.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u6-L2', title: 'Galaxy Clusters and Beyond', description: 'How groups of galaxies form clusters containing hundreds or thousands of members.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u6-L3', title: 'Andromeda Is Coming', description: 'The Milky Way and Andromeda are on a collision course billions of years from now.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u6-L4', title: 'Explaining the Local Group', description: 'Help a curious friend understand our galactic neighborhood.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u6-L5', title: 'Local Group Speed Round', description: 'Race the clock on galaxy groups, clusters, and the cosmic web.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u7', title: 'Active Galactic Nuclei and Quasars',
+    description: 'Discover the most powerful engines in the universe: supermassive black holes devouring matter at galaxy centers.',
+    color: '#EC4899', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u7-L1', title: 'What Is an Active Galaxy?', description: 'Some galaxies have extraordinarily bright centers powered by feeding black holes.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u7-L2', title: 'Types of Active Galaxies', description: 'Seyferts, radio galaxies, blazars, and how they\'re connected.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u7-L3', title: 'Quasars: Beacons of the Early Universe', description: 'The most luminous persistent objects in the cosmos and what they tell us about the early universe.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u7-L4', title: 'Relativistic Jets of Energy', description: 'How supermassive black holes launch jets traveling close to the speed of light.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u7-L5', title: 'AGN Feedback and Galaxy Evolution', description: 'How active black holes shape the galaxies around them.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u7-L6', title: 'AGN and Quasars Speed Round', description: 'Race the clock on active galaxies, quasars, jets, and AGN feedback.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u8', title: 'Deep Sky Objects: Nebulae, Clusters, Galaxies',
+    description: 'Learn to identify and understand the fuzzy objects that fill the night sky beyond our solar system.',
+    color: '#14B8A6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u8-L1', title: 'What Are Deep Sky Objects?', description: 'A tour of everything beyond the solar system that isn\'t an individual star.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u8-L2', title: 'Nebulae: Stellar Nurseries and Graveyards', description: 'Emission, reflection, dark, and planetary nebulae each tell a different story.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u8-L3', title: 'Star Clusters: Open and Globular', description: 'Two types of star clusters reveal different chapters of a galaxy\'s history.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u8-L4', title: 'Famous Deep Sky Showpieces', description: 'The most stunning and scientifically important DSOs you should know.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u8-L5', title: 'Deep Sky Objects Speed Round', description: 'Race the clock on nebulae, clusters, galaxies, and famous DSOs.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u9', title: 'The Cosmic Distance Ladder',
+    description: 'How astronomers measure distances from nearby stars to the edge of the observable universe.',
+    color: '#F59E0B', icon: '📏', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u9-L1', title: 'The Problem of Cosmic Distances', description: 'Why measuring distances in space is one of the hardest problems in astronomy.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u9-L2', title: 'Parallax: The Foundation', description: 'How Earth\'s orbit gives us a baseline for measuring stellar distances.', icon: '📝', xpReward: 20, questions: [] },
+      { id: 'sp-sec6-u9-L3', title: 'Standard Candles: Cepheids and Beyond', description: 'Objects with known brightness let us measure distances to other galaxies.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u9-L4', title: 'Supernovae, Redshift, and Hubble\'s Law', description: 'How exploding stars and expanding space measure the most distant reaches of the cosmos.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u9-L5', title: 'Explaining the Distance Ladder', description: 'Help a science student understand how astronomers measure cosmic distances.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u9-L6', title: 'Cosmic Distance Ladder Speed Round', description: 'Race the clock on parallax, Cepheids, supernovae, and Hubble\'s law.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: 'sp-sec6-u10', title: 'Section 6 Review and Checkpoint',
+    description: 'Test your knowledge across all of Section 6: galaxies, AGNs, deep sky objects, and the cosmic distance ladder.',
+    color: '#F59E0B', icon: '🏆', sectionIndex: 5, sectionTitle: 'Galaxies',
+    lessons: [
+      { id: 'sp-sec6-u10-L1', title: 'Galaxies and the Local Group Review', description: 'Review galaxy types, formation, collisions, and the Local Group.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u10-L2', title: 'AGN, Quasars, and Deep Sky Review', description: 'Review active galaxies, quasars, jets, nebulae, and star clusters.', icon: '📝', xpReward: 25, questions: [] },
+      { id: 'sp-sec6-u10-L3', title: 'Cosmic Distance Ladder Review', description: 'Review parallax, standard candles, Hubble\'s law, and dark energy.', icon: '📝', xpReward: 30, questions: [] },
+      { id: 'sp-sec6-u10-L4', title: 'Section 6 Final Speed Round', description: 'Race the clock across everything in Section 6: galaxies, AGNs, DSOs, and the distance ladder.', icon: '⚡', type: 'speed-round', xpReward: 30, questions: [] },
+    ],
+  },
+
 
   // ── Unit 6: Humanity's Greatest Adventure ──
   {
@@ -334,6 +619,138 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 7: Black Holes & Extreme Physics (10 units) ──
+  {
+    id: "sp-sec7-u1", title: "What Is a Black Hole?",
+    description: "Discover how black holes form, why nothing escapes them, and the different types lurking in space.",
+    color: "#1E1B4B", icon: "🕳️", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u1-L1", title: "Gravity's Ultimate Trap", description: "What a black hole actually is and why it's the strangest object in space.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec7-u1-L2", title: "How Stars Die to Make Black Holes", description: "The dramatic death of massive stars and why only the biggest ones create black holes.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u1-L3", title: "Stellar, Intermediate, and Supermassive", description: "Black holes come in different sizes, from a few solar masses to billions.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u1-L4", title: "Detecting the Invisible", description: "How astronomers find objects that emit no light at all.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u1-L5", title: "Myths vs. Reality", description: "Separating science fiction from science fact about black holes.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u2", title: "Event Horizons and Singularities",
+    description: "Explore the boundary of no return and the mysterious point at the center of every black hole.",
+    color: "#312E81", icon: "⚫", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u2-L1", title: "The Point of No Return", description: "What the event horizon is and why crossing it changes everything.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u2-L2", title: "What Happens When You Cross?", description: "The strange experience of falling through the event horizon.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u2-L3", title: "The Singularity: Where Physics Breaks", description: "The point of infinite density at the heart of every black hole.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u2-L4", title: "How Black Holes Bend Spacetime", description: "Gravity isn't a force pulling you in. It's the shape of space pushing you forward.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u2-L5", title: "The Photon Ring and Shadow", description: "Why black holes have a distinctive glowing ring around a dark center.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u2-L6", title: "Where Time Slows to a Crawl", description: "How black holes stretch, slow, and warp the flow of time itself.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u3", title: "Spaghettification and Hawking Radiation",
+    description: "What happens to objects falling in and the surprising way black holes can slowly evaporate.",
+    color: "#4C1D95", icon: "🍝", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u3-L1", title: "Tidal Forces and Stretching", description: "Why gravity can pull you apart when it's stronger at your feet than your head.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u3-L2", title: "Stephen Hawking's Breakthrough", description: "How Hawking proved that black holes aren't completely black after all.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u3-L3", title: "Can Black Holes Die?", description: "Given enough time, every black hole will evaporate completely.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u3-L4", title: "The Information Paradox", description: "What happens to information that falls into a black hole?", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec7-u3-L5", title: "Black Hole Thermodynamics", description: "Black holes obey the same laws as engines and refrigerators.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u4", title: "Review: Black Holes So Far",
+    description: "Test your knowledge of black hole formation, event horizons, singularities, and Hawking radiation.",
+    color: "#3730A3", icon: "🔄", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u4-L1", title: "Review: Formation and Types", description: "Revisit how black holes form and the different categories by mass.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u4-L2", title: "Review: Event Horizons and Spacetime", description: "Revisit event horizons, singularities, time dilation, and the first black hole image.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u4-L3", title: "Review: Radiation, Evaporation, and Paradoxes", description: "Revisit spaghettification, Hawking radiation, evaporation, and the information paradox.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u5", title: "Supermassive Black Holes: Galaxy Engines",
+    description: "How the giant black holes at galaxy centers shape the evolution of entire galaxies.",
+    color: "#1E1B4B", icon: "🌌", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u5-L1", title: "A Monster in Every Galaxy", description: "Nearly every large galaxy has a supermassive black hole at its center.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u5-L2", title: "Quasars: The Brightest Objects in the Universe", description: "When a supermassive black hole feeds actively, it can outshine its entire galaxy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u5-L3", title: "Black Holes Shape Their Galaxies", description: "How supermassive black holes regulate star formation across an entire galaxy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u5-L4", title: "When Black Holes Collide", description: "What happens when two supermassive black holes merge during a galaxy collision.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec7-u5-L5", title: "Sagittarius A*: Our Galaxy's Giant", description: "What we know about the supermassive black hole at the center of the Milky Way.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u6", title: "The First Black Hole Image",
+    description: "How the Event Horizon Telescope captured the shadow of a black hole for the first time.",
+    color: "#F97316", icon: "📸", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u6-L1", title: "Why Photographing a Black Hole Is Hard", description: "The enormous challenges of imaging something that emits no light.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u6-L2", title: "Building an Earth-Sized Telescope", description: "How VLBI links telescopes across continents into one virtual dish.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u6-L3", title: "M87's Shadow Revealed", description: "The historic 2019 image and what it showed us.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u6-L4", title: "Sagittarius A* and Our Galactic Center", description: "How the EHT imaged the Milky Way's own supermassive black hole.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u6-L5", title: "The Future of Black Hole Imaging", description: "Next-generation plans to make sharper, real-time movies of black holes.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u7", title: "Gravitational Waves: LIGO and Merging Black Holes",
+    description: "Hear the universe ripple as colliding black holes shake the fabric of spacetime.",
+    color: "#8B5CF6", icon: "🌊", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u7-L1", title: "What Are Gravitational Waves?", description: "Ripples in spacetime predicted by Einstein and finally detected a century later.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u7-L2", title: "How LIGO Detects the Invisible", description: "Laser beams, mirrors, and the most sensitive measurement ever made.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u7-L3", title: "The First Detection: GW150914", description: "September 14, 2015: the day we heard the universe for the first time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u7-L4", title: "The Global Detector Network", description: "Virgo, KAGRA, and the worldwide effort to triangulate gravitational wave sources.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u7-L5", title: "Multi-Messenger Astronomy", description: "When gravitational waves and light arrive from the same event, the payoff is enormous.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec7-u7-L6", title: "What Gravitational Waves Have Taught Us", description: "New discoveries from nearly a decade of gravitational wave observations.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u8", title: "Neutron Stars and Pulsars",
+    description: "The densest objects with a surface: city-sized remnants spinning hundreds of times per second.",
+    color: "#06B6D4", icon: "💫", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u8-L1", title: "What Is a Neutron Star?", description: "When a massive star dies but isn't quite heavy enough to become a black hole.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u8-L2", title: "Pulsars: Cosmic Lighthouses", description: "Rapidly spinning neutron stars that sweep beams of radiation across the sky.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u8-L3", title: "Millisecond Pulsars and Extreme Spin", description: "Neutron stars that spin hundreds of times per second, faster than a kitchen blender.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u8-L4", title: "Magnetars and Extreme Magnetic Fields", description: "Neutron stars with magnetic fields a quadrillion times stronger than Earth's.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u8-L5", title: "Neutron Stars as Physics Laboratories", description: "Why neutron stars are the best natural laboratories for extreme physics.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u9", title: "Wormholes, White Holes, and Theoretical Extremes",
+    description: "The wildest predictions of general relativity: tunnels through spacetime and objects that can't exist, or can they?",
+    color: "#EC4899", icon: "🕳️", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u9-L1", title: "What Is a Wormhole?", description: "Theoretical tunnels through spacetime that connect distant points in the universe.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec7-u9-L2", title: "White Holes: Time-Reversed Black Holes", description: "A mathematical mirror of a black hole where nothing can enter and everything must leave.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u9-L3", title: "Time Travel and Closed Timelike Curves", description: "Does general relativity actually allow time travel? The math says maybe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u9-L4", title: "Naked Singularities and Cosmic Censorship", description: "What if a singularity had no event horizon to hide behind?", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec7-u9-L5", title: "The Frontier of Extreme Physics", description: "Where general relativity meets quantum mechanics, and the biggest unsolved questions.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec7-u10", title: "Section 7 Review and Checkpoint",
+    description: "Test your knowledge across all of Section 7: black holes, gravitational waves, neutron stars, and extreme physics.",
+    color: "#F59E0B", icon: "🏆", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
+    lessons: [
+      { id: "sp-sec7-u10-L1", title: "Black Holes and Imaging Review", description: "Review formation, types, event horizons, and the historic first images.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u10-L2", title: "Gravitational Waves and Detection Review", description: "Review LIGO, Virgo, key detections, and multi-messenger astronomy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u10-L3", title: "Neutron Stars and Theoretical Physics Review", description: "Review pulsars, magnetars, wormholes, and the frontiers of extreme physics.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec7-u10-L4", title: "Section 7 Speed Round", description: "15 rapid-fire questions covering all of Section 7.", icon: "⚡", xpReward: 35, questions: [] },
+    ],
+  },
+
+
   // ── Unit 7: Are We Alone? ──
   {
     id: "sp-u7-exoplanets",
@@ -354,6 +771,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u7-L8", title: "Exoplanet Speed Round", description: "Race the clock on exoplanets, habitable zones, and the search for life.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
 
   // ── Unit 8: The Biggest and Strangest Objects ──
   {
@@ -377,6 +795,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Unit 9: How Everything Began ──
   {
     id: "sp-u9-universe",
@@ -396,6 +815,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u9-L7", title: "Universe Speed Round", description: "Race the clock on the Big Bang, dark matter, dark energy, and the fate of everything.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
     ],
   },
+
 
   // ── Unit 10: What Comes Next? ──
   {
@@ -418,6 +838,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   // ── Section 12: Astrophotography & Amateur Astronomy (11 units) ──
   {
     id: "sp-sec12-u1",
@@ -436,6 +857,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u2",
     title: "Telescope Setup and Alignment",
@@ -452,6 +874,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-sec12-u2-L5", title: "Thermal Equilibrium and Troubleshooting", description: "Why your telescope needs to cool down and how to fix common setup problems.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
 
   {
     id: "sp-sec12-u3",
@@ -470,6 +893,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u4",
     title: "Review: Planning, Setup, and Finding Objects",
@@ -484,6 +908,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-sec12-u4-L3", title: "Review: Finding Objects in the Sky", description: "Test star hopping skills, GoTo knowledge, and object-finding strategies.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-sec12-u5",
@@ -502,6 +927,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u6",
     title: "Long Exposure and Stacking Techniques",
@@ -518,6 +944,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-sec12-u6-L5", title: "Autoguiding for Longer Exposures", description: "How a small guide camera keeps your telescope locked on target during long exposures.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
+
 
   {
     id: "sp-sec12-u7",
@@ -536,6 +963,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u8",
     title: "Review: Astrophotography Techniques",
@@ -550,6 +978,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-sec12-u8-L3", title: "Review: Filters and Narrowband", description: "Test your knowledge of filter types, the Hubble Palette, and filter selection strategy.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
+
 
   {
     id: "sp-sec12-u9",
@@ -568,6 +997,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u10",
     title: "Building a Home Observatory",
@@ -585,6 +1015,7 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
   {
     id: "sp-sec12-u11",
     title: "Review + Checkpoint: Astrophotography & Amateur Astronomy",
@@ -601,250 +1032,6 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
-  // ── Section 7: Black Holes & Extreme Physics (10 units) ──
-  {
-    id: "sp-sec7-u1", title: "What Is a Black Hole?",
-    description: "Discover how black holes form, why nothing escapes them, and the different types lurking in space.",
-    color: "#1E1B4B", icon: "🕳️", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u1-L1", title: "Gravity's Ultimate Trap", description: "What a black hole actually is and why it's the strangest object in space.", icon: "📝", xpReward: 15, questions: [] },
-      { id: "sp-sec7-u1-L2", title: "How Stars Die to Make Black Holes", description: "The dramatic death of massive stars and why only the biggest ones create black holes.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u1-L3", title: "Stellar, Intermediate, and Supermassive", description: "Black holes come in different sizes, from a few solar masses to billions.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u1-L4", title: "Detecting the Invisible", description: "How astronomers find objects that emit no light at all.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u1-L5", title: "Myths vs. Reality", description: "Separating science fiction from science fact about black holes.", icon: "📝", xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u2", title: "Event Horizons and Singularities",
-    description: "Explore the boundary of no return and the mysterious point at the center of every black hole.",
-    color: "#312E81", icon: "⚫", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u2-L1", title: "The Point of No Return", description: "What the event horizon is and why crossing it changes everything.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u2-L2", title: "What Happens When You Cross?", description: "The strange experience of falling through the event horizon.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u2-L3", title: "The Singularity: Where Physics Breaks", description: "The point of infinite density at the heart of every black hole.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u2-L4", title: "How Black Holes Bend Spacetime", description: "Gravity isn't a force pulling you in. It's the shape of space pushing you forward.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u2-L5", title: "The Photon Ring and Shadow", description: "Why black holes have a distinctive glowing ring around a dark center.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u2-L6", title: "Where Time Slows to a Crawl", description: "How black holes stretch, slow, and warp the flow of time itself.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u3", title: "Spaghettification and Hawking Radiation",
-    description: "What happens to objects falling in and the surprising way black holes can slowly evaporate.",
-    color: "#4C1D95", icon: "🍝", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u3-L1", title: "Tidal Forces and Stretching", description: "Why gravity can pull you apart when it's stronger at your feet than your head.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u3-L2", title: "Stephen Hawking's Breakthrough", description: "How Hawking proved that black holes aren't completely black after all.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u3-L3", title: "Can Black Holes Die?", description: "Given enough time, every black hole will evaporate completely.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u3-L4", title: "The Information Paradox", description: "What happens to information that falls into a black hole?", icon: "📝", xpReward: 30, questions: [] },
-      { id: "sp-sec7-u3-L5", title: "Black Hole Thermodynamics", description: "Black holes obey the same laws as engines and refrigerators.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u4", title: "Review: Black Holes So Far",
-    description: "Test your knowledge of black hole formation, event horizons, singularities, and Hawking radiation.",
-    color: "#3730A3", icon: "🔄", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u4-L1", title: "Review: Formation and Types", description: "Revisit how black holes form and the different categories by mass.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u4-L2", title: "Review: Event Horizons and Spacetime", description: "Revisit event horizons, singularities, time dilation, and the first black hole image.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u4-L3", title: "Review: Radiation, Evaporation, and Paradoxes", description: "Revisit spaghettification, Hawking radiation, evaporation, and the information paradox.", icon: "📝", xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u5", title: "Supermassive Black Holes: Galaxy Engines",
-    description: "How the giant black holes at galaxy centers shape the evolution of entire galaxies.",
-    color: "#1E1B4B", icon: "🌌", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u5-L1", title: "A Monster in Every Galaxy", description: "Nearly every large galaxy has a supermassive black hole at its center.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u5-L2", title: "Quasars: The Brightest Objects in the Universe", description: "When a supermassive black hole feeds actively, it can outshine its entire galaxy.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u5-L3", title: "Black Holes Shape Their Galaxies", description: "How supermassive black holes regulate star formation across an entire galaxy.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u5-L4", title: "When Black Holes Collide", description: "What happens when two supermassive black holes merge during a galaxy collision.", icon: "📝", xpReward: 30, questions: [] },
-      { id: "sp-sec7-u5-L5", title: "Sagittarius A*: Our Galaxy's Giant", description: "What we know about the supermassive black hole at the center of the Milky Way.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u6", title: "The First Black Hole Image",
-    description: "How the Event Horizon Telescope captured the shadow of a black hole for the first time.",
-    color: "#F97316", icon: "📸", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u6-L1", title: "Why Photographing a Black Hole Is Hard", description: "The enormous challenges of imaging something that emits no light.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u6-L2", title: "Building an Earth-Sized Telescope", description: "How VLBI links telescopes across continents into one virtual dish.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u6-L3", title: "M87's Shadow Revealed", description: "The historic 2019 image and what it showed us.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u6-L4", title: "Sagittarius A* and Our Galactic Center", description: "How the EHT imaged the Milky Way's own supermassive black hole.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u6-L5", title: "The Future of Black Hole Imaging", description: "Next-generation plans to make sharper, real-time movies of black holes.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u7", title: "Gravitational Waves: LIGO and Merging Black Holes",
-    description: "Hear the universe ripple as colliding black holes shake the fabric of spacetime.",
-    color: "#8B5CF6", icon: "🌊", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u7-L1", title: "What Are Gravitational Waves?", description: "Ripples in spacetime predicted by Einstein and finally detected a century later.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u7-L2", title: "How LIGO Detects the Invisible", description: "Laser beams, mirrors, and the most sensitive measurement ever made.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u7-L3", title: "The First Detection: GW150914", description: "September 14, 2015: the day we heard the universe for the first time.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u7-L4", title: "The Global Detector Network", description: "Virgo, KAGRA, and the worldwide effort to triangulate gravitational wave sources.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u7-L5", title: "Multi-Messenger Astronomy", description: "When gravitational waves and light arrive from the same event, the payoff is enormous.", icon: "📝", xpReward: 30, questions: [] },
-      { id: "sp-sec7-u7-L6", title: "What Gravitational Waves Have Taught Us", description: "New discoveries from nearly a decade of gravitational wave observations.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u8", title: "Neutron Stars and Pulsars",
-    description: "The densest objects with a surface: city-sized remnants spinning hundreds of times per second.",
-    color: "#06B6D4", icon: "💫", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u8-L1", title: "What Is a Neutron Star?", description: "When a massive star dies but isn't quite heavy enough to become a black hole.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u8-L2", title: "Pulsars: Cosmic Lighthouses", description: "Rapidly spinning neutron stars that sweep beams of radiation across the sky.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u8-L3", title: "Millisecond Pulsars and Extreme Spin", description: "Neutron stars that spin hundreds of times per second, faster than a kitchen blender.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u8-L4", title: "Magnetars and Extreme Magnetic Fields", description: "Neutron stars with magnetic fields a quadrillion times stronger than Earth's.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u8-L5", title: "Neutron Stars as Physics Laboratories", description: "Why neutron stars are the best natural laboratories for extreme physics.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u9", title: "Wormholes, White Holes, and Theoretical Extremes",
-    description: "The wildest predictions of general relativity: tunnels through spacetime and objects that can't exist, or can they?",
-    color: "#EC4899", icon: "🕳️", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u9-L1", title: "What Is a Wormhole?", description: "Theoretical tunnels through spacetime that connect distant points in the universe.", icon: "📝", xpReward: 20, questions: [] },
-      { id: "sp-sec7-u9-L2", title: "White Holes: Time-Reversed Black Holes", description: "A mathematical mirror of a black hole where nothing can enter and everything must leave.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u9-L3", title: "Time Travel and Closed Timelike Curves", description: "Does general relativity actually allow time travel? The math says maybe.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u9-L4", title: "Naked Singularities and Cosmic Censorship", description: "What if a singularity had no event horizon to hide behind?", icon: "📝", xpReward: 30, questions: [] },
-      { id: "sp-sec7-u9-L5", title: "The Frontier of Extreme Physics", description: "Where general relativity meets quantum mechanics, and the biggest unsolved questions.", icon: "📝", xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: "sp-sec7-u10", title: "Section 7 Review and Checkpoint",
-    description: "Test your knowledge across all of Section 7: black holes, gravitational waves, neutron stars, and extreme physics.",
-    color: "#F59E0B", icon: "🏆", sectionIndex: 6, sectionTitle: "Black Holes & Extreme Physics",
-    lessons: [
-      { id: "sp-sec7-u10-L1", title: "Black Holes and Imaging Review", description: "Review formation, types, event horizons, and the historic first images.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u10-L2", title: "Gravitational Waves and Detection Review", description: "Review LIGO, Virgo, key detections, and multi-messenger astronomy.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u10-L3", title: "Neutron Stars and Theoretical Physics Review", description: "Review pulsars, magnetars, wormholes, and the frontiers of extreme physics.", icon: "📝", xpReward: 25, questions: [] },
-      { id: "sp-sec7-u10-L4", title: "Section 7 Speed Round", description: "15 rapid-fire questions covering all of Section 7.", icon: "⚡", xpReward: 35, questions: [] },
-    ],
-  },
-
-  // ── Section 6: Galaxies (Part 1, 5 units) ──
-  {
-    id: 'sp-sec6-u1', title: 'What Is a Galaxy?',
-    description: 'Learn what galaxies are and how astronomers classify them by shape.',
-    color: '#8B5CF6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u1-L1', title: 'Billions of Stars Together', description: 'What a galaxy is and why galaxies matter in astronomy.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u1-L2', title: 'The Hubble Tuning Fork', description: 'How Edwin Hubble organized galaxies by their shape.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u1-L3', title: 'Elliptical Galaxies: The Quiet Giants', description: 'Why elliptical galaxies are full of old stars and low on gas.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u1-L4', title: 'Spiral Galaxies: Arms of Star Formation', description: 'How spiral arms form and why barred spirals are so common.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u1-L5', title: 'Irregular Galaxies and Putting It Together', description: 'Explore irregular galaxies and practice classifying all types.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u2', title: 'The Milky Way: Our Home Galaxy',
-    description: 'Explore the structure, size, and place of our home galaxy in the universe.',
-    color: '#7C3AED', icon: '🌀', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u2-L1', title: 'Welcome to the Milky Way', description: 'Basic facts about our galaxy: type, size, and star count.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u2-L2', title: 'Inside the Milky Way\'s Structure', description: 'The bulge, disk, halo, and spiral arms of our galaxy.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u2-L3', title: 'Where Are We in the Galaxy?', description: 'The Sun\'s location in the Milky Way and how we orbit the galactic center.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u2-L4', title: 'The Milky Way\'s Neighborhood', description: 'Satellite galaxies and the Local Group of galaxies.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u2-L5', title: 'How We Map a Galaxy From Inside', description: 'The challenges and methods of mapping a galaxy while living inside it.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u2-L6', title: 'The Milky Way\'s Future', description: 'What will happen to our galaxy over the next few billion years.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u3', title: 'Dark Matter: The Invisible Glue',
-    description: 'Discover the mysterious invisible substance that holds galaxies together.',
-    color: '#6D28D9', icon: '🔮', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u3-L1', title: 'The Missing Mass Problem', description: 'Why galaxies seem to have far more mass than we can see.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u3-L2', title: 'How Dark Matter Shapes the Universe', description: 'The gravitational role dark matter plays in galaxies and beyond.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u3-L3', title: 'How Much Dark Matter Is There?', description: 'The staggering proportion of dark matter in galaxies and the universe.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u3-L4', title: 'What Could Dark Matter Be?', description: 'The leading theories about dark matter\'s identity and the search to detect it.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u3-L5', title: 'Dark Matter vs. Dark Energy', description: 'Two mysterious forces that sound similar but work in opposite ways.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u4', title: 'Galaxies: Review',
-    description: 'Test your knowledge of galaxy types, the Milky Way, and dark matter.',
-    color: '#5B21B6', icon: '🔄', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u4-L1', title: 'Galaxy Types Refresher', description: 'Review galaxy classification and key features of each type.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u4-L2', title: 'Milky Way Knowledge Check', description: 'Review our galaxy\'s structure, size, and place in the Local Group.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u4-L3', title: 'Dark Matter Knowledge Check', description: 'Review dark matter evidence, its role, and how it differs from dark energy.', icon: '📝', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u5', title: 'Galaxy Collisions and Mergers',
-    description: 'What happens when galaxies crash into each other and reshape the universe.',
-    color: '#4C1D95', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u5-L1', title: 'How Galaxies Collide', description: 'Why galaxy collisions are common and how gravity drives them.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u5-L2', title: 'Tidal Tails and Bridges', description: 'How gravity distorts galaxies during close encounters.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u5-L3', title: 'Major and Minor Mergers', description: 'The difference between equal-sized collisions and a big galaxy eating a small one.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u5-L4', title: 'Starbursts: Collisions That Ignite', description: 'How galaxy collisions trigger explosive waves of new star formation.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u5-L5', title: 'Famous Merging Galaxies', description: 'A tour of the most spectacular colliding galaxy systems astronomers have found.', icon: '📝', xpReward: 30, questions: [] },
-    ],
-  },
-
-  // ── Section 6: Galaxies (Part 2, 5 units) ──
-  {
-    id: 'sp-sec6-u6', title: 'The Local Group and Galaxy Clusters',
-    description: 'Explore our galactic neighborhood and the massive structures galaxies form together.',
-    color: '#8B5CF6', icon: '🏘️', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u6-L1', title: 'Our Galactic Neighborhood', description: 'Meet the Local Group: the collection of galaxies that includes the Milky Way.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u6-L2', title: 'Galaxy Clusters and Beyond', description: 'How groups of galaxies form clusters containing hundreds or thousands of members.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u6-L3', title: 'Andromeda Is Coming', description: 'The Milky Way and Andromeda are on a collision course billions of years from now.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u6-L4', title: 'Explaining the Local Group', description: 'Help a curious friend understand our galactic neighborhood.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u6-L5', title: 'Local Group Speed Round', description: 'Race the clock on galaxy groups, clusters, and the cosmic web.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u7', title: 'Active Galactic Nuclei and Quasars',
-    description: 'Discover the most powerful engines in the universe: supermassive black holes devouring matter at galaxy centers.',
-    color: '#EC4899', icon: '💥', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u7-L1', title: 'What Is an Active Galaxy?', description: 'Some galaxies have extraordinarily bright centers powered by feeding black holes.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u7-L2', title: 'Types of Active Galaxies', description: 'Seyferts, radio galaxies, blazars, and how they\'re connected.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u7-L3', title: 'Quasars: Beacons of the Early Universe', description: 'The most luminous persistent objects in the cosmos and what they tell us about the early universe.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u7-L4', title: 'Relativistic Jets of Energy', description: 'How supermassive black holes launch jets traveling close to the speed of light.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u7-L5', title: 'AGN Feedback and Galaxy Evolution', description: 'How active black holes shape the galaxies around them.', icon: '📝', xpReward: 30, questions: [] },
-      { id: 'sp-sec6-u7-L6', title: 'AGN and Quasars Speed Round', description: 'Race the clock on active galaxies, quasars, jets, and AGN feedback.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u8', title: 'Deep Sky Objects: Nebulae, Clusters, Galaxies',
-    description: 'Learn to identify and understand the fuzzy objects that fill the night sky beyond our solar system.',
-    color: '#14B8A6', icon: '🌌', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u8-L1', title: 'What Are Deep Sky Objects?', description: 'A tour of everything beyond the solar system that isn\'t an individual star.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u8-L2', title: 'Nebulae: Stellar Nurseries and Graveyards', description: 'Emission, reflection, dark, and planetary nebulae each tell a different story.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u8-L3', title: 'Star Clusters: Open and Globular', description: 'Two types of star clusters reveal different chapters of a galaxy\'s history.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u8-L4', title: 'Famous Deep Sky Showpieces', description: 'The most stunning and scientifically important DSOs you should know.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u8-L5', title: 'Deep Sky Objects Speed Round', description: 'Race the clock on nebulae, clusters, galaxies, and famous DSOs.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u9', title: 'The Cosmic Distance Ladder',
-    description: 'How astronomers measure distances from nearby stars to the edge of the observable universe.',
-    color: '#F59E0B', icon: '📏', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u9-L1', title: 'The Problem of Cosmic Distances', description: 'Why measuring distances in space is one of the hardest problems in astronomy.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u9-L2', title: 'Parallax: The Foundation', description: 'How Earth\'s orbit gives us a baseline for measuring stellar distances.', icon: '📝', xpReward: 20, questions: [] },
-      { id: 'sp-sec6-u9-L3', title: 'Standard Candles: Cepheids and Beyond', description: 'Objects with known brightness let us measure distances to other galaxies.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u9-L4', title: 'Supernovae, Redshift, and Hubble\'s Law', description: 'How exploding stars and expanding space measure the most distant reaches of the cosmos.', icon: '📝', xpReward: 30, questions: [] },
-      { id: 'sp-sec6-u9-L5', title: 'Explaining the Distance Ladder', description: 'Help a science student understand how astronomers measure cosmic distances.', icon: '💬', type: 'conversation', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u9-L6', title: 'Cosmic Distance Ladder Speed Round', description: 'Race the clock on parallax, Cepheids, supernovae, and Hubble\'s law.', icon: '⚡', type: 'speed-round', xpReward: 25, questions: [] },
-    ],
-  },
-  {
-    id: 'sp-sec6-u10', title: 'Section 6 Review and Checkpoint',
-    description: 'Test your knowledge across all of Section 6: galaxies, AGNs, deep sky objects, and the cosmic distance ladder.',
-    color: '#F59E0B', icon: '🏆', sectionIndex: 5, sectionTitle: 'Galaxies',
-    lessons: [
-      { id: 'sp-sec6-u10-L1', title: 'Galaxies and the Local Group Review', description: 'Review galaxy types, formation, collisions, and the Local Group.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u10-L2', title: 'AGN, Quasars, and Deep Sky Review', description: 'Review active galaxies, quasars, jets, nebulae, and star clusters.', icon: '📝', xpReward: 25, questions: [] },
-      { id: 'sp-sec6-u10-L3', title: 'Cosmic Distance Ladder Review', description: 'Review parallax, standard candles, Hubble\'s law, and dark energy.', icon: '📝', xpReward: 30, questions: [] },
-      { id: 'sp-sec6-u10-L4', title: 'Section 6 Final Speed Round', description: 'Race the clock across everything in Section 6: galaxies, AGNs, DSOs, and the distance ladder.', icon: '⚡', type: 'speed-round', xpReward: 30, questions: [] },
-    ],
-  },
 
   // ── Section 13: Space Technology & Engineering (Part 1, 5 units) ──
   {
@@ -859,6 +1046,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u1-L5', title: 'Surviving the Space Environment', description: 'The extreme conditions satellites must endure: vacuum, radiation, temperature swings, and debris.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u2', title: 'How We Talk to Spacecraft',
     description: 'Understand how radio signals travel between Earth and spacecraft across millions of kilometers.',
@@ -871,6 +1059,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u2-L5', title: 'Laser Links and Future Communications', description: 'How optical communication could revolutionize data rates from deep space.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u3', title: 'Solar, RTGs, and Batteries',
     description: 'Explore the three main power sources that keep spacecraft alive, from sunlit panels to nuclear generators.',
@@ -883,6 +1072,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u3-L5', title: 'Real-World Power Tradeoffs', description: 'Advanced considerations engineers face when designing spacecraft power systems.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u4', title: 'Review: Satellites, Comms, and Power',
     description: 'Test your knowledge across satellite design, communication systems, and power sources.',
@@ -893,6 +1083,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u4-L3', title: 'Power Systems Recap', description: 'Review solar panels, RTGs, batteries, and how engineers choose between them.', icon: '📝', xpReward: 25, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u5', title: 'Life Support and Habitation',
     description: 'Discover how engineers keep humans alive in space with air, water, food, and radiation shielding.',
@@ -905,6 +1096,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u5-L5', title: 'Designing a Home in Space', description: 'How engineers design living spaces for crews spending months or years away from Earth.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
 
   // ── Section 13: Space Technology & Engineering (Part 2, 5 units) ──
   {
@@ -919,6 +1111,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u6-L5', title: 'Mega-Constellations and Orbital Safety', description: 'How large satellite constellations change the debris risk landscape and what safeguards are needed.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u7', title: 'In-Space Manufacturing & 3D Printing',
     description: 'Explore how microgravity enables new manufacturing processes and why building in space could transform exploration.',
@@ -931,6 +1124,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u7-L5', title: 'Building Habitats from Local Resources', description: 'How 3D printing with regolith and ISRU could build lunar and Martian structures.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u8', title: 'Space Tourism: Engineering for Passengers',
     description: 'Discover the engineering challenges of carrying paying passengers to space safely and comfortably.',
@@ -943,6 +1137,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u8-L5', title: 'Regulation and Space Tourism\'s Future', description: 'How governments regulate commercial spaceflight and what the industry might look like in coming decades.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u9', title: 'Future Propulsion: Ion Drives, Solar Sails, Nuclear',
     description: 'Explore advanced propulsion technologies that could carry spacecraft faster and farther than chemical rockets.',
@@ -955,6 +1150,7 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u9-L5', title: 'Exotic Propulsion Concepts', description: 'From antimatter engines to laser sails, the propulsion ideas that could reach other stars.', icon: '📝', xpReward: 30, questions: [] },
     ],
   },
+
   {
     id: 'sp-sec13-u10', title: 'Space Technology Review',
     description: 'Test your mastery of spacecraft design, life support, debris, manufacturing, tourism, and advanced propulsion.',

@@ -13,6 +13,8 @@ import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { AdUnit } from '@/components/ads/AdUnit';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { CURRENCY } from '@/data/currency';
 
 interface OutOfHeartsModalProps {
   isOpen: boolean;
@@ -195,7 +197,7 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
             Buy 1 Heart
           </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 3, marginLeft: 'auto' }}>
-            <span style={{ fontSize: 16 }}>💎</span>
+            <CurrencyIcon size={16} />
             <span style={{ fontSize: 14, fontWeight: 800, color: 'white' }}>{HEART_COST}</span>
           </div>
         </button>
@@ -224,14 +226,14 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
               Refill All ({missingHearts})
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 3, marginLeft: 'auto' }}>
-              <span style={{ fontSize: 16 }}>💎</span>
+              <CurrencyIcon size={16} />
               <span style={{ fontSize: 14, fontWeight: 800, color: 'white' }}>{fullRefillCost}</span>
             </div>
           </button>
         )}
 
         <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>
-          You have {gems.balance} 💎
+          You have {gems.balance} <CurrencyIcon size={14} />
         </p>
       </div>
     </FullScreenModal>

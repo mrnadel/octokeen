@@ -368,81 +368,22 @@ export const FlowGuruIcon = ({ size = 64, className }: IconProps) => (
 );
 
 // ─────────────────────────────────────────────────────────
-// GEM ICON
+// CURRENCY ICON (Octoken)
 // ─────────────────────────────────────────────────────────
 
-/** Faceted blue gem / diamond for currency display */
+import { CURRENCY } from '@/data/currency';
+
+/** Octoken currency icon — renders the PNG asset */
 export const GemIcon = ({ size = 64, className }: IconProps) => (
-  <svg
+  // eslint-disable-next-line @next/next/no-img-element
+  <img
+    src={CURRENCY.icon}
+    alt={CURRENCY.name}
     width={size}
     height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
     className={className}
-  >
-    <defs>
-      <linearGradient id="shop-gem-left" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#3B82F6" />
-        <stop offset="100%" stopColor="#2563EB" />
-      </linearGradient>
-      <linearGradient id="shop-gem-right" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#60A5FA" />
-        <stop offset="100%" stopColor="#3B82F6" />
-      </linearGradient>
-      <linearGradient id="shop-gem-top" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#93C5FD" />
-        <stop offset="100%" stopColor="#60A5FA" />
-      </linearGradient>
-      <linearGradient id="shop-gem-highlight" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
-        <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-    {/* Drop shadow */}
-    <ellipse cx="32" cy="58" rx="14" ry="3" fill="#3B82F6" fillOpacity="0.2" />
-    {/* Gem top facet (flat top) */}
-    <polygon points="22,20 42,20 48,28 16,28" fill="url(#shop-gem-top)" />
-    {/* Top edge highlight */}
-    <polygon points="22,20 42,20 40,22 24,22" fill="white" fillOpacity="0.4" />
-    {/* Left top facet */}
-    <polygon points="22,20 16,28 24,22" fill="#93C5FD" />
-    {/* Right top facet */}
-    <polygon points="42,20 48,28 40,22" fill="#60A5FA" />
-    {/* Center divider in top */}
-    <polygon points="32,20 36,28 28,28" fill="white" fillOpacity="0.15" />
-    {/* Left bottom facet */}
-    <polygon points="16,28 32,54 32,28" fill="url(#shop-gem-left)" />
-    {/* Right bottom facet */}
-    <polygon points="48,28 32,54 32,28" fill="url(#shop-gem-right)" />
-    {/* Left sub-facet */}
-    <polygon points="16,28 24,28 28,44" fill="#2563EB" fillOpacity="0.3" />
-    {/* Right sub-facet */}
-    <polygon points="48,28 40,28 36,44" fill="#60A5FA" fillOpacity="0.2" />
-    {/* Main highlight streak */}
-    <polygon points="24,22 28,28 26,36 22,26" fill="url(#shop-gem-highlight)" />
-    {/* Small bright highlight */}
-    <polygon points="26,24 28,28 24,26" fill="white" fillOpacity="0.6" />
-    {/* Edge outlines */}
-    <polygon
-      points="22,20 42,20 48,28 32,54 16,28"
-      stroke="#2563EB"
-      strokeWidth="2"
-      strokeLinejoin="round"
-      fill="none"
-    />
-    <line x1="16" y1="28" x2="48" y2="28" stroke="#2563EB" strokeWidth="1.5" opacity="0.5" />
-    <line x1="22" y1="20" x2="28" y2="28" stroke="#2563EB" strokeWidth="1" opacity="0.3" />
-    <line x1="42" y1="20" x2="36" y2="28" stroke="#2563EB" strokeWidth="1" opacity="0.3" />
-    <line x1="32" y1="20" x2="32" y2="28" stroke="#2563EB" strokeWidth="1" opacity="0.2" />
-    <line x1="28" y1="28" x2="32" y2="54" stroke="#2563EB" strokeWidth="1" opacity="0.2" />
-    <line x1="36" y1="28" x2="32" y2="54" stroke="#2563EB" strokeWidth="1" opacity="0.2" />
-    {/* Sparkles around gem */}
-    <path d="M10,16 L11,18.5 L14,19 L11,19.5 L10,22 L9,19.5 L6,19 L9,18.5Z" fill="#60A5FA" />
-    <path d="M54,14 L55,16 L57,16.5 L55,17 L54,19 L53,17 L51,16.5 L53,16Z" fill="#93C5FD" />
-    <path d="M50,38 L51,39.5 L53,40 L51,40.5 L50,42 L49,40.5 L47,40 L49,39.5Z" fill="#60A5FA" fillOpacity="0.7" />
-    <circle cx="12" cy="36" r="1.5" fill="#93C5FD" fillOpacity="0.5" />
-  </svg>
+    style={{ objectFit: 'contain' }}
+  />
 );
 
 // ─────────────────────────────────────────────────────────

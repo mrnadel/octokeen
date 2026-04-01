@@ -178,20 +178,20 @@ const sections: Section[] = [
     ),
   },
   {
-    id: 'gems',
-    title: '7. Virtual Currency (Gems)',
+    id: 'octokens',
+    title: '7. Virtual Currency (Octokens)',
     content: (
       <>
         <p>
-          Octokeen may award virtual currency (&quot;Gems&quot;) to users for completing
-          activities, achieving milestones, or other engagement within the Service. Gems
+          Octokeen may award virtual currency (&quot;Octokens&quot;) to users for completing
+          activities, achieving milestones, or other engagement within the Service. Octokens
           are a feature of the platform and are subject to the following terms:
         </p>
         <ul>
-          <li>Gems have no real-world monetary value and cannot be exchanged for cash, credit, or any form of real currency.</li>
-          <li>Gems are non-transferable between accounts.</li>
-          <li>Gems may only be used within the Service for designated in-app features, such as purchasing streak freezes or other virtual items.</li>
-          <li>We reserve the right to modify, reset, expire, or discontinue the Gems system at any time without prior notice or compensation.</li>
+          <li>Octokens have no real-world monetary value and cannot be exchanged for cash, credit, or any form of real currency.</li>
+          <li>Octokens are non-transferable between accounts.</li>
+          <li>Octokens may only be used within the Service for designated in-app features, such as purchasing streak freezes or other virtual items.</li>
+          <li>We reserve the right to modify, reset, expire, or discontinue the Octokens system at any time without prior notice or compensation.</li>
           <li>Accumulation of Gems does not constitute property or a stored-value account.</li>
         </ul>
         <p>

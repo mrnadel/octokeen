@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Quest } from '@/data/engagement-types';
 import { playSound } from '@/lib/sounds';
 import { useIsDark } from '@/store/useThemeStore';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 
 interface Props {
   quest: Quest;
@@ -99,7 +100,7 @@ export const QuestCard = memo(function QuestCard({ quest, onClaim, compact = fal
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                <span className="text-xs">💎</span>
+                <CurrencyIcon size={14} />
                 <span>{quest.reward.gems}</span>
               </motion.div>
             )}
@@ -184,7 +185,7 @@ export const QuestCard = memo(function QuestCard({ quest, onClaim, compact = fal
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
             >
-              <span>💎</span>
+              <CurrencyIcon size={16} />
               <span>{quest.reward.gems}</span>
             </motion.div>
           )}

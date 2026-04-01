@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Sparkles, Lock, ChevronRight } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
@@ -253,6 +253,7 @@ export function CourseMap() {
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const { status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isDark = useIsDark();
   const isGuest = status !== 'authenticated';
   const { isProUser } = useSubscription();
@@ -407,7 +408,22 @@ export function CourseMap() {
     [isFreeLocked, isGuest, courseData, isLessonUnlocked, startLesson, hasHearts]
   );
 
-  // Auto-scroll to the current lesson after mount + animations settle
+  // Check for ?unit= query param (navigated from /units page)
+  const scrollToUnitParam = searchParams.get('unit');
+  const scrollToUnitIndex = scrollToUnitParam != null ? parseInt(scrollToUnitParam, 10) : null;
+
+  // Switch to the correct section when navigating via ?unit= param
+  useEffect(() => {
+    if (scrollToUnitIndex == null || isNaN(scrollToUnitIndex)) return;
+    const targetSectionPos = sections.findIndex((s) =>
+      s.units.some((u) => u.globalIndex === scrollToUnitIndex)
+    );
+    if (targetSectionPos >= 0 && targetSectionPos !== viewingSectionPos) {
+      setViewingSectionPos(targetSectionPos);
+    }
+  }, [scrollToUnitIndex, sections, viewingSectionPos]);
+
+  // Auto-scroll to the target unit (from ?unit= param) or current lesson after mount
   useEffect(() => {
     let cancelled = false;
     let attempts = 0;
@@ -415,11 +431,25 @@ export function CourseMap() {
     function tryScroll() {
       if (cancelled) return;
       attempts++;
-      const target = currentLessonRef.current || currentUnitRef.current;
-      if (target && target.getBoundingClientRect().height > 0) {
-        target.scrollIntoView({ behavior: 'instant', block: 'center' });
-      } else if (attempts < 10) {
-        // Retry — animations may still be running
+
+      // If navigated from /units page, scroll to that specific unit
+      if (scrollToUnitIndex != null && !isNaN(scrollToUnitIndex)) {
+        const unitEl = unitElsRef.current[scrollToUnitIndex];
+        if (unitEl && unitEl.getBoundingClientRect().height > 0) {
+          unitEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Clean up the URL param
+          router.replace('/', { scroll: false });
+          return;
+        }
+      } else {
+        const target = currentLessonRef.current || currentUnitRef.current;
+        if (target && target.getBoundingClientRect().height > 0) {
+          target.scrollIntoView({ behavior: 'instant', block: 'center' });
+          return;
+        }
+      }
+
+      if (attempts < 10) {
         requestAnimationFrame(tryScroll);
       }
     }
@@ -431,7 +461,7 @@ export function CourseMap() {
       clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [scrollToUnitIndex]);
 
   // Track container left/width on resize (for fixed positioning alignment)
   useEffect(() => {

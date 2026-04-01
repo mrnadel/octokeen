@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   const [user] = await db
-    .select({ passwordHash: users.passwordHash, country: users.country })
+    .select({ passwordHash: users.passwordHash, country: users.country, profilePublic: users.profilePublic })
     .from(users)
     .where(eq(users.id, userId))
     .limit(1);
@@ -31,6 +31,7 @@ export async function GET() {
   return NextResponse.json({
     hasPassword: !isOAuthOnly && !!user?.passwordHash,
     country: user?.country ?? null,
+    profilePublic: user?.profilePublic ?? true,
   });
 }
 
@@ -78,6 +79,16 @@ export async function PATCH(request: NextRequest) {
       .set({ country, updatedAt: new Date() })
       .where(eq(users.id, userId));
 
+    return NextResponse.json({ ok: true });
+  }
+
+  // ── Handle profilePublic update ──
+  if (body.profilePublic !== undefined) {
+    const profilePublic = body.profilePublic === true;
+    await db
+      .update(users)
+      .set({ profilePublic, updatedAt: new Date() })
+      .where(eq(users.id, userId));
     return NextResponse.json({ ok: true });
   }
 

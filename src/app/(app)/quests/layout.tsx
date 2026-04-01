@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Quests',
-  description: 'Complete daily and weekly quests to earn gems and bonus XP.',
+  description: 'Complete daily and weekly quests to earn Octokens and bonus XP.',
   robots: { index: false },
 };
 

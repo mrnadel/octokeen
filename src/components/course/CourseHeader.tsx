@@ -15,6 +15,8 @@ import { useGems, useEngagementStore, useDoubleXpActive } from '@/store/useEngag
 import { useStore } from '@/store/useStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { shopItems } from '@/data/gem-shop';
+import { CURRENCY, currencyLabel } from '@/data/currency';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { getXpToNextLevel, levels } from '@/data/levels';
 import { getLevelReward } from '@/data/level-rewards';
 import { getTodayString, getStreakStatus } from '@/lib/utils';
@@ -291,10 +293,10 @@ export function CourseHeader() {
                 justifyContent: 'center',
               }}
               onClick={() => togglePopover('gems')}
-              aria-label={`${gems.balance} gems`}
+              aria-label={`${gems.balance} ${currencyLabel(gems.balance)}`}
               aria-expanded={popover === 'gems'}
             >
-              <span style={{ fontSize: 28 }} aria-hidden="true">💎</span>
+              <CurrencyIcon size={28} />
               <AnimatedCounter value={gems.balance} showDelta deltaColor="#7C3AED" />
             </button>
 
@@ -479,11 +481,6 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 14, fontWeight: 800, color: isDark ? '#E2E8F0' : '#3C3C3C', lineHeight: 1.2 }}>
                   {p.name}
-                </div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? '#64748B' : '#AFAFAF', marginTop: 2, display: 'flex', gap: 6, alignItems: 'center' }}>
-                  <span style={{ color: p.color }}>{p.unitCount} units</span>
-                  <span style={{ color: isDark ? '#475569' : '#DDD' }}>·</span>
-                  <span>{p.questionCount.toLocaleString()} questions</span>
                 </div>
               </div>
 
@@ -1012,7 +1009,7 @@ function XpLevelPopover({ totalXp }: { totalXp: number }) {
               </p>
               <div className="flex items-center flex-wrap" style={{ gap: 6, marginTop: 2 }}>
                 <span style={{ fontSize: 10, fontWeight: 700, color: '#7C3AED' }}>
-                  +{nextReward.gems} 💎
+                  +{nextReward.gems} <CurrencyIcon size={14} />
                 </span>
                 {nextReward.title && (
                   <span style={{ fontSize: 10, fontWeight: 700, color: '#D97706' }}>
@@ -1159,7 +1156,7 @@ function GemsPopoverContent({
               boxShadow: '0 4px 12px rgba(124,58,237,0.3)',
             }}
           >
-            💎
+            <CurrencyIcon size={24} />
           </div>
           <div>
             <p style={{ fontSize: 28, fontWeight: 800, color: '#7C3AED', lineHeight: 1 }}>
@@ -1188,7 +1185,7 @@ function GemsPopoverContent({
           </p>
           <div className="flex items-center" style={{ gap: 4, marginTop: 6 }}>
             {affordable.slice(0, 5).map((item) => (
-              <span key={item.id} style={{ fontSize: 16 }} title={`${item.name} — ${item.cost} 💎`}>
+              <span key={item.id} style={{ fontSize: 16 }} title={`${item.name} — ${item.cost} ${currencyLabel(item.cost)}`}>
                 {item.icon}
               </span>
             ))}
@@ -1226,7 +1223,7 @@ function GemsPopoverContent({
                     {formatGemSource(tx.source)}
                   </span>
                   <span style={{ fontSize: 12, fontWeight: 800, color: isPositive ? '#16A34A' : '#DC2626', flexShrink: 0, marginLeft: 8 }}>
-                    {isPositive ? '+' : ''}{tx.amount} 💎
+                    {isPositive ? '+' : ''}{tx.amount} <CurrencyIcon size={14} />
                   </span>
                 </div>
               );
@@ -1239,7 +1236,7 @@ function GemsPopoverContent({
       {recentTx.length === 0 && (
         <div style={{ textAlign: 'center', padding: '12px 0', marginBottom: 14 }}>
           <p style={{ fontSize: 13, color: '#AFAFAF', fontWeight: 600 }}>
-            Complete quests and lessons to earn gems!
+            Complete quests and lessons to earn {CURRENCY.plural}!
           </p>
         </div>
       )}
@@ -1261,7 +1258,7 @@ function GemsPopoverContent({
           boxShadow: '0 2px 8px rgba(124,58,237,0.3)',
         }}
       >
-        🛍️ Visit Gem Shop
+        🛍️ Visit {CURRENCY.shopName}
       </Link>
     </div>
   );
@@ -1374,7 +1371,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
             ? 'Full hearts! Keep on learning.'
             : current > 0
               ? 'You have hearts left! Keep on learning.'
-              : 'Wait for recharge, or spend gems below.'}
+              : `Wait for recharge, or spend ${CURRENCY.plural} below.`}
       </p>
 
       {/* Action cards */}
@@ -1437,7 +1434,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
                 BUY ONE HEART
               </span>
               <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>
-                <span style={{ fontSize: 16 }}>💎</span>
+                <CurrencyIcon size={16} />
                 <span style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED' }}>{HEART_COST}</span>
               </div>
             </button>
@@ -1473,7 +1470,7 @@ function HeartsPopoverContent({ onClose }: { onClose: () => void }) {
                 REFILL ALL ({missingHearts})
               </span>
               <div className="flex items-center" style={{ gap: 3, marginLeft: 'auto' }}>
-                <span style={{ fontSize: 16 }}>💎</span>
+                <CurrencyIcon size={16} />
                 <span style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED' }}>{refillCost}</span>
               </div>
             </button>

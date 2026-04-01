@@ -5,6 +5,7 @@ import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { useToastStore } from '@/components/ui/ToastNotification';
 import { achievements } from '@/data/achievements';
+import { CURRENCY } from '@/data/currency';
 
 /**
  * Subscribes to Zustand store changes and fires toast notifications
@@ -82,8 +83,8 @@ export function StoreToastBridge() {
         // Only toast for gem gains (purchases are obvious from the shop UI)
         if (diff > 0) {
           push({
-            icon: '💎',
-            title: `+${diff} Gems`,
+            icon: '🪙',
+            title: `+${diff} ${CURRENCY.plural}`,
             subtitle: 'Added to your balance',
             color: '#7C3AED',
             duration: 2500,

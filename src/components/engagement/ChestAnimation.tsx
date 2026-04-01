@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import { playSound } from '@/lib/sounds';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { CURRENCY } from '@/data/currency';
 
 interface Props {
   type: 'daily' | 'weekly';
@@ -84,10 +86,10 @@ export function ChestAnimation({ type, reward, onClose, isOpen }: Props) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <span className="text-2xl font-extrabold text-violet-600">
-                    💎 +{reward.gems}
+                  <span className="text-2xl font-extrabold text-violet-600 inline-flex items-center gap-1">
+                    <CurrencyIcon size={24} /> +{reward.gems}
                   </span>
-                  <span className="text-xs font-semibold text-gray-400 dark:text-surface-500">Gems</span>
+                  <span className="text-xs font-semibold text-gray-400 dark:text-surface-500">{CURRENCY.plural}</span>
                 </motion.div>
               </div>
 

@@ -58,6 +58,14 @@ export async function GET(
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
+  // If profile is private, only allow self or friends to view
+  if (user.profilePublic === false && viewerId !== targetId) {
+    const { relationship: rel } = await getRelationship(viewerId, targetId);
+    if (rel !== 'friends') {
+      return NextResponse.json({ error: 'This profile is private' }, { status: 403 });
+    }
+  }
+
   const [accuracyData] = accuracyResult;
   const attempted = accuracyData?.totalQuestionsAttempted ?? 0;
   const correct = accuracyData?.totalQuestionsCorrect ?? 0;

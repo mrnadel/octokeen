@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Gem Shop',
-  description: 'Spend gems on streak freezes, cosmetics, and more in the Octokeen shop.',
+  title: 'Octoken Shop',
+  description: 'Spend Octokens on streak freezes, cosmetics, and more in the Octokeen shop.',
   robots: { index: false },
 };
 

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { GemShop } from '@/components/engagement/GemShop';
+import { CURRENCY } from '@/data/currency';
 
 export default function ShopPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function ShopPage() {
           >
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </button>
-          <h1 className="text-lg font-extrabold text-gray-900 ml-2">Gem Shop</h1>
+          <h1 className="text-lg font-extrabold text-gray-900 ml-2">{CURRENCY.shopName}</h1>
         </div>
       </div>
       <div className="px-4 sm:px-5 py-5 sm:py-6">

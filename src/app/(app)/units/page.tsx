@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -13,6 +14,7 @@ import { useIsDark } from '@/store/useThemeStore';
 
 export default function UnitsPage() {
   const { status } = useSession();
+  const router = useRouter();
   const progress = useCourseStore((s) => s.progress);
   const courseData = useCourseStore((s) => s.courseData);
   const activeProfession = useCourseStore((s) => s.activeProfession);
@@ -91,17 +93,22 @@ export default function UnitsPage() {
 
             return (
               <motion.div
-                key={section.sectionIndex}
+                key={`s${sIdx}-${section.sectionIndex}`}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(sIdx * 0.06, 0.4), duration: 0.3 }}
               >
                 {/* Section header */}
-                <div
+                <button
+                  onClick={() => router.push(`/?unit=${section.unitIndices[0]}`)}
+                  className="w-full text-left active:scale-[0.99] transition-transform duration-75"
                   style={{
                     background: firstTheme?.color ?? '#3B82F6',
                     borderRadius: 20,
                     padding: '18px 20px 16px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    WebkitTapHighlightColor: 'transparent',
                   }}
                 >
                   <div style={{
@@ -137,19 +144,23 @@ export default function UnitsPage() {
                       transition: 'width 0.4s ease',
                     }} />
                   </div>
-                </div>
+                </button>
 
                 {/* Units in this section */}
                 <div className="flex flex-col" style={{ gap: 8, paddingTop: 8, paddingLeft: 12, paddingRight: 12 }}>
                   {sectionUnits.map(({ unit, unitIndex, completedInUnit, totalInUnit, isLocked, lockMessage, isAllGolden, theme }) => (
-                    <div
+                    <button
                       key={unit.id}
-                      className="flex items-center"
+                      className="flex items-center w-full text-left"
+                      onClick={() => router.push(`/?unit=${unitIndex}`)}
                       style={{
                         gap: 12,
                         padding: '10px 14px',
                         borderRadius: 14,
                         background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        WebkitTapHighlightColor: 'transparent',
                       }}
                     >
                       <div style={{
@@ -182,7 +193,11 @@ export default function UnitsPage() {
                       }}>
                         {completedInUnit}/{totalInUnit}
                       </div>
-                    </div>
+                      {/* Chevron */}
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.3, flexShrink: 0 }}>
+                        <path d="M9 6l6 6-6 6" stroke={isDark ? 'white' : 'black'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
                   ))}
                 </div>
               </motion.div>
@@ -208,6 +223,7 @@ export default function UnitsPage() {
                 theme={theme}
                 professionId={activeProfession}
                 showProgress
+                onClick={() => router.push(`/?unit=${unitIndex}`)}
               />
             </motion.div>
           ))

@@ -17,9 +17,9 @@ export const FLAG_DEFINITIONS: FlagDefinition[] = [
   // ─── Engagement ────────────────────────────────────
   { key: 'engagement.leagues',       enabled: true,  category: 'engagement', description: 'Weekly league leaderboard, promotions, and demotions' },
   { key: 'engagement.streaks',       enabled: true,  category: 'engagement', description: 'Daily streak tracking, milestones, and freeze/repair' },
-  { key: 'engagement.quests',        enabled: true,  category: 'engagement', description: 'Daily and weekly quest system with gem rewards' },
+  { key: 'engagement.quests',        enabled: true,  category: 'engagement', description: 'Daily and weekly quest system with Octoken rewards' },
   { key: 'engagement.celebrations',  enabled: true,  category: 'engagement', description: 'Level up, chapter complete, and course complete celebrations' },
-  { key: 'engagement.gems_shop',     enabled: true,  category: 'engagement', description: 'Gem shop for streak freezes, heart refills, and cosmetics' },
+  { key: 'engagement.gems_shop',     enabled: true,  category: 'engagement', description: 'Octoken shop for streak freezes, heart refills, and cosmetics' },
   { key: 'engagement.comeback_flow', enabled: true,  category: 'engagement', description: 'Welcome back screen with comeback quests for returning users' },
 
   // ─── UI ────────────────────────────────────────────

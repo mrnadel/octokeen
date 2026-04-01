@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { X, Gem, Snowflake } from 'lucide-react';
+import { X, Snowflake } from 'lucide-react';
 import { playSound } from '@/lib/sounds';
 import {
   useEngagementStore,
@@ -12,6 +12,8 @@ import {
   useEngagementActions,
 } from '@/store/useEngagementStore';
 import { GameButton } from '@/components/ui/GameButton';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { CURRENCY, currencyLabel } from '@/data/currency';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 
@@ -66,7 +68,7 @@ export function StreakFreeze() {
         footer={
           <>
             <GameButton variant="purple" onClick={handleRepair} disabled={!canAfford}>
-              {canAfford ? 'Repair Streak' : `Need ${gemsNeeded} more gems`}
+              {canAfford ? 'Repair Streak' : `Need ${gemsNeeded} more ${currencyLabel(gemsNeeded)}`}
             </GameButton>
             <button onClick={dismissRepairModal} className="w-full py-2.5 mt-2 rounded-xl text-sm font-semibold text-white/60 hover:text-white/80 transition-colors" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>Skip</button>
           </>
@@ -78,7 +80,7 @@ export function StreakFreeze() {
         <h2 className="text-[26px] font-extrabold text-white mb-1">Your streak broke!</h2>
         <p className="text-sm text-white/60 mb-5">You had a <span className="font-bold text-white">{streak.lastStreakValueBeforeBreak}-day streak</span></p>
         <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/15">
-          <Gem className="w-5 h-5 text-white/80" />
+          <CurrencyIcon size={20} />
           <span className="text-xl font-extrabold text-white">{REPAIR_COST}</span>
           <span className="text-sm font-semibold text-white/60">to repair</span>
         </div>

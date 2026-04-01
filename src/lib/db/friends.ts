@@ -74,6 +74,7 @@ export async function getPublicProfile(userId: string) {
       displayName: users.displayName,
       image: users.image,
       joinedDate: users.joinedDate,
+      profilePublic: users.profilePublic,
     })
     .from(users)
     .where(eq(users.id, userId))

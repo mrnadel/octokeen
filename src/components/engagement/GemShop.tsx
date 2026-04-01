@@ -8,6 +8,8 @@ import { useHeartsStore } from '@/store/useHeartsStore';
 import { shopItems } from '@/data/gem-shop';
 import type { ShopItem } from '@/data/engagement-types';
 import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
+import { CURRENCY, currencyLabel } from '@/data/currency';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 
 interface ToastState {
   id: number;
@@ -88,7 +90,7 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
       {/* Cost + buy/equip button */}
       <div className="flex items-center justify-between mt-auto">
         <div className="flex items-center gap-1">
-          <span className="text-base">💎</span>
+          <CurrencyIcon size={18} />
           <span className="text-sm font-extrabold text-violet-700">{item.cost}</span>
         </div>
 
@@ -225,7 +227,7 @@ const TitleCard = memo(function TitleCard({ item, canAfford, isDisabled, disable
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <span className="text-base">💎</span>
+            <CurrencyIcon size={18} />
             <span className="text-sm font-extrabold text-violet-700">{item.cost}</span>
           </div>
 
@@ -354,7 +356,7 @@ export function GemShop() {
       disabledReason = hearts.isUnlimited() ? 'Pro: unlimited hearts' : 'Hearts already full';
     } else if (!canAfford) {
       isDisabled = true;
-      disabledReason = `Need ${item.cost - gems.balance} more gems`;
+      disabledReason = `Need ${item.cost - gems.balance} more ${currencyLabel(item.cost - gems.balance)}`;
     }
 
     return { isOwned, isEquipped, isDisabled, disabledReason, canAfford };
