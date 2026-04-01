@@ -3,7 +3,7 @@ import { getAuthUserId } from '@/lib/auth-utils';
 import { getPublicProfile, getPublicProgress, getRelationship } from '@/lib/db/friends';
 import { db } from '@/lib/db';
 import { leagueState, masteryEvents, userProgress } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, desc } from 'drizzle-orm';
 import { topics } from '@/data/topics';
 import { computeAllMastery } from '@/data/mastery';
 import type { AnswerEvent } from '@/data/mastery';
@@ -49,7 +49,9 @@ export async function GET(
         answeredAt: masteryEvents.answeredAt,
       })
       .from(masteryEvents)
-      .where(eq(masteryEvents.userId, targetId)),
+      .where(eq(masteryEvents.userId, targetId))
+      .orderBy(desc(masteryEvents.answeredAt))
+      .limit(2000),
   ]);
 
   if (!user) {

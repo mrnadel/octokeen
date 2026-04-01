@@ -162,10 +162,13 @@ export async function POST(request: NextRequest) {
   }
 
   // Append-only session history: only insert new sessions
+  // Limit lookup to last 200 sessions — client only sends recent ones
   const existingSessions = await db
     .select({ sessionId: sessionHistory.sessionId })
     .from(sessionHistory)
-    .where(eq(sessionHistory.userId, userId));
+    .where(eq(sessionHistory.userId, userId))
+    .orderBy(desc(sessionHistory.date))
+    .limit(200);
 
   const existingIds = new Set(existingSessions.map((s) => s.sessionId));
   const newSessions = progress.sessionHistory.filter(
