@@ -8,6 +8,7 @@ import { LIMITS } from '@/lib/pricing';
 import { getLessonById } from '@/data/course';
 import { courseProgressSyncSchema } from '@/lib/validation';
 import type { CourseProgress } from '@/data/course/types';
+import { PROFESSION_ID } from '@/data/professions';
 
 export async function GET() {
   const userId = await getAuthUserId();
@@ -47,7 +48,7 @@ export async function GET() {
 
   return NextResponse.json({
     progress: assembled,
-    activeProfession: progress?.activeProfession ?? 'mechanical-engineering',
+    activeProfession: progress?.activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
   });
 }
 
@@ -107,7 +108,7 @@ export async function POST(request: NextRequest) {
     lastActiveDate: progress.lastActiveDate,
     placementUnitIndex: progress.placementUnitIndex ?? 0,
     completedLessons: filteredLessons,
-    activeProfession: activeProfession ?? 'mechanical-engineering',
+    activeProfession: activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
     updatedAt: new Date(),
   };

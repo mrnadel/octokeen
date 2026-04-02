@@ -15,6 +15,9 @@ import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
+import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
+import { DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 // --- Session Types ---
 export type SessionType = 'adaptive' | 'topic-deep-dive' | 'interview-sim' | 'daily-challenge' | 'real-world' | 'weak-areas' | 'smart-practice';
@@ -568,8 +571,8 @@ export const useStore = create<AppState>()(
           const now = Date.now();
           // Validate: expiry must be in the future, not exceed max allowed duration,
           // and a recent shop_purchase transaction must exist
-          if (!isNaN(expiry) && expiry > now && expiry <= now + 30 * 60 * 1000 + 5000) {
-            const recentCutoff = now - (30 * 60 * 1000 + 5 * 60 * 1000);
+          if (!isNaN(expiry) && expiry > now && expiry <= now + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS) {
+            const recentCutoff = now - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
             const hasRecentPurchase = engState.gems.transactions.some(
               (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
             );
@@ -836,7 +839,7 @@ export const useStore = create<AppState>()(
       },
     }),
     {
-      name: 'octokeen-storage',
+      name: STORAGE_KEYS.APP_STORE,
       version: 1,
       partialize: (state) => ({ progress: state.progress }),
       migrate: (persistedState: unknown) => {

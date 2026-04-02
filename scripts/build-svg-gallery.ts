@@ -614,11 +614,20 @@ ${MARKER_END}`;
     galleryHtml = galleryHtml.slice(0, startIdx) + galleryHtml.slice(endIdx + MARKER_END.length);
   }
 
-  // Inject before the footer div
-  const footerMarker = '<div style="text-align:center;margin-top:64px;';
-  const insertIdx = galleryHtml.indexOf(footerMarker);
-  if (insertIdx !== -1) {
-    galleryHtml = galleryHtml.slice(0, insertIdx) + sectionHtml + '\n\n' + galleryHtml.slice(insertIdx);
+  // Inject inside <div id="tab-diagrams">
+  const tabDiagramsMarker = '<div id="tab-diagrams"';
+  const tabIdx = galleryHtml.indexOf(tabDiagramsMarker);
+  if (tabIdx !== -1) {
+    // Find the closing > of the opening tag
+    const tagCloseIdx = galleryHtml.indexOf('>', tabIdx);
+    if (tagCloseIdx !== -1) {
+      // Find the matching </div>
+      const closeDivIdx = galleryHtml.indexOf('</div>', tagCloseIdx);
+      if (closeDivIdx !== -1) {
+        // Replace the content between the opening and closing tags
+        galleryHtml = galleryHtml.slice(0, tagCloseIdx + 1) + '\n' + sectionHtml + '\n' + galleryHtml.slice(closeDivIdx);
+      }
+    }
   } else {
     // Fallback: inject before </body>
     galleryHtml = galleryHtml.replace('</body>', sectionHtml + '\n</body>');

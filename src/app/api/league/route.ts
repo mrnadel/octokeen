@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
   const leaderboard = await getLeagueLeaderboard(userId, weekStart);
   if (!leaderboard) {
-    return NextResponse.json({ error: 'Not assigned to a league this week' }, { status: 404 });
+    return NextResponse.json({ members: null });
   }
 
   return NextResponse.json(leaderboard);

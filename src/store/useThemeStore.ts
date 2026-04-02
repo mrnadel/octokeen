@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useCallback, useEffect, useSyncExternalStore } from 'react';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -16,7 +17,7 @@ export const useThemeStore = create<ThemeState>()(
       setMode: (mode) => set({ mode }),
     }),
     {
-      name: 'octokeen-theme',
+      name: STORAGE_KEYS.THEME,
       partialize: (state) => ({ mode: state.mode }),
     },
   ),

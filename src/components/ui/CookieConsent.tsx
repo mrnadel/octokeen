@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Cookie } from 'lucide-react';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
-const STORAGE_KEY = 'octokeen-cookie-consent';
+const STORAGE_KEY = STORAGE_KEYS.COOKIE_CONSENT;
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);

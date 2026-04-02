@@ -6,14 +6,8 @@ import { getProfession } from '@/data/professions';
 import { toLocalDateString } from '@/lib/utils';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useIsDark } from '@/store/useThemeStore';
-
-// ─── XP target mapping ────────────────────────────────────
-const DAILY_XP_MAP: Record<number, number> = {
-  5: 40,
-  10: 80,
-  15: 120,
-  20: 200,
-};
+import { DAILY_XP_MAP } from '@/lib/game-config';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 /** Returns the daily XP target for a given dailyMinutes commitment. */
 export function getDailyXpTarget(dailyMinutes: number): number {
@@ -21,7 +15,7 @@ export function getDailyXpTarget(dailyMinutes: number): number {
 }
 
 // ─── localStorage helper ──────────────────────────────────
-const STORAGE_KEY = 'octokeen-daily-xp-start';
+const STORAGE_KEY = STORAGE_KEYS.DAILY_XP_START;
 
 interface DailyXpSnapshot {
   date: string;

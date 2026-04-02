@@ -1,4 +1,6 @@
 import type { ShopItem } from './engagement-types';
+import { DOUBLE_XP_SHOP_DURATION_MS } from './engagement-types';
+import { MAX_HEARTS } from '@/lib/game-config';
 
 export const shopItems: ShopItem[] = [
   // --------------- Power-ups ---------------
@@ -15,12 +17,12 @@ export const shopItems: ShopItem[] = [
   {
     id: 'shop-heart-refill-full',
     name: 'Full Heart Refill',
-    description: 'Restore all 5 hearts at once. Best value for heavy practice sessions.',
+    description: `Restore all ${MAX_HEARTS} hearts at once. Best value for heavy practice sessions.`,
     icon: '❤️‍🔥',
     cost: 60,
     category: 'power-up',
     type: 'heart_refill_full',
-    metadata: { heartsToRefill: 5 },
+    metadata: { heartsToRefill: MAX_HEARTS },
   },
   {
     id: 'shop-streak-freeze',
@@ -49,7 +51,7 @@ export const shopItems: ShopItem[] = [
     cost: 50,
     category: 'power-up',
     type: 'double_xp',
-    metadata: { durationMs: 30 * 60 * 1000 },
+    metadata: { durationMs: DOUBLE_XP_SHOP_DURATION_MS },
   },
 
   // --------------- Titles ---------------

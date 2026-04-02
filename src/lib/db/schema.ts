@@ -12,6 +12,8 @@ import {
   check,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { PROFESSION_ID } from '@/data/professions';
+import { MAX_HEARTS } from '@/lib/game-config';
 
 // ─── Auth.js required tables ───────────────────────────────────
 
@@ -101,7 +103,7 @@ export const userProgress = pgTable('user_progress', {
   selectedFrame: text('selected_frame'),
   doubleXpExpiry: text('double_xp_expiry'),
   // Hearts (free-tier rate-limit)
-  heartsCurrent: integer('hearts_current').default(5),
+  heartsCurrent: integer('hearts_current').default(MAX_HEARTS),
   heartsLastRechargeAt: text('hearts_last_recharge_at'),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
@@ -182,7 +184,7 @@ export const courseProgress = pgTable('course_progress', {
     >()
     .default({}),
   placementUnitIndex: integer('placement_unit_index').default(0).notNull(),
-  activeProfession: text('active_profession').default('mechanical-engineering'),
+  activeProfession: text('active_profession').default(PROFESSION_ID.MECHANICAL_ENGINEERING),
   courseIntros: jsonb('course_intros').$type<Record<string, unknown>>().default({}),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),

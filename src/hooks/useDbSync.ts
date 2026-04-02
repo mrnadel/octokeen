@@ -8,6 +8,8 @@ import { useFeedbackStore } from '@/store/useFeedbackStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { streakMilestones } from '@/data/streak-milestones';
+import { PROFESSION_ID } from '@/data/professions';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { shallow } from 'zustand/shallow';
 
 /** Track gem transactions that have already been synced to avoid double-inserting. */
@@ -113,7 +115,7 @@ export function useDbSync() {
             // (indicates localStorage was cleared)
             const dbProfession = data.activeProfession;
             const restoredProfession =
-              localProfession === 'mechanical-engineering' && dbProfession && dbProfession !== 'mechanical-engineering'
+              localProfession === PROFESSION_ID.MECHANICAL_ENGINEERING && dbProfession && dbProfession !== PROFESSION_ID.MECHANICAL_ENGINEERING
                 ? dbProfession
                 : localProfession;
 
@@ -266,7 +268,7 @@ export function useDbSync() {
 
         // Merge guest trial XP earned before registration
         try {
-          const guestData = sessionStorage.getItem('octokeen-guest-xp');
+          const guestData = sessionStorage.getItem(STORAGE_KEYS.GUEST_XP);
           if (guestData) {
             const { xp } = JSON.parse(guestData);
             if (xp > 0) {
@@ -278,7 +280,7 @@ export function useDbSync() {
                 },
               });
             }
-            sessionStorage.removeItem('octokeen-guest-xp');
+            sessionStorage.removeItem(STORAGE_KEYS.GUEST_XP);
           }
         } catch {}
       } catch (error) {

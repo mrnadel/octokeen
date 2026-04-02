@@ -34,7 +34,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://*.paddle.com",
       "img-src 'self' data: blob: https://*.googleusercontent.com https://*.paddle.com https://picsum.photos https://fastly.picsum.photos https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google",
       "font-src 'self' https://*.paddle.com",
-      "connect-src 'self' https://*.paddle.com https://*.supabase.co https://api-js.mixpanel.com https://api.mixpanel.com https://api-eu.mixpanel.com https://*.ingest.sentry.io https://public.profitwell.com https://pagead2.googlesyndication.com https://adservice.google.com https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google",
+      "connect-src 'self' https://*.paddle.com https://*.supabase.co https://api-js.mixpanel.com https://api.mixpanel.com https://api-eu.mixpanel.com https://*.ingest.sentry.io https://public.profitwell.com https://pagead2.googlesyndication.com https://adservice.google.com https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://csi.gstatic.com",
       "frame-src https://*.paddle.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google",
       "object-src 'none'",
       "base-uri 'self'",

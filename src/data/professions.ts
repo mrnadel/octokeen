@@ -12,9 +12,18 @@ export interface Profession {
   requiresAccess?: boolean;
 }
 
+export const PROFESSION_ID = {
+  MECHANICAL_ENGINEERING: 'mechanical-engineering',
+  PERSONAL_FINANCE: 'personal-finance',
+  PSYCHOLOGY: 'psychology',
+  SPACE_ASTRONOMY: 'space-astronomy',
+} as const;
+
+export type ProfessionId = (typeof PROFESSION_ID)[keyof typeof PROFESSION_ID];
+
 export const PROFESSIONS: Profession[] = [
   {
-    id: 'mechanical-engineering',
+    id: PROFESSION_ID.MECHANICAL_ENGINEERING,
     name: 'Mechanical Engineering',
     shortName: 'ME',
     icon: '\u2699\uFE0F',
@@ -25,7 +34,7 @@ export const PROFESSIONS: Profession[] = [
     requiresAccess: true,
   },
   {
-    id: 'personal-finance',
+    id: PROFESSION_ID.PERSONAL_FINANCE,
     name: 'Personal Finance',
     shortName: 'Finance',
     icon: '\uD83D\uDCB0',
@@ -35,7 +44,7 @@ export const PROFESSIONS: Profession[] = [
     questionCount: 1352,
   },
   {
-    id: 'psychology',
+    id: PROFESSION_ID.PSYCHOLOGY,
     name: 'Psychology & Human Behavior',
     shortName: 'Psychology',
     icon: '\uD83E\uDDE0',
@@ -45,7 +54,7 @@ export const PROFESSIONS: Profession[] = [
     questionCount: 657,
   },
   {
-    id: 'space-astronomy',
+    id: PROFESSION_ID.SPACE_ASTRONOMY,
     name: 'Space & Astronomy',
     shortName: 'Space',
     icon: '\uD83D\uDE80',
@@ -56,7 +65,7 @@ export const PROFESSIONS: Profession[] = [
   },
 ];
 
-export const DEFAULT_PROFESSION = 'personal-finance';
+export const DEFAULT_PROFESSION = PROFESSION_ID.PERSONAL_FINANCE;
 
 export function getProfession(id: string) {
   return PROFESSIONS.find(p => p.id === id);

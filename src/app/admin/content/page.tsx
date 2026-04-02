@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, lazy, Suspense } from 'react';
-import { PROFESSIONS } from '@/data/professions';
+import { PROFESSIONS, PROFESSION_ID } from '@/data/professions';
 import { CourseIcon } from '@/components/course/CourseIcon';
 import { ChevronRight } from 'lucide-react';
 
@@ -32,7 +32,7 @@ export default function ContentPage() {
                 <div className="font-bold text-gray-900 text-sm">{p.name}</div>
                 <div className="text-xs text-gray-400">
                   {p.unitCount} units, {p.questionCount.toLocaleString()} questions
-                  {p.id !== 'mechanical-engineering' && ' (static)'}
+                  {p.id !== PROFESSION_ID.MECHANICAL_ENGINEERING && ' (static)'}
                 </div>
               </div>
               <div
@@ -57,7 +57,7 @@ export default function ContentPage() {
           <Suspense fallback={<div className="py-8 text-center text-gray-400 text-sm">Loading editor...</div>}>
             <CourseEditor
               professionId={selectedProfession}
-              readOnly={selectedProfession !== 'mechanical-engineering'}
+              readOnly={selectedProfession !== PROFESSION_ID.MECHANICAL_ENGINEERING}
             />
           </Suspense>
         </>

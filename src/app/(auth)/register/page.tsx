@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { analytics } from '@/lib/mixpanel';
+import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
 
 function GoogleIcon() {
   return (
@@ -31,7 +32,7 @@ function GoogleIcon() {
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
-    { label: '8+ chars', met: password.length >= 8 },
+    { label: `${PASSWORD_MIN_LENGTH}+ chars`, met: password.length >= PASSWORD_MIN_LENGTH },
     { label: 'Uppercase', met: /[A-Z]/.test(password) },
     { label: 'Number', met: /\d/.test(password) },
     { label: 'Special char', met: /[^A-Za-z0-9]/.test(password) },
@@ -196,7 +197,7 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={8}
+            minLength={PASSWORD_MIN_LENGTH}
             autoComplete="new-password"
             suppressHydrationWarning
             className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
@@ -206,10 +207,10 @@ export default function RegisterPage() {
 
         <button
           type="submit"
-          disabled={loading || password.length < 8}
+          disabled={loading || password.length < PASSWORD_MIN_LENGTH}
           className="w-full py-3.5 bg-primary-500 hover:bg-primary-600 disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
           style={{
-            boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #0F766E',
+            boxShadow: loading || password.length < PASSWORD_MIN_LENGTH ? 'none' : '0 5px 0 #0F766E',
           }}
         >
           {loading ? 'Creating account...' : 'CREATE ACCOUNT'}

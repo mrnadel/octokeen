@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useThemeStore } from '@/store/useThemeStore';
+import { APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const mode = useThemeStore((s) => s.mode);
@@ -11,6 +12,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const apply = (dark: boolean) => {
       root.classList.toggle('dark', dark);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? APP_THEME_COLOR_DARK : APP_THEME_COLOR_LIGHT);
     };
 
     if (mode === 'system') {

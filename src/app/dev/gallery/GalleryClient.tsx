@@ -3,6 +3,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { scrollLockConfig } from '@/hooks/useScrollLock';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 // Real components
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
@@ -74,11 +75,11 @@ const SCREENS: ScreenDef[] = [
     id: 'trial-prompt', label: 'TrialPromptModal', section: 'Utility Modals',
     setup: () => {
       // Clear the "already shown" flag so the modal will open
-      if (typeof window !== 'undefined') localStorage.removeItem('octokeen-trial-prompt-shown');
+      if (typeof window !== 'undefined') localStorage.removeItem(STORAGE_KEYS.TRIAL_PROMPT_SHOWN);
     },
     cleanup: () => {
       // Re-set it so it doesn't pop up elsewhere
-      if (typeof window !== 'undefined') localStorage.setItem('octokeen-trial-prompt-shown', '1');
+      if (typeof window !== 'undefined') localStorage.setItem(STORAGE_KEYS.TRIAL_PROMPT_SHOWN, '1');
     },
     render: () => <TrialPromptModal />,
   },

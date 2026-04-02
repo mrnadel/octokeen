@@ -7,7 +7,8 @@ import { useScrollLock } from '@/hooks/useScrollLock';
 import { X, ArrowLeft, Rocket, Sparkles, ChevronRight } from 'lucide-react';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { useCourseStore } from '@/store/useCourseStore';
-import { getProfession } from '@/data/professions';
+import { getProfession, PROFESSION_ID } from '@/data/professions';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { analytics } from '@/lib/mixpanel';
 
 // ── Types ────────────────────────────────────────────────────
@@ -60,7 +61,7 @@ const COUNTRY_OPTIONS: { value: CountryCode; flag: string; label: string }[] = [
 ];
 
 /** Professions that show the country selection step. */
-const COUNTRY_STEP_PROFESSIONS = new Set(['personal-finance']);
+const COUNTRY_STEP_PROFESSIONS = new Set<string>([PROFESSION_ID.PERSONAL_FINANCE]);
 
 // ── Signal bars ──────────────────────────────────────────────
 
@@ -150,7 +151,7 @@ export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps)
   const handleCountrySelect = useCallback((code: CountryCode) => {
     setCountry(code);
     // Persist to localStorage immediately
-    try { localStorage.setItem('octokeen-country', code); } catch { /* SSR guard */ }
+    try { localStorage.setItem(STORAGE_KEYS.COUNTRY, code); } catch { /* SSR guard */ }
     // If authenticated, also persist to server
     if (authStatus === 'authenticated') {
       fetch('/api/user/profile', {

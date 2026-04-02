@@ -1,5 +1,7 @@
 'use client';
 
+import { PROFESSION_ID } from '@/data/professions';
+
 /**
  * Duolingo-style SVG illustrations for the course map.
  * Each unit gets a themed illustration that appears between lesson nodes.
@@ -679,8 +681,8 @@ const financeIllustrationMap: Record<number, React.FC<IllustrationProps>> = {
 };
 
 const professionMaps: Record<string, Record<number, React.FC<IllustrationProps>>> = {
-  'mechanical-engineering': meIllustrationMap,
-  'personal-finance': financeIllustrationMap,
+  [PROFESSION_ID.MECHANICAL_ENGINEERING]: meIllustrationMap,
+  [PROFESSION_ID.PERSONAL_FINANCE]: financeIllustrationMap,
 };
 
 /**

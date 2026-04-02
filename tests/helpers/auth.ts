@@ -1,5 +1,11 @@
 import { type Page } from '@playwright/test';
 
+// These must match the constants in src/lib/storage-keys.ts and src/data/professions.ts.
+// We can't import them directly since Playwright tests run outside the Next.js build.
+const PROFESSION_ME = 'mechanical-engineering';
+const STORAGE_KEY_COURSE = 'octokeen-course';
+const STORAGE_KEY_ENGAGEMENT = 'octokeen-engagement';
+
 /**
  * Seed localStorage with Zustand store defaults so the app behaves
  * as if a user has already authenticated + completed onboarding.
@@ -8,15 +14,24 @@ import { type Page } from '@playwright/test';
  * client-side flows that depend on store state.
  */
 export async function seedLocalStorage(page: Page, overrides: Record<string, unknown> = {}) {
+  const scriptData = {
+    __storageKeys: { course: STORAGE_KEY_COURSE, engagement: STORAGE_KEY_ENGAGEMENT },
+    __professionId: PROFESSION_ME,
+    ...overrides,
+  };
+
   await page.addInitScript((data) => {
+    const professionId = (data as any).__professionId;
+    const keys = (data as any).__storageKeys;
+
     // Course store: set active profession + mark intro done
     const courseStore = {
       state: {
-        activeProfession: 'mechanical-engineering',
+        activeProfession: professionId,
         progress: {
           completedLessons: {},
           unitProgress: {},
-          courseIntros: { 'mechanical-engineering': true },
+          courseIntros: { [professionId]: true },
           currentUnit: 0,
         },
         activeLesson: null,
@@ -59,14 +74,15 @@ export async function seedLocalStorage(page: Page, overrides: Record<string, unk
       version: 0,
     };
 
-    localStorage.setItem('octokeen-course-store', JSON.stringify(courseStore));
-    localStorage.setItem('octokeen-engagement', JSON.stringify(engagementStore));
+    localStorage.setItem(keys.course, JSON.stringify(courseStore));
+    localStorage.setItem(keys.engagement, JSON.stringify(engagementStore));
 
-    // Apply any overrides
+    // Apply any overrides (skip internal keys)
     for (const [key, value] of Object.entries(data)) {
+      if (key.startsWith('__')) continue;
       localStorage.setItem(key, JSON.stringify(value));
     }
-  }, overrides);
+  }, scriptData);
 }
 
 /**

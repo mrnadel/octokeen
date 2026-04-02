@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Loader2,
   ArrowLeft,
-  Heart,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/mixpanel';
@@ -15,24 +14,17 @@ import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
-import { getProfession, PROFESSIONS } from '@/data/professions';
-import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
-import LessonView from '@/components/lesson/LessonView';
-import type { SessionAdapter } from '@/components/lesson/LessonView';
-import type { Unit, CourseQuestion, CourseIntroData } from '@/data/course/types';
+import { getProfession, PROFESSIONS, PROFESSION_ID } from '@/data/professions';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
+import { getCourseMetaForProfession } from '@/data/course/course-meta';
+import type { CourseIntroData } from '@/data/course/types';
 import { Mascot } from '@/components/ui/Mascot';
+import { OnboardingPlacementTest } from '@/components/course/OnboardingPlacementTest';
 
 /* ─── Constants ─── */
 
-const STARTING_HEARTS = 3;
 const TOTAL_STEPS = 5;
-const PLACEMENT_QUESTION_COUNT = 5;
-
-const SUPPORTED_QUESTION_TYPES = new Set([
-  'multiple-choice',
-  'true-false',
-  'multi-select',
-]);
 
 /* ─── Animation Variants ─── */
 
@@ -46,7 +38,7 @@ const slideVariants = {
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
-    { label: '8+ chars', met: password.length >= 8 },
+    { label: `${PASSWORD_MIN_LENGTH}+ chars`, met: password.length >= PASSWORD_MIN_LENGTH },
     { label: 'Uppercase', met: /[A-Z]/.test(password) },
     { label: 'Number', met: /\d/.test(password) },
   ];
@@ -62,14 +54,14 @@ function PasswordStrength({ password }: { password: string }) {
               'h-1.5 sm:h-1 flex-1 rounded-full transition-colors',
               i <= score
                 ? score === 3 ? 'bg-primary-500' : score === 2 ? 'bg-primary-400' : 'bg-red-400'
-                : 'bg-gray-200'
+                : 'bg-surface-200 dark:bg-surface-700'
             )}
           />
         ))}
       </div>
       <div className="flex flex-wrap gap-2 sm:gap-3">
         {checks.map((check) => (
-          <span key={check.label} className={cn('text-xs font-bold', check.met ? 'text-primary-500' : 'text-gray-300')}>
+          <span key={check.label} className={cn('text-xs font-bold', check.met ? 'text-primary-500' : 'text-surface-400 dark:text-surface-500')}>
             {check.met ? '✓' : '•'} {check.label}
           </span>
         ))}
@@ -91,87 +83,6 @@ function GoogleIcon() {
   );
 }
 
-/* ─── Hearts Display ─── */
-
-/* ─── Out of Hearts Modal (placement version) ─── */
-
-function OutOfHeartsModal({ onRefill }: { onRefill: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6"
-    >
-      <motion.div
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-xl"
-      >
-        <div className="flex justify-center gap-1 mb-4">
-          {[0, 1, 2].map((i) => (
-            <Heart key={i} className="w-8 h-8 fill-gray-200 text-gray-200" />
-          ))}
-        </div>
-        <h3 className="text-2xl font-black text-gray-900 mb-2">Out of hearts!</h3>
-        <p className="text-gray-500 text-sm font-semibold mb-6 leading-relaxed">
-          No worries. Tap below to refill for free and keep going.
-        </p>
-        <button
-          onClick={onRefill}
-          className="w-full py-3.5 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-          style={{ boxShadow: '0 5px 0 #0F766E' }}
-        >
-          REFILL HEARTS FOR FREE
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* ─── Helpers: pick questions from a unit ─── */
-
-interface PlacementQuestion {
-  question: CourseQuestion;
-  unitIndex: number;
-  unitTitle: string;
-  unitIcon: string;
-}
-
-function pickQuestionsFromUnit(unit: Unit, unitIndex: number, count: number): PlacementQuestion[] {
-  // Gather all supported questions across all lessons (skip 'teaching' type)
-  // Prefer multiple-choice and multi-select over true-false for better placement accuracy
-  const mcQuestions: CourseQuestion[] = [];
-  const tfQuestions: CourseQuestion[] = [];
-  for (const lesson of unit.lessons) {
-    for (const q of lesson.questions) {
-      if (q.type === 'multiple-choice' || q.type === 'multi-select') {
-        mcQuestions.push(q);
-      } else if (q.type === 'true-false') {
-        tfQuestions.push(q);
-      }
-    }
-  }
-
-  // Use MC/multi-select first, fall back to true-false only if needed
-  const eligible = mcQuestions.length > 0 ? mcQuestions : tfQuestions;
-  if (eligible.length === 0) return [];
-
-  // Pick evenly spaced questions
-  const picked: PlacementQuestion[] = [];
-  const step = Math.max(1, Math.floor(eligible.length / count));
-  for (let i = 0; i < count && i * step < eligible.length; i++) {
-    picked.push({
-      question: eligible[i * step],
-      unitIndex,
-      unitTitle: unit.title,
-      unitIcon: unit.icon,
-    });
-  }
-
-  return picked;
-}
-
 /* ─── Main Component ─── */
 
 export default function GetStartedPage() {
@@ -183,25 +94,11 @@ export default function GetStartedPage() {
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
   const [selectedProfession, setSelectedProfession] = useState<string>(publicProfessions[0]?.id ?? '');
 
-  // Placement test state
-  const [placementQuestions, setPlacementQuestions] = useState<PlacementQuestion[]>([]);
-  const [placementIndex, setPlacementIndex] = useState(0);
-  const [placementAnswer, setPlacementAnswer] = useState<number[] | null>(null);
-  const [placementRevealed, setPlacementRevealed] = useState(false);
-  const [highestPassedUnit, setHighestPassedUnit] = useState(-1);
+  // Placement state
   const [placedUnitIndex, setPlacedUnitIndex] = useState(0);
-  const [loadingUnits, setLoadingUnits] = useState(false);
-  const [placementDone, setPlacementDone] = useState(false);
-  const loadingRef = useRef(false);
-
-  // Self-assessment level: determines which unit range the test draws from
-  const [testStartUnit, setTestStartUnit] = useState(0);
+  const [testStartFraction, setTestStartFraction] = useState(0);
   // Track experience level choice for CourseIntroData (0=new, 1=little, 2=fair, 3=lot)
   const [selfAssessLevel, setSelfAssessLevel] = useState<0 | 1 | 2 | 3>(0);
-
-  // Hearts
-  const [hearts, setHearts] = useState(STARTING_HEARTS);
-  const [showOutOfHearts, setShowOutOfHearts] = useState(false);
 
   // Navigation loading
   const [navigating, setNavigating] = useState(false);
@@ -228,169 +125,17 @@ export default function GetStartedPage() {
     });
   }, []);
 
-  // Track which start unit was loaded so we reload if the user picks a different level
-  const loadedForStartUnit = useRef<number | null>(null);
-
-  // Load placement test questions when entering step 2
-  useEffect(() => {
-    if (step !== 2) return;
-    if (loadingRef.current) return;
-    if (placementQuestions.length > 0 && loadedForStartUnit.current === testStartUnit) return;
-    loadingRef.current = true;
-    loadedForStartUnit.current = testStartUnit;
-    // Reset placement state for fresh test
-    setPlacementIndex(0);
-    setPlacementAnswer(null);
-    setPlacementRevealed(false);
-    setAnsweredIds(new Set());
-    submittedRef.current = new Set();
-    setHighestPassedUnit(-1);
-    setHearts(STARTING_HEARTS);
-    setPlacementDone(false);
-    setPlacementQuestions([]);
-
-    async function loadPlacementQuestions() {
-      setLoadingUnits(true);
-      const meta = getCourseMetaForProfession(selectedProfession);
-      const totalUnits = meta.length;
-      const allQuestions: PlacementQuestion[] = [];
-
-      // Sample from testStartUnit onwards, picking evenly spaced units
-      const rangeStart = testStartUnit;
-      const rangeEnd = totalUnits - 1;
-      const rangeSize = rangeEnd - rangeStart + 1;
-      const count = Math.min(PLACEMENT_QUESTION_COUNT, rangeSize);
-
-      const unitIndices: number[] = [];
-      if (rangeSize <= count) {
-        for (let i = rangeStart; i <= rangeEnd; i++) unitIndices.push(i);
-      } else {
-        for (let i = 0; i < count; i++) {
-          unitIndices.push(rangeStart + Math.round(i * (rangeSize - 1) / (count - 1)));
-        }
-      }
-
-      // Load only the selected units, pick 1 question from each
-      for (const idx of unitIndices) {
-        try {
-          const fullUnit = await loadUnitData(idx, selectedProfession);
-          const picked = pickQuestionsFromUnit(fullUnit, idx, 1);
-          allQuestions.push(...picked);
-        } catch {
-          // Skip units that fail to load
-        }
-      }
-
-      setPlacementQuestions(allQuestions);
-      setLoadingUnits(false);
-      loadingRef.current = false;
-    }
-
-    loadPlacementQuestions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, selectedProfession, testStartUnit]);
-
-  // Track answers for the adapter (state so re-renders update isCurrentAnswered)
-  const [answeredIds, setAnsweredIds] = useState<Set<string>>(new Set());
-
-  const finishPlacement = useCallback(() => {
-    const meta = getCourseMetaForProfession(selectedProfession);
-    const maxUnit = meta.length - 1;
-    // If user answered at least one question correctly, place them after the highest unit they passed.
-    // If they got nothing right, place them at the testStartUnit (the level they claimed).
-    const raw = highestPassedUnit >= 0
-      ? highestPassedUnit + 1
-      : testStartUnit;
-    // Clamp to valid range (can't place beyond the last unit)
-    const placed = Math.min(raw, maxUnit);
-    setPlacedUnitIndex(placed);
-    setPlacementDone(true);
-  }, [highestPassedUnit, testStartUnit, selectedProfession]);
-
-  // SessionAdapter submit: track correctness and hearts
-  const submittedRef = useRef<Set<string>>(new Set());
-  const handleAdapterSubmit = useCallback((questionId: string, correct: boolean) => {
-    // Guard against double-submission (prevent duplicate heart loss)
-    if (submittedRef.current.has(questionId)) return;
-    submittedRef.current.add(questionId);
-
-    setAnsweredIds(prev => {
-      const next = new Set(prev);
-      next.add(questionId);
-      return next;
-    });
-    const pq = placementQuestions.find(p => p.question.id === questionId);
-    if (correct && pq) {
-      setHighestPassedUnit((prev) => Math.max(prev, pq.unitIndex));
-    }
-    if (!correct) {
-      setHearts(prev => {
-        const next = prev - 1;
-        if (next <= 0) {
-          setTimeout(() => setShowOutOfHearts(true), 800);
-        }
-        return next;
-      });
-    }
-  }, [placementQuestions]);
-
-  // SessionAdapter next question
-  const handleAdapterNext = useCallback(() => {
-    setPlacementIndex(prev => prev + 1);
+  // Placement test complete: advance to signup step
+  const handlePlacementComplete = useCallback((unitIndex: number) => {
+    setPlacedUnitIndex(unitIndex);
+    setDirection(1);
+    setStep(3);
   }, []);
 
-  // SessionAdapter complete (all questions done)
-  const handleAdapterComplete = useCallback(() => {
-    finishPlacement();
-  }, [finishPlacement]);
-
-  // SessionAdapter exit (quit test) — go back to level selection
-  const handleAdapterExit = useCallback(() => {
+  const handlePlacementExit = useCallback(() => {
     setDirection(-1);
     setStep(1);
   }, []);
-
-  // Refill hearts and continue the placement test
-  const handleRefillHearts = () => {
-    setHearts(STARTING_HEARTS);
-    setShowOutOfHearts(false);
-  };
-
-  // Build SessionAdapter for LessonView
-  const TEST_THEME = { color: 'var(--color-primary-500)', dark: 'var(--color-primary-700)', bg: 'var(--color-primary-50)' };
-  const placementAdapter: SessionAdapter | null = useMemo(() => {
-    if (placementQuestions.length === 0 || placementIndex >= placementQuestions.length) return null;
-    const pq = placementQuestions[placementIndex];
-    if (!pq) return null;
-    return {
-      currentQuestion: pq.question,
-      answeredCount: placementIndex,
-      totalQuestions: placementQuestions.length,
-      isCurrentAnswered: answeredIds.has(pq.question.id),
-      isLastQuestion: placementIndex >= placementQuestions.length - 1,
-      unitColor: TEST_THEME.color,
-      theme: TEST_THEME,
-      isGolden: false,
-      submitAnswer: handleAdapterSubmit,
-      nextQuestion: handleAdapterNext,
-      complete: handleAdapterComplete,
-      exit: handleAdapterExit,
-      hasAnswers: placementIndex > 0,
-      flagContentType: 'lesson-question' as const,
-      exitLabel: 'Quit test',
-      exitConfirmTitle: 'Quit placement test?',
-      exitConfirmMessage: 'You\'ll be placed based on your answers so far.',
-      noHearts: true, // We handle hearts ourselves via the modal
-    };
-  }, [placementQuestions, placementIndex, answeredIds, handleAdapterSubmit, handleAdapterNext, handleAdapterComplete, handleAdapterExit]);
-
-  // When placement test finishes (aced all), go to signup
-  useEffect(() => {
-    if (placementDone) {
-      setDirection(1);
-      setStep(3);
-    }
-  }, [placementDone]);
 
   // "I'm new" handler: skip test, place at unit 0
   const handleNewUser = () => {
@@ -404,9 +149,7 @@ export default function GetStartedPage() {
   const handleLevelChoice = (startFraction: number) => {
     const levelMap: Record<number, 0 | 1 | 2 | 3> = { 0: 1, 0.3: 2, 0.6: 3 };
     setSelfAssessLevel(levelMap[startFraction] ?? 1);
-    const meta = getCourseMetaForProfession(selectedProfession);
-    const startIdx = Math.floor(startFraction * meta.length);
-    setTestStartUnit(startIdx);
+    setTestStartFraction(startFraction);
     nextStep();
   };
 
@@ -510,7 +253,7 @@ export default function GetStartedPage() {
     // Save placement before redirecting
     try {
       sessionStorage.setItem(
-        'octokeen-placement',
+        STORAGE_KEYS.PLACEMENT,
         JSON.stringify({ professionId: selectedProfession, unitIndex: placedUnitIndex })
       );
     } catch {}
@@ -541,22 +284,17 @@ export default function GetStartedPage() {
   const placedUnitName = meta[placedUnitIndex]?.title ?? `Unit ${placedUnitIndex + 1}`;
 
   return (
-    <div className="min-h-[100dvh] bg-white flex flex-col">
-      {/* Out of Hearts Modal */}
-      <AnimatePresence>
-        {showOutOfHearts && <OutOfHeartsModal onRefill={handleRefillHearts} />}
-      </AnimatePresence>
-
+    <div className="min-h-[100dvh] bg-[#FAFAFA] dark:bg-surface-950 flex flex-col">
       {/* Loading Overlay */}
       <AnimatePresence>
         {navigating && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4"
+            className="fixed inset-0 z-50 bg-[#FAFAFA] dark:bg-surface-950 flex flex-col items-center justify-center gap-4"
           >
             <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
-            <p className="text-lg font-black text-gray-900">Preparing your course...</p>
+            <p className="text-lg font-black text-surface-900 dark:text-white">Preparing your course...</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -569,18 +307,18 @@ export default function GetStartedPage() {
               key={i}
               className={cn(
                 'h-2 rounded-full flex-1 transition-all duration-500',
-                i < step ? 'bg-primary-500' : i === step ? 'bg-primary-500/60' : 'bg-gray-100'
+                i < step ? 'bg-primary-500' : i === step ? 'bg-primary-500/60' : 'bg-surface-200 dark:bg-surface-700'
               )}
             />
           ))}
         </div>
         <div className="flex items-center justify-between mt-3 max-w-lg mx-auto">
           {canGoBack ? (
-            <button onClick={prevStep} className="flex items-center gap-1 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors">
+            <button onClick={prevStep} className="flex items-center gap-1 text-sm font-bold text-surface-400 hover:text-surface-600 dark:text-surface-500 dark:hover:text-surface-300 transition-colors">
               <ArrowLeft className="w-4 h-4" /> Back
             </button>
           ) : <div />}
-          <span className="text-xs font-bold text-gray-300 tabular-nums">{step + 1} / {TOTAL_STEPS}</span>
+          <span className="text-xs font-bold text-surface-400 dark:text-surface-600 tabular-nums">{step + 1} / {TOTAL_STEPS}</span>
         </div>
       </div>
 
@@ -598,16 +336,28 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-lg mx-auto w-full"
             >
+              {/* Mascot + heading */}
               <motion.div
                 className="text-center mb-6"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2">
+                <motion.div
+                  className="flex justify-center mb-3"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.05 }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 scale-150 rounded-full bg-primary-400/10 dark:bg-primary-500/10 blur-2xl" />
+                    <Mascot pose="winking" size={100} />
+                  </div>
+                </motion.div>
+                <h2 className="text-2xl sm:text-3xl font-black text-surface-900 dark:text-white mb-1.5">
                   What do you want to learn?
                 </h2>
-                <p className="text-gray-400 text-sm sm:text-base font-semibold">
+                <p className="text-surface-500 dark:text-surface-400 text-sm sm:text-base font-semibold">
                   Pick a course to get started
                 </p>
               </motion.div>
@@ -615,7 +365,7 @@ export default function GetStartedPage() {
               <ProfessionPicker
                 selectedId={selectedProfession}
                 onSelect={setSelectedProfession}
-                filterOut={['mechanical-engineering']}
+                filterOut={[PROFESSION_ID.MECHANICAL_ENGINEERING]}
               />
 
               <motion.div
@@ -629,7 +379,7 @@ export default function GetStartedPage() {
                   disabled={!selectedProfession}
                   className={cn(
                     'w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
-                    selectedProfession ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    selectedProfession ? 'bg-primary-500 text-white' : 'bg-surface-200 dark:bg-surface-700 text-surface-400 dark:text-surface-500 cursor-not-allowed'
                   )}
                   style={{ boxShadow: selectedProfession ? '0 5px 0 #0F766E' : 'none' }}
                 >
@@ -637,7 +387,7 @@ export default function GetStartedPage() {
                 </button>
               </motion.div>
 
-              <p className="text-center text-gray-400 text-sm font-semibold mt-5">
+              <p className="text-center text-surface-500 dark:text-surface-400 text-sm font-semibold mt-5">
                 Already have an account?{' '}
                 <Link href="/login" className="text-primary-500 font-bold">Log in</Link>
               </p>
@@ -655,15 +405,26 @@ export default function GetStartedPage() {
               className="max-w-lg mx-auto w-full"
             >
               <motion.div
-                className="text-center mb-8"
+                className="text-center mb-6"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2">
+                <motion.div
+                  className="flex justify-center mb-3"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.05 }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 scale-150 rounded-full bg-primary-400/10 dark:bg-primary-500/10 blur-2xl" />
+                    <Mascot pose="thinking" size={100} />
+                  </div>
+                </motion.div>
+                <h2 className="text-2xl sm:text-3xl font-black text-surface-900 dark:text-white mb-1.5">
                   Already know some {getProfession(selectedProfession)?.name ?? 'of this'}?
                 </h2>
-                <p className="text-gray-400 text-sm sm:text-base font-semibold">
+                <p className="text-surface-500 dark:text-surface-400 text-sm sm:text-base font-semibold">
                   Take a quick test to find your starting level, or begin from scratch.
                 </p>
               </motion.div>
@@ -686,15 +447,19 @@ export default function GetStartedPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 + i * 0.06 }}
-                    className="w-full p-4 rounded-2xl border-2 border-gray-200 bg-white hover:border-primary-300 hover:bg-primary-50/30 transition-all text-left group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full p-4 rounded-2xl border-2 border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 hover:border-primary-300 dark:hover:border-primary-600 hover:bg-primary-50/30 dark:hover:bg-primary-950/30 transition-all text-left group"
                   >
                     <div className="flex items-center gap-4">
-                      <span className="text-2xl">{opt.emoji}</span>
+                      <span className="w-11 h-11 flex items-center justify-center rounded-xl bg-surface-100 dark:bg-surface-800 text-2xl group-hover:bg-primary-50 dark:group-hover:bg-primary-900/40 transition-colors">
+                        {opt.emoji}
+                      </span>
                       <div>
-                        <p className="text-base font-black text-gray-900 group-hover:text-primary-600 transition-colors">
+                        <p className="text-base font-black text-surface-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                           {opt.label}
                         </p>
-                        <p className="text-sm font-semibold text-gray-400 mt-0.5">
+                        <p className="text-sm font-semibold text-surface-500 dark:text-surface-400 mt-0.5">
                           {opt.desc}
                         </p>
                       </div>
@@ -705,48 +470,14 @@ export default function GetStartedPage() {
             </motion.div>
           )}
 
-          {/* Step 2: Placement Test — uses LessonView */}
+          {/* Step 2: Placement Test — shared component */}
           {step === 2 && (
-            <>
-              {loadingUnits ? (
-                <motion.div
-                  key="placement-loading"
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter" animate="center" exit="exit"
-                  transition={{ duration: 0.2, ease: 'easeInOut' }}
-                  className="max-w-lg mx-auto w-full"
-                >
-                  <div className="flex flex-col items-center justify-center gap-4 py-20">
-                    <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
-                    <p className="text-base font-black text-gray-900">Loading placement test...</p>
-                    <p className="text-sm font-semibold text-gray-400">Preparing questions from your course</p>
-                  </div>
-                </motion.div>
-              ) : placementQuestions.length === 0 ? (
-                <motion.div
-                  key="placement-empty"
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter" animate="center" exit="exit"
-                  transition={{ duration: 0.2, ease: 'easeInOut' }}
-                  className="max-w-lg mx-auto w-full"
-                >
-                  <div className="flex flex-col items-center justify-center gap-4 py-20">
-                    <p className="text-base font-black text-gray-900">No questions available</p>
-                    <button
-                      onClick={() => { setPlacedUnitIndex(0); setDirection(1); setStep(3); }}
-                      className="py-3 px-8 rounded-2xl bg-primary-500 text-white font-extrabold text-base transition-all active:translate-y-[2px]"
-                      style={{ boxShadow: '0 5px 0 #0F766E' }}
-                    >
-                      START FROM BASICS
-                    </button>
-                  </div>
-                </motion.div>
-              ) : placementAdapter ? (
-                <LessonView adapter={placementAdapter} />
-              ) : null}
-            </>
+            <OnboardingPlacementTest
+              professionId={selectedProfession}
+              startFraction={testStartFraction}
+              onComplete={handlePlacementComplete}
+              onExit={handlePlacementExit}
+            />
           )}
 
           {/* Step 3: Create Account */}
@@ -759,48 +490,64 @@ export default function GetStartedPage() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="max-w-sm mx-auto w-full"
             >
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-black text-gray-900 mb-1">Save your progress</h2>
-                <p className="text-gray-400 text-sm font-semibold">Create a free account to start learning</p>
-              </div>
+              <motion.div
+                className="text-center mb-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <motion.div
+                  className="flex justify-center mb-3"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.05 }}
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 scale-150 rounded-full bg-primary-400/10 dark:bg-primary-500/10 blur-2xl" />
+                    <Mascot pose="excited" size={90} />
+                  </div>
+                </motion.div>
+                <h2 className="text-2xl font-black text-surface-900 dark:text-white mb-1">Save your progress</h2>
+                <p className="text-surface-500 dark:text-surface-400 text-sm font-semibold">Create a free account to start learning</p>
+              </motion.div>
 
               <button
                 onClick={handleGoogleSignIn}
                 disabled={googleLoading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-gray-200 rounded-2xl text-gray-700 font-bold hover:border-gray-300 disabled:opacity-60 transition-colors mb-4"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white dark:bg-surface-900 border-2 border-surface-200 dark:border-surface-700 rounded-2xl text-surface-700 dark:text-surface-200 font-bold hover:border-surface-300 dark:hover:border-surface-600 disabled:opacity-60 transition-colors mb-4"
               >
                 {googleLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <GoogleIcon />}
                 {googleLoading ? 'Redirecting to Google...' : 'Continue with Google'}
               </button>
 
               <div className="flex items-center gap-4 mb-4">
-                <div className="flex-1 h-px bg-gray-200" />
-                <span className="text-xs font-bold text-gray-300 uppercase tracking-wider">or</span>
-                <div className="flex-1 h-px bg-gray-200" />
+                <div className="flex-1 h-px bg-surface-200 dark:bg-surface-700" />
+                <span className="text-xs font-bold text-surface-400 dark:text-surface-600 uppercase tracking-wider">or</span>
+                <div className="flex-1 h-px bg-surface-200 dark:bg-surface-700" />
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-3">
                 {error && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">{error}</div>
+                  <div className="p-3 bg-danger-50 dark:bg-danger-900/30 border border-danger-200 dark:border-danger-800 rounded-xl text-danger-600 dark:text-danger-400 text-sm text-center font-semibold">{error}</div>
                 )}
                 <input type="text" placeholder="Name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required minLength={2} maxLength={50}
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
+                  className="w-full px-4 py-3.5 bg-surface-50 dark:bg-surface-800 border-2 border-surface-200 dark:border-surface-700 rounded-2xl text-surface-900 dark:text-white font-semibold placeholder-surface-400 dark:placeholder-surface-500 focus:outline-none focus:border-primary-500 focus:bg-white dark:focus:bg-surface-800 transition-colors" />
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required
-                  className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
+                  className="w-full px-4 py-3.5 bg-surface-50 dark:bg-surface-800 border-2 border-surface-200 dark:border-surface-700 rounded-2xl text-surface-900 dark:text-white font-semibold placeholder-surface-400 dark:placeholder-surface-500 focus:outline-none focus:border-primary-500 focus:bg-white dark:focus:bg-surface-800 transition-colors" />
                 <div>
-                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}
-                    className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-900 font-semibold placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:bg-white transition-colors" />
+                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={PASSWORD_MIN_LENGTH}
+                    className="w-full px-4 py-3.5 bg-surface-50 dark:bg-surface-800 border-2 border-surface-200 dark:border-surface-700 rounded-2xl text-surface-900 dark:text-white font-semibold placeholder-surface-400 dark:placeholder-surface-500 focus:outline-none focus:border-primary-500 focus:bg-white dark:focus:bg-surface-800 transition-colors" />
                   <PasswordStrength password={password} />
                 </div>
-                <button type="submit" disabled={loading || password.length < 8}
+                <button type="submit" disabled={loading || password.length < PASSWORD_MIN_LENGTH}
                   className={cn('w-full py-3.5 rounded-2xl font-extrabold text-base transition-all active:translate-y-[2px]',
-                    loading || password.length < 8 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary-500 text-white')}
-                  style={{ boxShadow: loading || password.length < 8 ? 'none' : '0 5px 0 #0F766E' }}>
+                    loading || password.length < PASSWORD_MIN_LENGTH ? 'bg-surface-200 dark:bg-surface-700 text-surface-400 dark:text-surface-500 cursor-not-allowed' : 'bg-primary-500 text-white')}
+                  style={{ boxShadow: loading || password.length < PASSWORD_MIN_LENGTH ? 'none' : '0 5px 0 #0F766E' }}>
                   {loading ? <span className="flex items-center justify-center gap-2"><Loader2 className="w-5 h-5 animate-spin" />Creating account...</span> : 'CREATE ACCOUNT'}
                 </button>
               </form>
 
-              <p className="text-center text-gray-400 text-sm font-semibold mt-5">
+              <p className="text-center text-surface-500 dark:text-surface-400 text-sm font-semibold mt-5">
                 Already have an account?{' '}<Link href="/login" className="text-primary-500 font-bold">Log in</Link>
               </p>
             </motion.div>
@@ -820,7 +567,7 @@ export default function GetStartedPage() {
                 <Mascot pose="celebrating" size={140} />
               </motion.div>
 
-              <motion.h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <motion.h2 className="text-2xl sm:text-3xl font-black text-surface-900 dark:text-white mb-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 You&apos;re all set!
               </motion.h2>
 
@@ -831,18 +578,18 @@ export default function GetStartedPage() {
                   transition={{ delay: 0.3 }}
                   className="mb-6"
                 >
-                  <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-500/10 mb-3">
+                  <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-500/10 dark:bg-primary-500/20 mb-3">
                     <span className="text-lg">{meta[placedUnitIndex]?.icon ?? '\uD83C\uDFAF'}</span>
-                    <span className="text-base font-black text-primary-600">
+                    <span className="text-base font-black text-primary-600 dark:text-primary-400">
                       Unit {placedUnitIndex + 1}{placedUnitName !== `Unit ${placedUnitIndex + 1}` ? `: ${placedUnitName}` : ''}
                     </span>
                   </div>
-                  <p className="text-gray-500 text-sm font-semibold leading-relaxed">
+                  <p className="text-surface-500 dark:text-surface-400 text-sm font-semibold leading-relaxed">
                     You placed into Unit {placedUnitIndex + 1}! We skipped {placedUnitIndex} {placedUnitIndex === 1 ? 'unit' : 'units'} based on your test.
                   </p>
                 </motion.div>
               ) : (
-                <motion.p className="text-gray-500 text-base mb-6 leading-relaxed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                <motion.p className="text-surface-500 dark:text-surface-400 text-base mb-6 leading-relaxed" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                   Dive in and master {getProfession(selectedProfession)?.name ?? 'your course'}!
                 </motion.p>
               )}

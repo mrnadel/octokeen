@@ -38,7 +38,7 @@ export default function PlacementTestView() {
       exitConfirmTitle: 'Quit placement test?',
       exitConfirmMessage:
         'Your test progress will be lost and the unit will remain locked.',
-      noHearts: true,
+      noHearts: false,
     };
   }, [test, submit, next, complete, exit]);
 

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 interface SoundState {
   enabled: boolean;
@@ -17,7 +18,7 @@ export const useSoundStore = create<SoundState>()(
       setVolume: (volume) => set({ volume: Math.max(0, Math.min(1, volume)) }),
     }),
     {
-      name: 'octokeen-sound',
+      name: STORAGE_KEYS.SOUND,
       partialize: (state) => ({ enabled: state.enabled, volume: state.volume }),
     },
   ),

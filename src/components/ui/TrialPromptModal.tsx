@@ -10,8 +10,9 @@ import { analytics } from '@/lib/mixpanel';
 import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
-const SHOWN_KEY = 'octokeen-trial-prompt-shown';
+const SHOWN_KEY = STORAGE_KEYS.TRIAL_PROMPT_SHOWN;
 
 export function TrialPromptModal() {
   const [isOpen, setIsOpen] = useState(false);

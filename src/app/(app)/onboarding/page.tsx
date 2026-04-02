@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, Zap, Heart, Trophy, Flame } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { analytics } from '@/lib/mixpanel';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
-const ONBOARDED_KEY = 'octokeen-onboarded';
+const ONBOARDED_KEY = STORAGE_KEYS.ONBOARDED;
 
 const STEPS = [
   {

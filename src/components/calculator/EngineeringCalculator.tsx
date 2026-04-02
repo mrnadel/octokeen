@@ -4,6 +4,7 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { evaluate } from './calcEngine';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 interface Props {
   isOpen: boolean;
@@ -17,7 +18,7 @@ interface HistoryEntry {
   result: string;
 }
 
-const STORAGE_KEY = 'calc-history';
+const STORAGE_KEY = STORAGE_KEYS.CALC_HISTORY;
 
 function loadHistory(): HistoryEntry[] {
   if (typeof window === 'undefined') return [];

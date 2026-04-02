@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { PROFESSION_ID } from '@/data/professions';
 
 const COURSE_ICONS: Record<string, string> = {
-  'mechanical-engineering': '/badges/course-mechanical-engineering.png',
-  'personal-finance': '/badges/course-personal-finance.png',
-  'psychology': '/badges/course-psychology.png',
-  'space-astronomy': '/badges/course-space-astronomy.png',
+  [PROFESSION_ID.MECHANICAL_ENGINEERING]: '/badges/course-mechanical-engineering.png',
+  [PROFESSION_ID.PERSONAL_FINANCE]: '/badges/course-personal-finance.png',
+  [PROFESSION_ID.PSYCHOLOGY]: '/badges/course-psychology.png',
+  [PROFESSION_ID.SPACE_ASTRONOMY]: '/badges/course-space-astronomy.png',
 };
 
 interface CourseIconProps {

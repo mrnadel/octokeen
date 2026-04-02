@@ -275,7 +275,7 @@ export function StreakScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <MascotWithGlow pose={mascotPose} size={110} flame={currentStreak > 0 && isActiveToday} />
+          <MascotWithGlow pose={mascotPose} size={110} />
 
           <div className="flex items-baseline gap-2 mt-3">
             <StreakFlame state={flameState} size={36} />

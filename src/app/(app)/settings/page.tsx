@@ -21,6 +21,8 @@ import { useMasteryStore } from '@/store/useMasteryStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useSoundStore } from '@/store/useSoundStore';
 import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -157,14 +159,14 @@ export default function SettingsPage() {
   const [regionSearch, setRegionSearch] = useState('');
 
   useEffect(() => {
-    const stored = localStorage.getItem('octokeen-country');
+    const stored = localStorage.getItem(STORAGE_KEYS.COUNTRY);
     if (stored) setSelectedCountry(stored);
   }, []);
 
   const handleCountryChange = useCallback(async (code: string) => {
     setSelectedCountry(code);
     setShowRegionPicker(false);
-    localStorage.setItem('octokeen-country', code);
+    localStorage.setItem(STORAGE_KEYS.COUNTRY, code);
     if (session?.user) {
       try {
         await fetch('/api/user/profile', {
@@ -347,7 +349,7 @@ export default function SettingsPage() {
                         />
                         <input
                           type="password" placeholder="New password (8+ characters)" value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)} required minLength={8}
+                          onChange={(e) => setNewPassword(e.target.value)} required minLength={PASSWORD_MIN_LENGTH}
                           className="w-full px-3 py-2.5 bg-gray-50 dark:bg-surface-700 border border-gray-200 dark:border-surface-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all text-gray-800 dark:text-surface-100"
                         />
                         <button

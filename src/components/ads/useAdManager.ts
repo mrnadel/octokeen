@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 // Show an interstitial every N lesson/session completions
 const AD_FREQUENCY = 2;
@@ -34,7 +35,7 @@ const useAdStore = create<AdState>()(
       },
     }),
     {
-      name: 'octokeen-ads',
+      name: STORAGE_KEYS.ADS,
       partialize: (state) => ({
         completionsSinceLastAd: state.completionsSinceLastAd,
         lastAdShownAt: state.lastAdShownAt,

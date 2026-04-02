@@ -5,7 +5,7 @@ import { AuthSessionProvider } from '@/components/providers/SessionProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
-import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR } from '@/lib/constants';
+import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR, APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
 import './globals.css';
 
 const nunito = Nunito({
@@ -145,7 +145,7 @@ export default function RootLayout({
       <body className="min-h-screen">
         {/* Prevent FOUC: apply dark class before first paint */}
         <script
-          dangerouslySetInnerHTML={{ __html: `(function(){try{var d=JSON.parse(localStorage.getItem('octokeen-theme')||'{}');var m=d&&d.state&&d.state.mode;if(m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()` }}
+          dangerouslySetInnerHTML={{ __html: `(function(){try{var d=JSON.parse(localStorage.getItem('octokeen-theme')||'{}');var m=d&&d.state&&d.state.mode;var dk=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);if(dk){document.documentElement.classList.add('dark');var t=document.querySelector('meta[name="theme-color"]');if(t)t.setAttribute('content','${APP_THEME_COLOR_DARK}')}}catch(e){}})()` }}
         />
         <script
           type="application/ld+json"

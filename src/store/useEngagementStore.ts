@@ -3,6 +3,8 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
 import type {
   EngagementState,
   GemsState,
@@ -829,7 +831,7 @@ export const useEngagementStore = create<EngagementStore>()(
         },
       }),
       {
-        name: 'octokeen-engagement',
+        name: STORAGE_KEYS.ENGAGEMENT,
         version: 1,
         partialize: (state) => {
           // Persist all state fields, excluding action functions
@@ -925,10 +927,10 @@ export const useDoubleXpActive = () =>
     if (isNaN(expiry) || expiry <= Date.now()) return false;
     // Anti-tamper: expiry must not exceed max duration from now
     // (max possible = DOUBLE_XP_SHOP_DURATION_MS + small buffer for timing)
-    const maxAllowed = Date.now() + DOUBLE_XP_SHOP_DURATION_MS + 5000;
+    const maxAllowed = Date.now() + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS;
     if (expiry > maxAllowed) return false;
     // Must have a recent shop_purchase transaction (within last 35 min)
-    const recentCutoff = Date.now() - (DOUBLE_XP_SHOP_DURATION_MS + 5 * 60 * 1000);
+    const recentCutoff = Date.now() - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
     const hasRecentPurchase = s.gems.transactions.some(
       (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
     );

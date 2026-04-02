@@ -3,6 +3,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
+import { MAX_HEARTS, HEART_REGEN_INTERVAL_MS } from '@/lib/game-config';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 interface HeartsState {
   current: number;
@@ -30,10 +32,10 @@ function getEffectiveTier() {
 export const useHeartsStore = create<HeartsState>()(
   persist(
     (set, get) => ({
-      current: 5,
-      max: 5,
+      current: MAX_HEARTS,
+      max: MAX_HEARTS,
       lastRechargeAt: Date.now(),
-      rechargeIntervalMs: 14400000, // 4 hours
+      rechargeIntervalMs: HEART_REGEN_INTERVAL_MS,
 
       rechargeHearts: () => {
         if (getEffectiveTier() === 'pro') return; // Pro doesn't need recharging
@@ -83,7 +85,7 @@ export const useHeartsStore = create<HeartsState>()(
       isUnlimited: () => getEffectiveTier() === 'pro',
     }),
     {
-      name: 'octokeen-hearts',
+      name: STORAGE_KEYS.HEARTS,
       partialize: (state) => ({
         current: state.current,
         max: state.max,

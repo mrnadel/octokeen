@@ -1,5 +1,9 @@
 import { TOTAL_TOPICS, type Difficulty, type QuestionType } from '@/data/types';
 import { getTodayDate } from '@/lib/quest-engine';
+import {
+  BASE_XP, INCORRECT_ANSWER_XP_RATE, SPEED_BONUS, CONFIDENCE_BONUS,
+  MASTERY_VOLUME_CAP, INTERVIEW_READINESS,
+} from '@/lib/game-config';
 
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -87,35 +91,31 @@ export function getQuestionTypeIcon(type: QuestionType): string {
 }
 
 export function calculateXP(question: { difficulty: Difficulty }, correct: boolean, timeSpent: number, confidence?: number): number {
-  if (!correct) return Math.round(baseXPForDifficulty(question.difficulty) * 0.15);
+  if (!correct) return Math.round(baseXPForDifficulty(question.difficulty) * INCORRECT_ANSWER_XP_RATE);
 
   let xp = baseXPForDifficulty(question.difficulty);
 
   // Speed bonus: up to 30% extra for quick answers
-  if (timeSpent < 15) xp *= 1.3;
-  else if (timeSpent < 30) xp *= 1.15;
+  if (timeSpent < SPEED_BONUS.FAST_THRESHOLD_S) xp *= SPEED_BONUS.FAST_MULTIPLIER;
+  else if (timeSpent < SPEED_BONUS.MEDIUM_THRESHOLD_S) xp *= SPEED_BONUS.MEDIUM_MULTIPLIER;
 
   // Confidence calibration bonus
   if (confidence !== undefined) {
-    if (confidence >= 4 && correct) xp *= 1.1; // confident and correct
-    if (confidence <= 2 && correct) xp *= 1.2; // surprised yourself (learning moment)
+    if (confidence >= 4 && correct) xp *= CONFIDENCE_BONUS.CORRECT_CONFIDENT;
+    if (confidence <= 2 && correct) xp *= CONFIDENCE_BONUS.CORRECT_SURPRISED;
   }
 
   return Math.round(xp);
 }
 
 function baseXPForDifficulty(difficulty: Difficulty): number {
-  switch (difficulty) {
-    case 'beginner': return 20;
-    case 'intermediate': return 35;
-    case 'advanced': return 55;
-  }
+  return BASE_XP[difficulty];
 }
 
 export function calculateMastery(attempted: number, correct: number, recency: number = 1): number {
   if (attempted === 0) return 0;
   const accuracy = correct / attempted;
-  const volume = Math.min(attempted / 20, 1); // caps at 20 questions
+  const volume = Math.min(attempted / MASTERY_VOLUME_CAP, 1);
   return Math.round(accuracy * volume * recency * 100);
 }
 
@@ -155,12 +155,12 @@ export function getInterviewReadiness(topicProgress: Record<string, { accuracy: 
   const topics = Object.values(topicProgress);
   if (topics.length === 0) return 0;
 
-  const weights = { coverage: 0.3, accuracy: 0.4, depth: 0.3 };
+  const { WEIGHTS, MIN_COVERAGE_ATTEMPTS, MIN_DEPTH_ATTEMPTS } = INTERVIEW_READINESS;
   const totalTopics = TOTAL_TOPICS;
 
-  const coverage = topics.filter(t => t.attempted >= 5).length / totalTopics;
+  const coverage = topics.filter(t => t.attempted >= MIN_COVERAGE_ATTEMPTS).length / totalTopics;
   const avgAccuracy = topics.reduce((sum, t) => sum + (t.attempted > 0 ? t.accuracy : 0), 0) / Math.max(topics.length, 1);
-  const depth = topics.filter(t => t.attempted >= 15).length / totalTopics;
+  const depth = topics.filter(t => t.attempted >= MIN_DEPTH_ATTEMPTS).length / totalTopics;
 
-  return Math.round((coverage * weights.coverage + avgAccuracy * weights.accuracy + depth * weights.depth) * 100);
+  return Math.round((coverage * WEIGHTS.coverage + avgAccuracy * WEIGHTS.accuracy + depth * WEIGHTS.depth) * 100);
 }

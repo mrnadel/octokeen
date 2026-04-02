@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { Search, ChevronUp, ChevronDown, Trash2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { PROFESSION_ID } from '@/data/professions';
 
 interface AdminUser {
   id: string;
@@ -91,15 +92,15 @@ export default function AdminUsersPage() {
       const res = await fetch('/api/admin/course-access', {
         method: hasAccess ? 'DELETE' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, professionId: 'mechanical-engineering' }),
+        body: JSON.stringify({ userId, professionId: PROFESSION_ID.MECHANICAL_ENGINEERING }),
       });
       if (res.ok) {
         setUsers((prev) =>
           prev.map((u) => {
             if (u.id !== userId) return u;
             const access = hasAccess
-              ? u.courseAccess.filter((c) => c !== 'mechanical-engineering')
-              : [...u.courseAccess, 'mechanical-engineering'];
+              ? u.courseAccess.filter((c) => c !== PROFESSION_ID.MECHANICAL_ENGINEERING)
+              : [...u.courseAccess, PROFESSION_ID.MECHANICAL_ENGINEERING];
             return { ...u, courseAccess: access };
           })
         );
@@ -497,15 +498,15 @@ export default function AdminUsersPage() {
                                 : 'Grant'}
                           </button>
                           <button
-                            onClick={() => toggleMeAccess(user.id, user.courseAccess.includes('mechanical-engineering'))}
+                            onClick={() => toggleMeAccess(user.id, user.courseAccess.includes(PROFESSION_ID.MECHANICAL_ENGINEERING))}
                             disabled={updating === user.id}
                             className={cn(
                               'text-[11px] font-bold px-2.5 py-1.5 min-h-[32px] rounded-lg transition-colors disabled:opacity-50',
-                              user.courseAccess.includes('mechanical-engineering')
+                              user.courseAccess.includes(PROFESSION_ID.MECHANICAL_ENGINEERING)
                                 ? 'bg-blue-50 text-blue-600 hover:bg-blue-100'
                                 : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
                             )}
-                            title={user.courseAccess.includes('mechanical-engineering') ? 'Revoke ME access' : 'Grant ME access'}
+                            title={user.courseAccess.includes(PROFESSION_ID.MECHANICAL_ENGINEERING) ? 'Revoke ME access' : 'Grant ME access'}
                           >
                             ME
                           </button>
@@ -604,11 +605,11 @@ export default function AdminUsersPage() {
                           : 'Grant'}
                     </button>
                     <button
-                      onClick={() => toggleMeAccess(user.id, user.courseAccess.includes('mechanical-engineering'))}
+                      onClick={() => toggleMeAccess(user.id, user.courseAccess.includes(PROFESSION_ID.MECHANICAL_ENGINEERING))}
                       disabled={updating === user.id}
                       className={cn(
                         'text-[11px] font-bold px-2.5 py-2 min-h-[44px] rounded-lg transition-colors disabled:opacity-50',
-                        user.courseAccess.includes('mechanical-engineering')
+                        user.courseAccess.includes(PROFESSION_ID.MECHANICAL_ENGINEERING)
                           ? 'bg-blue-50 text-blue-600 hover:bg-blue-100'
                           : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
                       )}

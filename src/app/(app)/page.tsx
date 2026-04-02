@@ -10,6 +10,7 @@ import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagemen
 import { streakMilestones } from '@/data/streak-milestones';
 import { useFeatureFlag } from '@/hooks/useFeatureFlags';
 import { analytics } from '@/lib/mixpanel';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 // Lazy-load heavy components that are conditionally rendered
 const LandingPage = lazy(() => import('@/components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
@@ -27,6 +28,7 @@ const CourseCompleteCelebration = lazy(() => import('@/components/engagement/Cou
 const PlacementTestView = lazy(() => import('@/components/course/PlacementTestView'));
 const PlacementTestResult = lazy(() => import('@/components/course/PlacementTestResult'));
 const CourseIntroFlow = lazy(() => import('@/components/course/CourseIntroFlow').then(m => ({ default: m.CourseIntroFlow })));
+const OnboardingPlacementTest = lazy(() => import('@/components/course/OnboardingPlacementTest').then(m => ({ default: m.OnboardingPlacementTest })));
 
 export default function HomePage() {
   const { status } = useSession();
@@ -44,8 +46,6 @@ export default function HomePage() {
   const completeCourseIntro = useCourseStore((s) => s.completeCourseIntro);
   const courseIntros = useCourseStore((s) => s.progress.courseIntros);
   const startLesson = useCourseStore((s) => s.startLesson);
-  const startPlacementTest = useCourseStore((s) => s.startPlacementTest);
-  const courseData = useCourseStore((s) => s.courseData);
   const currentStreak = useStore((s) => s.progress.currentStreak);
   const milestonesReached = useEngagementStore((s) => s.streak.milestonesReached);
   const addGems = useEngagementStore((s) => s.addGems);
@@ -63,9 +63,9 @@ export default function HomePage() {
   // Apply pending placement from get-started flow (Google sign-in redirect)
   useEffect(() => {
     try {
-      const raw = sessionStorage.getItem('octokeen-placement');
+      const raw = sessionStorage.getItem(STORAGE_KEYS.PLACEMENT);
       if (!raw) return;
-      sessionStorage.removeItem('octokeen-placement');
+      sessionStorage.removeItem(STORAGE_KEYS.PLACEMENT);
       const { professionId, unitIndex } = JSON.parse(raw);
       if (professionId) setActiveProfession(professionId);
       if (unitIndex > 0) {
@@ -77,12 +77,38 @@ export default function HomePage() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Course intro flow: show when user hasn't completed intro for current profession
-  // Skip for existing users who already have lesson progress (pre-feature migration)
+  // Check progress for the ACTIVE course only — so switching to a new course triggers the intro
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
-  const hasExistingProgress = Object.keys(completedLessons).length > 0;
-  const hasIntro = !!courseIntros?.[activeProfession];
+  const courseData = useCourseStore((s) => s.courseData);
+  const hasProgressInCurrentCourse = useMemo(() => {
+    for (const unit of courseData) {
+      for (const lesson of unit.lessons) {
+        if (completedLessons[lesson.id]) return true;
+      }
+    }
+    return false;
+  }, [courseData, completedLessons]);
+  const introData = courseIntros?.[activeProfession];
+  const hasIntro = !!introData;
   const [introDismissed, setIntroDismissed] = useState(false);
-  const showCourseIntro = flagIntroFlow && !introDismissed && !hasExistingProgress && !hasIntro;
+
+  // Inline placement test after course intro (same test as onboarding)
+  const [introPlacementConfig, setIntroPlacementConfig] = useState<{ startFraction: number } | null>(null);
+
+  // Reset dismiss + placement config when switching to a different profession
+  useEffect(() => { setIntroDismissed(false); setIntroPlacementConfig(null); }, [activeProfession]);
+
+  // No progress in current course → show intro (first time) or placement test (returning)
+  const showCourseIntro = flagIntroFlow && !introDismissed && !hasProgressInCurrentCourse && !hasIntro;
+
+  // If intro was already done but user never completed a lesson, jump straight to placement test
+  useEffect(() => {
+    if (!flagIntroFlow || introDismissed || hasProgressInCurrentCourse || !hasIntro || introPlacementConfig) return;
+    // Use stored experience level to determine start fraction
+    const fractionMap: Record<number, number> = { 0: 0, 1: 0, 2: 0.3, 3: 0.6 };
+    const startFraction = fractionMap[introData?.experienceLevel ?? 0] ?? 0;
+    setIntroPlacementConfig({ startFraction });
+  }, [flagIntroFlow, introDismissed, hasProgressInCurrentCourse, hasIntro, introPlacementConfig, introData]);
 
   // Detect streak milestone to show
   const [shownMilestone, setShownMilestone] = useState<number | null>(null);
@@ -152,38 +178,48 @@ export default function HomePage() {
   return (
     <>
       {/* Course intro flow for new professions */}
-      {showCourseIntro && (
+      {showCourseIntro && !introPlacementConfig && (
         <Suspense fallback={null}>
           <CourseIntroFlow
             onComplete={(data) => {
               completeCourseIntro(activeProfession, data);
 
               if (data.placementChoice === 'test' || data.placementChoice === 'advanced') {
-                // Find the highest unit that actually has content (questions) to test with
-                const ratio = data.placementChoice === 'advanced' ? 0.6 : 0.5;
-                const idealTarget = Math.min(
-                  Math.max(1, Math.floor(courseData.length * ratio)),
-                  courseData.length - 1,
-                );
-                // Walk backwards to find a unit that has lessons with questions
-                let target = idealTarget;
-                while (target > 0) {
-                  const unit = courseData[target - 1]; // test questions come from units BEFORE target
-                  if (unit?.lessons.some(l => l.questions.length > 0)) break;
-                  target--;
-                }
-                if (target > 0) {
-                  startPlacementTest(target);
-                } else {
-                  // No testable content, just start from scratch
-                  startLesson(0, 0);
-                }
+                // Map experience level → start fraction (same as onboarding)
+                const fractionMap: Record<number, number> = { 1: 0, 2: 0.3, 3: 0.6 };
+                const startFraction = fractionMap[data.experienceLevel] ?? 0;
+                setIntroPlacementConfig({ startFraction });
               } else {
                 startLesson(0, 0);
               }
             }}
             onDismiss={() => setIntroDismissed(true)}
           />
+        </Suspense>
+      )}
+
+      {/* Inline placement test after course intro (same test as onboarding) */}
+      {introPlacementConfig && (
+        <Suspense fallback={null}>
+          <div className="fixed inset-0 z-[60] bg-[#FAFAFA] dark:bg-surface-950">
+            <OnboardingPlacementTest
+              professionId={activeProfession}
+              startFraction={introPlacementConfig.startFraction}
+              onComplete={(unitIndex) => {
+                setIntroPlacementConfig(null);
+                setIntroDismissed(true);
+                if (unitIndex > 0) {
+                  useCourseStore.setState((s) => ({
+                    progress: { ...s.progress, placementUnitIndex: unitIndex },
+                  }));
+                }
+              }}
+              onExit={() => {
+                setIntroPlacementConfig(null);
+                setIntroDismissed(true);
+              }}
+            />
+          </div>
         </Suspense>
       )}
 

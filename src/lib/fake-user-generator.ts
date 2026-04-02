@@ -4,6 +4,7 @@ import { fakeNames } from '@/data/fake-names';
 import { competitorFlags } from '@/data/league';
 import { topics } from '@/data/topics';
 import { seededRandom, hashSeed, getTierConfig } from '@/lib/league-simulator';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 /** Number of simulated competitors per league bracket */
 export const LEAGUE_COMPETITOR_COUNT = 29;
@@ -12,7 +13,7 @@ import { getCurrentWeekMonday } from '@/lib/quest-engine';
 // --------------- Constants ---------------
 
 const POOL_VERSION = 4; // v4: ~20% avatars with random photos (picsum), 80% initials only
-const POOL_STORAGE_KEY = 'octokeen-fake-users';
+const POOL_STORAGE_KEY = STORAGE_KEYS.FAKE_USERS_POOL;
 const MAX_POOL_SIZE = 300;
 
 const TIER_POOL_SIZES: Record<number, number> = {

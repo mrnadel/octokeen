@@ -41,32 +41,35 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
             whileHover={isDisabled ? undefined : { scale: 1.02 }}
             whileTap={isDisabled ? undefined : { scale: 0.98 }}
             className={cn(
-              'relative text-left rounded-2xl border-2 transition-all duration-200',
+              'relative text-left rounded-2xl border-2 transition-all duration-200 overflow-hidden',
               compact ? 'p-3' : 'p-4 sm:p-5',
               isDisabled && 'opacity-50 cursor-not-allowed',
               isActive
-                ? 'bg-white shadow-lg'
-                : 'bg-white hover:shadow-md border-gray-200 hover:border-gray-300'
+                ? 'shadow-lg border-transparent'
+                : 'bg-white dark:bg-surface-900 hover:shadow-md border-surface-200 dark:border-surface-700 hover:border-surface-300 dark:hover:border-surface-600'
             )}
             style={
               isActive
-                ? { borderColor: profession.color, boxShadow: `0 4px 20px ${profession.color}20` }
+                ? {
+                    borderColor: profession.color,
+                    backgroundColor: `${profession.color}08`,
+                    boxShadow: `0 4px 20px ${profession.color}18`,
+                  }
                 : undefined
             }
           >
-            {/* Active indicator ring */}
-            {isActive && (
-              <motion.div
-                layoutId="profession-ring"
-                className="absolute inset-0 rounded-2xl"
-                style={{ boxShadow: `0 0 0 2px ${profession.color}` }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              />
-            )}
+            {/* Left accent bar */}
+            <div
+              className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl transition-all duration-200"
+              style={{
+                backgroundColor: isActive ? profession.color : 'transparent',
+                opacity: isActive ? 1 : 0,
+              }}
+            />
 
             {/* Coming Soon / Access Required badge */}
             {profession.isComingSoon && (
-              <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-gray-100 text-gray-400 text-[10px] font-black uppercase tracking-wider">
+              <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-400 dark:text-surface-500 text-[10px] font-black uppercase tracking-wider">
                 Coming Soon
               </span>
             )}
@@ -93,7 +96,7 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
               <div className="flex-1 min-w-0">
                 <h3
                   className={cn(
-                    'font-black text-gray-900 leading-tight',
+                    'font-black text-surface-900 dark:text-white leading-tight',
                     compact ? 'text-sm' : 'text-base sm:text-lg'
                   )}
                 >
@@ -101,7 +104,7 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
                 </h3>
 
                 {!compact && (
-                  <p className="text-sm text-gray-400 font-medium mt-0.5 leading-snug">
+                  <p className="text-sm text-surface-500 dark:text-surface-400 font-medium mt-0.5 leading-snug">
                     {profession.description}
                   </p>
                 )}

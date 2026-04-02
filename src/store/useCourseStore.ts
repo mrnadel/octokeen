@@ -3,6 +3,9 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
+import { PROFESSION_ID } from '@/data/professions';
+import { SESSION_SIZE as SESSION_SIZE_CONFIG, STAR_THRESHOLDS, DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { topics } from '@/data/topics';
 import { toLocalDateString, getYesterdayString, shuffleArray } from '@/lib/utils';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
@@ -15,6 +18,7 @@ import { generatePlacementQuestions, getFirstIncompleteUnitIndex, getMaxMistakes
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
+import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
 import { getLevelForXp } from '@/data/levels';
 import { getLevelReward, type LevelReward } from '@/data/level-rewards';
 
@@ -35,7 +39,7 @@ function isLessonContentLoaded(lesson: Lesson): boolean {
   }
 }
 
-const MAX_SESSION_QUESTIONS = 10;
+const MAX_SESSION_QUESTIONS = SESSION_SIZE_CONFIG;
 
 /** Get gradable item IDs for the session based on lesson type. */
 function getSessionIds(lesson: Lesson): string[] {
@@ -142,11 +146,11 @@ function getTodayString(): string {
   return toLocalDateString(new Date());
 }
 
-const SESSION_SIZE = 10;
+const SESSION_SIZE = SESSION_SIZE_CONFIG;
 
 function calculateStars(accuracy: number): number {
-  if (accuracy >= 90) return 3;
-  if (accuracy >= 50) return 2;
+  if (accuracy >= STAR_THRESHOLDS.THREE_STARS) return 3;
+  if (accuracy >= STAR_THRESHOLDS.TWO_STARS) return 2;
   return 1;
 }
 
@@ -174,8 +178,8 @@ export const useCourseStore = create<CourseState>()(
   persist(
     (set, get) => ({
       progress: getDefaultProgress(),
-      courseData: getCourseMetaForProfession('mechanical-engineering') as Unit[],
-      activeProfession: 'mechanical-engineering',
+      courseData: getCourseMetaForProfession(PROFESSION_ID.MECHANICAL_ENGINEERING) as Unit[],
+      activeProfession: PROFESSION_ID.MECHANICAL_ENGINEERING,
       activeLesson: null,
       lessonResult: null,
       chapterJustCompleted: null,
@@ -387,8 +391,8 @@ export const useCourseStore = create<CourseState>()(
         if (doubleXpExpiry) {
           const expiry = new Date(doubleXpExpiry).getTime();
           const now = Date.now();
-          if (!isNaN(expiry) && expiry > now && expiry <= now + 30 * 60 * 1000 + 5000) {
-            const recentCutoff = now - (30 * 60 * 1000 + 5 * 60 * 1000);
+          if (!isNaN(expiry) && expiry > now && expiry <= now + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS) {
+            const recentCutoff = now - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
             isDoubleXp = engState.gems.transactions.some(
               (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
             );
@@ -1170,7 +1174,7 @@ export const useCourseStore = create<CourseState>()(
       },
     }),
     {
-      name: 'octokeen-course',
+      name: STORAGE_KEYS.COURSE,
       version: 1,
       partialize: (state) => ({ progress: state.progress, activeProfession: state.activeProfession }),
       merge: (persistedState, currentState) => {
@@ -1260,7 +1264,7 @@ export const useCourseStore = create<CourseState>()(
           }
         }
 
-        const restoredProfession = persisted.activeProfession ?? 'mechanical-engineering';
+        const restoredProfession = persisted.activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING;
 
         return {
           ...currentState,
@@ -1275,6 +1279,7 @@ export const useCourseStore = create<CourseState>()(
             activeDays: (persisted.progress as any).activeDays ?? defaults.activeDays,
             completedLessons: migratedLessons,
             courseIntros: (persisted.progress as any).courseIntros ?? undefined,
+            placementUnitIndex: (persisted.progress as any).placementUnitIndex ?? undefined,
           },
         };
       },

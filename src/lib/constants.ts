@@ -8,5 +8,7 @@ export const APP_URL = `https://${APP_DOMAIN}`;
 export const APP_TAGLINE = 'Learn anything. Master everything.';
 export const APP_DESCRIPTION =
   'Gamified learning across professions — from engineering to finance. Adaptive questions, streaks, and smart feedback to help you master any subject.';
-export const APP_THEME_COLOR = '#0D9488';
+export const APP_THEME_COLOR_LIGHT = '#FAFAFA';
+export const APP_THEME_COLOR_DARK = '#020617';
+export const APP_THEME_COLOR = APP_THEME_COLOR_LIGHT;
 export const APP_SUPPORT_EMAIL = `support@${APP_DOMAIN}`;

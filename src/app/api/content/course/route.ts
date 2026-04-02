@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
+import { PROFESSION_ID } from '@/data/professions';
 
 // Course content is static TypeScript files baked into the deployment.
 // No DB round-trip needed. Immutable until the next deploy.
@@ -9,7 +10,7 @@ const CACHE_HEADERS = {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const profession = searchParams.get('profession') || 'mechanical-engineering';
+  const profession = searchParams.get('profession') || PROFESSION_ID.MECHANICAL_ENGINEERING;
 
   const meta = getCourseMetaForProfession(profession);
   const course = await Promise.all(

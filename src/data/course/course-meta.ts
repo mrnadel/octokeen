@@ -16,6 +16,7 @@
  */
 
 import type { Unit } from './types';
+import { PROFESSION_ID } from '@/data/professions';
 import { financeCourseMeta } from './professions/personal-finance/meta';
 import { psychologyCourseMeta } from './professions/psychology/meta';
 import { spaceCourseMeta } from './professions/space-astronomy/meta';
@@ -337,10 +338,10 @@ export const courseMeta: Unit[] = meCourseMeta;
  */
 export function getCourseMetaForProfession(professionId: string): Unit[] {
   switch (professionId) {
-    case 'personal-finance': return financeCourseMeta;
-    case 'psychology': return psychologyCourseMeta;
-    case 'space-astronomy': return spaceCourseMeta;
-    case 'mechanical-engineering':
+    case PROFESSION_ID.PERSONAL_FINANCE: return financeCourseMeta;
+    case PROFESSION_ID.PSYCHOLOGY: return psychologyCourseMeta;
+    case PROFESSION_ID.SPACE_ASTRONOMY: return spaceCourseMeta;
+    case PROFESSION_ID.MECHANICAL_ENGINEERING:
     default: return meCourseMeta;
   }
 }
@@ -368,15 +369,15 @@ export function getLessonByIdMeta(lessonId: string, professionId?: string): { un
  * Each unit file is loaded as a separate chunk (~60-600 KB each).
  */
 export async function loadUnitData(unitIndex: number, professionId?: string): Promise<Unit> {
-  if (professionId === 'personal-finance') {
+  if (professionId === PROFESSION_ID.PERSONAL_FINANCE) {
     return loadFinanceUnit(unitIndex);
   }
 
-  if (professionId === 'psychology') {
+  if (professionId === PROFESSION_ID.PSYCHOLOGY) {
     return loadPsychologyUnit(unitIndex);
   }
 
-  if (professionId === 'space-astronomy') {
+  if (professionId === PROFESSION_ID.SPACE_ASTRONOMY) {
     return loadSpaceUnit(unitIndex);
   }
 

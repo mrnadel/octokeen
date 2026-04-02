@@ -5,8 +5,9 @@ import { useSession } from 'next-auth/react';
 import { initMixpanel, identifyUser, resetUser, setSuperProperties, analytics } from '@/lib/mixpanel';
 import { useStore } from '@/store/useStore';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
-const CONSENT_KEY = 'octokeen-cookie-consent';
+const CONSENT_KEY = STORAGE_KEYS.COOKIE_CONSENT;
 
 export default function MixpanelProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();

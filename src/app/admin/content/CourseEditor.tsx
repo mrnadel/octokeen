@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { PROFESSION_ID } from '@/data/professions';
 
 // --------------- Types ---------------
 
@@ -202,7 +203,7 @@ const formActions: React.CSSProperties = {
 
 // --------------- Component ---------------
 
-export default function CourseEditor({ professionId = 'mechanical-engineering', readOnly = false }: { professionId?: string; readOnly?: boolean }) {
+export default function CourseEditor({ professionId = PROFESSION_ID.MECHANICAL_ENGINEERING, readOnly = false }: { professionId?: string; readOnly?: boolean }) {
   const [units, setUnits] = useState<Unit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
