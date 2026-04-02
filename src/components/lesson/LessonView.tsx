@@ -129,22 +129,37 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   // === LESSON BACKGROUND ===
   const [backgroundHtml, setBackgroundHtml] = useState<string | null>(null);
+  const [backgroundCss, setBackgroundCss] = useState<string | null>(null);
 
   useEffect(() => {
     const bgKey = lessonData?.lesson.background;
     if (!bgKey) {
       setBackgroundHtml(null);
+      setBackgroundCss(null);
       return;
     }
     let cancelled = false;
     import(`@/data/course/backgrounds/${bgKey}`).then((mod) => {
-      if (!cancelled) setBackgroundHtml(mod.background.html);
+      if (!cancelled) {
+        setBackgroundHtml(mod.background.html);
+        setBackgroundCss(mod.background.css ?? null);
+      }
     }).catch((err) => {
       console.warn('[LessonView] Failed to load background:', bgKey, err);
-      if (!cancelled) setBackgroundHtml(null);
+      if (!cancelled) { setBackgroundHtml(null); setBackgroundCss(null); }
     });
     return () => { cancelled = true; };
   }, [lessonData?.lesson.background]);
+
+  // Inject background CSS into document.head (bypasses Tailwind purging)
+  useEffect(() => {
+    if (!backgroundCss) return;
+    const style = document.createElement('style');
+    style.setAttribute('data-lesson-bg', 'true');
+    style.textContent = backgroundCss;
+    document.head.appendChild(style);
+    return () => { document.head.removeChild(style); };
+  }, [backgroundCss]);
 
   const hasBackground = backgroundHtml !== null;
   const overlayActive = showExitConfirm || showOutOfHearts;
