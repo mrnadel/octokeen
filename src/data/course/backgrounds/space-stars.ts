@@ -61,7 +61,7 @@ export const background = {
   border-radius: 2px;
   will-change: transform, opacity;
   opacity: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 40%, transparent 100%);
+  background: linear-gradient(270deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 40%, transparent 100%);
 }
 #lb-space-stars .lb-sh1 { width: 100px; animation: lb-shoot-a 9s 3s infinite linear; }
 #lb-space-stars .lb-sh2 { width: 70px; animation: lb-shoot-b 13s 8s infinite linear; }
@@ -107,24 +107,24 @@ export const background = {
   70% { transform: scale(0.95); opacity: 0.5; }
 }
 @keyframes lb-shoot-a {
-  0% { transform: translate(0, 0) rotate(-30deg); opacity: 0; }
+  0% { transform: translate(0, 0) rotate(30deg); opacity: 0; }
   1% { opacity: 1; }
   5% { opacity: 1; }
-  6% { transform: translate(400px, 230px) rotate(-30deg); opacity: 0; }
+  6% { transform: translate(400px, 230px) rotate(30deg); opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes lb-shoot-b {
-  0% { transform: translate(0, 0) rotate(-22deg); opacity: 0; }
+  0% { transform: translate(0, 0) rotate(22deg); opacity: 0; }
   0.8% { opacity: 0.8; }
   4% { opacity: 0.8; }
-  4.5% { transform: translate(350px, 140px) rotate(-22deg); opacity: 0; }
+  4.5% { transform: translate(350px, 140px) rotate(22deg); opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes lb-shoot-c {
-  0% { transform: translate(0, 0) rotate(-38deg); opacity: 0; }
+  0% { transform: translate(0, 0) rotate(38deg); opacity: 0; }
   1.5% { opacity: 0.6; }
   5% { opacity: 0.6; }
-  6% { transform: translate(280px, 220px) rotate(-38deg); opacity: 0; }
+  6% { transform: translate(280px, 220px) rotate(38deg); opacity: 0; }
   100% { opacity: 0; }
 }
 @keyframes lb-comet {
