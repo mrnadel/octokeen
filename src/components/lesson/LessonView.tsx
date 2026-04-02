@@ -161,7 +161,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     return () => { document.head.removeChild(style); };
   }, [backgroundCss]);
 
-  const hasBackground = backgroundHtml !== null;
+  const isTeachingQuestion = currentQuestion?.type === 'teaching';
+  const hasBackground = backgroundHtml !== null && isTeachingQuestion;
   const overlayActive = showExitConfirm || showOutOfHearts;
 
   const lessonSessionQuestions = useMemo(() => {
