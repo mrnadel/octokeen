@@ -100,12 +100,12 @@ export const background = {
   border-radius: 2px;
   will-change: transform, opacity;
   opacity: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.6) 70%, rgba(255,255,255,0.95) 100%);
+  background: linear-gradient(270deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.6) 70%, rgba(255,255,255,0.95) 100%);
 }
 #lb-space-stars .lb-shoot::after {
   content: '';
   position: absolute;
-  right: -1px; top: 50%;
+  left: -1px; top: 50%;
   width: 4px; height: 4px; margin-top: -2px;
   border-radius: 50%;
   background: rgba(255,255,255,0.95);
@@ -173,7 +173,9 @@ export const background = {
 
 /* ── Keyframes ── */
 @keyframes lb-twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
   25% { opacity: 0.55; transform: scale(1.05); }
   50% { opacity: 1; transform: scale(1.3); }
   75% { opacity: 0.55; transform: scale(1.05); }
@@ -204,25 +206,25 @@ export const background = {
   100% { transform: translate(0,0) scale(1); opacity: 0; }
 }
 @keyframes lb-shoot-a {
-  0% { transform: translate(0,0) rotate(30deg); opacity: 0; }
-  11% { transform: translate(0,0) rotate(30deg); opacity: 0; }
-  11.3% { transform: translate(0,0) rotate(30deg); opacity: 1; }
-  14% { transform: translate(380px,220px) rotate(30deg); opacity: 1; }
-  14.5% { transform: translate(380px,220px) rotate(30deg); opacity: 0; }
-  15% { transform: translate(0,0) rotate(30deg); opacity: 0; }
-  69% { transform: translate(0,0) rotate(30deg); opacity: 0; }
-  69.3% { transform: translate(0,0) rotate(30deg); opacity: 1; }
-  72% { transform: translate(380px,220px) rotate(30deg); opacity: 1; }
-  72.5% { transform: translate(380px,220px) rotate(30deg); opacity: 0; }
-  73% { transform: translate(0,0) rotate(30deg); opacity: 0; }
-  100% { transform: translate(0,0) rotate(30deg); opacity: 0; }
+  0% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  11% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  11.3% { transform: translate(0,0) rotate(28deg); opacity: 1; }
+  14% { transform: translate(-380px,200px) rotate(28deg); opacity: 1; }
+  14.5% { transform: translate(-380px,200px) rotate(28deg); opacity: 0; }
+  15% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  69% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  69.3% { transform: translate(0,0) rotate(28deg); opacity: 1; }
+  72% { transform: translate(-380px,200px) rotate(28deg); opacity: 1; }
+  72.5% { transform: translate(-380px,200px) rotate(28deg); opacity: 0; }
+  73% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  100% { transform: translate(0,0) rotate(28deg); opacity: 0; }
 }
 @keyframes lb-shoot-b {
   0% { transform: translate(0,0) rotate(22deg); opacity: 0; }
   70% { transform: translate(0,0) rotate(22deg); opacity: 0; }
   70.3% { transform: translate(0,0) rotate(22deg); opacity: 0.85; }
-  73% { transform: translate(330px,130px) rotate(22deg); opacity: 0.85; }
-  73.5% { transform: translate(330px,130px) rotate(22deg); opacity: 0; }
+  73% { transform: translate(-310px,125px) rotate(22deg); opacity: 0.85; }
+  73.5% { transform: translate(-310px,125px) rotate(22deg); opacity: 0; }
   74% { transform: translate(0,0) rotate(22deg); opacity: 0; }
   100% { transform: translate(0,0) rotate(22deg); opacity: 0; }
 }
@@ -230,13 +232,13 @@ export const background = {
   0% { transform: translate(0,0) rotate(40deg); opacity: 0; }
   41% { transform: translate(0,0) rotate(40deg); opacity: 0; }
   41.3% { transform: translate(0,0) rotate(40deg); opacity: 0.7; }
-  44% { transform: translate(260px,220px) rotate(40deg); opacity: 0.7; }
-  44.5% { transform: translate(260px,220px) rotate(40deg); opacity: 0; }
+  44% { transform: translate(-250px,210px) rotate(40deg); opacity: 0.7; }
+  44.5% { transform: translate(-250px,210px) rotate(40deg); opacity: 0; }
   45% { transform: translate(0,0) rotate(40deg); opacity: 0; }
   71% { transform: translate(0,0) rotate(40deg); opacity: 0; }
   71.3% { transform: translate(0,0) rotate(40deg); opacity: 0.7; }
-  74% { transform: translate(260px,220px) rotate(40deg); opacity: 0.7; }
-  74.5% { transform: translate(260px,220px) rotate(40deg); opacity: 0; }
+  74% { transform: translate(-250px,210px) rotate(40deg); opacity: 0.7; }
+  74.5% { transform: translate(-250px,210px) rotate(40deg); opacity: 0; }
   75% { transform: translate(0,0) rotate(40deg); opacity: 0; }
   100% { transform: translate(0,0) rotate(40deg); opacity: 0; }
 }
@@ -308,9 +310,9 @@ export const background = {
   <div class="lb-aurora"></div>
 
   <!-- Shooting stars (3) — solo streaks + meteor shower cluster at ~70% -->
-  <div class="lb-shoot lb-sh1" style="top:12%;left:15%"></div>
-  <div class="lb-shoot lb-sh2" style="top:15%;left:18%"></div>
-  <div class="lb-shoot lb-sh3" style="top:10%;left:20%"></div>
+  <div class="lb-shoot lb-sh1" style="top:8%;right:5%"></div>
+  <div class="lb-shoot lb-sh2" style="top:12%;right:10%"></div>
+  <div class="lb-shoot lb-sh3" style="top:6%;right:15%"></div>
 
   <!-- Comet (1) — slow bright dot with angled trailing tail -->
   <div class="lb-comet" style="top:30%;left:5%"></div>
