@@ -626,6 +626,84 @@ ${MARKER_END}`;
 
   fs.writeFileSync(galleryPath, galleryHtml, 'utf-8');
   console.log(`SVG gallery section injected into ${galleryPath}`);
+
+  // ── Inject sound data into gallery.html ──────────────────────────
+  injectSoundData(galleryPath);
+}
+
+function injectSoundData(galleryPath: string) {
+  const SOUND_START = '<!-- SOUND-DATA-START -->';
+  const SOUND_END = '<!-- SOUND-DATA-END -->';
+
+  const soundsPath = path.join(ROOT, 'src', 'lib', 'sounds.ts');
+  if (!fs.existsSync(soundsPath)) {
+    console.warn('src/lib/sounds.ts not found, skipping sound gallery injection.');
+    return;
+  }
+
+  const soundsSrc = fs.readFileSync(soundsPath, 'utf-8');
+  const recordMatch = soundsSrc.match(
+    /const sounds[\s\S]*?Record<SoundName[\s\S]*?>\s*=\s*\{([\s\S]*)\};\s*\n\s*\/\//
+  );
+  if (!recordMatch) {
+    console.warn('Could not parse sounds record from sounds.ts');
+    return;
+  }
+
+  const block = recordMatch[1];
+  const lines = block.split('\n');
+
+  interface SoundEntry { name: string; body: string; }
+  interface SoundCategory { name: string; sounds: SoundEntry[]; }
+
+  const categories: SoundCategory[] = [];
+  let currentCat: SoundCategory = { name: 'Uncategorized', sounds: [] };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const catMatch = line.match(/\/\/\s*─+\s*(.+?)\s*─/);
+    if (catMatch) {
+      if (currentCat.sounds.length > 0) categories.push(currentCat);
+      currentCat = { name: catMatch[1].trim(), sounds: [] };
+      continue;
+    }
+    const fnMatch = line.match(/^\s+(\w+)\(\)\s*\{/);
+    if (fnMatch) {
+      const name = fnMatch[1];
+      let body = '';
+      let braces = 1;
+      for (let j = i + 1; j < lines.length && braces > 0; j++) {
+        for (let k = 0; k < lines[j].length; k++) {
+          if (lines[j][k] === '{') braces++;
+          if (lines[j][k] === '}') braces--;
+        }
+        if (braces > 0) body += lines[j] + '\n';
+      }
+      currentCat.sounds.push({ name, body: body.trim() });
+    }
+  }
+  if (currentCat.sounds.length > 0) categories.push(currentCat);
+
+  const total = categories.reduce((n, c) => n + c.sounds.length, 0);
+  const dataJs = `var __soundData = ${JSON.stringify(categories)};`;
+
+  let html = fs.readFileSync(galleryPath, 'utf-8');
+  const startIdx = html.indexOf(SOUND_START);
+  const endIdx = html.indexOf(SOUND_END);
+  if (startIdx === -1 || endIdx === -1) {
+    console.warn('Missing SOUND-DATA markers in gallery.html, skipping sound injection.');
+    return;
+  }
+
+  html =
+    html.slice(0, startIdx + SOUND_START.length) +
+    '\n<script>\n// Auto-generated from src/lib/sounds.ts by build-svg-gallery.ts\n' +
+    dataJs +
+    '\n</script>\n' +
+    html.slice(endIdx);
+
+  fs.writeFileSync(galleryPath, html, 'utf-8');
+  console.log(`Sound gallery injected: ${total} sounds across ${categories.length} categories`);
 }
 
 main().catch(err => {

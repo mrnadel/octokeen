@@ -302,11 +302,11 @@ export const unit10: Unit = {
         {
           id: "pf-u10-L3-Q2",
           type: "match-pairs",
-          question: "Match each feature to the right IRA type:",
-          options: ["Tax break when you contribute", "Tax-free withdrawals in retirement", "Best if you're in a lower bracket now", "Best if you're in a higher bracket now"],
-          matchTargets: ["Traditional IRA", "Roth IRA", "Roth IRA", "Traditional IRA"],
+          question: "Match each feature to the right retirement account type:",
+          options: ["Tax break when you contribute", "Tax-free withdrawals in retirement", "Employer matching contributions", "No required minimum distributions"],
+          matchTargets: ["Traditional IRA", "Roth IRA", "401(k)", "Roth IRA (owner's lifetime)"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Traditional gives you a tax break now (good for high earners). Roth gives you tax-free withdrawals later (good for lower earners who expect higher future income). Roth is best for low brackets now; Traditional is best for high brackets now.",
+          explanation: "Traditional IRAs give a tax deduction on contributions. Roth IRAs provide tax-free withdrawals. 401(k) plans are the main account that offers employer matching. Roth IRAs have no required minimum distributions during the owner's lifetime.",
         },
         {
           id: "pf-u10-L3-Q3",

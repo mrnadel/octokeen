@@ -66,7 +66,8 @@ interface ChapterCompletion {
 }
 
 export type CelebrationEvent =
-  | { type: 'level-up'; reward: LevelReward };
+  | { type: 'level-up'; reward: LevelReward }
+  | { type: 'streak-continued'; streak: number };
 
 interface CourseState {
   progress: CourseProgress;
@@ -450,8 +451,14 @@ export const useCourseStore = create<CourseState>()(
 
         const newTotalXp = state.progress.totalXp + xpEarned;
 
-        // Detect level-up from XP gain
+        // Streak continued celebration (first lesson of the day)
         const celebrations: CelebrationEvent[] = [];
+        const streakContinued = lastActive !== today && newStreak >= 2 && passed;
+        if (streakContinued) {
+          celebrations.push({ type: 'streak-continued', streak: newStreak });
+        }
+
+        // Detect level-up from XP gain
         const oldLevel = getLevelForXp(state.progress.totalXp);
         const newLevel = getLevelForXp(newTotalXp);
         if (newLevel.level > oldLevel.level) {

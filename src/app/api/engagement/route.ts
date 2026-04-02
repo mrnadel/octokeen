@@ -1,14 +1,119 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { userProgress, gemTransactions, questProgress } from '@/lib/db/schema';
+import { userProgress, gemTransactions, questProgress, subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { engagementSyncSchema } from '@/lib/validation';
 
+// Hearts constants (must match client)
+const FREE_MAX_HEARTS = 5;
+const RECHARGE_INTERVAL_MS = 14400000; // 4 hours
+
+/** Check if user is on a paid/trial tier (pro users have unlimited hearts). */
+async function isProUser(userId: string): Promise<boolean> {
+  const [sub] = await db
+    .select({ tier: subscriptions.tier, status: subscriptions.status, trialEnd: subscriptions.trialEnd })
+    .from(subscriptions)
+    .where(eq(subscriptions.userId, userId))
+    .limit(1);
+  if (!sub) return false;
+  if (sub.status === 'trialing') {
+    const trialEnd = sub.trialEnd ? new Date(sub.trialEnd) : null;
+    return !!trialEnd && !isNaN(trialEnd.getTime()) && trialEnd > new Date();
+  }
+  return sub.status === 'active' || sub.status === 'past_due';
+}
+
+/**
+ * Compute the server-authoritative heart count.
+ * Uses the stored lastRechargeAt + elapsed time to calculate recharges,
+ * then clamps to max. Pro users always get max.
+ */
+function computeHearts(
+  storedCurrent: number,
+  storedLastRechargeAt: number,
+  isPro: boolean,
+): { current: number; lastRechargeAt: number } {
+  if (isPro) return { current: FREE_MAX_HEARTS, lastRechargeAt: Date.now() };
+
+  const max = FREE_MAX_HEARTS;
+  let current = Math.min(storedCurrent, max); // clamp: never above max
+  let lastRechargeAt = storedLastRechargeAt;
+
+  if (current < max && lastRechargeAt > 0) {
+    const elapsed = Date.now() - lastRechargeAt;
+    const heartsToRecharge = Math.floor(elapsed / RECHARGE_INTERVAL_MS);
+    if (heartsToRecharge > 0) {
+      current = Math.min(current + heartsToRecharge, max);
+      lastRechargeAt = current >= max
+        ? Date.now()
+        : lastRechargeAt + heartsToRecharge * RECHARGE_INTERVAL_MS;
+    }
+  }
+
+  return { current, lastRechargeAt };
+}
+
+/**
+ * Allowlist of legitimate gem transaction sources and their max absolute amounts.
+ * Any transaction with an unrecognized source or exceeding the cap is silently dropped.
+ */
+const VALID_GEM_SOURCES: Record<string, { maxEarn: number; maxSpend: number }> = {
+  // Earning
+  quest_reward:       { maxEarn: 15,  maxSpend: 0 },
+  daily_chest:        { maxEarn: 10,  maxSpend: 0 },
+  weekly_chest:       { maxEarn: 40,  maxSpend: 0 },
+  league_promotion:   { maxEarn: 25,  maxSpend: 0 },
+  '3_star_first_time':{ maxEarn: 10,  maxSpend: 0 },
+  // Spending
+  shop_purchase:      { maxEarn: 0,   maxSpend: 350 },
+  streak_repair:      { maxEarn: 0,   maxSpend: 75 },
+  heart_purchase:     { maxEarn: 0,   maxSpend: 100 },
+  heart_refill:       { maxEarn: 0,   maxSpend: 500 },
+};
+
+// Dynamic sources: level_up_N (max 100) and streak_milestone_N (max 500)
+function getSourceLimits(source: string): { maxEarn: number; maxSpend: number } | null {
+  if (VALID_GEM_SOURCES[source]) return VALID_GEM_SOURCES[source];
+  if (source.startsWith('level_up_'))          return { maxEarn: 100, maxSpend: 0 };
+  if (source.startsWith('streak_milestone_'))  return { maxEarn: 500, maxSpend: 0 };
+  return null; // Unknown source — reject
+}
+
+/** Filter and validate gem transactions. Only known sources with valid amounts pass through. */
+function validateTransactions(txs: Array<{ amount: number; source: string }>): Array<{ amount: number; source: string }> {
+  return txs.filter((t) => {
+    const limits = getSourceLimits(t.source);
+    if (!limits) return false;
+    if (t.amount > 0 && t.amount > limits.maxEarn) return false;
+    if (t.amount < 0 && Math.abs(t.amount) > limits.maxSpend) return false;
+    return true;
+  });
+}
+
+/**
+ * Compute authoritative gem balance + totalEarned from the gem_transactions ledger.
+ * This is the ONLY way balance is determined - never trust client-sent balance.
+ */
+async function computeGemBalanceFromLedger(userId: string) {
+  const result = await db
+    .select({
+      balance: sql<number>`COALESCE(SUM(${gemTransactions.amount}), 0)`.as('balance'),
+      totalEarned: sql<number>`COALESCE(SUM(CASE WHEN ${gemTransactions.amount} > 0 THEN ${gemTransactions.amount} ELSE 0 END), 0)`.as('total_earned'),
+    })
+    .from(gemTransactions)
+    .where(eq(gemTransactions.userId, userId));
+
+  return {
+    balance: Math.max(0, Number(result[0]?.balance ?? 0)),
+    totalEarned: Number(result[0]?.totalEarned ?? 0),
+  };
+}
+
 /**
  * GET /api/engagement
- * Returns the user's engagement state from the DB (gems, streak, hearts, quests, inventory).
- * This is the server-authoritative source for economy fields.
+ * Returns the user's engagement state from the DB.
+ * Gem balance is computed from the transaction ledger (server-authoritative).
  */
 export async function GET() {
   const userId = await getAuthUserId();
@@ -16,18 +121,26 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const [progressRows, questRows] = await Promise.all([
+  const [progressRows, questRows, gemTotals, pro] = await Promise.all([
     db.select().from(userProgress).where(eq(userProgress.userId, userId)).limit(1),
     db.select().from(questProgress).where(eq(questProgress.userId, userId)),
+    computeGemBalanceFromLedger(userId),
+    isProUser(userId),
   ]);
 
   const progress = progressRows[0];
 
-  // Build engagement response from DB state
+  // Server-authoritative hearts: clamp to max and apply recharge based on elapsed time
+  const storedHearts = progress?.heartsCurrent ?? FREE_MAX_HEARTS;
+  const storedRechargeAt = progress?.heartsLastRechargeAt
+    ? parseInt(progress.heartsLastRechargeAt, 10)
+    : Date.now();
+  const hearts = computeHearts(storedHearts, storedRechargeAt, pro);
+
   const engagement = {
     gems: {
-      balance: progress?.gemsBalance ?? 0,
-      totalEarned: progress?.gemsTotalEarned ?? 0,
+      balance: gemTotals.balance,
+      totalEarned: gemTotals.totalEarned,
       inventory: progress?.gemsInventory ?? { activeTitles: [], activeFrames: [] },
       selectedTitle: progress?.selectedTitle ?? null,
       selectedFrame: progress?.selectedFrame ?? null,
@@ -36,12 +149,7 @@ export async function GET() {
       freezesOwned: progress?.streakFreezes ?? 0,
       milestonesReached: (progress?.streakMilestones as number[]) ?? [],
     },
-    hearts: {
-      current: progress?.heartsCurrent ?? 5,
-      lastRechargeAt: progress?.heartsLastRechargeAt
-        ? parseInt(progress.heartsLastRechargeAt, 10)
-        : Date.now(),
-    },
+    hearts,
     doubleXpExpiry: progress?.doubleXpExpiry ?? null,
     quests: {
       daily: questRows.find((q) => q.questType === 'daily') ?? null,
@@ -80,7 +188,37 @@ export async function POST(request: NextRequest) {
 
   const data = parsed.data;
 
-  // Upsert engagement columns on userProgress
+  // 1. Validate and insert new gem transactions FIRST (before computing balance).
+  //    Only transactions with known sources and valid amounts are accepted.
+  if (data.newGemTransactions?.length) {
+    const validTxs = validateTransactions(data.newGemTransactions);
+    if (validTxs.length > 0) {
+      await db.insert(gemTransactions).values(
+        validTxs.map((t) => ({
+          userId,
+          amount: t.amount,
+          source: t.source,
+        })),
+      );
+    }
+  }
+
+  // 2. Compute authoritative balance from the transaction ledger.
+  //    NEVER trust client-sent balance - it can be tampered with.
+  const [gemTotals, pro] = await Promise.all([
+    computeGemBalanceFromLedger(userId),
+    isProUser(userId),
+  ]);
+
+  // 3. Server-authoritative hearts: clamp client value to free-tier max.
+  //    Pro users always have full hearts. Free users cannot exceed 5.
+  const validatedHearts = computeHearts(
+    data.hearts.current,
+    data.hearts.lastRechargeAt,
+    pro,
+  );
+
+  // 4. Upsert engagement columns on userProgress
   const existing = await db
     .select({ id: userProgress.id })
     .from(userProgress)
@@ -88,15 +226,15 @@ export async function POST(request: NextRequest) {
     .limit(1);
 
   const engagementData = {
-    gemsBalance: data.gems.balance,
-    gemsTotalEarned: data.gems.totalEarned,
+    gemsBalance: gemTotals.balance,
+    gemsTotalEarned: gemTotals.totalEarned,
     gemsInventory: data.gems.inventory,
     selectedTitle: data.gems.selectedTitle,
     selectedFrame: data.gems.selectedFrame,
     streakFreezes: data.streak.freezesOwned,
     streakMilestones: data.streak.milestonesReached,
-    heartsCurrent: data.hearts.current,
-    heartsLastRechargeAt: String(data.hearts.lastRechargeAt),
+    heartsCurrent: validatedHearts.current,
+    heartsLastRechargeAt: String(validatedHearts.lastRechargeAt),
     doubleXpExpiry: data.doubleXpExpiry,
     updatedAt: new Date(),
   };
@@ -108,17 +246,6 @@ export async function POST(request: NextRequest) {
       .where(eq(userProgress.userId, userId));
   } else {
     await db.insert(userProgress).values({ userId, ...engagementData });
-  }
-
-  // Batch insert new gem transactions
-  if (data.newGemTransactions?.length) {
-    await db.insert(gemTransactions).values(
-      data.newGemTransactions.map((t) => ({
-        userId,
-        amount: t.amount,
-        source: t.source,
-      })),
-    );
   }
 
   // Upsert quest progress (delete + re-insert; quest data changes frequently)

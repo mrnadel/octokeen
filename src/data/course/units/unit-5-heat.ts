@@ -1621,9 +1621,9 @@ export const unit5: Unit = {
           type: 'match-pairs',
           question: 'Match each heat exchanger scenario to its capacity ratio Cr.',
           options: ['Condenser (steam to water)', 'Balanced counter-flow', 'Oil cooler (small oil flow)', 'Boiler (water to steam)'],
-          matchTargets: ['Cr = 0', 'Cr = 1', 'Cr < 1', 'Cr = 0'],
+          matchTargets: ['Cr = 0 (condensing side has infinite capacity)', 'Cr = 1 (equal capacity rates)', 'Cr < 1 (unequal single-phase flows)', 'Cr = 0 (boiling side has infinite capacity)'],
           correctMatches: [0, 1, 2, 3],
-          explanation: 'Phase change means infinite capacity, so Cr = C_min/C_max = 0. Balanced flow means equal capacities, Cr = 1.',
+          explanation: 'Phase change gives effectively infinite capacity, so Cr = C_min/C_max approaches 0. Balanced flow means equal capacities (Cr = 1). Unequal single-phase flows give 0 < Cr < 1.',
           hint: 'Phase-change fluids have effectively infinite capacity.',
         },
         {

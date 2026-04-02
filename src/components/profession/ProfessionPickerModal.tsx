@@ -2,6 +2,7 @@
 
 import { ProfessionPicker } from './ProfessionPicker';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
+import { PROFESSIONS } from '@/data/professions';
 import { useCourseAccess } from '@/hooks/useCourseAccess';
 
 interface ProfessionPickerModalProps {
@@ -28,7 +29,13 @@ export function ProfessionPickerModal({ isOpen, onClose, selectedId, onSelect }:
       <h3 id="profession-picker-title" className="text-xl font-black text-white mb-1">Switch Course</h3>
       <p className="text-sm text-white/60 font-medium mb-5">Choose what you want to learn</p>
       <div className="w-full">
-        <ProfessionPicker selectedId={selectedId} onSelect={handleSelect} compact grantedCourses={grantedCourses} />
+        <ProfessionPicker
+          selectedId={selectedId}
+          onSelect={handleSelect}
+          compact
+          grantedCourses={grantedCourses}
+          filterOut={PROFESSIONS.filter(p => p.requiresAccess && (!grantedCourses || !grantedCourses.includes(p.id))).map(p => p.id)}
+        />
       </div>
     </FullScreenModal>
   );

@@ -643,10 +643,10 @@ export const unit6: Unit = {
  id: "pf-u6-L6-Q5",
  type: "match-pairs",
  question: "Match each investing situation to the better vehicle:",
- options: ["Want to auto-invest $200/month exactly", "Want to buy and sell during the day", "Want the lowest possible expense ratio", "Want a hands-off retirement account"],
- matchTargets: ["Mutual fund", "ETF", "ETF", "Mutual fund"],
+ options: ["Want to auto-invest $200/month exactly", "Want to buy and sell during the day", "Want exposure to a single sector like tech", "Want a simple all-in-one retirement fund"],
+ matchTargets: ["Mutual fund", "ETF", "Sector ETF", "Target-date fund"],
  correctMatches: [0, 1, 2, 3],
- explanation: "Mutual funds excel at exact-dollar auto-investing and hands-off retirement plans. ETFs win on intraday flexibility and often have slightly lower fees. Both are great tools, pick based on how you invest.",
+ explanation: "Mutual funds let you invest exact dollar amounts. ETFs trade intraday on exchanges. Sector ETFs focus on one industry like technology. Target-date funds automatically shift from stocks to bonds as you approach retirement.",
  },
  {
  id: "pf-u6-L6-Q6",

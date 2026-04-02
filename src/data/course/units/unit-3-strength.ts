@@ -3446,10 +3446,10 @@ export const unit3: Unit = {
           id: 'u3-L7c-MP1',
           type: 'match-pairs',
           question: 'Match each pressure vessel formula:',
-          options: ['Thin-wall hoop stress', 'Thin-wall axial stress', 'Sphere hoop stress', 'Lame (inner wall radial)'],
-          matchTargets: ['pD/(2t)', 'pD/(4t)', 'pD/(4t)', '-p (compressive, equals internal pressure)'],
+          options: ['Thin-wall hoop stress', 'Thin-wall axial stress', 'Thin sphere membrane stress', 'Lame (inner wall radial)'],
+          matchTargets: ['pD/(2t)', 'pD/(4t)', 'pR/(2t)', '-p (compressive, equals internal pressure)'],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Cylinder hoop = pD/(2t), cylinder axial = sphere stress = pD/(4t). For thick walls, Lame shows radial stress at the inner wall equals -p.",
+          explanation: "Cylinder hoop = pD/(2t), cylinder axial = pD/(4t). A thin sphere has uniform membrane stress pR/(2t). For thick walls, Lame shows radial stress at the inner wall equals -p.",
         },
         {
           id: 'u3-L7-Q23',

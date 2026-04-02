@@ -183,11 +183,11 @@ export const unit9: Unit = {
         {
           id: "psy-u9-L1-Q7",
           type: "match-pairs",
-          question: "Match each approach to its style of thinking:",
-          options: ["Why is housing expensive?", "Housing is expensive, I'll rent", "What skills does this job need?", "I need a degree for a good job"],
-          matchTargets: ["First principles question", "Analogy-based assumption", "First principles question", "Analogy-based assumption"],
+          question: "Match each thinking concept to its description:",
+          options: ["First principles thinking", "Analogy-based thinking", "Key benefit of first principles", "Key risk of analogy"],
+          matchTargets: ["Breaking a problem down to its fundamental truths and reasoning up", "Copying what others do or following conventional wisdom", "Can reveal solutions that convention would never find", "Inherits hidden flaws from the original situation being copied"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "First principles questions dig into the why. Analogy-based assumptions accept the surface level and act on convention.",
+          explanation: "First principles thinking questions assumptions from the ground up. Analogy-based thinking is faster but can carry over flawed logic from other contexts.",
         },
         {
           id: "psy-u9-L1-Q8",

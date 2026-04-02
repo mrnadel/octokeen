@@ -2620,13 +2620,13 @@ export const finSection5Part1: Unit[] = [
             question: "Match each expense to its deductibility status:",
             options: ["Mortgage interest", "Rent payments", "Charitable donations", "Grocery bills"],
             matchTargets: [
-              "Deductible when itemizing",
+              "Itemized deduction (Schedule A)",
               "Not deductible for most taxpayers",
-              "Deductible when itemizing",
+              "Deductible up to 60% of AGI",
               "Personal expense, never deductible",
             ],
             correctMatches: [0, 1, 2, 3],
-            explanation: "Mortgage interest and charity are classic itemized deductions. Rent and groceries are personal expenses that aren't deductible.",
+            explanation: "Mortgage interest goes on Schedule A as an itemized deduction. Charitable donations are deductible but capped at 60% of your adjusted gross income. Rent and groceries are personal expenses that aren't deductible.",
           },
           {
             id: "fin-sec5-u6-L2-Q4",

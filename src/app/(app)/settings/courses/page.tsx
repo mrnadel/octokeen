@@ -17,14 +17,17 @@ export default function CoursesSettingsPage() {
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
   const grantedCourses = useCourseAccess();
 
+  const visibleProfessions = useMemo(() => {
+    return PROFESSIONS.filter(p => !p.requiresAccess || (grantedCourses && grantedCourses.includes(p.id)));
+  }, [grantedCourses]);
+
   const courseStats = useMemo(() => {
-    return PROFESSIONS.map((p) => {
+    return visibleProfessions.map((p) => {
       const meta = getCourseMetaForProfession(p.id);
       const totalLessons = meta.reduce((sum, u) => sum + u.lessons.length, 0);
       const allLessonIds = meta.flatMap((u) => u.lessons.map((l) => l.id));
       const completed = allLessonIds.filter((id) => completedLessons[id]?.passed).length;
-      const isGated = p.requiresAccess && grantedCourses && !grantedCourses.includes(p.id);
-      const isLocked = p.isComingSoon || isGated;
+      const isLocked = p.isComingSoon === true;
       return {
         ...p,
         totalLessons,
@@ -34,7 +37,7 @@ export default function CoursesSettingsPage() {
         isLocked,
       };
     });
-  }, [completedLessons, grantedCourses]);
+  }, [completedLessons, visibleProfessions]);
 
   const handleSwitch = (professionId: string) => {
     setActiveProfession(professionId);

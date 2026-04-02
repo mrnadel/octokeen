@@ -19,6 +19,7 @@ const WelcomeBack = lazy(() => import('@/components/engagement/WelcomeBack').the
 const LeaguePromotion = lazy(() => import('@/components/engagement/LeaguePromotion').then(m => ({ default: m.LeaguePromotion })));
 const LeagueWinner = lazy(() => import('@/components/engagement/LeagueWinner').then(m => ({ default: m.LeagueWinner })));
 const StreakFreeze = lazy(() => import('@/components/engagement/StreakFreeze').then(m => ({ default: m.StreakFreeze })));
+const StreakContinued = lazy(() => import('@/components/engagement/StreakContinued').then(m => ({ default: m.StreakContinued })));
 const StreakMilestone = lazy(() => import('@/components/engagement/StreakMilestone').then(m => ({ default: m.StreakMilestone })));
 const LevelUpCelebration = lazy(() => import('@/components/engagement/LevelUpCelebration').then(m => ({ default: m.LevelUpCelebration })));
 const BlueprintCelebration = lazy(() => import('@/components/engagement/BlueprintCelebration').then(m => ({ default: m.BlueprintCelebration })));
@@ -213,6 +214,12 @@ export default function HomePage() {
         {flagPlacementTest && activePlacementTest && <PlacementTestView />}
         {flagPlacementTest && placementTestResult && <PlacementTestResult />}
         {lessonResult && <ResultScreen />}
+        {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'streak-continued' && (
+          <StreakContinued
+            streak={pendingCelebrations[0].streak}
+            onClose={dismissNextCelebration}
+          />
+        )}
         {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'level-up' && (
           <LevelUpCelebration
             reward={pendingCelebrations[0].reward}

@@ -3696,10 +3696,10 @@ export const spaceSection4: Unit[] = [
             id: "sp-s4-u8-L4-Q5",
             type: "match-pairs",
             question: "Match each capability to the right telescope:",
-            options: ["Best UV observations", "Best infrared observations", "Astronaut servicing possible", "Cannot be serviced in orbit"],
-            matchTargets: ["Hubble", "JWST", "Hubble", "JWST"],
+            options: ["Hubble", "JWST", "Chandra", "Spitzer"],
+            matchTargets: ["Visible and UV from low Earth orbit", "Infrared from L2 Lagrange point", "X-ray observations", "Infrared survey (retired 2020)"],
             correctMatches: [0, 1, 2, 3],
-            explanation: "Hubble excels at UV and can be reached by astronauts. JWST excels at infrared but is too far away for servicing.",
+            explanation: "Hubble observes visible and UV light from low Earth orbit. JWST specializes in infrared from L2. Chandra detects X-rays. Spitzer surveyed the infrared sky until retirement in 2020.",
           },
           {
             id: "sp-s4-u8-L4-Q6",

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
+import { PROFESSIONS } from '@/data/professions';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useCourseAccess } from '@/hooks/useCourseAccess';
 
@@ -34,6 +35,7 @@ export default function SwitchCoursePage() {
         selectedId={activeProfession}
         onSelect={handleSelect}
         grantedCourses={grantedCourses}
+        filterOut={PROFESSIONS.filter(p => p.requiresAccess && (!grantedCourses || !grantedCourses.includes(p.id))).map(p => p.id)}
       />
     </div>
   );

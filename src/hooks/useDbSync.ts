@@ -155,12 +155,12 @@ export function useDbSync() {
           const eng = await engagementRes.json();
           const localEng = useEngagementStore.getState();
 
-          // DB wins for economy fields (gems, streak freezes, inventory, hearts)
+          // DB wins for economy fields (balance is computed from ledger server-side, always trust it)
           useEngagementStore.setState((s) => ({
             gems: {
               ...s.gems,
-              balance: Math.max(eng.gems.balance ?? 0, s.gems.balance),
-              totalEarned: Math.max(eng.gems.totalEarned ?? 0, s.gems.totalEarned),
+              balance: eng.gems.balance ?? s.gems.balance,
+              totalEarned: eng.gems.totalEarned ?? s.gems.totalEarned,
               inventory: {
                 activeTitles: [...new Set([
                   ...(eng.gems.inventory?.activeTitles ?? []),
@@ -185,19 +185,12 @@ export function useDbSync() {
             doubleXpExpiry: eng.doubleXpExpiry ?? s.doubleXpExpiry,
           }));
 
-          // Hydrate hearts (DB wins for current count; recalculate recharge)
+          // Hydrate hearts — server value is authoritative (clamped + recharge-validated)
           const dbHearts = eng.hearts;
           if (dbHearts) {
-            const localHearts = useHeartsStore.getState();
             useHeartsStore.setState({
-              current: Math.min(
-                Math.max(dbHearts.current ?? 5, localHearts.current),
-                localHearts.max,
-              ),
-              lastRechargeAt: Math.max(
-                dbHearts.lastRechargeAt ?? 0,
-                localHearts.lastRechargeAt,
-              ),
+              current: dbHearts.current ?? 5,
+              lastRechargeAt: dbHearts.lastRechargeAt ?? Date.now(),
             });
           }
 

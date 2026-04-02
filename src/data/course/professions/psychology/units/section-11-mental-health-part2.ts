@@ -133,11 +133,11 @@ export const psySection11Part2: Unit[] = [
           {
             id: 'psy-sec11-u9-L2-Q2',
             type: 'match-pairs',
-            question: 'Match each symptom to its disorder:',
-            options: ['Compulsive hand washing', 'Auditory hallucinations', 'Intrusive thoughts the person knows are irrational', 'Disorganized speech'],
-            matchTargets: ['OCD', 'Schizophrenia', 'OCD', 'Schizophrenia'],
+            question: 'Match each concept to its correct description:',
+            options: ['OCD obsessions', 'OCD compulsions', 'Positive symptoms of schizophrenia', 'Negative symptoms of schizophrenia'],
+            matchTargets: ['Intrusive unwanted thoughts the person recognizes as irrational', 'Repetitive behaviors performed to reduce anxiety', 'Hallucinations, delusions, and disorganized speech', 'Flat affect, social withdrawal, and loss of motivation'],
             correctMatches: [0, 1, 2, 3],
-            explanation: 'OCD involves obsessions and compulsions with insight. Schizophrenia involves hallucinations, delusions, and disorganized thinking.',
+            explanation: 'OCD has two parts: obsessions (intrusive thoughts) and compulsions (anxiety-reducing rituals). Schizophrenia symptoms are classified as positive (added) or negative (lost).',
           },
           {
             id: 'psy-sec11-u9-L2-T2',
@@ -2301,11 +2301,11 @@ export const psySection11Part2: Unit[] = [
           {
             id: 'psy-sec11-u13-L4-Q2',
             type: 'match-pairs',
-            question: 'Match each strength to the condition it is commonly associated with:',
-            options: ['Hyperfocus on engaging topics', 'Exceptional pattern recognition', 'Creative thinking and energy', 'Deep expertise in special interests'],
-            matchTargets: ['ADHD', 'Autism spectrum', 'ADHD', 'Autism spectrum'],
+            question: 'Match each neurodevelopmental concept to its description:',
+            options: ['ADHD core challenge', 'Autism core challenge', 'ADHD common strength', 'Autism common strength'],
+            matchTargets: ['Difficulty sustaining attention and regulating impulses', 'Difficulty with social communication and flexible thinking', 'Creativity, energy, and hyperfocus on engaging tasks', 'Exceptional pattern recognition and deep specialized knowledge'],
             correctMatches: [0, 1, 2, 3],
-            explanation: 'ADHD is linked to creativity and hyperfocus. Autism is linked to pattern recognition and deep specialized knowledge.',
+            explanation: 'Both ADHD and autism involve distinct challenges alongside genuine cognitive strengths. A complete picture includes both.',
           },
           {
             id: 'psy-sec11-u13-L4-T2',

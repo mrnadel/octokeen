@@ -735,10 +735,10 @@ export const unit2: Unit = {
           id: "pf-u2-L6-Q4",
           type: "match-pairs",
           question: "Match each sinking fund to how much to save monthly:",
-          options: ["1,200 vacation in 12 months", "600 new phone in 6 months", "240 holiday gifts in 8 months", "480 car maintenance per year"],
-          matchTargets: ["100/month", "100/month", "30/month", "40/month"],
+          options: ["$1,200 vacation in 12 months", "$900 new phone in 6 months", "$240 holiday gifts in 8 months", "$480 car maintenance per year"],
+          matchTargets: ["$100/month", "$150/month", "$30/month", "$40/month"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Just divide the total by the number of months. 1,200÷12=100. 600÷6=100. 240÷8=30. 480÷12=40. Simple math, zero stress.",
+          explanation: "Just divide the total by the number of months. $1,200 / 12 = $100. $900 / 6 = $150. $240 / 8 = $30. $480 / 12 = $40. Simple math, zero stress.",
         },
         {
           id: "pf-u2-L6-Q5",

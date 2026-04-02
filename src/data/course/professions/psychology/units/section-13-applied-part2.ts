@@ -1397,11 +1397,11 @@ export const psySection13Part2: Unit[] = [
           {
             id: 'psy-sec13-u9-L4-Q2',
             type: 'match-pairs',
-            question: 'Match each goal to its type:',
-            options: ['Win the tournament', 'Run a 4:30 mile', 'Focus on foot strike each lap', 'Make the all-star team'],
-            matchTargets: ['Outcome goal', 'Performance goal', 'Process goal', 'Outcome goal'],
+            question: 'Match each goal type to its example:',
+            options: ['Outcome goal', 'Performance goal', 'Process goal', 'Proximal goal'],
+            matchTargets: ['Win the tournament championship', 'Run a personal-best 4:30 mile', 'Focus on smooth foot strike each lap', 'Improve weekly training time by 10 minutes this month'],
             correctMatches: [0, 1, 2, 3],
-            explanation: 'Outcome goals focus on results (winning), performance goals on personal standards, and process goals on execution details.',
+            explanation: 'Outcome goals target results, performance goals target personal standards, process goals target technique, and proximal goals provide short-term targets that build toward long-term aims.',
           },
           {
             id: 'psy-sec13-u9-L4-T2',
@@ -1944,11 +1944,11 @@ export const psySection13Part2: Unit[] = [
           {
             id: 'psy-sec13-u10-L4-Q3',
             type: 'match-pairs',
-            question: 'Match each example to its coping type:',
-            options: ['Making a study schedule for an exam', 'Talking to a friend about grief', 'Asking a boss to clarify expectations', 'Meditating after a stressful diagnosis'],
-            matchTargets: ['Problem-focused', 'Emotion-focused', 'Problem-focused', 'Emotion-focused'],
+            question: 'Match each coping concept to its description:',
+            options: ['Problem-focused coping', 'Emotion-focused coping', 'When problem-focused works best', 'When emotion-focused works best'],
+            matchTargets: ['Taking direct action to change or remove the source of stress', 'Managing the emotional reaction without changing the stressor', 'The stressor is controllable and has a clear solution', 'The stressor is uncontrollable, like a terminal diagnosis'],
             correctMatches: [0, 1, 2, 3],
-            explanation: 'Problem-focused coping targets the stressor. Emotion-focused coping targets the emotional response.',
+            explanation: 'Problem-focused coping addresses the stressor directly and works best for controllable problems. Emotion-focused coping manages feelings and is more adaptive for uncontrollable situations.',
           },
           {
             id: 'psy-sec13-u10-L4-Q4',

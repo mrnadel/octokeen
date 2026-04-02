@@ -6,8 +6,6 @@ import {
   userProgress,
   topicProgress as topicProgressTable,
   sessionHistory,
-  gemTransactions,
-  leagueState,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { incrementDailyUsageBatch, canStartPracticeSession } from '@/lib/access-control';
@@ -206,59 +204,9 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // Sync engagement data if provided (now validated by Zod schema)
-  const engagement = parsed.data.engagement;
-  if (engagement) {
-    const { gems, leagueTier, streakFreezes, streakMilestones, newGemTransactions } = engagement;
-
-    // Update userProgress engagement columns
-    await db.update(userProgress).set({
-      gemsBalance: gems?.balance,
-      gemsTotalEarned: gems?.totalEarned,
-      streakFreezes: streakFreezes,
-      streakMilestones: streakMilestones,
-    }).where(eq(userProgress.userId, userId));
-
-    // Batch insert new gem transactions (capped)
-    const MAX_GEM_TX_PER_SYNC = 50;
-    if (newGemTransactions?.length) {
-      const capped = newGemTransactions.slice(0, MAX_GEM_TX_PER_SYNC);
-      await db.insert(gemTransactions).values(
-        capped.map((t: { amount: number; source: string }) => ({
-          userId,
-          amount: t.amount,
-          source: t.source,
-        }))
-      );
-    }
-
-    // Upsert league state
-    if (leagueTier !== undefined && engagement.weekStart !== undefined) {
-      const existingLeague = await db
-        .select({ id: leagueState.id })
-        .from(leagueState)
-        .where(eq(leagueState.userId, userId))
-        .limit(1);
-
-      const leagueData = {
-        userId,
-        tier: leagueTier,
-        weeklyXp: engagement.weeklyXp ?? 0,
-        weekStart: engagement.weekStart,
-        competitors: engagement.competitors ?? [],
-        updatedAt: new Date(),
-      };
-
-      if (existingLeague.length > 0) {
-        await db
-          .update(leagueState)
-          .set(leagueData)
-          .where(eq(leagueState.userId, userId));
-      } else {
-        await db.insert(leagueState).values(leagueData);
-      }
-    }
-  }
+  // Legacy engagement sync removed — /api/engagement is now the sole authority.
+  // Gem balance is computed from the gem_transactions ledger server-side,
+  // never accepted from the client.
 
   return NextResponse.json({ ok: true });
 }

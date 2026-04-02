@@ -1695,16 +1695,16 @@ export const financeSection13Part1: Unit[] = [
           {
             id: "pf-s13-u3-L5-Q4",
             type: "match-pairs",
-            question: "Match each feature to the correct tool:",
-            options: ["Names a guardian for children", "Avoids probate", "Provides incapacity management", "Costs the least to create"],
+            question: "Match each feature to the correct estate planning tool:",
+            options: ["Names a guardian for children", "Avoids probate entirely", "Authorizes end-of-life medical decisions", "Controls asset distribution after death"],
             matchTargets: [
               "Will",
-              "Trust",
-              "Trust",
-              "Will",
+              "Revocable trust",
+              "Living will",
+              "Beneficiary designation",
             ],
             correctMatches: [0, 1, 2, 3],
-            explanation: "Only a will names guardians. Trusts avoid probate and handle incapacity. Wills are cheaper to create.",
+            explanation: "A will names guardians. A revocable trust avoids probate. A living will (advance directive) handles medical decisions. Beneficiary designations on accounts control who gets specific assets.",
           },
           {
             id: "pf-s13-u3-L5-T3",

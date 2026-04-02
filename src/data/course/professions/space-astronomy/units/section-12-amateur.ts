@@ -2959,9 +2959,9 @@ export const spaceSection12: Unit[] = [
             type: "match-pairs",
             question: "Match each solar feature to the filter type that shows it best:",
             options: ["Sunspots", "Solar prominences", "Limb darkening", "Surface granulation in H-alpha"],
-            matchTargets: ["White light filter", "H-alpha solar scope", "White light filter", "H-alpha solar scope"],
+            matchTargets: ["White light filter (dark spots on photosphere)", "H-alpha scope (loops at the limb)", "White light filter (edge appears dimmer)", "H-alpha scope (mottled chromospheric texture)"],
             correctMatches: [0, 1, 2, 3],
-            explanation: "White light shows basic features like sunspots. H-alpha reveals the dramatic chromosphere: prominences, filaments, and fine surface texture.",
+            explanation: "White light shows basic features like sunspots and limb darkening on the photosphere. H-alpha reveals the dramatic chromosphere: prominences at the limb and fine granulation texture.",
           },
           {
             id: "sp-sec12-u7-L4-Q4",
@@ -4217,9 +4217,9 @@ export const spaceSection12: Unit[] = [
             type: "match-pairs",
             question: "Match each maintenance task to its frequency:",
             options: ["Inspect roof rails and wheels", "Clean optics", "Check weather station sensors", "Repaint or re-stain exterior wood"],
-            matchTargets: ["Monthly", "As needed, very gently", "Monthly", "Annually or as needed"],
+            matchTargets: ["Monthly", "Only when visibly dirty", "Quarterly (recalibrate if readings drift)", "Annually or as needed"],
             correctMatches: [0, 1, 2, 3],
-            explanation: "Mechanical parts need monthly checks. Optics should only be cleaned when necessary. Weather sensors drift over time. Exterior maintenance prevents decay.",
+            explanation: "Mechanical parts need monthly checks. Optics should only be cleaned when visibly dirty to avoid scratching coatings. Weather sensors should be checked quarterly for drift. Exterior wood needs annual maintenance.",
           },
           {
             id: "sp-sec12-u10-L5-T2",

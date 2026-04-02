@@ -106,9 +106,9 @@ export const unit3: Unit = {
           type: "match-pairs",
           question: "Match each event to what happens:",
           options: ["Summer solstice", "Winter solstice", "Spring equinox", "Fall equinox"],
-          matchTargets: ["Longest day of the year", "Shortest day of the year", "Day and night roughly equal", "Day and night roughly equal"],
+          matchTargets: ["Longest day of the year", "Shortest day of the year", "Sun crosses equator moving north", "Sun crosses equator moving south"],
           correctMatches: [0, 1, 2, 3],
-          explanation: "Solstices are the extremes (longest and shortest days). Equinoxes are the balance points, with roughly 12 hours of day and night.",
+          explanation: "Solstices are the extremes of day length. At the spring equinox the Sun crosses the celestial equator heading north, and at the fall equinox it crosses heading south.",
         },
         {
           id: "sp-u3-L1-Q7",

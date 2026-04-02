@@ -1282,11 +1282,11 @@ export const unit7: Unit = {
  {
  id: "pf-u7-L11-Q7",
  type: "match-pairs",
- question: "Match each selling trigger to whether it's rational or emotional:",
+ question: "Match each selling trigger to the best description:",
  options: ["Company's competitive moat is shrinking", "You're panicking because the market is down", "You need funds for a planned expense", "Everyone on social media says sell"],
- matchTargets: ["Rational sell signal", "Emotional sell impulse", "Rational sell signal", "Emotional sell impulse"],
+ matchTargets: ["Fundamental deterioration", "Fear-based reaction", "Planned liquidity need", "Herd mentality"],
  correctMatches: [0, 1, 2, 3],
- explanation: "Rational: deteriorating business quality or a planned financial need. Emotional: panic from market drops or social media pressure. Train yourself to recognize the difference, it can save you thousands.",
+ explanation: "A shrinking moat is fundamental deterioration, a valid reason to reassess. Panic selling is a fear-based reaction. Needing cash for a planned expense is a legitimate liquidity need. Following social media is herd mentality. The first and third are rational. The second and fourth are emotional.",
  },
  {
  id: "pf-u7-L11-Q8",

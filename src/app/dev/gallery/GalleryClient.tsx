@@ -10,6 +10,7 @@ import { TrialPromptModal } from '@/components/ui/TrialPromptModal';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { ProfessionPickerModal } from '@/components/profession/ProfessionPickerModal';
 import { LevelUpCelebration } from '@/components/engagement/LevelUpCelebration';
+import { StreakContinued } from '@/components/engagement/StreakContinued';
 import { StreakMilestone } from '@/components/engagement/StreakMilestone';
 import { WelcomeBack } from '@/components/engagement/WelcomeBack';
 import { StreakFreeze } from '@/components/engagement/StreakFreeze';
@@ -98,6 +99,14 @@ const SCREENS: ScreenDef[] = [
   {
     id: 'level-up-milestone', label: 'LevelUpCelebration (Milestone)', section: 'Celebrations',
     render: () => <LevelUpCelebration reward={{ level: 10, gems: 50, isMilestone: true, streakFreeze: true, message: 'Major milestone!' }} onClose={noop} />,
+  },
+  {
+    id: 'streak-continued', label: 'StreakContinued', section: 'Celebrations',
+    render: () => <StreakContinued streak={5} onClose={noop} />,
+  },
+  {
+    id: 'streak-continued-long', label: 'StreakContinued (Long)', section: 'Celebrations',
+    render: () => <StreakContinued streak={42} onClose={noop} />,
   },
   {
     id: 'streak-milestone', label: 'StreakMilestone', section: 'Celebrations',

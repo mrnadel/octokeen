@@ -10,7 +10,7 @@ import { useIsDark } from '@/store/useThemeStore';
 
 import { StreakFlame, type StreakState } from '@/components/icons/StreakFlame';
 import { getProfession, PROFESSIONS } from '@/data/professions';
-
+import { useCourseAccess } from '@/hooks/useCourseAccess';
 import { useGems, useEngagementStore, useDoubleXpActive } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
@@ -151,6 +151,7 @@ export function CourseHeader() {
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const setActiveProfession = useCourseStore((s) => s.setActiveProfession);
   const profession = getProfession(activeProfession);
+  const grantedCourses = useCourseAccess();
   const router = useRouter();
 
   const heartsCurrent = useHeartsStore((s) => s.current);
@@ -399,6 +400,7 @@ export function CourseHeader() {
                 {popover === 'course' ? (
                   <CoursePopoverContent
                     activeProfession={activeProfession}
+                    grantedCourses={grantedCourses}
                     onSelect={(id) => {
                       setActiveProfession(id);
                       closePopover();
@@ -419,8 +421,9 @@ export function CourseHeader() {
 }
 
 // ─── Course popover ───
-function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession: string; onSelect: (id: string) => void }) {
+function CoursePopoverContent({ activeProfession, grantedCourses, onSelect }: { activeProfession: string; grantedCourses?: string[]; onSelect: (id: string) => void }) {
   const isDark = useIsDark();
+  const visibleProfessions = PROFESSIONS.filter(p => !p.requiresAccess || (grantedCourses && grantedCourses.includes(p.id)));
   return (
     <div>
       {/* Header */}
@@ -435,7 +438,7 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
 
       {/* Course list */}
       <div style={{ padding: '0 10px 10px' }}>
-        {PROFESSIONS.map((p, i) => {
+        {visibleProfessions.map((p, i) => {
           const isActive = activeProfession === p.id;
           const isDisabled = p.isComingSoon === true;
 
@@ -458,7 +461,7 @@ function CoursePopoverContent({ activeProfession, onSelect }: { activeProfession
                 border: isActive ? `1.5px solid ${p.color}${isDark ? '40' : '30'}` : '1.5px solid transparent',
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
                 opacity: isDisabled ? 0.45 : 1,
-                marginBottom: i < PROFESSIONS.length - 1 ? 4 : 0,
+                marginBottom: i < visibleProfessions.length - 1 ? 4 : 0,
               }}
               whileHover={isDisabled ? undefined : { backgroundColor: isActive ? undefined : (isDark ? '#334155' : '#F7F7F7') }}
               whileTap={isDisabled ? undefined : { scale: 0.98 }}

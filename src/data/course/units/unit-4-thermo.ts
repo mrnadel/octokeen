@@ -88,9 +88,9 @@ export const unit4: Unit = {
           type: 'match-pairs',
           question: 'Match each property to its classification.',
           options: ['Temperature', 'Total volume', 'Density', 'Mass'],
-          matchTargets: ['Intensive', 'Extensive', 'Intensive', 'Extensive'],
+          matchTargets: ['Intensive (same if system is split)', 'Extensive (doubles if system doubles)', 'Intensive (ratio of two extensive properties)', 'Extensive (additive over subsystems)'],
           correctMatches: [0, 1, 2, 3],
-          explanation: 'Temperature and density don\'t change with system size. Total volume and mass scale with the amount of matter.',
+          explanation: 'Temperature and density are intensive: they stay the same if you split the system. Total volume and mass are extensive: they scale with the amount of matter.',
           hint: 'Does the property change if you double the amount of material?',
         },
         {

@@ -24,7 +24,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   // Initialize engagement systems (streak freeze, quests, league, comeback)
   // Wait for DB hydration so init doesn't run with empty/stale state
-  useEngagementInit(isHydrated);
+  // Only run for authenticated users — league/engagement APIs require auth
+  useEngagementInit(isHydrated && status === 'authenticated');
 
   const isAuthenticated = status === 'authenticated';
 

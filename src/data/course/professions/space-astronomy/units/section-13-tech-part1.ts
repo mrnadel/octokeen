@@ -1410,10 +1410,10 @@ export const spaceSection13Part1: Unit[] = [
             id: 'sp-sec13-u3-L4-Q3',
             type: 'match-pairs',
             question: 'Match each factor to the power source it favors:',
-            options: ['Nearby the Sun', 'Outer solar system', 'Very long mission life', 'Lowest cost'],
-            matchTargets: ['Solar panels', 'RTGs', 'RTGs', 'Solar panels'],
+            options: ['Nearby the Sun', 'Outer solar system', 'Very long mission life', 'Short LEO mission'],
+            matchTargets: ['Solar panels', 'RTGs (plutonium decay)', 'RTGs (decades of steady output)', 'Rechargeable batteries'],
             correctMatches: [0, 1, 2, 3],
-            explanation: 'Solar panels are cheaper and work well near the Sun. RTGs are necessary for distant missions and offer decades of reliable power.',
+            explanation: 'Solar panels work well near the Sun. RTGs use plutonium decay for distant missions and provide decades of reliable power. Short LEO missions can rely on rechargeable batteries topped up by solar panels.',
           },
           {
             id: 'sp-sec13-u3-L4-Q4',
