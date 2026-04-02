@@ -125,6 +125,28 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     return getUnitTheme(activeLesson.unitIndex);
   }, [adapter, activeLesson]);
 
+  // === LESSON BACKGROUND ===
+  const [backgroundHtml, setBackgroundHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    const bgKey = lessonData?.lesson.background;
+    if (!bgKey) {
+      setBackgroundHtml(null);
+      return;
+    }
+    let cancelled = false;
+    import(`@/data/course/backgrounds/${bgKey}`).then((mod) => {
+      if (!cancelled) setBackgroundHtml(mod.background.html);
+    }).catch((err) => {
+      console.warn('[LessonView] Failed to load background:', bgKey, err);
+      if (!cancelled) setBackgroundHtml(null);
+    });
+    return () => { cancelled = true; };
+  }, [lessonData?.lesson.background]);
+
+  const hasBackground = backgroundHtml !== null;
+  const overlayActive = showExitConfirm || showOutOfHearts;
+
   const lessonSessionQuestions = useMemo(() => {
     if (adapter || !activeLesson || !lessonData) return [];
     const questionMap = new Map(lessonData.lesson.questions.map((q) => [q.id, q]));
@@ -479,19 +501,38 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         role="main"
         aria-label={adapter ? 'Practice view' : 'Lesson view'}
         style={{
-          backgroundColor: c.bg,
+          backgroundColor: hasBackground ? '#0B0E1A' : c.bg,
           paddingTop: 'env(safe-area-inset-top, 0px)',
         }}
       >
-        <div className="w-full h-full max-w-3xl flex flex-col bg-[#FAFAFA] lg:shadow-lg lg:border-x lg:border-gray-200">
+        <div
+          className={`w-full h-full max-w-3xl flex flex-col lg:shadow-lg lg:border-x lg:border-gray-200`}
+          style={{ position: 'relative', background: hasBackground ? 'transparent' : undefined }}
+        >
+          {hasBackground && (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 0,
+                overflow: 'hidden',
+                animationPlayState: overlayActive ? 'paused' : 'running',
+              }}
+              dangerouslySetInnerHTML={{ __html: backgroundHtml! }}
+            />
+          )}
         {/* Top bar */}
         <div
           className="flex items-center flex-shrink-0 z-20"
           style={{
             padding: '10px 16px',
             gap: 12,
-            borderBottom: `2px solid ${c.headerBorder}`,
-            background: c.cardBg,
+            borderBottom: hasBackground ? '1px solid rgba(255,255,255,0.08)' : `2px solid ${c.headerBorder}`,
+            background: hasBackground ? 'rgba(255,255,255,0.06)' : c.cardBg,
+            backdropFilter: hasBackground ? 'blur(8px)' : undefined,
+            WebkitBackdropFilter: hasBackground ? 'blur(8px)' : undefined,
+            position: 'relative',
+            zIndex: 20,
           }}
         >
           <button
@@ -705,7 +746,11 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         <>
         <div
           className="flex-1 overflow-y-auto overflow-x-hidden"
-          style={{ padding: '16px 20px 20px' }}
+          style={{
+            padding: '16px 20px 20px',
+            position: 'relative',
+            zIndex: 1,
+          }}
         >
           <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
             <AnimatePresence>
@@ -870,8 +915,12 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             style={{
               padding: '12px 20px',
               paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              borderTop: `2px solid ${c.headerBorder}`,
-              background: c.cardBg,
+              borderTop: hasBackground ? '1px solid rgba(255,255,255,0.08)' : `2px solid ${c.headerBorder}`,
+              background: hasBackground ? 'rgba(15,23,42,0.75)' : c.cardBg,
+              backdropFilter: hasBackground ? 'blur(8px)' : undefined,
+              WebkitBackdropFilter: hasBackground ? 'blur(8px)' : undefined,
+              position: 'relative',
+              zIndex: 10,
             }}
           >
             <div className="flex items-center gap-2.5">
