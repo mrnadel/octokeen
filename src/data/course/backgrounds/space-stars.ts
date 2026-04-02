@@ -11,47 +11,7 @@
 export const background = {
   name: 'Space Stars',
   category: 'Space',
-  html: `
-<style>
-  #lb-space-stars {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, #0B0E1A 0%, #0f1535 30%, #1a1050 60%, #0B0E1A 100%);
-    overflow: hidden;
-  }
-  #lb-space-stars .lb-star {
-    position: absolute;
-    border-radius: 50%;
-    will-change: opacity, transform;
-  }
-  #lb-space-stars .lb-planet {
-    position: absolute;
-    border-radius: 50%;
-    will-change: transform;
-  }
-  #lb-space-stars .lb-nebula {
-    position: absolute;
-    border-radius: 50%;
-    will-change: transform, opacity;
-  }
-  @keyframes lb-space-stars-twinkle {
-    0%, 100% { opacity: 0.1; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.4); }
-  }
-  @keyframes lb-space-stars-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-16px) rotate(3deg); }
-  }
-  @keyframes lb-space-stars-drift {
-    0% { transform: translate(0, 0); opacity: 0.5; }
-    50% { transform: translate(10px, -12px); opacity: 1; }
-    100% { transform: translate(0, 0); opacity: 0.5; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    #lb-space-stars * { animation: none !important; }
-  }
-</style>
-<div id="lb-space-stars">
+  html: `<div id="lb-space-stars">
   <!-- Stars (18 elements) -->
   <div class="lb-star" style="top:4%;left:12%;width:3px;height:3px;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,0.5);animation:lb-space-stars-twinkle 3.5s 0s infinite ease-in-out"></div>
   <div class="lb-star" style="top:8%;left:55%;width:4px;height:4px;background:#FDE68A;box-shadow:0 0 10px 2px rgba(253,230,138,0.4);animation:lb-space-stars-twinkle 4.2s 1.2s infinite ease-in-out"></div>
