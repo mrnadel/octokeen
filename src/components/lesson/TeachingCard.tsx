@@ -46,10 +46,21 @@ interface TeachingCardProps {
   question: CourseQuestion;
   unitColor: string;
   onGotIt: () => void;
+  hasBackground?: boolean;
 }
 
-export default function TeachingCard({ question, unitColor, onGotIt }: TeachingCardProps) {
+export default function TeachingCard({ question, unitColor, onGotIt, hasBackground }: TeachingCardProps) {
   const c = useLessonColors();
+  // Glass overrides when lesson has a background
+  const gb = hasBackground ? {
+    cardBg: 'rgba(15, 23, 42, 0.75)',
+    border: 'rgba(255, 255, 255, 0.1)',
+    title: '#E2E8F0',
+    subtitle: '#CBD5E1',
+    backdrop: 'blur(12px)',
+    hintBg: 'rgba(255, 255, 255, 0.06)',
+    hintBorder: 'rgba(255, 255, 255, 0.1)',
+  } : null;
   // Strip leading emoji from title (we use mascot instead now)
   const titleMatch = question.question.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)\s*/u);
   const title = titleMatch ? question.question.slice(titleMatch[0].length) : question.question;
@@ -97,12 +108,14 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
             transition={{ delay: 0.15, duration: 0.3 }}
             style={{
               position: 'relative',
-              background: c.cardBg,
-              border: `2px solid ${c.border}`,
+              background: gb?.cardBg ?? c.cardBg,
+              border: `2px solid ${gb?.border ?? c.border}`,
               borderRadius: 18,
               padding: '14px 18px',
               flex: 1,
               boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              backdropFilter: gb?.backdrop,
+              WebkitBackdropFilter: gb?.backdrop,
             }}
           >
             {/* Triangle pointer */}
@@ -113,8 +126,8 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
                 top: 18,
                 width: 14,
                 height: 14,
-                background: c.cardBg,
-                border: `2px solid ${c.border}`,
+                background: gb?.cardBg ?? c.cardBg,
+                border: `2px solid ${gb?.border ?? c.border}`,
                 borderRight: 'none',
                 borderBottom: 'none',
                 transform: 'rotate(-45deg)',
@@ -126,7 +139,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               style={{
                 fontSize: 17,
                 fontWeight: 800,
-                color: c.title,
+                color: gb?.title ?? c.title,
                 lineHeight: 1.3,
                 margin: 0,
                 marginBottom: 8,
@@ -140,7 +153,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               style={{
                 fontSize: 14.5,
                 fontWeight: 500,
-                color: c.subtitle,
+                color: gb?.subtitle ?? c.subtitle,
                 lineHeight: 1.55,
               }}
             >
@@ -173,13 +186,13 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               margin: '0 auto',
               padding: '12px 16px',
               borderRadius: 14,
-              background: `${unitColor}0A`,
-              border: `1.5px solid ${unitColor}20`,
+              background: gb ? gb.hintBg : `${unitColor}0A`,
+              border: `1.5px solid ${gb ? gb.hintBorder : `${unitColor}20`}`,
             }}
           >
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
               <Mascot pose="thinking" size={28} className="flex-shrink-0 mt-0.5" />
-              <p style={{ fontSize: 13, fontWeight: 600, color: c.subtitle, lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: gb?.subtitle ?? c.subtitle, lineHeight: 1.5, margin: 0 }}>
                 <MoneyText text={question.hint} />
               </p>
             </div>

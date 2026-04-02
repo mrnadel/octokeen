@@ -31,6 +31,7 @@ import { useDoubleXpActive } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { playSound } from '@/lib/sounds';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { PROFESSION_ID } from '@/data/professions';
 import { HeartDisplay } from '@/components/ui/HeartDisplay';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
@@ -796,6 +797,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     question={displayQuestion}
                     unitColor={unitColor}
                     onGotIt={handleTeachingGotIt}
+                    hasBackground={hasBackground}
                   />
                 ) : displayQuestion.type === 'sort-buckets' ? (
                   <SortBucketsCard
@@ -926,7 +928,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           >
             <div className="flex items-center gap-2.5">
               {/* Calculator toggle — available for courses with calculation questions */}
-              {(activeProfession === 'mechanical-engineering' || activeProfession === 'personal-finance' || activeProfession === 'space-astronomy') && <button
+              {(activeProfession === PROFESSION_ID.MECHANICAL_ENGINEERING || activeProfession === PROFESSION_ID.PERSONAL_FINANCE || activeProfession === PROFESSION_ID.SPACE_ASTRONOMY) && <button
                 onClick={() => setIsCalcOpen(c => !c)}
                 className="flex-shrink-0 flex items-center justify-center transition-transform active:scale-90"
                 style={{
@@ -1036,7 +1038,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
         {/* Calculator panel — shows the right calculator per course */}
         <AnimatePresence>
-          {isCalcOpen && activeProfession === 'mechanical-engineering' && (
+          {isCalcOpen && activeProfession === PROFESSION_ID.MECHANICAL_ENGINEERING && (
             <EngineeringCalculator
               isOpen={isCalcOpen}
               onClose={() => setIsCalcOpen(false)}
@@ -1044,7 +1046,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
               accentDark={theme.dark}
             />
           )}
-          {isCalcOpen && activeProfession === 'personal-finance' && (
+          {isCalcOpen && activeProfession === PROFESSION_ID.PERSONAL_FINANCE && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1075,7 +1077,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
               <FinanceCalculators />
             </motion.div>
           )}
-          {isCalcOpen && activeProfession === 'space-astronomy' && (
+          {isCalcOpen && activeProfession === PROFESSION_ID.SPACE_ASTRONOMY && (
             <EngineeringCalculator
               isOpen={isCalcOpen}
               onClose={() => setIsCalcOpen(false)}
