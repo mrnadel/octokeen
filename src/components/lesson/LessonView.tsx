@@ -518,7 +518,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         role="main"
         aria-label={adapter ? 'Practice view' : 'Lesson view'}
         style={{
-          backgroundColor: hasBackground ? '#0B0E1A' : c.bg,
+          backgroundColor: c.bg,
           paddingTop: 'env(safe-area-inset-top, 0px)',
         }}
       >
@@ -544,10 +544,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           style={{
             padding: '10px 16px',
             gap: 12,
-            borderBottom: hasBackground ? '1px solid rgba(255,255,255,0.08)' : `2px solid ${c.headerBorder}`,
-            background: hasBackground ? 'rgba(255,255,255,0.06)' : c.cardBg,
-            backdropFilter: hasBackground ? 'blur(8px)' : undefined,
-            WebkitBackdropFilter: hasBackground ? 'blur(8px)' : undefined,
+            borderBottom: `2px solid ${c.headerBorder}`,
+            background: c.cardBg,
             position: 'relative',
             zIndex: 20,
           }}
@@ -812,7 +810,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     question={displayQuestion}
                     unitColor={unitColor}
                     onGotIt={handleTeachingGotIt}
-                    hasBackground={hasBackground}
                   />
                 ) : displayQuestion.type === 'sort-buckets' ? (
                   <SortBucketsCard
@@ -933,10 +930,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             style={{
               padding: '12px 20px',
               paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              borderTop: hasBackground ? '1px solid rgba(255,255,255,0.08)' : `2px solid ${c.headerBorder}`,
-              background: hasBackground ? 'rgba(15,23,42,0.75)' : c.cardBg,
-              backdropFilter: hasBackground ? 'blur(8px)' : undefined,
-              WebkitBackdropFilter: hasBackground ? 'blur(8px)' : undefined,
+              borderTop: `2px solid ${c.headerBorder}`,
+              background: c.cardBg,
               position: 'relative',
               zIndex: 10,
             }}
