@@ -522,22 +522,23 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           paddingTop: 'env(safe-area-inset-top, 0px)',
         }}
       >
+        {/* Background layer — placed on outer div so gradient fills entire viewport */}
+        {hasBackground && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 0,
+              overflow: 'hidden',
+              animationPlayState: overlayActive ? 'paused' : 'running',
+            }}
+            dangerouslySetInnerHTML={{ __html: backgroundHtml! }}
+          />
+        )}
         <div
-          className={`w-full h-full max-w-3xl flex flex-col lg:shadow-lg lg:border-x lg:border-gray-200`}
+          className={`w-full h-full max-w-3xl flex flex-col lg:shadow-lg lg:border-x ${hasBackground ? 'lg:border-transparent' : 'lg:border-gray-200'}`}
           style={{ position: 'relative', background: hasBackground ? 'transparent' : undefined }}
         >
-          {hasBackground && (
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                zIndex: 0,
-                overflow: 'hidden',
-                animationPlayState: overlayActive ? 'paused' : 'running',
-              }}
-              dangerouslySetInnerHTML={{ __html: backgroundHtml! }}
-            />
-          )}
         {/* Top bar */}
         <div
           className="flex items-center flex-shrink-0 z-20"
