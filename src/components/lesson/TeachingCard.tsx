@@ -71,7 +71,7 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
   const displayExplanation = (country && question.variants?.[country]) || question.explanation;
 
   return (
-    <div className="teaching-card flex flex-col flex-1" style={{ minHeight: '100%' }}>
+    <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
       <div className="flex flex-col" style={{ gap: 20, paddingTop: 12 }}>
         {/* Mascot with speech bubble */}
         <motion.div
