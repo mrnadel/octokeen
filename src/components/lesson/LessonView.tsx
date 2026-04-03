@@ -811,6 +811,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     question={displayQuestion}
                     unitColor={unitColor}
                     onGotIt={handleTeachingGotIt}
+                    hasBackground={hasBackground}
                   />
                 ) : displayQuestion.type === 'sort-buckets' ? (
                   <SortBucketsCard

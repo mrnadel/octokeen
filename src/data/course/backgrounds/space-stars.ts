@@ -32,6 +32,8 @@ export const background = {
   position: absolute;
   border-radius: 50%;
   will-change: opacity, transform;
+  opacity: 0.4;
+  transform: scale(0.9);
   animation: lb-twinkle 4s infinite ease-in-out;
 }
 #lb-space-stars .lb-s1 { animation-duration: 3.2s; animation-delay: 0s; }
@@ -91,6 +93,7 @@ export const background = {
   animation: lb-aurora 35s 0s infinite ease-in-out;
   opacity: 0;
   mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 /* ── Shooting stars ── */
@@ -133,19 +136,18 @@ export const background = {
   width: 70px; height: 2px; margin-top: -1px;
   background: linear-gradient(90deg, transparent, rgba(224,231,255,0.5));
   border-radius: 2px;
-  transform: rotate(11deg);
-  transform-origin: right center;
+  transform: none;
 }
 
 /* ── Satellite ── */
 #lb-space-stars .lb-satellite {
   position: absolute;
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
   will-change: transform, opacity;
   opacity: 0;
   animation: lb-satellite 47s 15s infinite linear;
   pointer-events: none;
-  filter: brightness(0.8);
+  filter: brightness(0.85) drop-shadow(0 0 3px rgba(99,200,255,0.3));
 }
 
 /* ── Moon crescent ── */
@@ -169,6 +171,7 @@ export const background = {
   width: 100%; height: 100%;
   will-change: opacity;
   animation: lb-constellation 12s 0s infinite ease-in-out;
+  pointer-events: none;
 }
 
 /* ── Keyframes ── */
@@ -206,62 +209,66 @@ export const background = {
   100% { transform: translate(0,0) scale(1); opacity: 0; }
 }
 @keyframes lb-shoot-a {
-  0% { transform: translate(0,0) rotate(28deg); opacity: 0; }
-  11% { transform: translate(0,0) rotate(28deg); opacity: 0; }
-  11.3% { transform: translate(0,0) rotate(28deg); opacity: 1; }
-  14% { transform: translate(-380px,200px) rotate(28deg); opacity: 1; }
-  14.5% { transform: translate(-380px,200px) rotate(28deg); opacity: 0; }
-  15% { transform: translate(0,0) rotate(28deg); opacity: 0; }
-  69% { transform: translate(0,0) rotate(28deg); opacity: 0; }
-  69.3% { transform: translate(0,0) rotate(28deg); opacity: 1; }
-  72% { transform: translate(-380px,200px) rotate(28deg); opacity: 1; }
-  72.5% { transform: translate(-380px,200px) rotate(28deg); opacity: 0; }
-  73% { transform: translate(0,0) rotate(28deg); opacity: 0; }
-  100% { transform: translate(0,0) rotate(28deg); opacity: 0; }
+  0% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
+  11% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
+  11.3% { transform: translate(0,0) rotate(-28deg); opacity: 1; }
+  14% { transform: translate(-380px,200px) rotate(-28deg); opacity: 1; }
+  14.5% { transform: translate(-380px,200px) rotate(-28deg); opacity: 0; }
+  15% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
+  69% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
+  69.3% { transform: translate(0,0) rotate(-28deg); opacity: 1; }
+  72% { transform: translate(-380px,200px) rotate(-28deg); opacity: 1; }
+  72.5% { transform: translate(-380px,200px) rotate(-28deg); opacity: 0; }
+  73% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
+  100% { transform: translate(0,0) rotate(-28deg); opacity: 0; }
 }
 @keyframes lb-shoot-b {
-  0% { transform: translate(0,0) rotate(22deg); opacity: 0; }
-  70% { transform: translate(0,0) rotate(22deg); opacity: 0; }
-  70.3% { transform: translate(0,0) rotate(22deg); opacity: 0.85; }
-  73% { transform: translate(-310px,125px) rotate(22deg); opacity: 0.85; }
-  73.5% { transform: translate(-310px,125px) rotate(22deg); opacity: 0; }
-  74% { transform: translate(0,0) rotate(22deg); opacity: 0; }
-  100% { transform: translate(0,0) rotate(22deg); opacity: 0; }
+  0% { transform: translate(0,0) rotate(-22deg); opacity: 0; }
+  70% { transform: translate(0,0) rotate(-22deg); opacity: 0; }
+  70.3% { transform: translate(0,0) rotate(-22deg); opacity: 0.85; }
+  73% { transform: translate(-310px,125px) rotate(-22deg); opacity: 0.85; }
+  73.5% { transform: translate(-310px,125px) rotate(-22deg); opacity: 0; }
+  74% { transform: translate(0,0) rotate(-22deg); opacity: 0; }
+  100% { transform: translate(0,0) rotate(-22deg); opacity: 0; }
 }
 @keyframes lb-shoot-c {
-  0% { transform: translate(0,0) rotate(40deg); opacity: 0; }
-  41% { transform: translate(0,0) rotate(40deg); opacity: 0; }
-  41.3% { transform: translate(0,0) rotate(40deg); opacity: 0.7; }
-  44% { transform: translate(-250px,210px) rotate(40deg); opacity: 0.7; }
-  44.5% { transform: translate(-250px,210px) rotate(40deg); opacity: 0; }
-  45% { transform: translate(0,0) rotate(40deg); opacity: 0; }
-  71% { transform: translate(0,0) rotate(40deg); opacity: 0; }
-  71.3% { transform: translate(0,0) rotate(40deg); opacity: 0.7; }
-  74% { transform: translate(-250px,210px) rotate(40deg); opacity: 0.7; }
-  74.5% { transform: translate(-250px,210px) rotate(40deg); opacity: 0; }
-  75% { transform: translate(0,0) rotate(40deg); opacity: 0; }
-  100% { transform: translate(0,0) rotate(40deg); opacity: 0; }
+  0% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
+  41% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
+  41.3% { transform: translate(0,0) rotate(-40deg); opacity: 0.7; }
+  44% { transform: translate(-250px,210px) rotate(-40deg); opacity: 0.7; }
+  44.5% { transform: translate(-250px,210px) rotate(-40deg); opacity: 0; }
+  45% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
+  71% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
+  71.3% { transform: translate(0,0) rotate(-40deg); opacity: 0.7; }
+  74% { transform: translate(-250px,210px) rotate(-40deg); opacity: 0.7; }
+  74.5% { transform: translate(-250px,210px) rotate(-40deg); opacity: 0; }
+  75% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
+  100% { transform: translate(0,0) rotate(-40deg); opacity: 0; }
 }
 @keyframes lb-comet {
   0% { transform: translate(0,0); opacity: 0; }
-  2% { transform: translate(10px,-2px); opacity: 0.9; }
-  8% { transform: translate(100px,-20px); opacity: 0.9; }
-  15% { transform: translate(250px,-55px); opacity: 0.8; }
-  20% { transform: translate(350px,-70px); opacity: 0.4; }
-  23% { transform: translate(400px,-78px); opacity: 0; }
+  2% { transform: translate(10px,2px); opacity: 0.9; }
+  8% { transform: translate(100px,20px); opacity: 0.9; }
+  15% { transform: translate(250px,55px); opacity: 0.8; }
+  20% { transform: translate(350px,70px); opacity: 0.4; }
+  23% { transform: translate(400px,78px); opacity: 0; }
   24% { transform: translate(0,0); opacity: 0; }
   100% { transform: translate(0,0); opacity: 0; }
 }
 @keyframes lb-satellite {
   0% { transform: translate(0,0) rotate(0deg); opacity: 0; }
-  0.5% { transform: translate(14px,-1px) rotate(3deg); opacity: 0.7; }
-  3% { transform: translate(84px,-8px) rotate(-4deg); opacity: 0.7; }
-  5.5% { transform: translate(155px,-14px) rotate(3deg); opacity: 0.7; }
-  8% { transform: translate(225px,-20px) rotate(-3deg); opacity: 0.7; }
-  10.5% { transform: translate(296px,-26px) rotate(4deg); opacity: 0.7; }
-  13% { transform: translate(366px,-32px) rotate(-3deg); opacity: 0.7; }
-  15% { transform: translate(422px,-37px) rotate(2deg); opacity: 0.7; }
-  16% { transform: translate(450px,-40px) rotate(0deg); opacity: 0; }
+  0.5% { transform: translate(14px,-3px) rotate(6deg); opacity: 0.75; }
+  2% { transform: translate(56px,2px) rotate(-8deg); opacity: 0.75; }
+  3.5% { transform: translate(98px,-4px) rotate(7deg); opacity: 0.75; }
+  5% { transform: translate(141px,1px) rotate(-7deg); opacity: 0.75; }
+  6.5% { transform: translate(183px,-3px) rotate(8deg); opacity: 0.75; }
+  8% { transform: translate(225px,2px) rotate(-6deg); opacity: 0.75; }
+  9.5% { transform: translate(267px,-4px) rotate(7deg); opacity: 0.75; }
+  11% { transform: translate(310px,1px) rotate(-8deg); opacity: 0.75; }
+  12.5% { transform: translate(352px,-3px) rotate(6deg); opacity: 0.75; }
+  14% { transform: translate(394px,2px) rotate(-7deg); opacity: 0.75; }
+  15% { transform: translate(422px,-1px) rotate(4deg); opacity: 0.75; }
+  16% { transform: translate(450px,0px) rotate(0deg); opacity: 0; }
   17% { transform: translate(0,0) rotate(0deg); opacity: 0; }
   100% { transform: translate(0,0) rotate(0deg); opacity: 0; }
 }
@@ -314,11 +321,8 @@ export const background = {
   <div class="lb-shoot lb-sh2" style="top:12%;right:10%"></div>
   <div class="lb-shoot lb-sh3" style="top:6%;right:15%"></div>
 
-  <!-- Comet (1) — slow bright dot with angled trailing tail -->
-  <div class="lb-comet" style="top:30%;left:5%"></div>
-
   <!-- Satellite (1) — image with wobbly tumble crossing the screen -->
-  <img class="lb-satellite" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAgCAMAAABjCgsuAAABa1BMVEVMaXEAD1UKKXwEqP0Ct/4PHEYBrfwKE1whndWF+e4JYKgAnfoVarANPo4IUp8Fpffk6v4MpeYLtep7xPwMKYLY2/qcn/TJzvoNh8MFmtwJkM4Cl/QIn98MNYsFtvckQ6kwRcphvf0uUaltftNraPHw9/91gLlpiuB+hecOkdELicUJdLgUquAsX6AHfMALjMlj2/07sf0/luFFScc0RbpRcd6PnM8cT6czdNQRqtoXm9MWLpQLfLw+SbwfQMY8x/v+//9ncsxPM7wipPVwu/oUvOuRneRRqO1OXaJ5dfmSkPcrOKUvoNWB4P+f5f3J4/2gptRSba6U2P9wgcV3+v8lb766wt5LWNIoarsMKZ6BsPA9ZruzuuNhidUae70Evf8Ex/4Dsv4Ezv4IpO0I1f442f4Kwv4FofwpvPq7wPcK3v8Szf8gQa+fu/e8y/pQuPppfO4Ur/1eZ+uQ9v+Y8P9nju9FXdwNwfKQruMeWVRNAAAAZHRSTlMADhn+/gj+AQMBVv1qJkX+/vv7/jL9/v6Z5s7+8UX+sfz+ffD9/Wj+/d+we+s/j7/+/vf9/f6tlv3MvG1+vv7+/sr+/v7++/pW/v11yv38/MJ+/qX+99P73Pz+8ejWpv/////+iiAuyAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAlNJREFUeNqdlFV320AQhUfSSitZZnbM7DAzOExl5rMrWZLt2GFof35XSZs+RE7tzNues98ZuHcGwApZwtBPuLl+EAzCYNzVB4LB4Sc0PtwzIsFovaFSEh92METqBXCmTYoUqiVX/iFYfgRYUXlNVxEhJDnm+FOYDHJ3IIZEXqRHmtgwrkbG3GABguM2j11TMizxSFMVVdNq66XJtj/GssC7VhlYdbLtGIbOE6KIyHmz/X5CQVR3sn8bpTmGYbtWMHCuwXpCqZWCpyLVNfLTAwLkv4WAK3+cc4MtIrgG6pMnk9TkeXq0E2J9ZeaFucJJyfcaw8OqsCSD4ByoN7wEqSra+ZwP7Ue//zi+DocXfo2CnTQWgj3jfm9CpNrW7Ole5Tjaih60fAuVMthraSGQmmrWEyRXnf3K/h9Gi2e+cPgNG5bUTRCucJ1rprd3K5HDavWwWrmJ+N76hzyW/bu4sHBWnJ46i8xMdzqR44XClIqYAQLjHgx2Wdg8Nmazm5sHxU9fOvPl/PyHANKPVJ4YzSWG2GSR4NlFdnome1Oc6aTYK+VviKauTfiCV+kBp20KYfVibS27mmmF95l4o3VE1YZpXDYJMWvPnbai5zOZZQjtnrgs25tK+kXOd6rqupF7dRkIPdTwzjoypJY5awaxJL+9N9FGjaZhGGbAbS+6dL+oGNxjca8iouB6kFkm4HhkR24hS0zH8KB3K/iyLYpkhIP/7rwFci7LZV6qjwjQw5G4MyZzmUIXewL+GnMoSRYx9Hq5LGO6Y67uPds1A/0GfgLztPgNwcVh5MC7GeQAAAAASUVORK5CYII=" style="top:55%;left:-5%" alt="" width="32" height="32" />
+  <img class="lb-satellite" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAArBAMAAAA6dJN0AAAAMFBMVEVMaXEGu/0Gm/caXa0JHXkuRb2OnO5bcuESpt2+zPkTOJHt8/9CvvwVgsB12P4O2v+d2eTvAAAAD3RSTlMA/v6eKvz5/Pf+Xf7+zP62Dw5hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABwUlEQVR42tWUvUsDQRDFF6IoAYvZRpHIMVsEBEHFgJaBgEjAziViJWjuiHbCJV6hEMlfoBKISaGchRZpA8dJIJ3hwA+0sJM0IihCTCOinps299XYuO3+eDP75u0Q8gen7zgACI0FEEPwEfMHaAAxyMCfWJCASn7EGdoUYMSbOGFoA6C3xjRStN+xfBnzMGUaQWhY5sTHPSEDNSfwyEBo/NQRvgmZN5wSi3sModLtQwAhJU6S8R6iusesixba7Y4Alkhy86BXo5qP7oPoVAD9U/OyYTrKJPIM2ojfp+R8LZM1tFXiRgAMb9+VayXZ4OvEjUAY3n3K1oycmT50sSvRYJPNnFwqZpRy6cgtNso1a2aLRVlTNfM55gbI11pO4Vpa3np1G11IUVPZNOeZ7R2gdNJJhMWlovIVXV8GMTpnQPpyKa6m+JKwTVgGL5ajj1nOuarddEMMaJtXjhiGVM71snBgEIA2fgAivRr6zHFY2xAZZZGKgfbXW73jfKw+JUrko5WKqPLW6nhksNodzHhLan96pVQMJmLVmeQJdAmrATDq/VcStwzRDyDhB4pSgQQQBf+9MkcLAZtn7iZoN8XJPzm/0tedu3NcY7oAAAAASUVORK5CYII=" style="top:55%;left:-8%" alt="" width="44" height="44" />
 
   <!-- Moon crescent (1) — with earthshine glow -->
   <div class="lb-moon" style="bottom:28%;right:18%"></div>

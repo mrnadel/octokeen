@@ -46,10 +46,16 @@ interface TeachingCardProps {
   question: CourseQuestion;
   unitColor: string;
   onGotIt: () => void;
+  hasBackground?: boolean;
 }
 
-export default function TeachingCard({ question, unitColor, onGotIt }: TeachingCardProps) {
+export default function TeachingCard({ question, unitColor, onGotIt, hasBackground }: TeachingCardProps) {
   const c = useLessonColors();
+  // Glass-style overrides when space background is active
+  const bg = hasBackground ? 'rgba(15,23,42,0.55)' : c.cardBg;
+  const borderColor = hasBackground ? 'rgba(255,255,255,0.1)' : c.border;
+  const titleColor = hasBackground ? '#F1F5F9' : c.title;
+  const subtitleColor = hasBackground ? '#CBD5E1' : c.subtitle;
   // Strip leading emoji from title (we use mascot instead now)
   const titleMatch = question.question.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)\s*/u);
   const title = titleMatch ? question.question.slice(titleMatch[0].length) : question.question;
@@ -97,12 +103,14 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
             transition={{ delay: 0.15, duration: 0.3 }}
             style={{
               position: 'relative',
-              background: c.cardBg,
-              border: `2px solid ${c.border}`,
+              background: bg,
+              border: `2px solid ${borderColor}`,
               borderRadius: 18,
               padding: '14px 18px',
               flex: 1,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              boxShadow: hasBackground ? 'none' : '0 1px 3px rgba(0,0,0,0.06)',
+              backdropFilter: hasBackground ? 'blur(12px)' : undefined,
+              WebkitBackdropFilter: hasBackground ? 'blur(12px)' : undefined,
             }}
           >
             {/* Triangle pointer */}
@@ -113,8 +121,8 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
                 top: 18,
                 width: 14,
                 height: 14,
-                background: c.cardBg,
-                border: `2px solid ${c.border}`,
+                background: bg,
+                border: `2px solid ${borderColor}`,
                 borderRight: 'none',
                 borderBottom: 'none',
                 transform: 'rotate(-45deg)',
@@ -126,7 +134,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               style={{
                 fontSize: 17,
                 fontWeight: 800,
-                color: c.title,
+                color: titleColor,
                 lineHeight: 1.3,
                 margin: 0,
                 marginBottom: 8,
@@ -140,7 +148,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               style={{
                 fontSize: 14.5,
                 fontWeight: 500,
-                color: c.subtitle,
+                color: subtitleColor,
                 lineHeight: 1.55,
               }}
             >
@@ -157,7 +165,7 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
             transition={{ delay: 0.25 }}
             className="w-full"
           >
-            <DiagramDisplay html={question.diagram} cardBg={c.cardBg} border={c.border} />
+            <DiagramDisplay html={question.diagram} cardBg={bg} border={borderColor} />
           </motion.div>
         )}
 
@@ -173,13 +181,13 @@ export default function TeachingCard({ question, unitColor, onGotIt }: TeachingC
               margin: '0 auto',
               padding: '12px 16px',
               borderRadius: 14,
-              background: `${unitColor}0A`,
-              border: `1.5px solid ${unitColor}20`,
+              background: hasBackground ? 'rgba(15,23,42,0.4)' : `${unitColor}0A`,
+              border: `1.5px solid ${hasBackground ? 'rgba(255,255,255,0.08)' : `${unitColor}20`}`,
             }}
           >
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
               <Mascot pose="thinking" size={28} className="flex-shrink-0 mt-0.5" />
-              <p style={{ fontSize: 13, fontWeight: 600, color: c.subtitle, lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: subtitleColor, lineHeight: 1.5, margin: 0 }}>
                 <MoneyText text={question.hint} />
               </p>
             </div>
