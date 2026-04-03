@@ -42,10 +42,12 @@ export function GlossaryPopover({
     document.addEventListener('mousedown', handleClick);
     document.addEventListener('keydown', handleKey);
     window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('resize', onClose);
     return () => {
       document.removeEventListener('mousedown', handleClick);
       document.removeEventListener('keydown', handleKey);
       window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('resize', onClose);
     };
   }, [onClose]);
 
@@ -59,7 +61,8 @@ export function GlossaryPopover({
   return (
     <div
       ref={ref}
-      role="tooltip"
+      role="dialog"
+      aria-label={entry.term}
       style={{
         position: 'fixed',
         top: placement === 'below' ? top : undefined,

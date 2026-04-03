@@ -12,11 +12,14 @@ export class GlossaryMatcher {
   private entries: GlossaryEntry[];
   private lookupMap: Map<string, GlossaryEntry>;
   private sectionEntries: Map<number, GlossaryEntry[]>;
+  private fullRegex: RegExp | null;
+  private sectionRegex: Map<number, RegExp>;
 
   constructor(entries: GlossaryEntry[]) {
     this.entries = entries;
     this.lookupMap = new Map();
     this.sectionEntries = new Map();
+    this.sectionRegex = new Map();
 
     for (const entry of entries) {
       this.lookupMap.set(entry.term.toLowerCase(), entry);
@@ -27,6 +30,13 @@ export class GlossaryMatcher {
       } else {
         this.sectionEntries.set(entry.sectionIndex, [entry]);
       }
+    }
+
+    // Pre-compile regexes at construction time
+    this.fullRegex = this.buildRegex(entries.map(e => e.term));
+    for (const [idx, sectionEntries] of this.sectionEntries) {
+      const regex = this.buildRegex(sectionEntries.map(e => e.term));
+      if (regex) this.sectionRegex.set(idx, regex);
     }
   }
 
@@ -40,12 +50,14 @@ export class GlossaryMatcher {
   }
 
   findTerms(text: string, sectionIndex?: number): GlossaryMatch[] {
-    const pool = sectionIndex !== undefined
-      ? (this.sectionEntries.get(sectionIndex) ?? [])
-      : this.entries;
+    const regex = sectionIndex !== undefined
+      ? this.sectionRegex.get(sectionIndex)
+      : this.fullRegex;
 
-    const regex = this.buildRegex(pool.map(e => e.term));
     if (!regex) return [];
+
+    // Reset lastIndex since regex has 'g' flag and may be reused
+    regex.lastIndex = 0;
 
     const matches: GlossaryMatch[] = [];
     let match: RegExpExecArray | null;

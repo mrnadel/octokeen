@@ -22,6 +22,7 @@ export function GlossaryTerm({ children, accentColor, onTap }: GlossaryTermProps
       ref={ref}
       type="button"
       onClick={handleClick}
+      aria-haspopup="dialog"
       className="glossary-term"
       style={{
         display: 'inline',
