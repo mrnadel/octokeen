@@ -133,12 +133,14 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   // === LESSON BACKGROUND ===
   const [backgroundHtml, setBackgroundHtml] = useState<string | null>(null);
   const [backgroundCss, setBackgroundCss] = useState<string | null>(null);
+  const [bgTheme, setBgTheme] = useState<'dark' | 'light' | null>(null);
 
   useEffect(() => {
     const bgKey = lessonData?.lesson.background;
     if (!bgKey) {
       setBackgroundHtml(null);
       setBackgroundCss(null);
+      setBgTheme(null);
       return;
     }
     let cancelled = false;
@@ -146,10 +148,11 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       if (!cancelled) {
         setBackgroundHtml(mod.background.html);
         setBackgroundCss(mod.background.css ?? null);
+        setBgTheme(mod.background.theme ?? 'dark');
       }
     }).catch((err) => {
       console.warn('[LessonView] Failed to load background:', bgKey, err);
-      if (!cancelled) { setBackgroundHtml(null); setBackgroundCss(null); }
+      if (!cancelled) { setBackgroundHtml(null); setBackgroundCss(null); setBgTheme(null); }
     });
     return () => { cancelled = true; };
   }, [lessonData?.lesson.background]);
@@ -816,6 +819,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     unitColor={unitColor}
                     onGotIt={handleTeachingGotIt}
                     hasBackground={hasBackground}
+                    bgTheme={bgTheme}
                   />
                 ) : displayQuestion.type === 'sort-buckets' ? (
                   <SortBucketsCard

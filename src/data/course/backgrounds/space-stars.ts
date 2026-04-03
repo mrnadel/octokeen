@@ -19,6 +19,7 @@
 export const background = {
   name: 'Space Stars',
   category: 'Space',
+  theme: 'dark' as const,
   css: `
 #lb-space-stars {
   position: absolute;

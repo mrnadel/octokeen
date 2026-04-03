@@ -55,9 +55,10 @@ interface TeachingCardProps {
   unitColor: string;
   onGotIt: () => void;
   hasBackground?: boolean;
+  bgTheme?: 'dark' | 'light' | null;
 }
 
-export default function TeachingCard({ question, unitColor, onGotIt, hasBackground }: TeachingCardProps) {
+export default function TeachingCard({ question, unitColor, onGotIt, hasBackground, bgTheme }: TeachingCardProps) {
   const c = useLessonColors();
   // Use normal theme colors — cards stay opaque over the space background
   const bg = c.cardBg;
