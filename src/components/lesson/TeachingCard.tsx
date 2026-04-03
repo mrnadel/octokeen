@@ -1,11 +1,11 @@
 'use client';
 
-import { memo, useMemo, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { memo, useMemo, useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
-import { GlossaryText } from '@/components/ui/GlossaryText';
 import { Mascot, type MascotPose } from '@/components/ui/Mascot';
-import { useLessonColors } from '@/lib/lessonColors';
+import { getTeachingColors } from '@/lib/teachingColors';
+import { useIsDark } from '@/store/useThemeStore';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import EngagingText from './EngagingText';
 
@@ -29,18 +29,14 @@ const DiagramDisplay = memo(function DiagramDisplay({ html, cardBg, border }: { 
   );
 });
 
-// Mascot poses to cycle through for teaching cards
 const TEACHING_POSES: MascotPose[] = [
   'excited', 'thinking', 'proud', 'winking', 'laughing', 'neutral', 'explorer',
 ];
-
-// Space-themed poses mixed with a few general ones for variety
 const SPACE_POSES: MascotPose[] = [
   'space-astronaut', 'space-flag', 'space-ufo', 'space-moon',
   'excited', 'thinking', 'explorer',
 ];
 
-// Pick a stable pose based on question ID
 function getPoseForQuestion(questionId: string, useSpacePoses: boolean): MascotPose {
   const poses = useSpacePoses ? SPACE_POSES : TEACHING_POSES;
   let hash = 0;
@@ -48,6 +44,19 @@ function getPoseForQuestion(questionId: string, useSpacePoses: boolean): MascotP
     hash = ((hash << 5) - hash + questionId.charCodeAt(i)) | 0;
   }
   return poses[Math.abs(hash) % poses.length];
+}
+
+/**
+ * Split an explanation into a short one-liner (first sentence)
+ * and the remaining detail text (rest).
+ */
+export function splitExplanation(text: string): [string, string] {
+  const match = text.match(/[.!?](?:\s|$)/);
+  if (!match || match.index === undefined) return [text, ''];
+  const end = match.index + 1;
+  const first = text.slice(0, end).trim();
+  const rest = text.slice(end).trim();
+  return [first, rest];
 }
 
 interface TeachingCardProps {
@@ -59,13 +68,14 @@ interface TeachingCardProps {
 }
 
 export default function TeachingCard({ question, unitColor, onGotIt, hasBackground, bgTheme }: TeachingCardProps) {
-  const c = useLessonColors();
-  // Use normal theme colors — cards stay opaque over the space background
-  const bg = c.cardBg;
-  const borderColor = c.border;
-  const titleColor = c.title;
-  const subtitleColor = c.subtitle;
-  // Strip leading emoji from title (we use mascot instead now)
+  const isDark = useIsDark();
+  const tc = getTeachingColors({
+    isDark,
+    hasBackground: !!hasBackground,
+    bgTheme: bgTheme ?? null,
+  });
+
+  // Strip leading emoji from title
   const titleMatch = question.question.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)\s*/u);
   const title = titleMatch ? question.question.slice(titleMatch[0].length) : question.question;
 
@@ -78,91 +88,80 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
   }, []);
   const displayExplanation = (country && question.variants?.[country]) || question.explanation;
 
+  // Split explanation into one-liner + expandable detail
+  const [oneLiner, detailText] = useMemo(() => splitExplanation(displayExplanation), [displayExplanation]);
+  const hasExpandContent = detailText.length > 0 || !!question.hint;
+
+  // Expand state
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpand = useCallback(() => setExpanded(prev => !prev), []);
+
+  // Glass styles
+  const glassProps = tc.isGlass
+    ? { backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' } as const
+    : {};
+
   return (
     <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
-      <div className="flex flex-col" style={{ gap: 20, paddingTop: 12 }}>
-        {/* Mascot with speech bubble */}
+      {/* Main content — centered */}
+      <div
+        className="flex flex-col items-center text-center flex-1 justify-center"
+        style={{ padding: '20px 24px', gap: 14, maxWidth: 460, margin: '0 auto', width: '100%' }}
+      >
+        {/* Mascot */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: 12,
-            maxWidth: 460,
-            margin: '0 auto',
-            width: '100%',
-          }}
+          initial={{ scale: 0.5, rotate: -10 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.05 }}
         >
-          {/* Mascot */}
-          <motion.div
-            initial={{ scale: 0.5, rotate: -10 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.05 }}
-            style={{ flexShrink: 0 }}
-          >
-            <Mascot pose={pose} size={72} />
-          </motion.div>
-
-          {/* Speech bubble */}
-          <motion.div
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15, duration: 0.3 }}
+          <div
             style={{
-              position: 'relative',
-              background: bg,
-              border: `2px solid ${borderColor}`,
-              borderRadius: 18,
-              padding: '14px 18px',
-              flex: 1,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              width: 120,
+              height: 120,
+              borderRadius: '50%',
+              background: tc.isGlass
+                ? `radial-gradient(circle, ${tc.accentSoft}30 0%, transparent 70%)`
+                : `radial-gradient(circle, ${unitColor}18 0%, transparent 70%)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            {/* Triangle pointer */}
-            <div
-              style={{
-                position: 'absolute',
-                left: -9,
-                top: 18,
-                width: 14,
-                height: 14,
-                background: bg,
-                borderTop: `2px solid ${borderColor}`,
-                borderLeft: `2px solid ${borderColor}`,
-                borderRight: 'none',
-                borderBottom: 'none',
-                transform: 'rotate(-45deg)',
-              }}
-            />
+            <Mascot pose={pose} size={84} />
+          </div>
+        </motion.div>
 
-            {/* Title */}
-            <h2
-              style={{
-                fontSize: 17,
-                fontWeight: 800,
-                color: titleColor,
-                lineHeight: 1.3,
-                margin: 0,
-                marginBottom: 8,
-              }}
-            >
-              {title}
-            </h2>
+        {/* Headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.3 }}
+          style={{
+            fontSize: 24,
+            fontWeight: 900,
+            color: tc.title,
+            lineHeight: 1.15,
+            maxWidth: 300,
+            margin: 0,
+          }}
+        >
+          {title}
+        </motion.h2>
 
-            {/* Explanation */}
-            <div
-              style={{
-                fontSize: 14.5,
-                fontWeight: 500,
-                color: subtitleColor,
-                lineHeight: 1.6,
-              }}
-            >
-              <EngagingText text={displayExplanation} accentColor={unitColor} />
-            </div>
-          </motion.div>
+        {/* One-liner */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.3 }}
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+            color: tc.body,
+            lineHeight: 1.5,
+            maxWidth: 300,
+          }}
+        >
+          <EngagingText text={oneLiner} accentColor={tc.accent} />
         </motion.div>
 
         {/* Diagram if present */}
@@ -170,41 +169,110 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.25 }}
+            transition={{ delay: 0.35 }}
             className="w-full"
           >
-            <DiagramDisplay html={question.diagram} cardBg={bg} border={borderColor} />
-          </motion.div>
-        )}
-
-        {/* Hint callout (kept as separate element below bubble) */}
-        {question.hint && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            style={{
-              width: '100%',
-              maxWidth: 460,
-              margin: '0 auto',
-              padding: '12px 16px',
-              borderRadius: 14,
-              background: bg,
-              border: `2px solid ${borderColor}`,
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-              <Mascot pose="thinking" size={28} className="flex-shrink-0 mt-0.5" />
-              <p style={{ fontSize: 13, fontWeight: 500, color: subtitleColor, lineHeight: 1.5, margin: 0 }}>
-                <EngagingText text={question.hint} accentColor={unitColor} />
-              </p>
-            </div>
+            <DiagramDisplay html={question.diagram} cardBg={tc.expandCardBg} border={tc.expandCardBorder} />
           </motion.div>
         )}
       </div>
 
+      {/* Expand trigger + content */}
+      {hasExpandContent && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          style={{ maxWidth: 460, margin: '0 auto', width: '100%' }}
+        >
+          <button
+            onClick={toggleExpand}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              padding: '6px 16px',
+              width: '100%',
+              cursor: 'pointer',
+              color: tc.accentSoft,
+              fontSize: 13,
+              fontWeight: 700,
+              background: 'none',
+              border: 'none',
+            }}
+          >
+            Tell me more
+            <span
+              style={{
+                fontSize: 10,
+                display: 'inline-block',
+                transition: 'transform 0.3s',
+                transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+            >
+              &#9660;
+            </span>
+          </button>
+
+          <AnimatePresence initial={false}>
+            {expanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden', padding: '0 24px' }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 8 }}>
+                  {/* Detail text */}
+                  {detailText && (
+                    <div
+                      style={{
+                        background: tc.expandCardBg,
+                        border: `1.5px solid ${tc.expandCardBorder}`,
+                        borderRadius: 14,
+                        padding: '12px 16px',
+                        fontSize: 13.5,
+                        fontWeight: 600,
+                        color: tc.body,
+                        lineHeight: 1.5,
+                        textAlign: 'left',
+                        ...glassProps,
+                      }}
+                    >
+                      <EngagingText text={detailText} accentColor={tc.accent} />
+                    </div>
+                  )}
+
+                  {/* Hint */}
+                  {question.hint && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        padding: '10px 14px',
+                        background: tc.hintBg,
+                        border: `1.5px solid ${tc.hintBorder}`,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Mascot pose="thinking" size={28} className="flex-shrink-0" />
+                      <span style={{ fontSize: 12.5, fontWeight: 600, color: tc.hintText, lineHeight: 1.4 }}>
+                        <EngagingText text={question.hint} accentColor={tc.accent} />
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      )}
+
       {/* Got it button */}
-      <div style={{ marginTop: 'auto', paddingTop: 24 }}>
+      <div style={{ marginTop: 'auto', padding: '16px 20px 28px' }}>
         <motion.button
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -219,9 +287,11 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
             fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: 0.8,
-            background: unitColor,
+            background: tc.isGlass ? tc.accentSoft : unitColor,
             color: '#FFFFFF',
-            boxShadow: `0 4px 0 color-mix(in srgb, ${unitColor} 70%, black)`,
+            boxShadow: tc.isGlass
+              ? `0 4px 0 color-mix(in srgb, ${tc.accentSoft} 70%, black), 0 0 20px ${tc.accentSoft}40`
+              : `0 4px 0 color-mix(in srgb, ${unitColor} 70%, black)`,
             border: 'none',
             cursor: 'pointer',
           }}
