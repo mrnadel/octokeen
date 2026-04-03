@@ -1,9 +1,4 @@
-export interface GlossaryEntry {
-  term: string;
-  definition: string;
-  sectionIndex: number;
-  relatedTerms?: string[];
-}
+import type { GlossaryEntry } from '../../types';
 
 export const spaceGlossary: GlossaryEntry[] = [
   // ── Section 0: Look Up! (sp-u1-night-sky) ──

@@ -1,9 +1,4 @@
-export interface GlossaryEntry {
-  term: string;
-  definition: string;
-  sectionIndex: number;
-  relatedTerms?: string[];
-}
+import type { GlossaryEntry } from '../../types';
 
 export const psychologyGlossary: GlossaryEntry[] = [
   // ── Section 0: Your Amazing Brain (psy-u1-brain) ──

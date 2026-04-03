@@ -237,3 +237,10 @@ export interface PlacementTestResult {
   xpEarned: number;
   accuracy: number;
 }
+
+export interface GlossaryEntry {
+  term: string;
+  definition: string;
+  sectionIndex: number;
+  relatedTerms?: string[];
+}

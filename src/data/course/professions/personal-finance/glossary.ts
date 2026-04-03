@@ -1,9 +1,4 @@
-export interface GlossaryEntry {
-  term: string;
-  definition: string;
-  sectionIndex: number;
-  relatedTerms?: string[];
-}
+import type { GlossaryEntry } from '../../types';
 
 export const financeGlossary: GlossaryEntry[] = [
   // ── Section 0: Welcome to Money (pf-u0-welcome) ──
