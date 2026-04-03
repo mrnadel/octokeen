@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, memo
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface ImageTapCardProps {
@@ -83,7 +83,7 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 10px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {question.hint && !answered && (
@@ -97,7 +97,7 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
               color: c.hintColor, lineHeight: 1.4, marginBottom: 8,
             }}
           >
-            <MoneyText text={question.hint} />
+            <GlossaryText text={question.hint} />
           </motion.div>
         )}
 

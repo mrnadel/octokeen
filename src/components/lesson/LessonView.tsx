@@ -39,7 +39,7 @@ import FinanceCalculators from '@/components/calculator/FinanceCalculators';
 import { GameButton } from '@/components/ui/GameButton';
 import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 
 /**
  * Adapter for driving LessonView from an external data source (e.g. practice sessions).
@@ -1014,7 +1014,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     margin: '2px 0 0',
                   }}
                 >
-                  Answer: <MoneyText text={getCorrectAnswerDisplay()} />
+                  Answer: <GlossaryText text={getCorrectAnswerDisplay()} />
                 </p>
               )}
               {displayQuestion.explanation && (
@@ -1028,7 +1028,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     lineHeight: 1.4,
                   }}
                 >
-                  <MoneyText text={(userCountry && displayQuestion.variants?.[userCountry]) || displayQuestion.explanation} />
+                  <GlossaryText text={(userCountry && displayQuestion.variants?.[userCountry]) || displayQuestion.explanation} />
                 </p>
               )}
               <FlagButton contentType={flagContentType} contentId={displayQuestion.id} hasGraphic={!!displayQuestion.diagram} />

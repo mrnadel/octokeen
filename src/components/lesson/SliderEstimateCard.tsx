@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useR
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface SliderEstimateCardProps {
@@ -104,7 +104,7 @@ const SliderEstimateCard = forwardRef<QuestionCardHandle, SliderEstimateCardProp
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 12px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {question.hint && !answered && (
@@ -118,7 +118,7 @@ const SliderEstimateCard = forwardRef<QuestionCardHandle, SliderEstimateCardProp
               color: c.hintColor, lineHeight: 1.4, marginBottom: 4,
             }}
           >
-            <MoneyText text={question.hint} />
+            <GlossaryText text={question.hint} />
           </motion.div>
         )}
 

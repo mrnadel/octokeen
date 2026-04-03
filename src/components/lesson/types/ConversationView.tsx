@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LessonTypeProps, ConversationNode } from '@/data/course/types';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface ChatMessage {
@@ -79,7 +79,7 @@ function MessageBubble({ message, unitColor }: { message: ChatMessage; unitColor
           boxShadow: message.isUser ? 'none' : '0 1px 3px rgba(0,0,0,0.08)',
         }}
       >
-        <MoneyText text={message.text} />
+        <GlossaryText text={message.text} />
       </div>
       {message.quality && (
         <motion.div

@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface CategorySwipeCardProps {
@@ -111,7 +111,7 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 10px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {/* Category columns with swiped items */}
@@ -176,7 +176,7 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
                             boxShadow: isCorrect === true ? '0 0 8px rgba(88,204,2,0.2)' : 'none',
                           }}
                         >
-                          <MoneyText text={items[originalIdx]} />
+                          <GlossaryText text={items[originalIdx]} />
                           {isCorrect !== null && (isCorrect ? ' ✓' : ' ✗')}
                         </motion.div>
                       );
@@ -211,7 +211,7 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
                   fontSize: 18, fontWeight: 800, color: c.title, textAlign: 'center',
                   width: '85%', maxWidth: 320, userSelect: 'none',
                 }}>
-                  <MoneyText text={items[currentOriginalIdx]} />
+                  <GlossaryText text={items[currentOriginalIdx]} />
                 </div>
               </motion.div>
             </AnimatePresence>

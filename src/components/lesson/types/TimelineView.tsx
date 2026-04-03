@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LessonTypeProps, TimelineStage } from '@/data/course/types';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 export default function TimelineView({
@@ -149,7 +149,7 @@ export default function TimelineView({
                 margin: 0,
               }}
             >
-              <MoneyText text={outcome.description} />
+              <GlossaryText text={outcome.description} />
             </motion.p>
           )}
 
@@ -287,7 +287,7 @@ export default function TimelineView({
                 margin: 0,
               }}
             >
-              <MoneyText text={currentStage.narrative} />
+              <GlossaryText text={currentStage.narrative} />
             </p>
           </motion.div>
         </AnimatePresence>
@@ -310,7 +310,7 @@ export default function TimelineView({
                 Impact
               </p>
               <p style={{ fontSize: 14, fontWeight: 600, color: c.title, lineHeight: 1.5, margin: 0 }}>
-                <MoneyText text={currentStage.choices[selectedChoice].impact} />
+                <GlossaryText text={currentStage.choices[selectedChoice].impact} />
               </p>
             </motion.div>
           )}

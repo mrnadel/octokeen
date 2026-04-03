@@ -3,7 +3,7 @@
 import { memo, useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { Mascot, type MascotPose } from '@/components/ui/Mascot';
 import { useLessonColors } from '@/lib/lessonColors';
 import { STORAGE_KEYS } from '@/lib/storage-keys';

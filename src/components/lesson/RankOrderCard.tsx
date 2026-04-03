@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface RankOrderCardProps {
@@ -88,7 +88,7 @@ const RankOrderCard = forwardRef<QuestionCardHandle, RankOrderCardProps>(
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {/* Ranking criteria badge */}
@@ -116,7 +116,7 @@ const RankOrderCard = forwardRef<QuestionCardHandle, RankOrderCardProps>(
               color: c.hintColor, lineHeight: 1.4, marginBottom: 8,
             }}
           >
-            <MoneyText text={question.hint} />
+            <GlossaryText text={question.hint} />
           </motion.div>
         )}
 
@@ -173,7 +173,7 @@ const RankOrderCard = forwardRef<QuestionCardHandle, RankOrderCardProps>(
 
                   {/* Item text */}
                   <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: textColor, lineHeight: 1.3 }}>
-                    <MoneyText text={items[itemIdx]} />
+                    <GlossaryText text={items[itemIdx]} />
                   </span>
 
                   {/* Correct rank indicator after answer */}

@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface PickTheBestCardProps {
@@ -75,7 +75,7 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {/* "Pick the best" badge */}
@@ -105,7 +105,7 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
               color: c.hintColor, lineHeight: 1.4, marginBottom: 4,
             }}
           >
-            <MoneyText text={question.hint} />
+            <GlossaryText text={question.hint} />
           </motion.div>
         )}
 
@@ -193,7 +193,7 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
                   ⭐
                 </motion.span>
                 <span style={{ fontSize: 14, fontWeight: 700, color: textColor, lineHeight: 1.3 }}>
-                  <MoneyText text={option} />
+                  <GlossaryText text={option} />
                 </span>
 
                 {/* "BEST" badge after answer */}

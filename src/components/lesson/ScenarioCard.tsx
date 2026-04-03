@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface ScenarioCardProps {
@@ -77,7 +77,7 @@ const ScenarioCard = forwardRef<QuestionCardHandle, ScenarioCardProps>(
 
         {/* Question prompt */}
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 10px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {/* Scenario story card */}
@@ -103,7 +103,7 @@ const ScenarioCard = forwardRef<QuestionCardHandle, ScenarioCardProps>(
           }}>
             <span style={{ fontSize: 16 }}>📖</span> Scenario
           </div>
-          <MoneyText text={scenario} />
+          <GlossaryText text={scenario} />
         </motion.div>
 
         {question.hint && !answered && (
@@ -117,7 +117,7 @@ const ScenarioCard = forwardRef<QuestionCardHandle, ScenarioCardProps>(
               color: c.hintColor, lineHeight: 1.4, marginBottom: 4,
             }}
           >
-            <MoneyText text={question.hint} />
+            <GlossaryText text={question.hint} />
           </motion.div>
         )}
 
@@ -207,7 +207,7 @@ const ScenarioCard = forwardRef<QuestionCardHandle, ScenarioCardProps>(
                   </span>
                 )}
                 <span style={{ fontSize: 14, fontWeight: 700, color: textColor, lineHeight: 1.3 }}>
-                  <MoneyText text={option} />
+                  <GlossaryText text={option} />
                 </span>
               </motion.button>
             );

@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useImperativeHandle, forwardRef, useM
 import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 interface MatchPairsCardProps {
@@ -128,7 +128,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
         </div>
 
         <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 16px' }}>
-          <MoneyText text={question.question} />
+          <GlossaryText text={question.question} />
         </h2>
 
         {/* Two columns - pushed to bottom */}
@@ -194,7 +194,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                     boxShadow: shadow,
                   }}
                 >
-                  <MoneyText text={item} />
+                  <GlossaryText text={item} />
                 </motion.button>
               );
             })}
@@ -261,7 +261,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                     boxShadow: shadow,
                   }}
                 >
-                  <MoneyText text={item} />
+                  <GlossaryText text={item} />
                 </motion.button>
               );
             })}

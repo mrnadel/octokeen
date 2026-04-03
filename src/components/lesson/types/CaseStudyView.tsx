@@ -15,7 +15,7 @@ import CategorySwipeCard from '@/components/lesson/CategorySwipeCard';
 import RankOrderCard from '@/components/lesson/RankOrderCard';
 import PickTheBestCard from '@/components/lesson/PickTheBestCard';
 import ImageTapCard from '@/components/lesson/ImageTapCard';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
 function CheckpointQuestion({
@@ -207,7 +207,7 @@ export default function CaseStudyView({
                   whiteSpace: 'pre-line',
                 }}
               >
-                <MoneyText text={currentSection.content} />
+                <GlossaryText text={currentSection.content} />
               </p>
             </div>
 
@@ -332,7 +332,7 @@ export default function CaseStudyView({
                   margin: 0,
                   lineHeight: 1.4,
                 }}>
-                  <MoneyText text={currentSection.checkpoint.explanation} />
+                  <GlossaryText text={currentSection.checkpoint.explanation} />
                 </p>
               )}
             </div>

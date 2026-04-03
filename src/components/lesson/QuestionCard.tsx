@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
-import { MoneyText } from '@/components/ui/MoneyText';
+import { GlossaryText } from '@/components/ui/GlossaryText';
 import { playSound } from '@/lib/sounds';
 import { useLessonColors } from '@/lib/lessonColors';
 
@@ -258,7 +258,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
             >
               {questionParts.map((part, i) => (
                 <span key={i}>
-                  <MoneyText text={part} />
+                  <GlossaryText text={part} />
                   {i < blankCount && (
                     <motion.button
                       onClick={() => handleBlankTap(i)}
@@ -318,7 +318,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                 margin: 0,
               }}
             >
-              <MoneyText text={question.question} />
+              <GlossaryText text={question.question} />
             </h2>
           )}
 
@@ -339,7 +339,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                 lineHeight: 1.4,
               }}
             >
-              <MoneyText text={question.hint} />
+              <GlossaryText text={question.hint} />
             </motion.div>
           )}
         </div>
@@ -453,7 +453,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
                       transition: 'color 0.2s ease',
                     }}
                   >
-                    <MoneyText text={option} />
+                    <GlossaryText text={option} />
                   </span>
                 </motion.button>
               );
