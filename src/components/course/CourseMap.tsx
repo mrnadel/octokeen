@@ -514,16 +514,30 @@ export function CourseMap() {
       const visibleEl = unitElsRef.current[newIndex];
       if (visibleEl && heroRef.current) {
         let mp: number;
+        // mp ≈ 1.508 → height = 0, opacity = 0 (fully hidden)
+        const hiddenMp = HERO_EXPANDED_HEIGHT / HERO_MORPH_DISTANCE;
+
         if (newIndex === 0) {
-          // First unit: morph from spacer, 1:1 rate (no delay)
+          // First unit: morph from expanded spacer → compact, 1:1 rate
           const scrolled = (topOffset + HERO_EXPANDED_HEIGHT) - visibleEl.getBoundingClientRect().top;
           mp = Math.min(1, Math.max(0, scrolled / HERO_MORPH_DISTANCE));
         } else {
-          // Subsequent units: re-expand when entering, 2:1 rate
-          const scrolled = (topOffset + HERO_COMPACT_HEIGHT) - visibleEl.getBoundingClientRect().top;
-          mp = Math.min(1, Math.max(0, (scrolled * 2) / HERO_MORPH_DISTANCE));
+          // Other units: hidden while inline banner is on screen,
+          // then fade in as compact once the banner scrolls past
+          const bannerBottom = visibleEl.getBoundingClientRect().top + 180;
+          const pastBanner = (topOffset + HERO_COMPACT_HEIGHT) - bannerBottom;
+          const fadeIn = 30;
+
+          if (pastBanner < 0) {
+            mp = hiddenMp;
+          } else if (pastBanner < fadeIn) {
+            mp = hiddenMp - (pastBanner / fadeIn) * (hiddenMp - 1);
+          } else {
+            mp = 1;
+          }
         }
-        // 4. Squash: shrink to 0 when approaching the next unit's banner
+
+        // 4. Squash: compress to 0 when approaching next unit's banner
         const nextUnitEl = unitElsRef.current[newIndex + 1];
         if (nextUnitEl) {
           const availableHeight = nextUnitEl.getBoundingClientRect().top - topOffset - 6;
