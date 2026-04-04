@@ -638,7 +638,7 @@ export function CourseMap() {
                       overflow: 'hidden',
                     }}
                   >
-                    <div aria-hidden style={{ position: 'absolute', inset: 0, background: bg.css, backgroundSize: bg.size, pointerEvents: 'none' }} />
+                    <div aria-hidden style={{ position: 'absolute', inset: 0, backgroundImage: bg.css, backgroundSize: bg.size ?? 'auto', pointerEvents: 'none' }} />
                     <div aria-hidden style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '50%', background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)', pointerEvents: 'none' }} />
                     <div style={{ position: 'relative' }}>
                       <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'rgba(255,255,255,0.6)' }}>

@@ -107,8 +107,8 @@ export const UnitHeroHeader = memo(
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: background.css,
-                backgroundSize: background.size,
+                backgroundImage: background.css,
+                backgroundSize: background.size ?? 'auto',
                 opacity: fade(1.8),
                 pointerEvents: 'none',
               }}
