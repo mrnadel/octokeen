@@ -143,8 +143,17 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       setBgTheme(null);
       return;
     }
+    const loaders: Record<string, () => Promise<{ background: { html: string; css?: string; theme?: 'dark' | 'light' } }>> = {
+      'space-stars': () => import('@/data/course/backgrounds/space-stars'),
+    };
+    const loader = loaders[bgKey];
+    if (!loader) {
+      console.warn('[LessonView] Unknown background:', bgKey);
+      setBackgroundHtml(null); setBackgroundCss(null); setBgTheme(null);
+      return;
+    }
     let cancelled = false;
-    import(`@/data/course/backgrounds/${bgKey}`).then((mod) => {
+    loader().then((mod) => {
       if (!cancelled) {
         setBackgroundHtml(mod.background.html);
         setBackgroundCss(mod.background.css ?? null);

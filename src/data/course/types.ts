@@ -173,6 +173,7 @@ export interface CourseIntroData {
   goal: 'interview' | 'refresh' | 'exam' | 'curiosity';
   dailyMinutes: 5 | 10 | 15 | 20;
   completedAt: string;
+  placementDone?: boolean;
 }
 
 export interface CourseProgress {

@@ -149,6 +149,173 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 2: Spending & Budgeting (10 units from section-2-spending-part1 and part2) ──
+  {
+    id: "fin-sec2-u1",
+    title: "Where Your Money Actually Goes",
+    description: "Most people don't know where their money goes. Track your spending and find out.",
+    color: "#10B981",
+    icon: "💸",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u1-L1", title: "Tracking What You Spend", description: "You can't fix what you can't see. Start by noticing where your money goes.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec2-u1-L2", title: "Fixed vs. Variable Expenses", description: "Some bills stay the same every month. Others change. Knowing the difference matters.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec2-u1-L3", title: "Subscriptions: The Silent Budget Killer", description: "Small monthly charges add up fast when you stop paying attention.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u1-L4", title: "Finding Your Spending Leaks", description: "Small daily purchases create big monthly totals. Learn to spot the leaks.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u1-L-conv", title: "Your Spending Snapshot", description: "Help a friend analyze their spending and find opportunities to save.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u2",
+    title: "Needs vs. Wants",
+    description: "The most powerful spending filter: learning to separate what you need from what you want.",
+    color: "#3B82F6",
+    icon: "⚖️",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u2-L1", title: "The Needs vs. Wants Framework", description: "Food is a need. A restaurant meal is a want. Learn the framework that guides smart spending.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec2-u2-L2", title: "Gray Area Spending", description: "Some purchases aren't clearly needs or wants. Learn to navigate the gray areas.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u2-L3", title: "Wants That Feel Like Needs", description: "Social pressure and emotions can make wants feel essential. Learn to tell the difference.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u2-L4", title: "Smart Spending on Wants", description: "Wants aren't the enemy. The key is spending on them intentionally, not impulsively.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u2-L-speed", title: "Needs vs. Wants Speed Round", description: "Quick-fire questions on needs, wants, and smart spending decisions.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u3",
+    title: "The Paycheck Breakdown",
+    description: "Your paycheck is smaller than your salary. Learn where the money goes before you see it.",
+    color: "#F59E0B",
+    icon: "📋",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u3-L1", title: "Gross Pay vs. Net Pay", description: "The difference between what you earn and what you actually take home.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec2-u3-L2", title: "Where Your Deductions Go", description: "Taxes, Social Security, and insurance all take a piece of your paycheck.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u3-L3", title: "Reading Your Pay Stub Line by Line", description: "Every line on your pay stub means something. Learn to read it like a pro.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u3-L4", title: "Hourly vs. Salary", description: "Two ways to get paid, each with its own rules for overtime, flexibility, and pay calculation.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u3-L-conv", title: "Paycheck Strategies", description: "Help a friend make smart decisions about their paycheck and deductions.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u4",
+    title: "Review: Spending Awareness",
+    description: "Review everything you've learned about tracking spending, needs vs. wants, and paychecks.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u4-L1", title: "Spending and Paychecks Review", description: "A review of key concepts from tracking spending, needs vs. wants, and understanding paychecks.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u4-L2", title: "Real-World Spending Decisions", description: "Apply your knowledge to realistic spending scenarios and tricky decisions.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u4-L-speed", title: "Spending Awareness Speed Round", description: "Rapid-fire review covering tracking, needs vs. wants, and paychecks.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u5",
+    title: "The 50/30/20 Budget",
+    description: "The simplest budgeting method that actually works. Split your income into 3 buckets and take control.",
+    color: "#EC4899",
+    icon: "📊",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u5-L1", title: "The Simplest Budget That Works", description: "50% needs, 30% wants, 20% savings and debt. Three numbers that change your finances.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u5-L2", title: "Calculating Your 50/30/20", description: "Take your net pay and turn it into a real budget with actual dollar amounts.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u5-L3", title: "When 50/30/20 Doesn't Fit", description: "High rent, low income, or big debt can make 50/30/20 impossible. Here's what to do.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u5-L4", title: "Adjusting the Ratios", description: "60/20/20, 70/20/10, or your own split. Make the budget fit your life.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u5-L-conv", title: "Build Your First Budget", description: "Help someone create their first 50/30/20 budget step by step.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u6",
+    title: "Zero-Based Budgeting",
+    description: "Learn how to assign every dollar a job so nothing slips through the cracks.",
+    color: "#14B8A6",
+    icon: "🎯",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u6-L1", title: "Every Dollar Gets a Job", description: "The concept of assigning all income to categories until you reach zero.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u6-L2", title: "Building a Zero-Based Budget", description: "Step by step: list income, list expenses, and allocate until you hit zero.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u6-L3", title: "Irregular Income and Zero-Based", description: "How freelancers and commission workers handle variable paychecks.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u6-L4", title: "Zero-Based vs 50/30/20", description: "When each budgeting method works better and how to combine them.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u6-L-conv", title: "Budget Showdown", description: "Help a friend choose the right budgeting method for their situation.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u7",
+    title: "Envelope and App-Based Methods",
+    description: "From physical cash envelopes to modern apps that manage your spending categories automatically.",
+    color: "#F97316",
+    icon: "✉️",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u7-L1", title: "The Cash Envelope System", description: "Physical envelopes for each spending category keep you honest.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u7-L2", title: "Digital Envelopes and Budgeting Apps", description: "Apps that replicate the envelope concept with the convenience of digital.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u7-L3", title: "Choosing Your Budgeting Method", description: "Find the budgeting approach that matches your personality and lifestyle.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u7-L-speed", title: "Budgeting Methods Speed Round", description: "Rapid-fire questions covering budgeting methods from units 5 through 7.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u8",
+    title: "Tracking Spending in Practice",
+    description: "Hands-on skills for tracking, categorizing, and reviewing your real-world spending.",
+    color: "#6366F1",
+    icon: "📱",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u8-L1", title: "The Spending Journal", description: "Writing down every purchase for a week to uncover your real spending habits.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u8-L2", title: "Categorizing Your Spending", description: "Sorting your purchases into meaningful groups to see the big picture.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u8-L3", title: "Weekly and Monthly Check-Ins", description: "Regular reviews to catch problems early and spot spending trends.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u8-L4", title: "Automating Your Tracking", description: "Use bank alerts, app syncing, and receipt scanning to track spending effortlessly.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u8-L-conv", title: "Your First Spending Audit", description: "Walk through analyzing a real month of spending data with a friend.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u9",
+    title: "The Psychology of Spending",
+    description: "Understand the brain science and social forces that drive your spending decisions.",
+    color: "#EF4444",
+    icon: "🧠",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u9-L1", title: "Why You Buy What You Buy", description: "Emotional triggers, retail tricks, and the dopamine loop behind shopping.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u9-L2", title: "Impulse Buying", description: "The 24-hour rule and practical strategies to break the impulse buying cycle.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u9-L3", title: "Social Pressure and Spending", description: "How friends, social media, and lifestyle inflation push you to spend more.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u9-L4", title: "Mindful Spending", description: "How to spend intentionally on what truly matters to you.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec2-u9-L-conv", title: "Outsmart Your Spending Brain", description: "Help a friend navigate real-world spending temptations using psychology.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec2-u10",
+    title: "Section 2 Review",
+    description: "Put all your spending and budgeting knowledge together in one final review.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 2,
+    sectionTitle: "Spending & Budgeting",
+    lessons: [
+      { id: "fin-sec2-u10-L1", title: "Spending Mastery Review", description: "Comprehensive review of all spending and budgeting concepts from Section 2.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec2-u10-L2", title: "Budget Battle: Real Scenarios", description: "Apply all your budgeting knowledge to realistic financial situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec2-u10-L-conv", title: "Money Mindset Check", description: "Help a friend overhaul their entire spending approach using everything you've learned.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+      { id: "fin-sec2-u10-L-speed", title: "Section 2 Speed Round", description: "15 rapid-fire questions covering all spending and budgeting topics.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
   // ── Unit 2: Your Money Right Now ✅ (content in unit-1.ts) ──
   {
     id: "pf-u1-your-money",
@@ -168,6 +335,374 @@ export const financeCourseMeta: Unit[] = [
       { id: "pf-u1-L5", title: "Your First Budget", description: "The 50/30/20 rule: the simplest budget that actually works.", icon: "📝", xpReward: 15, questions: [] },
       { id: "pf-u1-L8", title: "Paycheck & Budget Blitz", description: "Race the clock on gross/net pay, 50/30/20, and needs vs wants.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
       { id: "pf-u1-L6", title: "Pay Yourself First", description: "The one habit that separates savers from everyone else.", icon: "📝", xpReward: 15, questions: [] },
+    ],
+  },
+
+
+  // ── Section 3: Saving & Emergency Planning (11 units from section-3-saving-part1 and part2) ──
+  {
+    id: "fin-sec3-u1",
+    title: "Why Saving Feels Impossible",
+    description: "You're not bad with money. Saving is genuinely hard. Let's fix the system, not the person.",
+    color: "#34D399",
+    icon: "🤔",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u1-L1", title: "The Saving Struggle", description: "Why most people find saving difficult and what actually gets in the way.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u1-L2", title: "Where Saving Money Comes From", description: "You don't need a raise to start saving. Find money you already have.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u1-L3", title: "The Pay-Yourself-First Trick", description: "Flip the script: save before you spend, not after.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u1-L4", title: "Making Saving Automatic", description: "Set it up once and let the system do the work for you.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u1-L-conv", title: "Your Saving Starter Plan", description: "Help a friend overcome their saving struggles and create a real plan.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u2",
+    title: "Your First $500",
+    description: "A small starter savings that changes everything. Confidence grows with every dollar.",
+    color: "#60A5FA",
+    icon: "🎯",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u2-L1", title: "Why $500 Changes Everything", description: "A small cushion prevents spiraling debt from one bad break.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u2-L2", title: "Small Wins That Build Momentum", description: "Practical strategies to reach your first $500 faster than you think.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u2-L3", title: "Cutting Costs Without Suffering", description: "Save money on the things you don't care about. Keep spending on the things you love.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u2-L-speed", title: "First $500 Speed Round", description: "Rapid-fire questions on saving strategies and reaching your first milestone.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u3",
+    title: "Emergency Fund",
+    description: "Life throws curveballs. Your emergency fund catches them so you don't fall.",
+    color: "#FBBF24",
+    icon: "🛡️",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u3-L1", title: "Why Emergencies Happen to Everyone", description: "It's not if something goes wrong, it's when. Be ready.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec3-u3-L2", title: "How Much You Actually Need", description: "The 3 to 6 months rule and how to calculate your personal target.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u3-L3", title: "Where to Keep Your Emergency Fund", description: "The right home for your emergency money: accessible, safe, and earning something.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u3-L4", title: "Building Your Fund Step by Step", description: "A realistic plan to build your emergency fund without overwhelming your budget.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u3-L-conv", title: "Emergency Fund Scenarios", description: "Help a friend navigate emergency fund decisions and common dilemmas.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u4",
+    title: "Review: Saving Fundamentals",
+    description: "Reinforce everything from units 1 through 3. Prove you've got the basics locked in.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u4-L1", title: "Saving Concepts Review", description: "A comprehensive review of saving strategies, emergency funds, and building habits.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u4-L2", title: "Real-World Saving Decisions", description: "Apply your knowledge to realistic scenarios and tricky judgment calls.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec3-u4-L-speed", title: "Saving Fundamentals Speed Round", description: "Test your saving knowledge under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u5",
+    title: "High-Yield Savings and CDs",
+    description: "Make your savings work harder. Same safety, better returns.",
+    color: "#EC4899",
+    icon: "💰",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u5-L1", title: "Regular vs High-Yield Savings", description: "The difference between earning pennies and earning real interest on your money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u5-L2", title: "APY and How Interest Compounds", description: "How your savings earn interest on interest, and what APY actually means.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u5-L3", title: "Certificates of Deposit Explained", description: "Lock your money for a set time and earn a guaranteed rate in return.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u5-L4", title: "Comparing Savings Options", description: "Side-by-side comparison of every place you can park your savings.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u5-L-conv", title: "Choosing the Right Account", description: "Help a friend pick the right savings account for their situation.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u6",
+    title: "Automating Your Savings",
+    description: "Set it and forget it. Build a savings machine that runs without you.",
+    color: "#14B8A6",
+    icon: "⚙️",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u6-L1", title: "Why Automation Beats Willpower", description: "Willpower is a limited resource. Automation never runs out.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u6-L2", title: "Setting Up Automatic Transfers", description: "Step-by-step instructions for automating your savings today.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u6-L3", title: "Round-Up and Micro-Saving Apps", description: "Save spare change automatically every time you buy something.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u6-L4", title: "Multiple Savings Buckets", description: "Organize your savings into separate goals so every dollar has a purpose.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u6-L-conv", title: "Automation in Action", description: "Help a friend set up their full savings automation system.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u7",
+    title: "Sinking Funds for Goals",
+    description: "Save for specific goals like vacations, cars, and weddings without touching your emergency fund.",
+    color: "#F97316",
+    icon: "🎁",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u7-L1", title: "What's a Sinking Fund", description: "A targeted savings account for a specific future expense you know is coming.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u7-L2", title: "Setting Up Goal-Based Savings", description: "How to create and manage multiple sinking funds without feeling overwhelmed.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u7-L3", title: "Calculating Monthly Contributions", description: "The simple math behind every sinking fund. Total divided by months equals your plan.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u7-L-speed", title: "Sinking Funds Speed Round", description: "Rapid-fire questions on sinking fund strategy and calculations.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u8",
+    title: "The Lifestyle Inflation Trap",
+    description: "Why earning more doesn't mean saving more, unless you're intentional about it.",
+    color: "#EF4444",
+    icon: "📈",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u8-L1", title: "What Is Lifestyle Inflation", description: "When your spending grows as fast as your income, you never get ahead.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u8-L2", title: "How Raises Disappear", description: "The invisible forces that eat your pay increases before you can save them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u8-L3", title: "The 50% Raise Rule", description: "A simple system: save at least half of every raise and enjoy the rest guilt-free.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u8-L4", title: "Keeping Lifestyle Below Income", description: "Practical strategies to enjoy life without letting spending match your paycheck.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u8-L-conv", title: "Lifestyle Inflation Scenarios", description: "Help a friend recognize and resist lifestyle inflation after a big raise.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u9",
+    title: "Windfalls and Bonuses",
+    description: "Unexpected money is a golden opportunity. Don't waste it.",
+    color: "#6366F1",
+    icon: "🎰",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u9-L1", title: "What Counts as a Windfall", description: "Any money that arrives outside your regular income is a windfall.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u9-L2", title: "The Windfall Allocation Plan", description: "A simple framework to split every windfall between saving, debt, and fun.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u9-L3", title: "Tax Refunds and Bonuses", description: "The two biggest windfalls most people receive and how to maximize them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u9-L-conv", title: "Windfall Decisions", description: "Help a friend make smart decisions with unexpected money.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u10",
+    title: "Saving Calculations",
+    description: "The math behind saving: timelines, interest, and the power of compounding.",
+    color: "#0EA5E9",
+    icon: "🧮",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u10-L1", title: "Time to Reach Your Goal", description: "How to calculate exactly when you'll hit your savings target.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u10-L2", title: "Simple Interest Math", description: "How basic interest calculations work on your savings.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u10-L3", title: "Compound Interest Magic", description: "Watch your money grow faster and faster as interest earns interest.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec3-u10-L4", title: "Rule of 72", description: "A quick mental shortcut to estimate how long it takes your money to double.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec3-u10-L-speed", title: "Saving Math Speed Round", description: "Quick calculations on interest, timelines, and the Rule of 72.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec3-u11",
+    title: "Section 3 Review",
+    description: "Prove you've mastered saving and emergency planning. Final review of the entire section.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 3,
+    sectionTitle: "Saving & Emergency Planning",
+    lessons: [
+      { id: "fin-sec3-u11-L1", title: "Comprehensive Saving Review", description: "Everything from pay-yourself-first to compound interest in one lesson.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec3-u11-L2", title: "Real Scenario Applications", description: "Apply everything you've learned to complex, realistic situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec3-u11-L-conv", title: "Saving Coach Conversation", description: "Coach a friend through their complete saving plan using everything you've learned.", icon: "💬", type: "conversation" as const, xpReward: 25, questions: [] },
+      { id: "fin-sec3-u11-L-speed", title: "Section 3 Speed Round", description: "Final rapid-fire review covering every topic in Section 3.", icon: "⚡", type: "speed-round" as const, xpReward: 25, questions: [] },
+    ],
+  },
+
+
+  // ── Section 4: Banking & Financial Systems (11 units from section-4-banking-part1 and part2) ──
+  {
+    id: "fin-sec4-u1",
+    title: "Checking vs. Savings Deep Dive",
+    description: "Checking and savings accounts serve different purposes. Learn what each does and when to use them.",
+    color: "#3B82F6",
+    icon: "🏦",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u1-L1", title: "What Checking Accounts Do", description: "Your checking account is your financial home base. Learn how it works.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u1-L2", title: "What Savings Accounts Do", description: "Savings accounts help your money grow while keeping it safe. Learn how they work.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u1-L3", title: "Key Differences Between the Two", description: "Checking and savings look similar but work very differently. Know the key distinctions.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u1-L4", title: "Choosing the Right Account Mix", description: "Most people need both checking and savings. Learn how to split your money between them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u1-L-conv", title: "Banking Basics Conversation", description: "Help a friend decide how to set up their checking and savings accounts.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u2",
+    title: "Banks vs. Credit Unions vs. Online",
+    description: "Not all financial institutions are the same. Compare banks, credit unions, and online-only options.",
+    color: "#10B981",
+    icon: "🏢",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u2-L1", title: "How Traditional Banks Work", description: "Traditional banks are for-profit companies that offer financial services. Learn how they operate.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u2-L2", title: "Credit Unions and Member Ownership", description: "Credit unions work differently from banks. Learn what makes them unique.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u2-L3", title: "Online-Only Banks", description: "Banks without branches are growing fast. Learn why they offer better rates and what to watch for.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u2-L4", title: "Comparing Features and Fees", description: "Each type of institution has pros and cons. Learn what to look for when choosing.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u2-L-conv", title: "Bank Shopping Conversation", description: "Help a friend decide where to open their first bank account.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u3",
+    title: "Fees: How Banks Make Money Off You",
+    description: "Banks charge fees that add up fast. Learn what they are and how to avoid every one of them.",
+    color: "#EF4444",
+    icon: "💸",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u3-L1", title: "Common Bank Fees", description: "Banks charge fees for all sorts of things. Learn the most common ones so you can watch for them.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u3-L2", title: "Overdraft and NSF Fees", description: "Spending more than you have triggers expensive penalties. Learn how overdraft works.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u3-L3", title: "ATM and Maintenance Fees", description: "ATM fees and other charges sneak up on you. Learn how to spot and avoid them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u3-L4", title: "How to Avoid Every Fee", description: "Almost every bank fee is avoidable if you know the tricks. Here's your fee elimination guide.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u3-L-speed", title: "Fee-Free Banking Speed Round", description: "Quick-fire questions on bank fees and how to dodge them.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u4",
+    title: "Review: Banking Basics",
+    description: "Reinforce everything you've learned about accounts, institution types, and fees.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u4-L1", title: "Banking Concepts Review", description: "Test your knowledge of checking, savings, banks, credit unions, and online institutions.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u4-L2", title: "Real-World Banking Decisions", description: "Apply your banking knowledge to realistic scenarios that test your judgment.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u4-L-speed", title: "Banking Basics Speed Round", description: "Rapid-fire review covering accounts, institutions, and fees.", icon: "⚡", type: "speed-round" as const, xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u5",
+    title: "Digital Wallets and P2P Payments",
+    description: "Your phone is now your wallet. Learn how digital payments work and how to stay safe using them.",
+    color: "#F59E0B",
+    icon: "📱",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u5-L1", title: "How Digital Wallets Work", description: "Apple Pay, Google Pay, and similar tools let you pay with your phone. Learn how they work.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u5-L2", title: "P2P Payment Apps", description: "Venmo, Zelle, and Cash App let you send money to friends instantly. Learn how they work.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u5-L3", title: "Security With Digital Payments", description: "Digital payments are convenient but come with risks. Learn how to protect yourself.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u5-L4", title: "Scams and Fraud in Digital Payments", description: "Scammers love P2P apps because payments are instant and hard to reverse. Learn their tactics.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u5-L-conv", title: "Digital Payment Scenarios", description: "Practice navigating real-world digital payment situations safely.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u6",
+    title: "Wire Transfers, ACH, and International Money",
+    description: "Money doesn't just appear in your account. Learn the systems that move it between banks and countries.",
+    color: "#14B8A6",
+    icon: "🌍",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u6-L1", title: "What Is ACH", description: "ACH moves trillions of dollars per year. Learn how this invisible system handles your paycheck and bills.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u6-L2", title: "Wire Transfers Explained", description: "Wire transfers move large sums quickly but cost more. Learn when they make sense.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u6-L3", title: "International Transfers and Exchange Rates", description: "Sending money across borders involves exchange rates and hidden fees. Know what to expect.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u6-L4", title: "Hidden Fees in Money Transfers", description: "Transfer fees aren't always obvious. Learn where to look for the real cost.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u6-L-speed", title: "Transfer Methods Speed Round", description: "Quick-fire questions on ACH, wire transfers, and international money movement.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u7",
+    title: "Banking Safety and Fraud Defense",
+    description: "Criminals target bank accounts every day. Learn the most common scams and how to protect your money.",
+    color: "#EC4899",
+    icon: "🔒",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u7-L1", title: "Common Banking Scams", description: "Scammers use predictable tricks. Once you know the patterns, you can spot them instantly.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u7-L2", title: "Protecting Your Accounts", description: "Strong habits prevent most fraud. Build your banking security system.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u7-L3", title: "What to Do If You're Hacked", description: "Quick action limits the damage. Know exactly what to do if your account is compromised.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u7-L4", title: "Identity Theft Basics", description: "Identity theft goes beyond your bank account. Learn how criminals steal identities and how to fight back.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u7-L-conv", title: "Fraud Defense Conversation", description: "Help a friend respond to a potential banking fraud situation.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u8",
+    title: "FDIC, NCUA, and Deposit Protection",
+    description: "Your deposits are insured by the government. Learn what's covered, what's not, and how much protection you get.",
+    color: "#6366F1",
+    icon: "🛡️",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u8-L1", title: "What FDIC Insurance Covers", description: "FDIC insurance protects your bank deposits. Learn exactly what's covered and what's not.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u8-L2", title: "NCUA for Credit Unions", description: "Credit unions have their own insurance program. It works just like FDIC but for credit union members.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u8-L3", title: "The $250,000 Coverage Limit", description: "Deposit insurance has a cap. Learn the limits and how to protect larger amounts.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u8-L-speed", title: "Deposit Protection Speed Round", description: "Quick-fire questions on FDIC, NCUA, and deposit insurance limits.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u9",
+    title: "Interest Rates: How Banks Set Them",
+    description: "Interest rates affect everything from your savings to your loans. Learn how banks decide what to charge and pay.",
+    color: "#0EA5E9",
+    icon: "📊",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u9-L1", title: "What Interest Rates Are", description: "Interest is the cost of borrowing and the reward for saving. Understand how this fundamental concept works.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u9-L2", title: "How Banks Decide Rates", description: "Banks don't pick rates randomly. Learn the factors that determine what you pay and earn.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u9-L3", title: "APR vs. APY", description: "These two abbreviations look similar but mean very different things. Learn the distinction that could save you money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u9-L4", title: "Variable vs. Fixed Rates", description: "Some rates stay the same. Others change with the market. Know the difference before you commit.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u9-L-conv", title: "Interest Rate Scenarios", description: "Practice applying interest rate knowledge to real-life decisions.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u10",
+    title: "The Federal Reserve and Monetary Policy",
+    description: "The Federal Reserve controls interest rates and the money supply. Learn how its decisions directly affect your wallet.",
+    color: "#F97316",
+    icon: "🏛️",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u10-L1", title: "What the Fed Does", description: "The Federal Reserve is the most powerful financial institution in the world. Learn its purpose and tools.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec4-u10-L2", title: "The Federal Funds Rate", description: "This single rate influences every other interest rate in the economy. Learn what it is and why it matters.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u10-L3", title: "How Fed Decisions Affect You", description: "Fed rate changes aren't abstract. They change how much you pay, earn, and can afford. Here's how.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec4-u10-L4", title: "Inflation and Interest Rates", description: "Inflation and interest rates are deeply connected. Learn how they push and pull against each other.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u10-L-speed", title: "Fed Policy Speed Round", description: "Quick-fire questions on the Federal Reserve, interest rates, and monetary policy.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec4-u11",
+    title: "Section 4 Review",
+    description: "Put it all together. Prove you understand banking, fees, payments, safety, interest rates, and the Fed.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 3,
+    sectionTitle: "Banking & Financial Systems",
+    lessons: [
+      { id: "fin-sec4-u11-L1", title: "Comprehensive Banking Review", description: "Review accounts, institutions, fees, and digital payments from the full section.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec4-u11-L2", title: "Real-World Banking Scenarios", description: "Apply everything you've learned to realistic situations that test your judgment.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec4-u11-L-conv", title: "Banking Advisor Conversation", description: "Put your full banking knowledge to the test by advising someone on a complex situation.", icon: "💬", type: "conversation" as const, xpReward: 25, questions: [] },
+      { id: "fin-sec4-u11-L-speed", title: "Section 4 Speed Round", description: "The ultimate rapid-fire test on everything from accounts to the Federal Reserve.", icon: "⚡", type: "speed-round" as const, xpReward: 25, questions: [] },
     ],
   },
 
@@ -426,7 +961,174 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
-  // ── Unit 6: Debt Decoded ──
+  // ── Section 6: Debt Mastery (10 units from section-6-debt-part1 and part2) ──
+  {
+    id: "fin-sec6-u1",
+    title: "Good Debt vs. Bad Debt",
+    description: "Not all debt is equal. Learn which debts can build wealth and which ones drain it.",
+    color: "#EF4444",
+    icon: "⚖️",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u1-L1", title: "Mortgage vs. Credit Card Debt", description: "Why some debts help you build wealth while others cost you money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u1-L2", title: "How to Tell Them Apart", description: "A simple framework for evaluating any debt before you take it on.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u1-L3", title: "When Debt Is a Tool", description: "How strategic borrowing can accelerate wealth building when used wisely.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u1-L4", title: "Debt Warning Signs", description: "Spot the red flags that mean debt is becoming dangerous.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u1-L-conv", title: "Helping a Friend Evaluate Debt", description: "Help your friend decide whether taking on debt is a smart move.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u2",
+    title: "How Interest Compounds Against You",
+    description: "Understand how interest turns small debts into large ones and why minimum payments are a trap.",
+    color: "#F97316",
+    icon: "📈",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u2-L1", title: "Simple vs. Compound Interest", description: "Two ways interest is calculated and why compound interest costs you more.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u2-L2", title: "How Credit Card Interest Works", description: "The daily compounding trap that makes credit cards so expensive.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u2-L3", title: "Minimum Payment Math", description: "Why paying the minimum keeps you in debt for decades.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u2-L4", title: "The Cost of Waiting", description: "Every day you delay paying off high-interest debt costs you more money.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u2-L-speed", title: "Interest Speed Round", description: "Test your knowledge of interest and compounding under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u3",
+    title: "Credit Cards: The Complete Guide",
+    description: "Master credit cards so they work for you, not against you.",
+    color: "#FBBF24",
+    icon: "💳",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u3-L1", title: "How Credit Cards Work", description: "The basic mechanics of spending, billing, and repayment.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u3-L2", title: "APR and Grace Periods", description: "Understanding the two numbers that determine how much credit cards actually cost.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u3-L3", title: "Rewards vs. Costs", description: "When rewards cards save you money and when they cost you more.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u3-L4", title: "Responsible Credit Card Use", description: "The habits that make credit cards a powerful financial tool.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u3-L-conv", title: "Credit Card Scenarios", description: "Help a friend navigate tricky credit card situations.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u4",
+    title: "Review: Debt Basics",
+    description: "Reinforce everything you've learned about debt types, interest, and credit cards.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u4-L1", title: "Debt Concepts Review", description: "Review the key concepts from good vs. bad debt, interest, and credit cards.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u4-L2", title: "Real Debt Scenarios", description: "Apply your debt knowledge to realistic financial situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u4-L-speed", title: "Debt Basics Speed Round", description: "Rapid-fire review of everything in units 1 through 3.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u5",
+    title: "Student Loans",
+    description: "Navigate the world of student loans, from federal vs. private to forgiveness programs.",
+    color: "#3B82F6",
+    icon: "🎓",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u5-L1", title: "Federal vs. Private", description: "Two very different types of student loans with different rules and protections.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u5-L2", title: "Repayment Plans", description: "The different ways you can structure your student loan payments.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u5-L3", title: "Forgiveness Programs", description: "When the government cancels your remaining student loan balance.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u5-L4", title: "Refinancing Student Loans", description: "When refinancing saves you money and when it costs you protections.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u5-L-conv", title: "Student Loan Conversation", description: "Help a friend make smart choices about student loan repayment.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u6",
+    title: "Car Loans and Smart Buying",
+    description: "Avoid dealership tricks and understand the true cost of buying a car.",
+    color: "#10B981",
+    icon: "🚗",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u6-L1", title: "Dealer Tricks", description: "Common dealership tactics that cost you more money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u6-L2", title: "Loan Terms", description: "How loan length, rate, and down payment affect your total cost.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u6-L3", title: "New vs. Used Math", description: "The financial case for buying used and how depreciation affects your wallet.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u6-L4", title: "Total Cost of Ownership", description: "The purchase price is just the beginning. Learn what a car really costs.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u6-L-conv", title: "Car Buying Conversation", description: "Help a friend avoid common car buying mistakes.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u7",
+    title: "Mortgages: The Biggest Debt",
+    description: "Understand how mortgages work and what lenders look for before you buy a home.",
+    color: "#6366F1",
+    icon: "🏠",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u7-L1", title: "How Mortgages Work", description: "The basics of borrowing hundreds of thousands to buy a home.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u7-L2", title: "Types of Mortgages", description: "Fixed-rate, adjustable-rate, and government-backed loans compared.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u7-L3", title: "What Lenders Look At", description: "The factors that determine whether you get approved and what rate you pay.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u7-L4", title: "Amortization Basics", description: "How mortgage payments shift from mostly interest to mostly principal over time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u7-L-speed", title: "Mortgage Speed Round", description: "Test your mortgage knowledge under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u8",
+    title: "Debt Payoff Strategies",
+    description: "Master the proven methods for eliminating debt and building a payoff plan.",
+    color: "#EC4899",
+    icon: "⚡",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u8-L1", title: "The Snowball Method", description: "Pay off the smallest balance first for quick wins and motivation.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u8-L2", title: "The Avalanche Method", description: "Pay off the highest interest rate first to save the most money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u8-L3", title: "Snowball vs. Avalanche Math", description: "See the numbers side by side to understand when each method shines.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u8-L4", title: "Consolidation and Refinancing", description: "Combining multiple debts into one payment with a better rate.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u8-L-conv", title: "Payoff Plan Conversation", description: "Help a friend create a debt payoff plan.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u9",
+    title: "Debt-to-Income and Bankruptcy",
+    description: "Understand DTI ratio, why lenders care, and when bankruptcy is the last option.",
+    color: "#0EA5E9",
+    icon: "📊",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u9-L1", title: "DTI Ratio Explained", description: "How to calculate your debt-to-income ratio and what the number means.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u9-L2", title: "Why Lenders Care About DTI", description: "How your DTI ratio affects loan approvals, rates, and terms.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec6-u9-L3", title: "Bankruptcy as Last Resort", description: "What bankruptcy is, the different types, and why it should be the final option.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u9-L-speed", title: "DTI Speed Round", description: "Test your knowledge of DTI and debt management under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec6-u10",
+    title: "Section 6 Review",
+    description: "Put everything together. Review all debt concepts from the entire section.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 6,
+    sectionTitle: "Debt Mastery",
+    lessons: [
+      { id: "fin-sec6-u10-L1", title: "Comprehensive Review", description: "Review the key concepts from all 9 units of Debt Mastery.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec6-u10-L2", title: "Real Scenarios", description: "Apply everything you've learned to complex real-world debt situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec6-u10-L-conv", title: "Debt Coach Conversation", description: "Act as a debt coach for someone with a complex financial situation.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+      { id: "fin-sec6-u10-L-speed", title: "Section Speed Round", description: "Final speed round covering all of Section 6: Debt Mastery.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  // ── Unit 6 (old): Debt Decoded ──
   {
     id: "pf-u3-debt",
     title: "Debt Decoded",
@@ -454,7 +1156,174 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
-  // ── Unit 7: Credit Scores ──
+  // ── Section 7: Credit System (10 units from section-7-credit-part1 and part2) ──
+  {
+    id: "fin-sec7-u1",
+    title: "What Is a Credit Score?",
+    description: "Learn what credit scores are, who calculates them, and why they affect nearly every financial decision you make.",
+    color: "#3B82F6",
+    icon: "📊",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u1-L1", title: "Credit Scores Explained", description: "What a credit score is and why it exists.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec7-u1-L2", title: "Who Calculates Credit Scores", description: "The companies behind credit scores and how they collect your data.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u1-L3", title: "Score Ranges and What They Mean", description: "The 5 credit score tiers and what each one means for your financial life.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u1-L4", title: "Why Your Score Matters", description: "The real financial impact of credit scores on loans, housing, and more.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u1-L-conv", title: "Credit Score Conversation", description: "Help a friend understand why credit scores matter before applying for a car loan.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u2",
+    title: "The 5 FICO Factors",
+    description: "Break down the 5 categories FICO uses to calculate your score and how much each one weighs.",
+    color: "#10B981",
+    icon: "🔑",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u2-L1", title: "Payment History: The Biggest Factor", description: "Why paying on time matters more than anything else for your credit score.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec7-u2-L2", title: "Amounts Owed and Utilization", description: "How much of your available credit you use, and why lower is usually better.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u2-L3", title: "History, New Credit, and Mix", description: "The 3 smaller factors that round out your FICO score calculation.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u2-L4", title: "FICO Factors in Practice", description: "Apply your knowledge of the 5 factors to real scenarios.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u2-L-speed", title: "FICO Factors Speed Round", description: "Quick-fire questions on the 5 FICO factors and their weights.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u3",
+    title: "Credit Utilization Math",
+    description: "Master the math behind credit utilization and learn timing strategies to keep your ratio low.",
+    color: "#FBBF24",
+    icon: "🧮",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u3-L1", title: "What Utilization Means", description: "The simple formula behind credit utilization and why it matters so much.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec7-u3-L2", title: "Per-Card vs. Overall Utilization", description: "Why both your individual card ratios and total ratio matter.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u3-L3", title: "Optimal Utilization Percentage", description: "The target ranges that maximize your credit score.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u3-L4", title: "Timing Payments for Best Utilization", description: "When to pay your credit card bill to ensure the lowest utilization gets reported.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u3-L-conv", title: "Utilization Scenarios Conversation", description: "Help a friend figure out the best strategy to lower their credit utilization.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u4",
+    title: "Review: Credit Foundations",
+    description: "Reinforce everything you've learned about credit scores, FICO factors, and utilization math.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u4-L1", title: "Credit Concepts Review", description: "Test your recall of credit scores, bureaus, score ranges, and FICO factor weights.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u4-L2", title: "Real Credit Scenarios", description: "Apply credit knowledge to realistic situations involving scores, utilization, and FICO factors.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u4-L-speed", title: "Credit Foundations Speed Round", description: "Rapid recall of credit scores, FICO factors, and utilization concepts.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u5",
+    title: "Building Credit from Zero",
+    description: "Strategies to establish credit when you have no history, from secured cards to credit-builder loans.",
+    color: "#EC4899",
+    icon: "🌱",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u5-L1", title: "Secured Credit Cards", description: "How secured cards work and why they're the most common way to start building credit.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec7-u5-L2", title: "Authorized User Strategy", description: "How being added to someone else's card can jumpstart your credit history.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u5-L3", title: "Credit-Builder Loans", description: "A unique loan designed specifically to help you build credit from scratch.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u5-L4", title: "Your Starter Credit Plan", description: "Combine strategies into a practical plan for building credit from scratch.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u5-L-conv", title: "Building Credit Conversation", description: "Help a friend with no credit history choose the right strategy to start building.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u6",
+    title: "Credit Reports: Reading and Disputing",
+    description: "Learn to read your credit report line by line and dispute any errors you find.",
+    color: "#14B8A6",
+    icon: "📋",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u6-L1", title: "What's on Your Credit Report", description: "The 4 main sections of a credit report and what each one contains.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u6-L2", title: "The 3 Bureaus and Their Differences", description: "Why each bureau may show different information about you.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u6-L3", title: "Reading Your Report Line by Line", description: "How to decode the abbreviations, account statuses, and payment grids on your credit report.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u6-L4", title: "Finding and Disputing Errors", description: "How to file a dispute with a credit bureau and get errors corrected.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u6-L-speed", title: "Credit Report Speed Round", description: "Quick-fire questions on credit reports, bureaus, and the dispute process.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u7",
+    title: "Hard vs. Soft Pulls",
+    description: "Understand the 2 types of credit inquiries and how they affect your score differently.",
+    color: "#F97316",
+    icon: "🔍",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u7-L1", title: "What Credit Inquiries Are", description: "Why your credit gets checked and what happens when it does.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u7-L2", title: "Hard Pulls and Their Impact", description: "When hard inquiries happen and how much they actually affect your score.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u7-L3", title: "Soft Pulls That Don't Affect Score", description: "Common situations that trigger soft inquiries and why you shouldn't worry about them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u7-L-conv", title: "Inquiry Strategy Conversation", description: "Help a friend navigate credit inquiries while shopping for a car and credit card.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u8",
+    title: "Credit Score Optimization",
+    description: "Advanced strategies for boosting your credit score using quick wins and long-term tactics.",
+    color: "#6366F1",
+    icon: "🎯",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u8-L1", title: "Quick Wins for Score Boosts", description: "Actions that can improve your credit score within 1 to 2 billing cycles.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u8-L2", title: "Long-Term Credit Strategies", description: "Habits and strategies that strengthen your score over months and years.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u8-L3", title: "Common Mistakes That Hurt Scores", description: "The most frequent credit mistakes people make and how to avoid them.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u8-L4", title: "Age of Accounts Strategy", description: "How to manage old and new accounts to maximize your average credit age.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u8-L-speed", title: "Optimization Speed Round", description: "Quick-fire questions on credit optimization strategies and common mistakes.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u9",
+    title: "Credit Monitoring and Identity Protection",
+    description: "Learn to monitor your credit, protect against identity theft, and respond if fraud occurs.",
+    color: "#EF4444",
+    icon: "🛡️",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u9-L1", title: "Why Monitor Your Credit", description: "The reasons to keep regular tabs on your credit reports and score.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u9-L2", title: "Free Monitoring Tools", description: "The best free services for tracking your credit without paying a subscription.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec7-u9-L3", title: "Credit Freezes and Fraud Alerts", description: "The 2 main tools for blocking unauthorized access to your credit report.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u9-L4", title: "Identity Theft Response Plan", description: "Exactly what to do if someone steals your identity and opens accounts in your name.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u9-L-conv", title: "Identity Protection Conversation", description: "Help a friend who just received a data breach notification decide what to do.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec7-u10",
+    title: "Section 7 Review",
+    description: "Put all your credit knowledge together with a comprehensive review of scores, reports, inquiries, and protection strategies.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 7,
+    sectionTitle: "Credit System",
+    lessons: [
+      { id: "fin-sec7-u10-L1", title: "Credit System Comprehensive Review", description: "Test your knowledge across all credit topics from scores to identity protection.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec7-u10-L2", title: "Real Credit Scenarios", description: "Apply your credit knowledge to complex, real-world situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec7-u10-L-conv", title: "Credit Advisor Conversation", description: "Help someone navigate a complex credit situation involving multiple issues.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+      { id: "fin-sec7-u10-L-speed", title: "Section 7 Speed Round", description: "Rapid-fire questions spanning the entire Credit System section.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  // ── Unit 7 (old): Credit Scores ──
   {
     id: "pf-u4-credit",
     title: "Credit Scores",
@@ -481,7 +1350,174 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
-  // ── Unit 8: Make Your Money Grow ──
+  // ── Section 8: Investing Fundamentals (10 units from section-8-investing-part1 and part2) ──
+  {
+    id: "fin-sec8-u1",
+    title: "Why Invest: Inflation Destroys Cash",
+    description: "Cash loses value every year. Learn why investing is the only way to protect your purchasing power over time.",
+    color: "#10B981",
+    icon: "📉",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u1-L1", title: "What Inflation Is", description: "Prices rise over time. That's inflation, and it silently eats your savings.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u1-L2", title: "How Cash Loses Value", description: "Money sitting in a drawer or low-interest account shrinks in real value every single year.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u1-L3", title: "Real vs. Nominal Returns", description: "The number on your statement isn't the full story. Learn the difference between real and nominal returns.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u1-L4", title: "The Cost of Not Investing", description: "Sitting on the sidelines has a price. Discover what doing nothing really costs you.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u1-L-conv", title: "Inflation Scenarios", description: "Help a friend understand why their savings are shrinking and what they can do about it.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u2",
+    title: "Compound Interest Changes Everything",
+    description: "Your money earns money, and then that money earns money too. Compound interest is the most powerful force in personal finance.",
+    color: "#3B82F6",
+    icon: "📈",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u2-L1", title: "Simple vs. Compound Interest", description: "Two types of interest that look similar but produce wildly different results over time.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u2-L2", title: "The Power of Time", description: "Time is the secret ingredient that makes compound interest magical. More time means exponentially more money.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u2-L3", title: "Rule of 72", description: "A simple mental shortcut that tells you how fast your money will double at any return rate.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u2-L4", title: "Starting Early vs. Starting Late", description: "Real numbers showing why starting early beats investing more money later.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u2-L-speed", title: "Compound Interest Speed Round", description: "Rapid-fire questions on compound interest, the Rule of 72, and the power of time.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u3",
+    title: "Stocks: Owning Companies",
+    description: "When you buy a stock, you become a part-owner of a real company. Learn how stocks work and why they matter.",
+    color: "#FBBF24",
+    icon: "📊",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u3-L1", title: "What a Stock Is", description: "A stock is a tiny piece of ownership in a company. You become a real part-owner.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u3-L2", title: "How Stock Prices Move", description: "Stock prices change every second based on supply and demand. Learn what drives them up and down.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u3-L3", title: "Dividends", description: "Some companies pay you cash just for owning their stock. That's a dividend.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u3-L4", title: "Stock Exchanges", description: "Stocks are bought and sold on exchanges. Learn how these marketplaces work.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u3-L-conv", title: "Stock Basics Conversation", description: "Help a friend understand what it means to own stocks and how the market works.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u4",
+    title: "Bonds: Lending Your Money",
+    description: "Bonds are loans you make to companies and governments. Learn how they work and why investors use them.",
+    color: "#8B5CF6",
+    icon: "📜",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u4-L1", title: "What Bonds Are", description: "A bond is an IOU. You lend money and get paid back with interest.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u4-L2", title: "Coupon and Yield", description: "The coupon rate and yield tell you how much you'll earn from a bond. They're related but not the same.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u4-L3", title: "Bond Prices and Interest Rates", description: "Bond prices and interest rates move in opposite directions. Learn why this matters.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u4-L4", title: "Types of Bonds", description: "Government, corporate, and municipal bonds each have different risk levels and purposes.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u4-L-speed", title: "Bonds Speed Round", description: "Rapid-fire questions covering bond basics, yields, prices, and types.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u5",
+    title: "Review: Investment Vehicles",
+    description: "Put it all together. Review inflation, compound interest, stocks, and bonds before moving forward.",
+    color: "#EC4899",
+    icon: "🔄",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u5-L1", title: "Stocks and Bonds Review", description: "Test your understanding of the key differences between stocks and bonds.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u5-L2", title: "Real Scenarios", description: "Apply everything you've learned to realistic investing situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u5-L-speed", title: "Investment Vehicles Speed Round", description: "Rapid-fire review covering inflation, compound interest, stocks, and bonds.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u6",
+    title: "Index Funds: Beating 90% of Pros",
+    description: "You don't need to pick stocks. Index funds let you own the whole market and outperform most professional managers.",
+    color: "#14B8A6",
+    icon: "🏆",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u6-L1", title: "What Index Funds Are", description: "An index fund is a basket of hundreds or thousands of stocks bundled into one easy investment.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u6-L2", title: "Why Active Managers Lose", description: "Most professional fund managers can't beat a simple index fund. The data is overwhelming.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u6-L3", title: "S&P 500 and Total Market", description: "The two most popular index fund types and what they include.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u6-L4", title: "Expense Ratios Matter", description: "The annual fee on a fund quietly eats your returns. Learn to spot it and keep it low.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u6-L-conv", title: "Index Fund Conversation", description: "Help a friend understand why simple index funds beat most professional stock pickers.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u7",
+    title: "ETFs vs. Mutual Funds",
+    description: "Two popular investment wrappers that hold the same kinds of assets but trade differently. Learn when to use each.",
+    color: "#F97316",
+    icon: "⚖️",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u7-L1", title: "Mutual Fund Basics", description: "Mutual funds pool money from many investors to buy a basket of stocks, bonds, or both.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u7-L2", title: "ETF Basics", description: "ETFs work like mutual funds but trade like stocks. Learn what makes them different.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u7-L3", title: "Key Differences", description: "A head-to-head comparison of ETFs and mutual funds so you can pick the right one.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u7-L-speed", title: "Choosing Between Them Speed Round", description: "Rapid-fire questions on ETFs, mutual funds, and when to use each.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u8",
+    title: "Risk Tolerance and Asset Allocation",
+    description: "How much risk can you handle? Your answer determines how you divide your money between stocks, bonds, and cash.",
+    color: "#6366F1",
+    icon: "🎯",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u8-L1", title: "What Risk Tolerance Means", description: "Risk tolerance is how much investment loss you can handle without panicking and selling.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u8-L2", title: "Your Time Horizon", description: "How many years until you need the money? The answer changes everything about how you should invest.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u8-L3", title: "Diversification", description: "Don't put all your eggs in one basket. Diversification spreads your risk across many investments.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u8-L4", title: "Building an Allocation", description: "How to decide what percentage goes to stocks, bonds, and cash based on your goals and risk tolerance.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u8-L-conv", title: "Risk Assessment Conversation", description: "Help a friend figure out their risk tolerance and build their first investment plan.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u9",
+    title: "Your First Brokerage Account",
+    description: "Everything you need to know to open your first investment account and place your first trade.",
+    color: "#EF4444",
+    icon: "🏦",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u9-L1", title: "What a Brokerage Is", description: "A brokerage is the app or company that lets you buy and sell investments. Here's how to choose one.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec8-u9-L2", title: "Types of Accounts", description: "Taxable accounts, retirement accounts, and education accounts each have different rules and tax benefits.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u9-L3", title: "Placing Your First Trade", description: "The step-by-step process of actually buying your first investment. It's simpler than you think.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec8-u9-L4", title: "Common Beginner Mistakes", description: "Avoid the traps that catch most new investors. Knowledge is your shield.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u9-L-speed", title: "Brokerage Speed Round", description: "Rapid-fire questions on brokerage accounts, order types, and beginner mistakes to avoid.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec8-u10",
+    title: "Section 8 Review",
+    description: "Tie together everything you've learned about inflation, compound interest, stocks, bonds, index funds, and building a portfolio.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 8,
+    sectionTitle: "Investing Fundamentals",
+    lessons: [
+      { id: "fin-sec8-u10-L1", title: "Comprehensive Review", description: "Test your knowledge across all investing fundamentals topics.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec8-u10-L2", title: "Real Scenarios", description: "Apply your investing knowledge to complex, realistic situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec8-u10-L-conv", title: "Investment Advisor Conversation", description: "Use everything you've learned to help a friend navigate a conversation with a financial advisor.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+      { id: "fin-sec8-u10-L-speed", title: "Section Speed Round", description: "The ultimate rapid-fire test covering every major topic from Section 8.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  // ── Unit 8 (old): Make Your Money Grow ──
   {
     id: "pf-u6-investing",
     title: "Make Your Money Grow",
@@ -510,7 +1546,175 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
-  // ── Unit 9: Set Up Future You ──
+  // ── Section 9: Advanced Investing (10 units from section-9-advanced-part1 and part2) ──
+  {
+    id: "fin-sec9-u1",
+    title: "How the Stock Market Works",
+    description: "Understand how stocks are traded, who runs the exchanges, and what happens behind the scenes when you press buy.",
+    color: "#3B82F6",
+    icon: "🏛️",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u1-L1", title: "Market Structure", description: "How stock exchanges work and why they exist.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u1-L2", title: "Exchanges and How They Differ", description: "How the NYSE, Nasdaq, and other exchanges operate differently.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u1-L3", title: "Market Makers and Liquidity", description: "Who keeps the market running smoothly and how they earn money doing it.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u1-L4", title: "Trading Hours and After-Hours", description: "When the market is open and what happens when it closes.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u1-L5", title: "Market Mechanics in Action", description: "Help a friend understand what happens when they place a stock trade.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u2",
+    title: "Reading Stock Charts",
+    description: "Learn to read candlestick charts, spot trends, and understand what volume and moving averages tell you.",
+    color: "#10B981",
+    icon: "📊",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u2-L1", title: "Candlestick Basics", description: "How to read a candlestick chart and what each candle represents.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u2-L2", title: "Support and Resistance Levels", description: "Key price levels where stocks tend to bounce or stall.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u2-L3", title: "What Volume Tells You", description: "How trading volume confirms or questions price movements.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u2-L4", title: "Moving Averages Smooth the Noise", description: "How moving averages help you see the trend through daily fluctuations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u2-L5", title: "Chart Reading Speed Round", description: "Test your chart reading skills under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u3",
+    title: "Valuation: Is This Stock Cheap?",
+    description: "Learn the key ratios and methods investors use to figure out whether a stock is overpriced or a bargain.",
+    color: "#FBBF24",
+    icon: "🔍",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u3-L1", title: "The P/E Ratio Explained", description: "The most popular valuation metric and how to use it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u3-L2", title: "Beyond P/E: P/B and P/S Ratios", description: "Other valuation ratios that reveal what P/E can miss.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u3-L3", title: "Earnings Growth and Why It Matters", description: "How earnings growth drives stock prices over time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u3-L4", title: "Intrinsic Value: What's It Really Worth?", description: "The concept of intrinsic value and how investors estimate it.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u3-L5", title: "Discussing Stock Valuations", description: "Help a friend decide if a stock is worth buying based on valuation metrics.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u4",
+    title: "Growth vs. Value Investing",
+    description: "Understand the 2 major investing styles and learn when each one works best.",
+    color: "#EC4899",
+    icon: "⚖️",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u4-L1", title: "Growth Investing Defined", description: "What growth investing is and what growth investors look for.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u4-L2", title: "Value Investing Defined", description: "What value investing is and how it differs from growth investing.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u4-L3", title: "Growth vs. Value: Historical Returns", description: "How each style has performed in different market environments.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u4-L4", title: "Blending Growth and Value", description: "How to combine both approaches in a single portfolio.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u4-L5", title: "Growth vs. Value Speed Round", description: "Quick-fire questions on growth and value investing concepts.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u5",
+    title: "Review: Stock Analysis",
+    description: "Test your knowledge of market mechanics, chart reading, valuation, and investing styles from this section.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u5-L1", title: "Core Analysis Concepts", description: "Review the key concepts from market structure, charts, and valuation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u5-L2", title: "Real Stock Scenarios", description: "Apply everything you've learned to realistic investment situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec9-u5-L3", title: "Stock Analysis Speed Round", description: "Rapid-fire review of everything from Units 1 through 4.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u6",
+    title: "Sector Analysis and Rotation",
+    description: "Learn how the economy's cycle affects different sectors and how investors rotate between them.",
+    color: "#14B8A6",
+    icon: "🔄",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u6-L1", title: "The Major Market Sectors", description: "What market sectors are and how stocks are grouped into them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u6-L2", title: "Economic Cycles and Markets", description: "How the economy moves through expansion, peak, contraction, and recovery.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u6-L3", title: "Sector Rotation Strategy", description: "How investors shift between sectors based on the economic cycle.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u6-L4", title: "Defensive vs. Cyclical Stocks", description: "Why some stocks hold up in recessions while others surge in booms.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u6-L5", title: "Sector Analysis in Practice", description: "Help a friend think through sector allocation decisions.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u7",
+    title: "Options Basics",
+    description: "Understand what options are, how calls and puts work, and why investors use them.",
+    color: "#F97316",
+    icon: "📋",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u7-L1", title: "What Are Stock Options?", description: "The basic concept of options and how they differ from stocks.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u7-L2", title: "Calls and Puts Explained", description: "The 2 types of options and when you'd use each one.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u7-L3", title: "Strike Price and Expiration Date", description: "The 2 key terms that define every options contract.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u7-L4", title: "Why People Use Options", description: "The practical reasons investors trade options beyond speculation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u7-L5", title: "Options Speed Round", description: "Test your options knowledge under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u8",
+    title: "Dollar-Cost Averaging and Rebalancing",
+    description: "Master the 2 strategies that keep your portfolio on track without requiring market predictions.",
+    color: "#6366F1",
+    icon: "⏰",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u8-L1", title: "Dollar-Cost Averaging Explained", description: "How investing a fixed amount on a regular schedule reduces risk.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u8-L2", title: "Lump Sum vs. Dollar-Cost Averaging", description: "When DCA makes sense and when investing all at once might be better.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u8-L3", title: "Portfolio Drift and Why It Matters", description: "How market movements change your portfolio's balance over time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u8-L4", title: "When and How to Rebalance", description: "Practical approaches to keeping your portfolio on target.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u8-L5", title: "DCA and Rebalancing in Action", description: "Help a friend set up a smart, automated investing plan.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u9",
+    title: "Behavioral Investing: Biases That Cost Money",
+    description: "Recognize the psychological traps that lead investors to make costly mistakes.",
+    color: "#EF4444",
+    icon: "🧠",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u9-L1", title: "Loss Aversion", description: "Why losing $100 hurts more than gaining $100 feels good.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec9-u9-L2", title: "Recency Bias", description: "Why recent events dominate your thinking even when they shouldn't.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u9-L3", title: "Herd Mentality", description: "Why following the crowd often leads to buying high and selling low.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u9-L4", title: "Confirmation Bias", description: "Why you only notice information that agrees with what you already believe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec9-u9-L5", title: "Behavioral Investing Speed Round", description: "Quick-fire questions on investing biases and behavioral traps.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec9-u10",
+    title: "Section 9 Review",
+    description: "Comprehensive review covering market mechanics, valuation, strategies, options, and behavioral biases from all of Section 9.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 9,
+    sectionTitle: "Advanced Investing",
+    lessons: [
+      { id: "fin-sec9-u10-L1", title: "Advanced Investing Concepts Review", description: "Review all the major concepts from Section 9.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec9-u10-L2", title: "Real-World Investment Scenarios", description: "Apply your complete toolkit to realistic investing situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec9-u10-L3", title: "Your Investment Advisor Role", description: "Use everything you've learned to advise a new investor.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+      { id: "fin-sec9-u10-L4", title: "Section 9 Final Speed Round", description: "The ultimate rapid-fire test covering all of Advanced Investing.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  // ── Unit 9 (old): Set Up Future You ──
   {
     id: "pf-u10-retirement",
     title: "Set Up Future You",
@@ -538,7 +1742,174 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
-  // ── Unit 10: Understand the Stock Market ──
+  // ── Section 10: Real Estate (10 units from section-10-realestate-part1 and part2) ──
+  {
+    id: "fin-sec10-u1",
+    title: "Renting vs. Buying: The Real Math",
+    description: "Owning isn't always better than renting. Learn the numbers behind the biggest financial decision most people make.",
+    color: "#10B981",
+    icon: "🏠",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u1-L1", title: "True Cost of Renting", description: "Renting costs more than just your monthly payment. Understand what you're really paying.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u1-L2", title: "True Cost of Owning", description: "A mortgage payment is just the beginning. Discover every cost that comes with homeownership.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u1-L3", title: "The 5% Rule", description: "A simple formula to compare renting and buying in your specific situation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u1-L4", title: "When Renting Wins", description: "Sometimes renting is the smarter financial move. Know when buying doesn't make sense.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u1-L-conv", title: "Rent vs Buy Conversation", description: "Help a friend decide whether renting or buying makes more sense for their situation.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u2",
+    title: "Mortgages: Types and Rates",
+    description: "A mortgage is the biggest loan most people ever take. Understand the types so you can pick the right one.",
+    color: "#3B82F6",
+    icon: "📋",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u2-L1", title: "Fixed-Rate Mortgages", description: "The most common mortgage type. Your rate never changes for the life of the loan.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u2-L2", title: "Adjustable-Rate Mortgages", description: "ARMs start cheaper but can change. Learn when they make sense and when they don't.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u2-L3", title: "15 vs 30 Year Terms", description: "Shorter loans save interest but cost more monthly. Find the right balance for your budget.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u2-L4", title: "How to Compare Offers", description: "Not all mortgage offers are equal. Learn to compare the numbers that actually matter.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u2-L-speed", title: "Mortgage Speed Round", description: "Test your mortgage knowledge under time pressure.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u3",
+    title: "The Home Buying Process",
+    description: "Buying a home involves dozens of steps. Know every stage so nothing catches you off guard.",
+    color: "#FBBF24",
+    icon: "🔑",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u3-L1", title: "Pre-Approval", description: "Before you shop for a home, you need to know how much you can borrow.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u3-L2", title: "House Hunting", description: "How to search smart, separate wants from needs, and avoid emotional overspending.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u3-L3", title: "Making an Offer", description: "How to make a smart offer that protects you without scaring off the seller.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u3-L4", title: "Home Inspection", description: "An inspection reveals hidden problems before they become your expensive surprises.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u3-L-conv", title: "Closing Day Conversation", description: "Walk a friend through the final steps of buying a home on closing day.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u4",
+    title: "Review: Home Buying",
+    description: "Test everything you've learned about renting, buying, mortgages, and the home buying process.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u4-L1", title: "Home Buying Review", description: "Revisit the key concepts from renting vs buying, mortgages, and the buying process.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u4-L2", title: "Real Scenarios", description: "Apply your home buying knowledge to realistic situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec10-u4-L-speed", title: "Home Buying Speed Round", description: "Rapid-fire review of everything from renting to closing.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u5",
+    title: "Property Taxes, HOA, and Maintenance",
+    description: "The costs that come after closing. Budget for these or risk financial trouble as a homeowner.",
+    color: "#EC4899",
+    icon: "💸",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u5-L1", title: "Property Taxes Explained", description: "Your home's value determines your tax bill. Learn how property taxes work and where the money goes.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u5-L2", title: "HOA Fees", description: "Homeowners associations charge monthly fees for shared amenities. Know what you're paying for.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u5-L3", title: "Maintenance Budgeting", description: "Homes break down over time. The 1% rule helps you budget for repairs before they happen.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u5-L4", title: "Hidden Costs of Ownership", description: "Beyond mortgage, taxes, and maintenance, homeownership has costs most people forget about.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u5-L-conv", title: "Homeowner Costs Conversation", description: "Help a new homeowner understand and budget for all the costs of owning a home.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u6",
+    title: "Refinancing: When and How",
+    description: "Refinancing replaces your mortgage with a better one. Learn when it saves money and when it doesn't.",
+    color: "#14B8A6",
+    icon: "🔄",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u6-L1", title: "What Refinancing Does", description: "Refinancing means getting a new loan to replace your old one. Understand why people do it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u6-L2", title: "Break-Even Calculation", description: "The break-even point tells you exactly how long it takes for refinancing to pay off.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u6-L3", title: "Cash-Out Refinancing", description: "Tap into your home equity for cash. Understand when it's smart and when it's dangerous.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u6-L4", title: "When to Refinance", description: "Not every rate drop justifies refinancing. Learn the rules of thumb for smart timing.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u6-L-speed", title: "Refinancing Speed Round", description: "Quick-fire questions on refinancing concepts.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u7",
+    title: "Real Estate as Investment",
+    description: "Rental properties can build wealth, but they come with real work and real risk. Know what you're getting into.",
+    color: "#F97316",
+    icon: "📊",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u7-L1", title: "Rental Property Basics", description: "Owning rental property is a business, not a passive investment. Learn the fundamentals.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u7-L2", title: "Cash Flow Analysis", description: "Cash flow is the money left after all expenses. Learn to calculate it accurately.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u7-L3", title: "Cap Rate and ROI", description: "Two essential metrics for comparing rental properties. Learn to calculate and use both.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u7-L4", title: "Being a Landlord", description: "The day-to-day reality of managing tenants, handling repairs, and staying legal.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u7-L-conv", title: "Rental Property Conversation", description: "Help a friend evaluate whether buying a rental property is right for them.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u8",
+    title: "REITs and Real Estate Crowdfunding",
+    description: "Invest in real estate without buying property. REITs and crowdfunding make it accessible to everyone.",
+    color: "#6366F1",
+    icon: "🏢",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u8-L1", title: "What REITs Are", description: "Real estate investment trusts let you invest in property like you invest in stocks.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u8-L2", title: "REIT Types", description: "From apartments to data centers, REITs cover every type of real estate. Learn the categories.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec10-u8-L3", title: "Crowdfunding Platforms", description: "Real estate crowdfunding lets small investors access deals once reserved for the wealthy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u8-L-speed", title: "REIT Speed Round", description: "Quick-fire questions on REITs and crowdfunding.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u9",
+    title: "Real Estate Math",
+    description: "Master the formulas that drive every real estate decision. Numbers don't lie if you know how to read them.",
+    color: "#EF4444",
+    icon: "🧮",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u9-L1", title: "Mortgage Payment Formula", description: "Understand how your monthly mortgage payment is calculated from principal, rate, and term.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u9-L2", title: "Amortization Schedules", description: "See exactly how each payment splits between interest and principal over the life of your loan.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u9-L3", title: "Equity Building", description: "Equity is your ownership stake in your home. Learn how it grows and why it matters.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec10-u9-L4", title: "Leverage in Real Estate", description: "Leverage means using borrowed money to amplify returns. It works both ways.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec10-u9-L-conv", title: "Real Estate Math Conversation", description: "Help a friend run the numbers on a real estate opportunity.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec10-u10",
+    title: "Section 10 Review",
+    description: "Test everything you've learned about real estate: buying, investing, financing, and the math behind it all.",
+    color: "#8B5CF6",
+    icon: "🏆",
+    sectionIndex: 10,
+    sectionTitle: "Real Estate",
+    lessons: [
+      { id: "fin-sec10-u10-L1", title: "Comprehensive Review", description: "Revisit the most important concepts from the entire real estate section.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec10-u10-L2", title: "Real Scenarios", description: "Apply everything you've learned to complex, multi-concept real estate situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec10-u10-L-conv", title: "Real Estate Advisor Conversation", description: "Advise a friend on a complex real estate decision that combines multiple concepts.", icon: "💬", type: "conversation" as const, xpReward: 20, questions: [] },
+      { id: "fin-sec10-u10-L-speed", title: "Section Speed Round", description: "Final rapid-fire review of everything in the real estate section.", icon: "⚡", type: "speed-round" as const, xpReward: 20, questions: [] },
+    ],
+  },
+
+  // ── Unit 10 (old): Understand the Stock Market ──
   {
     id: "pf-u7-stocks",
     title: "Understand the Stock Market",
@@ -568,6 +1939,123 @@ export const financeCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 11: Insurance & Risk (10 units from section-11-insurance-part1 and part2) ──
+  {
+    id: "fin-sec11-u1", title: "Insurance Principles: How Risk Pooling Works", description: "Insurance lets thousands of people share financial risk. Learn why it exists and how it protects you.", color: "#3B82F6", icon: "🛡️",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u1-L1", title: "What Insurance Is", description: "Insurance is a financial safety net. Understand the basic idea behind every insurance policy.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u1-L2", title: "Risk Pooling Concept", description: "Insurance works because thousands of people share risk together. Learn why this makes coverage affordable.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u1-L3", title: "Premiums and Payouts", description: "Learn how insurance companies set your price and what determines how much they pay you.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u1-L4", title: "Types of Insurance Overview", description: "From health to home to life, there's a policy for every major risk. Get the big picture.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u1-L-conv", title: "Insurance Basics Conversation", description: "Help a friend understand why insurance matters and how risk pooling keeps costs manageable.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u2", title: "Health Insurance Decoded", description: "HMO, PPO, HDHP. These acronyms control your medical care. Learn what they mean and how to choose.", color: "#10B981", icon: "🏥",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u2-L1", title: "HMO vs PPO vs HDHP", description: "Three plan types dominate health insurance. Learn how each one works and who it's best for.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u2-L2", title: "Networks and Referrals", description: "Your insurance network determines which doctors you can see and how much you'll pay.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u2-L3", title: "Reading Your Insurance Card", description: "Your insurance card has critical information. Learn what every number and code means.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u2-L4", title: "Choosing a Health Plan", description: "Open enrollment is your chance to pick the right plan. Learn the factors that matter most.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u2-L-speed", title: "Health Insurance Speed Round", description: "Test your health insurance knowledge under time pressure.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u3", title: "Deductibles, Copays, and Premiums", description: "The 3 numbers that control your health costs. Master them and you'll never overpay for care.", color: "#FBBF24", icon: "💰",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u3-L1", title: "What Deductibles Are", description: "A deductible is the amount you pay before your insurance starts covering costs.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u3-L2", title: "Copays and Coinsurance", description: "After meeting your deductible, you still share costs with your insurer. Learn how.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u3-L3", title: "Out-of-Pocket Maximums", description: "There's a cap on what you'll spend each year. Once you hit it, insurance covers 100%.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u3-L4", title: "High Deductible Math", description: "Run the numbers on high vs low deductible plans to find which one actually saves money.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u3-L-conv", title: "Health Costs Conversation", description: "Walk a coworker through understanding their health insurance costs after a surprise bill.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u4", title: "Review: Health Insurance", description: "Test your knowledge of health plan types, networks, deductibles, copays, and out-of-pocket costs.", color: "#8B5CF6", icon: "🔄",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u4-L1", title: "Health Insurance Review", description: "Revisit the key concepts from health plan types and cost structures.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec11-u4-L2", title: "Real Scenarios", description: "Apply your health insurance knowledge to realistic situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec11-u4-L-speed", title: "Health Insurance Speed Round", description: "Rapid recall of everything you've learned about health insurance.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u5", title: "Auto Insurance Optimization", description: "Car insurance is required, but you control what you pay. Learn to get the right coverage at the right price.", color: "#EC4899", icon: "🚗",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u5-L1", title: "Required Coverage", description: "Most places require auto insurance by law. Learn what coverage is mandatory and why.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u5-L2", title: "Liability Limits", description: "Your liability limits cap how much the insurer pays. Learn how to read them and set them right.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u5-L3", title: "Comprehensive and Collision", description: "These optional coverages protect your own car. Learn when they're worth the cost.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u5-L4", title: "Auto Insurance Discounts", description: "There are dozens of ways to lower your auto insurance premium. Learn the most impactful ones.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u5-L-conv", title: "Auto Insurance Conversation", description: "Help a friend figure out the right auto insurance coverage for their situation.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u6", title: "Homeowner's and Renter's Insurance", description: "Whether you own or rent, your home and belongings need protection. Learn what each policy covers.", color: "#14B8A6", icon: "🏠",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u6-L1", title: "What Homeowner's Covers", description: "Homeowner's insurance protects your house, belongings, and liability. Learn what's included and what's not.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u6-L2", title: "Renter's Insurance", description: "Renter's insurance is cheap and covers more than you'd think. Learn why every renter should have it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u6-L3", title: "Replacement Cost vs Actual Cash Value", description: "How your insurer calculates your payout depends on this one setting. Get it right.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u6-L4", title: "Liability Coverage", description: "Your home insurance protects you from lawsuits too. Learn how liability coverage works.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u6-L-speed", title: "Home Insurance Speed Round", description: "Test your home and renter's insurance knowledge under time pressure.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u7", title: "Life Insurance: Term vs. Whole", description: "Life insurance protects the people who depend on you financially. Learn the 2 main types and how to choose.", color: "#F97316", icon: "❤️",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u7-L1", title: "Why Life Insurance Matters", description: "Life insurance isn't for you. It's for the people who depend on your income.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u7-L2", title: "Term Life Explained", description: "Term life is simple and affordable. It covers you for a set number of years.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u7-L3", title: "Whole Life Explained", description: "Whole life lasts forever and builds cash value. Learn when it makes sense and when it doesn't.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u7-L4", title: "How Much Coverage You Need", description: "The right death benefit depends on your family's specific financial needs. Learn how to calculate it.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u7-L-conv", title: "Life Insurance Conversation", description: "Help a friend decide between term and whole life insurance for their growing family.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u8", title: "Disability and Umbrella Insurance", description: "Two often-overlooked policies that protect your income and your assets. Learn why they matter.", color: "#6366F1", icon: "☂️",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u8-L1", title: "Disability Insurance", description: "Your ability to earn income is your biggest asset. Disability insurance protects it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u8-L2", title: "Umbrella Policies", description: "An umbrella policy adds a million dollars or more in liability protection on top of your existing policies.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u8-L3", title: "When You Need Them", description: "Not everyone needs every type of insurance. Learn who benefits most from disability and umbrella coverage.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u8-L-speed", title: "Specialty Insurance Speed Round", description: "Rapid recall of disability, umbrella, and specialty insurance concepts.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u9", title: "Insurance Shopping and Comparison", description: "Getting the right coverage at the right price takes skill. Learn to compare, negotiate, and avoid traps.", color: "#EF4444", icon: "🔍",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u9-L1", title: "Comparing Quotes", description: "The same coverage can cost very different amounts. Learn how to compare quotes like a pro.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u9-L2", title: "Reading Policy Documents", description: "Your policy document is a contract. Learn the key sections so you know exactly what you're buying.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u9-L3", title: "Coverage Gaps", description: "Gaps in your insurance can leave you exposed. Learn how to find and fix them.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u9-L4", title: "Avoiding Over-Insurance", description: "Too much insurance wastes money. Learn how to right-size your coverage.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec11-u9-L-conv", title: "Insurance Shopping Conversation", description: "Help a friend navigate the insurance shopping process and avoid common mistakes.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec11-u10", title: "Section 11 Review", description: "Test everything you've learned about insurance: health, auto, home, life, disability, umbrella, and smart shopping.", color: "#8B5CF6", icon: "🏆",
+    sectionIndex: 11, sectionTitle: "Insurance & Risk",
+    lessons: [
+      { id: "fin-sec11-u10-L1", title: "Comprehensive Review", description: "Revisit the most important concepts from the entire insurance section.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec11-u10-L2", title: "Real Scenarios", description: "Apply your insurance knowledge to challenging real-world situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec11-u10-L-conv", title: "Insurance Advisor Conversation", description: "A friend is confused about their insurance coverage. Help them build a complete protection plan.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+      { id: "fin-sec11-u10-L-speed", title: "Section Speed Round", description: "Final speed round covering every topic in the insurance section.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
   // ── Unit 11: Buy Your First Home ──
   {
     id: "pf-u9-real-estate",
@@ -596,6 +2084,123 @@ export const financeCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 12: Retirement Planning (10 units from section-12-retirement-part1 and part2) ──
+  {
+    id: "fin-sec12-u1", title: "Retirement Math: How Much Do You Need?", description: "Retirement costs more than most people think. Learn the math behind your magic number.", color: "#10B981", icon: "🧮",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u1-L1", title: "Why Retirement Costs So Much", description: "Retirement can last 30 years or more. Understand why saving early matters so much.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u1-L2", title: "The 25x Rule", description: "A simple formula to estimate how much you need saved before you can retire.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u1-L3", title: "Inflation and Retirement", description: "Inflation silently erodes your purchasing power. Learn how it affects your retirement savings.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u1-L4", title: "Calculating Your Number", description: "Put all the pieces together to find your personal retirement savings target.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u1-L-conv", title: "Retirement Math Conversation", description: "Help a friend figure out how much they need to save for retirement.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u2", title: "401(k) Deep Dive", description: "The 401(k) is the most common workplace retirement plan. Master how it works.", color: "#3B82F6", icon: "🏦",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u2-L1", title: "How a 401(k) Works", description: "Your employer offers this plan for a reason. Learn the basics of how a 401(k) helps you save for retirement.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u2-L2", title: "Contributions and Limits", description: "There are rules about how much you can put into a 401(k) each year.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u2-L3", title: "Vesting Schedules", description: "Your employer's contributions might not be fully yours right away. Learn how vesting works.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u2-L4", title: "401(k) Loans", description: "You can borrow from your own 401(k), but should you? Understand the real costs.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u2-L-speed", title: "401(k) Speed Round", description: "Test your 401(k) knowledge under time pressure.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u3", title: "IRA Showdown: Roth vs. Traditional", description: "Two types of IRAs with opposite tax strategies. Learn which one fits your situation.", color: "#FBBF24", icon: "⚖️",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u3-L1", title: "Traditional IRA", description: "The traditional IRA gives you a tax break today. Learn how it works and who benefits most.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u3-L2", title: "Roth IRA", description: "The Roth IRA flips the tax script. Pay taxes now, withdraw tax-free later.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u3-L3", title: "Tax Now vs Tax Later", description: "The core decision between Roth and traditional accounts is about timing your taxes.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u3-L4", title: "Income Limits", description: "Not everyone can contribute to every account type. Learn the income rules.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u3-L-conv", title: "IRA Comparison Conversation", description: "Help a friend decide between a Roth and traditional IRA.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u4", title: "Review: Retirement Accounts", description: "Reinforce your knowledge of 401(k)s, IRAs, and the tax strategies behind them.", color: "#8B5CF6", icon: "🔄",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u4-L1", title: "Accounts Review", description: "Comprehensive review of all the retirement account types you've learned.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u4-L2", title: "Real Scenarios", description: "Apply your retirement account knowledge to realistic situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec12-u4-L-speed", title: "Retirement Accounts Speed Round", description: "Rapid-fire review of all retirement account types and strategies.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u5", title: "Employer Match Strategies", description: "Your employer match is free money. Learn how to capture every dollar of it.", color: "#EC4899", icon: "🎁",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u5-L1", title: "What Employer Match Is", description: "Your employer may add free money to your retirement account. Understand how matching works.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u5-L2", title: "Free Money Math", description: "Calculate exactly how much your employer match is worth over time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u5-L3", title: "Matching Formulas", description: "Employers use different formulas for their 401(k) match. Learn to decode them.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u5-L4", title: "Maximizing Your Match", description: "Practical strategies to ensure you capture every dollar of employer match available.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u5-L-conv", title: "Employer Match Conversation", description: "Help a coworker understand and maximize their employer 401(k) match.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u6", title: "Target-Date and Lifecycle Funds", description: "Target-date funds adjust your investments automatically as you approach retirement. Set it and forget it.", color: "#14B8A6", icon: "📊",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u6-L1", title: "What Target-Date Funds Do", description: "A target-date fund picks and adjusts investments for you based on when you plan to retire.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u6-L2", title: "The Glide Path Concept", description: "How target-date funds shift from aggressive to conservative over time.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u6-L3", title: "Pros and Cons", description: "Target-date funds aren't perfect. Understand both the strengths and the limitations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u6-L-speed", title: "Target-Date Speed Round", description: "Quick-fire review of target-date fund concepts.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u7", title: "Social Security", description: "Social Security is a foundation of retirement income. Understand how it works and when to claim it.", color: "#F97316", icon: "🏛️",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u7-L1", title: "How Social Security Works", description: "Social Security provides guaranteed income in retirement. Learn the basics of how you qualify.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u7-L2", title: "When to Claim", description: "You can claim Social Security as early as 62 or as late as 70. Timing changes everything.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u7-L3", title: "Full Retirement Age", description: "Your full retirement age depends on when you were born. Learn why it matters.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u7-L4", title: "Spousal Benefits", description: "Your spouse can receive Social Security benefits based on your work record.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u7-L-conv", title: "Social Security Conversation", description: "Help a friend understand when to claim Social Security benefits.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u8", title: "The 4% Rule and Safe Withdrawal", description: "Saving is half the battle. Knowing how to spend it without running out is the other half.", color: "#6366F1", icon: "📉",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u8-L1", title: "The 4% Rule Explained", description: "The 4% rule is the most famous retirement spending guideline. Learn what it is and why it works.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u8-L2", title: "Withdrawal Strategies", description: "Which accounts should you draw from first? The order matters for taxes.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u8-L3", title: "Sequence of Returns Risk", description: "When you experience losses matters as much as whether you experience them.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec12-u8-L4", title: "The Bucket Strategy", description: "Divide your retirement money into buckets for short-term, medium-term, and long-term needs.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec12-u8-L-speed", title: "Withdrawal Speed Round", description: "Test your knowledge of withdrawal strategies under time pressure.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u9", title: "Early Retirement and FIRE", description: "Financial Independence, Retire Early. Learn how some people retire in their 30s and 40s.", color: "#EF4444", icon: "🔥",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u9-L1", title: "What FIRE Is", description: "FIRE stands for Financial Independence, Retire Early. Understand the movement and its core principles.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u9-L2", title: "Savings Rate Math", description: "Your savings rate determines how quickly you can retire. The math is surprisingly simple.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u9-L3", title: "Lean vs Fat FIRE", description: "FIRE comes in different flavors. Find the version that matches your lifestyle goals.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec12-u9-L4", title: "Roth Conversion Ladder", description: "How early retirees access retirement accounts before age 59.5 without penalties.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec12-u9-L-conv", title: "FIRE Conversation", description: "Help a friend evaluate whether pursuing FIRE is realistic for their situation.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec12-u10", title: "Section 12 Review", description: "Pull together everything you've learned about retirement planning into a complete strategy.", color: "#8B5CF6", icon: "🏆",
+    sectionIndex: 12, sectionTitle: "Retirement Planning",
+    lessons: [
+      { id: "fin-sec12-u10-L1", title: "Comprehensive Review", description: "Review all the key concepts from Section 12: Retirement Planning.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec12-u10-L2", title: "Real Scenarios", description: "Apply everything you've learned to complex retirement planning situations.", icon: "📝", xpReward: 35, questions: [] },
+      { id: "fin-sec12-u10-L-conv", title: "Retirement Advisor Conversation", description: "Guide a friend through creating a complete retirement strategy that combines multiple concepts.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
+      { id: "fin-sec12-u10-L-speed", title: "Section Speed Round", description: "Final rapid-fire review of everything in the retirement planning section.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
 
   // ── Unit 12: Crypto Without the Hype ──
   {
@@ -1049,6 +2654,209 @@ export const financeCourseMeta: Unit[] = [
       { id: "pf-s14-u11-L2", title: "Checkpoint: Insurance and Credit", description: "Prove your knowledge of business insurance, liability protection, and business credit.", icon: "✅", xpReward: 30, questions: [] },
       { id: "pf-s14-u11-L3", title: "Checkpoint: Financial Statements", description: "Prove your ability to read, interpret, and act on financial statement data.", icon: "✅", xpReward: 30, questions: [] },
       { id: "pf-s14-u11-L4", title: "Comprehensive Business Finance Challenge", description: "The ultimate test. Apply everything from Section 14 to real business scenarios.", icon: "✅", xpReward: 35, questions: [] },
+    ],
+  },
+
+
+  // ── Section 15: Financial Mastery (12 units from section-15-capstone-part1 and part2) ──
+
+  {
+    id: "fin-sec15-u1",
+    title: "Negotiating Salary and Raises",
+    description: "Learn to advocate for your worth and maximize your lifetime earnings.",
+    color: "#10B981",
+    icon: "💼",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u1-L1", title: "Negotiation Principles", description: "The foundational mindset and tactics behind every successful salary negotiation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u1-L2", title: "Researching Market Rate", description: "How to find what your role is actually worth before you negotiate.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u1-L3", title: "The Negotiation Conversation", description: "What to say, when to pause, and how to handle pushback in a salary talk.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u1-L4", title: "Counter-Offers", description: "How to evaluate and respond to counter-offers from your current or new employer.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u1-L5", title: "Salary Negotiation Conversation", description: "Practice a realistic salary negotiation from start to finish.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u2",
+    title: "Marriage, Divorce, and Money",
+    description: "Navigate finances through life's biggest relationship transitions.",
+    color: "#EC4899",
+    icon: "💍",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u2-L1", title: "Combining Finances", description: "The three main approaches to managing money as a couple.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u2-L2", title: "Prenups", description: "What prenuptial agreements actually do, and why they're not just for the wealthy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u2-L3", title: "Financial Disagreements", description: "Why couples fight about money and how to resolve conflicts productively.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u2-L4", title: "Divorce Finances", description: "Protect yourself financially during one of life's most stressful transitions.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u2-L5", title: "Money and Relationships Conversation", description: "Practice navigating a difficult money conversation with a partner.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u3",
+    title: "Behavioral Finance",
+    description: "Understand the mental shortcuts and biases that sabotage financial decisions.",
+    color: "#8B5CF6",
+    icon: "🧠",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u3-L1", title: "Why Smart People Make Bad Money Decisions", description: "Your brain is wired to make irrational financial choices. Here's why.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u3-L2", title: "Mental Accounting", description: "Why you treat different dollars differently, and why it costs you money.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u3-L3", title: "Herd Behavior in Markets", description: "Why we follow the crowd with money, and why the crowd is often wrong.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u3-L4", title: "Overcoming Financial Biases", description: "Practical strategies to protect yourself from your own irrational brain.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u3-L5", title: "Behavioral Finance Speed Round", description: "Race the clock on behavioral finance concepts.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u4",
+    title: "Review: Life Money Skills",
+    description: "Prove your mastery of negotiation, relationship finances, and behavioral biases.",
+    color: "#6366F1",
+    icon: "🔄",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u4-L1", title: "Review: Negotiation and Relationships", description: "Recall key concepts from salary negotiation and marriage finances.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u4-L2", title: "Life Money Scenarios", description: "Apply negotiation, relationship, and behavioral finance concepts to real situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u4-L3", title: "Life Money Skills Speed Round", description: "Rapid recall of life money skills concepts.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u5",
+    title: "Crypto and Digital Assets",
+    description: "Cut through the hype and understand what blockchain and crypto actually mean for your money.",
+    color: "#F59E0B",
+    icon: "₿",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u5-L1", title: "Blockchain Basics", description: "What blockchain is, how it works, and why it matters for finance.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u5-L2", title: "Cryptocurrency", description: "What crypto actually is, how it works, and what it's used for.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u5-L3", title: "NFTs and Tokens", description: "Beyond cryptocurrency: what tokens and NFTs are and whether they have lasting value.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u5-L4", title: "Crypto Risks", description: "The real dangers of crypto investing that hype doesn't mention.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u5-L5", title: "Crypto Conversation", description: "Discuss the future of crypto and digital assets.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u6",
+    title: "Economic Cycles",
+    description: "Understand how recessions, inflation, and recoveries shape your financial life.",
+    color: "#EF4444",
+    icon: "📉",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u6-L1", title: "Recession", description: "What a recession is, why it happens, and how it affects your money.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u6-L2", title: "Inflation", description: "How rising prices erode your purchasing power and what you can do about it.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u6-L3", title: "Recovery", description: "How economies bounce back from recessions and how to position yourself for growth.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u6-L4", title: "How Cycles Affect Your Money", description: "Apply economic cycle knowledge to your personal budget, career, and investments.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u6-L5", title: "Economic Cycles Speed Round", description: "Race the clock on economic cycle concepts.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u7",
+    title: "International Finance",
+    description: "Navigate currency exchange, global investing, and geopolitical risks like a pro.",
+    color: "#14B8A6",
+    icon: "🌍",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u7-L1", title: "Currency Exchange", description: "How exchange rates work and why they affect your money even if you never travel.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u7-L2", title: "Global Investing", description: "How to invest in international markets and why diversification matters globally.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u7-L3", title: "Geopolitical Risk", description: "How political events around the world affect your investments and finances.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u7-L4", title: "International Diversification", description: "Build a globally diversified portfolio that reduces risk and captures growth.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u7-L5", title: "Global Finance Conversation", description: "Discuss global finance strategies and risks.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u8",
+    title: "Multiple Income Streams",
+    description: "Build financial resilience by creating income from multiple sources.",
+    color: "#F97316",
+    icon: "💰",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u8-L1", title: "Active vs Passive Income", description: "Understand the difference between trading time for money and building income that works while you sleep.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u8-L2", title: "Side Hustles", description: "How to start earning extra income alongside your main job.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u8-L3", title: "Rental Income", description: "How rental properties generate income and what it really takes to be a landlord.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u8-L4", title: "Digital Products", description: "How to create and sell digital products for passive income.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u8-L5", title: "Income Streams Speed Round", description: "Race the clock on income stream concepts.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u9",
+    title: "Financial Independence Roadmap",
+    description: "Calculate your FI number and build a plan to reach it.",
+    color: "#3B82F6",
+    icon: "🗺️",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u9-L1", title: "FI Number", description: "Calculate exactly how much you need to never have to work again.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u9-L2", title: "Savings Rate", description: "Why your savings rate matters more than your salary for reaching FI.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u9-L3", title: "Investment Strategy for FI", description: "The investment approach that gets you to financial independence fastest.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u9-L4", title: "Lifestyle Design", description: "Design a life you don't need to retire from.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u9-L5", title: "FI Planning Conversation", description: "Plan your path to financial independence.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u10",
+    title: "Review: Advanced Topics",
+    description: "Prove your mastery of global finance, income streams, and financial independence.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u10-L1", title: "Review: Global Finance and Income Streams", description: "Recall key concepts from international finance and multiple income streams.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u10-L2", title: "Advanced Topics Scenarios", description: "Apply advanced financial concepts to realistic scenarios.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u10-L3", title: "Advanced Topics Speed Round", description: "Rapid recall of advanced financial topics.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u11",
+    title: "Your Complete Financial Plan",
+    description: "Bring everything together into a personalized financial roadmap.",
+    color: "#10B981",
+    icon: "📋",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u11-L1", title: "Putting It All Together", description: "Combine budgeting, investing, insurance, and planning into one cohesive strategy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u11-L2", title: "Prioritizing Goals", description: "When you can't do everything at once, learn what to tackle first.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u11-L3", title: "Building Your Plan", description: "Step-by-step construction of your personal financial plan.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "fin-sec15-u11-L4", title: "Annual Review Process", description: "How to review and update your financial plan every year.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "fin-sec15-u11-L5", title: "Financial Plan Conversation", description: "Build your personal financial plan with guided coaching.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "fin-sec15-u12",
+    title: "Final Capstone: Comprehensive Challenge",
+    description: "The ultimate test of everything you've learned across the entire course.",
+    color: "#FBBF24",
+    icon: "🏆",
+    sectionIndex: 15,
+    sectionTitle: "Financial Mastery",
+    lessons: [
+      { id: "fin-sec15-u12-L1", title: "Budgeting, Investing, and Debt Synthesis", description: "Synthesize your knowledge of budgeting, investing, and debt management.", icon: "📝", xpReward: 35, questions: [] },
+      { id: "fin-sec15-u12-L2", title: "Insurance, Retirement, and Estate Synthesis", description: "Synthesize your knowledge of insurance, retirement, and estate planning.", icon: "📝", xpReward: 35, questions: [] },
+      { id: "fin-sec15-u12-L3", title: "Credit, Taxes, and Real Estate Synthesis", description: "Synthesize your knowledge of credit, taxes, and real estate.", icon: "📝", xpReward: 35, questions: [] },
+      { id: "fin-sec15-u12-L4", title: "Comprehensive Case Study Conversation", description: "Apply everything to a comprehensive real-world financial case study.", icon: "💬", type: "conversation", xpReward: 35, questions: [] },
+      { id: "fin-sec15-u12-L5", title: "Final Comprehensive Speed Round", description: "The ultimate speed round covering every section of the course.", icon: "⚡", type: "speed-round", xpReward: 35, questions: [] },
     ],
   },
 ];

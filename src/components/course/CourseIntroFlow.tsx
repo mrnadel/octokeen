@@ -25,6 +25,7 @@ export interface CourseIntroData {
   goal: GoalChoice;
   dailyMinutes: CommitmentChoice;
   completedAt: string;
+  placementDone?: boolean;
 }
 
 // ── Data ─────────────────────────────────────────────────────

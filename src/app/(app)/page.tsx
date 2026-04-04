@@ -102,8 +102,10 @@ export default function HomePage() {
   const showCourseIntro = flagIntroFlow && !introDismissed && !hasProgressInCurrentCourse && !hasIntro;
 
   // If intro was already done but user never completed a lesson, jump straight to placement test
+  // (skip if user already completed placement for this course)
   useEffect(() => {
     if (!flagIntroFlow || introDismissed || hasProgressInCurrentCourse || !hasIntro || introPlacementConfig) return;
+    if (introData?.placementDone) return;
     // Use stored experience level to determine start fraction
     const fractionMap: Record<number, number> = { 0: 0, 1: 0, 2: 0.3, 3: 0.6 };
     const startFraction = fractionMap[introData?.experienceLevel ?? 0] ?? 0;
@@ -208,11 +210,20 @@ export default function HomePage() {
               onComplete={(unitIndex) => {
                 setIntroPlacementConfig(null);
                 setIntroDismissed(true);
-                if (unitIndex > 0) {
-                  useCourseStore.setState((s) => ({
-                    progress: { ...s.progress, placementUnitIndex: unitIndex },
-                  }));
-                }
+                useCourseStore.setState((s) => {
+                  const prev = s.progress;
+                  const prevIntro = prev.courseIntros?.[activeProfession];
+                  return {
+                    progress: {
+                      ...prev,
+                      ...(unitIndex > 0 ? { placementUnitIndex: unitIndex } : {}),
+                      courseIntros: {
+                        ...prev.courseIntros,
+                        ...(prevIntro ? { [activeProfession]: { ...prevIntro, placementDone: true } } : {}),
+                      },
+                    },
+                  };
+                });
               }}
               onExit={() => {
                 setIntroPlacementConfig(null);

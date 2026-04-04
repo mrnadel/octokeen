@@ -156,6 +156,135 @@ export const spaceCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 2: The Solar System (Part 1, 5 units) ──
+  {
+    id: "sp-sec2-u1", title: "Our Cosmic Neighborhood",
+    description: "Learn what the solar system is, how it formed, and the incredible scale of our Sun's family.",
+    color: "#F59E0B", icon: "🌞", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u1-L1", title: "What the Solar System Is", description: "Meet the Sun's family of planets, moons, and smaller objects.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u1-L2", title: "The Sun as a Star", description: "Discover why the Sun is just a regular star that happens to be very close to us.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u1-L3", title: "Scale of the Solar System", description: "Understand just how vast the distances are between planets.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u1-L4", title: "How the Solar System Formed", description: "The story of how a cloud of gas and dust became our solar system.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u1-L5", title: "Solar System Conversation", description: "Help a curious friend understand the basics of our solar system.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u2", title: "Rocky Planets: Mercury and Venus",
+    description: "Explore the two planets closest to the Sun and discover why Venus is the hottest planet in the solar system.",
+    color: "#EF4444", icon: "🪨", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u2-L1", title: "Mercury Up Close", description: "Meet the smallest, fastest planet in our solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u2-L2", title: "Venus the Greenhouse Planet", description: "Explore the planet with crushing pressure and scorching temperatures.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u2-L3", title: "Comparing the Two", description: "See how Mercury and Venus differ in size, atmosphere, and temperature.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u2-L4", title: "Why Venus Is Hotter Than Mercury", description: "Dive deeper into the greenhouse effect and why distance from the Sun isn't everything.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u2-L5", title: "Rocky Planets Speed Round", description: "15 rapid-fire questions about Mercury and Venus.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u3", title: "Earth and Mars",
+    description: "Compare our home planet with the red planet and explore the search for water on Mars.",
+    color: "#3B82F6", icon: "🌍", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u3-L1", title: "What Makes Earth Special", description: "Discover the features that make Earth the only known planet with life.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u3-L2", title: "Mars the Red Planet", description: "Explore the rust-colored world with the tallest volcano and deepest canyon in the solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u3-L3", title: "Water on Mars", description: "Discover the evidence that Mars once had rivers, lakes, and possibly oceans.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u3-L4", title: "Mars Exploration", description: "Learn about the rovers, landers, and missions that have explored the red planet.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u3-L5", title: "Earth vs Mars Conversation", description: "Help a friend understand the key differences between Earth and Mars.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u4", title: "Review: Inner Planets",
+    description: "Test your knowledge of Mercury, Venus, Earth, and Mars with review questions, scenarios, and a speed round.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u4-L1", title: "Inner Planets Review", description: "Review key facts about all four rocky planets.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec2-u4-L2", title: "Inner Planets Scenarios", description: "Apply what you've learned to real-world scenarios about the inner planets.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec2-u4-L3", title: "Inner Planets Speed Round", description: "15 rapid-fire questions covering Mercury, Venus, Earth, and Mars.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u5", title: "Gas Giants: Jupiter and Saturn",
+    description: "Meet the two largest planets in the solar system and their incredible moons, rings, and storms.",
+    color: "#FBBF24", icon: "🪐", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u5-L1", title: "Jupiter the King", description: "Explore the largest planet in the solar system and its famous storms.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u5-L2", title: "Saturn's Rings", description: "Discover the most spectacular ring system in the solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u5-L3", title: "Moons of Jupiter and Saturn", description: "Meet the most fascinating moons orbiting the two gas giants.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u5-L4", title: "Gas Giant Weather", description: "Discover storms, winds, and weather systems on Jupiter and Saturn.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u5-L5", title: "Gas Giants Conversation", description: "Discuss Jupiter and Saturn with a curious friend.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 2: The Solar System (Part 2, 5 units) ──
+  {
+    id: "sp-sec2-u6", title: "Ice Giants: Uranus and Neptune",
+    description: "Explore the two most distant planets in the solar system and discover what makes ice giants different from gas giants.",
+    color: "#14B8A6", icon: "🧊", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u6-L1", title: "Uranus the Sideways Planet", description: "Meet the planet that rolls on its side as it orbits the Sun.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u6-L2", title: "Neptune the Windy World", description: "Discover the planet with the fastest winds in the solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u6-L3", title: "Ice Giant Composition", description: "Learn what ice giants are made of and how they differ from gas giants.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u6-L4", title: "Moons of the Ice Giants", description: "Discover the unusual moons orbiting Uranus and Neptune.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u6-L5", title: "Ice Giants Speed Round", description: "15 rapid-fire questions about Uranus and Neptune.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u7", title: "Dwarf Planets and the Kuiper Belt",
+    description: "Explore the icy worlds beyond Neptune, including Pluto, and discover the vast Kuiper Belt.",
+    color: "#EC4899", icon: "⭐", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u7-L1", title: "What Dwarf Planets Are", description: "Learn the definition of a dwarf planet and why it matters.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u7-L2", title: "Pluto's Story", description: "From planet to dwarf planet, and the New Horizons mission that revealed its secrets.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u7-L3", title: "Eris and Makemake", description: "Meet the other dwarf planets lurking in the outer solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u7-L4", title: "The Kuiper Belt", description: "Explore the vast ring of icy objects beyond Neptune's orbit.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u7-L5", title: "Dwarf Planets Conversation", description: "Discuss Pluto's reclassification and the outer solar system with a friend.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u8", title: "Asteroids, Comets, and Meteors",
+    description: "Learn about the space rocks, icy wanderers, and fiery streaks that share our solar system.",
+    color: "#F97316", icon: "☄️", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u8-L1", title: "The Asteroid Belt", description: "Explore the rocky debris field between Mars and Jupiter.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u8-L2", title: "Comets and Their Tails", description: "Learn what comets are and why they develop spectacular tails.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u8-L3", title: "Meteors vs Meteorites", description: "Learn the difference between meteors, meteoroids, and meteorites.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u8-L4", title: "Impact Threats", description: "Learn how scientists track dangerous asteroids and what could be done about them.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u8-L5", title: "Space Rocks Speed Round", description: "15 rapid-fire questions about asteroids, comets, and meteors.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u9", title: "Moons of the Solar System",
+    description: "Explore the most fascinating moons in the solar system, from our own Moon to the volcanic Io.",
+    color: "#6366F1", icon: "🌙", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u9-L1", title: "Earth's Moon Recap", description: "Review what makes our Moon special and how it affects life on Earth.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u9-L2", title: "Europa and Enceladus", description: "Explore the two ocean moons that might harbor life.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u9-L3", title: "Titan", description: "Explore the only moon with a thick atmosphere and liquid on its surface.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec2-u9-L4", title: "Io", description: "Visit the most volcanically active world in the solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec2-u9-L5", title: "Moon Exploration Conversation", description: "Discuss which moons we should explore next and why.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec2-u10", title: "Section 2 Review",
+    description: "Test everything you've learned about the solar system, from the Sun to the Kuiper Belt.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 2, sectionTitle: "The Solar System",
+    lessons: [
+      { id: "sp-sec2-u10-L1", title: "Comprehensive Review", description: "Review key facts from every unit in Section 2.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec2-u10-L2", title: "Solar System Scenarios", description: "Apply your knowledge to challenging scenarios across the entire solar system.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec2-u10-L3", title: "Space Guide Conversation", description: "Act as a space guide for someone learning about the solar system for the first time.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+      { id: "sp-sec2-u10-L4", title: "Section 2 Speed Round", description: "15 rapid-fire questions covering everything from Section 2.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
   // ── Unit 2: Our Solar System ──
   {
     id: "sp-u2-solar-system",
@@ -177,6 +306,134 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 3: Earth & Moon (Part 1, 5 units) ──
+  {
+    id: "sp-sec3-u1", title: "Why Earth Has Seasons",
+    description: "Discover why we have summer and winter, and why it has nothing to do with Earth's distance from the Sun.",
+    color: "#F59E0B", icon: "🌎", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u1-L1", title: "Axial Tilt", description: "Earth's tilt is the real reason we have seasons.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u1-L2", title: "Solstices and Equinoxes", description: "The four key moments in Earth's yearly orbit around the Sun.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u1-L3", title: "Why Southern Seasons Are Opposite", description: "When it's summer in New York, it's winter in Sydney. Here's why.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u1-L4", title: "Seasons Misconceptions", description: "Bust the most common myths about why seasons happen.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u1-L5", title: "Explaining Seasons", description: "Help a curious friend understand why seasons happen.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u2", title: "The Moon: Our Nearest Neighbor",
+    description: "Meet the only world humans have visited beyond Earth, from how it formed to what its surface looks like.",
+    color: "#C0C0C0", icon: "🌕", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u2-L1", title: "Moon Basics", description: "Size, distance, and what makes the Moon special.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u2-L2", title: "How the Moon Formed", description: "The dramatic collision that created our Moon billions of years ago.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u2-L3", title: "Lunar Surface Features", description: "Craters, maria, and highlands: what you see when you look at the Moon.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u2-L4", title: "Moon Facts and Myths", description: "Separate what's real from what's made up about our Moon.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u2-L5", title: "Moon Speed Round", description: "Race the clock on everything about our Moon.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u3", title: "Moon Phases",
+    description: "Understand why the Moon appears to change shape throughout the month and learn all eight phases.",
+    color: "#3B82F6", icon: "🌗", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u3-L1", title: "Why the Moon Changes Shape", description: "The Moon doesn't actually change. Our view of its sunlit side does.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u3-L2", title: "The 8 Phases", description: "Learn the names and order of all eight Moon phases.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u3-L3", title: "Waxing vs Waning", description: "Learn to tell whether the Moon is growing or shrinking in the sky.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u3-L4", title: "The Synodic Month", description: "Why the phase cycle takes 29.5 days instead of the Moon's 27.3-day orbit.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u3-L5", title: "Explaining Moon Phases", description: "Help someone understand why the Moon changes shape each month.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u4", title: "Review: Earth and Moon Basics",
+    description: "Test what you've learned about seasons, the Moon, and lunar phases.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u4-L1", title: "Earth & Moon Review", description: "Review seasons, Moon formation, phases, and surface features.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec3-u4-L2", title: "Earth & Moon Scenarios", description: "Apply what you've learned to real-world situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec3-u4-L3", title: "Earth & Moon Speed Round", description: "Race the clock on seasons, Moon facts, and lunar phases.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u5", title: "Tides",
+    description: "Discover how the Moon and Sun pull on Earth's oceans to create the daily rise and fall of tides.",
+    color: "#14B8A6", icon: "🌊", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u5-L1", title: "What Causes Tides", description: "How the Moon's gravity creates two bulges of water on Earth.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u5-L2", title: "Spring and Neap Tides", description: "When the Sun and Moon team up or work against each other.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u5-L3", title: "Tidal Locking", description: "How tides slowed the Moon's rotation and always show us the same face.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u5-L4", title: "Tides Around the World", description: "Why tidal ranges vary dramatically depending on where you are.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u5-L5", title: "Explaining Tides", description: "Help a beachgoer understand why the ocean rises and falls.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 3: Earth & Moon (Part 2, 5 units) ──
+  {
+    id: "sp-sec3-u6", title: "Eclipses",
+    description: "Learn how the Sun, Moon, and Earth line up to create the most dramatic events in the sky.",
+    color: "#1E1B4B", icon: "🌑", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u6-L1", title: "Solar Eclipses", description: "When the Moon passes between Earth and the Sun, blocking out daylight.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u6-L2", title: "Lunar Eclipses", description: "When Earth's shadow falls on the Moon and turns it red.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u6-L3", title: "Why Eclipses Are Rare", description: "If eclipses need new/full moons, why don't they happen every month?", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u6-L4", title: "Eclipse Safety", description: "How to safely watch solar eclipses and protect your eyes.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u6-L5", title: "Eclipse Speed Round", description: "Race the clock on everything about solar and lunar eclipses.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u7", title: "Earth's Atmosphere and Magnetic Field",
+    description: "Explore the invisible shields that make life on Earth possible.",
+    color: "#10B981", icon: "🛡️", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u7-L1", title: "Atmosphere Layers", description: "Earth's atmosphere has five main layers, each with a different job.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u7-L2", title: "The Greenhouse Effect", description: "How certain gases trap heat and keep Earth warm enough for life.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u7-L3", title: "The Ozone Layer", description: "The thin shield that blocks most of the Sun's harmful ultraviolet radiation.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u7-L4", title: "The Magnetosphere", description: "Earth's magnetic field deflects solar wind and makes auroras glow.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u7-L5", title: "Explaining Earth's Shields", description: "Help someone understand why Earth is protected and Mars isn't.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u8", title: "Earth in Space",
+    description: "Understand Earth's orbit, long-term cycles, and our place in the solar system.",
+    color: "#EC4899", icon: "🌐", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u8-L1", title: "Earth's Orbit", description: "How Earth moves around the Sun and what that journey looks like.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u8-L2", title: "Precession and Milankovitch Cycles", description: "Earth wobbles like a spinning top, and that wobble changes climate over millennia.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u8-L3", title: "Earth's Place in the Solar System", description: "Why Earth is perfectly positioned for life in our solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u8-L4", title: "Earth in Space Speed Round", description: "Race the clock on Earth's orbit, Milankovitch cycles, and the habitable zone.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u9", title: "The Moon and Space Exploration",
+    description: "From the Apollo missions to Artemis, explore humanity's journey to the Moon and back.",
+    color: "#F97316", icon: "🚀", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u9-L1", title: "Apollo Missions", description: "The historic program that put humans on the Moon for the first time.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u9-L2", title: "Lunar Samples", description: "What the 382 kg of Moon rocks told us about the Moon and Earth.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u9-L3", title: "Modern Moon Missions", description: "Robotic spacecraft from many countries have rediscovered the Moon.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec3-u9-L4", title: "The Artemis Program", description: "NASA's plan to return humans to the Moon and build a permanent presence.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec3-u9-L5", title: "Discussing Lunar Exploration", description: "Help a friend understand why we're going back to the Moon.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec3-u10", title: "Section 3 Review",
+    description: "Test everything you've learned about Earth, the Moon, eclipses, atmosphere, and space exploration.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 3, sectionTitle: "Earth & Moon",
+    lessons: [
+      { id: "sp-sec3-u10-L1", title: "Earth & Moon Comprehensive Review", description: "Review all major topics from Section 3 in one big lesson.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec3-u10-L2", title: "Section 3 Scenarios", description: "Apply your knowledge from the entire section to real-world situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec3-u10-L3", title: "Teaching Earth & Moon Science", description: "Explain complex Earth and Moon concepts to a curious student.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec3-u10-L4", title: "Section 3 Speed Round", description: "15 rapid-fire questions covering everything from Section 3.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
 
   // ── Unit 3: Seasons, Tides & Eclipses ──
   {
@@ -416,6 +673,134 @@ export const spaceCourseMeta: Unit[] = [
     ],
   },
 
+
+  // ── Section 5: Stars (Part 1, 5 units) ──
+  {
+    id: "sp-sec5-u1", title: "What Makes a Star",
+    description: "Stars are giant nuclear furnaces powered by hydrogen fusion. Learn what keeps them shining.",
+    color: "#F59E0B", icon: "⭐", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u1-L1", title: "Stars Are Nuclear Furnaces", description: "What stars actually are and why they produce so much energy.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u1-L2", title: "How Hydrogen Becomes Helium", description: "The proton-proton chain and how stars convert mass into energy.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u1-L3", title: "How Energy Escapes a Star", description: "Energy's long journey from the core to the surface.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u1-L4", title: "Why Stars Shine", description: "Putting it all together: from fusion to the light we see.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u1-L5", title: "Explaining Star Basics", description: "Help a curious friend understand what makes stars shine.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u2", title: "How Stars Are Born",
+    description: "From cold gas clouds to blazing protostars, discover how new stars form.",
+    color: "#EC4899", icon: "🌫️", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u2-L1", title: "The Stellar Nursery", description: "Nebulae are the giant clouds of gas and dust where stars are born.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u2-L2", title: "Gravity Takes Over", description: "How a quiet cloud of gas starts collapsing into a future star.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u2-L3", title: "The Protostar Stage", description: "The collapsing gas heats up and forms a protostar, almost but not quite a star.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u2-L4", title: "T Tauri Stars: Almost There", description: "The turbulent final stage before a protostar becomes a true star.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u2-L5", title: "Star Birth Speed Round", description: "Race the clock on nebulae, protostars, and stellar birth.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u3", title: "Star Colors and Temperature",
+    description: "Why stars glow different colors and what the spectral classification system tells us.",
+    color: "#EF4444", icon: "🔴", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u3-L1", title: "Color Reveals Temperature", description: "A star's color tells you exactly how hot its surface is.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u3-L2", title: "OBAFGKM: The Spectral Classes", description: "How astronomers classify stars by their spectra and temperature.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u3-L3", title: "Where the Sun Fits In", description: "Our Sun is a G2V star. Learn what that means.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u3-L4", title: "How Bright Stars Really Are", description: "Luminosity measures a star's true energy output, not just how bright it looks from Earth.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u3-L5", title: "Star Classification Chat", description: "Help explain star classification to a curious observer.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u4", title: "Review: Star Fundamentals",
+    description: "Test your knowledge of fusion, star birth, colors, and classification before moving on.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u4-L1", title: "Star Fundamentals Review", description: "Review fusion, star formation, spectral classes, and luminosity.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec5-u4-L2", title: "Stellar Scenarios", description: "Apply your star knowledge to real-world situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec5-u4-L3", title: "Star Fundamentals Speed Round", description: "Race the clock on star basics, birth, and classification.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u5", title: "The H-R Diagram",
+    description: "The Hertzsprung-Russell diagram maps every star by temperature and luminosity. It's the most important chart in all of astronomy.",
+    color: "#3B82F6", icon: "📊", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u5-L1", title: "Plotting Stars by Temperature and Luminosity", description: "How the H-R diagram organizes every star in the sky.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u5-L2", title: "The Main Sequence", description: "Most stars fall on a diagonal band called the main sequence.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u5-L3", title: "Red Giants on the H-R Diagram", description: "Where red giants sit and what their position tells us.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u5-L4", title: "White Dwarfs on the H-R Diagram", description: "Where white dwarfs sit and why they're hot but dim.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u5-L5", title: "The H-R Diagram Chat", description: "Help someone understand the H-R diagram and what it reveals.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 5: Stars (Part 2, 5 units) ──
+  {
+    id: "sp-sec5-u6", title: "Stellar Evolution: Low-Mass Stars",
+    description: "Follow the life cycle of a Sun-like star from main sequence to white dwarf.",
+    color: "#14B8A6", icon: "🌟", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u6-L1", title: "Life on the Main Sequence", description: "How long a star fuses hydrogen and what determines its lifespan.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u6-L2", title: "Becoming a Red Giant", description: "What happens when a Sun-like star runs out of hydrogen in its core.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u6-L3", title: "Shedding the Outer Layers", description: "A dying low-mass star puffs off its outer layers as a beautiful planetary nebula.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u6-L4", title: "The White Dwarf Endpoint", description: "The final fate of low-mass stars: a slowly cooling ember.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u6-L5", title: "Low-Mass Evolution Speed Round", description: "Race the clock on red giants, planetary nebulae, and white dwarfs.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u7", title: "Stellar Evolution: Massive Stars",
+    description: "Massive stars live fast, burn bright, and die in spectacular explosions.",
+    color: "#1E1B4B", icon: "💥", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u7-L1", title: "Burning Through the Elements", description: "Massive stars fuse heavier and heavier elements in their cores.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u7-L2", title: "Supergiant Stars", description: "The largest stars in the universe and how they got that way.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u7-L3", title: "Supernova: The Grand Finale", description: "The most powerful explosion in the universe, triggered by iron in the core.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u7-L4", title: "Neutron Stars: The Densest Objects", description: "What's left after a supernova: an incredibly dense ball of neutrons.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec5-u7-L5", title: "Massive Star Evolution Chat", description: "Help explain the dramatic life and death of massive stars.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u8", title: "Binary and Variable Stars",
+    description: "Many stars have partners, and some change brightness over time. Discover these dynamic systems.",
+    color: "#F97316", icon: "👯", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u8-L1", title: "Stars in Pairs", description: "More than half of all stars have a companion. Welcome to binary systems.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u8-L2", title: "Eclipsing Binary Stars", description: "When one star passes in front of another, the brightness dips reveal hidden information.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u8-L3", title: "Variable Stars and Cepheids", description: "Some stars pulsate, changing brightness on their own. Cepheids are cosmic yardsticks.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u8-L4", title: "Binary and Variable Stars Speed Round", description: "Race the clock on binary systems, eclipsing binaries, and Cepheids.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u9", title: "Measuring Stars",
+    description: "How astronomers determine the distance, brightness, and properties of stars across the universe.",
+    color: "#6366F1", icon: "📏", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u9-L1", title: "Parallax: The Thumb Trick", description: "The simplest way to measure the distance to nearby stars.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec5-u9-L2", title: "Standard Candles", description: "Objects with known luminosity let us measure distances far beyond parallax.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u9-L3", title: "The Magnitude System", description: "How astronomers measure brightness using an ancient numbering system.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec5-u9-L4", title: "The Cosmic Distance Ladder", description: "How astronomers chain distance methods together to reach the edge of the observable universe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec5-u9-L5", title: "Measuring the Universe Chat", description: "Help explain how we know the distances to faraway stars.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec5-u10", title: "Section 5 Review",
+    description: "Test your knowledge across all of Section 5: stellar birth, evolution, classification, binaries, and distance measurement.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 4, sectionTitle: "Stars",
+    lessons: [
+      { id: "sp-sec5-u10-L1", title: "Stars: The Complete Picture", description: "Review everything from stellar birth to death, classification to measurement.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec5-u10-L2", title: "Stellar Scenarios Challenge", description: "Apply your knowledge of stars to complex real-world situations.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec5-u10-L3", title: "Talking Stars with an Astronomer", description: "Answer an astronomer's questions about everything you've learned about stars.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec5-u10-L4", title: "Section 5 Speed Round", description: "15 rapid-fire questions covering everything from Section 5.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
 
   // ── Unit 4: How Stars Live and Die ──
   {
@@ -751,6 +1136,134 @@ export const spaceCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 8: Cosmology (Part 1, 5 units) ──
+  {
+    id: "sp-sec8-u1", title: "The Big Bang",
+    description: "Explore how the universe began, the evidence that supports it, and what happened in the first moments.",
+    color: "#EF4444", icon: "💥", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u1-L1", title: "The Big Bang Theory", description: "What the Big Bang actually means and how it started everything.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u1-L2", title: "Evidence for the Big Bang", description: "Three key pieces of evidence that support the Big Bang theory.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u1-L3", title: "The Cosmic Microwave Background", description: "The faint glow left over from the Big Bang that fills the entire sky.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u1-L4", title: "The First Three Minutes", description: "What happened in the earliest moments after the Big Bang.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u1-L5", title: "The Big Bang Conversation", description: "Help a friend understand the Big Bang and its evidence.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u2", title: "The Expanding Universe",
+    description: "Learn how Hubble discovered the expanding universe, how redshift works, and why expansion is speeding up.",
+    color: "#3B82F6", icon: "🌌", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u2-L1", title: "Hubble's Discovery", description: "How Edwin Hubble proved the universe is expanding.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u2-L2", title: "Redshift", description: "How stretching space makes light change color.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u2-L3", title: "Hubble's Law", description: "The simple equation that describes how fast the universe expands.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u2-L4", title: "Accelerating Expansion", description: "The shocking discovery that the universe's expansion is speeding up.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u2-L5", title: "Expansion Speed Round", description: "Race the clock on the expanding universe.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u3", title: "Dark Matter",
+    description: "Discover the invisible substance that makes up most of the matter in the universe.",
+    color: "#1E1B4B", icon: "🔮", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u3-L1", title: "The Galaxy Rotation Problem", description: "Why galaxies spin too fast for the matter we can see.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u3-L2", title: "Evidence for Dark Matter", description: "Multiple independent observations that confirm dark matter exists.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u3-L3", title: "What Dark Matter Might Be", description: "Exploring the properties of this invisible substance.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u3-L4", title: "Dark Matter Candidates", description: "The leading theoretical particles that could explain dark matter.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u3-L5", title: "Dark Matter Conversation", description: "Explain dark matter to a skeptical friend.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u4", title: "Review: Cosmology Foundations",
+    description: "Test your knowledge of the Big Bang, expansion, redshift, and dark matter.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u4-L1", title: "Big Bang and Expansion Review", description: "Revisit the Big Bang, CMB, Hubble's Law, and the expanding universe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec8-u4-L2", title: "Cosmology Scenarios", description: "Apply your knowledge to real-world cosmology situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec8-u4-L3", title: "Foundations Speed Round", description: "Race the clock on Big Bang, expansion, and dark matter.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u5", title: "Dark Energy",
+    description: "Explore the mysterious force accelerating the expansion of the universe and shaping its ultimate fate.",
+    color: "#6366F1", icon: "⚡", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u5-L1", title: "What Dark Energy Is", description: "The mysterious force that makes up most of the universe.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u5-L2", title: "The Cosmological Constant", description: "Einstein's 'biggest blunder' turned out to be prophetic.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u5-L3", title: "Dark Energy vs Dark Matter", description: "Two 'dark' things with very different roles in the universe.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u5-L4", title: "The Fate of the Universe", description: "How dark energy determines the ultimate destiny of everything.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u5-L5", title: "Dark Energy Conversation", description: "Help someone understand the difference between dark matter and dark energy.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  // ── Section 8: Cosmology (Part 2, 5 units) ──
+  {
+    id: "sp-sec8-u6", title: "The Shape and Fate of the Universe",
+    description: "Is the universe flat, curved, or closed? How its shape determines its destiny.",
+    color: "#EC4899", icon: "🌐", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u6-L1", title: "Flat, Open, or Closed", description: "The three possible shapes of the universe and what each one means.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u6-L2", title: "Critical Density", description: "The density that determines whether the universe is flat, open, or closed.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u6-L3", title: "Big Freeze vs Big Crunch", description: "The two classic endings for the universe.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u6-L4", title: "Multiverse Ideas", description: "Could there be other universes beyond our own?", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u6-L5", title: "Fate Speed Round", description: "Race the clock on the shape and fate of the universe.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u7", title: "Cosmic Timeline",
+    description: "Walk through the major eras of the universe from the first fraction of a second to the first galaxies.",
+    color: "#F59E0B", icon: "⏰", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u7-L1", title: "The Inflation Epoch", description: "The universe expanded faster than light in a tiny fraction of a second.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u7-L2", title: "Recombination", description: "When the first atoms formed and light was set free.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u7-L3", title: "The Dark Ages", description: "The long, dark era before the first stars lit up.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u7-L4", title: "First Stars and Galaxies", description: "The birth of the first stars and how they changed everything.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u7-L5", title: "Cosmic Timeline Conversation", description: "Walk a student through the entire history of the universe.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u8", title: "Measuring the Universe",
+    description: "The techniques cosmologists use to measure cosmic distances and the expansion rate.",
+    color: "#14B8A6", icon: "📏", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u8-L1", title: "The Cosmic Distance Ladder", description: "How astronomers measure distances at every scale in the universe.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u8-L2", title: "Type Ia Supernovae", description: "The 'standard candles' that revealed the accelerating universe.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u8-L3", title: "Baryon Acoustic Oscillations", description: "Sound waves from the early universe that serve as a cosmic ruler.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec8-u8-L4", title: "Measuring Speed Round", description: "Race the clock on cosmic measurement techniques.", icon: "⚡", type: "speed-round", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u9", title: "Unsolved Mysteries in Cosmology",
+    description: "The biggest unanswered questions about the origin, structure, and fate of the universe.",
+    color: "#F97316", icon: "❓", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u9-L1", title: "Matter-Antimatter Asymmetry", description: "Why does matter exist at all when the Big Bang should have made equal amounts of matter and antimatter?", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec8-u9-L2", title: "The Hubble Tension", description: "Two ways of measuring the expansion rate give different answers.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u9-L3", title: "What Caused the Big Bang?", description: "The deepest question in cosmology: why did the universe begin?", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u9-L4", title: "Are We Alone?", description: "The cosmic context for the question of life in the universe.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec8-u9-L5", title: "Cosmology Mysteries Conversation", description: "Discuss the biggest unsolved questions with a curious friend.", icon: "💬", type: "conversation", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec8-u10", title: "Section 8 Review",
+    description: "Test your knowledge across all of Section 8: the Big Bang, dark matter, dark energy, cosmic timeline, and unsolved mysteries.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 7, sectionTitle: "Cosmology",
+    lessons: [
+      { id: "sp-sec8-u10-L1", title: "Cosmology Comprehensive Review", description: "Review the Big Bang, expansion, dark matter, dark energy, and cosmic structure.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec8-u10-L2", title: "Cosmology Scenarios", description: "Apply your knowledge to complex cosmological situations.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec8-u10-L3", title: "Cosmologist Conversation", description: "Have a wide-ranging conversation about the cosmos.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec8-u10-L4", title: "Section 8 Speed Round", description: "15 rapid-fire questions covering all of Section 8: Cosmology.", icon: "⚡", type: "speed-round", xpReward: 35, questions: [] },
+    ],
+  },
+
   // ── Unit 7: Are We Alone? ──
   {
     id: "sp-u7-exoplanets",
@@ -769,6 +1282,115 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u7-L6", title: "Biosignatures & SETI", description: "What would alien life look like? What signals are we searching for?", icon: "📝", xpReward: 20, questions: [] },
       { id: "sp-u7-L7", title: "Exoplanet Explorers", description: "Help a fellow space enthusiast understand the search for alien worlds.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
       { id: "sp-u7-L8", title: "Exoplanet Speed Round", description: "Race the clock on exoplanets, habitable zones, and the search for life.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+
+  // ── Section 9: Rockets & Orbital Mechanics (10 units from section-9-rockets-part1 and part2) ──
+  {
+    id: "sp-sec9-u1", title: "Newton's Laws in Space",
+    description: "Learn how Newton's 3 laws of motion explain everything from floating astronauts to rocket launches.",
+    color: "#EF4444", icon: "🚀", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u1-L1", title: "Objects in Motion Stay in Motion", description: "Discover why things keep moving in space unless a force stops them.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec9-u1-L2", title: "Force Equals Mass Times Acceleration", description: "Learn how force, mass, and acceleration work together to move rockets.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u1-L3", title: "Every Action Has a Reaction", description: "Understand why pushing gas backward makes a rocket go forward.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u2", title: "How Rockets Work",
+    description: "Explore the basic components of a rocket and how combustion creates the thrust to leave Earth.",
+    color: "#3B82F6", icon: "🔥", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u2-L1", title: "What Is Thrust?", description: "Learn what thrust is and how rockets generate the force to lift off the ground.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec9-u2-L2", title: "Parts of a Rocket", description: "Identify the main sections of a rocket and what each one does.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u2-L3", title: "Why Rockets Have Stages", description: "Discover why rockets drop empty sections during flight to reach orbit.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u3", title: "Orbits Explained",
+    description: "Understand what keeps satellites circling Earth and why orbiting is really just falling and missing the ground.",
+    color: "#F59E0B", icon: "🌐", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u3-L1", title: "Falling Around the Earth", description: "Learn why an orbit is just falling sideways fast enough to miss the ground.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec9-u3-L2", title: "Low, Medium, and High Orbits", description: "Explore the different orbital altitudes and what each one is used for.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u3-L3", title: "Kepler's Laws of Orbital Motion", description: "Discover the 3 laws that describe how objects move in orbit.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u4", title: "Review: Rocket Foundations",
+    description: "Test your knowledge of Newton's laws, rocket anatomy, staging, and orbital mechanics.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u4-L1", title: "Newton's Laws and Thrust Review", description: "Review how Newton's 3 laws apply to rockets and thrust generation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec9-u4-L2", title: "Staging and Orbits Review", description: "Review rocket staging, orbit types, and Kepler's laws.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u5", title: "Getting to Orbit",
+    description: "Learn the physics of launching a rocket from the ground to a stable orbit around Earth.",
+    color: "#10B981", icon: "📡", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u5-L1", title: "Orbital Speed vs. Escape Speed", description: "Understand the difference between orbiting Earth and leaving it entirely.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u5-L2", title: "Delta-V: The Currency of Space Travel", description: "Learn why velocity change is the most important number in mission planning.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec9-u5-L3", title: "From Pad to Orbit", description: "Follow a rocket from ignition to orbit insertion step by step.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u6", title: "Orbital Maneuvers",
+    description: "Learn how spacecraft change orbits, rendezvous with other craft, and transfer between different altitudes.",
+    color: "#EC4899", icon: "🔄", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u6-L1", title: "How Spacecraft Change Orbits", description: "Discover the counterintuitive truth about speeding up and slowing down in orbit.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u6-L2", title: "The Hohmann Transfer Orbit", description: "Learn the most fuel-efficient way to move between two circular orbits.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec9-u6-L3", title: "Meeting Another Spacecraft", description: "Learn how two spacecraft in orbit catch up to each other and dock.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u7", title: "Rocket Engines and Fuel",
+    description: "Explore different types of rocket engines, fuels, and how engineers choose the right one for each mission.",
+    color: "#F97316", icon: "⛽", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u7-L1", title: "Solid and Liquid Rocket Fuel", description: "Compare the two main types of chemical rocket propellant.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u7-L2", title: "Kerosene, Hydrogen, and Methane", description: "Meet the most popular liquid rocket fuels and what makes each one special.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u7-L3", title: "Specific Impulse: Engine Efficiency", description: "Understand the key number that tells you how efficient a rocket engine really is.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u8", title: "Reusable Rockets",
+    description: "Learn how landing and reusing rocket boosters is revolutionizing space travel by slashing costs.",
+    color: "#14B8A6", icon: "♻️", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u8-L1", title: "Why Throwing Away Rockets Is Wasteful", description: "Understand the economics of expendable rockets and why reusability is a game-changer.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u8-L2", title: "Landing a Rocket on Its Tail", description: "Learn the engineering behind SpaceX's propulsive landing technique.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u9", title: "Interplanetary Travel",
+    description: "Explore how spacecraft travel between planets using gravity assists, transfer windows, and deep-space navigation.",
+    color: "#6366F1", icon: "🪐", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u9-L1", title: "Why Timing Is Everything", description: "Learn why you can only launch to other planets at specific times.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec9-u9-L2", title: "Free Speed from Planets", description: "Discover how spacecraft steal speed from planets without using any fuel.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec9-u9-L3", title: "Finding Your Way Between Planets", description: "Learn how spacecraft navigate millions of kilometers from Earth.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec9-u10", title: "Section 9 Review",
+    description: "Test everything you've learned about rockets, orbits, maneuvers, engines, and interplanetary travel.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 8, sectionTitle: "Rockets & Orbital Mechanics",
+    lessons: [
+      { id: "sp-sec9-u10-L1", title: "Rockets and Orbits Review", description: "Review Newton's laws, thrust, staging, orbit types, and Kepler's laws.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec9-u10-L2", title: "Maneuvers, Engines, and Reusability", description: "Review orbital maneuvers, fuel types, specific impulse, and reusable rockets.", icon: "📝", xpReward: 30, questions: [] },
     ],
   },
 
@@ -796,6 +1418,115 @@ export const spaceCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 10: Space Exploration History (10 units from section-10-exploration-part1 and part2) ──
+  {
+    id: "sp-sec10-u1", title: "The Space Race Begins",
+    description: "Learn how Sputnik, Explorer 1, and Yuri Gagarin launched the era of space exploration.",
+    color: "#3B82F6", icon: "🛰️", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u1-L1", title: "Sputnik Changes Everything", description: "How a small Soviet satellite shocked the world and launched the Space Age.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u1-L2", title: "America Responds with Explorer 1", description: "How the US raced to launch its own satellite and made a major discovery.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u1-L3", title: "The First Human in Space", description: "Yuri Gagarin's historic flight aboard Vostok 1 and what it meant for humanity.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u2", title: "Apollo: To the Moon",
+    description: "From JFK's bold speech to Neil Armstrong's first steps on the Moon.",
+    color: "#F59E0B", icon: "🌕", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u2-L1", title: "JFK's Moon Challenge", description: "How one speech changed the direction of American space exploration.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u2-L2", title: "Walking on the Moon", description: "The Apollo 11 mission and humanity's first steps on another world.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec10-u2-L3", title: "Apollo 13 and Later Missions", description: "The famous rescue of Apollo 13 and what the later Apollo missions achieved.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u3", title: "Space Shuttles",
+    description: "Explore the reusable spacecraft that defined 30 years of American spaceflight.",
+    color: "#10B981", icon: "🚀", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u3-L1", title: "The Shuttle Concept", description: "Why NASA built a reusable spacecraft and how the shuttle design worked.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u3-L2", title: "What the Shuttle Accomplished", description: "The Hubble telescope, ISS construction, and other shuttle achievements.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u3-L3", title: "Lessons from Tragedy", description: "How the Challenger and Columbia disasters changed space safety forever.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u4", title: "Review: Early Space Age",
+    description: "Test your knowledge of the Space Race, Apollo, and the Space Shuttle.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u4-L1", title: "Space Race Refresher", description: "Review the early milestones that launched the Space Age.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u4-L2", title: "Apollo and Shuttle Knowledge Check", description: "Review the Apollo Moon missions and the Space Shuttle program.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u5", title: "Space Stations",
+    description: "From Skylab to the ISS, learn how humans built homes in orbit.",
+    color: "#EC4899", icon: "🏠", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u5-L1", title: "Skylab: America's First Station", description: "How NASA turned leftover Apollo hardware into a space station.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u5-L2", title: "Mir: The Soviet Outpost", description: "How the Soviet Union built a modular space station that orbited for 15 years.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u5-L3", title: "The International Space Station", description: "How 16 countries built the largest structure ever assembled in space.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u6", title: "Robotic Explorers",
+    description: "Discover how robotic probes have visited every planet and pushed beyond the solar system.",
+    color: "#14B8A6", icon: "🤖", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u6-L1", title: "The Voyager Grand Tour", description: "How two spacecraft visited four planets and left the solar system.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u6-L2", title: "Roving Across Mars", description: "From Sojourner to Perseverance, how rovers explored the Red Planet.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u6-L3", title: "Saturn, Pluto, and Beyond", description: "How Cassini explored Saturn for 13 years and New Horizons revealed Pluto.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u7", title: "Modern Space Agencies",
+    description: "Meet the world's major space agencies and what each one brings to space exploration.",
+    color: "#F97316", icon: "🌍", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u7-L1", title: "NASA: Leading Space Science", description: "How NASA evolved from the Apollo era to modern deep space missions.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec10-u7-L2", title: "Europe and Japan in Space", description: "How ESA and JAXA contribute to space exploration worldwide.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u7-L3", title: "India and China Reach for Space", description: "How ISRO and CNSA became major players in space exploration.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u8", title: "Private Space Companies",
+    description: "How SpaceX, Blue Origin, and others transformed spaceflight from government monopoly to commercial industry.",
+    color: "#EF4444", icon: "💼", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u8-L1", title: "SpaceX and Reusable Rockets", description: "How SpaceX made rocket landing a reality and slashed launch costs.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u8-L2", title: "Blue Origin and Beyond", description: "Meet the other private companies shaping the future of spaceflight.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u9", title: "The New Space Race",
+    description: "Explore the Artemis program, China's space station, and the race to Mars.",
+    color: "#6366F1", icon: "🏁", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u9-L1", title: "Artemis: Back to the Moon", description: "NASA's plan to return humans to the Moon for the first time in over 50 years.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u9-L2", title: "China's Growing Ambitions", description: "How China built its own space station and plans to send astronauts to the Moon.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec10-u9-L3", title: "The Race to Mars", description: "Who will send humans to Mars first, and what are the biggest challenges?", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec10-u10", title: "Section 10 Review",
+    description: "Test your mastery of space exploration history, from Sputnik to Starship.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 9, sectionTitle: "Space Exploration History",
+    lessons: [
+      { id: "sp-sec10-u10-L1", title: "Crewed Spaceflight Through History", description: "Review key milestones in human spaceflight from Gagarin to the ISS.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec10-u10-L2", title: "Robots and Agencies Knowledge Check", description: "Review robotic missions, space agencies, and private companies.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+
   // ── Unit 9: How Everything Began ──
   {
     id: "sp-u9-universe",
@@ -813,6 +1544,117 @@ export const spaceCourseMeta: Unit[] = [
       { id: "sp-u9-L5", title: "The Fate of the Universe", description: "Big Freeze, Big Crunch, or Big Rip? How does everything end?", icon: "📝", xpReward: 20, questions: [] },
       { id: "sp-u9-L6", title: "Cosmic Questions", description: "Tackle the universe's biggest mysteries in conversation.", icon: "💬", type: "conversation", xpReward: 20, questions: [] },
       { id: "sp-u9-L7", title: "Universe Speed Round", description: "Race the clock on the Big Bang, dark matter, dark energy, and the fate of everything.", icon: "⚡", type: "speed-round", xpReward: 20, questions: [] },
+    ],
+  },
+
+
+  // ── Section 11: Exoplanets & Astrobiology (10 units from section-11-exoplanets-part1 and part2) ──
+  {
+    id: "sp-sec11-u1", title: "What Are Exoplanets?",
+    description: "Discover worlds beyond our solar system and why they matter for understanding our place in the cosmos.",
+    color: "#6366F1", icon: "🪐", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u1-L1", title: "Planets Around Other Stars", description: "What an exoplanet is and why their discovery changed astronomy forever.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u1-L2", title: "Types of Exoplanets", description: "From gas giants to rocky worlds, exoplanets come in surprising variety.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u1-L3", title: "How Many Are Out There?", description: "The staggering number of worlds in our galaxy and how astronomers estimate the total.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u2", title: "How We Find Exoplanets",
+    description: "Master the clever techniques astronomers use to detect invisible worlds around distant stars.",
+    color: "#3B82F6", icon: "🔭", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u2-L1", title: "The Transit Method", description: "How watching stars dim reveals hidden planets passing in front of them.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u2-L2", title: "The Radial Velocity Method", description: "How a wobbling star reveals an invisible planet tugging on it.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u2-L3", title: "Direct Imaging and Other Methods", description: "Photographing exoplanets directly and other creative detection techniques.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u3", title: "Famous Exoplanet Systems",
+    description: "Explore TRAPPIST-1, Kepler-186f, hot Jupiters, and the most exciting worlds found so far.",
+    color: "#F59E0B", icon: "⭐", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u3-L1", title: "The TRAPPIST-1 System", description: "Seven Earth-sized planets around one tiny star, several in the habitable zone.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u3-L2", title: "Kepler-186f and Habitable Candidates", description: "The first Earth-sized planet found in a habitable zone and other promising worlds.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u3-L3", title: "Hot Jupiters and Weird Worlds", description: "The strangest exoplanets discovered, from scorching gas giants to diamond planets.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u4", title: "Review: Exoplanet Detection",
+    description: "Test your knowledge of exoplanet types, detection methods, and famous planetary systems.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u4-L1", title: "Review: Exoplanet Types and Numbers", description: "Revisit the different categories of exoplanets and how common they are.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u4-L2", title: "Review: Detection Methods", description: "Revisit transit, radial velocity, direct imaging, and other techniques.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec11-u4-L3", title: "Review: Famous Exoplanet Systems", description: "Revisit TRAPPIST-1, Kepler-186f, hot Jupiters, and extreme exoplanets.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u5", title: "The Habitable Zone",
+    description: "Explore the Goldilocks zone, tidal locking, ocean worlds, and what makes a planet truly livable.",
+    color: "#10B981", icon: "🌍", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u5-L1", title: "The Goldilocks Zone", description: "Why distance from a star determines whether liquid water can exist on a planet's surface.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u5-L2", title: "Tidal Locking and Habitable Worlds", description: "How many exoplanets keep one face permanently toward their star and what that means for life.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u5-L3", title: "Ocean Worlds and Water Everywhere", description: "Planets covered entirely by water and subsurface oceans beneath ice shells.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u6", title: "What Is Life?",
+    description: "Explore how scientists define life, the building blocks it needs, and organisms that thrive in extreme environments.",
+    color: "#EC4899", icon: "🧬", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u6-L1", title: "Defining Life", description: "Why defining life is surprisingly difficult and what most scientists agree on.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u6-L2", title: "The Building Blocks of Life", description: "Carbon, water, and the essential ingredients that life seems to require.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u6-L3", title: "Life in Extreme Places", description: "Organisms that thrive in boiling water, acid, radiation, and other environments once thought impossible for life.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u7", title: "Life in Our Solar System",
+    description: "Investigate Mars, Europa, Enceladus, and Titan as potential homes for life closer to home.",
+    color: "#14B8A6", icon: "🔬", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u7-L1", title: "Mars: The Best Candidate?", description: "Why Mars is the most studied target in the search for past or present life.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u7-L2", title: "Europa: Ocean Beneath the Ice", description: "Jupiter's moon Europa hides a salty ocean that could harbor life.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u7-L3", title: "Enceladus and Titan", description: "Saturn's moons offer two very different paths to potential life.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u8", title: "SETI and the Fermi Paradox",
+    description: "Investigate why we haven't found intelligent life yet, and the strategies we use to search for it.",
+    color: "#F97316", icon: "📡", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u8-L1", title: "The Drake Equation", description: "A famous formula that estimates how many communicating civilizations might exist in our galaxy.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u8-L2", title: "The Fermi Paradox", description: "If the galaxy should be teeming with life, why haven't we found any evidence?", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec11-u8-L3", title: "SETI and the Search for Signals", description: "How scientists actively search for messages or signs of intelligent extraterrestrial life.", icon: "📝", xpReward: 20, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u9", title: "Biosignatures and Future Missions",
+    description: "Learn how we search for signs of life in exoplanet atmospheres and what future telescopes will reveal.",
+    color: "#EF4444", icon: "🛰️", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u9-L1", title: "What Is a Biosignature?", description: "Chemical clues in a planet's atmosphere that suggest life might be present.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "sp-sec11-u9-L2", title: "JWST and Exoplanet Atmospheres", description: "How the James Webb Space Telescope is revolutionizing our ability to study distant worlds.", icon: "📝", xpReward: 20, questions: [] },
+      { id: "sp-sec11-u9-L3", title: "Future Telescopes and Missions", description: "Next-generation observatories designed specifically to image and characterize Earth-like exoplanets.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec11-u10", title: "Section 11 Review",
+    description: "Test everything you've learned about exoplanets, astrobiology, and the search for life beyond Earth.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 10, sectionTitle: "Exoplanets & Astrobiology",
+    lessons: [
+      { id: "sp-sec11-u10-L1", title: "Review: Exoplanets and Detection", description: "Revisit exoplanet types, detection methods, and famous systems across the section.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec11-u10-L2", title: "Review: Astrobiology and the Search for Life", description: "Revisit the definition of life, extremophiles, solar system targets, and the Fermi paradox.", icon: "📝", xpReward: 25, questions: [] },
     ],
   },
 
@@ -1033,6 +1875,123 @@ export const spaceCourseMeta: Unit[] = [
   },
 
 
+  // ── Section 14: Space Frontiers (10 units from section-14-frontiers-part1 and part2) ──
+  {
+    id: "sp-sec14-u1", title: "Mars Colonization",
+    description: "Explore why Mars is the top destination for human settlement and what it takes to live there.",
+    color: "#EF4444", icon: "🏠", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u1-L1", title: "Why Mars?", description: "What makes Mars the best candidate for humanity's first off-world colony.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u1-L2", title: "Challenges of Living on Mars", description: "The dangers colonists will face from radiation, thin air, cold, and isolation.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u1-L3", title: "Terraforming Mars", description: "Could we transform Mars into a world with breathable air and flowing water?", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u1-L4", title: "Designing a Mars Base", description: "What a functioning Mars settlement needs to keep people alive and productive.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u2", title: "Moon as a Stepping Stone",
+    description: "Learn why returning to the Moon is the first step toward deeper space exploration.",
+    color: "#C0C0C0", icon: "🌙", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u2-L1", title: "Why Return to the Moon?", description: "The Moon is close, resource-rich, and the perfect place to practice for Mars.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u2-L2", title: "Mining the Moon", description: "The valuable resources hidden on and beneath the lunar surface.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u2-L3", title: "The Lunar Gateway Station", description: "A small space station orbiting the Moon as a waypoint for deep space missions.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u2-L4", title: "Building a Lunar Base", description: "How to construct permanent shelters on the Moon using local materials and robots.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u3", title: "Space Mining",
+    description: "Discover how mining asteroids and other bodies could fuel the space economy and protect Earth's resources.",
+    color: "#F59E0B", icon: "⛏️", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u3-L1", title: "Why Mine Asteroids?", description: "The case for extracting resources from space rocks instead of Earth.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u3-L2", title: "How Asteroid Mining Works", description: "The techniques and technology needed to extract resources from space rocks.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u3-L3", title: "Water: The Oil of Space", description: "Why water is the most valuable resource for building a space economy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u3-L4", title: "Rare Earth Metals from Space", description: "How space mining could supply the critical materials our technology depends on.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u4", title: "Review: Near-Future Space",
+    description: "Test your knowledge of Mars colonization, lunar bases, and space mining.",
+    color: "#8B5CF6", icon: "🔄", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u4-L1", title: "Review: Mars and the Moon", description: "Revisit Mars colonization, lunar resources, and Gateway.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u4-L2", title: "Review: Space Mining", description: "Test your knowledge of asteroid mining, water economy, and rare metals from space.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u5", title: "Space Elevators and Megastructures",
+    description: "Imagine the most ambitious engineering projects humanity might build in the future.",
+    color: "#3B82F6", icon: "🏗️", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u5-L1", title: "The Space Elevator Concept", description: "A cable from Earth to space that replaces rockets with a simple ride up.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u5-L2", title: "O'Neill Cylinders", description: "Giant rotating habitats that bring Earth-like living to deep space.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u5-L3", title: "Dyson Spheres and Megastructures", description: "The ultimate engineering challenge: capturing all of a star's energy.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u5-L4", title: "Building the Impossible", description: "The engineering barriers standing between us and megastructures.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u6", title: "Interstellar Travel",
+    description: "Explore the enormous challenges of traveling between stars and the concepts that might make it possible.",
+    color: "#6366F1", icon: "✨", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u6-L1", title: "The Vastness of Interstellar Space", description: "Understanding why traveling to other stars is so incredibly difficult.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u6-L2", title: "Generation Ships", description: "Spacecraft where multiple generations live and die during the journey to another star.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u6-L3", title: "Propulsion for the Stars", description: "The propulsion concepts that might one day carry us between stars.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec14-u6-L4", title: "Warp Drives and Exotic Physics", description: "Could we bend space itself to travel faster than light?", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u7", title: "The Future of Space Telescopes",
+    description: "Discover the next generation of space telescopes and observatories that will reveal the universe's deepest secrets.",
+    color: "#14B8A6", icon: "🔭", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u7-L1", title: "Beyond James Webb", description: "The next generation of space telescopes being planned and built.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u7-L2", title: "Gravitational Wave Observatories", description: "Listening to the universe through ripples in spacetime itself.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u7-L3", title: "Telescope Technology Breakthroughs", description: "New technologies that will push telescope capabilities to their limits.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u8", title: "Space Law and Governance",
+    description: "Learn the international laws, treaties, and challenges that govern how humanity uses space.",
+    color: "#F97316", icon: "⚖️", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u8-L1", title: "The Outer Space Treaty", description: "The foundational international treaty governing space activities since 1967.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u8-L2", title: "Property Rights in Space", description: "Who owns the resources mined from asteroids or the Moon?", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u8-L3", title: "Space Debris Law", description: "The legal challenges of managing millions of pieces of orbital junk.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u8-L4", title: "Governing Off-World Settlements", description: "What laws apply when humans live permanently on another world?", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u9", title: "Becoming a Space Professional",
+    description: "Discover the many career paths in the space industry and how anyone can contribute to exploration.",
+    color: "#10B981", icon: "🧑‍🚀", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u9-L1", title: "Careers in the Space Industry", description: "The space industry needs far more than just astronauts.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u9-L2", title: "Citizen Science in Space", description: "How ordinary people contribute real discoveries to space science.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u9-L3", title: "Education and Skills for Space", description: "What to study and what skills to build for a career in the space industry.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec14-u9-L4", title: "Contributing Without a Space Job", description: "Ways anyone can support and participate in space exploration.", icon: "📝", xpReward: 25, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec14-u10", title: "Section 14 Review",
+    description: "Test your knowledge across all of Section 14: Mars, Moon, mining, interstellar travel, telescopes, law, and careers.",
+    color: "#8B5CF6", icon: "🏆", sectionIndex: 13, sectionTitle: "Space Frontiers",
+    lessons: [
+      { id: "sp-sec14-u10-L1", title: "Space Frontiers Comprehensive Review", description: "Review everything from Mars colonization to space careers.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec14-u10-L2", title: "Space Frontiers Scenarios", description: "Apply your knowledge to complex situations spanning the entire section.", icon: "📝", xpReward: 30, questions: [] },
+    ],
+  },
+
+
   // ── Section 13: Space Technology & Engineering (Part 1, 5 units) ──
   {
     id: 'sp-sec13-u1', title: 'Satellite Design and Orbits',
@@ -1160,6 +2119,143 @@ export const spaceCourseMeta: Unit[] = [
       { id: 'sp-sec13-u10-L2', title: 'Checkpoint: In-Space Manufacturing', description: 'Prove your knowledge of 3D printing, ISRU, orbital factories, and material processing.', icon: '✅', xpReward: 30, questions: [] },
       { id: 'sp-sec13-u10-L3', title: 'Checkpoint: Space Tourism Engineering', description: 'Prove your knowledge of tourist vehicle design, safety, g-forces, and regulation.', icon: '✅', xpReward: 30, questions: [] },
       { id: 'sp-sec13-u10-L4', title: 'Checkpoint: Advanced Propulsion', description: 'Prove your mastery of ion drives, solar sails, nuclear propulsion, and exotic concepts.', icon: '✅', xpReward: 30, questions: [] },
+    ],
+  },
+
+
+  // ── Section 15: Mastery & Synthesis (8 units from section-15-capstone-part1 and part2) ──
+
+  {
+    id: "sp-sec15-u1",
+    title: "Science Communication",
+    description: "Learn how to explain space concepts clearly so anyone can understand and get excited about the cosmos.",
+    color: "#3B82F6",
+    icon: "🗣️",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u1-L1", title: "Explaining Space to Non-Experts", description: "How to take complex astronomy and make it understandable for anyone.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u1-L2", title: "Analogies That Work", description: "The best analogies for explaining scale, distance, and cosmic phenomena.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u1-L3", title: "Common Misconceptions to Correct", description: "The most common space myths and how to debunk them effectively.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u1-L4", title: "Science Communication Conversation", description: "Practice explaining space concepts to a non-expert audience.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u1-L5", title: "Public Engagement Speed Round", description: "Race the clock on science communication concepts.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u2",
+    title: "Evaluating Space News",
+    description: "Learn to separate real discoveries from hype and clickbait in space reporting.",
+    color: "#10B981",
+    icon: "📰",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u2-L1", title: "Clickbait vs. Real Discoveries", description: "How to tell genuine breakthroughs from exaggerated headlines.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u2-L2", title: "Reading Press Releases", description: "How to read between the lines of space agency announcements.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u2-L3", title: "Peer Review in Astronomy", description: "How the scientific review process works and why it matters.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u2-L4", title: "Media Literacy for Space Conversation", description: "Practice evaluating real space news stories for accuracy.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u2-L5", title: "Space News Speed Round", description: "Race the clock on media literacy for space news.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u3",
+    title: "The Overview Effect",
+    description: "Explore how seeing Earth from space transforms astronauts' perspectives on life.",
+    color: "#6366F1",
+    icon: "🌍",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u3-L1", title: "What the Overview Effect Is", description: "The cognitive shift astronauts experience when seeing Earth from space.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u3-L2", title: "Astronaut Perspectives", description: "How individual astronauts describe their transformative experience.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u3-L3", title: "Space and Philosophy", description: "How space exploration connects to humanity's biggest philosophical questions.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u3-L4", title: "Overview Effect Conversation", description: "Discuss how the overview effect might change your own perspective.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u3-L5", title: "Cosmic Perspective Speed Round", description: "Race the clock on overview effect and cosmic perspective concepts.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u4",
+    title: "Review: Communication and Perspective",
+    description: "Prove your mastery of science communication, media literacy, and cosmic perspective.",
+    color: "#8B5CF6",
+    icon: "🔄",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u4-L1", title: "Checkpoint: Communication and Media", description: "Test your knowledge of science communication and media evaluation.", icon: "✅", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u4-L2", title: "Applied Scenarios: Communicate and Evaluate", description: "Apply communication and evaluation skills to realistic scenarios.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u4-L3", title: "Communication Review Speed Round", description: "Rapid recall of communication and perspective concepts.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u5",
+    title: "Space Careers",
+    description: "Explore the many career paths that contribute to space exploration and discovery.",
+    color: "#F59E0B",
+    icon: "🧑‍🚀",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u5-L1", title: "The Astronaut Path", description: "What it actually takes to become an astronaut and what they do every day.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u5-L2", title: "Engineering and Mission Control", description: "The engineers and controllers who make spaceflight possible from the ground.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u5-L3", title: "Astronomy and Research Careers", description: "How to turn a passion for space into a research career.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u5-L4", title: "Career Planning Conversation", description: "Explore which space career path fits your interests and skills.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u5-L5", title: "Space Careers Speed Round", description: "Race the clock on space career knowledge.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u6",
+    title: "Cross-Domain Synthesis",
+    description: "See how physics, chemistry, and biology all connect through space science.",
+    color: "#EC4899",
+    icon: "🔗",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u6-L1", title: "Physics in Space", description: "How the fundamental laws of physics govern everything in the cosmos.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u6-L2", title: "Chemistry in Space", description: "How chemistry builds the elements and molecules that make up the universe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u6-L3", title: "Biology in Space", description: "How life adapts to, and is shaped by, the conditions of space.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u6-L4", title: "Combining Disciplines Conversation", description: "Discuss how multiple sciences work together in space exploration.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u6-L5", title: "Cross-Domain Speed Round", description: "Race the clock on cross-domain space science.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u7",
+    title: "Biggest Unsolved Questions",
+    description: "Explore the mysteries that keep astronomers searching for answers.",
+    color: "#EF4444",
+    icon: "❓",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u7-L1", title: "Dark Matter and Dark Energy", description: "The invisible forces that make up most of the universe.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u7-L2", title: "The Origin of Life", description: "How life might have started on Earth and whether it exists elsewhere.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u7-L3", title: "Are We Alone?", description: "The search for extraterrestrial intelligence and what we might find.", icon: "📝", xpReward: 25, questions: [] },
+      { id: "sp-sec15-u7-L4", title: "Mysteries of the Cosmos Conversation", description: "Discuss the biggest unsolved questions in space science.", icon: "💬", type: "conversation", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u7-L5", title: "Unsolved Mysteries Speed Round", description: "Race the clock on unsolved questions in astronomy.", icon: "⚡", type: "speed-round", xpReward: 30, questions: [] },
+    ],
+  },
+
+  {
+    id: "sp-sec15-u8",
+    title: "Final Capstone: Comprehensive Challenge",
+    description: "The ultimate test of everything you've learned across the entire course.",
+    color: "#FBBF24",
+    icon: "🏆",
+    sectionIndex: 14,
+    sectionTitle: "Mastery & Synthesis",
+    lessons: [
+      { id: "sp-sec15-u8-L1", title: "Solar System and Stars Synthesis", description: "Synthesize your knowledge of the solar system and stellar physics.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u8-L2", title: "Galaxies and Cosmology Synthesis", description: "Synthesize your knowledge of galaxies, dark matter, and the universe.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u8-L3", title: "Rockets and Exploration Synthesis", description: "Synthesize your knowledge of rockets, missions, and space technology.", icon: "📝", xpReward: 30, questions: [] },
+      { id: "sp-sec15-u8-L4", title: "Comprehensive Challenge Conversation", description: "Apply everything to a comprehensive space science case study.", icon: "💬", type: "conversation", xpReward: 35, questions: [] },
+      { id: "sp-sec15-u8-L5", title: "Final Comprehensive Speed Round", description: "The ultimate speed round covering every section of the course.", icon: "⚡", type: "speed-round", xpReward: 35, questions: [] },
     ],
   },
 ];

@@ -204,6 +204,7 @@ export default function GetStartedPage() {
     goal: 'interview',
     dailyMinutes: 10,
     completedAt: new Date().toISOString(),
+    placementDone: true,
   }), [selfAssessLevel]);
 
   // Reset user-specific stores so stale localStorage from previous sessions
