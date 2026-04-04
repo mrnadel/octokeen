@@ -15,12 +15,12 @@ import type { QuestDefinition } from '@/data/engagement-types';
 // --------------- Test data ---------------
 
 const samplePool: QuestDefinition[] = [
-  { id: 'd1', title: 'Easy 1', description: '', icon: '', trackingKey: 'lessons_completed', target: 1, difficulty: 'easy', reward: { xp: 25, gems: 5 } },
-  { id: 'd2', title: 'Easy 2', description: '', icon: '', trackingKey: 'lessons_completed', target: 2, difficulty: 'easy', reward: { xp: 25, gems: 5 } },
-  { id: 'd3', title: 'Medium 1', description: '', icon: '', trackingKey: 'questions_correct', target: 10, difficulty: 'medium', reward: { xp: 25, gems: 5 } },
-  { id: 'd4', title: 'Medium 2', description: '', icon: '', trackingKey: 'xp_earned', target: 100, difficulty: 'medium', reward: { xp: 25, gems: 5 } },
-  { id: 'd5', title: 'Stretch 1', description: '', icon: '', trackingKey: 'perfect_sessions', target: 1, difficulty: 'stretch', reward: { xp: 25, gems: 5 } },
-  { id: 'd6', title: 'Stretch 2', description: '', icon: '', trackingKey: 'fast_answers', target: 5, difficulty: 'stretch', reward: { xp: 25, gems: 5 } },
+  { id: 'd1', title: 'Common 1', description: '', icon: '', trackingKey: 'lessons_completed', target: 1, rarity: 'common', reward: { xp: 20, gems: 3 } },
+  { id: 'd2', title: 'Common 2', description: '', icon: '', trackingKey: 'lessons_completed', target: 2, rarity: 'common', reward: { xp: 20, gems: 3 } },
+  { id: 'd3', title: 'Rare 1', description: '', icon: '', trackingKey: 'questions_correct', target: 10, rarity: 'rare', reward: { xp: 30, gems: 5 } },
+  { id: 'd4', title: 'Rare 2', description: '', icon: '', trackingKey: 'xp_earned', target: 100, rarity: 'rare', reward: { xp: 30, gems: 5 } },
+  { id: 'd5', title: 'Epic 1', description: '', icon: '', trackingKey: 'perfect_sessions', target: 1, rarity: 'epic', reward: { xp: 45, gems: 8 } },
+  { id: 'd6', title: 'Legendary 1', description: '', icon: '', trackingKey: 'fast_answers', target: 5, rarity: 'legendary', reward: { xp: 70, gems: 12 } },
 ];
 
 beforeEach(() => {
@@ -92,16 +92,10 @@ describe('selectQuests()', () => {
     expect(result).toHaveLength(3);
   });
 
-  it('guarantees at least 1 easy quest', () => {
+  it('guarantees at least 1 common quest', () => {
     const result = selectQuests(samplePool, 3, '2025-06-10', []);
-    const easyCount = result.filter((q) => q.difficulty === 'easy').length;
-    expect(easyCount).toBeGreaterThanOrEqual(1);
-  });
-
-  it('includes at least 1 stretch quest if available and count >= 2', () => {
-    const result = selectQuests(samplePool, 3, '2025-06-10', []);
-    const stretchCount = result.filter((q) => q.difficulty === 'stretch').length;
-    expect(stretchCount).toBeGreaterThanOrEqual(1);
+    const commonCount = result.filter((q) => q.rarity === 'common').length;
+    expect(commonCount).toBeGreaterThanOrEqual(1);
   });
 
   it('handles pool smaller than count', () => {
@@ -112,10 +106,22 @@ describe('selectQuests()', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('handles count=1 (only easy guaranteed)', () => {
+  it('handles count=1 (only common guaranteed)', () => {
     const result = selectQuests(samplePool, 1, '2025-06-10', []);
     expect(result).toHaveLength(1);
-    expect(result[0].difficulty).toBe('easy');
+    expect(result[0].rarity).toBe('common');
+  });
+
+  it('favors higher-weight rarities over many selections', () => {
+    // Over many different seeds, common quests should appear more than legendary
+    let commonAppearances = 0;
+    let legendaryAppearances = 0;
+    for (let i = 0; i < 50; i++) {
+      const result = selectQuests(samplePool, 3, `seed-${i}`, []);
+      commonAppearances += result.filter((q) => q.rarity === 'common').length;
+      legendaryAppearances += result.filter((q) => q.rarity === 'legendary').length;
+    }
+    expect(commonAppearances).toBeGreaterThan(legendaryAppearances);
   });
 });
 
@@ -136,6 +142,7 @@ describe('createQuests()', () => {
     expect(q.completed).toBe(false);
     expect(q.claimed).toBe(false);
     expect(q.target).toBe(defs[0].target);
+    expect(q.rarity).toBe(defs[0].rarity);
   });
 
   it('sets type to "weekly" when specified', () => {

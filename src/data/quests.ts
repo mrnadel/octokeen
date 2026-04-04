@@ -6,29 +6,13 @@ export const dailyChestReward = { xp: 50, gems: 10 };
 export const weeklyChestReward = { xp: 150, gems: 40 };
 
 // --------------- Daily Quest Pool (10 quests) ---------------
+//
+// Rarity distribution: 4 Common, 3 Rare, 2 Epic, 1 Legendary
+// Rewards per rarity — Common: 20 XP / 3 gems, Rare: 30 / 5,
+//                       Epic: 45 / 8, Legendary: 70 / 12
 
 export const dailyQuestPool: QuestDefinition[] = [
-  {
-    id: 'dq-complete-lessons',
-    title: 'Double Up',
-    description: 'Complete 2 lessons today.',
-    icon: '📚',
-    trackingKey: 'lessons_completed',
-    target: 2,
-    difficulty: 'easy',
-    reward: { xp: 25, gems: 3 },
-  },
-  {
-    id: 'dq-accuracy-80',
-    title: 'Sharp Shooter',
-    description: 'Finish a session with 80% or higher accuracy.',
-    icon: '🎯',
-    trackingKey: 'accuracy_above_threshold',
-    target: 1,
-    difficulty: 'medium',
-    reward: { xp: 25, gems: 3 },
-    filter: { threshold: 0.8 },
-  },
+  // ---- Common (4) ----
   {
     id: 'dq-stale-topic',
     title: 'Dust Off',
@@ -36,28 +20,8 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '🧹',
     trackingKey: 'stale_topic_practiced',
     target: 1,
-    difficulty: 'easy',
-    reward: { xp: 25, gems: 3 },
-  },
-  {
-    id: 'dq-daily-challenge',
-    title: 'Daily Challenger',
-    description: 'Complete today\'s daily challenge.',
-    icon: '🗓️',
-    trackingKey: 'daily_challenges_completed',
-    target: 1,
-    difficulty: 'medium',
-    reward: { xp: 25, gems: 3 },
-  },
-  {
-    id: 'dq-correct-answers-15',
-    title: 'Answer Machine',
-    description: 'Get 15 questions correct today.',
-    icon: '✅',
-    trackingKey: 'questions_correct',
-    target: 15,
-    difficulty: 'medium',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'common',
+    reward: { xp: 20, gems: 3 },
   },
   {
     id: 'dq-earn-xp-100',
@@ -66,8 +30,8 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '⚡',
     trackingKey: 'xp_earned',
     target: 100,
-    difficulty: 'easy',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'common',
+    reward: { xp: 20, gems: 3 },
   },
   {
     id: 'dq-stars-3',
@@ -76,8 +40,8 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '⭐',
     trackingKey: 'stars_earned',
     target: 3,
-    difficulty: 'easy',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'common',
+    reward: { xp: 20, gems: 3 },
   },
   {
     id: 'dq-unit-lesson',
@@ -86,9 +50,54 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '🏗️',
     trackingKey: 'lessons_completed',
     target: 1,
-    difficulty: 'easy',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'common',
+    reward: { xp: 20, gems: 3 },
     filter: { currentUnit: true },
+  },
+
+  // ---- Rare (3) ----
+  {
+    id: 'dq-complete-lessons',
+    title: 'Double Up',
+    description: 'Complete 2 lessons today.',
+    icon: '📚',
+    trackingKey: 'lessons_completed',
+    target: 2,
+    rarity: 'rare',
+    reward: { xp: 30, gems: 5 },
+  },
+  {
+    id: 'dq-accuracy-80',
+    title: 'Sharp Shooter',
+    description: 'Finish a session with 80% or higher accuracy.',
+    icon: '🎯',
+    trackingKey: 'accuracy_above_threshold',
+    target: 1,
+    rarity: 'rare',
+    reward: { xp: 30, gems: 5 },
+    filter: { threshold: 0.8 },
+  },
+  {
+    id: 'dq-daily-challenge',
+    title: 'Daily Challenger',
+    description: 'Complete today\'s daily challenge.',
+    icon: '🗓️',
+    trackingKey: 'daily_challenges_completed',
+    target: 1,
+    rarity: 'rare',
+    reward: { xp: 30, gems: 5 },
+  },
+
+  // ---- Epic (2) ----
+  {
+    id: 'dq-correct-answers-15',
+    title: 'Answer Machine',
+    description: 'Get 15 questions correct today.',
+    icon: '✅',
+    trackingKey: 'questions_correct',
+    target: 15,
+    rarity: 'epic',
+    reward: { xp: 45, gems: 8 },
   },
   {
     id: 'dq-fast-answers-5',
@@ -97,9 +106,11 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '⏱️',
     trackingKey: 'fast_answers',
     target: 5,
-    difficulty: 'stretch',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'epic',
+    reward: { xp: 45, gems: 8 },
   },
+
+  // ---- Legendary (1) ----
   {
     id: 'dq-perfect-session',
     title: 'Flawless',
@@ -107,14 +118,19 @@ export const dailyQuestPool: QuestDefinition[] = [
     icon: '✨',
     trackingKey: 'perfect_sessions',
     target: 1,
-    difficulty: 'stretch',
-    reward: { xp: 25, gems: 3 },
+    rarity: 'legendary',
+    reward: { xp: 70, gems: 12 },
   },
 ];
 
 // --------------- Weekly Quest Pool (10 quests) ---------------
+//
+// Rarity distribution: 4 Common, 3 Rare, 2 Epic, 1 Legendary
+// Rewards per rarity — Common: 60 XP / 12 gems, Rare: 90 / 18,
+//                       Epic: 130 / 25, Legendary: 200 / 40
 
 export const weeklyQuestPool: QuestDefinition[] = [
+  // ---- Common (4) ----
   {
     id: 'wq-lessons-5',
     title: 'Committed Learner',
@@ -122,28 +138,8 @@ export const weeklyQuestPool: QuestDefinition[] = [
     icon: '📖',
     trackingKey: 'lessons_completed',
     target: 5,
-    difficulty: 'easy',
-    reward: { xp: 75, gems: 15 },
-  },
-  {
-    id: 'wq-xp-500',
-    title: 'XP Hunter',
-    description: 'Earn 500 XP this week.',
-    icon: '💥',
-    trackingKey: 'xp_earned',
-    target: 500,
-    difficulty: 'medium',
-    reward: { xp: 75, gems: 15 },
-  },
-  {
-    id: 'wq-stars-3x3',
-    title: 'Triple Star',
-    description: 'Get 3 stars in 3 different sessions this week.',
-    icon: '🌟',
-    trackingKey: 'stars_earned',
-    target: 9,
-    difficulty: 'medium',
-    reward: { xp: 75, gems: 15 },
+    rarity: 'common',
+    reward: { xp: 60, gems: 12 },
   },
   {
     id: 'wq-topics-4',
@@ -152,28 +148,8 @@ export const weeklyQuestPool: QuestDefinition[] = [
     icon: '🌍',
     trackingKey: 'topics_practiced',
     target: 4,
-    difficulty: 'easy',
-    reward: { xp: 75, gems: 15 },
-  },
-  {
-    id: 'wq-all-daily-challenges',
-    title: 'Challenge Champion',
-    description: 'Complete all 7 daily challenges this week.',
-    icon: '🏆',
-    trackingKey: 'daily_challenges_completed',
-    target: 7,
-    difficulty: 'stretch',
-    reward: { xp: 75, gems: 15 },
-  },
-  {
-    id: 'wq-streak-7',
-    title: 'Streak Week',
-    description: 'Maintain a 7-day practice streak.',
-    icon: '🔥',
-    trackingKey: 'streak_days',
-    target: 7,
-    difficulty: 'stretch',
-    reward: { xp: 75, gems: 15 },
+    rarity: 'common',
+    reward: { xp: 60, gems: 12 },
   },
   {
     id: 'wq-unit-lessons-3',
@@ -182,8 +158,8 @@ export const weeklyQuestPool: QuestDefinition[] = [
     icon: '🏗️',
     trackingKey: 'lessons_completed',
     target: 3,
-    difficulty: 'medium',
-    reward: { xp: 75, gems: 15 },
+    rarity: 'common',
+    reward: { xp: 60, gems: 12 },
     filter: { currentUnit: true },
   },
   {
@@ -193,19 +169,30 @@ export const weeklyQuestPool: QuestDefinition[] = [
     icon: '✅',
     trackingKey: 'questions_correct',
     target: 50,
-    difficulty: 'medium',
-    reward: { xp: 75, gems: 15 },
+    rarity: 'common',
+    reward: { xp: 60, gems: 12 },
+  },
+
+  // ---- Rare (3) ----
+  {
+    id: 'wq-xp-500',
+    title: 'XP Hunter',
+    description: 'Earn 500 XP this week.',
+    icon: '💥',
+    trackingKey: 'xp_earned',
+    target: 500,
+    rarity: 'rare',
+    reward: { xp: 90, gems: 18 },
   },
   {
-    id: 'wq-finish-unit',
-    title: 'Unit Complete',
-    description: 'Finish all lessons in a unit this week.',
-    icon: '🎓',
-    trackingKey: 'lessons_completed',
-    target: 1,
-    difficulty: 'stretch',
-    reward: { xp: 75, gems: 15 },
-    filter: { unitComplete: true },
+    id: 'wq-stars-3x3',
+    title: 'Triple Star',
+    description: 'Get 3 stars in 3 different sessions this week.',
+    icon: '🌟',
+    trackingKey: 'stars_earned',
+    target: 9,
+    rarity: 'rare',
+    reward: { xp: 90, gems: 18 },
   },
   {
     id: 'wq-accuracy-90-x3',
@@ -214,13 +201,48 @@ export const weeklyQuestPool: QuestDefinition[] = [
     icon: '🎯',
     trackingKey: 'accuracy_above_threshold',
     target: 3,
-    difficulty: 'stretch',
-    reward: { xp: 75, gems: 15 },
+    rarity: 'rare',
+    reward: { xp: 90, gems: 18 },
     filter: { threshold: 0.9 },
+  },
+
+  // ---- Epic (2) ----
+  {
+    id: 'wq-all-daily-challenges',
+    title: 'Challenge Champion',
+    description: 'Complete all 7 daily challenges this week.',
+    icon: '🏆',
+    trackingKey: 'daily_challenges_completed',
+    target: 7,
+    rarity: 'epic',
+    reward: { xp: 130, gems: 25 },
+  },
+  {
+    id: 'wq-streak-7',
+    title: 'Streak Week',
+    description: 'Maintain a 7-day practice streak.',
+    icon: '🔥',
+    trackingKey: 'streak_days',
+    target: 7,
+    rarity: 'epic',
+    reward: { xp: 130, gems: 25 },
+  },
+
+  // ---- Legendary (1) ----
+  {
+    id: 'wq-finish-unit',
+    title: 'Unit Complete',
+    description: 'Finish all lessons in a unit this week.',
+    icon: '🎓',
+    trackingKey: 'lessons_completed',
+    target: 1,
+    rarity: 'legendary',
+    reward: { xp: 200, gems: 40 },
+    filter: { unitComplete: true },
   },
 ];
 
-// --------------- Comeback Quests (3 easy quests) ---------------
+// --------------- Comeback Quests (3 common quests) ---------------
 
 export const comebackQuests: QuestDefinition[] = [
   {
@@ -230,7 +252,7 @@ export const comebackQuests: QuestDefinition[] = [
     icon: '👋',
     trackingKey: 'questions_correct',
     target: 5,
-    difficulty: 'easy',
+    rarity: 'common',
     reward: { xp: 30, gems: 10 },
   },
   {
@@ -240,7 +262,7 @@ export const comebackQuests: QuestDefinition[] = [
     icon: '🚶',
     trackingKey: 'lessons_completed',
     target: 1,
-    difficulty: 'easy',
+    rarity: 'common',
     reward: { xp: 30, gems: 10 },
   },
   {
@@ -250,7 +272,7 @@ export const comebackQuests: QuestDefinition[] = [
     icon: '📈',
     trackingKey: 'accuracy_above_threshold',
     target: 1,
-    difficulty: 'easy',
+    rarity: 'common',
     reward: { xp: 30, gems: 10 },
     filter: { threshold: 0.7 },
   },

@@ -10,7 +10,7 @@ vi.mock('@/lib/quest-engine', () => {
     icon: 'icon',
     trackingKey: key as any,
     target,
-    difficulty: 'easy',
+    rarity: 'common',
     reward: { xp: 25, gems: 5 },
   });
 
@@ -19,6 +19,7 @@ vi.mock('@/lib/quest-engine', () => {
     WEEKLY_QUEST_COUNT: 3,
     getTodayDate: () => '2026-03-23',
     getCurrentWeekMonday: () => '2026-03-17',
+    getCommitmentScale: () => 1.0,
     selectDailyQuests: vi.fn(() => [
       makeDef('dq-1', 'lessons_completed', 2),
       makeDef('dq-2', 'questions_correct', 10),
@@ -38,6 +39,7 @@ vi.mock('@/lib/quest-engine', () => {
         icon: d.icon,
         target: d.target,
         progress: 0,
+        rarity: d.rarity,
         reward: { xp: d.reward.xp, gems: d.reward.gems },
         trackingKey: d.trackingKey,
         filter: d.filter,

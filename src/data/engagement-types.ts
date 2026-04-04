@@ -25,7 +25,10 @@ export type QuestTrackingKey =
   | 'fast_answers'
   | 'stale_topic_practiced';
 
-export type QuestDifficulty = 'easy' | 'medium' | 'stretch';
+export type QuestRarity = 'common' | 'rare' | 'epic' | 'legendary';
+
+/** @deprecated Use QuestRarity instead */
+export type QuestDifficulty = QuestRarity;
 
 export interface QuestDefinition {
   id: string;
@@ -34,7 +37,7 @@ export interface QuestDefinition {
   icon: string;
   trackingKey: QuestTrackingKey;
   target: number;
-  difficulty: QuestDifficulty;
+  rarity: QuestRarity;
   reward: {
     xp: number;
     gems: number;
@@ -50,6 +53,7 @@ export interface Quest {
   icon: string;
   target: number;
   progress: number;
+  rarity: QuestRarity;
   reward: {
     xp: number;
     gems: number;

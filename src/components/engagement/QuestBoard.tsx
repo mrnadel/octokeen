@@ -83,6 +83,7 @@ export function QuestBoard() {
           icon: def.icon,
           target: def.target,
           progress: storeQuest?.progress ?? 0,
+          rarity: def.rarity,
           reward: def.reward,
           trackingKey: def.trackingKey,
           filter: def.filter,
@@ -96,8 +97,10 @@ export function QuestBoard() {
     <div className="space-y-4">
       {/* Daily Quests Section */}
       <div className="bg-white dark:bg-surface-900 rounded-2xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
+        {/* Warm gradient accent */}
+        <div className="h-1" style={{ background: 'linear-gradient(90deg, #F59E0B, #F97316, #EF4444)' }} />
         {/* Section header */}
-        <div className="flex items-center justify-between gap-2 px-4 pt-4 pb-2">
+        <div className="flex items-center justify-between gap-2 px-4 pt-3 pb-2">
           <div className="min-w-0 flex-1">
             {comeback.isInComebackFlow ? (
               <h2 className="text-base font-extrabold text-gray-800 dark:text-surface-50 truncate">Welcome Back! 👋</h2>
@@ -160,6 +163,8 @@ export function QuestBoard() {
 
       {/* Weekly Quests Section */}
       <div className="bg-white dark:bg-surface-900 rounded-2xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
+        {/* Cool gradient accent */}
+        <div className="h-1" style={{ background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)' }} />
         {/* Expandable header */}
         <button
           onClick={() => setWeeklyExpanded((v) => !v)}

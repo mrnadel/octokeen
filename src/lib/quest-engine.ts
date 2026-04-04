@@ -2,7 +2,7 @@
 // Quest Engine — Pure Logic (no React, no store imports)
 // ============================================================
 
-import { Quest, QuestDefinition } from '@/data/engagement-types';
+import { Quest, QuestDefinition, QuestRarity } from '@/data/engagement-types';
 import { dailyQuestPool, weeklyQuestPool } from '@/data/quests';
 
 // --------------- Date Utilities ---------------
@@ -47,12 +47,24 @@ export function hashString(str: string): number {
   return hash;
 }
 
+// --------------- Rarity Weights ---------------
+
+/** Relative probability weights for each rarity tier. */
+const RARITY_WEIGHTS: Record<QuestRarity, number> = {
+  common: 50,
+  rare: 30,
+  epic: 15,
+  legendary: 5,
+};
+
 // --------------- Quest Selection ---------------
 
 /**
  * Deterministically select `count` quests from `pool` using `dateSeed`.
  * Filters out quests whose IDs are in `lastIds`.
- * Ensures difficulty balance: at least 1 easy, at least 1 stretch if available.
+ * Uses weighted random selection based on rarity: common quests appear
+ * most often, legendary quests are rare treats.
+ * Guarantees at least 1 common quest per selection.
  */
 export function selectQuests(
   pool: QuestDefinition[],
@@ -69,38 +81,28 @@ export function selectQuests(
   // If not enough after filtering, fall back to full pool
   const candidates = available.length >= count ? available : pool;
 
-  // Shuffle deterministically using seed
-  const shuffled = [...candidates];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = (hashString(`${seed}-${i}`) % (i + 1) + (i + 1)) % (i + 1);
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
+  // Assign weighted scores: hash-based random * rarity weight
+  const scored = candidates.map((q) => ({
+    quest: q,
+    score: (hashString(`${seed}-${q.id}`) / 0xFFFFFFFF) * RARITY_WEIGHTS[q.rarity],
+  }));
 
-  // Separate by difficulty
-  const easy = shuffled.filter((q) => q.difficulty === 'easy');
-  const medium = shuffled.filter((q) => q.difficulty === 'medium');
-  const stretch = shuffled.filter((q) => q.difficulty === 'stretch');
+  // Sort descending by score
+  scored.sort((a, b) => b.score - a.score);
 
   const selected: QuestDefinition[] = [];
 
-  // Guarantee at least 1 easy
-  if (easy.length > 0) {
-    selected.push(easy[0]);
+  // Guarantee at least 1 common quest
+  const common = scored.filter((s) => s.quest.rarity === 'common');
+  if (common.length > 0) {
+    selected.push(common[0].quest);
   }
 
-  // Guarantee at least 1 stretch if available and count allows
-  if (stretch.length > 0 && count >= 2) {
-    const stretchPick = stretch.find((q) => !selected.includes(q));
-    if (stretchPick) {
-      selected.push(stretchPick);
-    }
-  }
-
-  // Fill remaining slots from the full shuffled pool (no duplicates)
-  for (const q of shuffled) {
+  // Fill remaining slots from the scored pool (no duplicates)
+  for (const s of scored) {
     if (selected.length >= count) break;
-    if (!selected.includes(q)) {
-      selected.push(q);
+    if (!selected.includes(s.quest)) {
+      selected.push(s.quest);
     }
   }
 
@@ -127,6 +129,7 @@ export function createQuests(
     icon: def.icon,
     target: Math.max(1, Math.round(def.target * scale)),
     progress: 0,
+    rarity: def.rarity,
     reward: { xp: def.reward.xp, gems: def.reward.gems },
     trackingKey: def.trackingKey,
     filter: def.filter,
