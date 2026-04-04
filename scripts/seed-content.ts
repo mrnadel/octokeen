@@ -210,15 +210,18 @@ async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
 
   const units: Unit[] = [];
 
-  // Load individual unit files
-  for (const file of unitFiles) {
-    const filePath = path.join(unitsDir, file);
-    const mod = await import(pathToFileURL(filePath).href);
-    // Find the Unit export (could be any name)
-    for (const key of Object.keys(mod)) {
-      if (isUnit(mod[key])) {
-        units.push(mod[key]);
-        break;
+  // Load individual unit files ONLY if no section files exist
+  // (section files supersede old unit files after content expansion)
+  if (sectionFiles.length === 0) {
+    for (const file of unitFiles) {
+      const filePath = path.join(unitsDir, file);
+      const mod = await import(pathToFileURL(filePath).href);
+      // Find the Unit export (could be any name)
+      for (const key of Object.keys(mod)) {
+        if (isUnit(mod[key])) {
+          units.push(mod[key]);
+          break;
+        }
       }
     }
   }

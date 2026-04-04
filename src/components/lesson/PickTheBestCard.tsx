@@ -74,7 +74,7 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
           Pick the best answer
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
           <GlossaryText text={question.question} />
         </h2>
 

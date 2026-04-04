@@ -103,7 +103,7 @@ const SliderEstimateCard = forwardRef<QuestionCardHandle, SliderEstimateCardProp
           Slide to estimate
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 12px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 12px' }}>
           <GlossaryText text={question.question} />
         </h2>
 
@@ -168,6 +168,7 @@ const SliderEstimateCard = forwardRef<QuestionCardHandle, SliderEstimateCardProp
             style={{
               position: 'relative', height: 40, display: 'flex', alignItems: 'center',
               cursor: answered ? 'default' : 'pointer',
+              pointerEvents: answered ? 'none' : 'auto',
             }}
           >
             {/* Background track */}

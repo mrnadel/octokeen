@@ -174,6 +174,7 @@ export interface CourseIntroData {
   dailyMinutes: 5 | 10 | 15 | 20;
   completedAt: string;
   placementDone?: boolean;
+  placementUnitIndex?: number;
 }
 
 export interface CourseProgress {

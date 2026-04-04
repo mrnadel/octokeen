@@ -88,10 +88,10 @@ const RankOrderCard = forwardRef<QuestionCardHandle, RankOrderCardProps>(
       <div className="flex flex-col flex-1">
         {/* Action title */}
         <div style={{ fontSize: 12, fontWeight: 800, color: c.subtitle, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>
-          Rank from best to worst
+          Rank in order
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 6px' }}>
           <GlossaryText text={question.question} />
         </h2>
 

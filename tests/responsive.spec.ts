@@ -31,13 +31,10 @@ test.describe('Mobile responsiveness', () => {
     test.skip(browserName !== 'chromium' || page.viewportSize()!.width > 500, 'Mobile only');
 
     await page.goto('/pricing');
-    await page.waitForTimeout(2000);
     // Prices should be visible
     await expect(page.getByText(/\$/i).first()).toBeVisible({ timeout: 10000 });
     // CTA button should be tappable
     const cta = page.getByRole('button', { name: /upgrade|subscribe|get pro|start/i }).first();
-    if (await cta.isVisible()) {
-      await expect(cta).toBeVisible();
-    }
+    await expect(cta).toBeVisible();
   });
 });

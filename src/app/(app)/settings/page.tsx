@@ -20,6 +20,7 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useSoundStore } from '@/store/useSoundStore';
+import { useNarrationStore } from '@/store/useNarrationStore';
 import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
@@ -115,9 +116,9 @@ export default function SettingsPage() {
         const data = await res.json();
         throw new Error(data.error || 'Failed to delete account');
       }
-      // Clear all local stores and sign out
+      // Sign out first, then clear local stores
       localStorage.clear();
-      signOut({ callbackUrl: '/login' });
+      await signOut({ callbackUrl: '/login' });
     } catch (err: any) {
       setDeleteError(err.message || 'Something went wrong');
       setDeleteStep(2);

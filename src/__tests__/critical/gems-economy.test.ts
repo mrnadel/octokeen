@@ -214,13 +214,13 @@ describe('Gems Economy', () => {
   });
 
   describe('purchaseItem — streak freeze', () => {
-    it('deducts 30 gems for streak freeze', () => {
+    it('deducts 40 gems for streak freeze', () => {
       useEngagementStore.setState({
         gems: { ...getDefaultState().gems, balance: 100 },
       });
       const result = useEngagementStore.getState().purchaseItem('shop-streak-freeze');
       expect(result).toBe(true);
-      expect(useEngagementStore.getState().gems.balance).toBe(70);
+      expect(useEngagementStore.getState().gems.balance).toBe(60);
     });
 
     it('increments freezesOwned on purchase', () => {
@@ -269,7 +269,7 @@ describe('Gems Economy', () => {
       const result = useEngagementStore.getState().purchaseItem('shop-double-xp-30');
       expect(result).toBe(true);
       expect(useEngagementStore.getState().doubleXpExpiry).not.toBeNull();
-      expect(useEngagementStore.getState().gems.balance).toBe(60); // 100 - 40
+      expect(useEngagementStore.getState().gems.balance).toBe(50); // 100 - 50
     });
 
     it('doubleXpExpiry is approximately 30 minutes in the future', () => {
@@ -434,22 +434,22 @@ describe('Gems Economy', () => {
       expect(useEngagementStore.getState().gems.balance).toBe(5);
     });
 
-    it('daily chest awards 15 gems', () => {
+    it('daily chest awards 10 gems', () => {
       useEngagementStore.getState().initDailyQuests();
       useEngagementStore.getState().updateQuestProgress('lessons_completed', 2);
       useEngagementStore.getState().updateQuestProgress('questions_correct', 10);
       useEngagementStore.getState().updateQuestProgress('xp_earned', 100);
       useEngagementStore.getState().claimChest('daily');
-      expect(useEngagementStore.getState().gems.balance).toBe(15);
+      expect(useEngagementStore.getState().gems.balance).toBe(10);
     });
 
-    it('weekly chest awards 50 gems', () => {
+    it('weekly chest awards 40 gems', () => {
       useEngagementStore.getState().initWeeklyQuests();
       useEngagementStore.getState().updateQuestProgress('lessons_completed', 5);
       useEngagementStore.getState().updateQuestProgress('xp_earned', 500);
       useEngagementStore.getState().updateQuestProgress('topics_practiced', 4);
       useEngagementStore.getState().claimChest('weekly');
-      expect(useEngagementStore.getState().gems.balance).toBe(50);
+      expect(useEngagementStore.getState().gems.balance).toBe(40);
     });
 
     it('full daily cycle: earn quest rewards + chest', () => {
@@ -463,11 +463,11 @@ describe('Gems Economy', () => {
       useEngagementStore.getState().claimQuestReward('dq-2');
       useEngagementStore.getState().claimQuestReward('dq-3');
 
-      // Claim chest (15 gems)
+      // Claim chest (10 gems)
       useEngagementStore.getState().claimChest('daily');
 
-      // Total: 15 (quest rewards) + 15 (chest) = 30
-      expect(useEngagementStore.getState().gems.balance).toBe(30);
+      // Total: 15 (quest rewards) + 10 (chest) = 25
+      expect(useEngagementStore.getState().gems.balance).toBe(25);
     });
   });
 
@@ -495,7 +495,7 @@ describe('Gems Economy', () => {
       useEngagementStore.getState().purchaseItem('shop-frame-gold');
 
       const state = useEngagementStore.getState();
-      expect(state.gems.balance).toBe(75); // 100 - 25
+      expect(state.gems.balance).toBe(70); // 100 - 30
       expect(state.gems.inventory.activeFrames).toContain('shop-frame-gold');
     });
   });

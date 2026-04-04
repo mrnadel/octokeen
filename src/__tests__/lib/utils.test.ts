@@ -457,9 +457,9 @@ describe('getInterviewReadiness()', () => {
       t2: { accuracy: 0.8, attempted: 4 }, // doesn't count
     };
     const result = getInterviewReadiness(progress);
-    // coverage = 1/11, avgAccuracy = 0.8, depth = 0/11
-    // (1/11 * 0.3 + 0.8 * 0.4 + 0) * 100
-    const expected = Math.round(((1 / 11) * 0.3 + 0.8 * 0.4 + 0) * 100);
+    // coverage = 1/TOTAL_TOPICS, avgAccuracy = 0.8, depth = 0/TOTAL_TOPICS
+    // (1/TOTAL_TOPICS * 0.3 + 0.8 * 0.4 + 0) * 100
+    const expected = Math.round(((1 / TOTAL_TOPICS) * 0.3 + 0.8 * 0.4 + 0) * 100);
     expect(result).toBe(expected);
   });
 
@@ -469,8 +469,8 @@ describe('getInterviewReadiness()', () => {
       t2: { accuracy: 1.0, attempted: 14 }, // doesn't count for depth
     };
     const result = getInterviewReadiness(progress);
-    // coverage = 2/11, avgAccuracy = 1.0, depth = 1/11
-    const expected = Math.round(((2 / 11) * 0.3 + 1.0 * 0.4 + (1 / 11) * 0.3) * 100);
+    // coverage = 2/TOTAL_TOPICS, avgAccuracy = 1.0, depth = 1/TOTAL_TOPICS
+    const expected = Math.round(((2 / TOTAL_TOPICS) * 0.3 + 1.0 * 0.4 + (1 / TOTAL_TOPICS) * 0.3) * 100);
     expect(result).toBe(expected);
   });
 });

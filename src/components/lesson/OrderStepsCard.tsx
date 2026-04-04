@@ -88,7 +88,7 @@ const OrderStepsCard = forwardRef<QuestionCardHandle, OrderStepsCardProps>(
           Put in the right order
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 16px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 16px' }}>
           <GlossaryText text={question.question} />
         </h2>
 
@@ -106,6 +106,14 @@ const OrderStepsCard = forwardRef<QuestionCardHandle, OrderStepsCardProps>(
             <GlossaryText text={question.hint} />
           </motion.div>
         )}
+
+        {/* Endpoint label — First */}
+        <div style={{
+          fontSize: 11, fontWeight: 800, color: c.muted, textTransform: 'uppercase',
+          letterSpacing: 0.5, marginBottom: 6, textAlign: 'center',
+        }}>
+          First
+        </div>
 
         {/* Step list */}
         <Reorder.Group
@@ -180,6 +188,14 @@ const OrderStepsCard = forwardRef<QuestionCardHandle, OrderStepsCardProps>(
             );
           })}
         </Reorder.Group>
+
+        {/* Endpoint label — Last */}
+        <div style={{
+          fontSize: 11, fontWeight: 800, color: c.muted, textTransform: 'uppercase',
+          letterSpacing: 0.5, marginTop: 6, textAlign: 'center',
+        }}>
+          Last
+        </div>
       </div>
     );
   }

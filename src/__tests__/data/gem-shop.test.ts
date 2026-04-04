@@ -32,7 +32,7 @@ describe('gem shop data integrity', () => {
   });
 
   it('all types are valid', () => {
-    const validTypes = ['streak_freeze', 'streak_repair', 'double_xp', 'title', 'frame'];
+    const validTypes = ['heart_refill', 'heart_refill_full', 'streak_freeze', 'streak_repair', 'double_xp', 'title', 'frame'];
     for (const item of shopItems) {
       expect(validTypes).toContain(item.type);
     }
@@ -42,7 +42,7 @@ describe('gem shop data integrity', () => {
     const freeze = shopItems.find((i) => i.id === 'shop-streak-freeze');
     expect(freeze).toBeDefined();
     expect(freeze!.type).toBe('streak_freeze');
-    expect(freeze!.cost).toBe(30);
+    expect(freeze!.cost).toBe(40);
   });
 
   it('has double XP item with duration metadata', () => {
@@ -66,10 +66,10 @@ describe('gem shop data integrity', () => {
     }
   });
 
-  it('costs are within reasonable bounds (10-200 gems)', () => {
+  it('costs are within reasonable bounds (10-350 gems)', () => {
     for (const item of shopItems) {
-      expect(item.cost).toBeGreaterThanOrEqual(10);
-      expect(item.cost).toBeLessThanOrEqual(200);
+      expect(item.cost).toBeGreaterThanOrEqual(15);
+      expect(item.cost).toBeLessThanOrEqual(350);
     }
   });
 });

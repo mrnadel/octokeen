@@ -40,24 +40,24 @@ export const background = {
   will-change: opacity, transform;
   opacity: 0.4;
   transform: scale(0.9);
-  animation: lb-twinkle 4s infinite ease-in-out;
+  animation: lb-twinkle 0.8s infinite ease-in-out;
 }
-#lb-space-stars .lb-s1 { animation-duration: 3.2s; animation-delay: 0s; }
-#lb-space-stars .lb-s2 { animation-duration: 4.5s; animation-delay: 0.8s; }
-#lb-space-stars .lb-s3 { animation-duration: 3.7s; animation-delay: 1.5s; }
+#lb-space-stars .lb-s1 { animation-duration: 0.64s; animation-delay: 0s; }
+#lb-space-stars .lb-s2 { animation-duration: 0.9s; animation-delay: 0.16s; }
+#lb-space-stars .lb-s3 { animation-duration: 0.74s; animation-delay: 0.3s; }
 #lb-space-stars .lb-s4 {
-  animation: lb-twinkle 5.1s 0.3s infinite ease-in-out, lb-supernova 45s 12s infinite ease-out;
+  animation: lb-twinkle 1.02s 0.06s infinite ease-in-out, lb-supernova 9s 2.4s infinite ease-out;
 }
-#lb-space-stars .lb-s5 { animation-duration: 3.9s; animation-delay: 2.2s; }
-#lb-space-stars .lb-s6 { animation-duration: 4.3s; animation-delay: 1s; }
-#lb-space-stars .lb-s7 { animation-duration: 3.5s; animation-delay: 1.7s; }
-#lb-space-stars .lb-s8 { animation-duration: 5.5s; animation-delay: 0.5s; }
-#lb-space-stars .lb-s9 { animation-duration: 4s; animation-delay: 2.6s; }
-#lb-space-stars .lb-s10 { animation-duration: 3.3s; animation-delay: 1.3s; }
-#lb-space-stars .lb-s11 { animation-duration: 4.8s; animation-delay: 0.1s; }
-#lb-space-stars .lb-s12 { animation-duration: 3.6s; animation-delay: 1.9s; }
-#lb-space-stars .lb-s13 { animation-duration: 5.3s; animation-delay: 0.7s; }
-#lb-space-stars .lb-s14 { animation-duration: 4.1s; animation-delay: 2.4s; }
+#lb-space-stars .lb-s5 { animation-duration: 0.78s; animation-delay: 0.44s; }
+#lb-space-stars .lb-s6 { animation-duration: 0.86s; animation-delay: 0.2s; }
+#lb-space-stars .lb-s7 { animation-duration: 0.7s; animation-delay: 0.34s; }
+#lb-space-stars .lb-s8 { animation-duration: 1.1s; animation-delay: 0.1s; }
+#lb-space-stars .lb-s9 { animation-duration: 0.8s; animation-delay: 0.52s; }
+#lb-space-stars .lb-s10 { animation-duration: 0.66s; animation-delay: 0.26s; }
+#lb-space-stars .lb-s11 { animation-duration: 0.96s; animation-delay: 0.02s; }
+#lb-space-stars .lb-s12 { animation-duration: 0.72s; animation-delay: 0.38s; }
+#lb-space-stars .lb-s13 { animation-duration: 1.06s; animation-delay: 0.14s; }
+#lb-space-stars .lb-s14 { animation-duration: 0.82s; animation-delay: 0.48s; }
 
 /* ── Planets ── */
 #lb-space-stars .lb-planet {
@@ -65,8 +65,8 @@ export const background = {
   border-radius: 50%;
   will-change: transform;
 }
-#lb-space-stars .lb-p1 { animation: lb-float 14s 0s infinite ease-in-out; }
-#lb-space-stars .lb-p2 { animation: lb-float 18s 4s infinite ease-in-out; }
+#lb-space-stars .lb-p1 { animation: lb-float 2.8s 0s infinite ease-in-out; }
+#lb-space-stars .lb-p2 { animation: lb-float 3.6s 0.8s infinite ease-in-out; }
 #lb-space-stars .lb-p1::before {
   content: '';
   position: absolute;
@@ -85,8 +85,8 @@ export const background = {
   border-radius: 50%;
   will-change: transform, opacity;
 }
-#lb-space-stars .lb-n1 { animation: lb-breathe 20s 0s infinite ease-in-out; }
-#lb-space-stars .lb-n2 { animation: lb-breathe 25s 6s infinite ease-in-out; }
+#lb-space-stars .lb-n1 { animation: lb-breathe 4s 0s infinite ease-in-out; }
+#lb-space-stars .lb-n2 { animation: lb-breathe 5s 1.2s infinite ease-in-out; }
 
 /* ── Aurora wash ── */
 #lb-space-stars .lb-aurora {
@@ -96,7 +96,7 @@ export const background = {
     radial-gradient(ellipse at 30% 20%, rgba(56,189,248,0.04) 0%, transparent 50%),
     radial-gradient(ellipse at 70% 80%, rgba(139,92,246,0.04) 0%, transparent 50%);
   will-change: transform, opacity;
-  animation: lb-aurora 35s 0s infinite ease-in-out;
+  animation: lb-aurora 7s 0s infinite ease-in-out;
   opacity: 0;
   mix-blend-mode: screen;
   pointer-events: none;
@@ -120,9 +120,9 @@ export const background = {
   background: rgba(255,255,255,0.95);
   box-shadow: 0 0 6px 2px rgba(255,255,255,0.5);
 }
-#lb-space-stars .lb-sh1 { width: 100px; animation: lb-shoot-a 600s 0s infinite linear; }
-#lb-space-stars .lb-sh2 { width: 70px; animation: lb-shoot-b 600s 0s infinite linear; }
-#lb-space-stars .lb-sh3 { width: 50px; animation: lb-shoot-c 600s 0s infinite linear; }
+#lb-space-stars .lb-sh1 { width: 100px; animation: lb-shoot-a 120s 0s infinite linear; }
+#lb-space-stars .lb-sh2 { width: 70px; animation: lb-shoot-b 120s 0s infinite linear; }
+#lb-space-stars .lb-sh3 { width: 50px; animation: lb-shoot-c 120s 0s infinite linear; }
 
 /* ── Comet ── */
 #lb-space-stars .lb-comet {
@@ -133,7 +133,7 @@ export const background = {
   box-shadow: 0 0 12px 4px rgba(224,231,255,0.6), 0 0 30px 8px rgba(99,102,241,0.2);
   will-change: transform, opacity;
   opacity: 0;
-  animation: lb-comet 600s 0s infinite linear;
+  animation: lb-comet 120s 0s infinite linear;
 }
 #lb-space-stars .lb-comet::after {
   content: '';
@@ -151,7 +151,7 @@ export const background = {
   width: 44px; height: 44px;
   will-change: transform, opacity;
   opacity: 0;
-  animation: lb-satellite 600s 0s infinite linear;
+  animation: lb-satellite 120s 0s infinite linear;
   pointer-events: none;
   filter: brightness(0.85) drop-shadow(0 0 3px rgba(99,200,255,0.3));
 }
@@ -167,7 +167,7 @@ export const background = {
     6px -2px 10px 2px rgba(212,212,216,0.2),
     -1px 1px 10px 2px rgba(99,102,241,0.06);
   will-change: opacity;
-  animation: lb-moon-glow 8s 0s infinite ease-in-out;
+  animation: lb-moon-glow 1.6s 0s infinite ease-in-out;
 }
 
 
@@ -178,7 +178,7 @@ export const background = {
   width: 140px; height: 180px;
   opacity: 0;
   will-change: transform, opacity;
-  animation: lb-asteroids 600s 0s infinite linear;
+  animation: lb-asteroids 120s 0s infinite linear;
   pointer-events: none;
   z-index: 5;
   filter: blur(1.5px);
@@ -192,31 +192,31 @@ export const background = {
   width: 24px; height: 18px;
   border-radius: 42% 58% 48% 52% / 55% 45% 55% 45%;
   top: 15%; left: 25%;
-  animation: lb-tumble-a 7s infinite linear;
+  animation: lb-tumble-a 1.4s infinite linear;
 }
 #lb-space-stars .lb-ast2 {
   width: 14px; height: 11px;
   border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
   top: 40%; left: 70%;
-  animation: lb-tumble-b 5.5s infinite linear;
+  animation: lb-tumble-b 1.1s infinite linear;
 }
 #lb-space-stars .lb-ast3 {
   width: 30px; height: 22px;
   border-radius: 48% 52% 42% 58% / 45% 55% 50% 50%;
   top: 58%; left: 10%;
-  animation: lb-tumble-a 10s infinite linear reverse;
+  animation: lb-tumble-a 2s infinite linear reverse;
 }
 #lb-space-stars .lb-ast4 {
   width: 10px; height: 8px;
   border-radius: 50% 42% 55% 48%;
   top: 5%; left: 80%;
-  animation: lb-tumble-b 4s infinite linear;
+  animation: lb-tumble-b 0.8s infinite linear;
 }
 #lb-space-stars .lb-ast5 {
   width: 18px; height: 14px;
   border-radius: 58% 42% 50% 50% / 48% 52% 48% 52%;
   top: 78%; left: 45%;
-  animation: lb-tumble-a 8.5s infinite linear;
+  animation: lb-tumble-a 1.7s infinite linear;
 }
 
 /* ── Distant galaxy ── */
@@ -228,7 +228,7 @@ export const background = {
     radial-gradient(ellipse 30% 30% at 50% 50%, rgba(230,215,255,0.2) 0%, transparent 100%),
     radial-gradient(ellipse 100% 100% at 50% 50%, rgba(160,130,240,0.08) 0%, rgba(100,80,200,0.03) 40%, transparent 70%);
   will-change: transform, opacity;
-  animation: lb-galaxy 200s 0s infinite ease-in-out;
+  animation: lb-galaxy 40s 0s infinite ease-in-out;
   pointer-events: none;
   transform: rotate(-30deg);
 }
@@ -245,7 +245,7 @@ export const background = {
   filter: blur(10px);
   opacity: 0;
   will-change: transform, opacity;
-  animation: lb-dust 600s 0s infinite linear;
+  animation: lb-dust 120s 0s infinite linear;
   pointer-events: none;
   z-index: 2;
 }
@@ -261,7 +261,7 @@ export const background = {
     transparent 60%);
   opacity: 0;
   will-change: opacity;
-  animation: lb-sunflare 600s 0s infinite ease-in-out;
+  animation: lb-sunflare 120s 0s infinite ease-in-out;
   pointer-events: none;
   z-index: 1;
 }
@@ -281,7 +281,7 @@ export const background = {
   width: 450px; height: 80px;
   opacity: 0;
   will-change: transform, opacity;
-  animation: lb-rings 600s 0s infinite linear;
+  animation: lb-rings 120s 0s infinite linear;
   pointer-events: none;
   z-index: 7;
   filter: blur(1px);
@@ -333,7 +333,7 @@ export const background = {
   filter: blur(3px);
   opacity: 0;
   will-change: transform, opacity;
-  animation: lb-fg-planet 600s 0s infinite linear;
+  animation: lb-fg-planet 120s 0s infinite linear;
   pointer-events: none;
   z-index: 10;
 }
@@ -374,16 +374,16 @@ export const background = {
      lb-moon-glow, lb-galaxy, lb-galaxy-spin, lb-tumble-a/b,
      lb-flare-rotate
 
-   Scene events (all share a single 600s / 10-min cycle):
-     0-25s   (0%-4.2%)    Ambient only — establishing shot
-     25-55s  (4.2%-9.2%)  Shooting stars (3 staggered meteors)
-     70-95s  (11.7%-15.8%) Comet arc
-     115-150s (19.2%-25%)  Satellite wobble crossing
-     175-240s (29.2%-40%)  Asteroid field drift
-     270-330s (45%-55%)    Solar flare bloom
-     360-425s (60%-70.8%)  Space dust cloud rising
-     455-520s (75.8%-86.7%) Ring system sweep
-     545-597s (90.8%-99.5%) Foreground planet crossing
+   Scene events (all share a single 120s / 2-min cycle):
+     0-5s    (0%-4.2%)    Ambient only — establishing shot
+     5-11s   (4.2%-9.2%)  Shooting stars (3 staggered meteors)
+     14-19s  (11.7%-15.8%) Comet arc
+     23-30s  (19.2%-25%)  Satellite wobble crossing
+     35-48s  (29.2%-40%)  Asteroid field drift
+     54-66s  (45%-55%)    Solar flare bloom
+     72-85s  (60%-70.8%)  Space dust cloud rising
+     91-104s (75.8%-86.7%) Ring system sweep
+     109-119s (90.8%-99.5%) Foreground planet crossing
    ══════════════════════════════════════════════════════════════════ */
 
 /* ── Ambient keyframes (own cycles) ── */

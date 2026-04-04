@@ -1,4 +1,5 @@
 import type { Unit } from '../../../types';
+import { spaceDiagrams } from '../diagrams';
 
 export const spaceSection1Part2: Unit[] = [
   // ===== UNIT 5: Cosmic Distances =====
@@ -750,6 +751,22 @@ export const spaceSection1Part2: Unit[] = [
             type: "teaching",
             question: "Satellites and shooting stars",
             explanation: "Satellites look like slow, steady dots drifting across the sky. Shooting stars (meteors) are fast streaks that last a second or two. Both are visible with just your eyes.",
+          },
+          {
+            id: "sp-sec1-u6-L3-TAP",
+            type: "image-tap",
+            question: "Tap the planet in this night sky.",
+            diagram: spaceDiagrams['sp-sec1-u6-L3-TAP'],
+            hint: "Planets shine with a bright, steady glow and don't twinkle.",
+            tapZones: [
+              { id: "moon", label: "Moon", x: 10, y: 10, w: 18, h: 22 },
+              { id: "planet", label: "Planet (Venus)", x: 70, y: 23, w: 16, h: 19 },
+              { id: "satellite", label: "Satellite", x: 40, y: 58, w: 18, h: 14 },
+              { id: "meteor", label: "Meteor", x: 54, y: 4, w: 18, h: 16 },
+              { id: "star", label: "Star", x: 28, y: 8, w: 14, h: 14 },
+            ],
+            correctZoneId: "planet",
+            explanation: "The bright, steady golden glow on the right is a planet (Venus). Unlike stars, planets don't twinkle. The crescent shape is the Moon, the moving dot with a trail is a satellite, and the bright streak is a meteor.",
           },
           {
             id: "sp-sec1-u6-L3-Q5",

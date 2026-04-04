@@ -23,45 +23,32 @@ test.describe('Navigation (authenticated)', () => {
 
   test('profile page loads', async ({ page }) => {
     await page.goto('/profile');
-    // Should show profile content or redirect
-    await page.waitForTimeout(2000);
-    const url = page.url();
-    // Either shows profile or redirects to login
-    expect(url).toMatch(/\/(profile|login)/);
+    // Should show profile content or redirect to login
+    await expect(page).toHaveURL(/\/(profile|login)/, { timeout: 10000 });
   });
 
   test('league page loads', async ({ page }) => {
     await page.goto('/league');
-    await page.waitForTimeout(2000);
     // Should show league content
     const leagueContent = page.getByText(/league|bronze|silver|gold|rank/i).first();
-    if (await leagueContent.isVisible()) {
-      await expect(leagueContent).toBeVisible();
-    }
+    await expect(leagueContent).toBeVisible({ timeout: 10000 });
   });
 
   test('friends page loads', async ({ page }) => {
     await page.goto('/friends');
-    await page.waitForTimeout(2000);
-    const url = page.url();
-    expect(url).toMatch(/\/(friends|login)/);
+    await expect(page).toHaveURL(/\/(friends|login)/, { timeout: 10000 });
   });
 
   test('shop page loads', async ({ page }) => {
     await page.goto('/shop');
-    await page.waitForTimeout(2000);
     // Should show shop or gem-related content
     const shopContent = page.getByText(/shop|gem|item/i).first();
-    if (await shopContent.isVisible()) {
-      await expect(shopContent).toBeVisible();
-    }
+    await expect(shopContent).toBeVisible({ timeout: 10000 });
   });
 
   test('settings page loads', async ({ page }) => {
     await page.goto('/settings');
-    await page.waitForTimeout(2000);
-    const url = page.url();
-    expect(url).toMatch(/\/(settings|login)/);
+    await expect(page).toHaveURL(/\/(settings|login)/, { timeout: 10000 });
   });
 
   test('terms page renders legal content', async ({ page }) => {

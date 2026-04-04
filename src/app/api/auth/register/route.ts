@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+// import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { users /* emailVerificationTokens */ } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { registerSchema, getValidationError } from '@/lib/validation';
+// import { sendEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -56,6 +58,19 @@ export async function POST(request: NextRequest) {
         joinedDate,
       })
       .returning({ id: users.id, email: users.email, displayName: users.displayName });
+
+    // Email verification disabled — uncomment when email provider is configured
+    // const rawToken = crypto.randomBytes(32).toString('hex');
+    // const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+    // const expiresAt = new Date(Date.now() + 24 * 60 * 60_000);
+    // db.insert(emailVerificationTokens)
+    //   .values({ userId: newUser.id, tokenHash, expiresAt })
+    //   .then(() => {
+    //     const baseUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    //     const verifyUrl = `${baseUrl}/verify-email?token=${rawToken}`;
+    //     return sendEmail({ to: email, subject: 'Verify your Octokeen email', html: `...` });
+    //   })
+    //   .catch((err) => console.error('Failed to send verification email:', err));
 
     return NextResponse.json(
       { user: { id: newUser.id, email: newUser.email, displayName: newUser.displayName } },

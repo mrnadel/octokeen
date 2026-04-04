@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
   THEME: 'octokeen-theme',
   APP_STORE: 'octokeen-storage',
   SOUND: 'octokeen-sound',
+  NARRATION: 'octokeen-narration',
   HEARTS: 'octokeen-hearts',
   ENGAGEMENT: 'octokeen-engagement',
   COURSE: 'octokeen-course',

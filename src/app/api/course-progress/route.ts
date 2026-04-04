@@ -3,8 +3,6 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, courseProgress } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
-import { canAccessUnit } from '@/lib/access-control';
-import { LIMITS } from '@/lib/pricing';
 import { getLessonById } from '@/data/course';
 import { courseProgressSyncSchema } from '@/lib/validation';
 import type { CourseProgress } from '@/data/course/types';
@@ -78,20 +76,14 @@ export async function POST(request: NextRequest) {
     activeProfession?: string;
   };
 
-  // ── Server-side unit access enforcement ──
-  // Single subscription lookup instead of per-lesson DB queries
-  const { tier } = await canAccessUnit(userId, 0);
-  const unlockedUnits = LIMITS[tier].unlockedUnits;
-  const isUnitAccessible = (unitIndex: number) =>
-    unlockedUnits === 'all' || (unlockedUnits as number[]).includes(unitIndex);
-
-  const filteredLessons: CourseProgress['completedLessons'] = {};
+  // Store ALL progress regardless of current tier.
+  // Access control is enforced at lesson-start time (client + server).
+  // Filtering here would silently discard progress when users upgrade.
+  const validLessons: CourseProgress['completedLessons'] = {};
   for (const [lessonId, lessonData] of Object.entries(progress.completedLessons)) {
     const info = getLessonById(lessonId);
-    if (!info) continue;
-    if (isUnitAccessible(info.unitIndex)) {
-      filteredLessons[lessonId] = lessonData;
-    }
+    if (!info) continue; // Skip unknown lesson IDs
+    validLessons[lessonId] = lessonData;
   }
 
   const existing = await db
@@ -107,7 +99,7 @@ export async function POST(request: NextRequest) {
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
     placementUnitIndex: progress.placementUnitIndex ?? 0,
-    completedLessons: filteredLessons,
+    completedLessons: validLessons,
     activeProfession: activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
     updatedAt: new Date(),

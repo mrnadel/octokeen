@@ -83,6 +83,11 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  const isPasswordValid = password.length >= PASSWORD_MIN_LENGTH
+    && /[A-Z]/.test(password)
+    && /\d/.test(password)
+    && /[^A-Za-z0-9]/.test(password);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -112,8 +117,9 @@ export default function RegisterPage() {
       });
 
       if (result?.error) {
-        setError('Account created but login failed. Try signing in.');
-        setLoading(false);
+        // Account was created successfully - redirect to login with pre-filled email
+        router.push(`/login?callbackUrl=${encodeURIComponent('/onboarding')}`);
+        return;
       } else {
         router.push('/onboarding');
         router.refresh();
@@ -207,10 +213,10 @@ export default function RegisterPage() {
 
         <button
           type="submit"
-          disabled={loading || password.length < PASSWORD_MIN_LENGTH}
+          disabled={loading || !isPasswordValid}
           className="w-full py-3.5 bg-primary-500 hover:bg-primary-600 disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
           style={{
-            boxShadow: loading || password.length < PASSWORD_MIN_LENGTH ? 'none' : '0 5px 0 #0F766E',
+            boxShadow: loading || !isPasswordValid ? 'none' : '0 5px 0 #0F766E',
           }}
         >
           {loading ? 'Creating account...' : 'CREATE ACCOUNT'}

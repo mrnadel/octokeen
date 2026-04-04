@@ -61,6 +61,7 @@ function makeFakeLesson(id: string, questionCount = 15, xpReward = 10) {
     description: 'desc',
     icon: 'icon',
     xpReward,
+    levels: 3,
     questions: Array.from({ length: questionCount }, (_, i) =>
       makeFakeQuestion(`${id}-q${i}`)
     ),

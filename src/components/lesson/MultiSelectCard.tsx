@@ -91,7 +91,7 @@ const MultiSelectCard = forwardRef<QuestionCardHandle, MultiSelectCardProps>(
           <div style={{ fontSize: 12, fontWeight: 800, color: c.subtitle, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>
             Select all that apply ({correctIndices.length} correct)
           </div>
-          <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: 0 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: 0 }}>
             <GlossaryText text={question.question} />
           </h2>
         </div>

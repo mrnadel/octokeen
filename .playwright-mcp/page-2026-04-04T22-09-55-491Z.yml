@@ -1,0 +1,60 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "Voice Test" [level=1] [ref=e6]
+      - paragraph [ref=e7]: 3 voices available on your device
+    - generic [ref=e8]:
+      - generic [ref=e9]: Sample texts
+      - generic [ref=e10]:
+        - button "Sample 1" [ref=e11]
+        - button "Sample 2" [ref=e12]
+        - button "Sample 3" [ref=e13]
+        - button "Sample 4" [ref=e14]
+        - button "Sample 5" [ref=e15]
+    - generic [ref=e16]:
+      - generic [ref=e17]: Text to speak
+      - textbox [ref=e18]: The Sun is a star at the center of our solar system. It's about 4.6 billion years old and provides the energy that sustains life on Earth.
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: "Speed: 0.95x"
+        - slider [ref=e22]: "0.95"
+        - generic [ref=e23]:
+          - generic [ref=e24]: Slow
+          - generic [ref=e25]: Fast
+      - generic [ref=e26]:
+        - generic [ref=e27]: "Pitch: 1.00"
+        - slider [ref=e28]: "1"
+        - generic [ref=e29]:
+          - generic [ref=e30]: Low
+          - generic [ref=e31]: High
+    - button "▶ Play" [ref=e33]
+    - generic [ref=e34]:
+      - generic [ref=e35]: Selected voice
+      - generic [ref=e36]: Microsoft David - English (United States)
+      - generic [ref=e37]: en-US · Local
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]: All voices
+        - textbox "Filter..." [ref=e41]
+      - generic [ref=e42]:
+        - button "Microsoft David - English (United States) en-US Local" [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: Microsoft David - English (United States)
+            - generic [ref=e46]: en-US
+          - text: Local
+        - button "Microsoft Mark - English (United States) en-US Local" [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: Microsoft Mark - English (United States)
+            - generic [ref=e50]: en-US
+          - text: Local
+        - button "Microsoft Zira - English (United States) en-US Local" [ref=e51]:
+          - generic [ref=e52]:
+            - generic [ref=e53]: Microsoft Zira - English (United States)
+            - generic [ref=e54]: en-US
+          - text: Local
+  - button "🔧" [ref=e56]
+  - button "Open Next.js Dev Tools" [ref=e62] [cursor=pointer]:
+    - img [ref=e63]
+  - alert [ref=e66]

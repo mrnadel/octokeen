@@ -304,8 +304,8 @@ describe('useEngagementStore', () => {
       setupAllDailyQuestsCompleted();
       useEngagementStore.getState().claimChest('daily');
 
-      // dailyChestReward.gems = 15
-      expect(useEngagementStore.getState().gems.balance).toBe(15);
+      // dailyChestReward.gems = 10
+      expect(useEngagementStore.getState().gems.balance).toBe(10);
       expect(useEngagementStore.getState().dailyChestClaimed).toBe(true);
     });
 
@@ -314,7 +314,7 @@ describe('useEngagementStore', () => {
       useEngagementStore.getState().claimChest('daily');
       useEngagementStore.getState().claimChest('daily');
 
-      expect(useEngagementStore.getState().gems.balance).toBe(15);
+      expect(useEngagementStore.getState().gems.balance).toBe(10);
     });
 
     it('does not allow claim when quests are not all completed', () => {
@@ -335,8 +335,8 @@ describe('useEngagementStore', () => {
 
       useEngagementStore.getState().claimChest('weekly');
 
-      // weeklyChestReward.gems = 50
-      expect(useEngagementStore.getState().gems.balance).toBe(50);
+      // weeklyChestReward.gems = 40
+      expect(useEngagementStore.getState().gems.balance).toBe(40);
       expect(useEngagementStore.getState().weeklyChestClaimed).toBe(true);
     });
   });
@@ -349,7 +349,7 @@ describe('useEngagementStore', () => {
 
       const result = useEngagementStore.getState().purchaseItem('shop-streak-freeze');
       expect(result).toBe(true);
-      expect(useEngagementStore.getState().gems.balance).toBe(70); // 100 - 30
+      expect(useEngagementStore.getState().gems.balance).toBe(60); // 100 - 40
       expect(useEngagementStore.getState().streak.freezesOwned).toBe(1);
     });
 
@@ -380,7 +380,7 @@ describe('useEngagementStore', () => {
 
       const result = useEngagementStore.getState().purchaseItem('shop-title-thermal-king');
       expect(result).toBe(true);
-      expect(useEngagementStore.getState().gems.balance).toBe(80); // 100 - 20
+      expect(useEngagementStore.getState().gems.balance).toBe(70); // 100 - 30
       expect(useEngagementStore.getState().gems.inventory.activeTitles).toContain('shop-title-thermal-king');
     });
 
@@ -452,7 +452,7 @@ describe('useEngagementStore', () => {
   });
 
   describe('repairStreak', () => {
-    it('deducts 50 gems and marks repair used when conditions met', () => {
+    it('deducts 75 gems and marks repair used when conditions met', () => {
       const today = new Date().toISOString().split('T')[0];
       useEngagementStore.setState({
         gems: { ...getDefaultState().gems, balance: 100 },
@@ -465,7 +465,7 @@ describe('useEngagementStore', () => {
 
       const result = useEngagementStore.getState().repairStreak();
       expect(result).toBe(true);
-      expect(useEngagementStore.getState().gems.balance).toBe(50);
+      expect(useEngagementStore.getState().gems.balance).toBe(25);
       expect(useEngagementStore.getState().streak.repairAvailable).toBe(false);
     });
 

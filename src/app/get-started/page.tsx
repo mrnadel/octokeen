@@ -205,7 +205,8 @@ export default function GetStartedPage() {
     dailyMinutes: 10,
     completedAt: new Date().toISOString(),
     placementDone: true,
-  }), [selfAssessLevel]);
+    placementUnitIndex: placedUnitIndex > 0 ? placedUnitIndex : undefined,
+  }), [selfAssessLevel, placedUnitIndex]);
 
   // Reset user-specific stores so stale localStorage from previous sessions
   // doesn't trigger false streak-break / comeback / welcome-back popups.

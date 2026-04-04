@@ -60,9 +60,10 @@ interface MascotProps {
   pose: MascotPose;
   size?: number;
   className?: string;
+  priority?: boolean;
 }
 
-export function Mascot({ pose, size = 120, className }: MascotProps) {
+export function Mascot({ pose, size = 120, className, priority }: MascotProps) {
   return (
     <Image
       src={MASCOT_POSES[pose]}
@@ -70,7 +71,9 @@ export function Mascot({ pose, size = 120, className }: MascotProps) {
       width={size}
       height={size}
       className={className}
+      style={{ width: 'auto', height: 'auto' }}
       draggable={false}
+      priority={priority}
     />
   );
 }

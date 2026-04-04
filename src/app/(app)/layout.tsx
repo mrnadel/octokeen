@@ -15,6 +15,9 @@ import DesktopSideNav from '@/components/layout/DesktopSideNav';
 import { ToastContainer } from '@/components/ui/ToastNotification';
 import { StoreToastBridge } from '@/components/ui/StoreToastBridge';
 import { PushPrompt } from '@/components/engagement/PushPrompt';
+// import { EmailVerificationBanner } from '@/components/ui/EmailVerificationBanner';
+import { OfflineBanner } from '@/components/ui/OfflineBanner';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { status } = useSession();
@@ -58,8 +61,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <DesktopSideNav />
 
         <div className="flex-1 min-w-0 max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] dark:bg-surface-950 flex flex-col overflow-x-clip">
+          {/* <EmailVerificationBanner /> — disabled until email provider configured */}
           <main id="main-content" className="flex-1 pb-16 lg:pb-0">
-            {children}
+            <ErrorBoundary>{children}</ErrorBoundary>
           </main>
           <Footer />
         </div>
@@ -71,6 +75,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <ToastContainer />
       <StoreToastBridge />
       <PushPrompt />
+      <OfflineBanner />
     </div>
   );
 }

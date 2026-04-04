@@ -1,4 +1,5 @@
 import type { Unit } from '../../../types';
+import { spaceDiagrams } from '../diagrams';
 
 export const spaceSection1Part1: Unit[] = [
   // ===== UNIT 1: Welcome to the Universe =====
@@ -1100,6 +1101,21 @@ export const spaceSection1Part1: Unit[] = [
             matchTargets: ["Line above Earth's equator", "Point above Earth's North Pole", "Point above Earth's South Pole", "Path the Sun appears to trace"],
             correctMatches: [0, 1, 2, 3],
             explanation: "The celestial sphere mirrors Earth's features. The equator, poles, and ecliptic are projected outward onto the sky.",
+          },
+          {
+            id: "sp-sec1-u3-L3-TAP",
+            type: "image-tap",
+            question: "Tap the celestial equator on this diagram.",
+            diagram: spaceDiagrams['sp-sec1-u3-L3-TAP'],
+            hint: "It's the line directly above Earth's real equator.",
+            tapZones: [
+              { id: "ncp", label: "North Celestial Pole", x: 43, y: 4, w: 14, h: 14 },
+              { id: "equator", label: "Celestial Equator", x: 15, y: 44, w: 70, h: 12 },
+              { id: "scp", label: "South Celestial Pole", x: 43, y: 82, w: 14, h: 14 },
+              { id: "ecliptic", label: "Ecliptic", x: 25, y: 22, w: 55, h: 18 },
+            ],
+            correctZoneId: "equator",
+            explanation: "The celestial equator is the horizontal line running through the middle of the celestial sphere, directly above Earth's equator. The tilted dashed arc is the ecliptic (the Sun's apparent path).",
           },
           {
             id: "sp-sec1-u3-L3-Q4",

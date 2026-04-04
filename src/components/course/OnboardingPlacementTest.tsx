@@ -101,11 +101,13 @@ export function OnboardingPlacementTest({
       const totalUnits = meta.length;
       const allQuestions: PlacementQuestion[] = [];
 
-      // Sample from testStartUnit through the first ~60% of the remaining range
-      const rangeStart = testStartUnit;
+      // Sample questions that span the placement-cap range for meaningful granularity.
+      // Cap rangeStart so at least some questions fall within the placeable range (50% of course).
+      const maxPlacement = Math.max(1, Math.floor(totalUnits * 0.5));
+      const rangeStart = Math.min(testStartUnit, Math.max(0, maxPlacement - PLACEMENT_QUESTION_COUNT));
       const rangeEnd = Math.min(
         totalUnits - 1,
-        testStartUnit + Math.max(2, Math.ceil((totalUnits - testStartUnit) * 0.6)) - 1,
+        rangeStart + Math.max(2, Math.ceil((totalUnits - rangeStart) * 0.6)) - 1,
       );
       const rangeSize = rangeEnd - rangeStart + 1;
       const count = Math.min(PLACEMENT_QUESTION_COUNT, rangeSize);
@@ -141,12 +143,13 @@ export function OnboardingPlacementTest({
   const finishPlacement = useCallback(() => {
     // Cap onboarding placement at ~50% of the course
     const maxPlacement = Math.max(1, Math.floor(meta.length * 0.5));
+    // If user got no questions right, start from the beginning
     const raw = highestPassedUnit >= 0
       ? highestPassedUnit + 1
-      : testStartUnit;
+      : 0;
     const placed = Math.min(raw, maxPlacement);
     onComplete(placed);
-  }, [highestPassedUnit, testStartUnit, meta, onComplete]);
+  }, [highestPassedUnit, meta, onComplete]);
 
   // Track answer correctness (no hearts — placement test is penalty-free)
   const handleAdapterSubmit = useCallback((questionId: string, correct: boolean) => {
@@ -208,7 +211,7 @@ export function OnboardingPlacementTest({
   if (loadingUnits) {
     return (
       <div className="flex flex-col items-center justify-center gap-5 min-h-[60vh]">
-        <Mascot pose="loading" size={120} />
+        <Mascot pose="loading" size={120} priority />
         <div className="text-center">
           <p className="text-lg font-black text-surface-900 dark:text-white">Preparing your placement test</p>
           <p className="text-sm font-semibold text-surface-500 dark:text-surface-400 mt-1">Loading questions from your course...</p>

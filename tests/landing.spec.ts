@@ -12,24 +12,22 @@ test.describe('Landing page (unauthenticated)', () => {
     await page.goto('/');
 
     // Scroll to demo section and find a question
-    const demoQuestion = page.locator('text=A beam is supported at both ends');
-    if (await demoQuestion.isVisible()) {
-      await demoQuestion.scrollIntoViewIfNeeded();
-      // Click an answer option
-      const option = page.getByText('Directly at the left support');
-      await option.click();
-      // Should show feedback (explanation text appears)
-      await expect(page.getByText(/equilibrium/i)).toBeVisible({ timeout: 5000 });
-    }
+    const demoQuestion = page.getByText('A beam is supported at both ends');
+    await expect(demoQuestion).toBeVisible({ timeout: 10000 });
+    await demoQuestion.scrollIntoViewIfNeeded();
+    // Click an answer option
+    const option = page.getByText('Directly at the left support');
+    await option.click();
+    // Should show feedback (explanation text appears)
+    await expect(page.getByText(/equilibrium/i)).toBeVisible({ timeout: 5000 });
   });
 
   test('shows profession cards', async ({ page }) => {
     await page.goto('/');
     // Scroll down to see profession cards
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-    await page.waitForTimeout(500);
-    // Should show at least the ME profession
-    await expect(page.getByText(/mechanical engineering/i).first()).toBeVisible();
+    const professionCard = page.getByText(/mechanical engineering/i).first();
+    await professionCard.scrollIntoViewIfNeeded();
+    await expect(professionCard).toBeVisible();
   });
 
   test('login link navigates to login page', async ({ page }) => {

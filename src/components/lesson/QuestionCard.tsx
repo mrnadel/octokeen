@@ -249,7 +249,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           {question.type === 'fill-blank' && question.blanks ? (
             <div
               style={{
-                fontSize: 17,
+                fontSize: 20,
                 fontWeight: 800,
                 color: c.title,
                 lineHeight: 2,
@@ -311,7 +311,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           ) : (
             <h2
               style={{
-                fontSize: 17,
+                fontSize: 20,
                 fontWeight: 800,
                 color: c.title,
                 lineHeight: 1.35,

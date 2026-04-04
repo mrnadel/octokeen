@@ -9,22 +9,16 @@ test.describe('Engagement systems', () => {
 
   test('streak counter is visible on course map', async ({ page }) => {
     await page.goto('/');
-    await page.waitForTimeout(2000);
-    // Streak should show somewhere (header or stats)
-    const streakElement = page.locator('[class*="streak"], [aria-label*="streak"]').first();
-    if (await streakElement.isVisible()) {
-      await expect(streakElement).toBeVisible();
-    }
+    // CourseHeader renders streak button with aria-label like "1 day streak"
+    const streakElement = page.locator('[aria-label*="day streak"]').first();
+    await expect(streakElement).toBeVisible({ timeout: 10000 });
   });
 
   test('gem count displays in header or stats', async ({ page }) => {
     await page.goto('/');
-    await page.waitForTimeout(2000);
-    // Gems/coins should show in the UI
-    const gemElement = page.locator('[class*="gem"], [aria-label*="gem"], [class*="coin"]').first();
-    if (await gemElement.isVisible()) {
-      await expect(gemElement).toBeVisible();
-    }
+    // CourseHeader renders gem button with aria-label like "50 gems"
+    const gemElement = page.locator('[aria-label*="gem"]').first();
+    await expect(gemElement).toBeVisible({ timeout: 10000 });
   });
 
   test('streak freeze preserves streak when day is missed', async ({ page }) => {
@@ -43,23 +37,19 @@ test.describe('Engagement systems', () => {
     }, twoDaysAgo.toISOString().slice(0, 10));
 
     await page.goto('/');
-    await page.waitForTimeout(3000);
 
     // Streak freeze modal or automatic freeze usage should appear
+    // This is genuinely conditional: the freeze UI may not appear if the app
+    // processes the freeze silently without a modal in some configurations.
     const freezeUI = page.getByText(/streak freeze|streak saved|freeze used/i).first();
-    if (await freezeUI.isVisible()) {
-      await expect(freezeUI).toBeVisible();
-    }
+    await expect(freezeUI).toBeVisible({ timeout: 10000 });
   });
 
   test('league page shows current tier and competitors', async ({ page }) => {
     await page.goto('/league');
-    await page.waitForTimeout(3000);
 
     // Should show league tier
     const tierLabel = page.getByText(/bronze|silver|gold|platinum|diamond/i).first();
-    if (await tierLabel.isVisible()) {
-      await expect(tierLabel).toBeVisible();
-    }
+    await expect(tierLabel).toBeVisible({ timeout: 10000 });
   });
 });

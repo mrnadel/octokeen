@@ -481,8 +481,11 @@ export const useStore = create<AppState>()(
         }
 
         // If course data is not fully loaded yet, load it first then create session
+        // Only check standard lessons — conversation/speed-round/timeline/case-study
+        // lessons legitimately have questions=[] even when fully loaded.
         const courseStore = useCourseStore.getState();
-        const needsLoad = courseStore.courseData.some(u => u.lessons.some(l => l.questions.length === 0));
+        const SPECIAL_TYPES = new Set(['conversation', 'speed-round', 'timeline', 'case-study']);
+        const needsLoad = courseStore.courseData.some(u => u.lessons.some(l => !SPECIAL_TYPES.has(l.type ?? '') && l.questions.length === 0));
         if (needsLoad && !options?.resolvedQuestions) {
           // Set a loading flag so UI knows we're working
           set({ session: null });

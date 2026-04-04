@@ -27,6 +27,8 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
     const [highlightBucket, setHighlightBucket] = useState<number | null>(null);
     // Track the last known pointer position during drag (more reliable than onDragEnd info)
     const lastDragPoint = useRef<{ x: number; y: number } | null>(null);
+    // Track whether a real drag happened so we can suppress onTap after drag
+    const didDragRef = useRef(false);
     // Tap-to-assign: selected item waiting to be placed
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
@@ -61,7 +63,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
     // Check which bucket a point is over (with generous padding for easier drops)
     const getBucketAtPoint = useCallback((x: number, y: number): number | null => {
       const refs = [bucket0Ref, bucket1Ref];
-      const PAD = 18; // extra hit area
+      const PAD = 48; // large hit area for easy drops
       for (let i = 0; i < refs.length; i++) {
         const el = refs[i].current;
         if (!el) continue;
@@ -76,6 +78,10 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
         }
       }
       return null;
+    }, []);
+
+    const handleDragStart = useCallback(() => {
+      didDragRef.current = true;
     }, []);
 
     const handleDrag = useCallback((_: unknown, info: { point: { x: number; y: number } }) => {
@@ -101,9 +107,13 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
       }
     }, [answered, getBucketAtPoint]);
 
-    // Tap item to select it (tap-to-assign fallback)
+    // Tap item to select it (tap-to-assign fallback) — skip if we just finished dragging
     const handleItemTap = useCallback((originalIdx: number) => {
       if (answered) return;
+      if (didDragRef.current) {
+        didDragRef.current = false;
+        return;
+      }
       setSelectedItem((prev) => prev === originalIdx ? null : originalIdx);
     }, [answered]);
 
@@ -153,7 +163,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
         </div>
 
         {/* Question */}
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 12px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 12px' }}>
           <GlossaryText text={question.question} />
         </h2>
 
@@ -186,7 +196,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                       ? `${unitColor}08`
                       : `${unitColor}06`,
                   padding: '10px 10px',
-                  minHeight: 100,
+                  minHeight: 160,
                   transition: 'all 0.15s ease',
                   transform: isHighlighted ? 'scale(1.02)' : 'scale(1)',
                   cursor: isTargetable ? 'pointer' : 'default',
@@ -299,6 +309,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                     drag
                     dragSnapToOrigin
                     dragMomentum={false}
+                    onDragStart={handleDragStart}
                     onDrag={handleDrag}
                     onDragEnd={() => handleDragEnd(originalIdx)}
                     onTap={() => handleItemTap(originalIdx)}

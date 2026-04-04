@@ -46,9 +46,14 @@ function LoginPageInner() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [lockedUntil, setLockedUntil] = useState(0);
+
+  const isLocked = lockedUntil > Date.now();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLocked) return;
     setLoading(true);
     setError('');
 
@@ -60,7 +65,15 @@ function LoginPageInner() {
       });
 
       if (result?.error) {
-        setError('Invalid email or password');
+        const attempts = failedAttempts + 1;
+        setFailedAttempts(attempts);
+        if (attempts >= 5) {
+          const lockEnd = Date.now() + 15 * 60_000;
+          setLockedUntil(lockEnd);
+          setError('Too many failed attempts. Please wait 15 minutes before trying again.');
+        } else {
+          setError('Invalid email or password');
+        }
         setLoading(false);
       } else {
         analytics.auth({ action: 'login', method: 'credentials' });
@@ -139,17 +152,23 @@ function LoginPageInner() {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || isLocked}
           className="w-full py-3.5 bg-primary-500 hover:bg-primary-600 disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
           style={{
-            boxShadow: loading ? 'none' : '0 5px 0 #0F766E',
+            boxShadow: loading || isLocked ? 'none' : '0 5px 0 #0F766E',
           }}
         >
-          {loading ? 'Signing in...' : 'LOG IN'}
+          {loading ? 'Signing in...' : isLocked ? 'LOCKED' : 'LOG IN'}
         </button>
       </form>
 
-      <p className="text-center text-surface-400 text-sm font-semibold mt-8">
+      <p className="text-center mt-4">
+        <Link href="/forgot-password" className="text-sm text-surface-400 hover:text-surface-600 font-semibold transition-colors">
+          Forgot password?
+        </Link>
+      </p>
+
+      <p className="text-center text-surface-400 text-sm font-semibold mt-4">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="text-[#1CB0F6] font-bold">
           Sign up

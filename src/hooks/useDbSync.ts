@@ -11,6 +11,7 @@ import { streakMilestones } from '@/data/streak-milestones';
 import { PROFESSION_ID } from '@/data/professions';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { shallow } from 'zustand/shallow';
+import { useToastStore } from '@/components/ui/ToastNotification';
 
 /** Track gem transactions that have already been synced to avoid double-inserting. */
 let lastSyncedGemTxCount = 0;
@@ -102,9 +103,21 @@ export function useDbSync() {
             const mergedLessons = { ...db.completedLessons };
             for (const [id, localLesson] of Object.entries(local.completedLessons)) {
               const dbLesson = mergedLessons[id];
-              if (!dbLesson || localLesson.attempts > dbLesson.attempts ||
-                  localLesson.bestAccuracy > (dbLesson.bestAccuracy ?? 0)) {
+              if (!dbLesson) {
+                // Local has a lesson DB doesn't — keep it
                 mergedLessons[id] = localLesson;
+              } else {
+                // Both have this lesson — use timestamp to pick the freshest,
+                // then take the best accuracy/attempts from either side
+                const localTime = localLesson.lastAttempted ?? '';
+                const dbTime = dbLesson.lastAttempted ?? '';
+                const base = localTime >= dbTime ? localLesson : dbLesson;
+                mergedLessons[id] = {
+                  ...base,
+                  bestAccuracy: Math.max(localLesson.bestAccuracy ?? 0, dbLesson.bestAccuracy ?? 0),
+                  attempts: Math.max(localLesson.attempts ?? 0, dbLesson.attempts ?? 0),
+                  stars: Math.max(localLesson.stars ?? 0, dbLesson.stars ?? 0),
+                };
               }
             }
 
@@ -279,12 +292,27 @@ export function useDbSync() {
                   totalXp: current.totalXp + xp,
                 },
               });
+              useToastStore.getState().push({
+                icon: '\u2728',
+                title: `+${xp} XP added`,
+                subtitle: 'Your guest progress was saved to your account!',
+              });
             }
             sessionStorage.removeItem(STORAGE_KEYS.GUEST_XP);
           }
         } catch {}
       } catch (error) {
         console.error('Failed to hydrate from DB:', error);
+        // Notify user that sync failed so they know they're seeing cached data
+        if (!cancelled) {
+          const isTimeout = error instanceof DOMException && error.name === 'AbortError';
+          useToastStore.getState().push({
+            icon: '\u26A0\uFE0F',
+            title: isTimeout ? 'Sync timed out' : 'Could not sync progress',
+            subtitle: 'Using cached data. Your progress will sync when connection improves.',
+            duration: 5000,
+          });
+        }
       } finally {
         if (!cancelled) setIsHydrated(true);
       }

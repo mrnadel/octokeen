@@ -127,7 +127,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
           Match the pairs
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 16px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 16px' }}>
           <GlossaryText text={question.question} />
         </h2>
 

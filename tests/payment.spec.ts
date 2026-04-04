@@ -9,7 +9,6 @@ test.describe('Payment / upgrade flow', () => {
 
   test('pricing page shows monthly and yearly plans with prices', async ({ page }) => {
     await page.goto('/pricing');
-    await page.waitForTimeout(2000);
 
     // Should show price amounts
     await expect(page.getByText(/\$\d+\.\d{2}/i).first()).toBeVisible({ timeout: 10000 });
@@ -41,19 +40,22 @@ test.describe('Payment / upgrade flow', () => {
     });
 
     await page.goto('/pricing');
-    await page.waitForTimeout(2000);
 
     const ctaButton = page.getByRole('button', { name: /upgrade|subscribe|get pro|start/i }).first();
-    if (await ctaButton.isVisible()) {
-      await ctaButton.click();
-      await page.waitForTimeout(2000);
+    await expect(ctaButton).toBeVisible({ timeout: 10000 });
+    await ctaButton.click();
 
-      // Verify checkout API was called or Paddle was triggered
-      // (one of these should happen depending on the flow)
-      const paddleOpened = await page.evaluate(() => (window as Record<string, unknown>).__paddleCheckoutOpened);
-      // Either the API was called or we see some checkout UI
-      expect(checkoutCalled || paddleOpened).toBeTruthy();
-    }
+    // Wait for the checkout flow to trigger (API call or Paddle SDK)
+    await page.waitForFunction(
+      () => (window as Record<string, unknown>).__paddleCheckoutOpened === true,
+      { timeout: 10000 },
+    ).catch(() => {
+      // Paddle SDK may not have been triggered; checkout API might have been called instead
+    });
+
+    // Verify checkout API was called or Paddle was triggered
+    const paddleOpened = await page.evaluate(() => (window as Record<string, unknown>).__paddleCheckoutOpened);
+    expect(checkoutCalled || paddleOpened).toBeTruthy();
   });
 
   test('out-of-hearts modal shows upgrade option', async ({ page }) => {
@@ -66,23 +68,19 @@ test.describe('Payment / upgrade flow', () => {
     });
 
     await page.goto('/');
-    await page.waitForTimeout(2000);
 
     // Try to start a lesson (should trigger out-of-hearts)
-    const firstLesson = page.locator('button').filter({ hasText: /Force Systems|L1/i }).first();
-    if (await firstLesson.isVisible()) {
-      await firstLesson.click();
-      await page.waitForTimeout(2000);
+    const firstLesson = page.locator('button[aria-label^="Start:"]').first();
+    await expect(firstLesson).toBeVisible({ timeout: 10000 });
+    await firstLesson.click();
 
-      // Out of hearts modal should appear
-      const heartsModal = page.getByText(/out of hearts|no hearts|wait for hearts/i).first();
-      if (await heartsModal.isVisible()) {
-        await expect(heartsModal).toBeVisible();
-        // Should have upgrade button
-        const upgradeBtn = page.getByRole('button', { name: /upgrade|get pro|unlimited/i }).first();
-        await expect(upgradeBtn).toBeVisible();
-      }
-    }
+    // Out of hearts modal should appear
+    const heartsModal = page.getByText(/out of hearts|no hearts|wait for hearts/i).first();
+    await expect(heartsModal).toBeVisible({ timeout: 10000 });
+
+    // Should have upgrade button
+    const upgradeBtn = page.getByRole('button', { name: /upgrade|get pro|unlimited/i }).first();
+    await expect(upgradeBtn).toBeVisible();
   });
 
   test('refund policy page loads', async ({ page }) => {

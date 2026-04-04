@@ -36,6 +36,8 @@ export interface UnitBannerContentProps {
   professionId?: string;
   hasSections: boolean;
   sectionIndex?: number;
+  /** 1-based unit number within the current section (falls back to unitIndex+1) */
+  displayNumber?: number;
 }
 
 /**
@@ -47,8 +49,9 @@ export interface UnitBannerContentProps {
  */
 export function UnitBannerContent({
   unit, unitIndex, completedInUnit, totalInUnit, isAllGolden, theme,
-  professionId, hasSections, sectionIndex, morphable = false,
+  professionId, hasSections, sectionIndex, displayNumber, morphable = false,
 }: UnitBannerContentProps & { morphable?: boolean }) {
+  const unitNum = displayNumber ?? (unitIndex + 1);
   const background = getUnitBackground(unitIndex);
   const progressPercent = totalInUnit > 0 ? (completedInUnit / totalInUnit) * 100 : 0;
 
@@ -115,7 +118,7 @@ export function UnitBannerContent({
       >
         <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
           <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'rgba(255,255,255,0.6)' }}>
-            {hasSections ? `Section ${sectionIndex}, Unit ${unitIndex + 1}` : `Unit ${unitIndex + 1}`}
+            {hasSections ? `Section ${(sectionIndex ?? 0) + 1}, Unit ${unitNum}` : `Unit ${unitNum}`}
           </div>
           <div className="truncate" style={{ fontSize: sz(22, 17), fontWeight: 800, color: '#FFFFFF', lineHeight: 1.25 }}>
             {unit.title}
@@ -125,7 +128,7 @@ export function UnitBannerContent({
           </div>
           <div style={{ marginTop: 12, opacity: op(2.5), display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ flex: 1, height: 8, borderRadius: 4, background: 'rgba(0,0,0,0.15)', overflow: 'hidden' }}>
-              <div style={{ width: `${progressPercent}%`, height: '100%', borderRadius: 4, backgroundColor: '#FFFFFF', transition: 'width 0.4s ease' }} />
+              <div style={{ width: `${progressPercent}%`, height: '100%', borderRadius: 4, backgroundColor: '#FFFFFF', transition: morphable ? 'none' : 'width 0.4s ease' }} />
             </div>
             <span style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>
               {isAllGolden ? '\u2728 Mastered!' : `${completedInUnit}/${totalInUnit}`}
@@ -155,11 +158,13 @@ export const UnitHeroHeader = memo(
       professionId,
       hasSections,
       sectionIndex,
+      displayNumber,
       positionStyle,
       onBrowseClick,
     },
     ref,
   ) {
+    const unitNum = displayNumber ?? (unitIndex + 1);
     const bg = isAllGolden ? '#FFB800' : theme.color;
 
     return (
@@ -167,7 +172,8 @@ export const UnitHeroHeader = memo(
         ref={ref}
         style={
           {
-            '--mp': '0',
+            // --mp is managed exclusively via DOM API (scroll handler + useLayoutEffect)
+            // to prevent React re-renders from resetting it mid-frame.
             position: 'fixed',
             top: positionStyle.top,
             left: positionStyle.left,
@@ -180,8 +186,8 @@ export const UnitHeroHeader = memo(
         }
       >
         <div
-          className="mx-auto"
-          style={{ maxWidth: 544, padding: '0 12px', pointerEvents: 'auto' }}
+          className="mx-auto px-3 sm:px-4"
+          style={{ maxWidth: 520, pointerEvents: 'auto' }}
         >
           <button
             onClick={onBrowseClick}
@@ -192,16 +198,16 @@ export const UnitHeroHeader = memo(
               position: 'relative',
               overflow: 'hidden',
               background: bg,
-              borderRadius: px(24, 16),
+              borderRadius: 24,
               height: `max(0px, ${px(HERO_EXPANDED_HEIGHT, HERO_COMPACT_HEIGHT)})`,
-              opacity: `calc((1.5 - ${mp}) * 4)`,
+              opacity: `clamp(0, calc((${(HERO_EXPANDED_HEIGHT / HERO_MORPH_DISTANCE).toFixed(3)} - ${mp}) * 20), 1)`,
               border: 'none',
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              transition: 'background-color 0.3s ease',
+              boxShadow: `0 4px 12px rgba(0,0,0,calc(0.15 * clamp(0, (1.05 - ${mp}) * 20, 1)))`,
+
               WebkitTapHighlightColor: 'transparent',
             }}
-            aria-label={`Unit ${unitIndex + 1}: ${unit.title}. Tap to browse.`}
+            aria-label={`Unit ${unitNum}: ${unit.title}. Tap to browse.`}
           >
             <UnitBannerContent
               unit={unit}
@@ -213,6 +219,7 @@ export const UnitHeroHeader = memo(
               professionId={professionId}
               hasSections={hasSections}
               sectionIndex={sectionIndex}
+              displayNumber={displayNumber}
               morphable
             />
           </button>

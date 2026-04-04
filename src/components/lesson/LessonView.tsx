@@ -41,6 +41,7 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { GlossaryProvider } from '@/components/lesson/GlossaryContext';
+import { useNarration } from '@/hooks/useNarration';
 
 /**
  * Adapter for driving LessonView from an external data source (e.g. practice sessions).
@@ -82,6 +83,9 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const _exitLesson = useCourseStore((s) => s.exitLesson);
   const courseData = useCourseStore((s) => s.courseData);
   const activeProfession = useCourseStore((s) => s.activeProfession);
+
+  // Detect debug "all question types" lesson
+  const isDebugLesson = !adapter && activeLesson && courseData[activeLesson.unitIndex]?.id === 'debug-all-types';
 
   // === SHARED LOCAL STATE ===
   const [showExitConfirm, setShowExitConfirm] = useState(false);
@@ -567,6 +571,17 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   const displayQuestion = currentQuestion;
 
+  // === NARRATION ===
+  const { speak: narrateText, stop: stopNarration } = useNarration();
+  useEffect(() => {
+    if (!displayQuestion) return;
+    // Build the text to narrate: question text + hint if present
+    let text = displayQuestion.question || '';
+    if (displayQuestion.hint) text += '. ' + displayQuestion.hint;
+    narrateText(text);
+    return () => stopNarration();
+  }, [displayQuestion?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (!displayQuestion && !isNonStandard) return null;
 
   return (
@@ -668,6 +683,57 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
             total={resolvedTotalQuestions}
             color={isGolden ? '#FFB800' : unitColor}
           />
+
+          {/* Debug: prev/next for dev mode */}
+          {process.env.NODE_ENV === 'development' && activeLesson && (
+            <div style={{ display: 'flex', gap: 4 }}>
+              <button
+                onClick={() => {
+                  if (!activeLesson || activeLesson.currentQuestionIndex <= 0) return;
+                  useCourseStore.setState({
+                    activeLesson: { ...activeLesson, currentQuestionIndex: activeLesson.currentQuestionIndex - 1 },
+                  });
+                }}
+                disabled={activeLesson.currentQuestionIndex <= 0}
+                title="Previous question"
+                className="flex-shrink-0 transition-transform active:scale-90 disabled:opacity-30"
+                style={{
+                  width: 28, height: 28, borderRadius: 8,
+                  background: '#EDE9FE', border: '1px solid #C4B5FD',
+                  cursor: activeLesson.currentQuestionIndex > 0 ? 'pointer' : 'default',
+                  fontSize: 12, lineHeight: 1,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                ◀
+              </button>
+              <button
+                onClick={() => {
+                  if (!activeLesson) return;
+                  const maxIdx = activeLesson.sessionQuestionIds.length - 1;
+                  if (activeLesson.currentQuestionIndex >= maxIdx) {
+                    adapter ? adapter.complete() : _completeLesson();
+                    return;
+                  }
+                  useCourseStore.setState({
+                    activeLesson: { ...activeLesson, currentQuestionIndex: activeLesson.currentQuestionIndex + 1 },
+                  });
+                }}
+                title={activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? "Finish lesson" : "Next question"}
+                className="flex-shrink-0 transition-transform active:scale-90"
+                style={{
+                  width: 28, height: 28, borderRadius: 8,
+                  background: activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '#D1FAE5' : '#EDE9FE',
+                  border: `1px solid ${activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '#6EE7B7' : '#C4B5FD'}`,
+                  cursor: 'pointer',
+                  fontSize: 12, lineHeight: 1,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                {activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '✓' : '▶'}
+              </button>
+            </div>
+          )}
 
           {/* Debug: skip to end */}
           {process.env.NODE_ENV === 'development' && (

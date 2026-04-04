@@ -69,9 +69,20 @@ export default function HomePage() {
       const { professionId, unitIndex } = JSON.parse(raw);
       if (professionId) setActiveProfession(professionId);
       if (unitIndex > 0) {
-        useCourseStore.setState((s) => ({
-          progress: { ...s.progress, placementUnitIndex: unitIndex },
-        }));
+        useCourseStore.setState((s) => {
+          const prev = s.progress;
+          const prevIntro = prev.courseIntros?.[professionId];
+          return {
+            progress: {
+              ...prev,
+              placementUnitIndex: unitIndex,
+              courseIntros: prevIntro ? {
+                ...prev.courseIntros,
+                [professionId]: { ...prevIntro, placementUnitIndex: unitIndex },
+              } : prev.courseIntros,
+            },
+          };
+        });
       }
     } catch {}
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -219,7 +230,7 @@ export default function HomePage() {
                       ...(unitIndex > 0 ? { placementUnitIndex: unitIndex } : {}),
                       courseIntros: {
                         ...prev.courseIntros,
-                        ...(prevIntro ? { [activeProfession]: { ...prevIntro, placementDone: true } } : {}),
+                        ...(prevIntro ? { [activeProfession]: { ...prevIntro, placementDone: true, placementUnitIndex: unitIndex } } : {}),
                       },
                     },
                   };

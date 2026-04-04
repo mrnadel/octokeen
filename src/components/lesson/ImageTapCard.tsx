@@ -82,7 +82,7 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
           Tap the correct area
         </div>
 
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 10px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: c.title, lineHeight: 1.35, margin: '0 0 10px' }}>
           <GlossaryText text={question.question} />
         </h2>
 
@@ -165,20 +165,26 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
                   padding: 0,
                 }}
               >
-                {/* Zone label */}
-                <span style={{
-                  fontSize: 11, fontWeight: 800, color: 'white',
-                  background: answered && localCorrect !== null
-                    ? isCorrectZone ? '#58CC02' : isSelected && !isCorrectZone ? '#FF4B4B' : 'rgba(0,0,0,0.4)'
-                    : isSelected ? unitColor : 'rgba(0,0,0,0.4)',
-                  padding: '2px 8px', borderRadius: 6,
-                  transition: 'background 0.2s',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.2)',
-                }}>
-                  {zone.label}
-                  {answered && isCorrectZone && ' ✓'}
-                  {answered && isSelected && !isCorrectZone && ' ✗'}
-                </span>
+                {/* Zone label — hidden before answering to avoid giving away the answer */}
+                {answered && localCorrect !== null ? (
+                  <span style={{
+                    fontSize: 11, fontWeight: 800, color: 'white',
+                    background: isCorrectZone ? '#58CC02' : isSelected && !isCorrectZone ? '#FF4B4B' : 'rgba(0,0,0,0.4)',
+                    padding: '2px 8px', borderRadius: 6,
+                    transition: 'background 0.2s',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                  }}>
+                    {zone.label}
+                    {isCorrectZone && ' ✓'}
+                    {isSelected && !isCorrectZone && ' ✗'}
+                  </span>
+                ) : isSelected ? (
+                  <span style={{
+                    width: 10, height: 10, borderRadius: '50%',
+                    background: unitColor,
+                    boxShadow: `0 0 0 3px ${unitColor}40`,
+                  }} />
+                ) : null}
               </motion.button>
             );
           })}

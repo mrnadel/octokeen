@@ -21,6 +21,7 @@ import { awardStreakMilestones } from '@/lib/streak-rewards';
 import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
 import { getLevelForXp } from '@/data/levels';
 import { getLevelReward, type LevelReward } from '@/data/level-rewards';
+import { DEBUG_ALL_TYPES_UNIT } from '@/data/debug-all-question-types';
 
 /** Check if a lesson's content is loaded (not just lightweight metadata). */
 function isLessonContentLoaded(lesson: Lesson): boolean {
@@ -82,6 +83,7 @@ interface CourseState {
   chapterJustCompleted: ChapterCompletion | null;
   courseJustCompleted: boolean;
   pendingCelebrations: CelebrationEvent[];
+  contentLoadError: string | null;
 
   // Placement test state
   activePlacementTest: PlacementTest | null;
@@ -101,6 +103,7 @@ interface CourseState {
   dismissChapterCompletion: () => void;
   dismissCourseCompletion: () => void;
   dismissNextCelebration: () => void;
+  dismissContentLoadError: () => void;
 
   // Placement test actions
   startPlacementTest: (targetUnitIndex: number) => void;
@@ -123,6 +126,7 @@ interface CourseState {
   _applyDebugProgress: (lessonCount: number, goldenCount?: number) => void;
   debugSkipToUnit: (targetUnitIndex: number) => void;
   debugSkipToLesson: (unitIndex: number, lessonIndex: number) => void;
+  debugStartAllTypes: () => void;
 
   // Helpers
   isLessonUnlocked: (unitIndex: number, lessonIndex: number) => boolean;
@@ -185,6 +189,7 @@ export const useCourseStore = create<CourseState>()(
       chapterJustCompleted: null,
       courseJustCompleted: false,
       pendingCelebrations: [],
+      contentLoadError: null,
       activePlacementTest: null,
       placementTestResult: null,
 
@@ -192,7 +197,21 @@ export const useCourseStore = create<CourseState>()(
 
       setActiveProfession: (id: string) => {
         const meta = getCourseMetaForProfession(id);
-        set({ activeProfession: id, courseData: meta as Unit[] });
+        set((s) => {
+          // Restore per-profession placement (or clear if none)
+          const introPlacement = s.progress.courseIntros?.[id]?.placementUnitIndex;
+          return {
+            activeProfession: id,
+            courseData: meta as Unit[],
+            activeLesson: null,
+            lessonResult: null,
+            chapterJustCompleted: null,
+            courseJustCompleted: false,
+            pendingCelebrations: [],
+            contentLoadError: null,
+            progress: { ...s.progress, placementUnitIndex: introPlacement },
+          };
+        });
       },
 
       startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => {
@@ -214,6 +233,7 @@ export const useCourseStore = create<CourseState>()(
         // If content is not loaded yet (lightweight metadata), load the
         // full unit data dynamically and then retry.
         if (!isLessonContentLoaded(lesson)) {
+          set({ contentLoadError: null });
           loadUnitData(unitIndex, get().activeProfession).then((fullUnit) => {
             // Patch courseData with the loaded unit
             const updated = [...get().courseData];
@@ -225,9 +245,11 @@ export const useCourseStore = create<CourseState>()(
               get().startLesson(unitIndex, lessonIndex, golden);
             } else {
               console.error('[startLesson] Unit data loaded but lesson content still empty:', unitIndex, lessonIndex);
+              set({ contentLoadError: 'Lesson content could not be loaded. Please try again.' });
             }
           }).catch((err) => {
             console.error('[startLesson] Failed to load unit data:', err);
+            set({ contentLoadError: 'Failed to load lesson. Check your connection and try again.' });
           });
           return;
         }
@@ -601,6 +623,10 @@ export const useCourseStore = create<CourseState>()(
         }
 
         set({ pendingCelebrations: celebrations.slice(1) });
+      },
+
+      dismissContentLoadError: () => {
+        set({ contentLoadError: null });
       },
 
       // ── Placement Test Actions ────────────────────────────────────
@@ -1143,6 +1169,25 @@ export const useCourseStore = create<CourseState>()(
           }
         }
         set({ progress: { ...progress, completedLessons: newCompleted } });
+      },
+
+      debugStartAllTypes: () => {
+        const debugUnit = DEBUG_ALL_TYPES_UNIT;
+        const debugUnitIndex = get().courseData.length;
+        const updated = [...get().courseData, debugUnit];
+        set({
+          courseData: updated,
+          activeLesson: {
+            unitIndex: debugUnitIndex,
+            lessonIndex: 0,
+            currentQuestionIndex: 0,
+            answers: [],
+            startTime: Date.now(),
+            sessionQuestionIds: debugUnit.lessons[0].questions.map(q => q.id),
+            isGolden: false,
+          },
+          lessonResult: null,
+        });
       },
 
       isLessonUnlocked: (unitIndex: number, lessonIndex: number) => {

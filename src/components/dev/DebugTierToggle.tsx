@@ -487,6 +487,23 @@ export function DebugTierToggle() {
             <QuestionSearch />
           </div>
 
+          {/* Test All Question Types */}
+          <div className="border-t border-gray-200 mt-3 pt-3">
+            <button
+              onClick={() => {
+                useCourseStore.getState().debugStartAllTypes();
+                setIsOpen(false);
+              }}
+              className="w-full px-3 py-2 rounded-lg text-[11px] font-bold text-white transition-colors hover:opacity-90"
+              style={{ background: '#8B5CF6' }}
+            >
+              Test All Question Types
+            </button>
+            <p className="mt-1 text-[10px] text-gray-400">
+              Starts a fake lesson with all 14 question types
+            </p>
+          </div>
+
         </div>
       )}
       <button

@@ -126,9 +126,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (inviterCount < 50 && userCount < 50) {
               const [low, high] = sortFriendPair(user.id, inviterId);
               await db.insert(friendships).values({ userId: low, friendId: high }).onConflictDoNothing();
+              cookieStore.delete('invite_ref');
             }
-
-            cookieStore.delete('invite_ref');
+            // If friend limit reached, keep the cookie so invite can be retried
           }
         } catch {
           // Non-critical — don't block sign-in

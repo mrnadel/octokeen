@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   const [user] = await db
-    .select({ passwordHash: users.passwordHash, country: users.country, profilePublic: users.profilePublic })
+    .select({ passwordHash: users.passwordHash, country: users.country, profilePublic: users.profilePublic, emailVerified: users.emailVerified })
     .from(users)
     .where(eq(users.id, userId))
     .limit(1);
@@ -32,6 +32,7 @@ export async function GET() {
     hasPassword: !isOAuthOnly && !!user?.passwordHash,
     country: user?.country ?? null,
     profilePublic: user?.profilePublic ?? true,
+    emailVerified: user?.emailVerified ? true : false,
   });
 }
 

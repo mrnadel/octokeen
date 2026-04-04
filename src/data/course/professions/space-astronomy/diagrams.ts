@@ -1000,6 +1000,117 @@ function buildBestTimesToStargaze(): string {
 }
 
 // =====================================================================
+// IMAGE-TAP DIAGRAMS (Section 1: Looking Up)
+// =====================================================================
+
+/** Celestial Sphere — side view with equator, poles, ecliptic arc */
+function buildCelestialSphereImageTap(): string {
+  const W = 400, H = 300;
+  const cx = 200, cy = 150, r = 120;
+
+  const defs =
+    glowGradient('cs-earth', '#4A90D9', 0.8, 0) +
+    `<clipPath id="cs-clip"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath>`;
+
+  // Sphere outline
+  const sphere = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#6366F1" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>`;
+
+  // Earth in center
+  const e = earth(cx, cy, 22, 'cs');
+
+  // Celestial equator — horizontal line through center
+  const eqY = cy;
+  const equator = `<line x1="${cx - r}" y1="${eqY}" x2="${cx + r}" y2="${eqY}" stroke="#22D3EE" stroke-width="2.5" opacity="0.85"/>`;
+
+  // North Celestial Pole — dot at top
+  const ncp = `<circle cx="${cx}" cy="${cy - r}" r="5" fill="#F59E0B"/>` +
+    `<circle cx="${cx}" cy="${cy - r}" r="2.5" fill="#FDE68A"/>`;
+  // Polaris label near NCP
+  const polarisLabel = label(cx + 14, cy - r + 1, 'Polaris', { color: '#FDE68A', size: 9, anchor: 'start' });
+
+  // South Celestial Pole — dot at bottom
+  const scp = `<circle cx="${cx}" cy="${cy + r}" r="5" fill="#F59E0B"/>` +
+    `<circle cx="${cx}" cy="${cy + r}" r="2.5" fill="#FDE68A"/>`;
+
+  // Ecliptic — tilted arc (23.5° tilt approximated)
+  const tilt = 28;
+  const ecliptic = `<ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r * 0.38}" ` +
+    `transform="rotate(-${tilt} ${cx} ${cy})" ` +
+    `fill="none" stroke="#EC4899" stroke-width="2" stroke-dasharray="6 4" opacity="0.8"/>`;
+
+  // Axis line (faint, connecting poles through Earth)
+  const axis = `<line x1="${cx}" y1="${cy - r - 8}" x2="${cx}" y2="${cy + r + 8}" stroke="white" stroke-width="1" opacity="0.2" stroke-dasharray="3 3"/>`;
+
+  const body =
+    darkBg(W, H) +
+    starField(4, W, H) +
+    axis +
+    sphere +
+    ecliptic +
+    equator +
+    e.body +
+    ncp + scp +
+    polarisLabel;
+
+  return makeSvg(W, H, e.defs + defs, body);
+}
+
+/** Night Sky Objects — scene with Moon, planet, stars, satellite, meteor */
+function buildNightSkyObjectsImageTap(): string {
+  const W = 400, H = 280;
+
+  const defs =
+    glowGradient('ns-planet', '#FBBF24', 0.9, 0) +
+    glowGradient('ns-star1', 'white', 0.6, 0) +
+    glowGradient('ns-star2', 'white', 0.5, 0);
+
+  // Horizon with hills
+  const ground = hillSilhouette(W, H, 245);
+
+  // Crescent moon — top-left area
+  const moonBody = `<circle cx="72" cy="58" r="22" fill="#FDE68A"/>` +
+    `<circle cx="82" cy="50" r="18" fill="#0F172A"/>` +
+    `<circle cx="72" cy="58" r="22" fill="none" stroke="#4B4B4B" stroke-width="1"/>`;
+
+  // Planet (Venus) — bright steady glow, right area
+  const planetGlow = `<circle cx="310" cy="92" r="12" fill="url(#ns-planet)" opacity="0.5"/>` +
+    `<circle cx="310" cy="92" r="5" fill="#FBBF24"/>` +
+    `<circle cx="310" cy="92" r="3" fill="#FEF3C7"/>`;
+
+  // Stars — small twinkling dots scattered around
+  const starPositions = [
+    { x: 150, y: 42 }, { x: 220, y: 70 }, { x: 48, y: 130 },
+    { x: 340, y: 40 }, { x: 275, y: 150 }, { x: 175, y: 170 },
+    { x: 120, y: 100 }, { x: 365, y: 130 },
+  ];
+  const stars = starPositions.map((s, i) =>
+    `<circle cx="${s.x}" cy="${s.y}" r="1.8" fill="white" opacity="0.7">` +
+    `${twinkleAnim(0.4, 1, 2 + (i % 3))}` +
+    `</circle>`
+  ).join('');
+
+  // Satellite — slow-moving dim dot, mid-sky with trail
+  const satTrail = `<line x1="130" y1="195" x2="190" y2="180" stroke="white" stroke-width="0.8" opacity="0.15"/>`;
+  const satellite = `<circle cx="190" cy="180" r="2.5" fill="white" opacity="0.8"/>`;
+
+  // Meteor — fast bright streak, upper area
+  const met = meteorStreak(240, 30, 290, 55, { headR: 3 });
+
+  const body =
+    darkBg(W, H) +
+    starField(3, W, H, 7) +
+    stars +
+    moonBody +
+    planetGlow +
+    satTrail + satellite +
+    met +
+    ground;
+
+  return makeSvg(W, H, defs, body);
+}
+
+
+// =====================================================================
 // REGISTRY
 // =====================================================================
 
@@ -1037,4 +1148,8 @@ export const spaceDiagrams: Record<string, string> = {
   'sp-u1-L5-Q2': buildCityVsDark(),
   'sp-u1-L5-T2': buildWhatToLookFor(),
   'sp-u1-L5-T3': buildBestTimesToStargaze(),
+
+  // Section 1 image-tap diagrams
+  'sp-sec1-u3-L3-TAP': buildCelestialSphereImageTap(),
+  'sp-sec1-u6-L3-TAP': buildNightSkyObjectsImageTap(),
 };

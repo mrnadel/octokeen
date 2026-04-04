@@ -13,7 +13,7 @@ export default function LessonProgressBar({ current, total, color }: LessonProgr
   const c = useLessonColors();
   return (
     <div
-      className="flex items-center flex-1"
+      className="flex items-center flex-1 min-w-0"
       style={{ gap: 5 }}
       role="progressbar"
       aria-valuenow={current}

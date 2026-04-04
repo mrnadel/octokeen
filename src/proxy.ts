@@ -15,6 +15,9 @@ const authRequiredPrefixes = [
   '/onboarding',
   '/checkout',
   '/admin',
+  '/league',
+  '/practice',
+  '/switch-course',
 ];
 
 // Routes that require Pro subscription — gated on the client side via
