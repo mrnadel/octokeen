@@ -26,7 +26,8 @@ const px = (from: number, to: number) =>
 /** Opacity that fades to 0 at mp = 1/speed */
 const fade = (speed: number) => `calc(1 - ${mp} * ${speed})`;
 
-interface UnitHeroHeaderProps {
+// ── Shared banner content props ──────────────────────────────
+export interface UnitBannerContentProps {
   unit: Unit;
   unitIndex: number;
   completedInUnit: number;
@@ -36,6 +37,114 @@ interface UnitHeroHeaderProps {
   professionId?: string;
   hasSections: boolean;
   sectionIndex?: number;
+}
+
+/**
+ * Shared banner interior used by both the floating header and the inline
+ * banners in the course map. Keeps visuals identical so the handoff is seamless.
+ *
+ * When `morphable` is true (floating header), sizes/opacities use CSS calc()
+ * driven by --mp. When false (inline banner), everything is at expanded size.
+ */
+export function UnitBannerContent({
+  unit, unitIndex, completedInUnit, totalInUnit, isAllGolden, theme,
+  professionId, hasSections, sectionIndex, morphable = false,
+}: UnitBannerContentProps & { morphable?: boolean }) {
+  const background = getUnitBackground(unitIndex);
+  const progressPercent = totalInUnit > 0 ? (completedInUnit / totalInUnit) * 100 : 0;
+
+  const imageOverride = process.env.NODE_ENV === 'development'
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    ? useDevImageStore((s) => s.overrides[unit.id])
+    : undefined;
+  const effectiveHeaderBg = imageOverride ?? unit.headerBg;
+
+  // When morphable, use CSS-var-driven calc; otherwise static expanded values
+  const sz = morphable ? px : (from: number, _to: number) => `${from}px`;
+  const op = morphable ? fade : () => '1';
+
+  return (
+    <>
+      {/* Background pattern / image */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          ...(effectiveHeaderBg
+            ? { backgroundImage: `url(${effectiveHeaderBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+            : { backgroundImage: background.css, backgroundSize: background.size ?? 'auto' }),
+          opacity: effectiveHeaderBg ? 1 : (morphable ? fade(1.8) : 1),
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Dev: header image upload button */}
+      {process.env.NODE_ENV === 'development' && (
+        <div
+          onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
+          style={{ opacity: op(2.5), pointerEvents: 'auto' }}
+        >
+          <DebugHeaderImage unitId={unit.id} />
+        </div>
+      )}
+
+      {/* Readability gradient */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: effectiveHeaderBg
+            ? 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.4) 100%)'
+            : 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)',
+          opacity: effectiveHeaderBg ? 1 : op(2.5),
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'flex-start',
+          padding: `${sz(20, 10)} ${sz(20, 16)} ${sz(16, 12)}`,
+          height: '100%',
+          gap: 12,
+        }}
+      >
+        <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
+          <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'rgba(255,255,255,0.6)' }}>
+            {hasSections ? `Section ${sectionIndex}, Unit ${unitIndex + 1}` : `Unit ${unitIndex + 1}`}
+          </div>
+          <div className="truncate" style={{ fontSize: sz(22, 17), fontWeight: 800, color: '#FFFFFF', lineHeight: 1.25 }}>
+            {unit.title}
+          </div>
+          <div className="line-clamp-2" style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginTop: 4, opacity: op(2.5), lineHeight: 1.35 }}>
+            {unit.description}
+          </div>
+          <div style={{ marginTop: 12, opacity: op(2.5), display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ flex: 1, height: 8, borderRadius: 4, background: 'rgba(0,0,0,0.15)', overflow: 'hidden' }}>
+              <div style={{ width: `${progressPercent}%`, height: '100%', borderRadius: 4, backgroundColor: '#FFFFFF', transition: 'width 0.4s ease' }} />
+            </div>
+            <span style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>
+              {isAllGolden ? '\u2728 Mastered!' : `${completedInUnit}/${totalInUnit}`}
+            </span>
+          </div>
+        </div>
+
+        {!effectiveHeaderBg && (
+          <div style={{ width: sz(72, 34), height: sz(72, 34), flexShrink: 0, alignSelf: 'center', opacity: op(1.667) }}>
+            <UnitIllustration unitIndex={unitIndex} color="#FFFFFF" className="w-full h-full" professionId={professionId} />
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+interface UnitHeroHeaderProps extends UnitBannerContentProps {
   positionStyle: { top: number; left: number; width: number };
   onBrowseClick: () => void;
 }
@@ -58,16 +167,6 @@ export const UnitHeroHeader = memo(
     ref,
   ) {
     const bg = isAllGolden ? '#FFB800' : theme.color;
-    const background = getUnitBackground(unitIndex);
-    const progressPercent =
-      totalInUnit > 0 ? (completedInUnit / totalInUnit) * 100 : 0;
-
-    // Dev-only image override (store is only used in dev builds)
-    const imageOverride = process.env.NODE_ENV === 'development'
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      ? useDevImageStore((s) => s.overrides[unit.id])
-      : undefined;
-    const effectiveHeaderBg = imageOverride ?? unit.headerBg;
 
     return (
       <div
@@ -110,169 +209,18 @@ export const UnitHeroHeader = memo(
             }}
             aria-label={`Unit ${unitIndex + 1}: ${unit.title}. Tap to browse.`}
           >
-            {/* Background pattern */}
-            <div
-              aria-hidden
-              style={{
-                position: 'absolute',
-                inset: 0,
-                ...(effectiveHeaderBg
-                  ? { backgroundImage: `url(${effectiveHeaderBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }
-                  : { backgroundImage: background.css, backgroundSize: background.size ?? 'auto' }),
-                // Keep image visible in compact mode; fade CSS patterns
-                opacity: effectiveHeaderBg ? 1 : fade(1.8),
-                pointerEvents: 'none',
-              }}
+            <UnitBannerContent
+              unit={unit}
+              unitIndex={unitIndex}
+              completedInUnit={completedInUnit}
+              totalInUnit={totalInUnit}
+              isAllGolden={isAllGolden}
+              theme={theme}
+              professionId={professionId}
+              hasSections={hasSections}
+              sectionIndex={sectionIndex}
+              morphable
             />
-
-            {/* Dev: header image upload button (fades with expanded state) */}
-            {process.env.NODE_ENV === 'development' && (
-              <div
-                onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
-                style={{ opacity: fade(2.5), pointerEvents: 'auto' }}
-              >
-                <DebugHeaderImage unitId={unit.id} />
-              </div>
-            )}
-
-            {/* Bottom readability gradient — stronger when bg image is set */}
-            <div
-              aria-hidden
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: '60%',
-                background: effectiveHeaderBg
-                  ? 'linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%)'
-                  : 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)',
-                opacity: effectiveHeaderBg ? 1 : fade(2.5),
-                pointerEvents: 'none',
-              }}
-            />
-
-            {/* Content — blur backdrop for readability over noisy bg images */}
-            <div
-              style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'flex-start',
-                padding: `${px(20, 10)} ${px(20, 16)} ${px(16, 12)}`,
-                height: '100%',
-                gap: 12,
-                ...(effectiveHeaderBg ? {
-                  background: 'rgba(0,0,0,0.25)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                } : {}),
-              }}
-            >
-              {/* Left text */}
-              <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
-                <div
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: 1.2,
-                    color: 'rgba(255,255,255,0.6)',
-                  }}
-                >
-                  {hasSections
-                    ? `Section ${sectionIndex}, Unit ${unitIndex + 1}`
-                    : `Unit ${unitIndex + 1}`}
-                </div>
-
-                <div
-                  className="truncate"
-                  style={{
-                    fontSize: px(22, 17),
-                    fontWeight: 800,
-                    color: '#FFFFFF',
-                    lineHeight: 1.25,
-                  }}
-                >
-                  {unit.title}
-                </div>
-
-                {/* Description — always rendered, CSS opacity fades it */}
-                <div
-                  className="line-clamp-2"
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: 'rgba(255,255,255,0.7)',
-                    marginTop: 4,
-                    opacity: fade(2.5),
-                    lineHeight: 1.35,
-                  }}
-                >
-                  {unit.description}
-                </div>
-
-                {/* Progress bar */}
-                <div
-                  style={{
-                    marginTop: 12,
-                    opacity: fade(2.5),
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      flex: 1,
-                      height: 8,
-                      borderRadius: 4,
-                      background: 'rgba(0,0,0,0.15)',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: `${progressPercent}%`,
-                        height: '100%',
-                        borderRadius: 4,
-                        backgroundColor: '#FFFFFF',
-                        transition: 'width 0.4s ease',
-                      }}
-                    />
-                  </div>
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 800,
-                      color: 'rgba(255,255,255,0.75)',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {isAllGolden
-                      ? '\u2728 Mastered!'
-                      : `${completedInUnit}/${totalInUnit}`}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right: unit illustration (fades out as header compacts) */}
-              <div
-                style={{
-                  width: px(72, 34),
-                  height: px(72, 34),
-                  flexShrink: 0,
-                  alignSelf: 'center',
-                  opacity: fade(1.667),
-                }}
-              >
-                <UnitIllustration
-                  unitIndex={unitIndex}
-                  color="#FFFFFF"
-                  className="w-full h-full"
-                  professionId={professionId}
-                />
-              </div>
-            </div>
           </button>
         </div>
       </div>
