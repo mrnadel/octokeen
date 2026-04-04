@@ -523,6 +523,16 @@ export function CourseMap() {
           const scrolled = (topOffset + HERO_COMPACT_HEIGHT) - visibleEl.getBoundingClientRect().top;
           mp = Math.min(1, Math.max(0, (scrolled * 2) / HERO_MORPH_DISTANCE));
         }
+        // 4. Squash: shrink to 0 when approaching the next unit's banner
+        const nextUnitEl = unitElsRef.current[newIndex + 1];
+        if (nextUnitEl) {
+          const availableHeight = nextUnitEl.getBoundingClientRect().top - topOffset - 6;
+          if (availableHeight < HERO_EXPANDED_HEIGHT) {
+            const squashMp = (HERO_EXPANDED_HEIGHT - Math.max(0, availableHeight)) / HERO_MORPH_DISTANCE;
+            mp = Math.max(mp, squashMp);
+          }
+        }
+
         morphValueRef.current = mp;
         heroRef.current.style.setProperty('--mp', mp.toFixed(3));
       }
