@@ -33,8 +33,6 @@ import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { PROFESSION_ID } from '@/data/professions';
 import { HeartDisplay } from '@/components/ui/HeartDisplay';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
-import EngineeringCalculator from '@/components/calculator/EngineeringCalculator';
-import FinanceCalculators from '@/components/calculator/FinanceCalculators';
 import { GameButton } from '@/components/ui/GameButton';
 import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
@@ -1448,98 +1446,13 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         />
 
         {/* Exit confirmation modal */}
-        <AnimatePresence>
-          {showExitConfirm && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center"
-              onClick={handleCancelExit}
-            >
-              <div className="absolute inset-0 bg-black/40" />
-              <motion.div
-                ref={exitDialogRef}
-                className="relative w-full sm:w-auto"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="exit-confirm-title"
-                style={{
-                  maxWidth: 480,
-                  borderRadius: 24,
-                  padding: '20px 20px 32px',
-                  background: c.cardBg,
-                }}
-                initial={{ y: '100%', opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: '100%', opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <p
-                  id="exit-confirm-title"
-                  style={{
-                    fontSize: 19,
-                    fontWeight: 800,
-                    color: c.title,
-                    marginBottom: 4,
-                  }}
-                >
-                  {exitConfirmTitle}
-                </p>
-                <p
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: c.subtitle,
-                    marginBottom: 20,
-                  }}
-                >
-                  {exitConfirmMessage}
-                </p>
-                <div className="flex" style={{ gap: 12 }}>
-                  <motion.button
-                    data-testid="keep-going-button"
-                    onClick={handleCancelExit}
-                    whileTap={{ y: 3, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } }}
-                    className="flex-1"
-                    style={{
-                      padding: '14px 0',
-                      borderRadius: 16,
-                      fontSize: 14,
-                      fontWeight: 800,
-                      color: c.subtitle,
-                      background: c.skipBg,
-                      boxShadow: '0 3px 0 #E0E0E0',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Keep going
-                  </motion.button>
-                  <motion.button
-                    onClick={handleConfirmExit}
-                    whileTap={{ y: 4, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } }}
-                    className="flex-1"
-                    style={{
-                      padding: '14px 0',
-                      borderRadius: 16,
-                      fontSize: 14,
-                      fontWeight: 800,
-                      color: '#FFFFFF',
-                      background: '#FF4B4B',
-                      boxShadow: '0 4px 0 #CC2D2D',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Quit
-                  </motion.button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <LessonExitConfirmModal
+          show={showExitConfirm}
+          title={exitConfirmTitle}
+          message={exitConfirmMessage}
+          onConfirm={handleConfirmExit}
+          onCancel={handleCancelExit}
+        />
       </motion.div>
 
     </AnimatePresence>
