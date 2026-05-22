@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { db } from '@/lib/db';
 import { featureFlags } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
 import { FLAG_DEFINITIONS } from '@/lib/feature-flags';
+
+const patchFlagSchema = z.object({
+  key: z.string().min(1),
+  enabled: z.boolean(),
+});
 function isAdmin(userId: string | undefined | null) {
   return userId === process.env.ADMIN_USER_ID;
 }
@@ -45,10 +51,18 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 
-  const { key, enabled } = await req.json();
-  if (typeof key !== 'string' || typeof enabled !== 'boolean') {
+  let rawBody: unknown;
+  try {
+    rawBody = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const parsed = patchFlagSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid body: need { key: string, enabled: boolean }' }, { status: 400 });
   }
+  const { key, enabled } = parsed.data;
 
   // Validate key exists in definitions
   if (!FLAG_DEFINITIONS.find((f) => f.key === key)) {

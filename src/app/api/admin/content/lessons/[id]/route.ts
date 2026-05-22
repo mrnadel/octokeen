@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseLessons } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
 const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
+
+const updateLessonSchema = z.object({
+  unitId: z.string().min(1).optional(),
+  title: z.string().min(1).max(200).optional(),
+  description: z.string().max(1000).optional(),
+  icon: z.string().max(100).optional(),
+  xpReward: z.number().int().min(0).optional(),
+  orderIndex: z.number().int().min(0).optional(),
+}).refine((data) => Object.keys(data).length > 0, { message: 'No valid fields to update' });
 
 export async function PUT(
   req: NextRequest,
@@ -16,25 +26,18 @@ export async function PUT(
   }
 
   const { id } = await params;
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  // Allowlist fields to prevent mass assignment
-  const allowedFields: Record<string, unknown> = {};
-  if (body.unitId !== undefined) allowedFields.unitId = body.unitId;
-  if (body.title !== undefined) allowedFields.title = body.title;
-  if (body.description !== undefined) allowedFields.description = body.description;
-  if (body.icon !== undefined) allowedFields.icon = body.icon;
-  if (body.xpReward !== undefined) allowedFields.xpReward = body.xpReward;
-  if (body.orderIndex !== undefined) allowedFields.orderIndex = body.orderIndex;
-
-  if (Object.keys(allowedFields).length === 0) {
-    return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+  const parsed = updateLessonSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
+  const allowedFields = parsed.data;
 
   const [updated] = await db
     .update(courseLessons)

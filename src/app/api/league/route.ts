@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { assignUserToLeague, getLeagueLeaderboard, updateMemberXp } from '@/lib/league-matching';
+
+const postLeagueSchema = z.object({
+  tier: z.number().int().min(1).max(5),
+  weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  weeklyXp: z.number().min(0).optional(),
+});
+
+const patchLeagueSchema = z.object({
+  weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  xpDelta: z.number().int().min(1).max(2500),
+});
 
 function isMonday(dateStr: string): boolean {
   const d = new Date(dateStr + 'T00:00:00Z');
@@ -41,23 +53,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: { tier?: number; weekStart?: string; weeklyXp?: number };
+  let rawBody: unknown;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { tier, weekStart } = body;
-
-  if (!tier || tier < 1 || tier > 5 || !Number.isInteger(tier)) {
-    return NextResponse.json({ error: 'Invalid tier (must be 1-5)' }, { status: 400 });
+  const postResult = postLeagueSchema.safeParse(rawBody);
+  if (!postResult.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
-  if (!weekStart || !/^\d{4}-\d{2}-\d{2}$/.test(weekStart) || !isMonday(weekStart)) {
+  const { tier, weekStart, weeklyXp } = postResult.data;
+
+  if (!isMonday(weekStart)) {
     return NextResponse.json({ error: 'Invalid weekStart (must be a Monday)' }, { status: 400 });
   }
-  const initialXp = typeof body.weeklyXp === 'number' && body.weeklyXp >= 0
-    ? Math.min(Math.floor(body.weeklyXp), 5000)
+  const initialXp = typeof weeklyXp === 'number' && weeklyXp >= 0
+    ? Math.min(Math.floor(weeklyXp), 5000)
     : 0;
 
   const groupId = await assignUserToLeague(userId, tier as 1 | 2 | 3 | 4 | 5, weekStart, initialXp);
@@ -77,22 +90,21 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: { weekStart?: string; xpDelta?: number };
+  let rawPatchBody: unknown;
   try {
-    body = await request.json();
+    rawPatchBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { weekStart, xpDelta } = body;
-
-  if (!weekStart || !/^\d{4}-\d{2}-\d{2}$/.test(weekStart) || !isMonday(weekStart)) {
-    return NextResponse.json({ error: 'Invalid weekStart (must be a Monday)' }, { status: 400 });
+  const patchResult = patchLeagueSchema.safeParse(rawPatchBody);
+  if (!patchResult.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
-  // Cap per-request XP — covers 10 questions × 200 XP max × accuracy bonus × double-XP × event multiplier
-  const MAX_XP_PER_REQUEST = 2500;
-  if (typeof xpDelta !== 'number' || xpDelta <= 0 || xpDelta > MAX_XP_PER_REQUEST) {
-    return NextResponse.json({ error: `Invalid xpDelta (must be 1-${MAX_XP_PER_REQUEST})` }, { status: 400 });
+  const { weekStart, xpDelta } = patchResult.data;
+
+  if (!isMonday(weekStart)) {
+    return NextResponse.json({ error: 'Invalid weekStart (must be a Monday)' }, { status: 400 });
   }
 
   await updateMemberXp(userId, weekStart, Math.floor(xpDelta));

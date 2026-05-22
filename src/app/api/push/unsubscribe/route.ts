@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { pushSubscriptions } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
+
+const unsubscribeSchema = z.object({
+  endpoint: z.string().min(1),
+});
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -10,17 +15,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { endpoint } = body as { endpoint?: string };
 
-  if (!endpoint) {
+  const parsed = unsubscribeSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Missing endpoint' }, { status: 400 });
   }
+  const { endpoint } = parsed.data;
 
   await db
     .delete(pushSubscriptions)

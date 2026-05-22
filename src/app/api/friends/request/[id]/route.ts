@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendRequests, friendships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { sortFriendPair, isFriendCapReached } from '@/lib/db/friends';
+
+const patchSchema = z.object({
+  action: z.enum(['accept', 'decline']),
+});
 
 export async function PATCH(
   request: Request,
@@ -21,11 +26,12 @@ export async function PATCH(
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
-  const { action } = body;
 
-  if (action !== 'accept' && action !== 'decline') {
-    return NextResponse.json({ error: 'action must be "accept" or "decline"' }, { status: 400 });
+  const result = patchSchema.safeParse(body);
+  if (!result.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
+  const { action } = result.data;
 
   const [req] = await db
     .select()

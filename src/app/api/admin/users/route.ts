@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { db } from '@/lib/db';
 import { users, userProgress, subscriptions, courseAccess } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
 import { eq, desc, inArray } from 'drizzle-orm';
 import { cleanupBeforeBulkDeletion } from '@/lib/account-cleanup';
+
+const patchUserSchema = z.object({
+  userId: z.string().min(1),
+  tier: z.enum(['free', 'pro']),
+});
+
+const deleteUserSchema = z.union([
+  z.object({ userId: z.string().min(1), userIds: z.undefined() }),
+  z.object({ userIds: z.array(z.string().min(1)).min(1), userId: z.undefined() }),
+  z.object({ userId: z.string().min(1), userIds: z.array(z.string().min(1)).min(1) }),
+]);
 
 export async function HEAD() {
   const adminId = await requireAdmin();
@@ -73,16 +85,17 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { userId, tier } = body as { userId?: string; tier?: string };
-  if (!userId || !tier || !['free', 'pro'].includes(tier)) {
+  const patchResult = patchUserSchema.safeParse(rawBody);
+  if (!patchResult.success) {
     return NextResponse.json({ error: 'Invalid userId or tier' }, { status: 400 });
   }
+  const { userId, tier } = patchResult.data;
 
   // If setting to free, delete the subscription row
   if (tier === 'free') {
@@ -120,24 +133,25 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  let delBody: Record<string, unknown>;
+  let rawDelBody: unknown;
   try {
-    delBody = await req.json();
+    rawDelBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  // Support both single userId and bulk userIds
-  const { userId, userIds } = delBody as { userId?: string; userIds?: string[] };
-  const idsToDelete: string[] = userIds && Array.isArray(userIds) && userIds.length > 0
-    ? userIds.filter((id): id is string => typeof id === 'string')
-    : userId && typeof userId === 'string'
-      ? [userId]
-      : [];
-
-  if (idsToDelete.length === 0) {
+  const deleteResult = deleteUserSchema.safeParse(rawDelBody);
+  if (!deleteResult.success) {
     return NextResponse.json({ error: 'Invalid userId or userIds' }, { status: 400 });
   }
+
+  // Support both single userId and bulk userIds
+  const { userId, userIds } = deleteResult.data as { userId?: string; userIds?: string[] };
+  const idsToDelete: string[] = userIds && Array.isArray(userIds) && userIds.length > 0
+    ? userIds
+    : userId
+      ? [userId]
+      : [];
 
   // Prevent deleting yourself
   if (idsToDelete.includes(adminId)) {

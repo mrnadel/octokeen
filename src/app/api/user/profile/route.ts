@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq, isNotNull } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, accounts } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+
+const patchProfileSchema = z.object({
+  displayName: z.string().optional(),
+  country: z.string().nullable().optional(),
+  profilePublic: z.boolean().optional(),
+  image: z.string().nullable().optional(),
+}).refine(
+  (data) => Object.keys(data).length > 0,
+  { message: 'No valid fields to update' }
+);
 
 // ─── Limits ──────────────────────────────────────────────────
 const MAX_IMAGE_BYTES = 100 * 1024; // 100 KB max stored size (base64 data URL)
@@ -42,12 +53,18 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
+
+  const parseResult = patchProfileSchema.safeParse(rawBody);
+  if (!parseResult.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  }
+  const body = parseResult.data;
 
   // ── Handle display name update ──
   if (body.displayName !== undefined) {

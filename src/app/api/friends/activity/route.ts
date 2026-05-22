@@ -1,8 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { z } from 'zod';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { activityFeed, activityReactions, friendships, users } from '@/lib/db/schema';
 import { eq, or, and, inArray, desc, sql } from 'drizzle-orm';
+
+const reactSchema = z.object({
+  activityId: z.string().min(1),
+});
 
 /**
  * GET /api/friends/activity — Get activity feed for the user's friends.
@@ -88,11 +93,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await req.json();
-  const { activityId } = body;
-  if (!activityId) {
+  let rawBody: unknown;
+  try {
+    rawBody = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const parsed = reactSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Missing activityId' }, { status: 400 });
   }
+  const { activityId } = parsed.data;
 
   // Verify the activity exists and belongs to a friend
   const [activity] = await db

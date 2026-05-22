@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedbackDismissals } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
+
+const dismissSchema = z.object({
+  contentType: z.string().min(1).max(50),
+  contentId: z.string().min(1).max(100),
+});
 
 export async function POST(req: NextRequest) {
   const adminId = await requireAdmin();
@@ -10,20 +16,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { contentType, contentId } = body as { contentType?: string; contentId?: string };
 
-  if (!contentType || typeof contentType !== 'string' || contentType.length > 50) {
-    return NextResponse.json({ error: 'Invalid contentType' }, { status: 400 });
+  const parsed = dismissSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
-  if (!contentId || typeof contentId !== 'string' || contentId.length > 100) {
-    return NextResponse.json({ error: 'Invalid contentId' }, { status: 400 });
-  }
+  const { contentType, contentId } = parsed.data;
 
   // Upsert: delete + insert
   await db.transaction(async (tx) => {

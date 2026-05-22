@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendRequests, users } from '@/lib/db/schema';
@@ -9,6 +10,10 @@ import {
   isFriendCapReached,
 } from '@/lib/db/friends';
 import { rateLimit } from '@/lib/rate-limit';
+
+const postSchema = z.object({
+  receiverId: z.string().uuid(),
+});
 
 export async function POST(request: Request) {
   const userId = await getAuthUserId();
@@ -27,11 +32,12 @@ export async function POST(request: Request) {
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
-  const { receiverId } = body;
 
-  if (!receiverId || typeof receiverId !== 'string') {
-    return NextResponse.json({ error: 'receiverId is required' }, { status: 400 });
+  const result = postSchema.safeParse(body);
+  if (!result.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
+  const { receiverId } = result.data;
 
   if (receiverId === userId) {
     return NextResponse.json({ error: 'Cannot send request to yourself' }, { status: 400 });

@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { cleanupBeforeDeletion } from '@/lib/account-cleanup';
+
+const deleteAccountSchema = z.object({
+  confirmation: z.literal('DELETE MY ACCOUNT'),
+});
 
 export async function DELETE(request: NextRequest) {
   const userId = await getAuthUserId();
@@ -11,15 +16,15 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { confirmation } = body as { confirmation?: string };
-  if (confirmation !== 'DELETE MY ACCOUNT') {
+  const parsed = deleteAccountSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json(
       { error: 'Invalid confirmation phrase' },
       { status: 400 }

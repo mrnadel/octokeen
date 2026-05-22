@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { asc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseUnits } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
+
+const createUnitSchema = z.object({
+  title: z.string().min(1).max(200),
+  description: z.string().max(1000).default(''),
+  color: z.string().max(50).default(''),
+  icon: z.string().max(100).default(''),
+  orderIndex: z.number().int().min(0),
+});
 
 export async function GET(req: NextRequest) {
   const adminId = await requireAdmin();
@@ -24,14 +33,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let body: any;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { title, description, color, icon, orderIndex } = body;
+
+  const parsed = createUnitSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  }
+  const { title, description, color, icon, orderIndex } = parsed.data;
 
   const [unit] = await db
     .insert(courseUnits)

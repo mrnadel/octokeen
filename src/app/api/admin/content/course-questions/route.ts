@@ -1,8 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq, asc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseQuestions } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
+
+const createQuestionSchema = z.object({
+  lessonId: z.string().min(1),
+  type: z.string().min(1),
+  question: z.string().min(1),
+  options: z.array(z.string()).optional(),
+  correctIndex: z.number().int().min(0).optional(),
+  correctAnswer: z.string().optional(),
+  acceptedAnswers: z.array(z.string()).optional(),
+  blanks: z.array(z.string()).optional(),
+  wordBank: z.array(z.string()).optional(),
+  explanation: z.string().default(''),
+  hint: z.string().optional(),
+  diagram: z.string().optional(),
+  orderIndex: z.number().int().min(0),
+});
 
 export async function GET(req: NextRequest) {
   const adminId = await requireAdmin();
@@ -34,12 +51,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let body: any;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const parsed = createQuestionSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
   const {
     lessonId,
@@ -55,7 +76,7 @@ export async function POST(req: NextRequest) {
     hint,
     diagram,
     orderIndex,
-  } = body;
+  } = parsed.data;
 
   const [created] = await db
     .insert(courseQuestions)

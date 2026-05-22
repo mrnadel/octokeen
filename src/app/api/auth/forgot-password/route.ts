@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import crypto from 'crypto';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, passwordResetTokens } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
+
+const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
 
 const TOKEN_EXPIRY_MS = 15 * 60_000; // 15 minutes
 
@@ -18,17 +23,18 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let email: string;
+  let rawBody: unknown;
   try {
-    const body = await request.json();
-    email = (body.email ?? '').trim().toLowerCase();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
-  if (!email || !email.includes('@')) {
+  const parsed = forgotPasswordSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
   }
+  const email = parsed.data.email.trim().toLowerCase();
 
   // Always return success to prevent account enumeration
   const successResponse = NextResponse.json({

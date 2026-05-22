@@ -1,8 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseQuestions } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
+
+const updateQuestionSchema = z.object({
+  lessonId: z.string().min(1).optional(),
+  type: z.string().min(1).optional(),
+  question: z.string().min(1).optional(),
+  options: z.array(z.string()).optional(),
+  correctIndex: z.number().int().min(0).optional(),
+  correctAnswer: z.string().optional(),
+  acceptedAnswers: z.array(z.string()).optional(),
+  blanks: z.array(z.string()).optional(),
+  wordBank: z.array(z.string()).optional(),
+  explanation: z.string().optional(),
+  hint: z.string().optional(),
+  diagram: z.string().optional(),
+  orderIndex: z.number().int().min(0).optional(),
+}).refine((data) => Object.keys(data).length > 0, { message: 'No valid fields to update' });
 
 export async function PUT(
   req: NextRequest,
@@ -14,32 +31,18 @@ export async function PUT(
   }
 
   const { id } = await params;
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  // Allowlist fields to prevent mass assignment
-  const allowedFields: Record<string, unknown> = {};
-  if (body.lessonId !== undefined) allowedFields.lessonId = body.lessonId;
-  if (body.type !== undefined) allowedFields.type = body.type;
-  if (body.question !== undefined) allowedFields.question = body.question;
-  if (body.options !== undefined) allowedFields.options = body.options;
-  if (body.correctIndex !== undefined) allowedFields.correctIndex = body.correctIndex;
-  if (body.correctAnswer !== undefined) allowedFields.correctAnswer = body.correctAnswer;
-  if (body.acceptedAnswers !== undefined) allowedFields.acceptedAnswers = body.acceptedAnswers;
-  if (body.blanks !== undefined) allowedFields.blanks = body.blanks;
-  if (body.wordBank !== undefined) allowedFields.wordBank = body.wordBank;
-  if (body.explanation !== undefined) allowedFields.explanation = body.explanation;
-  if (body.hint !== undefined) allowedFields.hint = body.hint;
-  if (body.diagram !== undefined) allowedFields.diagram = body.diagram;
-  if (body.orderIndex !== undefined) allowedFields.orderIndex = body.orderIndex;
-
-  if (Object.keys(allowedFields).length === 0) {
-    return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+  const parsed = updateQuestionSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
+  const allowedFields = parsed.data;
 
   const [updated] = await db
     .update(courseQuestions)

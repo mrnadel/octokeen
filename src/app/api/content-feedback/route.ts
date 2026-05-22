@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedback } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { VALID_CONTENT_TYPES, VALID_REASONS } from '@/data/types';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
+
+const postFeedbackSchema = z.object({
+  contentType: z.enum(['question', 'lesson-question'] as [ContentFeedbackType, ...ContentFeedbackType[]]),
+  contentId: z.string().min(1).max(50),
+  reason: z.enum(['confusing', 'incorrect', 'too-easy', 'too-hard', 'bad-graphic', 'other'] as [FeedbackReason, ...FeedbackReason[]]),
+  comment: z.string().max(500).optional(),
+});
+
+const deleteFeedbackSchema = z.object({
+  contentType: z.string().min(1),
+  contentId: z.string().min(1),
+});
 
 // GET /api/content-feedback — fetch all flags for the authenticated user
 export async function GET() {
@@ -33,28 +46,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const contentType = body.contentType as string;
-  const contentId = body.contentId as string;
-  const reason = body.reason as string;
-  const comment = body.comment as string | undefined;
 
-  // Validate
-  if (!VALID_CONTENT_TYPES.includes(contentType as ContentFeedbackType)) {
-    return NextResponse.json({ error: 'Invalid contentType' }, { status: 400 });
+  const postResult = postFeedbackSchema.safeParse(rawBody);
+  if (!postResult.success) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
-  if (!VALID_REASONS.includes(reason as FeedbackReason)) {
-    return NextResponse.json({ error: 'Invalid reason' }, { status: 400 });
-  }
-  if (!contentId || typeof contentId !== 'string' || contentId.length > 50) {
-    return NextResponse.json({ error: 'Invalid contentId' }, { status: 400 });
-  }
-  const sanitizedComment = typeof comment === 'string' ? comment.trim().slice(0, 500) || null : null;
+  const { contentType, contentId, reason, comment } = postResult.data;
+  const sanitizedComment = comment ? comment.trim().slice(0, 500) || null : null;
 
   // Upsert: delete existing + insert
   await db.transaction(async (tx) => {
@@ -86,18 +90,18 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawDelBody: unknown;
   try {
-    body = await req.json();
+    rawDelBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const contentType = body.contentType as string | undefined;
-  const contentId = body.contentId as string | undefined;
 
-  if (!contentType || !contentId) {
+  const deleteResult = deleteFeedbackSchema.safeParse(rawDelBody);
+  if (!deleteResult.success) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
   }
+  const { contentType, contentId } = deleteResult.data;
 
   await db
     .delete(contentFeedback)

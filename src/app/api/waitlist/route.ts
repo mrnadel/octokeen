@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { db } from '@/lib/db';
 import { proWaitlist } from '@/lib/db/schema';
 import { sql } from 'drizzle-orm';
+
+const waitlistSchema = z.object({
+  email: z.string().email(),
+});
 
 // Simple in-memory rate limiting: 5 requests per minute per IP
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -33,24 +38,15 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
-    const { email } = body;
-
-    if (!email || typeof email !== 'string') {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 },
-      );
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const rawBody = await req.json();
+    const parsed = waitlistSchema.safeParse(rawBody);
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Invalid email format' },
         { status: 400 },
       );
     }
+    const { email } = parsed.data;
 
     // Insert into waitlist, ignore duplicates
     await db

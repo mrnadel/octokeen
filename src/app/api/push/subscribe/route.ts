@@ -1,8 +1,17 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { pushSubscriptions } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
+
+const subscribeSchema = z.object({
+  endpoint: z.string().url(),
+  keys: z.object({
+    p256dh: z.string().min(1),
+    auth: z.string().min(1),
+  }),
+});
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -10,17 +19,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { endpoint, keys } = body as { endpoint?: string; keys?: { p256dh?: string; auth?: string } };
 
-  if (!endpoint || !keys?.p256dh || !keys?.auth) {
+  const parsed = subscribeSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid subscription' }, { status: 400 });
   }
+  const { endpoint, keys } = parsed.data;
 
   // Upsert — replace if same endpoint exists
   const existing = await db

@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
+
+const resetProgressSchema = z.object({
+  confirmation: z.literal('RESET MY PROGRESS'),
+});
 import {
   userProgress,
   courseProgress,
@@ -24,14 +29,14 @@ export async function POST(request: NextRequest) {
   }
 
   // Require the confirmation phrase in the body
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { confirmation } = body as { confirmation?: string };
-  if (confirmation !== 'RESET MY PROGRESS') {
+  const parsed = resetProgressSchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json(
       { error: 'Invalid confirmation phrase' },
       { status: 400 }
