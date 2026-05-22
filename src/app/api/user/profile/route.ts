@@ -6,7 +6,7 @@ import { users, accounts } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
 const patchProfileSchema = z.object({
-  displayName: z.string().optional(),
+  displayName: z.string().min(2).max(50).optional(),
   country: z.string().nullable().optional(),
   profilePublic: z.boolean().optional(),
   image: z.string().nullable().optional(),

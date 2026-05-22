@@ -12,6 +12,7 @@ import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
 import { serverEnv } from '@/lib/env';
 import { logger } from '@/lib/logger';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 
@@ -31,6 +32,15 @@ class NonRetryableError extends Error {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
+  const rl = rateLimit(`paddle-webhook:${ip}`, RATE_LIMITS.webhook);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
+  }
+
   // ── Signature verification ──────────────────────────────────
   const signature = request.headers.get('paddle-signature');
   if (!signature) {

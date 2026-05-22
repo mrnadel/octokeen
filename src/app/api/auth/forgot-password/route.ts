@@ -6,9 +6,10 @@ import { db } from '@/lib/db';
 import { users, passwordResetTokens } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
+import { emailSchema } from '@/lib/api-schemas';
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email(),
+  email: emailSchema,
 });
 
 const TOKEN_EXPIRY_MS = 15 * 60_000; // 15 minutes

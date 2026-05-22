@@ -16,7 +16,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "gallery": "tsx scripts/build-svg-gallery.ts"
+    "gallery": "tsx scripts/build-svg-gallery.ts",
+    "preview": "next build && next start"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

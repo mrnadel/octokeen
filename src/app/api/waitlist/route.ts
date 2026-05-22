@@ -3,9 +3,10 @@ import { z } from 'zod';
 import { db } from '@/lib/db';
 import { proWaitlist } from '@/lib/db/schema';
 import { sql } from 'drizzle-orm';
+import { emailSchema } from '@/lib/api-schemas';
 
 const waitlistSchema = z.object({
-  email: z.string().email(),
+  email: emailSchema,
 });
 
 // Simple in-memory rate limiting: 5 requests per minute per IP

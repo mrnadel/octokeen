@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { userProgress, gemTransactions, questProgress, subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { engagementSyncSchema } from '@/lib/validation';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { insertActivity } from '@/lib/activity-feed';
 
 // Hearts constants (must match client)
@@ -182,6 +183,14 @@ export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`engagement:${userId}`, RATE_LIMITS.api);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
   }
 
   let body: unknown;
