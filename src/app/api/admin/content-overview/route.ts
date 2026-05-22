@@ -4,7 +4,7 @@ import { masteryEvents, contentFeedback, contentFeedbackDismissals } from '@/lib
 import { sql } from 'drizzle-orm';
 import { requireAdmin } from '@/lib/auth-utils';
 import { runContentQA, type CourseInput } from '@/lib/content-qa';
-import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
+import { getCourseData } from '@/data/course/api';
 import { PROFESSIONS } from '@/data/professions';
 import type { Unit } from '@/data/course/types';
 import { logger } from '@/lib/logger';
@@ -37,11 +37,8 @@ async function loadAllCourses(): Promise<{ id: string; name: string; units: Unit
   const courses: { id: string; name: string; units: Unit[] }[] = [];
 
   for (const p of activeProfessions) {
-    const meta = getCourseMetaForProfession(p.id);
-    const fullUnits = await Promise.all(
-      meta.map((_, i) => loadUnitData(i, p.id))
-    );
-    courses.push({ id: p.id, name: p.name, units: fullUnits });
+    const units = await getCourseData(p.id);
+    courses.push({ id: p.id, name: p.name, units });
   }
 
   return courses;
