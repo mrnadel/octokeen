@@ -5,6 +5,7 @@ import { Check, X } from 'lucide-react';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 import { playSound } from '@/lib/sounds';
+import type { CSSProperties } from 'react';
 
 interface AvailableWord {
   word: string;
@@ -39,6 +40,53 @@ export function FillBlankQuestion({
   onWordTap,
 }: FillBlankQuestionProps) {
   const c = useLessonColors();
+
+  function getBlankStyle(i: number): CSSProperties {
+    const base: CSSProperties = {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: 80,
+      height: 34,
+      padding: '2px 14px',
+      borderRadius: 10,
+      margin: '0 4px',
+      verticalAlign: 'middle',
+      fontSize: 15,
+      fontWeight: 800,
+      gap: 4,
+      cursor: answered ? 'default' : filledBlanks[i] ? 'pointer' : 'default',
+      transition: 'background 0.2s ease, border 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
+    };
+
+    if (answered && localCorrect !== null) {
+      const isCorrect = filledBlanks[i]?.toLowerCase() === blanks[i]?.toLowerCase();
+      return {
+        ...base,
+        background: isCorrect ? '#D7FFB8' : '#FFDFE0',
+        border: isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B',
+        color: isCorrect ? '#58A700' : '#EA2B2B',
+      };
+    }
+
+    if (filledBlanks[i]) {
+      const isActive = i === activeBlankIdx && blankCount > 1;
+      return {
+        ...base,
+        background: c.cardBg,
+        border: `2.5px solid ${unitColor}`,
+        color: c.title,
+        boxShadow: isActive ? `0 0 0 3px ${unitColor}33` : `0 0 0 3px ${unitColor}20`,
+      };
+    }
+
+    return {
+      ...base,
+      background: i === activeBlankIdx ? c.emptyActiveBg : c.emptyBg,
+      border: i === activeBlankIdx ? `2px dashed ${unitColor}` : `2px dashed ${c.muted}`,
+      color: c.muted,
+    };
+  }
 
   return (
     <>
@@ -77,46 +125,7 @@ export function FillBlankQuestion({
                       : {}
                 }
                 transition={{ duration: 0.3 }}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: 80,
-                  height: 34,
-                  padding: '2px 14px',
-                  borderRadius: 10,
-                  margin: '0 4px',
-                  verticalAlign: 'middle',
-                  fontSize: 15,
-                  fontWeight: 800,
-                  gap: 4,
-                  cursor: answered ? 'default' : filledBlanks[i] ? 'pointer' : 'default',
-                  transition:
-                    'background 0.2s ease, border 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
-                  ...(answered && localCorrect !== null
-                    ? filledBlanks[i]?.toLowerCase() === blanks[i]?.toLowerCase()
-                      ? { background: '#D7FFB8', border: '2px solid #58CC02', color: '#58A700' }
-                      : { background: '#FFDFE0', border: '2px solid #FF4B4B', color: '#EA2B2B' }
-                    : filledBlanks[i]
-                      ? {
-                          background: c.cardBg,
-                          border: `2.5px solid ${unitColor}`,
-                          color: c.title,
-                          boxShadow: `0 0 0 3px ${unitColor}20`,
-                          ...(i === activeBlankIdx && blankCount > 1
-                            ? { boxShadow: `0 0 0 3px ${unitColor}33` }
-                            : {}),
-                        }
-                      : {
-                          background:
-                            i === activeBlankIdx ? c.emptyActiveBg : c.emptyBg,
-                          border:
-                            i === activeBlankIdx
-                              ? `2px dashed ${unitColor}`
-                              : `2px dashed ${c.muted}`,
-                          color: c.muted,
-                        }),
-                )}
+                style={getBlankStyle(i)}
               >
                 {filledBlanks[i] || ' '}
                 {answered &&
@@ -136,12 +145,17 @@ export function FillBlankQuestion({
       </div>
 
       {/* Word bank */}
-      <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center', marginTop: 'auto', paddingTop: 20 }}>
+      <div
+        className="flex flex-wrap"
+        style={{ gap: 8, justifyContent: 'center', marginTop: 'auto', paddingTop: 20 }}
+      >
         <AnimatePresence>
           {availableWords.map(({ word, available }, i) => (
             <motion.button
               key={`${word}-${i}`}
-              onClick={() => available && onWordTap(word)}
+              onClick={() => {
+                if (available) onWordTap(word);
+              }}
               disabled={answered || !available}
               aria-label={`Word: ${word}${available ? '' : ' — already used'}`}
               whileTap={

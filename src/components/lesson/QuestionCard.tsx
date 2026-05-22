@@ -233,7 +233,7 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           {/* Diagram */}
           {question.diagram && <DiagramDisplay html={question.diagram} />}
 
-          {/* Question text */}
+          {/* Question text (non-fill-blank) */}
           {question.type !== 'fill-blank' && (
             <h2
               style={{
@@ -270,53 +270,55 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           )}
         </div>
 
-        {/* Answer options - pushed to bottom */}
-        <div style={{ marginTop: 'auto', paddingTop: 20 }}>
+        {/* Fill in the Blank — spans both question text (with inline blanks) and word bank */}
+        {question.type === 'fill-blank' && question.blanks && question.wordBank && (
+          <FillBlankQuestion
+            questionParts={questionParts}
+            blanks={question.blanks}
+            blankCount={blankCount}
+            filledBlanks={filledBlanks}
+            activeBlankIdx={activeBlankIdx}
+            availableWords={availableWords}
+            answered={answered}
+            localCorrect={localCorrect}
+            unitColor={unitColor}
+            onBlankTap={handleBlankTap}
+            onWordTap={handleWordTap}
+          />
+        )}
 
-          {/* Multiple Choice */}
-          {question.type === 'multiple-choice' && question.options && (
-            <MultipleChoiceQuestion
-              options={question.options}
-              shuffledIndices={shuffledIndices}
-              correctIndex={question.correctIndex!}
-              selectedIndex={selectedIndex}
-              answered={answered}
-              localCorrect={localCorrect}
-              unitColor={unitColor}
-              onSelect={setSelectedIndex}
-            />
-          )}
+        {/* Answer options - pushed to bottom (MC and T/F only) */}
+        {question.type !== 'fill-blank' && (
+          <div style={{ marginTop: 'auto', paddingTop: 20 }}>
 
-          {/* True / False */}
-          {question.type === 'true-false' && (
-            <TrueFalseQuestion
-              correctAnswer={question.correctAnswer!}
-              selectedBool={selectedBool}
-              answered={answered}
-              localCorrect={localCorrect}
-              unitColor={unitColor}
-              onSelect={setSelectedBool}
-            />
-          )}
+            {/* Multiple Choice */}
+            {question.type === 'multiple-choice' && question.options && (
+              <MultipleChoiceQuestion
+                options={question.options}
+                shuffledIndices={shuffledIndices}
+                correctIndex={question.correctIndex!}
+                selectedIndex={selectedIndex}
+                answered={answered}
+                localCorrect={localCorrect}
+                unitColor={unitColor}
+                onSelect={setSelectedIndex}
+              />
+            )}
 
-          {/* Fill in the Blank */}
-          {question.type === 'fill-blank' && question.blanks && question.wordBank && (
-            <FillBlankQuestion
-              questionParts={questionParts}
-              blanks={question.blanks}
-              blankCount={blankCount}
-              filledBlanks={filledBlanks}
-              activeBlankIdx={activeBlankIdx}
-              availableWords={availableWords}
-              answered={answered}
-              localCorrect={localCorrect}
-              unitColor={unitColor}
-              onBlankTap={handleBlankTap}
-              onWordTap={handleWordTap}
-            />
-          )}
+            {/* True / False */}
+            {question.type === 'true-false' && (
+              <TrueFalseQuestion
+                correctAnswer={question.correctAnswer!}
+                selectedBool={selectedBool}
+                answered={answered}
+                localCorrect={localCorrect}
+                unitColor={unitColor}
+                onSelect={setSelectedBool}
+              />
+            )}
 
-        </div>
+          </div>
+        )}
       </div>
     );
   }
