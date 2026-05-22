@@ -225,6 +225,170 @@
       <div class="preview">Public shareable page at /certificate?name=...&amp;profession=...&amp;score=... showing a user's course completion certificate. Includes the certificate image (1200x630 PNG from /api/certificate), download button, share button with loading/success states, and LinkedIn share button. Has dynamic OG meta tags so LinkedIn shows a rich preview card. Dark mode supported. Not indexed by search engines.</div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Celebrations</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Unit Completion Celebration</h2>
+        <div class="tags"><span class="tag">BlueprintCelebration</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Full-screen celebration shown after completing all lessons in a unit. Golden background for mastered units, green for standard completion. Shows unit title, lesson count, accuracy %, total XP earned, mascot pose (excited/laughing), confetti or stars effects, and share button. Component: <code>src/components/engagement/BlueprintCelebration.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Streak Milestone Celebration</h2>
+        <div class="tags"><span class="tag">StreakMilestone</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Celebration modal for streak milestones at 7, 14, 30, 60, and 100+ days. Golden background with confetti effects. Shows milestone badge icon, streak flame with day count, gem rewards, unlock info (titles/profile frames), next milestone hint, and share button. Component: <code>src/components/engagement/StreakMilestone.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Streak Continued Modal</h2>
+        <div class="tags"><span class="tag">StreakContinued</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Displayed when user completes a lesson and continues their streak. Orange background with confetti. Shows large streak count with flame icon, day streak label, motivational message ("Keep it up!", "On fire!", "Unstoppable!" etc. based on streak count), week calendar grid with active/inactive/future day indicators, and animated mascot. Component: <code>src/components/engagement/StreakContinued.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>League Winner Modal</h2>
+        <div class="tags"><span class="tag">LeagueWinner</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Shown when user finishes 1st in their weekly league. Golden background with fireworks effects. Shows champion mascot pose, "1st Place!" headline, league tier name, and continue button. Triggers once per week if user wins. Component: <code>src/components/engagement/LeagueWinner.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Streaks</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Streak Freeze Banner</h2>
+        <div class="tags"><span class="tag">StreakFreeze</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Blue gradient banner shown after user activates a streak freeze. Shows snowflake icon and message "Your streak freeze saved your streak yesterday!" with dismissible X button. Component: <code>src/components/engagement/StreakFreeze.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Streak Repair Modal</h2>
+        <div class="tags"><span class="tag">StreakFreeze</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Purple background modal shown when user's streak breaks. Allows repair using gems (cost: 75 gems). Shows worried mascot, previous streak value, gem cost indicator, and "Skip" button. Only appears if there was an actual streak to repair. Component: <code>src/components/engagement/StreakFreeze.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Onboarding & Modals</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Welcome Back Modal</h2>
+        <div class="tags"><span class="tag">WelcomeBack</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Shown on first load after user has been away for 2+ days. Blue (#235390) background with snow effects. Shows sleeping mascot, "Welcome back! We missed you." headline, days away indicator, and list of comeback quests with gem rewards. Component: <code>src/components/engagement/WelcomeBack.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Profession Picker Modal</h2>
+        <div class="tags"><span class="tag">ProfessionPickerModal</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Modal for switching between courses/professions. Blue background with bubbles effects. Shows course switch badge icon, "Switch Course" headline, profession grid with available courses (filtered by user access), and optional selected state. Component: <code>src/components/profession/ProfessionPickerModal.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Trial Prompt Modal</h2>
+        <div class="tags"><span class="tag">TrialPromptModal</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Purple (#5B4FCF) full-screen modal promoting free 7-day pro trial. Shows floating mascot pose (pro), "Try Pro Free" headline, feature list with icons (unlimited hearts, streak freeze, 2x weekend XP), primary CTA button, and "Maybe later" secondary button. Appears after 2.5s on first visit if feature flag enabled. Component: <code>src/components/ui/TrialPromptModal.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Banners</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Active XP Event Banner</h2>
+        <div class="tags"><span class="tag">ActiveEventBanner</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Floating pill-shaped banner below course header showing active XP multiplier events (Power Hour, Weekend Double XP, League Sprint). Displays event icon, time remaining, multiplier badge (e.g., "2x"), and dismissible X button. Updates every 30 seconds. Positioned absolutely with fixed z-index. Component: <code>src/components/ui/ActiveEventBanner.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Daily Limit Banner</h2>
+        <div class="tags"><span class="tag">DailyLimitBanner</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Amber banner shown to free users near their daily practice limit. Shows "Daily practice limit" label, remaining questions counter, progress bar, and upgrade link. Appears at the top of the lesson screen when approaching or at the limit. Only visible to free users (pro users have unlimited). Component: <code>src/components/ui/DailyLimitBanner.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Email Verification Banner</h2>
+        <div class="tags"><span class="tag">EmailVerificationBanner</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Amber banner at page top reminding unverified users to verify email. Shows verification status message and "Resend" button (becomes "Verification email sent!" after sending). Dismissible with X button. Only shown once per session if verification is pending. Component: <code>src/components/ui/EmailVerificationBanner.tsx</code>.</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Offline Banner</h2>
+        <div class="tags"><span class="tag">OfflineBanner</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Fixed position banner at bottom-left (or center on mobile) showing offline status. Shows pulsing red dot indicator and message "You're offline. Changes will sync when you reconnect." Auto-hides when connection restored. Dark background with white text. Component: <code>src/components/ui/OfflineBanner.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Modals (Continued)</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Out of Hearts Modal</h2>
+        <div class="tags"><span class="tag">OutOfHeartsModal</span><span class="tag">modal</span></div>
+      </header>
+      <div class="preview">Red (#CE3030) full-screen modal shown when user runs out of practice hearts. Shows sad mascot, "Out of Hearts" headline, countdown timer to next heart, options to watch ad for free heart (non-pro only), buy individual heart (100 gems), or refill all (variable gem cost), and pro upgrade button. Component: <code>src/components/ui/OutOfHeartsModal.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Toast & Notifications</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Toast Notification</h2>
+        <div class="tags"><span class="tag">ToastNotification</span><span class="tag">toast</span></div>
+      </header>
+      <div class="preview">Generic system toast for transient messages. White card with emoji icon, bold title, optional subtitle, rounded corners, and shadow. Auto-dismisses after 3.5s (configurable). Supports drag-to-dismiss and click-to-dismiss. Max 5 toasts queued, displays top 3. Used throughout app for notifications and alerts. Component: <code>src/components/ui/ToastNotification.tsx</code> (store + container + item).</div>
+    </div>
+
+    <div class="entry">
+      <header>
+        <h2>Glossary Popover</h2>
+        <div class="tags"><span class="tag">GlossaryPopover</span><span class="tag">popover</span></div>
+      </header>
+      <div class="preview">Floating popover (above or below anchor) showing glossary term definition. White card with rounded border, positioned near tapped term. Shows term name (colored with accent), definition text (with nested glossary term links), and related terms pills. Dismissible by clicking outside, pressing Escape, or scrolling. Component: <code>src/components/ui/GlossaryPopover.tsx</code>.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="section-title">Misc</div>
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="entry">
+      <header>
+        <h2>Cookie Consent Banner</h2>
+        <div class="tags"><span class="tag">CookieConsent</span><span class="tag">banner</span></div>
+      </header>
+      <div class="preview">Fixed bottom banner for GDPR/privacy cookie consent. White background with cookie icon, consent message linking to Privacy Policy, and two CTA buttons: "Decline" and "Accept". Spring animation from bottom. Persists in localStorage and hidden on subsequent visits. Component: <code>src/components/ui/CookieConsent.tsx</code>.</div>
+    </div>
+
   </div>
 </body>
 </html>
