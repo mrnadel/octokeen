@@ -44,7 +44,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 *Target audience: Absolute beginner. Assumes zero financial knowledge. Think: a teenager receiving their first paycheck.*
 
 ### Unit 1: What Is Money?
-*From bartering to digital wallets -- understand what money IS and why it exists.*
+*From bartering to digital wallets — understand what money IS and why it exists.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -122,7 +122,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Budget Mastery | Comprehensive review of all Unit 3 concepts |
 
 ### Unit 4: Smart Spending
-*Becoming a conscious consumer -- getting more value from every dollar you spend.*
+*Becoming a conscious consumer — getting more value from every dollar you spend.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -137,9 +137,9 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 9 | The Real Cost of "Small" Purchases | The latte factor: $5/day = $1,825/year |
 | 10 | Review: Saving on Spending | Review lessons 6-9 |
 | 11 | Buying vs. Renting Things | When ownership makes sense vs. renting/sharing |
-| 12 | New vs. Used | Cars, electronics, furniture -- when used wins |
+| 12 | New vs. Used | Cars, electronics, furniture — when used wins |
 | 13 | Quality vs. Cheap | Cost per use; investing in durability |
-| 14 | Negotiating Prices | Bills, services, big purchases -- asking for less |
+| 14 | Negotiating Prices | Bills, services, big purchases — asking for less |
 | 15 | Review: Value-Based Spending | Review lessons 11-14 |
 | 16 | Eating Out vs. Cooking | Meal planning, grocery budgeting, cost comparison |
 | 17 | Transportation Costs | Car ownership vs. transit vs. biking [DIAGRAM] |
@@ -152,7 +152,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 
 | # | Lesson Title | Concept |
 |---|---|---|
-| 1 | Why Emergencies Happen | Car repairs, medical bills, job loss -- the unexpected |
+| 1 | Why Emergencies Happen | Car repairs, medical bills, job loss — the unexpected |
 | 2 | What Is an Emergency Fund? | Cash set aside ONLY for true emergencies |
 | 3 | How Much Do You Need? | The 3-6 month rule; calculating your number [DIAGRAM: thermometer] |
 | 4 | Emergency vs. Non-Emergency | Car repair = emergency; vacation = not emergency |
@@ -165,7 +165,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 11 | When to Use Your Emergency Fund | Decision framework: is this a true emergency? |
 | 12 | Replenishing After an Emergency | Getting back on track after a withdrawal |
 | 13 | Sinking Funds | Planned savings for predictable irregular expenses |
-| 14 | Car Maintenance Fund | Oil changes, tires, brakes -- budgeting for upkeep |
+| 14 | Car Maintenance Fund | Oil changes, tires, brakes — budgeting for upkeep |
 | 15 | Review: Using & Rebuilding | Review lessons 11-14 |
 | 16 | Medical Emergency Planning | Health savings, what insurance doesn't cover |
 | 17 | Job Loss Preparation | Unemployment benefits, severance, reducing expenses |
@@ -179,7 +179,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | # | Lesson Title | Concept |
 |---|---|---|
 | 1 | What Is Debt? | Borrowing money you must repay, usually with interest |
-| 2 | Why People Borrow | Homes, education, cars, emergencies -- reasons for debt |
+| 2 | Why People Borrow | Homes, education, cars, emergencies — reasons for debt |
 | 3 | Good Debt vs. Bad Debt | Mortgage/student loans vs. credit card/payday loans |
 | 4 | What Is Interest on Debt? | The cost of borrowing; APR explained |
 | 5 | Review: Debt Fundamentals | Review lessons 1-4 |
@@ -200,7 +200,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Debt Knowledge | Comprehensive review of all Unit 6 concepts |
 
 ### Unit 7: Your Credit Score
-*The three-digit number that controls your financial life -- and how to make it work for you.*
+*The three-digit number that controls your financial life — and how to make it work for you.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -237,7 +237,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 5 | Review: Paycheck Basics | Review lessons 1-4 |
 | 6 | Social Security & Medicare (FICA) | What they are, how much, why you pay |
 | 7 | State & Local Taxes | Vary by location; some states have zero income tax |
-| 8 | Pre-Tax Deductions | 401(k), health insurance, HSA, FSA -- before taxes |
+| 8 | Pre-Tax Deductions | 401(k), health insurance, HSA, FSA — before taxes |
 | 9 | Post-Tax Deductions | Roth 401(k), life insurance, garnishments |
 | 10 | Review: Understanding Deductions | Review lessons 6-9 |
 | 11 | Benefits: Beyond Your Paycheck | Health, dental, vision, PTO, retirement matching |
@@ -252,7 +252,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Income Mastery | Comprehensive review of all Unit 8 concepts |
 
 ### Unit 9: Basic Taxes
-*Filing your taxes doesn't have to be scary -- here's what every taxpayer needs to know.*
+*Filing your taxes doesn't have to be scary — here's what every taxpayer needs to know.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -310,7 +310,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 *You know the basics. Now let's build the systems and habits that make managing money automatic.*
 
 ### Unit 11: Advanced Budgeting
-*Beyond 50/30/20 -- finding the budgeting method that fits YOUR life.*
+*Beyond 50/30/20 — finding the budgeting method that fits YOUR life.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -362,7 +362,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Debt Freedom | Comprehensive review of all Unit 12 concepts |
 
 ### Unit 13: Banking Products
-*Beyond checking and savings -- understanding the full range of banking products available to you.*
+*Beyond checking and savings — understanding the full range of banking products available to you.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -388,7 +388,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Banking Products | Comprehensive review of all Unit 13 concepts |
 
 ### Unit 14: Insurance Fundamentals
-*Protecting yourself from financial catastrophe -- the boring but essential shield.*
+*Protecting yourself from financial catastrophe — the boring but essential shield.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -414,7 +414,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Insurance Knowledge | Comprehensive review of all Unit 14 concepts |
 
 ### Unit 15: Net Worth & Financial Health
-*Measuring your complete financial picture -- not just income, but assets minus liabilities.*
+*Measuring your complete financial picture — not just income, but assets minus liabilities.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -440,11 +440,11 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Financial Health | Comprehensive review of all Unit 15 concepts |
 
 ### Unit 16: Financial Psychology
-*Your brain is the biggest obstacle to financial success -- here's how to outsmart it.*
+*Your brain is the biggest obstacle to financial success — here's how to outsmart it.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
-| 1 | Money & Emotions | Fear, greed, guilt, shame -- emotions drive decisions |
+| 1 | Money & Emotions | Fear, greed, guilt, shame — emotions drive decisions |
 | 2 | Your Money Story | How your upbringing shapes your relationship with money |
 | 3 | Scarcity vs. Abundance Mindset | Fixed pie vs. growing pie thinking |
 | 4 | Instant Gratification vs. Delayed Rewards | The marshmallow test in financial context |
@@ -466,7 +466,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Money Psychology | Comprehensive review of all Unit 16 concepts |
 
 ### Unit 17: Protecting Your Identity
-*Identity theft and fraud protection -- keeping your financial identity safe in a digital world.*
+*Identity theft and fraud protection — keeping your financial identity safe in a digital world.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -492,7 +492,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Identity Protection | Comprehensive review of all Unit 17 concepts |
 
 ### Unit 18: Big Purchase Planning
-*Cars, weddings, vacations -- planning for life's big expenses without going broke.*
+*Cars, weddings, vacations — planning for life's big expenses without going broke.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -518,7 +518,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Smart Big Purchases | Comprehensive review of all Unit 18 concepts |
 
 ### Unit 19: Relationships & Money
-*Money is the #1 source of conflict in relationships -- here's how to navigate it together.*
+*Money is the #1 source of conflict in relationships — here's how to navigate it together.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -540,7 +540,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 16 | Friends & Money | Splitting bills, group trips, saying no |
 | 17 | Cosigning Risks | Why cosigning can destroy relationships AND credit |
 | 18 | Financial Infidelity | Secret spending, hidden debt; rebuilding trust |
-| 19 | Building a Money Team | Financial advisor, accountant, attorney -- when you need each |
+| 19 | Building a Money Team | Financial advisor, accountant, attorney — when you need each |
 | 20 | Unit Review: Money & Relationships | Comprehensive review of all Unit 19 concepts |
 
 ### Unit 20: Foundations Checkpoint
@@ -654,7 +654,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Fixed Income | Comprehensive review of all Unit 23 concepts |
 
 ### Unit 24: Mutual Funds & ETFs
-*The building blocks of most investment portfolios -- pooled investments made simple.*
+*The building blocks of most investment portfolios — pooled investments made simple.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -732,7 +732,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Portfolio Mastery | Comprehensive review of all Unit 26 concepts |
 
 ### Unit 27: Real Estate Basics
-*The biggest purchase most people will ever make -- understanding homeownership and real estate.*
+*The biggest purchase most people will ever make — understanding homeownership and real estate.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -784,7 +784,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Tax-Smart Investing | Comprehensive review of all Unit 28 concepts |
 
 ### Unit 29: Compound Growth & Time Value of Money
-*The mathematical foundation of all wealth building -- understanding how money grows over time.*
+*The mathematical foundation of all wealth building — understanding how money grows over time.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -829,7 +829,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 13 | Robo-Advisors | Automated investing; when they're worth the fee |
 | 14 | Working with a Financial Advisor | Fee-only vs. commission; fiduciary duty |
 | 15 | Red Flags in Financial Advice | "Guaranteed returns," high pressure, no transparency |
-| 16 | Building Wealth: The Full Picture | Earn, save, invest, protect -- the complete cycle |
+| 16 | Building Wealth: The Full Picture | Earn, save, invest, protect — the complete cycle |
 | 17 | Your Net Worth Update | Recalculate with new investment knowledge |
 | 18 | Setting Investment Goals | Specific targets: retirement number, education, house |
 | 19 | Creating Your 5-Year Financial Plan | Actionable steps for the next 5 years |
@@ -842,7 +842,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 *You can build wealth. Now protect it, optimize it, and explore advanced strategies.*
 
 ### Unit 31: Advanced Insurance
-*Beyond the basics -- optimizing your insurance coverage and understanding complex products.*
+*Beyond the basics — optimizing your insurance coverage and understanding complex products.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -868,7 +868,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Insurance Mastery | Comprehensive review of all Unit 31 concepts |
 
 ### Unit 32: Advanced Tax Strategies
-*Legal tax optimization for growing wealth -- every dollar saved in taxes compounds for you.*
+*Legal tax optimization for growing wealth — every dollar saved in taxes compounds for you.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -894,7 +894,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Tax Strategy Mastery | Comprehensive review of all Unit 32 concepts |
 
 ### Unit 33: Career & Income Optimization
-*Your earning power is your biggest financial asset -- maximize it.*
+*Your earning power is your biggest financial asset — maximize it.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -946,7 +946,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Debt Mastery | Comprehensive review of all Unit 34 concepts |
 
 ### Unit 35: Real Estate Investing
-*Beyond your primary residence -- using real estate to build wealth and generate income.*
+*Beyond your primary residence — using real estate to build wealth and generate income.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -972,7 +972,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Real Estate Investing | Comprehensive review of all Unit 35 concepts |
 
 ### Unit 36: Side Income & Entrepreneurship
-*Building income beyond your 9-to-5 -- from side hustles to full businesses.*
+*Building income beyond your 9-to-5 — from side hustles to full businesses.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -998,7 +998,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Entrepreneurship | Comprehensive review of all Unit 36 concepts |
 
 ### Unit 37: Negotiation & Consumer Finance
-*Getting better deals on everything -- the financial skill nobody teaches in school.*
+*Getting better deals on everything — the financial skill nobody teaches in school.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1024,7 +1024,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Negotiation Mastery | Comprehensive review of all Unit 37 concepts |
 
 ### Unit 38: Advanced Budgeting & Cash Flow
-*CFO-level personal finance management -- optimizing every aspect of your financial system.*
+*CFO-level personal finance management — optimizing every aspect of your financial system.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1050,7 +1050,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Advanced Finance Ops | Comprehensive review of all Unit 38 concepts |
 
 ### Unit 39: Financial Planning for Life Stages
-*From graduation to retirement -- the financial playbook for every phase of life.*
+*From graduation to retirement — the financial playbook for every phase of life.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1105,10 +1105,10 @@ Marked with [DIAGRAM] throughout. Best candidates:
 
 ## Tier 5: Financial Mastery (Units 41-50)
 
-*Expert-level finance -- estate planning, financial independence, behavioral mastery, and legacy.*
+*Expert-level finance — estate planning, financial independence, behavioral mastery, and legacy.*
 
 ### Unit 41: Estate Planning
-*Ensuring your assets go where you want and your family is protected -- at any age.*
+*Ensuring your assets go where you want and your family is protected — at any age.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1160,7 +1160,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Wealth Transfer | Comprehensive review of all Unit 42 concepts |
 
 ### Unit 43: Financial Independence & FIRE
-*The movement to gain control of your time -- from theory to execution.*
+*The movement to gain control of your time — from theory to execution.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1212,7 +1212,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Behavioral Finance | Comprehensive review of all Unit 44 concepts |
 
 ### Unit 45: Advanced Investing
-*Beyond index funds -- understanding alternative investments and advanced strategies.*
+*Beyond index funds — understanding alternative investments and advanced strategies.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1238,7 +1238,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Advanced Investing | Comprehensive review of all Unit 45 concepts |
 
 ### Unit 46: Cryptocurrency & Digital Assets
-*Understanding the new asset class -- without the hype or the FUD.*
+*Understanding the new asset class — without the hype or the FUD.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1264,7 +1264,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Digital Assets | Comprehensive review of all Unit 46 concepts |
 
 ### Unit 47: International & Global Finance
-*Understanding money beyond borders -- for travelers, expats, and global citizens.*
+*Understanding money beyond borders — for travelers, expats, and global citizens.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1342,7 +1342,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 20 | Unit Review: Financial Wisdom | Comprehensive review of all Unit 49 concepts |
 
 ### Unit 50: Master Review & Graduation
-*The ultimate review -- from "What is money?" to financial mastery.*
+*The ultimate review — from "What is money?" to financial mastery.*
 
 | # | Lesson Title | Concept |
 |---|---|---|
@@ -1363,7 +1363,7 @@ Marked with [DIAGRAM] throughout. Best candidates:
 | 15 | Teaching Others What You've Learned | Becoming a financial literacy advocate |
 | 16 | Common Pitfalls Even Experts Face | Complacency, overcomplication, lifestyle creep |
 | 17 | Your Financial Independence Score | Where do you stand on the FI spectrum? |
-| 18 | Building Your Advisory Network | CPA, CFP, attorney, insurance -- your team |
+| 18 | Building Your Advisory Network | CPA, CFP, attorney, insurance — your team |
 | 19 | Your Financial Legacy Statement | What you want your financial life to mean |
 | 20 | Graduation: You Are Financially Literate | Celebration and commencement; what comes next |
 
