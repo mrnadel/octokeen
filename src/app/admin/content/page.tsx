@@ -4,6 +4,7 @@ import { useState, lazy, Suspense } from 'react';
 import { PROFESSIONS, PROFESSION_ID } from '@/data/professions';
 import { CourseIcon } from '@/components/course/CourseIcon';
 import { ChevronRight } from 'lucide-react';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 const CourseEditor = lazy(() => import('./CourseEditor'));
 
@@ -54,12 +55,14 @@ export default function ContentPage() {
             <ChevronRight className="w-3.5 h-3.5 rotate-180" />
             All Courses
           </button>
-          <Suspense fallback={<div className="py-8 text-center text-gray-400 text-sm">Loading editor...</div>}>
-            <CourseEditor
-              professionId={selectedProfession}
-              readOnly={selectedProfession !== PROFESSION_ID.MECHANICAL_ENGINEERING}
-            />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<div className="py-8 text-center text-gray-400 text-sm">Loading editor...</div>}>
+              <CourseEditor
+                professionId={selectedProfession}
+                readOnly={selectedProfession !== PROFESSION_ID.MECHANICAL_ENGINEERING}
+              />
+            </Suspense>
+          </ErrorBoundary>
         </>
       )}
     </div>

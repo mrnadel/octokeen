@@ -3,12 +3,15 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<div className="h-6" />}>
-      <VerifyEmailInner />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<div className="h-6" />}>
+        <VerifyEmailInner />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

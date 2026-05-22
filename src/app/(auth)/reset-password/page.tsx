@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
@@ -51,9 +52,11 @@ function PasswordStrength({ password }: { password: string }) {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="h-6" />}>
-      <ResetPasswordInner />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<div className="h-6" />}>
+        <ResetPasswordInner />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

@@ -12,6 +12,7 @@ import { useFeatureFlag } from '@/hooks/useFeatureFlags';
 import { analytics } from '@/lib/mixpanel';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import type { CharacterArc, StoryUnlockEntry } from '@/data/course/character-arcs';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 // Lazy-load heavy components that are conditionally rendered
 const LandingPage = lazy(() => import('@/components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
@@ -245,9 +246,11 @@ export default function HomePage() {
 
   if (status === 'unauthenticated') {
     return (
-      <Suspense fallback={null}>
-        <LandingPage />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <LandingPage />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 
@@ -268,6 +271,7 @@ export default function HomePage() {
     <>
       {/* Course intro flow for new professions */}
       {showCourseIntro && !introPlacementConfig && (
+        <ErrorBoundary>
         <Suspense fallback={null}>
           <CourseIntroFlow
             onComplete={(data) => {
@@ -285,10 +289,12 @@ export default function HomePage() {
             onDismiss={() => setIntroDismissed(true)}
           />
         </Suspense>
+        </ErrorBoundary>
       )}
 
       {/* Inline placement test after course intro (same test as onboarding) */}
       {introPlacementConfig && (
+        <ErrorBoundary>
         <Suspense fallback={null}>
           <div className="fixed inset-0 z-[60] bg-[#FAFAFA] dark:bg-surface-950">
             <OnboardingPlacementTest
@@ -319,19 +325,22 @@ export default function HomePage() {
             />
           </div>
         </Suspense>
+        </ErrorBoundary>
       )}
 
       {/* Overlays - lazy loaded, gated by feature flags */}
-      <Suspense fallback={null}>
-        {flagComeback && <WelcomeBack />}
-        <DailyRewardClaimModal />
-        {flagLeagues && <LeagueWinner />}
-        {flagLeagues && <LeaguePromotion />}
-        {flagStreaks && <StreakFreeze />}
-        {flagStreaks && unclaimedMilestone && shownMilestone === unclaimedMilestone.days && (
-          <StreakMilestone milestone={unclaimedMilestone} onClose={handleMilestoneClose} />
-        )}
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          {flagComeback && <WelcomeBack />}
+          <DailyRewardClaimModal />
+          {flagLeagues && <LeagueWinner />}
+          {flagLeagues && <LeaguePromotion />}
+          {flagStreaks && <StreakFreeze />}
+          {flagStreaks && unclaimedMilestone && shownMilestone === unclaimedMilestone.days && (
+            <StreakMilestone milestone={unclaimedMilestone} onClose={handleMilestoneClose} />
+          )}
+        </Suspense>
+      </ErrorBoundary>
 
       {/* Header */}
       <CourseHeader />
@@ -339,9 +348,11 @@ export default function HomePage() {
       {/* Streak nudge banner for returning users (Day-1 / Day-2) */}
       {flagStreaks && (
         <div className="px-4 max-w-lg mx-auto mt-2">
-          <Suspense fallback={null}>
-            <StreakNudgeBanner />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={null}>
+              <StreakNudgeBanner />
+            </Suspense>
+          </ErrorBoundary>
         </div>
       )}
 
@@ -353,43 +364,45 @@ export default function HomePage() {
         <div className="fixed inset-0 z-50 bg-[#FAFAFA] dark:bg-surface-950" aria-hidden="true" />
       )}
 
-      <Suspense fallback={null}>
-        {activeLesson && <LessonView />}
-        {flagPlacementTest && activePlacementTest && <PlacementTestView />}
-        {flagPlacementTest && placementTestResult && <PlacementTestResult />}
-        {lessonResult && <ResultScreen />}
-        {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'streak-continued' && (
-          <StreakContinued
-            streak={pendingCelebrations[0].streak}
-            onClose={dismissNextCelebration}
-          />
-        )}
-        {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'level-up' && (
-          <LevelUpCelebration
-            reward={pendingCelebrations[0].reward}
-            onClose={dismissNextCelebration}
-          />
-        )}
-        {flagCelebrations && !lessonResult && pendingCelebrations.length === 0 && chapterJustCompleted && (
-          <BlueprintCelebration
-            unitIndex={chapterJustCompleted.unitIndex}
-            isGolden={chapterJustCompleted.isGolden}
-            onDismiss={dismissChapterCompletion}
-          />
-        )}
-        {flagCelebrations && !lessonResult && pendingCelebrations.length === 0 && !chapterJustCompleted && courseJustCompleted && (
-          <CourseCompleteCelebration onDismiss={dismissCourseCompletion} />
-        )}
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          {activeLesson && <LessonView />}
+          {flagPlacementTest && activePlacementTest && <PlacementTestView />}
+          {flagPlacementTest && placementTestResult && <PlacementTestResult />}
+          {lessonResult && <ResultScreen />}
+          {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'streak-continued' && (
+            <StreakContinued
+              streak={pendingCelebrations[0].streak}
+              onClose={dismissNextCelebration}
+            />
+          )}
+          {flagCelebrations && !lessonResult && pendingCelebrations.length > 0 && pendingCelebrations[0].type === 'level-up' && (
+            <LevelUpCelebration
+              reward={pendingCelebrations[0].reward}
+              onClose={dismissNextCelebration}
+            />
+          )}
+          {flagCelebrations && !lessonResult && pendingCelebrations.length === 0 && chapterJustCompleted && (
+            <BlueprintCelebration
+              unitIndex={chapterJustCompleted.unitIndex}
+              isGolden={chapterJustCompleted.isGolden}
+              onDismiss={dismissChapterCompletion}
+            />
+          )}
+          {flagCelebrations && !lessonResult && pendingCelebrations.length === 0 && !chapterJustCompleted && courseJustCompleted && (
+            <CourseCompleteCelebration onDismiss={dismissCourseCompletion} />
+          )}
 
-        {/* Story Unlock (Gap 11) — shows after all celebrations are dismissed */}
-        {pendingStoryUnlock && (
-          <StoryUnlockScreen
-            unlock={pendingStoryUnlock.unlock}
-            character={pendingStoryUnlock.character}
-            onDismiss={handleStoryUnlockDismiss}
-          />
-        )}
-      </Suspense>
+          {/* Story Unlock (Gap 11) — shows after all celebrations are dismissed */}
+          {pendingStoryUnlock && (
+            <StoryUnlockScreen
+              unlock={pendingStoryUnlock.unlock}
+              character={pendingStoryUnlock.character}
+              onDismiss={handleStoryUnlockDismiss}
+            />
+          )}
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { analytics } from '@/lib/mixpanel';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 function GoogleIcon() {
   return (
@@ -31,9 +32,11 @@ function GoogleIcon() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="h-6" />}>
-      <LoginPageInner />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<div className="h-6" />}>
+        <LoginPageInner />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
