@@ -1,10 +1,23 @@
+// This route is intentionally public (no auth required).
+// It is called when a visitor lands on an invite link BEFORE they have signed in
+// or created an account. The cookie is later consumed by the NextAuth signIn
+// callback (src/lib/auth.ts) when they register/log in, or by the
+// /api/invite/accept endpoint if they are already logged in.
+// Requiring auth here would break the invite flow for new sign-ups.
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
+import { rateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
+  const rl = rateLimit(`invite-set-cookie:${ip}`, { limit: 10, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   let body;
   try {
     body = await request.json();
