@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, courseProgress } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
-import { getLessonById } from '@/data/course';
+import { getLessonByIdMeta } from '@/data/course/api';
 import { courseProgressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
 import type { CourseProgress } from '@/data/course/types';
@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
   // Filtering here would silently discard progress when users upgrade.
   const validLessons: CourseProgress['completedLessons'] = {};
   for (const [lessonId, lessonData] of Object.entries(progress.completedLessons)) {
-    const info = getLessonById(lessonId);
+    const info = getLessonByIdMeta(lessonId, activeProfession);
     if (!info) continue; // Skip unknown lesson IDs
     validLessons[lessonId] = lessonData;
   }

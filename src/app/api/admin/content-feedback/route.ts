@@ -2,11 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
-import { course } from '@/data/course';
+import { getCourseData } from '@/data/course/api';
+import { PROFESSIONS } from '@/data/professions';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
+import type { Unit } from '@/data/course/types';
 
-function getCourseQuestionText(contentId: string): string | null {
-  for (const unit of course) {
+async function loadAllCourseUnits(): Promise<Unit[]> {
+  const activeProfessions = PROFESSIONS.filter((p) => !p.isComingSoon);
+  const allUnits = await Promise.all(
+    activeProfessions.map((p) => getCourseData(p.id)),
+  );
+  return allUnits.flat();
+}
+
+function getCourseQuestionText(units: Unit[], contentId: string): string | null {
+  for (const unit of units) {
     for (const lesson of unit.lessons) {
       const q = lesson.questions.find((q) => q.id === contentId);
       if (q) return q.question;
@@ -15,8 +25,8 @@ function getCourseQuestionText(contentId: string): string | null {
   return null;
 }
 
-function getQuestionText(_contentType: string, contentId: string): string {
-  const text = getCourseQuestionText(contentId);
+function getQuestionText(units: Unit[], _contentType: string, contentId: string): string {
+  const text = getCourseQuestionText(units, contentId);
   return text ? text.slice(0, 80) : `[Unknown: ${contentId}]`;
 }
 
@@ -26,6 +36,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
+  const allUnits = await loadAllCourseUnits();
   const includeDismissed = req.nextUrl.searchParams.get('includeDismissed') === 'true';
 
   // Fetch all flags
@@ -92,7 +103,7 @@ export async function GET(req: NextRequest) {
     items.push({
       contentId: g.contentId,
       contentType: g.contentType as ContentFeedbackType,
-      questionText: getQuestionText(g.contentType, g.contentId),
+      questionText: getQuestionText(allUnits, g.contentType, g.contentId),
       totalFlags: g.totalFlags,
       reasons: g.reasons as Record<FeedbackReason, number>,
       comments: g.comments,
