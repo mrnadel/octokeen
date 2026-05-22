@@ -5,7 +5,6 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { sql } from 'drizzle-orm';
 import * as schema from '../src/lib/db/schema';
-import { course } from '../src/data/course';
 import type { Unit } from '../src/data/course/types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -215,11 +214,17 @@ async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
   if (sectionFiles.length === 0) {
     for (const file of unitFiles) {
       const filePath = path.join(unitsDir, file);
-      const mod = await import(pathToFileURL(filePath).href);
+      let mod: Record<string, unknown>;
+      try {
+        mod = await import(pathToFileURL(filePath).href);
+      } catch (err) {
+        console.error(`[ERROR] Failed to load ${filePath}: ${(err as Error).message}`);
+        throw err;
+      }
       // Find the Unit export (could be any name)
       for (const key of Object.keys(mod)) {
         if (isUnit(mod[key])) {
-          units.push(mod[key]);
+          units.push(mod[key] as Unit);
           break;
         }
       }
@@ -229,12 +234,30 @@ async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
   // Load section files (export Unit[] arrays)
   for (const file of sectionFiles) {
     const filePath = path.join(unitsDir, file);
-    const mod = await import(pathToFileURL(filePath).href);
+    let mod: Record<string, unknown>;
+    try {
+      mod = await import(pathToFileURL(filePath).href);
+    } catch (err) {
+      console.error(`[ERROR] Failed to load ${filePath}: ${(err as Error).message}`);
+      throw err;
+    }
     for (const key of Object.keys(mod)) {
       const val = mod[key];
       if (Array.isArray(val) && val.length > 0 && isUnit(val[0])) {
-        units.push(...val);
+        units.push(...(val as Unit[]));
         break;
+      }
+    }
+  }
+
+  // Validate unit shapes
+  for (const unit of units) {
+    if (!unit.lessons?.length) {
+      console.warn(`[WARN] Unit ${unit.id ?? 'unknown'} has no lessons — check source file`);
+    }
+    for (const lesson of unit.lessons ?? []) {
+      if (!lesson.questions?.length) {
+        console.warn(`[WARN] Lesson ${lesson.id ?? 'unknown'} has no questions`);
       }
     }
   }
@@ -259,14 +282,7 @@ async function main() {
   console.log('=== Starting content seed ===\n');
 
   try {
-    // 1. Seed ME course (main course from src/data/course/index.ts)
-    console.log('--- Seeding ME course content ---');
-    await db.transaction(async (tx) => {
-      await seedUnits(tx, course, 'ME');
-    });
-    console.log('--- ME course seeded successfully ---\n');
-
-    // 2. Dynamically discover and seed all profession courses
+    // Dynamically discover and seed all profession courses (including mechanical-engineering)
     const professions = discoverProfessions();
     for (const prof of professions) {
       console.log(`--- Seeding ${prof.name} course content ---`);
