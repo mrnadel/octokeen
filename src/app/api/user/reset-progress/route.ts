@@ -21,11 +21,20 @@ import {
   pushSubscriptions,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`reset-progress:${userId}`, RATE_LIMITS.auth);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
   }
 
   // Require the confirmation phrase in the body

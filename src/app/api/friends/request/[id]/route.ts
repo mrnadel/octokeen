@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { db } from '@/lib/db';
 import { friendRequests, friendships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -17,6 +18,14 @@ export async function PATCH(
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`friend-request:${userId}`, RATE_LIMITS.api);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
   }
 
   const { id: requestId } = await params;

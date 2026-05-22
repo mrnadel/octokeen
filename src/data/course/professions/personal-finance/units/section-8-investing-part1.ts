@@ -899,7 +899,7 @@ export const finSection8Part1: Unit[] = [
             id: "fin-sec8-u2-L4-T1",
             type: "teaching",
             question: "The early bird wins big",
-            explanation: "Someone who invests $200/month from age 22 to 32 (10 years, then stops) often ends up with more at 65 than someone who invests $200/month from age 32 to 65 (33 years). Early money has more time to compound.",
+            explanation: "Investing $200/month from 22-32 often results in more money by 65 than investing from 32-65, because early money compounds longer.",
             hint: "Try this now: picture two snowballs. One starts rolling downhill at the top (age 22), the other starts halfway down (age 32). Which one is bigger at the bottom?",
           },
           {

@@ -21,7 +21,7 @@ export const unit8: Unit = {
  id: "pf-u8-bridge",
  type: "teaching",
  question: "Exploring the Digital Frontier",
- explanation: "You understand real estate and traditional investments. Now let's explore cryptocurrency and digital assets so you can separate the real opportunities from the hype.",
+ explanation: "Let's explore cryptocurrency and digital assets to separate real opportunities from hype.",
  },
  {
  id: "pf-u8-L1-T1",
@@ -34,7 +34,7 @@ export const unit8: Unit = {
  id: "pf-u8-L1-T2",
  type: "teaching",
  question: "Why People Care About Crypto",
- explanation: "Crypto solves real problems: sending money across borders instantly (no 3-5 business days), protecting against government currency devaluation, and giving financial access to the 1.4 billion adults worldwide who don't have a bank account.",
+ explanation: "Crypto enables instant transfers, protects against currency collapse, and gives financial access to billions without banks.",
  hint: "The technology is genuinely useful. The marketing around it is often garbage. Learning to tell the difference is a superpower.",
  },
  {

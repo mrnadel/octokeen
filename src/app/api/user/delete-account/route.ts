@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { cleanupBeforeDeletion } from '@/lib/account-cleanup';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 const deleteAccountSchema = z.object({
   confirmation: z.literal('DELETE MY ACCOUNT'),
@@ -14,6 +15,14 @@ export async function DELETE(request: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`delete-account:${userId}`, RATE_LIMITS.auth);
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
   }
 
   let rawBody: unknown;

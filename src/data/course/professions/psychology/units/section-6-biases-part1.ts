@@ -1256,7 +1256,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u3-L1-T2',
             type: 'teaching',
             question: 'Confirmation bias has 3 parts',
-            explanation: 'Confirmation bias works in three ways. Selective searching: you look for confirming evidence. Selective interpretation: you read ambiguous data as supporting your view. Selective memory: you remember confirming facts better.',
+            explanation: 'Confirmation bias means you seek, interpret, and remember information in ways that confirm your beliefs.',
           },
           {
             id: 'psy-sec6-u3-L1-Q3',
