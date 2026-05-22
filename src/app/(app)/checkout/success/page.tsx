@@ -1,14 +1,32 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { analytics } from '@/lib/mixpanel';
+import { useSubscription } from '@/hooks/useSubscription';
 
 export default function CheckoutSuccessPage() {
+  const { status } = useSession();
+  const router = useRouter();
+  const { refresh } = useSubscription();
   const [showConfetti, setShowConfetti] = useState(true);
   const tracked = useRef(false);
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/');
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      refresh();
+    }
+  }, [status, refresh]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowConfetti(false), 4000);
@@ -16,10 +34,19 @@ export default function CheckoutSuccessPage() {
   }, []);
 
   useEffect(() => {
+    if (status !== 'authenticated') return;
     if (tracked.current) return;
     tracked.current = true;
     analytics.subscription({ action: 'checkout_success', plan: 'pro' });
-  }, []);
+  }, [status]);
+
+  if (status === 'loading' || status === 'unauthenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden">

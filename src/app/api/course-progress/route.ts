@@ -6,6 +6,7 @@ import { getAuthUserId } from '@/lib/auth-utils';
 import { getLessonByIdMeta } from '@/data/course/api';
 import { courseProgressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
+import { incrementDailyUsageBatch } from '@/lib/access-control';
 import type { CourseProgress } from '@/data/course/types';
 import { PROFESSION_ID } from '@/data/professions';
 import { logger } from '@/lib/logger';
@@ -122,7 +123,7 @@ export async function POST(request: NextRequest) {
     await db.insert(courseProgress).values(data);
   }
 
-  // Check for new lesson completions and insert activity
+  // Check for new lesson completions, increment daily usage, and insert activity
   if (existing.length > 0 && progress.completedLessons) {
     const prevLessons = Object.keys(
       (existing[0].completedLessons as Record<string, unknown>) ?? {},
@@ -130,6 +131,7 @@ export async function POST(request: NextRequest) {
     const newLessons = Object.keys(mergedLessons);
     const newCompletions = newLessons.filter((id) => !prevLessons.includes(id));
     if (newCompletions.length > 0) {
+      await incrementDailyUsageBatch(userId, newCompletions.length);
       await insertActivity(userId, 'lesson_complete', {
         count: newCompletions.length,
       });

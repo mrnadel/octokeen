@@ -38,6 +38,7 @@ export default function SessionSummary({ summary }: Props) {
   const tracked = useRef(false);
   const adTracked = useRef(false);
   const [showingAd, setShowingAd] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const { shouldShowAd, recordCompletion, recordAdShown } = useAdManager();
 
   // Record completion for ad frequency tracking (once per summary)
@@ -53,13 +54,15 @@ export default function SessionSummary({ summary }: Props) {
   }, [abandonSession, router]);
 
   const handleContinue = useCallback(() => {
+    if (isNavigating) return;
+    setIsNavigating(true);
     if (shouldShowAd) {
       setShowingAd(true);
       recordAdShown();
     } else {
       handleBack();
     }
-  }, [shouldShowAd, recordAdShown, handleBack]);
+  }, [isNavigating, shouldShowAd, recordAdShown, handleBack]);
 
   useBackHandler(true, handleContinue);
   useScrollLock(true);
@@ -190,8 +193,6 @@ export default function SessionSummary({ summary }: Props) {
                   transition={{
                     duration: 2.5 + Math.random() * 1.5,
                     delay: 0.2 + Math.random() * 0.6,
-                    repeat: Infinity,
-                    repeatDelay: 0.8 + Math.random() * 1.5,
                   }}
                   style={{
                     position: 'absolute',
@@ -397,6 +398,7 @@ export default function SessionSummary({ summary }: Props) {
           >
             <button
               onClick={handleContinue}
+              disabled={isNavigating}
               className="flex-1 transition-transform active:scale-[0.98]"
               style={{
                 padding: '16px 0',
@@ -409,14 +411,16 @@ export default function SessionSummary({ summary }: Props) {
                 color: darkColor,
                 boxShadow: `0 4px 0 ${darkColor}40`,
                 border: 'none',
-                cursor: 'pointer',
+                cursor: isNavigating ? 'default' : 'pointer',
+                opacity: isNavigating ? 0.6 : 1,
               }}
             >
               Continue
             </button>
             {summary.type !== 'daily-challenge' && (
               <button
-                onClick={() => startSession(summary.type)}
+                onClick={() => { if (!isNavigating) { setIsNavigating(true); startSession(summary.type); } }}
+                disabled={isNavigating}
                 className="flex-1 transition-transform active:scale-[0.98]"
                 style={{
                   padding: '16px 0',
@@ -429,7 +433,8 @@ export default function SessionSummary({ summary }: Props) {
                   color: '#FFFFFF',
                   boxShadow: `0 4px 0 ${darkColor}30`,
                   border: '2px solid rgba(255,255,255,0.3)',
-                  cursor: 'pointer',
+                  cursor: isNavigating ? 'default' : 'pointer',
+                  opacity: isNavigating ? 0.6 : 1,
                 }}
               >
                 Again

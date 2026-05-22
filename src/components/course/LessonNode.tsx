@@ -87,8 +87,9 @@ export const LessonNode = memo(function LessonNode({
   return (
     <motion.div
       initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: isLocked ? 0.5 : 1, x: 0 }}
+      animate={{ x: 0 }}
       transition={{ delay: index * 0.05, duration: 0.25 }}
+      style={{ opacity: isLocked ? 0.5 : 1 }}
     >
       <button
         className="w-full text-left select-none group"

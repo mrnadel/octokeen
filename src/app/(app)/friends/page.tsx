@@ -25,6 +25,7 @@ const fetcher = (url: string) =>
 
 export default function FriendsPage() {
   const [tab, setTab] = useState<'friends' | 'requests'>('friends');
+  const [claimError, setClaimError] = useState('');
   const userStreak = useStore((s) => s.progress.currentStreak);
 
   const {
@@ -57,6 +58,7 @@ export default function FriendsPage() {
   }, [mutateFriends, mutateRequests, mutateQuests]);
 
   const handleClaimQuest = useCallback(async (questId: string) => {
+    setClaimError('');
     try {
       const res = await fetch('/api/friends/quests/claim', {
         method: 'POST',
@@ -70,9 +72,11 @@ export default function FriendsPage() {
         addGems(data.rewardGems, 'friend_quest_reward');
         // Refresh quest list to show "Claimed" state
         mutateQuests();
+      } else {
+        setClaimError('Failed to claim reward. Please try again.');
       }
     } catch {
-      // Silent failure
+      setClaimError('Failed to claim reward. Please try again.');
     }
   }, [mutateQuests]);
 
@@ -127,6 +131,9 @@ export default function FriendsPage() {
                       <h3 className="text-xs font-bold text-surface-500 uppercase tracking-wider px-1">
                         Weekly Quests
                       </h3>
+                      {claimError && (
+                        <p className="text-xs text-red-500 font-semibold px-1">{claimError}</p>
+                      )}
                       {friendQuests.map((q, i) => (
                         <FriendQuestCard key={q.id} quest={q} onClaim={handleClaimQuest} index={i} />
                       ))}

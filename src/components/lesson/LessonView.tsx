@@ -40,26 +40,14 @@ import { GlossaryText } from '@/components/ui/GlossaryText';
 import { GlossaryProvider } from '@/components/lesson/GlossaryContext';
 import { useNarration } from '@/hooks/useNarration';
 import { AudioButton } from '@/components/ui/AudioButton';
-import { AdaptiveToast, type AdaptiveMode } from '@/components/lesson/AdaptiveToast';
-import { MicroCelebration, type CelebrationType } from '@/components/lesson/MicroCelebration';
-import {
-  ADAPTIVE_ROLLING_WINDOW as ROLLING_WINDOW,
-  ADAPTIVE_STRUGGLING_THRESHOLD as STRUGGLING_THRESHOLD,
-  ADAPTIVE_CRUISING_THRESHOLD as CRUISING_THRESHOLD,
-  ADAPTIVE_MIN_ANSWERS,
-} from '@/lib/game-config';
+import { AdaptiveToast } from '@/components/lesson/AdaptiveToast';
+import { MicroCelebration } from '@/components/lesson/MicroCelebration';
 import { LessonExitConfirmModal } from './LessonExitConfirmModal';
 import { LessonCalculatorPanel } from './LessonCalculatorPanel';
-import { useBackgroundParallax } from './useBackgroundParallax';
-
-function getAdaptiveMode(recentAnswers: boolean[]): AdaptiveMode {
-  if (recentAnswers.length < ADAPTIVE_MIN_ANSWERS) return 'normal';
-  const window = recentAnswers.slice(-ROLLING_WINDOW);
-  const accuracy = window.filter(Boolean).length / window.length;
-  if (accuracy <= STRUGGLING_THRESHOLD) return 'struggling';
-  if (accuracy >= CRUISING_THRESHOLD && window.length >= ROLLING_WINDOW) return 'cruising';
-  return 'normal';
-}
+import { useLessonAdaptive, getAdaptiveMode } from '@/hooks/useLessonAdaptive';
+import { useLessonBackground } from '@/hooks/useLessonBackground';
+import { useLessonCelebration } from '@/hooks/useLessonCelebration';
+import { useLessonCharacter } from '@/hooks/useLessonCharacter';
 
 /**
  * Adapter for driving LessonView from an external data source (e.g. practice sessions).
@@ -113,33 +101,22 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<number | undefined>(undefined);
   const [showOutOfHearts, setShowOutOfHearts] = useState(false);
-  const [recentAnswers, setRecentAnswers] = useState<boolean[]>([]);
-  const adaptiveMode = useMemo(() => getAdaptiveMode(recentAnswers), [recentAnswers]);
-  const adaptiveSeed = useRef(0);
-  const prevAdaptiveMode = useRef<AdaptiveMode>('normal');
+
+  // Adaptive difficulty
+  const { recentAnswers: _recentAnswers, adaptiveMode, adaptiveSeed, pushAnswer } = useLessonAdaptive();
 
   // Micro-celebration state
-  const [celebration, setCelebration] = useState<{
-    type: CelebrationType;
-    streakCount?: number;
-    key: number;
-  } | null>(null);
-  const celebrationKeyRef = useRef(0);
-  const [correctStreak, setCorrectStreak] = useState(0);
-  const [milestoneGlow, setMilestoneGlow] = useState(false);
-
-  // Character state for section-based character integration
-  const [lessonCharacter, setLessonCharacter] = useState<{ id: string; name: string } | null>(null);
-  const [charLines, setCharLines] = useState<import('@/data/course/character-lines').CharacterLines[] | null>(null);
-
-  // Play a celebratory sound when entering cruising mode
-  useEffect(() => {
-    if (adaptiveMode === prevAdaptiveMode.current) return;
-    prevAdaptiveMode.current = adaptiveMode;
-    if (adaptiveMode === 'cruising') {
-      playSound('streakMilestone');
-    }
-  }, [adaptiveMode]);
+  const {
+    celebration,
+    correctStreak,
+    milestoneGlow,
+    setCelebration,
+    setCorrectStreak,
+    triggerStreakCelebration,
+    triggerHalfwayCelebration,
+    triggerLastQuestionCelebration,
+    dismissCelebration,
+  } = useLessonCelebration();
 
   const questionRef = useRef<QuestionCardHandle>(null);
   const continueBtnRef = useRef<HTMLButtonElement>(null);
@@ -187,100 +164,19 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const currentSectionIndex = lessonData?.unit?.sectionIndex;
 
   // === LESSON BACKGROUND ===
-  const [backgroundHtml, setBackgroundHtml] = useState<string | null>(null);
-  const [backgroundCss, setBackgroundCss] = useState<string | null>(null);
-  const [bgTheme, setBgTheme] = useState<'dark' | 'light' | null>(null);
-
-  useEffect(() => {
-    const bgKey = lessonData?.lesson.background;
-    if (!bgKey) {
-      setBackgroundHtml(null);
-      setBackgroundCss(null);
-      setBgTheme(null);
-      return;
-    }
-    const loaders: Record<string, () => Promise<{ background: { html: string; css?: string; theme?: 'dark' | 'light' } }>> = {
-      'space-stars': () => import('@/data/course/backgrounds/space-stars'),
-    };
-    const loader = loaders[bgKey];
-    if (!loader) {
-      console.warn('[LessonView] Unknown background:', bgKey);
-      setBackgroundHtml(null); setBackgroundCss(null); setBgTheme(null);
-      return;
-    }
-    let cancelled = false;
-    loader().then((mod) => {
-      if (!cancelled) {
-        setBackgroundHtml(mod.background.html);
-        setBackgroundCss(mod.background.css ?? null);
-        setBgTheme(mod.background.theme ?? 'dark');
-      }
-    }).catch((err) => {
-      console.warn('[LessonView] Failed to load background:', bgKey, err);
-      if (!cancelled) { setBackgroundHtml(null); setBackgroundCss(null); setBgTheme(null); }
-    });
-    return () => { cancelled = true; };
-  }, [lessonData?.lesson.background]);
-
-  // Inject background CSS into document.head (bypasses Tailwind purging)
-  useEffect(() => {
-    if (!backgroundCss) return;
-    const style = document.createElement('style');
-    style.setAttribute('data-lesson-bg', 'true');
-    style.textContent = backgroundCss;
-    document.head.appendChild(style);
-    return () => { document.head.removeChild(style); };
-  }, [backgroundCss]);
-
-  // Persist background animation timing across lesson transitions
-  const bgRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const bgKey = lessonData?.lesson.background;
-    if (!bgKey || !bgRef.current) return;
-    const storageKey = `lb-bg-start-${bgKey}`;
-    const now = performance.now();
-    const stored = sessionStorage.getItem(storageKey);
-    const startTime = stored ? parseFloat(stored) : now;
-    if (!stored) sessionStorage.setItem(storageKey, String(now));
-    const elapsed = now - startTime;
-    // Advance all animations to the elapsed time so they continue seamlessly
-    const el = bgRef.current;
-    requestAnimationFrame(() => {
-      el.getAnimations({ subtree: true }).forEach((a) => {
-        if (a instanceof CSSAnimation) {
-          a.currentTime = elapsed;
-        }
-      });
-    });
-  }, [lessonData?.lesson.background, backgroundHtml]);
-
-  // Parallax: smoothly animate --bg-step on the container (stable across DOM recreation)
   const bgStepIndex = adapter ? (adapter.answeredCount ?? 0) : (activeLesson?.currentQuestionIndex ?? 0);
-  useBackgroundParallax(bgRef, bgStepIndex);
+  const { backgroundHtml, backgroundCss: _backgroundCss, bgTheme, bgRef } = useLessonBackground(
+    lessonData?.lesson.background,
+    bgStepIndex,
+  );
 
-  // Load section character + character lines when lesson starts
-  useEffect(() => {
-    if (!activeLesson || adapter) return;
-    const sectionIdx = lessonData?.unit?.sectionIndex;
-    if (sectionIdx == null) return;
-    let cancelled = false;
-    (async () => {
-      const { loadCharacters, loadSectionCharacterMap, loadCharacterLines, getCharacterForSection } = await import('@/lib/story-utils');
-      const profId = activeProfession;
-      const [characters, sectionMap, lines] = await Promise.all([
-        loadCharacters(profId),
-        loadSectionCharacterMap(profId),
-        loadCharacterLines(profId),
-      ]);
-      if (cancelled) return;
-      const char = getCharacterForSection(sectionIdx, sectionMap, characters);
-      if (char) {
-        setLessonCharacter({ id: char.id, name: char.name });
-        setCharLines(lines);
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [activeLesson?.unitIndex, adapter, activeProfession]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Load section character + character lines when lesson starts (lesson mode only)
+  const characterSectionIndex = adapter ? undefined : lessonData?.unit?.sectionIndex;
+  const { lessonCharacter, charLines } = useLessonCharacter(
+    characterSectionIndex,
+    activeProfession,
+    adapter ? undefined : activeLesson?.unitIndex,
+  );
 
   const overlayActive = showExitConfirm || showOutOfHearts;
 
@@ -399,15 +295,10 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       const newStreak = correct ? correctStreak + 1 : 0;
       setCorrectStreak(newStreak);
       if (correct && newStreak >= 3 && adaptiveMode !== 'cruising') {
-        celebrationKeyRef.current++;
-        setCelebration({
-          type: 'streak',
-          streakCount: newStreak,
-          key: celebrationKeyRef.current,
-        });
+        triggerStreakCelebration(newStreak);
       }
     },
-    [_submitAnswer, lessonData, addMasteryEvent, loseHeart, correctStreak, adaptiveMode],
+    [_submitAnswer, lessonData, addMasteryEvent, loseHeart, correctStreak, adaptiveMode, triggerStreakCelebration],
   );
 
   const handleTypeProgress = useCallback((current: number, total: number) => {
@@ -479,12 +370,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       setLastAnswerCorrect(correct);
       setLastSelectedIndex(selectedOriginalIndex);
       // Track rolling accuracy for adaptive difficulty
-      setRecentAnswers((prev) => {
-        const next = [...prev, correct];
-        const mode = getAdaptiveMode(next);
-        if (mode !== adaptiveMode) adaptiveSeed.current++;
-        return next;
-      });
+      pushAnswer(correct);
       if (!correct && !adapter?.noHearts) {
         playSound('heartLost');
         loseHeart();
@@ -499,16 +385,11 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
         // Suppress when adaptive mode is cruising (they convey similar info)
         const currentAdaptiveMode = adapter ? 'normal' : adaptiveMode;
         if (correct && newStreak >= 3 && currentAdaptiveMode !== 'cruising') {
-          celebrationKeyRef.current++;
-          setCelebration({
-            type: 'streak',
-            streakCount: newStreak,
-            key: celebrationKeyRef.current,
-          });
+          triggerStreakCelebration(newStreak);
         }
       }
     },
-    [adapter, currentQuestion, _submitAnswer, lessonData, addMasteryEvent, loseHeart, adaptiveMode, isTeaching, correctStreak]
+    [adapter, currentQuestion, _submitAnswer, lessonData, addMasteryEvent, loseHeart, adaptiveMode, isTeaching, correctStreak, pushAnswer, triggerStreakCelebration]
   );
 
   const handleSelectionChange = useCallback((value: boolean) => {

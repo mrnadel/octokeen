@@ -1,5 +1,6 @@
 'use client';
 
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -22,7 +23,14 @@ export function DailyLimitBanner({ questionsUsedToday = 0 }: DailyLimitBannerPro
   const pct = Math.min(100, (questionsUsedToday / limit) * 100);
 
   return (
-    <div className="max-w-md mx-auto mb-6">
+    <AnimatePresence>
+    <motion.div
+      className="max-w-md mx-auto mb-6"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="rounded-xl bg-amber-50 border border-amber-200 px-4 py-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-medium text-amber-700">
@@ -74,6 +82,7 @@ export function DailyLimitBanner({ questionsUsedToday = 0 }: DailyLimitBannerPro
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
+    </AnimatePresence>
   );
 }

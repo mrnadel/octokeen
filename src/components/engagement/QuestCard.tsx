@@ -28,7 +28,7 @@ export const QuestCard = memo(function QuestCard({ quest, onClaim, onOpenChest, 
   const isLegendary = quest.rarity === 'legendary';
   const isElevated = isEpic || isLegendary;
 
-  const showClaimed = isClaimed || claimPhase !== 'idle';
+  const showClaimed = isClaimed || claimPhase === 'done';
 
   const handleClaim = useCallback(
     (questId: string) => {
@@ -91,7 +91,7 @@ export const QuestCard = memo(function QuestCard({ quest, onClaim, onOpenChest, 
           <div className="h-1.5 bg-gray-200/60 dark:bg-surface-700 rounded-full overflow-hidden">
             <motion.div
               className="h-full rounded-full"
-              initial={{ width: 0 }}
+              initial={false}
               animate={{ width: `${progressPercent}%` }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               style={{
@@ -291,7 +291,7 @@ export const QuestCard = memo(function QuestCard({ quest, onClaim, onOpenChest, 
                   >
                     <motion.div
                       className="h-full rounded-full"
-                      initial={{ width: 0 }}
+                      initial={false}
                       animate={{ width: `${progressPercent}%` }}
                       transition={{ duration: 0.6, ease: 'easeOut' }}
                       style={{

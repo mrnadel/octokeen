@@ -54,114 +54,15 @@ import { getLevelForXp } from '@/data/levels';
 import { drawCompetitorsFromPool } from '@/lib/fake-user-generator';
 import { useStore } from '@/store/useStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
+import {
+  getDefaultState,
+  grantInventoryItem,
+  createGemTransaction,
+  progressQuests,
+} from '@/lib/engagement-store-utils';
 
-// --------------- Default State Factories ---------------
 
-function getDefaultGems(): GemsState {
-  return {
-    balance: 0,
-    totalEarned: 0,
-    transactions: [],
-    inventory: {
-      activeTitles: [],
-      activeFrames: [],
-    },
-    selectedTitle: null,
-    selectedFrame: null,
-  };
-}
-
-function getDefaultLeague(): LeagueState {
-  const monday = getCurrentWeekMonday();
-  return {
-    currentTier: 1,
-    weeklyXp: 0,
-    weekStartDate: monday,
-    competitors: drawCompetitorsFromPool(monday, 1),
-    lastWeekResult: null,
-    resultSeen: true,
-  };
-}
-
-function getDefaultStreak(): StreakEnhancements {
-  return {
-    freezesOwned: 0,
-    freezeUsedToday: false,
-    lastStreakBreakDate: null,
-    lastStreakValueBeforeBreak: 0,
-    repairAvailable: false,
-    milestonesReached: [],
-  };
-}
-
-function getDefaultComeback(): ComebackState {
-  return {
-    isInComebackFlow: false,
-    comebackQuestsCompleted: 0,
-    daysAway: 0,
-    lastDismissedDate: null,
-  };
-}
-
-function getDefaultNudge(): NudgeState {
-  return {
-    lastDay1NudgeDate: null,
-    lastDay2NudgeDate: null,
-    daysAway: 0,
-  };
-}
-
-function getDefaultDailyRewardCalendar(): DailyRewardCalendarState {
-  return {
-    currentDay: 1,
-    lastClaimDate: null,
-    todayClaimed: false,
-    cycleStartDate: null,
-    cyclesCompleted: 0,
-  };
-}
-
-function getDefaultState(): EngagementState {
-  return {
-    gems: getDefaultGems(),
-    dailyQuests: [],
-    weeklyQuests: [],
-    dailyQuestDate: null,
-    weeklyQuestDate: null,
-    dailyChestClaimed: false,
-    weeklyChestClaimed: false,
-    lastDailyQuestIds: [],
-    lastWeeklyQuestIds: [],
-    league: getDefaultLeague(),
-    streak: getDefaultStreak(),
-    comeback: getDefaultComeback(),
-    nudge: getDefaultNudge(),
-    dailyRewardCalendar: getDefaultDailyRewardCalendar(),
-    dismissedNudges: [],
-    doubleXpExpiry: null,
-    mistakeQuestionIds: [],
-    lastDailyChallengeDate: null,
-  };
-}
-
-// --------------- Inventory Helpers ---------------
-
-/** Grant a title or frame to the inventory if not already owned. Returns updated GemsState. */
-export function grantInventoryItem(
-  gems: GemsState,
-  type: 'title' | 'frame',
-  itemId: string,
-): GemsState {
-  const key = type === 'title' ? 'activeTitles' : 'activeFrames';
-  if (gems.inventory[key].includes(itemId)) return gems;
-  return {
-    ...gems,
-    inventory: {
-      ...gems.inventory,
-      [key]: [...gems.inventory[key], itemId],
-    },
-  };
-}
+// --------------- Inventory Helpers (Export/Re-export from utils) ---------------
 
 /** Grant a title to the engagement store (call from outside the store). */
 export function grantTitle(titleId: string): void {
@@ -213,58 +114,6 @@ interface EngagementActions {
 
 type EngagementStore = EngagementState & EngagementActions;
 
-// --------------- Helper: create a gem transaction ---------------
-
-function createGemTransaction(amount: number, source: string): GemTransaction {
-  return {
-    id: `gem-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    amount,
-    source,
-    timestamp: new Date().toISOString(),
-  };
-}
-
-// --------------- Helper: update quests in an array ---------------
-
-function progressQuests(
-  quests: Quest[],
-  key: QuestTrackingKey,
-  value: number,
-  filter?: Record<string, unknown>,
-): Quest[] {
-  // Special mode: { _absolute: true } sets progress to `value` instead of adding
-  const isAbsolute = filter && '_absolute' in filter;
-  const cleanFilter = (() => {
-    if (!filter) return undefined;
-    const { _absolute, ...rest } = filter as Record<string, unknown>;
-    return Object.keys(rest).length > 0 ? rest : undefined;
-  })();
-
-  return quests.map((quest) => {
-    if (quest.trackingKey !== key) return quest;
-    if (quest.completed) return quest;
-
-    // Filter matching:
-    // - If the caller provides a filter AND the quest has a filter, the caller's
-    //   filter keys must match the quest's filter values (strict match).
-    // - If the caller provides a filter but the quest has none, the quest still
-    //   progresses (the filter is extra context, not a restriction).
-    // - If the caller does NOT provide a filter but the quest has one, the quest
-    //   still progresses (backwards-compat for soft filters like currentUnit).
-    if (cleanFilter && quest.filter) {
-      const filterMatches = Object.keys(cleanFilter).every(
-        (k) => quest.filter && quest.filter[k] === cleanFilter[k],
-      );
-      if (!filterMatches) return quest;
-    }
-
-    const newProgress = isAbsolute
-      ? Math.min(value, quest.target)
-      : Math.min(quest.progress + value, quest.target);
-    const completed = newProgress >= quest.target;
-    return { ...quest, progress: newProgress, completed };
-  });
-}
 
 // --------------- The Store ---------------
 
@@ -391,10 +240,8 @@ export const useEngagementStore = create<EngagementStore>()(
 
         // === Action 6: purchaseItem ===
         purchaseItem: (itemId) => {
-          const state = get();
           const item = shopItems.find((i) => i.id === itemId);
           if (!item) return false;
-          if (state.gems.balance < item.cost) return false;
 
           switch (item.type) {
             case 'heart_refill':
@@ -403,17 +250,25 @@ export const useEngagementStore = create<EngagementStore>()(
               // Don't allow purchase if hearts are already full or user has unlimited
               if (heartsState.isUnlimited() || heartsState.current >= heartsState.max) return false;
               const heartsToAdd = (item.metadata?.heartsToRefill as number) || 1;
-              // Deduct gems
-              set((s) => ({
-                gems: {
-                  ...s.gems,
-                  balance: s.gems.balance - item.cost,
-                  transactions: [
-                    createGemTransaction(-item.cost, 'shop_purchase'),
-                    ...s.gems.transactions,
-                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                },
-              }));
+              // Balance check and deduction happen atomically inside set() to prevent
+              // double-spend from rapid clicks that both pass a stale get() balance check.
+              let deducted = false;
+              set((s) => {
+                if (s.gems.balance < item.cost) return s;
+                deducted = true;
+                return {
+                  ...s,
+                  gems: {
+                    ...s.gems,
+                    balance: s.gems.balance - item.cost,
+                    transactions: [
+                      createGemTransaction(-item.cost, 'shop_purchase'),
+                      ...s.gems.transactions,
+                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                  },
+                };
+              });
+              if (!deducted) return false;
               // Add hearts
               useHeartsStore.setState((hs) => ({
                 current: Math.min(hs.current + heartsToAdd, hs.max),
@@ -421,59 +276,79 @@ export const useEngagementStore = create<EngagementStore>()(
               return true;
             }
             case 'streak_freeze': {
-              if (state.streak.freezesOwned >= MAX_STREAK_FREEZES) return false;
-              // Deduct gems first
-              set((s) => ({
-                gems: {
-                  ...s.gems,
-                  balance: s.gems.balance - item.cost,
-                  transactions: [
-                    createGemTransaction(-item.cost, 'shop_purchase'),
-                    ...s.gems.transactions,
-                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                },
-                streak: {
-                  ...s.streak,
-                  freezesOwned: s.streak.freezesOwned + 1,
-                },
-              }));
-              return true;
+              // Balance check and freeze increment happen atomically inside set()
+              let deducted = false;
+              set((s) => {
+                if (s.gems.balance < item.cost) return s;
+                if (s.streak.freezesOwned >= MAX_STREAK_FREEZES) return s;
+                deducted = true;
+                return {
+                  ...s,
+                  gems: {
+                    ...s.gems,
+                    balance: s.gems.balance - item.cost,
+                    transactions: [
+                      createGemTransaction(-item.cost, 'shop_purchase'),
+                      ...s.gems.transactions,
+                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                  },
+                  streak: {
+                    ...s.streak,
+                    freezesOwned: s.streak.freezesOwned + 1,
+                  },
+                };
+              });
+              return deducted;
             }
             case 'streak_repair': {
               // repairStreak handles its own gem deduction and validation
               return get().repairStreak();
             }
             case 'double_xp': {
-              set((s) => ({
-                gems: {
-                  ...s.gems,
-                  balance: s.gems.balance - item.cost,
-                  transactions: [
-                    createGemTransaction(-item.cost, 'shop_purchase'),
-                    ...s.gems.transactions,
-                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                },
-                doubleXpExpiry: new Date(Date.now() + DOUBLE_XP_SHOP_DURATION_MS).toISOString(),
-              }));
-              return true;
+              // Balance check and expiry set happen atomically inside set()
+              let deducted = false;
+              set((s) => {
+                if (s.gems.balance < item.cost) return s;
+                deducted = true;
+                return {
+                  ...s,
+                  gems: {
+                    ...s.gems,
+                    balance: s.gems.balance - item.cost,
+                    transactions: [
+                      createGemTransaction(-item.cost, 'shop_purchase'),
+                      ...s.gems.transactions,
+                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                  },
+                  doubleXpExpiry: new Date(Date.now() + DOUBLE_XP_SHOP_DURATION_MS).toISOString(),
+                };
+              });
+              return deducted;
             }
             case 'title':
             case 'frame': {
               const invKey = item.type === 'title' ? 'activeTitles' : 'activeFrames';
               const equipKey = item.type === 'title' ? 'selectedTitle' : 'selectedFrame';
-              if (state.gems.inventory[invKey].includes(itemId)) return false;
-              set((s) => ({
-                gems: {
-                  ...grantInventoryItem(s.gems, item.type as 'title' | 'frame', itemId),
-                  balance: s.gems.balance - item.cost,
-                  transactions: [
-                    createGemTransaction(-item.cost, 'shop_purchase'),
-                    ...s.gems.transactions,
-                  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                  [equipKey]: itemId, // auto-equip on purchase
-                },
-              }));
-              return true;
+              // Balance check, ownership check, and inventory grant happen atomically inside set()
+              let deducted = false;
+              set((s) => {
+                if (s.gems.balance < item.cost) return s;
+                if (s.gems.inventory[invKey].includes(itemId)) return s;
+                deducted = true;
+                return {
+                  ...s,
+                  gems: {
+                    ...grantInventoryItem(s.gems, item.type as 'title' | 'frame', itemId),
+                    balance: s.gems.balance - item.cost,
+                    transactions: [
+                      createGemTransaction(-item.cost, 'shop_purchase'),
+                      ...s.gems.transactions,
+                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                    [equipKey]: itemId, // auto-equip on purchase
+                  },
+                };
+              });
+              return deducted;
             }
             default:
               return false;
@@ -1114,6 +989,9 @@ export const useEngagementStore = create<EngagementStore>()(
       {
         name: STORAGE_KEYS.ENGAGEMENT,
         version: 1,
+        onRehydrateStorage: () => () => {
+          useEngagementStore.setState({ _hasHydrated: true });
+        },
         partialize: (state) => {
           // Persist all state fields, excluding action functions
           const {

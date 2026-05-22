@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { ScreenFX, type FXName } from './ScreenFX';
 import { useScrollLock } from '@/hooks/useScrollLock';
 
@@ -37,6 +37,15 @@ export function FullScreenModal({
   fullScreen,
 }: FullScreenModalProps) {
   useScrollLock(show);
+
+  useEffect(() => {
+    if (!show || !closable || !onClose) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [show, closable, onClose]);
 
   return (
     <AnimatePresence>

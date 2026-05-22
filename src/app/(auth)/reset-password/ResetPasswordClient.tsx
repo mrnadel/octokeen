@@ -159,7 +159,7 @@ function ResetPasswordInner() {
             type="password"
             placeholder="New password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => { setPassword(e.target.value); setError(''); }}
             required
             minLength={PASSWORD_MIN_LENGTH}
             autoComplete="new-password"

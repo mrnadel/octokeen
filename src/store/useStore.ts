@@ -277,10 +277,6 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
           unlocked = advancedCorrect >= 10;
         }
         break;
-      case 'ach-estimation-ace':
-        // Removed: estimation questions no longer exist (course questions only)
-        break;
-
       // ── Consistency ──
       case 'ach-streak-3':
         unlocked = progress.currentStreak >= 3;
@@ -336,12 +332,6 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
           const sessionCorrect = Object.values(sessionCtx.answers).filter(a => a.correct).length;
           unlocked = sessionCorrect >= 15;
         }
-        break;
-      case 'ach-flaw-finder':
-        // Removed: spot-the-flaw questions no longer exist (course questions only)
-        break;
-      case 'ach-scenario-master':
-        // Removed: scenario questions no longer exist (course questions only)
         break;
       case 'ach-hard-streak':
         if (sessionCtx) {

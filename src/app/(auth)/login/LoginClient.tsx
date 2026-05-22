@@ -92,10 +92,14 @@ function LoginPageInner() {
     }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'login', method: 'google' });
-    signIn('google', { callbackUrl });
+    try {
+      await signIn('google', { callbackUrl });
+    } catch {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -133,7 +137,7 @@ function LoginPageInner() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => { setEmail(e.target.value); setError(''); }}
           required
           autoComplete="email"
           suppressHydrationWarning
@@ -146,7 +150,7 @@ function LoginPageInner() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => { setPassword(e.target.value); setError(''); }}
           required
           autoComplete="current-password"
           suppressHydrationWarning

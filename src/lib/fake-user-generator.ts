@@ -151,13 +151,11 @@ const ACHIEVEMENT_TIERS: Record<number, string[]> = {
   2: ['ach-ten-correct', 'ach-streak-7', 'ach-daily-challenge-5', 'ach-five-topics'],
   3: ['ach-fifty-correct', 'ach-streak-14', 'ach-perfect-session', 'ach-topic-master', 'ach-all-types', 'ach-all-advanced'],
   4: ['ach-hundred-correct', 'ach-streak-30', 'ach-speed-round', 'ach-multi-master', 'ach-all-topics'],
-  5: ['ach-interview-ready', 'ach-hard-streak', 'ach-scenario-master'],
+  5: ['ach-interview-ready', 'ach-hard-streak'],
 };
 
 // Probability-gated achievements: only added if rng() < probability AND tier >= minTier
 const TIER_GATED_ACHIEVEMENTS = [
-  { id: 'ach-estimation-ace', minTier: 2, probability: 0.15 },
-  { id: 'ach-flaw-finder', minTier: 2, probability: 0.15 },
   { id: 'ach-confidence-calibrated', minTier: 3, probability: 0.20 },
   { id: 'ach-weakness-conquered', minTier: 3, probability: 0.15 },
 ];

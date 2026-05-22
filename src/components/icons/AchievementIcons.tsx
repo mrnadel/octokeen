@@ -1401,7 +1401,6 @@ export const achievementIconMap: Record<
   'ach-hundred-correct': CenturionIcon,
   'ach-perfect-session': FlawlessExecutionIcon,
   'ach-all-advanced': NoEasyModeIcon,
-  'ach-estimation-ace': BackOfEnvelopeIcon,
   // Consistency
   'ach-streak-3': GettingWarmedUpIcon,
   'ach-streak-7': SevenDayStreakIcon,
@@ -1412,8 +1411,6 @@ export const achievementIconMap: Record<
   // Challenge
   'ach-speed-round': QuickDrawIcon,
   'ach-confidence-calibrated': ConfidenceCalibratedIcon,
-  'ach-flaw-finder': EagleEyeIcon,
-  'ach-scenario-master': ScenarioCommanderIcon,
   'ach-hard-streak': GauntletRunnerIcon,
   // Exploration
   'ach-first-topic': FirstStepsIcon,

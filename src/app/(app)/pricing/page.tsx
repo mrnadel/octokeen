@@ -93,7 +93,7 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
-  const { isProUser } = useSubscription();
+  const { isProUser, isLoading: subscriptionLoading } = useSubscription();
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -364,7 +364,9 @@ export default function PricingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          {isProUser ? (
+          {subscriptionLoading ? (
+            <div className="w-full py-4 rounded-2xl bg-white/10 animate-pulse h-[56px]" />
+          ) : isProUser ? (
             <div className="text-center">
               <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-green-400/15 text-green-300 font-bold text-sm">
                 <Check className="w-5 h-5" />

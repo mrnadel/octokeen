@@ -100,7 +100,7 @@ export function StreakNudgeBanner() {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
         role="alert"
         aria-label={isDay2 ? 'Urgent streak warning' : 'Welcome back nudge'}

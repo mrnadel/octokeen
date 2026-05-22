@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Lock } from 'lucide-react';
@@ -487,17 +487,17 @@ export function CourseMap() {
             unit.lessons.every((l) => progress.completedLessons[l.id]?.golden);
 
           return (
-            <div
+            <motion.div
               key={unit.id}
               ref={(el) => {
                 unitElsRef.current[unitIndex] = el;
                 if (isActive && currentUnitRef) currentUnitRef.current = el;
               }}
               data-unit-index={unitIndex}
-              style={{
-                animation: 'unitSlideUp 0.5s ease backwards',
-                animationDelay: `${Math.min(localIdx * 0.1, 0.5)}s`,
-              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: Math.min(localIdx * 0.1, 0.5), duration: 0.5 }}
             >
               {/* Inline unit label */}
               <div
@@ -569,7 +569,7 @@ export function CourseMap() {
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           );
         })}
 
@@ -696,7 +696,7 @@ export function CourseMap() {
       />
 
       {/* Fixed scroll-to-current button — bottom-right, above mobile nav */}
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {scrollDirection && (
           <ScrollToCurrentButton direction={scrollDirection} targetRef={currentLessonRef} />
         )}

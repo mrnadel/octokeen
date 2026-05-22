@@ -207,9 +207,6 @@ export default function AchievementsPage() {
                           ? cn(config.cardBorder, 'ring-1', config.cardBorder.replace('border-', 'ring-').replace('-200', '-100'))
                           : 'opacity-50 grayscale'
                       )}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: unlocked ? 1 : 0.5, y: 0 }}
-                      transition={{ delay: 0.05 + achIdx * 0.04, duration: 0.35 }}
                       whileHover={unlocked ? { scale: 1.02, transition: { duration: 0.15 } } : undefined}
                     >
                       {/* Icon */}

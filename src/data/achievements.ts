@@ -56,16 +56,6 @@ export const achievements: Achievement[] = [
     condition: 'Answer 10 advanced questions correctly (cumulative)',
     xpReward: 300,
   },
-  {
-    id: 'ach-estimation-ace',
-    name: 'Back of the Envelope',
-    description: 'Get 3 estimation questions within the acceptable range.',
-    icon: '📐',
-    category: 'knowledge',
-    condition: 'Answer 3 estimation questions within acceptable range',
-    xpReward: 200,
-  },
-
   // ═══════════════ CONSISTENCY (6) ═══════════════
   {
     id: 'ach-streak-3',
@@ -140,24 +130,6 @@ export const achievements: Achievement[] = [
     category: 'challenge',
     condition: 'Answer 15 questions correctly in one session',
     xpReward: 250,
-  },
-  {
-    id: 'ach-flaw-finder',
-    name: 'Eagle Eye',
-    description: 'Correctly identify the flaw in 3 spot-the-flaw questions.',
-    icon: '🔍',
-    category: 'challenge',
-    condition: 'Answer 3 spot-the-flaw questions correctly',
-    xpReward: 200,
-  },
-  {
-    id: 'ach-scenario-master',
-    name: 'Scenario Commander',
-    description: 'Successfully complete 5 scenario-based questions.',
-    icon: '🗺️',
-    category: 'challenge',
-    condition: 'Complete 5 scenario questions with all steps addressed',
-    xpReward: 300,
   },
   {
     id: 'ach-hard-streak',

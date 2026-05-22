@@ -8,22 +8,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   ChevronRight,
-  AlertTriangle,
-  Loader2,
   Sun,
   Moon,
   Monitor,
 } from 'lucide-react';
-import { useStore } from '@/store/useStore';
-import { usePushNotifications } from '@/hooks/usePushNotifications';
-import { useCourseStore } from '@/store/useCourseStore';
-import { useMasteryStore } from '@/store/useMasteryStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useSoundStore } from '@/store/useSoundStore';
 import { useNarrationStore } from '@/store/useNarrationStore';
 import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
-import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
+import PasswordChangeForm from './PasswordChangeForm';
+import ResetProgressForm from './ResetProgressForm';
+import DeleteAccountForm from './DeleteAccountForm';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -34,96 +31,6 @@ export default function SettingsPage() {
 
   // Password — only show for credentials (non-OAuth) users
   const hasPassword = session?.user?.provider === 'credentials';
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordSuccess, setPasswordSuccess] = useState('');
-  const [passwordLoading, setPasswordLoading] = useState(false);
-
-  // Reset progress
-  const [resetStep, setResetStep] = useState(0);
-  const [resetConfirmText, setResetConfirmText] = useState('');
-  const [resetError, setResetError] = useState('');
-
-  // Delete account
-  const [deleteStep, setDeleteStep] = useState(0);
-  const [deleteConfirmText, setDeleteConfirmText] = useState('');
-  const [deleteError, setDeleteError] = useState('');
-
-  const handleChangePassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setPasswordError('');
-    setPasswordSuccess('');
-    if (newPassword.length < 8) { setPasswordError('New password must be at least 8 characters'); return; }
-    setPasswordLoading(true);
-    try {
-      const res = await fetch('/api/auth/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ currentPassword, newPassword }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setPasswordError(data.error || 'Failed to change password'); }
-      else {
-        setPasswordSuccess('Password changed successfully!');
-        setCurrentPassword('');
-        setNewPassword('');
-        setTimeout(() => { setShowPasswordForm(false); setPasswordSuccess(''); }, 2000);
-      }
-    } catch { setPasswordError('Something went wrong'); } finally {
-      setPasswordLoading(false);
-    }
-  };
-
-  const handleResetProgress = useCallback(async () => {
-    if (resetConfirmText !== 'RESET MY PROGRESS') return;
-    setResetStep(3);
-    setResetError('');
-    try {
-      const res = await fetch('/api/user/reset-progress', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirmation: 'RESET MY PROGRESS' }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to reset');
-      }
-      useStore.getState().resetProgress();
-      useCourseStore.setState({ progress: { displayName, totalXp: 0, currentStreak: 0, longestStreak: 0, lastActiveDate: '', activeDays: [], completedLessons: {} } });
-      useMasteryStore.getState().clearEvents();
-      setResetStep(0);
-      setResetConfirmText('');
-      window.location.reload();
-    } catch (err: any) {
-      setResetError(err.message || 'Something went wrong');
-      setResetStep(2);
-    }
-  }, [resetConfirmText, displayName]);
-
-  const handleDeleteAccount = useCallback(async () => {
-    if (deleteConfirmText !== 'DELETE MY ACCOUNT') return;
-    setDeleteStep(3);
-    setDeleteError('');
-    try {
-      const res = await fetch('/api/user/delete-account', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirmation: 'DELETE MY ACCOUNT' }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to delete account');
-      }
-      // Sign out first, then clear local stores
-      localStorage.clear();
-      await signOut({ callbackUrl: '/login' });
-    } catch (err: any) {
-      setDeleteError(err.message || 'Something went wrong');
-      setDeleteStep(2);
-    }
-  }, [deleteConfirmText]);
 
   const { state: pushState, subscribe: enablePush, unsubscribe: disablePush } = usePushNotifications();
   const soundEnabled = useSoundStore((s) => s.enabled);
@@ -169,7 +76,6 @@ export default function SettingsPage() {
   const handleCountryChange = useCallback(async (code: string) => {
     setSelectedCountry(code);
     setShowRegionPicker(false);
-    localStorage.setItem(STORAGE_KEYS.COUNTRY, code);
     if (session?.user) {
       try {
         await fetch('/api/user/profile', {
@@ -177,7 +83,10 @@ export default function SettingsPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ country: code }),
         });
+        localStorage.setItem(STORAGE_KEYS.COUNTRY, code);
       } catch { /* silent — localStorage is the primary store */ }
+    } else {
+      localStorage.setItem(STORAGE_KEYS.COUNTRY, code);
     }
   }, [session?.user]);
 
@@ -200,7 +109,7 @@ export default function SettingsPage() {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ profilePublic: next }),
-    }).catch(() => {});
+    }).catch(() => { setProfilePublic(!next); });
   }, [profilePublic]);
 
   // Auth provider
@@ -333,51 +242,7 @@ export default function SettingsPage() {
             </button>
 
             {/* Change password */}
-            {hasPassword && (
-              <>
-                <button
-                  onClick={() => setShowPasswordForm(!showPasswordForm)}
-                  className={`${divider} ${rowLink}`}
-                >
-                  <span className={rowLabel}>Change password</span>
-                  <ChevronRight className={`${chevron} transition-transform ${showPasswordForm ? 'rotate-90' : ''}`} />
-                </button>
-
-                <AnimatePresence>
-                  {showPasswordForm && (
-                    <motion.form
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      onSubmit={handleChangePassword}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 space-y-3 border-t border-gray-50 dark:border-surface-700 pt-3">
-                        {passwordError && <p className="text-red-500 text-xs font-semibold">{passwordError}</p>}
-                        {passwordSuccess && <p className="text-emerald-500 text-xs font-semibold">{passwordSuccess}</p>}
-                        <input
-                          type="password" placeholder="Current password" value={currentPassword}
-                          onChange={(e) => setCurrentPassword(e.target.value)} required
-                          className="w-full px-3 py-2.5 bg-gray-50 dark:bg-surface-700 border border-gray-200 dark:border-surface-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all text-gray-800 dark:text-surface-100"
-                        />
-                        <input
-                          type="password" placeholder="New password (8+ characters)" value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)} required minLength={PASSWORD_MIN_LENGTH}
-                          className="w-full px-3 py-2.5 bg-gray-50 dark:bg-surface-700 border border-gray-200 dark:border-surface-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all text-gray-800 dark:text-surface-100"
-                        />
-                        <button
-                          type="submit" disabled={passwordLoading}
-                          className="w-full py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white font-bold rounded-xl text-sm transition-colors"
-                        >
-                          {passwordLoading ? 'Updating...' : 'Update Password'}
-                        </button>
-                      </div>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-              </>
-            )}
+            {hasPassword && <PasswordChangeForm />}
 
             {/* Admin */}
             {isAdmin && (
@@ -432,136 +297,8 @@ export default function SettingsPage() {
         <div>
           <h3 className="text-xs font-bold text-red-400 dark:text-red-500 uppercase tracking-wider mb-2 px-1">Danger Zone</h3>
           <div className={`${card} !border-red-100 dark:!border-red-900/40`}>
-            <button
-              onClick={() => { setResetStep(resetStep === 0 ? 1 : 0); setResetConfirmText(''); setResetError(''); }}
-              className={`${rowBase} hover:bg-red-50/50 dark:hover:bg-red-900/20`}
-            >
-              <span className="text-sm font-semibold text-gray-600 dark:text-surface-300 flex-1 text-left">Reset all progress</span>
-              <ChevronRight className={`${chevron} transition-transform ${resetStep > 0 ? 'rotate-90' : ''}`} />
-            </button>
-
-            <AnimatePresence>
-              {resetStep >= 1 && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-4 pb-4 border-t border-red-50 dark:border-red-900/30 pt-4 space-y-3">
-                    {resetStep === 1 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        <div className="flex gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
-                          <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                          <div className="text-xs text-red-700 dark:text-red-400 space-y-1">
-                            <p className="font-bold">This action is permanent and cannot be undone.</p>
-                            <p>All XP, streaks, lessons, mastery, and achievements will be erased.</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <button onClick={() => setResetStep(2)} className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-sm transition-colors">
-                            I understand, continue
-                          </button>
-                          <button onClick={() => { setResetStep(0); setResetConfirmText(''); }} className="px-4 py-2.5 bg-gray-100 dark:bg-surface-700 hover:bg-gray-200 dark:hover:bg-surface-600 text-gray-600 dark:text-surface-300 font-bold rounded-xl text-sm transition-colors">
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                    {resetStep === 2 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        {resetError && <p className="text-red-500 text-xs font-semibold">{resetError}</p>}
-                        <p className="text-xs text-gray-500 dark:text-surface-400">
-                          Type <span className="font-mono font-bold text-red-500 bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded">RESET MY PROGRESS</span> to confirm:
-                        </p>
-                        <input type="text" value={resetConfirmText} onChange={(e) => setResetConfirmText(e.target.value)} placeholder="Type here..." autoFocus className="w-full px-3 py-2.5 bg-gray-50 dark:bg-surface-700 border-2 border-gray-200 dark:border-surface-600 rounded-xl text-sm font-mono focus:outline-none focus:border-red-400 transition-all text-gray-800 dark:text-surface-100" />
-                        <div className="flex gap-2">
-                          <button onClick={handleResetProgress} disabled={resetConfirmText !== 'RESET MY PROGRESS'} className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 disabled:bg-gray-200 dark:disabled:bg-surface-700 disabled:text-gray-400 text-white font-bold rounded-xl text-sm transition-colors">
-                            Permanently Reset Everything
-                          </button>
-                          <button onClick={() => { setResetStep(0); setResetConfirmText(''); setResetError(''); }} className="px-4 py-2.5 bg-gray-100 dark:bg-surface-700 hover:bg-gray-200 dark:hover:bg-surface-600 text-gray-600 dark:text-surface-300 font-bold rounded-xl text-sm transition-colors">
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                    {resetStep === 3 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center gap-2 py-4">
-                        <Loader2 className="w-5 h-5 text-red-400 animate-spin" />
-                        <span className="text-sm font-bold text-gray-500 dark:text-surface-400">Resetting all progress...</span>
-                      </motion.div>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Delete Account */}
-            <button
-              onClick={() => { setDeleteStep(deleteStep === 0 ? 1 : 0); setDeleteConfirmText(''); setDeleteError(''); }}
-              className={`${divider} !border-red-100 dark:!border-red-900/40 ${rowBase} hover:bg-red-50/50 dark:hover:bg-red-900/20`}
-            >
-              <span className="text-sm font-semibold text-red-500 flex-1 text-left">Delete account</span>
-              <ChevronRight className={`${chevron} transition-transform ${deleteStep > 0 ? 'rotate-90' : ''}`} />
-            </button>
-
-            <AnimatePresence>
-              {deleteStep >= 1 && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-4 pb-4 border-t border-red-50 dark:border-red-900/30 pt-4 space-y-3">
-                    {deleteStep === 1 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        <div className="flex gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
-                          <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                          <div className="text-xs text-red-700 dark:text-red-400 space-y-1">
-                            <p className="font-bold">This will permanently delete your account.</p>
-                            <p>Your credentials, progress, subscription, and friend connections will be erased.</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <button onClick={() => setDeleteStep(2)} className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-sm transition-colors">
-                            I understand, continue
-                          </button>
-                          <button onClick={() => { setDeleteStep(0); setDeleteConfirmText(''); }} className="px-4 py-2.5 bg-gray-100 dark:bg-surface-700 hover:bg-gray-200 dark:hover:bg-surface-600 text-gray-600 dark:text-surface-300 font-bold rounded-xl text-sm transition-colors">
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                    {deleteStep === 2 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-                        {deleteError && <p className="text-red-500 text-xs font-semibold">{deleteError}</p>}
-                        <p className="text-xs text-gray-500 dark:text-surface-400">
-                          Type <span className="font-mono font-bold text-red-500 bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded">DELETE MY ACCOUNT</span> to confirm:
-                        </p>
-                        <input type="text" value={deleteConfirmText} onChange={(e) => setDeleteConfirmText(e.target.value)} placeholder="Type here..." autoFocus className="w-full px-3 py-2.5 bg-gray-50 dark:bg-surface-700 border-2 border-gray-200 dark:border-surface-600 rounded-xl text-sm font-mono focus:outline-none focus:border-red-400 transition-all text-gray-800 dark:text-surface-100" />
-                        <div className="flex gap-2">
-                          <button onClick={handleDeleteAccount} disabled={deleteConfirmText !== 'DELETE MY ACCOUNT'} className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-gray-200 dark:disabled:bg-surface-700 disabled:text-gray-400 text-white font-bold rounded-xl text-sm transition-colors">
-                            Permanently Delete Account
-                          </button>
-                          <button onClick={() => { setDeleteStep(0); setDeleteConfirmText(''); setDeleteError(''); }} className="px-4 py-2.5 bg-gray-100 dark:bg-surface-700 hover:bg-gray-200 dark:hover:bg-surface-600 text-gray-600 dark:text-surface-300 font-bold rounded-xl text-sm transition-colors">
-                            Cancel
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                    {deleteStep === 3 && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center gap-2 py-4">
-                        <Loader2 className="w-5 h-5 text-red-400 animate-spin" />
-                        <span className="text-sm font-bold text-gray-500 dark:text-surface-400">Deleting your account...</span>
-                      </motion.div>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <ResetProgressForm displayName={displayName} />
+            <DeleteAccountForm />
           </div>
         </div>
       </div>

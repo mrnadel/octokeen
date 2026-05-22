@@ -11,7 +11,7 @@ export default function FriendsBadge() {
   const { data } = useSWR(
     status === 'authenticated' ? '/api/friends/requests/count' : null,
     fetcher,
-    { refreshInterval: 60000 },
+    { refreshInterval: 30000 },
   );
 
   const count = data?.count ?? 0;

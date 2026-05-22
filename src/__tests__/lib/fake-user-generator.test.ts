@@ -245,8 +245,6 @@ describe('generateAchievements (via pool inspection)', () => {
 
   it('tier-gated achievements never appear below minTier', () => {
     const gated = [
-      { id: 'ach-estimation-ace', minTier: 2 },
-      { id: 'ach-flaw-finder', minTier: 2 },
       { id: 'ach-confidence-calibrated', minTier: 3 },
       { id: 'ach-weakness-conquered', minTier: 3 },
     ];

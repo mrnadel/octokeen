@@ -131,10 +131,14 @@ export default function RegisterPage() {
     }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
     analytics.auth({ action: 'signup', method: 'google' });
-    signIn('google', { callbackUrl: '/onboarding' });
+    try {
+      await signIn('google', { callbackUrl: '/onboarding' });
+    } catch {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -172,7 +176,7 @@ export default function RegisterPage() {
           type="text"
           placeholder="Name"
           value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          onChange={(e) => { setDisplayName(e.target.value); setError(''); }}
           required
           minLength={2}
           maxLength={50}
@@ -187,7 +191,7 @@ export default function RegisterPage() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => { setEmail(e.target.value); setError(''); }}
           required
           autoComplete="email"
           suppressHydrationWarning
@@ -201,7 +205,7 @@ export default function RegisterPage() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => { setPassword(e.target.value); setError(''); }}
             required
             minLength={PASSWORD_MIN_LENGTH}
             autoComplete="new-password"

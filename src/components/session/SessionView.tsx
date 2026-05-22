@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useStore, useSession, useSessionActions } from '@/store/useStore';
 import SessionSummary from './SessionSummary';
 import { useMasteryStore } from '@/store/useMasteryStore';
@@ -55,7 +56,19 @@ export default function SessionView() {
   );
 
   if (sessionSummary) {
-    return <SessionSummary summary={sessionSummary} />;
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="summary"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <SessionSummary summary={sessionSummary} />
+        </motion.div>
+      </AnimatePresence>
+    );
   }
 
   if (!session || !session.questions[session.currentIndex]) {
@@ -88,5 +101,17 @@ export default function SessionView() {
     exitConfirmMessage: 'Your progress on this session will be lost.',
   };
 
-  return <LessonView adapter={adapter} />;
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key="lesson"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        <LessonView adapter={adapter} />
+      </motion.div>
+    </AnimatePresence>
+  );
 }

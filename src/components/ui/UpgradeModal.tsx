@@ -19,7 +19,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
   const [error, setError] = useState('');
   const { data: session } = useSession();
 
-  useEffect(() => { if (isOpen) { analytics.feature('upgrade_modal_shown', { reason }); setError(''); } }, [isOpen, reason]);
+  useEffect(() => { if (isOpen) { analytics.feature('upgrade_modal_shown', { reason }); setLoading(false); setError(''); } }, [isOpen, reason]);
 
   const handleSubscribe = async () => {
     if (!session?.user?.id) return;

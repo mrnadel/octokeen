@@ -280,4 +280,6 @@ export interface EngagementState {
   doubleXpExpiry: string | null; // ISO timestamp
   mistakeQuestionIds: string[];
   lastDailyChallengeDate: string | null; // ISO date of last completed daily challenge
+  /** Set to true once the persist middleware has rehydrated from localStorage. */
+  _hasHydrated: boolean;
 }

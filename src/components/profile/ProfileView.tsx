@@ -261,7 +261,7 @@ export function ProfileView({
               <div className="h-2 bg-surface-100 dark:bg-surface-800 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-brand-400 to-brand-500"
-                  initial={{ width: 0 }}
+                  initial={false}
                   animate={{ width: `${Math.round(levelInfo.progress * 100)}%` }}
                   transition={{ duration: 1, ease: 'easeOut' }}
                 />

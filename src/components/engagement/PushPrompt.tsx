@@ -57,7 +57,7 @@ export function PushPrompt() {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {visible && (
         <motion.div
           initial={{ opacity: 0, y: 60, scale: 0.95 }}
