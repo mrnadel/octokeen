@@ -333,7 +333,9 @@ export function GemShop() {
     disabledReason: string | null;
     canAfford: boolean;
   } {
-    const canAfford = gems.balance >= item.cost;
+    // Before localStorage has rehydrated, treat balance as unknown — don't show
+    // "Need X more gems" based on the pre-hydration zero balance.
+    const canAfford = hasHydrated ? gems.balance >= item.cost : false;
     let isOwned = false;
     let isEquipped = false;
     let isDisabled = false;
@@ -348,6 +350,9 @@ export function GemShop() {
     }
 
     if (isOwned) {
+      isDisabled = true;
+    } else if (!hasHydrated) {
+      // Still loading — disable buy buttons without showing a misleading reason
       isDisabled = true;
     } else if (item.type === 'streak_freeze' && streak.freezesOwned >= MAX_STREAK_FREEZES) {
       isDisabled = true;

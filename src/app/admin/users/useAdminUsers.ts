@@ -61,6 +61,7 @@ export interface UseAdminUsersReturn {
   selectedIds: Set<string>;
   handleSelect: (id: string, index: number, isShift: boolean) => void;
   toggleSelectAll: () => void;
+  clearSelection: () => void;
   // Delete state
   deleteTarget: AdminUser | null;
   setDeleteTarget: (user: AdminUser | null) => void;
@@ -316,6 +317,10 @@ export function useAdminUsers(): UseAdminUsersReturn {
     }
   };
 
+  const clearSelection = (): void => {
+    setSelectedIds(new Set());
+  };
+
   return {
     users,
     total,
@@ -334,6 +339,7 @@ export function useAdminUsers(): UseAdminUsersReturn {
     selectedIds,
     handleSelect,
     toggleSelectAll,
+    clearSelection,
     deleteTarget,
     setDeleteTarget,
     confirmText,

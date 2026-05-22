@@ -3,7 +3,6 @@ import { useBackgroundParallax } from '@/components/lesson/useBackgroundParallax
 
 export interface UseLessonBackgroundReturn {
   backgroundHtml: string | null;
-  backgroundCss: string | null;
   bgTheme: 'dark' | 'light' | null;
   bgRef: React.RefObject<HTMLDivElement | null>;
 }
@@ -90,5 +89,5 @@ export function useLessonBackground(
   // Parallax: smoothly animate --bg-step on the container
   useBackgroundParallax(bgRef, stepIndex);
 
-  return { backgroundHtml, backgroundCss, bgTheme, bgRef };
+  return { backgroundHtml, bgTheme, bgRef };
 }

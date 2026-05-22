@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLeague } from '@/store/useEngagementStore';
 import { useStore } from '@/store/useStore';
@@ -8,7 +8,6 @@ import { leagueTiers } from '@/data/league';
 import { getUserRank, getTierConfig } from '@/lib/league-simulator';
 import { CompetitorAvatar } from './CompetitorAvatar';
 import { LeagueImage } from '@/components/icons/LeagueImage';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { LeaderboardRow } from '@/components/ui/LeaderboardRow';
 import { useIsDark } from '@/store/useThemeStore';
 import { useSession } from 'next-auth/react';

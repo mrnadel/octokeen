@@ -44,7 +44,7 @@ import { AdaptiveToast } from '@/components/lesson/AdaptiveToast';
 import { MicroCelebration } from '@/components/lesson/MicroCelebration';
 import { LessonExitConfirmModal } from './LessonExitConfirmModal';
 import { LessonCalculatorPanel } from './LessonCalculatorPanel';
-import { useLessonAdaptive, getAdaptiveMode } from '@/hooks/useLessonAdaptive';
+import { useLessonAdaptive } from '@/hooks/useLessonAdaptive';
 import { useLessonBackground } from '@/hooks/useLessonBackground';
 import { useLessonCelebration } from '@/hooks/useLessonCelebration';
 import { useLessonCharacter } from '@/hooks/useLessonCharacter';
@@ -103,7 +103,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const [showOutOfHearts, setShowOutOfHearts] = useState(false);
 
   // Adaptive difficulty
-  const { recentAnswers: _recentAnswers, adaptiveMode, adaptiveSeed, pushAnswer } = useLessonAdaptive();
+  const { adaptiveMode, adaptiveSeed, pushAnswer } = useLessonAdaptive();
 
   // Micro-celebration state
   const {
@@ -165,7 +165,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   // === LESSON BACKGROUND ===
   const bgStepIndex = adapter ? (adapter.answeredCount ?? 0) : (activeLesson?.currentQuestionIndex ?? 0);
-  const { backgroundHtml, backgroundCss: _backgroundCss, bgTheme, bgRef } = useLessonBackground(
+  const { backgroundHtml, bgTheme, bgRef } = useLessonBackground(
     lessonData?.lesson.background,
     bgStepIndex,
   );
@@ -599,7 +599,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   // === NARRATION (Kokoro TTS via Blob CDN, browser TTS fallback) ===
   const { speakFromFile, speak: narrateText, stop: stopNarration } = useNarration();
-  const currentCharacterId = lessonCharacter?.id ?? null;
   const currentLessonId = lessonData?.lesson.id ?? null;
 
   // Narrate when card changes
