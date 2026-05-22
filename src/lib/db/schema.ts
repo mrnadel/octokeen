@@ -705,3 +705,25 @@ export const activityReactions = pgTable(
     index('activity_reactions_activity_idx').on(table.activityId),
   ]
 );
+
+// ─── Game Balance Config ─────────────────────────────────────
+
+export const gameConfig = pgTable(
+  'game_config',
+  {
+    id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    category: text('category').notNull(),
+    key: text('key').notNull(),
+    value: jsonb('value').notNull(),
+    description: text('description'),
+    minValue: real('min_value'),
+    maxValue: real('max_value'),
+    isLocked: boolean('is_locked').default(false).notNull(),
+    lastModifiedBy: text('last_modified_by'),
+    lastModifiedAt: timestamp('last_modified_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => [
+    uniqueIndex('game_config_category_key_idx').on(t.category, t.key),
+  ]
+);
