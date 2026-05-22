@@ -81,6 +81,69 @@ describe('GET /api/progress', () => {
     const json = await res.json();
     expect(json.error).toBe('User not found');
   });
+
+  it('GET returns 200 with user progress when authenticated', async () => {
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+
+    const { db } = await import('@/lib/db');
+    // db.select is called 4 times in parallel (users, userProgress, topicProgress, sessionHistory)
+    // Return realistic shapes for each call
+    vi.mocked(db.select)
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            limit: vi.fn().mockResolvedValue([
+              { id: 'user-abc', displayName: 'Test User', name: 'Test User', joinedDate: '2026-01-01' },
+            ]),
+          }),
+        }),
+      } as never)
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            limit: vi.fn().mockResolvedValue([
+              {
+                currentLevel: 3,
+                totalXp: 450,
+                currentStreak: 5,
+                longestStreak: 10,
+                lastActiveDate: '2026-05-22',
+                activeDays: ['2026-05-22'],
+                achievementsUnlocked: ['first_session'],
+                dailyChallengesCompleted: 2,
+                totalQuestionsAttempted: 50,
+                totalQuestionsCorrect: 38,
+                bookmarkedQuestions: [],
+                weakAreas: [],
+                strongAreas: [],
+              },
+            ]),
+          }),
+        }),
+      } as never)
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockResolvedValue([]),
+        }),
+      } as never)
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            orderBy: vi.fn().mockReturnValue({
+              limit: vi.fn().mockResolvedValue([]),
+            }),
+          }),
+        }),
+      } as never);
+
+    const res = await GET();
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.progress).toBeDefined();
+    expect(json.progress.userId).toBe('user-abc');
+    expect(json.progress.displayName).toBe('Test User');
+    expect(json.progress.totalXp).toBe(450);
+  });
 });
 
 describe('POST /api/progress', () => {

@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+// ── Hoist mutable mock so vi.mock factories can reference it ───────────────
+const { mockUnmarshal } = vi.hoisted(() => ({
+  mockUnmarshal: vi.fn().mockRejectedValue(new Error('Invalid signature')),
+}));
+
 // ── Mock heavy modules BEFORE route import ─────────────────────────────────
 vi.mock('@/lib/env', () => ({
   serverEnv: vi.fn(() => ({
@@ -13,7 +18,6 @@ vi.mock('@/lib/env', () => ({
 // The Paddle SDK is instantiated with `new Paddle(...)` at module load.
 // The factory must return a proper constructor (function, not arrow function).
 vi.mock('@paddle/paddle-node-sdk', () => {
-  const mockUnmarshal = vi.fn().mockRejectedValue(new Error('Invalid signature'));
   function MockPaddle() {
     return {
       webhooks: { unmarshal: mockUnmarshal },
@@ -68,6 +72,8 @@ function makeWebhookRequest(body: string, headers?: Record<string, string>) {
 describe('POST /api/paddle/webhook', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Default: unmarshal rejects (invalid signature)
+    mockUnmarshal.mockRejectedValue(new Error('Invalid signature'));
   });
 
   it('rejects requests without paddle-signature header', async () => {
@@ -87,5 +93,22 @@ describe('POST /api/paddle/webhook', () => {
     expect(res.status).toBe(400);
     const json = await res.json();
     expect(json.error).toBe('Invalid signature');
+  });
+
+  it('returns 200 when valid webhook is processed', async () => {
+    // Make unmarshal resolve with an unhandled event type so no DB ops are needed.
+    // The route hits the default switch case and logs, then returns { received: true }.
+    mockUnmarshal.mockResolvedValue({
+      eventType: 'unknown.unhandled_event_type',
+      data: {},
+    });
+
+    const req = makeWebhookRequest('{"eventType":"unknown.unhandled_event_type"}', {
+      'paddle-signature': 'ts=1234567890;h1=validsignature',
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.received).toBe(true);
   });
 });

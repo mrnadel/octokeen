@@ -80,6 +80,84 @@ function makePostRequest(body: unknown) {
   });
 }
 
+describe('GET /api/engagement', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+  });
+
+  it('returns 401 when not authenticated', async () => {
+    mockGetAuthUserId.mockResolvedValue(null);
+    const { GET } = await import('@/app/api/engagement/route');
+    const res = await GET();
+    expect(res.status).toBe(401);
+    const json = await res.json();
+    expect(json.error).toBe('Unauthorized');
+  });
+
+  it('GET returns 200 with engagement state when authenticated', async () => {
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+
+    const { db } = await import('@/lib/db');
+
+    // GET calls Promise.all with: userProgress, questProgress, computeGemBalanceFromLedger, isProUser
+    // computeGemBalanceFromLedger uses db.select with .from(gemTransactions).where() -> returns [{ balance, totalEarned }]
+    // isProUser uses db.select with .from(subscriptions).where().limit(1)
+    // userProgress: db.select().from(userProgress).where().limit(1)
+    // questProgress: db.select().from(questProgress).where()
+
+    vi.mocked(db.select)
+      // 1) userProgress query
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            limit: vi.fn().mockResolvedValue([
+              {
+                heartsCurrent: 5,
+                heartsLastRechargeAt: String(Date.now()),
+                streakFreezes: 0,
+                streakMilestones: [],
+                gemsInventory: { activeTitles: [], activeFrames: [] },
+                selectedTitle: null,
+                selectedFrame: null,
+                doubleXpExpiry: null,
+                dailyRewardCalendar: null,
+              },
+            ]),
+          }),
+        }),
+      } as never)
+      // 2) questProgress query
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockResolvedValue([]),
+        }),
+      } as never)
+      // 3) computeGemBalanceFromLedger: db.select({...}).from(gemTransactions).where()
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockResolvedValue([{ balance: 50, totalEarned: 100 }]),
+        }),
+      } as never)
+      // 4) isProUser: db.select().from(subscriptions).where().limit(1) => no subscription
+      .mockReturnValueOnce({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({
+            limit: vi.fn().mockResolvedValue([]),
+          }),
+        }),
+      } as never);
+
+    const { GET } = await import('@/app/api/engagement/route');
+    const res = await GET();
+    expect(res.status).toBe(200);
+    const json = await res.json();
+    expect(json.gems).toBeDefined();
+    expect(json.hearts).toBeDefined();
+    expect(json.streak).toBeDefined();
+  });
+});
+
 describe('POST /api/engagement', () => {
   beforeEach(() => {
     vi.clearAllMocks();
