@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
 
       default:
         // Unhandled event type — acknowledge so Paddle does not retry
-        logger.log(`Unhandled Paddle webhook event: ${event.eventType}`);
+        logger.info(`Unhandled Paddle webhook event: ${event.eventType}`);
         break;
     }
   } catch (err) {
