@@ -129,4 +129,22 @@ describe('POST /api/auth/register', () => {
     expect(json.user).toBeDefined();
     expect(json.user.email).toBe('test@example.com');
   });
+
+  it('returns 409 when email already exists', async () => {
+    // Override the db mock so the select query returns an existing user row
+    const { db } = await import('@/lib/db');
+    vi.mocked(db.select).mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        where: vi.fn().mockReturnValue({
+          limit: vi.fn().mockResolvedValue([{ id: 'existing-user-1' }]),
+        }),
+      }),
+    } as never);
+
+    const req = makeRegisterRequest(validBody);
+    const res = await POST(req);
+    expect(res.status).toBe(409);
+    const json = await res.json();
+    expect(json.error).toBeDefined();
+  });
 });

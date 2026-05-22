@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { db } from '@/lib/db';
 import { pushSubscriptions } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 
 const unsubscribeSchema = z.object({
   endpoint: z.string().min(1),
@@ -39,7 +39,12 @@ export async function POST(req: Request) {
 
   await db
     .delete(pushSubscriptions)
-    .where(eq(pushSubscriptions.endpoint, endpoint));
+    .where(
+      and(
+        eq(pushSubscriptions.endpoint, endpoint),
+        eq(pushSubscriptions.userId, session.user.id)
+      )
+    );
 
   return NextResponse.json({ ok: true });
 }

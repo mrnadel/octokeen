@@ -8,6 +8,14 @@
 
 ---
 
+## Content Authority
+
+- Static TS files in `src/data/course/` are the canonical source of truth for all course content.
+- DB tables (`course_units`, `course_lessons`, `course_questions`) are a read-only replica rebuilt on every deploy.
+- Never edit content via the admin panel or DB directly — edit the TS source files, then run `npm run seed-content`.
+
+---
+
 ## Current Courses
 
 | Course | ID | Icon | Status |

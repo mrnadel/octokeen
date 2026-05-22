@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-
-const resetProgressSchema = z.object({
-  confirmation: z.literal('RESET MY PROGRESS'),
-});
 import {
   userProgress,
   courseProgress,
@@ -22,6 +18,10 @@ import {
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+
+const resetProgressSchema = z.object({
+  confirmation: z.literal('RESET MY PROGRESS'),
+});
 
 export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
