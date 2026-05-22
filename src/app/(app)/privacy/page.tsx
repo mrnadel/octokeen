@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
   alternates: { canonical: '/privacy' },
+  openGraph: {
+    title: 'Privacy Policy | Octokeen',
+    description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
+    url: '/privacy',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Privacy Policy | Octokeen',
+    description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
+  },
 };
 
 const sections = [

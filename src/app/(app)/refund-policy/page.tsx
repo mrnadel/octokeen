@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Refund Policy',
   description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
   alternates: { canonical: '/refund-policy' },
+  openGraph: {
+    title: 'Refund Policy | Octokeen',
+    description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
+    url: '/refund-policy',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Refund Policy | Octokeen',
+    description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
+  },
 };
 
 const LAST_UPDATED = 'March 2025';

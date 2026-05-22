@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
   alternates: { canonical: '/terms' },
+  openGraph: {
+    title: 'Terms of Service | Octokeen',
+    description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
+    url: '/terms',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Terms of Service | Octokeen',
+    description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
+  },
 };
 
 const LAST_UPDATED = 'March 2025';
