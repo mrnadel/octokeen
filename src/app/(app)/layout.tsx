@@ -35,6 +35,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const loadFlags = useFlagStore((s) => s.load);
   const flagsLoaded = useFlagStore((s) => s.loaded);
   useEffect(() => { if (!flagsLoaded) loadFlags(); }, [loadFlags, flagsLoaded]);
+  useEffect(() => {
+    if (courseTitle) document.title = courseTitle;
+  }, [courseTitle]);
 
   // Initialize engagement systems (streak freeze, quests, league, comeback)
   // Wait for DB hydration so init doesn't run with empty/stale state
@@ -55,7 +58,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-surface-950">
-      {courseTitle && <title>{courseTitle}</title>}
       <div className="flex">
         {/* Desktop side nav */}
         <DesktopSideNav />
