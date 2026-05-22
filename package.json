@@ -17,6 +17,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "seed-content": "tsx scripts/seed-content.ts",
+    "seed-game-config": "tsx scripts/seed-game-config.ts",
     "gallery": "tsx scripts/build-svg-gallery.ts",
     "optimize-images": "tsx scripts/optimize-images.ts",
     "preview": "next build && next start"
