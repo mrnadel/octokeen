@@ -1,6 +1,5 @@
 import type { Question, TopicId, Difficulty, TopicProgress } from '@/data/types';
 import type { CourseQuestion, Unit } from '@/data/course/types';
-import { course } from '@/data/course';
 import { shuffleArray } from '@/lib/utils';
 
 // --- Types ---
