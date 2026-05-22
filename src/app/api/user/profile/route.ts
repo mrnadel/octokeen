@@ -78,18 +78,6 @@ export async function PATCH(request: NextRequest) {
   // ── Handle display name update ──
   if (body.displayName !== undefined) {
     const displayName = body.displayName;
-    if (typeof displayName !== 'string') {
-      return NextResponse.json(
-        { error: 'Display name must be a string' },
-        { status: 400 }
-      );
-    }
-    if (!displayName || displayName.length < 2 || displayName.length > 50) {
-      return NextResponse.json(
-        { error: 'Display name must be 2-50 characters' },
-        { status: 400 }
-      );
-    }
     await db
       .update(users)
       .set({ displayName, name: displayName, updatedAt: new Date() })
@@ -136,11 +124,6 @@ export async function PATCH(request: NextRequest) {
         .set({ image: null, updatedAt: new Date() })
         .where(eq(users.id, userId));
       return NextResponse.json({ ok: true, image: null });
-    }
-
-    // Validate it's a data URL with allowed MIME type
-    if (typeof image !== 'string') {
-      return NextResponse.json({ error: 'Invalid image data' }, { status: 400 });
     }
 
     const hasValidPrefix = ALLOWED_MIME_PREFIXES.some((p) => image.startsWith(p));

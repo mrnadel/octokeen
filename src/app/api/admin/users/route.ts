@@ -11,11 +11,12 @@ const patchUserSchema = z.object({
   tier: z.enum(['free', 'pro']),
 });
 
-const deleteUserSchema = z.union([
-  z.object({ userId: z.string().min(1), userIds: z.undefined() }),
-  z.object({ userIds: z.array(z.string().min(1)).min(1), userId: z.undefined() }),
-  z.object({ userId: z.string().min(1), userIds: z.array(z.string().min(1)).min(1) }),
-]);
+const deleteUserSchema = z.object({
+  userId: z.string().min(1).optional(),
+  userIds: z.array(z.string().min(1)).min(1).optional(),
+}).refine(d => d.userId || (d.userIds && d.userIds.length > 0), {
+  message: 'userId or userIds required',
+});
 
 export async function HEAD() {
   const adminId = await requireAdmin();
@@ -146,7 +147,7 @@ export async function DELETE(req: NextRequest) {
   }
 
   // Support both single userId and bulk userIds
-  const { userId, userIds } = deleteResult.data as { userId?: string; userIds?: string[] };
+  const { userId, userIds } = deleteResult.data;
   const idsToDelete: string[] = userIds && Array.isArray(userIds) && userIds.length > 0
     ? userIds
     : userId

@@ -58,7 +58,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
       labelId="upgrade-modal-title"
       footer={
         <GameButton variant="gold" onClick={handleSubscribe} disabled={loading || !session}>
-          {loading ? <LoadingSpinner size={16} card={false} /> : <Sparkles className="w-4 h-4" />}
+          {loading ? <LoadingSpinner bare size={16} /> : <Sparkles className="w-4 h-4" />}
           {session ? 'Subscribe to Pro' : 'Sign in to Subscribe'}
         </GameButton>
       }

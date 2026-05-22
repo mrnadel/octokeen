@@ -1,17 +1,23 @@
 interface LoadingSpinnerProps {
   /** Render inside a white card container. Default: true */
   card?: boolean;
+  /** Render only the bare SVG spinner with no wrapper div. Overrides card. */
+  bare?: boolean;
   /** Spinner size in px. Default: 24 */
   size?: number;
 }
 
-export function LoadingSpinner({ card = true, size = 24 }: LoadingSpinnerProps) {
+export function LoadingSpinner({ card = true, bare = false, size = 24 }: LoadingSpinnerProps) {
   const spinner = (
     <div
       className="border-2 border-surface-300 border-t-primary-500 rounded-full animate-spin"
       style={{ width: size, height: size }}
     />
   );
+
+  if (bare) {
+    return spinner;
+  }
 
   if (!card) {
     return (

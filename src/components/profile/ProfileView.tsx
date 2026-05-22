@@ -134,7 +134,7 @@ export function ProfileView({
                     disabled={ownProfile.avatarUploading}
                     className="absolute -bottom-0.5 -right-0.5 w-7 h-7 rounded-full bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center shadow-md transition-colors"
                   >
-                    {ownProfile.avatarUploading ? <LoadingSpinner size={14} card={false} /> : <Camera className="w-3.5 h-3.5" />}
+                    {ownProfile.avatarUploading ? <LoadingSpinner bare size={14} /> : <Camera className="w-3.5 h-3.5" />}
                   </button>
                   {data.image && !ownProfile.avatarUploading && (
                     <button
@@ -166,7 +166,7 @@ export function ProfileView({
                       />
                       <button onClick={handleSaveName} disabled={nameLoading}
                         className="p-1.5 bg-accent-500 text-white rounded-lg hover:bg-accent-400 transition-colors">
-                        {nameLoading ? <LoadingSpinner size={16} card={false} /> : <Check className="w-4 h-4" />}
+                        {nameLoading ? <LoadingSpinner bare size={16} /> : <Check className="w-4 h-4" />}
                       </button>
                       <button onClick={() => setEditingName(false)}
                         className="p-1.5 bg-surface-200 dark:bg-surface-700 text-surface-500 rounded-lg hover:bg-surface-300 transition-colors">

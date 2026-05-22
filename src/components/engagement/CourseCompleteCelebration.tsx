@@ -112,7 +112,7 @@ export function CourseCompleteCelebration({ onDismiss }: Props) {
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/15 text-white text-xs font-bold hover:bg-white/25 transition-colors disabled:opacity-60 disabled:cursor-wait"
             >
               {shareState === 'loading' ? (
-                <><LoadingSpinner size={14} card={false} /> Sharing...</>
+                <><LoadingSpinner bare size={14} /> Sharing...</>
               ) : shareState === 'done' ? (
                 <><Check className="w-3.5 h-3.5" /> Shared!</>
               ) : (

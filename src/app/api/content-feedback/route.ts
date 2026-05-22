@@ -8,9 +8,9 @@ import { VALID_CONTENT_TYPES, VALID_REASONS } from '@/data/types';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
 
 const postFeedbackSchema = z.object({
-  contentType: z.enum(['question', 'lesson-question'] as [ContentFeedbackType, ...ContentFeedbackType[]]),
+  contentType: z.enum(VALID_CONTENT_TYPES as [ContentFeedbackType, ...ContentFeedbackType[]]),
   contentId: z.string().min(1).max(50),
-  reason: z.enum(['confusing', 'incorrect', 'too-easy', 'too-hard', 'bad-graphic', 'other'] as [FeedbackReason, ...FeedbackReason[]]),
+  reason: z.enum(VALID_REASONS as [FeedbackReason, ...FeedbackReason[]]),
   comment: z.string().max(500).optional(),
 });
 

@@ -63,7 +63,7 @@ export function ShareButton({
       >
         {status === 'loading' ? (
           <span className="flex items-center gap-1.5" role="status" aria-live="polite">
-            <LoadingSpinner size={14} card={false} />
+            <LoadingSpinner bare size={14} />
             Sharing...
           </span>
         ) : status === 'downloaded' ? (

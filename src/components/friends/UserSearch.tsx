@@ -91,7 +91,9 @@ export default function UserSearch() {
           </button>
         )}
         {loading && (
-          <LoadingSpinner size={16} card={false} />
+          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+            <LoadingSpinner bare size={16} />
+          </div>
         )}
       </div>
 
