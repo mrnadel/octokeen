@@ -11,6 +11,7 @@ import { eq, inArray } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory, paymentAudit } from '@/lib/db/schema';
 import paddle from '@/lib/paddle';
+import { logger } from '@/lib/logger';
 
 // ─── Paddle: cancel active subscription ──────────────────────
 
@@ -36,7 +37,7 @@ async function cancelPaddleSubscription(userId: string): Promise<void> {
     });
   } catch (err) {
     // Log but don't block deletion — Paddle may have already canceled it
-    console.error(
+    logger.error(
       `[account-cleanup] Failed to cancel Paddle subscription ${sub.paddleSubscriptionId}:`,
       err,
     );
@@ -109,7 +110,7 @@ async function deleteMixpanelProfile(userId: string): Promise<void> {
       body: JSON.stringify(payload),
     });
   } catch (err) {
-    console.error('[account-cleanup] Failed to delete Mixpanel profile:', err);
+    logger.error('[account-cleanup] Failed to delete Mixpanel profile:', err);
   }
 }
 
@@ -123,7 +124,7 @@ async function deleteMixpanelProfile(userId: string): Promise<void> {
 export async function cleanupBeforeDeletion(userId: string): Promise<void> {
   // Run archive first (needs DB rows to still exist)
   await archivePaymentHistory(userId).catch((err) =>
-    console.error('[account-cleanup] archivePaymentHistory failed:', err),
+    logger.error('[account-cleanup] archivePaymentHistory failed:', err),
   );
 
   // Cancel Paddle subscription and delete Mixpanel profile in parallel

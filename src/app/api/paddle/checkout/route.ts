@@ -6,6 +6,7 @@ import { users, subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { serverEnv } from '@/lib/env';
+import { logger } from '@/lib/logger';
 
 export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
   ].filter(Boolean);
 
   if (!priceId || !validPrices.includes(priceId)) {
-    console.error('Checkout price validation failed', {
+    logger.error('Checkout price validation failed', {
       priceId,
       validPrices,
       envMonthly: env.PADDLE_PRO_MONTHLY_PRICE_ID ?? 'MISSING',
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     const details = err && typeof err === 'object' && 'code' in err ? (err as Record<string, unknown>).code : undefined;
-    console.error('Paddle transaction create failed:', message, details);
+    logger.error('Paddle transaction create failed:', message, details);
     // Do not leak internal error details to the client
     return NextResponse.json({ error: 'Failed to create checkout' }, { status: 500 });
   }

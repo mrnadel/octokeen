@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { finalizeLeagueWeek } from '@/lib/league-matching';
+import { logger } from '@/lib/logger';
 
 /**
  * GET /api/cron/league-finalize
@@ -35,7 +36,7 @@ export async function GET(req: Request) {
       groupsFinalized: processed,
     });
   } catch (err) {
-    console.error('League finalization error:', err);
+    logger.error('League finalization error:', err);
     return NextResponse.json({ error: 'Finalization failed' }, { status: 500 });
   }
 }

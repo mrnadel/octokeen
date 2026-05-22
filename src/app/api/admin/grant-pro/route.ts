@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
+import { logger } from '@/lib/logger';
 
 // DEV ONLY: Grant Pro to the currently logged-in user
 export async function POST() {
@@ -41,7 +42,7 @@ export async function POST() {
 
     return NextResponse.json({ success: true, message: 'You are now Pro!' });
   } catch (error) {
-    console.error('Grant pro error:', error);
+    logger.error('Grant pro error:', error);
     return NextResponse.json({ error: 'DB error' }, { status: 500 });
   }
 }

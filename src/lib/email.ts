@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { logger } from '@/lib/logger';
 
 interface EmailOptions {
   to: string;
@@ -21,14 +22,14 @@ export async function sendEmail({ to, subject, html }: EmailOptions): Promise<vo
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.warn('[email] RESEND_API_KEY not set — email not sent:', { to, subject });
+    logger.warn('[email] RESEND_API_KEY not set — email not sent:', { to, subject });
     return;
   }
 
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({ from: FROM_ADDRESS, to, subject, html });
   if (error) {
-    console.error('[email] Failed to send:', error);
+    logger.error('[email] Failed to send:', error);
     throw new Error(`Email send failed: ${error.message}`);
   }
 }

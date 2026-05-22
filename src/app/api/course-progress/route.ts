@@ -8,6 +8,7 @@ import { courseProgressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
 import type { CourseProgress } from '@/data/course/types';
 import { PROFESSION_ID } from '@/data/professions';
+import { logger } from '@/lib/logger';
 
 export async function GET() {
   const userId = await getAuthUserId();
@@ -66,7 +67,7 @@ export async function POST(request: NextRequest) {
   const parsed = courseProgressSyncSchema.safeParse(body);
   if (!parsed.success) {
     const issue = parsed.error.issues[0];
-    console.error('course-progress validation failed:', JSON.stringify({ path: issue?.path, message: issue?.message, code: issue?.code }));
+    logger.error('course-progress validation failed:', JSON.stringify({ path: issue?.path, message: issue?.message, code: issue?.code }));
     return NextResponse.json(
       { error: 'Invalid input', details: issue?.message, path: issue?.path },
       { status: 400 }

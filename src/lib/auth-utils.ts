@@ -1,4 +1,5 @@
 import { auth } from '@/lib/auth';
+import { logger } from '@/lib/logger';
 
 export async function getAuthUserId(): Promise<string | null> {
   const session = await auth();
@@ -25,6 +26,6 @@ export async function requireAdmin(): Promise<string | null> {
     return userId;
   }
 
-  console.warn('[auth] No admin match for user', userId);
+  logger.warn('[auth] No admin match for user', userId);
   return null;
 }

@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { logger } from '@/lib/logger';
 
 export async function POST() {
   const userId = await getAuthUserId();
@@ -51,7 +52,7 @@ export async function POST() {
       cancelUrl: paddleSub.managementUrls?.cancel ?? null,
     });
   } catch (err) {
-    console.error('Failed to fetch Paddle subscription:', err);
+    logger.error('Failed to fetch Paddle subscription:', err);
     return NextResponse.json(
       { error: 'Failed to load subscription details' },
       { status: 502 },

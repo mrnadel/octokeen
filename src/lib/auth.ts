@@ -10,6 +10,7 @@ import { isLoginLocked, trackFailedLogin, clearFailedLogins } from './rate-limit
 import { cookies } from 'next/headers';
 import { friendships } from './db/schema';
 import { sortFriendPair, countFriends } from './db/friends';
+import { logger } from './logger';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -172,7 +173,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             })
             .where(eq(users.id, user.id));
         } catch (err) {
-          console.error('Failed to set joinedDate for new user:', err);
+          logger.error('Failed to set joinedDate for new user:', err);
         }
       }
     },

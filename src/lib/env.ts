@@ -5,6 +5,7 @@
 // produces a clear error instead of a cryptic runtime crash.
 
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 // --------------- Server-side env vars ---------------
 
@@ -114,7 +115,7 @@ export function validateClientEnv(): ClientEnv {
     NEXT_PUBLIC_ADMIN_EMAIL: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
   });
   if (!result.success) {
-    console.warn(
+    logger.warn(
       '[env] Client env validation warnings:',
       result.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`),
     );

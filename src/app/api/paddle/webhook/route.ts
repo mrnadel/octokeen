@@ -11,6 +11,7 @@ import {
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
 import { serverEnv } from '@/lib/env';
+import { logger } from '@/lib/logger';
 
 export const runtime = 'nodejs';
 
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
-    console.error('Webhook signature verification failed:', message);
+    logger.error('Webhook signature verification failed:', message);
     return NextResponse.json(
       { error: 'Invalid signature' },
       { status: 400 },
@@ -97,18 +98,18 @@ export async function POST(request: NextRequest) {
 
       default:
         // Unhandled event type — acknowledge so Paddle does not retry
-        console.log(`Unhandled Paddle webhook event: ${event.eventType}`);
+        logger.log(`Unhandled Paddle webhook event: ${event.eventType}`);
         break;
     }
   } catch (err) {
     // Non-retryable errors: return 200 so Paddle stops retrying
     if (err instanceof NonRetryableError) {
-      console.warn(`Non-retryable webhook error for ${event.eventType}:`, err.message);
+      logger.warn(`Non-retryable webhook error for ${event.eventType}:`, err.message);
       return NextResponse.json({ received: true, warning: 'non-retryable error' });
     }
 
     // Retryable errors: return 500 so Paddle retries
-    console.error(`Webhook handler error for ${event.eventType}:`, err);
+    logger.error(`Webhook handler error for ${event.eventType}:`, err);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 },
@@ -153,7 +154,7 @@ async function handleSubscriptionUpsert(sub: SubscriptionNotification) {
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
     // User was likely deleted — acknowledge so Paddle stops retrying
-    console.warn(`[webhook] Ignoring subscription upsert: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring subscription upsert: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -181,7 +182,7 @@ async function handleSubscriptionPastDue(sub: SubscriptionNotification) {
 
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
-    console.warn(`[webhook] Ignoring past_due event: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring past_due event: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -205,7 +206,7 @@ async function handleSubscriptionCanceled(sub: SubscriptionNotification) {
 
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
-    console.warn(`[webhook] Ignoring canceled event: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring canceled event: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -224,7 +225,7 @@ async function handleSubscriptionPaused(sub: SubscriptionNotification) {
 
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
-    console.warn(`[webhook] Ignoring paused event: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring paused event: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -243,7 +244,7 @@ async function handleTransactionCompleted(txn: TransactionNotification) {
 
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
-    console.warn(`[webhook] Ignoring transaction completed: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring transaction completed: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -277,7 +278,7 @@ async function handleTransactionPaymentFailed(txn: TransactionNotification) {
 
   const userId = await getUserIdByCustomer(customerId);
   if (!userId) {
-    console.warn(`[webhook] Ignoring failed payment: no user for Paddle customer ${customerId} (account may have been deleted)`);
+    logger.warn(`[webhook] Ignoring failed payment: no user for Paddle customer ${customerId} (account may have been deleted)`);
     return;
   }
 
@@ -343,7 +344,7 @@ async function handleAdjustmentCreated(data: Record<string, unknown>) {
   }
 
   if (!userId) {
-    console.warn(`Adjustment ${adjustmentId}: could not resolve user for transaction ${transactionId}`);
+    logger.warn(`Adjustment ${adjustmentId}: could not resolve user for transaction ${transactionId}`);
     return; // Non-critical: don't fail the webhook
   }
 
@@ -386,7 +387,7 @@ async function getUserIdByCustomer(
       return user?.id ?? null;
     }
   } catch (err) {
-    console.error('Failed to look up Paddle customer:', err);
+    logger.error('Failed to look up Paddle customer:', err);
   }
 
   return null;

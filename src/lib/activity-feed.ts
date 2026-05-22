@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { activityFeed } from '@/lib/db/schema';
 import { eq, and, sql } from 'drizzle-orm';
+import { logger } from '@/lib/logger';
 
 export type ActivityType =
   | 'streak_milestone'
@@ -46,6 +47,6 @@ export async function insertActivity(
       data: data ?? null,
     });
   } catch (err) {
-    console.error('[activity-feed] Failed to insert:', err);
+    logger.error('[activity-feed] Failed to insert:', err);
   }
 }

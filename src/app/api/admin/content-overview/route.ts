@@ -7,6 +7,7 @@ import { runContentQA, type CourseInput } from '@/lib/content-qa';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 import { PROFESSIONS } from '@/data/professions';
 import type { Unit } from '@/data/course/types';
+import { logger } from '@/lib/logger';
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -200,7 +201,7 @@ export async function GET() {
       indexBias,
     });
   } catch (error) {
-    console.error('[content-overview] Error:', error);
+    logger.error('[content-overview] Error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
