@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Share2, Check, Loader2, Download } from 'lucide-react';
+import { Share2, Check, Download } from 'lucide-react';
 import { shareImage, type ShareResult } from '@/lib/share-utils';
 import { cn } from '@/lib/utils';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface ShareButtonProps {
   /** Absolute or relative URL to the share card image */
@@ -62,7 +63,7 @@ export function ShareButton({
       >
         {status === 'loading' ? (
           <span className="flex items-center gap-1.5" role="status" aria-live="polite">
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            <LoadingSpinner size={14} card={false} />
             Sharing...
           </span>
         ) : status === 'downloaded' ? (

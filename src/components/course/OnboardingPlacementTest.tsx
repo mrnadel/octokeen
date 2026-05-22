@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { Loader2 } from 'lucide-react';
 import { Mascot } from '@/components/ui/Mascot';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 import LessonView from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
@@ -216,7 +216,7 @@ export function OnboardingPlacementTest({
           <p className="text-lg font-black text-surface-900 dark:text-white">Preparing your placement test</p>
           <p className="text-sm font-semibold text-surface-500 dark:text-surface-400 mt-1">Loading questions from your course...</p>
         </div>
-        <Loader2 className="w-6 h-6 animate-spin text-primary-500" />
+        <LoadingSpinner size={24} card={false} />
       </div>
     );
   }

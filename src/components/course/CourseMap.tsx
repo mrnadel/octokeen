@@ -18,6 +18,7 @@ import { useIsDark } from '@/store/useThemeStore';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { getDecayedQuestions } from '@/lib/review-engine';
 import { ActiveEventBanner } from '@/components/ui/ActiveEventBanner';
+import { ErrorRetry } from '@/components/ui/ErrorRetry';
 
 type JumpModalType =
   | { kind: 'within-unit'; unitIndex: number; lessonIndex: number }
@@ -652,9 +653,13 @@ export function CourseMap() {
     >
       {/* Content load error toast */}
       {contentLoadError && (
-        <div className="sticky top-0 z-50 mx-4 mt-2 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3">
-          <p className="text-red-600 dark:text-red-400 text-sm font-semibold flex-1">{contentLoadError}</p>
-          <button onClick={dismissContentLoadError} className="text-red-400 hover:text-red-600 text-xs font-bold shrink-0">Dismiss</button>
+        <div className="sticky top-0 z-50 mx-4 mt-2">
+          <ErrorRetry
+            title={contentLoadError}
+            subtitle="Tap Retry to try loading again."
+            onRetry={dismissContentLoadError}
+            card
+          />
         </div>
       )}
 

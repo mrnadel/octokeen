@@ -8,6 +8,7 @@ import { useMasteryStore } from '@/store/useMasteryStore';
 import { LessonView } from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
 import { useLessonColors } from '@/lib/lessonColors';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 const PRACTICE_THEME = {
   color: '#3B82F6',
@@ -60,10 +61,7 @@ export default function SessionView() {
   if (!session || !session.questions[session.currentIndex]) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: c.bg }}>
-        <div className="text-center">
-          <div className="w-10 h-10 border-3 border-surface-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm font-semibold text-surface-500">Loading questions...</p>
-        </div>
+        <LoadingSpinner card={false} />
       </div>
     );
   }

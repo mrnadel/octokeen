@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Loader2, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface SearchResult {
   id: string;
@@ -90,7 +91,7 @@ export default function UserSearch() {
           </button>
         )}
         {loading && (
-          <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-primary-400" />
+          <LoadingSpinner size={16} card={false} />
         )}
       </div>
 

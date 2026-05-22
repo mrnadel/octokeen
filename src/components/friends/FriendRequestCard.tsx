@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Check, X, Loader2 } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { UserAvatar } from '@/components/ui/UserAvatar';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface FriendRequestCardProps {
   id: string;
@@ -124,7 +125,7 @@ export default function FriendRequestCard({
             Added!
           </span>
         ) : loading ? (
-          <Loader2 className="w-5 h-5 animate-spin text-surface-400 shrink-0" />
+          <LoadingSpinner size={20} card={false} />
         ) : type === 'incoming' ? (
           <div className="flex gap-2 shrink-0">
             <button

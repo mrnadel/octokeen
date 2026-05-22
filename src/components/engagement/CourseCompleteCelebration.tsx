@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Share2, Linkedin, Check, Loader2 } from 'lucide-react';
+import { Download, Share2, Linkedin, Check } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { playSound } from '@/lib/sounds';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
@@ -111,7 +112,7 @@ export function CourseCompleteCelebration({ onDismiss }: Props) {
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/15 text-white text-xs font-bold hover:bg-white/25 transition-colors disabled:opacity-60 disabled:cursor-wait"
             >
               {shareState === 'loading' ? (
-                <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Sharing...</>
+                <><LoadingSpinner size={14} card={false} /> Sharing...</>
               ) : shareState === 'done' ? (
                 <><Check className="w-3.5 h-3.5" /> Shared!</>
               ) : (

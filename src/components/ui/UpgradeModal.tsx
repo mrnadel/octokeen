@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Loader2 } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useSession } from 'next-auth/react';
 import { PADDLE_PRICES } from '@/lib/pricing';
 import { getPaddle } from '@/lib/paddle-client';
@@ -57,7 +58,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
       labelId="upgrade-modal-title"
       footer={
         <GameButton variant="gold" onClick={handleSubscribe} disabled={loading || !session}>
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+          {loading ? <LoadingSpinner size={16} card={false} /> : <Sparkles className="w-4 h-4" />}
           {session ? 'Subscribe to Pro' : 'Sign in to Subscribe'}
         </GameButton>
       }
