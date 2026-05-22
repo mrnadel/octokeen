@@ -60,10 +60,9 @@ export async function POST(request: NextRequest) {
   }
 
   const newHash = await bcrypt.hash(newPassword, 12);
-  const now = new Date();
   await db
     .update(users)
-    .set({ passwordHash: newHash, passwordChangedAt: now, updatedAt: now })
+    .set({ passwordHash: newHash, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
   return NextResponse.json({ ok: true });

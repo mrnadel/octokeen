@@ -84,29 +84,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user, account, profile, trigger, session }) {
       if (user) {
-        // Initial sign-in: populate token from the user record
         token.id = user.id;
-        const [row] = await db
-          .select({ passwordChangedAt: users.passwordChangedAt })
-          .from(users)
-          .where(eq(users.id, user.id as string))
-          .limit(1);
-        token.passwordChangedAt = row?.passwordChangedAt?.getTime() ?? null;
-      } else if (token.id) {
-        // Subsequent token refresh: check whether the password has changed since
-        // this token was issued and reject the token if so.
-        const [row] = await db
-          .select({ passwordChangedAt: users.passwordChangedAt })
-          .from(users)
-          .where(eq(users.id, token.id as string))
-          .limit(1);
-        const currentChangedAt = row?.passwordChangedAt?.getTime() ?? null;
-        const tokenChangedAt = (token.passwordChangedAt as number | null) ?? null;
-        if (currentChangedAt !== null && (tokenChangedAt === null || currentChangedAt > tokenChangedAt)) {
-          // Password was changed after this token was issued — force re-login
-          return null;
-        }
-        token.passwordChangedAt = currentChangedAt;
       }
 
       if (account) {
