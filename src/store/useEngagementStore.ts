@@ -1020,6 +1020,7 @@ export const useEngagementStore = create<EngagementStore>()(
             debugSetLeagueTier: _20,
             addMistake: _23,
             removeMistakes: _24,
+            _hasHydrated: _25,
             ...stateOnly
           } = state;
           return stateOnly;
@@ -1104,6 +1105,8 @@ export const useDoubleXpActive = () =>
   });
 
 export const useMistakeQuestionIds = () => useEngagementStore((s) => s.mistakeQuestionIds);
+/** Returns true once the persist middleware has finished rehydrating from localStorage. */
+export const useEngagementHydrated = () => useEngagementStore((s) => s._hasHydrated);
 
 export const useEngagementActions = () =>
   useEngagementStore(

@@ -3,7 +3,7 @@
 import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
-import { useGems, useEngagementActions, useStreakEnhancements, useEngagementStore } from '@/store/useEngagementStore';
+import { useGems, useEngagementActions, useStreakEnhancements, useEngagementStore, useEngagementHydrated } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { shopItems } from '@/data/gem-shop';
 import type { ShopItem } from '@/data/engagement-types';
@@ -290,6 +290,7 @@ export function GemShop() {
   const streak = useStreakEnhancements();
   const hearts = useHeartsStore();
   const { purchaseItem } = useEngagementActions();
+  const hasHydrated = useEngagementHydrated();
   const [toasts, setToasts] = useState<ToastState[]>([]);
 
   function showToast(message: string) {

@@ -413,19 +413,14 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
     // Halfway check: fire once when crossing the midpoint (4+ questions only)
     if (total >= 4 && nextIndex === Math.floor(total / 2)) {
-      celebrationKeyRef.current++;
-      setCelebration({ type: 'halfway', key: celebrationKeyRef.current });
-      // Trigger milestone glow on progress bar
-      setMilestoneGlow(true);
-      setTimeout(() => setMilestoneGlow(false), 1200);
+      triggerHalfwayCelebration();
     }
 
     // Last question check: fire when advancing to the final question (3+ questions)
     if (total >= 3 && nextIndex === total - 1 && !isLastQuestion) {
       // Only trigger if we don't already have a streak celebration showing
       if (!celebration || celebration.type !== 'streak') {
-        celebrationKeyRef.current++;
-        setCelebration({ type: 'last-question', key: celebrationKeyRef.current });
+        triggerLastQuestionCelebration();
       }
     }
 
@@ -440,7 +435,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
       adapter ? adapter.nextQuestion() : _nextQuestion();
       requestAnimationFrame(() => questionAreaRef.current?.focus());
     }
-  }, [adapter, activeLesson, isLastQuestion, _completeLesson, _nextQuestion, hasHearts, resolvedTotalQuestions, celebration]);
+  }, [adapter, activeLesson, isLastQuestion, _completeLesson, _nextQuestion, hasHearts, resolvedTotalQuestions, celebration, triggerHalfwayCelebration, triggerLastQuestionCelebration]);
 
   const handleExitClick = useCallback(() => {
     if (adapter) {
@@ -1004,7 +999,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                   key={celebration.key}
                   type={celebration.type}
                   streakCount={celebration.streakCount}
-                  onDismiss={() => setCelebration(null)}
+                  onDismiss={dismissCelebration}
                   characterId={lessonCharacter?.id}
                   characterLine={celebrationCharLine}
                 />

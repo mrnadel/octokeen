@@ -11,13 +11,13 @@ import { getProfession, PROFESSION_ID } from '@/data/professions';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { analytics } from '@/lib/mixpanel';
 import {
-  CourseIntroData,
   type CountryCode,
   type ExperienceLevel,
   type PlacementChoice,
   type GoalChoice,
   type CommitmentChoice,
 } from '@/data/course-intro-options';
+import type { CourseIntroData } from '@/data/course/types';
 import { StepCountry, StepExperience, StepPlacement, StepGoal, StepCommitment, StepLaunch } from './CourseIntroSteps';
 
 /** Professions that show the country selection step. */
