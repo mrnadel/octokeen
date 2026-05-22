@@ -8,7 +8,7 @@ import { asc, eq, and } from 'drizzle-orm';
 const upsertSchema = z.object({
   category: z.string().min(1),
   key: z.string().min(1),
-  value: z.unknown(),
+  value: z.unknown().refine(v => v !== null && v !== undefined, { message: 'value must not be null' }),
   description: z.string().optional(),
   minValue: z.number().optional(),
   maxValue: z.number().optional(),
