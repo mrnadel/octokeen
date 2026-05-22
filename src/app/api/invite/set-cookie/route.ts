@@ -4,18 +4,21 @@
 // callback (src/lib/auth.ts) when they register/log in, or by the
 // /api/invite/accept endpoint if they are already logged in.
 // Requiring auth here would break the invite flow for new sign-ups.
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
-import { rateLimit } from '@/lib/rate-limit';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`invite-set-cookie:${ip}`, { limit: 10, windowMs: 60_000 });
+  const rl = rateLimit(`invite-set-cookie:${ip}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: 'Too many requests' }, {
+      status: 429,
+      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
+    });
   }
 
   let body;
