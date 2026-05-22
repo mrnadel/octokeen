@@ -1,17 +1,7 @@
-'use client';
+import type { Metadata } from 'next';
+export { default } from './AdminIndexClient';
 
-import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-
-export default function AdminIndexPage() {
-  const router = useRouter();
-  const redirected = useRef(false);
-
-  useEffect(() => {
-    if (redirected.current) return;
-    redirected.current = true;
-    router.replace('/admin/feedback');
-  }, [router]);
-
-  return <p style={{ padding: 40, fontFamily: 'system-ui' }}>Redirecting...</p>;
-}
+export const metadata: Metadata = {
+  title: 'Admin',
+  robots: { index: false, follow: false },
+};
