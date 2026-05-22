@@ -11,6 +11,9 @@ import { RefreshCw, ArrowRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Mascot } from '@/components/ui/Mascot';
 import { shuffleArray } from '@/lib/utils';
+import { useSubscription } from '@/hooks/useSubscription';
+import { UpgradeGate } from '@/components/ui/UpgradeGate';
+import { FEATURES } from '@/lib/pricing';
 
 const REVIEW_SESSION_SIZE = 10;
 const REVIEW_THEME = { color: '#6366f1', dark: '#4338ca', bg: '#eef2ff' };
@@ -19,6 +22,7 @@ export default function ReviewPage() {
   const courseData = useCourseStore((s) => s.courseData);
   const events = useMasteryStore((s) => s.events);
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
+  const { canAccess } = useSubscription();
 
   const [active, setActive] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -114,6 +118,21 @@ export default function ReviewPage() {
       noHearts: true,
     };
   }, [active, currentQ, done, answers, currentIndex, sessionQuestions, handleSubmit, handleNext, handleExit]);
+
+  // Subscription gate — block direct URL access for free users
+  if (!canAccess(FEATURES.PRACTICE_REVIEW)) {
+    return (
+      <div className="max-w-md mx-auto px-4 py-12">
+        <UpgradeGate
+          feature={FEATURES.PRACTICE_REVIEW}
+          reason="Spaced Review is a Pro feature. Upgrade to reinforce your memory with spaced repetition."
+        >
+          {/* UpgradeGate renders the lock card when canAccess returns false */}
+          <></>
+        </UpgradeGate>
+      </div>
+    );
+  }
 
   // Active review session
   if (active && adapter && !done) {

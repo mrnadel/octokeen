@@ -93,6 +93,12 @@ export async function POST(request: NextRequest) {
     .where(eq(courseProgress.userId, userId))
     .limit(1);
 
+  // Merge incoming lessons with existing DB lessons to avoid overwriting
+  // completions from other devices that are not present in this sync payload.
+  const existingCompletedLessons =
+    (existing[0]?.completedLessons as CourseProgress['completedLessons']) ?? {};
+  const mergedLessons = { ...existingCompletedLessons, ...validLessons };
+
   const data = {
     userId,
     totalXp: progress.totalXp,
@@ -100,7 +106,7 @@ export async function POST(request: NextRequest) {
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
     placementUnitIndex: progress.placementUnitIndex ?? 0,
-    completedLessons: validLessons,
+    completedLessons: mergedLessons,
     activeProfession: activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
     updatedAt: new Date(),
@@ -120,7 +126,7 @@ export async function POST(request: NextRequest) {
     const prevLessons = Object.keys(
       (existing[0].completedLessons as Record<string, unknown>) ?? {},
     );
-    const newLessons = Object.keys(validLessons);
+    const newLessons = Object.keys(mergedLessons);
     const newCompletions = newLessons.filter((id) => !prevLessons.includes(id));
     if (newCompletions.length > 0) {
       await insertActivity(userId, 'lesson_complete', {

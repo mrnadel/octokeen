@@ -11,7 +11,7 @@ import { Mascot } from '@/components/ui/Mascot';
 
 export function LeagueWinner() {
   const league = useLeague();
-  const winnerSeen = useEngagementStore((s) => s.league.winnerSeen ?? true);
+  const winnerSeen = useEngagementStore((s) => s.league.winnerSeen ?? false);
 
   const result = league.lastWeekResult;
   const shouldShow = result !== null && result.rank === 1 && !league.resultSeen && !winnerSeen;

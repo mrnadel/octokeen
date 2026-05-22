@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+import { eq, isNotNull } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, accounts } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   const [user] = await db
-    .select({ passwordHash: users.passwordHash, country: users.country, profilePublic: users.profilePublic, emailVerified: users.emailVerified })
+    .select({ hasPasswordHash: isNotNull(users.passwordHash), country: users.country, profilePublic: users.profilePublic, emailVerified: users.emailVerified })
     .from(users)
     .where(eq(users.id, userId))
     .limit(1);
@@ -26,10 +26,10 @@ export async function GET() {
     .from(accounts)
     .where(eq(accounts.userId, userId));
 
-  const isOAuthOnly = oauthAccounts.length > 0 && !user?.passwordHash;
+  const isOAuthOnly = oauthAccounts.length > 0 && !user?.hasPasswordHash;
 
   return NextResponse.json({
-    hasPassword: !isOAuthOnly && !!user?.passwordHash,
+    hasPassword: !isOAuthOnly && !!user?.hasPasswordHash,
     country: user?.country ?? null,
     profilePublic: user?.profilePublic ?? true,
     emailVerified: user?.emailVerified ? true : false,
@@ -51,7 +51,13 @@ export async function PATCH(request: NextRequest) {
 
   // ── Handle display name update ──
   if (body.displayName !== undefined) {
-    const displayName = body.displayName as string | null;
+    const displayName = body.displayName;
+    if (typeof displayName !== 'string') {
+      return NextResponse.json(
+        { error: 'Display name must be a string' },
+        { status: 400 }
+      );
+    }
     if (!displayName || displayName.length < 2 || displayName.length > 50) {
       return NextResponse.json(
         { error: 'Display name must be 2-50 characters' },

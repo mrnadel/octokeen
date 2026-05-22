@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -13,13 +13,14 @@ import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { shallow } from 'zustand/shallow';
 import { useToastStore } from '@/components/ui/ToastNotification';
 
-/** Track gem transactions that have already been synced to avoid double-inserting. */
-let lastSyncedGemTxCount = 0;
-
 export function useDbSync() {
   const { status } = useSession();
   const [isHydrated, setIsHydrated] = useState(false);
   const isAuthenticated = status === 'authenticated';
+
+  /** Track gem transactions that have already been synced to avoid double-inserting.
+   *  Kept in a ref so each hook instance gets its own isolated counter. */
+  const lastSyncedGemTxCountRef = useRef(0);
 
   // On mount: fetch from DB and hydrate stores
   useEffect(() => {
@@ -305,7 +306,7 @@ export function useDbSync() {
           }
 
           // Initialize the synced tx count so we don't re-send existing transactions
-          lastSyncedGemTxCount = useEngagementStore.getState().gems.transactions.length;
+          lastSyncedGemTxCountRef.current = useEngagementStore.getState().gems.transactions.length;
         }
 
         // Hydrate streak from server — server is authoritative
@@ -441,13 +442,14 @@ export function useDbSync() {
         const eng = useEngagementStore.getState();
         const hearts = useHeartsStore.getState();
 
-        // Extract only new gem transactions since last sync
+        // Extract only new gem transactions since last sync.
+        // Capture the target count BEFORE the fetch so we only advance on success.
         const allTx = eng.gems.transactions;
-        const newTxCount = allTx.length - lastSyncedGemTxCount;
+        const newTxCount = allTx.length - lastSyncedGemTxCountRef.current;
         const newGemTransactions = newTxCount > 0
           ? allTx.slice(0, newTxCount).map((t) => ({ amount: t.amount, source: t.source }))
           : undefined;
-        lastSyncedGemTxCount = allTx.length;
+        const nextSyncedCount = allTx.length;
 
         const payload: Record<string, unknown> = {
           gems: {
@@ -489,11 +491,19 @@ export function useDbSync() {
           };
         }
 
+        // Advance the synced counter only after the fetch succeeds, so a network
+        // failure does not silently discard gem transactions.
         fetch('/api/engagement', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone },
           body: JSON.stringify(payload),
-        }).catch(console.error);
+        })
+          .then((res) => {
+            if (res.ok) {
+              lastSyncedGemTxCountRef.current = nextSyncedCount;
+            }
+          })
+          .catch(console.error);
       }, 1500);
     }
 
@@ -534,6 +544,73 @@ export function useDbSync() {
       unsubEngagement();
       unsubHearts();
     };
+  }, [isAuthenticated]);
+
+  // Flush pending engagement data when the user closes or navigates away before the
+  // debounce fires. sendBeacon is fire-and-forget and survives tab close; fall back to
+  // a best-effort synchronous fetch if the payload is unavailable for some reason.
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const handleBeforeUnload = () => {
+      const eng = useEngagementStore.getState();
+      const hearts = useHeartsStore.getState();
+
+      const allTx = eng.gems.transactions;
+      const newTxCount = allTx.length - lastSyncedGemTxCountRef.current;
+      const newGemTransactions = newTxCount > 0
+        ? allTx.slice(0, newTxCount).map((t) => ({ amount: t.amount, source: t.source }))
+        : undefined;
+
+      const payload: Record<string, unknown> = {
+        gems: {
+          balance: eng.gems.balance,
+          totalEarned: eng.gems.totalEarned,
+          inventory: eng.gems.inventory,
+          selectedTitle: eng.gems.selectedTitle,
+          selectedFrame: eng.gems.selectedFrame,
+        },
+        streak: {
+          freezesOwned: eng.streak.freezesOwned,
+          milestonesReached: eng.streak.milestonesReached,
+        },
+        hearts: {
+          current: hearts.current,
+          lastRechargeAt: hearts.lastRechargeAt,
+        },
+        doubleXpExpiry: eng.doubleXpExpiry,
+        newGemTransactions,
+        dailyRewardCalendar: {
+          day: eng.dailyRewardCalendar.currentDay,
+          lastClaimDate: eng.dailyRewardCalendar.lastClaimDate,
+          weekStartDate: eng.dailyRewardCalendar.cycleStartDate ?? '',
+          claimedDays: eng.dailyRewardCalendar.todayClaimed
+            ? Array.from({ length: eng.dailyRewardCalendar.currentDay }, (_, i) => i + 1)
+            : Array.from({ length: eng.dailyRewardCalendar.currentDay - 1 }, (_, i) => i + 1),
+        },
+      };
+
+      const body = JSON.stringify(payload);
+      const url = '/api/engagement';
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      // sendBeacon is the only reliable way to dispatch a request on unload.
+      // It does not support custom headers, so the server must not require
+      // Content-Type validation — the standard JSON body is still sent.
+      const blob = new Blob([body], { type: 'application/json' });
+      if (!navigator.sendBeacon(url, blob)) {
+        // Fallback: best-effort keepalive fetch (may not complete on all browsers)
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Timezone': tz },
+          body,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isAuthenticated]);
 
   return { isHydrated };

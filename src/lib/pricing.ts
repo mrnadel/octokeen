@@ -30,8 +30,11 @@ export const FEATURES = {
 export type Feature = (typeof FEATURES)[keyof typeof FEATURES];
 
 // --------------- Pro-Only Practice Modes ---------------
-// All practice modes are now free. Hearts are the sole friction lever.
-export const PRO_SESSION_TYPES: ReadonlySet<string> = new Set([]);
+export const PRO_SESSION_TYPES: ReadonlySet<string> = new Set([
+  'adaptive',
+  'interview-sim',
+  'weak-areas',
+]);
 
 // --------------- Daily / Usage Limits ---------------
 

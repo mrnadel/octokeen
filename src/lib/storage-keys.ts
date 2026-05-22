@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
   NARRATION: 'octokeen-narration',
   HEARTS: 'octokeen-hearts',
   ENGAGEMENT: 'octokeen-engagement',
+  FEEDBACK: 'octokeen-feedback',
   COURSE: 'octokeen-course',
   ADS: 'octokeen-ads',
 

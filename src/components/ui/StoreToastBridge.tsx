@@ -109,8 +109,8 @@ export function StoreToastBridge() {
 
         if (streak <= prev || streak <= 1) return;
 
-        // Toast on streak milestones (3, 7, 14, 30, 50, 100)
-        const milestones = [3, 7, 14, 30, 50, 100];
+        // Toast on streak milestones — must match streakMilestones in src/data/streak-milestones.ts
+        const milestones = [7, 14, 30, 60, 100, 150, 365];
         if (milestones.includes(streak)) {
           push({
             icon: '🔥',

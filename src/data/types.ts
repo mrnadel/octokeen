@@ -302,6 +302,7 @@ export interface UserProgress {
   bookmarkedQuestions: string[];
   weakAreas: string[];
   strongAreas: string[];
+  attemptedQuestionTypes?: string[];
 }
 
 // --------------- Content Feedback ---------------

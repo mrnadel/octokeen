@@ -28,15 +28,15 @@ export function DailyRewardClaimModal() {
 
   const today = getTodayDate();
 
-  // Don't show if already claimed today
-  if (calendar.todayClaimed && calendar.lastClaimDate === today) return null;
-  // Don't show for first-time users (never claimed before)
-  if (calendar.lastClaimDate === null) return null;
-  // Don't show during comeback flow
-  if (comeback.isInComebackFlow) return null;
-  // If already showing result, keep showing
-  const shouldShow = !calendar.todayClaimed || showResult;
-  if (!shouldShow && !showResult) return null;
+  // Always allow result animation to complete before any early-exit guard fires
+  if (!showResult) {
+    // Don't show if already claimed today
+    if (calendar.todayClaimed && calendar.lastClaimDate === today) return null;
+    // Don't show for first-time users (never claimed before)
+    if (calendar.lastClaimDate === null) return null;
+    // Don't show during comeback flow
+    if (comeback.isInComebackFlow) return null;
+  }
 
   const currentReward = DAILY_REWARD_CYCLE[calendar.currentDay - 1];
   if (!currentReward) return null;

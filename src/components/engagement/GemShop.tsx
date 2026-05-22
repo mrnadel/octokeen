@@ -129,7 +129,7 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
                 boxShadow: isDisabled || isOwned ? 'none' : '0 2px 0 #5B21B6',
               }}
             >
-              {isOwned ? 'Owned' : 'Buy'}
+              {isOwned ? 'Owned' : isDisabled && disabledReason === 'Already active' ? 'Active' : 'Buy'}
             </button>
           )}
 
@@ -354,6 +354,16 @@ export function GemShop() {
     } else if ((item.type === 'heart_refill' || item.type === 'heart_refill_full') && (hearts.isUnlimited() || hearts.current >= hearts.max)) {
       isDisabled = true;
       disabledReason = hearts.isUnlimited() ? 'Pro: unlimited hearts' : 'Hearts already full';
+    } else if (item.type === 'double_xp') {
+      const expiry = useEngagementStore.getState().doubleXpExpiry;
+      const isActive = !!expiry && new Date(expiry).getTime() > Date.now();
+      if (isActive) {
+        isDisabled = true;
+        disabledReason = 'Already active';
+      } else if (!canAfford) {
+        isDisabled = true;
+        disabledReason = `Need ${item.cost - gems.balance} more ${currencyLabel(item.cost - gems.balance)}`;
+      }
     } else if (!canAfford) {
       isDisabled = true;
       disabledReason = `Need ${item.cost - gems.balance} more ${currencyLabel(item.cost - gems.balance)}`;

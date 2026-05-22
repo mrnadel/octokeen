@@ -20,8 +20,13 @@ interface GameButtonProps extends HTMLMotionProps<'button'> {
 }
 
 export const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(
-  ({ variant = 'indigo', className, children, disabled, style, ...props }, ref) => {
+  ({ variant = 'indigo', className, children, disabled, style, onClick, ...props }, ref) => {
     const v = variants[variant];
+
+    const handleClick: typeof onClick = (e) => {
+      if (disabled) return;
+      onClick?.(e);
+    };
 
     return (
       <motion.button
@@ -38,6 +43,7 @@ export const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(
           className,
         )}
         style={style}
+        onClick={handleClick}
         {...props}
       >
         {children}

@@ -156,27 +156,29 @@ export async function POST(request: NextRequest) {
     .set({ displayName: progress.displayName, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
-  // Delete and re-insert topic progress (capped to prevent abuse)
+  // Delete and re-insert topic progress atomically (capped to prevent abuse)
   const MAX_TOPICS = 100;
   const topicData = progress.topicProgress.slice(0, MAX_TOPICS);
 
-  await db
-    .delete(topicProgressTable)
-    .where(eq(topicProgressTable.userId, userId));
+  await db.transaction(async (tx) => {
+    await tx
+      .delete(topicProgressTable)
+      .where(eq(topicProgressTable.userId, userId));
 
-  if (topicData.length > 0) {
-    await db.insert(topicProgressTable).values(
-      topicData.map((tp) => ({
-        userId,
-        topicId: tp.topicId,
-        questionsAttempted: tp.questionsAttempted,
-        questionsCorrect: tp.questionsCorrect,
-        averageConfidence: tp.averageConfidence,
-        lastAttempted: tp.lastAttempted,
-        subtopicBreakdown: tp.subtopicBreakdown,
-      }))
-    );
-  }
+    if (topicData.length > 0) {
+      await tx.insert(topicProgressTable).values(
+        topicData.map((tp) => ({
+          userId,
+          topicId: tp.topicId,
+          questionsAttempted: tp.questionsAttempted,
+          questionsCorrect: tp.questionsCorrect,
+          averageConfidence: tp.averageConfidence,
+          lastAttempted: tp.lastAttempted,
+          subtopicBreakdown: tp.subtopicBreakdown,
+        }))
+      );
+    }
+  });
 
   // Cap sessions per sync to prevent abuse
   const MAX_SESSIONS_PER_SYNC = 50;

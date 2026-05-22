@@ -135,10 +135,10 @@ export const achievements: Achievement[] = [
   {
     id: 'ach-confidence-calibrated',
     name: 'Confidence Calibrated',
-    description: 'On 5 confidence-rated questions, rate "Very confident" and be correct every time.',
+    description: 'Answer 15 questions correctly in a single practice session.',
     icon: '🎯',
     category: 'challenge',
-    condition: 'Be correct on 5 questions where you selected "Very confident"',
+    condition: 'Answer 15 questions correctly in one session',
     xpReward: 250,
   },
   {
@@ -191,10 +191,10 @@ export const achievements: Achievement[] = [
   {
     id: 'ach-all-topics',
     name: 'Polymath',
-    description: 'Attempt questions in ALL 11 topics.',
+    description: 'Attempt questions in ALL 13 topics.',
     icon: '🎓',
     category: 'exploration',
-    condition: 'Attempt at least 1 question in each of the 11 topics',
+    condition: 'Attempt at least 1 question in each of the 13 topics',
     xpReward: 500,
   },
   {

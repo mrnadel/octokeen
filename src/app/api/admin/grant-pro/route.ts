@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
-
-const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
+import { requireAdmin } from '@/lib/auth-utils';
 
 // DEV ONLY: Grant Pro to the currently logged-in user
 export async function POST() {
@@ -12,13 +10,9 @@ export async function POST() {
     return NextResponse.json({ error: 'Not available' }, { status: 403 });
   }
 
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Not logged in' }, { status: 401 });
-  }
-
   // Only admin can grant pro, even in development
-  if (ADMIN_USER_ID && userId !== ADMIN_USER_ID) {
+  const userId = await requireAdmin();
+  if (!userId) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useSession, useSessionActions, useProgress } from '@/store/useStore';
+import { useEngagementStore } from '@/store/useEngagementStore';
 import SessionView from '@/components/session/SessionView';
 import { Calendar, Star } from 'lucide-react';
 import { StreakFlame } from '@/components/icons/StreakFlame';
@@ -19,6 +20,9 @@ export default function DailyChallengePage() {
   const { session, sessionSummary } = useSession();
   const { startSession } = useSessionActions();
   const progress = useProgress();
+  const lastDailyChallengeDate = useEngagementStore((s) => s.lastDailyChallengeDate);
+  const todayString = new Date().toISOString().slice(0, 10);
+  const alreadyCompletedToday = lastDailyChallengeDate === todayString;
 
   if (session || sessionSummary) {
     return <SessionView />;
@@ -61,12 +65,19 @@ export default function DailyChallengePage() {
       </div>
 
 
-      <button
-        onClick={() => startSession('daily-challenge')}
-        className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-amber-500 hover:bg-amber-600"
-      >
-        Start Today&apos;s Challenge
-      </button>
+      {alreadyCompletedToday ? (
+        <div className="text-center">
+          <p className="text-base font-semibold text-surface-600 mb-1">You&apos;ve completed today&apos;s challenge!</p>
+          <p className="text-sm text-surface-400">Come back tomorrow for a new challenge.</p>
+        </div>
+      ) : (
+        <button
+          onClick={() => startSession('daily-challenge')}
+          className="btn-primary text-base sm:text-lg py-3 px-6 sm:px-8 w-full sm:w-auto bg-amber-500 hover:bg-amber-600"
+        >
+          Start Today&apos;s Challenge
+        </button>
+      )}
       <p className="text-xs text-surface-400 mt-3">
         {progress.dailyChallengesCompleted} challenges completed so far
       </p>

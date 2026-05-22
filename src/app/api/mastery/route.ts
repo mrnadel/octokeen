@@ -1,9 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { eq, desc } from 'drizzle-orm';
+import { z } from 'zod';
 import { db } from '@/lib/db';
 import { masteryEvents } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 import { canStartPracticeSession, canAccessPracticeMode } from '@/lib/access-control';
+
+const masteryEventSchema = z.object({
+  id: z.string().min(1),
+  questionId: z.string().min(1),
+  topicId: z.string().min(1),
+  subtopic: z.string().optional(),
+  difficulty: z.string().min(1),
+  correct: z.boolean(),
+  source: z.string().min(1),
+  answeredAt: z.string().datetime(),
+});
+
+const masteryEventsBodySchema = z.object({
+  events: z.array(masteryEventSchema).max(200),
+});
 
 export async function GET() {
   const userId = await getAuthUserId();
@@ -48,51 +64,25 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let body: Record<string, unknown>;
+  let rawBody: unknown;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
-  const { events } = body as {
-    events: {
-      id: string;
-      questionId: string;
-      topicId: string;
-      subtopic?: string;
-      difficulty: string;
-      correct: boolean;
-      source: string;
-      answeredAt: string;
-    }[];
-  };
 
-  if (!events || !Array.isArray(events) || events.length === 0) {
-    return NextResponse.json({ ok: true, inserted: 0 });
-  }
-
-  // Cap batch size to prevent abuse and memory spikes
-  const MAX_EVENTS_PER_REQUEST = 200;
-  if (events.length > MAX_EVENTS_PER_REQUEST) {
+  const parsed = masteryEventsBodySchema.safeParse(rawBody);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: `Too many events (max ${MAX_EVENTS_PER_REQUEST} per request)` },
+      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
       { status: 400 }
     );
   }
 
-  // Validate required fields on each event
-  const valid = events.every(
-    (e: Record<string, unknown>) =>
-      typeof e.id === 'string' &&
-      typeof e.questionId === 'string' &&
-      typeof e.topicId === 'string' &&
-      typeof e.difficulty === 'string' &&
-      typeof e.correct === 'boolean' &&
-      typeof e.source === 'string' &&
-      typeof e.answeredAt === 'string'
-  );
-  if (!valid) {
-    return NextResponse.json({ error: 'Malformed event data' }, { status: 400 });
+  const { events } = parsed.data;
+
+  if (events.length === 0) {
+    return NextResponse.json({ ok: true, inserted: 0 });
   }
 
   const rows = events.map((event) => ({

@@ -17,7 +17,7 @@ import { CURRENCY, currencyLabel } from '@/data/currency';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 
-const REPAIR_COST = 50;
+const REPAIR_COST = 75;
 
 export function StreakFreeze() {
   const streak = useStreakEnhancements();

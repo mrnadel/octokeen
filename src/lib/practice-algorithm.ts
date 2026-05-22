@@ -239,11 +239,13 @@ function shuffleWeighted<T extends { weight: number }>(items: T[]): T[] {
 export function buildPerformance(
   topicProgress: TopicProgress[],
   sessionHistory: { date: string; topicsCovered: TopicId[] }[],
+  answeredQuestionIds: string[] = [],
+  recentCorrectIds: string[] = [],
 ): UserPerformance {
   return {
     topicProgress,
     sessionHistory,
-    answeredQuestionIds: new Set(),
-    recentCorrectIds: new Set(),
+    answeredQuestionIds: new Set(answeredQuestionIds),
+    recentCorrectIds: new Set(recentCorrectIds),
   };
 }

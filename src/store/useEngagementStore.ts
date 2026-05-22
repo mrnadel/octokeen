@@ -4,7 +4,6 @@ import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
-import { DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
 import type {
   EngagementState,
   GemsState,
@@ -51,6 +50,7 @@ import {
   getUserRank,
   getWeekResult,
 } from '@/lib/league-simulator';
+import { getLevelForXp } from '@/data/levels';
 import { drawCompetitorsFromPool } from '@/lib/fake-user-generator';
 import { useStore } from '@/store/useStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
@@ -505,26 +505,31 @@ export const useEngagementStore = create<EngagementStore>()(
           const daysSinceBreak = Math.floor((today.getTime() - breakD.getTime()) / (1000 * 60 * 60 * 24));
           if (daysSinceBreak > 3) return false;
 
-          // Check gem balance
           const repairCost = 75;
-          if (state.gems.balance < repairCost) return false;
-
-          // Deduct gems, mark repair used, and restore streak
           const previousStreak = state.streak.lastStreakValueBeforeBreak;
-          set((s) => ({
-            gems: {
-              ...s.gems,
-              balance: s.gems.balance - repairCost,
-              transactions: [
-                createGemTransaction(-repairCost, 'streak_repair'),
-                ...s.gems.transactions,
-              ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-            },
-            streak: {
-              ...s.streak,
-              repairAvailable: false,
-            },
-          }));
+
+          // Deduct gems and mark repair used atomically — balance check inside set()
+          // to prevent double-spend if two calls race.
+          let deducted = false;
+          set((s) => {
+            if (s.gems.balance < repairCost) return {};
+            deducted = true;
+            return {
+              gems: {
+                ...s.gems,
+                balance: s.gems.balance - repairCost,
+                transactions: [
+                  createGemTransaction(-repairCost, 'streak_repair'),
+                  ...s.gems.transactions,
+                ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+              },
+              streak: {
+                ...s.streak,
+                repairAvailable: false,
+              },
+            };
+          });
+          if (!deducted) return false;
 
           // Restore the streak in both progress stores (practice + course)
           if (previousStreak > 0) {
@@ -1047,6 +1052,20 @@ export const useEngagementStore = create<EngagementStore>()(
             },
           });
 
+          // Add XP to user's total in useStore
+          if (reward.xp > 0) {
+            useStore.setState((s) => {
+              const newXp = s.progress.totalXp + reward.xp;
+              return {
+                progress: {
+                  ...s.progress,
+                  totalXp: newXp,
+                  currentLevel: getLevelForXp(newXp).level,
+                },
+              };
+            });
+          }
+
           // Validate with server in the background
           fetch('/api/daily-reward/claim', {
             method: 'POST',
@@ -1197,22 +1216,13 @@ export const useComeback = () => useEngagementStore((s) => s.comeback);
 export const useNudgeState = () => useEngagementStore(useShallow((s) => s.nudge));
 export const useDailyRewardCalendar = () =>
   useEngagementStore(useShallow((s) => s.dailyRewardCalendar));
-/** Returns whether double XP is currently active (validated against purchase history). */
+/** Returns whether double XP is currently active. */
 export const useDoubleXpActive = () =>
   useEngagementStore((s) => {
     if (!s.doubleXpExpiry) return false;
     const expiry = new Date(s.doubleXpExpiry).getTime();
     if (isNaN(expiry) || expiry <= Date.now()) return false;
-    // Anti-tamper: expiry must not exceed max duration from now
-    // (max possible = DOUBLE_XP_SHOP_DURATION_MS + small buffer for timing)
-    const maxAllowed = Date.now() + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS;
-    if (expiry > maxAllowed) return false;
-    // Must have a recent shop_purchase transaction (within last 35 min)
-    const recentCutoff = Date.now() - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
-    const hasRecentPurchase = s.gems.transactions.some(
-      (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
-    );
-    return hasRecentPurchase;
+    return true;
   });
 
 export const useMistakeQuestionIds = () => useEngagementStore((s) => s.mistakeQuestionIds);

@@ -8,10 +8,16 @@ import {
   sessionHistory,
   dailyUsage,
   masteryEvents,
+  gemTransactions,
+  questProgress,
+  leagueState,
+  activityFeed,
+  friendQuests,
+  pushSubscriptions,
 } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
 
-export async function DELETE(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const userId = await getAuthUserId();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -38,9 +44,15 @@ export async function DELETE(request: NextRequest) {
       tx.delete(sessionHistory).where(eq(sessionHistory.userId, userId)),
       tx.delete(topicProgress).where(eq(topicProgress.userId, userId)),
       tx.delete(dailyUsage).where(eq(dailyUsage.userId, userId)),
+      tx.delete(masteryEvents).where(eq(masteryEvents.userId, userId)),
+      tx.delete(gemTransactions).where(eq(gemTransactions.userId, userId)),
+      tx.delete(questProgress).where(eq(questProgress.userId, userId)),
+      tx.delete(leagueState).where(eq(leagueState.userId, userId)),
+      tx.delete(activityFeed).where(eq(activityFeed.userId, userId)),
+      tx.delete(friendQuests).where(eq(friendQuests.userId, userId)),
+      tx.delete(pushSubscriptions).where(eq(pushSubscriptions.userId, userId)),
       tx.delete(userProgress).where(eq(userProgress.userId, userId)),
       tx.delete(courseProgress).where(eq(courseProgress.userId, userId)),
-      tx.delete(masteryEvents).where(eq(masteryEvents.userId, userId)),
     ]);
   });
 

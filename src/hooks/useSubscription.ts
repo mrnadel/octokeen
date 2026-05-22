@@ -119,9 +119,11 @@ export function useSubscription() {
   const isDev = process.env.NODE_ENV === 'development';
   const activeTier = isDev && debugTierOverride ? debugTierOverride : tier;
 
-  const isTrialing = status === 'trialing';
+  const isTrialingStatus = status === 'trialing';
+  const isTrialActive = isTrialingStatus && !!trialEnd && new Date(trialEnd) > new Date();
+  const isTrialing = isTrialingStatus;
   const isPastDue = status === 'past_due';
-  const isProUser = activeTier === 'pro' || isTrialing || isPastDue;
+  const isProUser = activeTier === 'pro' || isTrialActive || isPastDue;
 
   const trialDaysLeft = (() => {
     if (!isTrialing || !trialEnd) return 0;
@@ -132,11 +134,11 @@ export function useSubscription() {
 
   const canAccess = useCallback(
     (feature: Feature): boolean => {
-      const effectiveTier = (isTrialing || isPastDue) ? 'pro' : activeTier;
+      const effectiveTier = (isTrialActive || isPastDue) ? 'pro' : activeTier;
       const tierDef = { features: getTierFeatures(effectiveTier) };
       return tierDef.features.includes(feature);
     },
-    [activeTier, isTrialing, isPastDue],
+    [activeTier, isTrialActive, isPastDue],
   );
 
   return {

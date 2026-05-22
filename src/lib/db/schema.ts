@@ -27,6 +27,7 @@ export const users = pgTable('users', {
   image: text('image'),
   // Custom fields
   passwordHash: text('password_hash'),
+  passwordChangedAt: timestamp('password_changed_at', { mode: 'date' }),
   displayName: text('display_name'),
   joinedDate: text('joined_date'),
   inviteCode: text('invite_code').unique(),

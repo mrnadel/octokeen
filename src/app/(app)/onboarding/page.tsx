@@ -44,7 +44,6 @@ const STEPS = [
 export default function OnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(0);
-  const startLesson = useCourseStore((s) => s.startLesson);
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
   const redirected = useRef(false);
 
@@ -70,8 +69,8 @@ export default function OnboardingPage() {
   const handleStart = () => {
     localStorage.setItem(ONBOARDED_KEY, '1');
     analytics.milestone({ type: 'onboarding_completed', name: 'onboarding_completed', value: 1 });
-    // Start Unit 1, Lesson 1 automatically
-    startLesson(0, 0);
+    // Navigate home — the home page's normal lesson flow handles starting the first lesson
+    // once course data is available, avoiding a race condition with async data loading.
     router.push('/');
   };
 

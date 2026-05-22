@@ -98,6 +98,30 @@ export default function SessionSummary({ summary }: Props) {
     if (summary.accuracy === 100 && summary.questionsAttempted >= 3) updateQuestProgress('perfect_sessions', 1);
     updateQuestProgress('topics_practiced', 1);
     if (summary.type === 'daily-challenge') updateQuestProgress('daily_challenges_completed', 1);
+
+    // Stars earned: 3 = outstanding (≥90%), 2 = great (≥75%), 1 = otherwise
+    const starsEarned = summary.accuracy >= 90 ? 3 : summary.accuracy >= 75 ? 2 : 1;
+    updateQuestProgress('stars_earned', starsEarned);
+
+    // Fast answers: if average time per question is under 30 seconds, all correct answers qualify
+    if (summary.questionsAttempted > 0) {
+      const avgTimePerQuestion = summary.duration / summary.questionsAttempted;
+      if (avgTimePerQuestion < 30 && summary.questionsCorrect > 0) {
+        updateQuestProgress('fast_answers', summary.questionsCorrect);
+      }
+    }
+
+    // Stale topic practiced: credit if any covered topic hasn't been practiced in 7+ days
+    const topicProgress = useStore.getState().progress.topicProgress;
+    const today = new Date();
+    const stalePracticed = summary.topicsCovered.some((topicId) => {
+      const tp = topicProgress.find((t) => t.topicId === topicId);
+      if (!tp?.lastAttempted) return false;
+      const last = new Date(tp.lastAttempted + 'T00:00:00Z');
+      const daysSince = Math.floor((today.getTime() - last.getTime()) / (1000 * 60 * 60 * 24));
+      return daysSince >= 7;
+    });
+    if (stalePracticed) updateQuestProgress('stale_topic_practiced', 1);
     // Report to friend quest progress API (fire-and-forget)
     reportFriendQuestProgress([
       { event: 'xp_earned', value: summary.xpEarned },
@@ -390,25 +414,27 @@ export default function SessionSummary({ summary }: Props) {
             >
               Continue
             </button>
-            <button
-              onClick={() => startSession(summary.type)}
-              className="flex-1 transition-transform active:scale-[0.98]"
-              style={{
-                padding: '16px 0',
-                borderRadius: 16,
-                fontSize: 15,
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: 0.8,
-                background: 'rgba(255,255,255,0.25)',
-                color: '#FFFFFF',
-                boxShadow: `0 4px 0 ${darkColor}30`,
-                border: '2px solid rgba(255,255,255,0.3)',
-                cursor: 'pointer',
-              }}
-            >
-              Again
-            </button>
+            {summary.type !== 'daily-challenge' && (
+              <button
+                onClick={() => startSession(summary.type)}
+                className="flex-1 transition-transform active:scale-[0.98]"
+                style={{
+                  padding: '16px 0',
+                  borderRadius: 16,
+                  fontSize: 15,
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.8,
+                  background: 'rgba(255,255,255,0.25)',
+                  color: '#FFFFFF',
+                  boxShadow: `0 4px 0 ${darkColor}30`,
+                  border: '2px solid rgba(255,255,255,0.3)',
+                  cursor: 'pointer',
+                }}
+              >
+                Again
+              </button>
+            )}
           </motion.div>
         </div>
       </motion.div>

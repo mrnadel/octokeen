@@ -15,6 +15,9 @@ export function DailyLimitBanner({ questionsUsedToday = 0 }: DailyLimitBannerPro
   if (isLoading || !hasFetched || isProUser) return null;
 
   const limit = LIMITS.free.dailyQuestions;
+
+  // -1 means unlimited (hearts are the rate limiter); nothing to display
+  if (limit === -1) return null;
   const remaining = Math.max(0, limit - questionsUsedToday);
   const pct = Math.min(100, (questionsUsedToday / limit) * 100);
 

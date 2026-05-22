@@ -116,13 +116,13 @@ export const dailyQuestPool: QuestDefinition[] = [
   {
     id: 'dq-perfect-session',
     title: 'Perfect Session',
-    description: 'Complete a session with 100% accuracy (min 5 questions).',
+    description: 'Complete a session with 100% accuracy (min 3 questions).',
     icon: '/quest-icons/diamond.png',
     trackingKey: 'perfect_sessions',
     target: 1,
     rarity: 'legendary',
     reward: { xp: 70, gems: 12 },
-    tooltip: '100% accuracy with at least 5 questions',
+    tooltip: '100% accuracy with at least 3 questions',
   },
 ];
 
@@ -189,11 +189,11 @@ export const weeklyQuestPool: QuestDefinition[] = [
   },
   {
     id: 'wq-stars-3x3',
-    title: 'Earn 9 Stars',
+    title: 'Earn 3 Stars',
     description: 'Get 3 stars in 3 different sessions this week.',
     icon: '/quest-icons/wq-stars-9.png',
     trackingKey: 'stars_earned',
-    target: 9,
+    target: 3,
     rarity: 'rare',
     reward: { xp: 90, gems: 18 },
     tooltip: 'Get 3 stars in 3 different sessions',

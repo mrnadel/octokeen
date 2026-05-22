@@ -24,6 +24,9 @@ import { selectSmartPracticeQuestions, buildPerformance } from '@/lib/practice-a
 // --- Session Types ---
 export type SessionType = 'adaptive' | 'topic-deep-dive' | 'interview-sim' | 'daily-challenge' | 'real-world' | 'weak-areas' | 'smart-practice';
 
+// Total distinct course question types (from src/data/course/types.ts QuestionType union)
+const TOTAL_QUESTION_TYPES = 14;
+
 // CourseQuestion enriched with topic metadata for practice sessions
 export type PracticeQuestion = CourseQuestion & {
   topic: TopicId;
@@ -115,6 +118,7 @@ function getDefaultProgress(): UserProgress {
     bookmarkedQuestions: [],
     weakAreas: [],
     strongAreas: [],
+    attemptedQuestionTypes: [],
   };
 }
 
@@ -197,7 +201,8 @@ function selectQuestionsForSession(type: SessionType, options?: { topicId?: Topi
         }
       }
       const state = useStore.getState();
-      const performance = buildPerformance(state.progress.topicProgress, state.progress.sessionHistory);
+      const answeredIds = useEngagementStore.getState().mistakeQuestionIds;
+      const performance = buildPerformance(state.progress.topicProgress, state.progress.sessionHistory, answeredIds);
       // Use pool (already gathered + flattened course questions) as practiceQuestions.
       // Pass [] for courseData since pool already contains everything.
       const selected = selectSmartPracticeQuestions(pool as any, [], performance, {
@@ -299,12 +304,14 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
           const d = new Date(record.date + 'T12:00:00');
           const day = d.getDay();
           if (day === 0 || day === 6) {
-            // Find the other weekend day in the same week
-            const otherDay = day === 0 ? 6 : 0; // if Sunday, look for Saturday; vice versa
-            const satDate = new Date(d);
-            satDate.setDate(d.getDate() + (otherDay - day));
-            const satStr = satDate.toISOString().split('T')[0];
-            if (history.some(r => r.date === satStr)) {
+            // Find the other weekend day in the same week:
+            // Sunday (0): the paired Saturday is 1 day back (-1)
+            // Saturday (6): the paired Sunday is 1 day forward (+1)
+            const offset = day === 0 ? -1 : 1;
+            const otherDate = new Date(d);
+            otherDate.setDate(d.getDate() + offset);
+            const otherStr = otherDate.toISOString().split('T')[0];
+            if (history.some(r => r.date === otherStr)) {
               unlocked = true;
               break;
             }
@@ -326,11 +333,8 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         break;
       case 'ach-confidence-calibrated':
         if (sessionCtx) {
-          const highConfCorrect = sessionCtx.questions.filter(q => {
-            const a = sessionCtx.answers[q.id];
-            return a && a.confidence !== undefined && a.confidence >= 3 && a.correct;
-          });
-          unlocked = highConfCorrect.length >= 5;
+          const sessionCorrect = Object.values(sessionCtx.answers).filter(a => a.correct).length;
+          unlocked = sessionCorrect >= 15;
         }
         break;
       case 'ach-flaw-finder':
@@ -366,13 +370,8 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
         unlocked = (progress.topicProgress ?? []).filter(t => t.questionsAttempted >= 1).length >= TOTAL_TOPICS;
         break;
       case 'ach-all-types':
-        if (sessionCtx) {
-          // Check that user has attempted all 3 course question types (MC, T/F, fill-blank)
-          const allAttemptedTypes = new Set(sessionCtx.questions
-            .filter(q => sessionCtx.answers[q.id])
-            .map(q => q.type));
-          unlocked = allAttemptedTypes.size >= 3;
-        }
+        // Check cumulative attempted question types across all sessions
+        unlocked = (progress.attemptedQuestionTypes ?? []).length >= TOTAL_QUESTION_TYPES;
         break;
       case 'ach-bookworm':
         unlocked = (progress.bookmarkedQuestions ?? []).length >= 10;
@@ -636,30 +635,40 @@ export const useStore = create<AppState>()(
           xp = Math.min(xp, 200);
         }
 
-        set(state => ({
-          session: state.session ? {
-            ...state.session,
-            answers: {
-              ...state.session.answers,
-              [questionId]: { correct, confidence, timeSpent, xpAwarded: alreadyAnswered ? 0 : xp },
+        set(state => {
+          const existingTypes = state.progress.attemptedQuestionTypes ?? [];
+          const updatedAttemptedTypes = alreadyAnswered
+            ? existingTypes
+            : existingTypes.includes(question.type)
+              ? existingTypes
+              : [...existingTypes, question.type];
+
+          return {
+            session: state.session ? {
+              ...state.session,
+              answers: {
+                ...state.session.answers,
+                [questionId]: { correct, confidence, timeSpent, xpAwarded: alreadyAnswered ? 0 : xp },
+              },
+            } : null,
+            progress: alreadyAnswered ? state.progress : {
+              ...state.progress,
+              totalXp: state.progress.totalXp + xp,
+              totalQuestionsAttempted: state.progress.totalQuestionsAttempted + 1,
+              totalQuestionsCorrect: state.progress.totalQuestionsCorrect + (correct ? 1 : 0),
+              currentLevel: updateLevel(state.progress.totalXp + xp),
+              topicProgress: updateTopicProgress(state.progress.topicProgress, question.topic, question.subtopic, correct),
+              attemptedQuestionTypes: updatedAttemptedTypes,
+              // NOTE: lastActiveDate is intentionally NOT set here — it must stay
+              // at the previous value until completeSession runs, so streak logic
+              // can detect consecutive-day gaps and increment correctly.
             },
-          } : null,
-          progress: alreadyAnswered ? state.progress : {
-            ...state.progress,
-            totalXp: state.progress.totalXp + xp,
-            totalQuestionsAttempted: state.progress.totalQuestionsAttempted + 1,
-            totalQuestionsCorrect: state.progress.totalQuestionsCorrect + (correct ? 1 : 0),
-            currentLevel: updateLevel(state.progress.totalXp + xp),
-            topicProgress: updateTopicProgress(state.progress.topicProgress, question.topic, question.subtopic, correct),
-            // NOTE: lastActiveDate is intentionally NOT set here — it must stay
-            // at the previous value until completeSession runs, so streak logic
-            // can detect consecutive-day gaps and increment correctly.
-          },
-        }));
+          };
+        });
 
         if (!alreadyAnswered) {
-          // Bridge to course store if this is a course question
-          if (questionId.match(/^u\d+-L\d+-Q/)) {
+          // Bridge to course store if this is a course question (matches all profession ID formats)
+          if (questionId.match(/-L\d+-Q/)) {
             useCourseStore.getState().creditPracticeAnswer(questionId, correct);
           }
 
@@ -959,6 +968,7 @@ export const useStore = create<AppState>()(
             strongAreas: persisted.progress.strongAreas ?? defaults.strongAreas,
             displayName: persisted.progress.displayName ?? defaults.displayName,
             activeDays: persisted.progress.activeDays ?? defaults.activeDays,
+            attemptedQuestionTypes: persisted.progress.attemptedQuestionTypes ?? defaults.attemptedQuestionTypes,
           },
         };
       },
