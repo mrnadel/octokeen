@@ -50,6 +50,9 @@ import {
   ADAPTIVE_CRUISING_THRESHOLD as CRUISING_THRESHOLD,
   ADAPTIVE_MIN_ANSWERS,
 } from '@/lib/game-config';
+import { LessonExitConfirmModal } from './LessonExitConfirmModal';
+import { LessonCalculatorPanel } from './LessonCalculatorPanel';
+import { useBackgroundParallax } from './useBackgroundParallax';
 
 function getAdaptiveMode(recentAnswers: boolean[]): AdaptiveMode {
   if (recentAnswers.length < ADAPTIVE_MIN_ANSWERS) return 'normal';
@@ -143,7 +146,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const questionRef = useRef<QuestionCardHandle>(null);
   const continueBtnRef = useRef<HTMLButtonElement>(null);
   const questionAreaRef = useRef<HTMLDivElement>(null);
-  const exitDialogRef = useRef<HTMLDivElement>(null);
   const isDoubleXp = useDoubleXpActive();
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
   useScrollLock(true);
@@ -170,33 +172,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     }
   }, [lastAnswerCorrect]);
 
-  // Focus trap for exit confirm dialog
-  useEffect(() => {
-    if (!showExitConfirm || !exitDialogRef.current) return;
-    const dialog = exitDialogRef.current;
-    const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const focusableEls = dialog.querySelectorAll<HTMLElement>(focusableSelector);
-    if (focusableEls.length === 0) return;
-    const firstEl = focusableEls[0];
-    const lastEl = focusableEls[focusableEls.length - 1];
-    firstEl.focus();
-    const handleTab = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
-      if (e.shiftKey) {
-        if (document.activeElement === firstEl) {
-          e.preventDefault();
-          lastEl.focus();
-        }
-      } else {
-        if (document.activeElement === lastEl) {
-          e.preventDefault();
-          firstEl.focus();
-        }
-      }
-    };
-    dialog.addEventListener('keydown', handleTab);
-    return () => dialog.removeEventListener('keydown', handleTab);
-  }, [showExitConfirm]);
+  // Focus trap for exit confirm dialog is handled inside LessonExitConfirmModal
 
   // Scroll lock handled by useScrollLock(true) above
 
@@ -282,29 +258,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   // Parallax: smoothly animate --bg-step on the container (stable across DOM recreation)
   const bgStepIndex = adapter ? (adapter.answeredCount ?? 0) : (activeLesson?.currentQuestionIndex ?? 0);
-  const bgStepAnimRef = useRef<number>(0);
-  const bgStepTargetRef = useRef(0);
-  useEffect(() => {
-    const container = bgRef.current;
-    if (!container) return;
-    // Snap to previous target (in case we were mid-animation), then animate to new target
-    const from = bgStepTargetRef.current;
-    const to = bgStepIndex;
-    bgStepTargetRef.current = to;
-    container.style.setProperty('--bg-step', String(from));
-    if (from === to) return;
-    if (bgStepAnimRef.current) cancelAnimationFrame(bgStepAnimRef.current);
-    const duration = 2500;
-    const start = performance.now();
-    function tick(now: number) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      container!.style.setProperty('--bg-step', String(from + (to - from) * eased));
-      if (t < 1) bgStepAnimRef.current = requestAnimationFrame(tick);
-    }
-    bgStepAnimRef.current = requestAnimationFrame(tick);
-    return () => { if (bgStepAnimRef.current) cancelAnimationFrame(bgStepAnimRef.current); };
-  }, [bgStepIndex]);
+  useBackgroundParallax(bgRef, bgStepIndex);
 
   // Load section character + character lines when lesson starts
   useEffect(() => {
@@ -1479,55 +1433,13 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
 
         {/* Calculator panel — shows the right calculator per course */}
-        <AnimatePresence>
-          {isCalcOpen && activeProfession === PROFESSION_ID.MECHANICAL_ENGINEERING && (
-            <EngineeringCalculator
-              isOpen={isCalcOpen}
-              onClose={() => setIsCalcOpen(false)}
-              accentColor={unitColor}
-              accentDark={theme.dark}
-            />
-          )}
-          {isCalcOpen && activeProfession === PROFESSION_ID.PERSONAL_FINANCE && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              style={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                maxHeight: '65vh',
-                overflowY: 'auto',
-                background: c.cardBg,
-                borderTop: `3px solid ${unitColor}`,
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
-                zIndex: 50,
-                paddingTop: 16,
-              }}
-            >
-              <button
-                onClick={() => setIsCalcOpen(false)}
-                style={{ position: 'absolute', top: 12, right: 16, background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: c.closeBtnStroke }}
-                aria-label="Close calculator"
-              >
-                &times;
-              </button>
-              <FinanceCalculators />
-            </motion.div>
-          )}
-          {isCalcOpen && activeProfession === PROFESSION_ID.SPACE_ASTRONOMY && (
-            <EngineeringCalculator
-              isOpen={isCalcOpen}
-              onClose={() => setIsCalcOpen(false)}
-              accentColor={unitColor}
-              accentDark={theme.dark}
-            />
-          )}
-        </AnimatePresence>
+        <LessonCalculatorPanel
+          isOpen={isCalcOpen}
+          profession={activeProfession}
+          onClose={() => setIsCalcOpen(false)}
+          unitColor={unitColor}
+          accentDark={theme.dark}
+        />
 
         {/* Out of hearts modal */}
         <OutOfHeartsModal

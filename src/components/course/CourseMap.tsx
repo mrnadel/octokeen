@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Sparkles, Lock, ChevronRight } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
-import { getUnitTheme, type UnitTheme } from '@/lib/unitThemes';
+import { getUnitTheme } from '@/lib/unitThemes';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import { LessonNode } from './LessonNode';
@@ -19,225 +19,10 @@ import { useMasteryStore } from '@/store/useMasteryStore';
 import { getDecayedQuestions } from '@/lib/review-engine';
 import { ActiveEventBanner } from '@/components/ui/ActiveEventBanner';
 import { ErrorRetry } from '@/components/ui/ErrorRetry';
-
-type JumpModalType =
-  | { kind: 'within-unit'; unitIndex: number; lessonIndex: number }
-  | { kind: 'placement-test'; unitIndex: number }
-  | { kind: 'guest-signup'; unitIndex: number }
-  | { kind: 'free-upgrade'; unitIndex: number };
-
-/** 3D floating "Jump here" button — two-layer SVG so the face presses into the base on tap */
-function JumpHereButton({ theme, onClick }: { theme: UnitTheme; onClick: () => void }) {
-  const BTN_W = 160;
-  const BTN_H = 54;
-  const DEPTH = 6; // 3D extrusion depth in px
-
-  return (
-    <motion.div
-      className="flex justify-center"
-      style={{ margin: '-4px 0 4px', position: 'relative', zIndex: 2 }}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3, duration: 0.4 }}
-    >
-      <motion.button
-        onClick={onClick}
-        className="relative select-none"
-        style={{
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          cursor: 'pointer',
-          WebkitTapHighlightColor: 'transparent',
-          width: BTN_W,
-          height: BTN_H,
-          filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18)) drop-shadow(0 3px 6px rgba(0,0,0,0.1))',
-        }}
-        initial="rest"
-        whileHover="hover"
-        whileTap="pressed"
-        variants={{
-          rest: {
-            y: [0, -6, 0],
-            transition: { y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } },
-          },
-          hover: {
-            y: [0, -6, 0],
-            transition: { y: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } },
-          },
-          pressed: {
-            y: 0,
-            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))',
-            transition: { y: { type: 'spring', stiffness: 500, damping: 25 }, filter: { duration: 0.1 } },
-          },
-        }}
-        aria-label="Take placement test to jump to this unit"
-      >
-          {/* Static 3D base — stays in place while face moves */}
-          <svg
-            width={BTN_W}
-            height={BTN_H}
-            viewBox={`0 0 ${BTN_W} ${BTN_H}`}
-            fill="none"
-            style={{ position: 'absolute', top: 0, left: 0 }}
-          >
-            <rect x="4" y={DEPTH + 6} width="152" height="42" rx="21" fill={theme.dark} />
-          </svg>
-
-          {/* Animated button face — lifts on hover, presses into base on tap */}
-          <motion.div
-            style={{ position: 'relative' }}
-            variants={{
-              rest: { y: 0 },
-              hover: { y: -2 },
-              pressed: { y: DEPTH },
-            }}
-            transition={{ type: 'spring', stiffness: 600, damping: 20, mass: 0.6 }}
-          >
-            <svg
-              width={BTN_W}
-              height={BTN_H}
-              viewBox={`0 0 ${BTN_W} ${BTN_H}`}
-              fill="none"
-            >
-              {/* Main pill face */}
-              <rect x="4" y="6" width="152" height="42" rx="21" fill={theme.color} />
-              {/* Top highlight arc — gives convex curvature illusion */}
-              <rect x="4" y="6" width="152" height="21" rx="21" fill="white" fillOpacity="0.2" />
-              {/* Specular glow line */}
-              <rect x="16" y="10" width="128" height="3" rx="1.5" fill="white" fillOpacity="0.3" />
-
-              {/* Rocket icon */}
-              <g transform="translate(28, 15)" fill="white">
-                <path d="M10 0C10 0 6.5 3.5 6.5 8.5C6.5 11.5 8 14 10 16C12 14 13.5 11.5 13.5 8.5C13.5 3.5 10 0 10 0Z" fillOpacity="0.95" />
-                <circle cx="10" cy="8.5" r="2.2" fill={theme.color} />
-                <path d="M6.5 12L4 15L6.5 14.2" fillOpacity="0.85" />
-                <path d="M13.5 12L16 15L13.5 14.2" fillOpacity="0.85" />
-                <path d="M8 16L7 20H9L10 17.5L11 20H13L12 16" fillOpacity="0.7" />
-              </g>
-
-              {/* "Jump here" text */}
-              <text
-                x="95"
-                y="30"
-                textAnchor="middle"
-                fill="white"
-                fontFamily="inherit"
-                fontWeight="800"
-                fontSize="15"
-                letterSpacing="0.3"
-              >
-                Jump here
-              </text>
-            </svg>
-          </motion.div>
-        </motion.button>
-    </motion.div>
-  );
-}
-
-/** Hook: returns 'up' | 'down' | null based on whether targetRef is above/below viewport */
-function useScrollDirection(
-  targetRef: React.RefObject<HTMLDivElement | null>,
-  scrollContainerRef?: React.RefObject<HTMLDivElement | null>,
-) {
-  const [direction, setDirection] = useState<'up' | 'down' | null>(null);
-
-  useEffect(() => {
-    if (!targetRef.current) return;
-
-    function check() {
-      const el = targetRef.current;
-      if (!el) { setDirection(null); return; }
-      const rect = el.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      if (center < 0) setDirection('up');
-      else if (center > window.innerHeight) setDirection('down');
-      else setDirection(null);
-    }
-
-    check();
-    const container = scrollContainerRef?.current;
-    if (container) {
-      container.addEventListener('scroll', check, { passive: true });
-    }
-    window.addEventListener('scroll', check, { passive: true, capture: true });
-    window.addEventListener('resize', check);
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', check);
-      }
-      window.removeEventListener('scroll', check, { capture: true });
-      window.removeEventListener('resize', check);
-    };
-  }, [targetRef, scrollContainerRef]);
-
-  return direction;
-}
-
-/** Floating arrow button — rendered only when direction is non-null via AnimatePresence */
-function ScrollToCurrentButton({
-  direction,
-  targetRef,
-}: {
-  direction: 'up' | 'down';
-  targetRef: React.RefObject<HTMLDivElement | null>;
-}) {
-  const isDark = useIsDark();
-  return (
-    <motion.button
-      key="scroll-to-current"
-      initial={{ opacity: 0, y: 20, scale: 0.85 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 20, scale: 0.85 }}
-      whileTap={{ y: 3, boxShadow: isDark ? '0 1px 0 #1E293B' : '0 1px 0 #D0D0D0' }}
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      style={{
-        position: 'fixed',
-        bottom: 84,
-        right: 16,
-        zIndex: 50,
-        width: 48,
-        height: 48,
-        borderRadius: 14,
-        border: 'none',
-        cursor: 'pointer',
-        background: isDark ? '#1E293B' : '#FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: isDark ? '0 4px 0 #0F172A' : '0 4px 0 #D0D0D0',
-        WebkitTapHighlightColor: 'transparent',
-      }}
-      aria-label={`Scroll ${direction} to current lesson`}
-      onClick={() => {
-        targetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }}
-    >
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
-        fill="none"
-        style={{ transform: direction === 'down' ? 'rotate(180deg)' : undefined }}
-      >
-        <path
-          d="M12 6L12 19"
-          stroke="#3B82F6"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M5.5 12L12 5.5L18.5 12"
-          stroke="#3B82F6"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </motion.button>
-  );
-}
+import { JumpHereButton } from './JumpHereButton';
+import { useScrollDirection } from './useScrollDirection';
+import { ScrollToCurrentButton } from './ScrollToCurrentButton';
+import { JumpModals, type JumpModalType } from './JumpModals';
 
 export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);

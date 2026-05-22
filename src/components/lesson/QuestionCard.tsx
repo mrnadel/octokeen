@@ -7,37 +7,16 @@ import {
   useEffect,
   useImperativeHandle,
   forwardRef,
-  memo,
 } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { playSound } from '@/lib/sounds';
 import { useLessonColors } from '@/lib/lessonColors';
-
-/** Memoised diagram so SVG animations don't reset on answer selection re-renders */
-const DiagramDisplay = memo(function DiagramDisplay({ html }: { html: string }) {
-  const c = useLessonColors();
-  const sanitised = html
-    .replace(/(<svg[^>]*)\sheight="auto"/gi, '$1')
-    .replace(/(<svg[^>]*)\swidth="auto"/gi, '$1');
-
-  return (
-    <div
-      className="w-full flex items-center justify-center overflow-hidden"
-      style={{
-        borderRadius: 14,
-        background: c.cardBg,
-        border: `2px solid ${c.border}`,
-        padding: 10,
-        maxWidth: 400,
-        margin: '0 auto',
-      }}
-      dangerouslySetInnerHTML={{ __html: sanitised }}
-    />
-  );
-});
+import DiagramDisplay from './DiagramDisplay';
+import { MultipleChoiceQuestion } from './MultipleChoiceQuestion';
+import { TrueFalseQuestion } from './TrueFalseQuestion';
+import { FillBlankQuestion } from './FillBlankQuestion';
 
 export interface QuestionCardHandle {
   check: () => void;
@@ -254,74 +233,8 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
           {/* Diagram */}
           {question.diagram && <DiagramDisplay html={question.diagram} />}
 
-          {/* Question text - for fill-blank, render inline blanks */}
-          {question.type === 'fill-blank' && question.blanks ? (
-            <div
-              style={{
-                fontSize: 20,
-                fontWeight: 800,
-                color: c.title,
-                lineHeight: 2,
-                margin: 0,
-              }}
-            >
-              {questionParts.map((part, i) => (
-                <span key={i}>
-                  <GlossaryText text={part} />
-                  {i < blankCount && (
-                    <motion.button
-                      onClick={() => handleBlankTap(i)}
-                      disabled={answered}
-                      aria-label={`Blank ${i + 1}${filledBlanks[i] ? `: ${filledBlanks[i]}` : ': empty'}${answered && localCorrect !== null ? (filledBlanks[i]?.toLowerCase() === question.blanks![i]?.toLowerCase() ? ' — correct' : ' — incorrect') : ''}`}
-                      whileTap={!answered && filledBlanks[i] ? { scale: 0.92 } : undefined}
-                      animate={
-                        answered && localCorrect !== null
-                          ? filledBlanks[i]?.toLowerCase() === question.blanks![i]?.toLowerCase()
-                            ? { scale: [1, 1.1, 1] }
-                            : { x: [0, -5, 5, -3, 3, 0] }
-                          : filledBlanks[i]
-                            ? { scale: [0.9, 1.05, 1] }
-                            : {}
-                      }
-                      transition={{ duration: 0.3 }}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minWidth: 80,
-                        height: 34,
-                        padding: '2px 14px',
-                        borderRadius: 10,
-                        margin: '0 4px',
-                        verticalAlign: 'middle',
-                        fontSize: 15,
-                        fontWeight: 800,
-                        gap: 4,
-                        cursor: answered ? 'default' : filledBlanks[i] ? 'pointer' : 'default',
-                        transition: 'background 0.2s ease, border 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
-                        ...(answered && localCorrect !== null
-                          ? filledBlanks[i]?.toLowerCase() === question.blanks![i]?.toLowerCase()
-                            ? { background: '#D7FFB8', border: '2px solid #58CC02', color: '#58A700' }
-                            : { background: '#FFDFE0', border: '2px solid #FF4B4B', color: '#EA2B2B' }
-                          : filledBlanks[i]
-                            ? { background: c.cardBg, border: `2.5px solid ${unitColor}`, color: c.title,
-                                boxShadow: `0 0 0 3px ${unitColor}20`,
-                                ...(i === activeBlankIdx && blankCount > 1 ? { boxShadow: `0 0 0 3px ${unitColor}33` } : {}) }
-                            : { background: i === activeBlankIdx ? c.emptyActiveBg : c.emptyBg,
-                                border: i === activeBlankIdx ? `2px dashed ${unitColor}` : `2px dashed ${c.muted}`,
-                                color: c.muted }
-                        ),
-                      }}
-                    >
-                      {filledBlanks[i] || '\u00A0'}
-                      {answered && localCorrect !== null && filledBlanks[i]?.toLowerCase() === question.blanks![i]?.toLowerCase() && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
-                      {answered && localCorrect !== null && filledBlanks[i]?.toLowerCase() !== question.blanks![i]?.toLowerCase() && <X className="w-3.5 h-3.5" strokeWidth={3} />}
-                    </motion.button>
-                  )}
-                </span>
-              ))}
-            </div>
-          ) : (
+          {/* Question text */}
+          {question.type !== 'fill-blank' && (
             <h2
               style={{
                 fontSize: 20,
@@ -360,249 +273,48 @@ const QuestionCard = forwardRef<QuestionCardHandle, QuestionCardProps>(
         {/* Answer options - pushed to bottom */}
         <div style={{ marginTop: 'auto', paddingTop: 20 }}>
 
-        {/* Multiple Choice */}
-        {question.type === 'multiple-choice' && question.options && (
-          <div className="flex flex-col" style={{ gap: 8 }}>
-            {shuffledIndices.map((originalIndex, displayIndex) => {
-              const option = question.options![originalIndex];
-              const isSelected = selectedIndex === displayIndex;
-              const isCorrectOption = originalIndex === question.correctIndex;
+          {/* Multiple Choice */}
+          {question.type === 'multiple-choice' && question.options && (
+            <MultipleChoiceQuestion
+              options={question.options}
+              shuffledIndices={shuffledIndices}
+              correctIndex={question.correctIndex!}
+              selectedIndex={selectedIndex}
+              answered={answered}
+              localCorrect={localCorrect}
+              unitColor={unitColor}
+              onSelect={setSelectedIndex}
+            />
+          )}
 
-              let bg = c.cardBg;
-              let border = `2px solid ${c.border}`;
-              let textColor = c.title;
-              let badgeBg = c.emptyBg;
-              let badgeColor = c.subtitle;
-              let shadow = '0 3px 0 #DCDCDC';
+          {/* True / False */}
+          {question.type === 'true-false' && (
+            <TrueFalseQuestion
+              correctAnswer={question.correctAnswer!}
+              selectedBool={selectedBool}
+              answered={answered}
+              localCorrect={localCorrect}
+              unitColor={unitColor}
+              onSelect={setSelectedBool}
+            />
+          )}
 
-              if (answered && localCorrect !== null) {
-                if (isCorrectOption) {
-                  bg = '#D7FFB8';
-                  border = '2px solid #58CC02';
-                  textColor = '#58A700';
-                  badgeBg = '#58CC02';
-                  badgeColor = 'white';
-                  shadow = '0 0 12px rgba(88, 204, 2, 0.25)';
-                } else if (isSelected && !isCorrectOption) {
-                  bg = '#FFDFE0';
-                  border = '2px solid #FF4B4B';
-                  textColor = '#EA2B2B';
-                  badgeBg = '#FF4B4B';
-                  badgeColor = 'white';
-                  shadow = 'none';
-                } else {
-                  bg = '#F5F5F5';
-                  border = '2px solid #EFEFEF';
-                  textColor = c.muted;
-                  badgeBg = '#E5E5E5';
-                  badgeColor = c.muted;
-                  shadow = 'none';
-                }
-              } else if (isSelected) {
-                bg = c.cardBg;
-                border = `2.5px solid ${unitColor}`;
-                badgeBg = unitColor;
-                badgeColor = 'white';
-                shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
-              }
-
-              // Answer reveal animation
-              const revealAnimation = answered && localCorrect !== null
-                ? isCorrectOption
-                  ? { opacity: 1, y: 0, scale: [1, 1.04, 1] }
-                  : isSelected && !isCorrectOption
-                    ? { opacity: 1, y: 0, x: [0, -8, 8, -5, 5, 0] }
-                    : { opacity: 0.5, y: 0, scale: 0.98 }
-                : { opacity: 1, y: 0 };
-
-              return (
-                <motion.button
-                  key={originalIndex}
-                  onClick={() => { if (!answered) { playSound('tap'); setSelectedIndex(displayIndex); } }}
-                  disabled={answered}
-                  aria-label={`Option ${String.fromCharCode(65 + displayIndex)}: ${option}${answered && localCorrect !== null ? (isCorrectOption ? ' — correct' : isSelected && !isCorrectOption ? ' — incorrect' : '') : ''}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={revealAnimation}
-                  transition={
-                    answered && localCorrect !== null
-                      ? { duration: 0.35 }
-                      : { delay: displayIndex * 0.06, type: 'spring', stiffness: 400, damping: 25 }
-                  }
-                  whileTap={!answered ? { y: 3, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } } : undefined}
-                  className="w-full text-left flex items-center"
-                  style={{
-                    padding: '10px 14px',
-                    borderRadius: 14,
-                    background: bg,
-                    border,
-                    gap: 12,
-                    cursor: answered ? 'default' : 'pointer',
-                    transition: 'background 0.2s ease, border 0.2s ease, box-shadow 0.2s ease',
-                    boxShadow: shadow,
-                  }}
-                >
-                  <motion.span
-                    className="flex-shrink-0 flex items-center justify-center"
-                    animate={isSelected && !answered ? { scale: [1, 1.15, 1] } : { scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                    style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: 8,
-                      background: badgeBg,
-                      color: badgeColor,
-                      fontSize: 12,
-                      fontWeight: 800,
-                      transition: 'background 0.2s ease, color 0.2s ease',
-                    }}
-                  >
-                    {answered && localCorrect !== null && isCorrectOption
-                      ? <Check className="w-3.5 h-3.5" strokeWidth={3} />
-                      : answered && localCorrect !== null && isSelected && !isCorrectOption
-                        ? <X className="w-3.5 h-3.5" strokeWidth={3} />
-                        : String.fromCharCode(65 + displayIndex)}
-                  </motion.span>
-                  <span
-                    style={{
-                      fontSize: 14.5,
-                      fontWeight: 700,
-                      color: textColor,
-                      lineHeight: 1.3,
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    {option}
-                  </span>
-                </motion.button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* True / False */}
-        {question.type === 'true-false' && (
-          <div className="grid grid-cols-2" style={{ gap: 10 }}>
-            {[true, false].map((value, idx) => {
-              const isSelected = selectedBool === value;
-              const isCorrectOption = value === question.correctAnswer;
-
-              let bg = c.cardBg;
-              let border = `2px solid ${c.border}`;
-              let textColor = c.title;
-              let shadow = '0 3px 0 #DCDCDC';
-
-              if (answered && localCorrect !== null) {
-                if (isCorrectOption) {
-                  bg = '#D7FFB8';
-                  border = '2px solid #58CC02';
-                  textColor = '#58A700';
-                  shadow = '0 0 12px rgba(88, 204, 2, 0.25)';
-                } else if (isSelected && !isCorrectOption) {
-                  bg = '#FFDFE0';
-                  border = '2px solid #FF4B4B';
-                  textColor = '#EA2B2B';
-                  shadow = 'none';
-                } else {
-                  bg = '#F5F5F5';
-                  border = '2px solid #EFEFEF';
-                  textColor = c.muted;
-                  shadow = 'none';
-                }
-              } else if (isSelected) {
-                bg = c.cardBg;
-                border = `2.5px solid ${unitColor}`;
-                shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
-              }
-
-              const revealAnimation = answered && localCorrect !== null
-                ? isCorrectOption
-                  ? { opacity: 1, y: 0, scale: [1, 1.06, 1] }
-                  : isSelected && !isCorrectOption
-                    ? { opacity: 1, y: 0, x: [0, -6, 6, -4, 4, 0] }
-                    : { opacity: 0.5, y: 0, scale: 0.97 }
-                : { opacity: 1, y: 0 };
-
-              return (
-                <motion.button
-                  key={String(value)}
-                  onClick={() => { if (!answered) { playSound('tap'); setSelectedBool(value); } }}
-                  disabled={answered}
-                  aria-label={`${value ? 'True' : 'False'}${answered && localCorrect !== null ? (isCorrectOption ? ' — correct' : isSelected && !isCorrectOption ? ' — incorrect' : '') : ''}`}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={revealAnimation}
-                  transition={
-                    answered && localCorrect !== null
-                      ? { type: 'tween', duration: 0.35 }
-                      : { delay: idx * 0.08, type: 'spring', stiffness: 400, damping: 25 }
-                  }
-                  whileTap={!answered ? { y: 3, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } } : undefined}
-                  className="flex items-center justify-center"
-                  style={{
-                    padding: '14px 16px',
-                    borderRadius: 14,
-                    background: bg,
-                    border,
-                    cursor: answered ? 'default' : 'pointer',
-                    fontSize: 16,
-                    fontWeight: 800,
-                    color: textColor,
-                    transition: 'background 0.2s ease, border 0.2s ease, box-shadow 0.2s ease',
-                    boxShadow: shadow,
-                    gap: 6,
-                  }}
-                >
-                  {answered && localCorrect !== null && isCorrectOption && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
-                  {answered && localCorrect !== null && isSelected && !isCorrectOption && <X className="w-3.5 h-3.5" strokeWidth={3} />}
-                  {value ? 'True' : 'False'}
-                </motion.button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Fill in the Blank - Word Bank */}
-        {question.type === 'fill-blank' && question.wordBank && (
-          <div className="flex flex-wrap" style={{ gap: 8, justifyContent: 'center' }}>
-            <AnimatePresence>
-              {availableWords.map(({ word, available }, i) => (
-                <motion.button
-                  key={`${word}-${i}`}
-                  onClick={() => available && handleWordTap(word)}
-                  disabled={answered || !available}
-                  aria-label={`Word: ${word}${available ? '' : ' — already used'}`}
-                  whileTap={!answered && available ? { y: 2, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } } : undefined}
-                  layout
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                  animate={{
-                    opacity: available ? 1 : 0.3,
-                    scale: available ? 1 : 0.92,
-                    y: 0,
-                  }}
-                  transition={{
-                    delay: i * 0.04,
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 25,
-                  }}
-                  style={{
-                    padding: '10px 18px',
-                    borderRadius: 12,
-                    fontSize: 15,
-                    fontWeight: 700,
-                    cursor: answered ? 'default' : available ? 'pointer' : 'default',
-                    transition: 'background 0.15s ease, border 0.15s ease, color 0.15s ease, box-shadow 0.15s ease',
-                    background: available ? c.cardBg : '#F5F5F5',
-                    border: available ? `2px solid ${c.border}` : '2px solid #EFEFEF',
-                    color: available ? c.title : c.muted,
-                    boxShadow: available ? '0 2px 0 #E0E0E0' : 'none',
-                  }}
-                >
-                  {word}
-                </motion.button>
-              ))}
-            </AnimatePresence>
-          </div>
-        )}
+          {/* Fill in the Blank */}
+          {question.type === 'fill-blank' && question.blanks && question.wordBank && (
+            <FillBlankQuestion
+              questionParts={questionParts}
+              blanks={question.blanks}
+              blankCount={blankCount}
+              filledBlanks={filledBlanks}
+              activeBlankIdx={activeBlankIdx}
+              availableWords={availableWords}
+              answered={answered}
+              localCorrect={localCorrect}
+              unitColor={unitColor}
+              onBlankTap={handleBlankTap}
+              onWordTap={handleWordTap}
+            />
+          )}
 
         </div>
       </div>
