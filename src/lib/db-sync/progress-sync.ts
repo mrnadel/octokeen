@@ -29,15 +29,17 @@ export function hydrateProgressStore(data: {
   const restoredStreak = db.currentStreak ?? local.currentStreak ?? 0;
 
   useStore.setState({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     progress: {
       ...db,
       totalXp: Math.max(db.totalXp ?? 0, local.totalXp ?? 0),
       currentStreak: restoredStreak,
       longestStreak: Math.max(db.longestStreak ?? 0, local.longestStreak ?? 0),
       lastActiveDate: (db.lastActiveDate ?? '') > (local.lastActiveDate ?? '')
-        ? db.lastActiveDate : local.lastActiveDate,
+        ? db.lastActiveDate ?? '' : local.lastActiveDate ?? '',
       activeDays: [...new Set([...(db.activeDays ?? []), ...(local.activeDays ?? [])])].sort().slice(-14),
-    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
   });
 
   // Backfill streak milestones so popups don't replay after cache clear.

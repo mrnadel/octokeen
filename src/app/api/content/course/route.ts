@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     ...unit,
     lessons: unit.lessons.map((lesson) => ({
       ...lesson,
-      questions: lesson.questions.map(stripAnswerKeys),
+      questions: (lesson.questions as unknown as Question[]).map(stripAnswerKeys),
     })),
   }));
 
