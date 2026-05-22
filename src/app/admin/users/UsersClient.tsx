@@ -108,7 +108,7 @@ export default function AdminUsersPage() {
           toggleMeAccess={toggleMeAccess}
           onDeleteClick={(user) => { setDeleteTarget(user); setConfirmText(''); }}
           onBulkDeleteClick={() => { setBulkDeleteOpen(true); setConfirmText(''); }}
-          onClearSelection={() => setSelectedIds(new Set())}
+          onClearSelection={clearSelection}
         />
       )}
 
