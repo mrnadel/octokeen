@@ -1282,10 +1282,10 @@ export const useCourseStore = create<CourseState>()(
         for (const [id, lp] of Object.entries(completedLessons)) {
           migratedLessons[id] = {
             ...lp,
-            passed: (lp as any).passed ?? (lp.attempts > 0),
+            passed: lp.passed ?? (lp.attempts > 0),
             golden: lp.golden ?? false,
             answeredQuestionIds: lp.answeredQuestionIds ?? [],
-            correctQuestionIds: (lp as any).correctQuestionIds ?? [],
+            correctQuestionIds: lp.correctQuestionIds ?? [],
           };
         }
 
@@ -1370,11 +1370,11 @@ export const useCourseStore = create<CourseState>()(
             currentStreak: persisted.progress.currentStreak ?? defaults.currentStreak,
             longestStreak: persisted.progress.longestStreak ?? defaults.longestStreak,
             lastActiveDate: persisted.progress.lastActiveDate ?? defaults.lastActiveDate,
-            activeDays: (persisted.progress as any).activeDays ?? defaults.activeDays,
+            activeDays: persisted.progress.activeDays ?? defaults.activeDays,
             completedLessons: migratedLessons,
-            courseIntros: (persisted.progress as any).courseIntros ?? undefined,
-            placementUnitIndex: (persisted.progress as any).placementUnitIndex ?? undefined,
-            viewedStoryUnlocks: (persisted.progress as any).viewedStoryUnlocks ?? undefined,
+            courseIntros: persisted.progress.courseIntros ?? undefined,
+            placementUnitIndex: persisted.progress.placementUnitIndex ?? undefined,
+            viewedStoryUnlocks: persisted.progress.viewedStoryUnlocks ?? undefined,
           },
         };
       },

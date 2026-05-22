@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { useShallow } from 'zustand/react/shallow';
-import { TOTAL_TOPICS, type TopicId, type Difficulty, type UserProgress, type SessionRecord, type TopicProgress } from '@/data/types';
+import { TOTAL_TOPICS, type Question, type TopicId, type Difficulty, type UserProgress, type SessionRecord, type TopicProgress } from '@/data/types';
 import type { CourseQuestion } from '@/data/course/types';
 import { seedProgress } from '@/data/seed-progress';
 import { levels, getLevelForXp } from '@/data/levels';
@@ -205,7 +205,7 @@ function selectQuestionsForSession(type: SessionType, options?: { topicId?: Topi
       const performance = buildPerformance(state.progress.topicProgress, state.progress.sessionHistory, answeredIds);
       // Use pool (already gathered + flattened course questions) as practiceQuestions.
       // Pass [] for courseData since pool already contains everything.
-      const selected = selectSmartPracticeQuestions(pool as any, [], performance, {
+      const selected = selectSmartPracticeQuestions(pool as unknown as Question[], [], performance, {
         topicId: options?.topicId,
         count: 10,
       });
