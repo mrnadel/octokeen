@@ -83,9 +83,10 @@ export async function GET(request: Request) {
 
   const course = rawCourse.map((unit) => ({
     ...unit,
-    questions: Array.isArray(unit.questions)
-      ? unit.questions.map(stripAnswerKeys)
-      : unit.questions,
+    lessons: unit.lessons.map((lesson) => ({
+      ...lesson,
+      questions: lesson.questions.map(stripAnswerKeys),
+    })),
   }));
 
   return NextResponse.json({ course }, { headers: CACHE_HEADERS });
