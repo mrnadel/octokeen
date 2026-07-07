@@ -23,6 +23,7 @@ import { JumpHereButton } from './JumpHereButton';
 import { useScrollDirection } from './useScrollDirection';
 import { ScrollToCurrentButton } from './ScrollToCurrentButton';
 import { JumpModals, type JumpModalType } from './JumpModals';
+import { GOLD } from './constants';
 
 export function CourseMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -520,7 +521,7 @@ export function CourseMap() {
                 <div className="truncate" style={{
                   fontSize: 17,
                   fontWeight: 800,
-                  color: isAllGolden ? '#FFB800' : (isDark ? '#E2E8F0' : '#1A1A1A'),
+                  color: isAllGolden ? GOLD : (isDark ? '#E2E8F0' : '#1A1A1A'),
                   lineHeight: 1.3,
                   marginTop: 2,
                 }}>

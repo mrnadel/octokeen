@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Progress',
-  description: 'View your learning analytics, topic mastery, and interview readiness score.',
-  robots: { index: false },
-};
+export const metadata = createPrivateMetadata('Progress');
 
 export default function ProgressLayout({ children }: { children: React.ReactNode }) {
   return children;

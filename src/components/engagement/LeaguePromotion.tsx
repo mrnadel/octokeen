@@ -7,11 +7,11 @@ import { useLeague, useEngagementStore } from '@/store/useEngagementStore';
 import { leagueTiers } from '@/data/league';
 import { LEAGUE_GEM_REWARD_PROMOTION } from '@/data/league';
 import { GameButton, type GameButtonVariant } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { ShareButton } from '@/components/ui/ShareButton';
 import { CURRENCY } from '@/data/currency';
 import { LeagueImage } from '@/components/icons/LeagueImage';
 import { getShareCardUrl, getShareText, getDisplayName } from '@/lib/share-card';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
 import type { FXName } from '@/components/ui/ScreenFX';
 
 export function LeaguePromotion() {
@@ -46,8 +46,8 @@ export function LeaguePromotion() {
   };
 
   return (
-    <FullScreenModal
-      show={shouldShow}
+    <CelebrationModal
+      onClose={setResultSeen}
       bg={content.bg}
       fx={content.fx}
       footer={
@@ -75,6 +75,6 @@ export function LeaguePromotion() {
         <div className="text-center"><p className="text-2xl font-extrabold text-white">#{result.rank}</p><p className="text-xs text-white/50 font-semibold">Final Rank</p></div>
         {isPromoted && (<><div className="w-px h-8 bg-white/20" /><div className="text-center"><p className="text-2xl font-extrabold text-white">+{LEAGUE_GEM_REWARD_PROMOTION}</p><p className="text-xs text-white/50 font-semibold">{CURRENCY.plural} Earned</p></div></>)}
       </motion.div>
-    </FullScreenModal>
+    </CelebrationModal>
   );
 }

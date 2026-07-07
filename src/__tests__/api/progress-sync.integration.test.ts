@@ -67,7 +67,7 @@ describe('GET /api/progress', () => {
 
   it('returns 401 when not authenticated', async () => {
     mockGetAuthUserId.mockResolvedValue(null);
-    const res = await GET();
+    const res = await GET(new NextRequest('http://localhost/api/progress'));
     expect(res.status).toBe(401);
     const json = await res.json();
     expect(json.error).toBe('Unauthorized');
@@ -76,7 +76,7 @@ describe('GET /api/progress', () => {
   it('returns 404 when user row is not found in DB', async () => {
     mockGetAuthUserId.mockResolvedValue('user-abc');
     // db.select is mocked to return [] — user not found
-    const res = await GET();
+    const res = await GET(new NextRequest('http://localhost/api/progress'));
     expect(res.status).toBe(404);
     const json = await res.json();
     expect(json.error).toBe('User not found');
@@ -136,7 +136,7 @@ describe('GET /api/progress', () => {
         }),
       } as never);
 
-    const res = await GET();
+    const res = await GET(new NextRequest('http://localhost/api/progress'));
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.progress).toBeDefined();

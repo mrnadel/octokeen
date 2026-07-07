@@ -1,5 +1,7 @@
 // SVG diagram definitions: gradients and filters
 
+import { radialGradient } from './helpers';
+
 /** Radial glow gradient (for Sun, stars, generic glows) */
 export function glowGradient(
   id: string,
@@ -7,36 +9,30 @@ export function glowGradient(
   innerOpacity = 1,
   outerOpacity = 0
 ): string {
-  return (
-    `<radialGradient id="${id}" cx="50%" cy="50%" r="50%">` +
-    `<stop offset="0%" stop-color="${color}" stop-opacity="${innerOpacity}"/>` +
-    `<stop offset="100%" stop-color="${color}" stop-opacity="${outerOpacity}"/>` +
-    `</radialGradient>`
-  );
+  return radialGradient(id, [
+    { offset: '0%', color, opacity: innerOpacity },
+    { offset: '100%', color, opacity: outerOpacity },
+  ]);
 }
 
 /** Sun-specific multi-stop gradient (core white to golden to transparent) */
 export function sunGradient(id: string): string {
-  return (
-    `<radialGradient id="${id}" cx="50%" cy="50%" r="50%">` +
-    `<stop offset="0%" stop-color="#FFF5D6" stop-opacity="1"/>` +
-    `<stop offset="30%" stop-color="#FFD166" stop-opacity="1"/>` +
-    `<stop offset="65%" stop-color="#FF9F1C" stop-opacity="0.8"/>` +
-    `<stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>` +
-    `</radialGradient>`
-  );
+  return radialGradient(id, [
+    { offset: '0%', color: '#FFF5D6', opacity: 1 },
+    { offset: '30%', color: '#FFD166', opacity: 1 },
+    { offset: '65%', color: '#FF9F1C', opacity: 0.8 },
+    { offset: '100%', color: '#FF6B00', opacity: 0 },
+  ]);
 }
 
 /** Earth atmosphere glow gradient */
 export function earthGlow(id: string): string {
-  return (
-    `<radialGradient id="${id}" cx="50%" cy="50%" r="50%">` +
-    `<stop offset="0%" stop-color="#4DA6FF" stop-opacity="0"/>` +
-    `<stop offset="70%" stop-color="#4DA6FF" stop-opacity="0"/>` +
-    `<stop offset="85%" stop-color="#87CEEB" stop-opacity="0.3"/>` +
-    `<stop offset="100%" stop-color="#87CEEB" stop-opacity="0"/>` +
-    `</radialGradient>`
-  );
+  return radialGradient(id, [
+    { offset: '0%', color: '#4DA6FF', opacity: 0 },
+    { offset: '70%', color: '#4DA6FF', opacity: 0 },
+    { offset: '85%', color: '#87CEEB', opacity: 0.3 },
+    { offset: '100%', color: '#87CEEB', opacity: 0 },
+  ]);
 }
 
 /** Linear gradient for atmosphere bands */
@@ -57,14 +53,12 @@ export function atmosphereGradient(
 
 /** Galaxy spiral gradient */
 export function galaxyGradient(id: string): string {
-  return (
-    `<radialGradient id="${id}" cx="50%" cy="50%" r="50%">` +
-    `<stop offset="0%" stop-color="#C4B5FD" stop-opacity="1"/>` +
-    `<stop offset="40%" stop-color="#818CF8" stop-opacity="0.6"/>` +
-    `<stop offset="70%" stop-color="#6366F1" stop-opacity="0.3"/>` +
-    `<stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>` +
-    `</radialGradient>`
-  );
+  return radialGradient(id, [
+    { offset: '0%', color: '#C4B5FD', opacity: 1 },
+    { offset: '40%', color: '#818CF8', opacity: 0.6 },
+    { offset: '70%', color: '#6366F1', opacity: 0.3 },
+    { offset: '100%', color: '#4F46E5', opacity: 0 },
+  ]);
 }
 
 /** Blur filter for soft glow effects */

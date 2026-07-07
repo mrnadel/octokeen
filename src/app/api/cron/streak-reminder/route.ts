@@ -3,18 +3,10 @@ import { db } from '@/lib/db';
 import { pushSubscriptions, userProgress, courseProgress } from '@/lib/db/schema';
 import { eq, and, gt, sql } from 'drizzle-orm';
 import { sendPushNotification } from '@/lib/push';
+import { withCronAuth } from '@/lib/api-helpers';
 
 // Secured by CRON_SECRET — only callable from Vercel Cron Jobs
-export async function GET(req: Request) {
-  const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret) {
-    return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
-  }
-  const authHeader = req.headers.get('authorization');
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withCronAuth(async () => {
   const today = new Date().toISOString().split('T')[0];
   const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
   const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
@@ -123,4 +115,4 @@ export async function GET(req: Request) {
   );
 
   return NextResponse.json(stats);
-}
+});

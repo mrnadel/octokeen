@@ -7,6 +7,8 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { shuffleArray } from '@/lib/utils';
+import { CORRECT, INCORRECT } from './shared/answer-feedback';
 
 interface CategorySwipeCardProps {
   question: CourseQuestion;
@@ -26,15 +28,11 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
     const correctBuckets = question.correctBuckets ?? [];
 
     // Shuffle items
-    const shuffledOrder = useMemo(() => {
-      const indices = items.map((_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-      return indices;
+    const shuffledOrder = useMemo(
+      () => shuffleArray(items.map((_, i) => i)),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [question.id]);
+      [question.id],
+    );
 
     // assignments[originalIdx] = 0 (left), 1 (right), or -1 (unswiped)
     const [assignments, setAssignments] = useState<number[]>(() => items.map(() => -1));
@@ -173,9 +171,9 @@ const CategorySwipeCard = forwardRef<QuestionCardHandle, CategorySwipeCardProps>
                             padding: '7px 10px', borderRadius: 10, textAlign: 'center',
                             fontSize: 12, fontWeight: 700,
                             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
-                            background: isCorrect === null ? c.cardBg : isCorrect ? '#D7FFB8' : '#FFDFE0',
-                            border: isCorrect === null ? `1.5px solid ${c.border}` : isCorrect ? '1.5px solid #58CC02' : '1.5px solid #FF4B4B',
-                            color: isCorrect === null ? c.title : isCorrect ? '#58A700' : '#EA2B2B',
+                            background: isCorrect === null ? c.cardBg : isCorrect ? CORRECT.bg : INCORRECT.bg,
+                            border: isCorrect === null ? `1.5px solid ${c.border}` : isCorrect ? `1.5px solid ${CORRECT.border}` : `1.5px solid ${INCORRECT.border}`,
+                            color: isCorrect === null ? c.title : isCorrect ? CORRECT.text : INCORRECT.text,
                             boxShadow: isCorrect === true ? '0 0 8px rgba(88,204,2,0.2)' : 'none',
                           }}
                         >

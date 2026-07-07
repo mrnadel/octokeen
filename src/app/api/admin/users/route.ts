@@ -5,6 +5,7 @@ import { users, userProgress, subscriptions, courseAccess } from '@/lib/db/schem
 import { requireAdmin } from '@/lib/auth-utils';
 import { eq, desc, inArray } from 'drizzle-orm';
 import { cleanupBeforeBulkDeletion } from '@/lib/account-cleanup';
+import { withAdminAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 
 const patchUserSchema = z.object({
   userId: z.string().min(1),
@@ -26,12 +27,7 @@ export async function HEAD() {
   return new NextResponse(null, { status: 200 });
 }
 
-export async function GET() {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
+export const GET = withAdminAuth(async () => {
   const rows = await db
     .select({
       id: users.id,
@@ -76,32 +72,20 @@ export async function GET() {
     courseAccess: accessMap.get(row.id) ?? [],
   }));
 
-  return NextResponse.json({ users: result, total: result.length });
-}
+  return jsonOk({ users: result, total: result.length });
+});
 
 // PATCH: Update a user's subscription tier
-export async function PATCH(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+export const PATCH = withAdminAuth(async (req) => {
+  const { data, error } = await parseBody(req, patchUserSchema);
+  if (error) return error;
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-  const patchResult = patchUserSchema.safeParse(rawBody);
-  if (!patchResult.success) {
-    return NextResponse.json({ error: 'Invalid userId or tier' }, { status: 400 });
-  }
-  const { userId, tier } = patchResult.data;
+  const { userId, tier } = data;
 
   // If setting to free, delete the subscription row
   if (tier === 'free') {
     await db.delete(subscriptions).where(eq(subscriptions.userId, userId));
-    return NextResponse.json({ success: true, tier: 'free' });
+    return jsonOk({ success: true, tier: 'free' });
   }
 
   // Upsert: check if subscription exists
@@ -124,30 +108,16 @@ export async function PATCH(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ success: true, tier });
-}
+  return jsonOk({ success: true, tier });
+});
 
 // DELETE: Remove a user and all related data
-export async function DELETE(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
-  let rawDelBody: unknown;
-  try {
-    rawDelBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const deleteResult = deleteUserSchema.safeParse(rawDelBody);
-  if (!deleteResult.success) {
-    return NextResponse.json({ error: 'Invalid userId or userIds' }, { status: 400 });
-  }
+export const DELETE = withAdminAuth(async (req, { adminId }) => {
+  const { data, error } = await parseBody(req, deleteUserSchema);
+  if (error) return error;
 
   // Support both single userId and bulk userIds
-  const { userId, userIds } = deleteResult.data;
+  const { userId, userIds } = data;
   const idsToDelete: string[] = userIds && Array.isArray(userIds) && userIds.length > 0
     ? userIds
     : userId
@@ -156,7 +126,7 @@ export async function DELETE(req: NextRequest) {
 
   // Prevent deleting yourself
   if (idsToDelete.includes(adminId)) {
-    return NextResponse.json({ error: 'Cannot delete your own account' }, { status: 400 });
+    return jsonError('Cannot delete your own account', 400);
   }
 
   // Cancel Paddle subscriptions, archive payments, delete Mixpanel profiles
@@ -165,5 +135,5 @@ export async function DELETE(req: NextRequest) {
   // All related tables have onDelete: 'cascade'
   await db.delete(users).where(inArray(users.id, idsToDelete));
 
-  return NextResponse.json({ success: true, deleted: idsToDelete.length });
-}
+  return jsonOk({ success: true, deleted: idsToDelete.length });
+});

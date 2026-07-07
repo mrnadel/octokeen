@@ -14,9 +14,9 @@ import { shuffleArray } from '@/lib/utils';
 import { useSubscription } from '@/hooks/useSubscription';
 import { UpgradeGate } from '@/components/ui/UpgradeGate';
 import { FEATURES } from '@/lib/pricing';
+import { REVIEW_THEME } from '@/lib/session-themes';
 
 const REVIEW_SESSION_SIZE = 10;
-const REVIEW_THEME = { color: '#6366f1', dark: '#4338ca', bg: '#eef2ff' };
 
 export default function ReviewPage() {
   const courseData = useCourseStore((s) => s.courseData);

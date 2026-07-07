@@ -1,8 +1,7 @@
-import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { masteryEvents, contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
 import { sql } from 'drizzle-orm';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, jsonOk, jsonError } from '@/lib/api-helpers';
 import { runContentQA, type CourseInput } from '@/lib/content-qa';
 import { getCourseData } from '@/data/course/api';
 import { PROFESSIONS } from '@/data/professions';
@@ -115,12 +114,7 @@ function buildIndexBias(courses: { id: string; name: string; units: Unit[] }[]):
 
 // ─── Route handler ────────────────────────────────────────────
 
-export async function GET() {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
+export const GET = withAdminAuth(async () => {
   try {
     // 1. Load all course data with full questions
     const courses = await loadAllCourses();
@@ -190,7 +184,7 @@ export async function GET() {
     // 7. Index bias
     const indexBias = buildIndexBias(courses);
 
-    return NextResponse.json({
+    return jsonOk({
       courseStats,
       qaViolations,
       questionQuality: [...questionQuality],
@@ -199,9 +193,6 @@ export async function GET() {
     });
   } catch (error) {
     logger.error('[content-overview] Error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return jsonError('Internal server error', 500);
   }
-}
+});

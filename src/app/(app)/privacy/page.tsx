@@ -1,22 +1,12 @@
-import type { Metadata } from 'next';
+import { createLegalMetadata } from '@/lib/metadata';
 import { ArrowLeft, Shield } from 'lucide-react';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
-  alternates: { canonical: '/privacy' },
-  openGraph: {
-    title: 'Privacy Policy | Octokeen',
-    description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
-    url: '/privacy',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Privacy Policy | Octokeen',
-    description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
-  },
-};
+export const metadata = createLegalMetadata(
+  'Privacy Policy',
+  'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
+  '/privacy',
+);
 
 const sections = [
   {

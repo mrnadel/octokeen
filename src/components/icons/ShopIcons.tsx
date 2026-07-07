@@ -1,9 +1,7 @@
 'use client';
 
-interface IconProps {
-  size?: number;
-  className?: string;
-}
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 // ─────────────────────────────────────────────────────────
 // POWER-UPS
@@ -11,14 +9,7 @@ interface IconProps {
 
 /** shop-streak-freeze — Ice crystal with shield */
 export const StreakFreezeIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-freeze-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -63,19 +54,12 @@ export const StreakFreezeIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="26" cy="20" r="1.5" fill="white" fillOpacity="0.8" />
     <circle cx="40" cy="44" r="1.5" fill="white" fillOpacity="0.6" />
     <circle cx="46" cy="24" r="1" fill="white" fillOpacity="0.5" />
-  </svg>
+  </SVGIcon>
 );
 
 /** shop-streak-repair — Wrench with flame spark */
 export const StreakRepairIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-repair-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -122,19 +106,12 @@ export const StreakRepairIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="12" cy="20" r="1.2" fill="white" fillOpacity="0.4" />
     {/* Sparkle */}
     <path d="M10,36 L11,38 L13,38.5 L11,39 L10,41 L9,39 L7,38.5 L9,38Z" fill="white" fillOpacity="0.6" />
-  </svg>
+  </SVGIcon>
 );
 
 /** shop-double-xp-30 — Lightning bolt with 2x text */
 export const DoubleXPIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-dxp-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#A78BFA" />
@@ -173,7 +150,7 @@ export const DoubleXPIcon = ({ size = 64, className }: IconProps) => (
     <line x1="52" y1="52" x2="56" y2="50" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
     {/* Sparkle */}
     <path d="M10,46 L11,48.5 L14,49 L11,49.5 L10,52 L9,49.5 L6,49 L9,48.5Z" fill="white" fillOpacity="0.7" />
-  </svg>
+  </SVGIcon>
 );
 
 // ─────────────────────────────────────────────────────────
@@ -182,14 +159,7 @@ export const DoubleXPIcon = ({ size = 64, className }: IconProps) => (
 
 /** shop-title-thermal-king — Crown with heat waves */
 export const ThermalKingIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-thermal-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#F87171" />
@@ -229,19 +199,12 @@ export const ThermalKingIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkles */}
     <path d="M8,14 L9,16.5 L12,17 L9,17.5 L8,20 L7,17.5 L4,17 L7,16.5Z" fill="#FFB800" />
     <path d="M56,14 L57,16 L59,16.5 L57,17 L56,19 L55,17 L53,16.5 L55,16Z" fill="#FFB800" opacity="0.8" />
-  </svg>
+  </SVGIcon>
 );
 
 /** shop-title-stress-master — Flexed arm with stress lines */
 export const StressMasterIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-stress-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -275,19 +238,12 @@ export const StressMasterIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkle */}
     <path d="M10,12 L11,14.5 L14,15 L11,15.5 L10,18 L9,15.5 L6,15 L9,14.5Z" fill="white" />
     <circle cx="52" cy="10" r="2" fill="#FFB800" />
-  </svg>
+  </SVGIcon>
 );
 
 /** shop-title-flow-guru — Water swirl with meditation pose */
 export const FlowGuruIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="shop-flow-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#22D3EE" />
@@ -364,7 +320,7 @@ export const FlowGuruIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="50" cy="50" r="2" fill="white" fillOpacity="0.3" />
     {/* Sparkle */}
     <path d="M52,44 L53,46 L55,46.5 L53,47 L52,49 L51,47 L49,46.5 L51,46Z" fill="white" fillOpacity="0.7" />
-  </svg>
+  </SVGIcon>
 );
 
 // ─────────────────────────────────────────────────────────

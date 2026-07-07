@@ -15,8 +15,7 @@ import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
-import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
-import { DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
+import { checkDoubleXp, getEffectiveTier } from '@/lib/store-helpers';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { getEventXpMultiplier } from '@/lib/xp-events';
 import { selectSmartPracticeQuestions, buildPerformance } from '@/lib/practice-algorithm';
@@ -494,13 +493,7 @@ export const useStore = create<AppState>()(
 
         // Enforce Pro-only session types (client-side fast check)
         if (PRO_SESSION_TYPES.has(type)) {
-          const subStore = useSubscriptionStore.getState();
-          const tier = subStore.debugTierOverride && process.env.NODE_ENV === 'development'
-            ? subStore.debugTierOverride
-            : subStore.tier;
-          const isTrialing = subStore.status === 'trialing';
-          const isPastDue = subStore.status === 'past_due';
-          if (tier !== 'pro' && !isTrialing && !isPastDue) return;
+          if (getEffectiveTier(useSubscriptionStore.getState()) !== 'pro') return;
         }
 
         // If course data is not fully loaded yet, load it first then create session
@@ -597,20 +590,7 @@ export const useStore = create<AppState>()(
         if (!alreadyAnswered) {
           // Apply double XP boost if active (with tamper validation)
           const engState = useEngagementStore.getState();
-          const doubleXpExpiry = engState.doubleXpExpiry;
-          let shopDoubleXp = false;
-          if (doubleXpExpiry) {
-            const expiry = new Date(doubleXpExpiry).getTime();
-            const now = Date.now();
-            // Validate: expiry must be in the future, not exceed max allowed duration,
-            // and a recent shop_purchase transaction must exist
-            if (!isNaN(expiry) && expiry > now && expiry <= now + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS) {
-              const recentCutoff = now - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
-              shopDoubleXp = engState.gems.transactions.some(
-                (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
-              );
-            }
-          }
+          const shopDoubleXp = checkDoubleXp(engState);
 
           // Time-limited XP events (weekend 2x, power hour, league sprint)
           const isPro = useSubscriptionStore.getState().tier === 'pro';

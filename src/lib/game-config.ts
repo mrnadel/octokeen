@@ -91,3 +91,8 @@ export const ADAPTIVE_CRUISING_THRESHOLD = 1.0;
 export const ADAPTIVE_CRUISING_XP_BONUS = 1.5;
 /** Minimum answers before adaptive mode kicks in. */
 export const ADAPTIVE_MIN_ANSWERS = 3;
+
+// --------------- Animation ---------------
+
+/** Default stagger delay (seconds) between items in animated lists. */
+export const STAGGER_DELAY = 0.05;

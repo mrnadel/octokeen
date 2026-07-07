@@ -7,8 +7,8 @@ import { useEngagementStore, useComeback } from '@/store/useEngagementStore';
 import { comebackQuests } from '@/data/quests';
 import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { GameButton } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
+import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
 
 export function WelcomeBack() {
   const comeback = useComeback();
@@ -25,8 +25,8 @@ export function WelcomeBack() {
   if (!shouldShow) return null;
 
   return (
-    <FullScreenModal
-      show
+    <CelebrationModal
+      onClose={dismiss}
       bg="#235390"
       fx="snow"
       labelId="welcome-back-title"
@@ -36,7 +36,7 @@ export function WelcomeBack() {
         className="mb-3"
         initial={{ scale: 0.5, rotate: -10 }}
         animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+        transition={{ ...celebrationSpring }}
       >
         <MascotWithGlow pose="sleeping" size={140} />
       </motion.div>
@@ -78,6 +78,6 @@ export function WelcomeBack() {
           </div>
         </div>
       </div>
-    </FullScreenModal>
+    </CelebrationModal>
   );
 }

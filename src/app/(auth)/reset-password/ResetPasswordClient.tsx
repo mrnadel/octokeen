@@ -5,50 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
-
-function PasswordStrength({ password }: { password: string }) {
-  const checks = [
-    { label: `${PASSWORD_MIN_LENGTH}+ chars`, met: password.length >= PASSWORD_MIN_LENGTH },
-    { label: 'Uppercase', met: /[A-Z]/.test(password) },
-    { label: 'Number', met: /\d/.test(password) },
-    { label: 'Special char', met: /[^A-Za-z0-9]/.test(password) },
-  ];
-
-  if (!password) return null;
-
-  const score = checks.filter((c) => c.met).length;
-
-  return (
-    <div className="space-y-2 pt-1" role="status" aria-label={`Password strength: ${score} of 4 requirements met`}>
-      <div className="flex gap-1" aria-hidden="true">
-        {[1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            className={`h-1.5 sm:h-1 flex-1 rounded-full transition-colors ${
-              i <= score
-                ? score >= 4
-                  ? 'bg-primary-500'
-                  : score === 3
-                    ? 'bg-amber-400'
-                    : 'bg-red-400'
-                : 'bg-surface-200'
-            }`}
-          />
-        ))}
-      </div>
-      <div className="flex flex-wrap gap-2 sm:gap-3">
-        {checks.map((check) => (
-          <span
-            key={check.label}
-            className={`text-xs font-bold ${check.met ? 'text-brand-400' : 'text-surface-300'}`}
-          >
-            {check.met ? '\u2713' : '\u2022'} {check.label}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { ErrorAlert } from '@/components/auth/ErrorAlert';
+import { AuthInput } from '@/components/auth/AuthInput';
+import { AuthButton } from '@/components/auth/AuthButton';
+import { PasswordStrength } from '@/components/auth/PasswordStrength';
 
 export default function ResetPasswordPage() {
   return (
@@ -146,39 +106,27 @@ function ResetPasswordInner() {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-3.5">
-        {error && (
-          <div role="alert" className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
-            {error}
-          </div>
-        )}
+        <ErrorAlert message={error || null} />
 
         <div>
           <label htmlFor="reset-password" className="sr-only">New password</label>
-          <input
+          <AuthInput
             id="reset-password"
             type="password"
             placeholder="New password"
             value={password}
-            onChange={(e) => { setPassword(e.target.value); setError(''); }}
+            onChange={(v) => { setPassword(v); setError(''); }}
             required
             minLength={PASSWORD_MIN_LENGTH}
             autoComplete="new-password"
             autoFocus
-            className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
           />
           <PasswordStrength password={password} />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading || !isPasswordValid}
-          className="w-full py-3.5 bg-primary-500 hover:bg-primary-600 disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
-          style={{
-            boxShadow: loading || !isPasswordValid ? 'none' : '0 5px 0 #0F766E',
-          }}
-        >
+        <AuthButton loading={loading} disabled={loading || !isPasswordValid}>
           {loading ? 'Resetting...' : 'RESET PASSWORD'}
-        </button>
+        </AuthButton>
       </form>
 
       <p className="text-center text-surface-400 text-sm font-semibold mt-8">

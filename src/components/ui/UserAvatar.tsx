@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { AvatarBase } from './AvatarBase';
 
 interface UserAvatarProps {
   /** Full image URL or null for initials fallback */
@@ -22,25 +22,13 @@ export function UserAvatar({
   bgColor = '#DBEAFE',
   textClass = 'text-primary-700',
 }: UserAvatarProps) {
-  const initials = (name || '?').charAt(0).toUpperCase();
-  const fontSize = size <= 28 ? 'text-[10px]' : size <= 36 ? 'text-xs' : 'text-sm';
-
   return (
-    <div
-      className="rounded-full flex items-center justify-center overflow-hidden shrink-0"
-      style={{ width: size, height: size, background: image ? 'transparent' : bgColor }}
-    >
-      {image ? (
-        <Image
-          src={image}
-          alt={name}
-          width={size}
-          height={size}
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <span className={`${textClass} font-bold ${fontSize}`}>{initials}</span>
-      )}
-    </div>
+    <AvatarBase
+      size={size}
+      name={name}
+      image={image}
+      bgColor={bgColor}
+      initialsClass={textClass}
+    />
   );
 }

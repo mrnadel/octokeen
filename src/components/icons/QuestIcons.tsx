@@ -1,11 +1,8 @@
 'use client';
 
 import type { ComponentType } from 'react';
-
-interface IconProps {
-  size?: number;
-  className?: string;
-}
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 // ─────────────────────────────────────────────────────────
 // DAILY QUESTS
@@ -13,14 +10,7 @@ interface IconProps {
 
 /** dq-complete-lessons — Two upward chevrons */
 export const DoubleUpIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-doubleup-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -54,19 +44,12 @@ export const DoubleUpIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkle dot */}
     <circle cx="48" cy="14" r="3" fill="#FFB800" />
     <circle cx="50" cy="12" r="1.5" fill="white" fillOpacity="0.8" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-accuracy-80 — Crosshair with precision marks */
 export const SharpShooterIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-sharp-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -94,19 +77,12 @@ export const SharpShooterIcon = ({ size = 64, className }: IconProps) => (
     <line x1="32" y1="42" x2="32" y2="45" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <line x1="19" y1="32" x2="22" y2="32" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <line x1="42" y1="32" x2="45" y2="32" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-stale-topic — Broom sweeping with dust particles */
 export const DustOffIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-dust-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -139,19 +115,12 @@ export const DustOffIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="20" cy="28" r="1" fill="white" fillOpacity="0.3" />
     {/* Sparkle */}
     <path d="M48,14 L49,17 L52,18 L49,19 L48,22 L47,19 L44,18 L47,17Z" fill="#FFB800" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-daily-challenge — Calendar with lightning bolt */
 export const DailyChallengerIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-daily-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -178,19 +147,12 @@ export const DailyChallengerIcon = ({ size = 64, className }: IconProps) => (
     {/* Lightning bolt */}
     <polygon points="35,30 28,40 33,40 29,52 40,38 34,38 38,30" fill="url(#quest-daily-bolt)" />
     <polygon points="35,30 28,40 33,40 29,52 40,38 34,38 38,30" fill="white" fillOpacity="0.15" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-correct-answers-15 — Robot head with checkmark */
 export const AnswerMachineIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-machine-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -228,19 +190,12 @@ export const AnswerMachineIcon = ({ size = 64, className }: IconProps) => (
     <rect x="28" y="44" width="8" height="6" rx="2" fill="#BFDBFE" />
     {/* Shoulder line */}
     <line x1="20" y1="52" x2="44" y2="52" stroke="#BFDBFE" strokeWidth="3" strokeLinecap="round" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-earn-xp-100 — XP text with sparkle and rising bars */
 export const XPGrindIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-xpgrind-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -272,19 +227,12 @@ export const XPGrindIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkles */}
     <path d="M52,12 L53,15 L56,16 L53,17 L52,20 L51,17 L48,16 L51,15Z" fill="white" />
     <path d="M14,16 L14.8,18 L17,18.5 L14.8,19 L14,21 L13.2,19 L11,18.5 L13.2,18Z" fill="white" fillOpacity="0.7" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-stars-3 — Hand catching stars */
 export const StarCollectorIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-starcol-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -321,19 +269,12 @@ export const StarCollectorIcon = ({ size = 64, className }: IconProps) => (
     />
     {/* Tiny sparkle */}
     <circle cx="42" cy="14" r="1.5" fill="white" fillOpacity="0.7" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-unit-lesson — Railroad track with forward arrow */
 export const OnTrackIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-ontrack-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -358,19 +299,12 @@ export const OnTrackIcon = ({ size = 64, className }: IconProps) => (
     <line x1="42" y1="28" x2="48" y2="28" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
     <line x1="44" y1="33" x2="49" y2="33" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
     <line x1="42" y1="38" x2="48" y2="38" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-fast-answers-5 — Stopwatch with lightning bolt */
 export const SpeedRoundIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-speed-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#F472B6" />
@@ -398,19 +332,12 @@ export const SpeedRoundIcon = ({ size = 64, className }: IconProps) => (
     <line x1="45" y1="35" x2="48" y2="35" stroke="#EC4899" strokeWidth="1.5" strokeLinecap="round" />
     {/* Sparkle */}
     <path d="M52,14 L53,16.5 L56,17 L53,17.5 L52,20 L51,17.5 L48,17 L51,16.5Z" fill="white" />
-  </svg>
+  </SVGIcon>
 );
 
 /** dq-perfect-session — Sparkling diamond / flawless gem */
 export const FlawlessIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-flawless-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -438,7 +365,7 @@ export const FlawlessIcon = ({ size = 64, className }: IconProps) => (
     <path d="M52,14 L53,16 L55,16.5 L53,17 L52,19 L51,17 L49,16.5 L51,16Z" fill="white" />
     <path d="M50,44 L51,46 L53,46.5 L51,47 L50,49 L49,47 L47,46.5 L49,46Z" fill="white" opacity="0.7" />
     <circle cx="14" cy="46" r="1.5" fill="white" fillOpacity="0.5" />
-  </svg>
+  </SVGIcon>
 );
 
 // ─────────────────────────────────────────────────────────
@@ -447,14 +374,7 @@ export const FlawlessIcon = ({ size = 64, className }: IconProps) => (
 
 /** wq-lessons-5 — Open book with bookmark ribbon */
 export const CommittedLearnerIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-committed-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -487,19 +407,12 @@ export const CommittedLearnerIcon = ({ size = 64, className }: IconProps) => (
     <path d="M40,14 L40,26 L43,23 L46,26 L46,14" fill="#FFB800" />
     {/* Sparkle */}
     <circle cx="50" cy="14" r="2" fill="#FFB800" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-xp-500 — XP explosion / star burst */
 export const XPHunterIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-xphunter-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#F472B6" />
@@ -535,19 +448,12 @@ export const XPHunterIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="12" cy="12" r="2" fill="white" fillOpacity="0.7" />
     <circle cx="52" cy="12" r="1.5" fill="white" fillOpacity="0.6" />
     <circle cx="52" cy="52" r="2" fill="white" fillOpacity="0.5" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-stars-3x3 — Triple star formation */
 export const TripleStarIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-tristar-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -579,19 +485,12 @@ export const TripleStarIcon = ({ size = 64, className }: IconProps) => (
     {/* Tiny sparkles */}
     <circle cx="10" cy="14" r="1.5" fill="white" fillOpacity="0.6" />
     <circle cx="54" cy="14" r="1.5" fill="white" fillOpacity="0.6" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-topics-4 — Globe with gear/engineering symbols */
 export const BroadMindIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-broad-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -620,19 +519,12 @@ export const BroadMindIcon = ({ size = 64, className }: IconProps) => (
     <rect x="44" y="51" width="4" height="4" rx="1" fill="#10B981" stroke="white" strokeWidth="0.8" />
     <rect x="37" y="44" width="4" height="4" rx="1" fill="#10B981" stroke="white" strokeWidth="0.8" />
     <rect x="51" y="44" width="4" height="4" rx="1" fill="#10B981" stroke="white" strokeWidth="0.8" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-all-daily-challenges — Trophy with lightning crown */
 export const ChallengeChampionIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-champ-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -661,19 +553,12 @@ export const ChallengeChampionIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkles */}
     <path d="M12,12 L13,14.5 L16,15 L13,15.5 L12,18 L11,15.5 L8,15 L11,14.5Z" fill="white" />
     <path d="M52,12 L53,14 L55,14.5 L53,15 L52,17 L51,15 L49,14.5 L51,14Z" fill="white" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-streak-7 — Flame streak / fire week */
 export const StreakWeekIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-streakwk-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#F97316" />
@@ -710,19 +595,12 @@ export const StreakWeekIcon = ({ size = 64, className }: IconProps) => (
     >
       7
     </text>
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-unit-lessons-3 — Building blocks / stacked layers */
 export const UnitProgressIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-unitprog-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -748,19 +626,12 @@ export const UnitProgressIcon = ({ size = 64, className }: IconProps) => (
     {/* Arrow pointing up */}
     <polyline points="50,22 54,16 58,22" stroke="#FFB800" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     <line x1="54" y1="16" x2="54" y2="28" stroke="#FFB800" strokeWidth="2" strokeLinecap="round" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-correct-50 — Bold "50" with checkmark badge */
 export const TheFiftyIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-fifty-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -785,19 +656,12 @@ export const TheFiftyIcon = ({ size = 64, className }: IconProps) => (
     <polyline points="46,16 49,19 55,13" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     {/* Sparkle */}
     <path d="M12,14 L13,16 L15,16.5 L13,17 L12,19 L11,17 L9,16.5 L11,16Z" fill="white" fillOpacity="0.7" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-finish-unit — Graduation cap with sparkle */
 export const UnitCompleteIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-unitcomp-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#A78BFA" />
@@ -828,19 +692,12 @@ export const UnitCompleteIcon = ({ size = 64, className }: IconProps) => (
     {/* Sparkles */}
     <path d="M14,14 L15,16.5 L18,17 L15,17.5 L14,20 L13,17.5 L10,17 L13,16.5Z" fill="#FFB800" />
     <path d="M48,10 L49,12 L51,12.5 L49,13 L48,15 L47,13 L45,12.5 L47,12Z" fill="white" fillOpacity="0.8" />
-  </svg>
+  </SVGIcon>
 );
 
 /** wq-accuracy-90-x3 — Precision target with "3x" */
 export const PrecisionExpertIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-precex-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#F472B6" />
@@ -871,7 +728,7 @@ export const PrecisionExpertIcon = ({ size = 64, className }: IconProps) => (
     </text>
     {/* Sparkle */}
     <path d="M52,12 L53,14.5 L56,15 L53,15.5 L52,18 L51,15.5 L48,15 L51,14.5Z" fill="white" />
-  </svg>
+  </SVGIcon>
 );
 
 // ─────────────────────────────────────────────────────────
@@ -880,14 +737,7 @@ export const PrecisionExpertIcon = ({ size = 64, className }: IconProps) => (
 
 /** cq-answer-questions — Waving hand / welcome back */
 export const BackInTheGameIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-back-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -913,19 +763,12 @@ export const BackInTheGameIcon = ({ size = 64, className }: IconProps) => (
     <path d="M16,16 C18,14 20,16 18,18" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.5" />
     {/* Sparkle */}
     <path d="M50,14 L51,16.5 L54,17 L51,17.5 L50,20 L49,17.5 L46,17 L49,16.5Z" fill="white" />
-  </svg>
+  </SVGIcon>
 );
 
 /** cq-complete-lesson — Single footstep / one step forward */
 export const OneStepIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-onestep-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -952,19 +795,12 @@ export const OneStepIcon = ({ size = 64, className }: IconProps) => (
     <rect x="30" y="26" width="12" height="2" rx="1" fill="white" fillOpacity="0.3" />
     {/* Sparkle */}
     <circle cx="52" cy="8" r="2" fill="#FFB800" />
-  </svg>
+  </SVGIcon>
 );
 
 /** cq-accuracy-70 — Chart trending up / recovery arrow */
 export const GettingBackIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="quest-getback-bg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -999,7 +835,7 @@ export const GettingBackIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="52" cy="16" r="2.5" fill="#FFB800" />
     {/* Sparkle */}
     <path d="M54,10 L55,12 L57,12.5 L55,13 L54,15 L53,13 L51,12.5 L53,12Z" fill="white" />
-  </svg>
+  </SVGIcon>
 );
 
 // ─────────────────────────────────────────────────────────

@@ -7,6 +7,7 @@ import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
 import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 import { FlowLogger } from '@/components/dev/FlowLogger';
+import { Suspense } from 'react';
 import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR, APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
 import './globals.css';
 
@@ -180,7 +181,7 @@ export default function RootLayout({
             </MixpanelProvider>
             <CookieConsent />
             <DebugTierToggle />
-            <FlowLogger />
+            <Suspense><FlowLogger /></Suspense>
           </ThemeProvider>
         </AuthSessionProvider>
       </body>

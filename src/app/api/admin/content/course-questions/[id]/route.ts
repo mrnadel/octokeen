@@ -1,15 +1,9 @@
-import { NextResponse } from 'next/server';
+import { contentManagedError } from '@/lib/api/content-managed-response';
 
 export async function PUT() {
-  return NextResponse.json(
-    { error: 'Content is managed via TypeScript source files. Edit src/data/course/ and run npm run seed-content.' },
-    { status: 405 }
-  );
+  return contentManagedError();
 }
 
 export async function DELETE() {
-  return NextResponse.json(
-    { error: 'Content is managed via TypeScript source files. Edit src/data/course/ and run npm run seed-content.' },
-    { status: 405 }
-  );
+  return contentManagedError();
 }

@@ -10,12 +10,7 @@ import { LessonView } from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
 import { useLessonColors } from '@/lib/lessonColors';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-
-const PRACTICE_THEME = {
-  color: '#3B82F6',
-  dark: '#1D4ED8',
-  bg: '#EFF6FF',
-};
+import { PRACTICE_THEME } from '@/lib/session-themes';
 
 export default function SessionView() {
   const c = useLessonColors();

@@ -1,18 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { changePasswordSchema, getValidationError } from '@/lib/validation';
+import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }) => {
   // Rate limit by user ID
   const rl = rateLimit(`change-password:${userId}`, RATE_LIMITS.auth);
   if (!rl.success) {
@@ -26,7 +21,7 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+    return jsonError('Invalid JSON', 400);
   }
   const parsed = changePasswordSchema.safeParse(body);
   if (!parsed.success) {
@@ -45,18 +40,12 @@ export async function POST(request: NextRequest) {
     .limit(1);
 
   if (!user || !user.passwordHash) {
-    return NextResponse.json(
-      { error: 'Password change not available for this account' },
-      { status: 400 }
-    );
+    return jsonError('Password change not available for this account', 400);
   }
 
   const isValid = await bcrypt.compare(currentPassword, user.passwordHash);
   if (!isValid) {
-    return NextResponse.json(
-      { error: 'Current password is incorrect' },
-      { status: 400 }
-    );
+    return jsonError('Current password is incorrect', 400);
   }
 
   const newHash = await bcrypt.hash(newPassword, 12);
@@ -65,5 +54,5 @@ export async function POST(request: NextRequest) {
     .set({ passwordHash: newHash, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

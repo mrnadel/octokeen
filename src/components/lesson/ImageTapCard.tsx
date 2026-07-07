@@ -7,6 +7,7 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { CORRECT, INCORRECT, DISABLED } from './shared/answer-feedback';
 
 interface ImageTapCardProps {
   question: CourseQuestion;
@@ -126,10 +127,10 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
             if (answered && localCorrect !== null) {
               if (isCorrectZone) {
                 overlayBg = 'rgba(88, 204, 2, 0.25)';
-                overlayBorder = '3px solid #58CC02';
+                overlayBorder = `3px solid ${CORRECT.border}`;
               } else if (isSelected && !isCorrectZone) {
                 overlayBg = 'rgba(255, 75, 75, 0.2)';
-                overlayBorder = '3px solid #FF4B4B';
+                overlayBorder = `3px solid ${INCORRECT.border}`;
               }
             } else if (isSelected) {
               overlayBg = `${unitColor}20`;
@@ -180,7 +181,7 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
                 {answered && localCorrect !== null ? (
                   <span style={{
                     fontSize: 11, fontWeight: 800, color: 'white',
-                    background: isCorrectZone ? '#58CC02' : isSelected && !isCorrectZone ? '#FF4B4B' : 'rgba(0,0,0,0.4)',
+                    background: isCorrectZone ? CORRECT.border : isSelected && !isCorrectZone ? INCORRECT.border : 'rgba(0,0,0,0.4)',
                     padding: '2px 8px', borderRadius: 6,
                     transition: 'background 0.2s',
                     textShadow: '0 1px 2px rgba(0,0,0,0.2)',
@@ -215,11 +216,11 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
 
               if (answered && localCorrect !== null) {
                 if (isCorrectZone) {
-                  bg = '#D7FFB8'; border = '2px solid #58CC02'; textColor = '#58A700';
+                  bg = CORRECT.bg; border = `2px solid ${CORRECT.border}`; textColor = CORRECT.text;
                 } else if (isSelected && !isCorrectZone) {
-                  bg = '#FFDFE0'; border = '2px solid #FF4B4B'; textColor = '#EA2B2B';
+                  bg = INCORRECT.bg; border = `2px solid ${INCORRECT.border}`; textColor = INCORRECT.text;
                 } else {
-                  bg = '#F5F5F5'; border = '2px solid #EFEFEF'; textColor = c.muted;
+                  bg = DISABLED.bg; border = `2px solid ${DISABLED.border}`; textColor = c.muted;
                 }
               } else if (isSelected) {
                 bg = `${unitColor}10`; border = `2.5px solid ${unitColor}`;

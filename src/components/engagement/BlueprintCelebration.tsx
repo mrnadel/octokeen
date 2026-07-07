@@ -1,15 +1,12 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
-import { GameButton } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
-import { ShareButton } from '@/components/ui/ShareButton';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
-import { getShareCardUrl, getShareText, getDisplayName } from '@/lib/share-card';
+import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
 
 
 interface BlueprintCelebrationProps { unitIndex: number; isGolden: boolean; onDismiss: () => void; }
@@ -33,44 +30,29 @@ export function BlueprintCelebration({ unitIndex, isGolden, onDismiss }: Bluepri
   useBackHandler(true, onDismiss);
 
   useEffect(() => { playSound(isGolden ? 'courseComplete' : 'sessionComplete'); }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const [canDismiss, setCanDismiss] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setCanDismiss(true), 1500); return () => clearTimeout(t); }, []);
-  const handleDismiss = useCallback(() => { if (canDismiss) onDismiss(); }, [canDismiss, onDismiss]);
 
   return (
-    <>
-      <FullScreenModal
-        show
-        bg={isGolden ? '#E8850C' : '#58A700'}
-        fx={isGolden ? 'stars' : 'confetti'}
-        footer={
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: canDismiss ? 1 : 0 }} transition={{ duration: 0.4 }} className="space-y-3">
-            <div className="flex justify-center">
-              <ShareButton
-                imageUrl={getShareCardUrl('chapter', unitTitle, getDisplayName())}
-                shareText={getShareText('chapter', unitTitle)}
-                fileName={`octokeen-chapter-${unitIndex + 1}.png`}
-              />
-            </div>
-            <GameButton variant="gold" onClick={handleDismiss}>CONTINUE</GameButton>
-          </motion.div>
-        }
-      >
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xs font-extrabold tracking-[3px] uppercase text-white/50 mb-2">
-          {isGolden ? 'Chapter Mastered' : 'Chapter Complete'}
-        </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-[28px] font-black text-white mb-6">{unitTitle}</motion.h1>
-        <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.4 }} className="mb-8">
-          <MascotWithGlow pose={isGolden ? 'excited' : 'laughing'} size={180} />
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex gap-8">
-          <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">Lessons</div><div className="text-2xl font-black">{chapterStats.lessons}</div></div>
-          <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">Accuracy</div><div className="text-2xl font-black">{chapterStats.accuracy}%</div></div>
-          <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">XP</div><div className="text-2xl font-black">{chapterStats.totalXp}</div></div>
-        </motion.div>
-
-      </FullScreenModal>
-
-    </>
+    <CelebrationModal
+      onClose={onDismiss}
+      bg={isGolden ? '#E8850C' : '#58A700'}
+      fx={isGolden ? 'stars' : 'confetti'}
+      dismissDelay={1500}
+      shareData={{ type: 'chapter', value: unitTitle, fileName: `octokeen-chapter-${unitIndex + 1}.png` }}
+      buttonLabel="CONTINUE"
+      buttonVariant="gold"
+    >
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xs font-extrabold tracking-[3px] uppercase text-white/50 mb-2">
+        {isGolden ? 'Chapter Mastered' : 'Chapter Complete'}
+      </motion.div>
+      <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-[28px] font-black text-white mb-6">{unitTitle}</motion.h1>
+      <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ ...celebrationSpring, delay: 0.4 }} className="mb-8">
+        <MascotWithGlow pose={isGolden ? 'excited' : 'laughing'} size={180} />
+      </motion.div>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex gap-8">
+        <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">Lessons</div><div className="text-2xl font-black">{chapterStats.lessons}</div></div>
+        <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">Accuracy</div><div className="text-2xl font-black">{chapterStats.accuracy}%</div></div>
+        <div className="text-center"><div className="text-xs font-bold tracking-wider uppercase text-white/40 mb-1">XP</div><div className="text-2xl font-black">{chapterStats.totalXp}</div></div>
+      </motion.div>
+    </CelebrationModal>
   );
 }

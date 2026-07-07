@@ -7,6 +7,7 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { shuffleArray } from '@/lib/utils';
 
 interface PickTheBestCardProps {
   question: CourseQuestion;
@@ -23,15 +24,11 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
     const correctIndex = question.correctIndex ?? 0;
 
     // Shuffle display order
-    const shuffledIndices = useMemo(() => {
-      const indices = options.map((_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-      return indices;
+    const shuffledIndices = useMemo(
+      () => shuffleArray(options.map((_, i) => i)),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [question.id]);
+      [question.id],
+    );
 
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);

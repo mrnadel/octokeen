@@ -52,7 +52,8 @@ function getPoseForQuestion(questionId: string, useSpacePoses: boolean): MascotP
  * Split an explanation into a short one-liner (first sentence)
  * and the remaining detail text (rest).
  */
-export function splitExplanation(text: string): [string, string] {
+export function splitExplanation(text: string | undefined): [string, string] {
+  if (!text) return ['', ''];
   const match = text.match(/[.!?](?:\s|$)/);
   if (!match || match.index === undefined) return [text, ''];
   const end = match.index + 1;

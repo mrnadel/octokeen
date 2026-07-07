@@ -1,33 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedbackDismissals } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, parseBody, jsonOk } from '@/lib/api-helpers';
 
 const dismissSchema = z.object({
   contentType: z.string().min(1).max(50),
   contentId: z.string().min(1).max(100),
 });
 
-export async function POST(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+export const POST = withAdminAuth(async (req) => {
+  const { data, error } = await parseBody(req, dismissSchema);
+  if (error) return error;
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = dismissSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { contentType, contentId } = parsed.data;
+  const { contentType, contentId } = data;
 
   // Upsert: delete + insert
   await db.transaction(async (tx) => {
@@ -45,5 +31,5 @@ export async function POST(req: NextRequest) {
     });
   });
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

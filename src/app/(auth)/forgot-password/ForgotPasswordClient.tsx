@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { ErrorAlert } from '@/components/auth/ErrorAlert';
+import { AuthInput } from '@/components/auth/AuthInput';
+import { AuthButton } from '@/components/auth/AuthButton';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -73,35 +76,23 @@ export default function ForgotPasswordPage() {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-3.5">
-        {error && (
-          <div role="alert" className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center font-semibold">
-            {error}
-          </div>
-        )}
+        <ErrorAlert message={error || null} />
 
         <label htmlFor="forgot-email" className="sr-only">Email</label>
-        <input
+        <AuthInput
           id="forgot-email"
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => { setEmail(e.target.value); setError(''); }}
+          onChange={(v) => { setEmail(v); setError(''); }}
           required
           autoComplete="email"
           autoFocus
-          className="w-full px-4 py-3.5 bg-surface-50 border-2 border-surface-200 rounded-2xl text-surface-900 font-semibold placeholder-surface-300 focus:outline-none focus:border-primary-400 focus:bg-white transition-colors"
         />
 
-        <button
-          type="submit"
-          disabled={loading || !email}
-          className="w-full py-3.5 bg-primary-500 hover:bg-primary-600 disabled:bg-surface-200 disabled:shadow-none disabled:translate-y-0 text-white font-extrabold rounded-2xl transition-all text-[17px] tracking-wide active:translate-y-[2px]"
-          style={{
-            boxShadow: loading || !email ? 'none' : '0 5px 0 #0F766E',
-          }}
-        >
+        <AuthButton loading={loading} disabled={loading || !email}>
           {loading ? 'Sending...' : 'SEND RESET LINK'}
-        </button>
+        </AuthButton>
       </form>
 
       <p className="text-center text-surface-400 text-sm font-semibold mt-8">

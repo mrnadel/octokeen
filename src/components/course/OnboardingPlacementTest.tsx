@@ -7,6 +7,7 @@ import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-m
 import LessonView from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
 import type { Unit, CourseQuestion } from '@/data/course/types';
+import { TEST_THEME } from '@/lib/session-themes';
 
 /* ─── Constants ─── */
 
@@ -180,7 +181,6 @@ export function OnboardingPlacementTest({
   }, [onExit]);
 
   // Build SessionAdapter for LessonView
-  const TEST_THEME = { color: 'var(--color-primary-500)', dark: 'var(--color-primary-700)', bg: 'var(--color-primary-50)' };
   const placementAdapter: SessionAdapter | null = useMemo(() => {
     if (placementQuestions.length === 0 || placementIndex >= placementQuestions.length) return null;
     const pq = placementQuestions[placementIndex];

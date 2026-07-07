@@ -3,18 +3,8 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
 import { getAuthUserId } from '@/lib/auth-utils';
+import { FREE_TIER_RESPONSE } from '@/lib/pricing';
 import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
-
-const FREE_TIER_RESPONSE = {
-  subscription: {
-    tier: 'free' as SubscriptionTier,
-    status: 'active' as SubscriptionStatus,
-    billingInterval: null,
-    currentPeriodEnd: null,
-    trialEnd: null,
-    cancelAtPeriodEnd: false,
-  },
-};
 
 export async function GET() {
   const userId = await getAuthUserId();

@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-
-type IconProps = { size?: number; className?: string };
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 // ─── Level 1: Apprentice — Simple bolt/nut ─────────────────────────────
 export const ApprenticeIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-1-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -26,12 +26,12 @@ export const ApprenticeIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="32" cy="28" r="6" fill="#64748B" stroke="#475569" strokeWidth="1.5" />
     {/* Level number */}
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#CBD5E1" fontFamily="system-ui">1</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 2: Shop Hand — Wrench ────────────────────────────────────────
 export const ShopHandIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-2-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -51,12 +51,12 @@ export const ShopHandIcon = ({ size = 64, className }: IconProps) => (
     {/* Shine */}
     <path d="M26 22 L34 30" stroke="#E2E8F0" strokeWidth="1" opacity="0.5" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#CBD5E1" fontFamily="system-ui">2</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 3: Drafter — Ruler/straightedge ──────────────────────────────
 export const DrafterIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-3-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -82,12 +82,12 @@ export const DrafterIcon = ({ size = 64, className }: IconProps) => (
     <line x1="44" y1="14" x2="24" y2="48" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
     <line x1="24" y1="48" x2="22" y2="50" stroke="#475569" strokeWidth="2" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#CBD5E1" fontFamily="system-ui">3</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 4: Junior Technician — Crossed wrench & screwdriver ──────────
 export const JuniorTechIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-4-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -109,12 +109,12 @@ export const JuniorTechIcon = ({ size = 64, className }: IconProps) => (
     {/* Center rivet */}
     <circle cx="32" cy="32" r="3" fill="#475569" stroke="#CBD5E1" strokeWidth="1.5" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#CBD5E1" fontFamily="system-ui">4</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 5: Lab Assistant — Flask ─────────────────────────────────────
 export const LabAssistantIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-5-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -140,12 +140,12 @@ export const LabAssistantIcon = ({ size = 64, className }: IconProps) => (
     {/* Stopper */}
     <rect x="29" y="10" width="6" height="3" rx="1" fill="#94A3B8" stroke="#475569" strokeWidth="1" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#CBD5E1" fontFamily="system-ui">5</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 6: Design Intern — Compass/protractor ────────────────────────
 export const DesignInternIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-6-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -171,12 +171,12 @@ export const DesignInternIcon = ({ size = 64, className }: IconProps) => (
     <line x1="32" y1="38" x2="42" y2="24" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" />
     <circle cx="32" cy="38" r="2" fill="#1D4ED8" stroke="#BFDBFE" strokeWidth="1.5" />
     <text x="32" y="54" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#DBEAFE" fontFamily="system-ui">6</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 7: Associate Engineer — Single gear ──────────────────────────
 export const AssociateEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-7-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -203,12 +203,12 @@ export const AssociateEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Shine highlight */}
     <path d="M26 24 Q32 20 38 24" fill="none" stroke="#DBEAFE" strokeWidth="1" opacity="0.5" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#DBEAFE" fontFamily="system-ui">7</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 8: Project Engineer — Blueprint roll ─────────────────────────
 export const ProjectEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-8-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -237,12 +237,12 @@ export const ProjectEngIcon = ({ size = 64, className }: IconProps) => (
     <ellipse cx="44" cy="33" rx="4" ry="15" fill="#BFDBFE" stroke="#1D4ED8" strokeWidth="2" />
     <ellipse cx="44" cy="33" rx="2" ry="15" fill="#DBEAFE" stroke="none" opacity="0.5" />
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#DBEAFE" fontFamily="system-ui">8</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 9: Stress Analyst — Stress diagram ──────────────────────────
 export const StressAnalystIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-9-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -270,12 +270,12 @@ export const StressAnalystIcon = ({ size = 64, className }: IconProps) => (
     {/* Small sigma label */}
     <text x="47" y="30" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#DBEAFE" fontFamily="serif" opacity="0.7">σ</text>
     <text x="32" y="56" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#DBEAFE" fontFamily="system-ui">9</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 10: Thermal Specialist — Thermometer ─────────────────────────
 export const ThermalSpecIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-10-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#60A5FA" />
@@ -305,12 +305,12 @@ export const ThermalSpecIcon = ({ size = 64, className }: IconProps) => (
     <path d="M20 20 Q18 24, 20 28" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <path d="M16 22 Q14 26, 16 30" fill="none" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#DBEAFE" fontFamily="system-ui">10</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 11: Design Lead — Pencil with gear ──────────────────────────
 export const DesignLeadIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-11-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -332,12 +332,12 @@ export const DesignLeadIcon = ({ size = 64, className }: IconProps) => (
     " fill="#A7F3D0" stroke="#059669" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     <circle cx="44" cy="32" r="3" fill="#10B981" stroke="#059669" strokeWidth="1.5" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#D1FAE5" fontFamily="system-ui">11</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 12: Manufacturing Engineer — Factory/CNC ─────────────────────
 export const ManufEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-12-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -367,12 +367,12 @@ export const ManufEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Door */}
     <rect x="29" y="38" width="6" height="8" rx="1" fill="#064E3B" opacity="0.3" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#D1FAE5" fontFamily="system-ui">12</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 13: Reliability Engineer — Chain links ───────────────────────
 export const ReliabilityEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-13-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -398,12 +398,12 @@ export const ReliabilityEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Checkmark above */}
     <polyline points="26,16 30,20 38,12" fill="none" stroke="#D1FAE5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     <text x="32" y="54" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#D1FAE5" fontFamily="system-ui">13</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 14: Systems Engineer — Connected nodes ───────────────────────
 export const SystemsEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-14-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -432,12 +432,12 @@ export const SystemsEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Center hub */}
     <circle cx="32" cy="30" r="3" fill="#10B981" stroke="#D1FAE5" strokeWidth="1.5" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#D1FAE5" fontFamily="system-ui">14</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 15: Senior Engineer — Medal with star ────────────────────────
 export const SeniorEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-15-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#34D399" />
@@ -462,12 +462,12 @@ export const SeniorEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Star on medal */}
     <polygon points="32,26 34,31 39,31 35,35 36,40 32,37 28,40 29,35 25,31 30,31" fill="#FDE68A" stroke="#92400E" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#D1FAE5" fontFamily="system-ui">15</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 16: Materials Specialist — Crystal/diamond ───────────────────
 export const MaterialsSpecIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-16-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -495,12 +495,12 @@ export const MaterialsSpecIcon = ({ size = 64, className }: IconProps) => (
     <line x1="44" y1="12" x2="44" y2="16" stroke="#FEF3C7" strokeWidth="1.5" strokeLinecap="round" />
     <line x1="42" y1="14" x2="46" y2="14" stroke="#FEF3C7" strokeWidth="1.5" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">16</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 17: Technical Lead — Clipboard with gear ─────────────────────
 export const TechLeadIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-17-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -531,12 +531,12 @@ export const TechLeadIcon = ({ size = 64, className }: IconProps) => (
     <line x1="34" y1="40" x2="36" y2="40" stroke="#92400E" strokeWidth="2" strokeLinecap="round" />
     <line x1="44" y1="40" x2="46" y2="40" stroke="#92400E" strokeWidth="2" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">17</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 18: Principal Engineer — Classical pillar ────────────────────
 export const PrincipalEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-18-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -568,12 +568,12 @@ export const PrincipalEngIcon = ({ size = 64, className }: IconProps) => (
     <path d="M48 30 Q52 28, 50 24 Q48 26, 48 30" fill="#34D399" stroke="#059669" strokeWidth="1" opacity="0.6" />
     <path d="M48 34 Q52 32, 50 28 Q48 30, 48 34" fill="#34D399" stroke="#059669" strokeWidth="1" opacity="0.6" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">18</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 19: R&D Innovator — Lightbulb with gear inside ──────────────
 export const RnDInnovatorIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-19-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -612,12 +612,12 @@ export const RnDInnovatorIcon = ({ size = 64, className }: IconProps) => (
     <line x1="14" y1="26" x2="19" y2="26" stroke="#FEF3C7" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <line x1="50" y1="26" x2="45" y2="26" stroke="#FEF3C7" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">19</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 20: Engineering Manager — Clipboard with team dots ───────────
 export const EngManagerIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-20-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -653,12 +653,12 @@ export const EngManagerIcon = ({ size = 64, className }: IconProps) => (
     <line x1="40" y1="37" x2="37" y2="40" stroke="#92400E" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
     <line x1="40" y1="37" x2="42" y2="40" stroke="#92400E" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">20</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 21: Staff Engineer — Star badge ──────────────────────────────
 export const StaffEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-21-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#F87171" />
@@ -681,12 +681,12 @@ export const StaffEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Star */}
     <polygon points="32,18 35,27 44,27 37,33 39,42 32,37 25,42 27,33 20,27 29,27" fill="url(#lvl-21-star)" stroke="#991B1B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEE2E2" fontFamily="system-ui">21</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 22: Domain Expert — Brain with circuits ──────────────────────
 export const DomainExpertIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-22-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#A78BFA" />
@@ -722,12 +722,12 @@ export const DomainExpertIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="14" cy="34" r="1.5" fill="#C4B5FD" />
     <circle cx="50" cy="34" r="1.5" fill="#C4B5FD" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#EDE9FE" fontFamily="system-ui">22</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 23: Distinguished Engineer — Trophy with laurels ─────────────
 export const DistinguishedEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-23-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#A78BFA" />
@@ -766,12 +766,12 @@ export const DistinguishedEngIcon = ({ size = 64, className }: IconProps) => (
     <ellipse cx="50" cy="30" rx="2" ry="4" fill="#34D399" opacity="0.5" transform="rotate(20 50 30)" />
     <ellipse cx="52" cy="24" rx="2" ry="4" fill="#34D399" opacity="0.5" transform="rotate(10 52 24)" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#EDE9FE" fontFamily="system-ui">23</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 24: Chief Engineer — Professional badge with tie ─────────────
 export const ChiefEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-24-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#C084FC" />
@@ -802,12 +802,12 @@ export const ChiefEngIcon = ({ size = 64, className }: IconProps) => (
     <polygon points="26,28 27,30 29,30 27.5,31.5 28,33.5 26,32.5 24,33.5 24.5,31.5 23,30 25,30" fill="#FEF3C7" stroke="none" />
     <polygon points="38,28 39,30 41,30 39.5,31.5 40,33.5 38,32.5 36,33.5 36.5,31.5 35,30 37,30" fill="#FEF3C7" stroke="none" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#EDE9FE" fontFamily="system-ui">24</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 25: Engineering Fellow — Graduation cap with gear ────────────
 export const EngFellowIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-25-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -846,12 +846,12 @@ export const EngFellowIcon = ({ size = 64, className }: IconProps) => (
     <line x1="25" y1="44" x2="27" y2="44" stroke="#92400E" strokeWidth="2" strokeLinecap="round" />
     <line x1="37" y1="44" x2="39" y2="44" stroke="#92400E" strokeWidth="2" strokeLinecap="round" />
     <text x="32" y="58" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#FEF3C7" fontFamily="system-ui">25</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 26: Technical Director — Key with gear head ──────────────────
 export const TechDirectorIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-26-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -890,12 +890,12 @@ export const TechDirectorIcon = ({ size = 64, className }: IconProps) => (
     {/* Metallic shine */}
     <line x1="34" y1="21" x2="42" y2="21" stroke="#FFF8E1" strokeWidth="1" opacity="0.6" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#78350F" fontFamily="system-ui">26</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 27: VP of Engineering — Tower with star ──────────────────────
 export const VPEngIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-27-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -940,12 +940,12 @@ export const VPEngIcon = ({ size = 64, className }: IconProps) => (
     {/* Ground line */}
     <line x1="12" y1="48" x2="52" y2="48" stroke="#92400E" strokeWidth="1.5" strokeLinecap="round" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#78350F" fontFamily="system-ui">27</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 28: CTO — Briefcase with circuit board ──────────────────────
 export const CTOIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-28-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -991,12 +991,12 @@ export const CTOIcon = ({ size = 64, className }: IconProps) => (
     {/* Chip in center */}
     <rect x="28" y="32" width="8" height="8" rx="1" fill="#C68A00" stroke="#92400E" strokeWidth="1" opacity="0.6" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#78350F" fontFamily="system-ui">28</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 29: Engineering Legend — Blazing star with aura ──────────────
 export const EngLegendIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-29-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -1042,12 +1042,12 @@ export const EngLegendIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="20" cy="40" r="1" fill="#FFF8E1" opacity="0.6" />
     <circle cx="46" cy="38" r="1" fill="#FFF8E1" opacity="0.6" />
     <text x="32" y="56" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#78350F" fontFamily="system-ui">29</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level 30: Mechanical Grandmaster — Crown with gears, laurels ──────
 export const GrandmasterIcon = ({ size = 64, className }: IconProps) => (
-  <svg viewBox="0 0 64 64" width={size} height={size} className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="lvl-30-bg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -1130,7 +1130,7 @@ export const GrandmasterIcon = ({ size = 64, className }: IconProps) => (
     <line x1="48" y1="10" x2="50" y2="12" stroke="#FFF8E1" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <line x1="47" y1="11" x2="51" y2="11" stroke="#FFF8E1" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
     <text x="32" y="58" textAnchor="middle" fontSize="7" fontWeight="bold" fill="#78350F" fontFamily="system-ui">30</text>
-  </svg>
+  </SVGIcon>
 );
 
 // ─── Level Icon Map ─────────────────────────────────────────────────────

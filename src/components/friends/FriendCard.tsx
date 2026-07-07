@@ -5,6 +5,8 @@ import { Zap } from 'lucide-react';
 import { StreakFlame } from '@/components/icons/StreakFlame';
 import { motion } from 'framer-motion';
 import { UserAvatar } from '@/components/ui/UserAvatar';
+import { formatXP } from '@/lib/utils';
+import { STAGGER_DELAY } from '@/lib/game-config';
 
 interface FriendCardProps {
   id: string;
@@ -44,7 +46,7 @@ export default function FriendCard({
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
+      transition={{ delay: index * STAGGER_DELAY }}
     >
       <Link
         href={`/user/${id}`}
@@ -74,7 +76,7 @@ export default function FriendCard({
           </div>
           <div className="hidden sm:flex items-center gap-1">
             <Zap className="w-4 h-4 text-primary-500" />
-            <span className="text-sm font-bold text-surface-700">{totalXp.toLocaleString()}</span>
+            <span className="text-sm font-bold text-surface-700">{formatXP(totalXp)}</span>
           </div>
         </div>
       </Link>

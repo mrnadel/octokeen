@@ -1,22 +1,13 @@
 'use client';
 
-interface IconProps {
-  size?: number;
-  className?: string;
-}
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 /* ─────────────────────────────────────────────
    1. STATICS  — Balance scale with force arrows
    ───────────────────────────────────────────── */
 export const StaticsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-statics-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E8F8D4" />
@@ -72,21 +63,14 @@ export const StaticsIcon = ({ size = 64, className }: IconProps) => (
     {/* Rivet details on beam */}
     <circle cx="22" cy="31" r="1" fill="#2A6200" />
     <circle cx="42" cy="31" r="1" fill="#2A6200" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    2. DYNAMICS — Spring-mass-damper system
    ───────────────────────────────────────────── */
 export const DynamicsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-dynamics-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#F3E6FF" />
@@ -148,21 +132,14 @@ export const DynamicsIcon = ({ size = 64, className }: IconProps) => (
     {/* k and c labels */}
     <text x="20" y="19" fontSize="6" fontWeight="bold" fill="#7B2FBE" fontFamily="sans-serif">k</text>
     <text x="24" y="49" fontSize="6" fontWeight="bold" fill="#7B2FBE" fontFamily="sans-serif">c</text>
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    3. STRENGTH — I-beam with stress distribution
    ───────────────────────────────────────────── */
 export const StrengthIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-strength-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FFF0DB" />
@@ -210,21 +187,14 @@ export const StrengthIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="48" cy="45.5" r="1" fill="#B56E00" />
     {/* Sigma symbol */}
     <text x="55" y="34" fontSize="8" fontWeight="bold" fill="#B56E00" fontFamily="serif" opacity="0.7">σ</text>
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    4. THERMO — Piston-cylinder with heat flow
    ───────────────────────────────────────────── */
 export const ThermoIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-thermo-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#DDF4FF" />
@@ -285,21 +255,14 @@ export const ThermoIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="46" cy="24" r="1.2" fill="#444" />
     <circle cx="18" cy="50" r="1.2" fill="#444" />
     <circle cx="46" cy="50" r="1.2" fill="#444" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    5. HEAT TRANSFER — Conduction/Convection/Radiation
    ───────────────────────────────────────────── */
 export const HeatTransferIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-heat-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FFE5E5" />
@@ -357,21 +320,14 @@ export const HeatTransferIcon = ({ size = 64, className }: IconProps) => (
     <line x1="26" y1="44" x2="28" y2="48" stroke="#777" strokeWidth="0.5" opacity="0.4" />
     <line x1="30" y1="44" x2="32" y2="48" stroke="#777" strokeWidth="0.5" opacity="0.4" />
     <line x1="34" y1="44" x2="36" y2="48" stroke="#777" strokeWidth="0.5" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    6. FLUIDS — Venturi pipe with streamlines
    ───────────────────────────────────────────── */
 export const FluidsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-fluids-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E0F8F3" />
@@ -424,21 +380,14 @@ export const FluidsIcon = ({ size = 64, className }: IconProps) => (
     <line x1="6" y1="44" x2="6" y2="46" stroke="#999" strokeWidth="1.5" strokeLinecap="round" />
     <line x1="58" y1="18" x2="58" y2="20" stroke="#999" strokeWidth="1.5" strokeLinecap="round" />
     <line x1="58" y1="44" x2="58" y2="46" stroke="#999" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    7. MATERIALS — Crystal lattice with atomic bonds
    ───────────────────────────────────────────── */
 export const MaterialsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-materials-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FFE8F5" />
@@ -493,21 +442,14 @@ export const MaterialsIcon = ({ size = 64, className }: IconProps) => (
     {/* Highlight reflections on front atoms */}
     <circle cx="18.5" cy="16.5" r="1.2" fill="white" opacity="0.4" />
     <circle cx="42.5" cy="16.5" r="1.2" fill="white" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    8. MACHINE ELEMENTS — Meshing gears
    ───────────────────────────────────────────── */
 export const MachineElementsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-machine-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FFF5D4" />
@@ -587,21 +529,14 @@ export const MachineElementsIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="36" cy="30" r="1.5" fill="#CC9F00" opacity="0.6" />
     {/* Oil drop */}
     <path d="M36,46 Q38,42 40,46 Q38,49 36,46" fill="#FFC800" stroke="#CC9F00" strokeWidth="1" opacity="0.6" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    9. GDT — Feature control frame
    ───────────────────────────────────────────── */
 export const GDTIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-gdt-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#EDEAFF" />
@@ -655,21 +590,14 @@ export const GDTIcon = ({ size = 64, className }: IconProps) => (
     {/* Small bolt details */}
     <circle cx="8" cy="18" r="1" fill="#5C49CE" opacity="0.4" />
     <circle cx="56" cy="18" r="1" fill="#5C49CE" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    10. VIBRATIONS — Sine wave with damped oscillation
    ───────────────────────────────────────────── */
 export const VibrationsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-vib-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E8F8D4" />
@@ -719,21 +647,14 @@ export const VibrationsIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="18" cy="32" r="1.5" fill="#58CC02" />
     <circle cx="26" cy="32" r="1.5" fill="#58CC02" />
     <circle cx="32" cy="32" r="1.5" fill="#58CC02" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    11. MECHANISMS — Four-bar linkage
    ───────────────────────────────────────────── */
 export const MechanismsIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="topic-mech-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#D8F5EC" />
@@ -785,5 +706,5 @@ export const MechanismsIcon = ({ size = 64, className }: IconProps) => (
     <text x="49" y="34" fontSize="5" fontWeight="bold" fill="#009A74" fontFamily="sans-serif">3</text>
     {/* Angular velocity symbol */}
     <text x="6" y="34" fontSize="6" fill="#009A74" fontWeight="bold" fontFamily="serif">ω</text>
-  </svg>
+  </SVGIcon>
 );

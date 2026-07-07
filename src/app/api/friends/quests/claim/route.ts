@@ -1,39 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendQuests } from '@/lib/db/schema';
 import { eq, and, or } from 'drizzle-orm';
 import { friendQuestClaimSchema } from '@/lib/validation';
 import { pickFriendQuest } from '@/lib/friend-quests';
 import { insertActivity } from '@/lib/activity-feed';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 
 /**
  * POST /api/friends/quests/claim
  * Claim the reward for a completed friend quest.
  * Each user in the pair claims independently.
  */
-export async function POST(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export const POST = withAuth(async (req, { userId }) => {
+  const { data, error } = await parseBody(req, friendQuestClaimSchema);
+  if (error) return error;
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = friendQuestClaimSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
-      { status: 400 },
-    );
-  }
-
-  const { questId } = parsed.data;
+  const { questId } = data;
 
   // Get the quest: must belong to this user and be completed
   const [quest] = await db
@@ -49,10 +31,7 @@ export async function POST(req: NextRequest) {
     .limit(1);
 
   if (!quest) {
-    return NextResponse.json(
-      { error: 'Quest not found or not completed' },
-      { status: 404 },
-    );
+    return jsonError('Quest not found or not completed', 404);
   }
 
   // Determine which user is claiming
@@ -60,10 +39,7 @@ export async function POST(req: NextRequest) {
   const alreadyClaimed = isUserA ? quest.rewardClaimedUser : quest.rewardClaimedPartner;
 
   if (alreadyClaimed) {
-    return NextResponse.json(
-      { error: 'Reward already claimed' },
-      { status: 409 },
-    );
+    return jsonError('Reward already claimed', 409);
   }
 
   // Get reward amounts from quest definition
@@ -91,8 +67,8 @@ export async function POST(req: NextRequest) {
     partnerId,
   });
 
-  return NextResponse.json({
+  return jsonOk({
     ok: true,
     rewardGems: def.rewardGems,
   });
-}
+});

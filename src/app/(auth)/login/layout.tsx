@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Log In',
-  description: 'Sign in to your Octokeen account to continue learning and practicing.',
-  alternates: { canonical: '/login' },
-};
+export const metadata = createPrivateMetadata('Log In');
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   return children;

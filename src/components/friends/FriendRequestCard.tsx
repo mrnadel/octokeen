@@ -6,6 +6,7 @@ import { Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { STAGGER_DELAY } from '@/lib/game-config';
 
 interface FriendRequestCardProps {
   id: string;
@@ -102,7 +103,7 @@ export default function FriendRequestCard({
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
+      transition={{ delay: index * STAGGER_DELAY }}
       className="card-hover p-3 sm:p-4"
     >
       <div className="flex items-center gap-3">

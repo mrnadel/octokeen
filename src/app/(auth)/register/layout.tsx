@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Create Account',
-  description: 'Sign up for Octokeen and start learning for free across multiple professions.',
-  alternates: { canonical: '/register' },
-};
+export const metadata = createPrivateMetadata('Create Account');
 
 export default function RegisterLayout({ children }: { children: React.ReactNode }) {
   return children;

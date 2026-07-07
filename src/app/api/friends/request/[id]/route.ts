@@ -1,25 +1,17 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { db } from '@/lib/db';
 import { friendRequests, friendships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { sortFriendPair, isFriendCapReached } from '@/lib/db/friends';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 
 const patchSchema = z.object({
   action: z.enum(['accept', 'decline']),
 });
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const PATCH = withAuth(async (req, { userId }) => {
   const rl = rateLimit(`friend-request:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
     return NextResponse.json({ error: 'Too many requests' }, {
@@ -28,41 +20,33 @@ export async function PATCH(
     });
   }
 
-  const { id: requestId } = await params;
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
-  }
+  const requestId = req.nextUrl.pathname.split('/').pop()!;
 
-  const result = patchSchema.safeParse(body);
-  if (!result.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { action } = result.data;
+  const { data, error } = await parseBody(req, patchSchema);
+  if (error) return error;
+  const { action } = data;
 
-  const [req] = await db
+  const [pendingReq] = await db
     .select()
     .from(friendRequests)
     .where(and(eq(friendRequests.id, requestId), eq(friendRequests.receiverId, userId)))
     .limit(1);
 
-  if (!req) {
-    return NextResponse.json({ error: 'Request not found' }, { status: 404 });
+  if (!pendingReq) {
+    return jsonError('Request not found', 404);
   }
 
-  if (req.status !== 'pending') {
-    return NextResponse.json({ error: 'Request already handled' }, { status: 409 });
+  if (pendingReq.status !== 'pending') {
+    return jsonError('Request already handled', 409);
   }
 
   if (action === 'accept') {
-    const [low, high] = sortFriendPair(userId, req.senderId);
+    const [low, high] = sortFriendPair(userId, pendingReq.senderId);
 
     try {
       await db.transaction(async (tx) => {
         // Check caps inside transaction to prevent concurrent accepts exceeding the limit
-        if (await isFriendCapReached(userId) || await isFriendCapReached(req.senderId)) {
+        if (await isFriendCapReached(userId) || await isFriendCapReached(pendingReq.senderId)) {
           throw new Error('FRIEND_CAP');
         }
         await tx.insert(friendships).values({ userId: low, friendId: high });
@@ -73,12 +57,12 @@ export async function PATCH(
       });
     } catch (err) {
       if (err instanceof Error && err.message === 'FRIEND_CAP') {
-        return NextResponse.json({ error: 'Friends list full (max 50)' }, { status: 409 });
+        return jsonError('Friends list full (max 50)', 409);
       }
       throw err;
     }
 
-    return NextResponse.json({ status: 'accepted' });
+    return jsonOk({ status: 'accepted' });
   }
 
   await db
@@ -86,35 +70,27 @@ export async function PATCH(
     .set({ status: 'declined', updatedAt: new Date() })
     .where(eq(friendRequests.id, requestId));
 
-  return NextResponse.json({ status: 'declined' });
-}
+  return jsonOk({ status: 'declined' });
+});
 
-export async function DELETE(
-  _request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export const DELETE = withAuth(async (req, { userId }) => {
+  const requestId = req.nextUrl.pathname.split('/').pop()!;
 
-  const { id: requestId } = await params;
-
-  const [req] = await db
+  const [pendingReq] = await db
     .select()
     .from(friendRequests)
     .where(and(eq(friendRequests.id, requestId), eq(friendRequests.senderId, userId)))
     .limit(1);
 
-  if (!req) {
-    return NextResponse.json({ error: 'Request not found' }, { status: 404 });
+  if (!pendingReq) {
+    return jsonError('Request not found', 404);
   }
 
-  if (req.status !== 'pending') {
-    return NextResponse.json({ error: 'Cannot cancel non-pending request' }, { status: 409 });
+  if (pendingReq.status !== 'pending') {
+    return jsonError('Cannot cancel non-pending request', 409);
   }
 
   await db.delete(friendRequests).where(eq(friendRequests.id, requestId));
 
-  return NextResponse.json({ status: 'cancelled' });
-}
+  return jsonOk({ status: 'cancelled' });
+});

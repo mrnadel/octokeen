@@ -9,11 +9,7 @@ import { CURRENCY } from '@/data/currency';
 import { StreakFlame } from '@/components/icons/StreakFlame';
 import type { StreakMilestoneDefinition } from '@/data/engagement-types';
 import { streakMilestones } from '@/data/streak-milestones';
-import { GameButton } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
-import { ShareButton } from '@/components/ui/ShareButton';
-import { Mascot } from '@/components/ui/Mascot';
-import { getShareCardUrl, getShareText, getDisplayName } from '@/lib/share-card';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
 import {
   WeekWarriorIcon, FortnightFocusIcon, IronWillIcon, DiamondDedicationIcon, CenturionStreakIcon,
 } from '@/components/icons/StreakIcons';
@@ -36,23 +32,12 @@ export function StreakMilestone({ milestone, onClose }: Props) {
   useEffect(() => { playSound('streakMilestone'); }, []);
 
   return (
-    <FullScreenModal
-      show
+    <CelebrationModal
+      onClose={onClose}
       bg="#E8850C"
       fx="confetti"
       labelId="streak-milestone-title"
-      footer={
-        <div className="space-y-3">
-          <div className="flex justify-center">
-            <ShareButton
-              imageUrl={getShareCardUrl('streak', milestone.days, getDisplayName())}
-              shareText={getShareText('streak', milestone.days)}
-              fileName={`octokeen-streak-${milestone.days}.png`}
-            />
-          </div>
-          <GameButton variant="gold" onClick={onClose}>Continue</GameButton>
-        </div>
-      }
+      shareData={{ type: 'streak', value: milestone.days, fileName: `octokeen-streak-${milestone.days}.png` }}
     >
       <motion.div className="relative inline-flex items-center justify-center w-28 h-28 rounded-full mb-3" style={{ background: 'rgba(255,255,255,0.2)' }}
         initial={{ scale: 0.5, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 18, delay: 0.1 }}>
@@ -80,6 +65,6 @@ export function StreakMilestone({ milestone, onClose }: Props) {
       )}
 
       {next && <p className="text-xs text-white/50 mt-4">Next: <span className="font-bold text-white/80">{next.badgeName}</span> at {next.days} days</p>}
-    </FullScreenModal>
+    </CelebrationModal>
   );
 }

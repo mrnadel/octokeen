@@ -1,15 +1,9 @@
-import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
 import { eq, sql, desc, and } from 'drizzle-orm';
 
-export async function GET() {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
+export const GET = withAdminAuth(async () => {
   // Tier counts
   const tierCounts = await db
     .select({
@@ -85,7 +79,7 @@ export async function GET() {
     .orderBy(desc(paymentHistory.createdAt))
     .limit(20);
 
-  return NextResponse.json({
+  return jsonOk({
     overview: {
       free: counts.free,
       pro: counts.pro,
@@ -96,4 +90,4 @@ export async function GET() {
     subscriptions: subscriptionList,
     recentPayments,
   });
-}
+});

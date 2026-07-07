@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AvatarPlaceholder, FrameIconProps } from './utils';
+import { SVGIcon } from '../SVGIcon';
 
 // ============================================================================
 // SHOP FRAMES — Legendary
@@ -9,7 +10,7 @@ import { AvatarPlaceholder, FrameIconProps } from './utils';
 
 /** Singularity — legendary, dark void with indigo glow */
 export const FrameSingularity: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <radialGradient id="frame-singularity-void" cx="50%" cy="50%" r="50%">
         <stop offset="30%" stopColor="#1E1B4B" />
@@ -44,12 +45,12 @@ export const FrameSingularity: React.FC<FrameIconProps> = ({ size = 64, classNam
     <circle cx="10" cy="48" r="0.5" fill="#818CF8" opacity="0.4" />
     <circle cx="54" cy="16" r="0.5" fill="#818CF8" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Fusion Reactor — legendary, cyan energy core */
 export const FrameFusionReactor: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-fusion-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#A5F3FC" />
@@ -82,12 +83,12 @@ export const FrameFusionReactor: React.FC<FrameIconProps> = ({ size = 64, classN
     <circle cx="10" cy="54" r="0.8" fill="#67E8F9" opacity="0.5" />
     <circle cx="54" cy="54" r="0.8" fill="#67E8F9" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Supernova — legendary, golden explosion of brilliance */
 export const FrameSupernova: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-supernova-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FEF3C7" />
@@ -136,5 +137,5 @@ export const FrameSupernova: React.FC<FrameIconProps> = ({ size = 64, className 
     <circle cx="9" cy="55" r="1" fill="#FEF3C7" opacity="0.6" />
     <circle cx="55" cy="55" r="1" fill="#FEF3C7" opacity="0.6" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );

@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { eq, desc } from 'drizzle-orm';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { masteryEvents } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
-import { canStartPracticeSession, canAccessPracticeMode } from '@/lib/access-control';
+import { canStartPracticeSession } from '@/lib/access-control';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 
 const masteryEventSchema = z.object({
   id: z.string().min(1),
@@ -22,12 +22,7 @@ const masteryEventsBodySchema = z.object({
   events: z.array(masteryEventSchema).max(200),
 });
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }) => {
   // Limit to last 2000 events to reduce egress. Mastery computation
   // is dominated by recent activity anyway (spaced-repetition decay).
   const events = await db
@@ -46,15 +41,10 @@ export async function GET() {
     .orderBy(desc(masteryEvents.answeredAt))
     .limit(2000);
 
-  return NextResponse.json({ events });
-}
+  return jsonOk({ events });
+});
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`mastery:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
     return NextResponse.json({ error: 'Too many requests' }, {
@@ -67,31 +57,16 @@ export async function POST(request: NextRequest) {
   // Reject mastery events if the user has exceeded their daily question limit
   const limitCheck = await canStartPracticeSession(userId);
   if (!limitCheck.allowed) {
-    return NextResponse.json(
-      { error: 'Daily question limit reached', remaining: 0, limit: limitCheck.limit },
-      { status: 403 }
-    );
+    return jsonError('Daily question limit reached', 403);
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
+  const { data, error } = await parseBody(request, masteryEventsBodySchema);
+  if (error) return error;
 
-  const parsed = masteryEventsBodySchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
-      { status: 400 }
-    );
-  }
-
-  const { events } = parsed.data;
+  const { events } = data;
 
   if (events.length === 0) {
-    return NextResponse.json({ ok: true, inserted: 0 });
+    return jsonOk({ ok: true, inserted: 0 });
   }
 
   const rows = events.map((event) => ({
@@ -108,5 +83,5 @@ export async function POST(request: NextRequest) {
 
   await db.insert(masteryEvents).values(rows).onConflictDoNothing();
 
-  return NextResponse.json({ ok: true, inserted: rows.length });
-}
+  return jsonOk({ ok: true, inserted: rows.length });
+});

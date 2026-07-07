@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Practice',
-  description: 'Practice interview questions with adaptive, topic-based, and daily challenge modes.',
-  robots: { index: false },
-};
+export const metadata = createPrivateMetadata('Practice');
 
 export default function PracticeLayout({ children }: { children: React.ReactNode }) {
   return children;

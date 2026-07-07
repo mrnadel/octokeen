@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import { IconProps } from '../types';
 
-export type FrameIconProps = { size?: number; className?: string };
+export type FrameIconProps = IconProps;
 
 // ============================================================================
 // Helper: avatar placeholder circle (gray circle representing user avatar)

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users /* emailVerificationTokens */ } from '@/lib/db/schema';
+import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { registerSchema, getValidationError } from '@/lib/validation';
-// import { sendEmail } from '@/lib/email';
 import { logger } from '@/lib/logger';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,10 +39,7 @@ export async function POST(request: NextRequest) {
 
     if (existing.length > 0) {
       // Use generic message to prevent account enumeration
-      return NextResponse.json(
-        { error: 'Unable to create account. Please try a different email or sign in.' },
-        { status: 409 }
-      );
+      return jsonError('Unable to create account. Please try a different email or sign in.', 409);
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
@@ -61,27 +57,15 @@ export async function POST(request: NextRequest) {
       .returning({ id: users.id, email: users.email, displayName: users.displayName });
 
     // Email verification disabled — uncomment when email provider is configured
-    // const rawToken = crypto.randomBytes(32).toString('hex');
-    // const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
-    // const expiresAt = new Date(Date.now() + 24 * 60 * 60_000);
-    // db.insert(emailVerificationTokens)
-    //   .values({ userId: newUser.id, tokenHash, expiresAt })
-    //   .then(() => {
-    //     const baseUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    //     const verifyUrl = `${baseUrl}/verify-email?token=${rawToken}`;
-    //     return sendEmail({ to: email, subject: 'Verify your Octokeen email', html: `...` });
-    //   })
-    //   .catch((err) => console.error('Failed to send verification email:', err));
+    // When re-enabling, use generateToken() + hashToken() from '@/lib/auth-tokens'
+    // and getBaseUrl() for the verification URL.
 
-    return NextResponse.json(
+    return jsonOk(
       { user: { id: newUser.id, email: newUser.email, displayName: newUser.displayName } },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     logger.error('Registration error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return jsonError('Internal server error', 500);
   }
 }

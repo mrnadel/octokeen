@@ -1,6 +1,4 @@
-import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendRequests, users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
@@ -10,37 +8,24 @@ import {
   isFriendCapReached,
 } from '@/lib/db/friends';
 import { rateLimit } from '@/lib/rate-limit';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 
 const postSchema = z.object({
   receiverId: z.string().uuid(),
 });
 
-export async function POST(request: Request) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (req, { userId }) => {
   const rl = rateLimit(`friend-request:${userId}`, { limit: 20, windowMs: 3600_000 });
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return jsonError('Too many requests', 429);
   }
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
-  }
-
-  const result = postSchema.safeParse(body);
-  if (!result.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { receiverId } = result.data;
+  const { data, error } = await parseBody(req, postSchema);
+  if (error) return error;
+  const { receiverId } = data;
 
   if (receiverId === userId) {
-    return NextResponse.json({ error: 'Cannot send request to yourself' }, { status: 400 });
+    return jsonError('Cannot send request to yourself', 400);
   }
 
   const [receiver] = await db
@@ -50,30 +35,30 @@ export async function POST(request: Request) {
     .limit(1);
 
   if (!receiver) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    return jsonError('User not found', 404);
   }
 
   if (await areFriends(userId, receiverId)) {
-    return NextResponse.json({ error: 'Already friends' }, { status: 409 });
+    return jsonError('Already friends', 409);
   }
 
   if (await isFriendCapReached(userId)) {
-    return NextResponse.json({ error: 'Friends list full (max 50)' }, { status: 409 });
+    return jsonError('Friends list full (max 50)', 409);
   }
 
   const existing = await getExistingRequest(userId, receiverId);
   if (existing) {
     if (existing.status === 'pending') {
-      return NextResponse.json({ error: 'Request already exists' }, { status: 409 });
+      return jsonError('Request already exists', 409);
     }
     if (existing.status === 'accepted') {
-      return NextResponse.json({ error: 'Already friends' }, { status: 409 });
+      return jsonError('Already friends', 409);
     }
     if (existing.status === 'declined') {
       const updatedAt = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
       const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
       if (updatedAt > sevenDaysAgo) {
-        return NextResponse.json({ error: 'Cannot re-send yet, please wait' }, { status: 429 });
+        return jsonError('Cannot re-send yet, please wait', 429);
       }
       await db.delete(friendRequests).where(eq(friendRequests.id, existing.id));
     }
@@ -88,5 +73,5 @@ export async function POST(request: Request) {
     })
     .returning();
 
-  return NextResponse.json({ request: newRequest }, { status: 201 });
-}
+  return jsonOk({ request: newRequest }, { status: 201 });
+});

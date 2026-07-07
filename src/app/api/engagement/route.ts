@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { userProgress, gemTransactions, questProgress, subscriptions } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
+import { userProgress, gemTransactions, questProgress } from '@/lib/db/schema';
 import { engagementSyncSchema } from '@/lib/validation';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { insertActivity } from '@/lib/activity-feed';
+import { withAuth, parseBody, jsonOk } from '@/lib/api-helpers';
+import { getSubscription } from '@/lib/db/queries';
 
 // Hearts constants (must match client)
 const FREE_MAX_HEARTS = 5;
@@ -16,11 +17,7 @@ const MAX_STREAK_FREEZES = 2;
 
 /** Check if user is on a paid/trial tier (pro users have unlimited hearts). */
 async function isProUser(userId: string): Promise<boolean> {
-  const [sub] = await db
-    .select({ tier: subscriptions.tier, status: subscriptions.status, trialEnd: subscriptions.trialEnd })
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId))
-    .limit(1);
+  const sub = await getSubscription(userId);
   if (!sub) return false;
   if (sub.status === 'trialing') {
     const trialEnd = sub.trialEnd ? new Date(sub.trialEnd) : null;
@@ -128,12 +125,7 @@ async function computeGemBalanceFromLedger(userId: string) {
  * Returns the user's engagement state from the DB.
  * Gem balance is computed from the transaction ledger (server-authoritative).
  */
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }) => {
   const [progressRows, questRows, gemTotals, pro] = await Promise.all([
     db.select().from(userProgress).where(eq(userProgress.userId, userId)).limit(1),
     db.select().from(questProgress).where(eq(questProgress.userId, userId)),
@@ -171,20 +163,15 @@ export async function GET() {
     dailyRewardCalendar: progress?.dailyRewardCalendar ?? null,
   };
 
-  return NextResponse.json(engagement);
-}
+  return jsonOk(engagement);
+});
 
 /**
  * POST /api/engagement
  * Syncs engagement state from client to DB.
  * Server is authoritative: validates and caps all values.
  */
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`engagement:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
     return NextResponse.json({ error: 'Too many requests' }, {
@@ -193,22 +180,8 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = engagementSyncSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
-      { status: 400 },
-    );
-  }
-
-  const data = parsed.data;
+  const { data, error } = await parseBody(request, engagementSyncSchema);
+  if (error) return error;
 
   // 1. Validate and insert new gem transactions FIRST (before computing balance).
   //    Only transactions with known sources and valid amounts are accepted.
@@ -348,5 +321,5 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

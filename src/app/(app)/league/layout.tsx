@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'League',
-  description: 'Compete with other engineers in the Octokeen weekly league.',
-  robots: { index: false },
-};
+export const metadata = createPrivateMetadata('League');
 
 export default function LeagueLayout({ children }: { children: React.ReactNode }) {
   return children;

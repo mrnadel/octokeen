@@ -1,6 +1,7 @@
 import type { ShopItem } from './engagement-types';
 import { DOUBLE_XP_SHOP_DURATION_MS } from './engagement-types';
 import { MAX_HEARTS } from '@/lib/game-config';
+import { streakMilestones } from './streak-milestones';
 
 export const shopItems: ShopItem[] = [
   // --------------- Power-ups ---------------
@@ -489,13 +490,17 @@ const rewardFrames: RewardFrame[] = [
   { id: 'reward-frame-calendar-collector', name: 'Calendar Collector', icon: '📅', frameStyle: 'calendar-collector', source: 'Day 7 Mystery Reward', borderColor: '#8B5CF6', glowColor: 'rgba(139,92,246,0.4)' },
 ];
 
-// Reward titles (not purchasable)
-const rewardTitles: { id: string; name: string; titleText: string; icon: string; source: string }[] = [
-  { id: 'reward-title-consistent', name: 'Consistent', titleText: 'Consistent', icon: '⚡', source: '14-day streak' },
-  { id: 'reward-title-iron-will', name: 'Iron Will', titleText: 'Iron Will', icon: '🔥', source: '30-day streak' },
-  { id: 'reward-title-diamond-mind', name: 'Diamond Mind', titleText: 'Diamond Mind', icon: '💎', source: '60-day streak' },
-  { id: 'reward-title-centurion', name: 'Centurion', titleText: 'Centurion', icon: '👑', source: '100-day streak' },
-];
+// Reward titles (not purchasable) — derived from streak milestones to avoid duplication
+const rewardTitles: { id: string; name: string; titleText: string; icon: string; source: string }[] =
+  streakMilestones
+    .filter((m) => m.hasTitle && m.titleId && m.titleText)
+    .map((m) => ({
+      id: m.titleId!,
+      name: m.titleText!,
+      titleText: m.titleText!,
+      icon: m.badgeIcon,
+      source: `${m.days}-day streak`,
+    }));
 
 // ─── Lookup helpers ───
 

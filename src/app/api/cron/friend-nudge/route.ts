@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import {
   pushSubscriptions,
@@ -9,6 +8,7 @@ import {
 } from '@/lib/db/schema';
 import { eq, and, gt, or, sql } from 'drizzle-orm';
 import { sendPushNotification } from '@/lib/push';
+import { withCronAuth, jsonOk } from '@/lib/api-helpers';
 
 /**
  * Friend nudge cron — runs daily at 8 PM UTC (1 hour after streak-reminder).
@@ -19,16 +19,7 @@ import { sendPushNotification } from '@/lib/push';
  * so a user only matches once per inactivity period. If they don't return, they fall
  * to 3+ days away and stop matching. Max 50 users processed per run.
  */
-export async function GET(req: Request) {
-  const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret) {
-    return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
-  }
-  const authHeader = req.headers.get('authorization');
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withCronAuth(async () => {
   const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
   const oneWeekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
   const today = new Date().toISOString().split('T')[0];
@@ -124,5 +115,5 @@ export async function GET(req: Request) {
     }
   }
 
-  return NextResponse.json({ sent, failed, skipped, total: atRiskUsers.length });
-}
+  return jsonOk({ sent, failed, skipped, total: atRiskUsers.length });
+});

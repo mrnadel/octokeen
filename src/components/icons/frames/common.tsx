@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AvatarPlaceholder, FrameIconProps } from './utils';
+import { SVGIcon } from '../SVGIcon';
 
 // ============================================================================
 // SHOP FRAMES — Common
@@ -9,7 +10,7 @@ import { AvatarPlaceholder, FrameIconProps } from './utils';
 
 /** Gold Ring — common, metallic gold ring */
 export const FrameGoldRing: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-gold-ring-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDE68A" />
@@ -20,12 +21,12 @@ export const FrameGoldRing: React.FC<FrameIconProps> = ({ size = 64, className }
     <circle cx="32" cy="32" r="28" stroke="url(#frame-gold-ring-grad)" strokeWidth="4" fill="none" />
     <circle cx="32" cy="32" r="24" stroke="#F59E0B" strokeWidth="1" fill="none" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Emerald Halo — common, soft green glow */
 export const FrameEmeraldHalo: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <radialGradient id="frame-emerald-halo-glow" cx="50%" cy="50%" r="50%">
         <stop offset="60%" stopColor="transparent" />
@@ -41,12 +42,12 @@ export const FrameEmeraldHalo: React.FC<FrameIconProps> = ({ size = 64, classNam
     <circle cx="32" cy="32" r="26" stroke="url(#frame-emerald-halo-ring)" strokeWidth="3" fill="none" />
     <circle cx="32" cy="32" r="28.5" stroke="#10B981" strokeWidth="0.5" fill="none" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Ruby Blaze — common, fiery red energy */
 export const FrameRubyBlaze: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-ruby-blaze-grad" x1="32" y1="0" x2="32" y2="64">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -65,12 +66,12 @@ export const FrameRubyBlaze: React.FC<FrameIconProps> = ({ size = 64, className 
     <path d="M10 54 L14 52 L12 50 Z" fill="#EF4444" opacity="0.5" />
     <path d="M54 54 L50 52 L52 50 Z" fill="#EF4444" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Sapphire Wave — common, deep blue */
 export const FrameSapphireWave: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-sapphire-wave-grad" x1="0" y1="32" x2="64" y2="32">
         <stop offset="0%" stopColor="#93C5FD" />
@@ -83,12 +84,12 @@ export const FrameSapphireWave: React.FC<FrameIconProps> = ({ size = 64, classNa
     <path d="M7 28 Q12 24 17 28 Q22 32 27 28" stroke="#3B82F6" strokeWidth="1.5" fill="none" opacity="0.4" />
     <path d="M37 36 Q42 32 47 36 Q52 40 57 36" stroke="#3B82F6" strokeWidth="1.5" fill="none" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Brushed Steel — common, simple gray metallic */
 export const FrameBrushedSteel: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-steel-grad" x1="0" y1="0" x2="64" y2="0">
         <stop offset="0%" stopColor="#D4D4D8" />
@@ -100,12 +101,12 @@ export const FrameBrushedSteel: React.FC<FrameIconProps> = ({ size = 64, classNa
     </defs>
     <circle cx="32" cy="32" r="27" stroke="url(#frame-steel-grad)" strokeWidth="4" fill="none" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Copper Pipe — common, warm copper tones */
 export const FrameCopperPipe: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-copper-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FBBF24" />
@@ -119,12 +120,12 @@ export const FrameCopperPipe: React.FC<FrameIconProps> = ({ size = 64, className
     <circle cx="14" cy="18" r="1.5" fill="#059669" opacity="0.3" />
     <circle cx="50" cy="46" r="1" fill="#059669" opacity="0.25" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Hex Bolt — common, hexagonal mechanical frame */
 export const FrameHexBolt: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-bolt-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#A1A1AA" />
@@ -145,12 +146,12 @@ export const FrameHexBolt: React.FC<FrameIconProps> = ({ size = 64, className })
     <circle cx="8" cy="46" r="2" fill="#71717A" />
     <circle cx="8" cy="18" r="2" fill="#71717A" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Blueprint Border — common, white lines on blue */
 export const FrameBlueprintBorder: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-blueprint-bg" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#1E40AF" />
@@ -174,12 +175,12 @@ export const FrameBlueprintBorder: React.FC<FrameIconProps> = ({ size = 64, clas
     <line x1="18" y1="58" x2="18" y2="61" stroke="white" strokeWidth="0.3" opacity="0.3" />
     <line x1="46" y1="58" x2="46" y2="61" stroke="white" strokeWidth="0.3" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Titanium Band — common, light metallic gray */
 export const FrameTitaniumBand: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-titanium-grad" x1="0" y1="0" x2="0" y2="64">
         <stop offset="0%" stopColor="#E4E4E7" />
@@ -193,12 +194,12 @@ export const FrameTitaniumBand: React.FC<FrameIconProps> = ({ size = 64, classNa
     <circle cx="32" cy="32" r="29.5" stroke="#A1A1AA" strokeWidth="0.5" fill="none" opacity="0.3" />
     <circle cx="32" cy="32" r="24.5" stroke="#A1A1AA" strokeWidth="0.5" fill="none" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Rivet Ring — common, ring with rivet dots */
 export const FrameRivetRing: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-rivet-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#A8A29E" />
@@ -219,12 +220,12 @@ export const FrameRivetRing: React.FC<FrameIconProps> = ({ size = 64, className 
       return <circle key={angle} cx={x} cy={y} r="2" fill="url(#frame-rivet-dot)" stroke="#57534E" strokeWidth="0.5" />;
     })}
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Cast Iron — common, heavy dark frame */
 export const FrameCastIron: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-castiron-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#78716C" />
@@ -237,12 +238,12 @@ export const FrameCastIron: React.FC<FrameIconProps> = ({ size = 64, className }
     <circle cx="32" cy="32" r="29" stroke="#44403C" strokeWidth="0.5" fill="none" opacity="0.5" strokeDasharray="2 3" />
     <circle cx="32" cy="32" r="25" stroke="#44403C" strokeWidth="0.5" fill="none" opacity="0.5" strokeDasharray="2 3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Coil Spring — common, spring coil pattern */
 export const FrameCoilSpring: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-spring-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#6EE7B7" />
@@ -255,12 +256,12 @@ export const FrameCoilSpring: React.FC<FrameIconProps> = ({ size = 64, className
     <circle cx="32" cy="32" r="24" stroke="#10B981" strokeWidth="1.5" fill="none" opacity="0.4" strokeDasharray="6 3" strokeDashoffset="4" />
     <circle cx="32" cy="32" r="30" stroke="#10B981" strokeWidth="1.5" fill="none" opacity="0.3" strokeDasharray="6 3" strokeDashoffset="8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Gear Teeth — common, gear-toothed ring */
 export const FrameGearTeeth: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-gear-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#A8A29E" />
@@ -287,12 +288,12 @@ export const FrameGearTeeth: React.FC<FrameIconProps> = ({ size = 64, className 
       );
     })}
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Gasket Seal — common, red rubber gasket ring */
 export const FrameGasketSeal: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-gasket-grad" x1="0" y1="0" x2="0" y2="64">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -306,12 +307,12 @@ export const FrameGasketSeal: React.FC<FrameIconProps> = ({ size = 64, className
     {/* compression marks */}
     <circle cx="32" cy="32" r="27" stroke="#7F1D1D" strokeWidth="0.4" fill="none" strokeDasharray="1 5" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Bare Wire — common, thin gold wire */
 export const FrameBareWire: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-wire-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDE68A" />
@@ -327,12 +328,12 @@ export const FrameBareWire: React.FC<FrameIconProps> = ({ size = 64, className }
     <line x1="5" y1="30" x2="3" y2="28" stroke="#F59E0B" strokeWidth="1" opacity="0.6" />
     <line x1="5" y1="34" x2="3" y2="36" stroke="#F59E0B" strokeWidth="1" opacity="0.6" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Concrete Ring — common, solid gray ring */
 export const FrameConcreteRing: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-concrete-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#D4D4D4" />
@@ -349,7 +350,7 @@ export const FrameConcreteRing: React.FC<FrameIconProps> = ({ size = 64, classNa
     <circle cx="32" cy="4" r="0.5" fill="#737373" opacity="0.3" />
     <circle cx="32" cy="60" r="0.6" fill="#737373" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 // ============================================================================
@@ -358,7 +359,7 @@ export const FrameConcreteRing: React.FC<FrameIconProps> = ({ size = 64, classNa
 
 /** Diamond Aura — rare, prismatic indigo glow */
 export const FrameDiamondAura: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <radialGradient id="frame-diamond-aura-glow" cx="50%" cy="50%" r="50%">
         <stop offset="50%" stopColor="transparent" />
@@ -382,12 +383,12 @@ export const FrameDiamondAura: React.FC<FrameIconProps> = ({ size = 64, classNam
     <circle cx="32" cy="61" r="1" fill="#818CF8" opacity="0.7" />
     <circle cx="3" cy="32" r="1" fill="#818CF8" opacity="0.7" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Sunset Gradient — rare, warm orange-to-pink */
 export const FrameSunsetGradient: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-sunset-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDE68A" />
@@ -404,12 +405,12 @@ export const FrameSunsetGradient: React.FC<FrameIconProps> = ({ size = 64, class
     <circle cx="32" cy="32" r="31" fill="url(#frame-sunset-glow)" />
     <circle cx="32" cy="32" r="26" stroke="url(#frame-sunset-grad)" strokeWidth="3.5" fill="none" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Torque Wrench — rare, wrench-shaped mechanical frame */
 export const FrameTorqueWrench: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-wrench-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -434,12 +435,12 @@ export const FrameTorqueWrench: React.FC<FrameIconProps> = ({ size = 64, classNa
       return <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#64748B" strokeWidth="1" opacity="0.5" />;
     })}
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Piston Ring — rare, engine piston style */
 export const FramePistonRing: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-piston-grad" x1="0" y1="0" x2="0" y2="64">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -458,12 +459,12 @@ export const FramePistonRing: React.FC<FrameIconProps> = ({ size = 64, className
     <line x1="4" y1="20" x2="4" y2="44" stroke="#DC2626" strokeWidth="0.5" opacity="0.2" />
     <line x1="60" y1="20" x2="60" y2="44" stroke="#DC2626" strokeWidth="0.5" opacity="0.2" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Circuit Board — rare, PCB traces */
 export const FrameCircuitBoard: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-circuit-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#4ADE80" />
@@ -492,12 +493,12 @@ export const FrameCircuitBoard: React.FC<FrameIconProps> = ({ size = 64, classNa
     <circle cx="54" cy="4" r="1" fill="#22C55E" opacity="0.6" />
     <circle cx="10" cy="60" r="1" fill="#22C55E" opacity="0.6" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Thermal Gradient — rare, hot-to-cold heat map */
 export const FrameThermalGradient: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-thermal-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#EF4444" />
@@ -518,12 +519,12 @@ export const FrameThermalGradient: React.FC<FrameIconProps> = ({ size = 64, clas
     <line x1="8" y1="8" x2="10" y2="10" stroke="#EF4444" strokeWidth="1" opacity="0.5" />
     <line x1="56" y1="56" x2="54" y2="54" stroke="#3B82F6" strokeWidth="1" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Weld Bead — rare, welded golden seam */
 export const FrameWeldBead: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-weld-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDE68A" />
@@ -547,5 +548,5 @@ export const FrameWeldBead: React.FC<FrameIconProps> = ({ size = 64, className }
     <circle cx="48" cy="12" r="0.6" fill="#FDE68A" opacity="0.5" />
     <circle cx="16" cy="52" r="0.6" fill="#FDE68A" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );

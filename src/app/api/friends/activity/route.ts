@@ -1,9 +1,9 @@
-import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { activityFeed, activityReactions, friendships, users } from '@/lib/db/schema';
 import { eq, or, and, inArray, desc, sql } from 'drizzle-orm';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { getFriendIds } from '@/lib/db/queries';
 
 const reactSchema = z.object({
   activityId: z.string().min(1),
@@ -13,21 +13,10 @@ const reactSchema = z.object({
  * GET /api/friends/activity — Get activity feed for the user's friends.
  * Returns last 20 activities from friends, with reaction counts.
  */
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  // Get friend IDs
-  const rows = await db
-    .select({ usrId: friendships.userId, frnId: friendships.friendId })
-    .from(friendships)
-    .where(or(eq(friendships.userId, userId), eq(friendships.friendId, userId)));
-
-  const friendIds = rows.map((r) => (r.usrId === userId ? r.frnId : r.usrId));
+export const GET = withAuth(async (_req, { userId }) => {
+  const friendIds = await getFriendIds(userId);
   if (friendIds.length === 0) {
-    return NextResponse.json({ activities: [] });
+    return jsonOk({ activities: [] });
   }
 
   // Get recent activities from friends
@@ -48,7 +37,7 @@ export async function GET() {
     .limit(20);
 
   if (activities.length === 0) {
-    return NextResponse.json({ activities: [] });
+    return jsonOk({ activities: [] });
   }
 
   // Get reaction counts and whether current user reacted
@@ -80,31 +69,17 @@ export async function GET() {
     };
   });
 
-  return NextResponse.json({ activities: enriched });
-}
+  return jsonOk({ activities: enriched });
+});
 
 /**
  * POST /api/friends/activity/react — React (high-five) to an activity.
  * Body: { activityId: string }
  */
-export async function POST(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = reactSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Missing activityId' }, { status: 400 });
-  }
-  const { activityId } = parsed.data;
+export const POST = withAuth(async (req, { userId }) => {
+  const { data, error } = await parseBody(req, reactSchema);
+  if (error) return error;
+  const { activityId } = data;
 
   // Verify the activity exists and belongs to a friend
   const [activity] = await db
@@ -114,7 +89,7 @@ export async function POST(req: NextRequest) {
     .limit(1);
 
   if (!activity) {
-    return NextResponse.json({ error: 'Activity not found' }, { status: 404 });
+    return jsonError('Activity not found', 404);
   }
 
   // Check friendship
@@ -130,7 +105,7 @@ export async function POST(req: NextRequest) {
     .limit(1);
 
   if (!friendship) {
-    return NextResponse.json({ error: 'Not friends' }, { status: 403 });
+    return jsonError('Not friends', 403);
   }
 
   // Insert reaction (ignore if already exists)
@@ -139,5 +114,5 @@ export async function POST(req: NextRequest) {
     userId,
   }).onConflictDoNothing();
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

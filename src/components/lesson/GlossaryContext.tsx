@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import { GlossaryMatcher } from '@/lib/glossary-matcher';
+import { GlossaryMatcher, type GlossaryEntryInfo } from '@/lib/glossary-matcher';
 import { getGlossary } from '@/data/course/glossary';
 import { GlossaryPopover } from '@/components/ui/GlossaryPopover';
 import { useCourseStore } from '@/store/useCourseStore';
@@ -11,7 +11,7 @@ interface GlossaryContextValue {
   sectionIndex: number | undefined;
   accentColor: string;
   activeTerm: string | null;
-  openPopover: (entry: { term: string; definition: string; relatedTerms?: string[] }, rect: DOMRect) => void;
+  openPopover: (entry: GlossaryEntryInfo, rect: DOMRect) => void;
 }
 
 const Ctx = createContext<GlossaryContextValue>({
@@ -36,7 +36,7 @@ export function GlossaryProvider({ sectionIndex, accentColor, children }: Glossa
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const [matcher, setMatcher] = useState<GlossaryMatcher | null>(null);
   const [popover, setPopover] = useState<{
-    entry: { term: string; definition: string; relatedTerms?: string[] };
+    entry: GlossaryEntryInfo;
     rect: DOMRect;
   } | null>(null);
 
@@ -51,7 +51,7 @@ export function GlossaryProvider({ sectionIndex, accentColor, children }: Glossa
   }, [activeProfession]);
 
   const openPopover = useCallback(
-    (entry: { term: string; definition: string; relatedTerms?: string[] }, rect: DOMRect) => {
+    (entry: GlossaryEntryInfo, rect: DOMRect) => {
       setPopover({ entry, rect });
     },
     [],

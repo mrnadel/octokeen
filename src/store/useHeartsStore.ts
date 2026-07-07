@@ -5,6 +5,7 @@ import { persist } from 'zustand/middleware';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { MAX_HEARTS, HEART_REGEN_INTERVAL_MS } from '@/lib/game-config';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { getEffectiveTier as getEffectiveTierShared } from '@/lib/store-helpers';
 
 interface HeartsState {
   current: number;
@@ -21,12 +22,7 @@ interface HeartsState {
 }
 
 function getEffectiveTier() {
-  const subStore = useSubscriptionStore.getState();
-  const isDev = process.env.NODE_ENV === 'development';
-  const activeTier = isDev && subStore.debugTierOverride ? subStore.debugTierOverride : subStore.tier;
-  const isTrialing = subStore.status === 'trialing';
-  const isPastDue = subStore.status === 'past_due';
-  return (isTrialing || isPastDue) ? 'pro' : activeTier;
+  return getEffectiveTierShared(useSubscriptionStore.getState());
 }
 
 export const useHeartsStore = create<HeartsState>()(

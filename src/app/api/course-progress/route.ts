@@ -1,30 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, courseProgress } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { getLessonByIdMeta } from '@/data/course/api';
 import { courseProgressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
 import { incrementDailyUsageBatch } from '@/lib/access-control';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { getUserById } from '@/lib/db/queries';
 import type { CourseProgress } from '@/data/course/types';
 import { PROFESSION_ID } from '@/data/professions';
 import { logger } from '@/lib/logger';
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, userId))
-    .limit(1);
-
+export const GET = withAuth(async (_req, { userId }) => {
+  const user = await getUserById(userId);
   if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    return jsonError('User not found', 404);
   }
 
   const [progress] = await db
@@ -47,34 +37,20 @@ export async function GET() {
       (progress?.courseIntros as CourseProgress['courseIntros']) ?? undefined,
   };
 
-  return NextResponse.json({
+  return jsonOk({
     progress: assembled,
     activeProfession: progress?.activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
   });
-}
+});
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export const POST = withAuth(async (request, { userId }) => {
+  const { data: body, error } = await parseBody(request, courseProgressSyncSchema);
+  if (error) {
+    // Log validation failures for debugging sync issues
+    logger.error('course-progress validation failed');
+    return error;
   }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-  const parsed = courseProgressSyncSchema.safeParse(body);
-  if (!parsed.success) {
-    const issue = parsed.error.issues[0];
-    logger.error('course-progress validation failed:', JSON.stringify({ path: issue?.path, message: issue?.message, code: issue?.code }));
-    return NextResponse.json(
-      { error: 'Invalid input', details: issue?.message, path: issue?.path },
-      { status: 400 }
-    );
-  }
-  const { progress, activeProfession } = parsed.data as unknown as {
+  const { progress, activeProfession } = body as unknown as {
     progress: CourseProgress;
     activeProfession?: string;
   };
@@ -144,5 +120,5 @@ export async function POST(request: NextRequest) {
     .set({ displayName: progress.displayName, updatedAt: new Date() })
     .where(eq(users.id, userId));
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

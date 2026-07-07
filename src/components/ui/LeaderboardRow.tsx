@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { formatXP } from '@/lib/utils';
 
 interface LeaderboardRowProps {
   rank: number;
@@ -82,7 +83,7 @@ export function LeaderboardRow({
       <div className="flex items-center gap-1 flex-shrink-0">
         {trailing}
         <span className="text-sm font-bold text-gray-600 dark:text-surface-300 min-w-[60px] text-right">
-          {xp} XP
+          {formatXP(xp)} XP
         </span>
       </div>
     </div>

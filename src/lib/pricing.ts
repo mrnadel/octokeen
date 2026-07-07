@@ -4,6 +4,7 @@
 
 import type {
   SubscriptionTier,
+  SubscriptionStatus,
 } from './subscription';
 
 // --------------- Paddle Price IDs ---------------
@@ -94,6 +95,7 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
       FEATURES.DOUBLE_XP_WEEKENDS,
       FEATURES.DETAILED_EXPLANATIONS,
       FEATURES.PREMIUM_LEAGUE_REWARDS,
+      FEATURES.NO_ADS,
       FEATURES.PRACTICE_MISTAKES,
       FEATURES.PRACTICE_REVIEW,
     ],
@@ -118,3 +120,44 @@ export function getYearlySavingsPercent(tier: SubscriptionTier): number {
   const monthlyCostPerYear = def.priceMonthly * 12;
   return Math.round(((monthlyCostPerYear - def.priceYearly) / monthlyCostPerYear) * 100);
 }
+
+// --------------- Tier Resolution ---------------
+
+/**
+ * Resolve the subscription tier from a Paddle price ID.
+ * Pass the known monthly and yearly Pro price IDs to keep this a pure function.
+ */
+export function tierFromPriceId(
+  priceId: string | null,
+  proMonthlyPriceId: string | undefined,
+  proYearlyPriceId: string | undefined,
+): SubscriptionTier {
+  if (priceId === proMonthlyPriceId || priceId === proYearlyPriceId) return 'pro';
+  return 'free';
+}
+
+/**
+ * Get the features available for a tier.
+ * Single source of truth — used by both client (useSubscription) and server.
+ */
+export function getTierFeatures(tier: SubscriptionTier): Feature[] {
+  return [...TIERS[tier].features];
+}
+
+// --------------- Free Tier Default Response ---------------
+
+/**
+ * Default API response for users with no subscription record.
+ * Shared by paddle/subscription route and any other endpoint that
+ * needs to return a default free-tier subscription shape.
+ */
+export const FREE_TIER_RESPONSE = {
+  subscription: {
+    tier: 'free' as SubscriptionTier,
+    status: 'active' as SubscriptionStatus,
+    billingInterval: null,
+    currentPeriodEnd: null,
+    trialEnd: null,
+    cancelAtPeriodEnd: false,
+  },
+} as const;

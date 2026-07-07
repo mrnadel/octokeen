@@ -1,6 +1,7 @@
 // SVG diagram celestial bodies
 
 import { sunGradient, glowGradient, earthGlow, galaxyGradient, blurFilter } from './defs';
+import { specularHighlight } from './helpers';
 
 /** Golden Sun with glow */
 export function sun(
@@ -64,7 +65,7 @@ export function earth(
     `<ellipse cx="${cx + r * 0.25}" cy="${cy + r * 0.3}" rx="${r * 0.15}" ry="${r * 0.12}" fill="${continentColor}" opacity="0.7"/>`,
     `</g>`,
     // Specular highlight
-    `<ellipse cx="${cx - r * 0.25}" cy="${cy - r * 0.25}" rx="${r * 0.35}" ry="${r * 0.25}" fill="white" opacity="0.08"/>`,
+    specularHighlight(cx, cy, r, { dx: -0.25, dy: -0.25 }),
   ].join('');
 
   return { defs, body };
@@ -115,7 +116,7 @@ export function planet(
 ): string {
   return [
     `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}"/>`,
-    `<ellipse cx="${cx - r * 0.2}" cy="${cy - r * 0.2}" rx="${r * 0.4}" ry="${r * 0.3}" fill="white" opacity="0.08"/>`,
+    specularHighlight(cx, cy, r, { rx: 0.4, ry: 0.3 }),
   ].join('');
 }
 
@@ -136,7 +137,7 @@ export function saturn(
     // Band detail
     `<ellipse cx="${cx}" cy="${cy + r * 0.1}" rx="${r * 0.95}" ry="${r * 0.15}" fill="#D4A057" opacity="0.4"/>`,
     // Specular
-    `<ellipse cx="${cx - r * 0.2}" cy="${cy - r * 0.2}" rx="${r * 0.35}" ry="${r * 0.25}" fill="white" opacity="0.08"/>`,
+    specularHighlight(cx, cy, r),
     // Ring in front (upper arc clipped by planet)
     `<ellipse cx="${cx}" cy="${cy}" rx="${ringW}" ry="${ringH}" fill="none" stroke="${color}" stroke-opacity="0.25" stroke-width="${r * 0.08}" stroke-dasharray="${ringW * 0.5} ${ringW * 3}"/>`,
   ].join('');

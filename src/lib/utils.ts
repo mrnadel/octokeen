@@ -14,6 +14,10 @@ export function formatNumber(num: number): string {
   return num.toString();
 }
 
+export function formatXP(xp: number): string {
+  return xp.toLocaleString();
+}
+
 export function formatDuration(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;

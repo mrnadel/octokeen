@@ -1,24 +1,14 @@
-import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
-import { friendships, users, userProgress, leagueState, sessionHistory } from '@/lib/db/schema';
-import { eq, or, inArray, desc, and, sql } from 'drizzle-orm';
+import { users, userProgress, leagueState, sessionHistory } from '@/lib/db/schema';
+import { eq, inArray, desc, and, sql } from 'drizzle-orm';
+import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { getFriendIds } from '@/lib/db/queries';
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const rows = await db
-    .select({ usrId: friendships.userId, frnId: friendships.friendId })
-    .from(friendships)
-    .where(or(eq(friendships.userId, userId), eq(friendships.friendId, userId)));
-
-  const friendIds = rows.map((r) => (r.usrId === userId ? r.frnId : r.usrId));
+export const GET = withAuth(async (_req, { userId }) => {
+  const friendIds = await getFriendIds(userId);
 
   if (friendIds.length === 0) {
-    return NextResponse.json({ friends: [] });
+    return jsonOk({ friends: [] });
   }
 
   const friends = await db
@@ -61,5 +51,5 @@ export async function GET() {
     todayXp: todayXpMap.get(f.id) ?? 0,
   }));
 
-  return NextResponse.json({ friends: result });
-}
+  return jsonOk({ friends: result });
+});

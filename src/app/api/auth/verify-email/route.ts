@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
-import { eq, and, isNull, gt } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users, emailVerificationTokens } from '@/lib/db/schema';
+import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { hashToken, validateToken, markTokenUsed } from '@/lib/auth-tokens';
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
@@ -24,19 +24,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Token is required' }, { status: 400 });
   }
 
-  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+  const tokenHash = hashToken(token);
 
-  const [verifyToken] = await db
-    .select()
-    .from(emailVerificationTokens)
-    .where(
-      and(
-        eq(emailVerificationTokens.tokenHash, tokenHash),
-        isNull(emailVerificationTokens.usedAt),
-        gt(emailVerificationTokens.expiresAt, new Date()),
-      )
-    )
-    .limit(1);
+  // Find valid, unused, non-expired token
+  const verifyToken = await validateToken('emailVerification', tokenHash);
 
   if (!verifyToken) {
     return NextResponse.json(
@@ -52,10 +43,7 @@ export async function POST(request: NextRequest) {
     .where(eq(users.id, verifyToken.userId));
 
   // Mark token as used
-  await db
-    .update(emailVerificationTokens)
-    .set({ usedAt: new Date() })
-    .where(eq(emailVerificationTokens.id, verifyToken.id));
+  await markTokenUsed('emailVerification', verifyToken.id);
 
   return NextResponse.json({ message: 'Email verified successfully.' });
 }

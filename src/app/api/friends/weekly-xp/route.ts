@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
-import { friendships, users, sessionHistory } from '@/lib/db/schema';
-import { eq, or, inArray, and, gte, sql } from 'drizzle-orm';
+import { users, sessionHistory } from '@/lib/db/schema';
+import { eq, inArray, and, gte, sql } from 'drizzle-orm';
+import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { getFriendIds } from '@/lib/db/queries';
 
 function getWeekStart(): string {
   const now = new Date();
@@ -13,19 +13,8 @@ function getWeekStart(): string {
   return monday.toISOString().split('T')[0];
 }
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  // Get friend IDs
-  const rows = await db
-    .select({ usrId: friendships.userId, frnId: friendships.friendId })
-    .from(friendships)
-    .where(or(eq(friendships.userId, userId), eq(friendships.friendId, userId)));
-
-  const friendIds = rows.map((r) => (r.usrId === userId ? r.frnId : r.usrId));
+export const GET = withAuth(async (_req, { userId }) => {
+  const friendIds = await getFriendIds(userId);
   const allIds = [userId, ...friendIds];
 
   const weekStart = getWeekStart();
@@ -62,5 +51,5 @@ export async function GET() {
     }))
     .sort((a, b) => b.weeklyXp - a.weeklyXp);
 
-  return NextResponse.json({ leaderboard });
-}
+  return jsonOk({ leaderboard });
+});

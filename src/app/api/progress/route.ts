@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { eq, desc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
@@ -7,35 +7,28 @@ import {
   topicProgress as topicProgressTable,
   sessionHistory,
 } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { incrementDailyUsageBatch, canStartPracticeSession } from '@/lib/access-control';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { progressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
+import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { getUserById, getUserProgress } from '@/lib/db/queries';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }) => {
   // Fetch all user data in parallel instead of sequentially
   // Limit session history to last 100 entries to reduce egress
-  const [userRows, progressRows, topics, sessions] = await Promise.all([
-    db.select().from(users).where(eq(users.id, userId)).limit(1),
-    db.select().from(userProgress).where(eq(userProgress.userId, userId)).limit(1),
+  const [user, progress, topics, sessions] = await Promise.all([
+    getUserById(userId),
+    getUserProgress(userId),
     db.select().from(topicProgressTable).where(eq(topicProgressTable.userId, userId)),
     db.select().from(sessionHistory).where(eq(sessionHistory.userId, userId))
       .orderBy(desc(sessionHistory.date)).limit(100),
   ]);
 
-  const user = userRows[0];
   if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    return jsonError('User not found', 404);
   }
-
-  const progress = progressRows[0];
 
   // Assemble into UserProgress shape
   const topicProgressData: TopicProgress[] = topics.map((t) => ({
@@ -79,15 +72,10 @@ export async function GET() {
     strongAreas: (progress?.strongAreas as string[]) ?? [],
   };
 
-  return NextResponse.json({ progress: assembled });
-}
+  return jsonOk({ progress: assembled });
+});
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`progress:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
     return NextResponse.json({ error: 'Too many requests' }, {
@@ -96,20 +84,9 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-  const parsed = progressSyncSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
-      { status: 400 }
-    );
-  }
-  const { progress } = parsed.data as { progress: UserProgress };
+  const { data: body, error } = await parseBody(request, progressSyncSchema);
+  if (error) return error;
+  const { progress } = body as { progress: UserProgress };
 
   // Upsert user_progress row
   const existing = await db
@@ -201,10 +178,7 @@ export async function POST(request: NextRequest) {
     const todayQuestionsAttempted = todaySessions.reduce((sum, s) => sum + s.questionsAttempted, 0);
 
     if (!limitCheck.allowed && todayQuestionsAttempted > 0) {
-      return NextResponse.json(
-        { error: 'Daily question limit reached', remaining: 0, limit: limitCheck.limit },
-        { status: 403 }
-      );
+      return jsonError('Daily question limit reached', 403);
     }
 
     // Use ON CONFLICT DO NOTHING instead of manual dedup query
@@ -230,5 +204,5 @@ export async function POST(request: NextRequest) {
   // Gem balance is computed from the gem_transactions ledger server-side,
   // never accepted from the client.
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

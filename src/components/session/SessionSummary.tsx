@@ -14,15 +14,11 @@ import { playSound } from '@/lib/sounds';
 import { reportFriendQuestProgress } from '@/hooks/useFriendQuestSync';
 import { useAdManager } from '@/components/ads/useAdManager';
 import { InterstitialAd } from '@/components/ads/InterstitialAd';
+import { PRACTICE_THEME } from '@/lib/session-themes';
 
 interface Props {
   summary: SessionSummaryType;
 }
-
-const PRACTICE_THEME = {
-  color: '#3B82F6',
-  dark: '#1D4ED8',
-};
 
 function getGrade(accuracy: number) {
   if (accuracy >= 90) return { label: 'Outstanding!', icon: '👑', color: '#10B981', dark: '#059669' };

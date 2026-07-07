@@ -1,15 +1,9 @@
-import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendRequests, users, userProgress } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { withAuth, jsonOk } from '@/lib/api-helpers';
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }) => {
   const [incoming, outgoing] = await Promise.all([
     db
       .select({
@@ -39,5 +33,5 @@ export async function GET() {
       .where(and(eq(friendRequests.senderId, userId), eq(friendRequests.status, 'pending'))),
   ]);
 
-  return NextResponse.json({ incoming, outgoing });
-}
+  return jsonOk({ incoming, outgoing });
+});

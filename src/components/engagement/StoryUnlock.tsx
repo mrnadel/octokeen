@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
 import { useBackHandler } from '@/hooks/useBackHandler';
-import { GameButton } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { CoinIcon } from '@/components/ui/CoinIcon';
+import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
 import type { CharacterArc, StoryUnlockEntry } from '@/data/course/character-arcs';
 
 interface StoryUnlockProps {
@@ -18,28 +17,14 @@ interface StoryUnlockProps {
 /**
  * Full-screen story unlock dialog shown after completing all units in a section.
  * Shows a character avatar, their dialogue, optional callback reference, and gem reward.
- * Matches the celebration pattern used by BlueprintCelebration.
  */
 export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) {
   useBackHandler(true, onDismiss);
 
-  // Play sound on mount
   useEffect(() => {
     playSound('achievement');
   }, []);
 
-  // 1.5s delay before dismiss button becomes active (matches existing celebration pattern)
-  const [canDismiss, setCanDismiss] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setCanDismiss(true), 1500);
-    return () => clearTimeout(t);
-  }, []);
-
-  const handleDismiss = useCallback(() => {
-    if (canDismiss) onDismiss();
-  }, [canDismiss, onDismiss]);
-
-  // Reduced motion support
   const motionProps = (delay: number) => ({
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
@@ -47,28 +32,20 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
   });
 
   return (
-    <FullScreenModal
-      show
+    <CelebrationModal
+      onClose={onDismiss}
       bg="#1a365d"
       fx="sparkle-dust"
+      dismissDelay={1500}
       labelId="story-unlock-title"
-      footer={
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: canDismiss ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <GameButton variant="gold" onClick={handleDismiss}>
-            CONTINUE
-          </GameButton>
-        </motion.div>
-      }
+      buttonLabel="CONTINUE"
+      buttonVariant="gold"
     >
       {/* Character avatar */}
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.2 }}
+        transition={{ ...celebrationSpring, delay: 0.2 }}
         className="text-[80px] leading-none mb-2"
         aria-hidden="true"
       >
@@ -88,7 +65,7 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
         </div>
       </motion.div>
 
-      {/* Callback line (if present) — highlighted quote */}
+      {/* Callback line (if present) */}
       {unlock.callbackLine && (
         <motion.div
           {...motionProps(0.5)}
@@ -105,7 +82,6 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
         {...motionProps(0.6)}
         className="bg-white/15 rounded-2xl px-6 py-4 max-w-sm mx-auto mb-6 relative"
       >
-        {/* Speech bubble pointer */}
         <div
           className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/15 rotate-45 rounded-sm"
           aria-hidden="true"
@@ -125,6 +101,6 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
           <CoinIcon size="1.2em" />
         </motion.div>
       )}
-    </FullScreenModal>
+    </CelebrationModal>
   );
 }

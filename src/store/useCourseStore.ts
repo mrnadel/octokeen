@@ -4,10 +4,10 @@ import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
 import { PROFESSION_ID } from '@/data/professions';
-import { SESSION_SIZE as SESSION_SIZE_CONFIG, STAR_THRESHOLDS, DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS, ADAPTIVE_CRUISING_XP_BONUS } from '@/lib/game-config';
+import { SESSION_SIZE as SESSION_SIZE_CONFIG, STAR_THRESHOLDS, ADAPTIVE_CRUISING_XP_BONUS } from '@/lib/game-config';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { topics } from '@/data/topics';
-import { toLocalDateString, getYesterdayString, shuffleArray } from '@/lib/utils';
+import { toLocalDateString, getYesterdayString, shuffleArray, getTodayString } from '@/lib/utils';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
@@ -19,12 +19,12 @@ import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
 import { pickReviewQuestions } from '@/lib/review-engine';
-import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
+import { checkDoubleXp, getEffectiveTier } from '@/lib/store-helpers';
 import { getLevelForXp } from '@/data/levels';
 import { getLevelReward, type LevelReward } from '@/data/level-rewards';
 import { getEventXpMultiplier, getActiveXpEvents } from '@/lib/xp-events';
 import { DEBUG_ALL_TYPES_UNIT } from '@/data/debug-all-question-types';
-import { isLessonContentLoaded, getSessionIds, calculateStars, getTodayString, getPreviousLessonId, getDefaultProgress } from '@/lib/course-store-utils';
+import { isLessonContentLoaded, getSessionIds, calculateStars, getPreviousLessonId, getDefaultProgress } from '@/lib/course-store-utils';
 
 const MAX_SESSION_QUESTIONS = SESSION_SIZE_CONFIG;
 
@@ -155,12 +155,7 @@ export const useCourseStore = create<CourseState>()(
       startLesson: (unitIndex: number, lessonIndex: number, golden?: boolean) => {
         // ── Client-side unit access check ──
         // Free users can only access unit 0; Pro users can access all units.
-        const subStore = useSubscriptionStore.getState();
-        const isDev = process.env.NODE_ENV === 'development';
-        const activeTier = isDev && subStore.debugTierOverride ? subStore.debugTierOverride : subStore.tier;
-        const isTrialing = subStore.status === 'trialing';
-        const isPastDue = subStore.status === 'past_due';
-        const effectiveTier = (isTrialing || isPastDue) ? 'pro' : activeTier;
+        const effectiveTier = getEffectiveTier(useSubscriptionStore.getState());
         if (!isUnitUnlocked(LIMITS[effectiveTier].unlockedUnits, unitIndex)) {
           return; // Unit is locked for this tier
         }
@@ -362,18 +357,7 @@ export const useCourseStore = create<CourseState>()(
         const accuracyMultiplier = isFlawless ? 1.5 : 1; // bonus for perfect accuracy
         // Double XP check with tamper validation (shop-purchased boost)
         const engState = useEngagementStore.getState();
-        const doubleXpExpiry = engState.doubleXpExpiry;
-        let shopDoubleXp = false;
-        if (doubleXpExpiry) {
-          const expiry = new Date(doubleXpExpiry).getTime();
-          const now = Date.now();
-          if (!isNaN(expiry) && expiry > now && expiry <= now + DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_BUFFER_MS) {
-            const recentCutoff = now - (DOUBLE_XP_SHOP_DURATION_MS + DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS);
-            shopDoubleXp = engState.gems.transactions.some(
-              (t) => t.source === 'shop_purchase' && t.amount < 0 && new Date(t.timestamp).getTime() > recentCutoff
-            );
-          }
-        }
+        const shopDoubleXp = checkDoubleXp(engState);
         // Time-limited XP events (weekend 2x, power hour, league sprint)
         const isPro = useSubscriptionStore.getState().tier === 'pro';
         const eventMultiplier = getEventXpMultiplier(isPro);

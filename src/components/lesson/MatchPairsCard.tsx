@@ -7,6 +7,8 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { shuffleArray } from '@/lib/utils';
+import { CORRECT, INCORRECT } from './shared/answer-feedback';
 
 interface MatchPairsCardProps {
   question: CourseQuestion;
@@ -26,15 +28,11 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
     const correctMatches = question.correctMatches ?? [];
 
     // Shuffle right column display order
-    const shuffledRightIndices = useMemo(() => {
-      const indices = rightItems.map((_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-      return indices;
+    const shuffledRightIndices = useMemo(
+      () => shuffleArray(rightItems.map((_, i) => i)),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [question.id]);
+      [question.id],
+    );
 
     // matches[leftIdx] = rightIdx (actual index, not display index)
     const [matches, setMatches] = useState<(number | null)[]>(() => leftItems.map(() => null));
@@ -147,9 +145,9 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
               let shadow = '0 3px 0 #DCDCDC';
 
               if (isCorrect !== null) {
-                bg = isCorrect ? '#D7FFB8' : '#FFDFE0';
-                border = isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B';
-                textColor = isCorrect ? '#58A700' : '#EA2B2B';
+                bg = isCorrect ? CORRECT.bg : INCORRECT.bg;
+                border = isCorrect ? `2px solid ${CORRECT.border}` : `2px solid ${INCORRECT.border}`;
+                textColor = isCorrect ? CORRECT.text : INCORRECT.text;
                 shadow = isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none';
               } else if (matchColor) {
                 bg = `${matchColor}15`;
@@ -225,9 +223,9 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
               let shadow = '0 3px 0 #DCDCDC';
 
               if (isCorrect !== null) {
-                bg = isCorrect ? '#D7FFB8' : '#FFDFE0';
-                border = isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B';
-                textColor = isCorrect ? '#58A700' : '#EA2B2B';
+                bg = isCorrect ? CORRECT.bg : INCORRECT.bg;
+                border = isCorrect ? `2px solid ${CORRECT.border}` : `2px solid ${INCORRECT.border}`;
+                textColor = isCorrect ? CORRECT.text : INCORRECT.text;
                 shadow = isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none';
               } else if (matchColor) {
                 bg = `${matchColor}15`;

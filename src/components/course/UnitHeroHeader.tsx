@@ -4,6 +4,7 @@ import { memo, forwardRef } from 'react';
 import type { Unit } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
 import { useIsDark } from '@/store/useThemeStore';
+import { GOLD, GOLD_DARK } from './constants';
 
 /** Compact floating header height (px) — face + shadow depth */
 export const HERO_COMPACT_HEIGHT = 62;
@@ -43,8 +44,8 @@ export const UnitHeroHeader = memo(
   ) {
     const isDark = useIsDark();
     const unitNum = displayNumber ?? (unitIndex + 1);
-    const accent = isAllGolden ? '#FFB800' : theme.color;
-    const accentDark = isAllGolden ? '#B38600' : theme.dark;
+    const accent = isAllGolden ? GOLD : theme.color;
+    const accentDark = isAllGolden ? GOLD_DARK : theme.dark;
     const progressPercent = totalInUnit > 0 ? (completedInUnit / totalInUnit) * 100 : 0;
 
     return (

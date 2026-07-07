@@ -7,6 +7,8 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { shuffleArray } from '@/lib/utils';
+import { CORRECT, INCORRECT } from './shared/answer-feedback';
 
 interface OrderStepsCardProps {
   question: CourseQuestion;
@@ -33,11 +35,7 @@ const OrderStepsCard = forwardRef<QuestionCardHandle, OrderStepsCardProps>(
     const correctOrder = question.correctOrder ?? steps.map((_, i) => i);
 
     const initialOrder = useMemo(() => {
-      const indices = steps.map((_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
+      const indices = shuffleArray(steps.map((_, i) => i));
       if (indices.every((v, i) => v === correctOrder[i]) && indices.length >= 2) {
         [indices[0], indices[1]] = [indices[1], indices[0]];
       }
@@ -163,11 +161,11 @@ const OrderStepsCard = forwardRef<QuestionCardHandle, OrderStepsCardProps>(
 
             if (isCorrect !== null) {
               if (isCorrect) {
-                bg = '#D7FFB8'; border = '2px solid #58CC02'; textColor = '#58A700';
-                numberBg = '#58CC02'; numberColor = 'white';
+                bg = CORRECT.bg; border = `2px solid ${CORRECT.border}`; textColor = CORRECT.text;
+                numberBg = CORRECT.border; numberColor = 'white';
               } else {
-                bg = '#FFDFE0'; border = '2px solid #FF4B4B'; textColor = '#EA2B2B';
-                numberBg = '#FF4B4B'; numberColor = 'white';
+                bg = INCORRECT.bg; border = `2px solid ${INCORRECT.border}`; textColor = INCORRECT.text;
+                numberBg = INCORRECT.border; numberColor = 'white';
               }
             }
 

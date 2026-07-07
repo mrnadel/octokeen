@@ -1,23 +1,17 @@
-import { NextResponse } from 'next/server';
-import crypto from 'crypto';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, emailVerificationTokens } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
-import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { rateLimit } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
+import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { generateToken, hashToken, getBaseUrl } from '@/lib/auth-tokens';
 
 const TOKEN_EXPIRY_MS = 24 * 60 * 60_000; // 24 hours
 
-export async function POST() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (_req, { userId }) => {
   const rl = rateLimit(`verify-email:${userId}`, { limit: 3, windowMs: 5 * 60_000 });
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests. Please wait a few minutes.' }, { status: 429 });
+    return jsonError('Too many requests. Please wait a few minutes.', 429);
   }
 
   const [user] = await db
@@ -27,15 +21,15 @@ export async function POST() {
     .limit(1);
 
   if (!user?.email) {
-    return NextResponse.json({ error: 'No email found' }, { status: 400 });
+    return jsonError('No email found', 400);
   }
 
   if (user.emailVerified) {
-    return NextResponse.json({ message: 'Email already verified' });
+    return jsonOk({ message: 'Email already verified' });
   }
 
-  const rawToken = crypto.randomBytes(32).toString('hex');
-  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+  const rawToken = generateToken();
+  const tokenHash = hashToken(rawToken);
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS);
 
   await db.insert(emailVerificationTokens).values({
@@ -44,8 +38,7 @@ export async function POST() {
     expiresAt,
   });
 
-  const baseUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000';
-  const verifyUrl = `${baseUrl}/verify-email?token=${rawToken}`;
+  const verifyUrl = `${getBaseUrl()}/verify-email?token=${rawToken}`;
 
   await sendEmail({
     to: user.email,
@@ -58,5 +51,5 @@ export async function POST() {
     `,
   });
 
-  return NextResponse.json({ message: 'Verification email sent' });
-}
+  return jsonOk({ message: 'Verification email sent' });
+});

@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
 import { getCourseData } from '@/data/course/api';
 import { PROFESSIONS } from '@/data/professions';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
@@ -30,12 +29,7 @@ function getQuestionText(units: Unit[], _contentType: string, contentId: string)
   return text ? text.slice(0, 80) : `[Unknown: ${contentId}]`;
 }
 
-export async function GET(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
+export const GET = withAdminAuth(async (req) => {
   const allUnits = await loadAllCourseUnits();
   const includeDismissed = req.nextUrl.searchParams.get('includeDismissed') === 'true';
 
@@ -114,5 +108,5 @@ export async function GET(req: NextRequest) {
   // Sort by totalFlags descending
   items.sort((a, b) => b.totalFlags - a.totalFlags);
 
-  return NextResponse.json({ items });
-}
+  return jsonOk({ items });
+});

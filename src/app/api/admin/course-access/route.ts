@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseAccess } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, parseBody, jsonOk } from '@/lib/api-helpers';
 
 // POST: Grant course access to a user
 // DELETE: Revoke course access from a user
@@ -14,24 +13,11 @@ const courseAccessSchema = z.object({
   professionId: z.string().min(1),
 });
 
-export async function POST(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+export const POST = withAdminAuth(async (req) => {
+  const { data, error } = await parseBody(req, courseAccessSchema);
+  if (error) return error;
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const postResult = courseAccessSchema.safeParse(rawBody);
-  if (!postResult.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { userId, professionId } = postResult.data;
+  const { userId, professionId } = data;
 
   // Upsert: insert if not exists
   await db
@@ -39,31 +25,18 @@ export async function POST(req: NextRequest) {
     .values({ userId, professionId })
     .onConflictDoNothing();
 
-  return NextResponse.json({ success: true, granted: true });
-}
+  return jsonOk({ success: true, granted: true });
+});
 
-export async function DELETE(req: NextRequest) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+export const DELETE = withAdminAuth(async (req) => {
+  const { data, error } = await parseBody(req, courseAccessSchema);
+  if (error) return error;
 
-  let rawBody2: unknown;
-  try {
-    rawBody2 = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const deleteResult = courseAccessSchema.safeParse(rawBody2);
-  if (!deleteResult.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { userId, professionId } = deleteResult.data;
+  const { userId, professionId } = data;
 
   await db
     .delete(courseAccess)
     .where(and(eq(courseAccess.userId, userId), eq(courseAccess.professionId, professionId)));
 
-  return NextResponse.json({ success: true, granted: false });
-}
+  return jsonOk({ success: true, granted: false });
+});

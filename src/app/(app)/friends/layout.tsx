@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Friends',
-  description: 'Add friends, compare progress, and study together on Octokeen.',
-  robots: { index: false },
-};
+export const metadata = createPrivateMetadata('Friends');
 
 export default function FriendsLayout({ children }: { children: React.ReactNode }) {
   return children;

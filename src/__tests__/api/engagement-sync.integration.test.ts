@@ -89,7 +89,7 @@ describe('GET /api/engagement', () => {
   it('returns 401 when not authenticated', async () => {
     mockGetAuthUserId.mockResolvedValue(null);
     const { GET } = await import('@/app/api/engagement/route');
-    const res = await GET();
+    const res = await GET(new NextRequest('http://localhost/api/engagement'));
     expect(res.status).toBe(401);
     const json = await res.json();
     expect(json.error).toBe('Unauthorized');
@@ -149,7 +149,7 @@ describe('GET /api/engagement', () => {
       } as never);
 
     const { GET } = await import('@/app/api/engagement/route');
-    const res = await GET();
+    const res = await GET(new NextRequest('http://localhost/api/engagement'));
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.gems).toBeDefined();

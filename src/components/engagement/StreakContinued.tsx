@@ -4,11 +4,11 @@ import { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { StreakFlame } from '@/components/icons/StreakFlame';
 import { GameButton } from '@/components/ui/GameButton';
-import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { useStore } from '@/store/useStore';
 import { toLocalDateString } from '@/lib/utils';
 import { playSound } from '@/lib/sounds';
+import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
 
 interface Props {
   streak: number;
@@ -33,8 +33,6 @@ export function StreakContinued({ streak, onClose }: Props) {
   const storedActiveDays = useStore((s) => s.progress.activeDays) ?? [];
   const weekDays = useMemo(() => getWeekDays(), []);
 
-  // Derive active days from streak count when activeDays array lacks history.
-  // If streak is N, the last N consecutive days (up to today) must have been active.
   const activeDays = useMemo(() => {
     const streakDates = new Set(storedActiveDays);
     const today = new Date();
@@ -60,8 +58,8 @@ export function StreakContinued({ streak, onClose }: Props) {
   const mascotPose = streak >= 14 ? 'celebrating' as const : 'streak' as const;
 
   return (
-    <FullScreenModal
-      show
+    <CelebrationModal
+      onClose={onClose}
       bg="#FF9600"
       fx="confetti"
       labelId="streak-continued-title"
@@ -72,7 +70,7 @@ export function StreakContinued({ streak, onClose }: Props) {
         className="mb-2"
         initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.1 }}
+        transition={{ ...celebrationSpring, delay: 0.1 }}
       >
         <MascotWithGlow pose={mascotPose} size={120} />
       </motion.div>
@@ -152,6 +150,6 @@ export function StreakContinued({ streak, onClose }: Props) {
           );
         })}
       </motion.div>
-    </FullScreenModal>
+    </CelebrationModal>
   );
 }

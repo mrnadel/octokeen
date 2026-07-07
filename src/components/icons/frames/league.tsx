@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AvatarPlaceholder, FrameIconProps } from './utils';
+import { SVGIcon } from '../SVGIcon';
 
 // ============================================================================
 // REWARD FRAMES — League
@@ -9,7 +10,7 @@ import { AvatarPlaceholder, FrameIconProps } from './utils';
 
 /** Bronze League — warm bronze ring with shield */
 export const FrameBronzeLeague: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-league-bronze-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#DEB887" />
@@ -21,12 +22,12 @@ export const FrameBronzeLeague: React.FC<FrameIconProps> = ({ size = 64, classNa
     {/* shield emblem at top */}
     <path d="M32 2 L36 6 L36 10 L32 12 L28 10 L28 6 Z" fill="#CD7F32" opacity="0.8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Silver League — polished silver ring */
 export const FrameSilverLeague: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-league-silver-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E8E8E8" />
@@ -40,12 +41,12 @@ export const FrameSilverLeague: React.FC<FrameIconProps> = ({ size = 64, classNa
     {/* shield emblem */}
     <path d="M32 2 L36 6 L36 10 L32 12 L28 10 L28 6 Z" fill="#C0C0C0" opacity="0.8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Gold League — shiny gold with laurels */
 export const FrameGoldLeague: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-league-gold-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FFF8DC" />
@@ -67,12 +68,12 @@ export const FrameGoldLeague: React.FC<FrameIconProps> = ({ size = 64, className
     {/* crown at top */}
     <path d="M28 4 L30 1 L32 4 L34 1 L36 4 L34 6 L30 6 Z" fill="#FFD700" opacity="0.8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Platinum League — cyan-tinted platinum */
 export const FramePlatinumLeague: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-league-platinum-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E0F7FA" />
@@ -92,12 +93,12 @@ export const FramePlatinumLeague: React.FC<FrameIconProps> = ({ size = 64, class
     {/* diamond emblem top */}
     <polygon points="32,1 35,5 32,9 29,5" fill="#00BCD4" opacity="0.8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Masters League — royal purple with crown */
 export const FrameMastersLeague: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-league-masters-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E1BEE7" />
@@ -118,5 +119,5 @@ export const FrameMastersLeague: React.FC<FrameIconProps> = ({ size = 64, classN
     <path d="M26 5 L28 0 L30 4 L32 0 L34 4 L36 0 L38 5 L36 7 L28 7 Z" fill="#9C27B0" opacity="0.85" />
     <circle cx="32" cy="2" r="1" fill="#E1BEE7" opacity="0.7" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );

@@ -1,15 +1,9 @@
-import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { users, dailyUsage, sessionHistory, topicProgress } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
 import { eq, sql, count, sum, desc } from 'drizzle-orm';
 
-export async function GET() {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
-
+export const GET = withAdminAuth(async () => {
   const today = new Date().toISOString().split('T')[0];
 
   // 1. Total users
@@ -71,7 +65,7 @@ export async function GET() {
     .orderBy(desc(sessionHistory.date))
     .limit(10);
 
-  return NextResponse.json({
+  return jsonOk({
     overview: {
       totalUsers: totalUsersResult.value,
       activeToday: activeTodayResult.value,
@@ -81,4 +75,4 @@ export async function GET() {
     topicPerformance,
     recentActivity: recentSessions,
   });
-}
+});

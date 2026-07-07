@@ -1,32 +1,21 @@
-import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
-import { friendQuests, friendships, users, userProgress } from '@/lib/db/schema';
+import { friendQuests, users, userProgress } from '@/lib/db/schema';
 import { eq, or, and, desc } from 'drizzle-orm';
 import { getCurrentWeekMonday } from '@/lib/quest-engine';
 import { pickFriendQuest, formatQuestDescription } from '@/lib/friend-quests';
+import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { getFriendIds } from '@/lib/db/queries';
 
 /**
  * GET /api/friends/quests — Get current week's friend quests for this user.
  * Auto-creates quests for friend pairs that don't have one yet.
  */
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }) => {
   const questWeek = getCurrentWeekMonday();
 
-  // Get all friends
-  const rows = await db
-    .select({ usrId: friendships.userId, frnId: friendships.friendId })
-    .from(friendships)
-    .where(or(eq(friendships.userId, userId), eq(friendships.friendId, userId)));
-
-  const friendIds = rows.map((r) => (r.usrId === userId ? r.frnId : r.usrId));
+  const friendIds = await getFriendIds(userId);
   if (friendIds.length === 0) {
-    return NextResponse.json({ quests: [] });
+    return jsonOk({ quests: [] });
   }
 
   // Get existing quests for this week
@@ -114,5 +103,5 @@ export async function GET() {
     };
   });
 
-  return NextResponse.json({ quests: enriched });
-}
+  return jsonOk({ quests: enriched });
+});

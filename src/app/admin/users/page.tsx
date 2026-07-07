@@ -1,7 +1,4 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 export { default } from './UsersClient';
 
-export const metadata: Metadata = {
-  title: 'Admin — Users',
-  robots: { index: false, follow: false },
-};
+export const metadata = createPrivateMetadata('Admin — Users');

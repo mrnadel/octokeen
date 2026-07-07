@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { gameConfig } from '@/lib/db/schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { withAdminAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 import { and, eq } from 'drizzle-orm';
 
 const patchSchema = z.object({
@@ -10,30 +10,18 @@ const patchSchema = z.object({
   value: z.unknown().refine(v => v !== null && v !== undefined, { message: 'value must not be null' }),
 });
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Promise<{ key: string }> }
-) {
-  const adminId = await requireAdmin();
-  if (!adminId) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+export const PATCH = withAdminAuth(async (
+  req: NextRequest & { __routeParams?: Promise<{ key: string }> },
+  { adminId },
+) => {
+  // Next.js App Router passes route params as second argument to the raw handler,
+  // but withAdminAuth wraps the handler so we need to extract from the URL instead.
+  const key = req.nextUrl.pathname.split('/').pop()!;
 
-  const { key } = await params;
+  const { data, error } = await parseBody(req, patchSchema);
+  if (error) return error;
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = patchSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Invalid input', details: parsed.error.flatten() }, { status: 400 });
-  }
-
-  const { category, value } = parsed.data;
+  const { category, value } = data;
 
   try {
     // Fetch the existing config to check min/max constraints
@@ -44,32 +32,31 @@ export async function PATCH(
       .limit(1);
 
     if (!existing) {
-      return NextResponse.json({ error: 'Config key not found' }, { status: 404 });
+      return jsonError('Config key not found', 404);
     }
 
     // Validate numeric value against min/max range
     const parsedValue = typeof value === 'number' ? value : parseFloat(String(value));
     if (!isNaN(parsedValue)) {
       if (existing.minValue !== null && parsedValue < existing.minValue) {
-        return NextResponse.json({ error: `Value must be >= ${existing.minValue}` }, { status: 400 });
+        return jsonError(`Value must be >= ${existing.minValue}`, 400);
       }
       if (existing.maxValue !== null && parsedValue > existing.maxValue) {
-        return NextResponse.json({ error: `Value must be <= ${existing.maxValue}` }, { status: 400 });
+        return jsonError(`Value must be <= ${existing.maxValue}`, 400);
       }
     }
 
-    const result = await db
+    await db
       .update(gameConfig)
       .set({
         value,
         lastModifiedBy: adminId,
         lastModifiedAt: new Date(),
       })
-      .where(and(eq(gameConfig.category, category), eq(gameConfig.key, key)))
-      .returning({ id: gameConfig.id });
+      .where(and(eq(gameConfig.category, category), eq(gameConfig.key, key)));
 
-    return NextResponse.json({ success: true });
+    return jsonOk({ success: true });
   } catch {
-    return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    return jsonError('Database error', 500);
   }
-}
+});

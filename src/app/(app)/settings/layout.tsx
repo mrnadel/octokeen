@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
+import { createPrivateMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Settings',
-  description: 'Manage your Octokeen account settings, notifications, and preferences.',
-  robots: { index: false },
-};
+export const metadata = createPrivateMetadata('Settings');
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
   return children;

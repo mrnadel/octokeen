@@ -1,5 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendQuests } from '@/lib/db/schema';
 import { eq, or, and, sql } from 'drizzle-orm';
@@ -8,34 +6,18 @@ import { friendQuestProgressSchema } from '@/lib/validation';
 import { pickFriendQuest } from '@/lib/friend-quests';
 import { sendPushToUser } from '@/lib/push';
 import { insertActivity } from '@/lib/activity-feed';
+import { withAuth, parseBody, jsonOk } from '@/lib/api-helpers';
 
 /**
  * POST /api/friends/quests/progress
  * Reports lesson/session events to update friend quest progress.
  * Uses ATOMIC SQL updates to prevent race conditions.
  */
-export async function POST(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export const POST = withAuth(async (req, { userId }) => {
+  const { data, error } = await parseBody(req, friendQuestProgressSchema);
+  if (error) return error;
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = friendQuestProgressSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid input', details: parsed.error.issues[0]?.message },
-      { status: 400 },
-    );
-  }
-
-  const { events } = parsed.data;
+  const { events } = data;
   const questWeek = getCurrentWeekMonday();
 
   // Get all active (uncompleted) friend quests for this user this week
@@ -51,7 +33,7 @@ export async function POST(req: NextRequest) {
     );
 
   if (quests.length === 0) {
-    return NextResponse.json({ updated: [] });
+    return jsonOk({ updated: [] });
   }
 
   const updated: Array<{ questId: string; myProgress: number; completed: boolean }> = [];
@@ -141,5 +123,5 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ updated });
-}
+  return jsonOk({ updated });
+});

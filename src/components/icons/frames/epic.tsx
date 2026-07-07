@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AvatarPlaceholder, FrameIconProps } from './utils';
+import { SVGIcon } from '../SVGIcon';
 
 // ============================================================================
 // SHOP FRAMES — Epic
@@ -9,7 +10,7 @@ import { AvatarPlaceholder, FrameIconProps } from './utils';
 
 /** Aurora Borealis — epic, shifting teal-to-violet glow */
 export const FrameAuroraBorealis: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-aurora-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#2DD4BF" />
@@ -41,12 +42,12 @@ export const FrameAuroraBorealis: React.FC<FrameIconProps> = ({ size = 64, class
     <circle cx="8" cy="38" r="0.6" fill="#2DD4BF" opacity="0.3" />
     <circle cx="56" cy="26" r="0.6" fill="#8B5CF6" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Neon Pulse — epic, electric cyan glow */
 export const FrameNeonPulse: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-neon-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#67E8F9" />
@@ -75,12 +76,12 @@ export const FrameNeonPulse: React.FC<FrameIconProps> = ({ size = 64, className 
     <line x1="32" y1="62" x2="32" y2="58.5" stroke="#22D3EE" strokeWidth="0.8" opacity="0.5" />
     <line x1="2" y1="32" x2="5.5" y2="32" stroke="#22D3EE" strokeWidth="0.8" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Turbine Blade — epic, spinning turbine blades */
 export const FrameTurbineBlade: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-turbine-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#7DD3FC" />
@@ -111,12 +112,12 @@ export const FrameTurbineBlade: React.FC<FrameIconProps> = ({ size = 64, classNa
     {/* center hub */}
     <circle cx="32" cy="32" r="2" fill="#0EA5E9" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Plasma Arc — epic, purple ionized glow */
 export const FramePlasmaArc: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-plasma-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#E9D5FF" />
@@ -145,12 +146,12 @@ export const FramePlasmaArc: React.FC<FrameIconProps> = ({ size = 64, className 
     <circle cx="32" cy="2" r="0.8" fill="#E9D5FF" opacity="0.5" />
     <circle cx="32" cy="62" r="0.8" fill="#E9D5FF" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Star Drive — epic, golden star burst */
 export const FrameStarDrive: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-stardrive-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FEF3C7" />
@@ -182,5 +183,5 @@ export const FrameStarDrive: React.FC<FrameIconProps> = ({ size = 64, className 
       return <circle key={angle} cx={x} cy={y} r="1.2" fill="#FBBF24" opacity="0.8" />;
     })}
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );

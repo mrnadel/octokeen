@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { finalizeLeagueWeek } from '@/lib/league-matching';
 import { logger } from '@/lib/logger';
+import { withCronAuth, jsonOk, jsonError } from '@/lib/api-helpers';
 
 /**
  * GET /api/cron/league-finalize
@@ -9,16 +9,7 @@ import { logger } from '@/lib/logger';
  *
  * Secured by CRON_SECRET.
  */
-export async function GET(req: Request) {
-  const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret) {
-    return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
-  }
-  const authHeader = req.headers.get('authorization');
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withCronAuth(async () => {
   // Calculate LAST week's Monday (the week that just ended)
   const now = new Date();
   const dayOfWeek = now.getUTCDay(); // 0=Sun, 1=Mon, ..., 6=Sat
@@ -30,13 +21,13 @@ export async function GET(req: Request) {
 
   try {
     const processed = await finalizeLeagueWeek(weekStart);
-    return NextResponse.json({
+    return jsonOk({
       ok: true,
       weekStart,
       groupsFinalized: processed,
     });
   } catch (err) {
     logger.error('League finalization error:', err);
-    return NextResponse.json({ error: 'Finalization failed' }, { status: 500 });
+    return jsonError('Finalization failed', 500);
   }
-}
+});

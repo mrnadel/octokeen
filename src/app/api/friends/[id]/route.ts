@@ -1,20 +1,11 @@
-import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { friendships, friendRequests } from '@/lib/db/schema';
 import { eq, and, or } from 'drizzle-orm';
 import { sortFriendPair } from '@/lib/db/friends';
+import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
 
-export async function DELETE(
-  _request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const { id: friendId } = await params;
+export const DELETE = withAuth(async (req, { userId }) => {
+  const friendId = req.nextUrl.pathname.split('/').pop()!;
   const [low, high] = sortFriendPair(userId, friendId);
 
   const result = await db
@@ -23,7 +14,7 @@ export async function DELETE(
     .returning();
 
   if (result.length === 0) {
-    return NextResponse.json({ error: 'Friendship not found' }, { status: 404 });
+    return jsonError('Friendship not found', 404);
   }
 
   await db
@@ -35,5 +26,5 @@ export async function DELETE(
       )
     );
 
-  return NextResponse.json({ status: 'removed' });
-}
+  return jsonOk({ status: 'removed' });
+});

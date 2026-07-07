@@ -1,17 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { db } from '@/lib/db';
 import { sessionHistory, userProgress, courseProgress } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { computeStreakFromDates } from '@/lib/streak-utils';
 import { getServerToday, getServerNow } from '@/lib/server-dates';
+import { withAuth, jsonOk } from '@/lib/api-helpers';
 
-export async function GET(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (request: NextRequest, { userId }) => {
   // Get all distinct session dates for this user (sorted ascending)
   const sessions = await db
     .selectDistinct({ date: sessionHistory.date })
@@ -49,10 +44,10 @@ export async function GET(request: NextRequest) {
   const twoWeeksAgoStr = `${twoWeeksAgo.getFullYear()}-${String(twoWeeksAgo.getMonth() + 1).padStart(2, '0')}-${String(twoWeeksAgo.getDate()).padStart(2, '0')}`;
   const recentActiveDays = allDates.filter((d) => d >= twoWeeksAgoStr);
 
-  return NextResponse.json({
+  return jsonOk({
     currentStreak,
     longestStreak,
     activeDays: recentActiveDays,
     lastActiveDate: allDates.length > 0 ? allDates[allDates.length - 1] : '',
   });
-}
+});

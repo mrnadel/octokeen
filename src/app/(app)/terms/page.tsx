@@ -1,22 +1,12 @@
-import type { Metadata } from 'next';
+import { createLegalMetadata } from '@/lib/metadata';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service',
-  description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
-  alternates: { canonical: '/terms' },
-  openGraph: {
-    title: 'Terms of Service | Octokeen',
-    description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
-    url: '/terms',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Terms of Service | Octokeen',
-    description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
-  },
-};
+export const metadata = createLegalMetadata(
+  'Terms of Service',
+  'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
+  '/terms',
+);
 
 const LAST_UPDATED = 'March 2025';
 

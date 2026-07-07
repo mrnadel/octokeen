@@ -1,22 +1,13 @@
 'use client';
 
-interface IconProps {
-  size?: number;
-  className?: string;
-}
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 /* ─────────────────────────────────────────────
    1. BRONZE LEAGUE — Shield with crossed wrenches
    ───────────────────────────────────────────── */
 export const BronzeLeagueIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="league-bronze-body" x1="0" y1="0" x2="0.3" y2="1">
         <stop offset="0%" stopColor="#DA9445" />
@@ -95,21 +86,14 @@ export const BronzeLeagueIcon = ({ size = 64, className }: IconProps) => (
       strokeWidth="1.5"
       strokeLinejoin="round"
     />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    2. SILVER LEAGUE — Shield with gear emblem
    ───────────────────────────────────────────── */
 export const SilverLeagueIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="league-silver-body" x1="0" y1="0" x2="0.3" y2="1">
         <stop offset="0%" stopColor="#E8E8E8" />
@@ -197,21 +181,14 @@ export const SilverLeagueIcon = ({ size = 64, className }: IconProps) => (
     />
     {/* Ribbon text area — "II" for tier 2 */}
     <text x="29" y="43" fontSize="8" fontWeight="bold" fill="#505050" fontFamily="serif">II</text>
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    3. GOLD LEAGUE — Shield with star/crown
    ───────────────────────────────────────────── */
 export const GoldLeagueIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="league-gold-body" x1="0" y1="0" x2="0.3" y2="1">
         <stop offset="0%" stopColor="#FFE94E" />
@@ -303,21 +280,14 @@ export const GoldLeagueIcon = ({ size = 64, className }: IconProps) => (
       strokeWidth="1.5"
       strokeLinejoin="round"
     />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    4. PLATINUM LEAGUE — Shield with diamond
    ───────────────────────────────────────────── */
 export const PlatinumLeagueIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="league-plat-body" x1="0" y1="0" x2="0.3" y2="1">
         <stop offset="0%" stopColor="#4DD0E1" />
@@ -411,21 +381,14 @@ export const PlatinumLeagueIcon = ({ size = 64, className }: IconProps) => (
       strokeWidth="1.5"
       strokeLinejoin="round"
     />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    5. MASTERS LEAGUE — Shield with crown and laurels
    ───────────────────────────────────────────── */
 export const MastersLeagueIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="league-masters-body" x1="0" y1="0" x2="0.3" y2="1">
         <stop offset="0%" stopColor="#CE93D8" />
@@ -535,5 +498,5 @@ export const MastersLeagueIcon = ({ size = 64, className }: IconProps) => (
     />
     {/* Crown glow */}
     <circle cx="32" cy="22" r="8" fill="#FFE94E" opacity="0.08" />
-  </svg>
+  </SVGIcon>
 );

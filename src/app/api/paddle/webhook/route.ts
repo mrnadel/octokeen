@@ -13,6 +13,7 @@ import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
 import { serverEnv } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { tierFromPriceId } from '@/lib/pricing';
 
 export const runtime = 'nodejs';
 
@@ -131,12 +132,8 @@ export async function POST(request: NextRequest) {
 
 // ─── Helpers ────────────────────────────────────────────────────
 
-function tierFromPriceId(priceId: string | null): 'free' | 'pro' {
-  const proMonthly = env.PADDLE_PRO_MONTHLY_PRICE_ID;
-  const proYearly = env.PADDLE_PRO_YEARLY_PRICE_ID;
-
-  if (priceId === proMonthly || priceId === proYearly) return 'pro';
-  return 'free';
+function resolveTier(priceId: string | null): 'free' | 'pro' {
+  return tierFromPriceId(priceId, env.PADDLE_PRO_MONTHLY_PRICE_ID, env.PADDLE_PRO_YEARLY_PRICE_ID);
 }
 
 function mapPaddleStatus(
@@ -172,7 +169,7 @@ async function handleSubscriptionUpsert(sub: SubscriptionNotification) {
   const interval = sub.items?.[0]?.price?.billingCycle?.interval ?? null;
 
   await upsertSubscription(userId, sub.id, {
-    tier: tierFromPriceId(priceId),
+    tier: resolveTier(priceId),
     status: mapPaddleStatus(sub.status ?? 'active'),
     paddleCustomerId: customerId,
     paddleSubscriptionId: sub.id,
@@ -201,7 +198,7 @@ async function handleSubscriptionPastDue(sub: SubscriptionNotification) {
   // Keep the current tier so the user retains access during the grace period,
   // but mark the status as past_due so the UI can show a payment warning.
   await upsertSubscription(userId, sub.id, {
-    tier: tierFromPriceId(priceId),
+    tier: resolveTier(priceId),
     status: 'past_due',
     paddleCustomerId: customerId,
     paddleSubscriptionId: sub.id,

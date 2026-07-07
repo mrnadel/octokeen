@@ -4,7 +4,7 @@ import { useEffect, useCallback } from 'react';
 import { create } from 'zustand';
 import { useSession } from 'next-auth/react';
 import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
-import { FEATURES, type Feature } from '@/lib/pricing';
+import { getTierFeatures, type Feature } from '@/lib/pricing';
 
 // ─── Subscription Store ─────────────────────────────────────────
 
@@ -156,22 +156,3 @@ export function useSubscription() {
   };
 }
 
-// ─── Internal ───────────────────────────────────────────────────
-
-function getTierFeatures(tier: SubscriptionTier): Feature[] {
-  if (tier === 'pro') {
-    return [
-      FEATURES.UNLIMITED_HEARTS,
-      FEATURES.STREAK_FREEZE,
-      FEATURES.FULL_ANALYTICS,
-      FEATURES.DOUBLE_XP_WEEKENDS,
-      FEATURES.DETAILED_EXPLANATIONS,
-      FEATURES.PREMIUM_LEAGUE_REWARDS,
-      FEATURES.NO_ADS,
-      FEATURES.PRACTICE_MISTAKES,
-      FEATURES.PRACTICE_REVIEW,
-    ];
-  }
-  // free — all content accessible; Pro gates convenience (hearts, streak freeze, etc.)
-  return [];
-}

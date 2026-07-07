@@ -7,6 +7,8 @@ import type { CourseQuestion } from '@/data/course/types';
 import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
+import { shuffleArray } from '@/lib/utils';
+import { CORRECT, INCORRECT, DISABLED } from './shared/answer-feedback';
 
 interface MultiSelectCardProps {
   question: CourseQuestion;
@@ -23,15 +25,11 @@ const MultiSelectCard = forwardRef<QuestionCardHandle, MultiSelectCardProps>(
     const correctIndices = question.correctIndices ?? [];
 
     // Shuffle display order
-    const shuffledIndices = useMemo(() => {
-      const indices = options.map((_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-      return indices;
+    const shuffledIndices = useMemo(
+      () => shuffleArray(options.map((_, i) => i)),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [question.id]);
+      [question.id],
+    );
 
     const [selected, setSelected] = useState<Set<number>>(new Set());
     const [localCorrect, setLocalCorrect] = useState<boolean | null>(null);
@@ -132,15 +130,15 @@ const MultiSelectCard = forwardRef<QuestionCardHandle, MultiSelectCardProps>(
 
             if (answered && localCorrect !== null) {
               if (isCorrectOption) {
-                bg = '#D7FFB8'; border = '2px solid #58CC02'; textColor = '#58A700';
-                checkBg = '#58CC02'; checkColor = 'white'; checkContent = '✓';
+                bg = CORRECT.bg; border = `2px solid ${CORRECT.border}`; textColor = CORRECT.text;
+                checkBg = CORRECT.border; checkColor = 'white'; checkContent = '✓';
                 shadow = '0 0 12px rgba(88, 204, 2, 0.25)';
               } else if (isSelected && !isCorrectOption) {
-                bg = '#FFDFE0'; border = '2px solid #FF4B4B'; textColor = '#EA2B2B';
-                checkBg = '#FF4B4B'; checkColor = 'white'; checkContent = '✗';
+                bg = INCORRECT.bg; border = `2px solid ${INCORRECT.border}`; textColor = INCORRECT.text;
+                checkBg = INCORRECT.border; checkColor = 'white'; checkContent = '✗';
                 shadow = 'none';
               } else {
-                bg = '#F5F5F5'; border = '2px solid #EFEFEF'; textColor = c.muted;
+                bg = DISABLED.bg; border = `2px solid ${DISABLED.border}`; textColor = c.muted;
                 checkBg = '#E5E5E5'; checkColor = c.muted; checkContent = '';
                 shadow = 'none';
               }

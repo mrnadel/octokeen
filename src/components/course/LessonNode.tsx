@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import type { Lesson } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
 import { useIsDark } from '@/store/useThemeStore';
+import { GOLD } from './constants';
 
 interface LessonRowProps {
   lesson: Lesson;
@@ -17,8 +18,6 @@ interface LessonRowProps {
   onClick: () => void;
   theme: UnitTheme;
 }
-
-const GOLD = '#FFB800';
 
 function LevelDots({ current, max, color, isGolden, isDark }: { current: number; max: number; color: string; isGolden?: boolean; isDark: boolean }) {
   if (max <= 1) return null;
@@ -87,7 +86,7 @@ export const LessonNode = memo(function LessonNode({
   return (
     <motion.div
       initial={{ opacity: 0, x: -8 }}
-      animate={{ x: 0 }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.05, duration: 0.25 }}
       style={{ opacity: isLocked ? 0.5 : 1 }}
     >

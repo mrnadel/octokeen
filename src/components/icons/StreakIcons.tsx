@@ -1,22 +1,13 @@
 'use client';
 
-interface IconProps {
-  size?: number;
-  className?: string;
-}
+import { IconProps } from './types';
+import { SVGIcon } from './SVGIcon';
 
 /* ─────────────────────────────────────────────
    1. WEEK WARRIOR (7 days) — Small flame on shield
    ───────────────────────────────────────────── */
 export const WeekWarriorIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-ww-medal" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FCD34D" />
@@ -65,21 +56,14 @@ export const WeekWarriorIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="32" cy="20" r="0" fill="none" />
     <circle cx="22" cy="36" r="1" fill="#92400E" opacity="0.5" />
     <circle cx="42" cy="36" r="1" fill="#92400E" opacity="0.5" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    2. FORTNIGHT FOCUS (14 days) — Larger flame with spark
    ───────────────────────────────────────────── */
 export const FortnightFocusIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-ff-medal" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -147,21 +131,14 @@ export const FortnightFocusIcon = ({ size = 64, className }: IconProps) => (
     {/* Medal rivets */}
     <circle cx="22" cy="36" r="1" fill="#7F1D1D" opacity="0.4" />
     <circle cx="42" cy="36" r="1" fill="#7F1D1D" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    3. IRON WILL (30 days) — Blazing flame with aura
    ───────────────────────────────────────────── */
 export const IronWillIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-iw-medal" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFE082" />
@@ -234,21 +211,14 @@ export const IronWillIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="22" cy="36" r="1.2" fill="#8B6914" opacity="0.4" />
     <circle cx="42" cy="36" r="1.2" fill="#8B6914" opacity="0.4" />
     <circle cx="32" cy="50" r="1.2" fill="#8B6914" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    4. DIAMOND DEDICATION (60 days) — Crystalline flame
    ───────────────────────────────────────────── */
 export const DiamondDedicationIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-dd-medal" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#93C5FD" />
@@ -322,21 +292,14 @@ export const DiamondDedicationIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="22" cy="36" r="1.2" fill="#1E3A5F" opacity="0.4" />
     <circle cx="42" cy="36" r="1.2" fill="#1E3A5F" opacity="0.4" />
     <circle cx="32" cy="50" r="1.2" fill="#1E3A5F" opacity="0.4" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    5. CENTURION STREAK (100 days) — Inferno flame with crown
    ───────────────────────────────────────────── */
 export const CenturionStreakIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-cs-medal" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#C4B5FD" />
@@ -436,21 +399,14 @@ export const CenturionStreakIcon = ({ size = 64, className }: IconProps) => (
     <circle cx="32" cy="50" r="1.2" fill="#3B0764" opacity="0.4" />
     <circle cx="26" cy="48" r="1" fill="#3B0764" opacity="0.3" />
     <circle cx="38" cy="48" r="1" fill="#3B0764" opacity="0.3" />
-  </svg>
+  </SVGIcon>
 );
 
 /* ─────────────────────────────────────────────
    CHEST — Mechanical treasure chest with gears
    ───────────────────────────────────────────── */
 export const ChestIcon = ({ size = 64, className }: IconProps) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="streak-chest-body" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#FFD54F" />
@@ -544,5 +500,5 @@ export const ChestIcon = ({ size = 64, className }: IconProps) => (
     <path d="M14,22 Q30,19 50,22" fill="none" stroke="white" strokeWidth="0.8" opacity="0.3" />
     {/* Chest base shadow */}
     <ellipse cx="32" cy="56" rx="22" ry="2" fill="#8B6914" opacity="0.2" />
-  </svg>
+  </SVGIcon>
 );

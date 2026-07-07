@@ -6,6 +6,7 @@ import type { Unit } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
 import { UnitIllustration } from './UnitIllustrations';
 import { CharacterAvatar } from '@/components/ui/CharacterAvatar';
+import { GOLD, GOLD_DARK } from './constants';
 
 interface UnitHeaderProps {
   unit: Unit;
@@ -21,9 +22,6 @@ interface UnitHeaderProps {
   onClick?: () => void;
   characterId?: string | null;
 }
-
-const GOLD = '#FFB800';
-const GOLD_DARK = '#B38600';
 
 export const UnitHeader = memo(function UnitHeader({
   unit,

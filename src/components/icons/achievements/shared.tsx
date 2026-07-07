@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { IconProps } from '../types';
 
 // ─── Category Color Palettes ───────────────────────────────────────────────
 export const COLORS = {
@@ -12,7 +13,7 @@ export const COLORS = {
   hidden: { base: '#8B5CF6', dark: '#6D28D9', light: '#EDE9FE' },
 };
 
-export type IconProps = { size?: number; className?: string };
+export type { IconProps };
 
 // ─── Shared Medal Base ─────────────────────────────────────────────────────
 export function MedalBase({

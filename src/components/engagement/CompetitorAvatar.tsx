@@ -1,10 +1,10 @@
 'use client';
 
 import { memo, useMemo } from 'react';
-import Image from 'next/image';
 import { getFakeUserById } from '@/lib/fake-user-generator';
 import { getFakeAvatarUrl, getInitialsColor } from '@/lib/fake-avatar';
 import { AvatarFrame } from '@/components/ui/AvatarFrame';
+import { AvatarBase } from '@/components/ui/AvatarBase';
 import type { FrameStyleId } from '@/components/ui/AvatarFrame';
 
 interface CompetitorAvatarProps {
@@ -36,46 +36,35 @@ export const CompetitorAvatar = memo(function CompetitorAvatar({
   }, [isUser, avatarUrl, fakeUserId]);
 
   const hasFrame = !isUser && !!frameStyle;
-
-  const avatarContent = avatarUrl ? (
-    <Image
-      src={avatarUrl}
-      alt={`${avatarInitial} avatar`}
-      width={hasFrame ? size - 8 : size}
-      height={hasFrame ? size - 8 : size}
-      className="w-full h-full object-cover"
-    />
-  ) : (
-    <div
-      className="w-full h-full flex items-center justify-center font-bold text-white"
-      style={{
-        background: bgColor,
-        fontSize: (hasFrame ? size - 8 : size) * 0.4,
-      }}
-    >
-      {avatarInitial}
-    </div>
-  );
+  const innerSize = hasFrame ? size - 8 : size;
 
   if (hasFrame) {
-    // Render with frame — frame adds ~6px padding, so we use a slightly larger outer
     const frameSize = size + 8;
     return (
       <div className="flex-shrink-0" style={{ width: frameSize, height: frameSize, margin: -4 }}>
         <AvatarFrame frameStyle={frameStyle as FrameStyleId} size={frameSize}>
-          {avatarContent}
+          <AvatarBase
+            size={innerSize}
+            name={avatarInitial}
+            image={avatarUrl}
+            bgColor={bgColor}
+            initialsClass="text-white"
+            initialsFontSize={innerSize * 0.4}
+          />
         </AvatarFrame>
       </div>
     );
   }
 
-  // No frame — render plain circle
   return (
-    <div
-      className="rounded-full overflow-hidden flex-shrink-0"
-      style={{ width: size, height: size }}
-    >
-      {avatarContent}
-    </div>
+    <AvatarBase
+      size={innerSize}
+      name={avatarInitial}
+      image={avatarUrl}
+      bgColor={bgColor}
+      initialsClass="text-white"
+      initialsFontSize={innerSize * 0.4}
+      className="flex-shrink-0"
+    />
   );
 });

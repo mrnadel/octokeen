@@ -4,8 +4,7 @@ import { useMemo } from 'react';
 import { useCourseStore } from '@/store/useCourseStore';
 import LessonView from '@/components/lesson/LessonView';
 import type { SessionAdapter } from '@/components/lesson/LessonView';
-
-const TEST_THEME = { color: 'var(--color-primary-500)', dark: 'var(--color-primary-700)', bg: 'var(--color-primary-50)' };
+import { TEST_THEME } from '@/lib/session-themes';
 
 export default function PlacementTestView() {
   const test = useCourseStore((s) => s.activePlacementTest);

@@ -12,6 +12,30 @@ import { LeaderboardRow } from '@/components/ui/LeaderboardRow';
 import { useIsDark } from '@/store/useThemeStore';
 import { useSession } from 'next-auth/react';
 
+// Skeleton shown while waiting for client hydration — avoids a flash from
+// localStorage rehydration without blocking the whole render with a spinner.
+function LeagueBoardSkeleton() {
+  return (
+    <div className="bg-white dark:bg-surface-900 rounded-2xl border border-gray-100 dark:border-surface-700 shadow-sm overflow-hidden animate-pulse">
+      <div className="px-4 py-4 flex items-center gap-3 border-b border-gray-100 dark:border-surface-700">
+        <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-surface-700 flex-shrink-0" />
+        <div className="space-y-2 flex-1">
+          <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-32" />
+          <div className="h-3 bg-gray-100 dark:bg-surface-800 rounded w-48" />
+        </div>
+      </div>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 border-b border-gray-50 dark:border-surface-800 last:border-0">
+          <div className="w-6 h-4 bg-gray-100 dark:bg-surface-800 rounded" />
+          <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-surface-700 flex-shrink-0" />
+          <div className="flex-1 h-3 bg-gray-100 dark:bg-surface-800 rounded" />
+          <div className="w-14 h-3 bg-gray-100 dark:bg-surface-800 rounded" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function LeagueBoard() {
   const league = useLeague();
   const { data: session } = useSession();
@@ -20,6 +44,7 @@ export function LeagueBoard() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const isDark = useIsDark();
+  const userRowRef = useRef<HTMLDivElement>(null);
   useEffect(() => { setMounted(true); }, []);
 
   const tier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
@@ -50,8 +75,18 @@ export function LeagueBoard() {
     ].sort((a, b) => b.weeklyXp - a.weeklyXp);
   }, [league.competitors, league.weeklyXp, displayName]);
 
+  // Scroll user's row into view after mount if they're not near the top.
+  // Only fires once (mounted transitions false -> true) to avoid jarring re-scrolls.
+  useEffect(() => {
+    if (!mounted) return;
+    const userRankAfterMount = allEntries.findIndex((e) => e.id === 'user') + 1;
+    if (userRankAfterMount > 5 && userRowRef.current) {
+      userRowRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [mounted]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Avoid hydration mismatch — league data comes from localStorage
-  if (!mounted) return <LoadingSpinner />;
+  if (!mounted) return <LeagueBoardSkeleton />;
 
   const userRank = getUserRank(league.weeklyXp, league.competitors);
   const promoteCount = tierConfig.promoteCount;
@@ -92,8 +127,8 @@ export function LeagueBoard() {
                 : 'transparent';
 
           return (
+            <div key={entry.id} ref={isUser ? userRowRef : undefined}>
             <LeaderboardRow
-              key={entry.id}
               rank={rank}
               name={entry.name}
               xp={entry.weeklyXp}
@@ -128,6 +163,7 @@ export function LeagueBoard() {
                 </>
               }
             />
+            </div>
           );
         })}
       </div>

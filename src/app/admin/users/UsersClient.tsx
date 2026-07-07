@@ -2,12 +2,13 @@
 
 import { useSession } from 'next-auth/react';
 import { Search } from 'lucide-react';
+import { AdminAuthGuard } from '@/components/admin/AdminAuthGuard';
 import { useAdminUsers } from './useAdminUsers';
 import { AdminUsersTable } from './AdminUsersTable';
 import { DeleteUserDialog } from './DeleteUserDialog';
 
 export default function AdminUsersPage() {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const {
     total,
     sorted,
@@ -38,31 +39,8 @@ export default function AdminUsersPage() {
     bulkDelete,
   } = useAdminUsers();
 
-  if (status === 'loading') {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm text-gray-500">Loading users...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (status !== 'authenticated') {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-center">
-          <p className="text-gray-500 font-semibold">Not authenticated</p>
-          <a href="/login" className="text-primary-600 text-sm font-medium hover:underline mt-1 inline-block">
-            Sign in
-          </a>
-        </div>
-      </div>
-    );
-  }
-
   return (
+    <AdminAuthGuard loading={status === 'loading'} session={session}>
     <div>
       <h1 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-1">Users</h1>
       <p className="text-sm text-gray-500 mb-4 md:mb-5">
@@ -125,5 +103,6 @@ export default function AdminUsersPage() {
         deleting={deleting}
       />
     </div>
+    </AdminAuthGuard>
   );
 }

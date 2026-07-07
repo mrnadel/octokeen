@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import crypto from 'crypto';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, passwordResetTokens } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
 import { emailSchema } from '@/lib/api-schemas';
+import { generateToken, hashToken, getBaseUrl } from '@/lib/auth-tokens';
 
 const forgotPasswordSchema = z.object({
   email: emailSchema,
@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
   if (!user || !user.passwordHash) return successResponse;
 
   // Generate a secure random token
-  const rawToken = crypto.randomBytes(32).toString('hex');
-  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+  const rawToken = generateToken();
+  const tokenHash = hashToken(rawToken);
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS);
 
   await db.insert(passwordResetTokens).values({
@@ -63,8 +63,7 @@ export async function POST(request: NextRequest) {
   });
 
   // Build reset URL
-  const baseUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000';
-  const resetUrl = `${baseUrl}/reset-password?token=${rawToken}`;
+  const resetUrl = `${getBaseUrl()}/reset-password?token=${rawToken}`;
 
   await sendEmail({
     to: email,

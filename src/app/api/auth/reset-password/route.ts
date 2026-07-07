@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
-import { eq, and, isNull, gt } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users, passwordResetTokens } from '@/lib/db/schema';
+import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { z } from 'zod';
+import { hashToken, validateToken, markTokenUsed } from '@/lib/auth-tokens';
 
 const resetSchema = z.object({
   token: z.string().min(1, 'Token is required'),
@@ -43,20 +43,10 @@ export async function POST(request: NextRequest) {
   }
 
   const { token, password } = parsed.data;
-  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+  const tokenHash = hashToken(token);
 
   // Find valid, unused, non-expired token
-  const [resetToken] = await db
-    .select()
-    .from(passwordResetTokens)
-    .where(
-      and(
-        eq(passwordResetTokens.tokenHash, tokenHash),
-        isNull(passwordResetTokens.usedAt),
-        gt(passwordResetTokens.expiresAt, new Date()),
-      )
-    )
-    .limit(1);
+  const resetToken = await validateToken('passwordReset', tokenHash);
 
   if (!resetToken) {
     return NextResponse.json(
@@ -73,10 +63,7 @@ export async function POST(request: NextRequest) {
     .where(eq(users.id, resetToken.userId));
 
   // Mark token as used
-  await db
-    .update(passwordResetTokens)
-    .set({ usedAt: new Date() })
-    .where(eq(passwordResetTokens.id, resetToken.id));
+  await markTokenUsed('passwordReset', resetToken.id);
 
   return NextResponse.json({ message: 'Password reset successfully.' });
 }

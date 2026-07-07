@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AvatarPlaceholder, FrameIconProps } from './utils';
+import { SVGIcon } from '../SVGIcon';
 
 // ============================================================================
 // REWARD FRAMES — Streak milestones
@@ -9,7 +10,7 @@ import { AvatarPlaceholder, FrameIconProps } from './utils';
 
 /** Iron Will — 30 day streak, slate gray with fire */
 export const FrameIronWill: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-streak-iron-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#94A3B8" />
@@ -24,12 +25,12 @@ export const FrameIronWill: React.FC<FrameIconProps> = ({ size = 64, className }
     <line x1="18" y1="5" x2="18" y2="8" stroke="#64748B" strokeWidth="1" opacity="0.4" />
     <line x1="46" y1="5" x2="46" y2="8" stroke="#64748B" strokeWidth="1" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Diamond Mind — 60 day streak, blue diamond */
 export const FrameDiamondMind: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-streak-diamond-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#BFDBFE" />
@@ -49,12 +50,12 @@ export const FrameDiamondMind: React.FC<FrameIconProps> = ({ size = 64, classNam
     <polygon points="32,1 36,5 32,9 28,5" fill="#60A5FA" opacity="0.8" />
     <polygon points="32,2 34,5 32,8 30,5" fill="#BFDBFE" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Centurion — 100 day streak, golden crown */
 export const FrameCenturion: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-streak-centurion-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FEF3C7" />
@@ -75,7 +76,7 @@ export const FrameCenturion: React.FC<FrameIconProps> = ({ size = 64, className 
     {/* 100 text */}
     <text x="32" y="62" textAnchor="middle" fontSize="5" fill="#FBBF24" fontWeight="bold" opacity="0.6">100</text>
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 // ============================================================================
@@ -84,7 +85,7 @@ export const FrameCenturion: React.FC<FrameIconProps> = ({ size = 64, className 
 
 /** First Gold — first golden lesson complete */
 export const FrameFirstGold: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-first-gold-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDE68A" />
@@ -97,12 +98,12 @@ export const FrameFirstGold: React.FC<FrameIconProps> = ({ size = 64, className 
     <path d="M28 3 L26 8 L32 6 L38 8 L36 3" stroke="#CA8A04" strokeWidth="1" fill="none" opacity="0.6" />
     <circle cx="32" cy="5" r="2" fill="#CA8A04" opacity="0.7" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Marathon Runner — 1000 correct answers */
 export const FrameMarathonRunner: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-marathon-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#93C5FD" />
@@ -121,12 +122,12 @@ export const FrameMarathonRunner: React.FC<FrameIconProps> = ({ size = 64, class
     <line x1="4" y1="32" x2="6" y2="32" stroke="#2563EB" strokeWidth="0.8" opacity="0.3" />
     <line x1="4" y1="36" x2="8" y2="36" stroke="#2563EB" strokeWidth="0.8" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Early Adopter — first 100 users */
 export const FrameEarlyAdopter: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-early-bird-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FDBA74" />
@@ -141,12 +142,12 @@ export const FrameEarlyAdopter: React.FC<FrameIconProps> = ({ size = 64, classNa
     <line x1="38" y1="4" x2="42" y2="2" stroke="#F97316" strokeWidth="0.8" opacity="0.4" />
     <line x1="32" y1="1" x2="32" y2="-1" stroke="#F97316" strokeWidth="0.8" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Flawless — 100% accuracy on entire unit */
 export const FrameFlawless: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-perfect-unit-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#6EE7B7" />
@@ -164,12 +165,12 @@ export const FrameFlawless: React.FC<FrameIconProps> = ({ size = 64, className }
     {/* checkmark at top */}
     <path d="M28 4 L31 7 L36 2" stroke="#059669" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Speed Demon — 10 lessons in a day */
 export const FrameSpeedDemon: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-speed-demon-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FEF08A" />
@@ -185,12 +186,12 @@ export const FrameSpeedDemon: React.FC<FrameIconProps> = ({ size = 64, className
     <line x1="2" y1="32" x2="6" y2="32" stroke="#EAB308" strokeWidth="0.8" opacity="0.4" />
     <line x1="3" y1="38" x2="7" y2="36" stroke="#EAB308" strokeWidth="0.8" opacity="0.3" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Perfectionist — 100% accuracy on 25 lessons */
 export const FramePerfectionist: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-perfectionist-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -209,12 +210,12 @@ export const FramePerfectionist: React.FC<FrameIconProps> = ({ size = 64, classN
     <circle cx="32" cy="4" r="3" stroke="#DC2626" strokeWidth="0.8" fill="none" opacity="0.6" />
     <circle cx="32" cy="4" r="1.5" fill="#DC2626" opacity="0.7" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Golden Engineer — all golden lessons complete */
 export const FrameGoldenEngineer: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-all-gold-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FEF3C7" />
@@ -239,7 +240,7 @@ export const FrameGoldenEngineer: React.FC<FrameIconProps> = ({ size = 64, class
     <circle cx="56" cy="32" r="1" fill="#FEF3C7" opacity="0.5" />
     <circle cx="32" cy="60" r="1" fill="#FEF3C7" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 // ============================================================================
@@ -248,7 +249,7 @@ export const FrameGoldenEngineer: React.FC<FrameIconProps> = ({ size = 64, class
 
 /** Engineer's Crest — Level 15 */
 export const FrameEngineersCrest: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-level15-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#C7D2FE" />
@@ -267,12 +268,12 @@ export const FrameEngineersCrest: React.FC<FrameIconProps> = ({ size = 64, class
     <path d="M28 2 L36 2 L36 8 L32 11 L28 8 Z" fill="#2563EB" opacity="0.7" />
     <path d="M30 4 L34 4 L34 7 L32 9 L30 7 Z" fill="#C7D2FE" opacity="0.4" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Master's Mark — Level 20 */
 export const FrameMastersMark: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-level20-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#DDD6FE" />
@@ -294,12 +295,12 @@ export const FrameMastersMark: React.FC<FrameIconProps> = ({ size = 64, classNam
     <rect x="28" y="2" width="8" height="2" rx="0.5" fill="#7C3AED" opacity="0.8" />
     <rect x="28" y="8" width="8" height="1.5" rx="0.5" fill="#7C3AED" opacity="0.8" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Elite Badge — Level 25 */
 export const FrameEliteBadge: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-level25-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#A7F3D0" />
@@ -319,12 +320,12 @@ export const FrameEliteBadge: React.FC<FrameIconProps> = ({ size = 64, className
     {/* badge/star emblem at top */}
     <polygon points="32,1 34,5 38,5 35,8 36,12 32,10 28,12 29,8 26,5 30,5" fill="#059669" opacity="0.7" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );
 
 /** Grandmaster Crown — Level 30 (MAX) */
 export const FrameGrandmasterCrown: React.FC<FrameIconProps> = ({ size = 64, className }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <SVGIcon size={size} className={className}>
     <defs>
       <linearGradient id="frame-level30-grad" x1="0" y1="0" x2="64" y2="64">
         <stop offset="0%" stopColor="#FCA5A5" />
@@ -354,5 +355,5 @@ export const FrameGrandmasterCrown: React.FC<FrameIconProps> = ({ size = 64, cla
     <circle cx="58" cy="32" r="1" fill="#FCA5A5" opacity="0.5" />
     <circle cx="32" cy="62" r="1" fill="#FCA5A5" opacity="0.5" />
     <AvatarPlaceholder />
-  </svg>
+  </SVGIcon>
 );

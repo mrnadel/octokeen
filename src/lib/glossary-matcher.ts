@@ -1,4 +1,8 @@
+import type { ReactNode } from 'react';
 import type { GlossaryEntry } from '@/data/course/types';
+
+/** The subset of GlossaryEntry fields used outside the matcher (popovers, context, etc.). */
+export type GlossaryEntryInfo = Omit<GlossaryEntry, 'sectionIndex'>;
 
 export interface GlossaryMatch {
   term: string;
@@ -6,6 +10,30 @@ export interface GlossaryMatch {
   relatedTerms?: string[];
   start: number;
   end: number;
+}
+
+/** Shared segment builder: slices text around glossary matches and calls `renderMatch` for each hit. */
+export function buildGlossarySegments(
+  text: string,
+  matches: GlossaryMatch[],
+  renderMatch: (match: GlossaryMatch, matchedText: string) => ReactNode,
+): ReactNode[] {
+  const segments: ReactNode[] = [];
+  let cursor = 0;
+
+  for (const match of matches) {
+    if (match.start > cursor) {
+      segments.push(text.slice(cursor, match.start));
+    }
+    segments.push(renderMatch(match, text.slice(match.start, match.end)));
+    cursor = match.end;
+  }
+
+  if (cursor < text.length) {
+    segments.push(text.slice(cursor));
+  }
+
+  return segments;
 }
 
 export class GlossaryMatcher {

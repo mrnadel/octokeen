@@ -168,149 +168,8 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
           <GlossaryText text={question.question} />
         </h2>
 
-        {/* Spacer pushes buckets + items toward the bottom */}
-        <div style={{ flex: 1, minHeight: 8 }} />
-
-        {/* Two bucket drop zones */}
-        <div className="grid grid-cols-2" style={{ gap: 10 }}>
-          {bucketLabels.map((label, bIdx) => {
-            const bucketRef = bIdx === 0 ? bucket0Ref : bucket1Ref;
-            const bucketItemIndices = shuffledOrder.filter((i) => assignments[i] === bIdx);
-            const isHighlighted = highlightBucket === bIdx;
-            const isTargetable = selectedItem !== null;
-
-            return (
-              <div
-                key={label}
-                ref={bucketRef}
-                tabIndex={0}
-                role="listbox"
-                aria-label={`Bucket: ${label}`}
-                onClick={() => handleBucketTap(bIdx)}
-                onKeyDown={(e: React.KeyboardEvent) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleBucketTap(bIdx);
-                  }
-                }}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: 16,
-                  border: isHighlighted || isTargetable
-                    ? `2.5px solid ${unitColor}`
-                    : '2px dashed #D5D5D5',
-                  background: isHighlighted
-                    ? `${unitColor}15`
-                    : isTargetable
-                      ? `${unitColor}08`
-                      : `${unitColor}06`,
-                  padding: '10px 10px',
-                  minHeight: 160,
-                  transition: 'all 0.15s ease',
-                  transform: isHighlighted ? 'scale(1.02)' : 'scale(1)',
-                  cursor: isTargetable ? 'pointer' : 'default',
-                }}
-              >
-                {/* Bucket label */}
-                <span style={{
-                  fontSize: 12,
-                  fontWeight: 800,
-                  color: unitColor,
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.5,
-                  marginBottom: 8,
-                  textAlign: 'center',
-                }}>
-                  {label}
-                </span>
-
-                {/* Items in this bucket */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <AnimatePresence>
-                    {bucketItemIndices.map((originalIdx) => {
-                      const isCorrect = results ? results[originalIdx] : null;
-                      return (
-                        <motion.button
-                          key={`sorted-${originalIdx}`}
-                          layout
-                          role="option"
-                          aria-label={`${items[originalIdx]} in ${label}${isCorrect !== null ? (isCorrect ? ' — correct' : ' — incorrect') : '. Tap to return to pool'}`}
-                          initial={{ opacity: 0, scale: 0.7, y: -8 }}
-                          animate={
-                            isCorrect !== null
-                              ? isCorrect
-                                ? { opacity: 1, scale: [1, 1.08, 1], y: 0 }
-                                : { opacity: 1, scale: 1, y: 0, x: [0, -4, 4, -2, 2, 0] }
-                              : { opacity: 1, scale: 1, y: 0 }
-                          }
-                          exit={{ opacity: 0, scale: 0.7, y: -8 }}
-                          transition={
-                            isCorrect !== null
-                              ? { duration: 0.35 }
-                              : { type: 'spring', stiffness: 500, damping: 25 }
-                          }
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleReturnToPool(originalIdx);
-                          }}
-                          disabled={answered}
-                          whileTap={!answered ? { y: 2, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } } : undefined}
-                          style={{
-                            padding: '8px 10px',
-                            borderRadius: 10,
-                            fontSize: 13,
-                            fontWeight: 700,
-                            textAlign: 'center',
-                            cursor: answered ? 'default' : 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: 4,
-                            border: isCorrect === null ? `2px solid ${c.border}`
-                              : isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B',
-                            background: isCorrect === null ? c.cardBg
-                              : isCorrect ? '#D7FFB8' : '#FFDFE0',
-                            boxShadow: isCorrect === null ? '0 2px 0 #DCDCDC'
-                              : isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none',
-                            color: isCorrect === null ? c.title
-                              : isCorrect ? '#58A700' : '#EA2B2B',
-                            transition: 'background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
-                          }}
-                        >
-                          {items[originalIdx]}
-                          {isCorrect === true ? <Check className="w-3.5 h-3.5" strokeWidth={3} /> : isCorrect === false ? <X className="w-3.5 h-3.5" strokeWidth={3} /> : ' ×'}
-                        </motion.button>
-                      );
-                    })}
-                  </AnimatePresence>
-                  {bucketItemIndices.length === 0 && (
-                    <div style={{
-                      padding: '14px 8px',
-                      borderRadius: 10,
-                      border: isTargetable ? `1.5px dashed ${unitColor}` : '1.5px dashed #D5D5D5',
-                      fontSize: 12,
-                      fontWeight: 600,
-                      color: isTargetable ? unitColor : c.muted,
-                      textAlign: 'center',
-                      transition: 'all 0.15s ease',
-                    }}>
-                      {isTargetable ? 'Tap here' : 'Drop here'}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Counter */}
-        <div style={{ textAlign: 'center', marginTop: 8, fontSize: 12, fontWeight: 700, color: c.muted }}>
-          {items.length - unsortedIndices.length}/{items.length} sorted
-        </div>
-
-        {/* Unsorted items pool - at bottom */}
-        <div style={{ minHeight: 48, paddingTop: 10 }}>
+        {/* Unsorted items pool */}
+        <div style={{ minHeight: 48, paddingBottom: 12 }}>
           {unsortedIndices.length > 0 && (
             <div style={{ fontSize: 11, fontWeight: 700, color: c.subtitle, marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
               Drag or tap to sort
@@ -371,6 +230,151 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
               All sorted! Hit Check.
             </div>
           )}
+        </div>
+
+        <div style={{ flex: 1 }} />
+
+        {/* Two bucket drop zones */}
+        <div className="grid grid-cols-2" style={{ gap: 10 }}>
+          {bucketLabels.map((label, bIdx) => {
+            const bucketRef = bIdx === 0 ? bucket0Ref : bucket1Ref;
+            const bucketItemIndices = shuffledOrder.filter((i) => assignments[i] === bIdx);
+            const isHighlighted = highlightBucket === bIdx;
+            const isTargetable = selectedItem !== null;
+
+            return (
+              <div
+                key={label}
+                ref={bucketRef}
+                tabIndex={0}
+                role="listbox"
+                aria-label={`Bucket: ${label}`}
+                onClick={() => handleBucketTap(bIdx)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleBucketTap(bIdx);
+                  }
+                }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: 16,
+                  border: isHighlighted || isTargetable
+                    ? `2.5px solid ${unitColor}`
+                    : '2px dashed #D5D5D5',
+                  background: isHighlighted
+                    ? `${unitColor}15`
+                    : isTargetable
+                      ? `${unitColor}08`
+                      : `${unitColor}06`,
+                  padding: '10px 10px',
+                  height: 200,
+                  overflow: 'hidden',
+                  transition: 'all 0.15s ease',
+                  transform: isHighlighted ? 'scale(1.02)' : 'scale(1)',
+                  cursor: isTargetable ? 'pointer' : 'default',
+                }}
+              >
+                {/* Bucket label */}
+                <span style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: unitColor,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                  marginBottom: 8,
+                  textAlign: 'center',
+                }}>
+                  {label}
+                </span>
+
+                {/* Items in this bucket */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, overflowY: 'auto', flex: 1 }}>
+                  <AnimatePresence>
+                    {bucketItemIndices.map((originalIdx) => {
+                      const isCorrect = results ? results[originalIdx] : null;
+                      return (
+                        <motion.button
+                          key={`sorted-${originalIdx}`}
+                          layout
+                          role="option"
+                          aria-label={`${items[originalIdx]} in ${label}${isCorrect !== null ? (isCorrect ? ' — correct' : ' — incorrect') : '. Tap to return to pool'}`}
+                          initial={{ opacity: 0, scale: 0.7, y: -8 }}
+                          animate={
+                            isCorrect !== null
+                              ? isCorrect
+                                ? { opacity: 1, scale: [1, 1.08, 1], y: 0 }
+                                : { opacity: 1, scale: 1, y: 0, x: [0, -4, 4, -2, 2, 0] }
+                              : { opacity: 1, scale: 1, y: 0 }
+                          }
+                          exit={{ opacity: 0, scale: 0.7, y: -8 }}
+                          transition={
+                            isCorrect !== null
+                              ? { duration: 0.35 }
+                              : { type: 'spring', stiffness: 500, damping: 25 }
+                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (selectedItem !== null) {
+                              handleBucketTap(bIdx);
+                            } else {
+                              handleReturnToPool(originalIdx);
+                            }
+                          }}
+                          disabled={answered}
+                          whileTap={!answered ? { y: 2, boxShadow: '0 0 0 transparent', transition: { duration: 0.06 } } : undefined}
+                          style={{
+                            padding: '8px 10px',
+                            borderRadius: 10,
+                            fontSize: 13,
+                            fontWeight: 700,
+                            textAlign: 'center',
+                            cursor: answered ? 'default' : 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 4,
+                            border: isCorrect === null ? `2px solid ${c.border}`
+                              : isCorrect ? '2px solid #58CC02' : '2px solid #FF4B4B',
+                            background: isCorrect === null ? c.cardBg
+                              : isCorrect ? '#D7FFB8' : '#FFDFE0',
+                            boxShadow: isCorrect === null ? '0 2px 0 #DCDCDC'
+                              : isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none',
+                            color: isCorrect === null ? c.title
+                              : isCorrect ? '#58A700' : '#EA2B2B',
+                            transition: 'background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
+                          }}
+                        >
+                          {items[originalIdx]}
+                          {isCorrect === true ? <Check className="w-3.5 h-3.5" strokeWidth={3} /> : isCorrect === false ? <X className="w-3.5 h-3.5" strokeWidth={3} /> : ' ×'}
+                        </motion.button>
+                      );
+                    })}
+                  </AnimatePresence>
+                  {bucketItemIndices.length === 0 && (
+                    <div style={{
+                      padding: '14px 8px',
+                      borderRadius: 10,
+                      border: isTargetable ? `1.5px dashed ${unitColor}` : '1.5px dashed #D5D5D5',
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: isTargetable ? unitColor : c.muted,
+                      textAlign: 'center',
+                      transition: 'all 0.15s ease',
+                    }}>
+                      {isTargetable ? 'Tap here' : 'Drop here'}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Counter */}
+        <div style={{ textAlign: 'center', marginTop: 8, fontSize: 12, fontWeight: 700, color: c.muted }}>
+          {items.length - unsortedIndices.length}/{items.length} sorted
         </div>
       </div>
     );

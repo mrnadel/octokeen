@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import type { GlossaryMatcher } from '@/lib/glossary-matcher';
+import { buildGlossarySegments, type GlossaryEntryInfo, type GlossaryMatcher } from '@/lib/glossary-matcher';
 
 interface GlossaryPopoverProps {
-  entry: { term: string; definition: string; relatedTerms?: string[] };
+  entry: GlossaryEntryInfo;
   anchorRect: DOMRect;
   accentColor: string;
   onClose: () => void;
@@ -28,44 +28,28 @@ function renderDefinition(
 
   if (matches.length === 0) return text;
 
-  const parts: ReactNode[] = [];
-  let last = 0;
-
-  for (const m of matches) {
-    if (m.start > last) {
-      parts.push(text.slice(last, m.start));
-    }
-    const term = m.term;
-    parts.push(
-      <button
-        key={`${m.start}-${term}`}
-        type="button"
-        onClick={() => onTermClick(term)}
-        style={{
-          display: 'inline',
-          padding: 0,
-          margin: 0,
-          background: 'none',
-          font: 'inherit',
-          lineHeight: 'inherit',
-          cursor: 'pointer',
-          border: 'none',
-          borderBottom: `1.5px dotted ${accentColor}`,
-          color: accentColor,
-          fontWeight: 600,
-        }}
-      >
-        {text.slice(m.start, m.end)}
-      </button>,
-    );
-    last = m.end;
-  }
-
-  if (last < text.length) {
-    parts.push(text.slice(last));
-  }
-
-  return parts;
+  return buildGlossarySegments(text, matches, (m, matchedText) => (
+    <button
+      key={`${m.start}-${m.term}`}
+      type="button"
+      onClick={() => onTermClick(m.term)}
+      style={{
+        display: 'inline',
+        padding: 0,
+        margin: 0,
+        background: 'none',
+        font: 'inherit',
+        lineHeight: 'inherit',
+        cursor: 'pointer',
+        border: 'none',
+        borderBottom: `1.5px dotted ${accentColor}`,
+        color: accentColor,
+        fontWeight: 600,
+      }}
+    >
+      {matchedText}
+    </button>
+  ));
 }
 
 export function GlossaryPopover({
