@@ -4,6 +4,7 @@ import { useEffect, useCallback } from 'react';
 import { create } from 'zustand';
 import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
+import { Z_LAYERS } from './zLayers';
 
 // ─── Toast Store ───
 
@@ -135,7 +136,7 @@ export function ToastContainer() {
         top: 'max(env(safe-area-inset-top, 0px), 12px)',
         left: 0,
         right: 0,
-        zIndex: 200,
+        zIndex: Z_LAYERS.TOAST,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

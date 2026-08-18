@@ -1,39 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import paddle from '@/lib/paddle';
 import { db } from '@/lib/db';
 import { users, subscriptions } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { serverEnv } from '@/lib/env';
 import { logger } from '@/lib/logger';
+import { jsonOk, jsonError, rateLimited, TOO_MANY_REQUESTS_RETRY } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }): Promise<NextResponse> => {
   const rl = rateLimit(`checkout:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': Math.ceil(
-            (rl.resetAt.getTime() - Date.now()) / 1000,
-          ).toString(),
-        },
-      },
-    );
+    return rateLimited(rl.resetAt, TOO_MANY_REQUESTS_RETRY);
   }
 
   let body: { priceId?: string };
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+    return jsonError('Invalid JSON', 400);
   }
   const priceId = body.priceId?.trim();
 
@@ -51,7 +37,7 @@ export async function POST(request: NextRequest) {
       envMonthly: env.PADDLE_PRO_MONTHLY_PRICE_ID ?? 'MISSING',
       envYearly: env.PADDLE_PRO_YEARLY_PRICE_ID ?? 'MISSING',
     });
-    return NextResponse.json({ error: 'Invalid price' }, { status: 400 });
+    return jsonError('Invalid price', 400);
   }
 
   // Fetch user email
@@ -62,7 +48,7 @@ export async function POST(request: NextRequest) {
     .limit(1);
 
   if (!user?.email) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    return jsonError('User not found', 404);
   }
 
   // Create a transaction server-side and return its ID
@@ -84,12 +70,12 @@ export async function POST(request: NextRequest) {
           items: [{ priceId, quantity: 1 }],
           customer: { email: user.email },
         } as never);
-    return NextResponse.json({ transactionId: transaction.id });
+    return jsonOk({ transactionId: transaction.id });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     const details = err && typeof err === 'object' && 'code' in err ? (err as Record<string, unknown>).code : undefined;
     logger.error('Paddle transaction create failed:', message, details);
     // Do not leak internal error details to the client
-    return NextResponse.json({ error: 'Failed to create checkout' }, { status: 500 });
+    return jsonError('Failed to create checkout', 500);
   }
-}
+});

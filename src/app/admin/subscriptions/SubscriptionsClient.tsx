@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { AdminAuthGuard } from '@/components/admin/AdminAuthGuard';
 import { AdminSpinner } from '@/components/admin/AdminSpinner';
 import { useAdminFetch } from '@/components/admin/useAdminFetch';
+import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
 
 interface Overview {
   free: number;
@@ -13,10 +14,11 @@ interface Overview {
   revenueThisMonthCents: number;
 }
 
+/** Admin list row — the domain Subscription joined with the owning user. */
 interface Subscription {
   id: string;
-  tier: string;
-  status: string;
+  tier: SubscriptionTier;
+  status: SubscriptionStatus;
   billingInterval: string | null;
   currentPeriodEnd: string | null;
   cancelAtPeriodEnd: boolean;
@@ -40,7 +42,7 @@ interface ApiData {
   recentPayments: Payment[];
 }
 
-const tierBadgeStyle = (tier: string): React.CSSProperties => {
+const tierBadgeStyle = (tier: SubscriptionTier): React.CSSProperties => {
   const colors: Record<string, { bg: string; color: string }> = {
     free: { bg: '#F0F0F0', color: '#666' },
     pro: { bg: '#E8F5E9', color: '#2E7D32' },

@@ -1,7 +1,8 @@
 import { asc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseUnits } from '@/lib/db/schema';
-import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 import { contentManagedError } from '@/lib/api/content-managed-response';
 
 export const GET = withAdminAuth(async () => {

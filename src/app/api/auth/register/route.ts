@@ -1,32 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { registerSchema, getValidationError } from '@/lib/validation';
 import { logger } from '@/lib/logger';
-import { jsonOk, jsonError } from '@/lib/api-helpers';
+import {
+  jsonOk,
+  jsonError,
+  getClientIp,
+  rateLimited,
+  TOO_MANY_REQUESTS_RETRY,
+} from '@/lib/api-helpers';
+import { getUtcToday } from '@/lib/server-dates';
+import { hashPassword } from '@/lib/api/passwords';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // Rate limit by IP
-    const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-    const rl = rateLimit(`register:${ip}`, RATE_LIMITS.auth);
+    const rl = rateLimit(`register:${getClientIp(request)}`, RATE_LIMITS.auth);
     if (!rl.success) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
-      );
+      return rateLimited(rl.resetAt, TOO_MANY_REQUESTS_RETRY);
     }
 
     const body = await request.json();
     const parsed = registerSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: getValidationError(parsed) },
-        { status: 400 }
-      );
+      return jsonError(getValidationError(parsed) ?? 'Invalid input', 400);
     }
 
     const { email, password, displayName } = parsed.data;
@@ -42,8 +42,8 @@ export async function POST(request: NextRequest) {
       return jsonError('Unable to create account. Please try a different email or sign in.', 409);
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
-    const joinedDate = new Date().toISOString().split('T')[0];
+    const passwordHash = await hashPassword(password);
+    const joinedDate = getUtcToday();
 
     const [newUser] = await db
       .insert(users)

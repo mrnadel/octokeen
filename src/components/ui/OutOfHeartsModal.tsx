@@ -15,6 +15,7 @@ import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { AdUnit } from '@/components/ads/AdUnit';
 import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { CURRENCY } from '@/data/currency';
+import { MODAL_ICON_SPRING } from './motionPresets';
 
 interface OutOfHeartsModalProps {
   isOpen: boolean;
@@ -121,7 +122,7 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
         </Link>
       }
     >
-      <motion.div className="mb-6" initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.1 }}>
+      <motion.div className="mb-6" initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={MODAL_ICON_SPRING}>
         <MascotWithGlow pose="sad" size={160} />
       </motion.div>
       <h3 id="out-of-hearts-title" className="text-[26px] font-extrabold mb-6">Out of Hearts</h3>

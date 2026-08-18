@@ -6,18 +6,19 @@ import { useShallow } from 'zustand/react/shallow';
 import { TOTAL_TOPICS, type Question, type TopicId, type Difficulty, type UserProgress, type SessionRecord, type TopicProgress } from '@/data/types';
 import type { CourseQuestion } from '@/data/course/types';
 import { seedProgress } from '@/data/seed-progress';
-import { levels, getLevelForXp } from '@/data/levels';
+import { getLevelForXp } from '@/data/levels';
 import { getLevelReward } from '@/data/level-rewards';
 import { achievements as allAchievements } from '@/data/achievements';
-import { shuffleArray, getTodayString, getYesterdayString, calculateXP } from '@/lib/utils';
+import { shuffleArray, getTodayString, calculateXP, toPercent } from '@/lib/utils';
+import { MAX_XP_PER_QUESTION } from '@/lib/game-config';
 import { PRO_SESSION_TYPES } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
-import { checkDoubleXp, getEffectiveTier } from '@/lib/store-helpers';
+import { getXpBoost, getEffectiveTier } from '@/lib/store-helpers';
+import { advanceStreak, appendActiveDay, buildStreakSyncPatch } from '@/lib/streak-utils';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
-import { getEventXpMultiplier } from '@/lib/xp-events';
 import { selectSmartPracticeQuestions, buildPerformance } from '@/lib/practice-algorithm';
 
 // --- Session Types ---
@@ -432,15 +433,6 @@ function checkNewAchievements(progress: UserProgress, sessionCtx?: SessionContex
   return newlyUnlocked;
 }
 
-function updateLevel(totalXp: number): number {
-  let lvl = 1;
-  for (const l of levels) {
-    if (totalXp >= l.xpRequired) lvl = l.level;
-    else break;
-  }
-  return lvl;
-}
-
 function updateTopicProgress(existing: TopicProgress[], questionTopicId: TopicId, subtopic: string, correct: boolean): TopicProgress[] {
   const updated = [...existing];
   const idx = updated.findIndex(t => t.topicId === questionTopicId);
@@ -588,21 +580,12 @@ export const useStore = create<AppState>()(
         let xp = alreadyAnswered ? 0 : calculateXP(question, correct, timeSpent, confidence);
 
         if (!alreadyAnswered) {
-          // Apply double XP boost if active (with tamper validation)
-          const engState = useEngagementStore.getState();
-          const shopDoubleXp = checkDoubleXp(engState);
-
-          // Time-limited XP events (weekend 2x, power hour, league sprint)
+          // Shop double-XP boost + time-limited XP events, stacked additively
           const isPro = useSubscriptionStore.getState().tier === 'pro';
-          const eventMultiplier = getEventXpMultiplier(isPro);
-          const shopMultiplier = shopDoubleXp ? 2 : 1;
-          // Shop boost and event boost stack additively (matches useCourseStore.completeLesson)
-          const totalBoostMultiplier = shopMultiplier === 1 && eventMultiplier === 1
-            ? 1
-            : 1 + (shopMultiplier - 1) + (eventMultiplier - 1);
-          xp = Math.round(xp * totalBoostMultiplier);
+          const { totalMultiplier } = getXpBoost(useEngagementStore.getState(), isPro);
+          xp = Math.round(xp * totalMultiplier);
           // Cap per-question XP to prevent extreme inflation during event stacking
-          xp = Math.min(xp, 200);
+          xp = Math.min(xp, MAX_XP_PER_QUESTION);
         }
 
         set(state => {
@@ -626,7 +609,7 @@ export const useStore = create<AppState>()(
               totalXp: state.progress.totalXp + xp,
               totalQuestionsAttempted: state.progress.totalQuestionsAttempted + 1,
               totalQuestionsCorrect: state.progress.totalQuestionsCorrect + (correct ? 1 : 0),
-              currentLevel: updateLevel(state.progress.totalXp + xp),
+              currentLevel: getLevelForXp(state.progress.totalXp + xp).level,
               topicProgress: updateTopicProgress(state.progress.topicProgress, question.topic, question.subtopic, correct),
               attemptedQuestionTypes: updatedAttemptedTypes,
               // NOTE: lastActiveDate is intentionally NOT set here — it must stay
@@ -698,27 +681,12 @@ export const useStore = create<AppState>()(
 
         // Update streak (with freeze support + cross-store sync)
         const today = getTodayString();
-        const lastActive = progress.lastActiveDate;
         const engState = useEngagementStore.getState();
-        let newStreak = progress.currentStreak;
-        if (lastActive !== today) {
-          if (lastActive === getYesterdayString()) {
-            newStreak += 1;
-          } else if (!lastActive) {
-            newStreak = 1;
-          } else {
-            // Missed day(s) — check for streak freeze
-            if (engState.streak.freezesOwned > 0 && newStreak > 0) {
-              engState.useStreakFreeze();
-              newStreak += 1; // Continue as if no break
-            } else {
-              if (newStreak > 0) {
-                engState.recordStreakBreak(newStreak);
-              }
-              newStreak = 1; // streak broken
-            }
-          }
-        }
+        const newStreak = advanceStreak(progress.currentStreak, progress.lastActiveDate, {
+          freezesOwned: engState.streak.freezesOwned,
+          useStreakFreeze: engState.useStreakFreeze,
+          recordStreakBreak: engState.recordStreakBreak,
+        });
 
         const sessionRecord: SessionRecord = {
           id: `session-${Date.now()}`,
@@ -730,11 +698,8 @@ export const useStore = create<AppState>()(
           xpEarned,
         };
 
-        // Track active days for week tracker (keep last 14 days)
-        const existingDays = progress.activeDays ?? [];
-        const updatedActiveDays = existingDays.includes(today)
-          ? existingDays
-          : [...existingDays, today].slice(-14);
+        // Track active days for week tracker
+        const updatedActiveDays = appendActiveDay(progress.activeDays, today);
 
         // Check and award streak milestones
         if (newStreak > progress.currentStreak) {
@@ -765,7 +730,7 @@ export const useStore = create<AppState>()(
         }, 0);
         if (achievementXp > 0) {
           updatedProgress.totalXp += achievementXp;
-          updatedProgress.currentLevel = updateLevel(updatedProgress.totalXp);
+          updatedProgress.currentLevel = getLevelForXp(updatedProgress.totalXp).level;
         }
 
         // Calculate weak/strong areas
@@ -784,7 +749,7 @@ export const useStore = create<AppState>()(
           xpEarned,
           topicsCovered,
           duration,
-          accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
+          accuracy: toPercent(correct, attempted),
           newAchievements,
           newLevel: updatedProgress.currentLevel > previousLevel,
         };
@@ -812,20 +777,9 @@ export const useStore = create<AppState>()(
         // Cross-store sync: keep course store's streak in lockstep so the
         // header display and freeze/repair systems stay consistent regardless
         // of which mode the user practices in.
-        useCourseStore.setState((cs) => {
-          const csActiveDays = cs.progress.activeDays ?? [];
-          return {
-            progress: {
-              ...cs.progress,
-              currentStreak: newStreak,
-              longestStreak: Math.max(cs.progress.longestStreak, newStreak),
-              lastActiveDate: today,
-              activeDays: csActiveDays.includes(today)
-                ? csActiveDays
-                : [...csActiveDays, today].slice(-14),
-            },
-          };
-        });
+        useCourseStore.setState((cs) => ({
+          progress: buildStreakSyncPatch(cs.progress, newStreak, today),
+        }));
       },
 
       abandonSession: () => {
@@ -848,7 +802,7 @@ export const useStore = create<AppState>()(
           totalQuestionsAttempted: data.totalQuestions,
           totalQuestionsCorrect: data.totalCorrect,
           totalXp: data.totalXp,
-          currentLevel: updateLevel(data.totalXp),
+          currentLevel: getLevelForXp(data.totalXp).level,
           currentStreak: data.streak,
           longestStreak: data.streak,
           lastActiveDate: data.totalQuestions > 0 ? getTodayString() : '',
@@ -869,7 +823,7 @@ export const useStore = create<AppState>()(
         }, 0);
         if (achievementXp > 0) {
           newProgress.totalXp += achievementXp;
-          newProgress.currentLevel = updateLevel(newProgress.totalXp);
+          newProgress.currentLevel = getLevelForXp(newProgress.totalXp).level;
         }
 
         set({ progress: newProgress });
@@ -881,7 +835,7 @@ export const useStore = create<AppState>()(
           progress: {
             ...state.progress,
             totalXp: xp,
-            currentLevel: updateLevel(xp),
+            currentLevel: getLevelForXp(xp).level,
           },
         }));
         // Sync to course store so XP popover in CourseHeader reflects the change

@@ -1,4 +1,4 @@
-import type { TopicId, Difficulty } from './types';
+import type { TopicId, Difficulty, MasteryLevel } from './types';
 
 export interface AnswerEvent {
   id: string;
@@ -20,8 +20,6 @@ interface MasteryScore {
   eventCount: number;
   lastPracticed: string | null;
 }
-
-type MasteryLevel = 'strong' | 'developing' | 'needs-work' | 'not-started';
 
 const HALF_LIFE_DAYS = 14;
 const CONFIDENCE_THRESHOLD = 8;

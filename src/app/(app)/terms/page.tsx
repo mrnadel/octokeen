@@ -1,6 +1,5 @@
 import { createLegalMetadata } from '@/lib/metadata';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { AppPageHeader } from '@/app/(app)/AppPageHeader';
 
 export const metadata = createLegalMetadata(
   'Terms of Service',
@@ -358,17 +357,7 @@ export default function TermsPage() {
   return (
     <div className="pb-12">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div className="flex items-center h-14 px-4">
-          <Link
-            href="/"
-            className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-700" />
-          </Link>
-          <h1 className="text-lg font-bold text-gray-900 ml-2">Terms of Service</h1>
-        </div>
-      </div>
+      <AppPageHeader title="Terms of Service" variant="light" backHref="/" />
 
       <div className="px-4 pt-8 max-w-2xl mx-auto">
         {/* Title Block */}

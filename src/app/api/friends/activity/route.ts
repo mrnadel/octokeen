@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { db } from '@/lib/db';
 import { activityFeed, activityReactions, friendships, users } from '@/lib/db/schema';
 import { eq, or, and, inArray, desc, sql } from 'drizzle-orm';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getFriendIds } from '@/lib/db/queries';
 
 const reactSchema = z.object({

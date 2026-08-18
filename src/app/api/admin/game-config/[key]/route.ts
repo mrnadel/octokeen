@@ -1,22 +1,18 @@
-import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { gameConfig } from '@/lib/db/schema';
-import { withAdminAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError, lastPathSegment } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 import { and, eq } from 'drizzle-orm';
+import { configValueSchema } from '../schemas';
 
 const patchSchema = z.object({
   category: z.string().min(1),
-  value: z.unknown().refine(v => v !== null && v !== undefined, { message: 'value must not be null' }),
+  value: configValueSchema,
 });
 
-export const PATCH = withAdminAuth(async (
-  req: NextRequest & { __routeParams?: Promise<{ key: string }> },
-  { adminId },
-) => {
-  // Next.js App Router passes route params as second argument to the raw handler,
-  // but withAdminAuth wraps the handler so we need to extract from the URL instead.
-  const key = req.nextUrl.pathname.split('/').pop()!;
+export const PATCH = withAdminAuth(async (req, { adminId }) => {
+  const key = lastPathSegment(req);
 
   const { data, error } = await parseBody(req, patchSchema);
   if (error) return error;

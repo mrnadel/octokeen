@@ -16,6 +16,7 @@ import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { CURRENCY, currencyLabel } from '@/data/currency';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
+import { MODAL_ICON_SPRING } from '@/components/ui/motionPresets';
 
 const REPAIR_COST = 75;
 
@@ -74,7 +75,7 @@ export function StreakFreeze() {
           </>
         }
       >
-        <motion.div className="mb-4" initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.1 }}>
+        <motion.div className="mb-4" initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={MODAL_ICON_SPRING}>
           <MascotWithGlow pose="worried" size={150} />
         </motion.div>
         <h2 className="text-[26px] font-extrabold text-white mb-1">Your streak broke!</h2>

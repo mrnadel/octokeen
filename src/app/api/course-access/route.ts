@@ -1,21 +1,21 @@
 import { NextResponse } from 'next/server';
-import { getAuthUserId } from '@/lib/auth-utils';
+import { getAuthUserId, isAdminUserId } from '@/lib/auth-utils';
 import { getUserCourseAccess } from '@/lib/access-control';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
 import { PROFESSION_ID } from '@/data/professions';
 
 // GET: Returns the list of gated course IDs the current user has access to
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   const userId = await getAuthUserId();
   if (!userId) {
-    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    return jsonError('Not authenticated', 401);
   }
 
   // Admin has access to everything
-  const adminId = process.env.ADMIN_USER_ID;
-  if (adminId && userId === adminId) {
-    return NextResponse.json({ courseAccess: [PROFESSION_ID.MECHANICAL_ENGINEERING] });
+  if (isAdminUserId(userId)) {
+    return jsonOk({ courseAccess: [PROFESSION_ID.MECHANICAL_ENGINEERING] });
   }
 
   const access = await getUserCourseAccess(userId);
-  return NextResponse.json({ courseAccess: access });
+  return jsonOk({ courseAccess: access });
 }

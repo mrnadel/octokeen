@@ -1,27 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import {
-  Environment,
   EventName,
-  Paddle,
   type EventEntity,
   type SubscriptionNotification,
   type TransactionNotification,
 } from '@paddle/paddle-node-sdk';
+import paddle from '@/lib/paddle';
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
 import { serverEnv } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { tierFromPriceId } from '@/lib/pricing';
+import { jsonOk, jsonError, getClientIp, rateLimited } from '@/lib/api-helpers';
+import { upsertSubscription } from '@/lib/db/queries';
 
 export const runtime = 'nodejs';
 
 const env = serverEnv();
-const isSandbox = env.PADDLE_API_KEY.startsWith('pdl_sdbx_');
-const paddle = new Paddle(env.PADDLE_API_KEY, {
-  environment: isSandbox ? Environment.sandbox : Environment.production,
-});
 
 // ─── Custom error for non-retryable failures ────────────────
 // Return 200 to Paddle so it does not retry indefinitely.
@@ -32,23 +29,16 @@ class NonRetryableError extends Error {
   }
 }
 
-export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`paddle-webhook:${ip}`, RATE_LIMITS.webhook);
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  const rl = rateLimit(`paddle-webhook:${getClientIp(request)}`, RATE_LIMITS.webhook);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   // ── Signature verification ──────────────────────────────────
   const signature = request.headers.get('paddle-signature');
   if (!signature) {
-    return NextResponse.json(
-      { error: 'Missing signature' },
-      { status: 400 },
-    );
+    return jsonError('Missing signature', 400);
   }
 
   const body = await request.text();
@@ -63,10 +53,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Webhook signature verification failed:', message);
-    return NextResponse.json(
-      { error: 'Invalid signature' },
-      { status: 400 },
-    );
+    return jsonError('Invalid signature', 400);
   }
 
   // ── Event dispatch ──────────────────────────────────────────
@@ -116,21 +103,36 @@ export async function POST(request: NextRequest) {
     // Non-retryable errors: return 200 so Paddle stops retrying
     if (err instanceof NonRetryableError) {
       logger.warn(`Non-retryable webhook error for ${event.eventType}:`, err.message);
-      return NextResponse.json({ received: true, warning: 'non-retryable error' });
+      return jsonOk({ received: true, warning: 'non-retryable error' });
     }
 
     // Retryable errors: return 500 so Paddle retries
     logger.error(`Webhook handler error for ${event.eventType}:`, err);
-    return NextResponse.json(
-      { error: 'Webhook handler failed' },
-      { status: 500 },
-    );
+    return jsonError('Webhook handler failed', 500);
   }
 
-  return NextResponse.json({ received: true });
+  return jsonOk({ received: true });
 }
 
 // ─── Helpers ────────────────────────────────────────────────────
+
+/** Currency recorded when Paddle omits one from the notification. */
+const DEFAULT_CURRENCY = 'USD';
+
+/** Parse a Paddle money total string into whole cents. */
+function parseAmountCents(total: string | undefined): number {
+  return Math.round(parseFloat(total ?? '0') || 0);
+}
+
+/** True when a payment_history row already exists for this Paddle record ID. */
+async function isPaymentRecorded(paddleTransactionId: string): Promise<boolean> {
+  const [existing] = await db
+    .select({ id: paymentHistory.id })
+    .from(paymentHistory)
+    .where(eq(paymentHistory.paddleTransactionId, paddleTransactionId))
+    .limit(1);
+  return !!existing;
+}
 
 function resolveTier(priceId: string | null): 'free' | 'pro' {
   return tierFromPriceId(priceId, env.PADDLE_PRO_MONTHLY_PRICE_ID, env.PADDLE_PRO_YEARLY_PRICE_ID);
@@ -168,7 +170,7 @@ async function handleSubscriptionUpsert(sub: SubscriptionNotification) {
   const priceId = sub.items?.[0]?.price?.id ?? null;
   const interval = sub.items?.[0]?.price?.billingCycle?.interval ?? null;
 
-  await upsertSubscription(userId, sub.id, {
+  await upsertSubscription(userId, {
     tier: resolveTier(priceId),
     status: mapPaddleStatus(sub.status ?? 'active'),
     paddleCustomerId: customerId,
@@ -197,7 +199,7 @@ async function handleSubscriptionPastDue(sub: SubscriptionNotification) {
 
   // Keep the current tier so the user retains access during the grace period,
   // but mark the status as past_due so the UI can show a payment warning.
-  await upsertSubscription(userId, sub.id, {
+  await upsertSubscription(userId, {
     tier: resolveTier(priceId),
     status: 'past_due',
     paddleCustomerId: customerId,
@@ -218,7 +220,7 @@ async function handleSubscriptionCanceled(sub: SubscriptionNotification) {
   }
 
   // Preserve currentPeriodEnd so the user knows when access actually expires.
-  await upsertSubscription(userId, sub.id, {
+  await upsertSubscription(userId, {
     tier: 'free',
     status: 'canceled',
     cancelAtPeriodEnd: false,
@@ -236,7 +238,7 @@ async function handleSubscriptionPaused(sub: SubscriptionNotification) {
     return;
   }
 
-  await upsertSubscription(userId, sub.id, {
+  await upsertSubscription(userId, {
     tier: 'free',
     status: 'canceled',
     currentPeriodEnd: sub.currentBillingPeriod?.endsAt ?? null,
@@ -257,23 +259,13 @@ async function handleTransactionCompleted(txn: TransactionNotification) {
 
   // Idempotent: skip if already recorded (unique constraint on paddleTransactionId
   // also guards against races, but checking first avoids unnecessary INSERT attempts)
-  if (txn.id) {
-    const [existing] = await db
-      .select({ id: paymentHistory.id })
-      .from(paymentHistory)
-      .where(eq(paymentHistory.paddleTransactionId, txn.id))
-      .limit(1);
-    if (existing) return;
-  }
-
-  const amountStr = txn.details?.totals?.total ?? '0';
-  const amountCents = Math.round(parseFloat(amountStr) || 0);
+  if (txn.id && (await isPaymentRecorded(txn.id))) return;
 
   await db.insert(paymentHistory).values({
     userId,
     paddleTransactionId: txn.id ?? null,
-    amountCents,
-    currency: txn.currencyCode ?? 'USD',
+    amountCents: parseAmountCents(txn.details?.totals?.total),
+    currency: txn.currencyCode ?? DEFAULT_CURRENCY,
     status: 'succeeded',
     description: `Paddle transaction ${txn.id ?? ''}`,
   });
@@ -290,23 +282,13 @@ async function handleTransactionPaymentFailed(txn: TransactionNotification) {
   }
 
   // Idempotent: skip if already recorded
-  if (txn.id) {
-    const [existing] = await db
-      .select({ id: paymentHistory.id })
-      .from(paymentHistory)
-      .where(eq(paymentHistory.paddleTransactionId, txn.id))
-      .limit(1);
-    if (existing) return;
-  }
-
-  const amountStr = txn.details?.totals?.total ?? '0';
-  const amountCents = Math.round(parseFloat(amountStr) || 0);
+  if (txn.id && (await isPaymentRecorded(txn.id))) return;
 
   await db.insert(paymentHistory).values({
     userId,
     paddleTransactionId: txn.id ?? null,
-    amountCents,
-    currency: txn.currencyCode ?? 'USD',
+    amountCents: parseAmountCents(txn.details?.totals?.total),
+    currency: txn.currencyCode ?? DEFAULT_CURRENCY,
     status: 'failed',
     description: `Failed payment — Paddle transaction ${txn.id ?? ''}`,
   });
@@ -325,12 +307,7 @@ async function handleAdjustmentCreated(data: Record<string, unknown>) {
 
   // Idempotent: use adjustmentId as the paddleTransactionId to avoid duplicates
   const recordId = adjustmentId ?? `adj_${transactionId}`;
-  const [existing] = await db
-    .select({ id: paymentHistory.id })
-    .from(paymentHistory)
-    .where(eq(paymentHistory.paddleTransactionId, recordId))
-    .limit(1);
-  if (existing) return;
+  if (await isPaymentRecorded(recordId)) return;
 
   // Try to find the user from the original transaction
   let userId: string | null = null;
@@ -356,14 +333,12 @@ async function handleAdjustmentCreated(data: Record<string, unknown>) {
   }
 
   const totals = data.totals as Record<string, string> | undefined;
-  const amountStr = totals?.total ?? '0';
-  const amountCents = Math.round(parseFloat(amountStr) || 0);
 
   await db.insert(paymentHistory).values({
     userId,
     paddleTransactionId: recordId,
-    amountCents,
-    currency: (data.currencyCode as string) ?? 'USD',
+    amountCents: parseAmountCents(totals?.total),
+    currency: (data.currencyCode as string) ?? DEFAULT_CURRENCY,
     status: action === 'refund' ? 'refunded' : (action ?? 'adjustment'),
     description: `${action ?? 'Adjustment'} for transaction ${transactionId}`,
   });
@@ -400,50 +375,3 @@ async function getUserIdByCustomer(
   return null;
 }
 
-/**
- * Idempotent subscription upsert with stale-event protection.
- *
- * If a subscription record already exists AND has a newer updatedAt timestamp
- * than the incoming webhook, the update is skipped to prevent out-of-order
- * webhooks from overwriting fresher data.
- */
-async function upsertSubscription(
-  userId: string,
-  paddleSubscriptionId: string,
-  data: Partial<{
-    tier: string;
-    status: string;
-    paddleCustomerId: string | null;
-    paddleSubscriptionId: string;
-    paddlePriceId: string | null;
-    billingInterval: string | null;
-    currentPeriodStart: string | null;
-    currentPeriodEnd: string | null;
-    trialStart: string | null;
-    trialEnd: string | null;
-    cancelAtPeriodEnd: boolean;
-  }>,
-) {
-  const now = new Date();
-
-  const [existing] = await db
-    .select({ id: subscriptions.id, updatedAt: subscriptions.updatedAt })
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId))
-    .limit(1);
-
-  if (existing) {
-    await db
-      .update(subscriptions)
-      .set({ ...data, updatedAt: now })
-      .where(eq(subscriptions.userId, userId));
-  } else {
-    await db.insert(subscriptions).values({
-      userId,
-      tier: data.tier ?? 'free',
-      status: data.status ?? 'active',
-      ...data,
-      updatedAt: now,
-    });
-  }
-}

@@ -7,6 +7,7 @@ import { useSubscription } from '@/hooks/useSubscription';
 import { getActiveXpEvents, formatEventTimeLeft, type ActiveXpEvent } from '@/lib/xp-events';
 import { HERO_COMPACT_HEIGHT } from '@/components/course/UnitHeroHeader';
 import { useIsDark } from '@/store/useThemeStore';
+import { Z_LAYERS } from './zLayers';
 
 /** Compact floating XP-event pill below the UnitHeroHeader. */
 export function ActiveEventBanner({
@@ -35,7 +36,7 @@ export function ActiveEventBanner({
         top: positionStyle.top + HERO_COMPACT_HEIGHT + 2,
         left: positionStyle.left,
         width: positionStyle.width,
-        zIndex: 29,
+        zIndex: Z_LAYERS.EVENT_BANNER,
         pointerEvents: 'none',
         transition: 'top 0.15s ease',
       }}

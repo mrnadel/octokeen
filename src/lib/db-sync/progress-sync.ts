@@ -9,6 +9,7 @@ import { useEngagementStore } from '@/store/useEngagementStore';
 import { useToastStore } from '@/components/ui/ToastNotification';
 import { streakMilestones } from '@/data/streak-milestones';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { mergeActiveDays } from '@/lib/streak-utils';
 import { makePostOpts, PROGRESS_DEBOUNCE_MS } from './utils';
 
 /**
@@ -37,7 +38,7 @@ export function hydrateProgressStore(data: {
       longestStreak: Math.max(db.longestStreak ?? 0, local.longestStreak ?? 0),
       lastActiveDate: (db.lastActiveDate ?? '') > (local.lastActiveDate ?? '')
         ? db.lastActiveDate ?? '' : local.lastActiveDate ?? '',
-      activeDays: [...new Set([...(db.activeDays ?? []), ...(local.activeDays ?? [])])].sort().slice(-14),
+      activeDays: mergeActiveDays(db.activeDays, local.activeDays),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
   });

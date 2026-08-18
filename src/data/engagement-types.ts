@@ -16,6 +16,11 @@ export const NUDGE_DAY2_THRESHOLD = 2;   // urgent nudge
 // Nudge urgency levels
 export type NudgeUrgency = 'gentle' | 'urgent' | 'comeback';
 
+// --------------- Mastery ---------------
+
+/** Bucketed mastery standing for a topic. Canonical for both real and simulated users. */
+export type MasteryLevel = 'strong' | 'developing' | 'needs-work' | 'not-started';
+
 // --------------- Quest Types ---------------
 
 export type QuestTrackingKey =
@@ -174,7 +179,7 @@ export interface FakeUser {
   achievementsUnlocked: string[];
   topicMastery: {
     topicId: string;
-    masteryLevel: 'not-started' | 'needs-work' | 'developing' | 'strong';
+    masteryLevel: MasteryLevel;
   }[];
   currentTier: 1 | 2 | 3 | 4 | 5;
   activityLevel: number;

@@ -1,17 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedback } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
+import { parseBody, jsonOk, INVALID_REQUEST } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { VALID_CONTENT_TYPES, VALID_REASONS } from '@/data/types';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
+
+const MAX_COMMENT_LENGTH = 500;
 
 const postFeedbackSchema = z.object({
   contentType: z.enum(VALID_CONTENT_TYPES as [ContentFeedbackType, ...ContentFeedbackType[]]),
   contentId: z.string().min(1).max(50),
   reason: z.enum(VALID_REASONS as [FeedbackReason, ...FeedbackReason[]]),
-  comment: z.string().max(500).optional(),
+  comment: z.string().max(MAX_COMMENT_LENGTH).optional(),
 });
 
 const deleteFeedbackSchema = z.object({
@@ -19,13 +22,17 @@ const deleteFeedbackSchema = z.object({
   contentId: z.string().min(1),
 });
 
-// GET /api/content-feedback — fetch all flags for the authenticated user
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+/** Match a single flag row for a user. */
+function flagMatcher(userId: string, contentType: string, contentId: string) {
+  return and(
+    eq(contentFeedback.userId, userId),
+    eq(contentFeedback.contentType, contentType),
+    eq(contentFeedback.contentId, contentId),
+  );
+}
 
+// GET /api/content-feedback — fetch all flags for the authenticated user
+export const GET = withAuth(async (_req, { userId }): Promise<NextResponse> => {
   const rows = await db
     .select({
       contentType: contentFeedback.contentType,
@@ -36,41 +43,22 @@ export async function GET() {
     .from(contentFeedback)
     .where(eq(contentFeedback.userId, userId));
 
-  return NextResponse.json({ flags: rows });
-}
+  return jsonOk({ flags: rows });
+});
 
 // POST /api/content-feedback — upsert a flag
-export async function POST(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export const POST = withAuth(async (req, { userId }): Promise<NextResponse> => {
+  const { data, error } = await parseBody(req, postFeedbackSchema, {
+    invalidInput: INVALID_REQUEST,
+  });
+  if (error) return error;
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const postResult = postFeedbackSchema.safeParse(rawBody);
-  if (!postResult.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const { contentType, contentId, reason, comment } = postResult.data;
-  const sanitizedComment = comment ? comment.trim().slice(0, 500) || null : null;
+  const { contentType, contentId, reason, comment } = data;
+  const sanitizedComment = comment ? comment.trim().slice(0, MAX_COMMENT_LENGTH) || null : null;
 
   // Upsert: delete existing + insert
   await db.transaction(async (tx) => {
-    await tx
-      .delete(contentFeedback)
-      .where(
-        and(
-          eq(contentFeedback.userId, userId),
-          eq(contentFeedback.contentType, contentType),
-          eq(contentFeedback.contentId, contentId)
-        )
-      );
+    await tx.delete(contentFeedback).where(flagMatcher(userId, contentType, contentId));
     await tx.insert(contentFeedback).values({
       userId,
       contentType,
@@ -80,38 +68,18 @@ export async function POST(req: NextRequest) {
     });
   });
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});
 
 // DELETE /api/content-feedback — remove a flag (idempotent)
-export async function DELETE(req: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export const DELETE = withAuth(async (req, { userId }): Promise<NextResponse> => {
+  const { data, error } = await parseBody(req, deleteFeedbackSchema, {
+    invalidInput: 'Missing fields',
+  });
+  if (error) return error;
 
-  let rawDelBody: unknown;
-  try {
-    rawDelBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
+  const { contentType, contentId } = data;
+  await db.delete(contentFeedback).where(flagMatcher(userId, contentType, contentId));
 
-  const deleteResult = deleteFeedbackSchema.safeParse(rawDelBody);
-  if (!deleteResult.success) {
-    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
-  }
-  const { contentType, contentId } = deleteResult.data;
-
-  await db
-    .delete(contentFeedback)
-    .where(
-      and(
-        eq(contentFeedback.userId, userId),
-        eq(contentFeedback.contentType, contentType),
-        eq(contentFeedback.contentId, contentId)
-      )
-    );
-
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

@@ -6,7 +6,8 @@ import { playSound } from '@/lib/sounds';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
-import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
+import { CELEBRATION_SPRING } from '@/components/ui/motionPresets';
 
 
 interface BlueprintCelebrationProps { unitIndex: number; isGolden: boolean; onDismiss: () => void; }
@@ -45,7 +46,7 @@ export function BlueprintCelebration({ unitIndex, isGolden, onDismiss }: Bluepri
         {isGolden ? 'Chapter Mastered' : 'Chapter Complete'}
       </motion.div>
       <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-[28px] font-black text-white mb-6">{unitTitle}</motion.h1>
-      <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ ...celebrationSpring, delay: 0.4 }} className="mb-8">
+      <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ ...CELEBRATION_SPRING, delay: 0.4 }} className="mb-8">
         <MascotWithGlow pose={isGolden ? 'excited' : 'laughing'} size={180} />
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex gap-8">

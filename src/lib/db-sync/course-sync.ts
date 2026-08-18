@@ -7,6 +7,7 @@
 import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
 import { PROFESSION_ID } from '@/data/professions';
+import { mergeActiveDays, type StreakProgress } from '@/lib/streak-utils';
 import { makePostOpts, COURSE_DEBOUNCE_MS } from './utils';
 import { shallow } from 'zustand/shallow';
 
@@ -86,7 +87,7 @@ export function hydrateCourseStore(
       longestStreak: Math.max(db.longestStreak, local.longestStreak),
       lastActiveDate: db.lastActiveDate > local.lastActiveDate
         ? db.lastActiveDate : local.lastActiveDate,
-      activeDays: [...new Set([...(db.activeDays ?? []), ...(local.activeDays ?? [])])].sort().slice(-14),
+      activeDays: mergeActiveDays(db.activeDays, local.activeDays),
       placementUnitIndex: Math.max(db.placementUnitIndex ?? 0, local.placementUnitIndex ?? 0) || undefined,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       completedLessons: mergedLessons as any,
@@ -112,27 +113,20 @@ export function applyServerStreak(streakData: {
   const serverActiveDays: string[] = streakData.activeDays ?? [];
   const serverLastActive: string = streakData.lastActiveDate ?? '';
 
-  useStore.setState((s) => ({
-    progress: {
-      ...s.progress,
+  /** Server wins for the streak count; local wins where it is further ahead. */
+  function patch<T extends StreakProgress>(progress: T): T {
+    return {
+      ...progress,
       currentStreak: serverStreak,
-      longestStreak: Math.max(serverLongestStreak, s.progress.longestStreak),
-      activeDays: serverActiveDays.length > 0 ? serverActiveDays : s.progress.activeDays,
-      lastActiveDate: serverLastActive > (s.progress.lastActiveDate ?? '')
-        ? serverLastActive : s.progress.lastActiveDate,
-    },
-  }));
+      longestStreak: Math.max(serverLongestStreak, progress.longestStreak),
+      activeDays: serverActiveDays.length > 0 ? serverActiveDays : progress.activeDays,
+      lastActiveDate: serverLastActive > (progress.lastActiveDate ?? '')
+        ? serverLastActive : progress.lastActiveDate,
+    };
+  }
 
-  useCourseStore.setState((s) => ({
-    progress: {
-      ...s.progress,
-      currentStreak: serverStreak,
-      longestStreak: Math.max(serverLongestStreak, s.progress.longestStreak),
-      activeDays: serverActiveDays.length > 0 ? serverActiveDays : s.progress.activeDays,
-      lastActiveDate: serverLastActive > (s.progress.lastActiveDate ?? '')
-        ? serverLastActive : s.progress.lastActiveDate,
-    },
-  }));
+  useStore.setState((s) => ({ progress: patch(s.progress) }));
+  useCourseStore.setState((s) => ({ progress: patch(s.progress) }));
 }
 
 /**

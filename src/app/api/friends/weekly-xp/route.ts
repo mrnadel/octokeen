@@ -1,23 +1,16 @@
 import { db } from '@/lib/db';
 import { users, sessionHistory } from '@/lib/db/schema';
-import { eq, inArray, and, gte, sql } from 'drizzle-orm';
-import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { inArray, and, gte, sql } from 'drizzle-orm';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getFriendIds } from '@/lib/db/queries';
-
-function getWeekStart(): string {
-  const now = new Date();
-  const day = now.getUTCDay(); // 0=Sun..6=Sat
-  const diff = day === 0 ? -6 : 1 - day;
-  const monday = new Date(now);
-  monday.setUTCDate(now.getUTCDate() + diff);
-  return monday.toISOString().split('T')[0];
-}
+import { getUtcWeekMonday } from '@/lib/server-dates';
 
 export const GET = withAuth(async (_req, { userId }) => {
   const friendIds = await getFriendIds(userId);
   const allIds = [userId, ...friendIds];
 
-  const weekStart = getWeekStart();
+  const weekStart = getUtcWeekMonday(new Date());
 
   // Get weekly XP for all users (user + friends)
   const xpRows = await db

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeft, Check, X, Sparkles, Loader2, ExternalLink, AlertCircle } from 'lucide-react';
+import { Check, X, Sparkles, Loader2, ExternalLink, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -10,6 +10,7 @@ import { useSubscription } from '@/hooks/useSubscription';
 import { cn } from '@/lib/utils';
 import { getPaddle } from '@/lib/paddle-client';
 import { analytics } from '@/lib/mixpanel';
+import { AppPageHeader } from '@/app/(app)/AppPageHeader';
 
 const FEATURE_LABELS: Record<Feature, string> = {
   [FEATURES.UNLIMITED_HEARTS]: 'Unlimited hearts',
@@ -99,17 +100,7 @@ export default function BillingSettingsPage() {
   return (
     <div className="pb-8">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div className="flex items-center h-14 px-4">
-          <button
-            onClick={() => router.back()}
-            className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-700" />
-          </button>
-          <h1 className="text-lg font-bold text-gray-900 ml-2">Billing</h1>
-        </div>
-      </div>
+      <AppPageHeader title="Billing" variant="light" onBack={() => router.back()} />
 
       <div className="px-4 pt-6 space-y-6 max-w-lg mx-auto">
         {billingError && (

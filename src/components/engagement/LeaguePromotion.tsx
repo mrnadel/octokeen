@@ -13,6 +13,7 @@ import { LeagueImage } from '@/components/icons/LeagueImage';
 import { getShareCardUrl, getShareText, getDisplayName } from '@/lib/share-card';
 import { CelebrationModal } from '@/components/engagement/CelebrationModal';
 import type { FXName } from '@/components/ui/ScreenFX';
+import { LEAGUE_HERO_SPRING } from '@/components/ui/motionPresets';
 
 export function LeaguePromotion() {
   const league = useLeague();
@@ -65,7 +66,7 @@ export function LeaguePromotion() {
         </motion.div>
       }
     >
-      <motion.div className="relative mb-4" initial={{ scale: 0.3, rotate: -15 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 280, damping: 14, delay: 0.15 }}>
+      <motion.div className="relative mb-4" initial={{ scale: 0.3, rotate: -15 }} animate={{ scale: 1, rotate: 0 }} transition={LEAGUE_HERO_SPRING}>
         <LeagueImage tier={currentTier} size={140} className="relative" />
       </motion.div>
 

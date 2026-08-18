@@ -78,8 +78,8 @@ export function PushPrompt() {
 
             <div className="flex items-start gap-3">
               {/* Icon */}
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFB800]/15">
-                <Bell size={20} className="text-[#FFB800]" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold/15">
+                <Bell size={20} className="text-gold" />
               </div>
 
               <div className="flex-1 pr-4">
@@ -93,7 +93,7 @@ export function PushPrompt() {
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={handleEnable}
-                    className="rounded-xl bg-[#FFB800] px-4 py-2 text-xs font-extrabold text-white shadow-[0_3px_0_#D49A00] transition-all hover:brightness-105 active:translate-y-[1px] active:shadow-[0_1px_0_#D49A00]"
+                    className="rounded-xl bg-gold px-4 py-2 text-xs font-extrabold text-white shadow-[0_3px_0_#D49A00] transition-all hover:brightness-105 active:translate-y-[1px] active:shadow-[0_1px_0_#D49A00]"
                   >
                     Enable
                   </button>

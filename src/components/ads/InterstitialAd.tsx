@@ -5,6 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import { AdUnit } from './AdUnit';
+import { Z_LAYERS } from '@/components/ui/zLayers';
+
+const INTERSTITIAL_OVERLAY_STYLE = {
+  zIndex: Z_LAYERS.INTERSTITIAL,
+  background: 'rgba(0, 0, 0, 0.92)',
+} as const;
 
 interface InterstitialAdProps {
   show: boolean;
@@ -58,8 +64,8 @@ export function InterstitialAd({ show, onClose }: InterstitialAdProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
-          style={{ background: 'rgba(0, 0, 0, 0.92)' }}
+          className="fixed inset-0 flex flex-col items-center justify-center"
+          style={INTERSTITIAL_OVERLAY_STYLE}
           role="dialog"
           aria-label="Advertisement"
         >

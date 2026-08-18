@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorRetry } from '@/components/ui/ErrorRetry';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { LeaderboardRow } from '@/components/ui/LeaderboardRow';
+import { LeaderboardCard } from '@/components/ui/LeaderboardCard';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 
 const fetcher = (url: string) =>
@@ -14,6 +15,8 @@ const fetcher = (url: string) =>
     if (!r.ok) throw new Error(`Request failed: ${r.status}`);
     return r.json();
   });
+
+const FRIENDS_ICON = <span className="text-3xl">👥</span>;
 
 interface LeaderboardEntry {
   id: string;
@@ -49,40 +52,33 @@ export function FriendLeaderboard() {
   }
 
   return (
-    <div className="bg-white dark:bg-surface-900 rounded-2xl border border-gray-100 dark:border-surface-700 shadow-sm overflow-hidden">
-      {/* Header */}
-      <div className="px-4 py-4 flex items-center gap-3 border-b border-gray-100 dark:border-surface-700 bg-primary-50/50 dark:bg-primary-900/20">
-        <span className="text-3xl">👥</span>
-        <div>
-          <h2 className="text-lg font-extrabold text-gray-800 dark:text-surface-50">Friends Leaderboard</h2>
-          <p className="text-xs text-gray-500 dark:text-surface-400">Weekly XP ranking</p>
-        </div>
-      </div>
-
-      {/* Leaderboard */}
-      <div>
-        {leaderboard.map((entry, idx) => {
-          const rank = idx + 1;
-          const isTop3 = rank <= 3;
-          return (
-            <LeaderboardRow
-              key={entry.id}
-              rank={rank}
-              name={entry.displayName}
-              xp={entry.weeklyXp}
-              isUser={entry.isUser}
-              avatar={
-                <UserAvatar
-                  image={entry.image}
-                  name={entry.displayName}
-                  size={isTop3 ? 36 : 32}
-                  bgColor={entry.isUser ? '#C7D2FE' : '#DBEAFE'}
-                />
-              }
-            />
-          );
-        })}
-      </div>
-    </div>
+    <LeaderboardCard
+      icon={FRIENDS_ICON}
+      title="Friends Leaderboard"
+      subtitle="Weekly XP ranking"
+      headerClassName="bg-primary-50/50 dark:bg-primary-900/20"
+    >
+      {leaderboard.map((entry, idx) => {
+        const rank = idx + 1;
+        const isTop3 = rank <= 3;
+        return (
+          <LeaderboardRow
+            key={entry.id}
+            rank={rank}
+            name={entry.displayName}
+            xp={entry.weeklyXp}
+            isUser={entry.isUser}
+            avatar={
+              <UserAvatar
+                image={entry.image}
+                name={entry.displayName}
+                size={isTop3 ? 36 : 32}
+                bgColor={entry.isUser ? '#C7D2FE' : '#DBEAFE'}
+              />
+            }
+          />
+        );
+      })}
+    </LeaderboardCard>
   );
 }

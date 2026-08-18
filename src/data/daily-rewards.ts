@@ -2,6 +2,8 @@
 // Daily Reward Calendar — 7-Day Escalating Rewards
 // ============================================================
 
+import { DOUBLE_XP_SHOP_DURATION_MS } from './engagement-types';
+
 export interface DailyRewardTier {
   day: number;         // 1-7
   gems: number;
@@ -55,7 +57,7 @@ export const MYSTERY_REWARD_POOL: MysteryReward[] = [
   { id: 'mystery-gems-35', type: 'gems_bonus', label: '+35 Bonus Gems', icon: '💎',
     gemsAmount: 35, rarity: 'rare' },
   { id: 'mystery-double-xp', type: 'double_xp', label: '30min Double XP', icon: '⚡',
-    durationMs: 30 * 60 * 1000, rarity: 'common' },
+    durationMs: DOUBLE_XP_SHOP_DURATION_MS, rarity: 'common' },
   { id: 'mystery-frame-calendar', type: 'frame', label: 'Calendar Collector Frame', icon: '📅',
     itemId: 'reward-frame-calendar-collector', rarity: 'epic' },
 ];

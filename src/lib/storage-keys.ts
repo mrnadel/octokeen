@@ -12,6 +12,8 @@ export const STORAGE_KEYS = {
   ENGAGEMENT: 'octokeen-engagement',
   FEEDBACK: 'octokeen-feedback',
   COURSE: 'octokeen-course',
+  MASTERY: 'mastery-events',
+  DEV_HEADER_IMAGES: 'dev-header-images',
   ADS: 'octokeen-ads',
 
   // Feature / UI state

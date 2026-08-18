@@ -8,7 +8,8 @@ import { comebackQuests } from '@/data/quests';
 import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { GameButton } from '@/components/ui/GameButton';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
-import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
+import { CELEBRATION_SPRING } from '@/components/ui/motionPresets';
 
 export function WelcomeBack() {
   const comeback = useComeback();
@@ -36,7 +37,7 @@ export function WelcomeBack() {
         className="mb-3"
         initial={{ scale: 0.5, rotate: -10 }}
         animate={{ scale: 1, rotate: 0 }}
-        transition={{ ...celebrationSpring }}
+        transition={{ ...CELEBRATION_SPRING }}
       >
         <MascotWithGlow pose="sleeping" size={140} />
       </motion.div>

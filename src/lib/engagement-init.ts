@@ -3,10 +3,13 @@
 import { useEffect, useRef } from 'react';
 import { useStore } from '@/store/useStore';
 import { useCourseStore } from '@/store/useCourseStore';
-import { useEngagementStore } from '@/store/useEngagementStore';
+import { useEngagementStore, grantFrame } from '@/store/useEngagementStore';
 import { initFakeUserPool, progressFakeUsers } from '@/lib/fake-user-generator';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { scheduleEventNotifications } from '@/lib/xp-events';
+
+/** Everyone starts in the Bronze league and owns its avatar frame. */
+const BRONZE_LEAGUE_FRAME_ID = 'reward-frame-league-bronze';
 
 function getYesterday(): string {
   const d = new Date();
@@ -72,17 +75,7 @@ export function useEngagementInit(isHydrated = true) {
     }
 
     // Grant Bronze league frame if not already owned (everyone starts in Bronze)
-    if (!engagement.gems.inventory.activeFrames.includes('reward-frame-league-bronze')) {
-      useEngagementStore.setState((s) => ({
-        gems: {
-          ...s.gems,
-          inventory: {
-            ...s.gems.inventory,
-            activeFrames: [...s.gems.inventory.activeFrames, 'reward-frame-league-bronze'],
-          },
-        },
-      }));
-    }
+    grantFrame(BRONZE_LEAGUE_FRAME_ID);
 
     // === Engagement init sequence (ORDER MATTERS) ===
     // Initialize fake user pool (must happen before league simulation)

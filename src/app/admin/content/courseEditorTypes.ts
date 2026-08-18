@@ -1,34 +1,5 @@
-// Shared types for the CourseEditor and its sub-components
-
-export interface CourseQuestion {
-  id: string;
-  type: string;
-  question: string;
-  options?: string[];
-  correctIndex?: number;
-  correctAnswer?: boolean;
-  acceptedAnswers?: string[];
-  explanation: string;
-  hint?: string;
-  diagram?: string;
-}
-
-export interface Lesson {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  xpReward: number;
-  questions: CourseQuestion[];
-}
-
-export interface Unit {
-  id: string;
-  title: string;
-  description: string;
-  color: string;
-  icon: string;
-  lessons: Lesson[];
-}
+// The CourseEditor reads `/api/content/course`, which serves the static course
+// data verbatim — so it works with the canonical course types, not a local copy.
+export type { CourseQuestion, Lesson, Unit } from '@/data/course/types';
 
 export type View = 'units' | 'lessons' | 'questions';

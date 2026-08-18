@@ -10,6 +10,20 @@ import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { playSound } from '@/lib/sounds';
+import { ResultStatCard } from '@/components/lesson/shared/ResultStatCard';
+import { useDelayedContinueKey } from '@/components/lesson/shared/useDelayedContinueKey';
+
+const HIGH_ACCURACY = 90;
+const GOOD_ACCURACY = 80;
+const FAIR_ACCURACY = 60;
+
+/** Placement-test accuracy banner copy. Unlike lessons there is no "PERFECT" tier. */
+function getPlacementAccuracyLabel(accuracy: number): string {
+  if (accuracy >= HIGH_ACCURACY) return 'AMAZING';
+  if (accuracy >= GOOD_ACCURACY) return 'GREAT';
+  if (accuracy >= FAIR_ACCURACY) return 'GOOD';
+  return 'KEEP TRYING';
+}
 
 export default function PlacementTestResult() {
   const result = useCourseStore((s) => s.placementTestResult);
@@ -19,21 +33,7 @@ export default function PlacementTestResult() {
 
   useBackHandler(!!result, dismiss);
 
-  // Enter / Space dismisses
-  useEffect(() => {
-    if (!result) return;
-    const handle = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        dismiss();
-      }
-    };
-    const timer = setTimeout(() => window.addEventListener('keydown', handle), 500);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('keydown', handle);
-    };
-  }, [result, dismiss]);
+  useDelayedContinueKey(dismiss, !!result);
 
   // Sound on mount
   useEffect(() => {
@@ -104,17 +104,7 @@ export default function PlacementTestResult() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {/* XP card */}
-          <motion.div
-            className="flex-1 rounded-2xl overflow-hidden"
-            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.55, type: 'spring', stiffness: 300, damping: 20 }}
-          >
-            <div className="py-1.5 text-center" style={{ background: 'rgba(255,255,255,0.25)' }}>
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">Total XP</span>
-            </div>
+          <ResultStatCard header="Total XP" from="left" delay={0.55}>
             <div className="py-4 flex items-center justify-center gap-2">
               <Zap className="w-5 h-5 text-white" fill="currentColor" />
               <motion.span
@@ -126,26 +116,14 @@ export default function PlacementTestResult() {
                 {result.xpEarned}
               </motion.span>
             </div>
-          </motion.div>
+          </ResultStatCard>
 
-          {/* Accuracy card */}
-          <motion.div
-            className="flex-1 rounded-2xl overflow-hidden"
-            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 20 }}
-          >
-            <div className="py-1.5 text-center" style={{ background: 'rgba(255,255,255,0.25)' }}>
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">
-                {result.accuracy >= 90 ? 'AMAZING' : result.accuracy >= 80 ? 'GREAT' : result.accuracy >= 60 ? 'GOOD' : 'KEEP TRYING'}
-              </span>
-            </div>
+          <ResultStatCard header={getPlacementAccuracyLabel(result.accuracy)} from="right" delay={0.6}>
             <div className="py-4 flex items-center justify-center gap-2">
               <Target className="w-5 h-5 text-white" />
               <span className="text-[26px] font-extrabold text-white">{result.accuracy}%</span>
             </div>
-          </motion.div>
+          </ResultStatCard>
         </motion.div>
       )}
 

@@ -19,7 +19,12 @@ const serverSchema = z.object({
     .min(1)
     .optional(),
 
-  // Auth (NextAuth reads AUTH_SECRET/AUTH_URL automatically)
+  // Auth (NextAuth reads AUTH_SECRET/AUTH_URL itself, but validate here so a
+  // missing secret fails with a clear message instead of an opaque
+  // /api/auth/error?error=Configuration page)
+  AUTH_SECRET: z
+    .string()
+    .min(1, 'AUTH_SECRET is required — NextAuth cannot sign session tokens without it'),
   AUTH_GOOGLE_ID: z
     .string()
     .min(1, 'AUTH_GOOGLE_ID is required for Google OAuth'),

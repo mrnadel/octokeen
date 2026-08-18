@@ -2,14 +2,16 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from './db';
 import { users, accounts } from './db/schema';
 import { isLoginLocked, trackFailedLogin, clearFailedLogins } from './rate-limit';
+import { verifyPassword } from './api/passwords';
 import { cookies } from 'next/headers';
 import { friendships } from './db/schema';
-import { sortFriendPair, countFriends } from './db/friends';
+import { sortFriendPair, countFriends, MAX_FRIENDS } from './db/friends';
+import { INVITE_REF_COOKIE } from './api/cookies';
+import { getUtcToday } from './server-dates';
 import { logger } from './logger';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -64,7 +66,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const user = result[0];
         if (!user.passwordHash) return null;
 
-        const isValid = await bcrypt.compare(password, user.passwordHash);
+        const isValid = await verifyPassword(password, user.passwordHash);
         if (!isValid) {
           trackFailedLogin(email);
           return null;
@@ -138,7 +140,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
 
           const cookieStore = await cookies();
-          const inviterId = cookieStore.get('invite_ref')?.value;
+          const inviterId = cookieStore.get(INVITE_REF_COOKIE)?.value;
 
           if (inviterId && inviterId !== user.id) {
             const [inviterCount, userCount] = await Promise.all([
@@ -146,10 +148,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               countFriends(user.id),
             ]);
 
-            if (inviterCount < 50 && userCount < 50) {
+            if (inviterCount < MAX_FRIENDS && userCount < MAX_FRIENDS) {
               const [low, high] = sortFriendPair(user.id, inviterId);
               await db.insert(friendships).values({ userId: low, friendId: high }).onConflictDoNothing();
-              cookieStore.delete('invite_ref');
+              cookieStore.delete(INVITE_REF_COOKIE);
             }
             // If friend limit reached, keep the cookie so invite can be retried
           }
@@ -168,7 +170,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           await db
             .update(users)
             .set({
-              joinedDate: new Date().toISOString().split('T')[0],
+              joinedDate: getUtcToday(),
               displayName: user.name || 'Engineer',
             })
             .where(eq(users.id, user.id));

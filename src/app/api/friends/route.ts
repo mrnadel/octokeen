@@ -1,8 +1,10 @@
 import { db } from '@/lib/db';
 import { users, userProgress, leagueState, sessionHistory } from '@/lib/db/schema';
 import { eq, inArray, desc, and, sql } from 'drizzle-orm';
-import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getFriendIds } from '@/lib/db/queries';
+import { getUtcToday } from '@/lib/server-dates';
 
 export const GET = withAuth(async (_req, { userId }) => {
   const friendIds = await getFriendIds(userId);
@@ -28,7 +30,7 @@ export const GET = withAuth(async (_req, { userId }) => {
     .orderBy(desc(userProgress.totalXp));
 
   // Get today's XP for all friends in one query
-  const today = new Date().toISOString().split('T')[0];
+  const today = getUtcToday();
   const todayXpRows = await db
     .select({
       userId: sessionHistory.userId,

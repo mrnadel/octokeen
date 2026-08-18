@@ -3,7 +3,8 @@ import { db } from '@/lib/db';
 import { users, emailVerificationTokens } from '@/lib/db/schema';
 import { rateLimit } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
-import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { generateToken, hashToken, getBaseUrl } from '@/lib/auth-tokens';
 
 const TOKEN_EXPIRY_MS = 24 * 60 * 60_000; // 24 hours

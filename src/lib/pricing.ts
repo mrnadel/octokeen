@@ -2,6 +2,7 @@
 // Pricing & Feature Gating — Octokeen SaaS
 // ============================================================
 
+import { toPercent } from './utils';
 import type {
   SubscriptionTier,
   SubscriptionStatus,
@@ -118,7 +119,7 @@ export function getYearlySavingsPercent(tier: SubscriptionTier): number {
   const def = TIERS[tier];
   if (def.priceMonthly === 0 || def.priceYearly === 0) return 0;
   const monthlyCostPerYear = def.priceMonthly * 12;
-  return Math.round(((monthlyCostPerYear - def.priceYearly) / monthlyCostPerYear) * 100);
+  return toPercent(monthlyCostPerYear - def.priceYearly, monthlyCostPerYear);
 }
 
 // --------------- Tier Resolution ---------------

@@ -2,7 +2,9 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { LessonTypeProps, ConversationNode } from '@/data/course/types';
+import type { LessonTypeProps } from '@/data/course/types';
+import { LessonChoiceButton } from '@/components/lesson/shared/LessonChoiceButton';
+import { LessonTypeButton } from '@/components/lesson/shared/LessonTypeButton';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
@@ -283,34 +285,13 @@ export default function ConversationView({
               Choose your response
             </span>
             {currentNode.options.map((opt, i) => (
-              <button
+              <LessonChoiceButton
                 key={i}
+                label={opt.text}
                 onClick={() => handleChoice(i)}
-                className="transition-transform active:scale-[0.98]"
-                style={{
-                  padding: '13px 16px',
-                  borderRadius: 14,
-                  fontSize: 14,
-                  fontWeight: 700,
-                  textAlign: 'left',
-                  background: c.cardBg,
-                  color: c.title,
-                  border: `2px solid ${c.border}`,
-                  boxShadow: `0 3px 0 ${c.border}`,
-                  cursor: 'pointer',
-                  lineHeight: 1.4,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = unitColor;
-                  e.currentTarget.style.background = theme.bg;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = c.border;
-                  e.currentTarget.style.background = c.cardBg;
-                }}
-              >
-                {opt.text}
-              </button>
+                unitColor={unitColor}
+                hoverBg={theme.bg}
+              />
             ))}
           </motion.div>
         )}
@@ -327,25 +308,9 @@ export default function ConversationView({
               background: c.cardBg,
             }}
           >
-            <button
-              onClick={onComplete}
-              className="w-full transition-transform active:scale-[0.98]"
-              style={{
-                padding: '14px 0',
-                borderRadius: 16,
-                fontSize: 15,
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: 0.8,
-                background: unitColor,
-                color: '#FFFFFF',
-                boxShadow: `0 4px 0 ${theme.dark}`,
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
+            <LessonTypeButton onClick={onComplete} background={unitColor} shadowColor={theme.dark}>
               Finish
-            </button>
+            </LessonTypeButton>
           </motion.div>
         )}
       </AnimatePresence>

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 const variants = {
   indigo:   { bg: 'bg-primary-600',  shadow: 'shadow-[0_6px_0_var(--color-primary-800)]', text: 'text-white' },
-  gold:     { bg: 'bg-[#FFB800]',    shadow: 'shadow-[0_6px_0_#CC9400]', text: 'text-[#5D4200]' },
+  gold:     { bg: 'bg-gold',         shadow: 'shadow-[0_6px_0_#CC9400]', text: 'text-gold-ink' },
   purple:   { bg: 'bg-[#7C3AED]',    shadow: 'shadow-[0_6px_0_#5B21B6]', text: 'text-white' },
   green:    { bg: 'bg-accent-600',    shadow: 'shadow-[0_6px_0_var(--color-accent-800)]', text: 'text-white' },
   red:      { bg: 'bg-danger-500',    shadow: 'shadow-[0_6px_0_var(--color-danger-700)]', text: 'text-white' },

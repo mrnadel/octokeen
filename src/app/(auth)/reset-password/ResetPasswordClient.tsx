@@ -1,22 +1,24 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { AuthSuspenseBoundary } from '@/components/auth/AuthSuspenseBoundary';
+import { AuthResultCard } from '@/components/auth/AuthResultCard';
+import { AuthSuccessIcon } from '@/components/auth/AuthResultIcons';
+import { AuthPrimaryLink } from '@/components/auth/AuthPrimaryLink';
 import { ErrorAlert } from '@/components/auth/ErrorAlert';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
+import { isStrongPassword } from '@/components/auth/password-rules';
 
 export default function ResetPasswordPage() {
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div className="h-6" />}>
-        <ResetPasswordInner />
-      </Suspense>
-    </ErrorBoundary>
+    <AuthSuspenseBoundary>
+      <ResetPasswordInner />
+    </AuthSuspenseBoundary>
   );
 }
 
@@ -28,45 +30,29 @@ function ResetPasswordInner() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const isPasswordValid = password.length >= PASSWORD_MIN_LENGTH
-    && /[A-Z]/.test(password)
-    && /\d/.test(password)
-    && /[^A-Za-z0-9]/.test(password);
+  const isPasswordValid = isStrongPassword(password);
 
   if (!token) {
     return (
-      <div className="text-center space-y-4">
-        <h1 className="text-xl font-black text-surface-900">Invalid link</h1>
+      <AuthResultCard title="Invalid link">
         <p className="text-sm text-surface-500 font-semibold">
           This reset link is missing or malformed.
         </p>
         <Link href="/forgot-password" className="block text-sm text-[#1CB0F6] font-bold mt-4">
           Request a new reset link
         </Link>
-      </div>
+      </AuthResultCard>
     );
   }
 
   if (success) {
     return (
-      <div className="text-center space-y-4">
-        <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto">
-          <svg className="w-7 h-7 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-black text-surface-900">Password updated</h1>
+      <AuthResultCard title="Password updated" icon={<AuthSuccessIcon />} iconBgClass="bg-green-50">
         <p className="text-sm text-surface-500 font-semibold">
           Your password has been reset. You can now sign in.
         </p>
-        <Link
-          href="/login"
-          className="inline-block mt-4 px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-extrabold rounded-2xl transition-all text-[17px]"
-          style={{ boxShadow: '0 5px 0 #0F766E' }}
-        >
-          SIGN IN
-        </Link>
-      </div>
+        <AuthPrimaryLink href="/login">SIGN IN</AuthPrimaryLink>
+      </AuthResultCard>
     );
   }
 

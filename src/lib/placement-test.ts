@@ -11,7 +11,9 @@
  * - Pass condition: fewer than maxMistakes wrong answers
  */
 
-import type { Unit, CourseQuestion, CourseProgress } from '@/data/course/types';
+import type { Unit, CourseQuestion, CourseProgress, PlacementTest, PlacementTestResult } from '@/data/course/types';
+import { markUnitsPassed } from '@/lib/course-store-utils';
+import { getTodayString } from '@/lib/utils';
 
 // ─── Configuration ───────────────────────────────────────────────
 export const PLACEMENT_TEST_CONFIG = {
@@ -33,6 +35,59 @@ export function getMaxMistakes(unitsSkipped: number): number {
     PLACEMENT_TEST_CONFIG.maxMistakesBase +
     Math.max(0, unitsSkipped - 1) * PLACEMENT_TEST_CONFIG.maxMistakesPerUnit
   );
+}
+
+/**
+ * Build the active placement-test state for a run covering
+ * units `[fromUnitIndex, targetUnitIndex)`.
+ */
+export function buildPlacementTest(
+  questions: CourseQuestion[],
+  fromUnitIndex: number,
+  targetUnitIndex: number,
+): PlacementTest {
+  return {
+    targetUnitIndex,
+    fromUnitIndex,
+    questions,
+    currentQuestionIndex: 0,
+    answers: [],
+    mistakes: 0,
+    maxMistakes: getMaxMistakes(targetUnitIndex - fromUnitIndex),
+    startTime: Date.now(),
+  };
+}
+
+/**
+ * Auto-pass the placement test when the skipped units have no testable content.
+ * Returns the store patch marking the skipped lessons passed plus the result screen data.
+ */
+export function autoPassPlacement(
+  progress: CourseProgress,
+  courseData: Unit[],
+  fromUnitIndex: number,
+  targetUnitIndex: number,
+): { progress: CourseProgress; placementTestResult: PlacementTestResult } {
+  const unitsSkipped = targetUnitIndex - fromUnitIndex;
+  const completedLessons = markUnitsPassed(
+    progress.completedLessons, courseData, fromUnitIndex, targetUnitIndex, getTodayString(),
+  );
+
+  return {
+    progress: { ...progress, completedLessons },
+    placementTestResult: {
+      passed: true,
+      targetUnitIndex,
+      targetUnitTitle: courseData[targetUnitIndex]?.title ?? '',
+      totalQuestions: 0,
+      correctAnswers: 0,
+      mistakes: 0,
+      maxMistakes: getMaxMistakes(unitsSkipped),
+      unitsSkipped,
+      xpEarned: 0,
+      accuracy: 0,
+    },
+  };
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────

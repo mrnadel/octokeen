@@ -8,7 +8,8 @@ import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { useStore } from '@/store/useStore';
 import { toLocalDateString } from '@/lib/utils';
 import { playSound } from '@/lib/sounds';
-import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
+import { CELEBRATION_SPRING } from '@/components/ui/motionPresets';
 
 interface Props {
   streak: number;
@@ -70,7 +71,7 @@ export function StreakContinued({ streak, onClose }: Props) {
         className="mb-2"
         initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
-        transition={{ ...celebrationSpring, delay: 0.1 }}
+        transition={{ ...CELEBRATION_SPRING, delay: 0.1 }}
       >
         <MascotWithGlow pose={mascotPose} size={120} />
       </motion.div>

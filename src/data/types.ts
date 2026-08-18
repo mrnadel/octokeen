@@ -252,16 +252,6 @@ export interface Level {
   badge?: string; // path to badge image in /public, e.g. '/badges/level-1.png'
 }
 
-// --------------- Daily Challenge ---------------
-
-export interface DailyChallenge {
-  dayOfWeek: number;  // 0 = Sunday … 6 = Saturday
-  dayName: string;
-  theme: string;
-  description: string;
-  questionIds: string[];
-}
-
 // --------------- User Progress ---------------
 
 export interface TopicProgress {

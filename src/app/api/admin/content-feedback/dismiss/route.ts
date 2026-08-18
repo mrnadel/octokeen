@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { contentFeedbackDismissals } from '@/lib/db/schema';
-import { withAdminAuth, parseBody, jsonOk } from '@/lib/api-helpers';
+import { parseBody, jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 
 const dismissSchema = z.object({
   contentType: z.string().min(1).max(50),

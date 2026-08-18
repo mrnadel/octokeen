@@ -4,23 +4,21 @@
 // ============================================================
 
 import { DOUBLE_XP_SHOP_DURATION_MS } from '@/data/engagement-types';
+import type { EngagementState } from '@/data/engagement-types';
 import { DOUBLE_XP_BUFFER_MS, DOUBLE_XP_RECENT_PURCHASE_WINDOW_MS } from '@/lib/game-config';
-import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
+import { getEventXpMultiplier } from '@/lib/xp-events';
+import type { SubscriptionTier } from '@/lib/subscription';
+// Type-only import: erased at compile time, so it does not create a runtime
+// cycle with useSubscription, which imports resolveActiveTier from here.
+import type { SubscriptionState } from '@/hooks/useSubscription';
 
 // ─── Double XP Validation ──────────────────────────────────────
 
-interface GemTransaction {
-  amount: number;
-  source: string;
-  timestamp: string;
-}
+/** The slice of engagement state the double-XP check reads. */
+type DoubleXpState = Pick<EngagementState, 'doubleXpExpiry' | 'gems'>;
 
-interface EngagementState {
-  doubleXpExpiry: string | null;
-  gems: {
-    transactions: GemTransaction[];
-  };
-}
+/** The slice of subscription state tier resolution reads. */
+type TierState = Pick<SubscriptionState, 'tier' | 'status' | 'debugTierOverride'>;
 
 /**
  * Validate whether the shop-purchased double XP boost is legitimately active.
@@ -32,7 +30,7 @@ interface EngagementState {
  *
  * Used by both `useStore.answerQuestion` and `useCourseStore.completeLesson`.
  */
-export function checkDoubleXp(engagementState: EngagementState): boolean {
+export function checkDoubleXp(engagementState: DoubleXpState): boolean {
   const { doubleXpExpiry } = engagementState;
   if (!doubleXpExpiry) return false;
 
@@ -49,12 +47,46 @@ export function checkDoubleXp(engagementState: EngagementState): boolean {
   );
 }
 
+// ─── XP Boost Stacking ─────────────────────────────────────────
+
+export interface XpBoost {
+  /** Whether a valid shop-purchased double XP boost is active. */
+  shopDoubleXp: boolean;
+  /** Multiplier contributed by time-limited XP events (weekend 2x, power hour, ...). */
+  eventMultiplier: number;
+  /** Combined multiplier — shop and event boosts stack additively. */
+  totalMultiplier: number;
+}
+
+/**
+ * Resolve the total XP multiplier from the shop boost and any active XP event.
+ *
+ * Shop boost and event boost stack additively (2x + 2x = 3x, not 4x).
+ * Used by both `useStore.answerQuestion` and `useCourseStore.completeLesson`.
+ */
+export function getXpBoost(engagementState: DoubleXpState, isPro: boolean): XpBoost {
+  const shopDoubleXp = checkDoubleXp(engagementState);
+  const eventMultiplier = getEventXpMultiplier(isPro);
+  const shopMultiplier = shopDoubleXp ? 2 : 1;
+  const totalMultiplier = shopMultiplier === 1 && eventMultiplier === 1
+    ? 1
+    : 1 + (shopMultiplier - 1) + (eventMultiplier - 1);
+
+  return { shopDoubleXp, eventMultiplier, totalMultiplier };
+}
+
 // ─── Effective Tier ────────────────────────────────────────────
 
-interface SubscriptionState {
-  tier: SubscriptionTier;
-  status: SubscriptionStatus;
-  debugTierOverride: SubscriptionTier | null;
+/**
+ * The tier the app should act on before trial/grace adjustments:
+ * the stored tier, or the dev-only debug override when one is set.
+ */
+export function resolveActiveTier(
+  tier: SubscriptionTier,
+  debugTierOverride: SubscriptionTier | null,
+): SubscriptionTier {
+  const isDev = process.env.NODE_ENV === 'development';
+  return isDev && debugTierOverride ? debugTierOverride : tier;
 }
 
 /**
@@ -68,11 +100,8 @@ interface SubscriptionState {
  * Consolidates the pattern used in `useHeartsStore`, `useCourseStore.startLesson`,
  * and `access-control.ts` (client-side variant).
  */
-export function getEffectiveTier(subscriptionState: SubscriptionState): SubscriptionTier {
-  const isDev = process.env.NODE_ENV === 'development';
-  const activeTier = isDev && subscriptionState.debugTierOverride
-    ? subscriptionState.debugTierOverride
-    : subscriptionState.tier;
+export function getEffectiveTier(subscriptionState: TierState): SubscriptionTier {
+  const activeTier = resolveActiveTier(subscriptionState.tier, subscriptionState.debugTierOverride);
 
   const isTrialing = subscriptionState.status === 'trialing';
   const isPastDue = subscriptionState.status === 'past_due';

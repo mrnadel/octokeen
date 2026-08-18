@@ -1,65 +1,18 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { LessonTypeProps, CaseStudySection, CourseQuestion } from '@/data/course/types';
+import type { LessonTypeProps } from '@/data/course/types';
 import type { QuestionCardHandle } from '@/components/lesson/QuestionCard';
-import QuestionCard from '@/components/lesson/QuestionCard';
-import SortBucketsCard from '@/components/lesson/SortBucketsCard';
-import MatchPairsCard from '@/components/lesson/MatchPairsCard';
-import OrderStepsCard from '@/components/lesson/OrderStepsCard';
-import MultiSelectCard from '@/components/lesson/MultiSelectCard';
-import SliderEstimateCard from '@/components/lesson/SliderEstimateCard';
-import ScenarioCard from '@/components/lesson/ScenarioCard';
-import CategorySwipeCard from '@/components/lesson/CategorySwipeCard';
-import RankOrderCard from '@/components/lesson/RankOrderCard';
-import PickTheBestCard from '@/components/lesson/PickTheBestCard';
-import ImageTapCard from '@/components/lesson/ImageTapCard';
+import { QuestionRenderer } from '@/components/lesson/shared/QuestionRenderer';
+import { LessonTypeFooter } from '@/components/lesson/shared/LessonTypeFooter';
+import { LessonTypeButton } from '@/components/lesson/shared/LessonTypeButton';
+import { CORRECT, INCORRECT } from '@/components/lesson/shared/answer-feedback';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
-function CheckpointQuestion({
-  question,
-  unitColor,
-  onAnswer,
-  answered,
-  onSelectionChange,
-}: {
-  question: CourseQuestion;
-  unitColor: string;
-  onAnswer: (correct: boolean) => void;
-  answered: boolean;
-  onSelectionChange: (v: boolean) => void;
-}) {
-  const ref = useRef<QuestionCardHandle>(null);
-
-  const props = { ref, question, onAnswer, onSelectionChange, answered, unitColor };
-
-  switch (question.type) {
-    case 'sort-buckets':
-      return <SortBucketsCard {...props} />;
-    case 'match-pairs':
-      return <MatchPairsCard {...props} />;
-    case 'order-steps':
-      return <OrderStepsCard {...props} />;
-    case 'multi-select':
-      return <MultiSelectCard {...props} />;
-    case 'slider-estimate':
-      return <SliderEstimateCard {...props} />;
-    case 'scenario':
-      return <ScenarioCard {...props} />;
-    case 'category-swipe':
-      return <CategorySwipeCard {...props} />;
-    case 'rank-order':
-      return <RankOrderCard {...props} />;
-    case 'pick-the-best':
-      return <PickTheBestCard {...props} />;
-    case 'image-tap':
-      return <ImageTapCard {...props} />;
-    default:
-      return <QuestionCard {...props} />;
-  }
-}
+/** Bottom shadow for the Check button while no answer is selected. */
+const DISABLED_SHADOW = '#CCCCCC';
 
 export default function CaseStudyView({
   lesson,
@@ -72,13 +25,11 @@ export default function CaseStudyView({
 }: LessonTypeProps) {
   const c = useLessonColors();
   const sections = lesson.caseStudySections ?? [];
-  const totalCheckpoints = useMemo(() => sections.filter((s) => s.checkpoint).length, [sections]);
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [checkpointAnswered, setCheckpointAnswered] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
-  const [checkpointsCompleted, setCheckpointsCompleted] = useState(0);
   const questionRef = useRef<QuestionCardHandle>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const initRef = useRef(false);
@@ -106,10 +57,8 @@ export default function CaseStudyView({
       onAnswer(currentSection.checkpoint.id, correct);
       setCheckpointAnswered(true);
       setLastAnswerCorrect(correct);
-      const next = checkpointsCompleted + 1;
-      setCheckpointsCompleted(next);
     },
-    [currentSection, checkpointsCompleted, onAnswer],
+    [currentSection, onAnswer],
   );
 
   const handleCheck = useCallback(() => {
@@ -136,6 +85,7 @@ export default function CaseStudyView({
 
   const showContinue = hasCheckpoint ? checkpointAnswered : true;
   const showCheck = hasCheckpoint && !checkpointAnswered;
+  const feedbackTint = lastAnswerCorrect === null ? null : lastAnswerCorrect ? CORRECT : INCORRECT;
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
@@ -247,7 +197,7 @@ export default function CaseStudyView({
                     Checkpoint
                   </span>
                 </div>
-                <CheckpointQuestion
+                <QuestionRenderer
                   question={currentSection.checkpoint}
                   unitColor={unitColor}
                   onAnswer={handleCheckpointAnswer}
@@ -262,63 +212,29 @@ export default function CaseStudyView({
 
       {/* Bottom bar */}
       {showCheck ? (
-        <div
-          style={{
-            padding: '12px 20px',
-            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-            borderTop: `2px solid ${c.border}`,
-            background: c.cardBg,
-          }}
-        >
-          <button
+        <LessonTypeFooter>
+          <LessonTypeButton
             onClick={handleCheck}
             disabled={!hasSelection}
-            className="w-full transition-transform active:scale-[0.98]"
-            style={{
-              padding: '14px 0',
-              borderRadius: 16,
-              fontSize: 15,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: 0.8,
-              background: hasSelection ? unitColor : c.border,
-              color: hasSelection ? '#FFFFFF' : c.subtitle,
-              boxShadow: hasSelection ? `0 4px 0 ${theme.dark}` : '0 4px 0 #CCCCCC',
-              border: 'none',
-              cursor: hasSelection ? 'pointer' : 'default',
-            }}
+            background={hasSelection ? unitColor : c.border}
+            color={hasSelection ? '#FFFFFF' : c.subtitle}
+            shadowColor={hasSelection ? theme.dark : DISABLED_SHADOW}
           >
             Check
-          </button>
-        </div>
+          </LessonTypeButton>
+        </LessonTypeFooter>
       ) : showContinue ? (
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          style={{
-            padding: '12px 20px',
-            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-            borderTop: `2px solid ${
-              lastAnswerCorrect === null
-                ? c.border
-                : lastAnswerCorrect
-                  ? '#58CC02'
-                  : '#FF4B4B'
-            }`,
-            background: lastAnswerCorrect === null
-              ? c.cardBg
-              : lastAnswerCorrect
-                ? '#D7FFB8'
-                : '#FFDFE0',
-          }}
+        <LessonTypeFooter
+          animated
+          borderColor={feedbackTint?.border}
+          background={feedbackTint?.bg}
         >
           {lastAnswerCorrect !== null && currentSection.checkpoint && (
             <div style={{ marginBottom: 10 }}>
               <p style={{
                 fontSize: 15,
                 fontWeight: 800,
-                color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                color: lastAnswerCorrect ? CORRECT.text : INCORRECT.text,
                 margin: '0 0 2px',
               }}>
                 {lastAnswerCorrect ? 'Correct!' : 'Incorrect'}
@@ -327,7 +243,7 @@ export default function CaseStudyView({
                 <p style={{
                   fontSize: 13,
                   fontWeight: 600,
-                  color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
+                  color: lastAnswerCorrect ? CORRECT.text : INCORRECT.text,
                   opacity: 0.75,
                   margin: 0,
                   lineHeight: 1.4,
@@ -337,34 +253,14 @@ export default function CaseStudyView({
               )}
             </div>
           )}
-          <button
+          <LessonTypeButton
             onClick={handleContinue}
-            className="w-full transition-transform active:scale-[0.98]"
-            style={{
-              padding: '14px 0',
-              borderRadius: 16,
-              fontSize: 15,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: 0.8,
-              background: lastAnswerCorrect === null
-                ? unitColor
-                : lastAnswerCorrect
-                  ? '#58CC02'
-                  : '#FF4B4B',
-              color: '#FFFFFF',
-              boxShadow: lastAnswerCorrect === null
-                ? `0 4px 0 ${theme.dark}`
-                : lastAnswerCorrect
-                  ? '0 4px 0 #46A302'
-                  : '0 4px 0 #CC2D2D',
-              border: 'none',
-              cursor: 'pointer',
-            }}
+            background={feedbackTint?.border ?? unitColor}
+            shadowColor={feedbackTint?.shadow ?? theme.dark}
           >
             {isLastSection ? 'Finish' : 'Continue Reading'}
-          </button>
-        </motion.div>
+          </LessonTypeButton>
+        </LessonTypeFooter>
       ) : null}
     </div>
   );

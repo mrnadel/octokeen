@@ -7,6 +7,10 @@ import { motion } from 'framer-motion';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { STAGGER_DELAY } from '@/lib/game-config';
+import { respondToFriendRequest, cancelFriendRequest } from './friends-api';
+
+/** How long the accepted card stays visible before it collapses. */
+const ACCEPTED_FADE_MS = 1000;
 
 interface FriendRequestCardProps {
   id: string;
@@ -34,40 +38,12 @@ export default function FriendRequestCard({
   const [accepted, setAccepted] = useState(false);
   const [error, setError] = useState('');
 
-  async function handleAccept() {
+  async function runAction(call: () => Promise<boolean>, onSuccess: () => void): Promise<void> {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`/api/friends/request/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'accept' }),
-      });
-      if (res.ok) {
-        setAccepted(true);
-        onAction?.();
-        setTimeout(() => setHidden(true), 1000);
-      } else {
-        setError('Failed');
-      }
-    } catch {
-      setError('Failed');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleDecline() {
-    setLoading(true);
-    setError('');
-    try {
-      const res = await fetch(`/api/friends/request/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'decline' }),
-      });
-      if (res.ok) {
-        setHidden(true);
+      if (await call()) {
+        onSuccess();
         onAction?.();
       } else {
         setError('Failed');
@@ -79,23 +55,15 @@ export default function FriendRequestCard({
     }
   }
 
-  async function handleCancel() {
-    setLoading(true);
-    setError('');
-    try {
-      const res = await fetch(`/api/friends/request/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setHidden(true);
-        onAction?.();
-      } else {
-        setError('Failed');
-      }
-    } catch {
-      setError('Failed');
-    } finally {
-      setLoading(false);
-    }
-  }
+  const handleAccept = () =>
+    runAction(() => respondToFriendRequest(id, 'accept'), () => {
+      setAccepted(true);
+      setTimeout(() => setHidden(true), ACCEPTED_FADE_MS);
+    });
+
+  const handleDecline = () => runAction(() => respondToFriendRequest(id, 'decline'), () => setHidden(true));
+
+  const handleCancel = () => runAction(() => cancelFriendRequest(id), () => setHidden(true));
 
   if (hidden) return null;
 

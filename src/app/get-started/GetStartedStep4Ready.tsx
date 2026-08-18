@@ -6,6 +6,8 @@ import { getProfession } from '@/data/professions';
 import { Mascot } from '@/components/ui/Mascot';
 import type { Unit } from '@/data/course/types';
 
+import { slideVariants, slideTransition } from './getStartedAnimation';
+
 interface Props {
   selectedProfession: string;
   placedUnitIndex: number;
@@ -16,11 +18,6 @@ interface Props {
   onComplete: () => void;
 }
 
-const slideVariants = {
-  enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (direction: number) => ({ x: direction > 0 ? -60 : 60, opacity: 0 }),
-};
 
 export function GetStartedStep4Ready({
   selectedProfession,
@@ -37,7 +34,7 @@ export function GetStartedStep4Ready({
       custom={direction}
       variants={slideVariants}
       initial="enter" animate="center" exit="exit"
-      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      transition={slideTransition}
       className="text-center max-w-sm mx-auto w-full"
     >
       <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }} className="mb-4 flex justify-center">

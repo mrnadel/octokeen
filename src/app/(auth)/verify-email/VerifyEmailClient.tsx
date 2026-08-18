@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { AuthSuspenseBoundary } from '@/components/auth/AuthSuspenseBoundary';
+import { AuthResultCard } from '@/components/auth/AuthResultCard';
+import { AuthSuccessIcon, AuthFailureIcon } from '@/components/auth/AuthResultIcons';
+import { AuthPrimaryLink } from '@/components/auth/AuthPrimaryLink';
 
 export default function VerifyEmailPage() {
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div className="h-6" />}>
-        <VerifyEmailInner />
-      </Suspense>
-    </ErrorBoundary>
+    <AuthSuspenseBoundary>
+      <VerifyEmailInner />
+    </AuthSuspenseBoundary>
   );
 }
 
@@ -59,39 +60,21 @@ function VerifyEmailInner() {
 
   if (status === 'success') {
     return (
-      <div className="text-center space-y-4">
-        <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto">
-          <svg className="w-7 h-7 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-black text-surface-900">Email verified</h1>
+      <AuthResultCard title="Email verified" icon={<AuthSuccessIcon />} iconBgClass="bg-green-50">
         <p className="text-sm text-surface-500 font-semibold">
-          Your email has been confirmed. You're all set!
+          Your email has been confirmed. You&apos;re all set!
         </p>
-        <Link
-          href="/"
-          className="inline-block mt-4 px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-extrabold rounded-2xl transition-all text-[17px]"
-          style={{ boxShadow: '0 5px 0 #0F766E' }}
-        >
-          CONTINUE
-        </Link>
-      </div>
+        <AuthPrimaryLink href="/">CONTINUE</AuthPrimaryLink>
+      </AuthResultCard>
     );
   }
 
   return (
-    <div className="text-center space-y-4">
-      <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto">
-        <svg className="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </div>
-      <h1 className="text-xl font-black text-surface-900">Verification failed</h1>
+    <AuthResultCard title="Verification failed" icon={<AuthFailureIcon />} iconBgClass="bg-red-50">
       <p className="text-sm text-surface-500 font-semibold">{errorMsg}</p>
       <Link href="/login" className="block text-sm text-[#1CB0F6] font-bold mt-4">
         Back to sign in
       </Link>
-    </div>
+    </AuthResultCard>
   );
 }

@@ -8,6 +8,7 @@ import { leagueTiers } from '@/data/league';
 import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { Mascot } from '@/components/ui/Mascot';
+import { LEAGUE_HERO_SPRING } from '@/components/ui/motionPresets';
 
 export function LeagueWinner() {
   const league = useLeague();
@@ -40,7 +41,7 @@ export function LeagueWinner() {
       <motion.div
         initial={{ scale: 0.3, rotate: -15 }}
         animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: 'spring', stiffness: 280, damping: 14, delay: 0.15 }}
+        transition={LEAGUE_HERO_SPRING}
       >
         <Mascot pose="champion" size={200} />
       </motion.div>

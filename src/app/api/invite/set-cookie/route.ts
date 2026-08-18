@@ -10,27 +10,25 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { jsonOk, jsonError, getClientIp, rateLimited } from '@/lib/api-helpers';
+import { INVITE_REF_COOKIE, INVITE_REF_MAX_AGE_SECONDS } from '@/lib/api/cookies';
 
-export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`invite-set-cookie:${ip}`, RATE_LIMITS.auth);
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  const rl = rateLimit(`invite-set-cookie:${getClientIp(request)}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   let body;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
+    return jsonError('Invalid body', 400);
   }
 
   const { code } = body;
   if (!code || typeof code !== 'string') {
-    return NextResponse.json({ error: 'Code required' }, { status: 400 });
+    return jsonError('Code required', 400);
   }
 
   const [inviter] = await db
@@ -40,17 +38,17 @@ export async function POST(request: NextRequest) {
     .limit(1);
 
   if (!inviter) {
-    return NextResponse.json({ error: 'Invalid code' }, { status: 404 });
+    return jsonError('Invalid code', 404);
   }
 
   const cookieStore = await cookies();
-  cookieStore.set('invite_ref', inviter.id, {
+  cookieStore.set(INVITE_REF_COOKIE, inviter.id, {
     httpOnly: true,
     sameSite: 'strict',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: INVITE_REF_MAX_AGE_SECONDS,
   });
 
-  return NextResponse.json({ success: true });
+  return jsonOk({ success: true });
 }

@@ -6,6 +6,12 @@ import Link from 'next/link';
 import { ArrowLeft, Loader2, UserPlus, UserCheck, UserX } from 'lucide-react';
 import { ProfileView } from '@/components/profile/ProfileView';
 import type { ProfileData } from '@/components/profile/ProfileView';
+import {
+  sendFriendRequest,
+  cancelFriendRequest,
+  respondToFriendRequest,
+  removeFriend,
+} from '@/components/friends/friends-api';
 
 interface PublicProfile {
   id: string;
@@ -53,78 +59,45 @@ export default function PublicProfilePage() {
       .finally(() => setLoading(false));
   }, [id, router]);
 
-  async function handleAddFriend() {
-    if (!profile || actionLoading) return;
+  async function runFriendAction(call: () => Promise<boolean>, onSuccess: () => void): Promise<void> {
+    if (actionLoading) return;
     setActionLoading(true);
     try {
-      const res = await fetch('/api/friends/request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ receiverId: profile.id }),
-      });
-      if (res.ok) setRelation('request_sent');
+      if (await call()) onSuccess();
     } finally {
       setActionLoading(false);
     }
   }
 
-  async function handleCancelRequest() {
-    if (!reqId || actionLoading) return;
-    setActionLoading(true);
-    try {
-      const res = await fetch(`/api/friends/request/${reqId}`, { method: 'DELETE' });
-      if (res.ok) {
-        setRelation('none');
-        setReqId(undefined);
-      }
-    } finally {
-      setActionLoading(false);
-    }
+  function clearRequest() {
+    setRelation('none');
+    setReqId(undefined);
   }
 
-  async function handleAcceptRequest() {
-    if (!reqId || actionLoading) return;
-    setActionLoading(true);
-    try {
-      const res = await fetch(`/api/friends/request/${reqId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'accept' }),
-      });
-      if (res.ok) setRelation('friends');
-    } finally {
-      setActionLoading(false);
-    }
-  }
+  const handleAddFriend = () => {
+    if (!profile) return;
+    runFriendAction(() => sendFriendRequest(profile.id), () => setRelation('request_sent'));
+  };
 
-  async function handleDeclineRequest() {
-    if (!reqId || actionLoading) return;
-    setActionLoading(true);
-    try {
-      const res = await fetch(`/api/friends/request/${reqId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'decline' }),
-      });
-      if (res.ok) {
-        setRelation('none');
-        setReqId(undefined);
-      }
-    } finally {
-      setActionLoading(false);
-    }
-  }
+  const handleCancelRequest = () => {
+    if (!reqId) return;
+    runFriendAction(() => cancelFriendRequest(reqId), clearRequest);
+  };
 
-  async function handleUnfriend() {
-    if (!profile || actionLoading) return;
-    setActionLoading(true);
-    try {
-      const res = await fetch(`/api/friends/${profile.id}`, { method: 'DELETE' });
-      if (res.ok) setRelation('none');
-    } finally {
-      setActionLoading(false);
-    }
-  }
+  const handleAcceptRequest = () => {
+    if (!reqId) return;
+    runFriendAction(() => respondToFriendRequest(reqId, 'accept'), () => setRelation('friends'));
+  };
+
+  const handleDeclineRequest = () => {
+    if (!reqId) return;
+    runFriendAction(() => respondToFriendRequest(reqId, 'decline'), clearRequest);
+  };
+
+  const handleUnfriend = () => {
+    if (!profile) return;
+    runFriendAction(() => removeFriend(profile.id), () => setRelation('none'));
+  };
 
   if (loading) {
     return (

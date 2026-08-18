@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { getCourseMetaForProfession, loadUnitData } from '@/data/course/course-meta';
 import { PROFESSIONS } from '@/data/professions';
+import { toPercent } from '@/lib/utils';
 import type { CourseQuestion, Unit } from '@/data/course/types';
 
 /**
@@ -13,6 +14,9 @@ import type { CourseQuestion, Unit } from '@/data/course/types';
  */
 
 const OPTION_TYPES = new Set(['multiple-choice', 'scenario', 'pick-the-best']);
+
+/** Loading every unit of every course is I/O-heavy and far exceeds vitest's 5s default. */
+const LOAD_ALL_COURSES_TIMEOUT_MS = 300_000;
 
 function checkQuestion(q: CourseQuestion): string | null {
   if (q.type === 'teaching') return null;
@@ -81,9 +85,7 @@ describe('Distractor explanation coverage', () => {
       }
     }
 
-    const coverage = totalChecked > 0
-      ? Math.round((totalWithDistractors / totalChecked) * 100)
-      : 100;
+    const coverage = totalChecked > 0 ? toPercent(totalWithDistractors, totalChecked) : 100;
 
     console.log(`\nDistractor coverage: ${totalWithDistractors}/${totalChecked} questions (${coverage}%)`);
     if (issues.length > 0) {
@@ -94,5 +96,7 @@ describe('Distractor explanation coverage', () => {
 
     // Non-blocking: report but don't fail
     expect(coverage).toBeGreaterThanOrEqual(0);
-  });
+    // Sequentially dynamic-imports every unit across all courses (~500 chunks),
+    // which cannot complete within vitest's 5s default.
+  }, LOAD_ALL_COURSES_TIMEOUT_MS);
 });

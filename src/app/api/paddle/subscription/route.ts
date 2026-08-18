@@ -1,29 +1,19 @@
 import { NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
-import { db } from '@/lib/db';
-import { subscriptions } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { FREE_TIER_RESPONSE } from '@/lib/pricing';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
+import { getSubscription } from '@/lib/db/queries';
 import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }): Promise<NextResponse> => {
   try {
-    const [sub] = await db
-      .select()
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, userId))
-      .limit(1);
+    const sub = await getSubscription(userId);
 
     if (!sub) {
-      return NextResponse.json(FREE_TIER_RESPONSE);
+      return jsonOk(FREE_TIER_RESPONSE);
     }
 
-    return NextResponse.json({
+    return jsonOk({
       subscription: {
         tier: sub.tier as SubscriptionTier,
         status: sub.status as SubscriptionStatus,
@@ -36,6 +26,6 @@ export async function GET() {
     });
   } catch {
     // DB error (e.g. table doesn't exist yet) — default to free tier
-    return NextResponse.json(FREE_TIER_RESPONSE);
+    return jsonOk(FREE_TIER_RESPONSE);
   }
-}
+});

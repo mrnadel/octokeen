@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { eq, desc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
@@ -11,8 +10,10 @@ import { incrementDailyUsageBatch, canStartPracticeSession } from '@/lib/access-
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { progressSyncSchema } from '@/lib/validation';
 import { insertActivity } from '@/lib/activity-feed';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError, rateLimited } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getUserById, getUserProgress } from '@/lib/db/queries';
+import { getUtcToday } from '@/lib/server-dates';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
 export const GET = withAuth(async (_req, { userId }) => {
@@ -78,10 +79,7 @@ export const GET = withAuth(async (_req, { userId }) => {
 export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`progress:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   const { data: body, error } = await parseBody(request, progressSyncSchema);
@@ -173,7 +171,7 @@ export const POST = withAuth(async (request, { userId }) => {
   if (sessions.length > 0) {
     // ── Server-side daily usage enforcement ──
     const limitCheck = await canStartPracticeSession(userId);
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = getUtcToday();
     const todaySessions = sessions.filter((s) => s.date === todayStr);
     const todayQuestionsAttempted = todaySessions.reduce((sum, s) => sum + s.questionsAttempted, 0);
 

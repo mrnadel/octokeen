@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { buildGlossarySegments, type GlossaryEntryInfo, type GlossaryMatcher } from '@/lib/glossary-matcher';
+import { Z_LAYERS } from './zLayers';
 
 interface GlossaryPopoverProps {
   entry: GlossaryEntryInfo;
@@ -111,7 +112,7 @@ export function GlossaryPopover({
         top: placement === 'below' ? top : undefined,
         bottom: placement === 'above' ? window.innerHeight - top : undefined,
         left,
-        zIndex: 9999,
+        zIndex: Z_LAYERS.OVERLAY,
       }}
       className="w-[280px] rounded-xl border-2 border-surface-300 bg-white p-3.5 shadow-lg animate-scale-in dark:border-surface-600 dark:bg-surface-900"
     >

@@ -1,4 +1,10 @@
 import type { TopicId } from '../types';
+import type {
+  CommitmentChoice,
+  ExperienceLevel,
+  GoalChoice,
+  PlacementChoice,
+} from '../course-intro-options';
 
 export type QuestionType = 'multiple-choice' | 'true-false' | 'fill-blank' | 'teaching' | 'sort-buckets' | 'match-pairs' | 'order-steps' | 'multi-select' | 'slider-estimate' | 'scenario' | 'category-swipe' | 'rank-order' | 'pick-the-best' | 'image-tap';
 
@@ -170,10 +176,10 @@ export interface LessonProgress {
 }
 
 export interface CourseIntroData {
-  experienceLevel: 0 | 1 | 2 | 3;
-  placementChoice: 'scratch' | 'test' | 'advanced';
-  goal: 'interview' | 'refresh' | 'exam' | 'curiosity';
-  dailyMinutes: 5 | 10 | 15 | 20;
+  experienceLevel: ExperienceLevel;
+  placementChoice: PlacementChoice;
+  goal: GoalChoice;
+  dailyMinutes: CommitmentChoice;
   completedAt: string;
   placementDone?: boolean;
   placementUnitIndex?: number;

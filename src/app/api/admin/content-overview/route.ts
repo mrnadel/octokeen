@@ -1,12 +1,14 @@
 import { db } from '@/lib/db';
-import { masteryEvents, contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
+import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
 import { sql } from 'drizzle-orm';
-import { withAdminAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 import { runContentQA, type CourseInput } from '@/lib/content-qa';
-import { getCourseData } from '@/data/course/api';
-import { PROFESSIONS } from '@/data/professions';
-import type { Unit } from '@/data/course/types';
+import { loadActiveCourses, type LoadedCourse } from '@/lib/api/course-content';
 import { logger } from '@/lib/logger';
+
+const USER_REPORT_LIMIT = 100;
+const CHOICE_COUNT = 4;
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -30,21 +32,8 @@ interface IndexBias {
 
 // ─── Helpers ──────────────────────────────────────────────────
 
-/** Load all units with full question content for every active profession. */
-async function loadAllCourses(): Promise<{ id: string; name: string; units: Unit[] }[]> {
-  const activeProfessions = PROFESSIONS.filter(p => !p.isComingSoon);
-  const courses: { id: string; name: string; units: Unit[] }[] = [];
-
-  for (const p of activeProfessions) {
-    const units = await getCourseData(p.id);
-    courses.push({ id: p.id, name: p.name, units });
-  }
-
-  return courses;
-}
-
 /** Build per-course stats: lesson/question/teaching counts and type distribution. */
-function buildCourseStats(courses: { id: string; name: string; units: Unit[] }[]): CourseStats[] {
+function buildCourseStats(courses: LoadedCourse[]): CourseStats[] {
   return courses.map(c => {
     const typeCounts: Record<string, number> = {};
     let lessonCount = 0;
@@ -81,9 +70,9 @@ function buildCourseStats(courses: { id: string; name: string; units: Unit[] }[]
 }
 
 /** Build correctIndex distribution (A/B/C/D bias) per course. */
-function buildIndexBias(courses: { id: string; name: string; units: Unit[] }[]): IndexBias[] {
+function buildIndexBias(courses: LoadedCourse[]): IndexBias[] {
   return courses.map(c => {
-    const counts = [0, 0, 0, 0];
+    const counts = new Array<number>(CHOICE_COUNT).fill(0);
     let total = 0;
 
     for (const unit of c.units) {
@@ -94,7 +83,7 @@ function buildIndexBias(courses: { id: string; name: string; units: Unit[] }[]):
             q.correctIndex !== undefined &&
             q.correctIndex !== null
           ) {
-            if (q.correctIndex >= 0 && q.correctIndex < 4) {
+            if (q.correctIndex >= 0 && q.correctIndex < CHOICE_COUNT) {
               counts[q.correctIndex]++;
               total++;
             }
@@ -117,7 +106,7 @@ function buildIndexBias(courses: { id: string; name: string; units: Unit[] }[]):
 export const GET = withAdminAuth(async () => {
   try {
     // 1. Load all course data with full questions
-    const courses = await loadAllCourses();
+    const courses = await loadActiveCourses();
 
     // 2. Run static QA checks
     const qaInput: CourseInput[] = courses.map(c => ({
@@ -179,7 +168,7 @@ export const GET = withAdminAuth(async () => {
         const db2 = b.createdAt ? b.createdAt.getTime() : 0;
         return db2 - da;
       })
-      .slice(0, 100);
+      .slice(0, USER_REPORT_LIMIT);
 
     // 7. Index bias
     const indexBias = buildIndexBias(courses);

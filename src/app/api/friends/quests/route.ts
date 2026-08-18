@@ -3,7 +3,8 @@ import { friendQuests, users, userProgress } from '@/lib/db/schema';
 import { eq, or, and, desc } from 'drizzle-orm';
 import { getCurrentWeekMonday } from '@/lib/quest-engine';
 import { pickFriendQuest, formatQuestDescription } from '@/lib/friend-quests';
-import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getFriendIds } from '@/lib/db/queries';
 
 /**

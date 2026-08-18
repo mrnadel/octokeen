@@ -7,7 +7,7 @@
 
 import { useEngagementStore } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
-import { makePostOpts, ENGAGEMENT_DEBOUNCE_MS } from './utils';
+import { makePostOpts, jsonPostHeaders, ENGAGEMENT_DEBOUNCE_MS } from './utils';
 import { shallow } from 'zustand/shallow';
 
 // ---------------------------------------------------------------------------
@@ -325,7 +325,6 @@ export function makeBeforeUnloadHandler(getLastSyncedCount: () => number): () =>
     const { payload } = buildEngagementPayload(getLastSyncedCount(), false);
     const body = JSON.stringify(payload);
     const url = '/api/engagement';
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     // sendBeacon is the only reliable way to dispatch a request on unload.
     // It does not support custom headers, so the server must not require
@@ -335,7 +334,7 @@ export function makeBeforeUnloadHandler(getLastSyncedCount: () => number): () =>
       // Fallback: best-effort keepalive fetch (may not complete on all browsers)
       fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Timezone': tz },
+        headers: jsonPostHeaders(),
         body,
         keepalive: true,
       }).catch(() => {});

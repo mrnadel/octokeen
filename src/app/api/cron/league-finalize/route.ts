@@ -1,6 +1,12 @@
 import { finalizeLeagueWeek } from '@/lib/league-matching';
 import { logger } from '@/lib/logger';
-import { withCronAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
+import { withCronAuth } from '@/lib/api/guards';
+import { getUtcWeekMonday } from '@/lib/server-dates';
+
+const DAYS_PER_WEEK = 7;
+const MS_PER_DAY = 86_400_000;
+const MONDAY = 1;
 
 /**
  * GET /api/cron/league-finalize
@@ -10,14 +16,13 @@ import { withCronAuth, jsonOk, jsonError } from '@/lib/api-helpers';
  * Secured by CRON_SECRET.
  */
 export const GET = withCronAuth(async () => {
-  // Calculate LAST week's Monday (the week that just ended)
+  // Most recent past Monday: if today is Monday, step back a full week so we
+  // finalize the week that just ended rather than the one in progress.
   const now = new Date();
-  const dayOfWeek = now.getUTCDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-  // Most recent past Monday: if today is Monday, go back 7 days
-  const daysBack = dayOfWeek === 1 ? 7 : ((dayOfWeek + 6) % 7);
-  const lastMonday = new Date(now);
-  lastMonday.setUTCDate(now.getUTCDate() - daysBack);
-  const weekStart = `${lastMonday.getUTCFullYear()}-${String(lastMonday.getUTCMonth() + 1).padStart(2, '0')}-${String(lastMonday.getUTCDate()).padStart(2, '0')}`;
+  const reference = now.getUTCDay() === MONDAY
+    ? new Date(now.getTime() - DAYS_PER_WEEK * MS_PER_DAY)
+    : now;
+  const weekStart = getUtcWeekMonday(reference);
 
   try {
     const processed = await finalizeLeagueWeek(weekStart);

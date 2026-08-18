@@ -1,13 +1,14 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { triggerFX, clearFX, fxNames } from '@/lib/fx-registry';
+import { triggerFX, clearFX, type FXName } from '@/lib/fx-registry';
 
-/** All available FX effect names */
-export type FXName = (typeof fxNames)[number];
-
-/** Legacy type alias — old components may use this */
-export type FXType = FXName;
+/**
+ * Re-exported so consumers can pull the effect-name union from the component
+ * they are rendering. The union itself is owned by fx-registry — do not
+ * re-derive it here, or the two definitions can drift.
+ */
+export type { FXName };
 
 export interface ScreenFXProps {
   /** Effect name — use 'confetti', 'supernova', 'xp-explosion', etc. */

@@ -1,10 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq, isNotNull } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, accounts } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { parseBody, jsonOk, jsonError, rateLimited, INVALID_REQUEST } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
+import {
+  updateDisplayName,
+  updateCountry,
+  updateProfilePublic,
+  updateImage,
+} from './profile-updates';
 
 const patchProfileSchema = z.object({
   displayName: z.string().min(2).max(50).optional(),
@@ -16,16 +23,7 @@ const patchProfileSchema = z.object({
   { message: 'No valid fields to update' }
 );
 
-// ─── Limits ──────────────────────────────────────────────────
-const MAX_IMAGE_BYTES = 100 * 1024; // 100 KB max stored size (base64 data URL)
-const ALLOWED_MIME_PREFIXES = ['data:image/jpeg', 'data:image/png', 'data:image/webp'];
-
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const GET = withAuth(async (_req, { userId }): Promise<NextResponse> => {
   const [user] = await db
     .select({ hasPasswordHash: isNotNull(users.passwordHash), country: users.country, profilePublic: users.profilePublic, emailVerified: users.emailVerified })
     .from(users)
@@ -40,116 +38,30 @@ export async function GET() {
 
   const isOAuthOnly = oauthAccounts.length > 0 && !user?.hasPasswordHash;
 
-  return NextResponse.json({
+  return jsonOk({
     hasPassword: !isOAuthOnly && !!user?.hasPasswordHash,
     country: user?.country ?? null,
     profilePublic: user?.profilePublic ?? true,
     emailVerified: user?.emailVerified ? true : false,
   });
-}
+});
 
-export async function PATCH(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const PATCH = withAuth(async (request, { userId }): Promise<NextResponse> => {
   const rl = rateLimit(`user-profile:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
+  const { data: body, error } = await parseBody(request, patchProfileSchema, {
+    invalidInput: INVALID_REQUEST,
+  });
+  if (error) return error;
 
-  const parseResult = patchProfileSchema.safeParse(rawBody);
-  if (!parseResult.success) {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-  const body = parseResult.data;
+  // Exactly one field is applied per request, in this precedence order.
+  if (body.displayName !== undefined) return updateDisplayName(userId, body.displayName);
+  if (body.country !== undefined) return updateCountry(userId, body.country);
+  if (body.profilePublic !== undefined) return updateProfilePublic(userId, body.profilePublic === true);
+  if (body.image !== undefined) return updateImage(userId, body.image);
 
-  // ── Handle display name update ──
-  if (body.displayName !== undefined) {
-    const displayName = body.displayName;
-    await db
-      .update(users)
-      .set({ displayName, name: displayName, updatedAt: new Date() })
-      .where(eq(users.id, userId));
-
-    return NextResponse.json({ ok: true });
-  }
-
-  // ── Handle country update ──
-  if (body.country !== undefined) {
-    const country = body.country as string | null;
-    if (country !== null && (typeof country !== 'string' || !/^[A-Z]{2,3}$/.test(country))) {
-      return NextResponse.json(
-        { error: 'Country must be a valid code (e.g. US, IL, GB, INT)' },
-        { status: 400 }
-      );
-    }
-    await db
-      .update(users)
-      .set({ country, updatedAt: new Date() })
-      .where(eq(users.id, userId));
-
-    return NextResponse.json({ ok: true });
-  }
-
-  // ── Handle profilePublic update ──
-  if (body.profilePublic !== undefined) {
-    const profilePublic = body.profilePublic === true;
-    await db
-      .update(users)
-      .set({ profilePublic, updatedAt: new Date() })
-      .where(eq(users.id, userId));
-    return NextResponse.json({ ok: true });
-  }
-
-  // ── Handle profile image update ──
-  if (body.image !== undefined) {
-    const { image } = body;
-
-    // Allow clearing the image
-    if (image === null) {
-      await db
-        .update(users)
-        .set({ image: null, updatedAt: new Date() })
-        .where(eq(users.id, userId));
-      return NextResponse.json({ ok: true, image: null });
-    }
-
-    const hasValidPrefix = ALLOWED_MIME_PREFIXES.some((p) => image.startsWith(p));
-    if (!hasValidPrefix) {
-      return NextResponse.json(
-        { error: 'Only JPEG, PNG, or WebP images are allowed' },
-        { status: 400 }
-      );
-    }
-
-    // Check size (the full data URL string length in bytes)
-    const byteSize = Buffer.byteLength(image, 'utf-8');
-    if (byteSize > MAX_IMAGE_BYTES) {
-      return NextResponse.json(
-        { error: `Image too large (${Math.round(byteSize / 1024)}KB). Max is ${MAX_IMAGE_BYTES / 1024}KB after compression.` },
-        { status: 400 }
-      );
-    }
-
-    await db
-      .update(users)
-      .set({ image, updatedAt: new Date() })
-      .where(eq(users.id, userId));
-
-    return NextResponse.json({ ok: true, image });
-  }
-
-  return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
-}
+  return jsonError('No valid fields to update', 400);
+});

@@ -9,6 +9,10 @@ import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 import { shuffleArray } from '@/lib/utils';
 import { CORRECT, INCORRECT, DISABLED } from './shared/answer-feedback';
+import { buildRevealAnimation, type RevealTuning } from './shared/reveal-animation';
+
+/** Reveal animation magnitudes for this card. */
+const REVEAL_TUNING: RevealTuning = { scalePeak: 1.04, shakeKeyframes: [0, -6, 6, -4, 4, 0], dimOpacity: 0.5, dimScale: 0.98 };
 
 interface MultiSelectCardProps {
   question: CourseQuestion;
@@ -148,13 +152,10 @@ const MultiSelectCard = forwardRef<QuestionCardHandle, MultiSelectCardProps>(
               shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
             }
 
-            const revealAnimation = answered && localCorrect !== null
-              ? isCorrectOption
-                ? { opacity: 1, y: 0, scale: [1, 1.04, 1] }
-                : isSelected && !isCorrectOption
-                  ? { opacity: 1, y: 0, x: [0, -6, 6, -4, 4, 0] }
-                  : { opacity: 0.5, y: 0, scale: 0.98 }
-              : { opacity: 1, y: 0 };
+            const revealAnimation = buildRevealAnimation(
+              { revealed: answered && localCorrect !== null, isCorrectOption, isSelected },
+              REVEAL_TUNING,
+            );
 
             return (
               <motion.button

@@ -12,6 +12,7 @@ import {
   calculateXP,
   calculateMastery,
   shuffleArray,
+  toPercent,
   getStreakStatus,
   getInterviewReadiness,
 } from '@/lib/utils';
@@ -399,6 +400,28 @@ describe('shuffleArray()', () => {
 // ============================================================
 // getStreakStatus()
 // ============================================================
+
+describe('toPercent()', () => {
+  it('returns 0 when total is zero', () => {
+    expect(toPercent(0, 0)).toBe(0);
+    expect(toPercent(5, 0)).toBe(0);
+  });
+
+  it('returns 0 when total is negative', () => {
+    expect(toPercent(5, -3)).toBe(0);
+  });
+
+  it('rounds to the nearest whole percent', () => {
+    expect(toPercent(1, 3)).toBe(33);
+    expect(toPercent(2, 3)).toBe(67);
+    expect(toPercent(7, 8)).toBe(88);
+  });
+
+  it('handles the exact boundaries', () => {
+    expect(toPercent(0, 10)).toBe(0);
+    expect(toPercent(10, 10)).toBe(100);
+  });
+});
 
 describe('getStreakStatus()', () => {
   beforeEach(() => {

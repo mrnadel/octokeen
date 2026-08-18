@@ -2,7 +2,8 @@ import { eq, or, and, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { friendships, friendRequests, users, userProgress } from '@/lib/db/schema';
 
-const MAX_FRIENDS = 50;
+/** Maximum friends a single user may have. */
+export const MAX_FRIENDS = 50;
 
 /** Sort two IDs so userId < friendId (for friendship invariant) */
 export function sortFriendPair(a: string, b: string): [string, string] {

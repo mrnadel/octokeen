@@ -41,6 +41,32 @@ export const STAR_THRESHOLDS = {
   TWO_STARS: 50,
 } as const;
 
+// --------------- Lesson & Placement XP ---------------
+//
+// NOTE: these values are the rule as currently implemented. The test suite
+// asserts an older economy (4x flawless, calculateStars() 1-3 otherwise) that
+// was replaced in 36de30bb without updating the tests. Awaiting a product
+// ruling on which economy is correct — change it here, in one place.
+
+/** A run counts as flawless at 100% accuracy over at least this many questions. */
+export const FLAWLESS_MIN_QUESTIONS = 3;
+
+/** XP multiplier applied to a flawless lesson (1 = no bonus otherwise). */
+export const LESSON_FLAWLESS_XP_MULTIPLIER = 1.5;
+
+/** Ceiling on XP for a single practice question, applied after all boosts. */
+export const MAX_XP_PER_QUESTION = 200;
+
+/** Placement-test XP economy. */
+export const PLACEMENT_XP = {
+  /** XP awarded per correct answer. */
+  PER_CORRECT: 10,
+  /** Multiplier on a flawless passing run. */
+  FLAWLESS_MULTIPLIER: 2,
+  /** Fraction of base XP kept when the test is failed. */
+  FAILED_RATE: 0.25,
+} as const;
+
 // --------------- Sessions ---------------
 
 export const SESSION_SIZE = 10;

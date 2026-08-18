@@ -6,14 +6,8 @@ export type PlacementChoice = 'scratch' | 'test' | 'advanced';
 export type GoalChoice = 'interview' | 'refresh' | 'exam' | 'curiosity';
 export type CommitmentChoice = 5 | 10 | 15 | 20;
 
-export interface CourseIntroData {
-  experienceLevel: ExperienceLevel;
-  placementChoice: PlacementChoice;
-  goal: GoalChoice;
-  dailyMinutes: CommitmentChoice;
-  completedAt: string;
-  placedDone?: boolean;
-}
+// The completed-intro payload shape lives in `./course/types` (CourseIntroData) —
+// it is persisted in the course store, so it is declared alongside CourseProgress.
 
 // ── Experience Level Options ──────────────────────────────────
 

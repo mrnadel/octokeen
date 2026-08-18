@@ -9,6 +9,11 @@ import { getUserRank, getTierConfig } from '@/lib/league-simulator';
 import { CompetitorAvatar } from './CompetitorAvatar';
 import { LeagueImage } from '@/components/icons/LeagueImage';
 import { LeaderboardRow } from '@/components/ui/LeaderboardRow';
+import {
+  LeaderboardCard,
+  LEADERBOARD_CARD_CLASS,
+  LEADERBOARD_HEADER_CLASS,
+} from '@/components/ui/LeaderboardCard';
 import { useIsDark } from '@/store/useThemeStore';
 import { useSession } from 'next-auth/react';
 
@@ -16,8 +21,8 @@ import { useSession } from 'next-auth/react';
 // localStorage rehydration without blocking the whole render with a spinner.
 function LeagueBoardSkeleton() {
   return (
-    <div className="bg-white dark:bg-surface-900 rounded-2xl border border-gray-100 dark:border-surface-700 shadow-sm overflow-hidden animate-pulse">
-      <div className="px-4 py-4 flex items-center gap-3 border-b border-gray-100 dark:border-surface-700">
+    <div className={`${LEADERBOARD_CARD_CLASS} animate-pulse`}>
+      <div className={LEADERBOARD_HEADER_CLASS}>
         <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-surface-700 flex-shrink-0" />
         <div className="space-y-2 flex-1">
           <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-32" />
@@ -49,6 +54,12 @@ export function LeagueBoard() {
 
   const tier = leagueTiers.find((t) => t.tier === league.currentTier) ?? leagueTiers[0];
   const tierConfig = getTierConfig(league.currentTier);
+
+  // Header tint is derived from the tier colour, so it can't live in a class.
+  const headerStyle = useMemo(
+    () => ({ background: `${tier.color}${isDark ? '20' : '14'}` }),
+    [tier.color, isDark],
+  );
 
   // Memoize the sorted leaderboard entries to avoid re-sorting on every render
   const allEntries = useMemo(() => {
@@ -94,24 +105,13 @@ export function LeagueBoard() {
   const totalCount = allEntries.length;
 
   return (
-    <div className="bg-white dark:bg-surface-900 rounded-2xl border border-gray-100 dark:border-surface-700 shadow-sm overflow-hidden">
-      {/* Board header */}
-      <div
-        className="px-4 py-4 flex items-center gap-3 border-b border-gray-100 dark:border-surface-700"
-        style={{ background: `${tier.color}${isDark ? '20' : '14'}` }}
-      >
-        <LeagueImage tier={tier} size={48} />
-        <div>
-          <h2 className="text-lg font-extrabold text-gray-800 dark:text-surface-50">{tier.name} League</h2>
-          <p className="text-xs text-gray-500 dark:text-surface-400">
-            Your rank: #{userRank} of {totalCount} &middot; Week XP: {league.weeklyXp}
-          </p>
-        </div>
-      </div>
-
-      {/* Leaderboard */}
-      <div>
-        {allEntries.map((entry, idx) => {
+    <LeaderboardCard
+      icon={<LeagueImage tier={tier} size={48} />}
+      title={`${tier.name} League`}
+      subtitle={`Your rank: #${userRank} of ${totalCount} · Week XP: ${league.weeklyXp}`}
+      headerStyle={headerStyle}
+    >
+      {allEntries.map((entry, idx) => {
           const rank = idx + 1;
           const isUser = entry.id === 'user';
           const inPromoteZone = promoteCount > 0 && rank <= promoteCount;
@@ -166,8 +166,6 @@ export function LeagueBoard() {
             </div>
           );
         })}
-      </div>
-
-    </div>
+    </LeaderboardCard>
   );
 }

@@ -9,21 +9,12 @@ import { unit7 } from './units/unit-7-materials';
 import { unit8 } from './units/unit-8-machine';
 import { unit9 } from './units/unit-9-gdt';
 import { unit10 } from './units/unit-10-interview';
-import type { Unit, Lesson } from './types';
+import type { Unit } from './types';
 
+/**
+ * Full mechanical-engineering course data (with question content).
+ *
+ * Lookup helpers live in `course-meta.ts` (getTotalLessonsMeta, getLessonByIdMeta)
+ * and operate on the lightweight metadata — do not reimplement them here.
+ */
 export const course: Unit[] = [unit1, unit2, unit3, unit4, unit5, unit6, unitHowThingsWork, unit7, unit8, unit9, unit10];
-
-export function getTotalLessons(): number {
-  return course.reduce((sum, unit) => sum + unit.lessons.length, 0);
-}
-
-export function getLessonById(lessonId: string): { unit: Unit; lesson: Lesson; unitIndex: number; lessonIndex: number } | null {
-  for (let ui = 0; ui < course.length; ui++) {
-    for (let li = 0; li < course[ui].lessons.length; li++) {
-      if (course[ui].lessons[li].id === lessonId) {
-        return { unit: course[ui], lesson: course[ui].lessons[li], unitIndex: ui, lessonIndex: li };
-      }
-    }
-  }
-  return null;
-}

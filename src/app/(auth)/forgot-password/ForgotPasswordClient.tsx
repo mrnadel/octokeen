@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { AuthResultCard } from '@/components/auth/AuthResultCard';
+import { AuthMailIcon } from '@/components/auth/AuthResultIcons';
 import { ErrorAlert } from '@/components/auth/ErrorAlert';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthButton } from '@/components/auth/AuthButton';
@@ -41,13 +43,7 @@ export default function ForgotPasswordPage() {
 
   if (sent) {
     return (
-      <div className="text-center space-y-4">
-        <div className="w-14 h-14 bg-primary-50 rounded-full flex items-center justify-center mx-auto">
-          <svg className="w-7 h-7 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-black text-surface-900">Check your email</h1>
+      <AuthResultCard title="Check your email" icon={<AuthMailIcon />} iconBgClass="bg-primary-50">
         <p className="text-sm text-surface-500 font-semibold">
           If an account exists with <span className="text-surface-700">{email}</span>,
           we sent a reset link. It expires in 15 minutes.
@@ -64,7 +60,7 @@ export default function ForgotPasswordPage() {
         <Link href="/login" className="block text-sm text-[#1CB0F6] font-bold mt-6">
           Back to sign in
         </Link>
-      </div>
+      </AuthResultCard>
     );
   }
 

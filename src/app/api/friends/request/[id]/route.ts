@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { db } from '@/lib/db';
 import { friendRequests, friendships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
-import { sortFriendPair, isFriendCapReached } from '@/lib/db/friends';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { sortFriendPair, isFriendCapReached, MAX_FRIENDS } from '@/lib/db/friends';
+import { parseBody, jsonOk, jsonError, rateLimited, lastPathSegment } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 const patchSchema = z.object({
   action: z.enum(['accept', 'decline']),
@@ -14,13 +14,10 @@ const patchSchema = z.object({
 export const PATCH = withAuth(async (req, { userId }) => {
   const rl = rateLimit(`friend-request:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
-  const requestId = req.nextUrl.pathname.split('/').pop()!;
+  const requestId = lastPathSegment(req);
 
   const { data, error } = await parseBody(req, patchSchema);
   if (error) return error;
@@ -57,7 +54,7 @@ export const PATCH = withAuth(async (req, { userId }) => {
       });
     } catch (err) {
       if (err instanceof Error && err.message === 'FRIEND_CAP') {
-        return jsonError('Friends list full (max 50)', 409);
+        return jsonError(`Friends list full (max ${MAX_FRIENDS})`, 409);
       }
       throw err;
     }
@@ -74,7 +71,7 @@ export const PATCH = withAuth(async (req, { userId }) => {
 });
 
 export const DELETE = withAuth(async (req, { userId }) => {
-  const requestId = req.nextUrl.pathname.split('/').pop()!;
+  const requestId = lastPathSegment(req);
 
   const [pendingReq] = await db
     .select()

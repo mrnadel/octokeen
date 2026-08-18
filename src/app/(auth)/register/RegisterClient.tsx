@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { analytics } from '@/lib/mixpanel';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
-import { GoogleIcon } from '@/components/auth/GoogleIcon';
+import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 import { DividerOr } from '@/components/auth/DividerOr';
 import { ErrorAlert } from '@/components/auth/ErrorAlert';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
+import { isStrongPassword } from '@/components/auth/password-rules';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -22,10 +23,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
-  const isPasswordValid = password.length >= PASSWORD_MIN_LENGTH
-    && /[A-Z]/.test(password)
-    && /\d/.test(password)
-    && /[^A-Za-z0-9]/.test(password);
+  const isPasswordValid = isStrongPassword(password);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,15 +82,7 @@ export default function RegisterPage() {
     <>
       <h1 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Create account</h1>
 
-      {/* Google */}
-      <button
-        onClick={handleGoogleSignIn}
-        disabled={googleLoading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-surface-200 rounded-2xl text-surface-700 font-bold hover:border-surface-300 disabled:opacity-60 transition-colors"
-      >
-        <GoogleIcon />
-        {googleLoading ? 'Redirecting...' : 'Continue with Google'}
-      </button>
+      <GoogleSignInButton onClick={handleGoogleSignIn} loading={googleLoading} />
 
       <DividerOr />
 

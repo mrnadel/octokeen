@@ -4,15 +4,16 @@
 
 import { Quest, QuestDefinition, QuestRarity } from '@/data/engagement-types';
 import { dailyQuestPool, weeklyQuestPool } from '@/data/quests';
+import { fnv1a } from '@/lib/hash';
+import { toLocalDateKey } from '@/lib/date-keys';
 
 // --------------- Date Utilities ---------------
 
 // Debug day offset — admin "Skip day" increments this so
 // getTodayDate / getCurrentWeekMonday advance without waiting.
 let _debugDayOffset = 0;
-function getDebugDayOffset() { return _debugDayOffset; }
-export function resetDebugDayOffset() { _debugDayOffset = 0; }
-export function addDebugDayOffset(days: number) { _debugDayOffset += days; }
+export function resetDebugDayOffset(): void { _debugDayOffset = 0; }
+export function addDebugDayOffset(days: number): void { _debugDayOffset += days; }
 
 function getSimulatedNow(): Date {
   const d = new Date();
@@ -21,10 +22,7 @@ function getSimulatedNow(): Date {
 }
 
 export function getTodayDate(): string {
-  const d = getSimulatedNow();
-  // Use local time, not UTC — so a user practicing at 11pm local time
-  // doesn't get tomorrow's date and break their streak.
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  return toLocalDateKey(getSimulatedNow());
 }
 
 export function getCurrentWeekMonday(): string {
@@ -33,19 +31,13 @@ export function getCurrentWeekMonday(): string {
   const diff = (day === 0 ? -6 : 1 - day); // days to subtract to get Monday
   const monday = new Date(d);
   monday.setDate(d.getDate() + diff);
-  return `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+  return toLocalDateKey(monday);
 }
 
 // --------------- Hash Utility ---------------
 
-export function hashString(str: string): number {
-  let hash = 2166136261; // FNV-1a offset basis (32-bit)
-  for (let i = 0; i < str.length; i++) {
-    hash ^= str.charCodeAt(i);
-    hash = (hash * 16777619) >>> 0; // FNV prime, keep unsigned 32-bit
-  }
-  return hash;
-}
+/** Deterministic 32-bit hash used to seed quest selection. */
+export const hashString = fnv1a;
 
 // --------------- Rarity Weights ---------------
 

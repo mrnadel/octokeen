@@ -1,18 +1,12 @@
 import { db } from '@/lib/db';
 import { contentFeedback, contentFeedbackDismissals } from '@/lib/db/schema';
-import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
-import { getCourseData } from '@/data/course/api';
-import { PROFESSIONS } from '@/data/professions';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
+import { loadActiveCourseUnits } from '@/lib/api/course-content';
 import type { ContentFeedbackType, FeedbackReason } from '@/data/types';
 import type { Unit } from '@/data/course/types';
 
-async function loadAllCourseUnits(): Promise<Unit[]> {
-  const activeProfessions = PROFESSIONS.filter((p) => !p.isComingSoon);
-  const allUnits = await Promise.all(
-    activeProfessions.map((p) => getCourseData(p.id)),
-  );
-  return allUnits.flat();
-}
+const MAX_QUESTION_TEXT_LENGTH = 80;
 
 function getCourseQuestionText(units: Unit[], contentId: string): string | null {
   for (const unit of units) {
@@ -26,11 +20,11 @@ function getCourseQuestionText(units: Unit[], contentId: string): string | null 
 
 function getQuestionText(units: Unit[], _contentType: string, contentId: string): string {
   const text = getCourseQuestionText(units, contentId);
-  return text ? text.slice(0, 80) : `[Unknown: ${contentId}]`;
+  return text ? text.slice(0, MAX_QUESTION_TEXT_LENGTH) : `[Unknown: ${contentId}]`;
 }
 
 export const GET = withAdminAuth(async (req) => {
-  const allUnits = await loadAllCourseUnits();
+  const allUnits = await loadActiveCourseUnits();
   const includeDismissed = req.nextUrl.searchParams.get('includeDismissed') === 'true';
 
   // Fetch all flags

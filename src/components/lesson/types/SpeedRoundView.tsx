@@ -1,8 +1,11 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LessonTypeProps } from '@/data/course/types';
+import { LessonTypeFooter } from '@/components/lesson/shared/LessonTypeFooter';
+import { LessonTypeButton } from '@/components/lesson/shared/LessonTypeButton';
+import { CORRECT, INCORRECT } from '@/components/lesson/shared/answer-feedback';
 import { useLessonColors } from '@/lib/lessonColors';
 
 export default function SpeedRoundView({
@@ -166,34 +169,11 @@ export default function SpeedRoundView({
             </div>
           </motion.div>
         </div>
-        <div
-          style={{
-            padding: '12px 20px',
-            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-            borderTop: `2px solid ${c.border}`,
-            background: c.cardBg,
-          }}
-        >
-          <button
-            onClick={onComplete}
-            className="w-full transition-transform active:scale-[0.98]"
-            style={{
-              padding: '14px 0',
-              borderRadius: 16,
-              fontSize: 15,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: 0.8,
-              background: unitColor,
-              color: '#FFFFFF',
-              boxShadow: `0 4px 0 ${theme.dark}`,
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
+        <LessonTypeFooter>
+          <LessonTypeButton onClick={onComplete} background={unitColor} shadowColor={theme.dark}>
             See Results
-          </button>
-        </div>
+          </LessonTypeButton>
+        </LessonTypeFooter>
       </div>
     );
   }
@@ -323,25 +303,15 @@ export default function SpeedRoundView({
                 let shadow = `0 3px 0 ${c.border}`;
                 let textColor = c.title;
 
-                if (feedback && isSelected) {
-                  if (feedback === 'correct') {
-                    bg = '#D7FFB8';
-                    borderColor = '#58CC02';
-                    shadow = '0 3px 0 #46A302';
-                    textColor = '#58A700';
-                  } else {
-                    bg = '#FFDFE0';
-                    borderColor = '#FF4B4B';
-                    shadow = '0 3px 0 #CC2D2D';
-                    textColor = '#EA2B2B';
-                  }
-                }
-                if (feedback === 'incorrect' && isCorrectOption) {
-                  bg = '#D7FFB8';
-                  borderColor = '#58CC02';
-                  shadow = '0 3px 0 #46A302';
-                  textColor = '#58A700';
-                }
+                const applyTint = (tint: typeof CORRECT | typeof INCORRECT) => {
+                  bg = tint.bg;
+                  borderColor = tint.border;
+                  shadow = `0 3px 0 ${tint.shadow}`;
+                  textColor = tint.text;
+                };
+
+                if (feedback && isSelected) applyTint(feedback === 'correct' ? CORRECT : INCORRECT);
+                if (feedback === 'incorrect' && isCorrectOption) applyTint(CORRECT);
 
                 return (
                   <motion.button

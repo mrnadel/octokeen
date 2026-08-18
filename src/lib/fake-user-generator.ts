@@ -1,16 +1,16 @@
 import type { FakeUser, FakeUserPool, LeagueCompetitor } from '@/data/engagement-types';
 import { TOTAL_TOPICS } from '@/data/types';
 import { fakeNames } from '@/data/fake-names';
-import { competitorFlags } from '@/data/league';
+import { competitorFlags, COMPETITORS_PER_LEAGUE } from '@/data/league';
 import { topics } from '@/data/topics';
-import { seededRandom, hashSeed, getTierConfig } from '@/lib/league-simulator';
+import { seededRandom, hashSeed, getTierConfig, seededShuffle, getTierMidpointXp, DAYS_PER_WEEK } from '@/lib/league-simulator';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
-
-/** Number of simulated competitors per league bracket */
-export const LEAGUE_COMPETITOR_COUNT = 29;
 import { getCurrentWeekMonday } from '@/lib/quest-engine';
 
 // --------------- Constants ---------------
+
+/** Number of simulated competitors per league bracket (the user takes the last slot). */
+export const LEAGUE_COMPETITOR_COUNT = COMPETITORS_PER_LEAGUE - 1;
 
 const POOL_VERSION = 4; // v4: ~20% avatars with random photos (picsum), 80% initials only
 const POOL_STORAGE_KEY = STORAGE_KEYS.FAKE_USERS_POOL;
@@ -208,15 +208,6 @@ function pickWeighted(rng: () => number, weights: number[]): number {
   return weights.length - 1;
 }
 
-function shuffleArray<T>(arr: T[], rng: () => number): T[] {
-  const result = [...arr];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
 function daysAgoToISO(daysAgo: number): string {
   const d = new Date();
   d.setDate(d.getDate() - daysAgo);
@@ -243,7 +234,7 @@ function generateAchievements(
     eligible.push(...(ACHIEVEMENT_TIERS[t] ?? []));
   }
 
-  const shuffled = shuffleArray(eligible, rng);
+  const shuffled = seededShuffle(eligible, rng);
   const selected = shuffled.slice(0, Math.min(count, shuffled.length));
 
   // Add tier-gated achievements (probability-based, per spec)
@@ -277,7 +268,7 @@ function generateTopicMastery(
     }
   }
 
-  const shuffled = shuffleArray(weightedTopics, rng);
+  const shuffled = seededShuffle(weightedTopics, rng);
   // Deduplicate while preserving order
   const seen = new Set<string>();
   const selected: string[] = [];
@@ -392,7 +383,7 @@ export function generateFakeUserPool(): FakeUserPool {
   }
   // Shuffle each quality pool
   for (const q of [1, 2, 3, 4, 5]) {
-    namesByQuality[q] = shuffleArray(namesByQuality[q], rng);
+    namesByQuality[q] = seededShuffle(namesByQuality[q], rng);
   }
   const nameCounters: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
@@ -508,8 +499,7 @@ export function progressFakeUsers(): void {
 
 function progressSingleUser(user: FakeUser, rng: () => number): void {
   const tierConfig = getTierConfig(user.currentTier);
-  const xpRange = tierConfig.xpRange;
-  const midpointXp = (xpRange.min + xpRange.max) / 2;
+  const midpointXp = getTierMidpointXp(tierConfig);
 
   // Weekly XP gain
   const weeklyXpGain = Math.round(midpointXp * user.activityLevel * (0.5 + rng()));
@@ -596,13 +586,13 @@ function simulateTierMovement(pool: FakeUser[], rng: () => number): void {
     const ranked = group
       .map((u) => ({
         user: u,
-        simulatedXp: (tierConfig.xpRange.min + tierConfig.xpRange.max) / 2 * u.activityLevel * (0.5 + rng()),
+        simulatedXp: getTierMidpointXp(tierConfig) * u.activityLevel * (0.5 + rng()),
       }))
       .sort((a, b) => b.simulatedXp - a.simulatedXp);
 
     // Proportional promote/demote counts
-    const promoteCount = Math.ceil(group.length * tierConfig.promoteCount / 30);
-    const demoteCount = Math.ceil(group.length * tierConfig.demoteCount / 30);
+    const promoteCount = Math.ceil(group.length * tierConfig.promoteCount / COMPETITORS_PER_LEAGUE);
+    const demoteCount = Math.ceil(group.length * tierConfig.demoteCount / COMPETITORS_PER_LEAGUE);
 
     for (let i = 0; i < ranked.length; i++) {
       const user = ranked[i].user;
@@ -654,14 +644,13 @@ function drawFromPool(
   }
 
   // Shuffle and take competitors
-  const shuffled = shuffleArray(candidates, rng);
+  const shuffled = seededShuffle(candidates, rng);
   const selected = shuffled.slice(0, LEAGUE_COMPETITOR_COUNT);
 
-  const { min: xpMin, max: xpMax } = tierConfig.xpRange;
-  const midpointXp = (xpMin + xpMax) / 2;
+  const midpointXp = getTierMidpointXp(tierConfig);
 
   return selected.map((user) => {
-    const baseDailyRate = (midpointXp / 7) * user.activityLevel;
+    const baseDailyRate = (midpointXp / DAYS_PER_WEEK) * user.activityLevel;
     const dailyXpRate = baseDailyRate * (0.8 + rng() * 0.4);
     const variance = dailyXpRate * 0.3;
 

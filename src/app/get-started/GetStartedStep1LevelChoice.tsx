@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { getProfession } from '@/data/professions';
-import { Mascot } from '@/components/ui/Mascot';
+
+import { slideVariants, slideTransition } from './getStartedAnimation';
+import { GetStartedStepHeading } from './GetStartedStepHeading';
 
 interface Props {
   selectedProfession: string;
@@ -11,11 +13,6 @@ interface Props {
   direction: number;
 }
 
-const slideVariants = {
-  enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (direction: number) => ({ x: direction > 0 ? -60 : 60, opacity: 0 }),
-};
 
 export function GetStartedStep1LevelChoice({ selectedProfession, onNewUser, onLevelChoice, direction }: Props) {
   return (
@@ -24,33 +21,15 @@ export function GetStartedStep1LevelChoice({ selectedProfession, onNewUser, onLe
       custom={direction}
       variants={slideVariants}
       initial="enter" animate="center" exit="exit"
-      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      transition={slideTransition}
       className="max-w-lg mx-auto w-full"
     >
-      <motion.div
-        className="text-center mb-6"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <motion.div
-          className="flex justify-center mb-3"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.05 }}
-        >
-          <div className="relative">
-            <div className="absolute inset-0 scale-150 rounded-full bg-primary-400/10 dark:bg-primary-500/10 blur-2xl" />
-            <Mascot pose="thinking" size={100} />
-          </div>
-        </motion.div>
-        <h2 className="text-2xl sm:text-3xl font-black text-surface-900 dark:text-white mb-1.5">
-          Already know some {getProfession(selectedProfession)?.name ?? 'of this'}?
-        </h2>
-        <p className="text-surface-500 dark:text-surface-400 text-sm sm:text-base font-semibold">
-          Take a quick test to find your starting level, or begin from scratch.
-        </p>
-      </motion.div>
+      <GetStartedStepHeading
+        pose="thinking"
+        mascotSize={100}
+        title={`Already know some ${getProfession(selectedProfession)?.name ?? 'of this'}?`}
+        subtitle="Take a quick test to find your starting level, or begin from scratch."
+      />
 
       <motion.div
         className="space-y-3"

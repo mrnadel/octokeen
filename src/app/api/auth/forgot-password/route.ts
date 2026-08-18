@@ -6,6 +6,7 @@ import { users, passwordResetTokens } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { sendEmail } from '@/lib/email';
 import { emailSchema } from '@/lib/api-schemas';
+import { parseBody, getClientIp, rateLimited, TOO_MANY_REQUESTS_RETRY, INVALID_REQUEST } from '@/lib/api-helpers';
 import { generateToken, hashToken, getBaseUrl } from '@/lib/auth-tokens';
 
 const forgotPasswordSchema = z.object({
@@ -14,28 +15,18 @@ const forgotPasswordSchema = z.object({
 
 const TOKEN_EXPIRY_MS = 15 * 60_000; // 15 minutes
 
-export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`forgot-pw:${ip}`, RATE_LIMITS.auth);
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  const rl = rateLimit(`forgot-pw:${getClientIp(request)}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
-    );
+    return rateLimited(rl.resetAt, TOO_MANY_REQUESTS_RETRY);
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
-  }
-
-  const parsed = forgotPasswordSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
-  }
-  const email = parsed.data.email.trim().toLowerCase();
+  const { data, error } = await parseBody(request, forgotPasswordSchema, {
+    invalidJson: INVALID_REQUEST,
+    invalidInput: 'Valid email is required',
+  });
+  if (error) return error;
+  const email = data.email.trim().toLowerCase();
 
   // Always return success to prevent account enumeration
   const successResponse = NextResponse.json({

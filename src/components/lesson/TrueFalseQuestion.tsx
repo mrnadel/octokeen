@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { useLessonColors } from '@/lib/lessonColors';
 import { playSound } from '@/lib/sounds';
+import { buildRevealAnimation, type RevealTuning } from './shared/reveal-animation';
+
+/** Reveal animation magnitudes for this card. */
+const REVEAL_TUNING: RevealTuning = { scalePeak: 1.06, shakeKeyframes: [0, -6, 6, -4, 4, 0], dimOpacity: 0.5, dimScale: 0.97 };
 
 interface TrueFalseQuestionProps {
   correctAnswer: boolean;
@@ -58,14 +62,10 @@ export function TrueFalseQuestion({
           shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
         }
 
-        const revealAnimation =
-          answered && localCorrect !== null
-            ? isCorrectOption
-              ? { opacity: 1, y: 0, scale: [1, 1.06, 1] }
-              : isSelected && !isCorrectOption
-                ? { opacity: 1, y: 0, x: [0, -6, 6, -4, 4, 0] }
-                : { opacity: 0.5, y: 0, scale: 0.97 }
-            : { opacity: 1, y: 0 };
+        const revealAnimation = buildRevealAnimation(
+          { revealed: answered && localCorrect !== null, isCorrectOption, isSelected },
+          REVEAL_TUNING,
+        );
 
         return (
           <motion.button

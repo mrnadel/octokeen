@@ -6,6 +6,7 @@ import { PROFESSIONS } from '@/data/professions';
 import { AdminAuthGuard } from '@/components/admin/AdminAuthGuard';
 import { AdminSpinner } from '@/components/admin/AdminSpinner';
 import { useAdminFetch } from '@/components/admin/useAdminFetch';
+import type { QAViolation } from '@/lib/content-qa';
 
 /* -- Types matching API response ----------------------------------------- */
 
@@ -18,17 +19,6 @@ interface CourseStat {
   teachingCount: number;
   totalCards: number;
   typeCounts: Record<string, number>;
-}
-
-interface QAViolation {
-  check: string;
-  severity: 'error' | 'warning';
-  questionId: string;
-  courseId: string;
-  courseName: string;
-  unitTitle: string;
-  lessonTitle: string;
-  message: string;
 }
 
 interface QuestionQualityRow {

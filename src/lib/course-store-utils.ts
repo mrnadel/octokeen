@@ -1,5 +1,4 @@
-import { toLocalDateString } from '@/lib/utils';
-import { STAR_THRESHOLDS } from '@/lib/game-config';
+import { FLAWLESS_MIN_QUESTIONS } from '@/lib/game-config';
 import type { CourseProgress, Lesson, Unit } from '@/data/course/types';
 
 /** Check if a lesson's content is loaded (not just lightweight metadata). */
@@ -42,16 +41,49 @@ export function getSessionIds(lesson: Lesson): string[] {
   }
 }
 
-/** Calculate star rating from accuracy percentage. */
-export function calculateStars(accuracy: number): number {
-  if (accuracy >= STAR_THRESHOLDS.THREE_STARS) return 3;
-  if (accuracy >= STAR_THRESHOLDS.TWO_STARS) return 2;
-  return 1;
+/**
+ * Whether a run counts as flawless: perfect accuracy over a meaningful number
+ * of questions. Shared by lesson completion and the placement test, which
+ * apply different multipliers to the same condition.
+ */
+export function isFlawlessRun(accuracy: number, totalQuestions: number): boolean {
+  return accuracy === 100 && totalQuestions >= FLAWLESS_MIN_QUESTIONS;
 }
 
-/** Get today's date as a local date string. */
-export function getTodayString(): string {
-  return toLocalDateString(new Date());
+/** A lesson credited as passed without being played (placement test / debug skip). */
+export function createSkippedLessonProgress(today: string): CourseProgress['completedLessons'][string] {
+  return {
+    stars: 0,
+    bestAccuracy: 0,
+    attempts: 0,
+    lastAttempted: today,
+    passed: true,
+    golden: false,
+    answeredQuestionIds: [],
+    correctQuestionIds: [],
+  };
+}
+
+/**
+ * Mark every not-yet-passed lesson in units `[fromUnitIndex, toUnitIndex)` as passed.
+ * Returns a new completedLessons map; the input is not mutated.
+ */
+export function markUnitsPassed(
+  completedLessons: CourseProgress['completedLessons'],
+  courseData: Unit[],
+  fromUnitIndex: number,
+  toUnitIndex: number,
+  today: string,
+): CourseProgress['completedLessons'] {
+  const updated = { ...completedLessons };
+  for (let ui = fromUnitIndex; ui < toUnitIndex; ui++) {
+    for (const lesson of courseData[ui]?.lessons ?? []) {
+      if (!updated[lesson.id]?.passed) {
+        updated[lesson.id] = createSkippedLessonProgress(today);
+      }
+    }
+  }
+  return updated;
 }
 
 /**

@@ -1,3 +1,5 @@
+import { colors } from './color-tokens';
+
 export interface UnitTheme {
   bg: string;
   color: string;
@@ -6,7 +8,7 @@ export interface UnitTheme {
 }
 
 export const UNIT_THEMES: UnitTheme[] = [
-  { bg: '#EBF3FF', color: '#3B82F6', dark: '#1E5BB8', mid: '#2D6FD7' }, // Sapphire
+  { bg: colors.sapphire.bg, color: colors.sapphire.main, dark: colors.sapphire.dark, mid: colors.sapphire.mid }, // Sapphire
   { bg: '#FBE8FF', color: '#D946EF', dark: '#A321B8', mid: '#BE34D4' }, // Fuchsia
   { bg: '#E6FAF2', color: '#10B981', dark: '#0B8660', mid: '#0DA071' }, // Emerald
   { bg: '#FFF8E6', color: '#F59E0B', dark: '#B37408', mid: '#D4890A' }, // Amber

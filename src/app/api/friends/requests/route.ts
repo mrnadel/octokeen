@@ -1,7 +1,8 @@
 import { db } from '@/lib/db';
 import { friendRequests, users, userProgress } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
-import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 export const GET = withAuth(async (_req, { userId }) => {
   const [incoming, outgoing] = await Promise.all([

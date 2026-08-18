@@ -4,7 +4,8 @@ import { sessionHistory, userProgress, courseProgress } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { computeStreakFromDates } from '@/lib/streak-utils';
 import { getServerToday, getServerNow } from '@/lib/server-dates';
-import { withAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 export const GET = withAuth(async (request: NextRequest, { userId }) => {
   // Get all distinct session dates for this user (sorted ascending)

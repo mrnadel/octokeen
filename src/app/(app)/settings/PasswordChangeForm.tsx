@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
+import { SETTINGS_ROW, SETTINGS_ROW_LINK, SETTINGS_ROW_LABEL } from './settingsRowStyles';
 
 interface PasswordChangeFormProps {
   onSuccess?: () => void;
@@ -57,11 +58,9 @@ export default function PasswordChangeForm({ onSuccess, onError }: PasswordChang
     }
   };
 
-  const divider = 'border-t border-gray-100 dark:border-surface-700';
-  const rowBase = 'flex items-center w-full px-4 py-3 transition-colors';
-  const rowLink = `${rowBase} hover:bg-gray-50 dark:hover:bg-surface-700`;
-  const rowLabel = 'text-sm font-semibold text-gray-800 dark:text-surface-100 flex-1 text-left';
-  const chevron = 'w-4 h-4 text-gray-300 dark:text-surface-600 shrink-0 ml-1';
+  const { divider, chevron } = SETTINGS_ROW;
+  const rowLink = SETTINGS_ROW_LINK;
+  const rowLabel = SETTINGS_ROW_LABEL;
 
   return (
     <>

@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { playSound } from '@/lib/sounds';
 import { useBackHandler } from '@/hooks/useBackHandler';
-import { CoinIcon } from '@/components/ui/CoinIcon';
-import { CelebrationModal, celebrationSpring } from '@/components/engagement/CelebrationModal';
+import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { CelebrationModal } from '@/components/engagement/CelebrationModal';
+import { CELEBRATION_SPRING } from '@/components/ui/motionPresets';
 import type { CharacterArc, StoryUnlockEntry } from '@/data/course/character-arcs';
 
 interface StoryUnlockProps {
@@ -45,7 +46,7 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ ...celebrationSpring, delay: 0.2 }}
+        transition={{ ...CELEBRATION_SPRING, delay: 0.2 }}
         className="text-[80px] leading-none mb-2"
         aria-hidden="true"
       >
@@ -98,7 +99,7 @@ export function StoryUnlock({ unlock, character, onDismiss }: StoryUnlockProps) 
           className="flex items-center justify-center gap-2 text-lg font-black text-brand-300"
         >
           <span>+{unlock.gemReward}</span>
-          <CoinIcon size="1.2em" />
+          <CurrencyIcon size={22} />
         </motion.div>
       )}
     </CelebrationModal>

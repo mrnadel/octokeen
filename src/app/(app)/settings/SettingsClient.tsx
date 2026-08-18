@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft,
   ChevronRight,
   Sun,
   Moon,
@@ -18,9 +17,11 @@ import { useNarrationStore } from '@/store/useNarrationStore';
 import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { SETTINGS_ROW, SETTINGS_ROW_LINK, SETTINGS_ROW_LABEL } from './settingsRowStyles';
 import PasswordChangeForm from './PasswordChangeForm';
 import ResetProgressForm from './ResetProgressForm';
 import DeleteAccountForm from './DeleteAccountForm';
+import { AppPageHeader } from '@/app/(app)/AppPageHeader';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -116,26 +117,17 @@ export default function SettingsPage() {
   const authProvider = session?.user?.provider;
 
   // Reusable row styles
-  const rowBase = 'flex items-center w-full px-4 py-3 transition-colors';
-  const rowLink = `${rowBase} hover:bg-gray-50 dark:hover:bg-surface-700`;
-  const rowLabel = 'text-sm font-semibold text-gray-800 dark:text-surface-100 flex-1 text-left';
+  const { base: rowBase, chevron, divider } = SETTINGS_ROW;
+  const rowLink = SETTINGS_ROW_LINK;
+  const rowLabel = SETTINGS_ROW_LABEL;
   const rowMeta = 'text-sm text-gray-400 dark:text-surface-500';
-  const chevron = 'w-4 h-4 text-gray-300 dark:text-surface-600 shrink-0 ml-1';
-  const divider = 'border-t border-gray-100 dark:border-surface-700';
   const card = 'bg-white dark:bg-surface-800 rounded-2xl border border-gray-100 dark:border-surface-700 overflow-hidden';
   const sectionLabel = 'text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-2 px-1';
 
   return (
     <div className="pb-10">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white/90 dark:bg-surface-900/90 backdrop-blur-xl border-b border-gray-100 dark:border-surface-700">
-        <div className="flex items-center h-14 px-4">
-          <button onClick={() => router.back()} className="p-3 -ml-3 rounded-full hover:bg-gray-100 dark:hover:bg-surface-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
-            <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-surface-400" />
-          </button>
-          <h1 className="text-lg font-extrabold text-gray-900 dark:text-surface-50 ml-2">Settings</h1>
-        </div>
-      </div>
+      <AppPageHeader title="Settings" variant="themed" onBack={() => router.back()} />
 
       <div className="px-3 sm:px-4 mt-5 space-y-5 max-w-lg mx-auto">
 

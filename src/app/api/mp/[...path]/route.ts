@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/rate-limit';
+import { jsonError, getClientIp, TOO_MANY_REQUESTS } from '@/lib/api-helpers';
 
 const MIXPANEL_API = 'https://api-eu.mixpanel.com';
 
 // Only allow known Mixpanel ingestion endpoints
 const ALLOWED_ENDPOINTS = ['track', 'engage', 'groups', 'record'];
 
+const PROXY_RATE_LIMIT = { limit: 60, windowMs: 60_000 };
+
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ path: string[] }> },
-) {
-  const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`mp-proxy:${ip}`, { limit: 60, windowMs: 60_000 });
+): Promise<NextResponse> {
+  const rl = rateLimit(`mp-proxy:${getClientIp(req)}`, PROXY_RATE_LIMIT);
   if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests' },
-      { status: 429 },
-    );
+    return jsonError(TOO_MANY_REQUESTS, 429);
   }
 
   const { path } = await params;
@@ -24,10 +23,7 @@ export async function POST(
 
   // Validate the endpoint is a known Mixpanel ingestion path
   if (!ALLOWED_ENDPOINTS.includes(endpoint)) {
-    return NextResponse.json(
-      { error: 'Invalid endpoint' },
-      { status: 400 },
-    );
+    return jsonError('Invalid endpoint', 400);
   }
 
   const search = req.nextUrl.searchParams.toString();
@@ -41,7 +37,7 @@ export async function POST(
       body,
     });
   } catch {
-    return NextResponse.json({ error: 'Upstream request failed' }, { status: 502 });
+    return jsonError('Upstream request failed', 502);
   }
 
   const data = await resp.text();

@@ -2,18 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, unlink, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
 
 const UNITS_DIR = join(process.cwd(), 'public', 'images', 'course', 'units');
+const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'svg'];
+const UNSAFE_ID_CHARS = /[^a-zA-Z0-9_-]/g;
 
-function devOnly() {
+function devOnly(): NextResponse | null {
   if (process.env.NODE_ENV !== 'development') {
-    return NextResponse.json({ error: 'Dev only' }, { status: 403 });
+    return jsonError('Dev only', 403);
   }
   return null;
 }
 
 /** POST — upload an image for a unit header */
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const guard = devOnly();
   if (guard) return guard;
 
@@ -22,13 +25,13 @@ export async function POST(req: NextRequest) {
   const file = form.get('file') as File | null;
 
   if (!unitId || !file) {
-    return NextResponse.json({ error: 'unitId and file required' }, { status: 400 });
+    return jsonError('unitId and file required', 400);
   }
 
   // Sanitize unitId to prevent path traversal
-  const safe = unitId.replace(/[^a-zA-Z0-9_-]/g, '');
+  const safe = unitId.replace(UNSAFE_ID_CHARS, '');
   if (!safe) {
-    return NextResponse.json({ error: 'Invalid unitId' }, { status: 400 });
+    return jsonError('Invalid unitId', 400);
   }
 
   if (!existsSync(UNITS_DIR)) {
@@ -46,31 +49,31 @@ export async function POST(req: NextRequest) {
   await writeFile(filePath, buffer);
 
   const url = `/images/course/units/${filename}?t=${Date.now()}`;
-  return NextResponse.json({ url });
+  return jsonOk({ url });
 }
 
 /** DELETE — remove a unit's header image override */
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   const guard = devOnly();
   if (guard) return guard;
 
   const { unitId } = (await req.json()) as { unitId?: string };
   if (!unitId) {
-    return NextResponse.json({ error: 'unitId required' }, { status: 400 });
+    return jsonError('unitId required', 400);
   }
 
-  const safe = unitId.replace(/[^a-zA-Z0-9_-]/g, '');
+  const safe = unitId.replace(UNSAFE_ID_CHARS, '');
   if (!safe) {
-    return NextResponse.json({ error: 'Invalid unitId' }, { status: 400 });
+    return jsonError('Invalid unitId', 400);
   }
 
   // Try common extensions
-  for (const ext of ['webp', 'png', 'jpg', 'svg']) {
+  for (const ext of IMAGE_EXTENSIONS) {
     const filePath = join(UNITS_DIR, `${safe}.${ext}`);
     if (existsSync(filePath)) {
       await unlink(filePath);
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return jsonOk({ ok: true });
 }

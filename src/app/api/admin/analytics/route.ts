@@ -1,10 +1,16 @@
 import { db } from '@/lib/db';
 import { users, dailyUsage, sessionHistory, topicProgress } from '@/lib/db/schema';
-import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
+import { getUtcToday, getUtcDaysAgo } from '@/lib/server-dates';
 import { eq, sql, count, sum, desc } from 'drizzle-orm';
 
+const ACTIVE_WINDOW_DAYS = 7;
+const RECENT_SESSION_LIMIT = 10;
+const PERCENT = 100;
+
 export const GET = withAdminAuth(async () => {
-  const today = new Date().toISOString().split('T')[0];
+  const today = getUtcToday();
 
   // 1. Total users
   const [totalUsersResult] = await db
@@ -18,9 +24,7 @@ export const GET = withAdminAuth(async () => {
     .where(eq(dailyUsage.date, today));
 
   // 3. Active this week — distinct users with dailyUsage in last 7 days
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-  const weekStart = sevenDaysAgo.toISOString().split('T')[0];
+  const weekStart = getUtcDaysAgo(ACTIVE_WINDOW_DAYS);
 
   const [activeWeekResult] = await db
     .select({ value: sql<number>`count(distinct ${dailyUsage.userId})` })
@@ -48,7 +52,7 @@ export const GET = withAdminAuth(async () => {
     totalAttempts: row.totalAttempts || 0,
     accuracy:
       row.totalAttempts && row.totalAttempts > 0
-        ? Math.round(((row.totalCorrect || 0) / row.totalAttempts) * 100)
+        ? Math.round(((row.totalCorrect || 0) / row.totalAttempts) * PERCENT)
         : 0,
   }));
 
@@ -63,7 +67,7 @@ export const GET = withAdminAuth(async () => {
     })
     .from(sessionHistory)
     .orderBy(desc(sessionHistory.date))
-    .limit(10);
+    .limit(RECENT_SESSION_LIMIT);
 
   return jsonOk({
     overview: {

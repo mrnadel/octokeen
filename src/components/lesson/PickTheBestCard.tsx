@@ -8,6 +8,10 @@ import type { QuestionCardHandle } from './QuestionCard';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 import { shuffleArray } from '@/lib/utils';
+import { buildRevealAnimation, type RevealTuning } from './shared/reveal-animation';
+
+/** Reveal animation magnitudes for this card. */
+const REVEAL_TUNING: RevealTuning = { scalePeak: 1.06, shakeKeyframes: [0, -4, 4, -2, 2, 0], dimOpacity: 0.6, dimScale: 0.98 };
 
 interface PickTheBestCardProps {
   question: CourseQuestion;
@@ -150,13 +154,10 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
               shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
             }
 
-            const revealAnimation = answered && localCorrect !== null
-              ? isBest
-                ? { opacity: 1, y: 0, scale: [1, 1.06, 1] }
-                : isSelected && !isBest
-                  ? { opacity: 1, y: 0, x: [0, -4, 4, -2, 2, 0] }
-                  : { opacity: 0.6, y: 0, scale: 0.98 }
-              : { opacity: 1, y: 0 };
+            const revealAnimation = buildRevealAnimation(
+              { revealed: answered && localCorrect !== null, isCorrectOption: isBest, isSelected },
+              REVEAL_TUNING,
+            );
 
             return (
               <motion.button

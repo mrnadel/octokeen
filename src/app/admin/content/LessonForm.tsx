@@ -2,16 +2,13 @@
 
 import { useState } from 'react';
 import type { Lesson } from './courseEditorTypes';
-import {
-  btnPrimary,
-  btnSecondary,
-  formActions,
-  formFieldStyle,
-  formSectionStyle,
-  inputStyle,
-  labelStyle,
-  textareaStyle,
-} from './courseEditorStyles';
+import AdminFormShell from './AdminFormShell';
+import AdminFormField from './AdminFormField';
+import { inputStyle, textareaStyle } from './courseEditorStyles';
+
+const DEFAULT_XP_REWARD = 10;
+const FIELD_ROW: React.CSSProperties = { display: 'flex', gap: 12, flexWrap: 'wrap' };
+const HALF_FIELD: React.CSSProperties = { flex: '1 1 120px' };
 
 interface LessonFormProps {
   lesson?: Lesson;
@@ -20,19 +17,13 @@ interface LessonFormProps {
   onCancel: () => void;
 }
 
-export default function LessonForm({
-  lesson,
-  saving,
-  onSave,
-  onCancel,
-}: LessonFormProps) {
+export default function LessonForm({ lesson, saving, onSave, onCancel }: LessonFormProps) {
   const [title, setTitle] = useState(lesson?.title ?? '');
   const [description, setDescription] = useState(lesson?.description ?? '');
   const [icon, setIcon] = useState(lesson?.icon ?? '');
-  const [xpReward, setXpReward] = useState(lesson?.xpReward ?? 10);
+  const [xpReward, setXpReward] = useState(lesson?.xpReward ?? DEFAULT_XP_REWARD);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleSave() {
     if (!title.trim()) {
       alert('Title is required');
       return;
@@ -46,44 +37,42 @@ export default function LessonForm({
   }
 
   return (
-    <form style={formSectionStyle} onSubmit={handleSubmit}>
-      <h3 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px' }}>
-        {lesson ? 'Edit Lesson' : 'Add New Lesson'}
-      </h3>
-
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Title</label>
+    <AdminFormShell
+      heading={lesson ? 'Edit Lesson' : 'Add New Lesson'}
+      submitLabel={lesson ? 'Update Lesson' : 'Create Lesson'}
+      saving={saving}
+      onSubmit={handleSave}
+      onCancel={onCancel}
+    >
+      <AdminFormField label="Title">
         <input
           style={inputStyle}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="e.g., Free Body Diagrams"
         />
-      </div>
+      </AdminFormField>
 
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Description</label>
+      <AdminFormField label="Description">
         <textarea
           style={textareaStyle}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Lesson description..."
         />
-      </div>
+      </AdminFormField>
 
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        <div style={{ ...formFieldStyle, flex: '1 1 120px' }}>
-          <label style={labelStyle}>Icon (emoji)</label>
+      <div style={FIELD_ROW}>
+        <AdminFormField label="Icon (emoji)" style={HALF_FIELD}>
           <input
             style={inputStyle}
             value={icon}
             onChange={(e) => setIcon(e.target.value)}
             placeholder="e.g., &#x1F4D0;"
           />
-        </div>
+        </AdminFormField>
 
-        <div style={{ ...formFieldStyle, flex: '1 1 120px' }}>
-          <label style={labelStyle}>XP Reward</label>
+        <AdminFormField label="XP Reward" style={HALF_FIELD}>
           <input
             style={inputStyle}
             type="number"
@@ -91,22 +80,8 @@ export default function LessonForm({
             value={xpReward}
             onChange={(e) => setXpReward(parseInt(e.target.value) || 0)}
           />
-        </div>
+        </AdminFormField>
       </div>
-
-      <div style={formActions}>
-        <button type="submit" style={btnPrimary} disabled={saving}>
-          {saving ? 'Saving...' : lesson ? 'Update Lesson' : 'Create Lesson'}
-        </button>
-        <button
-          type="button"
-          style={btnSecondary}
-          onClick={onCancel}
-          disabled={saving}
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
+    </AdminFormShell>
   );
 }

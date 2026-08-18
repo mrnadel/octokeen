@@ -1,7 +1,8 @@
 import { db } from '@/lib/db';
 import { activityFeed } from '@/lib/db/schema';
 import { lt } from 'drizzle-orm';
-import { withCronAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withCronAuth } from '@/lib/api/guards';
 
 /**
  * GET /api/cron/activity-cleanup

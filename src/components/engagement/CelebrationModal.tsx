@@ -9,9 +9,6 @@ import { getShareCardUrl, getShareText, getDisplayName } from '@/lib/share-card'
 import type { ShareCardType } from '@/lib/share-card';
 import type { FXName } from '@/components/ui/ScreenFX';
 
-/** Reusable spring preset for celebration content entrance animations. */
-export const celebrationSpring = { type: 'spring' as const, stiffness: 300, damping: 15 };
-
 interface CelebrationModalProps {
   onClose: () => void;
   fx?: FXName;

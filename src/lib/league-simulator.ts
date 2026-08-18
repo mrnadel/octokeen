@@ -3,6 +3,7 @@
 // ============================================================
 
 import { LeagueCompetitor, LeagueTier } from '@/data/engagement-types';
+import { fnv1a } from '@/lib/hash';
 import {
   leagueTiers,
   competitorNames,
@@ -25,16 +26,22 @@ export function seededRandom(seed: number): () => number {
   };
 }
 
-/**
- * Hash a string to a numeric seed using FNV-1a.
- */
-export function hashSeed(str: string): number {
-  let hash = 2166136261;
-  for (let i = 0; i < str.length; i++) {
-    hash ^= str.charCodeAt(i);
-    hash = (hash * 16777619) >>> 0;
+/** Hash a string to a numeric seed using FNV-1a. */
+export const hashSeed = fnv1a;
+
+/** Days in a league week. */
+export const DAYS_PER_WEEK = 7;
+
+const MS_PER_DAY = 86_400_000;
+
+/** Fisher-Yates shuffle driven by a seeded RNG. Returns a new array. */
+export function seededShuffle<T>(arr: T[], rng: () => number): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
   }
-  return hash;
+  return result;
 }
 
 // --------------- Tier Config ---------------
@@ -45,11 +52,20 @@ export function getTierConfig(tier: 1 | 2 | 3 | 4 | 5): LeagueTier {
   return config;
 }
 
+/**
+ * Midpoint of a tier's weekly XP range — the anchor every competitor-XP
+ * simulation scales from. Single source for client sim, server bot population
+ * and fake-user weekly progression.
+ */
+export function getTierMidpointXp(tierConfig: LeagueTier): number {
+  return (tierConfig.xpRange.min + tierConfig.xpRange.max) / 2;
+}
+
 // --------------- Competitor Generation ---------------
 
 type ActivityBucket = 'light' | 'moderate' | 'active';
 
-interface BucketConfig {
+export interface BucketConfig {
   rateMultiplier: number;
   varianceMultiplier: number;
 }
@@ -69,6 +85,15 @@ function getBucket(index: number, total: number): ActivityBucket {
 }
 
 /**
+ * Activity profile for competitor `index` of `total`.
+ * Single source of truth for the client simulator and the server-side
+ * league-matching bot population.
+ */
+export function getActivityBucketConfig(index: number, total: number): BucketConfig {
+  return BUCKET_CONFIGS[getBucket(index, total)];
+}
+
+/**
  * Generate 29 simulated competitors for the given week and tier.
  * The user is the 30th slot (not included here).
  */
@@ -84,25 +109,14 @@ export function generateCompetitors(
   const competitors: LeagueCompetitor[] = [];
 
   // Pre-shuffle name and flag pools using the seeded RNG
-  const namePool = [...competitorNames];
-  const flagPool = [...competitorFlags];
-  for (let i = namePool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [namePool[i], namePool[j]] = [namePool[j], namePool[i]];
-  }
-  for (let i = flagPool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [flagPool[i], flagPool[j]] = [flagPool[j], flagPool[i]];
-  }
+  const namePool = seededShuffle(competitorNames, rng);
+  const flagPool = seededShuffle(competitorFlags, rng);
 
-  const { min: xpMin, max: xpMax } = tierConfig.xpRange;
-  const midpointXp = (xpMin + xpMax) / 2;
   // Base daily rate so a 7-day week lands near midpoint
-  const baseDailyRate = midpointXp / 7;
+  const baseDailyRate = getTierMidpointXp(tierConfig) / DAYS_PER_WEEK;
 
   for (let i = 0; i < count; i++) {
-    const bucket = getBucket(i, count);
-    const { rateMultiplier, varianceMultiplier } = BUCKET_CONFIGS[bucket];
+    const { rateMultiplier, varianceMultiplier } = getActivityBucketConfig(i, count);
 
     const dailyXpRate = baseDailyRate * rateMultiplier * (0.8 + rng() * 0.4);
     const variance = dailyXpRate * varianceMultiplier;
@@ -138,7 +152,7 @@ export function simulateCompetitorXp(
   const now = new Date();
   const weekStart = new Date(weekStartDate + 'T00:00:00Z');
   const msElapsed = now.getTime() - weekStart.getTime();
-  const daysElapsed = Math.min(7, Math.max(0, Math.floor(msElapsed / 86400000)));
+  const daysElapsed = Math.min(DAYS_PER_WEEK, Math.max(0, Math.floor(msElapsed / MS_PER_DAY)));
 
   return competitors.map((competitor) => {
     let weeklyXp = 0;

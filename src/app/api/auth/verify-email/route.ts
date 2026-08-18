@@ -3,13 +3,13 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { jsonError, getClientIp, INVALID_REQUEST } from '@/lib/api-helpers';
 import { hashToken, validateToken, markTokenUsed } from '@/lib/auth-tokens';
 
-export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-  const rl = rateLimit(`verify:${ip}`, RATE_LIMITS.auth);
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  const rl = rateLimit(`verify:${getClientIp(request)}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+    return jsonError('Too many requests.', 429);
   }
 
   let token: string;
@@ -17,11 +17,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     token = body.token;
   } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+    return jsonError(INVALID_REQUEST, 400);
   }
 
   if (!token) {
-    return NextResponse.json({ error: 'Token is required' }, { status: 400 });
+    return jsonError('Token is required', 400);
   }
 
   const tokenHash = hashToken(token);
@@ -30,10 +30,7 @@ export async function POST(request: NextRequest) {
   const verifyToken = await validateToken('emailVerification', tokenHash);
 
   if (!verifyToken) {
-    return NextResponse.json(
-      { error: 'This verification link is invalid or has expired.' },
-      { status: 400 }
-    );
+    return jsonError('This verification link is invalid or has expired.', 400);
   }
 
   // Mark email as verified

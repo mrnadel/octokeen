@@ -4,6 +4,14 @@
 >
 > This document is the single source of truth for AI agents working on this codebase.
 > Read this first before exploring the code.
+>
+> **Partial correction 2026-08-18.** Six factual claims were re-measured against the
+> code and corrected below: the free/Pro tier terms, the Pro price, the unit counts,
+> the middleware path, the course content location, and the codebase metrics. Each is
+> marked *(verified 2026-08-18)*. **Everything else in this document dates from the
+> 2026-03-24 scan and has not been re-verified** — it describes a single-course
+> mechanical-engineering app, and the project has since grown to four courses. Treat
+> unmarked claims as unconfirmed until you check them against the code.
 
 ---
 
@@ -13,7 +21,7 @@
 
 - **Domain:** EdTech / Multi-profession interview preparation
 - **URL:** https://octokeen.com
-- **Monetization:** Freemium SaaS — Free tier (Unit 1 + 5 daily questions) / Pro tier ($9/mo or $79/yr via Paddle)
+- **Monetization:** Freemium SaaS — Free tier (all content, 5 hearts per session) / Pro tier ($7.99/mo or $49.99/yr via Paddle) *(verified 2026-08-18 against `LIMITS` and `TIERS` in `src/lib/pricing.ts`; note the pricing page and this doc previously both said $9/$79 — see §9.3)*
 - **Target Users:** Professionals preparing for technical interviews across various fields
 
 ---
@@ -356,9 +364,20 @@ designs/                          # Design assets
 > Each course has its own unit/lesson structure under `src/data/course/professions/<course-id>/`.
 
 ### Question Types (Course)
+*(verified 2026-08-18 — 14 members of `QuestionType` in `src/data/course/types.ts`)*
+
 - `multiple-choice` — 4 options, one correct
 - `true-false` — Boolean answer
 - `fill-blank` — Duolingo-style word bank (blanks + wordBank arrays)
+- `teaching` — explanatory card, not graded
+- `sort-buckets` / `category-swipe` — assign options to buckets
+- `match-pairs` — pair options with targets
+- `order-steps` / `rank-order` — reorder items
+- `multi-select` — several correct options
+- `slider-estimate` — numeric answer within a tolerance
+- `scenario` — situation text plus options
+- `pick-the-best` — all options valid, one is best
+- `image-tap` — tap the correct zone on a diagram
 
 ### Question Types (Practice — legacy/extended)
 11 types including: multiple-choice, two-choice-tradeoff, multi-select, ranking, scenario, spot-the-flaw, estimation, confidence-rated, what-fails-first, design-decision, material-selection
@@ -375,7 +394,7 @@ designs/                          # Design assets
 ### Auth Flow
 - **NextAuth v5** with JWT session strategy (30-day expiry)
 - **Providers:** Google OAuth + Email/Password (bcrypt hashed)
-- **Middleware:** `src/middleware.ts` protects routes needing auth, redirects unauthenticated users to `/login`
+- **Middleware:** *(verified 2026-08-18)* **No middleware file exists** — neither `src/middleware.ts` nor a root `middleware.ts`. Route protection is not enforced by NextAuth middleware; locate the actual guard before relying on one.
 - **Rate Limiting:** In-memory tracking of failed login attempts (`src/lib/rate-limit.ts`)
 - **Invite System:** On sign-in callback, checks for `invite_ref` cookie to auto-friend the inviter
 
@@ -384,10 +403,21 @@ designs/                          # Design assets
 2. **Server-side (authoritative):** `src/lib/access-control.ts` queries `subscriptions` table. Used by API routes (`/api/session/validate`, etc.).
 
 ### Tiers
+*(verified 2026-08-18 against `LIMITS`, `TIERS` and `PRO_SESSION_TYPES` in `src/lib/pricing.ts`)*
+
 | Tier | Daily Questions | Units | Practice Modes | Price |
 |---|---|---|---|---|
-| Free | 5 | Unit 1 only | topic-deep-dive, daily-challenge, real-world, smart-practice | $0 |
-| Pro | Unlimited | All 10 | + adaptive, interview-sim, weak-areas | $9/mo or $79/yr |
+| Free | Unlimited (`dailyQuestions: -1`) | All (`unlockedUnits: 'all'`) | topic-deep-dive, daily-challenge, real-world, smart-practice | $0 |
+| Pro | Unlimited | All | + adaptive, interview-sim, weak-areas | $7.99/mo or $49.99/yr |
+
+Content is no longer the paywall. Hearts are the rate limiter for free users
+(`MAX_HEARTS` in `src/lib/game-config.ts`); Pro buys unlimited hearts plus streak
+freezes, full analytics, and the three Pro-only practice modes.
+
+> **Unresolved:** `src/app/(app)/pricing/page.tsx` still shows $9/mo, $79/yr and
+> "All 10 units". `pricing.ts` says 799 / 4999 cents. Confirm what Paddle actually
+> charges before aligning the two — the code was treated as authoritative here, but
+> that was not verified against Paddle.
 
 ---
 
@@ -507,7 +537,7 @@ designs/                          # Design assets
    - Multiple devices won't auto-sync without explicit sync
    - The server DB may lag behind the client
 
-2. **Course data is static TypeScript files**, not database content. The admin panel has CRUD for `course_units`, `course_lessons`, `course_questions` tables, but the actual course is served from `src/data/course/units/*.ts` files. The DB tables are a parallel system (possibly for future dynamic content).
+2. **Course data is static TypeScript files**, not database content. The admin panel has CRUD for `course_units`, `course_lessons`, `course_questions` tables, but the actual courses are served from files. The DB tables are a parallel system (possibly for future dynamic content). *(verified 2026-08-18)* `src/data/course/units/*.ts` holds **only** the legacy mechanical-engineering course; the three live courses are under `src/data/course/professions/<course-id>/units/`, with a per-course `meta.ts` and a matching loader in `course-meta.ts`. Both must be updated together — `loadUnitData` throws if a `meta.ts` declares a unit with no loader.
 
 3. **No shadcn/ui** — the UI is custom-built with Tailwind CSS. Components use a custom design system with unit-specific color themes (`lib/unitThemes.ts`).
 
@@ -535,6 +565,6 @@ designs/                          # Design assets
 - **Database tables:** 18 tables
 - **API routes:** ~35 endpoints
 - **Zustand stores:** 5 persisted stores
-- **Course units:** 10 core + HTW supplemental
-- **Question types:** 3 (course) + 11 (practice/legacy)
+- **Course units:** *(verified 2026-08-18)* **544 across four courses** — personal-finance 197, psychology 187, space-astronomy 149, mechanical-engineering 11 (10 core + HTW supplemental; admin-only, `requiresAccess`). Counts are `getCourseMetaForProfession(id).length`; the `unitCount` field in `src/data/professions.ts` is stale and unused by the user-facing UI.
+- **Question types:** *(verified 2026-08-18)* **14 course** (`QuestionType` in `src/data/course/types.ts`) + **11 practice/legacy** (`QuestionType` in `src/data/types.ts`). The two unions share a name but are different types — see §8.
 - **Topics:** Multiple profession-specific topic sets with subtopics

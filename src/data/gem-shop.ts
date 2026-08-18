@@ -1,5 +1,5 @@
-import type { ShopItem } from './engagement-types';
-import { DOUBLE_XP_SHOP_DURATION_MS } from './engagement-types';
+import { DOUBLE_XP_SHOP_DURATION_MS, type ShopItem } from './engagement-types';
+import type { FrameStyleId } from './frame-ids';
 import { MAX_HEARTS } from '@/lib/game-config';
 import { streakMilestones } from './streak-milestones';
 
@@ -461,7 +461,8 @@ interface RewardFrame {
   id: string;
   name: string;
   icon: string;
-  frameStyle: string;
+  /** Renderer key — must exist in FRAME_STYLE_IDS, which FRAME_DEFS conforms to. */
+  frameStyle: FrameStyleId;
   source: string; // how to earn it
   borderColor: string;
   glowColor: string;

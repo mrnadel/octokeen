@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { useEffect, type ReactNode } from 'react';
 import { ScreenFX, type FXName } from './ScreenFX';
 import { useScrollLock } from '@/hooks/useScrollLock';
+import { Z_LAYERS } from './zLayers';
 
 /**
  * Shared full-screen modal wrapper for all overlay screens.
@@ -52,7 +53,7 @@ export function FullScreenModal({
       {show && (
         <motion.div
           className="fixed inset-0 flex flex-col overflow-hidden"
-          style={{ zIndex: 9999, background: bg }}
+          style={{ zIndex: Z_LAYERS.OVERLAY, background: bg }}
           role="dialog"
           aria-modal="true"
           aria-labelledby={labelId}

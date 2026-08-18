@@ -10,7 +10,10 @@ import { db } from '@/lib/db';
 import { leagueGroups, leagueMemberships, users, leagueState } from '@/lib/db/schema';
 import { eq, and, lt, sql } from 'drizzle-orm';
 import { COMPETITORS_PER_LEAGUE } from '@/data/league';
-import { seededRandom, hashSeed, getTierConfig, simulateCompetitorXp } from '@/lib/league-simulator';
+import {
+  seededRandom, hashSeed, getTierConfig, simulateCompetitorXp,
+  seededShuffle, getActivityBucketConfig, getWeekResult, getTierMidpointXp, DAYS_PER_WEEK,
+} from '@/lib/league-simulator';
 import { fakeNames } from '@/data/fake-names';
 import { competitorFlags } from '@/data/league';
 import type { LeagueCompetitor } from '@/data/engagement-types';
@@ -303,37 +306,18 @@ async function populateFakeMembers(
 ): Promise<void> {
   const rng = seededRandom(hashSeed(`${weekStart}-${tier}-${groupId}`));
   const tierConfig = getTierConfig(tier as 1 | 2 | 3 | 4 | 5);
-  const { min: xpMin, max: xpMax } = tierConfig.xpRange;
-  const midpointXp = (xpMin + xpMax) / 2;
-  const baseDailyRate = midpointXp / 7;
-
-  // Activity buckets: 20% light, 40% moderate, 40% active
-  const bucketConfigs = {
-    light: { rateMultiplier: 0.4, varianceMultiplier: 0.5 },
-    moderate: { rateMultiplier: 1.0, varianceMultiplier: 0.3 },
-    active: { rateMultiplier: 1.8, varianceMultiplier: 0.4 },
-  };
+  const baseDailyRate = getTierMidpointXp(tierConfig) / DAYS_PER_WEEK;
 
   // Shuffle name and flag pools
-  const namePool = fakeNames.map((f) => f.name);
-  const flagPool = [...competitorFlags];
-  for (let i = namePool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [namePool[i], namePool[j]] = [namePool[j], namePool[i]];
-  }
-  for (let i = flagPool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [flagPool[i], flagPool[j]] = [flagPool[j], flagPool[i]];
-  }
+  const namePool = seededShuffle(fakeNames.map((f) => f.name), rng);
+  const flagPool = seededShuffle(competitorFlags, rng);
 
   // Frame pool (simple version)
   const frameOptions = ['steel', 'copper', 'bolt', 'wire', 'titanium', 'gold', null, null, null, null];
 
   const rows = [];
   for (let i = 0; i < count; i++) {
-    const ratio = i / count;
-    const bucket = ratio < 0.20 ? 'light' : ratio < 0.60 ? 'moderate' : 'active';
-    const { rateMultiplier, varianceMultiplier } = bucketConfigs[bucket];
+    const { rateMultiplier, varianceMultiplier } = getActivityBucketConfig(i, count);
 
     const dailyXpRate = baseDailyRate * rateMultiplier * (0.8 + rng() * 0.4);
     const variance = dailyXpRate * varianceMultiplier;
@@ -424,16 +408,7 @@ export async function finalizeLeagueWeek(weekStart: string): Promise<number> {
       const member = finalMembers[rank];
       if (!member.isReal || !member.userId) continue;
 
-      const rank1Based = rank + 1;
-      const promoted = rank1Based <= tierConfig.promoteCount && tier < 5;
-      const demoted =
-        rank1Based > COMPETITORS_PER_LEAGUE - tierConfig.demoteCount &&
-        tierConfig.demoteCount > 0 &&
-        tier > 1;
-
-      let newTier = tier;
-      if (promoted) newTier = (tier + 1) as 1 | 2 | 3 | 4 | 5;
-      if (demoted) newTier = (tier - 1) as 1 | 2 | 3 | 4 | 5;
+      const { newTier } = getWeekResult(rank + 1, tier);
 
       stateUpdates.push({ userId: member.userId, tier: newTier, weeklyXp: member.weeklyXp });
     }

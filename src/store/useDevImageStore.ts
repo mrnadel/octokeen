@@ -2,6 +2,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 
 interface DevImageStore {
   /** unitId → public image URL */
@@ -22,6 +23,6 @@ export const useDevImageStore = create<DevImageStore>()(
           return { overrides: rest };
         }),
     }),
-    { name: 'dev-header-images' },
+    { name: STORAGE_KEYS.DEV_HEADER_IMAGES },
   ),
 );

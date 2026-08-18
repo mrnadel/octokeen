@@ -1,27 +1,22 @@
-import { NextResponse } from 'next/server';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { userProgress, gemTransactions, questProgress } from '@/lib/db/schema';
 import { engagementSyncSchema } from '@/lib/validation';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { insertActivity } from '@/lib/activity-feed';
-import { withAuth, parseBody, jsonOk } from '@/lib/api-helpers';
+import { parseBody, jsonOk, rateLimited } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 import { getSubscription } from '@/lib/db/queries';
-
-// Hearts constants (must match client)
-const FREE_MAX_HEARTS = 5;
-const RECHARGE_INTERVAL_MS = 14400000; // 4 hours
-
-// Streak freeze cap (must match client gem-shop config)
-const MAX_STREAK_FREEZES = 2;
+import { isTrialActive } from '@/lib/access-control';
+import { MAX_HEARTS, HEART_REGEN_INTERVAL_MS } from '@/lib/game-config';
+import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
 
 /** Check if user is on a paid/trial tier (pro users have unlimited hearts). */
 async function isProUser(userId: string): Promise<boolean> {
   const sub = await getSubscription(userId);
   if (!sub) return false;
   if (sub.status === 'trialing') {
-    const trialEnd = sub.trialEnd ? new Date(sub.trialEnd) : null;
-    return !!trialEnd && !isNaN(trialEnd.getTime()) && trialEnd > new Date();
+    return isTrialActive(sub.trialEnd);
   }
   return sub.status === 'active' || sub.status === 'past_due';
 }
@@ -36,20 +31,20 @@ function computeHearts(
   storedLastRechargeAt: number,
   isPro: boolean,
 ): { current: number; lastRechargeAt: number } {
-  if (isPro) return { current: FREE_MAX_HEARTS, lastRechargeAt: Date.now() };
+  if (isPro) return { current: MAX_HEARTS, lastRechargeAt: Date.now() };
 
-  const max = FREE_MAX_HEARTS;
+  const max = MAX_HEARTS;
   let current = Math.min(storedCurrent, max); // clamp: never above max
   let lastRechargeAt = storedLastRechargeAt;
 
   if (current < max && lastRechargeAt > 0) {
     const elapsed = Date.now() - lastRechargeAt;
-    const heartsToRecharge = Math.floor(elapsed / RECHARGE_INTERVAL_MS);
+    const heartsToRecharge = Math.floor(elapsed / HEART_REGEN_INTERVAL_MS);
     if (heartsToRecharge > 0) {
       current = Math.min(current + heartsToRecharge, max);
       lastRechargeAt = current >= max
         ? Date.now()
-        : lastRechargeAt + heartsToRecharge * RECHARGE_INTERVAL_MS;
+        : lastRechargeAt + heartsToRecharge * HEART_REGEN_INTERVAL_MS;
     }
   }
 
@@ -136,7 +131,7 @@ export const GET = withAuth(async (_req, { userId }) => {
   const progress = progressRows[0];
 
   // Server-authoritative hearts: clamp to max and apply recharge based on elapsed time
-  const storedHearts = progress?.heartsCurrent ?? FREE_MAX_HEARTS;
+  const storedHearts = progress?.heartsCurrent ?? MAX_HEARTS;
   const storedRechargeAt = progress?.heartsLastRechargeAt
     ? parseInt(progress.heartsLastRechargeAt, 10)
     : Date.now();
@@ -174,10 +169,7 @@ export const GET = withAuth(async (_req, { userId }) => {
 export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`engagement:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   const { data, error } = await parseBody(request, engagementSyncSchema);

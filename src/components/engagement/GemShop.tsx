@@ -10,6 +10,7 @@ import type { ShopItem } from '@/data/engagement-types';
 import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
 import { CURRENCY, currencyLabel } from '@/data/currency';
 import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
+import { ShopDisabledTooltip } from './ShopDisabledTooltip';
 
 interface ToastState {
   id: number;
@@ -42,6 +43,10 @@ interface ShopCardProps {
   onBuy: (itemId: string) => void;
   onToggleEquip: (itemId: string) => void;
 }
+
+/** Buy / Equip action button. min-h-[44px] is the touch-target floor — keep it. */
+const SHOP_ACTION_BUTTON_CLASS =
+  'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]';
 
 const RARITY_COLORS: Record<string, { dot: string; bg: string; text: string }> = {
   common: { dot: '#9CA3AF', bg: '#F3F4F6', text: '#6B7280' },
@@ -98,7 +103,7 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
           {isOwned && isCosmetic ? (
             <button
               onClick={() => onToggleEquip(item.id)}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]"
+              className={SHOP_ACTION_BUTTON_CLASS}
               style={{
                 background: isEquipped ? '#FEF3C7' : '#F0FDF4',
                 color: isEquipped ? '#B45309' : '#16A34A',
@@ -112,7 +117,7 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
             <button
               onClick={() => !isDisabled && onBuy(item.id)}
               disabled={isDisabled}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]"
+              className={SHOP_ACTION_BUTTON_CLASS}
               style={{
                 background: isOwned
                   ? '#F0FDF4'
@@ -133,14 +138,8 @@ const ShopCard = memo(function ShopCard({ item, canAfford, isDisabled, disabledR
             </button>
           )}
 
-          {/* Tooltip for disabled state */}
           {isDisabled && disabledReason && !isOwned && (
-            <div
-              className="absolute bottom-full right-0 mb-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10"
-              style={{ background: '#1F2937' }}
-            >
-              {disabledReason}
-            </div>
+            <ShopDisabledTooltip reason={disabledReason} />
           )}
         </div>
       </div>
@@ -235,7 +234,7 @@ const TitleCard = memo(function TitleCard({ item, canAfford, isDisabled, disable
             {isOwned ? (
               <button
                 onClick={() => onToggleEquip(item.id)}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[44px]"
+                className={SHOP_ACTION_BUTTON_CLASS}
                 style={{
                   background: isEquipped ? `${accentColor}18` : '#F0FDF4',
                   color: isEquipped ? accentColor : '#16A34A',
@@ -263,12 +262,7 @@ const TitleCard = memo(function TitleCard({ item, canAfford, isDisabled, disable
             )}
 
             {isDisabled && disabledReason && !isOwned && (
-              <div
-                className="absolute bottom-full right-0 mb-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10"
-                style={{ background: '#1F2937' }}
-              >
-                {disabledReason}
-              </div>
+              <ShopDisabledTooltip reason={disabledReason} />
             )}
           </div>
         </div>

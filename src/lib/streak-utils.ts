@@ -1,3 +1,80 @@
+import { getTodayString, getYesterdayString } from '@/lib/utils';
+
+/** Number of recent active days retained for the week tracker. */
+const ACTIVE_DAYS_WINDOW = 14;
+
+/** Streak-affecting engagement actions, injected so this module stays store-free. */
+export interface StreakFreezeContext {
+  freezesOwned: number;
+  useStreakFreeze: () => void;
+  recordStreakBreak: (previousStreakValue: number) => void;
+}
+
+/** Progress-like shape shared by the practice and course stores. */
+export interface StreakProgress {
+  currentStreak: number;
+  longestStreak: number;
+  lastActiveDate: string;
+  activeDays?: string[];
+}
+
+/**
+ * Advance the daily streak for an activity completed today.
+ *
+ * Consumes a streak freeze when one is owned and a day was missed, otherwise
+ * records the break (opening the repair window) and restarts at 1.
+ * Returns the streak value unchanged when the user was already active today.
+ *
+ * Shared by `useStore.completeSession` and `useCourseStore.completeLesson`.
+ */
+export function advanceStreak(
+  currentStreak: number,
+  lastActiveDate: string,
+  engagement: StreakFreezeContext,
+): number {
+  if (lastActiveDate === getTodayString()) return currentStreak;
+
+  if (lastActiveDate === getYesterdayString()) return currentStreak + 1;
+  if (!lastActiveDate) return 1;
+
+  // Missed day(s) — a freeze preserves the streak, otherwise it breaks
+  if (engagement.freezesOwned > 0 && currentStreak > 0) {
+    engagement.useStreakFreeze();
+    return currentStreak + 1;
+  }
+  if (currentStreak > 0) engagement.recordStreakBreak(currentStreak);
+  return 1;
+}
+
+/** Append today to the active-days window, keeping only the most recent days. */
+export function appendActiveDay(activeDays: string[] | undefined, today: string): string[] {
+  const existing = activeDays ?? [];
+  return existing.includes(today) ? existing : [...existing, today].slice(-ACTIVE_DAYS_WINDOW);
+}
+
+/** Merge two active-day lists into a sorted, de-duped window. */
+export function mergeActiveDays(a: string[] | undefined, b: string[] | undefined): string[] {
+  return [...new Set([...(a ?? []), ...(b ?? [])])].sort().slice(-ACTIVE_DAYS_WINDOW);
+}
+
+/**
+ * Build the streak fields to write into the *other* progress store so the
+ * practice and course streaks stay in lockstep regardless of which mode was used.
+ */
+export function buildStreakSyncPatch<T extends StreakProgress>(
+  progress: T,
+  newStreak: number,
+  today: string,
+): T {
+  return {
+    ...progress,
+    currentStreak: newStreak,
+    longestStreak: Math.max(progress.longestStreak, newStreak),
+    lastActiveDate: today,
+    activeDays: appendActiveDay(progress.activeDays, today),
+  };
+}
+
 /**
  * Compute current streak by walking backwards from today.
  * If today isn't active, checks yesterday (streak is at-risk but not broken).

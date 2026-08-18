@@ -382,7 +382,7 @@ export async function loadUnitData(unitIndex: number, professionId?: string): Pr
   }
 
   // Default: mechanical-engineering
-  const loaders: (() => Promise<{ default?: Unit; [key: string]: any }>)[] = [
+  const loaders: (() => Promise<{ default?: Unit; [key: string]: unknown }>)[] = [
     () => import('./units/unit-1-statics').then(m => ({ ...m, default: m.unit1 })),
     () => import('./units/unit-2-dynamics').then(m => ({ ...m, default: m.unit2 })),
     () => import('./units/unit-3-strength').then(m => ({ ...m, default: m.unit3 })),
@@ -618,13 +618,19 @@ async function loadFinanceUnit(unitIndex: number): Promise<Unit> {
     () => import('./professions/personal-finance/units/section-19-strategy-part2').then(m => m.finSection19Part2[4]),
   ];
 
-  // Units beyond what has full content files fall back to lightweight metadata
   if (unitIndex < 0 || unitIndex >= financeCourseMeta.length) {
     throw new Error(`Invalid finance unit index: ${unitIndex}`);
   }
 
+  // Returning the meta object here instead would ship a unit whose every lesson
+  // is empty, and would make the meta<->data guards tautological (they would be
+  // comparing the meta object against itself). Fail loudly instead.
   if (unitIndex >= loaders.length) {
-    return financeCourseMeta[unitIndex];
+    throw new Error(
+      `Missing content loader for personal-finance unit index ${unitIndex} ` +
+      `("${financeCourseMeta[unitIndex].id}"): meta declares ${financeCourseMeta.length} units ` +
+      `but only ${loaders.length} loaders exist. Add the loader in loadFinanceUnit.`,
+    );
   }
 
   return loaders[unitIndex]();
@@ -835,8 +841,13 @@ async function loadPsychologyUnit(unitIndex: number): Promise<Unit> {
     throw new Error(`Invalid psychology unit index: ${unitIndex}`);
   }
 
+  // See loadFinanceUnit — falling back to meta ships an empty unit silently.
   if (unitIndex >= loaders.length) {
-    return psychologyCourseMeta[unitIndex];
+    throw new Error(
+      `Missing content loader for psychology unit index ${unitIndex} ` +
+      `("${psychologyCourseMeta[unitIndex].id}"): meta declares ${psychologyCourseMeta.length} units ` +
+      `but only ${loaders.length} loaders exist. Add the loader in loadPsychologyUnit.`,
+    );
   }
 
   return loaders[unitIndex]();
@@ -1005,8 +1016,13 @@ async function loadSpaceUnit(unitIndex: number): Promise<Unit> {
     throw new Error(`Invalid space unit index: ${unitIndex}`);
   }
 
+  // See loadFinanceUnit — falling back to meta ships an empty unit silently.
   if (unitIndex >= loaders.length) {
-    return spaceCourseMeta[unitIndex];
+    throw new Error(
+      `Missing content loader for space-astronomy unit index ${unitIndex} ` +
+      `("${spaceCourseMeta[unitIndex].id}"): meta declares ${spaceCourseMeta.length} units ` +
+      `but only ${loaders.length} loaders exist. Add the loader in loadSpaceUnit.`,
+    );
   }
 
   return loaders[unitIndex]();

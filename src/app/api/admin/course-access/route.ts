@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { courseAccess } from '@/lib/db/schema';
-import { withAdminAuth, parseBody, jsonOk } from '@/lib/api-helpers';
+import { parseBody, jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 
 // POST: Grant course access to a user
 // DELETE: Revoke course access from a user

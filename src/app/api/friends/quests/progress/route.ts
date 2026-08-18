@@ -6,7 +6,8 @@ import { friendQuestProgressSchema } from '@/lib/validation';
 import { pickFriendQuest } from '@/lib/friend-quests';
 import { sendPushToUser } from '@/lib/push';
 import { insertActivity } from '@/lib/activity-feed';
-import { withAuth, parseBody, jsonOk } from '@/lib/api-helpers';
+import { parseBody, jsonOk } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 /**
  * POST /api/friends/quests/progress

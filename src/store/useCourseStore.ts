@@ -4,29 +4,38 @@ import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
 import { PROFESSION_ID } from '@/data/professions';
-import { SESSION_SIZE as SESSION_SIZE_CONFIG, STAR_THRESHOLDS, ADAPTIVE_CRUISING_XP_BONUS } from '@/lib/game-config';
+import {
+  SESSION_SIZE, ADAPTIVE_CRUISING_XP_BONUS,
+  LESSON_FLAWLESS_XP_MULTIPLIER, PLACEMENT_XP,
+} from '@/lib/game-config';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { topics } from '@/data/topics';
-import { toLocalDateString, getYesterdayString, shuffleArray, getTodayString } from '@/lib/utils';
+import { shuffleArray, getTodayString, toPercent } from '@/lib/utils';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { useSubscriptionStore } from '@/hooks/useSubscription';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
 import type { CourseProgress, CourseIntroData, ActiveLesson, LessonResult, PlacementTest, PlacementTestResult, Unit, Lesson } from '@/data/course/types';
-import { generatePlacementQuestions, getFirstIncompleteUnitIndex, getMaxMistakes, PLACEMENT_TEST_CONFIG } from '@/lib/placement-test';
+import {
+  generatePlacementQuestions, getFirstIncompleteUnitIndex, PLACEMENT_TEST_CONFIG,
+  buildPlacementTest, autoPassPlacement,
+} from '@/lib/placement-test';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 import { awardStreakMilestones } from '@/lib/streak-rewards';
 import { pickReviewQuestions } from '@/lib/review-engine';
-import { checkDoubleXp, getEffectiveTier } from '@/lib/store-helpers';
+import { getXpBoost, getEffectiveTier } from '@/lib/store-helpers';
+import { advanceStreak, appendActiveDay, buildStreakSyncPatch } from '@/lib/streak-utils';
 import { getLevelForXp } from '@/data/levels';
 import { getLevelReward, type LevelReward } from '@/data/level-rewards';
-import { getEventXpMultiplier, getActiveXpEvents } from '@/lib/xp-events';
+import { getActiveXpEvents } from '@/lib/xp-events';
 import { DEBUG_ALL_TYPES_UNIT } from '@/data/debug-all-question-types';
-import { isLessonContentLoaded, getSessionIds, calculateStars, getPreviousLessonId, getDefaultProgress } from '@/lib/course-store-utils';
+import {
+  isLessonContentLoaded, getSessionIds, getPreviousLessonId, getDefaultProgress,
+  createSkippedLessonProgress, markUnitsPassed, isFlawlessRun,
+} from '@/lib/course-store-utils';
 
-const MAX_SESSION_QUESTIONS = SESSION_SIZE_CONFIG;
 
 interface ChapterCompletion {
   unitIndex: number;
@@ -99,8 +108,6 @@ interface CourseState {
   getCompletedCount: () => number;
   getTotalXp: () => number;
 }
-
-const SESSION_SIZE = SESSION_SIZE_CONFIG;
 
 export const useCourseStore = create<CourseState>()(
   subscribeWithSelector(
@@ -189,7 +196,7 @@ export const useCourseStore = create<CourseState>()(
 
         const isGolden = golden === true;
 
-        // Generate session IDs based on lesson type, capped at MAX_SESSION_QUESTIONS
+        // Generate session IDs based on lesson type, capped at SESSION_SIZE
         // Teaching cards are always included and placed at their natural position (front).
         const allIds = getSessionIds(lesson);
         const lessonType = lesson.type ?? 'standard';
@@ -203,7 +210,7 @@ export const useCourseStore = create<CourseState>()(
           : allIds;
 
         let sessionQuestionIds: string[];
-        const questionSlots = MAX_SESSION_QUESTIONS - teachingIds.length;
+        const questionSlots = SESSION_SIZE - teachingIds.length;
 
         if (questionIds.length <= questionSlots) {
           // All questions fit, keep teaching cards at front
@@ -325,9 +332,7 @@ export const useCourseStore = create<CourseState>()(
         }
         const totalQuestions = firstAttempts.size;
         const correctAnswers = [...firstAttempts.values()].filter(Boolean).length;
-        const accuracy = totalQuestions > 0
-          ? Math.round((correctAnswers / totalQuestions) * 100)
-          : 0;
+        const accuracy = toPercent(correctAnswers, totalQuestions);
 
         // Check if this is a new best or first completion
         const existingProgress = state.progress.completedLessons[lesson.id];
@@ -353,19 +358,12 @@ export const useCourseStore = create<CourseState>()(
           : Math.min(newAttempts, maxLevels);
 
         // XP based on accuracy performance within this session
-        const isFlawless = accuracy === 100 && totalQuestions >= 3;
-        const accuracyMultiplier = isFlawless ? 1.5 : 1; // bonus for perfect accuracy
-        // Double XP check with tamper validation (shop-purchased boost)
+        const isFlawless = isFlawlessRun(accuracy, totalQuestions);
+        const accuracyMultiplier = isFlawless ? LESSON_FLAWLESS_XP_MULTIPLIER : 1;
+        // Shop double-XP boost + time-limited XP events, stacked additively
         const engState = useEngagementStore.getState();
-        const shopDoubleXp = checkDoubleXp(engState);
-        // Time-limited XP events (weekend 2x, power hour, league sprint)
         const isPro = useSubscriptionStore.getState().tier === 'pro';
-        const eventMultiplier = getEventXpMultiplier(isPro);
-        const shopMultiplier = shopDoubleXp ? 2 : 1;
-        // Shop boost and event boost stack additively with each other
-        const totalBoostMultiplier = shopMultiplier === 1 && eventMultiplier === 1
-          ? 1
-          : 1 + (shopMultiplier - 1) + (eventMultiplier - 1);
+        const { eventMultiplier, totalMultiplier: totalBoostMultiplier } = getXpBoost(engState, isPro);
         // Cruising bonus: extra XP for questions answered correctly during a perfect streak
         const cruisingCorrectCount = state.activeLesson.cruisingCorrectCount ?? 0;
         const cruisingBonusXp = cruisingCorrectCount > 0
@@ -387,39 +385,16 @@ export const useCourseStore = create<CourseState>()(
 
         // Update streak (with freeze support)
         const today = getTodayString();
-        const yesterday = getYesterdayString();
         const lastActive = state.progress.lastActiveDate;
 
-        let newStreak = state.progress.currentStreak;
-        let streakFrozen = false;
-        if (lastActive !== today) {
-          if (lastActive === yesterday) {
-            newStreak += 1;
-          } else if (!lastActive) {
-            newStreak = 1;
-          } else {
-            // Missed day(s) — check for streak freeze
-            if (engState.streak.freezesOwned > 0 && newStreak > 0) {
-              // Use a freeze to preserve the streak
-              engState.useStreakFreeze();
-              streakFrozen = true;
-              newStreak += 1; // Continue as if no break
-            } else {
-              // Record the break for repair window
-              if (newStreak > 0) {
-                engState.recordStreakBreak(newStreak);
-              }
-              newStreak = 1; // Streak broken
-            }
-          }
-        }
-        // If lastActive === today, keep current streak unchanged
+        const newStreak = advanceStreak(state.progress.currentStreak, lastActive, {
+          freezesOwned: engState.streak.freezesOwned,
+          useStreakFreeze: engState.useStreakFreeze,
+          recordStreakBreak: engState.recordStreakBreak,
+        });
 
-        // Track active days for week tracker (keep last 14 days)
-        const existingDays = state.progress.activeDays ?? [];
-        const updatedActiveDays = existingDays.includes(today)
-          ? existingDays
-          : [...existingDays, today].slice(-14);
+        // Track active days for week tracker
+        const updatedActiveDays = appendActiveDay(state.progress.activeDays, today);
 
         // Check and award streak milestones
         if (newStreak > (state.progress.currentStreak || 0)) {
@@ -529,20 +504,9 @@ export const useCourseStore = create<CourseState>()(
         // Cross-store sync: keep practice store's streak in lockstep so
         // streak freeze/repair and comeback detection stay consistent
         // regardless of which mode the user practices in.
-        useStore.setState((ps) => {
-          const psActiveDays = ps.progress.activeDays ?? [];
-          return {
-            progress: {
-              ...ps.progress,
-              currentStreak: newStreak,
-              longestStreak: Math.max(ps.progress.longestStreak, newStreak),
-              lastActiveDate: today,
-              activeDays: psActiveDays.includes(today)
-                ? psActiveDays
-                : [...psActiveDays, today].slice(-14),
-            },
-          };
-        });
+        useStore.setState((ps) => ({
+          progress: buildStreakSyncPatch(ps.progress, newStreak, today),
+        }));
       },
 
       exitLesson: () => {
@@ -628,47 +592,11 @@ export const useCourseStore = create<CourseState>()(
 
             if (questions.length === 0) {
               // No testable content: auto-pass
-              const today = getTodayString();
-              const newCompleted = { ...freshState.progress.completedLessons };
-              for (let ui = fromUnit; ui < targetUnitIndex; ui++) {
-                for (const lesson of freshState.courseData[ui].lessons) {
-                  if (!newCompleted[lesson.id]?.passed) {
-                    newCompleted[lesson.id] = {
-                      stars: 0, bestAccuracy: 0, attempts: 0,
-                      lastAttempted: today, passed: true, golden: false,
-                      answeredQuestionIds: [], correctQuestionIds: [],
-                    };
-                  }
-                }
-              }
-              set({
-                progress: { ...freshState.progress, completedLessons: newCompleted },
-                placementTestResult: {
-                  passed: true,
-                  targetUnitIndex,
-                  targetUnitTitle: freshState.courseData[targetUnitIndex]?.title ?? '',
-                  totalQuestions: 0, correctAnswers: 0, mistakes: 0,
-                  maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
-                  unitsSkipped: targetUnitIndex - fromUnit,
-                  xpEarned: 0,
-                  accuracy: 0,
-                },
-              });
+              set(autoPassPlacement(freshState.progress, freshState.courseData, fromUnit, targetUnitIndex));
               return;
             }
 
-            set({
-              activePlacementTest: {
-                targetUnitIndex,
-                fromUnitIndex: fromUnit,
-                questions,
-                currentQuestionIndex: 0,
-                answers: [],
-                mistakes: 0,
-                maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
-                startTime: Date.now(),
-              },
-            });
+            set({ activePlacementTest: buildPlacementTest(questions, fromUnit, targetUnitIndex) });
           });
           return;
         }
@@ -681,54 +609,11 @@ export const useCourseStore = create<CourseState>()(
 
         // No questions available (content not written yet) → auto-pass
         if (questions.length === 0) {
-          const today = getTodayString();
-          const newCompleted = { ...progress.completedLessons };
-          for (let ui = fromUnit; ui < targetUnitIndex; ui++) {
-            for (const lesson of courseData[ui].lessons) {
-              if (!newCompleted[lesson.id]?.passed) {
-                newCompleted[lesson.id] = {
-                  stars: 0,
-                  bestAccuracy: 0,
-                  attempts: 0,
-                  lastAttempted: today,
-                  passed: true,
-                  golden: false,
-                  answeredQuestionIds: [],
-                  correctQuestionIds: [],
-                };
-              }
-            }
-          }
-          set({
-            progress: { ...progress, completedLessons: newCompleted },
-            placementTestResult: {
-              passed: true,
-              targetUnitIndex,
-              targetUnitTitle: courseData[targetUnitIndex]?.title ?? '',
-              totalQuestions: 0,
-              correctAnswers: 0,
-              mistakes: 0,
-              maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
-              unitsSkipped: targetUnitIndex - fromUnit,
-              xpEarned: 0,
-              accuracy: 0,
-            },
-          });
+          set(autoPassPlacement(progress, courseData, fromUnit, targetUnitIndex));
           return;
         }
 
-        set({
-          activePlacementTest: {
-            targetUnitIndex,
-            fromUnitIndex: fromUnit,
-            questions,
-            currentQuestionIndex: 0,
-            answers: [],
-            mistakes: 0,
-            maxMistakes: getMaxMistakes(targetUnitIndex - fromUnit),
-            startTime: Date.now(),
-          },
-        });
+        set({ activePlacementTest: buildPlacementTest(questions, fromUnit, targetUnitIndex) });
       },
 
       submitPlacementAnswer: (questionId: string, correct: boolean) => {
@@ -768,40 +653,22 @@ export const useCourseStore = create<CourseState>()(
 
         const correct = test.answers.filter((a) => a.correct).length;
         const passed = test.mistakes < test.maxMistakes;
-        const accuracy = test.questions.length > 0
-          ? Math.round((correct / test.questions.length) * 100)
-          : 0;
+        const accuracy = toPercent(correct, test.questions.length);
 
-        // XP: 10 per correct answer, bonus for high accuracy
-        const baseXp = correct * 10;
+        const baseXp = correct * PLACEMENT_XP.PER_CORRECT;
         const xpEarned = passed
-          ? (accuracy === 100 && test.questions.length >= 3 ? baseXp * 2 : baseXp)
-          : Math.round(baseXp * 0.25);
+          ? (isFlawlessRun(accuracy, test.questions.length) ? baseXp * PLACEMENT_XP.FLAWLESS_MULTIPLIER : baseXp)
+          : Math.round(baseXp * PLACEMENT_XP.FAILED_RATE);
 
         const { courseData, progress } = state;
 
         // On pass: mark all skipped lessons as passed
-        let newCompleted = progress.completedLessons;
-        if (passed) {
-          const today = getTodayString();
-          newCompleted = { ...progress.completedLessons };
-          for (let ui = test.fromUnitIndex; ui < test.targetUnitIndex; ui++) {
-            for (const lesson of courseData[ui].lessons) {
-              if (!newCompleted[lesson.id]?.passed) {
-                newCompleted[lesson.id] = {
-                  stars: 0,
-                  bestAccuracy: 0,
-                  attempts: 0,
-                  lastAttempted: today,
-                  passed: true,
-                  golden: false,
-                  answeredQuestionIds: [],
-                  correctQuestionIds: [],
-                };
-              }
-            }
-          }
-        }
+        const newCompleted = passed
+          ? markUnitsPassed(
+              progress.completedLessons, courseData,
+              test.fromUnitIndex, test.targetUnitIndex, getTodayString(),
+            )
+          : progress.completedLessons;
 
         const newTotalXp = progress.totalXp + xpEarned;
 
@@ -1083,24 +950,9 @@ export const useCourseStore = create<CourseState>()(
         const fromUnit = getFirstIncompleteUnitIndex(courseData, progress.completedLessons);
         if (fromUnit >= targetUnitIndex) return;
 
-        const today = getTodayString();
-        const newCompleted = { ...progress.completedLessons };
-        for (let ui = fromUnit; ui < targetUnitIndex; ui++) {
-          for (const lesson of courseData[ui].lessons) {
-            if (!newCompleted[lesson.id]?.passed) {
-              newCompleted[lesson.id] = {
-                stars: 0,
-                bestAccuracy: 0,
-                attempts: 0,
-                lastAttempted: today,
-                passed: true,
-                golden: false,
-                answeredQuestionIds: [],
-                correctQuestionIds: [],
-              };
-            }
-          }
-        }
+        const newCompleted = markUnitsPassed(
+          progress.completedLessons, courseData, fromUnit, targetUnitIndex, getTodayString(),
+        );
         set({ progress: { ...progress, completedLessons: newCompleted } });
       },
 
@@ -1112,16 +964,7 @@ export const useCourseStore = create<CourseState>()(
         for (let li = 0; li < lessonIndex; li++) {
           const lesson = courseData[unitIndex]?.lessons[li];
           if (lesson && !newCompleted[lesson.id]?.passed) {
-            newCompleted[lesson.id] = {
-              stars: 0,
-              bestAccuracy: 0,
-              attempts: 0,
-              lastAttempted: today,
-              passed: true,
-              golden: false,
-              answeredQuestionIds: [],
-              correctQuestionIds: [],
-            };
+            newCompleted[lesson.id] = createSkippedLessonProgress(today);
           }
         }
         set({ progress: { ...progress, completedLessons: newCompleted } });

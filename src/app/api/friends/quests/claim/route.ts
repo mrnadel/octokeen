@@ -4,7 +4,8 @@ import { eq, and, or } from 'drizzle-orm';
 import { friendQuestClaimSchema } from '@/lib/validation';
 import { pickFriendQuest } from '@/lib/friend-quests';
 import { insertActivity } from '@/lib/activity-feed';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 /**
  * POST /api/friends/quests/claim

@@ -1,4 +1,4 @@
-import type { Achievement } from './types';
+import { TOTAL_TOPICS, type Achievement } from './types';
 
 export const achievements: Achievement[] = [
   // ═══════════════ KNOWLEDGE (7) ═══════════════
@@ -163,10 +163,10 @@ export const achievements: Achievement[] = [
   {
     id: 'ach-all-topics',
     name: 'Polymath',
-    description: 'Attempt questions in ALL 13 topics.',
+    description: `Attempt questions in ALL ${TOTAL_TOPICS} topics.`,
     icon: '🎓',
     category: 'exploration',
-    condition: 'Attempt at least 1 question in each of the 13 topics',
+    condition: `Attempt at least 1 question in each of the ${TOTAL_TOPICS} topics`,
     xpReward: 500,
   },
   {

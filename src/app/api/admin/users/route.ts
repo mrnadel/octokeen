@@ -1,11 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { users, userProgress, subscriptions, courseAccess } from '@/lib/db/schema';
 import { requireAdmin } from '@/lib/auth-utils';
 import { eq, desc, inArray } from 'drizzle-orm';
 import { cleanupBeforeBulkDeletion } from '@/lib/account-cleanup';
-import { withAdminAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
+import { upsertSubscription } from '@/lib/db/queries';
 
 const patchUserSchema = z.object({
   userId: z.string().min(1),
@@ -88,25 +90,7 @@ export const PATCH = withAdminAuth(async (req) => {
     return jsonOk({ success: true, tier: 'free' });
   }
 
-  // Upsert: check if subscription exists
-  const [existing] = await db
-    .select({ id: subscriptions.id })
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId))
-    .limit(1);
-
-  if (existing) {
-    await db
-      .update(subscriptions)
-      .set({ tier, status: 'active', updatedAt: new Date() })
-      .where(eq(subscriptions.userId, userId));
-  } else {
-    await db.insert(subscriptions).values({
-      userId,
-      tier,
-      status: 'active',
-    });
-  }
+  await upsertSubscription(userId, { tier, status: 'active' });
 
   return jsonOk({ success: true, tier });
 });

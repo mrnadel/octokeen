@@ -2,10 +2,11 @@ import { db } from '@/lib/db';
 import { friendships, friendRequests } from '@/lib/db/schema';
 import { eq, and, or } from 'drizzle-orm';
 import { sortFriendPair } from '@/lib/db/friends';
-import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { jsonOk, jsonError, lastPathSegment } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 export const DELETE = withAuth(async (req, { userId }) => {
-  const friendId = req.nextUrl.pathname.split('/').pop()!;
+  const friendId = lastPathSegment(req);
   const [low, high] = sortFriendPair(userId, friendId);
 
   const result = await db

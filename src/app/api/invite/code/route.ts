@@ -1,24 +1,18 @@
 import { NextResponse } from 'next/server';
-import crypto from 'crypto';
 import { eq } from 'drizzle-orm';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { rateLimit } from '@/lib/rate-limit';
+import { jsonOk, jsonError, TOO_MANY_REQUESTS } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
+import { assignInviteCode } from '@/lib/db/invite-codes';
 
-function generateInviteCode(): string {
-  return crypto.randomBytes(6).toString('base64url').slice(0, 8);
-}
+const INVITE_CODE_RATE_LIMIT = { limit: 10, windowMs: 60_000 };
 
-export async function GET() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const rl = rateLimit(`invite-code:${userId}`, { limit: 10, windowMs: 60_000 });
+export const GET = withAuth(async (_req, { userId }): Promise<NextResponse> => {
+  const rl = rateLimit(`invite-code:${userId}`, INVITE_CODE_RATE_LIMIT);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return jsonError(TOO_MANY_REQUESTS, 429);
   }
 
   const [user] = await db
@@ -28,22 +22,13 @@ export async function GET() {
     .limit(1);
 
   if (user?.inviteCode) {
-    return NextResponse.json({ code: user.inviteCode });
+    return jsonOk({ code: user.inviteCode });
   }
 
-  for (let attempt = 0; attempt < 5; attempt++) {
-    const code = generateInviteCode();
-    try {
-      await db
-        .update(users)
-        .set({ inviteCode: code })
-        .where(eq(users.id, userId));
-      return NextResponse.json({ code });
-    } catch (err: any) {
-      if (err?.code === '23505') continue;
-      throw err;
-    }
+  const code = await assignInviteCode(userId);
+  if (!code) {
+    return jsonError('Failed to generate code', 500);
   }
 
-  return NextResponse.json({ error: 'Failed to generate code' }, { status: 500 });
-}
+  return jsonOk({ code });
+});

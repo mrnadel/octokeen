@@ -1,15 +1,16 @@
-import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { pushSubscriptions, userProgress, courseProgress } from '@/lib/db/schema';
-import { eq, and, gt, sql } from 'drizzle-orm';
+import { eq, and, gt } from 'drizzle-orm';
 import { sendPushNotification } from '@/lib/push';
-import { withCronAuth } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withCronAuth } from '@/lib/api/guards';
+import { getUtcToday, getUtcDaysAgo } from '@/lib/server-dates';
 
 // Secured by CRON_SECRET — only callable from Vercel Cron Jobs
 export const GET = withCronAuth(async () => {
-  const today = new Date().toISOString().split('T')[0];
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
+  const today = getUtcToday();
+  const yesterday = getUtcDaysAgo(1);
+  const twoDaysAgo = getUtcDaysAgo(2);
 
   const BATCH_SIZE = 500;
   const CONCURRENCY = 10;
@@ -114,5 +115,5 @@ export const GET = withCronAuth(async () => {
     'day2',
   );
 
-  return NextResponse.json(stats);
+  return jsonOk(stats);
 });

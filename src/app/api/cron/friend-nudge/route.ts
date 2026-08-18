@@ -2,13 +2,14 @@ import { db } from '@/lib/db';
 import {
   pushSubscriptions,
   userProgress,
-  courseProgress,
   friendships,
   users,
 } from '@/lib/db/schema';
 import { eq, and, gt, or, sql } from 'drizzle-orm';
 import { sendPushNotification } from '@/lib/push';
-import { withCronAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withCronAuth } from '@/lib/api/guards';
+import { getUtcDaysAgo } from '@/lib/server-dates';
 
 /**
  * Friend nudge cron — runs daily at 8 PM UTC (1 hour after streak-reminder).
@@ -20,9 +21,7 @@ import { withCronAuth, jsonOk } from '@/lib/api-helpers';
  * to 3+ days away and stop matching. Max 50 users processed per run.
  */
 export const GET = withCronAuth(async () => {
-  const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
-  const oneWeekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
-  const today = new Date().toISOString().split('T')[0];
+  const twoDaysAgo = getUtcDaysAgo(2);
 
   const MAX_USERS = 50;
   let sent = 0;

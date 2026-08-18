@@ -11,10 +11,13 @@ import { useEngagementActions } from '@/store/useEngagementStore';
 import { analytics } from '@/lib/mixpanel';
 import { achievements } from '@/data/achievements';
 import { playSound } from '@/lib/sounds';
-import { reportFriendQuestProgress } from '@/hooks/useFriendQuestSync';
-import { useAdManager } from '@/components/ads/useAdManager';
+import { useCompletionAdGate } from '@/components/ads/useCompletionAdGate';
 import { InterstitialAd } from '@/components/ads/InterstitialAd';
-import { PRACTICE_THEME } from '@/lib/session-themes';
+import {
+  creditAccuracyQuests,
+  reportCompletionToFriendQuests,
+} from '@/components/lesson/shared/completion-quests';
+import { useDelayedContinueKey } from '@/components/lesson/shared/useDelayedContinueKey';
 
 interface Props {
   summary: SessionSummaryType;
@@ -32,53 +35,24 @@ export default function SessionSummary({ summary }: Props) {
   const { updateQuestProgress, updateLeagueXp } = useEngagementActions();
   const router = useRouter();
   const tracked = useRef(false);
-  const adTracked = useRef(false);
-  const [showingAd, setShowingAd] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
-  const { shouldShowAd, recordCompletion, recordAdShown } = useAdManager();
-
-  // Record completion for ad frequency tracking (once per summary)
-  useEffect(() => {
-    if (adTracked.current) return;
-    adTracked.current = true;
-    recordCompletion();
-  }, [recordCompletion]);
 
   const handleBack = useCallback(() => {
     abandonSession();
     router.replace('/');
   }, [abandonSession, router]);
 
+  const { showingAd, requestDismiss, closeAd } = useCompletionAdGate(handleBack);
+
   const handleContinue = useCallback(() => {
     if (isNavigating) return;
     setIsNavigating(true);
-    if (shouldShowAd) {
-      setShowingAd(true);
-      recordAdShown();
-    } else {
-      handleBack();
-    }
-  }, [isNavigating, shouldShowAd, recordAdShown, handleBack]);
+    requestDismiss();
+  }, [isNavigating, requestDismiss]);
 
   useBackHandler(true, handleContinue);
   useScrollLock(true);
-
-  // Keyboard: Enter/Space to continue
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleContinue();
-      }
-    };
-    const timer = setTimeout(() => {
-      window.addEventListener('keydown', handleKeyDown);
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleContinue]);
+  useDelayedContinueKey(handleContinue);
 
   // Sound on mount
   useEffect(() => { playSound('sessionComplete'); }, []);
@@ -92,10 +66,10 @@ export default function SessionSummary({ summary }: Props) {
     updateQuestProgress('questions_correct', summary.questionsCorrect);
     updateLeagueXp(summary.xpEarned);
     updateQuestProgress('xp_earned', summary.xpEarned);
-    if (summary.accuracy >= 90) updateQuestProgress('accuracy_above_threshold', 1, { threshold: 0.9 });
-    if (summary.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1, { threshold: 0.8 });
-    if (summary.accuracy === 100 && summary.questionsAttempted >= 3) updateQuestProgress('perfect_sessions', 1);
-    updateQuestProgress('topics_practiced', 1);
+    creditAccuracyQuests(updateQuestProgress, {
+      accuracy: summary.accuracy,
+      questionCount: summary.questionsAttempted,
+    });
     if (summary.type === 'daily-challenge') updateQuestProgress('daily_challenges_completed', 1);
 
     // Stars earned: 3 = outstanding (≥90%), 2 = great (≥75%), 1 = otherwise
@@ -121,12 +95,11 @@ export default function SessionSummary({ summary }: Props) {
       return daysSince >= 7;
     });
     if (stalePracticed) updateQuestProgress('stale_topic_practiced', 1);
-    // Report to friend quest progress API (fire-and-forget)
-    reportFriendQuestProgress([
-      { event: 'xp_earned', value: summary.xpEarned },
-      { event: 'lesson_completed', value: 1 },
-      { event: 'accuracy_report', value: summary.accuracy },
-    ]);
+    reportCompletionToFriendQuests({
+      xpEarned: summary.xpEarned,
+      accuracy: summary.accuracy,
+      completed: true,
+    });
     // streak_days: use absolute mode to set progress to the current streak value,
     // preventing multi-session-per-day inflation (quest target is 7 for a full week)
     const currentStreak = useStore.getState().progress.currentStreak;
@@ -440,10 +413,7 @@ export default function SessionSummary({ summary }: Props) {
         </div>
       </motion.div>
     </AnimatePresence>
-    <InterstitialAd
-      show={showingAd}
-      onClose={() => { setShowingAd(false); handleBack(); }}
-    />
+    <InterstitialAd show={showingAd} onClose={closeAd} />
     </>
   );
 }

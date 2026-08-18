@@ -28,15 +28,11 @@ vi.mock('@/store/useEngagementStore', () => ({
   },
 }));
 
-// Mock utils — shuffleArray as identity for predictable order, plus date helpers used by store
-vi.mock('@/lib/utils', () => ({
+// Mock utils — shuffleArray as identity for predictable order; everything else
+// (date helpers, XP maths) stays real so the store and its helpers agree.
+vi.mock('@/lib/utils', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/utils')>()),
   shuffleArray: <T>(arr: T[]): T[] => [...arr],
-  toLocalDateString: (d: Date) => d.toISOString().split('T')[0],
-  getYesterdayString: () => {
-    const y = new Date();
-    y.setDate(y.getDate() - 1);
-    return y.toISOString().split('T')[0];
-  },
 }));
 
 import { useCourseStore } from '@/store/useCourseStore';

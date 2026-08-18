@@ -1,4 +1,5 @@
 import type {
+  QuestDefinition,
   EngagementState,
   GemsState,
   GemTransaction,
@@ -10,18 +11,11 @@ import type {
   Quest,
   QuestTrackingKey,
 } from '@/data/engagement-types';
-import {
-  MAX_STREAK_FREEZES,
-} from '@/data/engagement-types';
-import {
-  REWARD_CYCLE_LENGTH,
-} from '@/data/daily-rewards';
-import {
-  getCurrentWeekMonday,
-  DAILY_QUEST_COUNT,
-  WEEKLY_QUEST_COUNT,
-} from '@/lib/quest-engine';
+import { MAX_GEM_TRANSACTIONS_CLIENT } from '@/data/engagement-types';
+import { getCurrentWeekMonday, createQuests } from '@/lib/quest-engine';
 import { drawCompetitorsFromPool } from '@/lib/fake-user-generator';
+
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 // --------------- Default State Factories ---------------
 
@@ -113,6 +107,16 @@ export function getDefaultState(): EngagementState {
   };
 }
 
+/**
+ * Keys the persist middleware should write to localStorage: every state field
+ * except the hydration flag. Derived from the default-state factory so a new
+ * field is persisted automatically and action functions can never leak in.
+ */
+export function getPersistedEngagementKeys(): (keyof EngagementState)[] {
+  const keys = Object.keys(getDefaultState()) as (keyof EngagementState)[];
+  return keys.filter((key) => key !== '_hasHydrated');
+}
+
 // --------------- Inventory Helpers ---------------
 
 /** Grant a title or frame to the inventory if not already owned. Returns updated GemsState. */
@@ -140,6 +144,78 @@ export function createGemTransaction(amount: number, source: string): GemTransac
     amount,
     source,
     timestamp: new Date().toISOString(),
+  };
+}
+
+/** Prepend a ledger entry, trimming the client-side transaction window. */
+function withGemTransaction(gems: GemsState, amount: number, source: string): GemTransaction[] {
+  return [
+    createGemTransaction(amount, source),
+    ...gems.transactions,
+  ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT);
+}
+
+/**
+ * Deduct `cost` gems and append the matching ledger entry.
+ * The caller must have already verified the balance inside the same `set()`.
+ */
+export function deductGems(gems: GemsState, cost: number, source: string): GemsState {
+  return {
+    ...gems,
+    balance: gems.balance - cost,
+    transactions: withGemTransaction(gems, -cost, source),
+  };
+}
+
+/**
+ * Credit (or debit) gems from a gameplay reward, clamping the balance at zero.
+ * Only positive amounts count toward the lifetime earned total.
+ */
+export function applyGemDelta(gems: GemsState, amount: number, source: string): GemsState {
+  return {
+    ...gems,
+    balance: Math.max(0, gems.balance + amount),
+    totalEarned: gems.totalEarned + Math.max(0, amount),
+    transactions: withGemTransaction(gems, amount, source),
+  };
+}
+
+// --------------- Helper: whole-day difference between date keys ---------------
+
+/**
+ * Whole days between two `YYYY-MM-DD` keys, compared at UTC midnight.
+ * Positive when `to` is later than `from`.
+ */
+export function daysBetweenDateKeys(from: string, to: string): number {
+  const fromMs = new Date(`${from}T00:00:00Z`).getTime();
+  const toMs = new Date(`${to}T00:00:00Z`).getTime();
+  return Math.floor((toMs - fromMs) / MS_PER_DAY);
+}
+
+// --------------- Helper: roll a new quest cycle ---------------
+
+export interface QuestCycleRoll {
+  quests: Quest[];
+  /** IDs of the quests being replaced, remembered so they aren't picked again. */
+  previousIds: string[];
+}
+
+/**
+ * Pick and instantiate the next batch of quests for a daily or weekly cycle.
+ * Shared by `initDailyQuests` and `initWeeklyQuests`.
+ */
+export function rollQuestCycle(
+  currentQuests: Quest[],
+  lastIds: string[],
+  selectDefinitions: (excludeIds: string[]) => QuestDefinition[],
+  type: 'daily' | 'weekly',
+  scale: number,
+): QuestCycleRoll {
+  const currentIds = currentQuests.map((q) => q.definitionId);
+  const previousIds = currentIds.length > 0 ? currentIds : lastIds;
+  return {
+    quests: createQuests(selectDefinitions(previousIds), type, scale),
+    previousIds,
   };
 }
 

@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
 import { eq, desc } from 'drizzle-orm';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { masteryEvents } from '@/lib/db/schema';
 import { canStartPracticeSession } from '@/lib/access-control';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError, rateLimited } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 const masteryEventSchema = z.object({
   id: z.string().min(1),
@@ -47,10 +47,7 @@ export const GET = withAuth(async (_req, { userId }) => {
 export const POST = withAuth(async (request, { userId }) => {
   const rl = rateLimit(`mastery:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   // ── Server-side daily limit enforcement ──

@@ -1,12 +1,7 @@
-import { PASSWORD_MIN_LENGTH } from '@/lib/game-config';
+import { getPasswordChecks } from './password-rules';
 
 export function PasswordStrength({ password }: { password: string }) {
-  const checks = [
-    { label: `${PASSWORD_MIN_LENGTH}+ chars`, met: password.length >= PASSWORD_MIN_LENGTH },
-    { label: 'Uppercase', met: /[A-Z]/.test(password) },
-    { label: 'Number', met: /\d/.test(password) },
-    { label: 'Special char', met: /[^A-Za-z0-9]/.test(password) },
-  ];
+  const checks = getPasswordChecks(password);
 
   if (!password) return null;
 

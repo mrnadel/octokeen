@@ -3,29 +3,15 @@ import { eq } from 'drizzle-orm';
 import paddle from '@/lib/paddle';
 import { db } from '@/lib/db';
 import { subscriptions } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
+import { jsonOk, jsonError, rateLimited, TOO_MANY_REQUESTS_RETRY } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
-export async function POST() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (_req, { userId }): Promise<NextResponse> => {
   const rl = rateLimit(`portal:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': Math.ceil(
-            (rl.resetAt.getTime() - Date.now()) / 1000,
-          ).toString(),
-        },
-      },
-    );
+    return rateLimited(rl.resetAt, TOO_MANY_REQUESTS_RETRY);
   }
 
   const [sub] = await db
@@ -37,25 +23,19 @@ export async function POST() {
     .limit(1);
 
   if (!sub?.paddleSubscriptionId) {
-    return NextResponse.json(
-      { error: 'No active subscription found' },
-      { status: 404 },
-    );
+    return jsonError('No active subscription found', 404);
   }
 
   // Fetch subscription from Paddle to get management URLs
   try {
     const paddleSub = await paddle.subscriptions.get(sub.paddleSubscriptionId);
 
-    return NextResponse.json({
+    return jsonOk({
       updateUrl: paddleSub.managementUrls?.updatePaymentMethod ?? null,
       cancelUrl: paddleSub.managementUrls?.cancel ?? null,
     });
   } catch (err) {
     logger.error('Failed to fetch Paddle subscription:', err);
-    return NextResponse.json(
-      { error: 'Failed to load subscription details' },
-      { status: 502 },
-    );
+    return jsonError('Failed to load subscription details', 502);
   }
-}
+});

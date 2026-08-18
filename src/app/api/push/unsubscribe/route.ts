@@ -1,50 +1,35 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { auth } from '@/lib/auth';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { db } from '@/lib/db';
 import { pushSubscriptions } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { parseBody, jsonOk, rateLimited } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 const unsubscribeSchema = z.object({
   endpoint: z.string().min(1),
 });
 
-export async function POST(req: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const rl = rateLimit(`push-unsubscribe:${session.user.id}`, RATE_LIMITS.api);
+export const POST = withAuth(async (req, { userId }): Promise<NextResponse> => {
+  const rl = rateLimit(`push-unsubscribe:${userId}`, RATE_LIMITS.api);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-
-  const parsed = unsubscribeSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Missing endpoint' }, { status: 400 });
-  }
-  const { endpoint } = parsed.data;
+  const { data, error } = await parseBody(req, unsubscribeSchema, {
+    invalidInput: 'Missing endpoint',
+  });
+  if (error) return error;
 
   await db
     .delete(pushSubscriptions)
     .where(
       and(
-        eq(pushSubscriptions.endpoint, endpoint),
-        eq(pushSubscriptions.userId, session.user.id)
+        eq(pushSubscriptions.endpoint, data.endpoint),
+        eq(pushSubscriptions.userId, userId)
       )
     );
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

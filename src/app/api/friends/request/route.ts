@@ -6,18 +6,23 @@ import {
   areFriends,
   getExistingRequest,
   isFriendCapReached,
+  MAX_FRIENDS,
 } from '@/lib/db/friends';
 import { rateLimit } from '@/lib/rate-limit';
-import { withAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError, TOO_MANY_REQUESTS } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
+
+const SEND_REQUEST_RATE_LIMIT = { limit: 20, windowMs: 3600_000 };
+const RESEND_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000; // 7 days after a decline
 
 const postSchema = z.object({
   receiverId: z.string().uuid(),
 });
 
 export const POST = withAuth(async (req, { userId }) => {
-  const rl = rateLimit(`friend-request:${userId}`, { limit: 20, windowMs: 3600_000 });
+  const rl = rateLimit(`friend-request:${userId}`, SEND_REQUEST_RATE_LIMIT);
   if (!rl.success) {
-    return jsonError('Too many requests', 429);
+    return jsonError(TOO_MANY_REQUESTS, 429);
   }
 
   const { data, error } = await parseBody(req, postSchema);
@@ -43,7 +48,7 @@ export const POST = withAuth(async (req, { userId }) => {
   }
 
   if (await isFriendCapReached(userId)) {
-    return jsonError('Friends list full (max 50)', 409);
+    return jsonError(`Friends list full (max ${MAX_FRIENDS})`, 409);
   }
 
   const existing = await getExistingRequest(userId, receiverId);
@@ -56,8 +61,7 @@ export const POST = withAuth(async (req, { userId }) => {
     }
     if (existing.status === 'declined') {
       const updatedAt = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-      const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-      if (updatedAt > sevenDaysAgo) {
+      if (updatedAt > Date.now() - RESEND_COOLDOWN_MS) {
         return jsonError('Cannot re-send yet, please wait', 429);
       }
       await db.delete(friendRequests).where(eq(friendRequests.id, existing.id));

@@ -5,10 +5,11 @@ import { create } from 'zustand';
 import { useSession } from 'next-auth/react';
 import type { SubscriptionTier, SubscriptionStatus } from '@/lib/subscription';
 import { getTierFeatures, type Feature } from '@/lib/pricing';
+import { resolveActiveTier } from '@/lib/store-helpers';
 
 // ─── Subscription Store ─────────────────────────────────────────
 
-interface SubscriptionState {
+export interface SubscriptionState {
   tier: SubscriptionTier;
   status: SubscriptionStatus;
   billingInterval: string | null;
@@ -116,8 +117,7 @@ export function useSubscription() {
   }, [authStatus, fetchSub]);
 
   // In dev mode, allow overriding the tier for testing
-  const isDev = process.env.NODE_ENV === 'development';
-  const activeTier = isDev && debugTierOverride ? debugTierOverride : tier;
+  const activeTier = resolveActiveTier(tier, debugTierOverride);
 
   const isTrialingStatus = status === 'trialing';
   const isTrialActive = isTrialingStatus && !!trialEnd && new Date(trialEnd) > new Date();

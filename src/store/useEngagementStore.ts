@@ -6,21 +6,12 @@ import { useShallow } from 'zustand/react/shallow';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import type {
   EngagementState,
-  GemsState,
-  GemTransaction,
-  LeagueState,
-  LeagueCompetitor,
-  StreakEnhancements,
-  ComebackState,
-  DailyRewardCalendarState,
-  NudgeState,
   Quest,
   QuestTrackingKey,
   NudgeType,
 } from '@/data/engagement-types';
 import {
   MAX_STREAK_FREEZES,
-  MAX_GEM_TRANSACTIONS_CLIENT,
   DOUBLE_XP_SHOP_DURATION_MS,
   COMEBACK_THRESHOLD_DAYS,
 } from '@/data/engagement-types';
@@ -36,7 +27,6 @@ import { LEAGUE_GEM_REWARD_PROMOTION } from '@/data/league';
 import {
   selectDailyQuests,
   selectWeeklyQuests,
-  createQuests,
   getCommitmentScale,
   getTodayDate,
   getCurrentWeekMonday,
@@ -56,10 +46,17 @@ import { useStore } from '@/store/useStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import {
   getDefaultState,
+  getPersistedEngagementKeys,
   grantInventoryItem,
-  createGemTransaction,
+  deductGems,
+  applyGemDelta,
+  daysBetweenDateKeys,
   progressQuests,
+  rollQuestCycle,
 } from '@/lib/engagement-store-utils';
+import { mapLeagueCompetitors, toLeagueTier, type LeagueResponse } from '@/lib/league-sync';
+import { makePostOpts, timezoneHeaders } from '@/lib/db-sync/utils';
+import { getYesterdayString } from '@/lib/utils';
 
 
 // --------------- Inventory Helpers (Export/Re-export from utils) ---------------
@@ -78,6 +75,32 @@ export function grantFrame(frameId: string): void {
     const updated = grantInventoryItem(s.gems, 'frame', frameId);
     return updated === s.gems ? {} : { gems: updated };
   });
+}
+
+/** Quest difficulty scale derived from the user's daily-minutes commitment. */
+function getQuestScale(): number {
+  const { activeProfession, progress } = useCourseStore.getState();
+  return getCommitmentScale(progress.courseIntros?.[activeProfession]?.dailyMinutes);
+}
+
+/**
+ * Apply a `/api/league` roster to the store, but only while the store is still
+ * on the week the request was made for (guards against a late response
+ * overwriting a newer week).
+ */
+function applyServerLeague(data: LeagueResponse | null, weekStart: string): void {
+  const competitors = mapLeagueCompetitors(data);
+  if (!competitors) return;
+  if (useEngagementStore.getState().league.weekStartDate !== weekStart) return;
+
+  const serverTier = toLeagueTier(data?.tier);
+  useEngagementStore.setState((s) => ({
+    league: {
+      ...s.league,
+      competitors,
+      ...(serverTier ? { currentTier: serverTier } : {}),
+    },
+  }));
 }
 
 // --------------- Store Actions Interface ---------------
@@ -130,17 +153,15 @@ export const useEngagementStore = create<EngagementStore>()(
           const { dailyQuestDate, dailyQuests, lastDailyQuestIds, streak } = get();
           if (dailyQuestDate === today) return; // same day, no-op
 
-          const previousIds = dailyQuests.map((q) => q.definitionId);
-          const newDefs = selectDailyQuests(previousIds.length > 0 ? previousIds : lastDailyQuestIds);
-          const { activeProfession, progress: courseProgress } = useCourseStore.getState();
-          const scale = getCommitmentScale(courseProgress.courseIntros?.[activeProfession]?.dailyMinutes);
-          const newQuests = createQuests(newDefs, 'daily', scale);
+          const roll = rollQuestCycle(
+            dailyQuests, lastDailyQuestIds, selectDailyQuests, 'daily', getQuestScale(),
+          );
 
           set({
-            dailyQuests: newQuests,
+            dailyQuests: roll.quests,
             dailyQuestDate: today,
             dailyChestClaimed: false,
-            lastDailyQuestIds: previousIds.length > 0 ? previousIds : lastDailyQuestIds,
+            lastDailyQuestIds: roll.previousIds,
             // Reset the freeze-used-today flag on new day
             streak: {
               ...streak,
@@ -155,17 +176,15 @@ export const useEngagementStore = create<EngagementStore>()(
           const { weeklyQuestDate, weeklyQuests, lastWeeklyQuestIds } = get();
           if (weeklyQuestDate === monday) return; // same week, no-op
 
-          const previousIds = weeklyQuests.map((q) => q.definitionId);
-          const newDefs = selectWeeklyQuests(previousIds.length > 0 ? previousIds : lastWeeklyQuestIds);
-          const { activeProfession: weeklyProf, progress: weeklyProgress } = useCourseStore.getState();
-          const weeklyScale = getCommitmentScale(weeklyProgress.courseIntros?.[weeklyProf]?.dailyMinutes);
-          const newQuests = createQuests(newDefs, 'weekly', weeklyScale);
+          const roll = rollQuestCycle(
+            weeklyQuests, lastWeeklyQuestIds, selectWeeklyQuests, 'weekly', getQuestScale(),
+          );
 
           set({
-            weeklyQuests: newQuests,
+            weeklyQuests: roll.quests,
             weeklyQuestDate: monday,
             weeklyChestClaimed: false,
-            lastWeeklyQuestIds: previousIds.length > 0 ? previousIds : lastWeeklyQuestIds,
+            lastWeeklyQuestIds: roll.previousIds,
           });
         },
 
@@ -205,11 +224,7 @@ export const useEngagementStore = create<EngagementStore>()(
           get().addGems(quest.reward.gems, 'quest_reward');
 
           // Server validates and marks claimed in DB (no gem insertion — engagement sync handles that)
-          fetch('/api/quests/claim', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone },
-            body: JSON.stringify({ questId, questType, questDate }),
-          }).catch(() => {
+          fetch('/api/quests/claim', makePostOpts({ questId, questType, questDate })).catch(() => {
             // Network error — optimistic update stands, reconciled on next hydration
           });
         },
@@ -256,17 +271,7 @@ export const useEngagementStore = create<EngagementStore>()(
               set((s) => {
                 if (s.gems.balance < item.cost) return s;
                 deducted = true;
-                return {
-                  ...s,
-                  gems: {
-                    ...s.gems,
-                    balance: s.gems.balance - item.cost,
-                    transactions: [
-                      createGemTransaction(-item.cost, 'shop_purchase'),
-                      ...s.gems.transactions,
-                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                  },
-                };
+                return { ...s, gems: deductGems(s.gems, item.cost, 'shop_purchase') };
               });
               if (!deducted) return false;
               // Add hearts
@@ -284,14 +289,7 @@ export const useEngagementStore = create<EngagementStore>()(
                 deducted = true;
                 return {
                   ...s,
-                  gems: {
-                    ...s.gems,
-                    balance: s.gems.balance - item.cost,
-                    transactions: [
-                      createGemTransaction(-item.cost, 'shop_purchase'),
-                      ...s.gems.transactions,
-                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                  },
+                  gems: deductGems(s.gems, item.cost, 'shop_purchase'),
                   streak: {
                     ...s.streak,
                     freezesOwned: s.streak.freezesOwned + 1,
@@ -312,14 +310,7 @@ export const useEngagementStore = create<EngagementStore>()(
                 deducted = true;
                 return {
                   ...s,
-                  gems: {
-                    ...s.gems,
-                    balance: s.gems.balance - item.cost,
-                    transactions: [
-                      createGemTransaction(-item.cost, 'shop_purchase'),
-                      ...s.gems.transactions,
-                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-                  },
+                  gems: deductGems(s.gems, item.cost, 'shop_purchase'),
                   doubleXpExpiry: new Date(Date.now() + DOUBLE_XP_SHOP_DURATION_MS).toISOString(),
                 };
               });
@@ -327,8 +318,9 @@ export const useEngagementStore = create<EngagementStore>()(
             }
             case 'title':
             case 'frame': {
-              const invKey = item.type === 'title' ? 'activeTitles' : 'activeFrames';
-              const equipKey = item.type === 'title' ? 'selectedTitle' : 'selectedFrame';
+              const cosmeticType = item.type;
+              const invKey = cosmeticType === 'title' ? 'activeTitles' : 'activeFrames';
+              const equipKey = cosmeticType === 'title' ? 'selectedTitle' : 'selectedFrame';
               // Balance check, ownership check, and inventory grant happen atomically inside set()
               let deducted = false;
               set((s) => {
@@ -338,12 +330,7 @@ export const useEngagementStore = create<EngagementStore>()(
                 return {
                   ...s,
                   gems: {
-                    ...grantInventoryItem(s.gems, item.type as 'title' | 'frame', itemId),
-                    balance: s.gems.balance - item.cost,
-                    transactions: [
-                      createGemTransaction(-item.cost, 'shop_purchase'),
-                      ...s.gems.transactions,
-                    ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
+                    ...deductGems(grantInventoryItem(s.gems, cosmeticType, itemId), item.cost, 'shop_purchase'),
                     [equipKey]: itemId, // auto-equip on purchase
                   },
                 };
@@ -390,14 +377,7 @@ export const useEngagementStore = create<EngagementStore>()(
             if (s.gems.balance < repairCost) return {};
             deducted = true;
             return {
-              gems: {
-                ...s.gems,
-                balance: s.gems.balance - repairCost,
-                transactions: [
-                  createGemTransaction(-repairCost, 'streak_repair'),
-                  ...s.gems.transactions,
-                ].slice(0, MAX_GEM_TRANSACTIONS_CLIENT),
-              },
+              gems: deductGems(s.gems, repairCost, 'streak_repair'),
               streak: {
                 ...s.streak,
                 repairAvailable: false,
@@ -409,9 +389,7 @@ export const useEngagementStore = create<EngagementStore>()(
           // Restore the streak in both progress stores (practice + course)
           if (previousStreak > 0) {
             // Set lastActiveDate to yesterday so next session continues the streak
-            const yesterdayD = new Date();
-            yesterdayD.setDate(yesterdayD.getDate() - 1);
-            const yesterdayStr = `${yesterdayD.getFullYear()}-${String(yesterdayD.getMonth() + 1).padStart(2, '0')}-${String(yesterdayD.getDate()).padStart(2, '0')}`;
+            const yesterdayStr = getYesterdayString();
 
             useStore.setState((s) => ({
               progress: {
@@ -509,21 +487,7 @@ export const useEngagementStore = create<EngagementStore>()(
                 5: 'reward-frame-league-masters',
               };
               const frameId = leagueFrameMap[result.newTier];
-              if (frameId) {
-                set((s) => {
-                  const frames = s.gems.inventory.activeFrames;
-                  if (frames.includes(frameId)) return {};
-                  return {
-                    gems: {
-                      ...s.gems,
-                      inventory: {
-                        ...s.gems.inventory,
-                        activeFrames: [...frames, frameId],
-                      },
-                    },
-                  };
-                });
-              }
+              if (frameId) grantFrame(frameId);
             }
 
             // Server sync: join league group and fetch real leaderboard
@@ -533,34 +497,7 @@ export const useEngagementStore = create<EngagementStore>()(
               body: JSON.stringify({ tier: result.newTier, weekStart: monday, weeklyXp: 0 }),
             })
               .then((r) => r.ok ? r.json() : null)
-              .then((data) => {
-                if (!data?.members) return;
-                const reqUserId = data.requestingUserId;
-                const serverCompetitors: LeagueCompetitor[] = data.members
-                  .filter((m: any) => !(m.isReal && m.userId === reqUserId))
-                  .map((m: any) => ({
-                    id: m.isReal ? m.userId : (m.fakeUserId || m.id),
-                    name: m.displayName,
-                    avatarInitial: m.avatarInitial,
-                    countryFlag: m.countryFlag || '',
-                    weeklyXp: m.weeklyXp,
-                    dailyXpRate: m.dailyXpRate ?? 0,
-                    variance: m.variance ?? 0,
-                    fakeUserId: m.isReal ? undefined : m.fakeUserId,
-                    frameStyle: m.frameStyle,
-                    realUserId: m.isReal ? m.userId : undefined,
-                  }));
-                if (get().league.weekStartDate === monday) {
-                  const serverTier = (data.tier >= 1 && data.tier <= 5) ? data.tier as 1|2|3|4|5 : undefined;
-                  set((s) => ({
-                    league: {
-                      ...s.league,
-                      competitors: serverCompetitors,
-                      ...(serverTier ? { currentTier: serverTier } : {}),
-                    },
-                  }));
-                }
-              })
+              .then((data) => applyServerLeague(data, monday))
               .catch(() => { /* silent - local fallback continues working */ });
           } else {
             // Same week - re-simulate competitor XP locally
@@ -578,34 +515,7 @@ export const useEngagementStore = create<EngagementStore>()(
             // Also refresh from server for real user XP updates
             fetch(`/api/league?weekStart=${monday}`)
               .then((r) => r.ok ? r.json() : null)
-              .then((data) => {
-                if (!data?.members) return;
-                const reqUserId = data.requestingUserId;
-                const serverCompetitors: LeagueCompetitor[] = data.members
-                  .filter((m: any) => !(m.isReal && m.userId === reqUserId))
-                  .map((m: any) => ({
-                    id: m.isReal ? m.userId : (m.fakeUserId || m.id),
-                    name: m.displayName,
-                    avatarInitial: m.avatarInitial,
-                    countryFlag: m.countryFlag || '',
-                    weeklyXp: m.weeklyXp,
-                    dailyXpRate: m.dailyXpRate ?? 0,
-                    variance: m.variance ?? 0,
-                    fakeUserId: m.isReal ? undefined : m.fakeUserId,
-                    frameStyle: m.frameStyle,
-                    realUserId: m.isReal ? m.userId : undefined,
-                  }));
-                if (get().league.weekStartDate === monday) {
-                  const serverTier = (data.tier >= 1 && data.tier <= 5) ? data.tier as 1|2|3|4|5 : undefined;
-                  set((s) => ({
-                    league: {
-                      ...s.league,
-                      competitors: serverCompetitors,
-                      ...(serverTier ? { currentTier: serverTier } : {}),
-                    },
-                  }));
-                }
-              })
+              .then((data) => applyServerLeague(data, monday))
               .catch(() => {});
           }
         },
@@ -650,11 +560,7 @@ export const useEngagementStore = create<EngagementStore>()(
           // and hasn't completed a new session since (lastActiveDate unchanged)
           if (state.comeback.lastDismissedDate && state.comeback.lastDismissedDate >= lastActiveDate) return;
 
-          const lastActive = new Date(lastActiveDate + 'T00:00:00Z');
-          const today = new Date(getTodayDate() + 'T00:00:00Z');
-          const daysDiff = Math.floor(
-            (today.getTime() - lastActive.getTime()) / (1000 * 60 * 60 * 24),
-          );
+          const daysDiff = daysBetweenDateKeys(lastActiveDate, getTodayDate());
 
           if (daysDiff >= COMEBACK_THRESHOLD_DAYS) {
             set({
@@ -691,11 +597,7 @@ export const useEngagementStore = create<EngagementStore>()(
           const courseTotalXp = useCourseStore.getState().progress.totalXp;
           if (practiceTotalXp === 0 && courseTotalXp === 0) return;
 
-          const lastActive = new Date(lastActiveDate + 'T00:00:00Z');
-          const todayD = new Date(today + 'T00:00:00Z');
-          const daysMissed = Math.floor(
-            (todayD.getTime() - lastActive.getTime()) / (1000 * 60 * 60 * 24),
-          );
+          const daysMissed = daysBetweenDateKeys(lastActiveDate, today);
 
           if (daysMissed === 1 && state.nudge.lastDay1NudgeDate !== today) {
             set({
@@ -727,25 +629,7 @@ export const useEngagementStore = create<EngagementStore>()(
 
         // === Action 15: addGems ===
         addGems: (amount, source) => {
-          set((state) => {
-            // Prevent balance from going negative
-            const newBalance = Math.max(0, state.gems.balance + amount);
-            const transaction = createGemTransaction(amount, source);
-            const updatedTransactions = [transaction, ...state.gems.transactions].slice(
-              0,
-              MAX_GEM_TRANSACTIONS_CLIENT,
-            );
-
-            return {
-              gems: {
-                ...state.gems,
-                balance: newBalance,
-                // Only count positive amounts toward lifetime earned total
-                totalEarned: state.gems.totalEarned + Math.max(0, amount),
-                transactions: updatedTransactions,
-              },
-            };
-          });
+          set((state) => ({ gems: applyGemDelta(state.gems, amount, source) }));
         },
 
         // === Action 16: completeComebackQuest ===
@@ -810,11 +694,7 @@ export const useEngagementStore = create<EngagementStore>()(
           // New day: reset todayClaimed flag
           if (cal.lastClaimDate && cal.lastClaimDate !== today) {
             // Check if user missed a day (broke the streak)
-            const lastClaim = new Date(cal.lastClaimDate + 'T00:00:00Z');
-            const todayD = new Date(today + 'T00:00:00Z');
-            const daysSinceLastClaim = Math.floor(
-              (todayD.getTime() - lastClaim.getTime()) / (1000 * 60 * 60 * 24),
-            );
+            const daysSinceLastClaim = daysBetweenDateKeys(cal.lastClaimDate, today);
 
             if (daysSinceLastClaim === 1) {
               // Consecutive day — advance to next day in cycle
@@ -898,21 +778,7 @@ export const useEngagementStore = create<EngagementStore>()(
                 get().activateDoubleXp(mystery.durationMs!);
                 break;
               case 'frame':
-                if (mystery.itemId) {
-                  set((s) => {
-                    const frames = s.gems.inventory.activeFrames;
-                    if (frames.includes(mystery!.itemId!)) return {};
-                    return {
-                      gems: {
-                        ...s.gems,
-                        inventory: {
-                          ...s.gems.inventory,
-                          activeFrames: [...frames, mystery!.itemId!],
-                        },
-                      },
-                    };
-                  });
-                }
+                if (mystery.itemId) grantFrame(mystery.itemId);
                 break;
             }
           }
@@ -944,7 +810,7 @@ export const useEngagementStore = create<EngagementStore>()(
           // Validate with server in the background
           fetch('/api/daily-reward/claim', {
             method: 'POST',
-            headers: { 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone },
+            headers: timezoneHeaders(),
           }).catch(() => {
             // Network error — keep optimistic update, will reconcile on next hydration
           });
@@ -993,36 +859,11 @@ export const useEngagementStore = create<EngagementStore>()(
           useEngagementStore.setState({ _hasHydrated: true });
         },
         partialize: (state) => {
-          // Persist all state fields, excluding action functions
-          const {
-            initDailyQuests: _1,
-            initWeeklyQuests: _2,
-            updateQuestProgress: _3,
-            claimQuestReward: _4,
-            claimChest: _5,
-            purchaseItem: _6,
-            useStreakFreeze: _7,
-            repairStreak: _8,
-            recordStreakBreak: _9,
-            simulateLeagueWeek: _10,
-            updateLeagueXp: _11,
-            checkComebackFlow: _12,
-            checkNudges: _12b,
-            dismissNudge: _13,
-            activateDoubleXp: _14,
-            addGems: _15,
-            completeComebackQuest: _16,
-            equipTitle: _17,
-            equipFrame: _18,
-            checkDailyRewardCalendar: _21,
-            claimDailyReward: _22,
-            debugSetFromCourse: _19,
-            debugSetLeagueTier: _20,
-            addMistake: _23,
-            removeMistakes: _24,
-            _hasHydrated: _25,
-            ...stateOnly
-          } = state;
+          // Persist all state fields, excluding action functions and the hydration flag
+          const stateOnly: Partial<EngagementState> = {};
+          for (const key of getPersistedEngagementKeys()) {
+            Object.assign(stateOnly, { [key]: state[key] });
+          }
           return stateOnly;
         },
         merge: (persistedState, currentState) => {

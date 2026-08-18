@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
@@ -16,41 +16,25 @@ import {
   friendQuests,
   pushSubscriptions,
 } from '@/lib/db/schema';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { parseBody, jsonOk, rateLimited, INVALID_CONFIRMATION } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 const resetProgressSchema = z.object({
   confirmation: z.literal('RESET MY PROGRESS'),
 });
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export const POST = withAuth(async (request, { userId }): Promise<NextResponse> => {
   const rl = rateLimit(`reset-progress:${userId}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, {
-      status: 429,
-      headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() },
-    });
+    return rateLimited(rl.resetAt);
   }
 
   // Require the confirmation phrase in the body
-  let rawBody: unknown;
-  try {
-    rawBody = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
-  const parsed = resetProgressSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid confirmation phrase' },
-      { status: 400 }
-    );
-  }
+  const { error } = await parseBody(request, resetProgressSchema, {
+    invalidInput: INVALID_CONFIRMATION,
+  });
+  if (error) return error;
 
   // Wipe all progress tables for this user atomically
   await db.transaction(async (tx) => {
@@ -70,5 +54,5 @@ export async function POST(request: NextRequest) {
     ]);
   });
 
-  return NextResponse.json({ ok: true });
-}
+  return jsonOk({ ok: true });
+});

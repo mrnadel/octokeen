@@ -1,20 +1,17 @@
-import { NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { changePasswordSchema, getValidationError } from '@/lib/validation';
-import { withAuth, jsonOk, jsonError } from '@/lib/api-helpers';
+import { hashPassword, verifyPassword } from '@/lib/api/passwords';
+import { jsonOk, jsonError, rateLimited, TOO_MANY_REQUESTS_RETRY } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
 export const POST = withAuth(async (request, { userId }) => {
   // Rate limit by user ID
   const rl = rateLimit(`change-password:${userId}`, RATE_LIMITS.auth);
   if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: { 'Retry-After': Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000).toString() } }
-    );
+    return rateLimited(rl.resetAt, TOO_MANY_REQUESTS_RETRY);
   }
 
   let body: unknown;
@@ -25,10 +22,7 @@ export const POST = withAuth(async (request, { userId }) => {
   }
   const parsed = changePasswordSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: getValidationError(parsed) },
-      { status: 400 }
-    );
+    return jsonError(getValidationError(parsed) ?? 'Invalid input', 400);
   }
 
   const { currentPassword, newPassword } = parsed.data;
@@ -43,12 +37,12 @@ export const POST = withAuth(async (request, { userId }) => {
     return jsonError('Password change not available for this account', 400);
   }
 
-  const isValid = await bcrypt.compare(currentPassword, user.passwordHash);
+  const isValid = await verifyPassword(currentPassword, user.passwordHash);
   if (!isValid) {
     return jsonError('Current password is incorrect', 400);
   }
 
-  const newHash = await bcrypt.hash(newPassword, 12);
+  const newHash = await hashPassword(newPassword);
   await db
     .update(users)
     .set({ passwordHash: newHash, updatedAt: new Date() })

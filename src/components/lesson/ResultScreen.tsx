@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Target } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
-import { getLessonByIdMeta } from '@/data/course/course-meta';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { useEngagementActions } from '@/store/useEngagementStore';
 import { TrialPromptModal } from '@/components/ui/TrialPromptModal';
@@ -13,10 +12,17 @@ import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import type { FXName } from '@/components/ui/ScreenFX';
 import { playSound } from '@/lib/sounds';
-import { reportFriendQuestProgress } from '@/hooks/useFriendQuestSync';
-import { useAdManager } from '@/components/ads/useAdManager';
+import { useCompletionAdGate } from '@/components/ads/useCompletionAdGate';
 import { InterstitialAd } from '@/components/ads/InterstitialAd';
 import { CharacterAvatar } from '@/components/ui/CharacterAvatar';
+import { creditAccuracyQuests, reportCompletionToFriendQuests } from './shared/completion-quests';
+import { useDelayedContinueKey } from './shared/useDelayedContinueKey';
+import { ResultStatCard } from './shared/ResultStatCard';
+
+/** Stars awarded for a flawless lesson. */
+const MAX_STARS = 3;
+/** Gem bonus for three-starring a lesson on the first attempt. */
+const THREE_STAR_FIRST_TIME_GEMS = 10;
 
 export { ResultScreen };
 export default function ResultScreen() {
@@ -24,10 +30,8 @@ export default function ResultScreen() {
   const dismissResult = useCourseStore((s) => s.dismissResult);
   const { updateQuestProgress, updateLeagueXp, addGems } = useEngagementActions();
   const engagementTracked = useRef(false);
-  const adTracked = useRef(false);
-  const [showingAd, setShowingAd] = useState(false);
-  const { shouldShowAd, recordCompletion, recordAdShown } = useAdManager();
   const [resultCharacter, setResultCharacter] = useState<{ id: string; name: string; line: string } | null>(null);
+  const { showingAd, requestDismiss: handleDismiss, closeAd } = useCompletionAdGate(dismissResult, !!lessonResult);
 
   useEffect(() => {
     (async () => {
@@ -56,34 +60,8 @@ export default function ResultScreen() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Record completion for ad frequency tracking (once per result)
-  useEffect(() => {
-    if (!lessonResult || adTracked.current) return;
-    adTracked.current = true;
-    recordCompletion();
-  }, [lessonResult, recordCompletion]);
-
-  const handleDismiss = useCallback(() => {
-    if (shouldShowAd) {
-      setShowingAd(true);
-      recordAdShown();
-    } else {
-      dismissResult();
-    }
-  }, [shouldShowAd, recordAdShown, dismissResult]);
-
   useBackHandler(!!lessonResult, handleDismiss);
-
-  const lessonInfo = lessonResult ? getLessonByIdMeta(lessonResult.lessonId) : null;
-
-  useEffect(() => {
-    if (!lessonResult) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleDismiss(); }
-    };
-    const timer = setTimeout(() => window.addEventListener('keydown', handleKeyDown), 500);
-    return () => { clearTimeout(timer); window.removeEventListener('keydown', handleKeyDown); };
-  }, [lessonResult, handleDismiss]);
+  useDelayedContinueKey(handleDismiss, !!lessonResult);
 
   // Sound on mount
   useEffect(() => {
@@ -98,22 +76,20 @@ export default function ResultScreen() {
     updateQuestProgress('xp_earned', lessonResult.xpEarned);
     if (lessonResult.passed) {
       updateQuestProgress('lessons_completed', 1);
-      if (lessonResult.accuracy >= 90) updateQuestProgress('accuracy_above_threshold', 1, { threshold: 0.9 });
-      if (lessonResult.accuracy >= 80) updateQuestProgress('accuracy_above_threshold', 1, { threshold: 0.8 });
-      if (lessonResult.accuracy === 100 && lessonResult.totalQuestions >= 3) updateQuestProgress('perfect_sessions', 1);
-      if (lessonResult.stars === 3) updateQuestProgress('stars_earned', 1);
-      updateQuestProgress('topics_practiced', 1);
-      if (lessonResult.isFirstCompletion && lessonResult.stars === 3) addGems(10, '3_star_first_time');
+      creditAccuracyQuests(updateQuestProgress, {
+        accuracy: lessonResult.accuracy,
+        questionCount: lessonResult.totalQuestions,
+      });
+      if (lessonResult.stars === MAX_STARS) updateQuestProgress('stars_earned', 1);
+      if (lessonResult.isFirstCompletion && lessonResult.stars === MAX_STARS) {
+        addGems(THREE_STAR_FIRST_TIME_GEMS, '3_star_first_time');
+      }
     }
-    // Report to friend quest progress API (fire-and-forget)
-    const friendEvents: Array<{ event: 'xp_earned' | 'lesson_completed' | 'accuracy_report'; value: number }> = [
-      { event: 'xp_earned', value: lessonResult.xpEarned },
-    ];
-    if (lessonResult.passed) {
-      friendEvents.push({ event: 'lesson_completed', value: 1 });
-      friendEvents.push({ event: 'accuracy_report', value: lessonResult.accuracy });
-    }
-    reportFriendQuestProgress(friendEvents);
+    reportCompletionToFriendQuests({
+      xpEarned: lessonResult.xpEarned,
+      accuracy: lessonResult.accuracy,
+      completed: lessonResult.passed,
+    });
   }, [lessonResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!lessonResult) return null;
@@ -199,23 +175,12 @@ export default function ResultScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {/* XP card */}
-          <motion.div
-            className="flex-1 rounded-2xl overflow-hidden"
-            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
-            aria-label={`Total XP: ${lessonResult.xpEarned}`}
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.55, type: 'spring', stiffness: 300, damping: 20 }}
+          <ResultStatCard
+            header="Total XP"
+            from="left"
+            delay={0.55}
+            ariaLabel={`Total XP: ${lessonResult.xpEarned}`}
           >
-            <div
-              className="py-1.5 text-center"
-              style={{ background: 'rgba(255,255,255,0.25)' }}
-            >
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">
-                Total XP
-              </span>
-            </div>
             <div className="py-4 flex flex-col items-center justify-center gap-1">
               <div className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-white" fill="currentColor" />
@@ -239,32 +204,21 @@ export default function ResultScreen() {
                 </motion.div>
               )}
             </div>
-          </motion.div>
+          </ResultStatCard>
 
-          {/* Accuracy card */}
-          <motion.div
-            className="flex-1 rounded-2xl overflow-hidden"
-            style={{ border: '3px solid rgba(255,255,255,0.3)' }}
-            aria-label={`Accuracy: ${lessonResult.accuracy}%, ${getAccuracyLabel()}`}
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 20 }}
+          <ResultStatCard
+            header={getAccuracyLabel()}
+            from="right"
+            delay={0.6}
+            ariaLabel={`Accuracy: ${lessonResult.accuracy}%, ${getAccuracyLabel()}`}
           >
-            <div
-              className="py-1.5 text-center"
-              style={{ background: 'rgba(255,255,255,0.25)' }}
-            >
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white">
-                {getAccuracyLabel()}
-              </span>
-            </div>
             <div className="py-4 flex items-center justify-center gap-2">
               <Target className="w-5 h-5 text-white" />
               <span className="text-[26px] font-extrabold text-white">
                 {lessonResult.accuracy}%
               </span>
             </div>
-          </motion.div>
+          </ResultStatCard>
         </motion.div>
 
         {resultCharacter && (
@@ -290,10 +244,7 @@ export default function ResultScreen() {
         )}
       </FullScreenModal>
       {lessonResult.isFirstCompletion && lessonResult.passed && <TrialPromptModal />}
-      <InterstitialAd
-        show={showingAd}
-        onClose={() => { setShowingAd(false); dismissResult(); }}
-      />
+      <InterstitialAd show={showingAd} onClose={closeAd} />
     </>
   );
 }

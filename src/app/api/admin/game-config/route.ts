@@ -1,13 +1,15 @@
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { gameConfig } from '@/lib/db/schema';
-import { withAdminAuth, parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 import { asc, eq, and } from 'drizzle-orm';
+import { configValueSchema } from './schemas';
 
 const upsertSchema = z.object({
   category: z.string().min(1),
   key: z.string().min(1),
-  value: z.unknown().refine(v => v !== null && v !== undefined, { message: 'value must not be null' }),
+  value: configValueSchema,
   description: z.string().optional(),
   minValue: z.number().optional(),
   maxValue: z.number().optional(),

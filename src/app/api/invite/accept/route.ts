@@ -1,33 +1,31 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { getAuthUserId } from '@/lib/auth-utils';
+import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, friendships } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { areFriends, sortFriendPair, countFriends } from '@/lib/db/friends';
+import { areFriends, sortFriendPair, countFriends, MAX_FRIENDS } from '@/lib/db/friends';
+import { isUniqueViolation } from '@/lib/db/errors';
 import { rateLimit } from '@/lib/rate-limit';
+import { jsonOk, jsonError, TOO_MANY_REQUESTS } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
+import { INVITE_REF_COOKIE } from '@/lib/api/cookies';
 
-const MAX_FRIENDS = 50;
+const ACCEPT_RATE_LIMIT = { limit: 5, windowMs: 3600_000 };
 
-export async function POST() {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const rl = rateLimit(`invite-accept:${userId}`, { limit: 5, windowMs: 3600_000 });
+export const POST = withAuth(async (_req, { userId }): Promise<NextResponse> => {
+  const rl = rateLimit(`invite-accept:${userId}`, ACCEPT_RATE_LIMIT);
   if (!rl.success) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return jsonError(TOO_MANY_REQUESTS, 429);
   }
 
   const cookieStore = await cookies();
-  const inviterId = cookieStore.get('invite_ref')?.value;
+  const inviterId = cookieStore.get(INVITE_REF_COOKIE)?.value;
 
   if (!inviterId) {
-    return NextResponse.json({ error: 'No invite found' }, { status: 400 });
+    return jsonError('No invite found', 400);
   }
 
-  cookieStore.delete('invite_ref');
+  cookieStore.delete(INVITE_REF_COOKIE);
 
   const [inviter] = await db
     .select({ id: users.id, displayName: users.displayName })
@@ -36,15 +34,15 @@ export async function POST() {
     .limit(1);
 
   if (!inviter) {
-    return NextResponse.json({ error: 'Inviter not found' }, { status: 404 });
+    return jsonError('Inviter not found', 404);
   }
 
   if (inviterId === userId) {
-    return NextResponse.json({ error: 'Cannot add yourself' }, { status: 400 });
+    return jsonError('Cannot add yourself', 400);
   }
 
   if (await areFriends(userId, inviterId)) {
-    return NextResponse.json({ already: true, name: inviter.displayName });
+    return jsonOk({ already: true, name: inviter.displayName });
   }
 
   const [userCount, inviterCount] = await Promise.all([
@@ -53,21 +51,21 @@ export async function POST() {
   ]);
 
   if (userCount >= MAX_FRIENDS) {
-    return NextResponse.json({ error: 'Your friends list is full' }, { status: 409 });
+    return jsonError('Your friends list is full', 409);
   }
   if (inviterCount >= MAX_FRIENDS) {
-    return NextResponse.json({ error: "Inviter's friends list is full" }, { status: 409 });
+    return jsonError("Inviter's friends list is full", 409);
   }
 
   const [low, high] = sortFriendPair(userId, inviterId);
   try {
     await db.insert(friendships).values({ userId: low, friendId: high });
-  } catch (err: any) {
-    if (err?.code === '23505') {
-      return NextResponse.json({ already: true, name: inviter.displayName });
+  } catch (err) {
+    if (isUniqueViolation(err)) {
+      return jsonOk({ already: true, name: inviter.displayName });
     }
     throw err;
   }
 
-  return NextResponse.json({ success: true, name: inviter.displayName });
-}
+  return jsonOk({ success: true, name: inviter.displayName });
+});

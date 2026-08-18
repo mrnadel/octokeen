@@ -6,48 +6,42 @@ import { useCourseStore } from '@/store/useCourseStore';
 import { useLessonColors, LESSON_ACCENT } from '@/lib/lessonColors';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { useScrollLock } from '@/hooks/useScrollLock';
-import LessonProgressBar from './LessonProgressBar';
-import QuestionCard from './QuestionCard';
 import type { QuestionCardHandle } from './QuestionCard';
 import TeachingCard from './TeachingCard';
-import SortBucketsCard from './SortBucketsCard';
-import MatchPairsCard from './MatchPairsCard';
-import OrderStepsCard from './OrderStepsCard';
-import MultiSelectCard from './MultiSelectCard';
-import SliderEstimateCard from './SliderEstimateCard';
-import ScenarioCard from './ScenarioCard';
-import CategorySwipeCard from './CategorySwipeCard';
-import RankOrderCard from './RankOrderCard';
-import PickTheBestCard from './PickTheBestCard';
-import ImageTapCard from './ImageTapCard';
-import ConversationView from './types/ConversationView';
-import SpeedRoundView from './types/SpeedRoundView';
-import TimelineView from './types/TimelineView';
-import CaseStudyView from './types/CaseStudyView';
-import FlagButton from '@/components/feedback/FlagButton';
+import { QuestionRenderer } from './shared/QuestionRenderer';
+import { LessonTypeSwitch } from './types/LessonTypeSwitch';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { useDoubleXpActive } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { playSound } from '@/lib/sounds';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { PROFESSION_ID } from '@/data/professions';
-import { HeartDisplay } from '@/components/ui/HeartDisplay';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
-import { GameButton } from '@/components/ui/GameButton';
 import type { CourseQuestion } from '@/data/course/types';
 import type { ContentFeedbackType } from '@/data/types';
-import { GlossaryText } from '@/components/ui/GlossaryText';
 import { GlossaryProvider } from '@/components/lesson/GlossaryContext';
-import { useNarration } from '@/hooks/useNarration';
-import { AudioButton } from '@/components/ui/AudioButton';
 import { AdaptiveToast } from '@/components/lesson/AdaptiveToast';
 import { MicroCelebration } from '@/components/lesson/MicroCelebration';
 import { LessonExitConfirmModal } from './LessonExitConfirmModal';
 import { LessonCalculatorPanel } from './LessonCalculatorPanel';
+import { LessonTopBar } from './LessonTopBar';
+import { LessonDebugControls } from './LessonDebugControls';
+import { LessonCheckBar } from './LessonCheckBar';
+import { LessonAnswerFeedback } from './LessonAnswerFeedback';
+import { LessonHotkeyHint } from './LessonHotkeyHint';
+import { useLessonHotkeys } from './useLessonHotkeys';
+import { useLessonNarration } from './useLessonNarration';
 import { useLessonAdaptive } from '@/hooks/useLessonAdaptive';
 import { useLessonBackground } from '@/hooks/useLessonBackground';
 import { useLessonCelebration } from '@/hooks/useLessonCelebration';
 import { useLessonCharacter } from '@/hooks/useLessonCharacter';
+
+/** Courses whose lessons include calculation questions and get the in-lesson calculator. */
+const CALCULATOR_PROFESSIONS: readonly string[] = [
+  PROFESSION_ID.MECHANICAL_ENGINEERING,
+  PROFESSION_ID.PERSONAL_FINANCE,
+  PROFESSION_ID.SPACE_ASTRONOMY,
+];
 
 /**
  * Adapter for driving LessonView from an external data source (e.g. practice sessions).
@@ -90,12 +84,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const courseData = useCourseStore((s) => s.courseData);
   const activeProfession = useCourseStore((s) => s.activeProfession);
 
-  // Detect debug "all question types" lesson
-  const isDebugLesson = !adapter && activeLesson && courseData[activeLesson.unitIndex]?.id === 'debug-all-types';
-
   // === SHARED LOCAL STATE ===
   const [showExitConfirm, setShowExitConfirm] = useState(false);
-  const [showDebugMenu, setShowDebugMenu] = useState(false);
   const [hasSelection, setHasSelection] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
@@ -110,7 +100,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     celebration,
     correctStreak,
     milestoneGlow,
-    setCelebration,
     setCorrectStreak,
     triggerStreakCelebration,
     triggerHalfwayCelebration,
@@ -251,6 +240,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   const exitConfirmMessage = adapter ? adapter.exitConfirmMessage : 'Your progress on this lesson will be lost.';
   const isTeaching = currentQuestion?.type === 'teaching';
   const hasBackground = backgroundHtml !== null && isTeaching;
+  const hasCalculator = CALCULATOR_PROFESSIONS.includes(activeProfession);
 
   // === LESSON TYPE ===
   const lessonType = useMemo(() => {
@@ -319,35 +309,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   }, [hasHearts]);
 
   // === CALLBACKS ===
-  const getCorrectAnswerDisplay = useCallback((): string => {
-    if (!currentQuestion) return '';
-    switch (currentQuestion.type) {
-      case 'multiple-choice':
-        return currentQuestion.options?.[currentQuestion.correctIndex ?? 0] ?? '';
-      case 'true-false':
-        return currentQuestion.correctAnswer ? 'True' : 'False';
-      case 'fill-blank':
-        return currentQuestion.blanks?.join(', ') ?? currentQuestion.acceptedAnswers?.[0] ?? '';
-      case 'teaching':
-      case 'sort-buckets':
-      case 'match-pairs':
-      case 'order-steps':
-      case 'category-swipe':
-      case 'rank-order':
-      case 'image-tap':
-        return '';
-      case 'multi-select':
-        return (currentQuestion.correctIndices ?? []).map(i => currentQuestion.options?.[i]).filter(Boolean).join(', ');
-      case 'slider-estimate':
-        return `${currentQuestion.unit === '$' ? '$' : ''}${currentQuestion.correctValue?.toLocaleString() ?? ''}${currentQuestion.unit === '%' ? '%' : currentQuestion.unit && currentQuestion.unit !== '$' ? ` ${currentQuestion.unit}` : ''}`;
-      case 'scenario':
-      case 'pick-the-best':
-        return currentQuestion.options?.[currentQuestion.correctIndex ?? 0] ?? '';
-      default:
-        return '';
-    }
-  }, [currentQuestion]);
-
   const handleAnswer = useCallback(
     (correct: boolean, selectedOriginalIndex?: number) => {
       if (!currentQuestion) return;
@@ -492,93 +453,23 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
     }
   }, [adapter, currentQuestion, isLastQuestion, _submitAnswer, _completeLesson, _nextQuestion]);
 
-  // Global keyboard handler
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // If calculator has focus, let it handle its own keys
-      const activeEl = document.activeElement;
-      if (activeEl && activeEl.closest('[aria-label="Engineering calculator"]')) {
-        return;
-      }
+  const handleToggleCalculator = useCallback(() => {
+    setIsCalcOpen((open) => !open);
+  }, []);
 
-      const target = e.target as HTMLElement;
-      const isInInput =
-        (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') &&
-        !(target as HTMLInputElement).disabled;
-
-      if (showExitConfirm) {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          handleCancelExit();
-        }
-        return;
-      }
-
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        handleExitClick();
-        return;
-      }
-
-      // Backtick toggles calculator
-      if (e.key === '`') {
-        e.preventDefault();
-        setIsCalcOpen(c => !c);
-        return;
-      }
-
-      if (isInInput) return;
-
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (isTeaching) {
-          handleTeachingGotIt();
-        } else if (isCurrentAnswered) {
-          handleContinue();
-        } else if (hasSelection) {
-          handleCheck();
-        }
-        return;
-      }
-
-      if (!isCurrentAnswered) {
-        const key = e.key.toLowerCase();
-        const qType = questionRef.current?.questionType;
-
-        if (/^[1-9]$/.test(key)) {
-          const idx = parseInt(key) - 1;
-          if (qType === 'fill-blank') {
-            questionRef.current?.selectWord(idx);
-          } else if (qType === 'true-false') {
-            if (idx === 0) questionRef.current?.selectBool(true);
-            else if (idx === 1) questionRef.current?.selectBool(false);
-          } else {
-            questionRef.current?.selectOption(idx);
-          }
-        } else if (['a', 'b', 'c', 'd', 'e'].includes(key)) {
-          questionRef.current?.selectOption(key.charCodeAt(0) - 97);
-        } else if (key === 't') {
-          questionRef.current?.selectBool(true);
-        } else if (key === 'f') {
-          questionRef.current?.selectBool(false);
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [
+  useLessonHotkeys({
+    questionRef,
     showExitConfirm,
     isCurrentAnswered,
     isTeaching,
     hasSelection,
-    handleCheck,
-    handleContinue,
-    handleTeachingGotIt,
-    handleExitClick,
-    handleCancelExit,
-    isCalcOpen,
-  ]);
+    onCheck: handleCheck,
+    onContinue: handleContinue,
+    onTeachingGotIt: handleTeachingGotIt,
+    onExit: handleExitClick,
+    onCancelExit: handleCancelExit,
+    onToggleCalculator: handleToggleCalculator,
+  });
 
   const displayQuestion = currentQuestion;
 
@@ -598,42 +489,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   }, [lessonCharacter, charLines, celebration]);
 
   // === NARRATION (Kokoro TTS via Blob CDN, browser TTS fallback) ===
-  const { speakFromFile, speak: narrateText, stop: stopNarration } = useNarration();
   const currentLessonId = lessonData?.lesson.id ?? null;
-
-  // Narrate when card changes
-  useEffect(() => {
-    if (!displayQuestion) return;
-
-    if (currentLessonId) {
-      // Try pre-generated Kokoro audio from Blob, fall back to browser TTS
-      if (displayQuestion.type === 'teaching') {
-        speakFromFile(currentLessonId, displayQuestion.id, undefined, displayQuestion.explanation);
-      } else {
-        speakFromFile(currentLessonId, displayQuestion.id, 'q', displayQuestion.question);
-      }
-    } else {
-      // Practice mode — browser TTS only
-      const parts: string[] = [];
-      if (displayQuestion.question) parts.push(displayQuestion.question);
-      if (displayQuestion.type === 'teaching' && displayQuestion.explanation) parts.push(displayQuestion.explanation);
-      narrateText(parts.join('. '));
-    }
-
-    return () => stopNarration();
-  }, [displayQuestion?.id]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Narrate explanation when answer is revealed
-  useEffect(() => {
-    if (lastAnswerCorrect === null || !displayQuestion || displayQuestion.type === 'teaching') return;
-    if (!displayQuestion.explanation) return;
-
-    if (currentLessonId) {
-      speakFromFile(currentLessonId, displayQuestion.id, 'exp', displayQuestion.explanation);
-    } else {
-      narrateText(displayQuestion.explanation);
-    }
-  }, [lastAnswerCorrect, displayQuestion?.id]); // eslint-disable-line react-hooks-exhaustive-deps
+  useLessonNarration(displayQuestion, currentLessonId, lastAnswerCorrect);
 
   if (!displayQuestion && !isNonStandard) return null;
 
@@ -672,278 +529,41 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           className={`w-full h-full max-w-3xl flex flex-col lg:shadow-lg lg:border-x ${hasBackground ? 'lg:border-transparent' : 'lg:border-gray-200'}`}
           style={{ position: 'relative', background: hasBackground ? 'transparent' : undefined }}
         >
-        {/* Top bar */}
-        <div
-          className="flex items-center flex-shrink-0 z-20"
-          style={{
-            padding: '10px 16px',
-            gap: 12,
-            borderBottom: `2px solid ${c.headerBorder}`,
-            background: c.cardBg,
-            position: 'relative',
-            zIndex: 20,
-          }}
-        >
-          <button
-            onClick={handleExitClick}
-            className="flex-shrink-0 flex items-center justify-center transition-transform active:scale-90"
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              background: c.closeBtnBg,
-              border: 'none',
-              cursor: 'pointer',
-            }}
-            aria-label={exitLabel}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 4l8 8M12 4l-8 8" stroke={c.closeBtnStroke} strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
-          </button>
-
-          {isGolden && (
-            <div
-              className="flex-shrink-0 flex items-center golden-badge-shimmer"
-              style={{
-                gap: 4,
-                padding: '4px 10px',
-                borderRadius: 10,
-                color: '#8B6914',
-                fontWeight: 800,
-                fontSize: 11,
-                letterSpacing: 0.3,
-                textTransform: 'uppercase',
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                <defs>
-                  <linearGradient id="badgeCrownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFD54F" />
-                    <stop offset="50%" stopColor="#FFA000" />
-                    <stop offset="100%" stopColor="#FF8F00" />
-                  </linearGradient>
-                </defs>
-                <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill="url(#badgeCrownGrad)" />
-                <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill="url(#badgeCrownGrad)" />
-              </svg>
-              Golden
-            </div>
-          )}
-
-          <LessonProgressBar
-            current={resolvedAnsweredCount}
-            total={resolvedTotalQuestions}
-            color={isGolden ? '#FFB800' : unitColor}
-            glowing={adaptiveMode === 'cruising'}
-            milestoneGlow={milestoneGlow}
-          />
-
-          {/* Debug: prev/next for dev mode */}
-          {process.env.NODE_ENV === 'development' && activeLesson && (
-            <div style={{ display: 'flex', gap: 4 }}>
-              <button
-                onClick={() => {
-                  if (!activeLesson || activeLesson.currentQuestionIndex <= 0) return;
-                  useCourseStore.setState({
-                    activeLesson: { ...activeLesson, currentQuestionIndex: activeLesson.currentQuestionIndex - 1 },
-                  });
-                }}
-                disabled={activeLesson.currentQuestionIndex <= 0}
-                title="Previous question"
-                className="flex-shrink-0 transition-transform active:scale-90 disabled:opacity-30"
-                style={{
-                  width: 28, height: 28, borderRadius: 8,
-                  background: '#EDE9FE', border: '1px solid #C4B5FD',
-                  cursor: activeLesson.currentQuestionIndex > 0 ? 'pointer' : 'default',
-                  fontSize: 12, lineHeight: 1,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >
-                ◀
-              </button>
-              <button
-                onClick={() => {
-                  if (!activeLesson) return;
-                  const maxIdx = activeLesson.sessionQuestionIds.length - 1;
-                  if (activeLesson.currentQuestionIndex >= maxIdx) {
-                    adapter ? adapter.complete() : _completeLesson();
-                    return;
-                  }
-                  useCourseStore.setState({
-                    activeLesson: { ...activeLesson, currentQuestionIndex: activeLesson.currentQuestionIndex + 1 },
-                  });
-                }}
-                title={activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? "Finish lesson" : "Next question"}
-                className="flex-shrink-0 transition-transform active:scale-90"
-                style={{
-                  width: 28, height: 28, borderRadius: 8,
-                  background: activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '#D1FAE5' : '#EDE9FE',
-                  border: `1px solid ${activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '#6EE7B7' : '#C4B5FD'}`,
-                  cursor: 'pointer',
-                  fontSize: 12, lineHeight: 1,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >
-                {activeLesson.currentQuestionIndex >= activeLesson.sessionQuestionIds.length - 1 ? '✓' : '▶'}
-              </button>
-            </div>
-          )}
-
-          {/* Debug: skip to end */}
-          {process.env.NODE_ENV === 'development' && (
-            adapter ? (
-              <button
-                onClick={adapter.complete}
-                title="Debug: skip session"
-                className="flex-shrink-0 transition-transform active:scale-90"
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: 8,
-                  background: c.dangerBg,
-                  border: '1px solid #FECACA',
-                  cursor: 'pointer',
-                  fontSize: 12,
-                  lineHeight: 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                ⏭
-              </button>
-            ) : (
-              <div style={{ position: 'relative' }}>
-                <button
-                  onClick={() => setShowDebugMenu((v) => !v)}
-                  title="Debug: skip lesson"
-                  className="flex-shrink-0 transition-transform active:scale-90"
-                  style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: 8,
-                    background: c.dangerBg,
-                    border: '1px solid #FECACA',
-                    cursor: 'pointer',
-                    fontSize: 12,
-                    lineHeight: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  ⏭
-                </button>
-                {showDebugMenu && activeLesson && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 34,
-                      right: 0,
-                      background: c.disclaimerBg,
-                      borderRadius: 12,
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                      border: `1px solid ${c.disclaimerBorder}`,
-                      padding: 4,
-                      zIndex: 100,
-                      minWidth: 150,
-                    }}
-                  >
-                    {[
-                      { label: '✅ Pass (90%)', correct: 9 },
-                      { label: '⚠️ Pass (70%)', correct: 7 },
-                      { label: '❌ Fail (40%)', correct: 4 },
-                      { label: '💎 Flawless', correct: 10 },
-                    ].map(({ label, correct }) => (
-                      <button
-                        key={label}
-                        onClick={() => {
-                          const ids = activeLesson.sessionQuestionIds;
-                          const total = ids.length;
-                          const correctCount = Math.min(correct, total);
-                          const alreadyAnswered = activeLesson.answers.length;
-                          for (let i = alreadyAnswered; i < total; i++) {
-                            _submitAnswer(ids[i], i < correctCount);
-                          }
-                          setShowDebugMenu(false);
-                          setTimeout(_completeLesson, 10);
-                        }}
-                        style={{
-                          display: 'block',
-                          width: '100%',
-                          padding: '8px 12px',
-                          fontSize: 13,
-                          fontWeight: 600,
-                          textAlign: 'left',
-                          background: 'transparent',
-                          border: 'none',
-                          borderRadius: 8,
-                          cursor: 'pointer',
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = '#F3F4F6')}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )
-          )}
-
-          <div className="flex-shrink-0 flex items-center gap-2">
-            {!adapter?.noHearts && <HeartDisplay />}
-            {isDoubleXp && (
-              <div
-                className="flex items-center"
-                style={{
-                  padding: '3px 7px',
-                  borderRadius: 8,
-                  background: 'linear-gradient(135deg, #F59E0B, #EF4444)',
-                  color: '#FFFFFF',
-                  fontWeight: 900,
-                  fontSize: 11,
-                  letterSpacing: 0.3,
-                  lineHeight: 1,
-                  boxShadow: '0 1px 4px rgba(245,158,11,0.4)',
-                }}
-              >
-                2X
-              </div>
-            )}
-          </div>
-
-        </div>
+        <LessonTopBar
+          onExit={handleExitClick}
+          exitLabel={exitLabel}
+          isGolden={isGolden}
+          answeredCount={resolvedAnsweredCount}
+          totalQuestions={resolvedTotalQuestions}
+          unitColor={unitColor}
+          progressGlowing={adaptiveMode === 'cruising'}
+          milestoneGlow={milestoneGlow}
+          showHearts={!adapter?.noHearts}
+          isDoubleXp={isDoubleXp}
+          debugControls={
+            <LessonDebugControls
+              activeLesson={activeLesson}
+              adapterComplete={adapter?.complete}
+              submitAnswer={_submitAnswer}
+              completeLesson={_completeLesson}
+            />
+          }
+        />
 
         {/* Content area — type component or standard question flow */}
         {isNonStandard && lessonData ? (
-          (() => {
-            const typeProps = {
-              lesson: lessonData.lesson,
-              unitColor,
-              theme,
-              isGolden,
-              isDoubleXp,
-              onAnswer: handleTypeAnswer,
-              onProgress: handleTypeProgress,
-              onComplete: handleTypeComplete,
-              checkHearts: checkHeartsForType,
-            };
-            switch (lessonType) {
-              case 'conversation':
-                return <ConversationView {...typeProps} />;
-              case 'speed-round':
-                return <SpeedRoundView {...typeProps} />;
-              case 'timeline':
-                return <TimelineView {...typeProps} />;
-              case 'case-study':
-                return <CaseStudyView {...typeProps} />;
-              default:
-                return null;
-            }
-          })()
+          <LessonTypeSwitch
+            lessonType={lessonType}
+            lesson={lessonData.lesson}
+            unitColor={unitColor}
+            theme={theme}
+            isGolden={isGolden}
+            isDoubleXp={isDoubleXp}
+            onAnswer={handleTypeAnswer}
+            onProgress={handleTypeProgress}
+            onComplete={handleTypeComplete}
+            checkHearts={checkHeartsForType}
+          />
         ) : displayQuestion ? (
         <>
         <div
@@ -958,33 +578,11 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
           }}
         >
           <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-            <AnimatePresence>
-              {showHotkeyHint && !isCurrentAnswered && (
-                <motion.div
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: c.muted,
-                    textAlign: 'center',
-                    marginBottom: 10,
-                    letterSpacing: 0.3,
-                    flexShrink: 0,
-                  }}
-                >
-                  {isTeaching ? 'Enter continue · Esc exit' : (
-                    <>
-                      {currentQuestion?.type === 'multiple-choice' && 'A\u2013D select \u00b7 '}
-                      {currentQuestion?.type === 'true-false' && '1/2 or T/F select \u00b7 '}
-                      {currentQuestion?.type === 'fill-blank' && '1\u20139 select word \u00b7 '}
-                      Enter check · Esc exit
-                    </>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <LessonHotkeyHint
+              show={showHotkeyHint && !isCurrentAnswered}
+              isTeaching={isTeaching}
+              questionType={currentQuestion?.type}
+            />
 
             {/* Adaptive difficulty toast (encouraging when struggling, bonus when cruising) */}
             {lastAnswerCorrect === null && displayQuestion.type !== 'teaching' && (
@@ -1026,98 +624,8 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     characterLine={teachingLine}
                     lessonId={currentLessonId ?? undefined}
                   />
-                ) : displayQuestion.type === 'sort-buckets' ? (
-                  <SortBucketsCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'match-pairs' ? (
-                  <MatchPairsCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'order-steps' ? (
-                  <OrderStepsCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'multi-select' ? (
-                  <MultiSelectCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'slider-estimate' ? (
-                  <SliderEstimateCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'scenario' ? (
-                  <ScenarioCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'category-swipe' ? (
-                  <CategorySwipeCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'rank-order' ? (
-                  <RankOrderCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'pick-the-best' ? (
-                  <PickTheBestCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
-                ) : displayQuestion.type === 'image-tap' ? (
-                  <ImageTapCard
-                    ref={questionRef}
-                    question={displayQuestion}
-                    onAnswer={handleAnswer}
-                    onSelectionChange={handleSelectionChange}
-                    answered={isCurrentAnswered}
-                    unitColor={unitColor}
-                  />
                 ) : (
-                  <QuestionCard
+                  <QuestionRenderer
                     ref={questionRef}
                     question={displayQuestion}
                     onAnswer={handleAnswer}
@@ -1141,162 +649,27 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
         {/* Bottom bar — hidden for teaching cards (they have their own button) */}
         {isTeaching ? null : !isCurrentAnswered ? (
-          <div
-            style={{
-              padding: '12px 20px',
-              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              borderTop: `2px solid ${c.headerBorder}`,
-              background: c.cardBg,
-              position: 'relative',
-              zIndex: 10,
-            }}
-          >
-            <div className="flex items-center gap-2.5">
-              {/* Calculator toggle — available for courses with calculation questions */}
-              {(activeProfession === PROFESSION_ID.MECHANICAL_ENGINEERING || activeProfession === PROFESSION_ID.PERSONAL_FINANCE || activeProfession === PROFESSION_ID.SPACE_ASTRONOMY) && <button
-                onClick={() => setIsCalcOpen(c => !c)}
-                className="flex-shrink-0 flex items-center justify-center transition-transform active:scale-90"
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
-                  background: isCalcOpen ? theme.bg : c.closeBtnBg,
-                  border: isCalcOpen ? `2px solid ${unitColor}` : `2px solid ${c.headerBorder}`,
-                  boxShadow: isCalcOpen ? 'none' : '0 3px 0 #CCCCCC',
-                  cursor: 'pointer',
-                }}
-                aria-label={isCalcOpen ? 'Close calculator' : 'Open calculator'}
-                title="Calculator (`)"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <rect x="4" y="2" width="16" height="20" rx="2" stroke={isCalcOpen ? unitColor : c.closeBtnStroke} strokeWidth="2" />
-                  <rect x="7" y="5" width="10" height="4" rx="1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="8.5" cy="13" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="12" cy="13" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="15.5" cy="13" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="8.5" cy="17" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="12" cy="17" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                  <circle cx="15.5" cy="17" r="1.1" fill={isCalcOpen ? unitColor : c.closeBtnStroke} />
-                </svg>
-              </button>}
-
-              {/* Check button */}
-              <GameButton
-                onClick={handleCheck}
-                disabled={!hasSelection}
-                className="flex-1"
-                style={hasSelection ? {
-                  background: unitColor,
-                  boxShadow: `0 4px 0 ${theme.dark}`,
-                } : undefined}
-              >
-                Check
-              </GameButton>
-            </div>
-          </div>
+          <LessonCheckBar
+            hasSelection={hasSelection}
+            onCheck={handleCheck}
+            onToggleCalculator={hasCalculator ? handleToggleCalculator : undefined}
+            isCalcOpen={isCalcOpen}
+            unitColor={unitColor}
+            accentBg={theme.bg}
+            accentDark={theme.dark}
+          />
         ) : (
-          <motion.div
-            key="feedback"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            style={{
-              padding: '14px 20px',
-              paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-              background: lastAnswerCorrect ? '#D7FFB8' : '#FFDFE0',
-              borderTop: `2px solid ${lastAnswerCorrect ? '#58CC02' : '#FF4B4B'}`,
-            }}
-          >
-            <div style={{ marginBottom: 12 }} role="status" aria-live="assertive">
-              <p
-                style={{
-                  fontSize: 17,
-                  fontWeight: 800,
-                  color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
-                  margin: 0,
-                }}
-              >
-                {lastAnswerCorrect ? 'Correct!' : 'Incorrect'}
-              </p>
-              {!lastAnswerCorrect && (
-                <p
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: '#EA2B2B',
-                    margin: '2px 0 0',
-                  }}
-                >
-                  Answer: <GlossaryText text={getCorrectAnswerDisplay()} />
-                </p>
-              )}
-              {/* Distractor-specific explanation (why their choice was wrong) */}
-              {!lastAnswerCorrect && lastSelectedIndex !== undefined && displayQuestion.distractorExplanations?.[lastSelectedIndex] && (
-                <motion.p
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 0.85, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.25 }}
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: '#EA2B2B',
-                    margin: '6px 0 0',
-                    lineHeight: 1.4,
-                  }}
-                >
-                  <GlossaryText text={displayQuestion.distractorExplanations[lastSelectedIndex]} />
-                </motion.p>
-              )}
-              {/* General explanation (why the correct answer is right) */}
-              {displayQuestion.explanation && (
-                <motion.div
-                  initial={!lastAnswerCorrect && displayQuestion.distractorExplanations?.[lastSelectedIndex!] ? { opacity: 0, y: 4 } : undefined}
-                  animate={{ opacity: 0.75, y: 0 }}
-                  transition={!lastAnswerCorrect && displayQuestion.distractorExplanations?.[lastSelectedIndex!] ? { delay: 0.35, duration: 0.25 } : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 2,
-                    margin: '4px 0 0',
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: lastAnswerCorrect ? '#58A700' : '#EA2B2B',
-                      opacity: 0.75,
-                      margin: 0,
-                      lineHeight: 1.4,
-                      flex: 1,
-                    }}
-                  >
-                    <GlossaryText text={(userCountry && displayQuestion.variants?.[userCountry]) || displayQuestion.explanation} />
-                  </p>
-                  {displayQuestion.explanation && (
-                    <AudioButton
-                      lessonId={currentLessonId ?? undefined}
-                      cardId={displayQuestion.id}
-                      suffix="exp"
-                      text={displayQuestion.explanation}
-                      color={lastAnswerCorrect ? '#58A700' : '#EA2B2B'}
-                      size={16}
-                    />
-                  )}
-                </motion.div>
-              )}
-              <FlagButton contentType={flagContentType} contentId={displayQuestion.id} hasGraphic={!!displayQuestion.diagram} />
-            </div>
-
-            <GameButton
-              ref={continueBtnRef}
-              data-testid="continue-button"
-              onClick={handleContinue}
-              variant={lastAnswerCorrect ? 'green' : 'red'}
-            >
-              {isLastQuestion ? 'Finish' : 'Continue'}
-            </GameButton>
-          </motion.div>
+          <LessonAnswerFeedback
+            question={displayQuestion}
+            correct={!!lastAnswerCorrect}
+            selectedIndex={lastSelectedIndex}
+            isLastQuestion={isLastQuestion}
+            onContinue={handleContinue}
+            continueRef={continueBtnRef}
+            flagContentType={flagContentType}
+            lessonId={currentLessonId ?? undefined}
+            userCountry={userCountry}
+          />
         )}
         </>
         ) : null}

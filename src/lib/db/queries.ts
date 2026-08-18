@@ -3,7 +3,7 @@
 // Common single-table lookups used across multiple API routes.
 // ============================================================
 
-import { eq, or, type SQL } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
   users,
@@ -11,7 +11,6 @@ import {
   subscriptions,
   friendships,
 } from '@/lib/db/schema';
-import type { PgTable } from 'drizzle-orm/pg-core';
 
 // ─── User Lookups ──────────────────────────────────────────────
 
@@ -48,6 +47,42 @@ export async function getSubscription(userId: string) {
   return sub;
 }
 
+/** Fields accepted when writing a subscription row. */
+export type SubscriptionUpsert = Partial<Omit<typeof subscriptions.$inferInsert, 'userId'>>;
+
+/**
+ * Insert or update the single subscription row for a user, stamping `updatedAt`.
+ * Missing `tier`/`status` default to a free, active row on insert.
+ */
+export async function upsertSubscription(
+  userId: string,
+  data: SubscriptionUpsert,
+): Promise<void> {
+  const updatedAt = new Date();
+
+  const [existing] = await db
+    .select({ id: subscriptions.id })
+    .from(subscriptions)
+    .where(eq(subscriptions.userId, userId))
+    .limit(1);
+
+  if (existing) {
+    await db
+      .update(subscriptions)
+      .set({ ...data, updatedAt })
+      .where(eq(subscriptions.userId, userId));
+    return;
+  }
+
+  await db.insert(subscriptions).values({
+    userId,
+    tier: data.tier ?? 'free',
+    status: data.status ?? 'active',
+    ...data,
+    updatedAt,
+  });
+}
+
 // ─── Friends ───────────────────────────────────────────────────
 
 /**
@@ -62,41 +97,4 @@ export async function getFriendIds(userId: string): Promise<string[]> {
     .where(or(eq(friendships.userId, userId), eq(friendships.friendId, userId)));
 
   return rows.map((r) => (r.usrId === userId ? r.frnId : r.usrId));
-}
-
-// ─── Generic Upsert ────────────────────────────────────────────
-
-/**
- * Generic select-then-insert-or-update pattern.
- *
- * Looks up existing rows matching `whereClause`. If a row exists, updates it
- * with `updateData`. Otherwise inserts `insertData`.
- *
- * Returns `{ existed: boolean }` to indicate which path was taken.
- *
- * @example
- * ```ts
- * await upsertRecord(
- *   userProgress,
- *   eq(userProgress.userId, userId),
- *   { userId, currentLevel: 1, totalXp: 0 },
- *   { currentLevel: 2, totalXp: 100, updatedAt: new Date() },
- * );
- * ```
- */
-export async function upsertRecord<T extends PgTable>(
-  table: T,
-  whereClause: SQL,
-  insertData: T['$inferInsert'],
-  updateData: Partial<T['$inferInsert']>,
-): Promise<{ existed: boolean }> {
-  const existing = await (db.select() as any).from(table).where(whereClause).limit(1);
-
-  if (existing.length > 0) {
-    await (db.update(table) as any).set(updateData).where(whereClause);
-    return { existed: true };
-  }
-
-  await (db.insert(table) as any).values(insertData);
-  return { existed: false };
 }

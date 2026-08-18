@@ -2,6 +2,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import type { AnswerEvent } from '@/data/mastery';
 import type { TopicId } from '@/data/types';
 
@@ -102,7 +103,7 @@ export const useMasteryStore = create<MasteryState>()(
       },
     }),
     {
-      name: 'mastery-events',
+      name: STORAGE_KEYS.MASTERY,
     }
   )
 );

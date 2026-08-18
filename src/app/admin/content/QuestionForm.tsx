@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import type { CourseQuestion } from './courseEditorTypes';
+import AdminFormShell from './AdminFormShell';
+import AdminFormField from './AdminFormField';
 import {
   btnDanger,
-  btnPrimary,
   btnSecondary,
-  formActions,
   formFieldStyle,
-  formSectionStyle,
   inputStyle,
   labelStyle,
   textareaStyle,
@@ -56,8 +55,7 @@ export default function QuestionForm({
     question?.acceptedAnswers ?? [''],
   );
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleSave() {
     if (!questionText.trim()) {
       alert('Question text is required');
       return;
@@ -136,14 +134,15 @@ export default function QuestionForm({
   }
 
   return (
-    <form style={formSectionStyle} onSubmit={handleSubmit}>
-      <h3 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px' }}>
-        {question ? 'Edit Question' : 'Add New Question'}
-      </h3>
-
+    <AdminFormShell
+      heading={question ? 'Edit Question' : 'Add New Question'}
+      submitLabel={question ? 'Update Question' : 'Create Question'}
+      saving={saving}
+      onSubmit={handleSave}
+      onCancel={onCancel}
+    >
       {/* Type selector */}
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Question Type</label>
+      <AdminFormField label="Question Type">
         <select
           style={{ ...inputStyle, cursor: 'pointer' }}
           value={type}
@@ -166,18 +165,17 @@ export default function QuestionForm({
           <option value="pick-the-best">Pick the Best</option>
           <option value="image-tap">Image Tap</option>
         </select>
-      </div>
+      </AdminFormField>
 
       {/* Question text */}
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Question</label>
+      <AdminFormField label="Question">
         <textarea
           style={textareaStyle}
           value={questionText}
           onChange={(e) => setQuestionText(e.target.value)}
           placeholder="Enter the question text..."
         />
-      </div>
+      </AdminFormField>
 
       {/* Type-specific fields */}
       {type === 'multiple-choice' && (
@@ -330,44 +328,24 @@ export default function QuestionForm({
       )}
 
       {/* Explanation */}
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Explanation</label>
+      <AdminFormField label="Explanation">
         <textarea
           style={textareaStyle}
           value={explanation}
           onChange={(e) => setExplanation(e.target.value)}
           placeholder="Explain the correct answer..."
         />
-      </div>
+      </AdminFormField>
 
       {/* Hint (optional) */}
-      <div style={formFieldStyle}>
-        <label style={labelStyle}>Hint (optional)</label>
+      <AdminFormField label="Hint (optional)">
         <input
           style={inputStyle}
           value={hint}
           onChange={(e) => setHint(e.target.value)}
           placeholder="Optional hint for the student..."
         />
-      </div>
-
-      <div style={formActions}>
-        <button type="submit" style={btnPrimary} disabled={saving}>
-          {saving
-            ? 'Saving...'
-            : question
-              ? 'Update Question'
-              : 'Create Question'}
-        </button>
-        <button
-          type="button"
-          style={btnSecondary}
-          onClick={onCancel}
-          disabled={saving}
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
+      </AdminFormField>
+    </AdminFormShell>
   );
 }

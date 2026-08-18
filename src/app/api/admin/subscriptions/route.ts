@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { users, subscriptions, paymentHistory } from '@/lib/db/schema';
-import { withAdminAuth, jsonOk } from '@/lib/api-helpers';
+import { jsonOk } from '@/lib/api-helpers';
+import { withAdminAuth } from '@/lib/api/guards';
 import { eq, sql, desc, and } from 'drizzle-orm';
 
 export const GET = withAdminAuth(async () => {

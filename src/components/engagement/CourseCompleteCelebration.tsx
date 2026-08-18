@@ -7,7 +7,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { playSound } from '@/lib/sounds';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useStore } from '@/store/useStore';
-import { getUnitTheme } from '@/lib/unitThemes';
+import { getUnitTheme, UNIT_THEMES } from '@/lib/unitThemes';
 import { useBackHandler } from '@/hooks/useBackHandler';
 import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
@@ -36,7 +36,7 @@ export function CourseCompleteCelebration({ onDismiss }: Props) {
   useBackHandler(true, () => { if (canDismiss) onDismiss(); });
   const handleDismiss = useCallback(() => { if (canDismiss) onDismiss(); }, [canDismiss, onDismiss]);
 
-  const unitColors = Array.from({ length: 10 }, (_, i) => getUnitTheme(i).color);
+  const unitColors = Array.from({ length: UNIT_THEMES.length }, (_, i) => getUnitTheme(i).color);
   const profession = activeProfession ? getProfession(activeProfession) : null;
 
   // Calculate readiness score (simplified: average accuracy of completed lessons)

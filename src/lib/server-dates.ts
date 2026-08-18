@@ -7,6 +7,32 @@
  * tomorrow's date (UTC) for streaks, daily rewards, etc.
  */
 
+const MS_PER_DAY = 86_400_000;
+
+/** Format a Date as YYYY-MM-DD using its UTC calendar fields. */
+function toUtcDateString(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
+/** "Today" as a YYYY-MM-DD string in UTC, ignoring any client timezone. */
+export function getUtcToday(): string {
+  return toUtcDateString(new Date());
+}
+
+/** A YYYY-MM-DD string for the UTC day `days` before now. */
+export function getUtcDaysAgo(days: number): string {
+  return toUtcDateString(new Date(Date.now() - days * MS_PER_DAY));
+}
+
+/** The Monday (UTC) of the week containing `date`, as YYYY-MM-DD. */
+export function getUtcWeekMonday(date: Date): string {
+  const day = date.getUTCDay(); // 0=Sun..6=Sat
+  const diff = day === 0 ? -6 : 1 - day;
+  const monday = new Date(date);
+  monday.setUTCDate(date.getUTCDate() + diff);
+  return toUtcDateString(monday);
+}
+
 /**
  * Get "today" as a YYYY-MM-DD string in the user's timezone.
  * Falls back to UTC if the timezone header is missing or invalid.
@@ -26,7 +52,7 @@ export function getServerToday(timezoneHeader?: string | null): string {
       // Invalid timezone string — fall through to UTC
     }
   }
-  return new Date().toISOString().split('T')[0];
+  return getUtcToday();
 }
 
 /**

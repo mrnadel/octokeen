@@ -1,22 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { userProgress } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-import { getAuthUserId } from '@/lib/auth-utils';
 import { DAILY_REWARD_CYCLE } from '@/data/daily-rewards';
 import { MAX_STREAK_FREEZES } from '@/data/engagement-types';
 import { getServerToday } from '@/lib/server-dates';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
+import { withAuth } from '@/lib/api/guards';
 
-export async function POST(request: NextRequest) {
-  const userId = await getAuthUserId();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+type ClaimResult =
+  | { success: false; error: string; status: number }
+  | { success: true; gems: number; day: number; freezeAdded: boolean };
 
+export const POST = withAuth(async (request, { userId }): Promise<NextResponse> => {
   const today = getServerToday(request.headers.get('x-timezone'));
 
   // Use a transaction to prevent TOCTOU race conditions (double claiming)
-  const result = await db.transaction(async (tx) => {
+  const result: ClaimResult = await db.transaction(async (tx): Promise<ClaimResult> => {
     const rows = await tx
       .select({
         dailyRewardCalendar: userProgress.dailyRewardCalendar,
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       .where(eq(userProgress.userId, userId))
       .limit(1);
 
-    if (rows.length === 0) return { error: 'No progress record', status: 404 } as const;
+    if (rows.length === 0) return { success: false, error: 'No progress record', status: 404 };
 
     const cal = rows[0].dailyRewardCalendar as {
       currentDay: number;
@@ -38,13 +38,13 @@ export async function POST(request: NextRequest) {
 
     // Prevent double-claiming
     if (cal.todayClaimed && cal.lastClaimDate === today) {
-      return { error: 'Already claimed today', status: 409 } as const;
+      return { success: false, error: 'Already claimed today', status: 409 };
     }
 
     // Get reward for current day (1-indexed)
     const dayIndex = Math.max(0, Math.min(cal.currentDay - 1, DAILY_REWARD_CYCLE.length - 1));
     const reward = DAILY_REWARD_CYCLE[dayIndex];
-    if (!reward) return { error: 'Invalid reward day', status: 400 } as const;
+    if (!reward) return { success: false, error: 'Invalid reward day', status: 400 };
 
     const gemsReward = reward.gems ?? 0;
 
@@ -74,12 +74,12 @@ export async function POST(request: NextRequest) {
     // a local transaction that is synced via POST /api/engagement (newGemTransactions).
     // Inserting here would double-credit the user.
 
-    return { success: true, gems: gemsReward, day: cal.currentDay, freezeAdded } as const;
+    return { success: true, gems: gemsReward, day: cal.currentDay, freezeAdded };
   });
 
-  if ('error' in result) {
-    return NextResponse.json({ error: result.error }, { status: result.status });
+  if (!result.success) {
+    return jsonError(result.error, result.status);
   }
 
-  return NextResponse.json(result);
-}
+  return jsonOk(result);
+});

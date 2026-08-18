@@ -2,7 +2,10 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { LessonTypeProps, TimelineStage } from '@/data/course/types';
+import type { LessonTypeProps } from '@/data/course/types';
+import { LessonChoiceButton } from '@/components/lesson/shared/LessonChoiceButton';
+import { LessonTypeFooter } from '@/components/lesson/shared/LessonTypeFooter';
+import { LessonTypeButton } from '@/components/lesson/shared/LessonTypeButton';
 import { GlossaryText } from '@/components/ui/GlossaryText';
 import { useLessonColors } from '@/lib/lessonColors';
 
@@ -203,34 +206,11 @@ export default function TimelineView({
           </motion.div>
         </div>
 
-        <div
-          style={{
-            padding: '12px 20px',
-            paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 16px)',
-            borderTop: `2px solid ${c.border}`,
-            background: c.cardBg,
-          }}
-        >
-          <button
-            onClick={onComplete}
-            className="w-full transition-transform active:scale-[0.98]"
-            style={{
-              padding: '14px 0',
-              borderRadius: 16,
-              fontSize: 15,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: 0.8,
-              background: unitColor,
-              color: '#FFFFFF',
-              boxShadow: `0 4px 0 ${theme.dark}`,
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
+        <LessonTypeFooter>
+          <LessonTypeButton onClick={onComplete} background={unitColor} shadowColor={theme.dark}>
             See Results
-          </button>
-        </div>
+          </LessonTypeButton>
+        </LessonTypeFooter>
       </div>
     );
   }
@@ -340,34 +320,13 @@ export default function TimelineView({
               What do you do?
             </span>
             {currentStage.choices.map((choice, i) => (
-              <button
+              <LessonChoiceButton
                 key={i}
+                label={choice.text}
                 onClick={() => handleChoice(i)}
-                className="transition-transform active:scale-[0.98]"
-                style={{
-                  padding: '13px 16px',
-                  borderRadius: 14,
-                  fontSize: 14,
-                  fontWeight: 700,
-                  textAlign: 'left',
-                  background: c.cardBg,
-                  color: c.title,
-                  border: `2px solid ${c.border}`,
-                  boxShadow: `0 3px 0 ${c.border}`,
-                  cursor: 'pointer',
-                  lineHeight: 1.4,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = unitColor;
-                  e.currentTarget.style.background = theme.bg;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = c.border;
-                  e.currentTarget.style.background = c.cardBg;
-                }}
-              >
-                {choice.text}
-              </button>
+                unitColor={unitColor}
+                hoverBg={theme.bg}
+              />
             ))}
           </motion.div>
         )}
@@ -384,25 +343,9 @@ export default function TimelineView({
               background: c.cardBg,
             }}
           >
-            <button
-              onClick={handleContinue}
-              className="w-full transition-transform active:scale-[0.98]"
-              style={{
-                padding: '14px 0',
-                borderRadius: 16,
-                fontSize: 15,
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: 0.8,
-                background: unitColor,
-                color: '#FFFFFF',
-                boxShadow: `0 4px 0 ${theme.dark}`,
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
+            <LessonTypeButton onClick={handleContinue} background={unitColor} shadowColor={theme.dark}>
               Continue
-            </button>
+            </LessonTypeButton>
           </motion.div>
         )}
       </AnimatePresence>

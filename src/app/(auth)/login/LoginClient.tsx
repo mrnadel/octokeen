@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { analytics } from '@/lib/mixpanel';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
-import { GoogleIcon } from '@/components/auth/GoogleIcon';
+import { AuthSuspenseBoundary } from '@/components/auth/AuthSuspenseBoundary';
+import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 import { DividerOr } from '@/components/auth/DividerOr';
 import { ErrorAlert } from '@/components/auth/ErrorAlert';
 import { AuthInput } from '@/components/auth/AuthInput';
@@ -14,11 +14,9 @@ import { AuthButton } from '@/components/auth/AuthButton';
 
 export default function LoginPage() {
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div className="h-6" />}>
-        <LoginPageInner />
-      </Suspense>
-    </ErrorBoundary>
+    <AuthSuspenseBoundary>
+      <LoginPageInner />
+    </AuthSuspenseBoundary>
   );
 }
 
@@ -88,15 +86,7 @@ function LoginPageInner() {
     <>
       <h1 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Sign in</h1>
 
-      {/* Google */}
-      <button
-        onClick={handleGoogleSignIn}
-        disabled={googleLoading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-surface-200 rounded-2xl text-surface-700 font-bold hover:border-surface-300 disabled:opacity-60 transition-colors"
-      >
-        <GoogleIcon />
-        {googleLoading ? 'Redirecting...' : 'Continue with Google'}
-      </button>
+      <GoogleSignInButton onClick={handleGoogleSignIn} loading={googleLoading} />
 
       <DividerOr />
 

@@ -4,14 +4,18 @@ import { getPublicProfile, getPublicProgress, getRelationship } from '@/lib/db/f
 import { db } from '@/lib/db';
 import { leagueState, userProgress } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
+import { jsonOk, jsonError } from '@/lib/api-helpers';
 
+const PERCENT = 100;
+
+// Route params prevent the use of `withAuth`, so the guard is inlined here.
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
-) {
+): Promise<NextResponse> {
   const viewerId = await getAuthUserId();
   if (!viewerId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return jsonError('Unauthorized', 401);
   }
 
   const { id: targetId } = await params;
@@ -36,28 +40,28 @@ export async function GET(
   ]);
 
   if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    return jsonError('User not found', 404);
   }
 
   // If profile is private, only allow self or friends to view
   if (user.profilePublic === false && viewerId !== targetId) {
     const { relationship: rel } = await getRelationship(viewerId, targetId);
     if (rel !== 'friends') {
-      return NextResponse.json({ error: 'This profile is private' }, { status: 403 });
+      return jsonError('This profile is private', 403);
     }
   }
 
   const [accuracyData] = accuracyResult;
   const attempted = accuracyData?.totalQuestionsAttempted ?? 0;
   const correct = accuracyData?.totalQuestionsCorrect ?? 0;
-  const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+  const accuracy = attempted > 0 ? Math.round((correct / attempted) * PERCENT) : 0;
 
   const [league] = leagueResult;
 
   // Get relationship (returns both type and requestId if applicable)
   const { relationship, requestId } = await getRelationship(viewerId, targetId);
 
-  return NextResponse.json({
+  return jsonOk({
     id: user.id,
     displayName: user.displayName,
     image: user.image,

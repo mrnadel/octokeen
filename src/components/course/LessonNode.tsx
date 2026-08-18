@@ -6,6 +6,10 @@ import type { Lesson } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
 import { useIsDark } from '@/store/useThemeStore';
 import { GOLD } from './constants';
+import { CrownIcon } from './CrownIcon';
+
+/** Pale highlight on the crown's gems. */
+const CROWN_GEM_COLOR = '#FFF8E1';
 
 interface LessonRowProps {
   lesson: Lesson;
@@ -152,13 +156,11 @@ export const LessonNode = memo(function LessonNode({
               }}
             >
               {isGolden ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 16h14l-2-8-3.5 4L12 6l-1.5 6L7 8l-2 8z" fill={GOLD} />
-                  <path d="M5 16h14v2a1 1 0 01-1 1H6a1 1 0 01-1-1v-2z" fill={GOLD} />
-                  <circle cx="7.5" cy="16" r="1.2" fill="#FFF8E1" />
-                  <circle cx="12" cy="16" r="1.2" fill="#FFF8E1" />
-                  <circle cx="16.5" cy="16" r="1.2" fill="#FFF8E1" />
-                </svg>
+                <CrownIcon size={20} fill={GOLD}>
+                  <circle cx="7.5" cy="16" r="1.2" fill={CROWN_GEM_COLOR} />
+                  <circle cx="12" cy="16" r="1.2" fill={CROWN_GEM_COLOR} />
+                  <circle cx="16.5" cy="16" r="1.2" fill={CROWN_GEM_COLOR} />
+                </CrownIcon>
               ) : isCompleted ? (
                 /* Completed: main icon is a checkmark */
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">

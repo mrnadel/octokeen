@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, lazy, Suspense } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import { PROFESSIONS, PROFESSION_ID } from '@/data/professions';
+import { getCourseMetaForProfession } from '@/data/course/course-meta';
 import { CourseIcon } from '@/components/course/CourseIcon';
 import { ChevronRight } from 'lucide-react';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
@@ -10,6 +11,13 @@ const CourseEditor = lazy(() => import('./CourseEditor'));
 
 export default function ContentPage() {
   const [selectedProfession, setSelectedProfession] = useState<string | null>(null);
+
+  // Unit counts come from the course metadata, not the static Profession record,
+  // which drifts out of date as units are added.
+  const courses = useMemo(
+    () => PROFESSIONS.map((p) => ({ ...p, unitCount: getCourseMetaForProfession(p.id).length })),
+    [],
+  );
 
   return (
     <div>
@@ -22,7 +30,7 @@ export default function ContentPage() {
 
       {!selectedProfession && (
         <div className="space-y-2">
-          {PROFESSIONS.map((p) => (
+          {courses.map((p) => (
             <button
               key={p.id}
               onClick={() => setSelectedProfession(p.id)}

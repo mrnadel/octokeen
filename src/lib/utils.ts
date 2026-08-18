@@ -123,6 +123,15 @@ export function calculateMastery(attempted: number, correct: number, recency: nu
   return Math.round(accuracy * volume * recency * 100);
 }
 
+/**
+ * Whole-number percentage of `part` out of `total`, guarding division by zero.
+ * Canonical accuracy/completion math — do not reimplement inline.
+ */
+export function toPercent(part: number, total: number): number {
+  if (total <= 0) return 0;
+  return Math.round((part / total) * 100);
+}
+
 export function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {

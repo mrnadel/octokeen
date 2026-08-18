@@ -2,13 +2,14 @@
 
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ChevronRight, Check } from 'lucide-react';
+import { ChevronRight, Check } from 'lucide-react';
 import { PROFESSIONS } from '@/data/professions';
 import { getCourseMetaForProfession } from '@/data/course/course-meta';
 import { useCourseStore } from '@/store/useCourseStore';
 import { useCourseAccess } from '@/hooks/useCourseAccess';
 import { CourseIcon } from '@/components/course/CourseIcon';
 import { cn } from '@/lib/utils';
+import { AppPageHeader } from '@/app/(app)/AppPageHeader';
 
 export default function CoursesSettingsPage() {
   const router = useRouter();
@@ -46,17 +47,7 @@ export default function CoursesSettingsPage() {
   return (
     <div className="pb-8">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white/90 dark:bg-surface-900/90 backdrop-blur-xl border-b border-gray-100 dark:border-surface-700">
-        <div className="flex items-center h-14 px-4">
-          <button
-            onClick={() => router.back()}
-            className="p-3 -ml-3 rounded-full hover:bg-gray-100 dark:hover:bg-surface-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-surface-400" />
-          </button>
-          <h1 className="text-lg font-extrabold text-gray-900 dark:text-surface-50 ml-2">Courses</h1>
-        </div>
-      </div>
+      <AppPageHeader title="Courses" variant="themed" onBack={() => router.back()} />
 
       <div className="px-3 sm:px-4 mt-6 space-y-3 max-w-lg mx-auto">
         {courseStats.map((course) => {

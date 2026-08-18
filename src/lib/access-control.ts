@@ -5,11 +5,18 @@
 import { eq, and, sql } from 'drizzle-orm';
 import { db } from './db';
 import { subscriptions, dailyUsage, courseAccess } from './db/schema';
-import { LIMITS, PRO_SESSION_TYPES, isUnitUnlocked } from './pricing';
+import { LIMITS, PRO_SESSION_TYPES } from './pricing';
+import { getUtcToday } from './server-dates';
 import type { SubscriptionTier } from './subscription';
 
-function getTodayString(): string {
-  return new Date().toISOString().split('T')[0];
+/**
+ * True while a `trialing` subscription's trial window is still open.
+ * Shared by tier resolution and the engagement endpoint's Pro check.
+ */
+export function isTrialActive(trialEnd: string | null | undefined): boolean {
+  if (!trialEnd) return false;
+  const end = new Date(trialEnd);
+  return !isNaN(end.getTime()) && end > new Date();
 }
 
 /**
@@ -28,9 +35,7 @@ async function getEffectiveTier(userId: string): Promise<SubscriptionTier> {
 
   // Active trial counts as pro
   if (sub.status === 'trialing') {
-    const trialEnd = sub.trialEnd ? new Date(sub.trialEnd) : null;
-    if (trialEnd && !isNaN(trialEnd.getTime()) && trialEnd > new Date()) return 'pro';
-    return 'free';
+    return isTrialActive(sub.trialEnd) ? 'pro' : 'free';
   }
 
   if (sub.status === 'active') return sub.tier as SubscriptionTier;
@@ -39,19 +44,6 @@ async function getEffectiveTier(userId: string): Promise<SubscriptionTier> {
   if (sub.status === 'past_due') return sub.tier as SubscriptionTier;
 
   return 'free';
-}
-
-/**
- * Check if a user can access a specific course unit.
- * Free users: unit 1 only (index 0). Pro: all units.
- */
-export async function canAccessUnit(
-  userId: string,
-  unitIndex: number,
-): Promise<{ allowed: boolean; tier: SubscriptionTier }> {
-  const tier = await getEffectiveTier(userId);
-  const allowed = isUnitUnlocked(LIMITS[tier].unlockedUnits, unitIndex);
-  return { allowed, tier };
 }
 
 /**
@@ -76,47 +68,12 @@ export async function canStartPracticeSession(
 }
 
 /**
- * Check analytics access level.
- */
-export async function canAccessAnalytics(
-  userId: string,
-): Promise<{ fullAccess: boolean; tier: SubscriptionTier }> {
-  const tier = await getEffectiveTier(userId);
-  const fullAccess = tier === 'pro';
-  return { fullAccess, tier };
-}
-
-/**
- * Get remaining daily questions for a user.
- */
-export async function getRemainingDailyQuestions(
-  userId: string,
-): Promise<{ remaining: number; used: number; limit: number; tier: SubscriptionTier }> {
-  const tier = await getEffectiveTier(userId);
-  const limit = LIMITS[tier].dailyQuestions;
-
-  if (limit === -1) {
-    return { remaining: -1, used: 0, limit: -1, tier };
-  }
-
-  const used = await getDailyQuestionsUsed(userId);
-  return { remaining: Math.max(0, limit - used), used, limit, tier };
-}
-
-/**
- * Increment the daily question counter. Call after each question answered.
- */
-export async function incrementDailyUsage(userId: string): Promise<void> {
-  return incrementDailyUsageBatch(userId, 1);
-}
-
-/**
  * Batch increment the daily question counter by a given count.
  * Single DB round-trip instead of N sequential calls.
  */
 export async function incrementDailyUsageBatch(userId: string, count: number): Promise<void> {
   if (count <= 0) return;
-  const today = getTodayString();
+  const today = getUtcToday();
 
   // Atomic upsert: INSERT or increment on conflict. Single round-trip, no race condition.
   await db
@@ -140,32 +97,15 @@ export async function canAccessPracticeMode(
   sessionType: string,
 ): Promise<{ allowed: boolean; tier: SubscriptionTier }> {
   const tier = await getEffectiveTier(userId);
-  if (!PRO_SESSION_TYPES.has(sessionType as any)) {
+  if (!isProSessionType(sessionType)) {
     return { allowed: true, tier };
   }
   return { allowed: tier === 'pro', tier };
 }
 
-/**
- * Check if a user has been granted access to a gated course.
- * Non-gated courses (requiresAccess !== true) always return true.
- * Admin always has access.
- */
-export async function canAccessCourse(
-  userId: string,
-  professionId: string,
-): Promise<boolean> {
-  // Admin always has access
-  const adminId = process.env.ADMIN_USER_ID;
-  if (adminId && userId === adminId) return true;
-
-  const [row] = await db
-    .select({ id: courseAccess.id })
-    .from(courseAccess)
-    .where(and(eq(courseAccess.userId, userId), eq(courseAccess.professionId, professionId)))
-    .limit(1);
-
-  return !!row;
+/** Narrowing wrapper around the Pro-only session type set. */
+function isProSessionType(sessionType: string): boolean {
+  return (PRO_SESSION_TYPES as ReadonlySet<string>).has(sessionType);
 }
 
 /**
@@ -183,7 +123,7 @@ export async function getUserCourseAccess(userId: string): Promise<string[]> {
 // ─── Internal helpers ───────────────────────────────────────────
 
 async function getDailyQuestionsUsed(userId: string): Promise<number> {
-  const today = getTodayString();
+  const today = getUtcToday();
 
   const [row] = await db
     .select({ questionsUsed: dailyUsage.questionsUsed })
