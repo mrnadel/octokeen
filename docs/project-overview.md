@@ -424,17 +424,23 @@ designs/                          # Design assets
 
 | Tier | Daily Questions | Units | Practice Modes | Price |
 |---|---|---|---|---|
-| Free | Unlimited (`dailyQuestions: -1`) | All (`unlockedUnits: 'all'`) | topic-deep-dive, daily-challenge, real-world, smart-practice | $0 |
-| Pro | Unlimited | All | + adaptive, interview-sim, weak-areas | $7.99/mo or $49.99/yr |
+| Free | Unlimited within open units | First `FREE_UNIT_COUNT` (3) per course | topic-deep-dive, daily-challenge, real-world, smart-practice | $0 |
+| Pro | Unlimited | All (`unlockedUnits: 'all'`) | + adaptive, interview-sim, weak-areas | $12.99/mo or $79.99/yr |
 
-Content is no longer the paywall. Hearts are the rate limiter for free users
-(`MAX_HEARTS` in `src/lib/game-config.ts`); Pro buys unlimited hearts plus streak
-freezes, full analytics, and the three Pro-only practice modes.
+*(verified 2026-08-21)* Content is the paywall again: free accounts open the first
+three units of every course, and hearts remain the rate limiter within them
+(`MAX_HEARTS` in `src/lib/game-config.ts`). Pro buys the remaining units plus
+unlimited hearts, streak freezes, full analytics, and the three Pro-only practice
+modes. The gate is driven entirely by `FREE_UNIT_COUNT` in `src/lib/pricing.ts`.
 
-> **Unresolved:** `src/app/(app)/pricing/page.tsx` still shows $9/mo, $79/yr and
-> "All 10 units". `pricing.ts` says 799 / 4999 cents. Confirm what Paddle actually
-> charges before aligning the two — the code was treated as authoritative here, but
-> that was not verified against Paddle.
+> **Unresolved — blocks deploy.** `pricing.ts` now displays 1299 / 7999 cents, but the
+> amount actually charged lives in Paddle, keyed by `PADDLE_PRO_MONTHLY_PRICE_ID` and
+> `PADDLE_PRO_YEARLY_PRICE_ID`. New Paddle prices must be created and those env vars
+> repointed, or the site advertises one price and bills another.
+>
+> **Unresolved — existing users.** Free accounts that progressed past unit 3 lose
+> access on their next visit. Grandfathering has not been implemented; decide the
+> policy before this reaches production.
 
 ---
 

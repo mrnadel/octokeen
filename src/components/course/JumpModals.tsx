@@ -264,7 +264,7 @@ export function JumpModals({
                 {jumpModal.kind === 'free-upgrade' && (
                   <>
                     <p style={{ fontSize: 14, color: '#AFAFAF', fontWeight: 600, marginBottom: 20 }}>
-                      This unit requires a Pro subscription. Upgrade to unlock all 10 units and unlimited practice.
+                      This unit requires a Pro subscription. Upgrade to unlock every unit of every course.
                     </p>
                     <div className="flex" style={{ gap: 12 }}>
                       <button
