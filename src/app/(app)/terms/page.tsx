@@ -70,13 +70,13 @@ const sections: Section[] = [
         </p>
         <ul>
           <li>
-            <strong>Free:</strong> Access to Unit 1 with up to 5 practice questions per
-            day. No payment required.
+            <strong>Free:</strong> Access to the first 3 units of every course, with 5
+            hearts per session that recharge over time. No payment required.
           </li>
           <li>
-            <strong>Pro ($9/month or $79/year):</strong> Unlimited access to all units,
-            unlimited daily practice, detailed explanations, full analytics, streak
-            freezes, interview readiness scoring, and all practice modes.
+            <strong>Pro ($12.99/month or $79.99/year):</strong> Unlimited access to
+            every unit of every course, unlimited hearts, detailed explanations, full
+            analytics, streak freezes, and all practice modes.
           </li>
         </ul>
         <p>

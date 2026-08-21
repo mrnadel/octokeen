@@ -38,13 +38,26 @@ export const PRO_SESSION_TYPES: ReadonlySet<string> = new Set([
   'weak-areas',
 ]);
 
+// --------------- Free Content Allowance ---------------
+
+/**
+ * Units a free account can open in each course. Every course leads with the same
+ * number of open units so the free tier is a real sample rather than a locked door.
+ */
+export const FREE_UNIT_COUNT = 3;
+
+const FREE_UNLOCKED_UNITS: number[] | 'all' = Array.from(
+  { length: FREE_UNIT_COUNT },
+  (_, index) => index,
+);
+
 // --------------- Daily / Usage Limits ---------------
 
 export const LIMITS = {
   free: {
-    dailyQuestions: -1,               // unlimited — hearts are the rate limiter now
+    dailyQuestions: -1,               // unlimited within the open units
     streakFreezesPerWeek: 0,
-    unlockedUnits: 'all' as number[] | 'all', // all units free
+    unlockedUnits: FREE_UNLOCKED_UNITS,
   },
   pro: {
     dailyQuestions: -1,               // unlimited
@@ -75,19 +88,19 @@ export const TIERS: Record<SubscriptionTier, TierDefinition> = {
   free: {
     id: 'free',
     name: 'Free',
-    tagline: 'All content, 5 hearts per session',
+    tagline: `First ${FREE_UNIT_COUNT} units of every course, 5 hearts per session`,
     priceMonthly: 0,
     priceYearly: 0,
     minSeats: 1,
-    features: [],   // all content free; Pro gates convenience (hearts, streak freeze, etc.)
+    features: [],   // Pro gates the rest of the content plus hearts, analytics and perks
     highlighted: false,
   },
   pro: {
     id: 'pro',
     name: 'Pro',
-    tagline: 'Unlimited hearts & premium perks',
-    priceMonthly: 799,           // $7.99/month
-    priceYearly: 4999,           // $49.99/year (~$4.17/month)
+    tagline: 'Every course in full, unlimited hearts',
+    priceMonthly: 1299,          // $12.99/month
+    priceYearly: 7999,           // $79.99/year (~$6.67/month)
     minSeats: 1,
     features: [
       FEATURES.UNLIMITED_HEARTS,

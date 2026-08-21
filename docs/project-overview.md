@@ -5,24 +5,41 @@
 > This document is the single source of truth for AI agents working on this codebase.
 > Read this first before exploring the code.
 >
-> **Partial correction 2026-08-18.** Six factual claims were re-measured against the
-> code and corrected below: the free/Pro tier terms, the Pro price, the unit counts,
-> the middleware path, the course content location, and the codebase metrics. Each is
-> marked *(verified 2026-08-18)*. **Everything else in this document dates from the
-> 2026-03-24 scan and has not been re-verified** — it describes a single-course
-> mechanical-engineering app, and the project has since grown to four courses. Treat
-> unmarked claims as unconfirmed until you check them against the code.
+> **Correction 2026-08-21.** §1 was rewritten: this is **not** an interview-prep app
+> for engineers. It is a multi-topic consumer learning app whose default course is
+> Personal Finance. The original 2026-03-24 scan described a single-course
+> mechanical-engineering product; that course is now legacy and admin-gated.
+>
+> **Canonical sources, in order.** For the course list, `docs/courses.md` (sourced from
+> `src/data/professions.ts`) — not this file. For pricing and gating,
+> `src/lib/pricing.ts`. This document describes architecture; it is not authoritative
+> on product scope or content.
+>
+> **Prior correction 2026-08-18.** Six claims were re-measured and corrected below: the
+> free/Pro tier terms, the Pro price, the unit counts, the middleware path, the course
+> content location, and the codebase metrics. Each is marked *(verified 2026-08-18)*.
+> **Sections other than §1 and those marked verified still date from the 2026-03-24
+> scan.** Treat unmarked claims as unconfirmed until you check them against the code.
 
 ---
 
 ## 1. What Is This Project?
 
-**Octokeen** is a Duolingo-style gamified multi-profession learning platform. Users practice interview prep and professional knowledge across multiple courses through structured lessons, adaptive practice sessions, and engagement systems (streaks, XP, leagues, quests, achievements, gems).
+**Octokeen** is a Duolingo-style gamified learning app for adults. Users work through
+structured lessons across several general-knowledge subjects, supported by practice
+modes and engagement systems (streaks, XP, leagues, quests, achievements, gems).
+Closest market comparison is Brilliant.org, not a job-interview prep tool.
 
-- **Domain:** EdTech / Multi-profession interview preparation
+- **Domain:** EdTech / consumer self-directed learning *(verified 2026-08-21)*
 - **URL:** https://octokeen.com
+- **Courses:** Personal Finance (default), Psychology & Human Behavior, Space & Astronomy.
+  Mechanical Engineering is legacy and hidden behind `requiresAccess: true`.
+  *(verified 2026-08-21 against `PROFESSIONS` and `DEFAULT_PROFESSION` in
+  `src/data/professions.ts`; see `docs/courses.md` for the canonical list)*
 - **Monetization:** Freemium SaaS — Free tier (all content, 5 hearts per session) / Pro tier ($7.99/mo or $49.99/yr via Paddle) *(verified 2026-08-18 against `LIMITS` and `TIERS` in `src/lib/pricing.ts`; note the pricing page and this doc previously both said $9/$79 — see §9.3)*
-- **Target Users:** Professionals preparing for technical interviews across various fields
+- **Target Users:** Curious adults learning general subjects for their own interest.
+  **Not** professionals prepping for technical interviews — that was the 2026-03
+  positioning and no longer matches the shipped courses. *(verified 2026-08-21)*
 
 ---
 

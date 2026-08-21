@@ -2,14 +2,16 @@
   "id": "/",
   "name": "Octokeen",
   "short_name": "Octokeen",
-  "description": "Master mechanical engineering interviews with gamified practice. Adaptive quizzes, structured courses, and daily challenges.",
+  "description": "Learn personal finance, psychology, and space science through gamified daily practice. Bite-size lessons, streaks, and adaptive quizzes.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "background_color": "#FAFAFA",
   "theme_color": "#FAFAFA",
   "icons": [

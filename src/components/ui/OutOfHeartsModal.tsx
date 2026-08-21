@@ -13,6 +13,7 @@ import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { AdUnit } from '@/components/ads/AdUnit';
+import { useIsTwa } from '@/lib/is-twa';
 import { CurrencyIcon } from '@/components/ui/CurrencyIcon';
 import { CURRENCY } from '@/data/currency';
 import { MODAL_ICON_SPRING } from './motionPresets';
@@ -44,6 +45,7 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
   const gems = useGems();
   const { isProUser } = useSubscription();
   const [countdown, setCountdown] = useState('');
+  const isTwa = useIsTwa();
   const [watchingAd, setWatchingAd] = useState(false);
   const adRewardTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -117,9 +119,11 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
       onClose={handleClose}
       labelId="out-of-hearts-title"
       footer={
+        isTwa ? null : (
         <Link href="/pricing" onClick={() => { analytics.subscription({ action: 'checkout_initiated', plan: 'pro', interval: 'month', source: 'out_of_hearts' }); handleClose(); }}>
           <GameButton variant="gold" className="pointer-events-none">Get Unlimited Hearts</GameButton>
         </Link>
+        )
       }
     >
       <motion.div className="mb-6" initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={MODAL_ICON_SPRING}>
@@ -131,8 +135,8 @@ export function OutOfHeartsModal({ isOpen, onClose }: OutOfHeartsModalProps) {
         <p className="text-4xl font-extrabold text-white tabular-nums">{countdown}</p>
       </div>
 
-      {/* Watch ad for free heart */}
-      {!isProUser && !watchingAd && (
+      {/* Watch ad for free heart — no ads render in the TWA, so the offer is hidden there */}
+      {!isProUser && !isTwa && !watchingAd && (
         <div style={{ width: '100%', maxWidth: 320, marginBottom: 8 }}>
           <button
             onClick={handleWatchAd}

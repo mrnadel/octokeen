@@ -2,7 +2,7 @@ import { createAppMetadata } from '@/lib/metadata';
 
 export const metadata = createAppMetadata(
   'Pricing | Free & Pro Plans',
-  'Compare Octokeen Free and Pro plans. Unlimited practice, all 10 units, adaptive learning, and interview simulation starting at $9/mo.',
+  'Compare Octokeen Free and Pro plans. Every course in full, unlimited hearts, adaptive practice and full analytics from $12.99/mo.',
   '/pricing',
 );
 

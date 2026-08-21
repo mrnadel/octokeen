@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useIsTwa } from '@/lib/is-twa';
 
 declare global {
   interface Window {
@@ -19,7 +20,8 @@ interface AdUnitProps {
 
 /**
  * Reusable Google AdSense ad slot.
- * Returns null for Pro users. Handles push() deduplication.
+ * Returns null for Pro users and inside the Android TWA (AdSense tags are licensed
+ * for web pages, not apps — see src/lib/twa-constants.ts). Handles push() dedup.
  */
 export function AdUnit({
   slot,
@@ -29,19 +31,21 @@ export function AdUnit({
   style,
 }: AdUnitProps) {
   const { isProUser } = useSubscription();
+  const isTwa = useIsTwa();
   const pushed = useRef(false);
+  const hideAd = isProUser || isTwa;
 
   useEffect(() => {
-    if (pushed.current || isProUser) return;
+    if (pushed.current || hideAd) return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushed.current = true;
     } catch {
       // AdSense not loaded or blocked
     }
-  }, [isProUser]);
+  }, [hideAd]);
 
-  if (isProUser) return null;
+  if (hideAd) return null;
 
   return (
     <ins

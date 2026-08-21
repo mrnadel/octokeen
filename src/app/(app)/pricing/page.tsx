@@ -59,7 +59,7 @@ const PRO_FEATURES = [
 ];
 
 const FREE_INCLUDES = [
-  'All 10 course units',
+  'First 3 units of every course',
   'All practice modes',
   'XP, streaks & leagues',
   'Friends & leaderboards',
@@ -67,6 +67,7 @@ const FREE_INCLUDES = [
 ];
 
 const FREE_LIMITS = [
+  'Later units need Pro',
   '5 hearts (recharge over time)',
   'No streak protection',
   'Basic analytics only',
@@ -75,7 +76,7 @@ const FREE_LIMITS = [
 const FAQ_ITEMS = [
   {
     q: 'What do I get for free?',
-    a: 'Everything! All 10 units, all practice modes, all engagement features. Free users get 5 hearts — each wrong answer costs one, and they recharge over time. Pro gives you unlimited hearts plus premium perks.',
+    a: 'The first 3 units of every course, with all practice modes and every engagement feature. Free users get 5 hearts — each wrong answer costs one, and they recharge over time. Pro unlocks every remaining unit plus unlimited hearts and premium perks.',
   },
   {
     q: 'Can I cancel anytime?',

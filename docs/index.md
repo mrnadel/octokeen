@@ -6,7 +6,10 @@
 - **Type:** Monolith (Next.js 16 App Router)
 - **Primary Language:** TypeScript
 - **Architecture:** Hybrid client-server with Zustand + PostgreSQL
-- **Domain:** Gamified multi-profession interview prep (EdTech SaaS)
+- **Domain:** Gamified consumer learning app for adults (EdTech SaaS) *(corrected 2026-08-21)*
+- **Courses:** Personal Finance (default), Psychology, Space & Astronomy. Mechanical
+  Engineering is legacy and admin-gated. See [courses.md](./courses.md) — the canonical list.
+- **Not** interview prep. That was the 2026-03 positioning and no longer matches the shipped courses.
 
 ## Quick Reference
 - **Framework:** Next.js 16.2+ (Turbopack)

@@ -10,6 +10,7 @@ import { FlowLogger } from '@/components/dev/FlowLogger';
 import { Suspense } from 'react';
 import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR, APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
 import './globals.css';
+import { TWA_DETECT_SCRIPT, TWA_ROOT_ATTRIBUTE } from '@/lib/twa-constants';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -89,14 +90,14 @@ const jsonLd = {
           price: '0',
           priceCurrency: 'USD',
           name: 'Free',
-          description: 'All content free with 5 hearts — recharge over time',
+          description: 'First 3 units of every course with 5 hearts — recharge over time',
         },
         {
           '@type': 'Offer',
-          price: '7.99',
+          price: '12.99',
           priceCurrency: 'USD',
           name: 'Pro Monthly',
-          description: 'Unlimited hearts, streak freeze, 2x XP weekends, full analytics',
+          description: 'Every course in full, unlimited hearts, streak freeze, 2x XP weekends, full analytics',
         },
       ],
     },
@@ -157,9 +158,11 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{ __html: `if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js')` }}
         />
+        <script dangerouslySetInnerHTML={{ __html: TWA_DETECT_SCRIPT }} />
         <script
           dangerouslySetInnerHTML={{ __html: `
             (function(){
+              if(document.documentElement.hasAttribute('${TWA_ROOT_ATTRIBUTE}'))return;
               var s=document.createElement('script');
               s.async=true;
               s.crossOrigin='anonymous';

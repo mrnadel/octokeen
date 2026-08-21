@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useScrollLock } from '@/hooks/useScrollLock';
+import { useIsTwa } from '@/lib/is-twa';
 import { AdUnit } from './AdUnit';
 import { Z_LAYERS } from '@/components/ui/zLayers';
 
@@ -21,26 +22,29 @@ const CLOSE_DELAY_MS = 5000;
 
 /**
  * Full-screen interstitial ad overlay.
- * Close button appears after a 5-second delay.
+ * Close button appears after a 5-second delay. Suppressed inside the Android TWA,
+ * where an empty overlay would block the user behind a dead close timer.
  */
 export function InterstitialAd({ show, onClose }: InterstitialAdProps) {
+  const isTwa = useIsTwa();
   const [canClose, setCanClose] = useState(false);
+  const visible = show && !isTwa;
 
-  useScrollLock(show);
+  useScrollLock(visible);
 
   // Start close-button timer when ad appears
   useEffect(() => {
-    if (!show) {
+    if (!visible) {
       setCanClose(false);
       return;
     }
     const timer = setTimeout(() => setCanClose(true), CLOSE_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [show]);
+  }, [visible]);
 
   // Keyboard: Escape to close (only after delay)
   useEffect(() => {
-    if (!show || !canClose) return;
+    if (!visible || !canClose) return;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -49,7 +53,7 @@ export function InterstitialAd({ show, onClose }: InterstitialAdProps) {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [show, canClose, onClose]);
+  }, [visible, canClose, onClose]);
 
   const handleClose = useCallback(() => {
     if (canClose) onClose();
@@ -57,7 +61,7 @@ export function InterstitialAd({ show, onClose }: InterstitialAdProps) {
 
   return (
     <AnimatePresence>
-      {show && (
+      {visible && (
         <motion.div
           key="interstitial-ad"
           initial={{ opacity: 0 }}

@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useSession } from 'next-auth/react';
 import { PADDLE_PRICES } from '@/lib/pricing';
 import { getPaddle } from '@/lib/paddle-client';
+import { useIsTwa } from '@/lib/is-twa';
 import { analytics } from '@/lib/mixpanel';
 import { GameButton } from '@/components/ui/GameButton';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
@@ -18,6 +19,9 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { data: session } = useSession();
+  // Google Play requires Play Billing for in-app purchases, so the Android build
+  // describes Pro without offering a checkout path. See src/lib/twa-constants.ts.
+  const isTwa = useIsTwa();
 
   useEffect(() => { if (isOpen) { analytics.feature('upgrade_modal_shown', { reason }); setLoading(false); setError(''); } }, [isOpen, reason]);
 
@@ -57,10 +61,16 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
       onClose={onClose}
       labelId="upgrade-modal-title"
       footer={
-        <GameButton variant="gold" onClick={handleSubscribe} disabled={loading || !session}>
-          {loading ? <LoadingSpinner bare size={16} /> : <Sparkles className="w-4 h-4" />}
-          {session ? 'Subscribe to Pro' : 'Sign in to Subscribe'}
-        </GameButton>
+        isTwa ? (
+          <p className="text-[13px] font-semibold text-white/60 text-center px-4">
+            Pro is available on the Octokeen website.
+          </p>
+        ) : (
+          <GameButton variant="gold" onClick={handleSubscribe} disabled={loading || !session}>
+            {loading ? <LoadingSpinner bare size={16} /> : <Sparkles className="w-4 h-4" />}
+            {session ? 'Subscribe to Pro' : 'Sign in to Subscribe'}
+          </GameButton>
+        )
       }
     >
       {/* Mascot with glow ring */}
