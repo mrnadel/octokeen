@@ -1369,7 +1369,7 @@ export const finSection2Part2: Unit[] = [
           {
             id: "fin-sec2-u8-L3-Q1",
             type: "true-false",
-            question: "It's week 2 and your whole monthly dining out amount is already spent, and half of it went in week 1. A weekly check-in would have caught it.",
+            question: "Dining out money: half gone in week 1, all gone by week 2. A weekly check-in would have caught it.",
             correctAnswer: true,
             explanation: "That's what the 10-minute weekly review is for. It catches the overspend while there is still month left to adjust.",
             distractorExplanations: {
@@ -2021,8 +2021,8 @@ export const finSection2Part2: Unit[] = [
           },
           {
             id: "fin-sec2-u9-L3-Q4",
-            type: "sort-buckets",
-            question: "Sort these into the right category:",
+            type: "category-swipe",
+            question: "Social pressure spending, or a healthy money boundary?",
             options: [
               "Joining a trip you can't afford to fit in",
               "Suggesting a potluck instead of a restaurant",
@@ -2134,11 +2134,13 @@ export const finSection2Part2: Unit[] = [
           },
           {
             id: "fin-sec2-u9-L4-Q3",
-            type: "fill-blank",
-            question: "The value test asks: 'Will this purchase still _____ to me in 30 days?'",
-            blanks: ["matter"],
-            wordBank: ["matter", "belong", "arrive", "exist", "apply"],
-            explanation: "If something won't matter in 30 days, it's probably not worth the money. Things that matter tend to align with your values.",
+            type: "true-false",
+            question: "If a purchase won't matter to you in 30 days, the value test says it's a strong buy.",
+            correctAnswer: false,
+            explanation: "It's the opposite. Failing the 30 day test marks a purchase as convenience or impulse, not value.",
+            distractorExplanations: {
+              0: "True is incorrect here. A purchase you'll have forgotten in 30 days is the kind the value test tells you to skip.",
+            },
           },
           {
             id: "fin-sec2-u9-L4-Q4",

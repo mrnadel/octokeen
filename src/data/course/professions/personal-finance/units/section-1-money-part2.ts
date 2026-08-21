@@ -183,7 +183,7 @@ export const finSection1Part2: Unit[] = [
             id: "fin-sec1-u5-L2-T2",
             type: "teaching",
             question: "Savings accounts pay you interest",
-            explanation: "When you keep money in savings, the bank lends it out to other borrowers and earns from those loans. Interest is your share of that, paid as a reward for letting the bank hold your money.",
+            explanation: "The bank lends your savings to other borrowers and earns from those loans. Interest is your cut, paid for letting the bank hold your money.",
             hint: "Interest rates are usually small, but the money grows without you doing anything.",
           },
           {
@@ -1299,7 +1299,7 @@ export const finSection1Part2: Unit[] = [
           {
             id: "fin-sec1-u7-L2-Q5",
             type: "fill-blank",
-            question: "Things you must pay for like rent and food are called _____. Things you enjoy but could skip are called _____.",
+            question: "Things you must pay for, like rent and food, are _____. Things you enjoy but could skip are _____.",
             blanks: ["needs", "wants"],
             wordBank: ["needs", "wants", "debts", "investments", "taxes", "fees"],
             explanation: "Needs keep you alive and safe. Wants make life fun but aren't essential. Knowing the difference is a key money skill.",

@@ -221,3 +221,55 @@ describe('CHECK 17 — distractor explanations must be distinct and specific', (
     expect(check(violations, 'CHECK 17')).toHaveLength(0);
   });
 });
+
+// ─── CHECK 18: cloned lesson shapes ─────────────────────────
+
+describe('CHECK 18 — lessons with identical item-type sequences', () => {
+  function courseWithLessons(shapes: string[][]): CourseInput[] {
+    const unit = {
+      id: 'u1', title: 'Unit One', description: 'Fixture', color: '#000', icon: 'x',
+      lessons: shapes.map((types, li) => ({
+        id: `u1-L${li + 1}`, title: `Lesson ${li + 1}`, description: 'Fixture',
+        icon: 'x', xpReward: 15,
+        questions: types.map((t, qi) => (
+          t === 'teaching'
+            ? { id: `u1-L${li + 1}-T${qi}`, type: 'teaching', question: 'Card', explanation: 'One.' }
+            : { id: `u1-L${li + 1}-Q${qi}`, type: t, question: 'Q?', correctAnswer: qi % 2 === 0, explanation: 'One.' }
+        )),
+      })),
+    } as unknown as Unit;
+    return [{ id: 'fixture', name: 'Fixture Course', units: [unit] }];
+  }
+
+  const MC = ['teaching', 'true-false', 'multiple-choice'];
+
+  it('flags two lessons whose full sequence matches', () => {
+    const violations = runContentQA(courseWithLessons([MC, MC, ['teaching', 'true-false', 'fill-blank']]));
+    const found = check(violations, 'CHECK 18');
+
+    expect(found).toHaveLength(1);
+    expect(found[0].message).toContain('2 lessons share');
+  });
+
+  it('does NOT flag lessons that merely open the same way', () => {
+    // The guide requires a teaching card first and an easy question after it, so shared
+    // openings are expected. Only the full sequence should count.
+    const violations = runContentQA(courseWithLessons([
+      ['teaching', 'true-false', 'multiple-choice'],
+      ['teaching', 'true-false', 'fill-blank'],
+      ['teaching', 'true-false', 'scenario'],
+    ]));
+
+    expect(check(violations, 'CHECK 18')).toHaveLength(0);
+  });
+
+  it('stays silent for a unit with fewer than 3 standard lessons', () => {
+    const violations = runContentQA(courseWithLessons([MC, MC]));
+    expect(check(violations, 'CHECK 18')).toHaveLength(0);
+  });
+
+  it('reports the number of clones when more than two match', () => {
+    const violations = runContentQA(courseWithLessons([MC, MC, MC, ['teaching', 'fill-blank']]));
+    expect(check(violations, 'CHECK 18')[0].message).toContain('3 lessons share');
+  });
+});

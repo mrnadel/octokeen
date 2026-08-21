@@ -51,15 +51,15 @@ export const finSection1Part1: Unit[] = [
             options: [
               "Pay for food and housing",
               "Guarantee happiness in every situation",
-              "Add extra hours to your day",
-              "Cure any illness you might have",
+              "End money worries once you earn enough",
+              "Fix spending habits without changing them",
             ],
             correctIndex: 0,
             explanation: "Money is a tool for buying goods and services like food, housing, transport, and healthcare.",
             distractorExplanations: {
-              1: 'Money can raise comfort, but happiness also depends on health and relationships.',
-              2: 'Money can buy other people\'s time, yet your own day is still 24 hours.',
-              3: 'Money pays for treatment, but many illnesses have no cure at any price.',
+              1: 'Money raises comfort, but people who come into a windfall usually drift back to their old mood within a year.',
+              2: 'High earners worry about money too. Spending tends to rise to meet income, so the worry follows the paycheck.',
+              3: 'A bigger paycheck runs through the same habits it always did. The habits decide where it lands.',
             },
           },
           {
@@ -605,7 +605,7 @@ export const finSection1Part1: Unit[] = [
           {
             id: "fin-sec1-u2-L1-Q3",
             type: "fill-blank",
-            question: "The main problem with barter is the 'double coincidence of _____.' Money solved this by acting as a _____ between buyers and sellers.",
+            question: "Barter needs a 'double coincidence of _____.' Money fixed that by acting as a _____ between buyers and sellers.",
             blanks: ["wants", "go-between"],
             wordBank: ["wants", "go-between", "needs", "barrier", "supply", "shortcut"],
             explanation: "Both traders had to want each other's goods. Money removed that requirement by being universally accepted.",
@@ -925,7 +925,7 @@ export const finSection1Part1: Unit[] = [
             id: "fin-sec1-u2-L4-T1",
             type: "teaching",
             question: "Why banks exist",
-            explanation: "Banks are businesses that hold your money, keep it safe, and let you access it when you need it. They also lend money to other people and pay you a small amount for letting them use yours.",
+            explanation: "Banks hold your money, keep it safe, and let you reach it whenever you need it. They lend it out meanwhile, and pay you a little for the privilege.",
             hint: "Think of a bank as a secure parking garage for your money.",
           },
           {
@@ -1658,7 +1658,7 @@ export const finSection1Part1: Unit[] = [
               "Taxes took well over half of his total gross pay",
             ],
             correctIndex: 1,
-            explanation: "$36,000 / 26 pay periods = $1,384.62 gross, and $345 of deductions shrinks it further. Biweekly pay does not cut his annual total: two months each year carry a third paycheck, so he still receives $36,000.",
+            explanation: "$36,000 over 26 pay periods is $1,384.62 gross, and $345 of deductions shrinks it again. His annual total is unchanged: two months carry a third paycheck.",
             distractorExplanations: {
               0: 'The gross figure matches $36,000 divided by 26 exactly, so payroll ran correctly.',
               2: 'The annual salary is unchanged. Only the number of slices it is cut into differs.',

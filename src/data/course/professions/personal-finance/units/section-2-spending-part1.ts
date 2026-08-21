@@ -211,6 +211,14 @@ export const finSection2Part1: Unit[] = [
             },
           },
           {
+            id: "fin-sec2-u1-L2-Q5",
+            type: "fill-blank",
+            question: "Expenses that stay the same every month are called _____ expenses.",
+            blanks: ["fixed"],
+            wordBank: ["fixed", "variable", "optional", "flexible", "recurring"],
+            explanation: "Fixed expenses are predictable monthly costs like rent and insurance.",
+          },
+          {
             id: "fin-sec2-u1-L2-Q4",
             type: "sort-buckets",
             question: "Sort these into the correct category:",
@@ -225,14 +233,6 @@ export const finSection2Part1: Unit[] = [
             buckets: ["Fixed expense", "Variable expense"],
             correctBuckets: [0, 1, 0, 1, 0, 1],
             explanation: "Rent, phone plans, and loan payments stay the same. Dining, rides, and clothing change monthly.",
-          },
-          {
-            id: "fin-sec2-u1-L2-Q5",
-            type: "fill-blank",
-            question: "Expenses that stay the same every month are called _____ expenses.",
-            blanks: ["fixed"],
-            wordBank: ["fixed", "variable", "optional", "flexible", "recurring"],
-            explanation: "Fixed expenses are predictable monthly costs like rent and insurance.",
           },
           {
             id: "fin-sec2-u1-L2-T3",
@@ -764,7 +764,7 @@ export const finSection2Part1: Unit[] = [
             id: "fin-sec2-u2-L1-T3",
             type: "teaching",
             question: "The category depends on context",
-            explanation: "The same item can be a need or a want depending on your situation. A car is a need if you live 30 miles from work with no bus, and a want if you live 2 blocks away.",
+            explanation: "The same item can be a need or a want depending on your situation. A car is a need 30 miles from work with no bus, not 2 blocks away.",
             hint: "Always ask: could I function without this in my specific situation?",
           },
           {
@@ -1673,6 +1673,15 @@ export const finSection2Part1: Unit[] = [
             },
           },
           {
+            id: "fin-sec2-u3-L4-Q5",
+            type: "fill-blank",
+            question: "In the US, hourly workers who pass 40 hours in a week earn _____ pay at a higher rate.",
+            blanks: ["overtime"],
+            wordBank: ["overtime", "bonus", "premium", "regular", "double"],
+            explanation: "Overtime pay is typically 1.5 times the regular hourly rate for hours beyond 40 per week.",
+            hint: "Multiply your regular rate by 1.5 to find your overtime rate.",
+          },
+          {
             id: "fin-sec2-u3-L4-Q4",
             type: "sort-buckets",
             question: "Sort these into the correct category:",
@@ -1687,15 +1696,6 @@ export const finSection2Part1: Unit[] = [
             buckets: ["Hourly pay", "Salaried pay"],
             correctBuckets: [0, 1, 0, 1, 0, 1],
             explanation: "Hourly pay varies with hours and includes overtime. Salary is fixed and predictable but may require unpaid extra hours.",
-          },
-          {
-            id: "fin-sec2-u3-L4-Q5",
-            type: "fill-blank",
-            question: "In the US, hourly workers who pass 40 hours in a week earn _____ pay at a higher rate.",
-            blanks: ["overtime"],
-            wordBank: ["overtime", "bonus", "premium", "regular", "double"],
-            explanation: "Overtime pay is typically 1.5 times the regular hourly rate for hours beyond 40 per week.",
-            hint: "Multiply your regular rate by 1.5 to find your overtime rate.",
           },
           {
             id: "fin-sec2-u3-L4-T3",

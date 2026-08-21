@@ -1,7 +1,7 @@
 /**
  * Shared Content QA Module
  *
- * All 17 QA content checks extracted from scripts/qa-content.ts.
+ * All 19 QA content checks extracted from scripts/qa-content.ts.
  * Used by the CLI script and the admin API route.
  */
 
@@ -74,6 +74,28 @@ const MAX_TRUE_FALSE_SKEW_PCT = 65;
 
 /** Teaching card titles must come in under this word count (CHECK 16). */
 const TEACHING_TITLE_MAX_WORDS = 8;
+
+/** A unit needs at least this many standard lessons before CHECK 18 judges its variety. */
+const LESSON_SHAPE_MIN_LESSONS = 3;
+
+/**
+ * Word budget per on-screen field (CHECK 19).
+ *
+ * Learners read roughly 20-28% of the words on a screen (Nielsen Norman Group), and
+ * Mayer's coherence principle - cutting extraneous material - held in 23 of 23
+ * experiments at a median effect size of 0.86. Trimming text is the single
+ * highest-leverage instructional edit available, not a style preference.
+ *
+ * These are ceilings for outliers, not targets. Well-written content sits near half
+ * of each: question stems around 7 words, explanations around 18.
+ */
+const WORD_BUDGET: Record<string, number> = {
+  question: 20,
+  hint: 20,
+  explanation: 35,
+  scenario: 40,
+  distractorExplanation: 25,
+};
 
 /**
  * Boilerplate shapes a distractor explanation must never take (CHECK 17). These are
@@ -547,6 +569,36 @@ export function runContentQA(courses: CourseInput[]): QAViolation[] {
             trueFalseAnswers.push(q.correctAnswer);
           }
 
+          // ─── CHECK 19: on-screen text stays inside its word budget ───
+          const overBudget: Array<[string, string]> = [];
+
+          if (q.type !== 'teaching' && q.question) overBudget.push(['question', q.question]);
+          if (q.hint) overBudget.push(['hint', q.hint]);
+          if (q.explanation) overBudget.push(['explanation', q.explanation]);
+          if (q.scenario) overBudget.push(['scenario', q.scenario]);
+
+          for (const reason of Object.values(q.distractorExplanations ?? {})) {
+            if (typeof reason === 'string') overBudget.push(['distractorExplanation', reason]);
+          }
+
+          for (const [field, text] of overBudget) {
+            const budget = WORD_BUDGET[field];
+            const words = wordCount(stripSvgDiagrams(text));
+
+            if (words > budget) {
+              violations.push({
+                check: 'CHECK 19',
+                severity: severity('CHECK 19'),
+                questionId: q.id,
+                courseId: c.id,
+                courseName: c.name,
+                unitTitle: unit.title,
+                lessonTitle: lesson.title,
+                message: `${field} is ${words} words (budget ${budget}): "${text.substring(0, 60)}..."`,
+              });
+            }
+          }
+
           // ─── CHECK 2: correct option is noticeably longer than its distractors ───
           // Option display order is shuffled at render (QuestionCard.tsx), so a
           // clustered correctIndex is harmless. Length is not shuffled away: a correct
@@ -580,6 +632,40 @@ export function runContentQA(courses: CourseInput[]): QAViolation[] {
           }
         }
       }
+
+      // ─── CHECK 18: two lessons in the unit are structurally identical ───
+      // Deliberately compares the FULL item-type sequence, not a prefix. Openings are
+      // meant to converge: the guide requires a teaching card first and a trivially easy
+      // question after it, which is usually a true/false. Flagging that would punish
+      // content for following the rules. Two lessons sharing every slot end to end is a
+      // cloned template, and nothing in the guide asks for it.
+      const shapeCounts = new Map<string, number>();
+      let standardLessons = 0;
+
+      for (const lesson of unit.lessons) {
+        if ((lesson.type || 'standard') !== 'standard') continue;
+        standardLessons++;
+        const shape = lesson.questions.map(q => q.type).join(',');
+        shapeCounts.set(shape, (shapeCounts.get(shape) ?? 0) + 1);
+      }
+
+      if (standardLessons >= LESSON_SHAPE_MIN_LESSONS) {
+        for (const [shape, count] of shapeCounts) {
+          if (count > 1) {
+            violations.push({
+              check: 'CHECK 18',
+              severity: severity('CHECK 18'),
+              questionId: unit.id,
+              courseId: c.id,
+              courseName: c.name,
+              unitTitle: unit.title,
+              lessonTitle: '(all)',
+              message: `${count} lessons share an identical item-type sequence (${shape})`,
+            });
+          }
+        }
+      }
+
     }
 
     // ─── CHECK 15: true/false answers skewed to one value ───

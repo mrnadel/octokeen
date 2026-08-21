@@ -8,7 +8,7 @@ Rules for writing course content. Read fully before writing or editing lessons.
 
 ## What is enforced
 
-`npx tsx scripts/qa-content.ts` runs 17 checks. Run it after every content change. Rules marked with a check below are machine-verified; everything else is on you.
+`npx tsx scripts/qa-content.ts` runs 19 checks. Run it after every content change. Rules marked with a check below are machine-verified; everything else is on you.
 
 | Check | Rule |
 |---|---|
@@ -29,6 +29,8 @@ Rules for writing course content. Read fully before writing or editing lessons.
 | 15 | True/false answers not skewed past 65% either way |
 | 16 | Teaching card title under 8 words, hint 1 sentence |
 | 17 | Distractor explanations distinct and not templated |
+| 18 | No two lessons in a unit share an identical item-type sequence |
+| 19 | On-screen text stays inside its word budget |
 
 **`correctIndex` position does not matter.** `QuestionCard.tsx` shuffles option order per question, as do `ScenarioCard`, `MatchPairsCard`, `SortBucketsCard`, `CategorySwipeCard` and `OrderStepsCard`. Stored position never reaches the learner. Do not spend effort redistributing it. True/false has **no** shuffle, so its balance is real (CHECK 15).
 
@@ -73,6 +75,61 @@ Joke distractors ("Control the weather", "Which bank has the nicer logo") make a
 
 ---
 
+## Teach against a misconception
+
+Explaining a correct idea to someone who already believes a wrong one usually fails. They file your explanation next to the belief instead of replacing it. Derek Muller's research on physics videos found exactly this: correct-only explanations were rated clearer and taught nothing, while versions that raised the misconception first, refuted it, then explained were rated *more confusing* and taught significantly more.
+
+**Distractors: always.** Every wrong option should be a belief a real learner holds. This is the highest-value version of the rule and it costs no extra screen text. A distractor that is a genuine misconception makes the question non-trivial, and its explanation writes itself: name the belief, say why it fails. The learner who picks it gets a correction aimed exactly at what they think.
+
+```
+WEAK    "Control the weather" / "Which bank has the nicer logo"
+STRONG  "Carrying a balance builds your credit score"
+```
+
+**Lesson openings: when a real misconception exists.** Name it, refute it, give the correct model, inside the 2-sentence card limit.
+
+```
+FLAT    "Overtime eligibility depends on job duties and pay level."
+BETTER  "Most people think a salary means no overtime. Duties and pay level decide it, not how you are paid."
+```
+
+**Do not invent one.** If you cannot point to someone who actually believes the wrong thing, the format does not apply. A fabricated misconception ("most people think checking accounts pay high interest") is a false claim in a course whose credibility is the product. Definitional lessons and Unit 1 foundations usually have no misconception to attack, because the learner has no model yet rather than a wrong one.
+
+Fit varies by subject. Personal finance is dense with misconceptions (credit scores, renting, minimum payments, tax brackets). Space and astronomy is more unknown-to-learner than wrongly-known.
+
+---
+
+## Writing that reads as human
+
+Generated content fails in recognisable ways. These are the tells found in this codebase, and what to do instead.
+
+**Vary the shape of lessons.** Two lessons in a unit must not share an identical item-type sequence (CHECK 18). Identical skeletons make a learner feel the template before they feel the subject.
+
+**Use specific numbers, not round ones.** `$47` reads as a real receipt. `$50` reads as a placeholder. Round numbers everywhere are a generation tell.
+
+**Name the consequence in the learner's own terms.**
+
+```
+FLAT    "This costs you $312 per year."
+BETTER  "That is $312 a year, about a month of groceries."
+```
+
+**Vary sentence length.** Uniform 15-word sentences read as machine output. Follow a long sentence with a short one. Let the rhythm change.
+
+**Commit, or say it is genuinely debated.** Hedging into "it depends on various factors" teaches nothing. Either give the answer or name the specific thing it depends on.
+
+**Say the uncomfortable part.** Real writing admits when something is annoying, counterintuitive, or unfair. "Your first raise mostly disappears into taxes and lifestyle" earns trust. Relentless positivity does not.
+
+**One concrete example beats two abstract ones.** A named person with one specific detail lands harder than a general rule stated twice.
+
+**Do not restate the question in the explanation.** If the explanation only rephrases the stem, it teaches nothing. Say why.
+
+**No unsourced statistics.** "Research shows the average person spends $200 to $300 a month on subscriptions" invites a reader to check it and find nothing. Attribute it or drop the number.
+
+**Read the lesson out loud in your head.** If you would not say it to a friend at a table, rewrite it.
+
+---
+
 ## Dated figures
 
 Content outlives the year it was written in. A stale tax number in a finance course is the fastest way to lose a knowledgeable reader.
@@ -81,6 +138,41 @@ Content outlives the year it was written in. A stale tax number in a finance cou
 - **When the number is the teaching point**, use the current figure, name the year in the text, and put a source comment above it.
 - **Never mix years.** 2023 and 2024 figures appeared side by side in one question. That inconsistency is the clearest generated-content tell there is.
 - Deposit insurance, contribution limits, tax brackets, standard deductions and app pricing all expire. Re-check them before each release.
+
+---
+
+## Word budget
+
+Length is the highest-leverage edit available, and this is not a style opinion.
+
+- Mayer's **coherence principle** (cutting extraneous material) held in **23 of 23** experiments at a median effect size of **0.86**. Removing words reliably improves learning.
+- Learners read **20-28%** of the words on a screen (Nielsen Norman Group). 79% scan, 16% read word by word. Text you add is mostly text nobody sees.
+- Sessions are 3-5 minutes on a phone. Every extra line spends attention you need for the next lesson.
+
+Cutting text is therefore not a trade against depth. It *is* the depth.
+
+| Field | Budget | Aim for |
+|---|---|---|
+| Question stem | 20 | 7 |
+| Hint | 20 | 14 |
+| Option | 15 (CHECK 12) | 6 |
+| Distractor explanation | 25 | 14 |
+| Explanation | 35 | 18 |
+| Scenario | 40 | 25 |
+
+CHECK 19 enforces the budget column. **The aim column is the target** and it is roughly half. Budgets catch outliers; they do not describe good writing. A lesson where every field sits at its cap is a wall of text that happens to pass.
+
+How to cut without losing meaning:
+
+```
+BEFORE  "When you keep money in savings, the bank lends it out to other borrowers and
+         earns from those loans. Interest is your share of that, paid as a reward for
+         letting the bank hold your money."                                   (36 words)
+AFTER   "The bank lends your savings to other borrowers and earns from those loans.
+         Interest is your cut, paid for letting the bank hold your money."    (24 words)
+```
+
+Delete throat-clearing ("When you", "It is important to note"). Cut a clause that restates the one before it. Replace a phrase with a word. If it still will not fit, you are teaching two things and need two cards.
 
 ---
 
