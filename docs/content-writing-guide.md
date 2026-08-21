@@ -325,7 +325,7 @@ The most common type. One clearly correct answer with 3 plausible-but-wrong dist
 
 | Rule | Requirement |
 |------|-------------|
-| **Options** | Exactly 4. Under 15 words each. Roughly equal length. |
+| **Options** | Exactly 4. Under 15 words each (`CHECK 12`). Keep them close in length; the enforced limit is that the correct option may not lead the longest distractor by more than 4 words (`CHECK 2`). |
 | **Correct option** | Must NOT be noticeably longer than wrong options. Shuffling hides position, not length, so this is the tell that survives. `CHECK 2` in `src/lib/content-qa.ts` flags a correct option leading its longest distractor by more than 4 words. |
 | **Distractors** | Each wrong for a different reason. No two say the same wrong thing. Write the reason against the misconception that option embodies, never by quoting the option back and appending the correct answer's explanation. `CHECK 17` in `src/lib/content-qa.ts` rejects identical reasons and known generator templates. |
 | **correctIndex** | No constraint. `QuestionCard.tsx` Fisher-Yates shuffles option order per question, so a clustered correctIndex is invisible to learners. Do not spend effort redistributing it. |
