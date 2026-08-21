@@ -1,7 +1,7 @@
 # UI Rules
 
 ## Components
-Check `src/components/ui/` before writing inline UI:
+Check `src/components/ui/` before writing inline UI. 39 components live there; the ones you will reach for most:
 - `PageHeader` — sticky header, back button, title, subtitle, icon
 - `UserAvatar` — image or initials fallback
 - `LeaderboardRow` — rank + avatar + name + XP
@@ -10,7 +10,7 @@ Check `src/components/ui/` before writing inline UI:
 - `LoadingSpinner` — centered, with or without card wrapper
 - `TabToggle` — multi-button tab switcher with optional badge
 - `ProgressBar` — animated fill, auto-coloring
-- `AnimatedCounter`, `GameButton`, `HeartDisplay`, `UpgradeGate`, `CoinIcon`, `GlossaryText`
+- `AnimatedCounter`, `GameButton`, `HeartDisplay`, `UpgradeGate`, `GlossaryText`
 
 Extract repeated markup into `src/components/ui/` rather than copy-pasting.
 
