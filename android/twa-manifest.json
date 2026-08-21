@@ -15,18 +15,30 @@
   "startUrl": "/",
   "iconUrl": "https://octokeen.com/icon-512.png",
   "maskableIconUrl": "https://octokeen.com/icon-512.png",
-  "shortcuts": [],
+  "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "android.keystore",
+    "path": "D:/Work/Octokeen/android/android.keystore",
     "alias": "octokeen"
   },
-  "appVersionCode": 1,
   "appVersionName": "1.0.0",
-  "splashScreenFadeOutDuration": 300,
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://octokeen.com/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://octokeen.com/",
+  "minSdkVersion": 23,
   "orientation": "portrait",
   "fingerprints": [],
-  "minSdkVersion": 23,
-  "targetSdkVersion": 36
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "displayOverride": [],
+  "appVersion": "1.0.0"
 }

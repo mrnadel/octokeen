@@ -72,3 +72,16 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Android signing secrets, never commit
+android/.keystore-password.txt
+android/android.keystore
+android/*.keystore
+
+# Android build output
+android/app/build/
+android/build/
+android/.gradle/
+android/*.apk
+android/*.aab
+android/*.idsig
