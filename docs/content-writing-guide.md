@@ -221,7 +221,7 @@ TEACHING CARD 3 — adds nuance or real-world context (position 9-10, optional)
 | **Options** | 4 choices, each 1-4 words |
 | **No explanations** | Speed focus, not teaching |
 | **Coverage** | Questions should span the entire unit |
-| **correctIndex** | Distributed roughly evenly across 0-3 |
+| **correctIndex** | No constraint. Option order is shuffled at render, so stored position is not what the learner sees. |
 
 ### Timeline lesson rules (optional)
 
@@ -299,9 +299,9 @@ Teaching cards are the most important element. They're how the app teaches. Ever
 
 | Rule | Requirement |
 |------|-------------|
-| **Title** | Under 8 words. No emojis (mascot replaces them). Sentence case. |
+| **Title** | Under 8 words. No emojis (mascot replaces them). Sentence case. Enforced by `CHECK 16`. |
 | **Explanation** | Maximum 2 sentences. If you need more, use 2 teaching cards. |
-| **Hint** | One sentence. Practical, not philosophical. Optional. |
+| **Hint** | One sentence. Practical, not philosophical. Optional. Enforced by `CHECK 16`. |
 | **No `options`** | Teaching cards render numbered pills that look clickable but aren't. |
 | **No `diagram`** | Teaching cards are text-only. Diagrams go on the question that follows. |
 | **"Try this now:"** | At least 2 per unit should include a real-world action in the hint. |
@@ -316,7 +316,7 @@ The most common type. One clearly correct answer with 3 plausible-but-wrong dist
   type: 'multiple-choice',
   question: 'One sentence question?',
   options: ['Option A', 'Option B', 'Option C', 'Option D'],
-  correctIndex: 2,  // MUST be distributed across 0-3, not always 0
+  correctIndex: 2,  // index into `options` as written; display order is shuffled at render
   explanation: 'One sentence explanation.',
   hint: 'One sentence hint.',
   diagram: '<svg>...</svg>',  // optional
@@ -326,9 +326,9 @@ The most common type. One clearly correct answer with 3 plausible-but-wrong dist
 | Rule | Requirement |
 |------|-------------|
 | **Options** | Exactly 4. Under 15 words each. Roughly equal length. |
-| **Correct option** | Must NOT be noticeably longer than wrong options. |
-| **Distractors** | Each wrong for a different reason. No two say the same wrong thing. |
-| **correctIndex** | Must be distributed roughly 25% per position across the course. Never always 0. |
+| **Correct option** | Must NOT be noticeably longer than wrong options. Shuffling hides position, not length, so this is the tell that survives. `CHECK 2` in `src/lib/content-qa.ts` flags a correct option leading its longest distractor by more than 4 words. |
+| **Distractors** | Each wrong for a different reason. No two say the same wrong thing. Write the reason against the misconception that option embodies, never by quoting the option back and appending the correct answer's explanation. `CHECK 17` in `src/lib/content-qa.ts` rejects identical reasons and known generator templates. |
+| **correctIndex** | No constraint. `QuestionCard.tsx` Fisher-Yates shuffles option order per question, so a clustered correctIndex is invisible to learners. Do not spend effort redistributing it. |
 | **Explanation** | 1-2 sentences. State the fact, not a lecture. |
 
 ### True/false
@@ -349,6 +349,7 @@ Quick validation of a concept. Great for easy questions after teaching cards.
 |------|-------------|
 | **Statement** | Clear and unambiguous. No double negatives. |
 | **Balance** | Roughly 50/50 true/false across the course. |
+| **Position** | Watch the slot, not just the total. Unlike multiple-choice, true/false is **not** shuffled at render, so if every lesson's post-teaching-card check answers `true`, a learner scores every one by answering true. Vary the answer at repeated positions. `CHECK 15` in `src/lib/content-qa.ts` flags a course-wide skew past 65%. |
 
 ### Fill-blank
 
@@ -560,8 +561,12 @@ Bad:  "Nope! Obviously net pay is less because deductions are taken out first."
 ### Country-agnostic content
 
 - Teach concepts, not country-specific details.
-- When country-specific details are unavoidable (401k, FICO), add a hint: "Details vary by country, but the concept applies everywhere."
-- Use generic currency ("1,000/month") where possible.
+- When country-specific details are unavoidable (401k, FICO), state the scope once in the unit
+  description rather than tacking "details vary by country" onto individual hints. A unit built on
+  dollars, FICA, and the 40-hour overtime line is a US unit; say so once and teach it cleanly.
+- **Always keep the currency symbol: "$1,000/month", never "1,000/month".** Amounts without a symbol
+  render as bare integers ("The ATM charges a 3 fee"). This overrides any earlier draft of this guide
+  that suggested generic currency; the Numbers section above is authoritative.
 
 ---
 
@@ -649,7 +654,7 @@ Each sub-lesson gets its own title and description (never "Part 2" or roman nume
 **Question level:**
 - [ ] Teaching cards: max 2-sentence explanation, no options, no diagram
 - [ ] Teaching card titles: under 8 words, no emojis
-- [ ] Multiple-choice: 4 options, equal length, correctIndex distributed across 0-3
+- [ ] Multiple-choice: 4 options of roughly equal length, correct option not the longest
 - [ ] True/false: clear, unambiguous, roughly 50/50 balance
 - [ ] Fill-blank: key vocabulary in blanks, not filler words
 - [ ] Sort-buckets: exactly 6 items, 2 buckets, 3 per bucket

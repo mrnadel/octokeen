@@ -1,7 +1,7 @@
 /**
  * Shared Content QA Module
  *
- * All 14 QA content checks extracted from scripts/qa-content.ts.
+ * All 17 QA content checks extracted from scripts/qa-content.ts.
  * Used by the CLI script and the admin API route.
  */
 
@@ -66,6 +66,24 @@ function wordCount(text: string): number {
 
 const ERROR_CHECKS = new Set(['CHECK 6', 'CHECK 7', 'CHECK 8', 'CHECK 9', 'CHECK 13', 'CHECK 14']);
 
+/** How many words the correct option may exceed its longest distractor by (CHECK 2). */
+const MAX_CORRECT_OPTION_WORD_LEAD = 4;
+
+/** Share of true/false answers that may sit on one value before CHECK 15 fires. */
+const MAX_TRUE_FALSE_SKEW_PCT = 65;
+
+/** Teaching card titles must come in under this word count (CHECK 16). */
+const TEACHING_TITLE_MAX_WORDS = 8;
+
+/**
+ * Boilerplate shapes a distractor explanation must never take (CHECK 17). These are
+ * the generator artifacts found across sections 1 and 2: the option quoted back with
+ * the correct answer's explanation appended, a numeric template applied blindly, and
+ * canned rejections pasted onto options they do not describe.
+ */
+const TEMPLATED_REASON =
+  /(is wrong because|This statement is actually (true|false)|This (amount|choice|answer) .{0,40}(is too (high|low)|is too narrow)|the correct calculation gives|Absolute statements are rarely true)/i;
+
 function severity(check: string): QASeverity {
   return ERROR_CHECKS.has(check) ? 'error' : 'warning';
 }
@@ -77,7 +95,7 @@ export function runContentQA(courses: CourseInput[]): QAViolation[] {
 
   for (const c of courses) {
     const allQuestionIds = new Set<string>();
-    const mcCorrectIndices: number[] = [];
+    const trueFalseAnswers: boolean[] = [];
 
     for (const unit of c.units) {
       for (const lesson of unit.lessons) {
@@ -245,6 +263,78 @@ export function runContentQA(courses: CourseInput[]): QAViolation[] {
                 unitTitle: unit.title,
                 lessonTitle: lesson.title,
                 message: `Teaching card explanation has ${sentenceCount} sentences (max 2): "${q.explanation.substring(0, 100)}..."`,
+              });
+            }
+          }
+
+          // ─── CHECK 16: Teaching card title and hint length ───
+          // A card's job is one idea. An over-long title or a multi-sentence hint is
+          // the shape a second card should have taken.
+          if (q.type === 'teaching') {
+            const titleWords = wordCount(q.question);
+            if (titleWords >= TEACHING_TITLE_MAX_WORDS) {
+              violations.push({
+                check: 'CHECK 16',
+                severity: severity('CHECK 16'),
+                questionId: q.id,
+                courseId: c.id,
+                courseName: c.name,
+                unitTitle: unit.title,
+                lessonTitle: lesson.title,
+                message: `Teaching card title is ${titleWords} words (max ${TEACHING_TITLE_MAX_WORDS - 1}): "${q.question}"`,
+              });
+            }
+
+            if (q.hint) {
+              const hintSentences = countSentences(q.hint);
+              if (hintSentences > 1) {
+                violations.push({
+                  check: 'CHECK 16',
+                  severity: severity('CHECK 16'),
+                  questionId: q.id,
+                  courseId: c.id,
+                  courseName: c.name,
+                  unitTitle: unit.title,
+                  lessonTitle: lesson.title,
+                  message: `Teaching card hint has ${hintSentences} sentences (max 1): "${q.hint.substring(0, 100)}"`,
+                });
+              }
+            }
+          }
+
+          // ─── CHECK 17: Distractor explanations must be distinct ───
+          // Each wrong option has to be wrong for its own reason. Identical strings
+          // across distractors are the signature of a generator that pasted the
+          // correct answer's explanation into every slot.
+          if (q.distractorExplanations) {
+            const reasons = Object.values(q.distractorExplanations)
+              .filter((r): r is string => typeof r === 'string' && r.trim().length > 0);
+            const distinct = new Set(reasons.map(r => r.trim().toLowerCase()));
+
+            if (reasons.length > 1 && distinct.size < reasons.length) {
+              violations.push({
+                check: 'CHECK 17',
+                severity: severity('CHECK 17'),
+                questionId: q.id,
+                courseId: c.id,
+                courseName: c.name,
+                unitTitle: unit.title,
+                lessonTitle: lesson.title,
+                message: `${reasons.length} distractor explanations collapse to ${distinct.size} distinct reason(s)`,
+              });
+            }
+
+            const templated = reasons.filter(r => TEMPLATED_REASON.test(r));
+            if (templated.length > 0) {
+              violations.push({
+                check: 'CHECK 17',
+                severity: severity('CHECK 17'),
+                questionId: q.id,
+                courseId: c.id,
+                courseName: c.name,
+                unitTitle: unit.title,
+                lessonTitle: lesson.title,
+                message: `${templated.length} distractor explanation(s) use a generated template rather than a specific reason: "${templated[0].substring(0, 80)}"`,
               });
             }
           }
@@ -452,39 +542,66 @@ export function runContentQA(courses: CourseInput[]): QAViolation[] {
             }
           }
 
-          // Collect MC correctIndex for CHECK 2
+          // Collect true/false answers for CHECK 15
+          if (q.type === 'true-false' && typeof q.correctAnswer === 'boolean') {
+            trueFalseAnswers.push(q.correctAnswer);
+          }
+
+          // ─── CHECK 2: correct option is noticeably longer than its distractors ───
+          // Option display order is shuffled at render (QuestionCard.tsx), so a
+          // clustered correctIndex is harmless. Length is not shuffled away: a correct
+          // answer that is visibly the longest is guessable without reading the stem.
           if (
             (q.type === 'multiple-choice' || q.type === 'scenario' || q.type === 'pick-the-best') &&
             q.correctIndex !== undefined &&
-            q.correctIndex !== null
+            q.correctIndex !== null &&
+            q.options &&
+            q.options.length > 1 &&
+            q.correctIndex >= 0 &&
+            q.correctIndex < q.options.length
           ) {
-            mcCorrectIndices.push(q.correctIndex);
+            const correctWords = wordCount(q.options[q.correctIndex]);
+            const longestDistractor = Math.max(
+              ...q.options.filter((_, i) => i !== q.correctIndex).map(wordCount)
+            );
+
+            if (correctWords > longestDistractor + MAX_CORRECT_OPTION_WORD_LEAD) {
+              violations.push({
+                check: 'CHECK 2',
+                severity: severity('CHECK 2'),
+                questionId: q.id,
+                courseId: c.id,
+                courseName: c.name,
+                unitTitle: unit.title,
+                lessonTitle: lesson.title,
+                message: `correct option is ${correctWords} words vs ${longestDistractor} for the longest distractor (lead of ${MAX_CORRECT_OPTION_WORD_LEAD} allowed)`,
+              });
+            }
           }
         }
       }
     }
 
-    // ─── CHECK 2: correctIndex distribution ───
-    if (mcCorrectIndices.length > 0) {
-      const counts = [0, 0, 0, 0];
-      for (const idx of mcCorrectIndices) {
-        if (idx >= 0 && idx < 4) counts[idx]++;
-      }
-      const total = mcCorrectIndices.length;
-      for (let pos = 0; pos < 4; pos++) {
-        const pct = (counts[pos] / total) * 100;
-        if (pct > 35) {
-          violations.push({
-            check: 'CHECK 2',
-            severity: severity('CHECK 2'),
-            questionId: '(course-wide)',
-            courseId: c.id,
-            courseName: c.name,
-            unitTitle: '(all)',
-            lessonTitle: '(all)',
-            message: `correctIndex=${pos} accounts for ${pct.toFixed(1)}% of ${total} MC questions (threshold: 35%)`,
-          });
-        }
+    // ─── CHECK 15: true/false answers skewed to one value ───
+    // True/false renders through TrueFalseQuestion with no shuffle, so a course that
+    // mostly answers `true` is guessable without reading the statement.
+    if (trueFalseAnswers.length > 0) {
+      const trueCount = trueFalseAnswers.filter(Boolean).length;
+      const truePct = (trueCount / trueFalseAnswers.length) * 100;
+      const skew = Math.max(truePct, 100 - truePct);
+
+      if (skew > MAX_TRUE_FALSE_SKEW_PCT) {
+        const dominant = truePct >= 50 ? 'true' : 'false';
+        violations.push({
+          check: 'CHECK 15',
+          severity: severity('CHECK 15'),
+          questionId: '(course-wide)',
+          courseId: c.id,
+          courseName: c.name,
+          unitTitle: '(all)',
+          lessonTitle: '(all)',
+          message: `${skew.toFixed(1)}% of ${trueFalseAnswers.length} true/false answers are ${dominant} (threshold: ${MAX_TRUE_FALSE_SKEW_PCT}%)`,
+        });
       }
     }
 

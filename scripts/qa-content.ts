@@ -34,26 +34,59 @@ function isUnit(val: unknown): val is Unit {
   );
 }
 
-async function loadProfessionUnits(professionDir: string): Promise<Unit[]> {
+/**
+ * Orders `section-<n>-<name>-part<n>.ts` by section number, then part number, so QA
+ * walks a course in the order a learner does.
+ */
+function compareSectionFiles(a: string, b: string): number {
+  const parse = (f: string) => ({
+    section: parseInt(f.match(/section-(\d+)/)?.[1] ?? '0', 10),
+    part: parseInt(f.match(/part(\d+)/)?.[1] ?? '0', 10),
+  });
+  const pa = parse(a);
+  const pb = parse(b);
+  return pa.section - pb.section || pa.part - pb.part || a.localeCompare(b);
+}
+
+function compareUnitFiles(a: string, b: string): number {
+  const num = (f: string) => parseInt(f.match(/unit-(\d+)/)?.[1] ?? '0', 10);
+  return num(a) - num(b);
+}
+
+/**
+ * Loads a course's units from disk.
+ *
+ * Courses ship their content one of two ways: legacy `unit-<n>.ts` files that each
+ * export a single Unit, or `section-<n>-<name>-part<n>.ts` files that export an array
+ * of Units. Where both exist the section files are the live content — `course-meta.ts`
+ * imports only those, and the `unit-<n>.ts` files are abandoned earlier drafts. Scanning
+ * the stale ones instead of the live ones silently reports a clean bill of health for
+ * content nobody is checking, so prefer section files whenever a course has them.
+ */
+async function loadProfessionUnits(professionDir: string, sourceByUnitId: Map<string, string>): Promise<Unit[]> {
   const unitsDir = path.join(professionDir, 'units');
   if (!fs.existsSync(unitsDir)) return [];
 
-  const unitFiles = fs.readdirSync(unitsDir)
-    .filter(f => f.startsWith('unit-') && f.endsWith('.ts'))
-    .sort((a, b) => {
-      const numA = parseInt(a.match(/unit-(\d+)/)?.[1] ?? '0');
-      const numB = parseInt(b.match(/unit-(\d+)/)?.[1] ?? '0');
-      return numA - numB;
-    });
+  const allFiles = fs.readdirSync(unitsDir).filter(f => f.endsWith('.ts'));
+  const sectionFiles = allFiles.filter(f => f.startsWith('section-')).sort(compareSectionFiles);
+  const contentFiles = sectionFiles.length > 0
+    ? sectionFiles
+    : allFiles.filter(f => f.startsWith('unit-')).sort(compareUnitFiles);
 
   const units: Unit[] = [];
-  for (const file of unitFiles) {
+  for (const file of contentFiles) {
     const filePath = path.join(unitsDir, file);
     const mod = await import(pathToFileURL(filePath).href);
+
     for (const key of Object.keys(mod)) {
-      if (isUnit(mod[key])) {
-        units.push(mod[key]);
-        break;
+      const exported = mod[key];
+      const found = Array.isArray(exported)
+        ? exported.filter(isUnit)
+        : isUnit(exported) ? [exported] : [];
+
+      for (const unit of found) {
+        units.push(unit);
+        sourceByUnitId.set(unit.id, filePath);
       }
     }
   }
@@ -73,7 +106,7 @@ function discoverProfessions(): { id: string; name: string; dir: string }[] {
     }));
 }
 
-async function loadAllCourses(): Promise<CourseEntry[]> {
+async function loadAllCourses(sourceByUnitId: Map<string, string>): Promise<CourseEntry[]> {
   const courses: CourseEntry[] = [];
 
   // ME course (main)
@@ -87,7 +120,7 @@ async function loadAllCourses(): Promise<CourseEntry[]> {
   // Profession courses
   const professions = discoverProfessions();
   for (const prof of professions) {
-    const units = await loadProfessionUnits(prof.dir);
+    const units = await loadProfessionUnits(prof.dir, sourceByUnitId);
     if (units.length > 0) {
       courses.push({
         id: prof.id,
@@ -103,18 +136,21 @@ async function loadAllCourses(): Promise<CourseEntry[]> {
 
 // ─── Helper: resolve file for a unit ────────────────────────
 
-function guessUnitFile(unitId: string, courseDir: string): string {
-  // Try to find the file containing this unit in the directory
-  const files = fs.readdirSync(courseDir).filter(f => f.endsWith('.ts'));
-  // For the ME course, filenames are like unit-1-statics.ts
-  // For professions, filenames are like unit-1.ts
-  // Just return the directory as context, we'll match by unit ID
-  return courseDir + '/' + (files.find(f => {
-    // Try matching unit number from ID like "u1-statics" -> "1"
-    const unitNum = unitId.match(/u(\d+)/)?.[1];
-    if (unitNum && f.includes(`unit-${unitNum}`)) return true;
-    return false;
-  }) || unitId);
+/**
+ * Units are recorded against their source file at load time. Section files hold
+ * several units each and are named for the section rather than the unit, so there is
+ * no reliable way to work the path back out from a unit id — it has to be remembered.
+ */
+function resolveUnitFile(
+  unitId: string | undefined,
+  sourceByUnitId: Map<string, string>,
+  fallbackDir: string,
+): string {
+  if (unitId) {
+    const known = sourceByUnitId.get(unitId);
+    if (known) return known;
+  }
+  return fallbackDir;
 }
 
 // ─── Main ───────────────────────────────────────────────────
@@ -122,7 +158,8 @@ function guessUnitFile(unitId: string, courseDir: string): string {
 async function main() {
   console.log('=== Content QA Check ===\n');
 
-  const courses = await loadAllCourses();
+  const sourceByUnitId = new Map<string, string>();
+  const courses = await loadAllCourses(sourceByUnitId);
   console.log(`Loaded ${courses.length} courses: ${courses.map(c => c.name).join(', ')}\n`);
 
   // Map to CourseInput for the shared QA module
@@ -151,7 +188,7 @@ async function main() {
         if (courseEntry) {
           // Find the unit that contains this violation to resolve the file
           const unit = courseEntry.units.find(u => u.title === v.unitTitle);
-          file = unit ? guessUnitFile(unit.id, courseEntry.dir) : courseEntry.dir;
+          file = resolveUnitFile(unit?.id, sourceByUnitId, courseEntry.dir);
         }
         console.log(`  [${v.check}] ${v.questionId} | ${v.message}`);
         console.log(`    File: ${file}`);
