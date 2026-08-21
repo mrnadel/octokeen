@@ -28,7 +28,7 @@ export const financeCourseMeta: Unit[] = [
     sectionIndex: 1,
     sectionTitle: "What Is Money?",
     lessons: [
-      { id: "fin-sec1-u2-L1", title: "Before Money Existed", description: "How people traded before money was invented, and why that system broke down.", icon: "📝", xpReward: 15, questions: [] },
+      { id: "fin-sec1-u2-L1", title: "Trading Without Money", description: "Why swapping goods directly is so hard, and what money solves.", icon: "📝", xpReward: 15, questions: [] },
       { id: "fin-sec1-u2-L2", title: "What Makes Money Work", description: "The 3 jobs that money does and why paper bills have value.", icon: "📝", xpReward: 15, questions: [] },
       { id: "fin-sec1-u2-L3", title: "Cash, Cards, and Digital Money", description: "The different forms money takes today, from paper to pixels.", icon: "📝", xpReward: 20, questions: [] },
       { id: "fin-sec1-u2-L4", title: "Banks and Where Money Lives", description: "Why people keep money in banks instead of under the mattress.", icon: "📝", xpReward: 20, questions: [] },
