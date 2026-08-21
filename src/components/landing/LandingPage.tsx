@@ -86,13 +86,13 @@ export function LandingPage() {
           <AnimateIn>
             <h1 className="landing-hero-h1" style={{ fontWeight: 900, lineHeight: 1.1, color: '#1E293B', marginBottom: 20, letterSpacing: -1 }}>
               The free, fun way to<br />
-              <span style={{ color: '#14B8A6' }}>master any profession</span>
+              <span style={{ color: '#14B8A6' }}>learn things that stick</span>
             </h1>
           </AnimateIn>
 
           <AnimateIn delay={0.1}>
             <p className="landing-hero-p" style={{ fontWeight: 600, color: '#64748B', lineHeight: 1.6, maxWidth: 460, margin: '0 auto 40px' }}>
-              Bite-sized lessons. Real interview questions. Gamified from the ground up.
+              Five-minute lessons in money, psychology, and space. Gamified from the ground up.
             </p>
           </AnimateIn>
 
@@ -259,7 +259,7 @@ function InteractiveDemo() {
           You got {correct} of {DEMO_QUESTIONS.length} right
         </div>
         <div style={{ fontSize: 14, fontWeight: 600, color: '#94A3B8', marginBottom: 28 }}>
-          Imagine this with {PROFESSIONS.reduce((sum, p) => sum + p.questionCount, 0).toLocaleString()}+ questions across {PROFESSIONS.length} professions
+          Imagine this with {PROFESSIONS.filter((p) => !p.requiresAccess).reduce((sum, p) => sum + p.questionCount, 0).toLocaleString()}+ questions across {PROFESSIONS.filter((p) => !p.requiresAccess).length} subjects
         </div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/try" className="landing-btn-primary" style={{ display: 'inline-block', background: '#0D9488', color: '#fff', fontSize: 16, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8, padding: '14px 32px', border: 'none', borderRadius: 16, boxShadow: '0 5px 0 #0F766E', textDecoration: 'none' }}>Try a free lesson</Link>
