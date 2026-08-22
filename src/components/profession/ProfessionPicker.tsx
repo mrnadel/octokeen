@@ -12,12 +12,23 @@ interface ProfessionPickerProps {
   compact?: boolean;
   /** IDs of gated courses the user has been granted access to. */
   grantedCourses?: string[];
-  /** Profession IDs to completely hide from the picker. */
+  /** Extra profession IDs to hide, beyond the gated ones already excluded. */
   filterOut?: string[];
 }
 
+/** A gated course is only offered to someone explicitly granted it. */
+function isVisible(profession: (typeof PROFESSIONS)[number], grantedCourses?: string[]): boolean {
+  if (!profession.requiresAccess) return true;
+  return grantedCourses?.includes(profession.id) ?? false;
+}
+
 export function ProfessionPicker({ selectedId, onSelect, compact = false, grantedCourses, filterOut }: ProfessionPickerProps) {
-  const visibleProfessions = filterOut ? PROFESSIONS.filter(p => !filterOut.includes(p.id)) : PROFESSIONS;
+  // Gating lives here rather than in each caller. Three callers previously rebuilt the
+  // same exclusion by hand and a fourth (`/try`) forgot to, which published the
+  // admin-only course to anyone who opened the public demo.
+  const visibleProfessions = PROFESSIONS.filter(
+    (p) => isVisible(p, grantedCourses) && !filterOut?.includes(p.id),
+  );
   return (
     <div
       className={cn(
@@ -27,7 +38,7 @@ export function ProfessionPicker({ selectedId, onSelect, compact = false, grante
     >
       {visibleProfessions.map((profession, index) => {
         const isActive = selectedId === profession.id;
-        const isGated = profession.requiresAccess && grantedCourses && !grantedCourses.includes(profession.id);
+        const isGated = !isVisible(profession, grantedCourses);
         const isDisabled = profession.isComingSoon === true || isGated;
 
         return (

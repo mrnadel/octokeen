@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { ProfessionPicker } from '@/components/profession/ProfessionPicker';
-import { PROFESSION_ID } from '@/data/professions';
 
 import { slideVariants, slideTransition } from './getStartedAnimation';
 import { GetStartedStepHeading } from './GetStartedStepHeading';
@@ -37,7 +36,6 @@ export function GetStartedStep0Profession({ selectedProfession, onSelect, onCont
       <ProfessionPicker
         selectedId={selectedProfession}
         onSelect={onSelect}
-        filterOut={[PROFESSION_ID.MECHANICAL_ENGINEERING]}
       />
 
       <motion.div

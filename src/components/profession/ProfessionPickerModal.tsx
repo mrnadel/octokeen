@@ -2,7 +2,6 @@
 
 import { ProfessionPicker } from './ProfessionPicker';
 import { FullScreenModal } from '@/components/ui/FullScreenModal';
-import { PROFESSIONS } from '@/data/professions';
 import { useCourseAccess } from '@/hooks/useCourseAccess';
 
 interface ProfessionPickerModalProps {
@@ -34,7 +33,6 @@ export function ProfessionPickerModal({ isOpen, onClose, selectedId, onSelect }:
           onSelect={handleSelect}
           compact
           grantedCourses={grantedCourses}
-          filterOut={PROFESSIONS.filter(p => p.requiresAccess && (!grantedCourses || !grantedCourses.includes(p.id))).map(p => p.id)}
         />
       </div>
     </FullScreenModal>
