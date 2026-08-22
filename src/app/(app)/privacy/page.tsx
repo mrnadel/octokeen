@@ -26,7 +26,7 @@ const sections = [
       },
       {
         subtitle: 'Technical Data',
-        text: 'Our hosting provider (Vercel) automatically collects standard server logs, which may include your IP address, browser type, operating system, and referring URLs. We do not use any third-party analytics services, tracking pixels, or advertising cookies.',
+        text: 'Our hosting provider (Vercel) automatically collects standard server logs, which may include your IP address, browser type, operating system, and referring URLs. We use Mixpanel for product analytics, which runs only after you accept analytics cookies, and Sentry for crash and error reporting. On the web, we serve ads through Google AdSense, which sets advertising cookies. The Android app serves no ads.',
       },
     ],
   },
@@ -89,13 +89,25 @@ const sections = [
         subtitle: 'Vercel (vercel.com)',
         text: 'Vercel hosts the Octokeen application and may process standard HTTP request logs, including IP addresses, as part of normal infrastructure operations.',
       },
+      {
+        subtitle: 'Mixpanel (mixpanel.com)',
+        text: 'Mixpanel provides product analytics so we can see which lessons work and where learners get stuck. It runs only after you accept analytics cookies, and requests are proxied through our own servers, so Mixpanel does not receive your IP address. Decline and nothing is sent.',
+      },
+      {
+        subtitle: 'Sentry (sentry.io)',
+        text: 'Sentry records crashes and errors so we can fix them. Reports include the error, the page it happened on, and browser details. We do not enable the personally identifiable information setting in Sentry, so your IP address is not attached to reports.',
+      },
+      {
+        subtitle: 'Google AdSense (google.com)',
+        text: 'On the web, we serve ads through Google AdSense, which may set advertising cookies and use them to personalise ads. The Android app serves no ads and loads no AdSense code.',
+      },
     ],
   },
   {
     title: '5. Cookies and Tracking',
     content: [
       {
-        text: 'Octokeen uses only essential cookies required for authentication and session management. We do not use advertising cookies, tracking pixels, or any third-party analytics tools such as Google Analytics.',
+        text: 'Essential cookies keep you signed in and are always active. Analytics cookies for Mixpanel are set only if you accept them, and you can decline without losing any functionality. On the web, Google AdSense sets advertising cookies; the Android app serves no ads and sets none.',
       },
       {
         text: 'The session cookie is a secure, httpOnly cookie that stores your encrypted authentication token. It is strictly necessary for the application to function and does not track you across other websites.',
