@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
-import { PROFESSION_ID } from '@/data/professions';
+import { DEFAULT_PROFESSION, PROFESSION_ID } from '@/data/professions';
 import {
   SESSION_SIZE, ADAPTIVE_CRUISING_XP_BONUS,
   LESSON_FLAWLESS_XP_MULTIPLIER, PLACEMENT_XP,
@@ -114,8 +114,8 @@ export const useCourseStore = create<CourseState>()(
   persist(
     (set, get) => ({
       progress: getDefaultProgress(),
-      courseData: getCourseMetaForProfession(PROFESSION_ID.MECHANICAL_ENGINEERING) as Unit[],
-      activeProfession: PROFESSION_ID.MECHANICAL_ENGINEERING,
+      courseData: getCourseMetaForProfession(DEFAULT_PROFESSION) as Unit[],
+      activeProfession: DEFAULT_PROFESSION,
       activeLesson: null,
       lessonResult: null,
       chapterJustCompleted: null,
@@ -1105,7 +1105,7 @@ export const useCourseStore = create<CourseState>()(
           }
         }
 
-        const restoredProfession = persisted.activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING;
+        const restoredProfession = persisted.activeProfession ?? DEFAULT_PROFESSION;
 
         return {
           ...currentState,

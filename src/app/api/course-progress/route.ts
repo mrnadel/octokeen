@@ -9,7 +9,7 @@ import { parseBody, jsonOk, jsonError } from '@/lib/api-helpers';
 import { withAuth } from '@/lib/api/guards';
 import { getUserById } from '@/lib/db/queries';
 import type { CourseProgress } from '@/data/course/types';
-import { PROFESSION_ID } from '@/data/professions';
+import { DEFAULT_PROFESSION, PROFESSION_ID } from '@/data/professions';
 import { logger } from '@/lib/logger';
 
 export const GET = withAuth(async (_req, { userId }) => {
@@ -40,7 +40,7 @@ export const GET = withAuth(async (_req, { userId }) => {
 
   return jsonOk({
     progress: assembled,
-    activeProfession: progress?.activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
+    activeProfession: progress?.activeProfession ?? DEFAULT_PROFESSION,
   });
 });
 
@@ -86,7 +86,7 @@ export const POST = withAuth(async (request, { userId }) => {
     lastActiveDate: progress.lastActiveDate,
     placementUnitIndex: progress.placementUnitIndex ?? 0,
     completedLessons: mergedLessons,
-    activeProfession: activeProfession ?? PROFESSION_ID.MECHANICAL_ENGINEERING,
+    activeProfession: activeProfession ?? DEFAULT_PROFESSION,
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,
     updatedAt: new Date(),
   };

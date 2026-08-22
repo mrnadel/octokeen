@@ -16,7 +16,7 @@
  */
 
 import type { Unit } from './types';
-import { PROFESSION_ID } from '@/data/professions';
+import { DEFAULT_PROFESSION, PROFESSION_ID } from '@/data/professions';
 import { financeCourseMeta } from './professions/personal-finance/meta';
 import { psychologyCourseMeta } from './professions/psychology/meta';
 import { spaceCourseMeta } from './professions/space-astronomy/meta';
@@ -341,18 +341,18 @@ export function getCourseMetaForProfession(professionId: string): Unit[] {
     case PROFESSION_ID.PERSONAL_FINANCE: return financeCourseMeta;
     case PROFESSION_ID.PSYCHOLOGY: return psychologyCourseMeta;
     case PROFESSION_ID.SPACE_ASTRONOMY: return spaceCourseMeta;
-    case PROFESSION_ID.MECHANICAL_ENGINEERING:
-    default: return meCourseMeta;
+    case PROFESSION_ID.MECHANICAL_ENGINEERING: return meCourseMeta;
+    default: return financeCourseMeta;
   }
 }
 
 export function getTotalLessonsMeta(professionId?: string): number {
-  const meta = professionId ? getCourseMetaForProfession(professionId) : meCourseMeta;
+  const meta = getCourseMetaForProfession(professionId ?? DEFAULT_PROFESSION);
   return meta.reduce((sum, unit) => sum + unit.lessons.length, 0);
 }
 
 export function getLessonByIdMeta(lessonId: string, professionId?: string): { unit: Unit; lesson: Unit['lessons'][number]; unitIndex: number; lessonIndex: number } | null {
-  const meta = professionId ? getCourseMetaForProfession(professionId) : meCourseMeta;
+  const meta = getCourseMetaForProfession(professionId ?? DEFAULT_PROFESSION);
   for (let ui = 0; ui < meta.length; ui++) {
     for (let li = 0; li < meta[ui].lessons.length; li++) {
       if (meta[ui].lessons[li].id === lessonId) {
@@ -369,10 +369,6 @@ export function getLessonByIdMeta(lessonId: string, professionId?: string): { un
  * Each unit file is loaded as a separate chunk (~60-600 KB each).
  */
 export async function loadUnitData(unitIndex: number, professionId?: string): Promise<Unit> {
-  if (professionId === PROFESSION_ID.PERSONAL_FINANCE) {
-    return loadFinanceUnit(unitIndex);
-  }
-
   if (professionId === PROFESSION_ID.PSYCHOLOGY) {
     return loadPsychologyUnit(unitIndex);
   }
@@ -381,7 +377,12 @@ export async function loadUnitData(unitIndex: number, professionId?: string): Pr
     return loadSpaceUnit(unitIndex);
   }
 
-  // Default: mechanical-engineering
+  // mechanical-engineering is access-gated, so it must be asked for by name.
+  // Everything else, including an unknown or missing id, gets the default course.
+  if (professionId !== PROFESSION_ID.MECHANICAL_ENGINEERING) {
+    return loadFinanceUnit(unitIndex);
+  }
+
   const loaders: (() => Promise<{ default?: Unit; [key: string]: unknown }>)[] = [
     () => import('./units/unit-1-statics').then(m => ({ ...m, default: m.unit1 })),
     () => import('./units/unit-2-dynamics').then(m => ({ ...m, default: m.unit2 })),
