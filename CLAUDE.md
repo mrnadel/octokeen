@@ -23,6 +23,12 @@ This file routes; it does not hold rules. Read the file for what you are doing.
 
 `docs/project-overview.md` is long and parts of it predate the current structure. Read it when you need system context, not by default, and trust the code over it.
 
+**Do not read the root-level `AUDIT-REPORT.md`, `COMPETITIVE_ANALYSIS.md`,
+`COMPETITOR_ANALYSIS.md`, `PRODUCT_AND_COACHING_STRATEGY.md` or
+`SPECIFICATION.md`.** They describe "MechReady", a discontinued Mechanical
+Engineering interview-prep product, and are archived for history only. Treating
+them as current has produced wrong strategy answers and wrong product claims.
+
 ## Non-negotiable
 
 - **Never change an existing lesson or question `id`.** User progress is keyed on them.

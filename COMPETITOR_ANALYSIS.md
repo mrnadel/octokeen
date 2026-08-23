@@ -1,6 +1,10 @@
-> **HISTORICAL DOCUMENT** — This analysis was written when Octokeen was a single-course Mechanical Engineering app (codename "MechReady"). The platform is now multi-course. See `docs/courses.md` for active courses.
+> **ARCHIVED.** Octokeen is a multi-course general-knowledge learning app.
+> This document describes "MechReady", a discontinued single-course Mechanical
+> Engineering interview-prep product. It is kept for history only. Nothing in it
+> describes the current product, market, or strategy. Do not use it for decisions.
+> Current sources: `docs/courses.md`, `src/lib/pricing.ts`, `docs/project-overview.md`.
 
-# MechReady Competitor Analysis
+# ARCHIVED: MechReady Competitor Analysis
 
 _Research conducted: March 2026_
 
