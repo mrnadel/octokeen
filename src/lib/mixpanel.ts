@@ -34,11 +34,45 @@ export async function initMixpanel() {
   });
 
   initialized = true;
+  flushPending();
+}
+
+/**
+ * Events fired before the library finished loading.
+ *
+ * initMixpanel dynamically imports mixpanel-browser, so anything tracked on
+ * mount loses that race. That silently ate every top-of-funnel event:
+ * landing_viewed, guide_viewed and try_opened all fire in a mount effect,
+ * while try_course_picked needs a human click and so happened to survive. The
+ * funnel recorded conversions with no denominator.
+ *
+ * Queued events are flushed in order once init completes. The cap stops a page
+ * that never gains consent from growing this without bound.
+ */
+const PENDING_LIMIT = 50;
+let pending: { event: string; properties?: Record<string, unknown> }[] = [];
+
+function isExcludedPath(): boolean {
+  return typeof window !== 'undefined' && window.location.pathname.startsWith('/dev/');
+}
+
+function flushPending() {
+  if (!initialized || !mixpanelLib) return;
+  const queued = pending;
+  pending = [];
+  for (const item of queued) mixpanelLib.track(item.event, item.properties);
 }
 
 export function trackEvent(event: string, properties?: Record<string, unknown>) {
-  if (!initialized || !mixpanelLib) return;
-  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/dev/')) return;
+  if (isExcludedPath()) return;
+
+  if (!initialized || !mixpanelLib) {
+    // No token means analytics are off for good, so queueing would just leak.
+    if (!MIXPANEL_TOKEN) return;
+    if (pending.length < PENDING_LIMIT) pending.push({ event, properties });
+    return;
+  }
+
   mixpanelLib.track(event, properties);
 }
 
