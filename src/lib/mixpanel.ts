@@ -96,6 +96,23 @@ export const analytics = {
     trackEvent('auth', props);
   },
 
+  // Fires at each step of the anonymous acquisition funnel, before signup.
+  // These are the only events an unauthenticated visitor produces, so they are
+  // what tells us whether traffic converts: landing -> try -> finish -> signup.
+  funnel(props: {
+    step:
+      | 'landing_viewed'
+      | 'try_opened'
+      | 'try_course_picked'
+      | 'try_lesson_completed'
+      | 'try_signup_clicked';
+    professionId?: string;
+    questionsAnswered?: number;
+    accuracy?: number;
+  }) {
+    trackEvent('funnel', props);
+  },
+
   // Fires when user engages with a specific feature
   feature(name: string, details?: Record<string, unknown>) {
     trackEvent('feature', { name, ...details });

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { PROFESSIONS } from '@/data/professions';
+import { analytics } from '@/lib/mixpanel';
 
 /* ── Demo questions for interactive landing ── */
 const DEMO_QUESTIONS = [
@@ -59,6 +60,10 @@ function AnimateIn({ children, className = '', delay = 0 }: { children: React.Re
 
 /* ── Main Landing Page ── */
 export function LandingPage() {
+  useEffect(() => {
+    analytics.funnel({ step: 'landing_viewed' });
+  }, []);
+
   return (
     <div className="landing-page" style={{ fontFamily: "'Nunito', sans-serif", background: '#FAFAFA', color: '#0F172A', minHeight: '100vh' }}>
 

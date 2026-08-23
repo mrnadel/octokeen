@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -17,6 +17,7 @@ import { GameButton } from '@/components/ui/GameButton';
 import { playSound } from '@/lib/sounds';
 import { ScreenFX } from '@/components/ui/ScreenFX';
 import { shuffleArray } from '@/lib/utils';
+import { analytics } from '@/lib/mixpanel';
 
 const MAX_QUESTIONS = 8;
 
@@ -31,10 +32,33 @@ export default function TryPage() {
   const [answers, setAnswers] = useState<{ questionId: string; correct: boolean }[]>([]);
   const [xpEarned, setXpEarned] = useState(0);
 
+  useEffect(() => {
+    analytics.funnel({ step: 'try_opened' });
+  }, []);
+
+  // The result screen is reached from two places (last question, and the
+  // adapter's complete callback), and re-renders while it animates in. Fire the
+  // completion event once per lesson rather than once per render.
+  const completionReported = useRef(false);
+
+  useEffect(() => {
+    if (phase !== 'result' || completionReported.current) return;
+    completionReported.current = true;
+
+    const correct = answers.filter((a) => a.correct).length;
+    analytics.funnel({
+      step: 'try_lesson_completed',
+      professionId: professionId ?? undefined,
+      questionsAnswered: answers.length,
+      accuracy: answers.length > 0 ? Math.round((correct / answers.length) * 100) : 0,
+    });
+  }, [phase, answers, professionId]);
+
   // Load first lesson data when profession is picked
   const handleProfessionPick = useCallback(async (id: string) => {
     setProfessionId(id);
     setPhase('loading');
+    analytics.funnel({ step: 'try_course_picked', professionId: id });
 
     // Set the profession in the store so themes/colors work
     setActiveProfession(id as never);
@@ -82,6 +106,7 @@ export default function TryPage() {
   }, [currentIndex, questions.length]);
 
   const handleExit = useCallback(() => {
+    completionReported.current = false;
     setPhase('pick');
     setQuestions([]);
     setCurrentIndex(0);
@@ -216,7 +241,10 @@ export default function TryPage() {
           className="w-full max-w-sm space-y-3"
         >
           <GameButton
-            onClick={() => router.push('/get-started')}
+            onClick={() => {
+              analytics.funnel({ step: 'try_signup_clicked', professionId: professionId ?? undefined });
+              router.push('/get-started');
+            }}
             variant="gold"
             className="w-full"
           >
