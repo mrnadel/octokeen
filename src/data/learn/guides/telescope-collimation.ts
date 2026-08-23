@@ -30,7 +30,7 @@ export const telescopeCollimationGuide: LearnGuide = {
   ],
   updated: '2026-08-23',
   answer:
-    'Collimation aligns a reflector\'s mirrors so a star focuses to a point instead of a smear. Work in one order: centre the secondary under the focuser, tilt the secondary until the primary\'s reflection sits centred inside it, then tilt the primary until everything is concentric. A solid tube Newtonian that has not been knocked usually needs only the last step, and that takes about two minutes.',
+    'Collimation aligns a reflector\'s mirrors so a star focuses to a point instead of a smear. The order is fixed: centre the secondary under the focuser, tilt the secondary until the primary\'s reflection sits centred inside it, then tilt the primary until everything is concentric. A solid tube Newtonian that has not been knocked usually needs only the last step, and that takes two minutes.',
 
   body: [
     { kind: 'heading', text: 'What miscollimation looks like, and what it does not' },
@@ -52,32 +52,32 @@ export const telescopeCollimationGuide: LearnGuide = {
     {
       kind: 'list',
       items: [
-        '**A collimation cap or Cheshire eyepiece.** A cap is a plug with a small central hole, and a film canister lid with a hole punched dead centre does the same job. A Cheshire adds a crosshair and an angled reflective face and is worth the small cost.',
-        '**A centre spot on the primary.** A ring sticker at the exact middle of the main mirror. It sits inside the shadow of the secondary, so it never appears in an image.',
-        '**The right keys.** Secondary holders usually take a small hex key; primary cells vary. Find out in daylight, not at midnight in a field.',
-        '**Something evenly lit to aim at.** A white wall, paper held opposite the focuser, or an overcast sky.',
+        '**A collimation cap or Cheshire eyepiece.** A cap is a plug with a small central hole; a film canister lid punched dead centre does the same job. A Cheshire adds a crosshair and is worth the small cost.',
+        '**A centre spot on the primary.** A ring sticker at the exact middle of the main mirror. It sits in the shadow of the secondary, so it never appears in an image.',
+        '**The right keys.** Secondary holders usually take a small hex key; primary cells vary. Find out in daylight.',
+        '**Something evenly lit to aim at**, such as a white wall or an overcast sky.',
       ],
     },
 
     { kind: 'heading', text: 'Step 1. Centre the secondary under the focuser' },
     {
       kind: 'paragraph',
-      text: 'Skip this unless the secondary has been removed or knocked. On most telescopes it is set once and stays set for years, and the odds are that only the primary has drifted.',
+      text: 'Skip this unless the secondary has been removed or knocked. On most telescopes it is set once and stays set for years.',
     },
     {
       kind: 'steps',
       items: [
         {
           title: 'Rack the focuser most of the way in',
-          text: 'Take the eyepiece out, drop the collimation cap in, and look through the hole at the small oval mirror hanging in the tube.',
+          text: 'Take the eyepiece out, drop the cap in, and look through the hole at the small oval mirror hanging in the tube.',
         },
         {
           title: 'Judge the outline, not the reflections',
-          text: 'Ignore everything reflected for now. The secondary\'s own outline should look circular and sit centred in the drawtube, with an even gap all the way round.',
+          text: 'Ignore the reflections. The secondary\'s own outline should look circular and sit centred in the drawtube, with an even gap all round.',
         },
         {
           title: 'Move it with the central bolt',
-          text: 'Loosen the three small tilt screws a fraction, then turn the central bolt to slide the secondary along the tube toward or away from the primary, and rotate the holder so the mirror faces the focuser squarely.',
+          text: 'Loosen the three tilt screws a fraction, turn the central bolt to slide the secondary along the tube, and rotate the holder so the mirror faces the focuser squarely.',
         },
         {
           title: 'Do not chase the offset',
@@ -89,11 +89,11 @@ export const telescopeCollimationGuide: LearnGuide = {
     { kind: 'heading', text: 'Step 2. Tilt the secondary until the primary is centred in it' },
     {
       kind: 'paragraph',
-      text: 'Still looking through the cap, switch attention from the outline to the reflection. You want the whole circle of the primary sitting concentric inside the secondary, with an even sliver of the secondary\'s own edge showing all the way around it.',
+      text: 'Still looking through the cap, switch from the outline to the reflection. You want the whole circle of the primary concentric inside the secondary, with an even sliver of the secondary\'s own edge showing all round.',
     },
     {
       kind: 'paragraph',
-      text: 'The three small screws around the central bolt do this. They work against each other, so loosen one a little and take up the slack on the other two, keeping the holder snug throughout. An eighth of a turn moves more than you expect.',
+      text: 'The three screws around the central bolt do this. They work against each other, so loosen one a little and take up the slack on the other two, keeping the holder snug. An eighth of a turn moves more than you expect.',
     },
     {
       kind: 'callout',
@@ -108,23 +108,23 @@ export const telescopeCollimationGuide: LearnGuide = {
       items: [
         {
           title: 'Point the tube where you will observe',
-          text: 'Mirror cells sag. Collimating at the zenith and then observing at forty degrees puts the alignment back out, so set the tube near the altitude you plan to use.',
+          text: 'Mirror cells sag. Collimating at the zenith and observing at forty degrees puts the alignment back out, so set the tube near the altitude you plan to use.',
         },
         {
           title: 'Release the locks first',
-          text: 'Most primary cells have three large adjusters and three locking screws. Back the locks off before turning an adjuster, or the screws bind, release suddenly, and the mirror jumps past where you wanted it.',
+          text: 'Most primary cells have three large adjusters and three locking screws. Back the locks off first, or the adjusters bind, release suddenly, and the mirror overshoots.',
         },
         {
           title: 'Stack the reflections',
-          text: 'Turn the adjusters until the reflected secondary, the spider vanes and the small bright dot of the cap hole are concentric inside the ring of the centre spot. With a Cheshire, the crosshair lands inside that ring.',
+          text: 'Turn the adjusters until the reflected secondary, the spider vanes and the bright dot of the cap hole are concentric inside the centre spot ring. With a Cheshire, the crosshair lands inside that ring.',
         },
         {
           title: 'Move in eighths of a turn',
-          text: 'Turn one adjuster an eighth and look again. If the target moved further off centre, that was the wrong screw or direction. Go back and try another.',
+          text: 'Turn one adjuster an eighth and look again. If the target moved further off centre, that was the wrong screw or direction.',
         },
         {
           title: 'Re-snug the locks, then look again',
-          text: 'Tightening the locks can shift the mirror. Nip them up gently, check once more, and correct if it moved.',
+          text: 'Tightening the locks can shift the mirror. Nip them up gently and check once more.',
         },
       ],
     },
@@ -132,7 +132,7 @@ export const telescopeCollimationGuide: LearnGuide = {
     { kind: 'heading', text: 'Step 4. Confirm on a star' },
     {
       kind: 'paragraph',
-      text: 'A cap gets you close. The star test tells you whether you are there, because it is the only check that runs light through the whole optical path.',
+      text: 'A cap gets you close. Only the star test runs light through the whole optical path, so it is the one that decides.',
     },
     {
       kind: 'steps',
@@ -143,7 +143,7 @@ export const telescopeCollimationGuide: LearnGuide = {
         },
         {
           title: 'Pick a moderately bright star, high up',
-          text: 'Second or third magnitude, away from the horizon. A very bright star floods the pattern and a low one sits under too much atmosphere.',
+          text: 'Second or third magnitude, away from the horizon. A brighter star floods the pattern and a low one sits under too much atmosphere.',
         },
         {
           title: 'Go to high power and defocus slightly',
@@ -165,47 +165,47 @@ export const telescopeCollimationGuide: LearnGuide = {
     { kind: 'heading', text: 'Laser collimators, and when they lie' },
     {
       kind: 'paragraph',
-      text: 'A laser is fast and lets you work alone at the back of the tube, but it has two failure modes a cap does not. The first is the laser itself: one that is not aligned inside its own barrel will confidently tell you the telescope is wrong. Check it by dropping it in the focuser, aiming at a wall a few metres away and rotating it slowly. A dot that traces a circle means the laser is out. The second is drawtube slop, which lets the laser tilt.',
+      text: 'A laser is fast and lets you work alone at the back of the tube, but it has two failure modes a cap does not. The first is the laser itself: one that is not aligned inside its own barrel will confidently tell you the telescope is wrong. Check it by aiming at a wall a few metres away and rotating it in the focuser. A dot that traces a circle means the laser is out. The second is drawtube slop, which lets the laser tilt.',
     },
     {
       kind: 'paragraph',
-      text: 'The barlowed laser method removes both. Put a Barlow between the focuser and the laser, and instead of a dot you get the shadow of the primary\'s centre spot projected on the laser\'s target face. Centre that shadow on the target hole. Reading a shadow rather than a beam makes the laser\'s own alignment and a wobbly focuser irrelevant. One limit remains: a laser sets the secondary\'s tilt but cannot tell you whether the secondary is positioned correctly under the focuser, which is where a cap or sight tube still wins.',
+      text: 'The barlowed laser method removes both. Put a Barlow between the focuser and the laser, and instead of a dot you get the shadow of the primary\'s centre spot projected on the laser\'s target face. Centre that shadow on the hole. Reading a shadow rather than a beam makes the laser\'s own alignment and a wobbly focuser irrelevant. One limit remains: a laser sets the secondary\'s tilt but cannot tell you whether the secondary sits correctly under the focuser, which is where a cap still wins.',
     },
 
     { kind: 'heading', text: 'How often you actually need to do this' },
     {
       kind: 'table',
-      caption: 'Collimation is maintenance, not ritual. Frequency tracks how much the optics get moved.',
+      caption: 'Frequency tracks how much the optics get moved.',
       columns: ['Telescope', 'How often to check'],
       rows: [
         [
           'Truss or collapsible Dobsonian',
-          'Every session. The tube geometry is rebuilt each time you set up, and the check takes about a minute once familiar.',
+          'Every session. The tube geometry is rebuilt each time you set up, and the check takes a minute once familiar.',
         ],
         [
           'Solid tube Newtonian that travels by car',
-          'Every session or two. Expect the primary to want a tweak and the secondary to want nothing.',
+          'Every session or two. The primary wants a tweak, the secondary wants nothing.',
         ],
         [
           'Solid tube Newtonian kept indoors',
-          'Monthly, and any time high power looks soft on a night with steady air.',
+          'Monthly, and any time high power looks soft on a steady night.',
         ],
         [
           'Schmidt-Cassegrain or Maksutov',
-          'Rarely, and only the secondary. Three screws on the front corrector plate, adjusted on a defocused star.',
+          'Rarely, and only the secondary: three screws on the corrector plate, adjusted on a defocused star.',
         ],
-        ['Refractor', 'Never in normal use. The lens cell is aligned at the factory and sealed.'],
+        ['Refractor', 'Never in normal use. The lens cell is factory aligned and sealed.'],
       ],
     },
 
     {
       kind: 'takeaways',
       items: [
-        'Collimation is the alignment of a reflector\'s mirrors. Its signature is asymmetry: comet shaped stars and planets smeared to one side.',
+        'Its signature is asymmetry: comet shaped stars and planets smeared to one side.',
         'The order is fixed. Secondary position, then secondary tilt, then primary tilt.',
-        'A collimation cap and a centre spotted primary do everything a beginner needs. A laser is faster and only as trustworthy as its own alignment.',
-        'Finish on a defocused star at high power, with the tube cooled and the air steady. Concentric rings mean you are done.',
-        'Truss and collapsible telescopes want a check every session. A sealed refractor never needs one.',
+        'A cap and a centre spotted primary do everything a beginner needs. A laser is faster and only as trustworthy as its own alignment.',
+        'Finish on a defocused star at high power, tube cooled and air steady. Concentric rings mean you are done.',
+        'Truss and collapsible telescopes want a check every session; a sealed refractor never does.',
       ],
     },
 
@@ -213,8 +213,8 @@ export const telescopeCollimationGuide: LearnGuide = {
     {
       kind: 'list',
       items: [
-        '**Aperture versus magnification**, at /learn/space-astronomy/aperture-vs-magnification. Why the headline number on a telescope box matters least, and what to compare instead.',
-        '**Star hopping and finding objects**, at /learn/space-astronomy/star-hopping. Getting to a target without a GoTo mount.',
+        '**Aperture versus magnification**, at /learn/space-astronomy/aperture-vs-magnification. Why the headline number on the box matters least.',
+        '**Star hopping**, at /learn/space-astronomy/star-hopping. Getting to a target without a GoTo mount.',
       ],
     },
   ],

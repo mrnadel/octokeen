@@ -99,16 +99,25 @@ export const analytics = {
   // Fires at each step of the anonymous acquisition funnel, before signup.
   // These are the only events an unauthenticated visitor produces, so they are
   // what tells us whether traffic converts: landing -> try -> finish -> signup.
+  // The `guide_*` steps are the same funnel entered from organic search
+  // instead of the landing page: guide -> try -> finish -> signup.
   funnel(props: {
     step:
       | 'landing_viewed'
       | 'try_opened'
       | 'try_course_picked'
       | 'try_lesson_completed'
-      | 'try_signup_clicked';
+      | 'try_signup_clicked'
+      | 'guide_viewed'
+      | 'guide_quiz_completed'
+      | 'guide_cta_clicked';
     professionId?: string;
     questionsAnswered?: number;
     accuracy?: number;
+    /** `/learn` guide slug, on the `guide_*` steps only. */
+    guideSlug?: string;
+    /** Which call to action was taken, on `guide_cta_clicked` only. */
+    ctaTarget?: 'try' | 'course';
   }) {
     trackEvent('funnel', props);
   },

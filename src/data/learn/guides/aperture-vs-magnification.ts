@@ -36,15 +36,15 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     { kind: 'heading', text: 'The direct answer about the 675x telescope' },
     {
       kind: 'paragraph',
-      text: 'If the box leads with a magnification figure, that is the review. Telescopes made for people who observe are sold on aperture, because aperture is expensive to increase and magnification is not. A 60 mm telescope printed with 675x really will produce 675x, in the sense that the eyepiece and Barlow in the box divide into the focal length and give that number. What it shows you at 675x is a dim, shivering blur about the size of a dinner plate and roughly as informative. The useful ceiling for a 60 mm is around 120x, and everything above that is empty magnification: a bigger image containing no extra information.',
+      text: 'If the box leads with a magnification figure, that is the review. Telescopes made for people who observe are sold on aperture, because aperture is expensive to increase and magnification is not. A 60 mm printed with 675x really will produce 675x: the eyepiece and Barlow in the box divide into the focal length and give that number. What it shows you is a dim, shivering blur about the size of a dinner plate and roughly as informative. The useful ceiling for a 60 mm is around 120x, and everything above it is empty magnification.',
     },
 
     { kind: 'heading', text: 'What aperture actually buys' },
     {
       kind: 'list',
       items: [
-        '**Light.** Collecting area grows with the square of the diameter, so a 130 mm mirror gathers about 4.7 times as much as a 60 mm, and a 250 mm gathers 25 times as much as a 50 mm. Against a dark adapted eye at roughly 7 mm, a 200 mm telescope collects about 800 times more.',
-        '**Resolution.** Aperture sets the finest detail that physically exists in the image. Dawes\' limit puts the smallest separation two stars can show at about 116 divided by the aperture in millimetres, in arcseconds: 1.9 for a 60 mm, 0.58 for a 200 mm. No eyepiece recovers detail below that line, because it was never collected.',
+        '**Light.** Collecting area grows with the square of the diameter, so a 130 mm mirror gathers about 4.7 times as much as a 60 mm. Against a dark adapted eye at roughly 7 mm, a 200 mm collects about 800 times more.',
+        '**Resolution.** Aperture sets the finest detail that exists in the image at all. Dawes\' limit puts the smallest separation two stars can show, in arcseconds, at about 116 divided by the aperture in millimetres: 1.9 for a 60 mm, 0.58 for a 200 mm. No eyepiece recovers detail below that line.',
         '**Reach.** Under a genuinely dark sky the faintest star is roughly 2 plus five times the log of the aperture in millimetres, which lands a 70 mm near magnitude 11 and a 200 mm near 13.5.',
       ],
     },
@@ -56,11 +56,11 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     { kind: 'heading', text: 'What magnification is' },
     {
       kind: 'paragraph',
-      text: 'Magnification is a ratio between two focal lengths: the telescope\'s divided by the eyepiece\'s. A 1,200 mm telescope with a 15 mm eyepiece gives 80x. Swap in a 6 mm and it gives 200x. Nothing about the instrument changed, and any telescope can be made to produce any figure you like.',
+      text: 'Magnification is a ratio between two focal lengths: the telescope\'s divided by the eyepiece\'s. A 1,200 mm telescope with a 15 mm eyepiece gives 80x; swap in a 6 mm and it gives 200x. Nothing about the instrument changed, and any telescope can produce any figure you like.',
     },
     {
       kind: 'paragraph',
-      text: 'Magnification also costs brightness, which is the part most people miss. An extended object like a nebula spreads across more of the field as you magnify it, and the same light over more area is dimmer light. Double the magnification and surface brightness drops to a quarter. Pushing the power up on a faint object makes it bigger and fainter at once, until it sinks into the sky background and vanishes.',
+      text: 'Magnification also costs brightness, which is the part most people miss. A nebula spreads across more of the field as you magnify it, and the same light over more area is dimmer light. Double the magnification and surface brightness drops to a quarter, so pushing the power up on a faint object makes it bigger and fainter at once, until it sinks into the sky background.',
     },
 
     { kind: 'heading', text: 'The ceiling, and the lower ceiling the sky imposes' },
@@ -89,12 +89,12 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     { kind: 'heading', text: 'Why the 675x telescope fails, in numbers' },
     {
       kind: 'paragraph',
-      text: 'Take the archetype: a 60 mm refractor on a thin aluminium tripod, packed with a 4 mm eyepiece and a 3x Barlow so the box can print a large number.',
+      text: 'The archetype is a 60 mm refractor on a thin aluminium tripod, packed with a 4 mm eyepiece and a 3x Barlow so the box can print a large number.',
     },
     {
       kind: 'list',
       items: [
-        '**The exit pupil collapses.** 60 divided by 675 is 0.09 mm. You are looking through a pinhole, the image is desperately dim, and the floaters in your own eye join the view.',
+        '**The exit pupil collapses.** 60 divided by 675 is 0.09 mm. You are looking through a pinhole, and the floaters in your own eye join the view.',
         '**There is no detail left to enlarge.** A 60 mm objective cannot resolve below about 1.9 arcseconds, so 675x is an enlarged picture of the telescope\'s own blur circle.',
         '**The target will not stay put.** A 50 degree eyepiece at 675x shows 4.4 arcminutes of sky, which near the celestial equator is under 20 seconds of drift.',
         '**The mount rings.** A tripod light enough to ship with a 60 mm telescope shakes for several seconds after every touch, and at 675x that shake is enormous.',
@@ -104,7 +104,7 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       kind: 'callout',
       tone: 'insight',
       title: 'The honest version of the answer',
-      text: 'A 60 mm telescope that stops at 120x is a genuinely pleasant instrument for the Moon, Saturn\'s rings, Jupiter\'s belts and its four bright moons. The same optic sold as a 675x telescope just has worse eyepieces and a worse tripod. Compare aperture, mount, and whether the eyepieces are standard 1.25 inch fittings you can upgrade.',
+      text: 'A 60 mm telescope that stops at 120x is a genuinely pleasant instrument for the Moon, Saturn and Jupiter. The same optic sold as a 675x telescope just has worse eyepieces and a worse tripod. Compare aperture, mount, and whether the eyepieces are standard 1.25 inch fittings.',
     },
 
     { kind: 'heading', text: 'What different apertures actually show' },
@@ -115,19 +115,19 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       rows: [
         [
           '60 to 70 mm',
-          'Craters and mountain shadows on the Moon, Saturn\'s rings clearly separated from the planet, two dark belts on Jupiter with its four bright moons, the phases of Venus, the core of the Orion Nebula.',
+          'Craters and mountain shadows on the Moon, Saturn\'s rings clearly separated from the planet, two belts on Jupiter with its four moons, the phases of Venus, the core of the Orion Nebula.',
         ],
         [
           '100 to 130 mm',
-          'The Cassini division on a steady night, the Great Red Spot as a pale notch when it faces you, dozens of Messier objects as grey smudges, bright globular clusters starting to look grainy.',
+          'The Cassini division on a steady night, the Great Red Spot as a pale notch, dozens of Messier objects as grey smudges, bright globulars starting to look grainy.',
         ],
         [
           '200 mm',
-          'M13 breaking into hundreds of individual stars, galaxies with recognisable shapes rather than blobs, structure inside planetary nebulae, dark markings on Mars near opposition.',
+          'M13 breaking into hundreds of stars, galaxies with recognisable shapes, structure inside planetary nebulae, dark markings on Mars near opposition.',
         ],
         [
           '300 mm and up',
-          'Spiral structure in a handful of galaxies from a genuinely dark site, a faint green grey tint in the brightest nebulae, several hundred galaxies within reach.',
+          'Spiral structure in a few galaxies from a genuinely dark site, a faint green grey tint in the brightest nebulae.',
         ],
       ],
     },
@@ -135,7 +135,7 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     { kind: 'heading', text: 'The eyepieces you actually need' },
     {
       kind: 'paragraph',
-      text: 'Three, chosen by exit pupil rather than magnification, because exit pupil transfers between telescopes and magnification does not. Eyepiece focal length equals the exit pupil you want multiplied by the focal ratio.',
+      text: 'Three, chosen by exit pupil rather than magnification, because exit pupil transfers between telescopes. Eyepiece focal length equals the exit pupil you want times the focal ratio.',
     },
     {
       kind: 'list',
@@ -147,15 +147,15 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     },
     {
       kind: 'paragraph',
-      text: 'A Barlow doubles that set for the price of one eyepiece. Note too that the same eyepiece gives a different magnification on a different telescope, one more reason the number was never a specification of the instrument.',
+      text: 'A Barlow doubles that set for the price of one eyepiece. The same eyepiece also gives a different magnification on a different telescope, one more reason the number was never a specification.',
     },
 
     { kind: 'heading', text: 'When aperture is not the answer' },
     {
       kind: 'list',
       items: [
-        '**Portability.** A 300 mm Dobsonian that lives in a cupboard because it takes two trips to carry loses to a 100 mm that goes out weekly. Setup time predicts how often a telescope gets used.',
-        '**Light pollution.** Aperture brightens sky glow at the same rate it brightens a nebula, so a bigger telescope in a bright suburb does much less for faint fuzzies than the same telescope driven half an hour out. The Moon, planets and double stars barely notice.',
+        '**Portability.** A 300 mm Dobsonian that takes two trips to carry loses to a 100 mm that goes out weekly. Setup time predicts how often a telescope gets used.',
+        '**Light pollution.** Aperture brightens sky glow at the same rate it brightens a nebula, so a bigger telescope in a bright suburb does much less for faint fuzzies than the same one driven half an hour out. The Moon, planets and double stars barely notice.',
         '**Focal ratio, if you photograph.** For imaging, focal ratio sets exposure time. An f/4 system needs a quarter of the exposure an f/8 needs.',
         '**Mount quality.** A 130 mm on a stable mount beats a 150 mm that shivers, because on the first the high power range is usable and on the second it is theoretical.',
       ],
@@ -164,16 +164,16 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       kind: 'callout',
       tone: 'warning',
       title: 'A big aperture out of alignment is a small aperture',
-      text: 'Reflectors need their mirrors aligned to deliver the resolution the aperture promises, and a miscollimated 200 mm can show less planetary detail than a well aligned 100 mm. If high power looks soft on a Newtonian, check collimation before blaming the aperture.',
+      text: 'A miscollimated 200 mm can show less planetary detail than a well aligned 100 mm. If high power looks soft on a Newtonian, check collimation before blaming the aperture.',
     },
 
     {
       kind: 'takeaways',
       items: [
-        'Aperture sets light collected, detail resolved and the faintest object within reach. Magnification sets none of them.',
-        'Magnification is telescope focal length divided by eyepiece focal length. Any telescope can produce any figure, so the figure is not a specification.',
+        'Aperture sets light collected, detail resolved and faintest object reachable. Magnification sets none of them.',
+        'Magnification is telescope focal length divided by eyepiece focal length, so any telescope can produce any figure.',
         'The optical ceiling is about 2x the aperture in millimetres. On most nights the atmosphere caps you around 150x to 250x.',
-        'A 675x claim on a 60 mm telescope describes a setting that is dim, blurred, and drifts out of the field in under twenty seconds.',
+        'A 675x claim on a 60 mm describes a setting that is dim, blurred, and drifts out of the field in under twenty seconds.',
         'Compare aperture, mount quality and eyepiece fitting. Ignore the headline magnification completely.',
       ],
     },
@@ -182,7 +182,7 @@ export const apertureVsMagnificationGuide: LearnGuide = {
     {
       kind: 'list',
       items: [
-        '**How to collimate a Newtonian telescope**, at /learn/space-astronomy/telescope-collimation. The alignment procedure that decides whether your aperture delivers the detail it should.',
+        '**How to collimate a Newtonian telescope**, at /learn/space-astronomy/telescope-collimation. The procedure that decides whether your aperture delivers what it promises.',
         '**Star hopping and finding objects**, at /learn/space-astronomy/star-hopping. How to point the telescope at something worth seeing.',
       ],
     },
