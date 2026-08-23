@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { useDbSync } from '@/hooks/useDbSync';
 import { useCourseStore } from '@/store/useCourseStore';
 import { PROFESSIONS } from '@/data/professions';
@@ -21,6 +22,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { status } = useSession();
+  const pathname = usePathname();
   const { isHydrated } = useDbSync();
   const activeProfession = useCourseStore((s) => s.activeProfession);
 
@@ -46,8 +48,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const isAuthenticated = status === 'authenticated';
 
+  // `/` server-renders the signed-out marketing page, so the app chrome cannot be
+  // assumed there while the session is still resolving. Every other route keeps
+  // rendering it immediately, which is what returning users expect to see.
+  const isHomeRoute = pathname === '/';
+
   // Unauthenticated users (landing page) get full-width layout
-  if (status !== 'loading' && !isAuthenticated) {
+  if (!isAuthenticated && (status !== 'loading' || isHomeRoute)) {
     return (
       <div className="min-h-screen flex flex-col">
         <div id="main-content" className="flex-1">{children}</div>
