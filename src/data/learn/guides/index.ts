@@ -1,5 +1,16 @@
 import type { LearnGuide } from '../types';
+import { apertureVsMagnificationGuide } from './aperture-vs-magnification';
+import { classicalVsOperantConditioningGuide } from './classical-vs-operant-conditioning';
+import { cognitiveBiasQuizGuide } from './cognitive-bias-quiz';
+import { confirmationBiasExamplesGuide } from './confirmation-bias-examples';
+import { eriksonStagesGuide } from './erikson-stages-of-psychosocial-development';
+import { howRocketsWorkInAVacuumGuide } from './how-rockets-work-in-a-vacuum';
+import { leftBrainRightBrainMythGuide } from './left-brain-right-brain-myth';
+import { schedulesOfReinforcementGuide } from './schedules-of-reinforcement';
+import { spaghettificationGuide } from './spaghettification';
+import { starHoppingGuide } from './star-hopping';
 import { sunkCostFallacyGuide } from './sunk-cost-fallacy';
+import { telescopeCollimationGuide } from './telescope-collimation';
 
 /**
  * Every published guide, in the order they were written.
@@ -14,7 +25,23 @@ import { sunkCostFallacyGuide } from './sunk-cost-fallacy';
  * is thin-content territory; publishing generated pages at scale would put the
  * whole domain at risk. Quality bar over volume, every time.
  */
-export const LEARN_GUIDES: readonly LearnGuide[] = [sunkCostFallacyGuide];
+export const LEARN_GUIDES: readonly LearnGuide[] = [
+  // Psychology. Shipped first: the research put its winnable-topic ratio at
+  // 50 percent against finance's 7 percent.
+  sunkCostFallacyGuide,
+  confirmationBiasExamplesGuide,
+  cognitiveBiasQuizGuide,
+  classicalVsOperantConditioningGuide,
+  schedulesOfReinforcementGuide,
+  leftBrainRightBrainMythGuide,
+  eriksonStagesGuide,
+  // Space and astronomy. The telescope trio interlinks; keep them together.
+  telescopeCollimationGuide,
+  apertureVsMagnificationGuide,
+  starHoppingGuide,
+  spaghettificationGuide,
+  howRocketsWorkInAVacuumGuide,
+];
 
 /** Lookup by id string so callers holding a course node need no type assertion. */
 export function listGuidesForCourse(courseId: string): LearnGuide[] {
