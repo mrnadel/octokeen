@@ -35,7 +35,7 @@ const StoryUnlockScreen = lazy(() => import('@/components/engagement/StoryUnlock
 const StreakNudgeBanner = lazy(() => import('@/components/engagement/StreakNudgeBanner').then(m => ({ default: m.StreakNudgeBanner })));
 const DailyRewardClaimModal = lazy(() => import('@/components/engagement/DailyRewardClaimModal').then(m => ({ default: m.DailyRewardClaimModal })));
 
-export default function HomePage() {
+export default function HomeApp() {
   const { status } = useSession();
   const activeLesson = useCourseStore((s) => s.activeLesson);
   const lessonResult = useCourseStore((s) => s.lessonResult);
@@ -347,7 +347,7 @@ export default function HomePage() {
 
       {/* Streak nudge banner for returning users (Day-1 / Day-2) */}
       {flagStreaks && (
-        <div className="px-4 max-w-lg mx-auto mt-2">
+        <div data-top-chrome className="px-4 max-w-lg mx-auto mt-2">
           <ErrorBoundary>
             <Suspense fallback={null}>
               <StreakNudgeBanner />
