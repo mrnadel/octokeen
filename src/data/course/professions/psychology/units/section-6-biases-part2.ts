@@ -25,7 +25,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L1-T1',
             type: 'teaching',
             question: 'Money already spent is gone',
-            explanation: 'The sunk cost fallacy is the tendency to keep investing in something because of what you\'ve already spent, even when quitting would be smarter. Rational decisions should only consider future costs and benefits, not past ones.',
+            explanation: 'The sunk cost fallacy is the pull to keep investing because of what you already spent, even when quitting is smarter. A good decision looks only at future costs and benefits.',
             hint: 'If you\'ve eaten half a bad meal, you don\'t have to finish it just because you paid for it.',
           },
           {
@@ -60,7 +60,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L1-T2',
             type: 'teaching',
             question: 'Loss aversion fuels sunk costs',
-            explanation: 'The sunk cost fallacy is powered by loss aversion. Quitting feels like "wasting" everything you invested. Your brain treats stopping as a loss, even when continuing costs more than stopping.',
+            explanation: 'Loss aversion is the engine here, because quitting feels like writing off everything you put in. Your brain scores stopping as a loss even when continuing costs far more.',
           },
           {
             id: 'psy-sec6-u6-L1-Q3',
@@ -93,7 +93,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L1-T3',
             type: 'teaching',
             question: 'The Concorde fallacy is famous',
-            explanation: 'The British and French governments kept funding the Concorde jet despite knowing it would never be profitable. They couldn\'t bear to "waste" the billions already spent. This is why sunk cost is sometimes called the Concorde fallacy.',
+            explanation: 'Britain and France kept funding Concorde long after it was clear it would never make money. Sunk cost is also called the Concorde fallacy for exactly that reason.',
             hint: 'Try this now: think of a subscription you keep paying for because "you\'ve had it for years."',
           },
           {
@@ -223,7 +223,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L2-T3',
             type: 'teaching',
             question: 'Quitting can be the smartest move',
-            explanation: 'Walking away from a sunk cost isn\'t failure. It\'s freeing up resources for something that actually works. The resources you save by quitting can create new value elsewhere.',
+            explanation: 'Walking away from a sunk cost is not failure. It is releasing money, time, and attention into something that can still pay off.',
           },
           {
             id: 'psy-sec6-u6-L2-Q5',
@@ -272,7 +272,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L3-T1',
             type: 'teaching',
             question: 'We prefer the current state',
-            explanation: 'Status quo bias is the preference for the current situation. People resist change even when alternatives are objectively better. Change feels risky. Staying the same feels safe.',
+            explanation: 'Status quo bias is the pull of the current situation. People stay put even when a clearly better option is sitting right there, because change feels risky and standing still does not.',
             hint: 'This is why people stick with the same phone carrier for years even when cheaper options exist.',
           },
           {
@@ -307,7 +307,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L3-T2',
             type: 'teaching',
             question: 'Loss aversion powers status quo bias',
-            explanation: 'Switching from the current state means potentially losing something familiar. Loss aversion makes the risk of change feel larger than the potential benefit. Even if the new option is better, the fear of losing what you have keeps you stuck.',
+            explanation: 'Switching means risking something familiar, and loss aversion inflates that risk. The upside of the new option is real, but it never feels as vivid as what you might lose.',
           },
           {
             id: 'psy-sec6-u6-L3-Q3',
@@ -356,7 +356,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L3-T3',
             type: 'teaching',
             question: 'Effort is part of the trap',
-            explanation: 'Even when change is clearly better, the effort required to switch creates inertia. Researching options, learning new systems, and adjusting routines all cost energy. The status quo requires zero effort.',
+            explanation: 'Researching options, learning a new system, and rebuilding a routine all cost energy. Staying put costs none, and that gap keeps people in worse deals for years.',
           },
           {
             id: 'psy-sec6-u6-L3-Q6',
@@ -391,16 +391,16 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L4-T1',
             type: 'teaching',
             question: 'Defaults are powerful nudges',
-            explanation: 'The default effect means people tend to accept whatever option is pre-selected. Organ donation rates jump from 15% to 85% just by switching the default from "opt-in" to "opt-out." People rarely change defaults.',
+            explanation: 'The default effect means people accept whatever option is already selected. Johnson and Goldstein found donor consent near 15% in opt-in countries and above 85% in opt-out ones.',
           },
           {
             id: 'psy-sec6-u6-L4-Q1',
             type: 'true-false',
-            question: 'Switching the default for organ donation from opt-in to opt-out dramatically increases donation rates.',
+            question: 'Switching organ donation from opt-in to opt-out dramatically increases consent rates.',
             correctAnswer: true,
-            explanation: 'Countries with opt-out defaults have donation rates around 85%, compared to 15% for opt-in countries.',
+            explanation: 'Opt-out countries record consent above 85%, against roughly 15% where people have to opt in.',
             distractorExplanations: {
-              1: 'Research consistently shows opt-out defaults raise organ donation rates from about 15% to about 85%.',
+              1: 'Consent runs near 15% under opt-in and above 85% under opt-out, one of the largest default effects measured.',
             },
           },
           {
@@ -425,7 +425,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u6-L4-T2',
             type: 'teaching',
             question: 'Choice architecture shapes behavior',
-            explanation: 'The person who designs the choices is the "choice architect." By changing defaults, they can steer behavior without removing options. This approach is called "libertarian paternalism" or "nudging."',
+            explanation: 'The person who designs the options is the "choice architect." Changing a default steers behavior without removing a single choice, which is what "nudging" means.',
             hint: 'Try this now: check the default settings on your phone. How many have you actually changed?',
           },
           {
@@ -467,7 +467,7 @@ export const psySection6Part2: Unit[] = [
               'Require a meeting with HR to discuss retirement',
             ],
             correctIndex: 1,
-            explanation: 'Switching to an opt-out default would likely raise participation from 30% to 80% or more.',
+            explanation: 'Madrian and Shea found automatic enrollment raised retirement plan participation from 49% to 86%. The default does the work.',
             distractorExplanations: {
               0: 'Emails are easily ignored and have low effectiveness compared to changing the default.',
               2: 'Bonuses help but are far less effective than switching to an opt-out default.',
@@ -629,7 +629,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L1-T1',
             type: 'teaching',
             question: 'We favor our own group',
-            explanation: 'In-group bias is the tendency to favor people who belong to your group over outsiders. "Your group" can be based on anything: nationality, school, sports team, or even which color shirt you wear in an experiment.',
+            explanation: 'In-group bias is the tendency to favor your own over outsiders. The group can be anything: nationality, school, sports team, or the color shirt a researcher handed you.',
             hint: 'This bias is so strong it shows up even with randomly assigned groups.',
           },
           {
@@ -664,7 +664,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L1-T2',
             type: 'teaching',
             question: 'Out-group homogeneity is a side effect',
-            explanation: 'We see our own group as diverse individuals but see other groups as "all the same." This is called out-group homogeneity. You notice differences among your friends but lump strangers into stereotypes.',
+            explanation: 'We see our own group as a crowd of individuals and everyone else as more or less interchangeable. That is out-group homogeneity.',
           },
           {
             id: 'psy-sec6-u7-L1-Q3',
@@ -783,7 +783,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L2-T2',
             type: 'teaching',
             question: 'The horn effect is the opposite',
-            explanation: 'The horn effect (or devil effect) is when one negative trait makes you assume everything about a person is negative. If someone makes a bad first impression, you may judge their work, intelligence, and character more harshly.',
+            explanation: 'The horn effect works in reverse: one negative trait darkens everything else. A late arrival or a blunt email drags down your rating of their work and their character.',
             hint: 'First impressions create halos or horns that are very hard to shake.',
           },
           {
@@ -871,7 +871,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L3-T1',
             type: 'teaching',
             question: 'We blame people, not situations',
-            explanation: 'The fundamental attribution error is the tendency to explain other people\'s behavior as caused by their character, while explaining your own behavior as caused by the situation. Someone cuts you off in traffic? They\'re a jerk. You cut someone off? You were running late.',
+            explanation: 'The fundamental attribution error means you blame other people\'s character and your own circumstances. They cut you off because they are a jerk, you cut them off because you were late.',
           },
           {
             id: 'psy-sec6-u7-L3-Q1',
@@ -990,7 +990,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L4-T1',
             type: 'teaching',
             question: 'Stereotypes are mental shortcuts',
-            explanation: 'Stereotypes are generalized beliefs about a group of people. Your brain uses them as heuristics: instead of evaluating each person individually, it applies group-level assumptions. This saves mental energy but often leads to inaccurate judgments.',
+            explanation: 'A stereotype is a heuristic pointed at people: instead of reading the individual, your brain applies a group-level guess. It is cheap, fast, and often wrong about the person in front of you.',
           },
           {
             id: 'psy-sec6-u7-L4-Q1',
@@ -1024,7 +1024,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L4-T2',
             type: 'teaching',
             question: 'Implicit biases operate automatically',
-            explanation: 'Implicit biases are stereotypes you hold without conscious awareness. They influence snap judgments, hiring decisions, and social interactions. You can hold implicit biases that contradict your stated beliefs.',
+            explanation: 'Implicit biases are stereotypes you hold without knowing it, shaping snap judgments and hiring calls. They can flatly contradict the beliefs you would defend out loud.',
             hint: 'Research shows people with strong egalitarian beliefs still show implicit biases on tests.',
           },
           {
@@ -1068,7 +1068,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u7-L4-T3',
             type: 'teaching',
             question: 'Stereotype threat hurts performance',
-            explanation: 'When people know a negative stereotype exists about their group, the anxiety can actually hurt their performance. This is called stereotype threat. It creates a self-fulfilling prophecy where the stereotype seems to confirm itself.',
+            explanation: 'Knowing a negative stereotype exists about your group can create enough anxiety to hurt your performance. That is stereotype threat, and it makes the stereotype look self-confirming.',
           },
           {
             id: 'psy-sec6-u7-L4-Q5',
@@ -1226,7 +1226,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L1-T1',
             type: 'teaching',
             question: 'Your willpower has a battery',
-            explanation: 'Decision fatigue is the decline in decision quality after making many decisions. Each choice uses mental energy. After enough decisions, your brain starts taking shortcuts or avoiding choices altogether.',
+            explanation: 'Decision fatigue is the drop in quality that comes from making decision after decision. Past a certain point your brain starts guessing or stalling instead of choosing.',
             hint: 'This is why you make worse food choices at the end of a long day.',
           },
           {
@@ -1261,7 +1261,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L1-T2',
             type: 'teaching',
             question: 'Fatigue leads to shortcuts or avoidance',
-            explanation: 'When mentally drained, people respond in two ways. They either make impulsive choices (System 1 takes over) or they avoid deciding entirely (putting it off). Neither leads to good outcomes.',
+            explanation: 'A drained brain has two moves: grab the first option, or refuse to pick at all. Neither one gets you a good decision.',
           },
           {
             id: 'psy-sec6-u8-L1-Q3',
@@ -1340,7 +1340,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L2-T1',
             type: 'teaching',
             question: 'More choices can mean fewer sales',
-            explanation: 'The "jam study" is famous in psychology. Researchers set up a jam tasting booth. When 24 jams were offered, only 3% of people bought one. When 6 were offered, 30% bought one. Too many options paralyze us.',
+            explanation: 'Iyengar and Lepper ran a jam tasting booth in a grocery store. With 24 jams on the table 3% of tasters bought a jar, and with 6 jams 30% did.',
           },
           {
             id: 'psy-sec6-u8-L2-Q1',
@@ -1374,7 +1374,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L2-T2',
             type: 'teaching',
             question: 'Choice overload reduces satisfaction',
-            explanation: 'Even when people do choose from a large set, they\'re less satisfied. With many options, there\'s always a nagging feeling that another option might have been better. Fewer options mean less regret.',
+            explanation: 'Even people who do pick from a huge set end up less satisfied with what they picked. A big menu leaves a nagging sense that one of the others was better.',
             hint: 'This is why curated "top 5" lists are so popular.',
           },
           {
@@ -1408,7 +1408,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L2-T3',
             type: 'teaching',
             question: 'Constraints can be freeing',
-            explanation: 'Limiting your options deliberately can improve decisions and satisfaction. Set rules like "I\'ll only consider 3 options" or "I\'ll spend max 5 minutes deciding." Constraints reduce mental load.',
+            explanation: 'Cutting your own options down improves both the decision and how you feel about it. Try a rule like "3 candidates only" or "5 minutes, then I pick."',
           },
           {
             id: 'psy-sec6-u8-L2-Q5',
@@ -1462,7 +1462,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L3-T1',
             type: 'teaching',
             question: 'Two styles of choosing',
-            explanation: 'Satisficers choose the first option that meets their standards. Maximizers search for the absolute best option. Research shows satisficers are generally happier because they don\'t agonize over what they might be missing.',
+            explanation: 'Satisficers take the first option that clears their bar. Maximizers hunt for the single best one, and they tend to end up less happy for the trouble.',
           },
           {
             id: 'psy-sec6-u8-L3-Q1',
@@ -1494,7 +1494,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L3-T2',
             type: 'teaching',
             question: 'Maximizing has hidden costs',
-            explanation: 'Maximizers often find objectively better options but enjoy them less. The exhaustive search creates regret ("what if I missed something?"), decision fatigue, and delayed action. The "best" choice feels hollow after so much effort.',
+            explanation: 'Maximizers often do find the better option and then enjoy it less. The long search leaves regret, fatigue, and a suspicion that something better was one tab away.',
             hint: 'Try this now: think about the last time you agonized over a choice. Was the result worth the stress?',
           },
           {
@@ -1538,7 +1538,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u8-L3-T3',
             type: 'teaching',
             question: '"Good enough" is a strategy',
-            explanation: 'Satisficing isn\'t settling for bad outcomes. It\'s setting clear standards and stopping when they\'re met. This saves time, reduces stress, and often produces equal or better life satisfaction.',
+            explanation: 'Satisficing is not settling. It is setting a clear bar in advance and stopping the moment something clears it.',
           },
           {
             id: 'psy-sec6-u8-L3-Q5',
@@ -1700,7 +1700,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L1-T1',
             type: 'teaching',
             question: 'Knowing isn\'t enough',
-            explanation: 'Simply learning about biases doesn\'t eliminate them. Biases operate in System 1, which is automatic and fast. Knowledge lives in System 2, which is slow and effortful. You need specific strategies, not just awareness.',
+            explanation: 'Learning about a bias does not switch it off. Biases run in System 1, and your new knowledge sits in System 2, which is not in the room when the snap judgment happens.',
             hint: 'Knowing about optical illusions doesn\'t stop you from seeing them.',
           },
           {
@@ -1776,7 +1776,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L1-T3',
             type: 'teaching',
             question: 'Reduction, not elimination',
-            explanation: 'The goal of debiasing is to reduce the impact of biases, not to eliminate them. Complete objectivity is impossible. But you can make significantly better decisions with the right tools and habits.',
+            explanation: 'The goal is to reduce the damage, not to reach objectivity. Perfect objectivity is not on offer, but measurably better decisions are.',
           },
           {
             id: 'psy-sec6-u9-L1-Q5',
@@ -1820,7 +1820,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L2-T1',
             type: 'teaching',
             question: 'Ask "what if I\'m wrong?"',
-            explanation: '"Consider the opposite" is one of the most effective debiasing techniques. Before making a decision, force yourself to argue the opposite case. This activates System 2 and counters confirmation bias.',
+            explanation: 'Before you decide, make yourself argue the opposite case out loud. It is one of the few debiasing moves with a strong track record, because it drags System 2 into the room.',
           },
           {
             id: 'psy-sec6-u9-L2-Q1',
@@ -1854,7 +1854,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L2-T2',
             type: 'teaching',
             question: 'The devil\'s advocate role helps teams',
-            explanation: 'In group decisions, assign one person to argue against the proposal. This prevents groupthink and forces the team to address weaknesses. The role should rotate so no one is always the critic.',
+            explanation: 'Assign one person to argue against the proposal, and rotate the job so nobody becomes the permanent cynic. Groupthink survives agreement, not attack.',
             hint: 'Try this now: pick an opinion you hold strongly and list 3 reasons you might be wrong.',
           },
           {
@@ -1907,7 +1907,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L2-T3',
             type: 'teaching',
             question: 'Write down your reasons first',
-            explanation: 'Before looking at evidence, write down your initial belief and why you hold it. This prevents you from unconsciously shifting your reasoning to match whatever evidence you find. It creates accountability for your thinking.',
+            explanation: 'Write down what you believe and why before you look at the evidence. Otherwise your reasoning quietly rearranges itself to fit whatever you happen to find.',
           },
           {
             id: 'psy-sec6-u9-L2-Q6',
@@ -1942,8 +1942,8 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L3-T1',
             type: 'teaching',
             question: 'Imagine the project already failed',
-            explanation: 'A pre-mortem is the opposite of a post-mortem. Before starting a project, imagine it has already failed. Then ask: "What went wrong?" This overcomes optimism bias by making failure feel real and concrete.',
-            hint: 'It\'s easier to explain a failure that "happened" than to predict one that might happen.',
+            explanation: 'A pre-mortem is a post-mortem run in advance: before you start, imagine the project already failed and ask what went wrong. Explaining a failure is far easier than predicting one.',
+            hint: 'People name risks freely once the failure is treated as a fact, not a possibility.',
           },
           {
             id: 'psy-sec6-u9-L3-Q1',
@@ -2016,7 +2016,7 @@ export const psySection6Part2: Unit[] = [
             type: 'teaching',
             question: 'Individual then group is key',
             explanation: 'In a pre-mortem, people write their failure reasons privately before sharing. This prevents anchoring on the first person\'s ideas and ensures diverse perspectives emerge.',
-            hint: 'Try this now: imagine your current biggest project has failed. Write 3 reasons why.',
+            hint: 'Try this now: imagine your biggest current project has just failed and write 3 reasons why.',
           },
           {
             id: 'psy-sec6-u9-L3-Q5',
@@ -2024,7 +2024,7 @@ export const psySection6Part2: Unit[] = [
             question: 'What technique would help this team most?',
             scenario: 'A startup team is confident their new app will launch on time and within budget. They haven\'t discussed any risks because everyone is excited.',
             options: [
-              'Run a pre-mortem: imagine the launch already failed and list reasons why',
+              'Run a pre-mortem on the launch',
               'Increase the budget to reduce risk',
               'Launch immediately before doubts set in',
               'Hire an external consultant to guarantee success',
@@ -2060,16 +2060,16 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L4-T1',
             type: 'teaching',
             question: 'Checklists beat brains',
-            explanation: 'Checklists reduce errors by removing reliance on memory and judgment. Surgeons who use pre-surgery checklists have 40% fewer complications. Simple structures prevent complex biases.',
+            explanation: 'A checklist takes memory and judgment out of the loop for steps that must never be skipped. In the WHO surgical safety trial, complications fell by about a third.',
           },
           {
             id: 'psy-sec6-u9-L4-Q1',
             type: 'true-false',
             question: 'Surgical checklists significantly reduce complications.',
             correctAnswer: true,
-            explanation: 'Studies show a roughly 40% reduction in complications when surgical teams use checklists.',
+            explanation: 'In the WHO trial, complications fell from 11% to 7% once surgical teams used the checklist.',
             distractorExplanations: {
-              1: 'Research demonstrates that surgical checklists reduce complications by approximately 40%.',
+              1: 'The WHO checklist trial recorded complications falling from 11% to 7% across eight hospitals.',
             },
           },
           {
@@ -2078,7 +2078,7 @@ export const psySection6Part2: Unit[] = [
             question: 'Why do checklists work against cognitive biases?',
             options: [
               'They make decisions faster',
-              'They remove reliance on memory and reduce the role of judgment',
+              'They remove reliance on memory and judgment',
               'They eliminate all biases permanently',
               'They are only useful for surgeons',
             ],
@@ -2094,7 +2094,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u9-L4-T2',
             type: 'teaching',
             question: 'Decision frameworks add structure',
-            explanation: 'A decision framework is a structured set of criteria you define before evaluating options. By setting criteria first, you prevent biases from influencing what criteria you use. Decide what matters before you see the options.',
+            explanation: 'A decision framework is a set of criteria you write down before you look at any options. Decide what matters first, or the options will decide it for you.',
             hint: 'Try this now: before your next big purchase, write down your criteria before looking at products.',
           },
           {
@@ -2350,7 +2350,7 @@ export const psySection6Part2: Unit[] = [
             explanation: 'Pre-mortems ask "imagine this already failed, why?" to surface hidden risks.',
             distractorExplanations: {
               0: 'A post-mortem is conducted after a project ends, not before.',
-              2: 'A devil\\u2019s advocate argues against proposals but does not specifically imagine failure scenarios.',
+              2: 'A devil\'s advocate attacks the proposal but never asks the team to picture it failing.',
               3: 'A checklist ensures steps are followed but does not involve imagining project failure.',
             },
           },
@@ -2358,7 +2358,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u10-L1-T2',
             type: 'teaching',
             question: 'Biases interact with each other',
-            explanation: 'Real decisions involve multiple biases at once. You might anchor on a price (anchoring), only read supporting reviews (confirmation), overestimate risks based on news (availability), and avoid switching because it\'s effort (status quo). Spotting just one bias improves your decision.',
+            explanation: 'Real decisions run several biases at once: an anchor on price, reviews picked to agree with you, a risk inflated by the news, and inertia on top. Catching even one of them helps.',
           },
           {
             id: 'psy-sec6-u10-L1-Q4',
@@ -2374,7 +2374,7 @@ export const psySection6Part2: Unit[] = [
             question: 'How many biases can you spot in this situation?',
             scenario: 'After watching a news story about investment scams, you decide to keep your money in a low-interest savings account (where it\'s been for 10 years) because "at least it\'s safe." Your financial advisor says better options exist.',
             options: [
-              'Availability bias (news), status quo bias (10-year habit), and loss aversion (fear of risk)',
+              'Availability, status quo, and loss aversion',
               'Only anchoring bias',
               'Only the framing effect',
               'No biases are present here',
@@ -2420,7 +2420,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u10-L2-T1',
             type: 'teaching',
             question: 'Let\'s play bias detective',
-            explanation: 'Real-world scenarios involve multiple biases. Your job is to identify the primary bias operating in each situation. The better you spot biases, the better your decisions become.',
+            explanation: 'Real situations rarely carry just one bias. Your job is to name the one doing the most damage in each case.',
           },
           {
             id: 'psy-sec6-u10-L2-Q1',
@@ -2445,7 +2445,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u10-L2-Q2',
             type: 'scenario',
             question: 'Which bias explains this outcome?',
-            scenario: 'A new nurse diagnoses 3 patients in her first week and tells her supervisor, "I think I\'m really good at this." Her supervisor, with 20 years of experience, says, "The more I learn, the more I realize how much I don\'t know."',
+            scenario: 'A nurse diagnoses 3 patients in her first week and tells her supervisor, "I think I\'m really good at this." The supervisor, 20 years in, says, "The more I learn, the less I know."',
             options: [
               'The nurse shows the Dunning-Kruger peak. The supervisor shows expert calibration.',
               'The nurse is more talented than the supervisor',
@@ -2502,7 +2502,7 @@ export const psySection6Part2: Unit[] = [
             id: 'psy-sec6-u10-L2-T2',
             type: 'teaching',
             question: 'The bias toolkit saves real money',
-            explanation: 'Organizations that implement debiasing tools see measurable improvements. Pre-mortems reduce project failures. Structured interviews improve hiring quality. Checklists save lives in medicine. These aren\'t academic exercises. They work.',
+            explanation: 'These are not academic exercises. Structured interviews predict job performance better than unstructured ones, and surgical checklists cut complications across eight hospitals in a trial.',
           },
           {
             id: 'psy-sec6-u10-L2-Q5',
@@ -2734,7 +2734,7 @@ export const psySection6Part2: Unit[] = [
           },
           {
             id: 'psy-sec6-u10-L4-SQ15',
-            question: 'What reduces surgical complications by about 40%?',
+            question: 'What cut surgical complications by about a third?',
             options: ['More training', 'Better tools', 'Checklists', 'Longer shifts'],
             correctIndex: 2,
           },

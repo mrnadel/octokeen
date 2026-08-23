@@ -26,7 +26,7 @@ export const psySection6Part1: Unit[] = [
             type: 'teaching',
             question: 'Your brain loves shortcuts',
             explanation: 'Heuristics are mental shortcuts your brain uses to make quick decisions. Instead of analyzing every detail, your brain takes the fastest path to a "good enough" answer.',
-            hint: 'Think of heuristics like rules of thumb. They save time but aren\'t always accurate.',
+            hint: 'Think of them as rules of thumb: fast, useful, and sometimes wrong.',
           },
           {
             id: 'psy-sec6-u1-L1-Q1',
@@ -94,7 +94,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L1-T3',
             type: 'teaching',
             question: 'Heuristics can be wrong',
-            explanation: 'Heuristics work well most of the time. But when they lead to consistent errors, those errors are called cognitive biases. This section is all about learning to spot those errors.',
+            explanation: 'Heuristics work most of the time. When one misfires the same way again and again, that repeatable error is a cognitive bias.',
           },
           {
             id: 'psy-sec6-u1-L1-Q5',
@@ -145,7 +145,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L2-T1',
             type: 'teaching',
             question: 'Your brain saves energy on purpose',
-            explanation: 'Your brain uses about 20% of your body\'s energy. Heuristics evolved to conserve that energy by making fast decisions without deep analysis. Speed often mattered more than accuracy for survival.',
+            explanation: 'Your brain burns about 20% of your body\'s energy, so thinking deeply is expensive. Heuristics evolved to buy speed cheaply, and for our ancestors speed usually beat precision.',
             hint: 'For our ancestors, a slow decision about a rustling bush could mean becoming lunch.',
           },
           {
@@ -223,7 +223,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L2-T3',
             type: 'teaching',
             question: 'Shortcuts are a feature, not a bug',
-            explanation: 'Heuristics aren\'t design flaws. They\'re efficient tools that work well most of the time. The goal isn\'t to eliminate them. It\'s to recognize when they might fail.',
+            explanation: 'Heuristics aren\'t design flaws. They\'re efficient tools that usually work, and the goal is to notice the moments they misfire rather than switch them off.',
             hint: 'Try this now: think of a decision where "going with your gut" worked perfectly.',
           },
           {
@@ -270,8 +270,8 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L3-T1',
             type: 'teaching',
             question: 'Two systems drive your thinking',
-            explanation: 'Psychologist Daniel Kahneman describes two modes of thinking. System 1 is fast, automatic, and effortless. System 2 is slow, deliberate, and requires concentration.',
-            hint: 'System 1 catches a ball. System 2 solves a math problem.',
+            explanation: 'Psychologist Daniel Kahneman describes two modes of thinking. System 1 is fast, automatic, and effortless, while System 2 is slow, deliberate, and demands concentration.',
+            hint: 'System 1 catches a ball while System 2 does long division.',
           },
           {
             id: 'psy-sec6-u1-L3-Q1',
@@ -303,7 +303,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L3-T2',
             type: 'teaching',
             question: 'System 1 is the default mode',
-            explanation: 'Your brain prefers System 1 because it uses less energy. System 2 only kicks in when System 1 gets stuck or when you deliberately focus. Most cognitive biases come from System 1.',
+            explanation: 'Your brain defaults to System 1 because it is cheap, and System 2 only steps in when System 1 gets stuck. Most cognitive biases are System 1 answering a System 2 question.',
           },
           {
             id: 'psy-sec6-u1-L3-Q3',
@@ -335,7 +335,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L3-T3',
             type: 'teaching',
             question: 'Engaging System 2 takes effort',
-            explanation: 'System 2 requires concentration and willpower. That\'s why you make worse decisions when tired, stressed, or distracted. Your System 2 runs out of energy.',
+            explanation: 'System 2 runs on concentration and willpower, and both run out. That\'s why your worst decisions cluster at the end of a long day.',
             hint: 'Try this now: notice how much harder it is to think carefully when you\'re hungry or exhausted.',
           },
           {
@@ -390,7 +390,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L4-T1',
             type: 'teaching',
             question: 'Biases are predictable, not random',
-            explanation: 'Cognitive biases aren\'t random mistakes. They\'re systematic errors that happen in predictable patterns. Knowing the pattern helps you catch the error before it costs you.',
+            explanation: 'Cognitive biases are not random mistakes. They repeat in predictable patterns, which is exactly what lets you catch one before it costs you.',
             hint: 'If you know the trick, you can avoid falling for it.',
           },
           {
@@ -425,7 +425,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L4-T2',
             type: 'teaching',
             question: 'Everyone has cognitive biases',
-            explanation: 'Cognitive biases affect everyone, regardless of intelligence or education. Experts can be just as biased as beginners. Awareness is the first step to reducing their impact.',
+            explanation: 'Intelligence and education do not protect you, and experts fall for biases as readily as beginners. Awareness is the first step, not the cure.',
           },
           {
             id: 'psy-sec6-u1-L4-Q3',
@@ -465,7 +465,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u1-L4-T3',
             type: 'teaching',
             question: 'The bias blind spot',
-            explanation: 'The bias blind spot is the tendency to see biases in others but not in yourself. Most people believe they\'re less biased than average. That belief is itself a bias.',
+            explanation: 'Most people believe they are less biased than average, and most of them are wrong. Seeing bias in others but not yourself has a name: the bias blind spot.',
             hint: 'Try this now: think about the last argument you had. Were you really as objective as you felt?',
           },
           {
@@ -625,7 +625,7 @@ export const psySection6Part1: Unit[] = [
             type: 'teaching',
             question: 'The first number sticks',
             explanation: 'Anchoring bias means you rely too heavily on the first piece of information you receive. If someone says a house is worth $500,000, every other price feels high or low compared to that anchor.',
-            hint: 'Try this now: notice how the first price you see in a store shapes whether everything else feels cheap or expensive.',
+            hint: 'Try this now: notice how the first price in a store reshapes every price after it.',
           },
           {
             id: 'psy-sec6-u2-L1-Q1',
@@ -659,7 +659,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L1-T2',
             type: 'teaching',
             question: 'Anchors work even when random',
-            explanation: 'In one famous study, researchers spun a wheel numbered 10 or 65. Then they asked people to estimate the percentage of African countries in the UN. People who saw 65 guessed much higher than those who saw 10.',
+            explanation: 'Tversky and Kahneman spun a rigged wheel that stopped on 10 or 65, then asked people what share of UN members are African. The group that saw 65 guessed far higher.',
           },
           {
             id: 'psy-sec6-u2-L1-Q3',
@@ -691,7 +691,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L1-T3',
             type: 'teaching',
             question: 'Salary negotiations use anchoring',
-            explanation: 'Whoever states the first number in a salary negotiation sets the anchor. If you say $70,000, the conversation revolves around that number. If they say $50,000, everything adjusts downward.',
+            explanation: 'Whoever says the first number in a salary negotiation sets the anchor. Open at $70,000 and the haggling happens around $70,000, not around the $50,000 they had in mind.',
           },
           {
             id: 'psy-sec6-u2-L1-Q5',
@@ -771,7 +771,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L2-T2',
             type: 'teaching',
             question: 'Gain frames vs. loss frames',
-            explanation: 'A gain frame highlights what you get: "Save $200." A loss frame highlights what you lose: "Don\'t lose $200." Loss frames tend to motivate action more strongly because losses feel worse than gains feel good.',
+            explanation: 'A gain frame says "Save $200" and a loss frame says "Don\'t lose $200." Loss frames push harder, because losing $200 stings more than saving $200 pleases.',
             hint: 'Advertisers use loss frames to create urgency: "Don\'t miss out!"',
           },
           {
@@ -812,7 +812,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L2-T3',
             type: 'teaching',
             question: 'Framing is everywhere',
-            explanation: 'Politicians, advertisers, and news outlets all use framing. "Tax relief" frames taxes as a burden. "Public investment" frames the same money as a benefit. The frame shapes your opinion before you even think.',
+            explanation: '"Tax relief" frames taxes as a burden. "Public investment" frames the same money as a benefit, and the frame reaches you before your opinion does.',
           },
           {
             id: 'psy-sec6-u2-L2-Q5',
@@ -857,7 +857,7 @@ export const psySection6Part1: Unit[] = [
             type: 'teaching',
             question: 'Losses hurt more than gains help',
             explanation: 'Loss aversion means the pain of losing something is about twice as powerful as the pleasure of gaining the same thing. Losing $100 feels much worse than finding $100 feels good.',
-            hint: 'This is why people hold losing stocks too long. Selling means accepting the loss.',
+            hint: 'This is why people hold losing stocks too long, since selling makes the loss official.',
           },
           {
             id: 'psy-sec6-u2-L3-Q1',
@@ -934,7 +934,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L3-T3',
             type: 'teaching',
             question: 'The endowment effect is related',
-            explanation: 'The endowment effect means you value things more just because you own them. People demand more money to sell a mug they own than they\'d pay to buy the same mug. Ownership creates a loss to protect.',
+            explanation: 'The endowment effect means owning something raises its value in your eyes. People want more to sell a mug than they would pay to buy the very same mug.',
             hint: 'Try this now: think of something you own that you\'d never sell for the price you paid.',
           },
           {
@@ -979,7 +979,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L4-T1',
             type: 'teaching',
             question: 'Stores anchor you on purpose',
-            explanation: 'Retailers place expensive items at eye level so the first price you see is high. Everything else feels cheaper by comparison. The "original price" on a sale tag is often an anchor, not the real value.',
+            explanation: 'Retailers put the priciest item at eye level so your first number is a big one. The "original price" on a sale tag does the same job, and it is rarely a real price.',
           },
           {
             id: 'psy-sec6-u2-L4-Q1',
@@ -997,9 +997,9 @@ export const psySection6Part1: Unit[] = [
             question: 'A jacket has a tag reading "Was $200, now $89." What is the $200 doing?',
             options: [
               'Showing the jacket\'s true manufacturing cost',
-              'Acting as an anchor to make $89 feel like a steal',
+              'Anchoring you so that $89 feels cheap',
               'Proving the jacket is high quality',
-              'Indicating inflation adjusted pricing',
+              'Indicating a price adjusted for inflation',
             ],
             correctIndex: 1,
             explanation: 'The $200 is an anchor. It exists to make $89 feel like an incredible bargain.',
@@ -1013,7 +1013,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u2-L4-T2',
             type: 'teaching',
             question: 'The decoy effect tricks you too',
-            explanation: 'Stores offer 3 options: small ($3), medium ($6.50), and large ($7). The medium exists to make the large look like a great deal. The medium is the "decoy" that pushes you toward the most profitable option.',
+            explanation: 'A store offers small at $3, medium at $6.50, and large at $7. The medium is the decoy, priced to make the large look like a steal.',
             hint: 'Try this now: next time you see 3 pricing tiers, ask which one is the decoy.',
           },
           {
@@ -1023,7 +1023,7 @@ export const psySection6Part1: Unit[] = [
             scenario: 'A movie theater sells popcorn: Small $4, Medium $7, Large $7.50. Most people buy the large.',
             options: [
               'The small, because nobody buys it',
-              'The medium, because it makes the large look like a better deal',
+              'The medium, because it flatters the large',
               'The large, because it\'s the most expensive',
               'There is no decoy in this pricing',
             ],
@@ -1293,14 +1293,14 @@ export const psySection6Part1: Unit[] = [
             distractorExplanations: {
               1: 'The manager is not actively searching for records; they are remembering selectively.',
               2: 'Selective interpretation involves reading ambiguous data as supporting your view, not memory distortion.',
-              3: 'The manager\\\'s belief filters their memory, which is a textbook example of confirmation bias.',
+              3: 'The manager\'s belief is filtering what they remember, which is confirmation bias by definition.',
             },
           },
           {
             id: 'psy-sec6-u3-L1-T3',
             type: 'teaching',
             question: 'Confirmation bias is hard to beat',
-            explanation: 'Confirmation bias is considered one of the hardest biases to overcome. Even scientists fall victim to it. The best defense is deliberately looking for evidence that proves you wrong.',
+            explanation: 'Confirmation bias is one of the hardest biases to shake, and trained scientists fall for it too. The only reliable defense is hunting for the evidence that would prove you wrong.',
             hint: 'Try this now: pick one opinion you hold strongly and search for the best argument against it.',
           },
           {
@@ -1378,7 +1378,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u3-L2-T2',
             type: 'teaching',
             question: 'Group polarization makes it worse',
-            explanation: 'When like-minded people discuss an issue, they tend to become more extreme. This is called group polarization. Echo chambers accelerate this because there are no opposing voices to moderate the discussion.',
+            explanation: 'When like-minded people talk, the group drifts further out than any member started. That is group polarization, and an echo chamber removes the voices that would slow it.',
             hint: 'Try this now: check if most of your social media follows share your viewpoints.',
           },
           {
@@ -1427,7 +1427,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u3-L2-T3',
             type: 'teaching',
             question: 'Breaking out takes deliberate effort',
-            explanation: 'To escape echo chambers, you need to actively seek opposing viewpoints. Follow people you disagree with. Read news from different perspectives. Discomfort with new ideas is a sign you\'re learning.',
+            explanation: 'Escaping an echo chamber means following people you disagree with and reading outlets you would never pick. The discomfort is the point.',
           },
           {
             id: 'psy-sec6-u3-L2-Q6',
@@ -1476,7 +1476,7 @@ export const psySection6Part1: Unit[] = [
             question: 'Why do people overestimate the risk of plane crashes?',
             options: [
               'Plane crashes are genuinely very common',
-              'Crashes are vivid and heavily covered by news, making them easy to recall',
+              'Vivid news coverage makes crashes easy to recall',
               'People have accurate statistics about aviation',
               'Flying is actually more dangerous than driving',
             ],
@@ -1576,7 +1576,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u3-L4-T1',
             type: 'teaching',
             question: 'News isn\'t a mirror of reality',
-            explanation: 'News covers unusual, dramatic events because they attract attention. This means your news feed overrepresents rare events and underrepresents common ones. The result: your mental picture of the world is distorted.',
+            explanation: 'News is a record of the unusual, because the usual is not news. So your feed overstates rare events, understates common ones, and quietly warps your picture of the world.',
           },
           {
             id: 'psy-sec6-u3-L4-Q1',
@@ -1610,13 +1610,13 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u3-L4-T2',
             type: 'teaching',
             question: 'Mean world syndrome is real',
-            explanation: 'People who watch a lot of news believe the world is more dangerous than it actually is. Researcher George Gerbner called this "mean world syndrome." Heavy viewers overestimate crime, violence, and risk.',
+            explanation: 'Heavy news viewers overestimate crime, violence, and risk. Researcher George Gerbner named this "mean world syndrome."',
             hint: 'Try this now: compare your fear of crime to actual crime statistics in your area.',
           },
           {
             id: 'psy-sec6-u3-L4-Q3',
             type: 'fill-blank',
-            question: 'The belief that the world is more dangerous than it is, caused by heavy news consumption, is called _____ world syndrome.',
+            question: 'Heavy news viewing that makes the world feel more dangerous creates _____ world syndrome.',
             blanks: ['mean'],
             wordBank: ['mean', 'small', 'flat', 'dark', 'cruel'],
             explanation: 'Mean world syndrome describes how heavy media exposure inflates perceptions of danger.',
@@ -1632,10 +1632,10 @@ export const psySection6Part1: Unit[] = [
               'Shark attacks',
             ],
             matchTargets: [
-              'Massively underrepresented in news',
-              'Massively overrepresented in news',
-              'Moderately represented in news',
-              'Wildly overrepresented relative to actual risk',
+              'Top killer, rarely a headline',
+              'Rare, but dominates political coverage',
+              'Common, covered only when it is local',
+              'Almost never happens, always goes viral',
             ],
             correctMatches: [0, 1, 2, 3],
             explanation: 'Dramatic risks get disproportionate coverage. Common killers like heart disease get far less.',
@@ -1855,7 +1855,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u4-L1-T2',
             type: 'teaching',
             question: 'Biases often work together',
-            explanation: 'In real life, biases rarely act alone. You might anchor on a news headline (anchoring), seek confirming articles (confirmation bias), and then overestimate the risk (availability heuristic). Multiple biases stack up.',
+            explanation: 'Biases rarely act alone. One news headline can anchor your estimate, pull you toward confirming articles, and inflate the risk you feel, all at once.',
           },
           {
             id: 'psy-sec6-u4-L1-Q3',
@@ -1981,7 +1981,7 @@ export const psySection6Part1: Unit[] = [
             options: [
               'Confirmation bias',
               'Availability heuristic',
-              'Anchoring bias with the $5,000 sofa as the anchor',
+              'Anchoring bias',
               'Mean world syndrome',
             ],
             correctIndex: 2,
@@ -2179,8 +2179,8 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L1-T1',
             type: 'teaching',
             question: 'Beginners don\'t know what they don\'t know',
-            explanation: 'The Dunning-Kruger effect is a cognitive bias where people with low skill overestimate their ability. They lack the knowledge to recognize their own mistakes. Meanwhile, experts often underestimate how much they know.',
-            hint: 'The less you know, the more confident you feel. The more you know, the more you doubt.',
+            explanation: 'The Dunning-Kruger effect is what happens when you lack the skill to see how unskilled you are. The knowledge you are missing is the knowledge you would need to spot the gap.',
+            hint: 'Confidence usually peaks well before competence does.',
           },
           {
             id: 'psy-sec6-u5-L1-Q1',
@@ -2214,7 +2214,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L1-T2',
             type: 'teaching',
             question: 'Dunning and Kruger proved it',
-            explanation: 'In 1999, psychologists David Dunning and Justin Kruger tested students on logic, grammar, and humor. Students who scored in the bottom 25% estimated they were above average. The worst performers had the biggest gap between confidence and ability.',
+            explanation: 'In 1999, David Dunning and Justin Kruger tested students on logic, grammar, and humor. The bottom quarter scored near the 12th percentile and guessed they were above the 60th.',
           },
           {
             id: 'psy-sec6-u5-L1-Q3',
@@ -2246,7 +2246,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L1-T3',
             type: 'teaching',
             question: 'It\'s not about intelligence',
-            explanation: 'The Dunning-Kruger effect isn\'t about being stupid. It affects everyone in areas where they lack expertise. A brilliant scientist might overestimate their cooking skills. A chef might overestimate their scientific knowledge.',
+            explanation: 'This is not about being stupid. It shows up wherever you happen to be a beginner, so the brilliant chemist overrates their cooking and the chef overrates their chemistry.',
             hint: 'Try this now: think of a skill you\'re confident about. How would you know if you were overestimating?',
           },
           {
@@ -2299,16 +2299,16 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L2-T1',
             type: 'teaching',
             question: 'Overconfidence is everywhere',
-            explanation: 'Overconfidence bias means people believe their judgments and predictions are more accurate than they actually are. Studies show that when people say they\'re "99% sure," they\'re wrong about 40% of the time.',
+            explanation: 'Overconfidence bias means your judgments are less accurate than you believe. Russo and Schoemaker asked for ranges people were 99% sure about, and the answer fell outside roughly 40% of the time.',
           },
           {
             id: 'psy-sec6-u5-L2-Q1',
             type: 'true-false',
             question: 'When people say they\'re "99% sure" about something, they\'re almost always correct.',
             correctAnswer: false,
-            explanation: 'Research shows people saying "99% sure" are wrong roughly 40% of the time. We badly misjudge our certainty.',
+            explanation: 'Ranges people call 99% certain miss the true answer about 40% of the time. We badly misjudge our own certainty.',
             distractorExplanations: {
-              0: 'Research shows people claiming 99% certainty are wrong about 40% of the time, revealing severe overconfidence.',
+              0: 'Ranges people were 99% sure about still missed the answer roughly 40% of the time.',
             },
           },
           {
@@ -2333,7 +2333,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L2-T2',
             type: 'teaching',
             question: 'Overconfidence has real consequences',
-            explanation: 'Overconfident investors trade too frequently and lose money. Overconfident managers ignore warning signs. Overconfident students study less because they think they already know the material.',
+            explanation: 'Overconfident investors trade too often and lose money, and overconfident managers wave off warning signs. Overconfident students stop studying because the material already feels familiar.',
             hint: 'Try this now: remember a time you were sure you\'d ace a test but didn\'t study enough.',
           },
           {
@@ -2377,7 +2377,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L2-T3',
             type: 'teaching',
             question: 'Calibration is the cure',
-            explanation: 'Well-calibrated thinkers know when they know something and when they\'re guessing. Good calibration means your confidence matches your accuracy. Weather forecasters are among the best-calibrated professionals.',
+            explanation: 'Calibration means your confidence matches your accuracy, so you can tell knowing from guessing. Weather forecasters are among the best-calibrated professionals there are.',
           },
           {
             id: 'psy-sec6-u5-L2-Q5',
@@ -2458,7 +2458,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L3-T2',
             type: 'teaching',
             question: 'The valley is where many quit',
-            explanation: 'The drop in confidence is uncomfortable. Many people quit right at this point because they feel like they\'re getting worse. But it\'s actually a sign of progress. You now know enough to see what you\'re missing.',
+            explanation: 'Many people quit at this point because they feel like they are getting worse. In fact they have just learned enough to see what they were missing.',
             hint: 'If you feel like you know less than when you started, you\'re probably learning something real.',
           },
           {
@@ -2494,7 +2494,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L3-T3',
             type: 'teaching',
             question: 'Experts have calibrated confidence',
-            explanation: 'True experts eventually reach a point where their confidence accurately matches their ability. They know what they know and what they don\'t. This calibration is what makes expert judgment valuable.',
+            explanation: 'True experts land where confidence matches ability, knowing both what they know and what they do not. That calibration is what makes their judgment worth paying for.',
           },
           {
             id: 'psy-sec6-u5-L3-Q5',
@@ -2536,7 +2536,7 @@ export const psySection6Part1: Unit[] = [
             type: 'teaching',
             question: 'Some experts feel like frauds',
             explanation: 'Imposter syndrome is the persistent feeling that you\'re a fraud, despite evidence of your competence. It\'s the flip side of Dunning-Kruger: instead of overestimating, you underestimate your real abilities.',
-            hint: 'About 70% of people experience imposter syndrome at some point in their lives.',
+            hint: 'It hits hardest in the people with the strongest track records.',
           },
           {
             id: 'psy-sec6-u5-L4-Q1',
@@ -2570,7 +2570,7 @@ export const psySection6Part1: Unit[] = [
             id: 'psy-sec6-u5-L4-T2',
             type: 'teaching',
             question: 'Imposter syndrome has common signs',
-            explanation: 'People with imposter syndrome attribute their success to luck rather than skill. They fear being "found out." They dismiss praise and focus on mistakes. High achievers are especially prone to it.',
+            explanation: 'People with imposter syndrome credit luck instead of skill, brush off praise, and replay their mistakes. The better they do, the harder they brace to be found out.',
           },
           {
             id: 'psy-sec6-u5-L4-Q3',
@@ -2611,7 +2611,7 @@ export const psySection6Part1: Unit[] = [
             type: 'teaching',
             question: 'Imposter syndrome can be managed',
             explanation: 'Recognizing imposter syndrome is the first step. Keeping a record of your accomplishments, accepting compliments, and talking to trusted colleagues about your feelings all help combat it.',
-            hint: 'Try this now: write down 3 things you\'re genuinely good at. Notice if you feel the urge to dismiss them.',
+            hint: 'Try this now: write down 3 things you are genuinely good at without adding a single qualifier.',
           },
           {
             id: 'psy-sec6-u5-L4-Q5',
