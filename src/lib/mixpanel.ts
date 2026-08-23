@@ -1,4 +1,12 @@
-const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
+// Mixpanel project token. Not a secret: it is an ingest-only key that ships in
+// the client bundle to every visitor the moment analytics are enabled, and it
+// cannot read data back. Baked in because it went unset on Vercel and every
+// analytics call in the app silently no-opped in production as a result;
+// initMixpanel returns early without a token, so the failure is invisible.
+// NEXT_PUBLIC_MIXPANEL_TOKEN still overrides for a separate project.
+const FALLBACK_MIXPANEL_TOKEN = '07f376be3a2435fb54e7ac7391bf4607';
+
+const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN || FALLBACK_MIXPANEL_TOKEN;
 const IS_PROD = process.env.NODE_ENV === 'production';
 
 let initialized = false;
