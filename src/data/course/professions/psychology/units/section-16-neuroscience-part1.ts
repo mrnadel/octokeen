@@ -561,6 +561,110 @@ export const psySection16Part1: Unit[] = [
           },
         ],
       },
+
+      // ===== LESSON 6: Brain Architecture Speed Round =====
+      {
+        id: 'psy-sec16-u1-L-speed',
+        title: 'Brain Architecture Speed Round',
+        description: 'Rapid recall of lobes, subcortical structures, and white matter.',
+        icon: '⚡',
+        type: 'speed-round',
+        xpReward: 20,
+        questions: [],
+        speedTimeLimit: 60,
+        speedQuestions: [
+          {
+            id: 'psy-sec16-u1-speed-SQ1',
+            question: 'Which lobe processes vision?',
+            options: ['Occipital', 'Frontal', 'Temporal', 'Parietal'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ2',
+            question: 'Planning and impulse control belong to the...',
+            options: ['Frontal lobe', 'Parietal lobe', 'Occipital lobe', 'Temporal lobe'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ3',
+            question: 'Touch and spatial awareness are handled by the...',
+            options: ['Temporal lobe', 'Parietal lobe', 'Frontal lobe', 'Occipital lobe'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ4',
+            question: 'Hearing and face recognition sit in the...',
+            options: ['Occipital lobe', 'Parietal lobe', 'Temporal lobe', 'Frontal lobe'],
+            correctIndex: 2,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ5',
+            question: 'The prefrontal cortex fully matures around age...',
+            options: ['12', '18', '25', '40'],
+            correctIndex: 2,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ6',
+            question: 'Which structure relays almost every sense?',
+            options: ['Thalamus', 'Cerebellum', 'Amygdala', 'Brain stem'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ7',
+            question: 'Which sense skips the thalamus?',
+            options: ['Vision', 'Hearing', 'Smell', 'Touch'],
+            correctIndex: 2,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ8',
+            question: 'Parkinson disease disrupts the...',
+            options: ['Basal ganglia', 'Corpus callosum', 'Occipital lobe', 'Thalamus'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ9',
+            question: 'Which tissue carries signals between regions?',
+            options: ['Gray matter', 'White matter', 'Spinal fluid', 'Skull bone'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ10',
+            question: 'The largest tract between hemispheres is the...',
+            options: ['Corpus callosum', 'Optic nerve', 'Brain stem', 'Motor strip'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ11',
+            question: 'The left hemisphere controls which side of the body?',
+            options: ['Right side', 'Left side', 'Both sides', 'Neither side'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ12',
+            question: 'Being left-brained or right-brained is...',
+            options: ['A myth', 'Well proven', 'Inherited', 'Age related'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ13',
+            question: 'The somatosensory cortex sits in which lobe?',
+            options: ['Frontal', 'Parietal', 'Temporal', 'Occipital'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ14',
+            question: 'The motor cortex sits in which lobe?',
+            options: ['Frontal', 'Parietal', 'Occipital', 'Temporal'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u1-speed-SQ15',
+            question: 'Which structure fine-tunes movement and balance?',
+            options: ['Cerebellum', 'Hypothalamus', 'Amygdala', 'Thalamus'],
+            correctIndex: 0,
+          },
+        ],
+      },
     ],
   },
 
@@ -993,7 +1097,119 @@ export const psySection16Part1: Unit[] = [
         ],
       },
 
-      // ===== LESSON 5: Limbic System Speed Round =====
+
+      // ===== LESSON 5: Limbic System Case Review =====
+      {
+        id: 'psy-sec16-u2-L-conv',
+        title: 'Limbic System Case Review',
+        description: 'Separate the jobs of the limbic structures in a single patient.',
+        icon: '💬',
+        type: 'conversation',
+        xpReward: 20,
+        questions: [],
+        conversationStartNodeId: 'psy-sec16-u2-conv-C1',
+        conversationNodes: [
+          {
+            id: 'psy-sec16-u2-conv-C1',
+            speaker: 'Narrator',
+            message: 'You are sitting in on a case review at a memory clinic. Dr. Okafor pulls up a chart and turns the screen toward you.',
+            nextNodeId: 'psy-sec16-u2-conv-C2',
+          },
+          {
+            id: 'psy-sec16-u2-conv-C2',
+            speaker: 'Dr. Okafor',
+            message: 'This patient had an infection that damaged both medial temporal lobes. She describes her childhood in vivid detail, but she does not remember meeting me yesterday. Which structure took the hit?',
+            options: [
+              {
+                text: 'The hippocampus. It builds new long-term memories but does not store the old ones.',
+                nextNodeId: 'psy-sec16-u2-conv-C3',
+                quality: 'great',
+                feedback: 'Exactly. Losing new memories while keeping old ones is the classic hippocampal signature.',
+              },
+              {
+                text: 'The amygdala, since memory always feels emotional.',
+                nextNodeId: 'psy-sec16-u2-conv-C3',
+                quality: 'okay',
+                feedback: 'The amygdala tags memories with emotion, but the failure to form any new ones points to the hippocampus.',
+              },
+              {
+                text: 'The occipital lobe, because she cannot picture the meeting.',
+                nextNodeId: 'psy-sec16-u2-conv-C3',
+                quality: 'poor',
+                feedback: 'The occipital lobe handles vision, not memory storage. Nothing here suggests she cannot see.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u2-conv-C3',
+            speaker: 'Narrator',
+            message: 'Dr. Okafor writes "hippocampus" on the chart and scrolls to the nursing notes.',
+            nextNodeId: 'psy-sec16-u2-conv-C4',
+          },
+          {
+            id: 'psy-sec16-u2-conv-C4',
+            speaker: 'Dr. Okafor',
+            message: 'Here is the odd part. She has no memory of the ambulance ride at all, yet she freezes every single time she hears a siren. How does that work?',
+            options: [
+              {
+                text: 'The amygdala can learn a fear association even when the hippocampus cannot store the episode.',
+                nextNodeId: 'psy-sec16-u2-conv-C5',
+                quality: 'great',
+                feedback: 'Right. Fear conditioning and episodic memory run on separate circuits, so one can survive the other.',
+              },
+              {
+                text: 'She is recalling the ride through the hippocampus without noticing it.',
+                nextNodeId: 'psy-sec16-u2-conv-C5',
+                quality: 'okay',
+                feedback: 'The hippocampus stores the episode itself, and hers is damaged. The fear is running through the amygdala instead.',
+              },
+              {
+                text: 'She is acting frightened because everyone expects her to be.',
+                nextNodeId: 'psy-sec16-u2-conv-C5',
+                quality: 'poor',
+                feedback: 'Fear conditioning is a measurable amygdala process with a physical stress response, not a social expectation.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u2-conv-C5',
+            speaker: 'Narrator',
+            message: 'You note that her body clearly learned something her conscious memory never recorded.',
+            nextNodeId: 'psy-sec16-u2-conv-C6',
+          },
+          {
+            id: 'psy-sec16-u2-conv-C6',
+            speaker: 'Dr. Okafor',
+            message: 'One more thing. Since the illness she eats almost constantly and her sleep-wake cycle has flipped. Which structure would you look at next?',
+            options: [
+              {
+                text: 'The hypothalamus. It regulates hunger, temperature, and circadian rhythms.',
+                nextNodeId: 'psy-sec16-u2-conv-C7',
+                quality: 'great',
+                feedback: 'Spot on. Appetite plus a flipped sleep cycle is a hypothalamic pattern, and it sits right next to the damage.',
+              },
+              {
+                text: 'The nucleus accumbens, because eating is rewarding.',
+                nextNodeId: 'psy-sec16-u2-conv-C7',
+                quality: 'okay',
+                feedback: 'The accumbens drives craving for specific rewards. Constant hunger paired with disrupted sleep points to the hypothalamus.',
+              },
+              {
+                text: 'The anterior cingulate, since she is making poor choices.',
+                nextNodeId: 'psy-sec16-u2-conv-C7',
+                quality: 'poor',
+                feedback: 'The anterior cingulate monitors errors and conflict. Appetite and sleep timing are not its job.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u2-conv-C7',
+            speaker: 'Narrator',
+            message: 'You just separated 3 limbic jobs in 1 patient: the hippocampus builds new memories, the amygdala learns fear, and the hypothalamus keeps the body regulated. Damage rarely respects tidy categories, which is exactly why knowing each structure matters.',
+          },
+        ],
+      },
+      // ===== LESSON 6: Limbic System Speed Round =====
       {
         id: 'psy-sec16-u2-L-speed',
         title: 'Limbic System Speed Round',
@@ -1655,6 +1871,110 @@ export const psySection16Part1: Unit[] = [
           },
         ],
       },
+
+      // ===== LESSON 6: Neurotransmitter Speed Round =====
+      {
+        id: 'psy-sec16-u3-L-speed',
+        title: 'Neurotransmitter Speed Round',
+        description: 'Rapid recall of neurotransmitters, pathways, and the drugs that target them.',
+        icon: '⚡',
+        type: 'speed-round',
+        xpReward: 20,
+        questions: [],
+        speedTimeLimit: 60,
+        speedQuestions: [
+          {
+            id: 'psy-sec16-u3-speed-SQ1',
+            question: 'Which neurotransmitter drives reward and motivation?',
+            options: ['Dopamine', 'GABA', 'Serotonin', 'Acetylcholine'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ2',
+            question: 'SSRIs raise the availability of...',
+            options: ['Dopamine', 'Serotonin', 'GABA', 'Glutamate'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ3',
+            question: 'The main inhibitory neurotransmitter is...',
+            options: ['Glutamate', 'GABA', 'Dopamine', 'Norepinephrine'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ4',
+            question: 'The main excitatory neurotransmitter is...',
+            options: ['GABA', 'Serotonin', 'Glutamate', 'Acetylcholine'],
+            correctIndex: 2,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ5',
+            question: 'Benzodiazepines calm anxiety by enhancing...',
+            options: ['GABA', 'Dopamine', 'Serotonin', 'Glutamate'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ6',
+            question: 'Alzheimer disease depletes which neurotransmitter?',
+            options: ['Acetylcholine', 'Serotonin', 'GABA', 'Glutamate'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ7',
+            question: 'Norepinephrine is produced in the...',
+            options: ['Hippocampus', 'Locus coeruleus', 'Amygdala', 'Cerebellum'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ8',
+            question: 'Parkinson disease kills which neurons?',
+            options: ['GABA neurons', 'Dopamine neurons', 'Serotonin neurons', 'Glutamate neurons'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ9',
+            question: 'L-DOPA is a precursor to...',
+            options: ['Serotonin', 'Dopamine', 'GABA', 'Acetylcholine'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ10',
+            question: 'Which dopamine pathway controls movement?',
+            options: ['Nigrostriatal', 'Mesolimbic', 'Cholinergic', 'Noradrenergic'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ11',
+            question: 'Which dopamine pathway handles reward?',
+            options: ['Nigrostriatal', 'Mesolimbic', 'Cholinergic', 'Serotonergic'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ12',
+            question: 'Excess glutamate kills neurons through...',
+            options: ['Excitotoxicity', 'Reuptake', 'Myelination', 'Neurogenesis'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ13',
+            question: 'Antipsychotics mainly block...',
+            options: ['GABA receptors', 'Dopamine receptors', 'Serotonin transporters', 'Sodium channels'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ14',
+            question: 'Dopamine spikes hardest during...',
+            options: ['Anticipation', 'Digestion', 'Deep sleep', 'Recovery'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u3-speed-SQ15',
+            question: 'The chemical imbalance model of mental illness is...',
+            options: ['Complete', 'Oversimplified', 'Untestable', 'Abandoned'],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
   },
 
@@ -2121,7 +2441,119 @@ export const psySection16Part1: Unit[] = [
         ],
       },
 
-      // ===== LESSON 5: Synaptic Plasticity Speed Round =====
+      // ===== LESSON 5: Plasticity in Rehabilitation =====
+      {
+        id: 'psy-sec16-u4-L-conv',
+        title: 'Plasticity in Rehabilitation',
+        description: 'Use LTP, LTD, and critical periods to reason about stroke recovery.',
+        icon: '💬',
+        type: 'conversation',
+        xpReward: 20,
+        questions: [],
+        conversationStartNodeId: 'psy-sec16-u4-conv-C1',
+        conversationNodes: [
+          {
+            id: 'psy-sec16-u4-conv-C1',
+            speaker: 'Narrator',
+            message: 'You are volunteering on a stroke rehabilitation unit. Ari, the lead therapist, wants to know how much of the science you actually remember.',
+            nextNodeId: 'psy-sec16-u4-conv-C2',
+          },
+          {
+            id: 'psy-sec16-u4-conv-C2',
+            speaker: 'Ari',
+            message: 'My patient repeats the same reaching movement about 200 times a session. It looks mind-numbing. What is all that repetition doing at the synapse?',
+            options: [
+              {
+                text: 'Repeated firing triggers long-term potentiation, so those synapses get stronger.',
+                nextNodeId: 'psy-sec16-u4-conv-C3',
+                quality: 'great',
+                feedback: 'Yes. LTP is the cellular record of practice, which is why volume of repetition matters so much.',
+              },
+              {
+                text: 'It is training the arm muscles to remember the movement themselves.',
+                nextNodeId: 'psy-sec16-u4-conv-C3',
+                quality: 'okay',
+                feedback: 'Muscles do adapt, but the lasting change lives in the brain. Repetition drives LTP at the synapse.',
+              },
+              {
+                text: 'It is growing new neurons in his motor cortex.',
+                nextNodeId: 'psy-sec16-u4-conv-C3',
+                quality: 'poor',
+                feedback: 'Adult neurogenesis happens mainly in the hippocampus, not the motor cortex. Practice works through LTP.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u4-conv-C3',
+            speaker: 'Narrator',
+            message: 'Ari writes LTP on the whiteboard and underlines it twice.',
+            nextNodeId: 'psy-sec16-u4-conv-C4',
+          },
+          {
+            id: 'psy-sec16-u4-conv-C4',
+            speaker: 'Ari',
+            message: 'Between sessions he avoids his weaker left hand completely, because the right one is easier. Should I be worried about that?',
+            options: [
+              {
+                text: 'Yes. Unused connections weaken through long-term depression, so the left side loses ground.',
+                nextNodeId: 'psy-sec16-u4-conv-C5',
+                quality: 'great',
+                feedback: 'Correct. LTD prunes what goes unused, which is why therapists push the weaker side rather than letting it go quiet.',
+              },
+              {
+                text: 'Only slightly. Skills fade slowly, so there is no real rush.',
+                nextNodeId: 'psy-sec16-u4-conv-C5',
+                quality: 'okay',
+                feedback: 'LTD starts weakening unused synapses rather than waiting politely. Every quiet day costs him recovery.',
+              },
+              {
+                text: 'No. Once a circuit has been learned it stays learned.',
+                nextNodeId: 'psy-sec16-u4-conv-C5',
+                quality: 'poor',
+                feedback: 'Plasticity runs both directions. LTD actively weakens connections that stop being used.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u4-conv-C5',
+            speaker: 'Narrator',
+            message: 'You remember that musicians who stop practicing gradually lose their cortical enlargement too. The same rule applies here.',
+            nextNodeId: 'psy-sec16-u4-conv-C6',
+          },
+          {
+            id: 'psy-sec16-u4-conv-C6',
+            speaker: 'Ari',
+            message: 'Last one. His 6 year old daughter is picking up Spanish at school far faster than he is, and he asked me why. What do I tell him?',
+            options: [
+              {
+                text: 'Language has a critical period, a window before puberty when those circuits are most sensitive to input.',
+                nextNodeId: 'psy-sec16-u4-conv-C7',
+                quality: 'great',
+                feedback: 'Well put. The window narrows with age, though adults still learn languages successfully.',
+              },
+              {
+                text: 'Children simply have more free time to practice.',
+                nextNodeId: 'psy-sec16-u4-conv-C7',
+                quality: 'okay',
+                feedback: 'Practice time helps, but the bigger driver is the critical period for language, which closes around puberty.',
+              },
+              {
+                text: 'Adults cannot learn a new language once the brain is mature.',
+                nextNodeId: 'psy-sec16-u4-conv-C7',
+                quality: 'poor',
+                feedback: 'Adults learn languages all the time. It is harder than in childhood, not impossible.',
+              },
+            ],
+          },
+          {
+            id: 'psy-sec16-u4-conv-C7',
+            speaker: 'Narrator',
+            message: 'You covered the 3 pillars of plasticity: LTP strengthens what you practice, LTD weakens what you skip, and critical periods set when the brain is most open to change. Rehabilitation is applied plasticity.',
+          },
+        ],
+      },
+
+      // ===== LESSON 6: Synaptic Plasticity Speed Round =====
       {
         id: 'psy-sec16-u4-L-speed',
         title: 'Synaptic Plasticity Speed Round',
@@ -2779,6 +3211,110 @@ export const psySection16Part1: Unit[] = [
             id: 'psy-sec16-u5-conv-C5',
             speaker: 'Narrator',
             message: 'Great critical thinking. The key lessons: fMRI shows correlation, not causation. EEG is fast but spatially imprecise. TMS establishes causal necessity. The best neuroscience combines multiple methods to build converging evidence.',
+          },
+        ],
+      },
+
+      // ===== LESSON 6: Neuroimaging Speed Round =====
+      {
+        id: 'psy-sec16-u5-L-speed',
+        title: 'Neuroimaging Speed Round',
+        description: 'Rapid recall of imaging methods, resolutions, and their limits.',
+        icon: '⚡',
+        type: 'speed-round',
+        xpReward: 20,
+        questions: [],
+        speedTimeLimit: 60,
+        speedQuestions: [
+          {
+            id: 'psy-sec16-u5-speed-SQ1',
+            question: 'fMRI detects which signal?',
+            options: ['BOLD', 'Alpha waves', 'Gamma rays', 'Sound waves'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ2',
+            question: 'fMRI spatial resolution is roughly...',
+            options: ['1 millimeter', '1 centimeter', '1 micron', '1 meter'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ3',
+            question: 'The BOLD signal peaks how long after firing?',
+            options: ['Milliseconds', 'Several seconds', 'Several minutes', 'Several hours'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ4',
+            question: 'Where do EEG electrodes sit?',
+            options: ['On the scalp', 'On the cortex', 'In the thalamus', 'In the spine'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ5',
+            question: 'Why is EEG spatially imprecise?',
+            options: ['The skull blurs signals', 'Electrodes are heavy', 'Blood flow is slow', 'Neurons fire randomly'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ6',
+            question: 'MEG measures...',
+            options: ['Blood flow', 'Magnetic fields', 'Radiation', 'Glucose use'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ7',
+            question: 'Magnetic fields pass through the skull with...',
+            options: ['Minimal distortion', 'Heavy distortion', 'Total blockage', 'Random delay'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ8',
+            question: 'PET requires injecting a...',
+            options: ['Radioactive tracer', 'Saline drip', 'Contrast magnet', 'Electrode array'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ9',
+            question: 'Which method images receptor density?',
+            options: ['EEG', 'PET', 'MEG', 'fMRI'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ10',
+            question: 'PET tracer data accumulates over...',
+            options: ['Milliseconds', 'Seconds', 'Minutes', 'Days'],
+            correctIndex: 2,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ11',
+            question: 'TMS delivers pulses of...',
+            options: ['Magnetism', 'Ultrasound', 'Heat', 'X-rays'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ12',
+            question: 'TMS is uniquely useful because it shows...',
+            options: ['Correlation', 'Causation', 'Metabolism', 'Blood flow'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ13',
+            question: 'Guessing a thought from an active region is called...',
+            options: ['Reverse inference', 'Forward modeling', 'Signal averaging', 'Spatial smoothing'],
+            correctIndex: 0,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ14',
+            question: 'A region lighting up on fMRI proves...',
+            options: ['Causation', 'Correlation only', 'Nothing at all', 'Full function'],
+            correctIndex: 1,
+          },
+          {
+            id: 'psy-sec16-u5-speed-SQ15',
+            question: 'Which method is the cheapest to run?',
+            options: ['EEG', 'MEG', 'PET', 'fMRI'],
+            correctIndex: 0,
           },
         ],
       },
