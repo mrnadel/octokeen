@@ -1,0 +1,5466 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-23T06:30:12.148Z",
+  "contentHash": "c5f38a682c87580c",
+  "courses": {
+    "mechanical-engineering": {
+      "courseId": "mechanical-engineering",
+      "courseWideViolations": 1
+    },
+    "personal-finance": {
+      "courseId": "personal-finance",
+      "courseWideViolations": 0
+    },
+    "psychology": {
+      "courseId": "psychology",
+      "courseWideViolations": 0
+    },
+    "space-astronomy": {
+      "courseId": "space-astronomy",
+      "courseWideViolations": 0
+    }
+  },
+  "units": {
+    "mechanical-engineering/u1-statics": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u1-statics",
+      "questions": 210,
+      "pageWords": 1533,
+      "teachingCards": 30,
+      "errors": 0,
+      "warnings": 65
+    },
+    "mechanical-engineering/u2-dynamics": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u2-dynamics",
+      "questions": 237,
+      "pageWords": 1963,
+      "teachingCards": 36,
+      "errors": 0,
+      "warnings": 154
+    },
+    "mechanical-engineering/u3-strength": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u3-strength",
+      "questions": 281,
+      "pageWords": 2208,
+      "teachingCards": 43,
+      "errors": 0,
+      "warnings": 128
+    },
+    "mechanical-engineering/u4-thermo": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u4-thermo",
+      "questions": 170,
+      "pageWords": 1502,
+      "teachingCards": 30,
+      "errors": 0,
+      "warnings": 29
+    },
+    "mechanical-engineering/u5-heat": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u5-heat",
+      "questions": 215,
+      "pageWords": 2451,
+      "teachingCards": 54,
+      "errors": 0,
+      "warnings": 27
+    },
+    "mechanical-engineering/u6-fluids": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u6-fluids",
+      "questions": 155,
+      "pageWords": 1752,
+      "teachingCards": 30,
+      "errors": 0,
+      "warnings": 38
+    },
+    "mechanical-engineering/u7-how-things-work": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u7-how-things-work",
+      "questions": 154,
+      "pageWords": 768,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 241
+    },
+    "mechanical-engineering/u7-materials": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u7-materials",
+      "questions": 276,
+      "pageWords": 2192,
+      "teachingCards": 42,
+      "errors": 0,
+      "warnings": 158
+    },
+    "mechanical-engineering/u8-machine": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u8-machine",
+      "questions": 163,
+      "pageWords": 1674,
+      "teachingCards": 30,
+      "errors": 0,
+      "warnings": 53
+    },
+    "mechanical-engineering/u9-gdt": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u9-gdt",
+      "questions": 159,
+      "pageWords": 2024,
+      "teachingCards": 31,
+      "errors": 0,
+      "warnings": 89
+    },
+    "mechanical-engineering/u10-interview": {
+      "courseId": "mechanical-engineering",
+      "sectionIndex": 0,
+      "unitId": "u10-interview",
+      "questions": 126,
+      "pageWords": 1829,
+      "teachingCards": 36,
+      "errors": 0,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec1-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u1",
+      "questions": 39,
+      "pageWords": 578,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u2",
+      "questions": 38,
+      "pageWords": 615,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u3",
+      "questions": 49,
+      "pageWords": 753,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u4",
+      "questions": 28,
+      "pageWords": 361,
+      "teachingCards": 7,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u5",
+      "questions": 43,
+      "pageWords": 646,
+      "teachingCards": 13,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u6",
+      "questions": 33,
+      "pageWords": 457,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u7",
+      "questions": 34,
+      "pageWords": 503,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec1-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 1,
+      "unitId": "fin-sec1-u8",
+      "questions": 33,
+      "pageWords": 380,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u1",
+      "questions": 40,
+      "pageWords": 605,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u2",
+      "questions": 39,
+      "pageWords": 596,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u3",
+      "questions": 40,
+      "pageWords": 639,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u4",
+      "questions": 20,
+      "pageWords": 202,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u5",
+      "questions": 42,
+      "pageWords": 629,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u6",
+      "questions": 35,
+      "pageWords": 531,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u7",
+      "questions": 27,
+      "pageWords": 478,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u8",
+      "questions": 35,
+      "pageWords": 568,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u9",
+      "questions": 36,
+      "pageWords": 633,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec2-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 2,
+      "unitId": "fin-sec2-u10",
+      "questions": 19,
+      "pageWords": 237,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 0
+    },
+    "personal-finance/fin-sec3-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u1",
+      "questions": 37,
+      "pageWords": 647,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "personal-finance/fin-sec3-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u2",
+      "questions": 29,
+      "pageWords": 500,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec3-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u3",
+      "questions": 39,
+      "pageWords": 646,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 29
+    },
+    "personal-finance/fin-sec3-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u4",
+      "questions": 18,
+      "pageWords": 218,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec3-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u5",
+      "questions": 38,
+      "pageWords": 668,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 39
+    },
+    "personal-finance/fin-sec3-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u6",
+      "questions": 37,
+      "pageWords": 641,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 39
+    },
+    "personal-finance/fin-sec3-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u7",
+      "questions": 27,
+      "pageWords": 508,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec3-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u8",
+      "questions": 36,
+      "pageWords": 693,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 36
+    },
+    "personal-finance/fin-sec3-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u9",
+      "questions": 27,
+      "pageWords": 525,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 31
+    },
+    "personal-finance/fin-sec3-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u10",
+      "questions": 35,
+      "pageWords": 694,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 35
+    },
+    "personal-finance/fin-sec3-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec3-u11",
+      "questions": 18,
+      "pageWords": 241,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec4-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u1",
+      "questions": 33,
+      "pageWords": 495,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 30
+    },
+    "personal-finance/fin-sec4-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u2",
+      "questions": 30,
+      "pageWords": 495,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 32
+    },
+    "personal-finance/fin-sec4-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u3",
+      "questions": 32,
+      "pageWords": 505,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 32
+    },
+    "personal-finance/fin-sec4-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u4",
+      "questions": 15,
+      "pageWords": 166,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec4-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u5",
+      "questions": 32,
+      "pageWords": 507,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 32
+    },
+    "personal-finance/fin-sec4-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u6",
+      "questions": 31,
+      "pageWords": 492,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 29
+    },
+    "personal-finance/fin-sec4-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u7",
+      "questions": 31,
+      "pageWords": 499,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 35
+    },
+    "personal-finance/fin-sec4-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u8",
+      "questions": 24,
+      "pageWords": 372,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec4-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u9",
+      "questions": 32,
+      "pageWords": 556,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 42
+    },
+    "personal-finance/fin-sec4-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u10",
+      "questions": 31,
+      "pageWords": 538,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 34
+    },
+    "personal-finance/fin-sec4-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 3,
+      "unitId": "fin-sec4-u11",
+      "questions": 15,
+      "pageWords": 215,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec5-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u1",
+      "questions": 44,
+      "pageWords": 703,
+      "teachingCards": 13,
+      "errors": 0,
+      "warnings": 50
+    },
+    "personal-finance/fin-sec5-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u2",
+      "questions": 47,
+      "pageWords": 758,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 59
+    },
+    "personal-finance/fin-sec5-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u3",
+      "questions": 41,
+      "pageWords": 691,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 51
+    },
+    "personal-finance/fin-sec5-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u4",
+      "questions": 21,
+      "pageWords": 182,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 28
+    },
+    "personal-finance/fin-sec5-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u5",
+      "questions": 40,
+      "pageWords": 635,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 48
+    },
+    "personal-finance/fin-sec5-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u6",
+      "questions": 39,
+      "pageWords": 611,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 42
+    },
+    "personal-finance/fin-sec5-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u7",
+      "questions": 47,
+      "pageWords": 782,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 74
+    },
+    "personal-finance/fin-sec5-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u8",
+      "questions": 41,
+      "pageWords": 635,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 39
+    },
+    "personal-finance/fin-sec5-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u9",
+      "questions": 39,
+      "pageWords": 561,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 38
+    },
+    "personal-finance/fin-sec5-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u10",
+      "questions": 24,
+      "pageWords": 240,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec5-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u11",
+      "questions": 40,
+      "pageWords": 574,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 40
+    },
+    "personal-finance/fin-sec5-u12": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u12",
+      "questions": 40,
+      "pageWords": 572,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 36
+    },
+    "personal-finance/fin-sec5-u13": {
+      "courseId": "personal-finance",
+      "sectionIndex": 4,
+      "unitId": "fin-sec5-u13",
+      "questions": 30,
+      "pageWords": 198,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 33
+    },
+    "personal-finance/fin-sec6-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u1",
+      "questions": 40,
+      "pageWords": 556,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 6
+    },
+    "personal-finance/fin-sec6-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u2",
+      "questions": 43,
+      "pageWords": 541,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 10
+    },
+    "personal-finance/fin-sec6-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u3",
+      "questions": 40,
+      "pageWords": 557,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 8
+    },
+    "personal-finance/fin-sec6-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u4",
+      "questions": 18,
+      "pageWords": 163,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 1
+    },
+    "personal-finance/fin-sec6-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u5",
+      "questions": 40,
+      "pageWords": 544,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 8
+    },
+    "personal-finance/fin-sec6-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u6",
+      "questions": 41,
+      "pageWords": 591,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec6-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u7",
+      "questions": 41,
+      "pageWords": 553,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec6-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u8",
+      "questions": 41,
+      "pageWords": 557,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec6-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u9",
+      "questions": 31,
+      "pageWords": 406,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 5
+    },
+    "personal-finance/fin-sec6-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 6,
+      "unitId": "fin-sec6-u10",
+      "questions": 18,
+      "pageWords": 176,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 3
+    },
+    "personal-finance/fin-sec7-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u1",
+      "questions": 36,
+      "pageWords": 567,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 7
+    },
+    "personal-finance/fin-sec7-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u2",
+      "questions": 35,
+      "pageWords": 517,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 11
+    },
+    "personal-finance/fin-sec7-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u3",
+      "questions": 36,
+      "pageWords": 555,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec7-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u4",
+      "questions": 16,
+      "pageWords": 189,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 2
+    },
+    "personal-finance/fin-sec7-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u5",
+      "questions": 36,
+      "pageWords": 599,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec7-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u6",
+      "questions": 36,
+      "pageWords": 555,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec7-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u7",
+      "questions": 27,
+      "pageWords": 444,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec7-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u8",
+      "questions": 36,
+      "pageWords": 601,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec7-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u9",
+      "questions": 36,
+      "pageWords": 594,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec7-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 7,
+      "unitId": "fin-sec7-u10",
+      "questions": 16,
+      "pageWords": 187,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 5
+    },
+    "personal-finance/fin-sec8-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u1",
+      "questions": 35,
+      "pageWords": 533,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec8-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u2",
+      "questions": 35,
+      "pageWords": 463,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 20
+    },
+    "personal-finance/fin-sec8-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u3",
+      "questions": 32,
+      "pageWords": 430,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 11
+    },
+    "personal-finance/fin-sec8-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u4",
+      "questions": 32,
+      "pageWords": 480,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 23
+    },
+    "personal-finance/fin-sec8-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u5",
+      "questions": 16,
+      "pageWords": 206,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 10
+    },
+    "personal-finance/fin-sec8-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u6",
+      "questions": 33,
+      "pageWords": 485,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec8-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u7",
+      "questions": 25,
+      "pageWords": 351,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec8-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u8",
+      "questions": 33,
+      "pageWords": 480,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 27
+    },
+    "personal-finance/fin-sec8-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u9",
+      "questions": 32,
+      "pageWords": 474,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 26
+    },
+    "personal-finance/fin-sec8-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 8,
+      "unitId": "fin-sec8-u10",
+      "questions": 16,
+      "pageWords": 210,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec9-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u1",
+      "questions": 36,
+      "pageWords": 654,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec9-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u2",
+      "questions": 36,
+      "pageWords": 652,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec9-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u3",
+      "questions": 39,
+      "pageWords": 714,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec9-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u4",
+      "questions": 36,
+      "pageWords": 653,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 20
+    },
+    "personal-finance/fin-sec9-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u5",
+      "questions": 16,
+      "pageWords": 219,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 10
+    },
+    "personal-finance/fin-sec9-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u6",
+      "questions": 36,
+      "pageWords": 631,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec9-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u7",
+      "questions": 37,
+      "pageWords": 757,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "personal-finance/fin-sec9-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u8",
+      "questions": 38,
+      "pageWords": 671,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec9-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u9",
+      "questions": 36,
+      "pageWords": 682,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec9-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 9,
+      "unitId": "fin-sec9-u10",
+      "questions": 16,
+      "pageWords": 235,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 6
+    },
+    "personal-finance/fin-sec10-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u1",
+      "questions": 37,
+      "pageWords": 654,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "personal-finance/fin-sec10-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u2",
+      "questions": 35,
+      "pageWords": 626,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec10-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u3",
+      "questions": 36,
+      "pageWords": 648,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec10-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u4",
+      "questions": 15,
+      "pageWords": 173,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 8
+    },
+    "personal-finance/fin-sec10-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u5",
+      "questions": 36,
+      "pageWords": 646,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 20
+    },
+    "personal-finance/fin-sec10-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u6",
+      "questions": 37,
+      "pageWords": 699,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec10-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u7",
+      "questions": 36,
+      "pageWords": 699,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec10-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u8",
+      "questions": 27,
+      "pageWords": 504,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec10-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u9",
+      "questions": 37,
+      "pageWords": 748,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 28
+    },
+    "personal-finance/fin-sec10-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 10,
+      "unitId": "fin-sec10-u10",
+      "questions": 15,
+      "pageWords": 221,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec11-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u1",
+      "questions": 32,
+      "pageWords": 476,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec11-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u2",
+      "questions": 31,
+      "pageWords": 452,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec11-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u3",
+      "questions": 32,
+      "pageWords": 477,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec11-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u4",
+      "questions": 16,
+      "pageWords": 41,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 10
+    },
+    "personal-finance/fin-sec11-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u5",
+      "questions": 32,
+      "pageWords": 461,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 20
+    },
+    "personal-finance/fin-sec11-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u6",
+      "questions": 32,
+      "pageWords": 486,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec11-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u7",
+      "questions": 32,
+      "pageWords": 516,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec11-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u8",
+      "questions": 24,
+      "pageWords": 386,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec11-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u9",
+      "questions": 32,
+      "pageWords": 489,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec11-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 11,
+      "unitId": "fin-sec11-u10",
+      "questions": 16,
+      "pageWords": 160,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec12-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u1",
+      "questions": 38,
+      "pageWords": 638,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec12-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u2",
+      "questions": 36,
+      "pageWords": 662,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 22
+    },
+    "personal-finance/fin-sec12-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u3",
+      "questions": 37,
+      "pageWords": 688,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 25
+    },
+    "personal-finance/fin-sec12-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u4",
+      "questions": 19,
+      "pageWords": 330,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec12-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u5",
+      "questions": 37,
+      "pageWords": 677,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 23
+    },
+    "personal-finance/fin-sec12-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u6",
+      "questions": 27,
+      "pageWords": 516,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 18
+    },
+    "personal-finance/fin-sec12-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u7",
+      "questions": 37,
+      "pageWords": 699,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec12-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u8",
+      "questions": 37,
+      "pageWords": 729,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 26
+    },
+    "personal-finance/fin-sec12-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u9",
+      "questions": 37,
+      "pageWords": 700,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 27
+    },
+    "personal-finance/fin-sec12-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 12,
+      "unitId": "fin-sec12-u10",
+      "questions": 17,
+      "pageWords": 313,
+      "teachingCards": 5,
+      "errors": 0,
+      "warnings": 17
+    },
+    "personal-finance/pf-s13-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u1",
+      "questions": 49,
+      "pageWords": 737,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 26
+    },
+    "personal-finance/pf-s13-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u2",
+      "questions": 48,
+      "pageWords": 737,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 31
+    },
+    "personal-finance/pf-s13-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u3",
+      "questions": 58,
+      "pageWords": 945,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 44
+    },
+    "personal-finance/pf-s13-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u4",
+      "questions": 30,
+      "pageWords": 40,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/pf-s13-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u5",
+      "questions": 51,
+      "pageWords": 817,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 38
+    },
+    "personal-finance/pf-s13-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u6",
+      "questions": 51,
+      "pageWords": 814,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 33
+    },
+    "personal-finance/pf-s13-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u7",
+      "questions": 59,
+      "pageWords": 1006,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 37
+    },
+    "personal-finance/pf-s13-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u8",
+      "questions": 49,
+      "pageWords": 916,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 43
+    },
+    "personal-finance/pf-s13-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u9",
+      "questions": 49,
+      "pageWords": 892,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 49
+    },
+    "personal-finance/pf-s13-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u10",
+      "questions": 50,
+      "pageWords": 937,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 49
+    },
+    "personal-finance/pf-s13-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 13,
+      "unitId": "pf-s13-u11",
+      "questions": 40,
+      "pageWords": 58,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 38
+    },
+    "personal-finance/pf-s14-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u1",
+      "questions": 43,
+      "pageWords": 711,
+      "teachingCards": 13,
+      "errors": 0,
+      "warnings": 27
+    },
+    "personal-finance/pf-s14-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u2",
+      "questions": 42,
+      "pageWords": 688,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 26
+    },
+    "personal-finance/pf-s14-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u3",
+      "questions": 35,
+      "pageWords": 541,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 25
+    },
+    "personal-finance/pf-s14-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u4",
+      "questions": 20,
+      "pageWords": 177,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/pf-s14-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u5",
+      "questions": 43,
+      "pageWords": 705,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 32
+    },
+    "personal-finance/pf-s14-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u6",
+      "questions": 42,
+      "pageWords": 723,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "personal-finance/pf-s14-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u7",
+      "questions": 35,
+      "pageWords": 604,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 27
+    },
+    "personal-finance/pf-s14-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u8",
+      "questions": 35,
+      "pageWords": 619,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 33
+    },
+    "personal-finance/pf-s14-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u9",
+      "questions": 35,
+      "pageWords": 626,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 41
+    },
+    "personal-finance/pf-s14-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u10",
+      "questions": 42,
+      "pageWords": 760,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 39
+    },
+    "personal-finance/pf-s14-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 14,
+      "unitId": "pf-s14-u11",
+      "questions": 28,
+      "pageWords": 247,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 22
+    },
+    "personal-finance/fin-sec15-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u1",
+      "questions": 34,
+      "pageWords": 534,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec15-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u2",
+      "questions": 33,
+      "pageWords": 471,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec15-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u3",
+      "questions": 32,
+      "pageWords": 464,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec15-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u4",
+      "questions": 15,
+      "pageWords": 117,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec15-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u5",
+      "questions": 32,
+      "pageWords": 440,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 20
+    },
+    "personal-finance/fin-sec15-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u6",
+      "questions": 32,
+      "pageWords": 473,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 22
+    },
+    "personal-finance/fin-sec15-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u7",
+      "questions": 32,
+      "pageWords": 441,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec15-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u8",
+      "questions": 32,
+      "pageWords": 453,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec15-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u9",
+      "questions": 32,
+      "pageWords": 492,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 30
+    },
+    "personal-finance/fin-sec15-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u10",
+      "questions": 14,
+      "pageWords": 122,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec15-u11": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u11",
+      "questions": 32,
+      "pageWords": 455,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec15-u12": {
+      "courseId": "personal-finance",
+      "sectionIndex": 15,
+      "unitId": "fin-sec15-u12",
+      "questions": 24,
+      "pageWords": 362,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec16-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u1",
+      "questions": 40,
+      "pageWords": 568,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec16-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u2",
+      "questions": 40,
+      "pageWords": 578,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec16-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u3",
+      "questions": 40,
+      "pageWords": 591,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 8
+    },
+    "personal-finance/fin-sec16-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u4",
+      "questions": 40,
+      "pageWords": 634,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec16-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u5",
+      "questions": 41,
+      "pageWords": 652,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 21
+    },
+    "personal-finance/fin-sec16-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u6",
+      "questions": 50,
+      "pageWords": 695,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 11
+    },
+    "personal-finance/fin-sec16-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u7",
+      "questions": 50,
+      "pageWords": 702,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec16-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u8",
+      "questions": 40,
+      "pageWords": 606,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "personal-finance/fin-sec16-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u9",
+      "questions": 40,
+      "pageWords": 560,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec16-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 16,
+      "unitId": "fin-sec16-u10",
+      "questions": 50,
+      "pageWords": 764,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 15
+    },
+    "personal-finance/fin-sec17-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u1",
+      "questions": 38,
+      "pageWords": 584,
+      "teachingCards": 11,
+      "errors": 5,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec17-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u2",
+      "questions": 35,
+      "pageWords": 570,
+      "teachingCards": 10,
+      "errors": 1,
+      "warnings": 26
+    },
+    "personal-finance/fin-sec17-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u3",
+      "questions": 37,
+      "pageWords": 558,
+      "teachingCards": 11,
+      "errors": 1,
+      "warnings": 19
+    },
+    "personal-finance/fin-sec17-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u4",
+      "questions": 35,
+      "pageWords": 553,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 31
+    },
+    "personal-finance/fin-sec17-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u5",
+      "questions": 40,
+      "pageWords": 686,
+      "teachingCards": 12,
+      "errors": 3,
+      "warnings": 29
+    },
+    "personal-finance/fin-sec17-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u6",
+      "questions": 37,
+      "pageWords": 509,
+      "teachingCards": 10,
+      "errors": 5,
+      "warnings": 12
+    },
+    "personal-finance/fin-sec17-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u7",
+      "questions": 35,
+      "pageWords": 469,
+      "teachingCards": 9,
+      "errors": 1,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec17-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u8",
+      "questions": 35,
+      "pageWords": 447,
+      "teachingCards": 9,
+      "errors": 4,
+      "warnings": 28
+    },
+    "personal-finance/fin-sec17-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u9",
+      "questions": 42,
+      "pageWords": 494,
+      "teachingCards": 10,
+      "errors": 6,
+      "warnings": 11
+    },
+    "personal-finance/fin-sec17-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 17,
+      "unitId": "fin-sec17-u10",
+      "questions": 46,
+      "pageWords": 601,
+      "teachingCards": 11,
+      "errors": 3,
+      "warnings": 36
+    },
+    "personal-finance/fin-sec18-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u1",
+      "questions": 34,
+      "pageWords": 461,
+      "teachingCards": 9,
+      "errors": 3,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec18-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u2",
+      "questions": 33,
+      "pageWords": 410,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 9
+    },
+    "personal-finance/fin-sec18-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u3",
+      "questions": 34,
+      "pageWords": 474,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec18-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u4",
+      "questions": 33,
+      "pageWords": 442,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 8
+    },
+    "personal-finance/fin-sec18-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u5",
+      "questions": 41,
+      "pageWords": 567,
+      "teachingCards": 10,
+      "errors": 1,
+      "warnings": 22
+    },
+    "personal-finance/fin-sec18-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u6",
+      "questions": 39,
+      "pageWords": 490,
+      "teachingCards": 9,
+      "errors": 1,
+      "warnings": 6
+    },
+    "personal-finance/fin-sec18-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u7",
+      "questions": 40,
+      "pageWords": 478,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 13
+    },
+    "personal-finance/fin-sec18-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u8",
+      "questions": 40,
+      "pageWords": 561,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec18-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u9",
+      "questions": 40,
+      "pageWords": 512,
+      "teachingCards": 10,
+      "errors": 1,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec18-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 18,
+      "unitId": "fin-sec18-u10",
+      "questions": 41,
+      "pageWords": 565,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 17
+    },
+    "personal-finance/fin-sec19-u1": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u1",
+      "questions": 46,
+      "pageWords": 533,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 27
+    },
+    "personal-finance/fin-sec19-u2": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u2",
+      "questions": 45,
+      "pageWords": 552,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 23
+    },
+    "personal-finance/fin-sec19-u3": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u3",
+      "questions": 45,
+      "pageWords": 522,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec19-u4": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u4",
+      "questions": 45,
+      "pageWords": 593,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 29
+    },
+    "personal-finance/fin-sec19-u5": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u5",
+      "questions": 45,
+      "pageWords": 590,
+      "teachingCards": 10,
+      "errors": 1,
+      "warnings": 38
+    },
+    "personal-finance/fin-sec19-u6": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u6",
+      "questions": 44,
+      "pageWords": 489,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 16
+    },
+    "personal-finance/fin-sec19-u7": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u7",
+      "questions": 45,
+      "pageWords": 501,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 24
+    },
+    "personal-finance/fin-sec19-u8": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u8",
+      "questions": 45,
+      "pageWords": 593,
+      "teachingCards": 10,
+      "errors": 1,
+      "warnings": 31
+    },
+    "personal-finance/fin-sec19-u9": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u9",
+      "questions": 45,
+      "pageWords": 506,
+      "teachingCards": 10,
+      "errors": 2,
+      "warnings": 25
+    },
+    "personal-finance/fin-sec19-u10": {
+      "courseId": "personal-finance",
+      "sectionIndex": 19,
+      "unitId": "fin-sec19-u10",
+      "questions": 45,
+      "pageWords": 596,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 34
+    },
+    "psychology/psy-sec1-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u1",
+      "questions": 28,
+      "pageWords": 484,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 15
+    },
+    "psychology/psy-sec1-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u2",
+      "questions": 37,
+      "pageWords": 651,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 18
+    },
+    "psychology/psy-sec1-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u3",
+      "questions": 38,
+      "pageWords": 658,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 26
+    },
+    "psychology/psy-sec1-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u4",
+      "questions": 17,
+      "pageWords": 218,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec1-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u5",
+      "questions": 45,
+      "pageWords": 762,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 33
+    },
+    "psychology/psy-sec1-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u6",
+      "questions": 45,
+      "pageWords": 758,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 42
+    },
+    "psychology/psy-sec1-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u7",
+      "questions": 45,
+      "pageWords": 809,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 45
+    },
+    "psychology/psy-sec1-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 1,
+      "unitId": "psy-sec1-u8",
+      "questions": 24,
+      "pageWords": 283,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-s2-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u1",
+      "questions": 45,
+      "pageWords": 681,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 32
+    },
+    "psychology/psy-s2-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u2",
+      "questions": 47,
+      "pageWords": 645,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 31
+    },
+    "psychology/psy-s2-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u3",
+      "questions": 35,
+      "pageWords": 515,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 25
+    },
+    "psychology/psy-s2-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u4",
+      "questions": 30,
+      "pageWords": 34,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-s2-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u5",
+      "questions": 36,
+      "pageWords": 622,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 34
+    },
+    "psychology/psy-s2-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u6",
+      "questions": 45,
+      "pageWords": 678,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 36
+    },
+    "psychology/psy-s2-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u7",
+      "questions": 37,
+      "pageWords": 566,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 27
+    },
+    "psychology/psy-s2-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u8",
+      "questions": 46,
+      "pageWords": 753,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 39
+    },
+    "psychology/psy-s2-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-s2-u9",
+      "questions": 40,
+      "pageWords": 47,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 25
+    },
+    "psychology/psy-sec3-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u1",
+      "questions": 45,
+      "pageWords": 728,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 38
+    },
+    "psychology/psy-sec3-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u2",
+      "questions": 45,
+      "pageWords": 654,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 35
+    },
+    "psychology/psy-sec3-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u3",
+      "questions": 45,
+      "pageWords": 722,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 38
+    },
+    "psychology/psy-sec3-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u4",
+      "questions": 24,
+      "pageWords": 248,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec3-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u5",
+      "questions": 45,
+      "pageWords": 779,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 37
+    },
+    "psychology/psy-sec3-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u6",
+      "questions": 36,
+      "pageWords": 626,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 31
+    },
+    "psychology/psy-sec3-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u7",
+      "questions": 44,
+      "pageWords": 788,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 28
+    },
+    "psychology/psy-sec3-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u8",
+      "questions": 45,
+      "pageWords": 867,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 51
+    },
+    "psychology/psy-sec3-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 2,
+      "unitId": "psy-sec3-u9",
+      "questions": 33,
+      "pageWords": 360,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 23
+    },
+    "psychology/psy-sec4-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u1",
+      "questions": 36,
+      "pageWords": 577,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 25
+    },
+    "psychology/psy-sec4-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u2",
+      "questions": 36,
+      "pageWords": 619,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 29
+    },
+    "psychology/psy-sec4-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u3",
+      "questions": 36,
+      "pageWords": 616,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 33
+    },
+    "psychology/psy-sec4-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u4",
+      "questions": 17,
+      "pageWords": 213,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-sec4-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u5",
+      "questions": 36,
+      "pageWords": 606,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 29
+    },
+    "psychology/psy-sec4-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u6",
+      "questions": 36,
+      "pageWords": 626,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec4-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u7",
+      "questions": 36,
+      "pageWords": 642,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 37
+    },
+    "psychology/psy-sec4-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u8",
+      "questions": 27,
+      "pageWords": 478,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 26
+    },
+    "psychology/psy-sec4-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u9",
+      "questions": 36,
+      "pageWords": 622,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec4-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 3,
+      "unitId": "psy-sec4-u10",
+      "questions": 16,
+      "pageWords": 192,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec5-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u1",
+      "questions": 45,
+      "pageWords": 806,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 28
+    },
+    "psychology/psy-sec5-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u2",
+      "questions": 48,
+      "pageWords": 835,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 37
+    },
+    "psychology/psy-sec5-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u3",
+      "questions": 45,
+      "pageWords": 818,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 44
+    },
+    "psychology/psy-sec5-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u4",
+      "questions": 22,
+      "pageWords": 185,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec5-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u5",
+      "questions": 45,
+      "pageWords": 912,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 47
+    },
+    "psychology/psy-sec5-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u6",
+      "questions": 45,
+      "pageWords": 833,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 32
+    },
+    "psychology/psy-sec5-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u7",
+      "questions": 45,
+      "pageWords": 914,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 33
+    },
+    "psychology/psy-sec5-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u8",
+      "questions": 45,
+      "pageWords": 971,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 48
+    },
+    "psychology/psy-sec5-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u9",
+      "questions": 45,
+      "pageWords": 916,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 42
+    },
+    "psychology/psy-sec5-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 4,
+      "unitId": "psy-sec5-u10",
+      "questions": 24,
+      "pageWords": 308,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 15
+    },
+    "psychology/psy-sec6-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u1",
+      "questions": 36,
+      "pageWords": 565,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec6-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u2",
+      "questions": 36,
+      "pageWords": 609,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 15
+    },
+    "psychology/psy-sec6-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u3",
+      "questions": 36,
+      "pageWords": 563,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 7
+    },
+    "psychology/psy-sec6-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u4",
+      "questions": 16,
+      "pageWords": 194,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 2
+    },
+    "psychology/psy-sec6-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u5",
+      "questions": 36,
+      "pageWords": 578,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec6-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u6",
+      "questions": 36,
+      "pageWords": 597,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec6-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u7",
+      "questions": 36,
+      "pageWords": 591,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 8
+    },
+    "psychology/psy-sec6-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u8",
+      "questions": 27,
+      "pageWords": 448,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 9
+    },
+    "psychology/psy-sec6-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u9",
+      "questions": 36,
+      "pageWords": 565,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec6-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 5,
+      "unitId": "psy-sec6-u10",
+      "questions": 16,
+      "pageWords": 197,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec7-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u1",
+      "questions": 36,
+      "pageWords": 593,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec7-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u2",
+      "questions": 36,
+      "pageWords": 601,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-sec7-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u3",
+      "questions": 36,
+      "pageWords": 582,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "psychology/psy-sec7-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u4",
+      "questions": 16,
+      "pageWords": 117,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 3
+    },
+    "psychology/psy-sec7-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u5",
+      "questions": 36,
+      "pageWords": 545,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec7-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u6",
+      "questions": 36,
+      "pageWords": 573,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-sec7-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u7",
+      "questions": 39,
+      "pageWords": 558,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 13
+    },
+    "psychology/psy-sec7-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u8",
+      "questions": 36,
+      "pageWords": 548,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-sec7-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u9",
+      "questions": 36,
+      "pageWords": 565,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec7-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 6,
+      "unitId": "psy-sec7-u10",
+      "questions": 17,
+      "pageWords": 128,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 3
+    },
+    "psychology/psy-sec8-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u1",
+      "questions": 36,
+      "pageWords": 527,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec8-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u2",
+      "questions": 36,
+      "pageWords": 528,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "psychology/psy-sec8-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u3",
+      "questions": 36,
+      "pageWords": 498,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "psychology/psy-sec8-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u4",
+      "questions": 16,
+      "pageWords": 163,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 7
+    },
+    "psychology/psy-sec8-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u5",
+      "questions": 36,
+      "pageWords": 512,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "psychology/psy-sec8-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u6",
+      "questions": 36,
+      "pageWords": 549,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "psychology/psy-sec8-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u7",
+      "questions": 36,
+      "pageWords": 530,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 15
+    },
+    "psychology/psy-sec8-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u8",
+      "questions": 36,
+      "pageWords": 548,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 20
+    },
+    "psychology/psy-sec8-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u9",
+      "questions": 36,
+      "pageWords": 551,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "psychology/psy-sec8-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 7,
+      "unitId": "psy-sec8-u10",
+      "questions": 16,
+      "pageWords": 187,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 8
+    },
+    "psychology/psy-sec9-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u1",
+      "questions": 36,
+      "pageWords": 533,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 20
+    },
+    "psychology/psy-sec9-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u2",
+      "questions": 36,
+      "pageWords": 535,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "psychology/psy-sec9-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u3",
+      "questions": 35,
+      "pageWords": 495,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 20
+    },
+    "psychology/psy-sec9-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u4",
+      "questions": 18,
+      "pageWords": 219,
+      "teachingCards": 5,
+      "errors": 0,
+      "warnings": 9
+    },
+    "psychology/psy-sec9-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u5",
+      "questions": 36,
+      "pageWords": 542,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "psychology/psy-sec9-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u6",
+      "questions": 36,
+      "pageWords": 551,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "psychology/psy-sec9-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u7",
+      "questions": 36,
+      "pageWords": 559,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 24
+    },
+    "psychology/psy-sec9-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u8",
+      "questions": 27,
+      "pageWords": 434,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec9-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u9",
+      "questions": 36,
+      "pageWords": 531,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 17
+    },
+    "psychology/psy-sec9-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 8,
+      "unitId": "psy-sec9-u10",
+      "questions": 17,
+      "pageWords": 214,
+      "teachingCards": 5,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec10-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u1",
+      "questions": 44,
+      "pageWords": 726,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 24
+    },
+    "psychology/psy-sec10-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u2",
+      "questions": 52,
+      "pageWords": 792,
+      "teachingCards": 16,
+      "errors": 0,
+      "warnings": 45
+    },
+    "psychology/psy-sec10-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u3",
+      "questions": 54,
+      "pageWords": 871,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 41
+    },
+    "psychology/psy-sec10-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u4",
+      "questions": 24,
+      "pageWords": 141,
+      "teachingCards": 3,
+      "errors": 1,
+      "warnings": 12
+    },
+    "psychology/psy-sec10-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u5",
+      "questions": 45,
+      "pageWords": 786,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 44
+    },
+    "psychology/psy-sec10-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u6",
+      "questions": 53,
+      "pageWords": 878,
+      "teachingCards": 17,
+      "errors": 0,
+      "warnings": 44
+    },
+    "psychology/psy-sec10-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u7",
+      "questions": 45,
+      "pageWords": 627,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 24
+    },
+    "psychology/psy-sec10-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u8",
+      "questions": 45,
+      "pageWords": 634,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 21
+    },
+    "psychology/psy-sec10-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u9",
+      "questions": 45,
+      "pageWords": 647,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 21
+    },
+    "psychology/psy-sec10-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u10",
+      "questions": 45,
+      "pageWords": 733,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 27
+    },
+    "psychology/psy-sec10-u11": {
+      "courseId": "psychology",
+      "sectionIndex": 9,
+      "unitId": "psy-sec10-u11",
+      "questions": 35,
+      "pageWords": 159,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 23
+    },
+    "psychology/psy-sec11-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u1",
+      "questions": 39,
+      "pageWords": 713,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 17
+    },
+    "psychology/psy-sec11-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u2",
+      "questions": 46,
+      "pageWords": 750,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec11-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u3",
+      "questions": 49,
+      "pageWords": 791,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec11-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u4",
+      "questions": 21,
+      "pageWords": 150,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 5
+    },
+    "psychology/psy-sec11-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u5",
+      "questions": 35,
+      "pageWords": 567,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 25
+    },
+    "psychology/psy-sec11-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u6",
+      "questions": 45,
+      "pageWords": 698,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec11-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u7",
+      "questions": 35,
+      "pageWords": 576,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 29
+    },
+    "psychology/psy-sec11-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u8",
+      "questions": 49,
+      "pageWords": 743,
+      "teachingCards": 13,
+      "errors": 1,
+      "warnings": 30
+    },
+    "psychology/psy-sec11-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u9",
+      "questions": 24,
+      "pageWords": 272,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 4
+    },
+    "psychology/psy-sec11-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u10",
+      "questions": 34,
+      "pageWords": 509,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 14
+    },
+    "psychology/psy-sec11-u11": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u11",
+      "questions": 33,
+      "pageWords": 470,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec11-u12": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u12",
+      "questions": 33,
+      "pageWords": 509,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 18
+    },
+    "psychology/psy-sec11-u13": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u13",
+      "questions": 33,
+      "pageWords": 562,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 17
+    },
+    "psychology/psy-sec11-u14": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u14",
+      "questions": 25,
+      "pageWords": 414,
+      "teachingCards": 7,
+      "errors": 0,
+      "warnings": 16
+    },
+    "psychology/psy-sec11-u15": {
+      "courseId": "psychology",
+      "sectionIndex": 10,
+      "unitId": "psy-sec11-u15",
+      "questions": 24,
+      "pageWords": 331,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec12-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u1",
+      "questions": 45,
+      "pageWords": 770,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 23
+    },
+    "psychology/psy-sec12-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u2",
+      "questions": 54,
+      "pageWords": 898,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 26
+    },
+    "psychology/psy-sec12-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u3",
+      "questions": 45,
+      "pageWords": 745,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 17
+    },
+    "psychology/psy-sec12-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u4",
+      "questions": 24,
+      "pageWords": 163,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec12-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u5",
+      "questions": 44,
+      "pageWords": 740,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 23
+    },
+    "psychology/psy-sec12-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u6",
+      "questions": 44,
+      "pageWords": 775,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 29
+    },
+    "psychology/psy-sec12-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u7",
+      "questions": 45,
+      "pageWords": 781,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec12-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u8",
+      "questions": 54,
+      "pageWords": 908,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 22
+    },
+    "psychology/psy-sec12-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u9",
+      "questions": 21,
+      "pageWords": 149,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec12-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u10",
+      "questions": 43,
+      "pageWords": 798,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 26
+    },
+    "psychology/psy-sec12-u11": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u11",
+      "questions": 45,
+      "pageWords": 860,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 25
+    },
+    "psychology/psy-sec12-u12": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u12",
+      "questions": 45,
+      "pageWords": 845,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 17
+    },
+    "psychology/psy-sec12-u13": {
+      "courseId": "psychology",
+      "sectionIndex": 11,
+      "unitId": "psy-sec12-u13",
+      "questions": 33,
+      "pageWords": 214,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec13-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u1",
+      "questions": 45,
+      "pageWords": 848,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 21
+    },
+    "psychology/psy-sec13-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u2",
+      "questions": 45,
+      "pageWords": 894,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 27
+    },
+    "psychology/psy-sec13-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u3",
+      "questions": 45,
+      "pageWords": 960,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 31
+    },
+    "psychology/psy-sec13-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u4",
+      "questions": 25,
+      "pageWords": 409,
+      "teachingCards": 7,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec13-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u5",
+      "questions": 45,
+      "pageWords": 916,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 35
+    },
+    "psychology/psy-sec13-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u6",
+      "questions": 45,
+      "pageWords": 978,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 31
+    },
+    "psychology/psy-sec13-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u7",
+      "questions": 45,
+      "pageWords": 773,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 24
+    },
+    "psychology/psy-sec13-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u8",
+      "questions": 45,
+      "pageWords": 818,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 25
+    },
+    "psychology/psy-sec13-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u9",
+      "questions": 45,
+      "pageWords": 800,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 29
+    },
+    "psychology/psy-sec13-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u10",
+      "questions": 45,
+      "pageWords": 898,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 30
+    },
+    "psychology/psy-sec13-u11": {
+      "courseId": "psychology",
+      "sectionIndex": 12,
+      "unitId": "psy-sec13-u11",
+      "questions": 21,
+      "pageWords": 166,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec14-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u1",
+      "questions": 36,
+      "pageWords": 486,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec14-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u2",
+      "questions": 36,
+      "pageWords": 495,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec14-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u3",
+      "questions": 36,
+      "pageWords": 497,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec14-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u4",
+      "questions": 20,
+      "pageWords": 240,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 3
+    },
+    "psychology/psy-sec14-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u5",
+      "questions": 36,
+      "pageWords": 521,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec14-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u6",
+      "questions": 39,
+      "pageWords": 587,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 23
+    },
+    "psychology/psy-sec14-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u7",
+      "questions": 36,
+      "pageWords": 542,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec14-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u8",
+      "questions": 27,
+      "pageWords": 411,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec14-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u9",
+      "questions": 37,
+      "pageWords": 543,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 12
+    },
+    "psychology/psy-sec14-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 13,
+      "unitId": "psy-sec14-u10",
+      "questions": 20,
+      "pageWords": 288,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 6
+    },
+    "psychology/psy-sec15-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u1",
+      "questions": 36,
+      "pageWords": 521,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec15-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u2",
+      "questions": 36,
+      "pageWords": 494,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec15-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u3",
+      "questions": 36,
+      "pageWords": 478,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 7
+    },
+    "psychology/psy-sec15-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u4",
+      "questions": 17,
+      "pageWords": 225,
+      "teachingCards": 5,
+      "errors": 0,
+      "warnings": 2
+    },
+    "psychology/psy-sec15-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u5",
+      "questions": 36,
+      "pageWords": 564,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "psychology/psy-sec15-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u6",
+      "questions": 36,
+      "pageWords": 526,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec15-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u7",
+      "questions": 36,
+      "pageWords": 549,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec15-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u8",
+      "questions": 36,
+      "pageWords": 492,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 9
+    },
+    "psychology/psy-sec15-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u9",
+      "questions": 36,
+      "pageWords": 558,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 20
+    },
+    "psychology/psy-sec15-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u10",
+      "questions": 17,
+      "pageWords": 213,
+      "teachingCards": 5,
+      "errors": 0,
+      "warnings": 5
+    },
+    "psychology/psy-sec15-u11": {
+      "courseId": "psychology",
+      "sectionIndex": 14,
+      "unitId": "psy-sec15-u11",
+      "questions": 27,
+      "pageWords": 390,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec16-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u1",
+      "questions": 32,
+      "pageWords": 394,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 13
+    },
+    "psychology/psy-sec16-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u2",
+      "questions": 30,
+      "pageWords": 373,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 6
+    },
+    "psychology/psy-sec16-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u3",
+      "questions": 32,
+      "pageWords": 368,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 11
+    },
+    "psychology/psy-sec16-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u4",
+      "questions": 32,
+      "pageWords": 413,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 13
+    },
+    "psychology/psy-sec16-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u5",
+      "questions": 32,
+      "pageWords": 453,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 13
+    },
+    "psychology/psy-sec16-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u6",
+      "questions": 32,
+      "pageWords": 411,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec16-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u7",
+      "questions": 40,
+      "pageWords": 545,
+      "teachingCards": 10,
+      "errors": 3,
+      "warnings": 18
+    },
+    "psychology/psy-sec16-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u8",
+      "questions": 32,
+      "pageWords": 467,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 18
+    },
+    "psychology/psy-sec16-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u9",
+      "questions": 32,
+      "pageWords": 476,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 19
+    },
+    "psychology/psy-sec16-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 16,
+      "unitId": "psy-sec16-u10",
+      "questions": 41,
+      "pageWords": 695,
+      "teachingCards": 11,
+      "errors": 2,
+      "warnings": 31
+    },
+    "psychology/psy-sec17-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u1",
+      "questions": 37,
+      "pageWords": 435,
+      "teachingCards": 9,
+      "errors": 2,
+      "warnings": 8
+    },
+    "psychology/psy-sec17-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u2",
+      "questions": 36,
+      "pageWords": 343,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 10
+    },
+    "psychology/psy-sec17-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u3",
+      "questions": 38,
+      "pageWords": 399,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 11
+    },
+    "psychology/psy-sec17-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u4",
+      "questions": 38,
+      "pageWords": 369,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 5
+    },
+    "psychology/psy-sec17-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u5",
+      "questions": 37,
+      "pageWords": 356,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 10
+    },
+    "psychology/psy-sec17-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u6",
+      "questions": 31,
+      "pageWords": 436,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 14
+    },
+    "psychology/psy-sec17-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u7",
+      "questions": 32,
+      "pageWords": 438,
+      "teachingCards": 8,
+      "errors": 2,
+      "warnings": 21
+    },
+    "psychology/psy-sec17-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u8",
+      "questions": 31,
+      "pageWords": 411,
+      "teachingCards": 8,
+      "errors": 3,
+      "warnings": 14
+    },
+    "psychology/psy-sec17-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u9",
+      "questions": 33,
+      "pageWords": 419,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 13
+    },
+    "psychology/psy-sec17-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 17,
+      "unitId": "psy-sec17-u10",
+      "questions": 33,
+      "pageWords": 446,
+      "teachingCards": 8,
+      "errors": 2,
+      "warnings": 15
+    },
+    "psychology/psy-sec18-u1": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u1",
+      "questions": 38,
+      "pageWords": 503,
+      "teachingCards": 9,
+      "errors": 1,
+      "warnings": 29
+    },
+    "psychology/psy-sec18-u2": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u2",
+      "questions": 36,
+      "pageWords": 458,
+      "teachingCards": 8,
+      "errors": 2,
+      "warnings": 26
+    },
+    "psychology/psy-sec18-u3": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u3",
+      "questions": 36,
+      "pageWords": 502,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 33
+    },
+    "psychology/psy-sec18-u4": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u4",
+      "questions": 36,
+      "pageWords": 503,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 32
+    },
+    "psychology/psy-sec18-u5": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u5",
+      "questions": 36,
+      "pageWords": 496,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 27
+    },
+    "psychology/psy-sec18-u6": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u6",
+      "questions": 35,
+      "pageWords": 659,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 26
+    },
+    "psychology/psy-sec18-u7": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u7",
+      "questions": 36,
+      "pageWords": 628,
+      "teachingCards": 8,
+      "errors": 2,
+      "warnings": 25
+    },
+    "psychology/psy-sec18-u8": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u8",
+      "questions": 37,
+      "pageWords": 650,
+      "teachingCards": 8,
+      "errors": 2,
+      "warnings": 29
+    },
+    "psychology/psy-sec18-u9": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u9",
+      "questions": 37,
+      "pageWords": 738,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 32
+    },
+    "psychology/psy-sec18-u10": {
+      "courseId": "psychology",
+      "sectionIndex": 18,
+      "unitId": "psy-sec18-u10",
+      "questions": 38,
+      "pageWords": 722,
+      "teachingCards": 8,
+      "errors": 1,
+      "warnings": 31
+    },
+    "space-astronomy/sp-sec1-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u1",
+      "questions": 36,
+      "pageWords": 655,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec1-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u2",
+      "questions": 45,
+      "pageWords": 763,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 23
+    },
+    "space-astronomy/sp-sec1-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u3",
+      "questions": 46,
+      "pageWords": 857,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 36
+    },
+    "space-astronomy/sp-sec1-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u4",
+      "questions": 30,
+      "pageWords": 50,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 3
+    },
+    "space-astronomy/sp-sec1-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u5",
+      "questions": 48,
+      "pageWords": 673,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec1-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u6",
+      "questions": 49,
+      "pageWords": 742,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 20
+    },
+    "space-astronomy/sp-sec1-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u7",
+      "questions": 49,
+      "pageWords": 756,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec1-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 1,
+      "unitId": "sp-sec1-u8",
+      "questions": 24,
+      "pageWords": 151,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 5
+    },
+    "space-astronomy/sp-sec2-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u1",
+      "questions": 40,
+      "pageWords": 541,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 21
+    },
+    "space-astronomy/sp-sec2-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u2",
+      "questions": 38,
+      "pageWords": 511,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec2-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u3",
+      "questions": 40,
+      "pageWords": 510,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-sec2-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u4",
+      "questions": 18,
+      "pageWords": 101,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 14
+    },
+    "space-astronomy/sp-sec2-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u5",
+      "questions": 41,
+      "pageWords": 528,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec2-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u6",
+      "questions": 41,
+      "pageWords": 507,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-sec2-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u7",
+      "questions": 40,
+      "pageWords": 552,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec2-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u8",
+      "questions": 41,
+      "pageWords": 515,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 22
+    },
+    "space-astronomy/sp-sec2-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u9",
+      "questions": 40,
+      "pageWords": 537,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 22
+    },
+    "space-astronomy/sp-sec2-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 2,
+      "unitId": "sp-sec2-u10",
+      "questions": 18,
+      "pageWords": 127,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 13
+    },
+    "space-astronomy/sp-sec3-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u1",
+      "questions": 39,
+      "pageWords": 572,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec3-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u2",
+      "questions": 39,
+      "pageWords": 600,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 23
+    },
+    "space-astronomy/sp-sec3-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u3",
+      "questions": 41,
+      "pageWords": 615,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 29
+    },
+    "space-astronomy/sp-sec3-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u4",
+      "questions": 19,
+      "pageWords": 97,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 8
+    },
+    "space-astronomy/sp-sec3-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u5",
+      "questions": 40,
+      "pageWords": 604,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 32
+    },
+    "space-astronomy/sp-sec3-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u6",
+      "questions": 42,
+      "pageWords": 620,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 28
+    },
+    "space-astronomy/sp-sec3-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u7",
+      "questions": 41,
+      "pageWords": 615,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 27
+    },
+    "space-astronomy/sp-sec3-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u8",
+      "questions": 31,
+      "pageWords": 463,
+      "teachingCards": 9,
+      "errors": 1,
+      "warnings": 14
+    },
+    "space-astronomy/sp-sec3-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u9",
+      "questions": 41,
+      "pageWords": 624,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 26
+    },
+    "space-astronomy/sp-sec3-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 3,
+      "unitId": "sp-sec3-u10",
+      "questions": 19,
+      "pageWords": 110,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 14
+    },
+    "space-astronomy/sp-s4-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u1",
+      "questions": 45,
+      "pageWords": 569,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 14
+    },
+    "space-astronomy/sp-s4-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u2",
+      "questions": 54,
+      "pageWords": 673,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-s4-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u3",
+      "questions": 45,
+      "pageWords": 556,
+      "teachingCards": 15,
+      "errors": 1,
+      "warnings": 12
+    },
+    "space-astronomy/sp-s4-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u4",
+      "questions": 45,
+      "pageWords": 569,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-s4-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u5",
+      "questions": 26,
+      "pageWords": 258,
+      "teachingCards": 7,
+      "errors": 1,
+      "warnings": 6
+    },
+    "space-astronomy/sp-s4-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u6",
+      "questions": 54,
+      "pageWords": 674,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-s4-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u7",
+      "questions": 46,
+      "pageWords": 569,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 22
+    },
+    "space-astronomy/sp-s4-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u8",
+      "questions": 55,
+      "pageWords": 585,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-s4-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u9",
+      "questions": 55,
+      "pageWords": 649,
+      "teachingCards": 13,
+      "errors": 1,
+      "warnings": 20
+    },
+    "space-astronomy/sp-s4-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u10",
+      "questions": 45,
+      "pageWords": 537,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 21
+    },
+    "space-astronomy/sp-s4-u11": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u11",
+      "questions": 45,
+      "pageWords": 567,
+      "teachingCards": 10,
+      "errors": 0,
+      "warnings": 33
+    },
+    "space-astronomy/sp-s4-u12": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-s4-u12",
+      "questions": 39,
+      "pageWords": 198,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 10
+    },
+    "space-astronomy/sp-sec5-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u1",
+      "questions": 38,
+      "pageWords": 538,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec5-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u2",
+      "questions": 36,
+      "pageWords": 564,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec5-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u3",
+      "questions": 36,
+      "pageWords": 570,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec5-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u4",
+      "questions": 20,
+      "pageWords": 150,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 3
+    },
+    "space-astronomy/sp-sec5-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u5",
+      "questions": 36,
+      "pageWords": 599,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 24
+    },
+    "space-astronomy/sp-sec5-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u6",
+      "questions": 36,
+      "pageWords": 588,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec5-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u7",
+      "questions": 36,
+      "pageWords": 568,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec5-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u8",
+      "questions": 27,
+      "pageWords": 435,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-sec5-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u9",
+      "questions": 36,
+      "pageWords": 591,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec5-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 4,
+      "unitId": "sp-sec5-u10",
+      "questions": 19,
+      "pageWords": 143,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 5
+    },
+    "space-astronomy/sp-sec6-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u1",
+      "questions": 44,
+      "pageWords": 576,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 9
+    },
+    "space-astronomy/sp-sec6-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u2",
+      "questions": 53,
+      "pageWords": 764,
+      "teachingCards": 17,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-sec6-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u3",
+      "questions": 45,
+      "pageWords": 652,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec6-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u4",
+      "questions": 21,
+      "pageWords": 156,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 9
+    },
+    "space-astronomy/sp-sec6-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u5",
+      "questions": 45,
+      "pageWords": 637,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-sec6-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u6",
+      "questions": 27,
+      "pageWords": 414,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 7
+    },
+    "space-astronomy/sp-sec6-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u7",
+      "questions": 45,
+      "pageWords": 675,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-sec6-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u8",
+      "questions": 36,
+      "pageWords": 559,
+      "teachingCards": 12,
+      "errors": 2,
+      "warnings": 10
+    },
+    "space-astronomy/sp-sec6-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u9",
+      "questions": 36,
+      "pageWords": 504,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 12
+    },
+    "space-astronomy/sp-sec6-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 5,
+      "unitId": "sp-sec6-u10",
+      "questions": 27,
+      "pageWords": 256,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 4
+    },
+    "space-astronomy/sp-sec7-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u1",
+      "questions": 45,
+      "pageWords": 660,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-sec7-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u2",
+      "questions": 53,
+      "pageWords": 778,
+      "teachingCards": 17,
+      "errors": 0,
+      "warnings": 28
+    },
+    "space-astronomy/sp-sec7-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u3",
+      "questions": 45,
+      "pageWords": 655,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 26
+    },
+    "space-astronomy/sp-sec7-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u4",
+      "questions": 24,
+      "pageWords": 154,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 11
+    },
+    "space-astronomy/sp-sec7-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u5",
+      "questions": 45,
+      "pageWords": 713,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec7-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u6",
+      "questions": 44,
+      "pageWords": 611,
+      "teachingCards": 14,
+      "errors": 0,
+      "warnings": 12
+    },
+    "space-astronomy/sp-sec7-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u7",
+      "questions": 54,
+      "pageWords": 714,
+      "teachingCards": 18,
+      "errors": 0,
+      "warnings": 12
+    },
+    "space-astronomy/sp-sec7-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u8",
+      "questions": 45,
+      "pageWords": 684,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 27
+    },
+    "space-astronomy/sp-sec7-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u9",
+      "questions": 45,
+      "pageWords": 615,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-sec7-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 6,
+      "unitId": "sp-sec7-u10",
+      "questions": 40,
+      "pageWords": 182,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 6
+    },
+    "space-astronomy/sp-sec8-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u1",
+      "questions": 35,
+      "pageWords": 535,
+      "teachingCards": 11,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec8-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u2",
+      "questions": 36,
+      "pageWords": 543,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec8-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u3",
+      "questions": 36,
+      "pageWords": 559,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec8-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u4",
+      "questions": 17,
+      "pageWords": 114,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 10
+    },
+    "space-astronomy/sp-sec8-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u5",
+      "questions": 36,
+      "pageWords": 581,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec8-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u6",
+      "questions": 36,
+      "pageWords": 559,
+      "teachingCards": 12,
+      "errors": 1,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec8-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u7",
+      "questions": 36,
+      "pageWords": 603,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 20
+    },
+    "space-astronomy/sp-sec8-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u8",
+      "questions": 27,
+      "pageWords": 454,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 22
+    },
+    "space-astronomy/sp-sec8-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u9",
+      "questions": 36,
+      "pageWords": 585,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 22
+    },
+    "space-astronomy/sp-sec8-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 7,
+      "unitId": "sp-sec8-u10",
+      "questions": 17,
+      "pageWords": 148,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 8
+    },
+    "space-astronomy/sp-sec9-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u1",
+      "questions": 29,
+      "pageWords": 430,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 12
+    },
+    "space-astronomy/sp-sec9-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u2",
+      "questions": 29,
+      "pageWords": 418,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 10
+    },
+    "space-astronomy/sp-sec9-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u3",
+      "questions": 29,
+      "pageWords": 435,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 13
+    },
+    "space-astronomy/sp-sec9-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u4",
+      "questions": 19,
+      "pageWords": 156,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 4
+    },
+    "space-astronomy/sp-sec9-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u5",
+      "questions": 31,
+      "pageWords": 454,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec9-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u6",
+      "questions": 31,
+      "pageWords": 450,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 14
+    },
+    "space-astronomy/sp-sec9-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u7",
+      "questions": 30,
+      "pageWords": 421,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 12
+    },
+    "space-astronomy/sp-sec9-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u8",
+      "questions": 19,
+      "pageWords": 304,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 7
+    },
+    "space-astronomy/sp-sec9-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u9",
+      "questions": 30,
+      "pageWords": 455,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 13
+    },
+    "space-astronomy/sp-sec9-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 8,
+      "unitId": "sp-sec9-u10",
+      "questions": 20,
+      "pageWords": 169,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 3
+    },
+    "space-astronomy/sp-sec10-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u1",
+      "questions": 26,
+      "pageWords": 380,
+      "teachingCards": 8,
+      "errors": 0,
+      "warnings": 5
+    },
+    "space-astronomy/sp-sec10-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u2",
+      "questions": 29,
+      "pageWords": 432,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 6
+    },
+    "space-astronomy/sp-sec10-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u3",
+      "questions": 28,
+      "pageWords": 404,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 10
+    },
+    "space-astronomy/sp-sec10-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u4",
+      "questions": 15,
+      "pageWords": 107,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 3
+    },
+    "space-astronomy/sp-sec10-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u5",
+      "questions": 29,
+      "pageWords": 416,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 6
+    },
+    "space-astronomy/sp-sec10-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u6",
+      "questions": 30,
+      "pageWords": 407,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 6
+    },
+    "space-astronomy/sp-sec10-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u7",
+      "questions": 28,
+      "pageWords": 418,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 6
+    },
+    "space-astronomy/sp-sec10-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u8",
+      "questions": 18,
+      "pageWords": 274,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 4
+    },
+    "space-astronomy/sp-sec10-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u9",
+      "questions": 28,
+      "pageWords": 446,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 7
+    },
+    "space-astronomy/sp-sec10-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 9,
+      "unitId": "sp-sec10-u10",
+      "questions": 15,
+      "pageWords": 114,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 2
+    },
+    "space-astronomy/sp-sec11-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u1",
+      "questions": 27,
+      "pageWords": 399,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 11
+    },
+    "space-astronomy/sp-sec11-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u2",
+      "questions": 28,
+      "pageWords": 398,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec11-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u3",
+      "questions": 27,
+      "pageWords": 396,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 19
+    },
+    "space-astronomy/sp-sec11-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u4",
+      "questions": 24,
+      "pageWords": 230,
+      "teachingCards": 6,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec11-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u5",
+      "questions": 28,
+      "pageWords": 432,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 21
+    },
+    "space-astronomy/sp-sec11-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u6",
+      "questions": 27,
+      "pageWords": 393,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 15
+    },
+    "space-astronomy/sp-sec11-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u7",
+      "questions": 27,
+      "pageWords": 430,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec11-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u8",
+      "questions": 28,
+      "pageWords": 423,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 27
+    },
+    "space-astronomy/sp-sec11-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u9",
+      "questions": 27,
+      "pageWords": 415,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 22
+    },
+    "space-astronomy/sp-sec11-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 10,
+      "unitId": "sp-sec11-u10",
+      "questions": 16,
+      "pageWords": 196,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 17
+    },
+    "space-astronomy/sp-sec12-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u1",
+      "questions": 45,
+      "pageWords": 635,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 29
+    },
+    "space-astronomy/sp-sec12-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u2",
+      "questions": 45,
+      "pageWords": 630,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 30
+    },
+    "space-astronomy/sp-sec12-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u3",
+      "questions": 45,
+      "pageWords": 677,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 48
+    },
+    "space-astronomy/sp-sec12-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u4",
+      "questions": 24,
+      "pageWords": 131,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec12-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u5",
+      "questions": 45,
+      "pageWords": 647,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 46
+    },
+    "space-astronomy/sp-sec12-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u6",
+      "questions": 45,
+      "pageWords": 626,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 51
+    },
+    "space-astronomy/sp-sec12-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u7",
+      "questions": 45,
+      "pageWords": 626,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 47
+    },
+    "space-astronomy/sp-sec12-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u8",
+      "questions": 21,
+      "pageWords": 145,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 16
+    },
+    "space-astronomy/sp-sec12-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u9",
+      "questions": 45,
+      "pageWords": 612,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 51
+    },
+    "space-astronomy/sp-sec12-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u10",
+      "questions": 45,
+      "pageWords": 706,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 59
+    },
+    "space-astronomy/sp-sec12-u11": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 11,
+      "unitId": "sp-sec12-u11",
+      "questions": 34,
+      "pageWords": 201,
+      "teachingCards": 4,
+      "errors": 0,
+      "warnings": 34
+    },
+    "space-astronomy/sp-sec14-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u1",
+      "questions": 36,
+      "pageWords": 543,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 30
+    },
+    "space-astronomy/sp-sec14-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u2",
+      "questions": 36,
+      "pageWords": 558,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 41
+    },
+    "space-astronomy/sp-sec14-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u3",
+      "questions": 36,
+      "pageWords": 553,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 41
+    },
+    "space-astronomy/sp-sec14-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u4",
+      "questions": 16,
+      "pageWords": 134,
+      "teachingCards": 2,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec14-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u5",
+      "questions": 36,
+      "pageWords": 599,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 39
+    },
+    "space-astronomy/sp-sec14-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u6",
+      "questions": 36,
+      "pageWords": 596,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 45
+    },
+    "space-astronomy/sp-sec14-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u7",
+      "questions": 27,
+      "pageWords": 433,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 29
+    },
+    "space-astronomy/sp-sec14-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u8",
+      "questions": 36,
+      "pageWords": 565,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 43
+    },
+    "space-astronomy/sp-sec14-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u9",
+      "questions": 36,
+      "pageWords": 522,
+      "teachingCards": 12,
+      "errors": 0,
+      "warnings": 32
+    },
+    "space-astronomy/sp-sec14-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 13,
+      "unitId": "sp-sec14-u10",
+      "questions": 17,
+      "pageWords": 188,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 25
+    },
+    "space-astronomy/sp-sec13-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u1",
+      "questions": 48,
+      "pageWords": 712,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 30
+    },
+    "space-astronomy/sp-sec13-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u2",
+      "questions": 49,
+      "pageWords": 750,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 53
+    },
+    "space-astronomy/sp-sec13-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u3",
+      "questions": 50,
+      "pageWords": 777,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 65
+    },
+    "space-astronomy/sp-sec13-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u4",
+      "questions": 24,
+      "pageWords": 154,
+      "teachingCards": 3,
+      "errors": 0,
+      "warnings": 18
+    },
+    "space-astronomy/sp-sec13-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u5",
+      "questions": 49,
+      "pageWords": 795,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 62
+    },
+    "space-astronomy/sp-sec13-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u6",
+      "questions": 45,
+      "pageWords": 619,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 35
+    },
+    "space-astronomy/sp-sec13-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u7",
+      "questions": 45,
+      "pageWords": 644,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 41
+    },
+    "space-astronomy/sp-sec13-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u8",
+      "questions": 45,
+      "pageWords": 631,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 38
+    },
+    "space-astronomy/sp-sec13-u9": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u9",
+      "questions": 45,
+      "pageWords": 682,
+      "teachingCards": 15,
+      "errors": 0,
+      "warnings": 40
+    },
+    "space-astronomy/sp-sec13-u10": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 12,
+      "unitId": "sp-sec13-u10",
+      "questions": 40,
+      "pageWords": 61,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 55
+    },
+    "space-astronomy/sp-sec15-u1": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u1",
+      "questions": 30,
+      "pageWords": 383,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 45
+    },
+    "space-astronomy/sp-sec15-u2": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u2",
+      "questions": 29,
+      "pageWords": 401,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 34
+    },
+    "space-astronomy/sp-sec15-u3": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u3",
+      "questions": 30,
+      "pageWords": 417,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 33
+    },
+    "space-astronomy/sp-sec15-u4": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u4",
+      "questions": 16,
+      "pageWords": 46,
+      "teachingCards": 0,
+      "errors": 0,
+      "warnings": 37
+    },
+    "space-astronomy/sp-sec15-u5": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u5",
+      "questions": 30,
+      "pageWords": 411,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 24
+    },
+    "space-astronomy/sp-sec15-u6": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u6",
+      "questions": 30,
+      "pageWords": 383,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 32
+    },
+    "space-astronomy/sp-sec15-u7": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u7",
+      "questions": 30,
+      "pageWords": 439,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 35
+    },
+    "space-astronomy/sp-sec15-u8": {
+      "courseId": "space-astronomy",
+      "sectionIndex": 14,
+      "unitId": "sp-sec15-u8",
+      "questions": 33,
+      "pageWords": 379,
+      "teachingCards": 9,
+      "errors": 0,
+      "warnings": 46
+    }
+  },
+  "lessons": {}
+}

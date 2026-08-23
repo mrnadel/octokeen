@@ -9,6 +9,12 @@ import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 import { FlowLogger } from '@/components/dev/FlowLogger';
 import { Suspense } from 'react';
 import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR, APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
+import {
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_PATH,
+  DEFAULT_OG_IMAGE_WIDTH,
+  DEFAULT_OG_LOCALE,
+} from '@/lib/seo/constants';
 import './globals.css';
 import { TWA_DETECT_SCRIPT, TWA_ROOT_ATTRIBUTE } from '@/lib/twa-constants';
 
@@ -32,9 +38,19 @@ export const viewport: Viewport = {
   themeColor: APP_THEME_COLOR,
 };
 
+const DEFAULT_TITLE = `${APP_NAME} | ${APP_TAGLINE}`;
+
+/** Shared social card. Pages that want their own pass `images` themselves. */
+const DEFAULT_OG_IMAGE = {
+  url: DEFAULT_OG_IMAGE_PATH,
+  width: DEFAULT_OG_IMAGE_WIDTH,
+  height: DEFAULT_OG_IMAGE_HEIGHT,
+  alt: DEFAULT_TITLE,
+};
+
 export const metadata: Metadata = {
   title: {
-    default: `${APP_NAME} | ${APP_TAGLINE}`,
+    default: DEFAULT_TITLE,
     template: `%s | ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
@@ -48,22 +64,22 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.json',
-  keywords: ['gamified learning', 'interview prep', 'engineering practice', 'personal finance', 'mechanical engineering', 'adaptive learning', 'online education', 'professional development'],
+  keywords: ['gamified learning', 'personal finance', 'psychology', 'space and astronomy', 'daily lessons', 'adaptive learning', 'online education', 'learn in 5 minutes'],
   authors: [{ name: APP_NAME }],
   creator: APP_NAME,
   openGraph: {
-    title: `${APP_NAME} | ${APP_TAGLINE}`,
+    title: DEFAULT_TITLE,
     description: APP_DESCRIPTION,
     url: APP_URL,
     siteName: APP_NAME,
     type: 'website',
-    locale: 'en_US',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+    locale: DEFAULT_OG_LOCALE,
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/og-image.png'],
-    title: `${APP_NAME} | ${APP_TAGLINE}`,
+    images: [DEFAULT_OG_IMAGE],
+    title: DEFAULT_TITLE,
     description: APP_DESCRIPTION,
   },
   alternates: {
@@ -139,6 +155,18 @@ const jsonLd = {
   ],
 };
 
+/**
+ * The service worker caches responses, which is useful in production and
+ * actively harmful in development: Turbopack serves changed CSS and JS behind
+ * stable chunk URLs, so a cached copy pins the app to whatever the browser saw
+ * first. Register it only in production, and tear down any registration (plus
+ * its caches) left behind on a dev machine.
+ */
+const SERVICE_WORKER_SCRIPT =
+  process.env.NODE_ENV === 'production'
+    ? `if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js')`
+    : `if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})});if(window.caches)caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})})}`;
+
 export default function RootLayout({
   children,
 }: {
@@ -156,7 +184,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <script
-          dangerouslySetInnerHTML={{ __html: `if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js')` }}
+          dangerouslySetInnerHTML={{ __html: SERVICE_WORKER_SCRIPT }}
         />
         <script dangerouslySetInnerHTML={{ __html: TWA_DETECT_SCRIPT }} />
         <script
