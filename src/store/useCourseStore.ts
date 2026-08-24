@@ -64,6 +64,9 @@ interface CourseState {
   // Actions — Content
   setCourseData: (data: Unit[]) => void;
   setActiveProfession: (id: string) => void;
+  /** Record the placement-test result for one course. Per-course so switching
+   *  courses does not inherit another course's placement. */
+  setPlacementForProfession: (professionId: string, unitIndex: number) => void;
 
   // Actions — Story Narrative (Gap 11)
   markStoryUnlockViewed: (unlockId: string) => void;
@@ -131,7 +134,8 @@ export const useCourseStore = create<CourseState>()(
         const meta = getCourseMetaForProfession(id);
         set((s) => {
           // Restore per-profession placement (or clear if none)
-          const introPlacement = s.progress.courseIntros?.[id]?.placementUnitIndex;
+          const introPlacement =
+            s.progress.placementByCourse?.[id] ?? s.progress.courseIntros?.[id]?.placementUnitIndex;
           return {
             activeProfession: id,
             courseData: meta as Unit[],
@@ -142,6 +146,31 @@ export const useCourseStore = create<CourseState>()(
             pendingCelebrations: [],
             contentLoadError: null,
             progress: { ...s.progress, placementUnitIndex: introPlacement },
+          };
+        });
+      },
+
+      setPlacementForProfession: (professionId: string, unitIndex: number) => {
+        set((s) => {
+          const byCourse = { ...(s.progress.placementByCourse ?? {}) };
+          if (unitIndex > 0) byCourse[professionId] = unitIndex;
+          else delete byCourse[professionId];
+          const prevIntro = s.progress.courseIntros?.[professionId];
+          return {
+            progress: {
+              ...s.progress,
+              placementByCourse: byCourse,
+              // Only the active course's placement drives unlock checks.
+              ...(professionId === s.activeProfession
+                ? { placementUnitIndex: unitIndex > 0 ? unitIndex : undefined }
+                : {}),
+              courseIntros: prevIntro
+                ? {
+                    ...s.progress.courseIntros,
+                    [professionId]: { ...prevIntro, placementUnitIndex: unitIndex },
+                  }
+                : s.progress.courseIntros,
+            },
           };
         });
       },
@@ -369,7 +398,9 @@ export const useCourseStore = create<CourseState>()(
         const cruisingBonusXp = cruisingCorrectCount > 0
           ? Math.round(lesson.xpReward * (ADAPTIVE_CRUISING_XP_BONUS - 1) * (cruisingCorrectCount / totalQuestions))
           : 0;
-        const xpEarned = lesson.xpReward * accuracyMultiplier * totalBoostMultiplier + cruisingBonusXp;
+        // Round before adding: the flawless/boost multipliers are fractional, and a
+        // non-integer totalXp is rejected by the course-progress sync schema.
+        const xpEarned = Math.round(lesson.xpReward * accuracyMultiplier * totalBoostMultiplier) + cruisingBonusXp;
 
         // Build updated lesson progress
         const updatedLessonProgress = {
@@ -1107,20 +1138,32 @@ export const useCourseStore = create<CourseState>()(
 
         const restoredProfession = persisted.activeProfession ?? DEFAULT_PROFESSION;
 
+        // Legacy localStorage held one course-agnostic placementUnitIndex. It
+        // belonged to whichever course was active when written — attribute it
+        // there so other courses don't inherit it.
+        const legacyPlacement = persisted.progress.placementUnitIndex ?? 0;
+        const placementByCourse: Record<string, number> = {
+          ...(legacyPlacement > 0 ? { [restoredProfession]: legacyPlacement } : {}),
+          ...(persisted.progress.placementByCourse ?? {}),
+        };
+
         return {
           ...currentState,
           activeProfession: restoredProfession,
           courseData: getCourseMetaForProfession(restoredProfession) as Unit[],
           progress: {
             displayName: persisted.progress.displayName ?? defaults.displayName,
-            totalXp: persisted.progress.totalXp ?? defaults.totalXp,
+            // Round: older builds could persist a fractional totalXp.
+            totalXp: Math.round(persisted.progress.totalXp ?? defaults.totalXp),
             currentStreak: persisted.progress.currentStreak ?? defaults.currentStreak,
             longestStreak: persisted.progress.longestStreak ?? defaults.longestStreak,
             lastActiveDate: persisted.progress.lastActiveDate ?? defaults.lastActiveDate,
             activeDays: persisted.progress.activeDays ?? defaults.activeDays,
             completedLessons: migratedLessons,
             courseIntros: persisted.progress.courseIntros ?? undefined,
-            placementUnitIndex: persisted.progress.placementUnitIndex ?? undefined,
+            placementUnitIndex: placementByCourse[restoredProfession] || undefined,
+            placementByCourse:
+              Object.keys(placementByCourse).length > 0 ? placementByCourse : undefined,
             viewedStoryUnlocks: persisted.progress.viewedStoryUnlocks ?? undefined,
           },
         };

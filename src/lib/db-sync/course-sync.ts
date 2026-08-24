@@ -23,6 +23,7 @@ export function hydrateCourseStore(
       lastActiveDate: string;
       activeDays?: string[];
       placementUnitIndex?: number;
+      placementByCourse?: Record<string, number>;
       completedLessons: Record<string, {
         lastAttempted?: string;
         bestAccuracy?: number;
@@ -77,18 +78,28 @@ export function hydrateCourseStore(
       ? dbProfession
       : localProfession;
 
+  // Placement is per-course. Merge the maps key-by-key; never fall back to a
+  // course-agnostic value, which is what leaked one course's placement into
+  // every other course on hydrate.
+  const mergedPlacement: Record<string, number> = { ...(local.placementByCourse ?? {}) };
+  for (const [profId, unitIndex] of Object.entries(db.placementByCourse ?? {})) {
+    mergedPlacement[profId] = Math.max(mergedPlacement[profId] ?? 0, unitIndex ?? 0);
+  }
+  const activePlacement = mergedPlacement[restoredProfession] || undefined;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useCourseStore.setState({
     activeProfession: restoredProfession,
     progress: {
       ...db,
-      totalXp: Math.max(db.totalXp, local.totalXp),
+      totalXp: Math.round(Math.max(db.totalXp, local.totalXp)),
       currentStreak: db.currentStreak ?? local.currentStreak ?? 0,
       longestStreak: Math.max(db.longestStreak, local.longestStreak),
       lastActiveDate: db.lastActiveDate > local.lastActiveDate
         ? db.lastActiveDate : local.lastActiveDate,
       activeDays: mergeActiveDays(db.activeDays, local.activeDays),
-      placementUnitIndex: Math.max(db.placementUnitIndex ?? 0, local.placementUnitIndex ?? 0) || undefined,
+      placementUnitIndex: activePlacement,
+      placementByCourse: Object.keys(mergedPlacement).length > 0 ? mergedPlacement : undefined,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       completedLessons: mergedLessons as any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
