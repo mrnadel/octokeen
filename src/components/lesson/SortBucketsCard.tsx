@@ -207,7 +207,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                       padding: '10px 18px',
                       borderRadius: 12,
                       background: isSelected ? `${unitColor}10` : c.cardBg,
-                      border: isSelected ? `2.5px solid ${unitColor}` : `2px solid ${c.border}`,
+                      border: isSelected ? `2px solid ${unitColor}` : `2px solid ${c.border}`,
                       fontSize: 14,
                       fontWeight: 700,
                       color: c.title,
@@ -261,7 +261,7 @@ const SortBucketsCard = forwardRef<QuestionCardHandle, SortBucketsCardProps>(
                   flexDirection: 'column',
                   borderRadius: 16,
                   border: isHighlighted || isTargetable
-                    ? `2.5px solid ${unitColor}`
+                    ? `2px solid ${unitColor}`
                     : '2px dashed #D5D5D5',
                   background: isHighlighted
                     ? `${unitColor}15`

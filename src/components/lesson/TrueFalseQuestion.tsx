@@ -58,8 +58,8 @@ export function TrueFalseQuestion({
           }
         } else if (isSelected) {
           bg = c.cardBg;
-          border = `2.5px solid ${unitColor}`;
-          shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
+          border = `2px solid ${unitColor}`;
+          shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black), inset 0 0 0 1px ${unitColor}`;
         }
 
         const revealAnimation = buildRevealAnimation(

@@ -130,7 +130,7 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
             if (answered && localCorrect !== null) {
               if (isBest) {
                 bg = 'linear-gradient(135deg, #D7FFB8 0%, #C5F7A0 100%)';
-                border = '2.5px solid #58CC02';
+                border = '2px solid #58CC02';
                 textColor = '#58A700';
                 starColor = '#FFD700';
                 shadow = '0 0 16px rgba(88,204,2,0.3)';
@@ -149,9 +149,9 @@ const PickTheBestCard = forwardRef<QuestionCardHandle, PickTheBestCardProps>(
               }
             } else if (isSelected) {
               bg = c.cardBg;
-              border = `2.5px solid ${unitColor}`;
+              border = `2px solid ${unitColor}`;
               starColor = '#FFD700';
-              shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
+              shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black), inset 0 0 0 1px ${unitColor}`;
             }
 
             const revealAnimation = buildRevealAnimation(

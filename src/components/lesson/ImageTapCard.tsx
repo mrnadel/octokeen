@@ -223,7 +223,7 @@ const ImageTapCard = forwardRef<QuestionCardHandle, ImageTapCardProps>(
                   bg = DISABLED.bg; border = `2px solid ${DISABLED.border}`; textColor = c.muted;
                 }
               } else if (isSelected) {
-                bg = `${unitColor}10`; border = `2.5px solid ${unitColor}`;
+                bg = `${unitColor}10`; border = `2px solid ${unitColor}`;
               }
 
               return (

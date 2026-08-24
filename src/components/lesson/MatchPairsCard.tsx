@@ -151,12 +151,12 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                 shadow = isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none';
               } else if (matchColor) {
                 bg = `${matchColor}15`;
-                border = `2.5px solid ${matchColor}`;
+                border = `2px solid ${matchColor}`;
                 textColor = matchColor;
                 shadow = `0 3px 0 color-mix(in srgb, ${matchColor} 65%, black)`;
               } else if (isSelected) {
                 bg = `${unitColor}10`;
-                border = `2.5px solid ${unitColor}`;
+                border = `2px solid ${unitColor}`;
                 shadow = `0 3px 0 color-mix(in srgb, ${unitColor} 65%, black)`;
               }
 
@@ -229,7 +229,7 @@ const MatchPairsCard = forwardRef<QuestionCardHandle, MatchPairsCardProps>(
                 shadow = isCorrect ? '0 0 12px rgba(88, 204, 2, 0.25)' : 'none';
               } else if (matchColor) {
                 bg = `${matchColor}15`;
-                border = `2.5px solid ${matchColor}`;
+                border = `2px solid ${matchColor}`;
                 textColor = matchColor;
                 shadow = `0 3px 0 color-mix(in srgb, ${matchColor} 65%, black)`;
               } else if (selectedLeft !== null && isAvailable) {
