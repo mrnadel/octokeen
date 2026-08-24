@@ -1,22 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AppPageHeader } from '@/app/(app)/AppPageHeader';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: 'Refund Policy',
   description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
-  alternates: { canonical: '/refund-policy' },
-  openGraph: {
-    title: 'Refund Policy | Octokeen',
-    description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
-    url: '/refund-policy',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Refund Policy | Octokeen',
-    description: 'Octokeen 14-day money-back guarantee. Learn about our refund process for Pro subscriptions.',
-  },
-};
+  path: '/refund-policy',
+});
 
 const LAST_UPDATED = 'March 2025';
 

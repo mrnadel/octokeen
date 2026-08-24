@@ -119,3 +119,27 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     },
   };
 }
+
+export interface PrivateMetadataInput {
+  /** Page title without the brand suffix. */
+  title: string;
+  /** Route path, e.g. `/settings`. Becomes the canonical URL. */
+  path: string;
+  /** Optional; a noindex page still shows a description in a browser preview. */
+  description?: string;
+}
+
+/**
+ * Metadata for a signed-in or admin page. It still needs a self-referencing
+ * canonical: without one the root layout's site-wide `canonical: APP_URL` is
+ * inherited and the page canonicalizes to the homepage. No social card, since
+ * these pages are never shared.
+ */
+export function buildPrivateMetadata(input: PrivateMetadataInput): Metadata {
+  return {
+    title: { absolute: buildPageTitle(input.title, true) },
+    description: input.description,
+    alternates: { canonical: absoluteUrl(input.path) },
+    robots: { index: false, follow: false },
+  };
+}

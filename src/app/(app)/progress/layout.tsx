@@ -1,6 +1,6 @@
-import { createPrivateMetadata } from '@/lib/metadata';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
 
-export const metadata = createPrivateMetadata('Progress');
+export const metadata = buildPrivateMetadata({ title: 'Progress', path: '/progress' });
 
 export default function ProgressLayout({ children }: { children: React.ReactNode }) {
   return children;

@@ -1,12 +1,12 @@
-import { createLegalMetadata } from '@/lib/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
 import { ArrowLeft, Shield } from 'lucide-react';
 import Link from 'next/link';
 
-export const metadata = createLegalMetadata(
-  'Privacy Policy',
-  'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
-  '/privacy',
-);
+export const metadata = buildMetadata({
+  title: 'Privacy Policy',
+  description: 'Learn how Octokeen collects, uses, and protects your personal data. GDPR-compliant privacy practices.',
+  path: '/privacy',
+});
 
 const sections = [
   {

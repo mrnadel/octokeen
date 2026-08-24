@@ -66,7 +66,7 @@ const FAQ_ITEMS = [
   {
     question: 'What\'s included in the free plan?',
     answer:
-      'The free plan gives you access to daily practice questions with a daily limit. Upgrade to Pro for unlimited practice, all topics, adaptive learning, and interview prep mode.',
+      'The free plan gives you the first 3 units of every course, all practice modes and every engagement feature, with 5 hearts that recharge over time. Pro unlocks every remaining unit plus unlimited hearts and premium perks.',
     tags: 'free tier features limits what do i get',
   },
 
@@ -74,7 +74,7 @@ const FAQ_ITEMS = [
   {
     question: 'What topics are covered?',
     answer:
-      'Octokeen covers core mechanical engineering topics including thermodynamics, fluid mechanics, materials science, statics & dynamics, machine design, manufacturing, heat transfer, and more.',
+      'Octokeen currently covers Personal Finance, Psychology & Human Behavior, and Space & Astronomy, with more courses on the way.',
     tags: 'subjects curriculum areas syllabus',
   },
   {
@@ -98,7 +98,7 @@ const FAQ_ITEMS = [
   {
     question: 'Can I practice specific topics?',
     answer:
-      'Yes! Go to Practice > Topics to choose a specific area you want to focus on, like thermodynamics or machine design.',
+      'Yes! Go to Practice > Topics to choose a specific area you want to focus on, like budgeting or cognitive biases.',
     tags: 'choose topic select category filter',
   },
 

@@ -1,11 +1,11 @@
-import { createLegalMetadata } from '@/lib/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
 import { AppPageHeader } from '@/app/(app)/AppPageHeader';
 
-export const metadata = createLegalMetadata(
-  'Terms of Service',
-  'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
-  '/terms',
-);
+export const metadata = buildMetadata({
+  title: 'Terms of Service',
+  description: 'Octokeen terms of service covering account usage, subscriptions, billing, intellectual property, and more.',
+  path: '/terms',
+});
 
 const LAST_UPDATED = 'March 2025';
 

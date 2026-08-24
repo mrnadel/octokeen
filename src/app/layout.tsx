@@ -15,6 +15,12 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   DEFAULT_OG_LOCALE,
 } from '@/lib/seo/constants';
+import {
+  buildJsonLdGraph,
+  buildOrganizationJsonLd,
+  buildWebApplicationJsonLd,
+  buildWebSiteJsonLd,
+} from '@/lib/seo/structured-data';
 import './globals.css';
 import { TWA_DETECT_SCRIPT, TWA_ROOT_ATTRIBUTE } from '@/lib/twa-constants';
 
@@ -90,70 +96,20 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebApplication',
-      name: APP_NAME,
-      url: APP_URL,
-      description: APP_DESCRIPTION,
-      applicationCategory: 'EducationalApplication',
-      operatingSystem: 'Web',
-      offers: [
-        {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-          name: 'Free',
-          description: 'First 3 units of every course with 5 hearts — recharge over time',
-        },
-        {
-          '@type': 'Offer',
-          price: '12.99',
-          priceCurrency: 'USD',
-          name: 'Pro Monthly',
-          description: 'Every course in full, unlimited hearts, streak freeze, 2x XP weekends, full analytics',
-        },
-      ],
-    },
-    {
-      '@type': 'Organization',
-      name: APP_NAME,
-      url: APP_URL,
-      logo: `${APP_URL}/favicon.svg`,
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What do I get for free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'All lessons and practice modes are free. You get 5 hearts — wrong answers cost one, and they recharge over time. Pro gives unlimited hearts plus premium perks.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I cancel anytime?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes! Cancel your Pro subscription at any time from Settings. You keep access until the end of your billing period.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'What topics are covered?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: `${APP_NAME} offers courses across multiple professions including mechanical engineering and personal finance, with more on the way.`,
-          },
-        },
-      ],
-    },
-  ],
-};
+/**
+ * One site-wide `@graph`. The `Organization` node carries the `@id` that every
+ * `Course` node's `provider` reference points at, so emitting it from the root
+ * layout is what makes that reference resolve on every page.
+ *
+ * No `FAQPage`: it used to live here, which put FAQ markup on all 25 URLs when
+ * only /pricing shows any. Google retired FAQ rich results on 2025-06-15, so
+ * the markup had no upside left and a structured-data-spam downside.
+ */
+const jsonLd = buildJsonLdGraph([
+  buildOrganizationJsonLd(),
+  buildWebSiteJsonLd(),
+  buildWebApplicationJsonLd(),
+]);
 
 /**
  * The service worker caches responses, which is useful in production and

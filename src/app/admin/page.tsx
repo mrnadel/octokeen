@@ -1,4 +1,4 @@
-import { createPrivateMetadata } from '@/lib/metadata';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
 export { default } from './AdminIndexClient';
 
-export const metadata = createPrivateMetadata('Admin');
+export const metadata = buildPrivateMetadata({ title: 'Admin', path: '/admin' });

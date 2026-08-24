@@ -1,6 +1,6 @@
-import { createPrivateMetadata } from '@/lib/metadata';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
 
-export const metadata = createPrivateMetadata('Settings');
+export const metadata = buildPrivateMetadata({ title: 'Settings', path: '/settings' });
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
   return children;

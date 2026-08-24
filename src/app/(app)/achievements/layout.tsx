@@ -1,6 +1,6 @@
-import { createPrivateMetadata } from '@/lib/metadata';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
 
-export const metadata = createPrivateMetadata('Achievements');
+export const metadata = buildPrivateMetadata({ title: 'Achievements', path: '/achievements' });
 
 export default function AchievementsLayout({ children }: { children: React.ReactNode }) {
   return children;

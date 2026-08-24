@@ -12,11 +12,20 @@ import { ErrorAlert } from '@/components/auth/ErrorAlert';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthButton } from '@/components/auth/AuthButton';
 
+/**
+ * The `<h1>` sits outside the Suspense boundary on purpose. `LoginPageInner`
+ * reads `useSearchParams`, which makes everything inside the boundary render
+ * as the fallback during prerender, so a heading placed in there is missing
+ * from the served HTML entirely.
+ */
 export default function LoginPage() {
   return (
-    <AuthSuspenseBoundary>
-      <LoginPageInner />
-    </AuthSuspenseBoundary>
+    <>
+      <h1 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Sign in</h1>
+      <AuthSuspenseBoundary>
+        <LoginPageInner />
+      </AuthSuspenseBoundary>
+    </>
   );
 }
 
@@ -84,8 +93,6 @@ function LoginPageInner() {
 
   return (
     <>
-      <h1 className="text-xl sm:text-2xl font-black text-surface-900 mb-6 sm:mb-8">Sign in</h1>
-
       <GoogleSignInButton onClick={handleGoogleSignIn} loading={googleLoading} />
 
       <DividerOr />

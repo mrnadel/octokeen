@@ -15,6 +15,7 @@ export type JsonLdNode = Record<string, unknown>;
 const SCHEMA_CONTEXT = 'https://schema.org';
 const ORGANIZATION_ID = `${APP_URL}/#organization`;
 const WEBSITE_ID = `${APP_URL}/#website`;
+const WEB_APPLICATION_ID = `${APP_URL}/#webapp`;
 const CONTENT_LANGUAGE = 'en-US';
 
 /** Raster logo. schema.org logo consumers still prefer PNG over SVG. */
@@ -50,8 +51,29 @@ export function buildWebSiteJsonLd(): JsonLdNode {
   };
 }
 
+/**
+ * The product itself. Google's software-app rich result additionally requires
+ * `aggregateRating` or `review`; Octokeen collects neither, so this node is
+ * valid schema that stays ineligible rather than carrying invented numbers.
+ */
+export function buildWebApplicationJsonLd(): JsonLdNode {
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@type': 'WebApplication',
+    '@id': WEB_APPLICATION_ID,
+    name: APP_NAME,
+    url: APP_URL,
+    description: APP_DESCRIPTION,
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Web',
+    inLanguage: CONTENT_LANGUAGE,
+    publisher: { '@id': ORGANIZATION_ID },
+    offers: buildTierOffers(),
+  };
+}
+
 /** Offers are read from `TIERS` so the advertised price cannot drift. */
-function buildCourseOffers(): JsonLdNode[] {
+function buildTierOffers(): JsonLdNode[] {
   return Object.values(TIERS).map(tier => ({
     '@type': 'Offer',
     name: tier.name,
@@ -83,7 +105,7 @@ export function buildCourseJsonLd(input: CourseJsonLdInput): JsonLdNode {
     inLanguage: CONTENT_LANGUAGE,
     provider: { '@id': ORGANIZATION_ID, '@type': 'Organization', name: APP_NAME, url: APP_URL },
     ...(input.teaches?.length ? { teaches: input.teaches } : {}),
-    offers: buildCourseOffers(),
+    offers: buildTierOffers(),
   };
 }
 

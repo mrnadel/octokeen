@@ -19,6 +19,11 @@ export interface LearnCourseIntro {
   /** Meta description. Budget is 155 characters. */
   metaDescription: string;
   keywords: string[];
+  /**
+   * ISO date of the last meaningful rewrite of this copy. Feeds the sitemap's
+   * `lastmod`, so move it only when the words actually changed.
+   */
+  updated: string;
   /** Lead paragraph, directly under the heading. */
   intro: GuideRichText;
   body: GuideBlock[];
@@ -37,6 +42,7 @@ const PSYCHOLOGY: LearnCourseIntro = {
     'psychology course',
     'social psychology',
   ],
+  updated: '2026-08-23',
   intro:
     'Psychology is the study of why people do what they do, and almost all of it is about you as much as it is about anyone else. This course covers the parts with the most practical reach: how memory actually works, how habits form and break, how groups change individual behaviour, and the systematic errors in judgement that everyone makes and nobody notices from the inside.',
   body: [
@@ -79,6 +85,7 @@ const SPACE_ASTRONOMY: LearnCourseIntro = {
     'stargazing for beginners',
     'cosmology basics',
   ],
+  updated: '2026-08-23',
   intro:
     'Astronomy is the one science where the raw material is available to anyone who steps outside after dark. This course covers what is out there, how we know, and how to go and look at it yourself, starting from no physics background and building to the parts that sound like science fiction and are not.',
   body: [
@@ -116,6 +123,7 @@ const PERSONAL_FINANCE: LearnCourseIntro = {
     'behavioral finance',
     'money psychology',
   ],
+  updated: '2026-08-24',
   intro:
     'Most personal finance advice is either an advertisement or a slogan. This course is neither. It covers how money actually behaves, what the arithmetic of debt and compounding really implies, and why people who know all of that still do the opposite of it.',
   body: [
@@ -132,6 +140,68 @@ const PERSONAL_FINANCE: LearnCourseIntro = {
       kind: 'paragraph',
       text: 'The final section is behavioural finance, and it is the most useful one. Loss aversion, overconfidence, recency, herding and the sunk cost trap all show up in portfolios, and they cost more than any fee schedule.',
     },
+    { kind: 'heading', text: 'Where to start, in order' },
+    {
+      kind: 'paragraph',
+      text: 'Almost every question a beginner asks turns out to be a question about sequencing. The order below is not a preference; each step earns a higher guaranteed return than the one after it, so doing them out of order costs real money.',
+    },
+    {
+      kind: 'steps',
+      items: [
+        {
+          title: 'Measure the cash flow you actually have',
+          text: 'Three months of statements, sorted into what arrives and what leaves. Nearly nobody guesses this correctly from memory, and every decision below is priced off the real number.',
+        },
+        {
+          title: 'Build one month of essential spending in cash',
+          text: 'Not six months, not yet. A single month of rent, food and bills is what stops the next unexpected repair from turning into new debt at credit-card rates.',
+        },
+        {
+          title: 'Clear the high-interest debt',
+          text: 'Paying off a balance charging 20 percent is a guaranteed, tax-free 20 percent return. No portfolio offers that, and no portfolio offers it with certainty.',
+        },
+        {
+          title: 'Take any employer match on offer',
+          text: 'If a workplace retirement plan matches contributions, contributing up to the match is an immediate return of 50 to 100 percent on that money. Skipping it is declining part of your salary.',
+        },
+        {
+          title: 'Then invest, and make it boring',
+          text: 'A broad, low-cost index fund bought on a fixed schedule and held through the falls. The choice is the easy part; staying invested during a bad year is the part the course spends most of its time on.',
+        },
+      ],
+    },
+    { kind: 'heading', text: 'Choosing a budgeting method' },
+    {
+      kind: 'paragraph',
+      text: 'The four methods below are the ones the course compares. They differ in how much attention they demand and in how they fail, which is the more useful axis: a method you abandon in March leaves you worse off than a rougher one you keep all year.',
+    },
+    {
+      kind: 'table',
+      columns: ['Method', 'How it works', 'Suits you if'],
+      rows: [
+        [
+          '50/30/20',
+          'Half of take-home pay to needs, 30 percent to wants, 20 percent to saving and debt.',
+          'You want one rule you can hold in your head and no spreadsheet.',
+        ],
+        [
+          'Zero-based',
+          'Every unit of income is assigned a job before the month starts, until nothing is unallocated.',
+          'Your income is steady and detail motivates you rather than exhausting you.',
+        ],
+        [
+          'Pay yourself first',
+          'Saving leaves the account automatically on payday. Whatever remains is yours to spend freely.',
+          'You currently save whatever is left over, which is to say nothing.',
+        ],
+        [
+          'Sinking funds',
+          'A set amount is set aside each month per category, and that category is only ever spent from its own pot.',
+          'A few predictable categories keep overrunning and wrecking the month.',
+        ],
+      ],
+      caption: 'Compared rather than prescribed. Pick the one whose failure mode you can live with.',
+    },
     { kind: 'heading', text: 'A note on jurisdiction' },
     {
       kind: 'paragraph',
@@ -141,6 +211,15 @@ const PERSONAL_FINANCE: LearnCourseIntro = {
     {
       kind: 'paragraph',
       text: 'Adults who want to understand the reasoning rather than follow a script. Nothing here is financial advice; it is education, and the decisions stay yours.',
+    },
+    {
+      kind: 'takeaways',
+      items: [
+        'Order matters more than optimisation. Clearing a 20 percent balance beats any investment you could make with the same money.',
+        'Fees compound exactly the way returns do. One percentage point a year, over forty years, costs roughly a third of the final balance.',
+        'The best budgeting method is the one still running in six months, which is usually the one that asks least of you.',
+        'Most expensive money mistakes are behavioural rather than arithmetical, which is why the final section of the course is the one that pays for itself.',
+      ],
     },
   ],
 };

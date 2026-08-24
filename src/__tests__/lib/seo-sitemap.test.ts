@@ -7,6 +7,9 @@ import { buildSitemapCandidates, buildSitemapEntries } from '@/lib/seo/sitemap-e
 
 const GATED_COURSE_ID = 'mechanical-engineering';
 
+/** Routes that serve `robots: noindex`. A sitemap listing one contradicts it. */
+const NOINDEX_ROUTES = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email', '/try'];
+
 describe('buildCourseTree', () => {
   it('excludes courses that require granted access', () => {
     const ids = buildCourseTree().map(course => course.courseId);
@@ -60,6 +63,11 @@ describe('buildSitemapCandidates', () => {
   it('stays well under the 50,000 URL cap for a single sitemap file', () => {
     expect(buildSitemapCandidates().length).toBeLessThan(50_000);
   });
+
+  it('never lists a noindex auth route', () => {
+    const paths = buildSitemapCandidates().map(candidate => candidate.path);
+    for (const route of NOINDEX_ROUTES) expect(paths).not.toContain(route);
+  });
 });
 
 describe('buildSitemapEntries', () => {
@@ -71,5 +79,24 @@ describe('buildSitemapEntries', () => {
 
   it('defaults to including every candidate', () => {
     expect(buildSitemapEntries().length).toBe(buildSitemapCandidates().length);
+  });
+
+  it('dates content URLs from the content, not from the build', () => {
+    const content = buildSitemapEntries({
+      isIndexable: candidate => candidate.kind === 'guide' || candidate.kind === 'course',
+    });
+    expect(content.length).toBeGreaterThan(0);
+    for (const entry of content) expect(String(entry.lastModified)).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it('omits lastmod rather than inventing one for pages with no content date', () => {
+    const statics = buildSitemapEntries({ isIndexable: candidate => candidate.kind === 'static' });
+    expect(statics.length).toBeGreaterThan(0);
+    expect(statics.every(entry => entry.lastModified === undefined)).toBe(true);
+  });
+
+  it('never stamps every URL with the same date, which is the build-timestamp signature', () => {
+    const stamps = new Set(buildSitemapEntries().map(entry => entry.lastModified));
+    expect(stamps.size).toBeGreaterThan(1);
   });
 });

@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
+
 export { default } from './ResetPasswordClient';
 
-export const metadata: Metadata = {
+export const metadata = buildPrivateMetadata({
   title: 'Set New Password',
+  path: '/reset-password',
   description: 'Set a new password for your Octokeen account.',
-  robots: { index: false, follow: false },
-};
+});

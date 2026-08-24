@@ -1,4 +1,4 @@
-import { createPrivateMetadata } from '@/lib/metadata';
+import { buildPrivateMetadata } from '@/lib/seo/metadata';
 export { default } from './AnalyticsClient';
 
-export const metadata = createPrivateMetadata('Admin — Analytics');
+export const metadata = buildPrivateMetadata({ title: 'Admin — Analytics', path: '/admin/analytics' });

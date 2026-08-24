@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * The page is a five-step wizard whose only headings are per-step, so it had no
+ * `<h1>` at all: nothing on screen describes the page as a whole, and the steps
+ * render inside a client component that swaps them out. The heading lives here,
+ * in the server layout, so it is in the initial HTML rather than appearing on
+ * hydration, and it is visually hidden because the wizard's design has no place
+ * to put a persistent title. `sr-only` is the pattern already used for this
+ * across the auth pages.
+ */
 export default function GetStartedLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <h1 className="sr-only">Get started with Octokeen</h1>
+      {children}
+    </>
+  );
 }

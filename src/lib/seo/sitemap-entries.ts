@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { listGuideRoutes } from '@/lib/learn/routes';
+import { listGuideRoutes, listPublishedCourses } from '@/lib/learn/routes';
 
 import { getPublicCourseTree } from './course-lookup';
 import { absoluteUrl } from './urls';
@@ -27,6 +27,11 @@ export interface SitemapCandidate {
   lessonCount?: number;
   /** Guides only. The `/learn/[course]/[guide]` segment. */
   guideSlug?: string;
+  /**
+   * ISO date (`YYYY-MM-DD`) of the last meaningful change to what this URL
+   * renders. Absent when nothing records one; see `buildSitemapEntries`.
+   */
+  lastModified?: string;
   changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'];
   priority: number;
 }
@@ -45,14 +50,21 @@ export type IndexabilityPredicate = (candidate: SitemapCandidate) => boolean;
 /** Default predicate: everything the tree produces is eligible. */
 export const allowAllUrls: IndexabilityPredicate = () => true;
 
-/** Marketing and legal pages that exist regardless of course content. */
+/**
+ * Marketing and legal pages that exist regardless of course content.
+ *
+ * A sitemap asks Google to index every URL in it, so nothing serving `noindex`
+ * belongs here. That rules out the auth routes, which are `noindex, nofollow`
+ * and were producing "Submitted URL marked noindex" errors in Search Console,
+ * and `/try`, which is `noindex, follow` for the reasons in
+ * `src/app/try/layout.tsx`. All of them stay linked from the marketing pages,
+ * which is all a crawler needs.
+ */
 const STATIC_PAGES: { path: string; changeFrequency: SitemapCandidate['changeFrequency']; priority: number }[] = [
   { path: '/', changeFrequency: 'weekly', priority: 1 },
   { path: '/learn', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/get-started', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/pricing', changeFrequency: 'monthly', priority: 0.9 },
-  { path: '/login', changeFrequency: 'monthly', priority: 0.7 },
-  { path: '/register', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/contact', changeFrequency: 'yearly', priority: 0.5 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.3 },
   { path: '/terms', changeFrequency: 'yearly', priority: 0.3 },
@@ -76,17 +88,37 @@ function staticCandidates(): SitemapCandidate[] {
 }
 
 /**
+ * Newest content date per course id. A course page renders its editorial copy
+ * and a card per guide, so a change to either changes the page. `YYYY-MM-DD`
+ * sorts as a string, so "newest" is a plain comparison. Courses with no
+ * editorial copy are absent and go out without a `lastmod`.
+ */
+function courseContentDates(): Map<string, string> {
+  const dates = new Map<string, string>();
+  const record = (courseId: string, updated: string): void => {
+    const current = dates.get(courseId);
+    if (!current || updated > current) dates.set(courseId, updated);
+  };
+
+  for (const { course, intro } of listPublishedCourses()) record(course.courseId, intro.updated);
+  for (const { course, guide } of listGuideRoutes()) record(course.courseId, guide.updated);
+  return dates;
+}
+
+/**
  * Courses flagged `requiresAccess` never appear: `getPublicCourseTree` filters
  * them out, so gated content such as mechanical engineering cannot leak into
  * the sitemap by accident.
  */
 function courseCandidates(): SitemapCandidate[] {
+  const dates = courseContentDates();
   return getPublicCourseTree().flatMap(course => [
     {
       kind: 'course' as const,
       path: course.path,
       url: absoluteUrl(course.path),
       courseId: course.courseId,
+      lastModified: dates.get(course.courseId),
       changeFrequency: 'weekly' as const,
       priority: COURSE_PRIORITY,
     },
@@ -129,6 +161,7 @@ function guideCandidates(): SitemapCandidate[] {
     url: absoluteUrl(path),
     courseId: course.courseId,
     guideSlug: guide.slug,
+    lastModified: guide.updated,
     changeFrequency: 'monthly' as const,
     priority: GUIDE_PRIORITY,
   }));
@@ -141,17 +174,25 @@ export function buildSitemapCandidates(): SitemapCandidate[] {
 
 export interface SitemapOptions {
   isIndexable?: IndexabilityPredicate;
-  /** Injected in tests so the generated XML is deterministic. */
-  lastModified?: Date;
 }
 
+/**
+ * `lastmod` is emitted only where a real content date exists.
+ *
+ * It used to be one `new Date()` shared by every URL, so every page claimed to
+ * change on every deploy, and Google ignores `lastmod` it cannot trust. Content
+ * URLs now carry the date their copy was last rewritten. Marketing and legal
+ * pages record no date anywhere and so carry none: an absent `lastmod` is an
+ * honest "no claim", while a fabricated one teaches the crawler to discount the
+ * field sitewide.
+ */
 export function buildSitemapEntries(options: SitemapOptions = {}): MetadataRoute.Sitemap {
-  const { isIndexable = allowAllUrls, lastModified = new Date() } = options;
+  const { isIndexable = allowAllUrls } = options;
   return buildSitemapCandidates()
     .filter(isIndexable)
     .map(candidate => ({
       url: candidate.url,
-      lastModified,
+      ...(candidate.lastModified ? { lastModified: candidate.lastModified } : {}),
       changeFrequency: candidate.changeFrequency,
       priority: candidate.priority,
     }));
