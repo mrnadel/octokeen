@@ -1,6 +1,6 @@
 // Service worker for Octokeen PWA + Push Notifications + Offline Support
 
-const CACHE_NAME = 'octokeen-v1';
+const CACHE_NAME = 'octokeen-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to pre-cache on install
@@ -51,12 +51,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets: cache-first
+  // Immutable media: cache-first. Never CSS or JS — their content can change
+  // behind a stable URL (Turbopack dev chunks), and a stale stylesheet silently
+  // drops any utility class added since the response was cached.
   if (
     request.destination === 'image' ||
     request.destination === 'font' ||
-    request.destination === 'style' ||
-    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|ico|woff2?|css)$/)
+    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|ico|woff2?)$/)
   ) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -81,7 +82,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // JS and other assets: network-first with cache fallback
+  // CSS, JS and everything else: network-first, cache only as an offline fallback
   event.respondWith(
     fetch(request)
       .then((response) => {
