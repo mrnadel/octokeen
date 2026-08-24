@@ -33,6 +33,9 @@
  * Where a numeric threshold is used, its source is named in a comment. Nothing
  * here invents a number and calls it a Google requirement.
  *
+ * The run ends with a score out of 100 computed from `CHECK_REGISTRY`. See the
+ * "Scoring" section below for the model and the three anti-gaming guards.
+ *
  * Deviates from the 150-line cap in `docs/rules/code.md`, as
  * `scripts/seo-index-audit.ts` already does: a single-file CLI is the unit of
  * delivery for a script that is run, not imported.
@@ -625,6 +628,9 @@ function checkSocialCard(page: AuditedPage, facts: PageFacts, findings: Finding[
 }
 
 function checkWordCount(page: AuditedPage, facts: PageFacts, findings: Finding[]): void {
+  // Thin content is a judgement Google makes about pages it indexes. A noindex
+  // page is never judged, so its word count is not a finding.
+  if (isNoIndex(facts)) return;
   if (facts.wordCount < MIN_PAGE_WORDS) {
     findings.push({
       severity: 'best-practice',
@@ -869,12 +875,16 @@ function checkUniqueness(pages: AuditedPage[], findings: Finding[]): void {
     }
     for (const [value, urls] of seen) {
       if (urls.length < 2) continue;
-      findings.push({
-        severity: 'defect',
-        code,
-        url: urls[0],
-        message: `Duplicate ${label} ${JSON.stringify(value.slice(0, 70))} shared by ${urls.length} URLs: ${urls.join(', ')}`,
-      });
+      // One finding per URL in the group, not one per group: the scorer counts
+      // failing subjects, and a 4-way collision is four pages with a problem.
+      for (const url of urls) {
+        findings.push({
+          severity: 'defect',
+          code,
+          url,
+          message: `Duplicate ${label} ${JSON.stringify(value.slice(0, 70))} shared with ${urls.length - 1} other URL(s): ${urls.filter(other => other !== url).join(', ')}`,
+        });
+      }
     }
   };
 
@@ -1072,6 +1082,11 @@ async function buildRenderedReachability(
  * best-practice miss: Googlebot renders, but discovery is slower and every
  * non-rendering crawler misses the page entirely.
  */
+/** True when the page tells crawlers not to index it. */
+function isNoIndex(facts: PageFacts | null): boolean {
+  return facts !== null && facts.robotsMeta !== null && /noindex/i.test(facts.robotsMeta);
+}
+
 function checkOrphans(
   pages: AuditedPage[],
   graph: LinkGraph,
@@ -1082,6 +1097,11 @@ function checkOrphans(
   for (const page of pages) {
     const normalized = normalizeUrl(page.url, origin);
     if (!normalized) continue;
+    // Internal linking exists to get a page crawled and to pass equity to it.
+    // A noindex page wants neither, so an orphan finding against one is noise.
+    // This is not an escape hatch: adding noindex to dodge these two checks
+    // trips SITEMAP_NOINDEX at weight 9, which costs far more than it saves.
+    if (isNoIndex(page.facts)) continue;
     const rawOk = graph.reachable.has(normalized);
     const renderedOk = renderedReachable === null ? rawOk : renderedReachable.has(normalized);
 
@@ -1135,7 +1155,8 @@ function checkHomepageEntities(pages: AuditedPage[], origin: string, findings: F
   }
 }
 
-async function checkLinkTargets(graph: LinkGraph, findings: Finding[]): Promise<void> {
+/** Returns how many link targets were tested, which is the scoring population. */
+async function checkLinkTargets(graph: LinkGraph, findings: Finding[]): Promise<number> {
   const targets = [...graph.inbound.keys()];
   const results = await mapPool(targets, REQUEST_CONCURRENCY, async target => ({
     target,
@@ -1177,6 +1198,8 @@ async function checkLinkTargets(graph: LinkGraph, findings: Finding[]): Promise<
       });
     }
   }
+
+  return targets.length;
 }
 
 // ─── robots.txt ────────────────────────────────────────────
@@ -1293,7 +1316,7 @@ async function checkRobotsTxt(
       severity: 'info',
       code: 'ROBOTS_BLOCKED_AGENTS',
       url: `${origin}/robots.txt`,
-      message: `Fully blocked user agents: ${blockedAgents.join(', ')}. Confirm each is intended; blocking answer-engine crawlers removes the site from AI answers.`,
+      message: `Fully blocked user agents, read live from robots.txt: ${blockedAgents.join(', ')}. Blocking training crawlers is a recorded owner decision (see the comments in src/app/robots.ts), so this is reported for visibility and scored at zero. Worth re-reading only if a listed agent turns out to be a search or user-initiated fetcher rather than a training crawler.`,
       file: 'src/app/robots.ts',
     });
   }
@@ -1301,14 +1324,24 @@ async function checkRobotsTxt(
 
 // ─── Images ────────────────────────────────────────────────
 
-async function checkImages(pages: AuditedPage[], origin: string, findings: Finding[]): Promise<void> {
+/**
+ * Returns both scoring populations: `elements` is every `<img>` occurrence
+ * across the crawl, `assets` is the distinct same-origin files behind them.
+ */
+async function checkImages(
+  pages: AuditedPage[],
+  origin: string,
+  findings: Finding[]
+): Promise<{ elements: number; assets: number }> {
   const seen = new Set<string>();
   const toWeigh: { url: string; page: string }[] = [];
+  let elements = 0;
 
   for (const page of pages) {
     if (!page.facts) continue;
     for (const image of page.facts.images) {
       if (!image.src) continue;
+      elements++;
       if (image.alt === null) {
         findings.push({
           severity: 'defect',
@@ -1355,6 +1388,105 @@ async function checkImages(pages: AuditedPage[], origin: string, findings: Findi
         code: 'IMG_OVERSIZED',
         url: item.page,
         message: `Image ${item.url} is ${(bytes / 1024).toFixed(0)} KB, over the ${LARGE_IMAGE_BYTES / 1024} KB working budget. No Google limit exists; this is an LCP cost.`,
+      });
+    }
+  }
+
+  return { elements, assets: toWeigh.length };
+}
+
+// ─── Organization logo ─────────────────────────────────────
+
+/**
+ * Google's logo guidelines require the image to be at least 112x112 px and
+ * crawlable. developers.google.com/search/docs/appearance/structured-data/logo
+ */
+const MIN_LOGO_PX = 112;
+
+/** Reads intrinsic dimensions for the two formats this project ships. */
+function imageDimensions(bytes: Buffer): { width: number; height: number } | null {
+  const isPng = bytes.length > 24 && bytes.toString('latin1', 1, 4) === 'PNG';
+  if (isPng) return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+
+  const svg = bytes.toString('utf8', 0, 2048);
+  if (!svg.includes('<svg')) return null;
+  const explicit = /width="(\d+(?:\.\d+)?)"[^>]*height="(\d+(?:\.\d+)?)"/.exec(svg);
+  if (explicit) return { width: Number(explicit[1]), height: Number(explicit[2]) };
+  const viewBox = /viewBox="[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)"/.exec(svg);
+  if (viewBox) return { width: Number(viewBox[1]), height: Number(viewBox[2]) };
+  return null;
+}
+
+function collectLogoUrls(pages: AuditedPage[]): Map<string, string> {
+  const logos = new Map<string, string>();
+  for (const page of pages) {
+    for (const block of page.facts?.jsonLd ?? []) {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(block);
+      } catch {
+        continue;
+      }
+      for (const node of collectNodes(parsed)) {
+        if (node['@type'] !== 'Organization') continue;
+        const logo = node.logo;
+        const url =
+          typeof logo === 'string'
+            ? logo
+            : isRecord(logo) && typeof logo.url === 'string'
+              ? logo.url
+              : null;
+        if (url && !logos.has(url)) logos.set(url, page.url);
+      }
+    }
+  }
+  return logos;
+}
+
+async function checkOrganizationLogo(pages: AuditedPage[], findings: Finding[]): Promise<void> {
+  for (const [logoUrl, pageUrl] of collectLogoUrls(pages)) {
+    let bytes: Buffer;
+    try {
+      const response = await fetch(logoUrl, { headers: { 'user-agent': USER_AGENT } });
+      if (!response.ok) {
+        findings.push({
+          severity: 'defect',
+          code: 'LOGO_UNREACHABLE',
+          url: pageUrl,
+          message: `Organization logo ${logoUrl} returned ${response.status}. Google requires it to be crawlable.`,
+          file: 'src/app/layout.tsx',
+        });
+        continue;
+      }
+      bytes = Buffer.from(await response.arrayBuffer());
+    } catch (err) {
+      findings.push({
+        severity: 'defect',
+        code: 'LOGO_UNREACHABLE',
+        url: pageUrl,
+        message: `Organization logo ${logoUrl} could not be fetched: ${err instanceof Error ? err.message : String(err)}`,
+        file: 'src/app/layout.tsx',
+      });
+      continue;
+    }
+
+    const size = imageDimensions(bytes);
+    if (!size) {
+      findings.push({
+        severity: 'info',
+        code: 'LOGO_UNMEASURED',
+        url: pageUrl,
+        message: `Could not read intrinsic dimensions of ${logoUrl}. Confirm by hand that it is at least ${MIN_LOGO_PX}x${MIN_LOGO_PX} px.`,
+      });
+      continue;
+    }
+    if (size.width < MIN_LOGO_PX || size.height < MIN_LOGO_PX) {
+      findings.push({
+        severity: 'defect',
+        code: 'LOGO_TOO_SMALL',
+        url: pageUrl,
+        message: `Organization logo ${logoUrl} is ${size.width}x${size.height}, under Google's documented ${MIN_LOGO_PX}x${MIN_LOGO_PX} minimum.`,
+        file: 'src/app/layout.tsx',
       });
     }
   }
@@ -1638,6 +1770,427 @@ function checkMetrics(metrics: PageMetrics[], findings: Finding[]): void {
   }
 }
 
+// ─── Scoring ───────────────────────────────────────────────
+
+/**
+ * The score is `100 * earned / available`, where every registered check
+ * contributes `weight * (subjectsPassing / subjectsEvaluated)`.
+ *
+ * Partial credit per check, not per finding, so the number does not depend on
+ * how many URLs the site happens to have. A check that passes on 21 of 25 URLs
+ * earns 84% of its weight whether the site has 25 pages or 2,500.
+ *
+ * Partial credit has one exception, the dilution floor: on a check weighted
+ * `SEVERE_WEIGHT` or above, any failure at all forfeits at least half the
+ * weight. Otherwise publishing more clean pages around an unfixed
+ * canonicalization bug would raise the score on its own.
+ *
+ * WHAT THE WEIGHTS MEAN. They are a judgement about how much each property
+ * plausibly affects search performance, banded roughly as:
+ *
+ *   9-10  Decides whether the URL can be indexed at all, or which URL is.
+ *   5-8   Decides how well an indexed URL performs, or breaks a documented
+ *         Google requirement.
+ *   2-4   A real but secondary effect: Core Web Vitals, structured data
+ *         eligibility, accessibility properties Google is known to read.
+ *   1     Hygiene. Correct to fix, near-zero measurable search effect.
+ *   0     Preference or information. Costs nothing; a 100 is reachable with
+ *         these outstanding, because they are decisions, not defects.
+ *
+ * These are calibrated on plausible search impact ONLY. Difficulty of fixing
+ * is deliberately not an input: an expensive problem costs the same as a cheap
+ * one of equal consequence. They remain a judgement call, and reasonable people
+ * would move several of them by a point or two. Every one carries its
+ * justification on the same line so a disagreement is arguable rather than
+ * mysterious.
+ *
+ * THREE GUARDS AGAINST RAISING THE SCORE WITHOUT FIXING ANYTHING:
+ *
+ * 1. A finding whose code is not in the registry aborts the run with exit 2.
+ *    A new check cannot be added that costs nothing.
+ * 2. A registered code whose owning check did not run scores ZERO, not full
+ *    marks. Deleting a check lowers the score instead of raising it.
+ * 3. `EXPECTED_TOTAL_WEIGHT` is asserted against the registry sum. Removing an
+ *    entry, or quietly lowering a weight, aborts the run until someone edits
+ *    that constant, which is a one-line diff that cannot be missed in review.
+ *
+ * Skipping a pass with `--no-metrics` or `--no-render` marks the score PARTIAL
+ * and always exits non-zero, so a flag cannot be used to dodge a category.
+ */
+
+type CheckCategory =
+  | 'Indexability'
+  | 'Canonicalization'
+  | 'Metadata'
+  | 'Content'
+  | 'Structured data'
+  | 'Links & crawl'
+  | 'Media'
+  | 'Performance'
+  | 'Sitemap & robots';
+
+/** Which population a check is scored against. */
+type CheckScope = 'page' | 'site' | 'link' | 'image' | 'imageAsset' | 'metric';
+
+interface CheckSpec {
+  category: CheckCategory;
+  weight: number;
+  scope: CheckScope;
+  /** Why this weight. Kept on one line so the table reads as an argument. */
+  why: string;
+}
+
+const CHECK_REGISTRY: Record<string, CheckSpec> = {
+  // ── Indexability: can this URL enter the index at all ──
+  HTTP_ERROR: { category: 'Indexability', weight: 10, scope: 'page', why: 'A URL that does not respond cannot be indexed.' },
+  SITEMAP_NON_200: { category: 'Indexability', weight: 10, scope: 'page', why: 'Google drops non-200 sitemap URLs and reports them as errors.' },
+  ROBOTS_BLOCKS_SITEMAP_URL: { category: 'Indexability', weight: 10, scope: 'page', why: 'Disallowed means never crawled, so nothing else about the page matters.' },
+  SITEMAP_NOINDEX: { category: 'Indexability', weight: 9, scope: 'page', why: 'Submitting a noindex URL guarantees a Search Console error and no index entry.' },
+  HEADER_NOINDEX: { category: 'Indexability', weight: 9, scope: 'page', why: 'Same effect as a noindex meta, and harder to notice.' },
+  ORIGIN_DUPLICATE: { category: 'Indexability', weight: 7, scope: 'site', why: 'A second reachable origin splits every signal the site has.' },
+  SITEMAP_REDIRECT: { category: 'Indexability', weight: 6, scope: 'page', why: 'Google indexes the target, so the advertised URL never enters the index.' },
+  NO_VIEWPORT: { category: 'Indexability', weight: 5, scope: 'page', why: 'Google indexes mobile-first; no viewport reads as not mobile-friendly.' },
+  SOFT_404: { category: 'Indexability', weight: 4, scope: 'site', why: 'Wastes crawl budget and can pull junk URLs into the index.' },
+  NOT_FOUND_STATUS: { category: 'Indexability', weight: 2, scope: 'site', why: 'A wrong status on unknown paths confuses crawl scheduling.' },
+  NO_LANG: { category: 'Indexability', weight: 2, scope: 'page', why: 'WCAG 2.2 SC 3.1.1 Level A; a weak signal for language targeting.' },
+  NO_CHARSET: { category: 'Indexability', weight: 2, scope: 'page', why: 'HTML spec requirement; wrong decoding corrupts the indexed text.' },
+
+  // ── Canonicalization: which URL gets indexed ──
+  CANONICAL_MISMATCH: { category: 'Canonicalization', weight: 10, scope: 'page', why: 'Points Google at a different URL, so this one is dropped outright.' },
+  MULTIPLE_CANONICAL: { category: 'Canonicalization', weight: 5, scope: 'page', why: 'Conflicting canonicals make Google ignore all of them and guess.' },
+  NO_CANONICAL: { category: 'Canonicalization', weight: 4, scope: 'page', why: 'Google guesses, usually right, but the signal is free to give.' },
+  CANONICAL_RELATIVE: { category: 'Canonicalization', weight: 1, scope: 'page', why: 'Google resolves it; absolute is only the documented recommendation.' },
+
+  // ── Metadata ──
+  NO_TITLE: { category: 'Metadata', weight: 8, scope: 'page', why: 'The title is the strongest on-page relevance signal Google reads.' },
+  DUPLICATE_TITLE: { category: 'Metadata', weight: 6, scope: 'page', why: 'Identical titles invite Google to treat the pages as one.' },
+  MULTIPLE_TITLE: { category: 'Metadata', weight: 3, scope: 'page', why: 'HTML allows one; which one Google reads is not defined.' },
+  DUPLICATE_DESCRIPTION: { category: 'Metadata', weight: 3, scope: 'page', why: 'Not a ranking factor, but a duplication signal alongside the title.' },
+  MULTIPLE_DESCRIPTION: { category: 'Metadata', weight: 2, scope: 'page', why: 'Google picks one arbitrarily, so the snippet becomes unpredictable.' },
+  NO_DESCRIPTION: { category: 'Metadata', weight: 2, scope: 'page', why: 'Not a ranking factor; Google writes the snippet instead, usually worse.' },
+  TITLE_TOO_LONG: { category: 'Metadata', weight: 1, scope: 'page', why: 'Truncation costs clicks, not rank. Google publishes no character limit.' },
+  DESCRIPTION_TOO_LONG: { category: 'Metadata', weight: 1, scope: 'page', why: 'Same: a snippet display issue, not a ranking one.' },
+  DESCRIPTION_TOO_SHORT: { category: 'Metadata', weight: 1, scope: 'page', why: 'No Google minimum exists; short descriptions get rewritten more often.' },
+  OG_INCOMPLETE: { category: 'Metadata', weight: 1, scope: 'page', why: 'Controls the share card. No effect on Search ranking whatsoever.' },
+  OG_IMAGE_RELATIVE: { category: 'Metadata', weight: 1, scope: 'page', why: 'Breaks the card on crawlers that require an absolute URL.' },
+  TWITTER_CARD_MISSING: { category: 'Metadata', weight: 1, scope: 'page', why: 'X falls back to Open Graph, so the card still renders, just smaller.' },
+  OG_IMAGE_NO_ALT: { category: 'Metadata', weight: 0, scope: 'page', why: 'Screen readers on social platforms only. A preference, not a defect.' },
+
+  // ── Content ──
+  NEAR_DUPLICATE_BODY: { category: 'Content', weight: 8, scope: 'page', why: 'Google picks one page and drops the other from the index.' },
+  THIN_CONTENT: { category: 'Content', weight: 5, scope: 'page', why: 'Mass-published thin pages are what the helpful-content system demotes.' },
+  NO_H1: { category: 'Content', weight: 3, scope: 'page', why: 'A real but modest relevance signal, and an accessibility landmark.' },
+  EMPTY_H1: { category: 'Content', weight: 2, scope: 'page', why: 'Same as missing, with the added risk of looking deliberate.' },
+  DUPLICATE_H1: { category: 'Content', weight: 2, scope: 'page', why: 'Reinforces a duplication read across otherwise distinct pages.' },
+  MULTIPLE_H1: { category: 'Content', weight: 1, scope: 'page', why: 'Google has stated repeatedly that multiple h1s are fine. Convention only.' },
+  HEADING_SKIP: { category: 'Content', weight: 1, scope: 'page', why: 'WCAG 1.3.1. No evidence Google ranks on heading-level continuity.' },
+
+  // ── Structured data ──
+  JSONLD_PARSE_FAIL: { category: 'Structured data', weight: 4, scope: 'page', why: 'Unparseable markup is ignored entirely, so no rich result is possible.' },
+  JSONLD_CONTENT_MISMATCH: { category: 'Structured data', weight: 4, scope: 'page', why: 'Marking up content not on the page violates the structured-data guidelines and risks a manual action.' },
+  JSONLD_NO_CONTEXT: { category: 'Structured data', weight: 3, scope: 'page', why: 'Google ignores nodes without @context, so the block does nothing.' },
+  JSONLD_MISSING_REQUIRED: { category: 'Structured data', weight: 3, scope: 'page', why: 'A documented Google requirement; the type becomes ineligible.' },
+  LOGO_UNREACHABLE: { category: 'Structured data', weight: 2, scope: 'site', why: 'Google requires the logo to be crawlable or the property is dropped.' },
+  JSONLD_MISSING_RECOMMENDED: { category: 'Structured data', weight: 1, scope: 'page', why: 'Recommended, not required. Improves eligibility odds, does not gate them.' },
+  JSONLD_DANGLING_ID: { category: 'Structured data', weight: 1, scope: 'page', why: 'The graph is still valid; the reference simply resolves to nothing.' },
+  NO_WEBSITE_ENTITY: { category: 'Structured data', weight: 1, scope: 'site', why: 'Feeds the site name shown in results. Google infers one either way.' },
+  LOGO_TOO_SMALL: { category: 'Structured data', weight: 1, scope: 'site', why: 'Below the documented 112x112 minimum the logo is not used.' },
+  JSONLD_UNSUBSTANTIATED: { category: 'Structured data', weight: 0, scope: 'page', why: 'Needs a human to confirm the data exists. Not automatically wrong.' },
+  LOGO_UNMEASURED: { category: 'Structured data', weight: 0, scope: 'site', why: 'A limitation of this harness, not a property of the site.' },
+
+  // ── Links and crawlability ──
+  ORPHAN: { category: 'Links & crawl', weight: 6, scope: 'page', why: 'No internal links means no internal link equity and slow discovery.' },
+  LINK_BROKEN: { category: 'Links & crawl', weight: 5, scope: 'link', why: 'Wastes crawl budget and dead-ends users.' },
+  LINK_ERROR: { category: 'Links & crawl', weight: 4, scope: 'link', why: 'Same effect as broken, with an unknown cause.' },
+  ORPHAN_WITHOUT_JS: { category: 'Links & crawl', weight: 2, scope: 'page', why: 'Googlebot renders, so it is found; non-rendering crawlers are not.' },
+  LINK_CHAIN: { category: 'Links & crawl', weight: 2, scope: 'link', why: 'Multi-hop redirects lose crawl budget and can be abandoned.' },
+  LINK_REDIRECT: { category: 'Links & crawl', weight: 1, scope: 'link', why: 'A single hop is followed and consolidated. Tidiness, mostly.' },
+
+  // ── Media ──
+  IMG_NO_ALT: { category: 'Media', weight: 2, scope: 'image', why: 'WCAG 1.1.1 Level A, and the only text Google Images has to work with.' },
+  IMG_BROKEN: { category: 'Media', weight: 2, scope: 'imageAsset', why: 'A missing image is a visible defect and a wasted request.' },
+  IMG_NO_DIMENSIONS: { category: 'Media', weight: 1, scope: 'image', why: 'The usual cause of layout shift, which is already scored via CLS.' },
+  IMG_OVERSIZED: { category: 'Media', weight: 1, scope: 'imageAsset', why: 'An LCP cost, already scored via LCP. No Google size limit exists.' },
+
+  // ── Performance ──
+  LCP_POOR: { category: 'Performance', weight: 4, scope: 'metric', why: 'A confirmed Core Web Vital, though a small ranking input next to relevance.' },
+  CLS_POOR: { category: 'Performance', weight: 4, scope: 'metric', why: 'Same standing as LCP among the Core Web Vitals.' },
+  LCP_NEEDS_WORK: { category: 'Performance', weight: 2, scope: 'metric', why: 'Between good and poor; worth points, but fewer.' },
+  CLS_NEEDS_WORK: { category: 'Performance', weight: 2, scope: 'metric', why: 'Between good and poor; worth points, but fewer.' },
+  TBT_POOR: { category: 'Performance', weight: 2, scope: 'metric', why: 'A lab proxy for INP, which is the actual vital. Indirect by construction.' },
+  TBT_NEEDS_WORK: { category: 'Performance', weight: 1, scope: 'metric', why: 'Same, one band down.' },
+  RENDER_BLOCKING: { category: 'Performance', weight: 1, scope: 'metric', why: 'A cause of poor LCP, which is scored directly. Counting it twice would double-charge.' },
+  METRICS_FAILED: { category: 'Performance', weight: 0, scope: 'metric', why: 'A harness failure, not a site property.' },
+
+  // ── Sitemap and robots ──
+  ROBOTS_MISSING: { category: 'Sitemap & robots', weight: 6, scope: 'site', why: 'No robots.txt removes control over crawling and sitemap discovery.' },
+  ROBOTS_NO_WILDCARD: { category: 'Sitemap & robots', weight: 1, scope: 'site', why: 'Unlisted crawlers are unconstrained, which is usually what is wanted.' },
+  ROBOTS_NO_SITEMAP: { category: 'Sitemap & robots', weight: 1, scope: 'site', why: 'Search Console submission covers this; the line is a convenience.' },
+  SITEMAP_LASTMOD_UNIFORM: { category: 'Sitemap & robots', weight: 1, scope: 'site', why: 'Google ignores lastmod it cannot trust, so the field is simply inert.' },
+  SITEMAP_INERT_HINTS: { category: 'Sitemap & robots', weight: 0, scope: 'site', why: 'Google has said it ignores changefreq and priority. Harmless.' },
+  ROBOTS_BLOCKED_AGENTS: { category: 'Sitemap & robots', weight: 0, scope: 'site', why: 'Blocking AI crawlers is an owner decision, not a defect.' },
+  ORIGIN_VARIANT_UNRESOLVED: { category: 'Sitemap & robots', weight: 0, scope: 'site', why: 'A DNS record that does not exist is nothing to fix.' },
+};
+
+/**
+ * Guard 3. Asserted against the registry sum on every run. Lowering a weight or
+ * deleting an entry to raise the score also breaks this, and the fix is a
+ * one-line diff that a reviewer cannot miss.
+ */
+const EXPECTED_TOTAL_WEIGHT = 219;
+
+/**
+ * Checks at or above this weight are the ones that decide whether a URL is
+ * indexable or which URL is canonical. Any failure on one of them forfeits at
+ * least `SEVERE_MIN_PENALTY` of its weight regardless of how few pages are
+ * affected, so the score cannot be raised by publishing more clean pages
+ * around an unfixed problem.
+ */
+const SEVERE_WEIGHT = 5;
+const SEVERE_MIN_PENALTY = 0.5;
+
+/**
+ * Guard 2. Which check function owns which codes. A registered code whose owner
+ * did not run is scored as a total failure, so removing a check costs its full
+ * weight rather than awarding it.
+ */
+const CHECK_OWNERS: Record<string, readonly string[]> = {
+  checkResponse: ['HTTP_ERROR', 'SITEMAP_REDIRECT', 'SITEMAP_NON_200', 'HEADER_NOINDEX'],
+  checkDocumentBasics: ['NO_LANG', 'NO_CHARSET', 'NO_VIEWPORT'],
+  checkTitle: ['NO_TITLE', 'MULTIPLE_TITLE', 'TITLE_TOO_LONG'],
+  checkDescription: ['NO_DESCRIPTION', 'MULTIPLE_DESCRIPTION', 'DESCRIPTION_TOO_LONG', 'DESCRIPTION_TOO_SHORT'],
+  checkCanonical: ['NO_CANONICAL', 'MULTIPLE_CANONICAL', 'CANONICAL_RELATIVE', 'CANONICAL_MISMATCH'],
+  checkRobotsMeta: ['SITEMAP_NOINDEX'],
+  checkHeadings: ['NO_H1', 'EMPTY_H1', 'MULTIPLE_H1', 'HEADING_SKIP'],
+  checkSocialCard: ['OG_INCOMPLETE', 'OG_IMAGE_RELATIVE', 'TWITTER_CARD_MISSING', 'OG_IMAGE_NO_ALT'],
+  checkWordCount: ['THIN_CONTENT'],
+  checkStructuredData: [
+    'JSONLD_PARSE_FAIL',
+    'JSONLD_NO_CONTEXT',
+    'JSONLD_MISSING_REQUIRED',
+    'JSONLD_MISSING_RECOMMENDED',
+    'JSONLD_DANGLING_ID',
+    'JSONLD_UNSUBSTANTIATED',
+  ],
+  checkStructuredDataVisibility: ['JSONLD_CONTENT_MISMATCH'],
+  checkUniqueness: ['DUPLICATE_TITLE', 'DUPLICATE_DESCRIPTION', 'DUPLICATE_H1'],
+  checkNearDuplicateBodies: ['NEAR_DUPLICATE_BODY'],
+  checkRobotsTxt: ['ROBOTS_MISSING', 'ROBOTS_NO_WILDCARD', 'ROBOTS_NO_SITEMAP', 'ROBOTS_BLOCKS_SITEMAP_URL', 'ROBOTS_BLOCKED_AGENTS'],
+  checkOriginHygiene: ['ORIGIN_DUPLICATE', 'ORIGIN_VARIANT_UNRESOLVED', 'SOFT_404', 'NOT_FOUND_STATUS'],
+  checkOrganizationLogo: ['LOGO_TOO_SMALL', 'LOGO_UNREACHABLE', 'LOGO_UNMEASURED'],
+  checkImages: ['IMG_NO_ALT', 'IMG_NO_DIMENSIONS', 'IMG_OVERSIZED', 'IMG_BROKEN'],
+  checkOrphans: ['ORPHAN', 'ORPHAN_WITHOUT_JS'],
+  checkLinkTargets: ['LINK_BROKEN', 'LINK_ERROR', 'LINK_CHAIN', 'LINK_REDIRECT'],
+  checkHomepageEntities: ['NO_WEBSITE_ENTITY'],
+  checkSitemapHints: ['SITEMAP_LASTMOD_UNIFORM', 'SITEMAP_INERT_HINTS'],
+  checkMetrics: [
+    'LCP_POOR',
+    'LCP_NEEDS_WORK',
+    'CLS_POOR',
+    'CLS_NEEDS_WORK',
+    'TBT_POOR',
+    'TBT_NEEDS_WORK',
+    'RENDER_BLOCKING',
+    'METRICS_FAILED',
+  ],
+};
+
+/** Populations each scope is scored against, counted during the run. */
+interface ScorePopulations {
+  page: number;
+  site: number;
+  link: number;
+  image: number;
+  imageAsset: number;
+  metric: number;
+}
+
+interface CheckScore {
+  code: string;
+  spec: CheckSpec;
+  evaluated: boolean;
+  population: number;
+  failures: number;
+  earned: number;
+  available: number;
+}
+
+interface Scorecard {
+  score: number;
+  earned: number;
+  available: number;
+  partial: boolean;
+  skipped: string[];
+  checks: CheckScore[];
+}
+
+/** Distinct failing subjects for a code. Page-scoped codes dedupe by URL. */
+function countFailures(findings: Finding[], code: string, scope: CheckScope): number {
+  const matching = findings.filter(finding => finding.code === code);
+  if (scope === 'page' || scope === 'site' || scope === 'metric') {
+    return new Set(matching.map(finding => finding.url)).size;
+  }
+  return matching.length;
+}
+
+function scoreOne(
+  code: string,
+  spec: CheckSpec,
+  findings: Finding[],
+  populations: ScorePopulations,
+  ran: Set<string>
+): CheckScore {
+  const population = populations[spec.scope];
+  const evaluated = ran.has(code);
+
+  // Not evaluated scores zero rather than full marks. Deleting a check is a
+  // penalty, not a shortcut.
+  if (!evaluated) {
+    return { code, spec, evaluated: false, population, failures: 0, earned: 0, available: spec.weight };
+  }
+  // Nothing to measure. Excluded from both sides so an absent population
+  // neither earns nor costs points; the report lists it as N/A.
+  if (population === 0) {
+    return { code, spec, evaluated: true, population: 0, failures: 0, earned: 0, available: 0 };
+  }
+
+  const failures = Math.min(countFailures(findings, code, spec.scope), population);
+  const linear = spec.weight * (1 - failures / population);
+
+  // Dilution floor. Without it, publishing more clean pages raises the score
+  // without fixing anything: four broken canonicals out of 25 pages costs 1.6
+  // points, and out of 250 pages costs 0.16. For checks that decide whether a
+  // URL can be indexed at all, any failure costs at least half the weight.
+  const capped =
+    failures > 0 && spec.weight >= SEVERE_WEIGHT
+      ? Math.min(linear, spec.weight * (1 - SEVERE_MIN_PENALTY))
+      : linear;
+
+  return { code, spec, evaluated: true, population, failures, earned: capped, available: spec.weight };
+}
+
+/**
+ * Guard 1 and guard 3 run here. An unregistered finding code or a registry that
+ * no longer sums to `EXPECTED_TOTAL_WEIGHT` throws, and `main` exits 2.
+ */
+function buildScorecard(
+  findings: Finding[],
+  populations: ScorePopulations,
+  ran: Set<string>,
+  skipped: string[]
+): Scorecard {
+  const registrySum = Object.values(CHECK_REGISTRY).reduce((sum, spec) => sum + spec.weight, 0);
+  if (registrySum !== EXPECTED_TOTAL_WEIGHT) {
+    throw new Error(
+      `CHECK_REGISTRY sums to ${registrySum} but EXPECTED_TOTAL_WEIGHT is ${EXPECTED_TOTAL_WEIGHT}. ` +
+        'A check was added, removed or reweighted. Update the constant deliberately.'
+    );
+  }
+
+  const unregistered = [...new Set(findings.map(finding => finding.code))].filter(
+    code => !CHECK_REGISTRY[code]
+  );
+  if (unregistered.length > 0) {
+    throw new Error(
+      `Findings emitted with unregistered codes: ${unregistered.join(', ')}. ` +
+        'Add them to CHECK_REGISTRY and CHECK_OWNERS with a weight before they can be reported.'
+    );
+  }
+
+  const checks = Object.entries(CHECK_REGISTRY).map(([code, spec]) =>
+    scoreOne(code, spec, findings, populations, ran)
+  );
+  const earned = checks.reduce((sum, check) => sum + check.earned, 0);
+  const available = checks.reduce((sum, check) => sum + check.available, 0);
+
+  return {
+    score: available === 0 ? 0 : (100 * earned) / available,
+    earned,
+    available,
+    partial: skipped.length > 0,
+    skipped,
+    checks,
+  };
+}
+
+function categoryTotals(scorecard: Scorecard): Map<CheckCategory, { earned: number; available: number }> {
+  const totals = new Map<CheckCategory, { earned: number; available: number }>();
+  for (const check of scorecard.checks) {
+    const current = totals.get(check.spec.category) ?? { earned: 0, available: 0 };
+    current.earned += check.earned;
+    current.available += check.available;
+    totals.set(check.spec.category, current);
+  }
+  return totals;
+}
+
+function printScore(scorecard: Scorecard): void {
+  const line = '='.repeat(72);
+  console.log(`\n${line}\nSCORE\n${line}`);
+
+  console.log('\nBy category (points earned of points available):\n');
+  const width = 20;
+  for (const [category, totals] of categoryTotals(scorecard)) {
+    const pct = totals.available === 0 ? 100 : (100 * totals.earned) / totals.available;
+    const bar = '#'.repeat(Math.round(pct / 5)).padEnd(20, '.');
+    console.log(
+      `  ${category.padEnd(width)} ${bar} ${pct.toFixed(1).padStart(6)}%  ${totals.earned.toFixed(1).padStart(6)} / ${totals.available.toFixed(0).padStart(3)}`
+    );
+  }
+
+  const failing = scorecard.checks
+    .filter(check => check.earned < check.available)
+    .sort((a, b) => b.available - b.earned - (a.available - a.earned));
+
+  if (failing.length > 0) {
+    console.log('\nEvery check costing points, worst first:\n');
+    console.log(
+      `  ${'check'.padEnd(30)} ${'cat'.padEnd(16)} ${'wt'.padStart(3)} ${'failing'.padStart(9)} ${'lost'.padStart(6)}`
+    );
+    for (const check of failing) {
+      const lost = (check.available - check.earned).toFixed(2);
+      const share = check.evaluated ? `${check.failures}/${check.population}` : 'NOT RUN';
+      console.log(
+        `  ${check.code.padEnd(30)} ${check.spec.category.slice(0, 16).padEnd(16)} ${`${check.spec.weight}`.padStart(3)} ${share.padStart(9)} ${lost.padStart(6)}`
+      );
+    }
+  }
+
+  const unscored = scorecard.checks.filter(check => check.spec.weight === 0);
+  const notApplicable = scorecard.checks.filter(
+    check => check.evaluated && check.population === 0 && check.spec.weight > 0
+  );
+  if (notApplicable.length > 0) {
+    console.log(
+      `\nNot applicable, excluded from the total (nothing to measure): ${notApplicable.map(check => check.code).join(', ')}`
+    );
+  }
+  console.log(
+    `\nDeliberately unscored (${unscored.length} checks, weight 0 — decisions and information, not defects):\n  ${unscored.map(check => check.code).join(', ')}`
+  );
+
+  console.log(`\n${line}`);
+  console.log(
+    `  SEO SCORE: ${scorecard.score.toFixed(1)} / 100${scorecard.partial ? '   (PARTIAL)' : ''}`
+  );
+  console.log(`  ${scorecard.earned.toFixed(1)} of ${scorecard.available.toFixed(0)} weighted points across ${scorecard.checks.length} checks.`);
+  if (scorecard.partial) {
+    console.log(`  PARTIAL: ${scorecard.skipped.join('; ')}. Re-run without those flags for a real score.`);
+  }
+  console.log(line);
+
+  console.log(`
+  100 means every property this harness can objectively test is correct.
+  It does NOT mean the site ranks, and it is not a prediction that it will.
+
+  A perfect score is silent on backlinks, domain authority, actual position in
+  results, click-through rate, whether AI Overviews absorb the clicks, and
+  whether the content is accurate or useful. Those decide whether this content
+  ranks; none of them is measurable from here. The OUT OF SCOPE section above
+  lists them in full.
+`);
+}
+
 // ─── Reporting ─────────────────────────────────────────────
 
 const CHECK_GROUPS = [
@@ -1667,6 +2220,8 @@ const CHECK_GROUPS = [
       'JSONLD_DANGLING_ID',
       'JSONLD_CONTENT_MISMATCH',
       'NO_WEBSITE_ENTITY',
+      'LOGO_TOO_SMALL',
+      'LOGO_UNREACHABLE',
     ],
   },
   { label: 'content', codes: ['THIN_CONTENT', 'NEAR_DUPLICATE_BODY'] },
@@ -1759,6 +2314,41 @@ function printUntestable(): void {
  * production URLs. Without the rebase, pointing this at localhost would
  * silently audit production instead.
  */
+/**
+ * Google ignores `lastmod` unless it is consistently accurate, and ignores
+ * `changefreq` and `priority` outright. One shared timestamp across every URL
+ * is the signature of a build-time `new Date()` rather than a content date.
+ * developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+ */
+function checkSitemapHints(xml: string, sitemapUrl: string, findings: Finding[]): void {
+  const stamps = new Set([...xml.matchAll(/<lastmod>\s*([^<\s]+)\s*<\/lastmod>/g)].map(m => m[1]));
+  const urlCount = [...xml.matchAll(/<loc>/g)].length;
+
+  if (stamps.size === 1 && urlCount > 1) {
+    findings.push({
+      // A defect, not a best practice: the sitemap asserts that all 25 URLs
+      // changed at one instant, which is false for all but the ones that did.
+      // The severity tracks that the value is verifiably wrong. The weight
+      // stays at 1 because the consequence is only that Google discards a
+      // crawl-scheduling hint; there is no penalty for an untrusted lastmod.
+      severity: 'defect',
+      code: 'SITEMAP_LASTMOD_UNIFORM',
+      url: sitemapUrl,
+      message: `All ${urlCount} URLs share one lastmod (${[...stamps][0]}), so the sitemap asserts a modification date that is false for every page that did not change in that build. Google ignores lastmod it cannot verify.`,
+      file: 'src/lib/seo/sitemap-entries.ts',
+    });
+  }
+  if (/<priority>/.test(xml) || /<changefreq>/.test(xml)) {
+    findings.push({
+      severity: 'preference',
+      code: 'SITEMAP_INERT_HINTS',
+      url: sitemapUrl,
+      message: 'Sitemap carries changefreq and/or priority. Google has stated it ignores both. Harmless, but they are not doing anything.',
+      file: 'src/lib/seo/sitemap-entries.ts',
+    });
+  }
+}
+
 function parseSitemap(xml: string, origin: string): { urls: string[]; rebased: number } {
   let rebased = 0;
   const urls = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(match => {
@@ -1797,6 +2387,18 @@ async function main(): Promise<void> {
   }
   console.log('');
 
+  // Guard 2: every check that actually executes marks its codes here. A
+  // registered code that never gets marked scores zero.
+  const ran = new Set<string>();
+  const markRan = (owner: string): void => {
+    const codes = CHECK_OWNERS[owner];
+    if (!codes) throw new Error(`Check "${owner}" is not listed in CHECK_OWNERS.`);
+    codes.forEach(code => ran.add(code));
+  };
+
+  checkSitemapHints(sitemapResponse.body, sitemapUrl, findings);
+  markRan('checkSitemapHints');
+
   const browser = await chromium.launch();
   const parserContext = await browser.newContext();
   const parserPage = await parserContext.newPage();
@@ -1828,16 +2430,38 @@ async function main(): Promise<void> {
     checkStructuredData(page, page.facts, findings);
     checkStructuredDataVisibility(page, page.facts, findings);
   }
+  [
+    'checkResponse',
+    'checkDocumentBasics',
+    'checkTitle',
+    'checkDescription',
+    'checkCanonical',
+    'checkRobotsMeta',
+    'checkHeadings',
+    'checkSocialCard',
+    'checkWordCount',
+    'checkStructuredData',
+    'checkStructuredDataVisibility',
+  ].forEach(markRan);
 
   checkUniqueness(pages, findings);
+  markRan('checkUniqueness');
   checkNearDuplicateBodies(pages, findings);
+  markRan('checkNearDuplicateBodies');
   await checkRobotsTxt(origin, sitemapUrls, sitemapUrl, findings);
+  markRan('checkRobotsTxt');
   await checkOriginHygiene(origin, findings);
-  await checkImages(pages, origin, findings);
+  markRan('checkOriginHygiene');
+  await checkOrganizationLogo(pages, findings);
+  markRan('checkOrganizationLogo');
+  const imageCounts = await checkImages(pages, origin, findings);
+  markRan('checkImages');
 
   const graph = await buildLinkGraph(pages, origin, parserPage);
-  await checkLinkTargets(graph, findings);
+  const linkTargets = await checkLinkTargets(graph, findings);
+  markRan('checkLinkTargets');
   checkHomepageEntities(pages, origin, findings);
+  markRan('checkHomepageEntities');
 
   await parserContext.close();
 
@@ -1845,6 +2469,10 @@ async function main(): Promise<void> {
     ? null
     : await buildRenderedReachability(browser, sitemapUrls, origin);
   checkOrphans(pages, graph, renderedReachable, origin, findings);
+  // Without the render pass, ORPHAN_WITHOUT_JS cannot fire. Marking only the
+  // half that ran keeps the skipped half at zero rather than free marks.
+  ran.add('ORPHAN');
+  if (!skipRender) ran.add('ORPHAN_WITHOUT_JS');
 
   const metrics: PageMetrics[] = [];
   if (!skipMetrics) {
@@ -1854,9 +2482,25 @@ async function main(): Promise<void> {
       metrics.push(await measurePage(browser, page.url));
     }
     checkMetrics(metrics, findings);
+    markRan('checkMetrics');
   }
 
   await browser.close();
+
+  const skipped: string[] = [];
+  if (skipMetrics) skipped.push('--no-metrics skipped the Core Web Vitals pass');
+  if (skipRender) skipped.push('--no-render skipped the hydrated-DOM link pass');
+
+  const populations: ScorePopulations = {
+    page: pages.filter(page => page.facts !== null).length,
+    site: 1,
+    link: linkTargets,
+    image: imageCounts.elements,
+    imageAsset: imageCounts.assets,
+    metric: metrics.length,
+  };
+
+  const scorecard = buildScorecard(findings, populations, ran, skipped);
 
   printMatrix(pages, findings);
   printMetrics(metrics);
@@ -1867,17 +2511,26 @@ async function main(): Promise<void> {
     severity => `${severity}: ${findings.filter(finding => finding.severity === severity).length}`
   );
   console.log(`\n${'='.repeat(72)}\nSUMMARY  ${counts.join('  |  ')}\n${'='.repeat(72)}`);
+  printScore(scorecard);
 
   if (jsonPath) {
     const out = path.resolve(process.cwd(), jsonPath);
-    fs.writeFileSync(out, JSON.stringify({ baseUrl: origin, findings, metrics }, null, 2));
+    fs.writeFileSync(
+      out,
+      JSON.stringify({ baseUrl: origin, score: scorecard, findings, metrics }, null, 2)
+    );
     console.log(`Findings written to ${out}`);
   }
 
-  process.exit(findings.some(finding => finding.severity === 'defect') ? 1 : 0);
+  // Anything short of a perfect score exits non-zero, and so does a partial
+  // run, so `--no-metrics` cannot be used to manufacture a green result.
+  process.exit(scorecard.score >= 100 && !scorecard.partial ? 0 : 1);
 }
 
 main().catch(err => {
-  console.error('SEO audit failed:', err);
-  process.exit(1);
+  // Exit 2 separates a broken registry from a failing site: guard 1 and guard 3
+  // throw from `buildScorecard`, and that is a code problem, not an SEO one.
+  const integrity = err instanceof Error && /CHECK_REGISTRY|CHECK_OWNERS|unregistered codes/.test(err.message);
+  console.error(integrity ? 'SEO audit scoring integrity failure:' : 'SEO audit failed:', err);
+  process.exit(integrity ? 2 : 1);
 });
