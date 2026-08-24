@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 64 600 496" width="600" height="496" role="img" aria-label="Jordan, personal finance mentor">
+  <title>Jordan</title>
+
+  <style>
+    .hair    { fill: #242030; }
+    .hair-dk { fill: #16131C; }
+    .skin    { fill: #E3B08C; }
+    .skin-dk { fill: #C68C64; }
+    .coat    { fill: #E6EBF6; }
+    .coat-dk { fill: #7F92BE; }   /* sleeve capsules, via stroke */
+    .coat-lt { fill: #FFFFFF; }
+    .top     { fill: #7A4BD0; }
+    .glass   { fill: #201D26; }
+    .book    { fill: #221D46; }
+    .book-lt { fill: #EDE9F7; }
+    .dark    { fill: #1A1620; }
+  </style>
+
+  <ellipse cx="300" cy="292" rx="204" ry="208" fill="#DCC9F5"/>
+
+  <!-- body: lab coat, notebook cradled against the chest -->
+  <g transform="rotate(3 300 470)">
+    <rect class="skin-dk" x="278" y="306" width="44" height="44" rx="17"/>
+
+    <path class="coat" d="M300 336c-42 0-68 12-76 34-9 27-12 60-10 93 2 52-4 92-8 124h188c-4-32-10-72-8-124 2-33-1-66-10-93-8-22-34-34-76-34Z"/>
+    <path class="top" d="M268 346c8 34 19 57 32 77 13-20 24-43 32-77-11-6-20-9-32-9s-24 3-32 9Z"/>
+    <path class="coat-lt" d="M268 346c-16 6-27 17-33 30 18 34 40 60 65 81-13-20-24-43-32-77Z"/>
+    <path class="coat-lt" d="M332 346c16 6 27 17 33 30-18 34-40 60-65 81 13-20 24-43 32-77Z"/>
+
+    <!-- patch pockets, so the lower coat is not an empty field -->
+    <rect fill="#D3DAEC" x="-30" y="-18" width="60" height="36" rx="9" transform="translate(248 508) rotate(-3)"/>
+    <rect fill="#D3DAEC" x="-30" y="-18" width="60" height="36" rx="9" transform="translate(352 508) rotate(3)"/>
+
+    <!-- her left arm: hangs and rests, outside the torso silhouette -->
+    <path fill="none" stroke="#7F92BE" stroke-width="44" stroke-linecap="round" d="M352 368c28 12 49 36 58 64"/>
+    <path fill="none" stroke="#7F92BE" stroke-width="40" stroke-linecap="round" d="M410 434c5 18 8 36 8 52"/>
+    <rect class="skin" x="-24" y="-20" width="48" height="40" rx="20" transform="translate(420 494) rotate(8)"/>
+
+    <!-- notebook -->
+    <rect class="book" x="-44" y="-46" width="88" height="92" rx="10" transform="translate(278 426) rotate(-9)"/>
+    <rect class="book-lt" x="28" y="-40" width="13" height="80" rx="6.5" transform="translate(278 426) rotate(-9)"/>
+    <rect class="top" x="-44" y="-13" width="70" height="12" rx="6" transform="translate(278 426) rotate(-9)"/>
+
+    <!-- her right arm: cradles the notebook -->
+    <path fill="none" stroke="#7F92BE" stroke-width="40" stroke-linecap="round" d="M240 364c-16 16-26 36-29 58"/>
+    <path fill="none" stroke="#7F92BE" stroke-width="36" stroke-linecap="round" d="M211 424c24 19 60 27 107 23"/>
+    <rect class="skin" x="-23" y="-18" width="46" height="36" rx="18" transform="translate(324 446) rotate(-12)"/>
+    <rect class="skin" x="-13" y="-7" width="26" height="14" rx="7" transform="translate(318 430) rotate(-76)"/>
+  </g>
+
+  <!-- head -->
+  <g transform="translate(18 0.76) scale(0.94) rotate(-6 300 246)">
+    <!-- hair pulled back: mass hugs the skull, volume goes to the bun -->
+    <g class="hair-dk">
+      <rect x="198" y="150" width="204" height="152" rx="74"/>
+      <rect x="358" y="198" width="48" height="122" rx="24"/>
+    </g>
+
+    <circle class="skin" cx="216" cy="270" r="16"/>
+    <circle class="skin" cx="384" cy="270" r="16"/>
+    <rect class="skin" x="222" y="156" width="156" height="184" rx="56"/>
+
+    <g class="hair-dk">
+      <rect x="206" y="98" width="188" height="104" rx="52"/>
+      <circle cx="210" cy="176" r="30"/>
+      <circle cx="392" cy="178" r="30"/>
+      <circle cx="386" cy="94" r="28"/>
+    </g>
+    <circle class="hair" cx="366" cy="104" r="36"/>
+
+    <!-- eyes -->
+    <ellipse cx="272" cy="270" rx="22" ry="23" fill="#fff"/>
+    <ellipse cx="328" cy="270" rx="22" ry="23" fill="#fff"/>
+    <ellipse class="dark" cx="275" cy="266" rx="12" ry="14.5"/>
+    <ellipse class="dark" cx="331" cy="266" rx="12" ry="14.5"/>
+    <circle cx="269" cy="259" r="4.5" fill="#fff"/>
+    <circle cx="325" cy="259" r="4.5" fill="#fff"/>
+    <ellipse class="skin" cx="272" cy="243" rx="27" ry="18"/>
+    <ellipse class="skin" cx="328" cy="243" rx="27" ry="18"/>
+    <rect class="hair" x="-21" y="-4.5" width="42" height="9" rx="4.5" transform="translate(268 238) rotate(-9)"/>
+    <rect class="hair" x="-21" y="-4.5" width="42" height="9" rx="4.5" transform="translate(332 236) rotate(7)"/>
+
+    <!-- glasses, drawn over the finished eyes -->
+    <rect class="glass" x="-13" y="-4.5" width="26" height="9" rx="4.5" transform="translate(226 268) rotate(-16)"/>
+    <rect class="glass" x="-13" y="-4.5" width="26" height="9" rx="4.5" transform="translate(374 268) rotate(16)"/>
+    <rect class="glass" x="294" y="266" width="12" height="8" rx="4"/>
+    <path class="glass" fill-rule="evenodd" d="M244 270a28 28 0 1 0 56 0a28 28 0 1 0 -56 0Z M251 270a21 21 0 1 1 42 0a21 21 0 1 1 -42 0Z"/>
+    <path class="glass" fill-rule="evenodd" d="M300 270a28 28 0 1 0 56 0a28 28 0 1 0 -56 0Z M307 270a21 21 0 1 1 42 0a21 21 0 1 1 -42 0Z"/>
+
+    <path class="skin-dk" d="M303 286c6 7 8 15 3 19s-15 2-16-5 7-11 13-14Z"/>
+    <path fill="none" stroke="#B07A55" stroke-width="9" stroke-linecap="round" d="M279 312c11 12 30 11 40-2"/>
+  </g>
+</svg>

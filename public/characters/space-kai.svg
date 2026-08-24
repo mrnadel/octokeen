@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 64 600 496" width="600" height="496" role="img" aria-label="Kai, backyard astronomer">
+  <title>Kai</title>
+
+  <style>
+    .hair     { fill: #1F1B1A; }
+    .hair-dk  { fill: #120F0F; }
+    .skin     { fill: #E8B073; }
+    .skin-dk  { fill: #C88C50; }
+    .shirt    { fill: #189E8C; }
+    .shirt-dk { fill: #127A6D; }
+    .shirt-lt { fill: #2BC2AE; }
+    .planet   { fill: #7FE3D4; }
+    .ring     { fill: #F2D35C; }
+    .dark     { fill: #1A1210; }
+    .mouth    { fill: #4A211C; }
+  </style>
+
+  <ellipse cx="300" cy="292" rx="204" ry="208" fill="#C9EFE6"/>
+
+  <!-- body -->
+  <g transform="rotate(3 300 470)">
+    <rect class="skin-dk" x="278" y="312" width="44" height="52" rx="18"/>
+
+    <path class="shirt" d="M300 352C264 352 240 372 226 404C222 430 238 448 242 468C246 502 220 534 208 560L394 560C382 534 356 502 360 466C364 446 384 428 376 400C362 372 336 352 300 352Z"/>
+    <ellipse class="shirt-lt" cx="300" cy="357" rx="39" ry="13"/>
+    <ellipse class="skin-dk" cx="300" cy="348" rx="24" ry="9"/>
+
+    <!-- chest graphic: ringed planet -->
+    <ellipse class="ring" cx="300" cy="446" rx="55" ry="22" transform="rotate(-18 300 446)"/>
+    <ellipse class="shirt" cx="300" cy="446" rx="38" ry="8.5" transform="rotate(-18 300 446)"/>
+    <circle class="planet" cx="300" cy="431" r="27"/>
+    <circle class="ring" cx="272" cy="406" r="5"/>
+    <circle class="ring" cx="330" cy="400" r="3.5"/>
+    <circle class="ring" cx="262" cy="502" r="5.5"/>
+
+    <!-- right arm: raised high in a wave, sleeve cap then bare forearm -->
+    <path fill="none" stroke="#127A6D" stroke-width="46" stroke-linecap="round" d="M258 416 216 374"/>
+    <path fill="none" stroke="#E8B073" stroke-width="28" stroke-linecap="round" d="M214 372 146 262"/>
+    <rect class="skin" x="-23" y="-28" width="46" height="56" rx="20" transform="translate(134 239) rotate(-28)"/>
+    <rect class="skin" x="-17" y="-12" width="34" height="24" rx="12" transform="translate(110 245) rotate(-56)"/>
+
+    <!-- left arm: swung down and away from the body -->
+    <path fill="none" stroke="#127A6D" stroke-width="46" stroke-linecap="round" d="M350 400 396 428"/>
+    <path fill="none" stroke="#C88C50" stroke-width="28" stroke-linecap="round" d="M394 426 430 472"/>
+    <rect class="skin-dk" x="-23" y="-27" width="46" height="54" rx="20" transform="translate(446 490) rotate(-37)"/>
+    <rect class="skin-dk" x="-17" y="-12" width="34" height="24" rx="12" transform="translate(461 471) rotate(-14)"/>
+  </g>
+
+  <!-- head -->
+  <g transform="rotate(-6 300 246)">
+    <ellipse class="hair-dk" cx="300" cy="214" rx="110" ry="88"/>
+
+    <!-- hair mass, with tufts rooted deep inside so only the crown breaks up -->
+    <g class="hair">
+      <ellipse cx="300" cy="196" rx="100" ry="70"/>
+      <rect x="-15" y="-37" width="30" height="74" rx="10" transform="translate(252 149) rotate(-46)"/>
+      <rect x="-15" y="-44" width="30" height="88" rx="10" transform="translate(266 130) rotate(-27)"/>
+      <rect x="-16" y="-44" width="32" height="88" rx="11" transform="translate(290 123) rotate(-8)"/>
+      <rect x="-14" y="-33" width="28" height="66" rx="9" transform="translate(313 134) rotate(12)"/>
+      <rect x="-15" y="-46" width="30" height="92" rx="10" transform="translate(340 132) rotate(32)"/>
+      <rect x="-14" y="-44" width="28" height="88" rx="9" transform="translate(359 152) rotate(53)"/>
+    </g>
+
+    <circle class="skin" cx="196" cy="262" r="20"/>
+    <circle class="skin" cx="404" cy="262" r="20"/>
+    <rect class="skin" x="202" y="146" width="196" height="190" rx="86"/>
+
+    <!-- fringe: low hairline plus three pointed locks -->
+    <g class="hair">
+      <ellipse cx="254" cy="170" rx="52" ry="38"/>
+      <ellipse cx="308" cy="166" rx="54" ry="40"/>
+      <ellipse cx="358" cy="172" rx="48" ry="36"/>
+      <rect x="-15" y="-25" width="30" height="50" rx="12" transform="translate(216 196) rotate(-10)"/>
+      <rect x="-13" y="-23" width="26" height="46" rx="11" transform="translate(296 186) rotate(12)"/>
+      <rect x="-14" y="-23" width="28" height="46" rx="12" transform="translate(390 198) rotate(-14)"/>
+    </g>
+
+    <!-- eyes -->
+    <ellipse cx="258" cy="266" rx="28" ry="29" fill="#fff"/>
+    <ellipse cx="342" cy="266" rx="28" ry="29" fill="#fff"/>
+    <ellipse class="dark" cx="261" cy="265" rx="16" ry="19"/>
+    <ellipse class="dark" cx="345" cy="265" rx="16" ry="19"/>
+    <circle cx="253" cy="255" r="6" fill="#fff"/>
+    <circle cx="337" cy="255" r="6" fill="#fff"/>
+    <ellipse class="skin" cx="258" cy="234" rx="35" ry="20"/>
+    <ellipse class="skin" cx="342" cy="234" rx="35" ry="20"/>
+    <rect class="hair" x="-26" y="-6.5" width="52" height="13" rx="6.5" transform="translate(254 222) rotate(-9)"/>
+    <rect class="hair" x="-26" y="-6.5" width="52" height="13" rx="6.5" transform="translate(346 219) rotate(8)"/>
+
+    <ellipse class="skin-dk" cx="303" cy="282" rx="12" ry="8.5" transform="rotate(-10 303 282)"/>
+
+    <!-- open grin, centred under the nose -->
+    <path class="mouth" d="M266 296C282 302 316 302 332 296C334 320 320 337 299 337C278 337 264 320 266 296Z"/>
+    <path fill="#fff" d="M271 297C287 303 311 303 327 297C311 307 287 307 271 297Z"/>
+    <ellipse fill="#E0736E" cx="300" cy="328" rx="16" ry="8"/>
+  </g>
+</svg>

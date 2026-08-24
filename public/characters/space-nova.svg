@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 64 600 496" width="600" height="496" role="img" aria-label="Captain Nova, astronaut mentor">
+  <title>Captain Nova</title>
+
+  <style>
+    .hair    { fill: #B9BDC7; }
+    .hair-dk { fill: #9599A5; }
+    .skin    { fill: #E0B189; }
+    .skin-dk { fill: #C08C60; }
+    .suit    { fill: #1F3A63; }
+    .suit-dk { fill: #152B4B; }
+    .suit-lt { fill: #35609C; }
+    .dark    { fill: #2A2118; }
+  </style>
+
+  <ellipse cx="300" cy="292" rx="204" ry="208" fill="#FFD5CE"/>
+
+  <!-- body: one hand resting on the hip, the other open and presenting, both arms clear of the torso -->
+  <g transform="rotate(3 300 470)">
+    <rect class="skin-dk" x="278" y="322" width="44" height="52" rx="17"/>
+
+    <path class="suit" d="M300 354c-34 0-56 16-64 42-8 26-10 54-8 82 2 44-4 84-8 122h160c-4-38-10-78-8-122 2-28 0-56-8-82-8-26-30-42-64-42Z"/>
+    <rect class="suit-lt" x="-11" y="-22" width="22" height="44" rx="11" transform="translate(280 386) rotate(30)"/>
+    <rect class="suit-lt" x="-11" y="-22" width="22" height="44" rx="11" transform="translate(320 386) rotate(-30)"/>
+    <rect class="suit-dk" x="297" y="398" width="6" height="68" rx="3"/>
+
+    <rect class="suit-dk" x="222" y="516" width="158" height="20" rx="7"/>
+    <rect x="290" y="512" width="24" height="28" rx="7" fill="#F2C14E"/>
+
+    <!-- mission patches: name flag on the chest, badge beside the zip -->
+    <g transform="translate(272 442) rotate(-5)">
+      <rect x="-21" y="-15" width="42" height="30" rx="9" fill="#F2C14E"/>
+      <rect x="-16" y="-11" width="32" height="11" rx="5" fill="#3D7EDB"/>
+      <rect x="-16" y="1" width="32" height="10" rx="5" fill="#F5F3EF"/>
+    </g>
+    <circle cx="330" cy="442" r="20" fill="#F2C14E"/>
+    <circle cx="330" cy="442" r="12.5" fill="#3D7EDB"/>
+
+    <!-- hand resting on the hip: elbow swings wide, full forearm returns to the belt -->
+    <path fill="none" stroke="#35609C" stroke-width="44" stroke-linecap="round" d="M250 412c-26 12-42 32-50 50"/>
+    <path fill="none" stroke="#35609C" stroke-width="40" stroke-linecap="round" d="M200 462c12 19 29 32 50 42"/>
+    <rect class="skin-dk" x="-22" y="-18" width="44" height="36" rx="14" transform="translate(252 504) rotate(24)"/>
+    <g transform="translate(216 430) rotate(-36)">
+      <rect x="-17" y="-13" width="34" height="26" rx="7" fill="#F5F3EF"/>
+      <rect x="-17" y="-13" width="34" height="13" rx="6" fill="#3D7EDB"/>
+    </g>
+
+    <!-- open hand, held flat and out: presenting, not pointing -->
+    <path fill="none" stroke="#35609C" stroke-width="44" stroke-linecap="round" d="M352 412c24 12 42 30 54 48"/>
+    <path fill="none" stroke="#35609C" stroke-width="38" stroke-linecap="round" d="M406 460c16-14 30-24 42-30"/>
+    <rect class="skin" x="-25" y="-19" width="50" height="38" rx="14" transform="translate(452 424) rotate(-24)"/>
+    <rect class="skin" x="-12" y="-7.5" width="24" height="15" rx="7" transform="translate(460 442) rotate(8)"/>
+    <g transform="translate(394 432) rotate(30)">
+      <rect x="-17" y="-13" width="34" height="26" rx="7" fill="#F5F3EF"/>
+      <rect x="-17" y="-13" width="34" height="13" rx="6" fill="#E0524C"/>
+    </g>
+  </g>
+
+  <!-- head -->
+  <g transform="rotate(-6 300 246)">
+    <!-- bob, back sections: long on one side, tucked up clear of the ear on the other -->
+    <g class="hair-dk">
+      <circle cx="300" cy="190" r="80"/>
+      <rect x="180" y="206" width="52" height="82" rx="26"/>
+      <rect x="372" y="196" width="40" height="46" rx="20"/>
+    </g>
+
+    <circle class="skin" cx="404" cy="270" r="18"/>
+    <rect class="skin" x="202" y="152" width="196" height="186" rx="48"/>
+
+    <!-- side part: the swept front section, then the smaller far section in the darker tone -->
+    <circle class="hair" cx="272" cy="170" r="56"/>
+    <circle class="hair" cx="236" cy="194" r="44"/>
+    <circle class="hair-dk" cx="356" cy="174" r="50"/>
+
+    <!-- eyes: a lower lid than Maya, a calmer opening -->
+    <ellipse cx="262" cy="274" rx="24" ry="25" fill="#fff"/>
+    <ellipse cx="338" cy="274" rx="24" ry="25" fill="#fff"/>
+    <ellipse class="dark" cx="266" cy="271" rx="13" ry="16"/>
+    <ellipse class="dark" cx="342" cy="271" rx="13" ry="16"/>
+    <circle cx="259" cy="263" r="5" fill="#fff"/>
+    <circle cx="335" cy="263" r="5" fill="#fff"/>
+    <ellipse class="skin" cx="262" cy="250" rx="31" ry="23"/>
+    <ellipse class="skin" cx="338" cy="250" rx="31" ry="23"/>
+    <rect class="hair-dk" x="-24" y="-5.5" width="48" height="11" rx="5.5" transform="translate(258 242) rotate(-7)"/>
+    <rect class="hair-dk" x="-24" y="-5.5" width="48" height="11" rx="5.5" transform="translate(342 240) rotate(5)"/>
+
+    <path class="skin-dk" d="M304 292c7 8 9 16 3 20s-16 2-18-5 8-12 15-15Z"/>
+    <path fill="none" stroke="#B06848" stroke-width="8" stroke-linecap="round" d="M282 320c11 11 28 10 37-2"/>
+  </g>
+</svg>

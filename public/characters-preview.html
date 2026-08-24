@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html><head><title>Course Characters</title>
+<style>
+body{background:#f7f7f7;font-family:Nunito,sans-serif;padding:40px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+h1{color:#4B4B4B;font-size:22px;font-weight:800;}
+.note{color:#999;font-size:12px;max-width:640px;text-align:center;line-height:1.5;}
+h2{color:#4B4B4B;font-size:16px;font-weight:800;margin-top:32px;}
+h2 span{color:#999;font-weight:600;font-size:12px;font-family:monospace;margin-left:8px;}
+.grid{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;max-width:1100px;}
+.card{background:white;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);width:160px;}
+.card img{width:120px;height:120px;object-fit:contain;}
+.card p{font-size:12px;font-weight:700;color:#4B4B4B;margin-top:8px;}
+.card .code{font-size:10px;color:#58CC02;font-family:monospace;margin-top:4px;}
+.card.base{outline:2px solid #58CC02;}
+.card.face img{width:72px;height:72px;}
+</style></head><body>
+<h1>course characters</h1>
+<p class="note">Registry lives in <code>src/components/ui/CharacterAvatar.tsx</code>. Green outline is the default image a character renders with when no pose is passed. Characters without their own pose art fall back to that default for every pose.</p>
+
+<h2>Alex <span>pf-alex &middot; Personal Finance</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/pf-alex.png"><p>default</p><div class="code">pf-alex</div></div>
+  <div class="card face"><img src="characters/pf-alex-sm.png"><p>face</p><div class="code">pf-alex-sm.png</div></div>
+  <div class="card"><img src="characters/pf-alex-neutral.png"><p>neutral</p><div class="code">pose="neutral"</div></div>
+  <div class="card"><img src="characters/pf-alex-studying.png"><p>studying</p><div class="code">pose="studying"</div></div>
+  <div class="card"><img src="characters/pf-alex-walking.png"><p>walking</p><div class="code">pose="walking"</div></div>
+  <div class="card"><img src="characters/pf-alex-thinking.png"><p>thinking</p><div class="code">pose="thinking"</div></div>
+  <div class="card"><img src="characters/pf-alex-celebrating.png"><p>celebrating</p><div class="code">pose="celebrating"</div></div>
+  <div class="card"><img src="characters/pf-alex-listening.png"><p>listening</p><div class="code">pose="listening"</div></div>
+  <div class="card"><img src="characters/pf-alex-scrolling.png"><p>scrolling</p><div class="code">pose="scrolling"</div></div>
+  <div class="card"><img src="characters/pf-alex-confused.png"><p>confused</p><div class="code">pose="confused"</div></div>
+</div>
+
+<h2>Jordan <span>pf-jordan &middot; Personal Finance</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/pf-jordan.png"><p>default</p><div class="code">pf-jordan</div></div>
+  <div class="card face"><img src="characters/pf-jordan-sm.png"><p>face</p><div class="code">pf-jordan-sm.png</div></div>
+  <div class="card"><img src="characters/pf-jordan-neutral.png"><p>neutral</p><div class="code">pose="neutral"</div></div>
+  <div class="card"><img src="characters/pf-jordan-budgeting.png"><p>budgeting</p><div class="code">pose="budgeting"</div></div>
+  <div class="card"><img src="characters/pf-jordan-celebrating.png"><p>celebrating</p><div class="code">pose="celebrating"</div></div>
+  <div class="card"><img src="characters/pf-jordan-overwhelmed.png"><p>overwhelmed</p><div class="code">pose="overwhelmed"</div></div>
+  <div class="card"><img src="characters/pf-jordan-thinking.png"><p>thinking</p><div class="code">pose="thinking"</div></div>
+  <div class="card"><img src="characters/pf-jordan-walking.png"><p>walking</p><div class="code">pose="walking"</div></div>
+</div>
+
+<h2>Dr. Maya <span>psy-maya &middot; Psychology</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/psy-maya.png"><p>default</p><div class="code">psy-maya</div></div>
+  <div class="card face"><img src="characters/psy-maya-sm.png"><p>face</p><div class="code">psy-maya-sm.png</div></div>
+  <div class="card"><img src="characters/psy-maya-neutral.png"><p>neutral</p><div class="code">pose="neutral"</div></div>
+  <div class="card"><img src="characters/psy-maya-focused.png"><p>focused</p><div class="code">pose="focused"</div></div>
+  <div class="card"><img src="characters/psy-maya-walking.png"><p>walking</p><div class="code">pose="walking"</div></div>
+  <div class="card"><img src="characters/psy-maya-celebrating.png"><p>celebrating</p><div class="code">pose="celebrating"</div></div>
+  <div class="card"><img src="characters/psy-maya-reviewing.png"><p>reviewing</p><div class="code">pose="reviewing"</div></div>
+  <div class="card"><img src="characters/psy-maya-presenting.png"><p>presenting</p><div class="code">pose="presenting"</div></div>
+  <div class="card"><img src="characters/psy-maya-overwhelmed.png"><p>overwhelmed</p><div class="code">pose="overwhelmed"</div></div>
+  <div class="card"><img src="characters/psy-maya-proud.png"><p>proud</p><div class="code">pose="proud"</div></div>
+</div>
+
+<h2>Sam <span>psy-sam &middot; Psychology</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/psy-sam.png"><p>default</p><div class="code">psy-sam</div></div>
+  <div class="card face"><img src="characters/psy-sam-sm.png"><p>face</p><div class="code">psy-sam-sm.png</div></div>
+  <div class="card"><img src="characters/psy-sam-pointing.png"><p>pointing</p><div class="code">pose="pointing"</div></div>
+  <div class="card"><img src="characters/psy-sam-gaming.png"><p>gaming</p><div class="code">pose="gaming"</div></div>
+  <div class="card"><img src="characters/psy-sam-scrolling.png"><p>scrolling</p><div class="code">pose="scrolling"</div></div>
+  <div class="card"><img src="characters/psy-sam-confused.png"><p>confused</p><div class="code">pose="confused"</div></div>
+  <div class="card"><img src="characters/psy-sam-studying.png"><p>studying</p><div class="code">pose="studying"</div></div>
+  <div class="card"><img src="characters/psy-sam-mindblown.png"><p>mindblown</p><div class="code">pose="mindblown"</div></div>
+  <div class="card"><img src="characters/psy-sam-skating.png"><p>skating</p><div class="code">pose="skating"</div></div>
+  <div class="card"><img src="characters/psy-sam-listening.png"><p>listening</p><div class="code">pose="listening"</div></div>
+</div>
+
+<h2>Captain Nova <span>space-nova &middot; Space</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/space-nova.png"><p>default</p><div class="code">space-nova</div></div>
+  <div class="card face"><img src="characters/space-nova-sm.png"><p>face</p><div class="code">space-nova-sm.png</div></div>
+  <div class="card"><img src="characters/space-nova-neutral.png"><p>neutral</p><div class="code">pose="neutral"</div></div>
+  <div class="card"><img src="characters/space-nova-thumbs-up.png"><p>thumbs-up</p><div class="code">pose="thumbs-up"</div></div>
+  <div class="card"><img src="characters/space-nova-floating.png"><p>floating</p><div class="code">pose="floating"</div></div>
+  <div class="card"><img src="characters/space-nova-telescope.png"><p>telescope</p><div class="code">pose="telescope"</div></div>
+  <div class="card"><img src="characters/space-nova-resting.png"><p>resting</p><div class="code">pose="resting"</div></div>
+  <div class="card"><img src="characters/space-nova-explaining.png"><p>explaining</p><div class="code">pose="explaining"</div></div>
+  <div class="card"><img src="characters/space-nova-cupola.png"><p>cupola</p><div class="code">pose="cupola"</div></div>
+  <div class="card"><img src="characters/space-nova-wondering.png"><p>wondering</p><div class="code">pose="wondering"</div></div>
+</div>
+
+<h2>Kai <span>space-kai &middot; Space</span></h2>
+<div class="grid">
+  <div class="card base"><img src="characters/space-kai.png"><p>default</p><div class="code">space-kai</div></div>
+  <div class="card face"><img src="characters/space-kai-sm.png"><p>face</p><div class="code">space-kai-sm.png</div></div>
+  <div class="card"><img src="characters/space-kai-neutral.png"><p>neutral</p><div class="code">pose="neutral"</div></div>
+  <div class="card"><img src="characters/space-kai-celebrating.png"><p>celebrating</p><div class="code">pose="celebrating"</div></div>
+  <div class="card"><img src="characters/space-kai-telescope.png"><p>telescope</p><div class="code">pose="telescope"</div></div>
+  <div class="card"><img src="characters/space-kai-starchart.png"><p>starchart</p><div class="code">pose="starchart"</div></div>
+  <div class="card"><img src="characters/space-kai-daydreaming.png"><p>daydreaming</p><div class="code">pose="daydreaming"</div></div>
+  <div class="card"><img src="characters/space-kai-binoculars.png"><p>binoculars</p><div class="code">pose="binoculars"</div></div>
+  <div class="card"><img src="characters/space-kai-researching.png"><p>researching</p><div class="code">pose="researching"</div></div>
+  <div class="card"><img src="characters/space-kai-walking.png"><p>walking</p><div class="code">pose="walking"</div></div>
+</div>
+
+</body></html>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Octokeen, the purple octopus mascot">
+  <title>Octokeen</title>
+
+  <style>
+    .body    { fill: #CE82FF; }
+    .belly   { fill: #E2AEFF; }
+    .brow    { fill: #6F4EA1; }
+    .sucker  { fill: #F3DEFF; }
+    .blush   { fill: #FFA8C5; }
+    .dark    { fill: #3B2154; }
+  </style>
+
+  <g data-part="shadow">
+    <rect x="190" y="528" width="224" height="24" rx="12" fill="#4B4B4B" opacity="0.12"/>
+  </g>
+
+  <!-- back arms: darker tone, they pass behind the mantle -->
+  <g data-part="arms-back" transform="rotate(2 300 440)" fill="none" stroke="#9069CD" stroke-linecap="round">
+    <path stroke-width="46" d="M250 340C176 372 128 424 118 476"/>
+    <path stroke-width="34" d="M118 476C110 508 128 530 156 532"/>
+    <path stroke-width="46" d="M352 340C428 366 480 418 486 470"/>
+    <path stroke-width="34" d="M486 470C494 502 476 526 448 528"/>
+    <path stroke-width="44" d="M272 348C232 402 216 456 226 500"/>
+    <path stroke-width="44" d="M336 348C378 400 396 454 388 500"/>
+  </g>
+
+  <!-- mantle: counter-rotated against the arms for an S-curve -->
+  <g data-part="head" transform="rotate(-4 300 240)">
+    <rect class="body" x="172" y="118" width="256" height="246" rx="120"/>
+    <ellipse class="belly" cx="302" cy="308" rx="94" ry="52"/>
+
+    <circle class="blush" cx="208" cy="300" r="19"/>
+    <circle class="blush" cx="394" cy="306" r="17"/>
+
+    <!-- lidded eyes: lid is body-coloured and wider than the eye, so it shaves the top -->
+    <ellipse cx="244" cy="252" rx="42" ry="44" fill="#fff"/>
+    <ellipse cx="358" cy="252" rx="42" ry="44" fill="#fff"/>
+    <ellipse class="dark" cx="251" cy="244" rx="22" ry="26"/>
+    <ellipse class="dark" cx="365" cy="244" rx="22" ry="26"/>
+    <circle cx="238" cy="228" r="10" fill="#fff"/>
+    <circle cx="351" cy="230" r="9" fill="#fff"/>
+    <ellipse class="body" cx="244" cy="194" rx="50" ry="36"/>
+    <ellipse class="body" cx="358" cy="192" rx="50" ry="36"/>
+    <rect class="brow" x="-23" y="-7.5" width="46" height="15" rx="7.5" transform="translate(242 194) rotate(4)"/>
+    <rect class="brow" x="-22" y="-7.5" width="44" height="15" rx="7.5" transform="translate(358 190) rotate(-3)"/>
+
+    <path class="dark" d="M265 308a38 32 0 0 0 76 0z"/>
+    <ellipse class="blush" cx="304" cy="328" rx="14" ry="8"/>
+  </g>
+
+  <!-- front arms: base tone, kept outside the mantle silhouette so they read -->
+  <g data-part="arms-front" transform="rotate(2 300 440)">
+    <g fill="none" stroke="#CE82FF" stroke-linecap="round">
+      <!-- the wave: clear of the head, clear of the body, curling away not back over -->
+      <path stroke-width="48" d="M204 344C150 328 116 292 106 250"/>
+      <path stroke-width="34" d="M106 250C100 222 106 198 118 184"/>
+      <path stroke-width="24" d="M118 184C126 172 140 168 152 172"/>
+
+      <path stroke-width="52" d="M246 356C214 412 202 462 216 502"/>
+      <path stroke-width="36" d="M216 502C226 526 254 532 274 522"/>
+
+      <path stroke-width="50" d="M298 384C294 430 300 468 312 500"/>
+      <path stroke-width="32" d="M312 500C320 520 340 524 354 514"/>
+
+      <path stroke-width="52" d="M354 356C398 408 418 462 410 502"/>
+      <path stroke-width="34" d="M410 502C418 526 442 532 460 522"/>
+    </g>
+
+    <g data-part="suckers" class="sucker">
+      <circle cx="167" cy="328" r="8"/>
+      <circle cx="138" cy="306" r="8"/>
+      <circle cx="114" cy="272" r="7"/>
+      <circle cx="105" cy="210" r="6"/>
+      <circle cx="223" cy="405" r="9"/>
+      <circle cx="211" cy="450" r="9"/>
+      <circle cx="213" cy="490" r="8"/>
+      <circle cx="387" cy="403" r="9"/>
+      <circle cx="406" cy="448" r="9"/>
+      <circle cx="412" cy="490" r="8"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 64 600 496" width="600" height="496" role="img" aria-label="Alex, your study buddy">
+  <title>Alex</title>
+
+  <style>
+    .hair    { fill: #7A4E2C; }
+    .hair-dk { fill: #603A1E; }
+    .skin    { fill: #E8B48A; }
+    .skin-dk { fill: #CC8F63; }
+    .hood    { fill: #1B6BE0; }
+    .hood-dk { fill: #0F4491; }
+    .cord    { fill: #FFFFFF; }
+    .dark    { fill: #2B1A10; }
+  </style>
+
+  <ellipse cx="300" cy="292" rx="204" ry="208" fill="#D2E4FF"/>
+
+  <!-- body: hoodie with the hood bunched behind the neck -->
+  <g transform="rotate(3 300 470)">
+    <g class="hood-dk">
+      <rect x="226" y="328" width="148" height="80" rx="40" transform="rotate(-6 300 368)"/>
+      <rect x="210" y="340" width="84" height="68" rx="34" transform="rotate(-14 252 374)"/>
+      <rect x="308" y="332" width="84" height="66" rx="33" transform="rotate(10 350 365)"/>
+    </g>
+    <rect class="skin-dk" x="280" y="312" width="40" height="96" rx="18"/>
+
+    <path class="hood" d="M300 370C256 370 232 380 222 406C212 434 228 464 232 496C236 540 218 596 208 662L392 662C382 596 364 540 368 496C372 464 388 438 376 418C364 388 342 370 300 370Z"/>
+
+    <!-- hood rim, lying on the chest -->
+    <path fill="none" stroke="#0F4491" stroke-width="38" stroke-linecap="round" d="M246 366c20 32 84 32 104-4"/>
+
+    <!-- drawstrings -->
+    <path fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" d="M284 410c-3 26-4 48-3 68"/>
+    <path fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" d="M320 408c5 24 8 44 8 62"/>
+    <rect class="cord" x="-9" y="-14" width="18" height="28" rx="9" transform="translate(281 492) rotate(4)"/>
+    <rect class="cord" x="-9" y="-14" width="18" height="28" rx="9" transform="translate(328 484) rotate(-5)"/>
+
+    <!-- shrugging arm: elbow out, palm turned up -->
+    <path fill="none" stroke="#1B6BE0" stroke-width="46" stroke-linecap="round" d="M232 426c-18 28-34 48-42 68"/>
+    <path fill="none" stroke="#1B6BE0" stroke-width="40" stroke-linecap="round" d="M190 500c-8-22-24-40-38-56"/>
+    <rect class="skin" x="-25" y="-17" width="50" height="34" rx="17" transform="translate(140 430) rotate(-18)"/>
+    <rect class="skin" x="-12" y="-8" width="24" height="16" rx="8" transform="translate(152 410) rotate(-52)"/>
+
+    <!-- hanging arm -->
+    <path fill="none" stroke="#0F4491" stroke-width="40" stroke-linecap="round" d="M372 444c24 20 38 40 42 62"/>
+    <rect class="skin-dk" x="-21" y="-18" width="42" height="36" rx="18" transform="translate(422 522) rotate(18)"/>
+  </g>
+
+  <!-- head -->
+  <g transform="rotate(-6 300 246)">
+    <g class="hair-dk">
+      <rect x="196" y="196" width="48" height="86" rx="24"/>
+      <rect x="356" y="196" width="48" height="86" rx="24"/>
+    </g>
+
+    <circle class="skin" cx="210" cy="280" r="16"/>
+    <circle class="skin" cx="390" cy="280" r="16"/>
+    <rect class="skin" x="216" y="148" width="168" height="210" rx="52"/>
+
+    <!-- spiky hair: narrow capsule tufts, notched apart at the tips -->
+    <g class="hair">
+      <rect x="228" y="142" width="146" height="80" rx="40"/>
+      <rect x="-14" y="-42" width="28" height="84" rx="14" transform="translate(250 164) rotate(-50)"/>
+      <rect x="-13" y="-56" width="26" height="112" rx="13" transform="translate(256 160) rotate(-36)"/>
+      <rect x="-15" y="-44" width="30" height="88" rx="15" transform="translate(280 150) rotate(-18)"/>
+      <rect x="-14" y="-58" width="28" height="116" rx="14" transform="translate(306 144) rotate(0)"/>
+      <rect x="-15" y="-46" width="30" height="92" rx="15" transform="translate(332 150) rotate(18)"/>
+      <rect x="-13" y="-55" width="26" height="110" rx="13" transform="translate(354 162) rotate(36)"/>
+      <rect x="-14" y="-40" width="28" height="80" rx="14" transform="translate(374 196) rotate(58)"/>
+
+      <!-- fringe, jagged along the bottom, well clear of the brows -->
+      <rect x="-18" y="-46" width="36" height="92" rx="18" transform="translate(244 146) rotate(-30)"/>
+      <rect x="-17" y="-48" width="34" height="96" rx="17" transform="translate(286 142) rotate(-8)"/>
+      <rect x="-16" y="-46" width="32" height="92" rx="16" transform="translate(320 142) rotate(12)"/>
+      <rect x="-14" y="-42" width="28" height="84" rx="14" transform="translate(352 152) rotate(30)"/>
+
+      <!-- temple strands -->
+      <rect x="-14" y="-42" width="28" height="84" rx="14" transform="translate(222 200) rotate(-14)"/>
+      <rect x="-13" y="-40" width="26" height="80" rx="13" transform="translate(400 206) rotate(14)"/>
+    </g>
+
+    <!-- eyes -->
+    <ellipse cx="266" cy="282" rx="25" ry="26" fill="#fff"/>
+    <ellipse cx="334" cy="282" rx="25" ry="26" fill="#fff"/>
+    <ellipse class="dark" cx="270" cy="280" rx="14" ry="17"/>
+    <ellipse class="dark" cx="338" cy="280" rx="14" ry="17"/>
+    <circle cx="263" cy="272" r="5" fill="#fff"/>
+    <circle cx="331" cy="272" r="5" fill="#fff"/>
+    <ellipse class="skin" cx="266" cy="262" rx="31" ry="24"/>
+    <ellipse class="skin" cx="334" cy="262" rx="31" ry="24"/>
+    <rect class="hair" x="-27" y="-7" width="54" height="14" rx="7" transform="translate(262 246) rotate(-9)"/>
+    <rect class="hair" x="-27" y="-7" width="54" height="14" rx="7" transform="translate(338 243) rotate(5)"/>
+
+    <ellipse class="skin-dk" cx="303" cy="304" rx="11" ry="8"/>
+    <path fill="none" stroke="#B4693E" stroke-width="10" stroke-linecap="round" d="M266 330c15 15 39 13 52-5"/>
+  </g>
+</svg>
