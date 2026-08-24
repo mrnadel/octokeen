@@ -1138,14 +1138,12 @@ export const useCourseStore = create<CourseState>()(
 
         const restoredProfession = persisted.activeProfession ?? DEFAULT_PROFESSION;
 
-        // Legacy localStorage held one course-agnostic placementUnitIndex. It
-        // belonged to whichever course was active when written — attribute it
-        // there so other courses don't inherit it.
-        const legacyPlacement = persisted.progress.placementUnitIndex ?? 0;
-        const placementByCourse: Record<string, number> = {
-          ...(legacyPlacement > 0 ? { [restoredProfession]: legacyPlacement } : {}),
-          ...(persisted.progress.placementByCourse ?? {}),
-        };
+        // Legacy localStorage held one course-agnostic placementUnitIndex with
+        // no record of which course it came from. Guessing wrong re-creates the
+        // bug in a different course, so drop it — the server sends the
+        // per-course map back on hydrate, attributed correctly.
+        const placementByCourse: Record<string, number> =
+          persisted.progress.placementByCourse ?? {};
 
         return {
           ...currentState,
