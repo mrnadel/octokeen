@@ -65,16 +65,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-surface-950">
-      <div className="flex">
+      <div className="flex justify-center">
         {/* Desktop side nav */}
         <DesktopSideNav />
 
-        <div className="flex-1 min-w-0 max-w-3xl mx-auto min-h-screen bg-[#FAFAFA] dark:bg-surface-950 flex flex-col overflow-x-clip">
+        <div className="w-full min-w-0 max-w-3xl min-h-screen bg-[#FAFAFA] dark:bg-surface-950 flex flex-col overflow-x-clip">
           {/* <EmailVerificationBanner /> — disabled until email provider configured */}
           <main id="main-content" className="flex-1 pb-16 lg:pb-0">
             <ErrorBoundary>{children}</ErrorBoundary>
           </main>
         </div>
+
+        {/* Mirrors DesktopSideNav's width so the content column lands dead-center
+            in the viewport, with the nav hanging off its left edge. */}
+        <div className="hidden lg:block w-56 shrink-0" aria-hidden="true" />
       </div>
 
       {/* Bottom nav for mobile navigation */}

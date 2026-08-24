@@ -31,7 +31,7 @@ export function CourseMap() {
   const currentLessonRef = useRef<HTMLDivElement>(null);
   const unitElsRef = useRef<(HTMLDivElement | null)[]>([]);
   const scrollDirection = useScrollDirection(currentLessonRef, scrollRef);
-  const [headerStyle, setHeaderStyle] = useState({ left: 0, width: 0, top: 0 });
+  const [headerStyle, setHeaderStyle] = useState({ top: 0 });
   const progress = useCourseStore((s) => s.progress);
   const courseData = useCourseStore((s) => s.courseData);
   const startLesson = useCourseStore((s) => s.startLesson);
@@ -112,7 +112,22 @@ export function CourseMap() {
 
   const placementUnitIndex = useCourseStore((s) => s.progress.placementUnitIndex ?? 0);
 
+  // The unit the map should open on: the one holding the next lesson to do, so
+  // the section shown matches the lesson the map scrolls to. Falls back to the
+  // last completed unit (course finished) and then to the placement unit.
   const findActiveUnitIndex = useCallback((): number => {
+    const startUnit = placementUnitIndex;
+    for (let ui = startUnit; ui < courseData.length; ui++) {
+      for (let li = 0; li < courseData[ui].lessons.length; li++) {
+        if (getLessonState(ui, li) === 'current') return ui;
+      }
+    }
+    // User may have gone back to an earlier unit than the placement jump.
+    for (let ui = 0; ui < startUnit; ui++) {
+      for (let li = 0; li < courseData[ui].lessons.length; li++) {
+        if (getLessonState(ui, li) === 'current') return ui;
+      }
+    }
     let lastCompletedUnit = placementUnitIndex;
     for (let ui = 0; ui < courseData.length; ui++) {
       for (let li = 0; li < courseData[ui].lessons.length; li++) {
@@ -150,7 +165,10 @@ export function CourseMap() {
   // Determine which section the user is in based on progress
   const activeSectionPos = useMemo(() => {
     if (!hasSections) return 0;
-    return sections.findIndex((s) => s.units.some((u) => u.globalIndex === activeUnitIndex)) ?? 0;
+    // findIndex returns -1 when the unit is out of range (e.g. a stale placement
+    // index from a longer course) — fall back to the first section, not -1.
+    const pos = sections.findIndex((s) => s.units.some((u) => u.globalIndex === activeUnitIndex));
+    return pos >= 0 ? pos : 0;
   }, [hasSections, sections, activeUnitIndex]);
 
   const [viewingSectionPos, setViewingSectionPos] = useState(activeSectionPos);
@@ -280,28 +298,20 @@ export function CourseMap() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollToUnitIndex]);
 
-  // Track container left/width on resize (for fixed positioning alignment)
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      setHeaderStyle((prev) => ({ ...prev, left: rect.left, width: rect.width }));
-    };
-
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
   // Scroll handler: position header below CourseHeader and track visible unit
   useEffect(() => {
     let lastIndex = 0;
     let lastTop = 0;
     const handleScroll = () => {
       const courseHeader = document.querySelector('header.sticky');
-      const topOffset = courseHeader?.getBoundingClientRect().bottom ?? 0;
+      let topOffset = courseHeader?.getBoundingClientRect().bottom ?? 0;
+
+      // Banners rendered between the header and the map (streak nudge) push the
+      // floating unit header down — otherwise the fixed header covers them.
+      document.querySelectorAll('[data-top-chrome]').forEach((el) => {
+        const box = el.getBoundingClientRect();
+        if (box.height > 0) topOffset = Math.max(topOffset, box.bottom);
+      });
 
       if (Math.abs(topOffset - lastTop) > 0.5) {
         lastTop = topOffset;
@@ -326,7 +336,15 @@ export function CourseMap() {
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Top chrome mounts lazily and can be dismissed without a scroll event
+    const observer = new ResizeObserver(handleScroll);
+    document.querySelectorAll('[data-top-chrome]').forEach((el) => observer.observe(el));
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, [courseData.length]);
 
   // Hinged-sign pendulum physics for the floating header

@@ -3,6 +3,7 @@
 import { memo, forwardRef } from 'react';
 import type { Unit } from '@/data/course/types';
 import type { UnitTheme } from '@/lib/unitThemes';
+import { APP_CONTENT_MAX_WIDTH } from '@/lib/constants';
 import { useIsDark } from '@/store/useThemeStore';
 import { GOLD, GOLD_DARK } from './constants';
 
@@ -21,7 +22,7 @@ export interface UnitHeroHeaderProps {
   hasSections: boolean;
   sectionIndex?: number;
   displayNumber?: number;
-  positionStyle: { top: number; left: number; width: number };
+  positionStyle: { top: number };
   onBrowseClick: () => void;
 }
 
@@ -51,10 +52,16 @@ export const UnitHeroHeader = memo(
     return (
       <div
         style={{
+          // Centred on the viewport rather than on a measured container box: the
+          // content column is itself viewport-centred (equal-width side nav and
+          // spacer flank it), so this tracks it without a resize observer that
+          // can miss a purely horizontal shift.
           position: 'fixed',
           top: positionStyle.top,
-          left: positionStyle.left,
-          width: positionStyle.width,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          maxWidth: APP_CONTENT_MAX_WIDTH,
           zIndex: 30,
           paddingBottom: 4,
           transition: 'top 0.15s ease',

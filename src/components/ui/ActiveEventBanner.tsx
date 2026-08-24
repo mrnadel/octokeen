@@ -7,13 +7,14 @@ import { useSubscription } from '@/hooks/useSubscription';
 import { getActiveXpEvents, formatEventTimeLeft, type ActiveXpEvent } from '@/lib/xp-events';
 import { HERO_COMPACT_HEIGHT } from '@/components/course/UnitHeroHeader';
 import { useIsDark } from '@/store/useThemeStore';
+import { APP_CONTENT_MAX_WIDTH } from '@/lib/constants';
 import { Z_LAYERS } from './zLayers';
 
 /** Compact floating XP-event pill below the UnitHeroHeader. */
 export function ActiveEventBanner({
   positionStyle,
 }: {
-  positionStyle: { top: number; left: number; width: number };
+  positionStyle: { top: number };
 }) {
   const { isProUser } = useSubscription();
   const isDark = useIsDark();
@@ -34,8 +35,10 @@ export function ActiveEventBanner({
       style={{
         position: 'fixed',
         top: positionStyle.top + HERO_COMPACT_HEIGHT + 2,
-        left: positionStyle.left,
-        width: positionStyle.width,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '100%',
+        maxWidth: APP_CONTENT_MAX_WIDTH,
         zIndex: Z_LAYERS.EVENT_BANNER,
         pointerEvents: 'none',
         transition: 'top 0.15s ease',
