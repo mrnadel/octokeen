@@ -617,4 +617,35 @@ describe('useCourseStore', () => {
       expect(useCourseStore.getState().getTotalXp()).toBeGreaterThan(0);
     });
   });
+  describe('per-course placement', () => {
+    const FINANCE = 'personal-finance';
+    const PSYCH = 'psychology';
+
+    it('keeps a placement scoped to the course it was taken in', () => {
+      useCourseStore.setState({ activeProfession: FINANCE });
+      useCourseStore.getState().setPlacementForProfession(FINANCE, 83);
+
+      expect(useCourseStore.getState().progress.placementUnitIndex).toBe(83);
+      expect(useCourseStore.getState().progress.placementByCourse).toEqual({ [FINANCE]: 83 });
+    });
+
+    it('does not carry one course placement into another on switch', () => {
+      useCourseStore.setState({ activeProfession: FINANCE });
+      useCourseStore.getState().setPlacementForProfession(FINANCE, 83);
+
+      useCourseStore.getState().setActiveProfession(PSYCH);
+      expect(useCourseStore.getState().progress.placementUnitIndex).toBeUndefined();
+
+      // Switching back restores the finance placement.
+      useCourseStore.getState().setActiveProfession(FINANCE);
+      expect(useCourseStore.getState().progress.placementUnitIndex).toBe(83);
+    });
+
+    it('writes the per-course entry even when the course has no intro record', () => {
+      useCourseStore.setState({ activeProfession: PSYCH, progress: { ...useCourseStore.getState().progress, courseIntros: undefined } });
+      useCourseStore.getState().setPlacementForProfession(PSYCH, 12);
+
+      expect(useCourseStore.getState().progress.placementByCourse?.[PSYCH]).toBe(12);
+    });
+  });
 });
