@@ -1,10 +1,11 @@
 import { cookies } from 'next/headers';
 
 /**
- * Auth.js writes the secure variant behind HTTPS and the plain one locally.
- * Kept in sync with the `session` config in `src/lib/auth.ts`.
+ * Auth.js writes the secure variant behind HTTPS and the plain one locally, and
+ * splits the token into `.0`, `.1`, … chunks once it outgrows the 4 KB cookie
+ * limit. Kept in sync with the `session` config in `src/lib/auth.ts`.
  */
-const SESSION_COOKIE_NAMES = ['__Secure-authjs.session-token', 'authjs.session-token'] as const;
+const SESSION_COOKIE_RE = /^(?:__Secure-)?(?:authjs|next-auth)\.session-token(?:\.\d+)?$/;
 
 /**
  * Cheap signed-in probe for server components: presence only, no JWT decode and
@@ -13,5 +14,5 @@ const SESSION_COOKIE_NAMES = ['__Secure-authjs.session-token', 'authjs.session-t
  */
 export async function hasSessionCookie(): Promise<boolean> {
   const store = await cookies();
-  return SESSION_COOKIE_NAMES.some((name) => Boolean(store.get(name)?.value));
+  return store.getAll().some((c) => SESSION_COOKIE_RE.test(c.name) && Boolean(c.value));
 }
