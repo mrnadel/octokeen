@@ -1,0 +1,25 @@
+Google Play - Main store listing assets
+=======================================
+Upload each folder into the matching slot on the store listing page.
+
+1-app-icon/          -> App icon                  512 x 512      (1 file)
+2-feature-graphic/   -> Feature graphic           1024 x 500     (1 file)
+3-phone-screenshots/ -> Phone screenshots         1080 x 1920    (5 files, need 2-8)
+4-tablet-7inch/      -> 7-inch tablet screenshots 1620 x 2880    (5 files, need 2+)
+5-tablet-10inch/     -> 10-inch tablet shots      1620 x 2880    (5 files, need 2+)
+
+Select all files in a folder at once and drop them on the slot.
+Play orders screenshots by upload order; the filenames are numbered to match.
+
+01-landing          hero and the "try a free lesson" call to action
+02-courses          the three available courses
+03-lesson-teaching  a teaching card mid-lesson
+04-question         a multiple choice question
+05-answer-feedback  the correct-answer state with its explanation
+
+Every file is PNG, 9:16 portrait, and well under the 8 MB per-file cap.
+The tablet sets are identical because Play keeps separate slots for the two
+tablet sizes and 1620 x 2880 satisfies both (7-inch allows 320-3840 px per
+side, 10-inch allows 1080-7680 px).
+
+Regenerate with scratchpad/shots.mjs against production.
