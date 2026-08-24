@@ -216,6 +216,11 @@ export const courseProgress = pgTable('course_progress', {
     >()
     .default({}),
   placementUnitIndex: integer('placement_unit_index').default(0).notNull(),
+  /** Placement unit index per profession id. Replaces the course-agnostic
+   *  `placement_unit_index`, which leaked one course's placement into all others. */
+  placementByCourse: jsonb('placement_by_course')
+    .$type<Record<string, number>>()
+    .default({}),
   activeProfession: text('active_profession').default(DEFAULT_PROFESSION),
   courseIntros: jsonb('course_intros').$type<Record<string, unknown>>().default({}),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),

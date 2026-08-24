@@ -194,8 +194,12 @@ export interface CourseProgress {
   activeDays: string[];  // YYYY-MM-DD dates of recent activity (last 14 days, local only)
   completedLessons: Record<string, LessonProgress>;
   courseIntros?: Record<string, CourseIntroData>;
-  /** Unit index from placement test. All lessons before this unit are unlocked (but not completed). */
+  /** Unit index from placement test for the ACTIVE course. Derived from
+   *  `placementByCourse`; kept as a scalar because unlock checks are per-course. */
   placementUnitIndex?: number;
+  /** Placement unit index per profession id. Source of truth — `placementUnitIndex`
+   *  is only the active course's slice of this map. */
+  placementByCourse?: Record<string, number>;
   /** IDs of story unlocks the user has already seen. Separate field per CR-C17. */
   viewedStoryUnlocks?: string[];
 }

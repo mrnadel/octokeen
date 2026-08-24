@@ -24,6 +24,19 @@ export const GET = withAuth(async (_req, { userId }) => {
     .where(eq(courseProgress.userId, userId))
     .limit(1);
 
+  // Legacy rows only have the course-agnostic `placementUnitIndex`. It belonged
+  // to whichever course was active when it was written — attribute it there so
+  // other courses don't inherit it.
+  const storedActiveProfession = progress?.activeProfession ?? DEFAULT_PROFESSION;
+  const storedPlacementByCourse =
+    (progress?.placementByCourse as Record<string, number> | null) ?? {};
+  const placementByCourse: Record<string, number> =
+    Object.keys(storedPlacementByCourse).length > 0
+      ? storedPlacementByCourse
+      : (progress?.placementUnitIndex ?? 0) > 0
+        ? { [storedActiveProfession]: progress!.placementUnitIndex }
+        : {};
+
   const assembled: CourseProgress = {
     displayName: user.displayName || user.name || 'Engineer',
     totalXp: progress?.totalXp ?? 0,
@@ -31,7 +44,8 @@ export const GET = withAuth(async (_req, { userId }) => {
     longestStreak: progress?.longestStreak ?? 0,
     lastActiveDate: progress?.lastActiveDate ?? '',
     activeDays: [],  // Client-only field — tracked in localStorage, not DB
-    placementUnitIndex: progress?.placementUnitIndex ?? 0,
+    placementUnitIndex: placementByCourse[storedActiveProfession] ?? 0,
+    placementByCourse,
     completedLessons:
       (progress?.completedLessons as CourseProgress['completedLessons']) ?? {},
     courseIntros:
@@ -67,7 +81,11 @@ export const POST = withAuth(async (request, { userId }) => {
   }
 
   const existing = await db
-    .select({ id: courseProgress.id, completedLessons: courseProgress.completedLessons })
+    .select({
+      id: courseProgress.id,
+      completedLessons: courseProgress.completedLessons,
+      placementByCourse: courseProgress.placementByCourse,
+    })
     .from(courseProgress)
     .where(eq(courseProgress.userId, userId))
     .limit(1);
@@ -78,13 +96,33 @@ export const POST = withAuth(async (request, { userId }) => {
     (existing[0]?.completedLessons as CourseProgress['completedLessons']) ?? {};
   const mergedLessons = { ...existingCompletedLessons, ...validLessons };
 
+  // Placement is per-course. Merge maps key-by-key so a sync from one course
+  // never clears (or overwrites) another course's placement.
+  const existingPlacementByCourse =
+    (existing[0]?.placementByCourse as Record<string, number> | null) ?? {};
+  const incomingPlacementByCourse = progress.placementByCourse ?? {};
+  const mergedPlacementByCourse: Record<string, number> = { ...existingPlacementByCourse };
+  for (const [profId, unitIndex] of Object.entries(incomingPlacementByCourse)) {
+    mergedPlacementByCourse[profId] = unitIndex;
+  }
+  const activeProfessionId = activeProfession ?? DEFAULT_PROFESSION;
+  if (progress.placementUnitIndex != null) {
+    // Keep the active course's slice in step with the scalar the client sends.
+    if (progress.placementUnitIndex > 0) {
+      mergedPlacementByCourse[activeProfessionId] = progress.placementUnitIndex;
+    } else if (incomingPlacementByCourse[activeProfessionId] == null) {
+      delete mergedPlacementByCourse[activeProfessionId];
+    }
+  }
+
   const data = {
     userId,
     totalXp: progress.totalXp,
     currentStreak: progress.currentStreak,
     longestStreak: progress.longestStreak,
     lastActiveDate: progress.lastActiveDate,
-    placementUnitIndex: progress.placementUnitIndex ?? 0,
+    placementUnitIndex: mergedPlacementByCourse[activeProfessionId] ?? 0,
+    placementByCourse: mergedPlacementByCourse,
     completedLessons: mergedLessons,
     activeProfession: activeProfession ?? DEFAULT_PROFESSION,
     courseIntros: (progress.courseIntros ?? {}) as Record<string, unknown>,

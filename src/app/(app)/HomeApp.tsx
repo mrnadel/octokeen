@@ -74,20 +74,7 @@ export default function HomeApp() {
       const { professionId, unitIndex } = JSON.parse(raw);
       if (professionId) setActiveProfession(professionId);
       if (unitIndex > 0) {
-        useCourseStore.setState((s) => {
-          const prev = s.progress;
-          const prevIntro = prev.courseIntros?.[professionId];
-          return {
-            progress: {
-              ...prev,
-              placementUnitIndex: unitIndex,
-              courseIntros: prevIntro ? {
-                ...prev.courseIntros,
-                [professionId]: { ...prevIntro, placementUnitIndex: unitIndex },
-              } : prev.courseIntros,
-            },
-          };
-        });
+        useCourseStore.getState().setPlacementForProfession(professionId, unitIndex);
       }
     } catch {}
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -304,19 +291,19 @@ export default function HomeApp() {
                 setIntroPlacementConfig(null);
                 setIntroDismissed(true);
                 useCourseStore.setState((s) => {
-                  const prev = s.progress;
-                  const prevIntro = prev.courseIntros?.[activeProfession];
+                  const prevIntro = s.progress.courseIntros?.[activeProfession];
+                  if (!prevIntro) return s;
                   return {
                     progress: {
-                      ...prev,
-                      ...(unitIndex > 0 ? { placementUnitIndex: unitIndex } : {}),
+                      ...s.progress,
                       courseIntros: {
-                        ...prev.courseIntros,
-                        ...(prevIntro ? { [activeProfession]: { ...prevIntro, placementDone: true, placementUnitIndex: unitIndex } } : {}),
+                        ...s.progress.courseIntros,
+                        [activeProfession]: { ...prevIntro, placementDone: true },
                       },
                     },
                   };
                 });
+                useCourseStore.getState().setPlacementForProfession(activeProfession, unitIndex);
               }}
               onExit={() => {
                 setIntroPlacementConfig(null);

@@ -212,9 +212,7 @@ export default function GetStartedPage() {
     setActiveProfession(selectedProfession);
     // Apply placement: unlock units up to placed unit (without marking lessons as done)
     if (placedUnitIndex > 0) {
-      useCourseStore.setState((s) => ({
-        progress: { ...s.progress, placementUnitIndex: placedUnitIndex },
-      }));
+      useCourseStore.getState().setPlacementForProfession(selectedProfession, placedUnitIndex);
     }
     analytics.milestone({ type: 'onboarding_completed' });
     window.location.href = '/';
