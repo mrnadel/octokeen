@@ -16,11 +16,27 @@ const DISALLOWED_PATHS = [
 ];
 
 /**
- * AI training and answer-engine crawlers. Blocking these is a deliberate owner
- * decision: it keeps course content out of model training sets at the cost of
- * visibility in AI answers. Do not change without the owner asking.
+ * AI TRAINING crawlers. Blocking these keeps course content out of model
+ * pretraining sets. It does NOT affect whether an assistant can cite the site:
+ * OpenAI, Anthropic and Google all document their training crawlers as separate
+ * from their search and retrieval crawlers, so citations flow through the
+ * retrieval agents below regardless.
+ *
+ * Deliberately absent, and they must stay absent:
+ *   ChatGPT-User, Claude-User, Perplexity-User  live fetches made because a
+ *     person asked an assistant about a page. Blocking these refuses a referral
+ *     and protects nothing, since none of them feed training.
+ *   OAI-SearchBot, PerplexityBot, Claude-SearchBot, Googlebot, Bingbot
+ *     search indexes. Every realistic path to being cited by an assistant reads
+ *     from one of these.
+ *   Google-Extended  controls Gemini training only. Blocking it does not remove
+ *     the site from AI Overviews, which run off Googlebot.
+ *
+ * meta-externalagent (Meta AI training) is currently allowed while GPTBot and
+ * ClaudeBot are blocked. That is inconsistent with the policy above and is left
+ * for the owner to decide rather than changed silently.
  */
-const AI_CRAWLERS = ['GPTBot', 'ChatGPT-User', 'CCBot', 'ClaudeBot', 'anthropic-ai', 'Bytespider', 'PetalBot', 'ImagesiftBot'];
+const AI_TRAINING_CRAWLERS = ['GPTBot', 'CCBot', 'ClaudeBot', 'anthropic-ai', 'Bytespider', 'ImagesiftBot'];
 
 /**
  * Scrapers and low-value link crawlers. They cost bandwidth and return
@@ -40,9 +56,11 @@ export default function robots(): MetadataRoute.Robots {
       },
       // facebookexternalhit is intentionally absent: it is the fetcher behind
       // Facebook, Messenger and WhatsApp link previews, not a scraper.
-      // Blocking it breaks every shared link's card.
+      // Blocking it breaks every shared link's card. PetalBot is absent for the
+      // same class of reason: it is Huawei's search engine crawler, not an AI
+      // training crawler, and blocking it only costs search visibility.
       {
-        userAgent: AI_CRAWLERS,
+        userAgent: AI_TRAINING_CRAWLERS,
         disallow: ['/'],
       },
       {
