@@ -308,6 +308,19 @@ export const sunkCostFallacyGuide: LearnGuide = {
     },
   ],
 
+  related: [
+    {
+      slug: 'confirmation-bias-examples',
+      reason:
+        'The other half of the same trap. Once money is committed, every ambiguous signal starts reading as encouraging, and this guide takes that habit apart in twelve everyday cases.',
+    },
+    {
+      slug: 'cognitive-bias-quiz',
+      reason:
+        'Twelve scenarios that ask you to name the bias before you see the options. Sunk cost is deliberately left out of it, so it works as a test of the ones around it.',
+    },
+  ],
+
   nextStep: {
     unitTitle: 'Sunk Cost Bias',
     text: 'The Psychology and Human Behavior course covers this in five lessons, adding status quo bias, the default effect and the choice architecture that exploits both, with scenario practice on each.',

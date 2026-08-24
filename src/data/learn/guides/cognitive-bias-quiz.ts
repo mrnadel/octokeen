@@ -43,7 +43,7 @@ export const cognitiveBiasQuizGuide: LearnGuide = {
     { kind: 'heading', text: 'The twelve biases below' },
     {
       kind: 'paragraph',
-      text: 'Revise first if you want. The second column is the useful one: biases never announce themselves, but the sentence they produce is fairly consistent. The sunk cost fallacy is the obvious absence, and that is on purpose, because it has a full guide of its own elsewhere in this section.',
+      text: 'Revise first if you want. The second column is the useful one: biases never announce themselves, but the sentence they produce is fairly consistent. The sunk cost fallacy is the obvious absence, and that is on purpose, because [[sunk-cost-fallacy|the sunk cost fallacy has a full guide of its own]].',
     },
     {
       kind: 'table',
@@ -266,6 +266,19 @@ export const cognitiveBiasQuizGuide: LearnGuide = {
       correctIndex: 0,
       explanation:
         'You judge other people on their behaviour, which is visible, and yourself on your intentions, which feel reasonable from the inside. Everyone leaves that comparison looking like the level-headed one. If you got the other eleven and still think this one does not apply to you, that is the finding.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'sunk-cost-fallacy',
+      reason:
+        'The bias the quiz leaves out, covered in full: what counts as a sunk cost, why quitting feels like losing, and the question that breaks the trap.',
+    },
+    {
+      slug: 'confirmation-bias-examples',
+      reason:
+        'The bias the quiz returns to most often, in twelve everyday cases, split by which of its three moves is doing the damage.',
     },
   ],
 

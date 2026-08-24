@@ -34,7 +34,7 @@ export const schedulesOfReinforcementGuide: LearnGuide = {
     { kind: 'heading', text: 'Two questions define every schedule' },
     {
       kind: 'paragraph',
-      text: 'Once a behaviour exists, the interesting question is not whether you reward it but how often, and on what rule. Skinner and Charles Ferster catalogued the answers across years of pigeon data, and the system reduces to two questions.',
+      text: 'Schedules belong to [[classical-vs-operant-conditioning|operant conditioning]], the half of associative learning where behaviour is shaped by what follows it. Once a behaviour exists, the interesting question is not whether you reward it but how often, and on what rule. Skinner and Charles Ferster catalogued the answers across years of pigeon data, and the system reduces to two questions.',
     },
     {
       kind: 'list',
@@ -273,6 +273,14 @@ export const schedulesOfReinforcementGuide: LearnGuide = {
       correctIndex: 0,
       explanation:
         'A single failure is startling information on a continuous schedule and no information at all on a partial one. That asymmetry is the partial reinforcement extinction effect.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'classical-vs-operant-conditioning',
+      reason:
+        'The distinction underneath all of this. Schedules only apply to operant learning, and the timing test in this guide is how you check you are in the right half.',
     },
   ],
 

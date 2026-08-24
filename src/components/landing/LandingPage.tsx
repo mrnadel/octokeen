@@ -3,6 +3,7 @@ import { LandingAnalytics } from './LandingAnalytics';
 import { LandingBottomCta } from './LandingBottomCta';
 import { LandingDemo } from './LandingDemo';
 import { LandingFooter } from './LandingFooter';
+import { LandingGuides } from './LandingGuides';
 import { LandingHero } from './LandingHero';
 import { LandingNav } from './LandingNav';
 import { LandingStyles } from './LandingStyles';
@@ -33,6 +34,7 @@ export function LandingPage() {
         </div>
       </section>
 
+      <LandingGuides />
       <LandingBottomCta />
       <LandingFooter />
       <LandingStyles />

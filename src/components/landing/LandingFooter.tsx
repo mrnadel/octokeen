@@ -11,6 +11,8 @@ export function LandingFooter() {
           </Link>
         </p>
         <p style={{ marginTop: 8, fontSize: 13, fontWeight: 600, color: '#94A3B8' }}>
+          <Link href="/learn" style={{ color: '#94A3B8', textDecoration: 'none' }}>Free guides</Link>
+          {' '}&middot;{' '}
           <Link href="/terms" style={{ color: '#94A3B8', textDecoration: 'none' }}>Terms</Link>
           {' '}&middot;{' '}
           <Link href="/privacy" style={{ color: '#94A3B8', textDecoration: 'none' }}>Privacy</Link>

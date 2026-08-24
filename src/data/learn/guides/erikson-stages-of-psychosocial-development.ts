@@ -304,6 +304,14 @@ export const eriksonStagesGuide: LearnGuide = {
     },
   ],
 
+  related: [
+    {
+      slug: 'left-brain-right-brain-myth',
+      reason:
+        'A worked case of how a genuine finding turns into folklore, why the split-brain research never said what the personality quizzes claim, and how to answer it.',
+    },
+  ],
+
   nextStep: {
     unitTitle: "Erikson's 8 Life Challenges",
     text: 'The Psychology and Human Behavior course covers this in six lessons, including Marcia\'s four identity statuses in detail, how the stages sit alongside Piaget, Vygotsky and attachment theory, and a full lesson on where the model breaks down.',

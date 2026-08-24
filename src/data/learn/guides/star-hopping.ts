@@ -151,7 +151,7 @@ export const starHoppingGuide: LearnGuide = {
       kind: 'callout',
       tone: 'insight',
       title: 'What GoTo cannot do',
-      text: 'Landing on the right patch of sky still shows only what your aperture and your sky allow. A mount that aims perfectly at a faint galaxy from a bright suburb gives you a perfectly aimed empty field, and nothing tells you which failed. Star hopping tells you where you are, which is why experienced observers keep using it.',
+      text: 'Landing on the right patch of sky still shows only what your aperture and your sky allow, and [[aperture-vs-magnification|aperture rather than magnification is what sets that limit]]. A mount that aims perfectly at a faint galaxy from a bright suburb gives you a perfectly aimed empty field, and nothing tells you which failed. Star hopping tells you where you are, which is why experienced observers keep using it.',
     },
     { kind: 'heading', text: 'A note for the southern hemisphere' },
     {
@@ -170,14 +170,6 @@ export const starHoppingGuide: LearnGuide = {
       ],
     },
 
-    { kind: 'heading', text: 'Related guides' },
-    {
-      kind: 'list',
-      items: [
-        '**Aperture versus magnification**, at /learn/space-astronomy/aperture-vs-magnification. What decides whether the object you found is visible at all.',
-        '**How to collimate a Newtonian telescope**, at /learn/space-astronomy/telescope-collimation. If the field looks soft and stars have tails, alignment is why.',
-      ],
-    },
   ],
 
   quiz: [
@@ -219,6 +211,19 @@ export const starHoppingGuide: LearnGuide = {
       correctIndex: 1,
       explanation:
         'The mount computes pointing from where it is, what time it is, and how it is oriented. Break any of the three and it aims precisely at the wrong place, including an hour of daylight saving entered wrongly.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'aperture-vs-magnification',
+      reason:
+        'What decides whether the object you found is visible at all, and why a perfectly aimed telescope can still show an empty field.',
+    },
+    {
+      slug: 'telescope-collimation',
+      reason:
+        'If the field looks soft and stars have tails, alignment is why. The full procedure for a Newtonian, in the order the steps have to happen.',
     },
   ],
 

@@ -274,6 +274,14 @@ export const leftBrainRightBrainMythGuide: LearnGuide = {
     },
   ],
 
+  related: [
+    {
+      slug: 'erikson-stages-of-psychosocial-development',
+      reason:
+        'The same problem in developmental psychology: a real and durable idea, flattened by popular retellings into a tidy table that the evidence never supported.',
+    },
+  ],
+
   nextStep: {
     unitTitle: 'Left Brain, Right Brain: Myth vs Reality',
     text: 'The Psychology and Human Behavior course covers this in five lessons, walking through the split-brain demonstrations step by step, the way language divides between mechanics and tone, and how handedness changes the picture.',

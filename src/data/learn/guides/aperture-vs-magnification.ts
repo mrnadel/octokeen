@@ -164,7 +164,7 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       kind: 'callout',
       tone: 'warning',
       title: 'A big aperture out of alignment is a small aperture',
-      text: 'A miscollimated 200 mm can show less planetary detail than a well aligned 100 mm. If high power looks soft on a Newtonian, check collimation before blaming the aperture.',
+      text: 'A miscollimated 200 mm can show less planetary detail than a well aligned 100 mm. If high power looks soft on a Newtonian, [[telescope-collimation|check the collimation of the telescope]] before blaming the aperture.',
     },
 
     {
@@ -178,14 +178,6 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       ],
     },
 
-    { kind: 'heading', text: 'Related guides' },
-    {
-      kind: 'list',
-      items: [
-        '**How to collimate a Newtonian telescope**, at /learn/space-astronomy/telescope-collimation. The procedure that decides whether your aperture delivers what it promises.',
-        '**Star hopping and finding objects**, at /learn/space-astronomy/star-hopping. How to point the telescope at something worth seeing.',
-      ],
-    },
   ],
 
   quiz: [
@@ -219,6 +211,19 @@ export const apertureVsMagnificationGuide: LearnGuide = {
       correctIndex: 2,
       explanation:
         'The nebula is large and diffuse, so low power keeps it inside the field and keeps the surface brightness up. At 40x the exit pupil is 5 mm, close to the most your dark adapted eye can accept.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'telescope-collimation',
+      reason:
+        'The procedure that decides whether your aperture delivers what it promises. A miscollimated 200 mm can show less than a well aligned 100 mm.',
+    },
+    {
+      slug: 'star-hopping',
+      reason:
+        'How to point the telescope at something worth seeing, using low power and three field stars rather than a handset.',
     },
   ],
 

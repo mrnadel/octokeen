@@ -23,6 +23,18 @@ const LANDING_CSS = `
   /* Every question ships in the HTML; only the current one is on screen. */
   .demo-panel[hidden], .demo-feedback[hidden] { display: none; }
 
+  .landing-guide-link {
+    display: block; padding: 12px 4px; min-height: 44px;
+    font-size: 16px; font-weight: 700; line-height: 1.4; color: #334155;
+    text-decoration: none; border-bottom: 1px solid #E2E8F0;
+  }
+  .landing-guide-link:hover { color: #0D9488; }
+  .landing-guide-all {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 10px 4px;
+    font-size: 15px; font-weight: 800; color: #0D9488; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   @media (max-width: 768px) {
     .landing-hero-h1 { font-size: 32px !important; }
     .landing-hero-p { font-size: 16px !important; }

@@ -1,9 +1,14 @@
 import type { GuideBlock, LearnGuide } from '@/data/learn/types';
 
+import { toPlainText } from './guide-markup';
+
 /** Words a reader gets through in a minute. Used only for the reading-time hint. */
 const WORDS_PER_MINUTE = 220;
 
-const BOLD_MARKER = /\*\*/g;
+/** Counts what a reader reads, so markup never inflates the figure. */
+function countWords(parts: string[]): number {
+  return toPlainText(parts.join(' ')).split(/\s+/).filter(Boolean).length;
+}
 
 /** Every string a block renders as prose, headings and table cells included. */
 function blockText(block: GuideBlock): string[] {
@@ -31,12 +36,7 @@ function blockText(block: GuideBlock): string[] {
  * answer has to stand on its own, so the quiz does not count toward it.
  */
 export function countGuideWords(guide: LearnGuide): number {
-  const parts = [guide.answer, ...guide.body.flatMap(blockText)];
-  return parts
-    .join(' ')
-    .replace(BOLD_MARKER, ' ')
-    .split(/\s+/)
-    .filter(Boolean).length;
+  return countWords([guide.answer, ...guide.body.flatMap(blockText)]);
 }
 
 /**
@@ -45,17 +45,14 @@ export function countGuideWords(guide: LearnGuide): number {
  * toward `countGuideWords`.
  */
 export function countGuideQuizWords(guide: LearnGuide): number {
-  const parts = guide.quiz.flatMap(question => [
-    question.prompt,
-    question.scenario ?? '',
-    question.explanation,
-    ...question.options,
-  ]);
-  return parts
-    .join(' ')
-    .replace(BOLD_MARKER, ' ')
-    .split(/\s+/)
-    .filter(Boolean).length;
+  return countWords(
+    guide.quiz.flatMap(question => [
+      question.prompt,
+      question.scenario ?? '',
+      question.explanation,
+      ...question.options,
+    ])
+  );
 }
 
 export function guideReadingMinutes(guide: LearnGuide): number {

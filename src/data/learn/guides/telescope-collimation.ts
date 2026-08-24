@@ -147,7 +147,7 @@ export const telescopeCollimationGuide: LearnGuide = {
         },
         {
           title: 'Go to high power and defocus slightly',
-          text: 'Roughly one and a half times the aperture in millimetres, so about 300x on a 200 mm. Rack out until you see a small disc with two or three rings and a dark central shadow.',
+          text: 'Roughly one and a half times [[aperture-vs-magnification|the aperture in millimetres]], so about 300x on a 200 mm. Rack out until you see a small disc with two or three rings and a dark central shadow.',
         },
         {
           title: 'Nudge, recentre, repeat',
@@ -209,14 +209,6 @@ export const telescopeCollimationGuide: LearnGuide = {
       ],
     },
 
-    { kind: 'heading', text: 'Related guides' },
-    {
-      kind: 'list',
-      items: [
-        '**Aperture versus magnification**, at /learn/space-astronomy/aperture-vs-magnification. Why the headline number on the box matters least.',
-        '**Star hopping**, at /learn/space-astronomy/star-hopping. Getting to a target without a GoTo mount.',
-      ],
-    },
   ],
 
   quiz: [
@@ -260,6 +252,19 @@ export const telescopeCollimationGuide: LearnGuide = {
       correctIndex: 1,
       explanation:
         'A laser out of alignment in its own barrel sweeps a circle as you rotate it. A stationary dot means the beam runs down the barrel axis, which is the only condition under which its readings mean anything.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'aperture-vs-magnification',
+      reason:
+        'What alignment is protecting. Aperture sets the detail that exists in the image at all, and the headline magnification figure on the box decides nothing.',
+    },
+    {
+      slug: 'star-hopping',
+      reason:
+        'Getting a collimated telescope pointed at something worth the effort, without a GoTo mount and without a computer.',
     },
   ],
 

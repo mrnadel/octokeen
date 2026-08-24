@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { GuideBlocks } from '@/components/learn/GuideBlocks';
 import { GuideCta } from '@/components/learn/GuideCta';
 import { GuideQuiz } from '@/components/learn/GuideQuiz';
+import { GuideRelated } from '@/components/learn/GuideRelated';
 import { GuideViewTracker } from '@/components/learn/GuideViewTracker';
 import { InlineText } from '@/components/learn/InlineText';
 import { LearnBreadcrumbs } from '@/components/learn/LearnBreadcrumbs';
@@ -69,6 +70,8 @@ export default async function LearnGuidePage({ params }: GuidePageProps) {
       </p>
 
       <GuideBlocks blocks={guide.body} />
+
+      <GuideRelated guide={guide} />
 
       <GuideQuiz guideSlug={guide.slug} professionId={course.courseId} questions={guide.quiz} />
 

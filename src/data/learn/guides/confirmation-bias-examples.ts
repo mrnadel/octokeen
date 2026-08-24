@@ -215,7 +215,7 @@ export const confirmationBiasExamplesGuide: LearnGuide = {
           'Confirmation bias runs on what you already think. Motivated reasoning runs on what you want to be true. They travel together, and the second is harder to shift, because the conclusion is doing a job for you.',
         ],
         [
-          'The sunk cost fallacy',
+          '[[sunk-cost-fallacy|The sunk cost fallacy]]',
           'What holds you in place is money or time already spent, not a belief already held. It is a close relative, and the two feed each other: having invested, you now have a reason to read every ambiguous signal as encouraging.',
         ],
       ],
@@ -302,6 +302,19 @@ export const confirmationBiasExamplesGuide: LearnGuide = {
       correctIndex: 1,
       explanation:
         'General resolutions to be objective have been tested and do not move the needle. A specific disconfirming test, written down before you look, is the one that does.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'sunk-cost-fallacy',
+      reason:
+        'The close relative that runs on spent money rather than held belief, with ten examples and the one question that gets you out of it.',
+    },
+    {
+      slug: 'cognitive-bias-quiz',
+      reason:
+        'Practice telling confirmation bias apart from availability, anchoring and the rest, in twelve scenarios written so more than one label looks plausible.',
     },
   ],
 

@@ -273,6 +273,14 @@ export const spaghettificationGuide: LearnGuide = {
     },
   ],
 
+  related: [
+    {
+      slug: 'how-rockets-work-in-a-vacuum',
+      reason:
+        'The other place everyday intuition about force in space gives the wrong answer, and the momentum argument that fixes it.',
+    },
+  ],
+
   nextStep: {
     unitTitle: 'Spaghettification and Hawking Radiation',
     text: 'The Space and Astronomy course follows this unit with Hawking radiation, black hole evaporation and the information paradox, so you see what happens to the material after it goes in as well as on the way down.',

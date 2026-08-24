@@ -239,6 +239,14 @@ export const howRocketsWorkInAVacuumGuide: LearnGuide = {
     },
   ],
 
+  related: [
+    {
+      slug: 'spaghettification',
+      reason:
+        'Another case where the obvious mental picture is wrong: a black hole does not tear you apart by pulling hard, and a bigger one is gentler than a small one.',
+    },
+  ],
+
   nextStep: {
     unitTitle: 'How Rockets Work',
     text: 'The Space and Astronomy course builds from Newton\'s laws through thrust, staging and the rocket equation, then into orbital mechanics, where the counterintuitive part is that speeding up moves you to a slower orbit.',

@@ -123,7 +123,7 @@ export const classicalVsOperantConditioningGuide: LearnGuide = {
     },
     {
       kind: 'paragraph',
-      text: 'Operant conditioning also explains where new behaviour comes from, which classical conditioning cannot. **Shaping** reinforces successive approximations: you reward each step closer to the target rather than waiting for the finished behaviour to appear by luck. It is how a child gets from babbling to words, as the standard for adult attention quietly rises.',
+      text: 'Operant conditioning also explains where new behaviour comes from, which classical conditioning cannot. **Shaping** reinforces successive approximations: you reward each step closer to the target rather than waiting for the finished behaviour to appear by luck. It is how a child gets from babbling to words, as the standard for adult attention quietly rises. It also raises a question classical conditioning never has to answer, namely how often the consequence should arrive, and [[schedules-of-reinforcement|the four schedules of reinforcement]] are the answer to it.',
     },
     {
       kind: 'paragraph',
@@ -278,6 +278,14 @@ export const classicalVsOperantConditioningGuide: LearnGuide = {
       correctIndex: 1,
       explanation:
         'The sting was the US and the yellow flowers became the CS, which makes the fear classically conditioned. Its spread to other yellow things is stimulus generalisation.',
+    },
+  ],
+
+  related: [
+    {
+      slug: 'schedules-of-reinforcement',
+      reason:
+        'What happens after you know a behaviour is operant: the four rules that decide when a reward arrives, and the very different response patterns each one produces.',
     },
   ],
 

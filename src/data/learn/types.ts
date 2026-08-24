@@ -11,9 +11,19 @@ import type { ProfessionId } from '@/data/professions';
  */
 
 /**
- * Plain text with one piece of inline markup: `**bold**`. No HTML is parsed,
- * so guide copy can never inject markup. See `renderInline` in
- * `src/components/learn/InlineText.tsx`.
+ * Plain text with two pieces of inline markup, and nothing else:
+ *
+ * - `**bold**`
+ * - `[[guide-slug|anchor text]]`, a link to another published guide
+ *
+ * The slug in a link is resolved against the guide registry when the page
+ * renders, so the path is never written out by hand and never goes stale when
+ * a course slug changes. A slug no guide answers to fails
+ * `src/__tests__/lib/learn-links.test.ts`, so the markup cannot ship a dead
+ * link. Write the anchor text so it describes where the reader lands.
+ *
+ * No HTML is parsed, so guide copy can never inject markup. See `InlineText`
+ * in `src/components/learn/InlineText.tsx`.
  */
 export type GuideRichText = string;
 
@@ -48,6 +58,32 @@ export interface GuideQuizQuestion {
   explanation: string;
 }
 
+/**
+ * A pointer from this guide to another one that continues it.
+ *
+ * Relations live in the guide data rather than in a list inside a component so
+ * that adding a guide means editing one file, and so the reader-facing reason
+ * sits next to the guide it was written about. Three rules are enforced by
+ * `src/__tests__/lib/learn-links.test.ts` rather than by review: the slug must
+ * belong to a registered guide, a guide may not relate to itself, and the
+ * relation has to be mutual.
+ *
+ * Mutual is the load-bearing one. A guide that links out but is linked to by
+ * nothing stays as orphaned as it was before, which is the whole problem
+ * relations exist to fix. Declaring one end means editing the other end too.
+ */
+export interface GuideRelation {
+  /** `slug` of another registered guide. Never a path, never this guide's own. */
+  slug: string;
+  /**
+   * Why a reader who finished this guide would want that one. One sentence,
+   * about the other guide rather than about this one. Rendered as the card
+   * body; the link text itself is always the target guide's title, so anchor
+   * text stays descriptive and cannot drift when that title is rewritten.
+   */
+  reason: string;
+}
+
 /** The path out of the guide and into the course it was drawn from. */
 export interface GuideNextStep {
   /** Title of the unit this guide draws on, as it appears in the course. */
@@ -75,5 +111,10 @@ export interface LearnGuide {
   body: GuideBlock[];
   /** Reinforcement check placed after the prose. Three to five items. */
   quiz: GuideQuizQuestion[];
+  /**
+   * Guides this one leads into, rendered under the prose. At least one, and
+   * every one of them mutual. See `GuideRelation`.
+   */
+  related: GuideRelation[];
   nextStep: GuideNextStep;
 }
