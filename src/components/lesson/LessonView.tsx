@@ -473,14 +473,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
 
   const displayQuestion = currentQuestion;
 
-  // Compute character teaching line for the current teaching card
-  const teachingLine = useMemo(() => {
-    if (!lessonCharacter || !charLines || displayQuestion?.type !== 'teaching') return null;
-    // Use dynamic import result cached in charLines; getTeachingLine is a sync pure function
-    const { getTeachingLine } = require('@/lib/story-utils') as typeof import('@/lib/story-utils');
-    return getTeachingLine(displayQuestion.question, lessonCharacter.id, charLines);
-  }, [lessonCharacter, charLines, displayQuestion]);
-
   // Compute character celebration line
   const celebrationCharLine = useMemo(() => {
     if (!lessonCharacter || !charLines || !celebration) return null;
@@ -621,7 +613,6 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
                     bgTheme={bgTheme}
                     characterId={lessonCharacter?.id}
                     characterName={lessonCharacter?.name}
-                    characterLine={teachingLine}
                     lessonId={currentLessonId ?? undefined}
                   />
                 ) : (

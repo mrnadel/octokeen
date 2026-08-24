@@ -1,10 +1,11 @@
 'use client';
 
 import { memo, useMemo, useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { CourseQuestion } from '@/data/course/types';
 import { Mascot, type MascotPose } from '@/components/ui/Mascot';
-import { CharacterAvatar } from '@/components/ui/CharacterAvatar';
+import { CharacterAvatar, getCharacterPoses } from '@/components/ui/CharacterAvatar';
+import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import { getTeachingColors } from '@/lib/teachingColors';
 import { useIsDark } from '@/store/useThemeStore';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
@@ -39,13 +40,30 @@ const SPACE_POSES: MascotPose[] = [
   'excited', 'thinking', 'explorer',
 ];
 
-function getPoseForQuestion(questionId: string, useSpacePoses: boolean): MascotPose {
-  const poses = useSpacePoses ? SPACE_POSES : TEACHING_POSES;
+/** Stable per-card hash so a card always picks the same pose and stage side. */
+function hashId(questionId: string): number {
   let hash = 0;
   for (let i = 0; i < questionId.length; i++) {
     hash = ((hash << 5) - hash + questionId.charCodeAt(i)) | 0;
   }
-  return poses[Math.abs(hash) % poses.length];
+  return Math.abs(hash);
+}
+
+function getPoseForQuestion(questionId: string, useSpacePoses: boolean): MascotPose {
+  const poses = useSpacePoses ? SPACE_POSES : TEACHING_POSES;
+  return poses[hashId(questionId) % poses.length];
+}
+
+/**
+ * Pick one of the character's own poses so consecutive teaching cards do not
+ * show the same standing portrait. Returns null when the character has no
+ * pose sheet, which falls the avatar back to its default art.
+ */
+function getCharacterPoseForQuestion(characterId: string, questionId: string): string | null {
+  const keys = getCharacterPoses(characterId);
+  if (keys.length === 0) return null;
+  const key = keys[hashId(questionId + ':pose') % keys.length];
+  return key.slice(characterId.length + 1);
 }
 
 /**
@@ -70,11 +88,10 @@ interface TeachingCardProps {
   bgTheme?: 'dark' | 'light' | null;
   characterId?: string | null;
   characterName?: string | null;
-  characterLine?: string | null;
   lessonId?: string;
 }
 
-export default function TeachingCard({ question, unitColor, onGotIt, hasBackground, bgTheme, characterId, characterName, characterLine, lessonId }: TeachingCardProps) {
+export default function TeachingCard({ question, unitColor, onGotIt, hasBackground, bgTheme, characterId, characterName, lessonId }: TeachingCardProps) {
   const isDark = useIsDark();
   const tc = getTeachingColors({
     isDark,
@@ -87,6 +104,16 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
   const title = titleMatch ? question.question.slice(titleMatch[0].length) : question.question;
 
   const pose = useMemo(() => getPoseForQuestion(question.id, !!hasBackground), [question.id, hasBackground]);
+  const characterPose = useMemo(
+    () => (characterId ? getCharacterPoseForQuestion(characterId, question.id) : null),
+    [characterId, question.id],
+  );
+
+  // Alternate which side of the stage the character stands on so a run of
+  // teaching cards does not read as the same static frame every time.
+  const facing: 'left' | 'right' = hashId(question.id + ':side') % 2 === 0 ? 'left' : 'right';
+
+  const reducedMotion = useReducedMotion();
 
   // Resolve localized explanation variant
   const [country, setCountry] = useState<string | null>(null);
@@ -99,6 +126,12 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
   const [oneLiner, detailText] = useMemo(() => splitExplanation(displayExplanation), [displayExplanation]);
   const hasExpandContent = detailText.length > 0 || !!question.hint;
 
+  // The character teaches the lesson: the bubble always carries the card's own
+  // teaching sentence. Canned character quips used to hijack it, which meant
+  // every lesson opened with the same filler line and pushed the real text out
+  // of the bubble. Character quips now live only in celebration/result moments.
+  const bubbleText = oneLiner;
+
   // Expand state
   const [expanded, setExpanded] = useState(false);
   const toggleExpand = useCallback(() => setExpanded(prev => !prev), []);
@@ -110,96 +143,115 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
 
   return (
     <div className="flex flex-col flex-1" style={{ minHeight: '100%' }}>
-      {/* Main content — centered */}
+      {/* Stage — big character on a ground line, talking through a speech bubble */}
       <div
-        className="flex flex-col items-center text-center flex-1 justify-center"
-        style={{ padding: '20px 24px', gap: 14, maxWidth: 460, margin: '0 auto', width: '100%' }}
+        className="flex flex-col flex-1 justify-center text-left"
+        style={{ padding: '16px 20px 12px', gap: 14, maxWidth: 520, margin: '0 auto', width: '100%' }}
       >
-        {/* Mascot / Character */}
-        <motion.div
-          initial={{ scale: 0.5, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.05 }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
-        >
-          <div
-            style={{
-              width: characterId ? 160 : 120,
-              height: characterId ? 160 : 120,
-              borderRadius: '50%',
-              background: tc.isGlass
-                ? `radial-gradient(circle, ${tc.accentSoft}30 0%, transparent 70%)`
-                : `radial-gradient(circle, ${unitColor}18 0%, transparent 70%)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {characterId ? (
-              <CharacterAvatar characterId={characterId} size={140} />
-            ) : (
-              <Mascot pose={pose} size={84} />
-            )}
-          </div>
-          {characterId && characterName && (
-            <span style={{ fontSize: 11, fontWeight: 800, color: tc.accentSoft, textTransform: 'uppercase', letterSpacing: 0.5 }}>{characterName}</span>
-          )}
-          {question.explanation && (
-            <AudioButton lessonId={lessonId} cardId={question.id} text={question.explanation} color={tc.accentSoft} size={18} />
-          )}
-        </motion.div>
-
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.3 }}
+          transition={{ duration: 0.3 }}
           style={{
-            fontSize: 24,
+            fontSize: 26,
             fontWeight: 900,
             color: tc.title,
             lineHeight: 1.15,
-            maxWidth: 300,
             margin: 0,
           }}
         >
           {title}
         </motion.h2>
 
-        {/* Character line */}
-        {characterLine && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
-            style={{
-              fontSize: 13.5,
-              fontWeight: 600,
-              fontStyle: 'italic',
-              color: tc.accentSoft,
-              lineHeight: 1.4,
-              maxWidth: 300,
-            }}
-          >
-            &ldquo;{characterLine}&rdquo;
-          </motion.div>
-        )}
-
-        {/* One-liner */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: characterLine ? 0.3 : 0.25, duration: 0.3 }}
+        {/* Character + bubble */}
+        <div
           style={{
-            fontSize: 15,
-            fontWeight: 600,
-            color: tc.body,
-            lineHeight: 1.5,
-            maxWidth: 300,
+            display: 'flex',
+            flexDirection: facing === 'left' ? 'row' : 'row-reverse',
+            alignItems: 'flex-end',
+            gap: 12,
           }}
         >
-          <EngagingText text={oneLiner} accentColor={tc.accent} />
-        </motion.div>
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 22, delay: 0.05 }}
+            style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          >
+            <div
+              className="teaching-stage-character"
+              style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
+            >
+              {characterId ? (
+                <CharacterAvatar characterId={characterId} pose={characterPose} size={160} priority />
+              ) : (
+                <Mascot pose={pose} size={140} priority />
+              )}
+            </div>
+          </motion.div>
+
+          {bubbleText && (
+            <motion.div
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.85, x: facing === 'left' ? -12 : 12 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 26, delay: 0.28 }}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                paddingBottom: 14,
+                transformOrigin: facing === 'left' ? 'left bottom' : 'right bottom',
+              }}
+            >
+              {(characterName || question.explanation) && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '0 6px',
+                    flexDirection: facing === 'left' ? 'row' : 'row-reverse',
+                  }}
+                >
+                  {characterId && characterName && (
+                    <span style={{ fontSize: 11, fontWeight: 800, color: tc.accentSoft, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                      {characterName}
+                    </span>
+                  )}
+                  {question.explanation && (
+                    <AudioButton lessonId={lessonId} cardId={question.id} text={question.explanation} color={tc.accentSoft} size={18} />
+                  )}
+                </div>
+              )}
+              <SpeechBubble
+                side={facing === 'left' ? 'left' : 'right'}
+                background={tc.expandCardBg}
+                border={tc.expandCardBorder}
+                style={{
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: tc.title,
+                  lineHeight: 1.45,
+                  ...glassProps,
+                }}
+              >
+                <EngagingText text={oneLiner} accentColor={tc.accent} />
+              </SpeechBubble>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Ground line the character stands on */}
+        <motion.div
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.35, delay: 0.1 }}
+          style={{ height: 2, background: tc.border, borderRadius: 2, transformOrigin: 'left center', marginTop: -6 }}
+        />
 
         {/* Diagram if present */}
         {question.diagram && (
@@ -220,7 +272,7 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          style={{ maxWidth: 460, margin: '0 auto', width: '100%' }}
+          style={{ maxWidth: 520, margin: '0 auto', width: '100%' }}
         >
           <button
             onClick={toggleExpand}
@@ -229,9 +281,8 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
             style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
               gap: 6,
-              padding: '6px 16px',
+              padding: '6px 20px',
               width: '100%',
               cursor: 'pointer',
               color: tc.accentSoft,
@@ -261,7 +312,7 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
-                style={{ overflow: 'hidden', padding: '0 24px' }}
+                style={{ overflow: 'hidden', padding: '0 20px' }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 8 }}>
                   {/* Detail text */}
@@ -311,7 +362,7 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
       )}
 
       {/* Got it button */}
-      <div style={{ marginTop: 'auto', padding: '16px 20px 28px' }}>
+      <div style={{ margin: 'auto auto 0', padding: '16px 20px 28px', maxWidth: 520, width: '100%' }}>
         <motion.button
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

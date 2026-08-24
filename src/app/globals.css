@@ -900,3 +900,12 @@
 :is(.dark .disabled\:text-gray-400:disabled) {
   color: var(--color-surface-500) !important;
 }
+
+/* Teaching card stage — the character scales with the viewport so it stays
+   large on phones without overflowing the speech bubble beside it. */
+.teaching-stage-character img {
+  width: clamp(116px, 36vw, 176px) !important;
+  height: auto !important;
+  max-height: 38vh;
+  object-fit: contain;
+}

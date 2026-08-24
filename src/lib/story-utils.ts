@@ -153,16 +153,21 @@ export function getCharacterForSection(
 /**
  * Get a teaching line for a question. Checks keyword matches first,
  * then falls back to the null-match line.
+ *
+ * Not used on teaching cards: the card's speech bubble carries the lesson's
+ * own teaching sentence, so the character teaches the content instead of
+ * displacing it with a canned quip. Kept for non-card surfaces.
  */
 export function getTeachingLine(
   questionText: string,
   characterId: string,
   allLines: CharacterLines[],
+  explanation?: string,
 ): string | null {
   const charLines = allLines.find((cl) => cl.characterId === characterId);
   if (!charLines) return null;
 
-  const lowerText = questionText.toLowerCase();
+  const lowerText = `${questionText} ${explanation ?? ''}`.toLowerCase();
 
   // Try keyword matches first
   for (const tl of charLines.teachingLines) {
