@@ -506,7 +506,13 @@ export function DebugTierToggle() {
 
         </div>
       )}
+      {/* Dark Reader rewrites this button's inline style before React hydrates —
+          expanding the shorthands to longhands and adding its own
+          --darkreader-inline-* custom properties — which React reports as a
+          hydration mismatch. The style here is entirely client-derived, so
+          there is nothing for React to reconcile and the warning is pure noise. */}
       <button
+        suppressHydrationWarning
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
