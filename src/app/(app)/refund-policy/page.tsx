@@ -23,8 +23,8 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          Octokeen is operated by Yanay Nadel (&quot;we,&quot; &quot;us,&quot; or
-          &quot;our&quot;). We offer paid subscription plans through our Merchant of Record,
+          Octokeen (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) offers paid
+          subscription plans through our Merchant of Record,
           Paddle. This Refund Policy explains when and how you may request a refund for your
           Octokeen Pro subscription.
         </p>

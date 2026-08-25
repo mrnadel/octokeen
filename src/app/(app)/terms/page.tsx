@@ -22,8 +22,8 @@ const sections: Section[] = [
     content: (
       <>
         <p>
-          By accessing or using Octokeen (&quot;the Service&quot;), operated by Yanay Nadel
-          (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you agree to be bound by these Terms of
+          By accessing or using Octokeen (&quot;the Service,&quot; &quot;we,&quot;
+          &quot;us,&quot; or &quot;our&quot;), you agree to be bound by these Terms of
           Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not access
           or use the Service.
         </p>
