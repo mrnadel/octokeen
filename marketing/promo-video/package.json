@@ -5,10 +5,16 @@
   "scripts": {
     "preview": "remotion preview src/index.ts",
     "render": "remotion render src/index.ts PromoVideo out/octokeen-promo.mp4",
-    "render:gif": "remotion render src/index.ts PromoVideo out/octokeen-promo.gif --image-format png"
+    "render:gif": "remotion render src/index.ts PromoVideo out/octokeen-promo.gif --image-format png",
+    "render:quiz": "remotion render src/index.ts TikTokAd-quiz out/octokeen-tiktok-quiz.mp4 --video-bitrate=6M",
+    "render:doomscroll": "remotion render src/index.ts TikTokAd-doomscroll out/octokeen-tiktok-doomscroll.mp4 --video-bitrate=6M",
+    "render:callout": "remotion render src/index.ts TikTokAd-callout out/octokeen-tiktok-callout.mp4 --video-bitrate=6M",
+    "render:claim": "remotion render src/index.ts TikTokAd-claim out/octokeen-tiktok-claim.mp4 --video-bitrate=6M",
+    "render:all": "npm run render:quiz && npm run render:doomscroll && npm run render:callout && npm run render:claim"
   },
   "dependencies": {
     "@remotion/cli": "4.0.261",
+    "@remotion/google-fonts": "^4.0.261",
     "@remotion/player": "4.0.261",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
