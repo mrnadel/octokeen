@@ -124,11 +124,19 @@ export function applyServerStreak(streakData: {
   const serverActiveDays: string[] = streakData.activeDays ?? [];
   const serverLastActive: string = streakData.lastActiveDate ?? '';
 
-  /** Server wins for the streak count; local wins where it is further ahead. */
+  /**
+   * Local wins where it is further ahead — including for the streak count.
+   *
+   * The server recomputes the streak from whatever dates it can see, so a gap in
+   * its view (a sync that has not landed yet, activity older than the 14-day
+   * active-days window) reads as a shorter streak. Taking the max means a sparse
+   * server view can never silently erase a streak the client legitimately holds;
+   * a genuinely broken streak is reset by `reconcileStreakOnLoad` instead.
+   */
   function patch<T extends StreakProgress>(progress: T): T {
     return {
       ...progress,
-      currentStreak: serverStreak,
+      currentStreak: Math.max(serverStreak, progress.currentStreak ?? 0),
       longestStreak: Math.max(serverLongestStreak, progress.longestStreak),
       activeDays: serverActiveDays.length > 0 ? serverActiveDays : progress.activeDays,
       lastActiveDate: serverLastActive > (progress.lastActiveDate ?? '')

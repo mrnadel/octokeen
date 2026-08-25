@@ -10,13 +10,14 @@ import { GameButton } from '@/components/ui/GameButton';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { CelebrationModal } from '@/components/engagement/CelebrationModal';
 import { CELEBRATION_SPRING } from '@/components/ui/motionPresets';
+import { getTodayString } from '@/lib/utils';
 
 export function WelcomeBack() {
   const comeback = useComeback();
 
   const dismiss = () => {
     useEngagementStore.setState((s) => ({
-      comeback: { ...s.comeback, isInComebackFlow: false, lastDismissedDate: new Date().toISOString().split('T')[0] },
+      comeback: { ...s.comeback, isInComebackFlow: false, lastDismissedDate: getTodayString() },
     }));
   };
 

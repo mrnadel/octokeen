@@ -17,16 +17,24 @@ export const GET = withAuth(async (request: NextRequest, { userId }) => {
 
   const dates = sessions.map((s) => s.date);
 
-  // Also include lastActiveDate from both progress tables
-  // (covers lesson completions that might not be in session_history yet due to sync delay)
+  // Course lessons never write session_history — only `useStore.completeSession`
+  // does. So for a course-only user `dates` is empty and the streak has to come
+  // from `user_progress.active_days` (the rolling 14-day window both stores keep
+  // in sync via `buildStreakSyncPatch`) plus each table's lastActiveDate.
+  // Leaving active_days out collapses a real 30-day course streak to 1.
   const [progressRows, courseRows] = await Promise.all([
-    db.select({ lastActiveDate: userProgress.lastActiveDate, streakFreezes: userProgress.streakFreezes })
+    db.select({
+      lastActiveDate: userProgress.lastActiveDate,
+      activeDays: userProgress.activeDays,
+      streakFreezes: userProgress.streakFreezes,
+    })
       .from(userProgress).where(eq(userProgress.userId, userId)).limit(1),
     db.select({ lastActiveDate: courseProgress.lastActiveDate })
       .from(courseProgress).where(eq(courseProgress.userId, userId)).limit(1),
   ]);
 
   const extraDates = [
+    ...(progressRows[0]?.activeDays ?? []),
     progressRows[0]?.lastActiveDate,
     courseRows[0]?.lastActiveDate,
   ].filter((d): d is string => !!d && d.length > 0);

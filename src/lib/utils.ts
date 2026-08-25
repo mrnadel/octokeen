@@ -25,13 +25,27 @@ export function formatDuration(seconds: number): string {
   return `${mins}m ${secs}s`;
 }
 
+/**
+ * Parse a stored date for *display* in the viewer's local calendar.
+ *
+ * A bare `YYYY-MM-DD` day key parses as UTC midnight, so rendering it with the
+ * local-time formatters below showed the previous day to anyone at a negative
+ * UTC offset. Anchoring the day key at local noon keeps the calendar day intact
+ * in every timezone. Full timestamps are a real instant already, so pass through.
+ */
+function parseDisplayDate(dateStr: string): Date {
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateStr)
+    ? new Date(`${dateStr}T12:00:00`)
+    : new Date(dateStr);
+}
+
 export function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
+  const date = parseDisplayDate(dateStr);
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export function getRelativeTime(dateStr: string): string {
-  const date = new Date(dateStr);
+  const date = parseDisplayDate(dateStr);
   const now = new Date();
   // Use calendar-day comparison so 11:59pm vs 12:01am counts as different days
   const dateDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
