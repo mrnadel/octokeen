@@ -44,4 +44,6 @@ npx vitest run
 
 Content changes also need `npx tsx scripts/qa-content.ts` with zero violations for the units you touched. See `docs/rules/content.md`.
 
-7 test failures are pre-existing and unrelated: 3 XP-multiplier assertions, 2 Psychology meta-sync, 1 lesson-progression, 1 free-tier session gating. Anything beyond those is yours.
+5 test failures are pre-existing and unrelated: 3 XP-multiplier assertions, 1 lesson-progression, 1 free-tier session gating. Anything beyond those is yours.
+
+Streak and date tests format dates in **local time**, matching `getTodayDate()` in `src/lib/quest-engine.ts`. Do not reach for `toISOString()` in a test that touches a streak: it is UTC, the app is local, and the two disagree for part of every day in any timezone offset from UTC. That divergence once turned the suite red for hours and looked like a product bug.

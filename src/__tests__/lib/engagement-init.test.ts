@@ -41,20 +41,34 @@ function setFreezesOwned(count: number) {
 function getYesterday(): string {
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  return d.toISOString().split('T')[0];
+  return toLocalDateString(d);
 }
 
 function getDaysAgo(n: number): string {
   const d = new Date();
   d.setDate(d.getDate() - n);
-  return d.toISOString().split('T')[0];
+  return toLocalDateString(d);
 }
 
 function getToday(): string {
-  return new Date().toISOString().split('T')[0];
+  return toLocalDateString(new Date());
 }
 
 // --------------- Streak freeze detection ---------------
+/**
+ * Local-time date helpers, matching the app.
+ *
+ * Streak dates come from `getTodayDate()` in `src/lib/quest-engine.ts`, which
+ * formats local time so a streak rolls over at the user's midnight rather than
+ * at UTC midnight. These helpers previously used `toISOString()`, which is UTC,
+ * so in any timezone east or west of UTC they disagreed with the app for part
+ * of each day and 23 streak tests failed on a clock boundary rather than on a
+ * defect. Keep these in local time.
+ */
+function toLocalDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 
 describe('streak freeze detection logic', () => {
   beforeEach(() => {

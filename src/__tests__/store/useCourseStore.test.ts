@@ -101,6 +101,19 @@ function resetStore(courseData?: Unit[]) {
   });
 }
 
+/**
+ * Local-time date string, matching the app.
+ *
+ * Streak dates come from `getTodayDate()` in `src/lib/quest-engine.ts`, which
+ * formats local time so a streak rolls over at the user's midnight rather than
+ * at UTC midnight. Using `toISOString()` here meant these tests disagreed with
+ * the app for part of every day in any timezone offset from UTC, and the suite
+ * went red on a clock boundary rather than on a defect.
+ */
+function toLocalDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 describe('useCourseStore', () => {
   beforeEach(() => {
     resetStore();
@@ -413,7 +426,7 @@ describe('useCourseStore', () => {
     it('increments streak when last active was yesterday', () => {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const yesterdayStr = toLocalDateString(yesterday);
 
       useCourseStore.setState({
         progress: {
@@ -430,7 +443,7 @@ describe('useCourseStore', () => {
     });
 
     it('keeps streak unchanged if already active today', () => {
-      const today = new Date().toISOString().split('T')[0];
+      const today = toLocalDateString(new Date());
 
       useCourseStore.setState({
         progress: {
@@ -448,7 +461,7 @@ describe('useCourseStore', () => {
     it('resets streak to 1 if last active was more than 1 day ago', () => {
       const twoDaysAgo = new Date();
       twoDaysAgo.setDate(twoDaysAgo.getDate() - 3);
-      const twoDaysAgoStr = twoDaysAgo.toISOString().split('T')[0];
+      const twoDaysAgoStr = toLocalDateString(twoDaysAgo);
 
       useCourseStore.setState({
         progress: {

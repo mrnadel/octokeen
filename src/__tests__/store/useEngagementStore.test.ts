@@ -125,6 +125,19 @@ function resetStore() {
   useEngagementStore.setState(getDefaultState());
 }
 
+/**
+ * Local-time date string, matching the app.
+ *
+ * Streak dates come from `getTodayDate()` in `src/lib/quest-engine.ts`, which
+ * formats local time so a streak rolls over at the user's midnight rather than
+ * at UTC midnight. Using `toISOString()` here meant these tests disagreed with
+ * the app for part of every day in any timezone offset from UTC, and the suite
+ * went red on a clock boundary rather than on a defect.
+ */
+function toLocalDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 describe('useEngagementStore', () => {
   beforeEach(() => {
     resetStore();
@@ -453,7 +466,7 @@ describe('useEngagementStore', () => {
 
   describe('repairStreak', () => {
     it('deducts 75 gems and marks repair used when conditions met', () => {
-      const today = new Date().toISOString().split('T')[0];
+      const today = toLocalDateString(new Date());
       useEngagementStore.setState({
         gems: { ...getDefaultState().gems, balance: 100 },
         streak: {

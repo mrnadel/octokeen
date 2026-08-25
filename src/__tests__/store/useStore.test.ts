@@ -96,6 +96,19 @@ function resetStore() {
   subscriptionMockState.debugTierOverride = null;
 }
 
+/**
+ * Local-time date string, matching the app.
+ *
+ * Streak dates come from `getTodayDate()` in `src/lib/quest-engine.ts`, which
+ * formats local time so a streak rolls over at the user's midnight rather than
+ * at UTC midnight. Using `toISOString()` here meant these tests disagreed with
+ * the app for part of every day in any timezone offset from UTC, and the suite
+ * went red on a clock boundary rather than on a defect.
+ */
+function toLocalDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 describe('useStore', () => {
   beforeEach(() => {
     resetStore();
@@ -315,7 +328,7 @@ describe('useStore', () => {
     it('increments streak when last active yesterday and no answers yet today', () => {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const yesterdayStr = toLocalDateString(yesterday);
 
       // Start session and pre-populate answers directly, bypassing answerQuestion
       // to keep lastActiveDate as yesterday
@@ -356,7 +369,7 @@ describe('useStore', () => {
           ...getDefaultProgress(),
           currentStreak: 10,
           longestStreak: 10,
-          lastActiveDate: threeDaysAgo.toISOString().split('T')[0],
+          lastActiveDate: toLocalDateString(threeDaysAgo),
         },
       });
 
@@ -377,7 +390,7 @@ describe('useStore', () => {
     });
 
     it('keeps streak unchanged if already active today', () => {
-      const today = new Date().toISOString().split('T')[0];
+      const today = toLocalDateString(new Date());
 
       useStore.setState({
         progress: {
@@ -458,7 +471,7 @@ describe('useStore', () => {
           ...getDefaultProgress(),
           currentStreak: 2,
           longestStreak: 2,
-          lastActiveDate: yesterday.toISOString().split('T')[0],
+          lastActiveDate: toLocalDateString(yesterday),
           totalQuestionsCorrect: 50,
           totalQuestionsAttempted: 50,
           achievementsUnlocked: ['ach-first-correct', 'ach-ten-correct', 'ach-fifty-correct', 'ach-first-topic'],
