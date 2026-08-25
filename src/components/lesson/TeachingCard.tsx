@@ -8,7 +8,7 @@ import { CharacterAvatar, getCharacterPoses } from '@/components/ui/CharacterAva
 import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import { getTeachingColors } from '@/lib/teachingColors';
 import { useIsDark } from '@/store/useThemeStore';
-import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { getCountry } from '@/lib/country';
 import EngagingText from './EngagingText';
 import { AudioButton } from '@/components/ui/AudioButton';
 
@@ -115,10 +115,11 @@ export default function TeachingCard({ question, unitColor, onGotIt, hasBackgrou
 
   const reducedMotion = useReducedMotion();
 
-  // Resolve localized explanation variant
+  // Resolve localized explanation variant. Read after mount: the country is
+  // detected client-side, so it is not available during SSR.
   const [country, setCountry] = useState<string | null>(null);
   useEffect(() => {
-    setCountry(localStorage.getItem(STORAGE_KEYS.COUNTRY));
+    setCountry(getCountry());
   }, []);
   const displayExplanation = (country && question.variants?.[country]) || question.explanation;
 

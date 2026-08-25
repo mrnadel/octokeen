@@ -137,6 +137,11 @@ export const userProgress = pgTable('user_progress', {
     .default({ currentDay: 1, lastClaimDate: null, todayClaimed: false, cycleStartDate: null, cyclesCompleted: 0 }),
   // Active days for streak week tracker (last 14 ISO date strings)
   activeDays: jsonb('active_days').$type<string[]>().default([]),
+  // IANA zone (e.g. "America/New_York") captured from the client's X-Timezone
+  // header on progress sync, so server-side jobs can resolve the user's own
+  // calendar day. Nullable: rows written before capture existed have no zone,
+  // and "unknown" has to stay distinguishable from a real one.
+  timezone: text('timezone'),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });

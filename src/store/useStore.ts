@@ -148,7 +148,13 @@ function gatherCourseQuestions(): PracticeQuestion[] {
  * Returns true if data was already loaded, false if a load was triggered (async).
  */
 async function ensureCourseDataLoaded(): Promise<void> {
-  const { loadUnitData } = await import('@/data/course/course-meta');
+  const { loadUnitData, getCourseMetaForProfession } = await import('@/data/course/course-meta');
+  // `courseData` starts empty (see useCourseStore.hydrateCourseData), and a
+  // deep link to a practice route can reach here before any course-rendering
+  // component has seeded it. The module is in hand, so seed it now.
+  const { activeProfession } = useCourseStore.getState();
+  useCourseStore.getState().hydrateCourseData(getCourseMetaForProfession(activeProfession));
+
   const store = useCourseStore.getState();
   const needsLoad = store.courseData.some(u => u.lessons.some(l => l.questions.length === 0));
   if (!needsLoad) return;
@@ -493,7 +499,8 @@ export const useStore = create<AppState>()(
         // lessons legitimately have questions=[] even when fully loaded.
         const courseStore = useCourseStore.getState();
         const SPECIAL_TYPES = new Set(['conversation', 'speed-round', 'timeline', 'case-study']);
-        const needsLoad = courseStore.courseData.some(u => u.lessons.some(l => !SPECIAL_TYPES.has(l.type ?? '') && l.questions.length === 0));
+        const needsLoad = courseStore.courseData.length === 0
+          || courseStore.courseData.some(u => u.lessons.some(l => !SPECIAL_TYPES.has(l.type ?? '') && l.questions.length === 0));
         if (needsLoad && !options?.resolvedQuestions) {
           // Set a loading flag so UI knows we're working
           set({ session: null });

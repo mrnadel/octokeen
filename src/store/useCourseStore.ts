@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
-import { loadUnitData, getCourseMetaForProfession } from '@/data/course/course-meta';
+import { getCourseMetaForProfessionLazy, loadUnitDataLazy } from '@/data/course/course-meta-lazy';
 import { DEFAULT_PROFESSION, PROFESSION_ID } from '@/data/professions';
 import {
   SESSION_SIZE, ADAPTIVE_CRUISING_XP_BONUS,
@@ -64,6 +64,7 @@ interface CourseState {
   // Actions — Content
   setCourseData: (data: Unit[]) => void;
   setActiveProfession: (id: string) => void;
+  hydrateCourseData: (meta?: Unit[]) => void;
   /** Record the placement-test result for one course. Per-course so switching
    *  courses does not inherit another course's placement. */
   setPlacementForProfession: (professionId: string, unitIndex: number) => void;
@@ -117,7 +118,7 @@ export const useCourseStore = create<CourseState>()(
   persist(
     (set, get) => ({
       progress: getDefaultProgress(),
-      courseData: getCourseMetaForProfession(DEFAULT_PROFESSION) as Unit[],
+      courseData: [],
       activeProfession: DEFAULT_PROFESSION,
       activeLesson: null,
       lessonResult: null,
@@ -130,15 +131,44 @@ export const useCourseStore = create<CourseState>()(
 
       setCourseData: (data: Unit[]) => set({ courseData: data }),
 
+      /**
+       * Fill `courseData` with the active profession's lightweight unit
+       * metadata. It no longer arrives with the store: `course-meta.ts` is
+       * 139 KB gzipped and importing it here put that on every page in the app
+       * (docs/seo/performance.md §1.2), so the store starts empty and this is
+       * how the data gets in.
+       *
+       * Callers that already hold the module -- `useCourseData`, which is what
+       * every course-rendering route uses -- pass `meta` and fill it
+       * synchronously. Everyone else omits it and the module is fetched.
+       * Either way an already-populated `courseData` is left alone, so a unit
+       * whose questions have been loaded is never reset to metadata.
+       */
+      hydrateCourseData: (meta?: Unit[]) => {
+        if (get().courseData.length > 0) return;
+        if (meta) { set({ courseData: meta }); return; }
+
+        const professionId = get().activeProfession;
+        void getCourseMetaForProfessionLazy(professionId).then((units) => {
+          const state = get();
+          if (state.courseData.length > 0 || state.activeProfession !== professionId) return;
+          set({ courseData: units });
+        }).catch((err) => {
+          console.error('[hydrateCourseData] Failed to load course metadata:', err);
+          set({ contentLoadError: 'Could not load the course. Check your connection and try again.' });
+        });
+      },
+
       setActiveProfession: (id: string) => {
-        const meta = getCourseMetaForProfession(id);
         set((s) => {
           // Restore per-profession placement (or clear if none)
           const introPlacement =
             s.progress.placementByCourse?.[id] ?? s.progress.courseIntros?.[id]?.placementUnitIndex;
           return {
             activeProfession: id,
-            courseData: meta as Unit[],
+            // Cleared, not swapped: the new course's metadata arrives via
+            // hydrateCourseData once something renders course content.
+            courseData: [],
             activeLesson: null,
             lessonResult: null,
             chapterJustCompleted: null,
@@ -148,6 +178,7 @@ export const useCourseStore = create<CourseState>()(
             progress: { ...s.progress, placementUnitIndex: introPlacement },
           };
         });
+        get().hydrateCourseData();
       },
 
       setPlacementForProfession: (professionId: string, unitIndex: number) => {
@@ -203,7 +234,7 @@ export const useCourseStore = create<CourseState>()(
         // full unit data dynamically and then retry.
         if (!isLessonContentLoaded(lesson)) {
           set({ contentLoadError: null });
-          loadUnitData(unitIndex, get().activeProfession).then((fullUnit) => {
+          loadUnitDataLazy(unitIndex, get().activeProfession).then((fullUnit) => {
             // Patch courseData with the loaded unit
             const updated = [...get().courseData];
             updated[unitIndex] = fullUnit;
@@ -599,7 +630,7 @@ export const useCourseStore = create<CourseState>()(
         if (needsLoad.length > 0) {
           Promise.all(
             needsLoad.map((i) =>
-              loadUnitData(i, activeProfession).catch(() => null),
+              loadUnitDataLazy(i, activeProfession).catch(() => null),
             ),
           ).then((loaded) => {
             const updated = [...get().courseData];
@@ -823,7 +854,7 @@ export const useCourseStore = create<CourseState>()(
           Promise.all(
             courseData.map((u, i) =>
               u.lessons.some(l => l.questions.length === 0)
-                ? loadUnitData(i, get().activeProfession).catch(() => u)
+                ? loadUnitDataLazy(i, get().activeProfession).catch(() => u)
                 : Promise.resolve(u)
             )
           ).then((fullUnits) => {
@@ -1148,7 +1179,9 @@ export const useCourseStore = create<CourseState>()(
         return {
           ...currentState,
           activeProfession: restoredProfession,
-          courseData: getCourseMetaForProfession(restoredProfession) as Unit[],
+          // Metadata for the restored profession is fetched separately; see
+          // hydrateCourseData.
+          courseData: [],
           progress: {
             displayName: persisted.progress.displayName ?? defaults.displayName,
             // Round: older builds could persist a fractional totalXp.

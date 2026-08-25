@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useCourseData } from '@/hooks/useCourseData';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
 import { PageHeader } from '@/components/ui/PageHeader';
@@ -19,7 +20,7 @@ export default function UnitsPage() {
   const { status } = useSession();
   const router = useRouter();
   const progress = useCourseStore((s) => s.progress);
-  const courseData = useCourseStore((s) => s.courseData);
+  const courseData = useCourseData();
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const isGuest = status !== 'authenticated';
   const { isProUser } = useSubscription();

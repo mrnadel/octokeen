@@ -24,6 +24,41 @@ export function getUtcDaysAgo(days: number): string {
   return toUtcDateString(new Date(Date.now() - days * MS_PER_DAY));
 }
 
+/**
+ * A YYYY-MM-DD key shifted by `days` calendar days.
+ *
+ * Anchored at noon UTC so the arithmetic never lands on a DST seam, and read
+ * back through UTC fields so the result never depends on the server's own zone.
+ */
+export function shiftDateKey(dateKey: string, days: number): string {
+  const anchored = new Date(`${dateKey}T12:00:00Z`);
+  anchored.setUTCDate(anchored.getUTCDate() + days);
+  return toUtcDateString(anchored);
+}
+
+/** Longest IANA zone name in the database is 32 chars; this is slack, not a limit. */
+const MAX_TIMEZONE_LENGTH = 64;
+
+/**
+ * Whether `value` is a timezone this runtime can actually resolve.
+ *
+ * The zone arrives on a client-supplied header, so it is untrusted input and is
+ * checked before ever being stored. `Intl.DateTimeFormat` throws `RangeError`
+ * for anything it does not recognise, which makes it a complete check against
+ * the same table `getServerToday` will later use — no separate allowlist to
+ * drift out of sync.
+ */
+export function isValidTimeZone(value: unknown): value is string {
+  if (typeof value !== 'string') return false;
+  if (value.length === 0 || value.length > MAX_TIMEZONE_LENGTH) return false;
+  try {
+    new Intl.DateTimeFormat('en-CA', { timeZone: value });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** The Monday (UTC) of the week containing `date`, as YYYY-MM-DD. */
 export function getUtcWeekMonday(date: Date): string {
   const day = date.getUTCDay(); // 0=Sun..6=Sat
@@ -36,8 +71,11 @@ export function getUtcWeekMonday(date: Date): string {
 /**
  * Get "today" as a YYYY-MM-DD string in the user's timezone.
  * Falls back to UTC if the timezone header is missing or invalid.
+ *
+ * `now` defaults to the current instant; pass one to resolve a specific moment,
+ * which is what lets the reminder-cron bucketing be tested as a pure function.
  */
-export function getServerToday(timezoneHeader?: string | null): string {
+export function getServerToday(timezoneHeader?: string | null, now: Date = new Date()): string {
   if (timezoneHeader) {
     try {
       const formatter = new Intl.DateTimeFormat('en-CA', {
@@ -47,12 +85,12 @@ export function getServerToday(timezoneHeader?: string | null): string {
         day: '2-digit',
       });
       // en-CA locale formats as YYYY-MM-DD
-      return formatter.format(new Date());
+      return formatter.format(now);
     } catch {
       // Invalid timezone string — fall through to UTC
     }
   }
-  return getUtcToday();
+  return toUtcDateString(now);
 }
 
 /**

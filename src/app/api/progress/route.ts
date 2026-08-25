@@ -13,7 +13,7 @@ import { insertActivity } from '@/lib/activity-feed';
 import { parseBody, jsonOk, jsonError, rateLimited } from '@/lib/api-helpers';
 import { withAuth } from '@/lib/api/guards';
 import { getUserById, getUserProgress } from '@/lib/db/queries';
-import { getUtcToday } from '@/lib/server-dates';
+import { getUtcToday, isValidTimeZone } from '@/lib/server-dates';
 import type { UserProgress, TopicProgress, SessionRecord, TopicId } from '@/data/types';
 
 export const GET = withAuth(async (_req, { userId }) => {
@@ -98,6 +98,16 @@ export const POST = withAuth(async (request, { userId }) => {
   const MAX_AREAS = 100;
   const MAX_ACHIEVEMENTS = 200;
 
+  // The client sets X-Timezone on every sync; storing it lets the streak-reminder
+  // cron resolve this user's own calendar day instead of the server's UTC one.
+  // The header is untrusted, so a value the runtime cannot resolve is dropped
+  // rather than written — and dropped silently, because a malformed header must
+  // never be able to fail an otherwise valid progress sync. Omitting the key
+  // entirely (rather than writing null) also keeps a previously captured zone
+  // intact when a later request arrives without the header.
+  const timezoneHeader = request.headers.get('x-timezone');
+  const timezonePatch = isValidTimeZone(timezoneHeader) ? { timezone: timezoneHeader } : {};
+
   const progressData = {
     userId,
     currentLevel: progress.currentLevel,
@@ -113,6 +123,7 @@ export const POST = withAuth(async (request, { userId }) => {
     weakAreas: (progress.weakAreas || []).slice(0, MAX_AREAS),
     strongAreas: (progress.strongAreas || []).slice(0, MAX_AREAS),
     activeDays: (progress.activeDays || []).slice(0, 14),
+    ...timezonePatch,
     updatedAt: new Date(),
   };
 

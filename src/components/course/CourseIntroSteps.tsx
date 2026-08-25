@@ -3,53 +3,15 @@
 import { motion } from 'framer-motion';
 import { Rocket } from 'lucide-react';
 import {
-  COUNTRY_OPTIONS,
   EXPERIENCE_OPTIONS,
   GOAL_OPTIONS,
   COMMITMENT_OPTIONS,
-  type CountryCode,
   type ExperienceLevel,
   type PlacementChoice,
   type GoalChoice,
   type CommitmentChoice,
 } from '@/data/course-intro-options';
 import { SignalBars } from './SignalBars';
-
-// ── Step: Country Selection (personal-finance only) ──────────
-// Grid of country cards with flag + label
-
-export function StepCountry({
-  selected,
-  onSelect,
-  accent,
-}: {
-  selected: CountryCode | null;
-  onSelect: (v: CountryCode) => void;
-  accent: string;
-}) {
-  return (
-    <div className="grid grid-cols-2 gap-2.5">
-      {COUNTRY_OPTIONS.map((opt) => {
-        const active = selected === opt.value;
-        return (
-          <motion.button
-            key={opt.value}
-            onClick={() => onSelect(opt.value)}
-            className="flex flex-col items-center gap-2 p-4 rounded-xl text-center transition-all"
-            style={{
-              backgroundColor: active ? `color-mix(in srgb, ${accent} 6%, white)` : 'white',
-              border: active ? `2px solid ${accent}` : '2px solid #E2E8F0',
-            }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <span className="text-2xl">{opt.flag}</span>
-            <span className="text-xs font-bold text-surface-700 leading-tight">{opt.label}</span>
-          </motion.button>
-        );
-      })}
-    </div>
-  );
-}
 
 // ── Step: Experience Level ───────────────────────────────────
 // Cards with signal bars, title + subtitle, colored left border on active

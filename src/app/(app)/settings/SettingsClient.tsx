@@ -17,6 +17,7 @@ import { useNarrationStore } from '@/store/useNarrationStore';
 import { useThemeStore, type ThemeMode } from '@/store/useThemeStore';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { REGION_OPTIONS, getCountry } from '@/lib/country';
 import { SETTINGS_ROW, SETTINGS_ROW_LINK, SETTINGS_ROW_LABEL } from './settingsRowStyles';
 import PasswordChangeForm from './PasswordChangeForm';
 import ResetProgressForm from './ResetProgressForm';
@@ -41,37 +42,14 @@ export default function SettingsPage() {
   const themeMode = useThemeStore((s) => s.mode);
   const setThemeMode = useThemeStore((s) => s.setMode);
 
-  // Region
-  const REGION_OPTIONS = [
-    { code: 'US', label: 'United States', flag: '\u{1F1FA}\u{1F1F8}' },
-    { code: 'GB', label: 'United Kingdom', flag: '\u{1F1EC}\u{1F1E7}' },
-    { code: 'AU', label: 'Australia', flag: '\u{1F1E6}\u{1F1FA}' },
-    { code: 'CA', label: 'Canada', flag: '\u{1F1E8}\u{1F1E6}' },
-    { code: 'IL', label: 'Israel', flag: '\u{1F1EE}\u{1F1F1}' },
-    { code: 'IN', label: 'India', flag: '\u{1F1EE}\u{1F1F3}' },
-    { code: 'DE', label: 'Germany', flag: '\u{1F1E9}\u{1F1EA}' },
-    { code: 'FR', label: 'France', flag: '\u{1F1EB}\u{1F1F7}' },
-    { code: 'JP', label: 'Japan', flag: '\u{1F1EF}\u{1F1F5}' },
-    { code: 'KR', label: 'South Korea', flag: '\u{1F1F0}\u{1F1F7}' },
-    { code: 'BR', label: 'Brazil', flag: '\u{1F1E7}\u{1F1F7}' },
-    { code: 'MX', label: 'Mexico', flag: '\u{1F1F2}\u{1F1FD}' },
-    { code: 'NL', label: 'Netherlands', flag: '\u{1F1F3}\u{1F1F1}' },
-    { code: 'SE', label: 'Sweden', flag: '\u{1F1F8}\u{1F1EA}' },
-    { code: 'CH', label: 'Switzerland', flag: '\u{1F1E8}\u{1F1ED}' },
-    { code: 'SG', label: 'Singapore', flag: '\u{1F1F8}\u{1F1EC}' },
-    { code: 'NZ', label: 'New Zealand', flag: '\u{1F1F3}\u{1F1FF}' },
-    { code: 'ZA', label: 'South Africa', flag: '\u{1F1FF}\u{1F1E6}' },
-    { code: 'AE', label: 'United Arab Emirates', flag: '\u{1F1E6}\u{1F1EA}' },
-    { code: 'EU', label: 'Europe (other)', flag: '\u{1F1EA}\u{1F1FA}' },
-    { code: 'XX', label: 'Other', flag: '\u{1F30D}' },
-  ] as const;
-  const [selectedCountry, setSelectedCountry] = useState('US');
+  // Region — detected on first load (see `useCountryInit`), corrected here.
+  const [selectedCountry, setSelectedCountry] = useState<string>('US');
   const [showRegionPicker, setShowRegionPicker] = useState(false);
   const [regionSearch, setRegionSearch] = useState('');
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEYS.COUNTRY);
-    if (stored) setSelectedCountry(stored);
+    const resolved = getCountry();
+    if (resolved) setSelectedCountry(resolved);
   }, []);
 
   const handleCountryChange = useCallback(async (code: string) => {

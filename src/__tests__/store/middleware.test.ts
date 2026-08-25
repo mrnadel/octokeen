@@ -6,11 +6,13 @@ const { middlewareHandlerRef } = vi.hoisted(() => {
   return { middlewareHandlerRef: ref };
 });
 
-// Mock NextResponse
+// Mock NextResponse. Responses carry a `cookies.set` spy because the proxy
+// stamps the edge-detected country onto every response it returns.
+const cookieSet = vi.fn();
 vi.mock('next/server', () => ({
   NextResponse: {
-    redirect: vi.fn((url: URL) => ({ type: 'redirect', url })),
-    next: vi.fn(() => ({ type: 'next' })),
+    redirect: vi.fn((url: URL) => ({ type: 'redirect', url, cookies: { set: cookieSet } })),
+    next: vi.fn(() => ({ type: 'next', cookies: { set: cookieSet } })),
   },
 }));
 
@@ -27,11 +29,22 @@ import '@/proxy';
 import { config } from '@/proxy';
 import { NextResponse } from 'next/server';
 
-function createMockRequest(pathname: string, isLoggedIn: boolean) {
+function createMockRequest(
+  pathname: string,
+  isLoggedIn: boolean,
+  opts: { geoCountry?: string; cookieCountry?: string } = {},
+) {
   const url = new URL(`http://localhost:3000${pathname}`);
+  const headers = new Headers();
+  if (opts.geoCountry) headers.set('x-vercel-ip-country', opts.geoCountry);
   return {
     auth: isLoggedIn ? { user: { id: '1' } } : null,
     nextUrl: url,
+    headers,
+    cookies: {
+      get: (name: string) =>
+        name === 'ok-geo' && opts.cookieCountry ? { value: opts.cookieCountry } : undefined,
+    },
   };
 }
 
@@ -142,6 +155,32 @@ describe('middleware', () => {
       middlewareHandlerRef.current!(req);
 
       expect(NextResponse.next).toHaveBeenCalled();
+    });
+  });
+
+  describe('geo cookie', () => {
+    it('stamps the edge-detected country onto the response', () => {
+      middlewareHandlerRef.current!(createMockRequest('/', false, { geoCountry: 'IL' }));
+
+      expect(cookieSet).toHaveBeenCalledWith('ok-geo', 'IL', expect.objectContaining({ path: '/', httpOnly: false }));
+    });
+
+    it('stamps redirects too, so a login bounce does not lose the country', () => {
+      middlewareHandlerRef.current!(createMockRequest('/profile', false, { geoCountry: 'GB' }));
+
+      expect(cookieSet).toHaveBeenCalledWith('ok-geo', 'GB', expect.objectContaining({ path: '/' }));
+    });
+
+    it('leaves the cookie alone when it already matches', () => {
+      middlewareHandlerRef.current!(createMockRequest('/', false, { geoCountry: 'IL', cookieCountry: 'IL' }));
+
+      expect(cookieSet).not.toHaveBeenCalled();
+    });
+
+    it('sets nothing when the platform reports no country', () => {
+      middlewareHandlerRef.current!(createMockRequest('/', false));
+
+      expect(cookieSet).not.toHaveBeenCalled();
     });
   });
 });

@@ -1,27 +1,21 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import { X, ArrowLeft, Sparkles, ChevronRight } from 'lucide-react';
 import { MascotWithGlow } from '@/components/ui/MascotWithGlow';
 import { useCourseStore } from '@/store/useCourseStore';
-import { getProfession, PROFESSION_ID } from '@/data/professions';
-import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { getProfession } from '@/data/professions';
 import { analytics } from '@/lib/mixpanel';
 import {
-  type CountryCode,
   type ExperienceLevel,
   type PlacementChoice,
   type GoalChoice,
   type CommitmentChoice,
 } from '@/data/course-intro-options';
 import type { CourseIntroData } from '@/data/course/types';
-import { StepCountry, StepExperience, StepPlacement, StepGoal, StepCommitment, StepLaunch } from './CourseIntroSteps';
-
-/** Professions that show the country selection step. */
-const COUNTRY_STEP_PROFESSIONS = new Set<string>([PROFESSION_ID.PERSONAL_FINANCE]);
+import { StepExperience, StepPlacement, StepGoal, StepCommitment, StepLaunch } from './CourseIntroSteps';
 
 // ── Main component ───────────────────────────────────────────
 
@@ -32,16 +26,12 @@ interface CourseIntroFlowProps {
 
 export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps) {
   useScrollLock(true);
-  const { status: authStatus } = useSession();
   const activeProfession = useCourseStore((s) => s.activeProfession);
   const profession = getProfession(activeProfession);
   const professionName = profession?.name ?? 'this course';
   const accent = profession?.color ?? '#3B82F6';
 
-  const needsCountry = COUNTRY_STEP_PROFESSIONS.has(activeProfession);
-
   const [step, setStep] = useState(0);
-  const [country, setCountry] = useState<CountryCode | null>(null);
   const [experience, setExperience] = useState<ExperienceLevel | null>(null);
   const [placement, setPlacement] = useState<PlacementChoice | null>(null);
   const [goal, setGoal] = useState<GoalChoice | null>(null);
@@ -50,33 +40,20 @@ export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps)
   const skipPlacement = experience === 0;
 
   // Map visual step index to logical step index, skipping placement when needed.
-  // With country:    0=country, 1=experience, 2=placement, 3=goal, 4=commitment, 5=launch
-  // Without country: 0=experience, 1=placement, 2=goal, 3=commitment, 4=launch
+  // 0=experience, 1=placement, 2=goal, 3=commitment, 4=launch
   // Placement is auto-skipped when experience === 0.
   const getLogicalStep = (s: number) => {
     let logical = s;
-    const placementLogical = needsCountry ? 2 : 1;
-    if (skipPlacement && logical >= placementLogical) logical += 1;
+    if (skipPlacement && logical >= 1) logical += 1;
     return logical;
   };
   const logicalStep = getLogicalStep(step);
 
   // Total visual steps (what the user sees)
-  const baseSteps = needsCountry ? 6 : 5; // country + experience + placement + goal + commitment + launch
+  const baseSteps = 5; // experience + placement + goal + commitment + launch
   const totalSteps = skipPlacement ? baseSteps - 1 : baseSteps;
 
   const canContinue = () => {
-    if (needsCountry) {
-      switch (logicalStep) {
-        case 0: return country !== null;       // country
-        case 1: return experience !== null;    // experience
-        case 2: return placement !== null;     // placement
-        case 3: return goal !== null;          // goal
-        case 4: return commitment !== null;    // commitment
-        case 5: return true;                   // launch
-        default: return false;
-      }
-    }
     switch (logicalStep) {
       case 0: return experience !== null;
       case 1: return placement !== null;
@@ -87,23 +64,8 @@ export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps)
     }
   };
 
-  const handleCountrySelect = useCallback((code: CountryCode) => {
-    setCountry(code);
-    // Persist to localStorage immediately
-    try { localStorage.setItem(STORAGE_KEYS.COUNTRY, code); } catch { /* SSR guard */ }
-    // If authenticated, also persist to server
-    if (authStatus === 'authenticated') {
-      fetch('/api/user/profile', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ country: code }),
-      }).catch(() => { /* best-effort */ });
-    }
-  }, [authStatus]);
-
   const handleNext = useCallback(() => {
-    const expLogical = needsCountry ? 1 : 0;
-    if (logicalStep === expLogical && experience === 0) {
+    if (logicalStep === 0 && experience === 0) {
       setPlacement('scratch');
     }
     if (step < totalSteps - 1) {
@@ -119,23 +81,20 @@ export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps)
       analytics.milestone({ type: 'course_intro_completed', name: `intro_${activeProfession}`, value: 1 });
       onComplete(data);
     }
-  }, [step, totalSteps, logicalStep, experience, placement, goal, commitment, activeProfession, onComplete, needsCountry]);
+  }, [step, totalSteps, logicalStep, experience, placement, goal, commitment, activeProfession, onComplete]);
 
   const handleBack = () => {
     if (step > 0) setStep(step - 1);
   };
 
-  const mascotConfigBase = [
+  const mascotConfig = [
     { pose: 'excited' as const, bubble: `How much ${professionName} do you know?` },
     { pose: 'thinking' as const, bubble: "Let's find the right starting point!" },
     { pose: 'proud' as const, bubble: "What's driving you?" },
     { pose: 'winking' as const, bubble: 'How often will you practice?' },
     { pose: 'celebrating' as const, bubble: "You're all set! Let's go!" },
   ];
-  const mascotConfig = needsCountry
-    ? [{ pose: 'excited' as const, bubble: 'Where are you based?' }, ...mascotConfigBase]
-    : mascotConfigBase;
-  const launchLogical = needsCountry ? 5 : 4;
+  const launchLogical = 4;
   const mascot = mascotConfig[logicalStep] ?? mascotConfig[0];
   const launchText = placement === 'test' ? 'Take Placement Test' : 'Start Learning';
   const enabled = canContinue();
@@ -225,19 +184,16 @@ export function CourseIntroFlow({ onComplete, onDismiss }: CourseIntroFlowProps)
                 </div>
 
                 {/* Step content */}
-                {needsCountry && logicalStep === 0 && (
-                  <StepCountry selected={country} onSelect={handleCountrySelect} accent={accent} />
-                )}
-                {logicalStep === (needsCountry ? 1 : 0) && (
+                {logicalStep === 0 && (
                   <StepExperience selected={experience} onSelect={setExperience} accent={accent} />
                 )}
-                {logicalStep === (needsCountry ? 2 : 1) && (
+                {logicalStep === 1 && (
                   <StepPlacement selected={placement} onSelect={setPlacement} experience={experience!} accent={accent} />
                 )}
-                {logicalStep === (needsCountry ? 3 : 2) && (
+                {logicalStep === 2 && (
                   <StepGoal selected={goal} onSelect={setGoal} accent={accent} />
                 )}
-                {logicalStep === (needsCountry ? 4 : 3) && (
+                {logicalStep === 3 && (
                   <StepCommitment selected={commitment} onSelect={setCommitment} accent={accent} />
                 )}
                 {logicalStep === launchLogical && (

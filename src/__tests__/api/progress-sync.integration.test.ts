@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // ── Hoist mutable mocks so vi.mock factories can reference them ────────────
-const { mockGetAuthUserId } = vi.hoisted(() => ({
+const { mockGetAuthUserId, mockInsertValues } = vi.hoisted(() => ({
   mockGetAuthUserId: vi.fn(),
+  /** Captures what POST actually writes into user_progress. */
+  mockInsertValues: vi.fn(),
 }));
 
 // ── Module mocks ────────────────────────────────────────────────────────────
@@ -21,7 +23,9 @@ vi.mock('@/lib/db', () => {
   const chainMock = {
     select: vi.fn().mockReturnValue({ from: fromMock }),
     insert: vi.fn().mockReturnValue({
-      values: vi.fn().mockReturnValue({ onConflictDoNothing: vi.fn().mockResolvedValue([]) }),
+      values: mockInsertValues.mockReturnValue({
+        onConflictDoNothing: vi.fn().mockResolvedValue([]),
+      }),
     }),
     update: vi.fn().mockReturnValue({
       set: vi.fn().mockReturnValue({ where: vi.fn().mockResolvedValue([]) }),
@@ -187,5 +191,68 @@ describe('POST /api/progress', () => {
     expect(res.status).toBe(400);
     const json = await res.json();
     expect(json.error).toBeDefined();
+  });
+
+  // ── Timezone capture ──────────────────────────────────────────────────────
+  // The streak-reminder cron buckets users by their own calendar day, which it
+  // can only do if the zone the client already sends actually gets stored.
+
+  const VALID_PROGRESS = {
+    displayName: 'Alice',
+    totalXp: 100,
+    currentLevel: 2,
+    currentStreak: 3,
+    longestStreak: 5,
+    lastActiveDate: '2026-01-15',
+    activeDays: ['2026-01-15'],
+    topicProgress: [],
+    sessionHistory: [],
+  };
+
+  function postWithTimezone(timezone?: string) {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (timezone !== undefined) headers['X-Timezone'] = timezone;
+    return new NextRequest('http://localhost/api/progress', {
+      method: 'POST',
+      body: JSON.stringify({ progress: VALID_PROGRESS }),
+      headers,
+    });
+  }
+
+  /** The values object POST passed to `db.insert(userProgress)`. */
+  function insertedProgressRow(): Record<string, unknown> {
+    return mockInsertValues.mock.calls[0][0] as Record<string, unknown>;
+  }
+
+  it('stores a valid IANA timezone from the X-Timezone header', async () => {
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+    const res = await POST(postWithTimezone('America/New_York'));
+
+    expect(res.status).toBe(200);
+    expect(insertedProgressRow().timezone).toBe('America/New_York');
+  });
+
+  it('omits the column entirely when no header is sent', async () => {
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+    const res = await POST(postWithTimezone());
+
+    expect(res.status).toBe(200);
+    // Omitted rather than written as null, so a zone captured on an earlier sync
+    // survives a request that happens to arrive without the header.
+    expect(insertedProgressRow()).not.toHaveProperty('timezone');
+  });
+
+  it('drops a malformed header without failing the sync', async () => {
+    mockGetAuthUserId.mockResolvedValue('user-abc');
+
+    for (const bad of ['Not/AZone', "'; DROP TABLE user_progress; --", '', 'A'.repeat(300)]) {
+      mockInsertValues.mockClear();
+      const res = await POST(postWithTimezone(bad));
+
+      // A bad header must never break a progress sync — that would be a far
+      // worse bug than the mistimed nudge this column exists to fix.
+      expect(res.status, bad).toBe(200);
+      expect(insertedProgressRow(), bad).not.toHaveProperty('timezone');
+    }
   });
 });

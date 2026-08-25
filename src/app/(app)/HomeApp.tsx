@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { CourseHeader } from '@/components/course/CourseHeader';
 import { CourseMap } from '@/components/course/CourseMap';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useCourseData } from '@/hooks/useCourseData';
 import { useStore } from '@/store/useStore';
 import { useEngagementStore, grantTitle, grantFrame } from '@/store/useEngagementStore';
 import { streakMilestones } from '@/data/streak-milestones';
@@ -82,7 +83,7 @@ export default function HomeApp() {
   // Course intro flow: show when user hasn't completed intro for current profession
   // Check progress for the ACTIVE course only — so switching to a new course triggers the intro
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
-  const courseData = useCourseStore((s) => s.courseData);
+  const courseData = useCourseData();
   const hasProgressInCurrentCourse = useMemo(() => {
     for (const unit of courseData) {
       for (const lesson of unit.lessons) {

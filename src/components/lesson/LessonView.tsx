@@ -14,7 +14,7 @@ import { useMasteryStore } from '@/store/useMasteryStore';
 import { useDoubleXpActive } from '@/store/useEngagementStore';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { playSound } from '@/lib/sounds';
-import { STORAGE_KEYS } from '@/lib/storage-keys';
+import { getCountry } from '@/lib/country';
 import { PROFESSION_ID } from '@/data/professions';
 import { OutOfHeartsModal } from '@/components/ui/OutOfHeartsModal';
 import type { CourseQuestion } from '@/data/course/types';
@@ -121,7 +121,7 @@ export default function LessonView({ adapter }: { adapter?: SessionAdapter } = {
   // Localized variant support
   const [userCountry, setUserCountry] = useState<string | null>(null);
   useEffect(() => {
-    setUserCountry(localStorage.getItem(STORAGE_KEYS.COUNTRY));
+    setUserCountry(getCountry());
   }, []);
 
   // Sync mastery when lesson completes (lesson mode only; practice handles its own)

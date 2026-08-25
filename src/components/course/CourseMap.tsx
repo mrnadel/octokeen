@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Lock } from 'lucide-react';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useCourseData } from '@/hooks/useCourseData';
 import { useHeartsStore } from '@/store/useHeartsStore';
 import { useSubscription } from '@/hooks/useSubscription';
 import { LIMITS, isUnitUnlocked } from '@/lib/pricing';
@@ -33,7 +34,7 @@ export function CourseMap() {
   const scrollDirection = useScrollDirection(currentLessonRef, scrollRef);
   const [headerStyle, setHeaderStyle] = useState({ top: 0 });
   const progress = useCourseStore((s) => s.progress);
-  const courseData = useCourseStore((s) => s.courseData);
+  const courseData = useCourseData();
   const startLesson = useCourseStore((s) => s.startLesson);
   const contentLoadError = useCourseStore((s) => s.contentLoadError);
   const dismissContentLoadError = useCourseStore((s) => s.dismissContentLoadError);

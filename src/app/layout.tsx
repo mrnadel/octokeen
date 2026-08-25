@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 
+import dynamic from 'next/dynamic';
 import { Nunito, JetBrains_Mono } from 'next/font/google';
 import { AuthSessionProvider } from '@/components/providers/SessionProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import MixpanelProvider from '@/components/providers/MixpanelProvider';
 import CookieConsent from '@/components/ui/CookieConsent';
-import { DebugTierToggle } from '@/components/dev/DebugTierToggle';
 import { FlowLogger } from '@/components/dev/FlowLogger';
 import { Suspense } from 'react';
 import { APP_NAME, APP_URL, APP_DOMAIN, APP_TAGLINE, APP_DESCRIPTION, APP_THEME_COLOR, APP_THEME_COLOR_LIGHT, APP_THEME_COLOR_DARK } from '@/lib/constants';
@@ -123,6 +123,40 @@ const SERVICE_WORKER_SCRIPT =
     ? `if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js')`
     : `if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})});if(window.caches)caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})})}`;
 
+/**
+ * `DebugTierToggle` returns null in production, but that is a render-time
+ * guard: its import graph reaches `course-meta.ts` and shipped 139 KB gzipped
+ * to every visitor regardless (docs/seo/performance.md §1.2). The NODE_ENV
+ * comparison is constant-folded at build time, so the production bundle has no
+ * reference to the module at all, while `next dev` still mounts the panel.
+ */
+const DebugTools =
+  process.env.NODE_ENV === 'development'
+    ? dynamic(() => import('@/components/dev/DebugTierToggle').then((m) => m.DebugTierToggle))
+    : function NoDebugTools() { return null; };
+
+/**
+ * AdSense used to be appended to `<head>` during HTML parse, so its ~236 KB was
+ * requested before the app's own JavaScript and raced it for bandwidth on the
+ * critical path (worth 0.5-1 s of LCP -- docs/seo/performance.md section 3.1).
+ * Deferring the loader to `load` keeps every ad slot: `AdUnit` pushes into the
+ * `window.adsbygoogle` queue, which the script drains whenever it arrives.
+ */
+const ADSENSE_LOADER_SCRIPT = `
+  (function(){
+    if(document.documentElement.hasAttribute('${TWA_ROOT_ATTRIBUTE}'))return;
+    function load(){
+      var s=document.createElement('script');
+      s.async=true;
+      s.crossOrigin='anonymous';
+      s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3282358085183080';
+      document.head.appendChild(s);
+    }
+    if(document.readyState==='complete')load();
+    else window.addEventListener('load',load,{once:true});
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -144,16 +178,7 @@ export default function RootLayout({
         />
         <script dangerouslySetInnerHTML={{ __html: TWA_DETECT_SCRIPT }} />
         <script
-          dangerouslySetInnerHTML={{ __html: `
-            (function(){
-              if(document.documentElement.hasAttribute('${TWA_ROOT_ATTRIBUTE}'))return;
-              var s=document.createElement('script');
-              s.async=true;
-              s.crossOrigin='anonymous';
-              s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3282358085183080';
-              document.head.appendChild(s);
-            })();
-          ` }}
+          dangerouslySetInnerHTML={{ __html: ADSENSE_LOADER_SCRIPT }}
         />
         <a
           href="#main-content"
@@ -167,7 +192,7 @@ export default function RootLayout({
               {children}
             </MixpanelProvider>
             <CookieConsent />
-            <DebugTierToggle />
+            <DebugTools />
             <Suspense><FlowLogger /></Suspense>
           </ThemeProvider>
         </AuthSessionProvider>

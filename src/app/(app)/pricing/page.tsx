@@ -207,11 +207,18 @@ export default function PricingPage() {
 
       <div className="relative z-10 px-5 max-w-lg mx-auto pb-12">
 
-        {/* Mascot + hero */}
+        {/*
+          Mascot + hero. This block holds the LCP image, so it must NOT enter
+          from opacity:0 -- framer-motion serialises `initial` into the SSR
+          HTML, which kept the mascot invisible until hydration and pinned LCP
+          to it (7.5 s -> 3.4 s once it paints at FCP). A translate is safe:
+          it does not stop the paint or change the element's size.
+          See docs/seo/performance.md section 2.
+        */}
         <motion.div
           className="text-center mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5 }}
         >
           {/* Mascot with glow */}

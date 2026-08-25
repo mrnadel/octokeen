@@ -1,6 +1,5 @@
 // ── Types ────────────────────────────────────────────────────
 
-export type CountryCode = 'US' | 'GB' | 'AU' | 'CA' | 'IL' | 'EU' | 'INT';
 export type ExperienceLevel = 0 | 1 | 2 | 3;
 export type PlacementChoice = 'scratch' | 'test' | 'advanced';
 export type GoalChoice = 'interview' | 'refresh' | 'exam' | 'curiosity';
@@ -36,14 +35,3 @@ export const COMMITMENT_OPTIONS: { value: CommitmentChoice; label: string; tag: 
   { value: 20, label: '20+ min', tag: 'Intense', icon: '🚀' },
 ];
 
-// ── Country Options ───────────────────────────────────────────
-
-export const COUNTRY_OPTIONS: { value: CountryCode; flag: string; label: string }[] = [
-  { value: 'US', flag: '🇺🇸', label: 'United States' },
-  { value: 'GB', flag: '🇬🇧', label: 'United Kingdom' },
-  { value: 'AU', flag: '🇦🇺', label: 'Australia' },
-  { value: 'CA', flag: '🇨🇦', label: 'Canada' },
-  { value: 'IL', flag: '🇮🇱', label: 'Israel' },
-  { value: 'EU', flag: '🇪🇺', label: 'Europe' },
-  { value: 'INT', flag: '🌍', label: 'Other' },
-];

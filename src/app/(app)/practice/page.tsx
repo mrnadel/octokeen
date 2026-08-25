@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useSession, useSessionActions } from '@/store/useStore';
 import { useMistakeQuestionIds, useEngagementStore } from '@/store/useEngagementStore';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useCourseData } from '@/hooks/useCourseData';
 import { useSubscription } from '@/hooks/useSubscription';
 import SessionView from '@/components/session/SessionView';
 import { UpgradeModal } from '@/components/ui/UpgradeModal';
@@ -14,7 +15,7 @@ import { motion } from 'framer-motion';
 
 /** Practice unlocks after completing all lessons in the first section (sectionIndex 0). */
 function useIsPracticeUnlocked(): { unlocked: boolean; progress: number; total: number } {
-  const courseData = useCourseStore((s) => s.courseData);
+  const courseData = useCourseData();
   const completedLessons = useCourseStore((s) => s.progress.completedLessons);
 
   return useMemo(() => {

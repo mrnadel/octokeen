@@ -265,7 +265,15 @@ export default function GetStartedPage() {
 
       {/* Step Content */}
       <div className="flex-1 px-4 sm:px-5 flex flex-col justify-center pb-4 sm:pb-8">
-        <AnimatePresence mode="wait" custom={direction}>
+        {/*
+          `initial={false}` is what keeps the first step out of the LCP path.
+          Without it framer-motion serialises the slide's `enter` state --
+          `opacity: 0` -- into the SSR HTML for the whole step, so the mascot
+          inside it could not paint until hydration no matter what the heading
+          did. Steps mounted later still slide in, including a Back to step 0.
+          See docs/seo/performance.md section 2.
+        */}
+        <AnimatePresence mode="wait" custom={direction} initial={false}>
 
           {/* Step 0: Choose Course */}
           {step === 0 && (

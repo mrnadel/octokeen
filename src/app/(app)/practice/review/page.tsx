@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { useCourseStore } from '@/store/useCourseStore';
+import { useCourseData } from '@/hooks/useCourseData';
 import { useMasteryStore } from '@/store/useMasteryStore';
 import { getDecayedQuestions } from '@/lib/review-engine';
 import LessonView from '@/components/lesson/LessonView';
@@ -19,7 +20,7 @@ import { REVIEW_THEME } from '@/lib/session-themes';
 const REVIEW_SESSION_SIZE = 10;
 
 export default function ReviewPage() {
-  const courseData = useCourseStore((s) => s.courseData);
+  const courseData = useCourseData();
   const events = useMasteryStore((s) => s.events);
   const addMasteryEvent = useMasteryStore((s) => s.addEvent);
   const { canAccess } = useSubscription();
