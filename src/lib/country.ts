@@ -58,12 +58,23 @@ const EU_MEMBERS = new Set([
 export const GEO_COOKIE = 'ok-geo';
 
 /**
+ * Codes the old onboarding step wrote that no longer exist. Users who answered
+ * it still have these stored, and their answer is a real choice — translate it
+ * rather than discarding it and guessing over the top.
+ */
+const LEGACY_ALIASES: Record<string, RegionCode> = {
+  INT: 'XX',
+  UK: 'GB',
+};
+
+/**
  * Fold any ISO 3166-1 alpha-2 code into a region we actually support.
  * Unknown European countries become `EU`; everything else becomes `XX`.
  */
 export function normalizeCountry(raw: string | null | undefined): RegionCode | null {
   if (!raw) return null;
   const code = raw.trim().toUpperCase();
+  if (LEGACY_ALIASES[code]) return LEGACY_ALIASES[code];
   if (!/^[A-Z]{2}$/.test(code)) return null;
   if (SUPPORTED.has(code)) return code as RegionCode;
   if (EU_MEMBERS.has(code)) return 'EU';

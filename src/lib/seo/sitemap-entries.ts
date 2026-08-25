@@ -65,6 +65,7 @@ const STATIC_PAGES: { path: string; changeFrequency: SitemapCandidate['changeFre
   { path: '/learn', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/get-started', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/pricing', changeFrequency: 'monthly', priority: 0.9 },
+  { path: '/about', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/contact', changeFrequency: 'yearly', priority: 0.5 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.3 },
   { path: '/terms', changeFrequency: 'yearly', priority: 0.3 },

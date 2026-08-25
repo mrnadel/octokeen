@@ -112,6 +112,9 @@ const sections = [
       {
         text: 'The session cookie is a secure, httpOnly cookie that stores your encrypted authentication token. It is strictly necessary for the application to function and does not track you across other websites.',
       },
+      {
+        text: 'We also store a region cookie holding a two-letter country code, so lessons can show figures and rules that match where you are. Our host derives the country from your IP address at the edge; we never store the IP itself. If that is unavailable we fall back to your browser language and time zone. The cookie holds nothing beyond the country code and is not used for advertising or tracking. You can change or correct the region at any time in Settings.',
+      },
     ],
   },
   {

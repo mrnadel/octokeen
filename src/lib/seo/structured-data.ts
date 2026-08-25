@@ -21,6 +21,17 @@ const CONTENT_LANGUAGE = 'en-US';
 /** Raster logo. schema.org logo consumers still prefer PNG over SVG. */
 const LOGO_PATH = '/logo.png';
 
+/** The page that names who is responsible for the content and how it is made. */
+export const ABOUT_PATH = '/about';
+
+/**
+ * Who the site publishes as. Read by the visible byline on every guide and
+ * by the `/about` page, so the two can never disagree.
+ */
+// The site publishes under the Octokeen name only. Never put the owner's
+// personal name here: this value is emitted in JSON-LD on every guide.
+export const PUBLISHER_NAME = APP_NAME;
+
 export function buildOrganizationJsonLd(): JsonLdNode {
   return {
     '@context': SCHEMA_CONTEXT,
@@ -30,6 +41,7 @@ export function buildOrganizationJsonLd(): JsonLdNode {
     url: APP_URL,
     description: APP_DESCRIPTION,
     logo: { '@type': 'ImageObject', url: absoluteUrl(LOGO_PATH) },
+    publishingPrinciples: absoluteUrl(ABOUT_PATH),
   };
 }
 
@@ -104,8 +116,31 @@ export function buildCourseJsonLd(input: CourseJsonLdInput): JsonLdNode {
     url,
     inLanguage: CONTENT_LANGUAGE,
     provider: { '@id': ORGANIZATION_ID, '@type': 'Organization', name: APP_NAME, url: APP_URL },
+    publisher: { '@id': ORGANIZATION_ID },
+    author: { '@id': ORGANIZATION_ID },
     ...(input.teaches?.length ? { teaches: input.teaches } : {}),
     offers: buildTierOffers(),
+  };
+}
+
+/**
+ * The `/about` page itself. Everything it points at is the organization:
+ * Octokeen is the entity responsible for the material, and `PUBLISHER_NAME`
+ * carries a standing instruction against putting a personal name into
+ * site-wide output. No `Person` node, and never one built from a real name.
+ */
+export function buildAboutPageJsonLd(input: { name: string; description: string }): JsonLdNode {
+  const url = absoluteUrl(ABOUT_PATH);
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@type': 'AboutPage',
+    '@id': `${url}#page`,
+    name: input.name,
+    description: input.description,
+    url,
+    inLanguage: CONTENT_LANGUAGE,
+    about: { '@id': ORGANIZATION_ID },
+    publisher: { '@id': ORGANIZATION_ID },
   };
 }
 

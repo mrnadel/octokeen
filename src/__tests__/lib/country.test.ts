@@ -35,6 +35,11 @@ describe('normalizeCountry', () => {
     expect(normalizeCountry('NG')).toBe('XX');
   });
 
+  it('translates codes the retired onboarding step used to write', () => {
+    expect(normalizeCountry('INT')).toBe('XX');
+    expect(normalizeCountry('UK')).toBe('GB');
+  });
+
   it('rejects junk', () => {
     expect(normalizeCountry(null)).toBeNull();
     expect(normalizeCountry('')).toBeNull();

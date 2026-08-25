@@ -26,6 +26,8 @@ export function LandingFooter() {
         <p style={ROW}>
           <Link href="/learn" style={LINK}>Free guides</Link>
           {' '}&middot;{' '}
+          <Link href="/about" style={LINK}>About</Link>
+          {' '}&middot;{' '}
           <Link href="/pricing" style={LINK}>Pricing</Link>
           {' '}&middot;{' '}
           <Link href="/contact" style={LINK}>Contact</Link>

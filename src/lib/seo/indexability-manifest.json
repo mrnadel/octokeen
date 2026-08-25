@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-23T06:30:12.148Z",
-  "contentHash": "c5f38a682c87580c",
+  "generatedAt": "2026-08-25T07:44:00.748Z",
+  "contentHash": "e2c46d5c5f583fbf",
   "courses": {
     "mechanical-engineering": {
       "courseId": "mechanical-engineering",
@@ -2566,100 +2566,100 @@
       "sectionIndex": 5,
       "unitId": "psy-sec6-u1",
       "questions": 36,
-      "pageWords": 565,
+      "pageWords": 547,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 11
+      "warnings": 0
     },
     "psychology/psy-sec6-u2": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u2",
       "questions": 36,
-      "pageWords": 609,
+      "pageWords": 563,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 15
+      "warnings": 0
     },
     "psychology/psy-sec6-u3": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u3",
       "questions": 36,
-      "pageWords": 563,
+      "pageWords": 537,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 7
+      "warnings": 0
     },
     "psychology/psy-sec6-u4": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u4",
       "questions": 16,
-      "pageWords": 194,
+      "pageWords": 188,
       "teachingCards": 4,
       "errors": 0,
-      "warnings": 2
+      "warnings": 0
     },
     "psychology/psy-sec6-u5": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u5",
       "questions": 36,
-      "pageWords": 578,
+      "pageWords": 534,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 12
+      "warnings": 0
     },
     "psychology/psy-sec6-u6": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u6",
       "questions": 36,
-      "pageWords": 597,
+      "pageWords": 561,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 11
+      "warnings": 0
     },
     "psychology/psy-sec6-u7": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u7",
       "questions": 36,
-      "pageWords": 591,
+      "pageWords": 541,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 8
+      "warnings": 0
     },
     "psychology/psy-sec6-u8": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u8",
       "questions": 27,
-      "pageWords": 448,
+      "pageWords": 411,
       "teachingCards": 9,
       "errors": 0,
-      "warnings": 9
+      "warnings": 0
     },
     "psychology/psy-sec6-u9": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u9",
       "questions": 36,
-      "pageWords": 565,
+      "pageWords": 537,
       "teachingCards": 12,
       "errors": 0,
-      "warnings": 11
+      "warnings": 0
     },
     "psychology/psy-sec6-u10": {
       "courseId": "psychology",
       "sectionIndex": 5,
       "unitId": "psy-sec6-u10",
       "questions": 16,
-      "pageWords": 197,
+      "pageWords": 181,
       "teachingCards": 4,
       "errors": 0,
-      "warnings": 6
+      "warnings": 0
     },
     "psychology/psy-sec7-u1": {
       "courseId": "psychology",
@@ -3676,7 +3676,7 @@
       "sectionIndex": 16,
       "unitId": "psy-sec16-u1",
       "questions": 32,
-      "pageWords": 394,
+      "pageWords": 403,
       "teachingCards": 8,
       "errors": 3,
       "warnings": 13
@@ -3686,7 +3686,7 @@
       "sectionIndex": 16,
       "unitId": "psy-sec16-u2",
       "questions": 30,
-      "pageWords": 373,
+      "pageWords": 384,
       "teachingCards": 8,
       "errors": 1,
       "warnings": 6
@@ -3696,7 +3696,7 @@
       "sectionIndex": 16,
       "unitId": "psy-sec16-u3",
       "questions": 32,
-      "pageWords": 368,
+      "pageWords": 379,
       "teachingCards": 8,
       "errors": 1,
       "warnings": 11
@@ -3706,7 +3706,7 @@
       "sectionIndex": 16,
       "unitId": "psy-sec16-u4",
       "questions": 32,
-      "pageWords": 413,
+      "pageWords": 424,
       "teachingCards": 8,
       "errors": 0,
       "warnings": 13
@@ -3716,7 +3716,7 @@
       "sectionIndex": 16,
       "unitId": "psy-sec16-u5",
       "questions": 32,
-      "pageWords": 453,
+      "pageWords": 462,
       "teachingCards": 8,
       "errors": 3,
       "warnings": 13

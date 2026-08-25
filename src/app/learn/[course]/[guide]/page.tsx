@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { GuideBlocks } from '@/components/learn/GuideBlocks';
+import { GuideByline } from '@/components/learn/GuideByline';
 import { GuideCta } from '@/components/learn/GuideCta';
 import { GuideQuiz } from '@/components/learn/GuideQuiz';
 import { GuideRelated } from '@/components/learn/GuideRelated';
@@ -22,10 +23,6 @@ interface GuidePageProps {
 
 export function generateStaticParams(): { course: string; guide: string }[] {
   return listGuideRoutes().map(({ course, guide }) => ({ course: course.slug, guide: guide.slug }));
-}
-
-function formatUpdated(isoDate: string): string {
-  return new Date(isoDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
@@ -59,11 +56,7 @@ export default async function LearnGuidePage({ params }: GuidePageProps) {
       <h1 className="text-2xl font-extrabold leading-tight text-surface-900 dark:text-surface-50 sm:text-3xl">
         {guide.title}
       </h1>
-      <p className="mt-2 text-xs font-extrabold uppercase tracking-wide text-surface-400">
-        {guideReadingMinutes(guide)} min read
-        <span className="mx-1.5" aria-hidden="true">&middot;</span>
-        Updated <time dateTime={guide.updated}>{formatUpdated(guide.updated)}</time>
-      </p>
+      <GuideByline readingMinutes={guideReadingMinutes(guide)} updated={guide.updated} />
 
       <p className="mt-4 rounded-2xl border-l-4 border-primary-500 bg-white px-4 py-3 text-base leading-8 text-surface-700 dark:bg-surface-900 dark:text-surface-200">
         <InlineText text={guide.answer} />
