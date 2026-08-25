@@ -9,6 +9,7 @@ import { PROFESSIONS } from '@/data/professions';
 import { APP_NAME } from '@/lib/constants';
 
 import { useEngagementInit } from '@/lib/engagement-init';
+import { useCountryInit } from '@/hooks/useCountryInit';
 import { useFlagStore } from '@/hooks/useFeatureFlags';
 import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
@@ -32,6 +33,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const profession = PROFESSIONS.find((p) => p.id === activeProfession);
     return profession ? `${profession.name} | ${APP_NAME}` : null;
   })();
+
+  // Settle the user's region without asking them for it
+  useCountryInit();
 
   // Load feature flags from DB
   const loadFlags = useFlagStore((s) => s.load);
