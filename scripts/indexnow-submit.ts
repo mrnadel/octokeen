@@ -10,7 +10,7 @@
  * URLs come from the sitemap, so this cannot advertise a path the sitemap
  * would not, and anything the indexability gate excludes stays excluded.
  */
-import { buildSitemapEntries, allowAllUrls } from '@/lib/seo/sitemap-entries';
+import sitemap from '@/app/sitemap';
 
 const INDEXNOW_KEY = '90fff5b4919accbf67d212bb22a8f7e5';
 const ENDPOINT = 'https://api.indexnow.org/IndexNow';
@@ -19,7 +19,11 @@ async function main(): Promise<void> {
   const baseUrl = (process.argv[2] ?? 'https://octokeen.com').replace(/\/$/, '');
   const host = new URL(baseUrl).host;
 
-  const urlList = buildSitemapEntries({ isIndexable: allowAllUrls }).map(entry => entry.url);
+  // Read the sitemap itself, not the candidate list behind it. A permissive
+  // predicate returns every section and unit path too, and those routes do not
+  // exist: submitting them would push ~585 URLs that 404. Reusing the real
+  // sitemap keeps this in step with whatever it decides to publish.
+  const urlList = sitemap().map(entry => String(entry.url));
 
   console.log(`Submitting ${urlList.length} URLs for ${host}`);
 
